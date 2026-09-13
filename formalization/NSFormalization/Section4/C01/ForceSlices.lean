@@ -67,7 +67,7 @@ open NSFormalization.Source.FourierPhysicalJets
 open NSFormalization.Section4.A02
 open NSFormalization.Section4.D01
   (contDiff_slice memLp_of_isSobolevDatum jetOfDatum jetOfDatum_ae loweredComponent)
-open scoped ContDiff ENNReal SchwartzMap
+open scoped ContDiff
 
 /-! ## 0. The spec's time-slice quantities, restated token-for-token
 
@@ -143,7 +143,9 @@ theorem contDiff_slice_future {f : SpaceTimeField}
 
 /-! ## 2. Unit U2 -/
 
-/-- **C01 unit U2 / spec field `forceTimeRegularity`** (`research/C01/Spec.lean:326-329`).
+/-- **C01 unit U2 / spec field `forceTimeRegularity`** (`research/C01/Spec.lean:326-329`;
+paper `paper/sections/02-preliminaries.tex:17-19` eq:Rclasses, slicewise form of
+`paper/sections/04-whole-space.tex:119` eq:RL2).
 
 From `MemForceR f`: every future spatial slice is square integrable, and
 `t ↦ ‖f(t)‖₂` is continuous on the closed half line `[0,∞)` (continuity holds on
