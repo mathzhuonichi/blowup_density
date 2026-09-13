@@ -69,7 +69,7 @@ noncomputable section
 open Set
 open NavierStokes.ProblemStatement (Space)
 open NSFormalization.Paper3 (RealVectorSobolev)
-open scoped ContDiff RealInnerProductSpace Topology
+open scoped ContDiff RealInnerProductSpace
 
 namespace NSFormalization.Section4.A04
 
