@@ -1,1 +1,9 @@
 date,task,unit,model,kind,result,pr,notes
+2026-09-13,D01,002 draft A definitions,opus,worker,done: DraftA.lean typechecks; 28-row comparison,#7,found lake has no -j flag
+2026-09-13,D01,002 review,opus,reviewer,REJECT: MemForceR lacks C^inf => Thm 4.1(ii) false; L4 claim false; 6 minors,#7,all 22 file:line reuse claims correct
+2026-09-13,D01,003 draft B definitions,opus,worker,done: DraftB.lean 45 defs typechecks; 31-row comparison,,independent of A
+2026-09-13,U05,004 toolchain probe,opus,worker,done: 84/88 HeliCorgi modules compile on 4.34.0-rc2; 1 error (NNReal transparency); 3 blocked,,recommends port not bridge
+2026-09-13,I01,005 packet spec,opus,worker,done: PacketAPI 27 fields typechecks; 9-unit split,#5,
+2026-09-13,I01,005 review,opus,reviewer,ACCEPT-WITH-NOTES: 8 minors; rfl bridge verified,#5,
+2026-09-13,SPEC,006 statement ledger,opus,worker,done: 1175-line ledger; 5 structural findings,#6,
+2026-09-13,SPEC,006 review,opus,reviewer,ACCEPT-WITH-NOTES: 6/8 confirmed 2 partly; 12 skeleton defects; DAG changes recommended,#6,

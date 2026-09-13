@@ -4,21 +4,19 @@
 
 ## 现状
 
-- 分支模型：根目录停在干净的 `main`；我们的集成分支 `erenup/integration`（worktree `.claude/worktrees/000-integration`）；
-  lane PR 以它为 base，lead 自己合；攒一批后从它向 `main` 提 PR 给 owner。
-- `001-MAINT-setup` 已合入 integration（PR #4；PR #3 因分支改名被 GitHub 关闭，内容相同）。
-- Lean 自包含环境在每个 worktree 里都跑通（`bash scripts/lean-install.sh`，`.lake/packages` 软链到主仓）。
-  D01a worktree 已预编译 `NSFormalization.Paper3.AngularSobolevClass` 闭包（8853 jobs，2.5 分钟）。
-- 第一波 5 条 lane 已启动（opus subagent，各自 worktree，不提交，lead 收尾）：
-  002/003 D01 草案 A/B、004 U05 探针、005 I01 spec、006 SPEC 陈述台账。
-- `.claude/agents/prover.md`（钉 Opus 4.8）需重启会话才加载；本轮 worker 用 `general-purpose` + `model: opus`（= Opus 5）。
+- 分支模型：根目录停在干净的 `main`；集成分支 `erenup/integration`（worktree `.claude/worktrees/000-integration`），lane PR 以它为 base，lead 自己合；攒一批后向 `main` 提 PR。
+- 已合入 integration：001 setup（#4）、005 I01 spec（#5）、006 陈述台账（#6）、002 D01 草案 A 含 REJECT 审稿（#7）。
+- review 中：003 D01 草案 B、004 U05 探针。
+- 进行中：007-I01-contract（第一条证明 lane）、008-I02-correction-spec。
+- 关键事实：草案 A 的 REJECT 原因是 `F_R` 漏了 `C^∞`；台账指出 DAG 有 3 处需要改（见 `PLAN.md` §8）；HeliCorgi 88 模块闭包在 4.34 下 84 个直接编过。
+- 每次 subagent 运行都记在 `logs/AGENT_RUNS.csv`（lead 合入时追加）。
 
 ## 下一步
 
-1. 收第一波结果：每条 lane 起一个 opus reviewer（只做：Lean 能否跑通 + 陈述与论文一致），然后 lead 提 PR to integration 并合入，记 `logs/AGENT_RUNS.csv`。
-2. 比对 002 vs 003 两份 D01 草案，差异写进 `collaboration/tasks/D01.md`，定稿 `research/D01/Draft.lean` → 下一 lane 转成 `Contracts/V1`。
-3. 用 006 的"D01 需求清单"校验定稿是否覆盖 R41–R47 所需的全部对象。
-4. 第二波 lane 编号从 007 起：A01（两条）、A05、I02、B01、B02。
+1. 收 reviewer-003 → 起 009-D01-reconcile（读 A、B、两份审稿、台账 §"Consolidated D01 requirements"，出最终 `research/D01/Draft.lean` + `RECONCILIATION.md`）。
+2. 收 reviewer-004 → 起 010-U05-port（把 84 个模块接进主包 + `NNReal.mk` 补丁作为 reviewed patch）。
+3. 收 007 / 008 → reviewer → 合入。007 合入后就有第一条真正的 PDE 合同（`I01.packet`）。
+4. D01 定稿后：A05、B01、B02 spec，A01 两条。
 
 ## 待 owner 决定
 

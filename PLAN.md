@@ -105,9 +105,21 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 |---|---|---|---|---|
 | R41 算术部件 | 绿 | `R41.threshold_arithmetic` V1 | #1 | owner 提交，只含算术 |
 | 001-MAINT-setup | 已合入 integration | — | #4 | CLAUDE.md / PLAN / scripts / .gitignore |
-| 002-D01a-definitions | 进行中 | — | — | D01 草案 A（opus） |
-| 003-D01b-definitions | 进行中 | — | — | D01 草案 B（opus，独立） |
-| 004-U05-toolchain-probe | 进行中 | — | — | HeliCorgi 4.34 试编报告 |
-| 005-I01-packet-energy | 进行中 | — | — | Lemma 2.2 / Thm 1.1 对照 + spec |
-| 006-SPEC-section4-statements | 进行中 | — | — | 第 4 节陈述台账 |
+| 002-D01a-definitions | 已合入（REJECT 留档） | — | #7 | 草案 A 漏了 F_R 的 C^∞ 条件 → 定理 4.1(ii) 变假；归并 lane 修 |
+| 003-D01b-definitions | review 中 | — | — | 草案 B，45 个定义，通过类型检查 |
+| 004-U05-toolchain-probe | review 中 | — | — | 88 模块闭包 84 过、1 错（NNReal.mk）、3 阻塞；建议移植 |
+| 005-I01-packet-energy | 已合入（ACCEPT-WITH-NOTES） | — | #5 | 27 字段 PacketAPI；11 条是 OpenAI 直接投影 |
+| 006-SPEC-section4-statements | 已合入（ACCEPT-WITH-NOTES） | — | #6 | 1175 行台账；DAG 修正建议见下 |
+| 007-I01-contract | 进行中 | 目标 `I01.packet` V1 | — | 第一条证明 lane：合同 + 绑定 + 公理审计 |
+| 008-I02-correction-spec | 进行中 | — | — | Lemma 3.4/3.5 的 R³ 内容，spec |
+| 009-D01-reconcile | 待 003 review | — | — | 归并 A/B + 两份审稿 + 台账的 D01 需求清单 |
+| 010-U05-port | 待 004 review | — | — | HeliCorgi 84 模块接入 + NNReal.mk 补丁 |
 | 其余节点 | 未开始 | — | — | |
+
+## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
+
+- 加边 A03 → R42：定理 4.2 的"寿命 ≤ T"一步用了引理 A.1 的 H² → L^∞。
+- R41D 按外力子类（F_R / F_c / F_rd）参数化，并加边 R41D → R45；推论 4.5 和命题 4.6 都需要定理 4.2 的紧支撑修正，而不只是定理 4.1 的结论。
+- R42 的合同要显式导出 u_ε − v 无散和紧支撑压力规范，定理 4.7 的证明用到；R47 允许多一个只依赖时间的常数 κ(t)。
+- 定理 4.2 / 命题 4.6 / 定理 4.7 必须共用同一个 ε 族（一个线程化的见证），ε₀ 取所有约束的最小值。
+- 齐次实现：一个定义 Ḣ^s = {ĥ 可测, |ξ|^s ĥ ∈ L²}（−3/2 < s < 3/2）可覆盖 4.3 / 4.2 / 4.6 三处用法，其余作引理；‖·‖_{Ḣ^{3/2}} 只需定义为量。

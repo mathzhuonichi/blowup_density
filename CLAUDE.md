@@ -39,7 +39,7 @@
 - 依赖链：`verification` → `../formalization` → `../vendor/NavierStokesAndEuler` → mathlib（git，锁在 lake-manifest）。
 - `make test` 只编译已注册合同的闭包，秒级；不会编 340 个本地文件或 2486 个 OpenAI 文件。
 - 草稿文件放 `research/<ID>/X.lean`，检查用 `cd verification && lake env lean ../research/<ID>/X.lean`；
-  它 import 的本地模块先 `lake build -j 6 NSFormalization.Foo.Bar`（首次一个闭包约 2–3 分钟，之后秒级）。
+  它 import 的本地模块先 `LEAN_NUM_THREADS=6 lake build NSFormalization.Foo.Bar`（首次一个闭包约 2–3 分钟，之后秒级）。
 
 ## 本机资源（2026-09-13 实测）
 
@@ -48,7 +48,7 @@
 | CPU / RAM | 32 核 / 123 GB（可用约 100 GB） | 5 条车道并行绰绰有余。单模块 Lean 编译峰值约 1 GB，重 Mathlib 文件 2–4 GB |
 | 磁盘 | `/data_8T` 剩 3.6 TB；本仓 11 GB（`.elan` 3 GB + Mathlib 缓存 8 GB） | worktree 软链后每条车道只多几百 MB |
 | GPU | RTX 5090 32 GB | **Lean 用不上**。只有跑本地模型才有用，当前用 API 模型，闲置即可 |
-| 并发线程 | 每条车道 `lake build -j 6`，5 条共 30 线程 | 不要让 5 个 lake 都默认吃满 32 核 |
+| 并发线程 | 每条车道 `LEAN_NUM_THREADS=6`（此版 Lake 没有 `-j`），5 条共 30 线程 | 不要让 5 个 lake 都默认吃满 32 核 |
 
 ## 布局（只列要知道的）
 
