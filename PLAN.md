@@ -144,6 +144,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 038-R43-spec-B | 进行中 | — | — | 命题 4.3 spec 盲稿 B（与 037 互不可见） |
 | 039-A04-units-f1-n1 | 进行中 | — | — | A04 单元 F1（`MemForceR` ⇒ L¹_tH^m / 有界 H¹ 力）+ N1（被积函数连续性），`Section4/A04/` |
 | 040-SIMP-A02-dedupe | 待开（槽位满） | — | — | A02 四模块的 simplifier + tester：Restrict §0 → import SolutionClass；Energy §1–2 → D01 DatumToJets；conformance/negative 检查 |
+| 041-A04-unit-g3 | 进行中 | — | — | A04 单元 G3：连续变系数 Grönwall（纯 ODE 引理，Mathlib 缺），`Section4/A04/Gronwall.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
