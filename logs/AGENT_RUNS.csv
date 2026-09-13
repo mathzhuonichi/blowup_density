@@ -253,3 +253,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,B02,097-B02-remaining-fields,opus-4.8,worker,RUNNING remaining B02 spec fields (chi via vendor; B01 reuse; assembly table),—,
 2026-09-14,A04,095-A04-sl5-nonlinear,opus-4.8,worker,DONE SL5 table (5a-5h) + 5e CS + 5d summed skew-adjointness (4 decls) in 14 min / 38 tool uses; 5a/5b/5c/5h M remain,—,reviewer launched
 2026-09-14,R42,096-R42-lifespan-contract,opus-4.8,worker,DONE contract R42.insertion_lifespan (17 contracts; gates + mutations OK) in 12 min / 43 tool uses,—,reviewer launched
+2026-09-14,A01,093-A01-split,opus-4.8,worker,DONE 14-unit table + E1 (4 decls: convectionDivergence, Leibniz, div-free identity, residual⇔projected); KEY: HeliCorgi mild stack compiles in main workspace (U05 not blocking; 4 modules patched as FormalPatched); biggest blocker B1 joint spacetime smoothness (L) in 28 min / 57 tool uses,—,reviewer launched
