@@ -14,13 +14,34 @@ IsSobolevDatum (s : ℝ) (z : SpatialField) (A : RealVectorSobolev s) : Prop :=
 ```
 
 and `MemHInfty a := ContDiff ℝ ∞ a ∧ ∀ m : ℕ, ∃ A, IsSobolevDatum (m : ℝ) a A`.  This
-module supplies the missing implication of `research/D01/RECONCILIATION.md` unit **L2**:
-a physical field whose spatial jets are all square integrable — draft B's
-`EulerLpTranslation.SmoothL2Field` shape, i.e. `ContDiff ℝ ∞ z` together with
+module supplies **one** of the two implications of `research/D01/RECONCILIATION.md` unit
+**L2**, the `⟸` one: a physical field whose spatial jets are all square integrable —
+draft B's `EulerLpTranslation.SmoothL2Field` shape, i.e. `ContDiff ℝ ∞ z` together with
 `MemLp (iteratedFDeriv ℝ n z) 2 volume` for every `n` — *has* an angular real-vector
 datum, at every real order, with no compact-support hypothesis.  Before this module the
-only in-tree producer of data was `Paper3.realCompactSobolevTimeSlice`, which needs
-`HasCompactSupport`.
+only in-tree producer of *real angular vector* data was
+`Paper3.realCompactSobolevTimeSlice`, which needs `HasCompactSupport`;
+`Source.PhysicalIntegerSobolev.vectorSobolevDatum` (`:42`) already produced non-compact
+data, but in the cycles convention and with no reality constraint.
+
+## Scope: jets ⟹ datum only
+
+The converse — `MemHInfty z → ∀ n, MemLp (iteratedFDeriv ℝ n z) 2 volume`, equivalently
+`MemHInfty z → ∃ A : SmoothL2Field Space, A.field = z` — is **not** proved here, and unit
+L2 asks for both directions.  This matters for the downstream units:
+
+* **A03 unit U2 is not closed by this module.**  `research/A03/Spec.lean:324,330,339`
+  state `memHInfty_memHm`, `memHInfty_component` and `memHInfty_partialDeriv` with
+  `Contracts.V1.Data.MemHInfty z` as a *hypothesis*, i.e. in the datum form.  Getting
+  physical `L²` membership, componentwise admissibility, or `∂_j` out of that hypothesis
+  needs datum ⟹ jets first, and that step is absent.  What this module *does* retire is
+  the sizing risk `research/A03/COMPARISON.md:210-221` records — "if L2 stalls, U2 is an
+  L" — since the non-compact datum producer now exists; the residual `⟹` direction is the
+  one `RECONCILIATION.md:153` binds to `Source.FourierPhysicalJets.smoothL2FieldOfFourier`
+  and `physicalJetLp_ae`.  U2 is unblocked, not closed.
+* **A02 unit U1b** likewise starts from `ClassicalSolutionR.sobolev`'s datum path
+  (`Data.lean:643-645`), not from a jet carrier; see the docstring of
+  `angularRealization_smoothAngularDatum_directional` below.
 
 ## Conventions
 
@@ -236,15 +257,15 @@ theorem coe_cyclesComponentDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ)) (A :
 
 /-- The manuscript-normalized angular real-vector datum of a smooth `L²` field, at any
 real order `s ≤ m`. -/
-def angularDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ)) (A : SmoothL2Field Space) :
+def smoothAngularDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ)) (A : SmoothL2Field Space) :
     RealVectorSobolev s :=
   cyclesToAngularRealVector s (WithLp.toLp 2 (fun i => cyclesComponentDatum m s hs A i))
 
 /-- Each component of the angular datum realizes the physical tempered distribution of
 that component of the field. -/
-theorem angularRealization_angularDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ))
+theorem angularRealization_smoothAngularDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ))
     (A : SmoothL2Field Space) (i : Fin 3) :
-    angularRealization s ((angularDatum m s hs A i : FourierData)) =
+    angularRealization s ((smoothAngularDatum m s hs A i : FourierData)) =
       physicalDistribution (componentField i A) := by
   show angularRealization s
     ((cyclesToAngularReal s (cyclesComponentDatum m s hs A i) : RealSobolevHilbert s)
@@ -254,10 +275,10 @@ theorem angularRealization_angularDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ
 
 /-- **Unit L2, construction.**  The angular datum pairs with every Schwartz test exactly
 as the original physical field, which is `Contracts.V1.Data.IsSobolevDatum`. -/
-theorem angularDatum_isSobolevDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ))
-    (A : SmoothL2Field Space) : IsSobolevDatum s A.field (angularDatum m s hs A) := by
+theorem smoothAngularDatum_isSobolevDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ))
+    (A : SmoothL2Field Space) : IsSobolevDatum s A.field (smoothAngularDatum m s hs A) := by
   intro i ψ
-  rw [angularRealization_angularDatum, physicalDistribution_apply]
+  rw [angularRealization_smoothAngularDatum, physicalDistribution_apply]
   simp only [componentField_field, smul_eq_mul]
 
 /-! ## 5. The statements of unit L2 -/
@@ -269,8 +290,8 @@ assumption.  Half-integer and negative orders are included. -/
 theorem exists_isSobolevDatum_of_contDiff_memLp {z : Space → Space} (hz : ContDiff ℝ ∞ z)
     (hL2 : ∀ n : ℕ, MemLp (iteratedFDeriv ℝ n z) 2 volume) (s : ℝ) :
     ∃ A : RealVectorSobolev s, IsSobolevDatum s z A :=
-  ⟨angularDatum ⌈s⌉₊ s (Nat.le_ceil s) ⟨z, hz, hL2⟩,
-    angularDatum_isSobolevDatum ⌈s⌉₊ s (Nat.le_ceil s) ⟨z, hz, hL2⟩⟩
+  ⟨smoothAngularDatum ⌈s⌉₊ s (Nat.le_ceil s) ⟨z, hz, hL2⟩,
+    smoothAngularDatum_isSobolevDatum ⌈s⌉₊ s (Nat.le_ceil s) ⟨z, hz, hL2⟩⟩
 
 /-- **Unit L2, the `⟸` direction of `RECONCILIATION.md`.**  The statement is
 definitionally `Contracts.V1.Data.MemHInfty z`: the physical jet form of `H^∞` implies
@@ -308,8 +329,8 @@ theorem norm_cyclesComponentDatum_le (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ))
 /-- The datum norm is controlled by the `L²` norms of the physical Bessel iterates
 `(1 - (2π)^{-2} Δ)^m z_i`; `frequencyUnit ^ |s|` is the constant of the cycles-to-angular
 normalization change (`Paper3.cyclesToAngularRealVector_norm_le`). -/
-theorem norm_angularDatum_le (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ)) (A : SmoothL2Field Space) :
-    ‖angularDatum m s hs A‖ ≤ frequencyUnit ^ |s| *
+theorem norm_smoothAngularDatum_le (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ)) (A : SmoothL2Field Space) :
+    ‖smoothAngularDatum m s hs A‖ ≤ frequencyUnit ^ |s| *
       Real.sqrt (∑ i : Fin 3, ‖(iteratedBesselField m (componentField i A)).toLp‖ ^ 2) := by
   set v : RealVectorSobolev s := WithLp.toLp 2 (fun i => cyclesComponentDatum m s hs A i) with hv
   have h2 : ‖v‖ ≤
@@ -325,10 +346,10 @@ theorem norm_angularDatum_le (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ)) (A : Smo
   exact (cyclesToAngularRealVector_norm_le s v).trans
     (mul_le_mul_of_nonneg_left h2 (Real.rpow_nonneg frequencyUnit_pos.le _))
 
-theorem sobolevENorm_le_norm_angularDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ))
+theorem sobolevENorm_le_norm_smoothAngularDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ))
     (A : SmoothL2Field Space) :
-    sobolevENorm s A.field ≤ ‖angularDatum m s hs A‖ₑ :=
-  sobolevENorm_le_of_isSobolevDatum (angularDatum_isSobolevDatum m s hs A)
+    sobolevENorm s A.field ≤ ‖smoothAngularDatum m s hs A‖ₑ :=
+  sobolevENorm_le_of_isSobolevDatum (smoothAngularDatum_isSobolevDatum m s hs A)
 
 /-! ## 7. Physical-versus-datum derivative identification -/
 
@@ -347,15 +368,31 @@ theorem componentField_directionalField (i : Fin 3) (A : SmoothL2Field Space) (v
   rw [hc.fderiv]
   rfl
 
-/-- **A02 unit U1.**  The angular datum of the physical directional derivative `∂_v z`
-realizes exactly the distributional derivative of the distribution realized by the
-angular datum of `z`.  This is `Source.PhysicalSobolevDistribution`'s classical-versus-
-distributional derivative statement transported to the manuscript's normalization. -/
-theorem angularRealization_angularDatum_directional (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ))
+/-- **The shape of A02 unit U1b(iii), on the jet carrier.**  The angular datum of the
+physical directional derivative `∂_v z` realizes exactly the distributional derivative of
+the distribution realized by the angular datum of `z`.  This is
+`Source.PhysicalSobolevDistribution.physicalDistribution_directionalField` (`:29`)
+transported to the manuscript's normalization.
+
+What this is *not* (`research/A02/COMPARISON.md:163-164` splits U1 into U1a and U1b, and
+U1b into three parts):
+
+* the derivative is `EulerLpTranslation.SmoothL2Field.directionalField v`, i.e.
+  `fun x => fderiv ℝ z x v` on the **jet carrier**, not the upstream
+  `spatialDerivative u t x`
+  (`vendor/NavierStokesAndEuler/NavierStokes/ProblemStatement.lean:59`), and it starts
+  from a `SmoothL2Field`, not from `ClassicalSolutionR.sobolev`'s datum path
+  (`Data.lean:643-645`) where U1b actually begins;
+* U1b(i), the embedding `‖z‖_∞ ≤ C‖z‖_{H²}` on the angular carrier (= A01 unit **A1**),
+  is untouched;
+* U1b(ii), the order shift `‖∇v‖_{H²} ≤ ‖v‖_{H³}` on the angular datum carrier, is
+  untouched: `norm_smoothAngularDatum_le` is a **one-sided** bound in the physical Bessel
+  iterates, not a comparison of two datum norms. -/
+theorem angularRealization_smoothAngularDatum_directional (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ))
     (A : SmoothL2Field Space) (v : Space) (i : Fin 3) :
-    angularRealization s ((angularDatum m s hs (A.directionalField v) i : FourierData)) =
-      ∂_{v} (angularRealization s ((angularDatum m s hs A i : FourierData))) := by
-  rw [angularRealization_angularDatum, angularRealization_angularDatum,
+    angularRealization s ((smoothAngularDatum m s hs (A.directionalField v) i : FourierData)) =
+      ∂_{v} (angularRealization s ((smoothAngularDatum m s hs A i : FourierData))) := by
+  rw [angularRealization_smoothAngularDatum, angularRealization_smoothAngularDatum,
     componentField_directionalField, physicalDistribution_directionalField]
 
 /-- Consequently `∂_v z` itself has an angular datum at every real order, and it is the
@@ -363,7 +400,7 @@ one produced by the same construction from the derivative field. -/
 theorem exists_isSobolevDatum_fderiv {z : Space → Space} (hz : ContDiff ℝ ∞ z)
     (hL2 : ∀ n : ℕ, MemLp (iteratedFDeriv ℝ n z) 2 volume) (v : Space) (s : ℝ) :
     ∃ A : RealVectorSobolev s, IsSobolevDatum s (fun x => fderiv ℝ z x v) A :=
-  ⟨angularDatum ⌈s⌉₊ s (Nat.le_ceil s) ((⟨z, hz, hL2⟩ : SmoothL2Field Space).directionalField v),
-    angularDatum_isSobolevDatum ⌈s⌉₊ s (Nat.le_ceil s) _⟩
+  ⟨smoothAngularDatum ⌈s⌉₊ s (Nat.le_ceil s) ((⟨z, hz, hL2⟩ : SmoothL2Field Space).directionalField v),
+    smoothAngularDatum_isSobolevDatum ⌈s⌉₊ s (Nat.le_ceil s) _⟩
 
 end NSFormalization.Section4.D01

@@ -4,7 +4,8 @@ Target: the `⟸` direction that `research/D01/RECONCILIATION.md` §3 row **L2**
 open — "**Gap** in the `⟸` direction at non-compact data: only
 `Paper3.realCompactSobolevTimeSlice` (`RealPositiveDensity.lean:54`) currently produces
 data, and only for compact smooth input."  Two reviewers flagged it as a critical-path
-risk for A02 (unit U1) and A03 (unit U2).
+risk for A02 (unit U1) and A03 (unit U2).  Neither of those units is *closed* by this
+module; see §1a.
 
 Deliverable: `formalization/NSFormalization/Section4/D01/SmoothDatum.lean`
 (369 lines, no `sorry`, no `axiom`, no `native_decide`; every declaration's axiom set is
@@ -25,16 +26,40 @@ hL2 : ∀ n : ℕ, MemLp (iteratedFDeriv ℝ n z) 2 volume
 
 | declaration | statement |
 |---|---|
-| `exists_isSobolevDatum_of_contDiff_memLp` (`:269`) | for **every real** `s`, `∃ A : RealVectorSobolev s, IsSobolevDatum s z A` |
-| `memHInfty_of_contDiff_memLp` (`:278`) | `ContDiff ℝ ∞ z ∧ ∀ m : ℕ, ∃ A : RealVectorSobolev (m:ℝ), IsSobolevDatum (m:ℝ) z A`, i.e. `Contracts.V1.Data.MemHInfty z` |
-| `sobolevENorm_ne_top_of_contDiff_memLp` (`:294`) | `sobolevENorm s z ≠ ⊤` at every real `s` |
-| `angularDatum` (`:239`), `angularDatum_isSobolevDatum` (`:257`) | the explicit datum and its Schwartz pairing, not merely an existential |
-| `angularRealization_angularDatum` (`:245`) | each component of the datum realizes `physicalDistribution (componentField i A)` |
-| `norm_angularDatum_le` (`:311`), `sobolevENorm_le_norm_angularDatum` (`:328`) | `‖A‖ ≤ frequencyUnit^{\|s\|} · √(∑ᵢ ‖(1−(2π)^{-2}Δ)^m zᵢ‖₂²)` and `sobolevENorm s z ≤ ‖A‖ₑ` |
-| `angularRealization_angularDatum_directional` (`:354`) | A02 U1: the datum of `∂_v z` realizes `∂_{v}` of the distribution realized by the datum of `z` |
-| `exists_isSobolevDatum_fderiv` (`:363`) | `∂_v z` has a datum at every real order |
+| `exists_isSobolevDatum_of_contDiff_memLp` (`:290`) | for **every real** `s`, `∃ A : RealVectorSobolev s, IsSobolevDatum s z A` |
+| `memHInfty_of_contDiff_memLp` (`:299`) | `ContDiff ℝ ∞ z ∧ ∀ m : ℕ, ∃ A : RealVectorSobolev (m:ℝ), IsSobolevDatum (m:ℝ) z A`, i.e. `Contracts.V1.Data.MemHInfty z` |
+| `sobolevENorm_ne_top_of_contDiff_memLp` (`:315`) | `sobolevENorm s z ≠ ⊤` at every real `s` |
+| `smoothAngularDatum` (`:260`), `smoothAngularDatum_isSobolevDatum` (`:278`) | the explicit datum and its Schwartz pairing, not merely an existential |
+| `angularRealization_smoothAngularDatum` (`:266`) | each component of the datum realizes `physicalDistribution (componentField i A)` |
+| `norm_smoothAngularDatum_le` (`:332`), `sobolevENorm_le_norm_smoothAngularDatum` (`:349`) | `‖A‖ ≤ frequencyUnit^{\|s\|} · √(∑ᵢ ‖(1−(2π)^{-2}Δ)^m zᵢ‖₂²)` and `sobolevENorm s z ≤ ‖A‖ₑ` |
+| `angularRealization_smoothAngularDatum_directional` (`:391`) | the **shape of A02 U1b(iii), on the jet carrier**: the datum of `∂_v z` realizes `∂_{v}` of the distribution realized by the datum of `z` |
+| `exists_isSobolevDatum_fderiv` (`:400`) | `∂_v z` has a datum at every real order |
 
-`IsSobolevDatum` (`:216`) and `sobolevENorm` (`:285`) are **verbatim restatements** of
+### 1a. What this does *not* close downstream
+
+* **A03 unit U2 is unblocked, not closed.**  `research/A03/Spec.lean:324,330,339` state
+  `memHInfty_memHm`, `memHInfty_component` and `memHInfty_partialDeriv` with
+  `Contracts.V1.Data.MemHInfty z` as a **hypothesis**, i.e. in the *datum* form.  This
+  module proves **jets ⟹ datum only**.  `memHInfty_partialDeriv`, for instance, needs
+  datum ⟹ jets, then `∂_j`, then jets ⟹ datum; the first step is absent, so none of the
+  three fields follows.  What is retired is the sizing risk of
+  `research/A03/COMPARISON.md:210-221` — "if L2 stalls, U2 is an L" — because the
+  non-compact datum producer now exists; the residual `⟹` direction is the one
+  `RECONCILIATION.md:153` binds to `Source.FourierPhysicalJets.smoothL2FieldOfFourier`
+  (`:169`) and `physicalJetLp_ae` (`:159`).
+* **A02 unit U1 is not closed either.**  `research/A02/COMPARISON.md:163-164` splits U1
+  into U1a (energy; needs D01 unit **L1** plus an order-0-datum ⟹ `L²`-slice lemma) and
+  U1b, and U1b into three parts.  This module delivers **the shape of U1b(iii) only, and
+  on the jet carrier**: the derivative is `SmoothL2Field.directionalField v`
+  (`= fun x => fderiv ℝ z x v`), not the upstream `spatialDerivative u t x`
+  (`vendor/NavierStokesAndEuler/NavierStokes/ProblemStatement.lean:59`), and it starts
+  from a `SmoothL2Field`, not from `ClassicalSolutionR.sobolev`'s datum path
+  (`Data.lean:643-645`) where U1b begins.  U1b(i) (the `H²` sup embedding on the angular
+  carrier, = A01 unit **A1**) and U1b(ii) (the order shift `‖∇v‖_{H²} ≤ ‖v‖_{H³}` between
+  two datum norms) are **untouched**: `norm_smoothAngularDatum_le` is a one-sided bound in
+  the physical Bessel iterates, not a comparison of two datum norms.
+
+`IsSobolevDatum` (`:237`) and `sobolevENorm` (`:306`) are **verbatim restatements** of
 `verification/Contracts/V1/Data.lean:160` and `:189`.  They must be restated because the
 `NSFormalization` package is a *dependency* of the `Contracts` library
 (`verification/lakefile.toml` requires `../formalization`), so a module inside
@@ -78,7 +103,7 @@ hypothesis — is *already in the tree*, in the cycles-frequency convention:
   (`besselField`, `:52`) and identifying it with `TemperedDistribution.besselPotential`;
 * `Source.PhysicalIntegerSobolev.integerSobolevDatum` (`:14`) lowers `2n → n` with
   `Paper3.sobolevOrderLowering`, giving every integer order, and
-  `vectorSobolevDatum_pairing` (`:73`) already states the Schwartz pairing
+  `vectorSobolevDatum_pairing` (`:54`) already states the Schwartz pairing
   componentwise — but with `sobolevRealization`, and in `VectorSobolevHilbert`, which is
   *not* the contract's `RealVectorSobolev` because it carries no reality constraint.
 
@@ -89,17 +114,17 @@ So the three genuinely missing pieces were:
    conjugate-reflection-symmetric data (`02-preliminaries.tex:72`).  Nothing in the tree
    proved that the datum of a real physical field is symmetric except by construction via
    `realProjectionTo` on compactly supported input.  Proved here along the construction:
-   * `fourier_conjugation` (`:93`): `𝓕 (conjugation u) = realSymmetry (𝓕 u)` for **all**
+   * `fourier_conjugation` (`:114`): `𝓕 (conjugation u) = realSymmetry (𝓕 u)` for **all**
      `u ∈ L²`, by `DenseRange.induction_on` from the Schwartz core, where it is
      `Source.RealSobolev.fourier_conjugate` (`RealSobolev.lean:61`) combined with
      `Paper3.frequencyRealSchwartz_toLp` (`AngularRealSobolev.lean:20`) and Mathlib's
      `SchwartzMap.toLp_fourier_eq`;
-   * `IsRealField` (`:114`) — `∀ x, conj (A.field x) = A.field x` — is preserved by
+   * `IsRealField` (`:135`) — `∀ x, conj (A.field x) = A.field x` — is preserved by
      `addField`, `sumField`, `scaleField` with a real scalar, and (the only non-formal
      step) `directionalField`, because `conj` is an `ℝ`-CLM and `fderiv` commutes with
-     post-composition by a CLM (`IsRealField.directional`, `:136`).  Hence by
-     `laplacianField` and `besselField`, hence by `iteratedBesselField` (`:159`);
-   * `realSymmetry_sobolevOrderLowering` (`:187`): order lowering is multiplication by the
+     post-composition by a CLM (`IsRealField.directional`, `:157`).  Hence by
+     `laplacianField` and `besselField`, hence by `iteratedBesselField` (`:180`);
+   * `realSymmetry_sobolevOrderLowering` (`:208`): order lowering is multiplication by the
      **real and even** symbol `(1+‖ξ‖²)^{(r−s)/2}`, so it commutes with conjugate
      reflection.  The a.e. argument is copied structurally from
      `Paper3.angularWeightEquiv_realSymmetry` (`AngularSobolevCoordinates.lean:239`).
@@ -157,7 +182,7 @@ So the three genuinely missing pieces were:
 3. **`conjugation` not syntactically `compLpL`.**  `rw [ContinuousLinearMap.coeFn_compLpL …]`
    failed against a goal mentioning `conjugation A.toLp`, because `conjugation`
    (`RealSobolev.lean:22`) is a `def` and is not unfolded.  Fixed by extracting
-   `conjugation_ae` (`:77`) once and using it everywhere.
+   `conjugation_ae` (`:98`) once and using it everywhere.
 4. **`private def basis`.**  `PhysicalBesselSobolev.laplacianField` is stated over a
    `private` orthonormal basis, so its body cannot be named from another module.  Worked
    around with `show IsRealField (sumField Finset.univ (fun i : Fin 3 => …
@@ -181,10 +206,10 @@ The theorems take `ContDiff ℝ ∞ z` together with `∀ n : ℕ, MemLp (iterat
 
 Two smaller hypotheses worth naming:
 
-* `hs : s ≤ (m : ℝ)` in `angularDatum` — lowering is contractive only downwards
+* `hs : s ≤ (m : ℝ)` in `smoothAngularDatum` — lowering is contractive only downwards
   (`sobolevOrderLowering` needs `r ≤ s`).  The public theorems instantiate `m = ⌈s⌉₊`.
 * Order lowering is used twice (once inside `integerSobolevDatum`, once here); it is
-  contractive, so the norm bound of `norm_angularDatum_le` is not degraded by it.
+  contractive, so the norm bound of `norm_smoothAngularDatum_le` is not degraded by it.
 
 ---
 
@@ -197,11 +222,12 @@ Two smaller hypotheses worth naming:
    `verification/Bindings/HInfty.lean`.
 2. **Only the `⟸` direction of row L2.**  `MemHInfty a → ∀ n, MemLp (iteratedFDeriv ℝ n a) 2 volume`
    (the datum form implies the jet form, i.e. Sobolev embedding plus the identification of
-   distributional and classical derivatives) is **not** proved.  A02's U1 gets the
-   derivative *identification* (`angularRealization_angularDatum_directional`) but not the
-   converse regularity statement.
+   distributional and classical derivatives) is **not** proved.  This is what blocks A03
+   U2 and A02 U1b from `ClassicalSolutionR`; A02 gets the derivative *identification*
+   (`angularRealization_smoothAngularDatum_directional`), in the shape of U1b(iii) on the
+   jet carrier, but not the converse regularity statement.
 3. **The norm bound is in terms of Bessel iterates, not multi-indices.**
-   `norm_angularDatum_le` gives
+   `norm_smoothAngularDatum_le` gives
    `‖A‖ ≤ frequencyUnit^{|s|} · √(∑ᵢ ‖(1−(2π)^{-2}Δ)^m zᵢ‖₂²)`.
    The manuscript's `∑_{|α|≤m} ‖∂^α z‖₂` form needs, in addition,
    `‖(iteratedBesselField m B).toLp‖ ≤ C_m ∑_{k ≤ 2m} ‖B.jetLp k‖`, which is an induction
@@ -211,20 +237,27 @@ Two smaller hypotheses worth naming:
    is harder: it needs invertibility of the Bessel iterate on `L²`, which the current
    construction does not expose.
 4. **No uniqueness statement.**  Uniqueness of the datum is `RECONCILIATION.md` unit L1
-   (`angularRealization_injective`, `AngularFourierDilation.lean:222`); it is not restated
-   here, so `sobolevENorm s z = ‖angularDatum … ‖ₑ` (equality rather than `≤`) is not
+   (`angularRealization_injective`, `AngularFourierDilation.lean:203`); it is not restated
+   here, so `sobolevENorm s z = ‖smoothAngularDatum … ‖ₑ` (equality rather than `≤`) is not
    proved.  With L1 it is immediate.
 5. **No time-path version.**  `IsSobolevPath` / `MemForceR` (`Data.lean:174,544`) need the
    trajectory `t ↦ A t` to be `ContDiffOn` into `RealVectorSobolev m` and `MemLp` in time.
-   `Source.PhysicalIntegerSobolev.continuous_vectorSobolevDatum` (`:79`) gives continuity of
+   `Source.PhysicalIntegerSobolev.continuous_vectorSobolevDatum` (`:61`) gives continuity of
    the cycles datum along a continuous jet path, and `cyclesToAngularRealVector` is a CLE,
    so the continuity half transports for free; smoothness in `t` and the `L¹ ∩ L²` time
    bounds are not touched.  That is unit L4/L6 work, not L2.
-6. **`research/A02/` and `research/A03/` do not exist in this worktree**, so the exact
-   wording of A02 U1 and A03 U2 could not be read.  The derivative identification provided
-   here is the statement those units are described as needing in the task brief; if their
-   `COMPARISON.md` asks for a different spelling, it should be added as a corollary of
-   `angularRealization_angularDatum_directional`.
+6. **`research/A02/` and `research/A03/` were absent at this lane's merge base
+   (`09fcb90`)** and could not be read while the module was written; they **do exist on
+   the integration tip** (`erenup/integration`).  They have since been read — via
+   `git show erenup/integration:research/A02/COMPARISON.md` and
+   `…:research/A03/{COMPARISON.md,Spec.lean}` — and the scope claims of §1a, of the module
+   docstring and of the docstring of
+   `angularRealization_smoothAngularDatum_directional` were corrected accordingly
+   (reviewer findings 1 and 2 of `research/D01/REVIEW_L2.md`).  Findings 5, 6 and 7 were
+   applied at the same time: the `angularRealization_injective` line number (`:203`), the
+   rename `angularDatum → smoothAngularDatum` to stop shadowing
+   `Paper3.angularDatum` (`AngularFourierDilation.lean:225`), and the qualification of the
+   prior-art claim to *real angular vector* data.
 
 Nothing in this module is conditional, admitted, or `sorry`-carrying: the gaps above are
 statements that are *absent*, not statements that are assumed.
