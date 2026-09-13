@@ -142,7 +142,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 036-B02-units-3-4 | 进行中 | — | — | B02 单元 3+4（低频权重可积性/积分值；角 Fourier 上确界界），`Section4/B02/` |
 | 037-R43-spec-A | 盲稿 A+B 比对调和完成，已合入 | — | #40 | `RCritical1API` 4 字段（B 形状）；上游缺口 G1–G7 见 `research/R43/COMPARISON.md` §4 |
 | 038-R43-spec-B | 已合入（经 037） | — | #40 | 命题 4.3 spec 盲稿 B（与 037 互不可见） |
-| 039-A04-units-f1-n1 | 进行中 | — | — | A04 单元 F1（`MemForceR` ⇒ L¹_tH^m / 有界 H¹ 力）+ N1（被积函数连续性），`Section4/A04/` |
+| 039-A04-units-f1-n1 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A04 单元 F1（`MemForceR` ⇒ L¹_tH^m / 有界 H¹ 力）+ N1（被积函数连续性），`Section4/A04/` |
 | 040-SIMP-A02-dedupe | 待开（槽位满） | — | — | A02 四模块的 simplifier + tester：Restrict §0 → import SolutionClass；Energy §1–2 → D01 DatumToJets；conformance/negative 检查 |
 | 041-A04-unit-g3 | 进行中 | — | — | A04 单元 G3：连续变系数 Grönwall（纯 ODE 引理，Mathlib 缺），`Section4/A04/Gronwall.lean` |
 | 042-D01-halforder-force-norms | 进行中 | — | — | D01 G3+G2：`MemForceR f → forceSobolevENormL1 (1/2) f ≠ ⊤`（及齐次孪生）、路径级 Ḣ^{1/2} ≤ H^{1/2}；`Section4/D01/HalfOrder.lean` |
