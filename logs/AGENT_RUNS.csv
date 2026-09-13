@@ -248,3 +248,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,B02,090-SIMP-B02,opus-4.8,simplifier+tester,DONE helper extraction + opens + docstrings (2251→2286 lines; 7 negative checks break; conformance complete; FOUND stale axioms_u8 not elaborating at HEAD — fixed; unproved-fields list for the B02 contract) in 45 min / 90 tool uses,PR,PR #92 opened; merging on gates
 2026-09-14,A04,095-A04-sl5-nonlinear,opus-4.8,worker,RUNNING G1 SL5 nonlinear IBP + CS → hnl,—,
 2026-09-14,R42,092-R42-lifespan-binding,opus-4.8,worker-resume,DONE hypotheses reduced to hg+hreg; initialClassR_a; rfl guard (9 decls) in 4 min / 18 tool uses,PR,PR #93 opened; merging
+2026-09-14,R42,096-R42-lifespan-contract,opus-4.8,worker,RUNNING register R42.insertion_lifespan,—,
