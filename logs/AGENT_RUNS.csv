@@ -163,3 +163,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,D01,067-D01-p2-sl7a,opus,reviewer,ACCEPT-WITH-NOTES (only hypothesis MemLp 2; no hidden L¹ — closure excludes LowHigh; norm identity is ~25-50 lines not one; expose def orderZeroDatum; header honesty),,worker resumed for F2/F3
 2026-09-13,MAINT,070-MAINT-hotfix-temporal,lead,hotfix,DONE (docstring closed; build OK; merged #68; gates 58 modules green),#68,merged
 2026-09-13,D01,067-D01-p2-sl7a,opus-4.8,worker-resume,DONE F2/F3 in 3 min / 6 tool uses,PR,PR #69 opened; merging
+2026-09-14,A02,069-A02-maximal-partial-v2,opus-4.8,contract,DONE (MaximalPartialV2API extends V1 + exists_maximal (cond.) + maximal_unique; one Iff transport; make test 14 contracts standard; mutations pass; base compat true; 14 min / 42 tool uses),,reviewer pending
