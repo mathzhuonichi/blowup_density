@@ -218,10 +218,11 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 112-A01-regularity-partial | 已合并 | #111 | — | A01 部分合同 `A01.regularity_partial`：`ManuscriptLocalRegularity` 已证的两个字段 `projected`（093）与 `pressure_potential`（106）逐字进 `Contracts/V1/RegularityPartial.lean` + Bindings（含 `pressurePotential`/`HasSymmetricJacobian` 的 `rfl` 桥）+ Tests + contracts.json（模板 091/099） |
 | 113-SIMP-A01 | PR 已开 | #117 | — | A01 已合入的四个模块（ConvectionDivergence, ProjectedEquation, RadialPotential, PressureGauge）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；conformance 重跑 axioms_a01/p1/m4；MAINT 清单） |
 | 114-R42-lifespan-v2 | 已合并 | #115 | — | R42 `insertion_lifespan` **V2** 合同：`extends` V1 + 098 已证的 `solution`（`u_ε,p_ε` 是 `ClassicalSolutionR ν a g_ε T`，导出 `sobolev`/`pressure_gradient`）+ `maximal`（`Contracts.V2.MaximalPartial.IsMaximalSolution`）+ 论文 04:34 第二显示式 `limsup` 形（`limsupLeft_speedENorm_eq_top`）；补 REVIEW_CONTRACT.md 列的三个欠项 |
-| 115-SIMP-A04 | 审阅中 | — | — | A04 SL3 簇四个模块（LaplacianDatum, LaplacianPairing, RealPairing, LaplacianAssembly；086 未覆盖）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；重跑 axioms_sl3*；MAINT 清单）。SL5 簇五个 Nonlinear* 模块另开 |
+| 115-SIMP-A04 | 续改中 | — | — | A04 SL3 簇四个模块（LaplacianDatum, LaplacianPairing, RealPairing, LaplacianAssembly；086 未覆盖）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；重跑 axioms_sl3*；MAINT 清单）。SL5 簇五个 Nonlinear* 模块另开 |
 | 116-B02-homogeneous-v2 | PR 已开 | #116 | — | B02 `homogeneous_partial` **V2** 合同：`extends` V1 + `separatedAssembly`（在 `−3/2<s` 上，103）+ `approxCompactHomogeneous`（110，`SplitRange`）；`annularPathApprox` 仍排除（无证明、无消费者）；Bindings/Tests/contracts.json（第 20/21 条） |
 | 117-D01-p2-sl8-assembly | 续改中 | — | — | **P2 SL8 组装**（S，≈55 行，reviewer 探针已编译）：`D01/PressureJets.lean`，0 阶恒等式 `datum⁰(∇p) = (I−P)₀ datum⁰(h)`（094 横向 + 108 纵向 + 111 代数）→ 085 `isSobolevDatum_lower_iff` 逐阶提升 → `SmoothSquareIntegrableJets (∇p(t,·))`；即 P2 = eq:Rpressure 的 Lean 定理 |
 | 118-SIMP-A04-nonlinear | 进行中 | — | — | A04 SL5 簇五个模块（AdvectionDivergence, NonlinearPairing, NonlinearColumns, NonlinearDatum, NonlinearBound；100/102/105）的 simplifier+tester（陈述逐字不变；真负向检查；重跑 axioms_sl5*；MAINT 清单） |
+| 119-A01-c1b-split | 进行中 | — | — | A01 L 单元 **C1b** 拆分起步：D01 角向 datum `IsSobolevDatum m` ⟷ Euler `ordinarySobolev`/`EulerMeanSolenoidal.L2` 坐标（经 cylinder `ordinaryLift` 伴随）逐阶桥；产出 `research/A01/C1B_SPLIT.md`（S/M 子引理表 + file:line 输入）+ 证第一个 S 单元 |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
