@@ -112,7 +112,8 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 006-SPEC-section4-statements | 已合入（ACCEPT-WITH-NOTES） | — | #6 | 1175 行台账；DAG 修正建议见下 |
 | 007-I01-contract | 已合入（ACCEPT-WITH-NOTES，已修） | **`I01.packet` V1 已注册** | #12 | 第一条 PDE 合同；27 义务全证；20 个内联定义 + 19 个 rfl 桥；标准 3 公理 |
 | 008-I02-correction-spec | 已合入（ACCEPT-WITH-NOTES） | — | #10 | 76 字段 CorrectionAPI；3.4/3.5 的 R³ 内容本地已基本证完，缺 4 小项 |
-| 011-I02-contract | 待 007 review | 目标 `I02.correction` V1 | — | 合同 + 绑定 + 4 个缺口证明；先应用 reviewer 的 Ioo→Ico |
+| 011-I02-contract | 待 009 合入 | 目标 `I02.correction` V1 | — | 合同 + 绑定 + 4 个缺口证明；用 Data.lean 的 E_T / 混合范数 |
+| 012-SPEC-ledger-fixes | 已合入 | — | #13 | 台账 v2：12 处修正 + DAG 提案 + CHANGELOG |
 | 010-U05-port | 已合入（ACCEPT-WITH-NOTES） | — | #11 | 88 模块全部编过；补丁只在 4 个副本、1 处 have；vendor 零改动；make snapshot 待 owner 重拍 |
 | 009-D01-reconcile | review 中 | `Contracts/V1/Data.lean`（未注册） | — | 56 个定义；**含合同 import 规则放宽（6 模块白名单 + NavierStokes.*），待 owner 批准** |
 | 其余节点 | 未开始 | — | — | |
