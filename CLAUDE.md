@@ -26,6 +26,8 @@
 - 冲突只会出现在 `verification/contracts.json`、`collaboration/work_items.json`、`collaboration/TASKS.md`（生成物）、`logs/AGENT_RUNS.csv`。
   CSV 只由 lead 在合入时追加。rebase 后重跑 `tasks.py render`。
 - 已有的 `Contracts/V1/*`、`Tests/*` 不改；数学变了加 V2。CI 会拒绝静默修改。
+- **合同 import 规则**（`check_contracts.py` 强制）：`Contracts/*` 只能 import `Mathlib` / `Lean` / `Init` / `Contracts.*`。
+  上游或本地的定义要在合同里逐字重写，绑定层用 `rfl` 桥定理（`theorem foo_eq : Contract.foo = Upstream.foo := rfl`）防漂移；每个重写的定义都要有桥。
 - 提交前 `make check`；Lean 改动再跑 `make test`、`make test-mutations`。PR 用模板，写任务 ID、合同版本、跑过的命令。
 
 ## Lean 环境（自包含，不碰 `~/.elan`）
