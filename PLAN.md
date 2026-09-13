@@ -124,6 +124,9 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 015-I03-spec | 已合入 | — | #18 | ACCEPT-WITH-NOTES 已修（scalingStatement 补 7 条前提可满足；Prop 3.3 转运 3 字段）；U7c 是 R46 阻塞点 |
 | 019-A05-l6-contract | review 中，PR #23 | **`A05.gradient_l6` V1 已注册（rebase 后 4 合同全绿）** | #23 | 论文原形；Hessian–Laplacian 恒等式用分部积分证成等式；全程无 Fourier；余：datum ⇒ jets 方向 |
 | 020-D01-hm-datum | PR #24 待合（CI 跑完） | — | #24 | **已证** jets ⇒ datum，任意实数阶、无紧支撑；29 定理标准公理；ACCEPT-WITH-NOTES 已修；余：datum ⇒ jets、双边范数、时间路径 |
+| 021-I03-contract | 进行中 | 目标 `I03.scaling` V1 | — | 以 `I02.correction` 为输入的缩放合同；正/负阶非齐次界源码已有；齐次界（U7c）若不成则诚实分拆 |
+| 022-B02-spec | 进行中 | — | — | Prop 4.6 的 L²_tḢ⁻¹ 逼近（共用 B01 的 SeparatedTemporalDense 阶段） |
+| 023-A03-l2linf-contract | 进行中 | 目标 `A03.bounded_representative` V1 | — | Lemma A.1 的 H² ↪ L^∞（标量层现成；R42/A02 用的 ess-sup 形式） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
