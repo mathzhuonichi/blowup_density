@@ -260,3 +260,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,R42,096-R42-lifespan-contract,opus-4.8,worker-resume,DONE 3 prose fixes in 5 min / 22 tool uses,PR,PR #95 opened; merging
 2026-09-14,R42,098-R42-full-horizon,opus-4.8,worker,RUNNING datum path gluing to the full horizon + ClassicalSolutionR at T,—,
 2026-09-14,B02,097-B02-remaining-fields,opus,reviewer,ACCEPT-WITH-NOTES (5 fields token-identical; temporalApprox reuse verified by 3 rfl; 16/19 confirmed; separatedAssembly shorter route via isHomogeneousSliceDatum_unique (needs -3/2<s, fine for SplitRange); annularPathApprox not a paper step; approxCompact monolithic confirmed; REGISTER partial B02 contract now) in 9 min / 44 tool uses,PR,PR #96 opened; chain after #95
+2026-09-14,B02,099-B02-partial-contract,opus-4.8,worker,RUNNING register 16 proved B02 fields,—,
