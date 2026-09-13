@@ -192,6 +192,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 086-SIMP-A04 | 进行中 | — | — | A04 八个较早合入模块（Forcing, Continuity, Gronwall, Regularized, DerivNorm, HighEnergy, TimeDerivative, MomentumDatum）的 simplifier+tester（陈述逐字不变；负向检查用 `set_option autoImplicit false`；conformance；CI 闭包） |
 | 087-R42-sol-on-shorter | 审阅中 | — | — | R42 装配子引理 #1 `sol_on_shorter`：由 `InsertionFamilyAPI` 在每个 `0<S<T` 上构造 `ClassicalSolutionR ν a (g_ε) S`（区间收缩 + 075 `CorrectionPath` + 083 `PressureGradient` + 080 切片连续），`Section4/R42/SolutionOnShorter.lean` |
 | 088-A04-sl3-assembly | 进行中 | — | — | A04 SL3 步骤 3b（M）：Laplace datum 组装 `datum_m(Δu) = ∑ⱼ D_j D_j datum_{m+2}u` + 实反自伴 + 降阶配对 ⇒ `hlap : ⟪G, L⟫ ≤ -grad²`（`A04.inner_energy_assembly` 的输入），`Section4/A04/LaplacianAssembly.lean` |
+| 089-D01-p2-sl5-longitudinal | 进行中 | — | — | P2 SL5：无旋（curl-free）光滑 L² 场的任一 datum a.e. 纵向 `ξᵢ Âⱼ = ξⱼ Âᵢ` ⇒ `Â(ξ) ∈ ℂ∙ξ`（镜像 079），再 datum 层 `lerayComplement m A = A`（081 review 的 4 行），`Section4/D01/Longitudinal.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

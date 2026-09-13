@@ -223,3 +223,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,088-A04-sl3-assembly,opus-4.8,worker,RUNNING SL3 step 3b Laplacian datum assembly → hlap,—,
 2026-09-14,B02,084-B02-unit-2-sl3,opus,reviewer,ACCEPT-WITH-NOTES (all 3 shapes token-match SL2/IsAnnularDatum; SL4c = 4 lines without SL4b; SL4 assembly = 8 more lines compiled in /tmp; notes: angularFourier_conj duplicates HomogeneousWitness:190 special case; U2_SPLIT SL4c row wrongly claims SL4b needed; realSubspace a.e.-conj pattern repeated ~6× → MAINT) in 8 min / 27 tool uses,—,worker resumed: notes + SL4c + assembly
 2026-09-14,B02,084-B02-unit-2-sl3,opus-4.8,worker-resume,DONE SL4c + annularSchwartz + unconditional spatialApproxHomogeneous (11 decls) in 7 min / 28 tool uses — B02 stage-4 density closed,PR,PR #86 opened; merging
+2026-09-14,D01,089-D01-p2-sl5-longitudinal,opus-4.8,worker,RUNNING SL5 curl-free ⇒ longitudinal datum,—,
