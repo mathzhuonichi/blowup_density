@@ -3,7 +3,6 @@ import NSFormalization.Section4.D01.DatumToJets
 import NSFormalization.Section4.A03.ScalarTameProduct
 import NSFormalization.Section4.A03.VectorTameProduct
 import NSFormalization.Paper3.AngularTameProduct
-import Mathlib.Analysis.Calculus.Deriv.Prod
 
 /-!
 # A04 unit G1, sub-lemma SL1 / unit D2: `deriv G t` is the datum of `∂ₜu(t,·)`
@@ -69,7 +68,7 @@ open Set MeasureTheory
 open NavierStokes.ProblemStatement
 open NSFormalization.Paper3
 open NSFormalization.Source.RealSobolev
-open scoped ContDiff ENNReal Topology
+open scoped ContDiff Topology
 
 namespace NSFormalization.Section4.A04
 

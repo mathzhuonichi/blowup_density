@@ -47,7 +47,6 @@ noncomputable section
 open Set MeasureTheory
 open NavierStokes.ProblemStatement
 open NSFormalization.Paper3 (RealVectorSobolev)
-open scoped ContDiff ENNReal
 
 namespace NSFormalization.Section4.A04
 

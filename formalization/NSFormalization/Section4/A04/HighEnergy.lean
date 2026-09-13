@@ -60,9 +60,8 @@ dissipation and no force.
 
 noncomputable section
 
-open Set MeasureTheory
 open NavierStokes.ProblemStatement
-open scoped ENNReal RealInnerProductSpace
+open scoped RealInnerProductSpace
 
 namespace NSFormalization.Section4.A04
 

@@ -89,7 +89,7 @@ open Set MeasureTheory
 open NavierStokes.ProblemStatement
 open NSFormalization.Paper3
 open NSFormalization.Source.RealSobolev
-open scoped ContDiff ENNReal Topology
+open scoped ContDiff
 
 namespace NSFormalization.Section4.A04
 
