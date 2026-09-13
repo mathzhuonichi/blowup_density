@@ -125,3 +125,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A02,052-A02-units-u2-u3,opus-4.8,proof,DONE U2+U3 (Uniqueness.lean: velocity_unique + pressure_gauge spec-verbatim; standard axioms; 30 min / 59 tool uses; stacked on 049 -> rebased onto integration; private slab helpers to be replaced by import of the deduped Restrict),,worker resumed for import switch
 2026-09-13,B01,048-B01-units-6-8,opus-4.8,worker-resume,DONE notes in 4 min / 14 tool uses,PR,PR opened; hold merge until CI window
 2026-09-13,C01,050-C01-units-u1-u3,opus-4.8,worker-resume,DONE prose fixes in 5 min / 16 tool uses,PR,PR opened; hold merge until CI window
+2026-09-13,A04,053-A04-unit-d1,opus,reviewer,ACCEPT-WITH-NOTES (instance no diamond, unique in tree, lift to Paper3 recommended; Ico_mem_nhds exists via to_dual; new obligation D2: deriv G t = datum of ∂ₜu before G1),,worker resumed for fixes; rebased onto integration
