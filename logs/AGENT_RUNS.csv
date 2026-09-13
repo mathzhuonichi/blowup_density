@@ -13,3 +13,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,I02,008 correction spec,opus,worker,done: CorrectionAPI 76 fields typechecks; Lemma 3.4/3.5 R3 content mostly already proved locally; 4 small gaps,,rfl identifications machine-checked
 2026-09-13,I01,007 contract+proofs,opus,worker,done: I01.packet V1 registered; 27 fields proved; standard axioms; make test/mutations green,,contracts may import only Mathlib -> 20 inlined defs + 14 rfl bridges
 2026-09-13,I02,008 review,opus,reviewer,ACCEPT-WITH-NOTES: 6 low issues (Ioo->Ico; line offsets); 16 reuse rows verified R3; gaps list confirmed,#10,
+2026-09-13,U05,010 review,opus,reviewer,ACCEPT-WITH-NOTES: cold CI-path build reproduced (2m08s; 84+4 oleans); 9 capstone axioms standard; closure recomputed; patch minimality verified,#11,
+2026-09-13,I01,007 review,opus,reviewer,ACCEPT-WITH-NOTES: all gates green; 20 inlined defs = upstream; 14 rfl bridges; 5 more bridges requested; docstring/scope wording,,fixes applied by resumed worker
+2026-09-13,D01,009 reconcile,opus,worker,done: Contracts/V1/Data.lean 56 defs; RECONCILIATION.md; widened contract import gate (policy change for owner),,make check needed the allowlist

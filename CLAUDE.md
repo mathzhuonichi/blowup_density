@@ -28,6 +28,8 @@
 - 已有的 `Contracts/V1/*`、`Tests/*` 不改；数学变了加 V2。CI 会拒绝静默修改。
 - **合同 import 规则**（`check_contracts.py` 强制）：`Contracts/*` 只能 import `Mathlib` / `Lean` / `Init` / `Contracts.*`。
   上游或本地的定义要在合同里逐字重写，绑定层用 `rfl` 桥定理（`theorem foo_eq : Contract.foo = Upstream.foo := rfl`）防漂移；每个重写的定义都要有桥。
+  **临时放宽（integration 分支，待 owner 批准）**：009 把规则放宽为"+ 上游 `NavierStokes.*` + 6 个本地规范定义模块白名单"（见 `check_contracts.py` 的 `CONTRACT_CANONICAL_MODULES`）。扩白名单是政策变更，不是日常改动。
+- `verification/Tests` 是 `warningAsError = true`：任何 Tests 模块都不能 import HeliCorgi 的 `Formal.*`（52 个上游 warning 会变成 error），先经过 Bindings。
 - 提交前 `make check`；Lean 改动再跑 `make test`、`make test-mutations`。PR 用模板，写任务 ID、合同版本、跑过的命令。
 
 ## Lean 环境（自包含，不碰 `~/.elan`）
