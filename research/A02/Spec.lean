@@ -54,19 +54,31 @@ Deliberately **not** here, and named with their owners:
   "A02/A04"; A02's *statement* does not need it, and the route recommendation in
   `research/A02/COMPARISON.md` §4 explains when an implementation would;
 * the embedding `‖z‖_∞ ≤ C‖z‖_{H²}` of `eq:Rproduct`
-  (`appendix-a-local-theory.tex:9-13`) — **A03**.  It is *used* twice below and
-  *stated* nowhere: once to bound the Grönwall coefficient `‖∇u₂‖_∞` of
-  `appendix-a-local-theory.tex:121-123`, and once in "an extension through `T`
-  would be bounded in `C_tH²` … hence bounded in `L^∞`"
-  (`04-whole-space.tex:53`).  The first of these is inside the *uniqueness*
-  proof, so **A02 needs `A03` whatever shape its blow-up hypothesis takes**;
-  today's DAG has `A02 ← A01` only.  `research/A02/COMPARISON.md` §5 records the
-  recommended new edge `A03 → A02` (no cycle: `A03 ← D01, U04, A05`, none of
-  which descends from `A02`).  Because that edge is needed regardless, the
-  blow-up hypotheses below are written in the manuscript's own `L^∞` norm
-  (`04-whole-space.tex:35`), which is also the literal shape of R42's `blowup`
-  field (`research/section4/STATEMENTS.md:348-351`), rather than pushed onto
-  R42 as an `H²` conversion.
+  (`appendix-a-local-theory.tex:12`, second clause) — **A03**.  It is *used*
+  twice below and *stated* nowhere: once to bound the Grönwall coefficient
+  `‖∇u₂‖_∞` displayed at `appendix-a-local-theory.tex:118-120`, whose
+  finiteness `:122-123` justifies only by "since `u₂ ∈ C_tH³`', and once in "an
+  extension through `T` would be bounded in `C_tH²` … hence bounded in `L^∞`"
+  (`04-whole-space.tex:53`).  The first of these sits inside the *uniqueness*
+  proof, and nothing in `ClassicalSolutionR` (`Data.lean:624-648`) supplies a
+  sup bound — unlike `Source/SmoothLifespan.lean:23` `Flow`, which carries
+  `velocity_bound`/`derivative_bound` as fields — so **A02 needs `A03` whatever
+  shape its blow-up hypothesis takes**, while today's DAG gives A02 the single
+  dependency A01 (`DEPENDENCY_GRAPH.md:186`).  `research/A02/COMPARISON.md` §5
+  records the required new edge `A03 → A02`; there is no cycle, A03's ancestor
+  closure being `{D01, U03, U04, A05}`.  This does **not** contradict
+  `research/section4/STATEMENTS.md:405-411`, which expresses a *minimality
+  preference* between two ways of giving R42 its `L^∞` step and never denies
+  that A02 needs the embedding; the edge `A03 → R42` it recommends is kept as
+  well, since `04-whole-space.tex:53` names eq:Rproduct inside R42's own proof
+  text.  Because `A03 → A02` is needed regardless, the blow-up hypotheses below
+  are written in the manuscript's own `L^∞` norm (`04-whole-space.tex:35`),
+  which is also the literal shape of R42's `blowup` field
+  (`research/section4/STATEMENTS.md:348-351`), rather than pushed onto R42 as an
+  `H²` conversion.  *Ownership nit:* `DEPENDENCY_GRAPH.md:220` routes the
+  embedding clauses of Lemma A.1 through **A05**, so `A05 → A02` is arguably the
+  tighter edge; naming A03 stays correct because `A03 ← A05` and A03 exports
+  Lemma A.1.
 
 ## Conventions
 
@@ -179,6 +191,18 @@ slab restriction is `u` can always be presented with `velocity = u`, and
 downstream statements about `u` outside `[0,S)` — Theorem 4.2's
 `u_ε = v` window and its force support after `T` — stay meaningful.
 
+*The pressure clause carries a real obligation.*  `UniquenessAPI` pins the
+velocity outright but the pressure only up to `PressureGaugeEquivOn`
+(`Data.lean:589-590`), so "take `p` from any solution whose horizon exceeds
+`t`" does **not** define a single field: two horizons may disagree by a
+`c : ℝ → ℝ`.  The predicate is nevertheless kept in this literal one-pressure
+form — it is the arity `research/section4/STATEMENTS.md:1198` fixes, and R42
+and Theorem 4.7 both name a *specific* representative (`p_ε = π + P_ε`, the
+compact one, `04-whole-space.tex:51,320`), which a modulo-gauge predicate could
+not express.  What makes it inhabitable is the separate field
+`MaximalSolutionAPI.pressure_normalization` below, which supplies one canonical
+gauge; `exists_maximal` is stated as resting on it.
+
 *Maximality is not a third clause.*  That the interval cannot be enlarged is
 the definition of `maximalLifespanR`, not a property of `(u,p)`; that `(u,p)`
 is *the* maximal solution rather than *a* maximal solution is
@@ -200,16 +224,26 @@ Two classical solutions of the *same* whole-space datum `(ν,a,f)` on horizons
 `T₁` and `T₂` have the same velocity on the common interval
 `[0, min(T₁,T₂))`, and their pressures differ there by a function of time only.
 
-**Hypotheses are exactly the manuscript's.**  `02-preliminaries.tex:105-107`
-quantifies over "each initial velocity in the stated class and each force
-smooth into every `H^m` on compact time intervals", i.e. `a ∈ X_R` and
-`f ∈ F_R` (`Data.lean` `initialClassR`, `MemForceR`), at a viscosity `ν > 0`.
-Nothing else is assumed: no smallness, no common horizon, no compact support,
-no `p ∈ L²`.  The Grönwall coefficient `‖∇u₂‖_∞` is finite on compact common
-intervals because `ClassicalSolutionR.sobolev` (`Data.lean:643`) already gives
-`u₂ ∈ C([0,S];H^m)` for every `m`, which is the appendix's "since
-`u₂ ∈ C_tH³`" (`appendix-a-local-theory.tex:122`); it is therefore a step of
-the proof, not a field of this contract.
+**No side condition is added.**  Beyond the manuscript's own data hypotheses
+there is no smallness, no common horizon, no compact support and no
+`p ∈ L²`.  The Grönwall coefficient `‖∇u₂‖_∞` is finite on compact common
+intervals because `ClassicalSolutionR.sobolev` (`Data.lean:643`) gives
+`u₂ ∈ C([0,S];H^m)` for every `m` — the appendix's "since `u₂ ∈ C_tH³`"
+(`appendix-a-local-theory.tex:122-123`) — together with `eq:Rproduct`'s
+`‖z‖_∞ ≤ C‖z‖_{H²}`; it is a step of the proof, not a field of this contract,
+and it is the reason A02 depends on **A03** (see the header).
+
+*Narrowing, recorded deliberately* (the same deviation A01 records at
+`research/A01/Spec.lean:301-309`).  `prop:local` itself quantifies over "each
+initial velocity in the stated class and each force smooth into every `H^m` on
+compact time intervals" (`02-preliminaries.tex:107-109`); `MemForceR`
+(`Data.lean:544-550`) additionally demands the `L¹_t`/`L²_t` finiteness of
+eq:Rclasses at every order.  This contract is therefore stated on a strictly
+smaller force class than the proposition.  That is exactly the class Section 4
+quantifies over — `F_c ⊆ F_rd ⊆ F_R` (`04-whole-space.tex:183-192`) — so
+nothing downstream is lost; a consumer needing the wider hypothesis must widen
+these fields.  The initial class `initialClassR` is the manuscript's `X_R`
+verbatim (`02-preliminaries.tex:12` eq:Rinitial), with no narrowing.
 
 *Why the two clauses are separate.*  The velocity clause is the manuscript's
 Grönwall.  The pressure clause is the manuscript's "the scalar pressure is
@@ -338,6 +372,35 @@ structure MaximalSolutionAPI where
   horizon_le_lifespan : ∀ (ν : ℝ) (a : SpatialField) (f : SpaceTimeField),
     0 < ν → a ∈ initialClassR → MemForceR f →
       ENNReal.ofReal (horizon ν a f) ≤ maximalLifespanR ν a f
+  /-- `02-preliminaries.tex:31,96-100`: **the canonical pressure gauge**, the
+  field that makes one pressure serve every horizon.
+
+  Every classical solution may be re-gauged by subtracting its own value at a
+  fixed basepoint `x₀`; the result is again a classical solution with the same
+  velocity.  Three facts make this the right normalization, and each is part of
+  the obligation: subtracting a function of time alone changes neither
+  `pressureGradient` (so `momentum` and `pressure_gradient` survive) nor the
+  gauge class; `(t,x) ↦ p (t,x₀)` is `ContDiffOn` on the slab because
+  `(t,x) ↦ (t,x₀)` maps it into itself smoothly (so `pressure_smooth`
+  survives); and the normalized field is **gauge invariant** — if
+  `q = p + c(t)` then `q − q(·,x₀) = p − p(·,x₀)` pointwise.
+
+  *Why this and not the recursive subtraction.*  Matching a longer solution's
+  pressure to a shorter one's on the shorter interval, `S_n ↑ T^ν_{max,R}`,
+  needs the gauge `c(t) = q(t,x₀) − p_n(t,x₀)` on all of `[0,S_{n+1})`, but
+  `p_n` is smooth only on `[0,S_n)`, so the extended `c` need not be smooth and
+  `pressure_smooth` is not preserved.  Normalizing *both* sides at the same
+  basepoint avoids the extension entirely: by `uniqueness.pressure_gauge` the
+  normalized pressures of any two solutions of one datum are **equal** on the
+  common interval, with no `c` left to extend.
+
+  This is what `exists_maximal` uses, and it is the step
+  `research/A02/COMPARISON.md` §3 books in units **U4** and **U7**. -/
+  pressure_normalization : ∀ (ν : ℝ) (a : SpatialField) (f : SpaceTimeField)
+    (T : ℝ) (w : ClassicalSolutionR ν a f T) (x₀ : Space),
+      ∃ w' : ClassicalSolutionR ν a f T,
+        w'.velocity = w.velocity ∧
+        ∀ z : SpaceTime, w'.pressure z = w.pressure z - w.pressure (z.1, x₀)
   /-- `02-preliminaries.tex:105` "has a unique maximal smooth velocity":
   **existence** of the maximal solution for every admissible datum, attaining
   `maximalLifespanR` in the sense of `IsMaximalSolution` — a classical solution
@@ -347,7 +410,14 @@ structure MaximalSolutionAPI where
   Given A01 (`localSolution`) and `patch`, this is the manuscript's own
   construction; the definite article of `04-whole-space.tex:32` ("*the*
   solution for `a ∈ X_R` and `g ∈ F_R`") is exactly this field together with
-  `maximal_unique`. -/
+  `maximal_unique`.
+
+  *Two coherence steps, not one.*  The velocity is coherent across horizons by
+  `uniqueness.velocity_unique` directly.  The pressure is **not**: it is
+  coherent only after `pressure_normalization` fixes the basepoint gauge, since
+  `uniqueness.pressure_gauge` alone leaves a `c : ℝ → ℝ` per pair of horizons.
+  Both coherent families are then transported to literal field equality by the
+  `ClassicalSolutionR` congruence lemma of unit **U4**. -/
   exists_maximal : ∀ (ν : ℝ) (a : SpatialField) (f : SpaceTimeField),
     0 < ν → a ∈ initialClassR → MemForceR f →
       ∃ (u : SpaceTimeField) (p : SpaceTimeScalar), IsMaximalSolution ν a f u p
@@ -416,10 +486,21 @@ structure MaximalSolutionAPI where
   supplies the strict inequality R42's skeleton asks for, on a solution that
   still reaches past `T`.  This is the field that turns the manuscript's nested
   margin (risk note **O2**, `research/section4/STATEMENTS.md:388-392`) into one
-  usable `δ`. -/
+  usable `δ`.
+
+  **Three conjuncts, because R42's reference is on a closed interval.**  D01's
+  `ClassicalSolutionR ν a g (T+δ)` is the half-open `[0,T+δ)`, whereas R42's
+  `reference` (`research/section4/STATEMENTS.md:332`) and O2's own
+  recommendation (`:391-392`) are on the **closed** `Icc 0 (T+δ)`.  The strict
+  inequality does yield that — the `iSup` shape of `maximalLifespanR`
+  (`Data.lean:657`) produces some horizon `S > T+δ`, and a solution on `[0,S)`
+  is smooth on `Ico 0 S ⊇ Icc 0 (T+δ)` — but the step is otherwise unnamed, so
+  the middle conjunct names it.  This is D01's own convention note about the
+  half-open form (`Data.lean:660-663`) discharged rather than repeated. -/
   referenceLifespan : ∀ (ν : ℝ) (a : SpatialField) (g : SpaceTimeField)
       (T : ℝ), 0 < T → RegularThrough ν a g T →
       ∃ δ : ℝ, 0 < δ ∧ Nonempty (ClassicalSolutionR ν a g (T + δ)) ∧
+        (∃ S : ℝ, T + δ < S ∧ Nonempty (ClassicalSolutionR ν a g S)) ∧
         ENNReal.ofReal (T + δ) < maximalLifespanR ν a g
   /-- `appendix-a-local-theory.tex:147-152`, the restart datum: the velocity
   slice at a presingular time is again an admissible initial velocity,
