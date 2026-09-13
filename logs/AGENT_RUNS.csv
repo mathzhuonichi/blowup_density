@@ -264,3 +264,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,095-A04-sl5-nonlinear,opus-4.8,worker-resume,DONE row 5i (3 layers) + table corrections (7 decls) in 10 min / 15 tool uses,PR,PR #97 opened; merging
 2026-09-14,A04,100-A04-sl5a-divergence-form,opus-4.8,worker,RUNNING SL5 row 5a pointwise divergence form,—,
 2026-09-14,A01,093-A01-split,opus,reviewer,ACCEPT-WITH-NOTES (E1 clean; projected_of_classicalSolution proved by reviewer in 12 lines; U05 reproduced but was completed by 004/010 — CLAUDE.md stale; §e wrong (A02 restart needs H1); A2b needs C1c carrier bridge; B1 crux confirmed, four entry points listed; next lane P1) in 19 min / 77 tool uses,—,worker resumed; CLAUDE.md/NEXT_SESSION updated
+2026-09-14,A01,101-A01-p1-potential,opus-4.8,worker,RUNNING P1 radial potential gradient,—,
