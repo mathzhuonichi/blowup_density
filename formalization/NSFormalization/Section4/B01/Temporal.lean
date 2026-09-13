@@ -75,7 +75,7 @@ Finite separated sums with `C_c^∞((0,∞))` time factors are dense in the datu
 
 The `maxHeartbeats 400000` bump (measured need: 375,034) pays mostly for the final
 `bochnerDatumENorm` unfolding over the `RealVectorSobolev` carrier (`hval`, ~50%) and the
-per-summand `Lp.coeFn_smul` bookkeeping (`hFi`, ~25%), not for the span-membership step.
+per-summand `Lp.coeFn_smul` bookkeeping (`hFi`, ~25%), not for the span-membership step. -/
 theorem separatedTemporalDense (q : ℝ≥0∞) (hq1 : 1 ≤ q) (hqt : q ≠ ⊤) (s : ℝ)
     (b : ℝ → RealVectorSobolev s) (hb : MemBochnerDatum q s b) (η : ℝ≥0∞) (hη : 0 < η) :
     ∃ (J : ℕ) (φ : Fin J → ℝ → ℝ) (A : Fin J → RealVectorSobolev s),
