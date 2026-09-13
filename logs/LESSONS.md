@@ -1,4 +1,6 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-14 Lean v4.34.0-rc2：/ 已弃用（用 ，或 ）； 会消耗上下文里已有的同名符号假设、分支数变少，先看有没有  之类在 context 里（075）。
+- 2026-09-14  之后  可能无进展， 才展开+beta+对字面 pair 做投影约简； 在目标带类型标注时会把函数参数推错，先 destructure 再 （075）。
 - 2026-09-14 负向检查的坑：`formalization/` 包开着 `autoImplicit`，把出现在陈述类型里的假设删掉会被静默重绑成隐式参数、证明照常通过（假阴性）。只有仅在证明体里用到的假设才能这样测；否则先 `set_option autoImplicit false in` 再删（077）。
 - 2026-09-14 zsh：`--include=*.lean` 不加引号会被 glob 展开报 `no matches found`；`grep -n … $(grep -rl …)` 内层为空时外层 grep 读 stdin 挂死（表现为 120 s 超时）。写成 `--include='*.lean'`，并先把文件名存变量、判空再用。
 - 2026-09-14 worker 报的"heartbeat 爆炸、10⁶ 也卡"（073 `FiniteHilbertBochner.assemble`）是假堵点：reviewer 只 import 该模块、默认预算下 18 行证出 `coordinates_assemble`，真正的错误是 `insert` 与 `Insert.insert` 重名歧义。规矩：worker 声称的编译级堵点必须由 reviewer 用 /tmp 探针复现后才能进计划；lead 不要把它直接写成 lesson（本条替换了一条错误 lesson）。
