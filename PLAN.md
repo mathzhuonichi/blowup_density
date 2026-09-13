@@ -138,21 +138,21 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 032-A02-restrict-order | ACCEPT-WITH-NOTES 已修，已合入 | — | #34 | A02 单元 U4+U6：`restrict`/congruence/`pressure_normalization` 与六个序论字段（无分析） |
 | 033-A02-energy-u1a | ACCEPT-WITH-NOTES，已合入（去重 → 040） | — | #38 | A02 单元 U1a：`ClassicalSolutionR` ⇒ `UniformFiniteEnergy (Icc 0 T')` |
 | 034-D01-lemma-contract | ACCEPT-WITH-NOTES 已修，已合入 | **`D01.datum_lemmas` V1（第 10 条）** | #37 | 把 020/024/025/028 的 D01 引理收成合同 `D01.datum_lemmas`（jets⇔datum、齐次见证、F_R 闭包、切片提取），进 `make test` 闭包 |
-| 035-B01-units-1-3 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | B01 单元 1–3（R46 实际消费的三条：Schwartz/紧支稠密 + 完备化代表元），`Section4/B01/` |
-| 036-B02-units-3-4 | ACCEPT-WITH-NOTES，PR 待合 | — | — | B02 单元 3+4（低频权重可积性/积分值；角 Fourier 上确界界），`Section4/B02/` |
+| 035-B01-units-1-3 | ACCEPT-WITH-NOTES 已修，已合入 | — | #39 | B01 单元 1–3（R46 实际消费的三条：Schwartz/紧支稠密 + 完备化代表元），`Section4/B01/` |
+| 036-B02-units-3-4 | ACCEPT-WITH-NOTES，已合入 | — | #42 | B02 单元 3+4（低频权重可积性/积分值；角 Fourier 上确界界），`Section4/B02/` |
 | 037-R43-spec-A | 盲稿 A+B 比对调和完成，已合入 | — | #40 | `RCritical1API` 4 字段（B 形状）；上游缺口 G1–G7 见 `research/R43/COMPARISON.md` §4 |
 | 038-R43-spec-B | 已合入（经 037） | — | #40 | 命题 4.3 spec 盲稿 B（与 037 互不可见） |
-| 039-A04-units-f1-n1 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A04 单元 F1（`MemForceR` ⇒ L¹_tH^m / 有界 H¹ 力）+ N1（被积函数连续性），`Section4/A04/` |
-| 040-SIMP-A02-dedupe | ACCEPT-WITH-NOTES，PR 待合 | — | — | A02 四模块的 simplifier + tester：Restrict §0 → import SolutionClass；Energy §1–2 → D01 DatumToJets；conformance/negative 检查 |
-| 041-A04-unit-g3 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A04 单元 G3：连续变系数 Grönwall（纯 ODE 引理，Mathlib 缺），`Section4/A04/Gronwall.lean` |
-| 042-D01-halforder-force-norms | ACCEPT-WITH-NOTES，PR 待合 | — | — | D01 G3+G2：`MemForceR f → forceSobolevENormL1 (1/2) f ≠ ⊤`（及齐次孪生）、路径级 Ḣ^{1/2} ≤ H^{1/2}；`Section4/D01/HalfOrder.lean` |
-| 043-A04-unit-z1 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A04 单元 Z1：带线性项的 ζ-正则化开方微分不等式（推广 `Paper1.sqrt_energy_le_primitive`），`Section4/A04/Regularized.lean` |
-| 044-C01-unit-u6 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | C01 单元 U6（无 U1 依赖）：L³ 插值 + `laplacianSqENorm` 桥，`Section4/C01/` |
-| 045-C01-unit-u2 | ACCEPT-WITH-NOTES，PR 待合 | — | — | C01 单元 U2：`MemForceR f ⇒ MemLp (slice f t) 2` + `t ↦ ‖f(t)‖₂` 连续（`forceTimeRegularity`），`Section4/C01/ForceSlices.lean` |
-| 046-R44-spec-A | 盲稿 A+B 比对调和完成，PR 待合 | — | — | `RCritical2API` 9 字段；缺口 G1（J 权重恒等式）、G2（eq:Rcritical2）、G3（H^{-1/2} 力切片）、G5（幂拼写）见 `research/R44/COMPARISON.md` §4 |
+| 039-A04-units-f1-n1 | ACCEPT-WITH-NOTES 已修，已合入 | — | #41 | A04 单元 F1（`MemForceR` ⇒ L¹_tH^m / 有界 H¹ 力）+ N1（被积函数连续性），`Section4/A04/` |
+| 040-SIMP-A02-dedupe | ACCEPT-WITH-NOTES，已合入 | — | #43 | A02 四模块的 simplifier + tester：Restrict §0 → import SolutionClass；Energy §1–2 → D01 DatumToJets；conformance/negative 检查 |
+| 041-A04-unit-g3 | ACCEPT-WITH-NOTES 已修，已合入 | — | #45 | A04 单元 G3：连续变系数 Grönwall（纯 ODE 引理，Mathlib 缺），`Section4/A04/Gronwall.lean` |
+| 042-D01-halforder-force-norms | ACCEPT-WITH-NOTES，已合入 | — | #44 | D01 G3+G2：`MemForceR f → forceSobolevENormL1 (1/2) f ≠ ⊤`（及齐次孪生）、路径级 Ḣ^{1/2} ≤ H^{1/2}；`Section4/D01/HalfOrder.lean` |
+| 043-A04-unit-z1 | ACCEPT-WITH-NOTES 已修，已合入 | — | #46 | A04 单元 Z1：带线性项的 ζ-正则化开方微分不等式（推广 `Paper1.sqrt_energy_le_primitive`），`Section4/A04/Regularized.lean` |
+| 044-C01-unit-u6 | ACCEPT-WITH-NOTES 已修，已合入 | — | #47 | C01 单元 U6（无 U1 依赖）：L³ 插值 + `laplacianSqENorm` 桥，`Section4/C01/` |
+| 045-C01-unit-u2 | ACCEPT-WITH-NOTES，已合入 | — | #48 | C01 单元 U2：`MemForceR f ⇒ MemLp (slice f t) 2` + `t ↦ ‖f(t)‖₂` 连续（`forceTimeRegularity`），`Section4/C01/ForceSlices.lean` |
+| 046-R44-spec-A | 盲稿 A+B 比对调和完成，已合入 | — | #49 | `RCritical2API` 9 字段；缺口 G1（J 权重恒等式）、G2（eq:Rcritical2）、G3（H^{-1/2} 力切片）、G5（幂拼写）见 `research/R44/COMPARISON.md` §4 |
 | 047-R44-spec-B | 已并入 046 | — | — | 命题 4.4 spec 盲稿 B（与 046 互不可见，同样输入） |
 | 048-B01-units-6-8 | 进行中 | — | — | B01 单元 6（`separatedAssembly`）+ 8（`spatialApprox`），`Section4/B01/Separated.lean` |
-| 049-A02-unit-u1b | ACCEPT，PR 待合 | — | — | A02 单元 U1b：`ClassicalSolutionR` 在 `Icc 0 T'` 上的 `‖u‖` 与 `‖∇u‖` 一致上界（经 `D01.datum_lemmas` + `A03.bounded_representative`），`Section4/A02/Bounds.lean` |
+| 049-A02-unit-u1b | ACCEPT，已合入 | — | #50 | A02 单元 U1b：`ClassicalSolutionR` 在 `Icc 0 T'` 上的 `‖u‖` 与 `‖∇u‖` 一致上界（经 `D01.datum_lemmas` + `A03.bounded_representative`），`Section4/A02/Bounds.lean` |
 | 050-C01-units-u1-u3 | 进行中 | — | — | C01 单元 U1（`velocityJets`，经 `D01.datum_lemmas` 现为 S）+ U3（演化打包成 `SmoothL2Field` 路径），`Section4/C01/{VelocityJets,Evolution}.lean` |
 | 051-B02-unit-1 | 进行中 | — | — | B02 单元 1：环形截断 + 光滑化（`annularRestriction`、`annularSmoothing`），`Section4/B02/Annular.lean` |
 | 052-A02-units-u2-u3 | 进行中 | — | — | A02 单元 U2（`velocity_unique` 经 `classical_uniqueness_on_Icc` + U1a + U1b）+ U3（`pressure_gauge`）；**叠在 049 分支上**，`Section4/A02/Uniqueness.lean` |
