@@ -73,3 +73,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,I02,029 review,opus,reviewer,ACCEPT: V2 = V1 (73 fields) + 1 verified via getStructureFields; compat binding rfl; premise discharged by bare term; 6 cosmetic notes,,fixes sent to worker
 2026-09-13,I02,029 review fixes,opus,worker,done: dead maxHeartbeats dropped; counts corrected; refactor suggestion recorded,,
 2026-09-13,A04,030-A04-spec,opus,spec,DONE (Spec.lean 544 lines + COMPARISON 245; typecheck 0; A04 card evidence is a false lead; crux = variable-coefficient Grönwall (unit G3) absent in Mathlib),,reviewer pending
+2026-09-13,A02,032-A02-restrict-order,opus,proof,DONE U4+U6 (Restrict.lean 404 + Order.lean 163 lines; 8 spec fields verbatim; standard axioms); finding: ClassicalSolutionR has no local canonical module -> restated in §0; structures need field-wise bridges not rfl; lake must run from verification/,,reviewer pending
