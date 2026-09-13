@@ -55,6 +55,17 @@
       "declaration": "BlowupDensity.Tests.checkedBoundedRepresentative",
       "scope": "Lemma A.1's H² ↪ L^∞ bounded-representative clause in jet form, whole space only (the torus half of lem:calculus is not stated); not the tame product estimates. Stated for smooth fields whose Fréchet jets of order at most 2 are square integrable, the jet form of H²; its equivalence with the datum form Data.MemHInfty is not asserted.",
       "enabled": true
+    },
+    {
+      "id": "I03.scaling",
+      "parent_task": "I03",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Scaling.lean",
+      "binding_module": "Bindings.Scaling",
+      "test_module": "Tests.Scaling",
+      "declaration": "BlowupDensity.Tests.checkedScaling",
+      "scope": "Proposition 3.3's transport of the rescaled packet (momentum equation at the same viscosity, incompressibility, unbounded speed at T) and the same-family scaling identities of Theorem 4.2's proof: the two E_T rates of eq:packetEscale, eq:wE and eq:REclose, eq:packetFscale, and the inhomogeneous L^q_t H^s_x bounds of eq:RpositiveScale and eq:RnegativeScale with the intermediate-index reduction and the force-convergence clause; not the homogeneous Hdot^s bounds (see HomogeneousScalingAPI) and not the insertion theorem",
+      "enabled": true
     }
   ]
 }
