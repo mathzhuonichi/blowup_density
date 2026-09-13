@@ -1,8 +1,11 @@
 # Working together on blowup_density
 
-The repository is private. `mathzhuonichi` owns it; `erenup` has been invited
-with write permission. Acceptance of the GitHub invitation is required before
-the collaborator can read or push. Use individual accounts and branches.
+The repository is private. `mathzhuonichi` owns it and `erenup` has accepted
+the invitation with repository-wide write permission. Both contributors can
+read the entire repository and push task branches for any part of the project.
+Use individual accounts and branches; merge shared work into `main` through PRs.
+The Section 4 priority determines the order of current research work, not
+which files or topics a contributor may work on.
 
 Start with the [ready work queue](collaboration/TASKS.md) and the
 [Section 4 dependency graph](formalization/blueprint/README.md). The queue
@@ -101,7 +104,7 @@ contributors. The author cannot supply the requested independent review of
 their own PR. A green check certifies only its stated scope.
 
 The CI jobs are `architecture` and `lean-contracts`. They run on PRs and pushes
-to the current default branch, with
+to `main`, with
 read-only workflow permissions and cancellation of superseded runs. The Lean
 job tests the registered suite and compiles changed Lean modules even when
 they are not yet imported by an acceptance test. Thus a new, unimported proof

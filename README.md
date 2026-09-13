@@ -1,5 +1,11 @@
 # Density of forces producing Navier--Stokes blowup
 
+This is one shared repository for the entire project: both contributors can
+work on the manuscript, all formalization code, references, research notes,
+tests and project infrastructure. The default integration branch is `main`;
+use task branches and pull requests for changes. Section 4 is the current
+research priority, not a restriction on collaboration or repository access.
+
 For two-person development, start with [CONTRIBUTING.md](CONTRIBUTING.md),
 the [owned work queue](collaboration/TASKS.md), and the
 [versioned Lean acceptance interfaces](verification/README.md).

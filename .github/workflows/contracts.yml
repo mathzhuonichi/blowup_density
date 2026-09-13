@@ -2,7 +2,7 @@ name: Contracts
 on:
   pull_request:
   push:
-    branches: [codex/section4-blueprint]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
