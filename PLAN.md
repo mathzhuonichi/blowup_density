@@ -161,6 +161,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 055-D01-unit-l9c | 进行中 | — | — | D01 单元 L9(c)：eq:Rpressure `∇p = (I−P)(f − ∇·(u⊗u))` 与压力梯度的全阶 jet（C01 U4/U7 的根缺口），`Section4/D01/Pressure.lean` |
 | 056-A04-g1-split | 进行中 | — | — | A04 单元 G1（forced viscous eq:Rhigh 在 datum 载体上；= A01 A2）的 spec 级拆分：给定 D1/D2/动量/tame 积，列出子引理与精确陈述，证能证的 S 级子步 |
 | 057-A02-uniqueness-contract | 进行中 | — | — | 注册 `A02.uniqueness`（`UniquenessAPI`：`velocity_unique` + `pressure_gauge`，绑定 052/049/033 的定理，`ClassicalSolutionR` 逐字段桥） |
+| 058-A02-units-u5-u9 | 进行中 | — | — | A02 单元 U5（`patch`，取更长 horizon）+ U9（`lifespan_le_of_unbounded`，经 U1b 的 H² 上界机制），`Section4/A02/Patch.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
