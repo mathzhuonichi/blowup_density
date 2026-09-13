@@ -167,7 +167,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 061-A02-maximal-partial-contract | ACCEPT，已合入 | **`A02.maximal_partial`（第 13 条）** | #60 | 注册 `A02.maximal_partial`：`MaximalSolutionAPI` 中已证的 10 个字段（六个序论 + `restrict` + `pressure_normalization` + `patch` + `lifespan_le_of_unbounded`），`horizon_le_lifespan` 带 ⟪A01:solution⟫ 显式假设 |
 | 062-D01-p2-split | ACCEPT-WITH-NOTES 已修，已合入 | — | #64 | 义务 P2（Leray 补投影在实角约定全空间 H^m 上有界）的拆分 + S 级子步：盘点 HeliCorgi 港口的 `r3LerayComplementL2`/`R3LerayRealLinearBridge`，列出实线性/约定/分布↔经典/L²→H^m 四座桥的精确陈述 |
 | 063-B01-unit-7-split | 进行中 | — | — | B01 单元 7（`temporalApprox` / `SeparatedTemporalDense`，L）的拆分 + S 级子步：`dense_span_separatedLp` 在 `H := RealVectorSobolev s` 的实例化、`Submodule.span` 展开、`Lp` 商到代表元 |
-| 064-A02-unit-u7 | 进行中 | — | — | A02 单元 U7：`exists_maximal` + `maximal_unique`（以 ⟪A01:solution⟫ 为显式假设；S ↑ T_max 的有向并 + U2/U3/U4 归一化的相干性），`Section4/A02/Maximal.lean` |
+| 064-A02-unit-u7 | ACCEPT-WITH-NOTES，已合入 | — | #65 | A02 单元 U7：`exists_maximal` + `maximal_unique`（以 ⟪A01:solution⟫ 为显式假设；S ↑ T_max 的有向并 + U2/U3/U4 归一化的相干性），`Section4/A02/Maximal.lean` |
 | 065-A04-sl2-momentum | 进行中 | — | — | A04 子引理 SL2：动量方程的 datum 形式（用 D2 + 钉代表元技巧把 `∂ₜu = f − (u·∇)u + νΔu − ∇p` 提升到 `RealVectorSobolev m` 的 datum 等式），`Section4/A04/MomentumDatum.lean` |
 | 066-A04-sl3-laplacian | 进行中 | — | — | A04 子引理 SL3：Laplace 配对恒等式 `⟪G, datum(Δu)⟫ ≤ −‖∇u‖²_{H^m}` 在 datum 载体上（datum 侧阶移 / `∂ⱼ` 的 datum = `iξⱼ`·datum，与 P2 共用），`Section4/A04/LaplacianDatum.lean` |
 | 067-D01-p2-sl7a | 进行中 | — | — | P2 子引理 SL7a：零阶 Plancherel 种子 `MemLp z 2 ⟹ ∃ A, IsSobolevDatum 0 z A`（用 059 的 `angular_plancherel`；从 `pressure_gradient` 出发给 ∇p 一个零阶 datum），`Section4/D01/OrderZeroDatum.lean` |
