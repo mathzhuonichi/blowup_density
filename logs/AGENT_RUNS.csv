@@ -20,3 +20,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,D01,009 review,opus,reviewer,ACCEPT-WITH-NOTES defs; policy: accept 6-module allowlist narrow vendor prefix; 2 moderate (CompletedDense measurability; H^-1 path not statable); defaultTargets,,fixes sent to worker
 2026-09-13,SPEC,012 ledger v2,opus,worker,done: 12 corrections applied + CHANGELOG; DAG proposals section,#13,doc only
 2026-09-13,D01,009 review fixes,opus,worker,done: 63 defs; homogeneous paths; CompletedDense measurable; allowlist exact 7 modules; 13 policy tests; defaultTargets,#14,
+2026-09-13,A01,013 local theory spec,opus,worker,done: LocalTheoryAPI typechecks; 3-source survey; 15-unit split; strategy memo (OpenAI/local Duhamel spine),,lean-install took ~50 min under 4-way contention
