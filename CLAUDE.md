@@ -31,7 +31,8 @@
   **结构体例外**：`ClassicalSolutionR` 这类 `structure` 只在 `Contracts/V1/Data.lean` 里定义，`formalization/` 不能 import 它，本地重述出来的是另一个归纳类型，`rfl` 桥不可能；绑定层用逐字段的双向转换函数（字段类型 defeq）+ 往返引理。本地重述只允许一份（`Section4/A02/Restrict.lean` §0 是当前那份；后续模块 import 它，不再抄）。
   **临时放宽（integration 分支，待 owner 批准）**：009 把规则放宽为"+ 上游 `NavierStokes.*` + 6 个本地规范定义模块白名单"（见 `check_contracts.py` 的 `CONTRACT_CANONICAL_MODULES`）。扩白名单是政策变更，不是日常改动。
 - `verification/Tests` 是 `warningAsError = true`：任何 Tests 模块都不能 import HeliCorgi 的 `Formal.*`（52 个上游 warning 会变成 error），先经过 Bindings。
-- 提交前 `make check`；Lean 改动再跑 `make test`、`make test-mutations`。PR 用模板，写任务 ID、合同版本、跑过的命令。
+- 提交前 `make check`；Lean 改动再跑 `make test`、`make test-mutations`（一条命令：`scripts/gates.sh [Lean.Module …]`）。PR 用模板，写任务 ID、合同版本、跑过的命令。
+- **hooks / skills**（`.claude/`，会话启动时加载）：`hooks/guard.py` 拦四种已经付过学费的错误（在 `formalization/` 下跑 lake、直接 push main、裸 `git stash`、手改生成的任务卡 / `paper/` / 冻结的 `Contracts/V1`、`Tests`）；`hooks/post_lean.py` 每次改 `.lean` 后查 `sorry/admit/axiom/native_decide` 并对合同文件跑 import 政策。`/lane-merge`、`/lane-review` 是合入与审稿的固定流程。新建 lane 的 `lean-install.sh` 会从 `000-integration` 复制编译产物，首次 `lake` 从约一小时降到分钟级。
 - **CI 是 `cancel-in-progress`**：integration → main 的 PR 在跑 CI 时（约 20 分钟），不要往 integration 连续 push 小 commit，会把 run 取消。记录类 commit 攒着，CI 结束再 push。用 `gh run list --branch erenup/integration` 看状态（`gh pr checks` 对这个 workflow 不显示）。
 
 ## Lean 环境（自包含，不碰 `~/.elan`）

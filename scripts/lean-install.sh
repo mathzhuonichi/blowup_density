@@ -31,6 +31,17 @@ if [ ! -e "$WT/formalization/.lake/packages" ] && [ -d "$ROOT/verification/.lake
   mkdir -p "$WT/formalization/.lake" && ln -s "$ROOT/verification/.lake/packages" "$WT/formalization/.lake/packages"
   echo "== linked formalization/.lake/packages -> $ROOT/verification/.lake/packages"
 fi
+# Seed this worktree's build outputs from the integration worktree (or the main checkout) so a new
+# lane pays seconds, not an hour, before its first lake build; lake re-checks traces and rebuilds
+# only what differs.
+SEED="${LEAN_SEED_DIR:-$ROOT/.claude/worktrees/000-integration}"
+[ -d "$SEED/formalization/.lake/build" ] || SEED="$ROOT"
+for sub in formalization vendor/NavierStokesAndEuler verification; do
+  if [ "$WT" != "$SEED" ] && [ ! -d "$WT/$sub/.lake/build" ] && [ -d "$SEED/$sub/.lake/build" ]; then
+    mkdir -p "$WT/$sub/.lake" && cp -r "$SEED/$sub/.lake/build" "$WT/$sub/.lake/build"
+    echo "== seeded $sub/.lake/build from $SEED"
+  fi
+done
 echo "== lake exe cache get"
 lake exe cache get
 echo "== lake test"
