@@ -1,5 +1,10 @@
 # Source-only formalization snapshot
 
+The copied source is now supported by a separate
+[versioned acceptance-test package](../verification/README.md).
+Follow [CONTRIBUTING.md](../CONTRIBUTING.md) for ongoing development.
+Historical source hashes are provenance, not a restriction on future proof edits.
+
 The active target is Section 4 of the merged
 [blowup_density manuscript](../paper/blowup_density.tex), formerly Paper 3.
 Start with the [proof task tree](blueprint/README.md), not the legacy umbrella
@@ -44,9 +49,12 @@ From the repository root:
 python3 experiments/check_formalization_plan.py
 ```
 
-This verifies source hashes, relative dependency paths, copied import closure,
-cache exclusion, task acyclicity, evidence paths and all 34 original result
-occurrences. It regenerates the Markdown task graph and result map. A successful
+This reports changes from the historical source hashes and verifies relative
+dependency paths, copied import closure, exclusion of tracked caches, task
+acyclicity, evidence paths and all 34 original result occurrences. Ignored local
+build caches are allowed. Add `--snapshot` to require historical byte identity,
+or `--check` to validate generated documentation without rewriting files.
+The default invocation regenerates the task graph and result map. A successful
 check means the package and plan are consistent, not that their proofs are complete.
 
 For a future build session, use the package's pinned toolchain with standard

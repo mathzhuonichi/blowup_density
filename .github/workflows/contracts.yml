@@ -1,0 +1,47 @@
+name: Contracts
+on:
+  pull_request:
+  push:
+    branches: [codex/section4-blueprint]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: contracts-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  architecture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - run: make check
+      - name: Preserve established contracts against the PR base
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: python3 experiments/check_contracts.py --base-ref "$BASE_SHA"
+  lean-contracts:
+    needs: architecture
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      LEAN_NUM_THREADS: 2
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@96e06131c0e9943c780388fd166f55d1e2fa0433
+        with:
+          lake-package-directory: verification
+          auto-config: false
+          build: false
+          test: true
+          lint: false
+          use-mathlib-cache: true
+          use-github-cache: true
+      - name: Test rejection and refactoring behavior
+        run: python3 experiments/test_contract_mutations.py --skip-build

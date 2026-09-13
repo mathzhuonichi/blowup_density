@@ -1,5 +1,11 @@
 # Section 4 proof task tree
 
+For implementation ownership and acceptance interfaces, use the
+[work queue](../../collaboration/TASKS.md) and
+[collaboration guide](../../CONTRIBUTING.md). Task IDs remain stable across
+proof refactors; the mathematical graph and the versioned contract registry
+serve different purposes.
+
 The priority is the merged article's **Section 4, The whole space**, formerly
 Paper 3. The target files are [blowup_density.tex](../../paper/blowup_density.tex)
 and [blowup_density.pdf](../../output/pdf/blowup_density.pdf). The original
