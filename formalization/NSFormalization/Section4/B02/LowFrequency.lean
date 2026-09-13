@@ -43,8 +43,7 @@ be imported here, so `fourierSupBound` is stated with the definitionally equal
 field type.
 -/
 
-open MeasureTheory Set NavierStokes.ProblemStatement NSFormalization.Source
-open scoped RealInnerProductSpace ENNReal
+open MeasureTheory NavierStokes.ProblemStatement NSFormalization.Source
 
 noncomputable section
 

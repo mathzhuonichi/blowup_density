@@ -33,7 +33,6 @@ noncomputable section
 
 namespace NSFormalization.Section4.B02
 
-open MeasureTheory Set Filter
 open NSFormalization.Paper3
 open NSFormalization.Source (angularFourier)
 open NavierStokes.ProblemStatement (Space)

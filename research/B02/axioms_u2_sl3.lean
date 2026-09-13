@@ -14,6 +14,8 @@ Every public declaration must depend on exactly the three standard axioms
 open NSFormalization.Section4.B02
 open NSFormalization.Paper3
 open NavierStokes.ProblemStatement (Space)
+open MeasureTheory
+open scoped ENNReal ContDiff
 
 -- Conformance: `annularSchwartz` inhabits the spec field type verbatim
 -- (`research/B02/Spec.lean:362-364`), with the local (NSFormalization) predicate
@@ -22,6 +24,13 @@ example : ∀ (s : ℝ) (δ R : ℝ), 0 < δ → δ < R →
     ∀ W : RealVectorSobolev s, IsAnnularDatum δ R W →
     ∃ ψ : Fin 3 → SchwartzMap Space ℝ, IsHomogeneousSliceDatum s (schwartzVector ψ) W :=
   annularSchwartz
+
+-- Conformance: `spatialApproxHomogeneous` inhabits the spec field type verbatim,
+-- unconditionally (`research/B02/Spec.lean:539-543`).
+example : ∀ s : ℝ, SplitRange s → ∀ (A : RealVectorSobolev s) (η : ℝ≥0∞), 0 < η →
+    ∃ (h : SpatialField) (H : RealVectorSobolev s),
+      ContDiff ℝ ∞ h ∧ HasCompactSupport h ∧ IsHomogeneousSliceDatum s h H ∧ ‖H - A‖ₑ < η :=
+  spatialApproxHomogeneous
 
 -- Supporting angular-Fourier facts (SL3 route).
 #print axioms angularFourier_conj
