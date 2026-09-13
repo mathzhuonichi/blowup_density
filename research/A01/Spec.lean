@@ -17,38 +17,39 @@ inhabitation is exactly what A01 has to supply.
 `paper/sections/02-preliminaries.tex:105` `prop:local` (= `lem:Rlocal`) asserts
 local existence, uniqueness and continuation.  A01 owns only the **existence**
 half on `R³`, in the form the appendix derives it
-(`paper/sections/appendix-a-local-theory.tex:74-107`) from
+(`paper/sections/appendix-a-local-theory.tex:60-107`) from
 Tao 2013 Theorem 5.4(ii)–(iv):
 
 * one **common** positive interval `[0,T₀)` valid for *every* Sobolev order
-  (`appendix-a-local-theory.tex:81` "The higher-order bounds in part (ii) hold
-  on the same local interval for every order");
+  (`appendix-a-local-theory.tex:66-67` "The higher-order bounds in part (ii)
+  hold on the same local interval for every order");
 * an *ordinary physical* velocity and pressure on `R³`, real valued and
   classically smooth on the closed-at-zero slab
   (`ClassicalSolutionR.velocity_smooth`, `pressure_smooth`);
 * `C^j_tH^k_x` regularity for all `j,k`, with one-sided time derivatives at
-  `t = 0` (`appendix-a-local-theory.tex:85-88`);
+  `t = 0` (`appendix-a-local-theory.tex:71-76`);
 * the projected forced equation `eq:projected`
   (`02-preliminaries.tex:81`) with force `P f`
-  (`appendix-a-local-theory.tex:88-90`);
+  (`appendix-a-local-theory.tex:76-77`);
 * the pressure-gradient recovery `eq:Rpressure` (`02-preliminaries.tex:90`)
   together with the explicit radial potential (`02-preliminaries.tex:96-100`).
 
 Deliberately **not** here, and named with their owners:
 
 * uniqueness on a common interval and the identification of the maximal
-  solution — **A02** (`appendix-a-local-theory.tex:115-124`,
+  solution — **A02** (`appendix-a-local-theory.tex:115-125`,
   `research/section4/STATEMENTS.md:310`);
 * the continuation criterion `eq:criterion` and the `∫₀^S‖u‖²_{H²}` restart —
   **A04** (`02-preliminaries.tex:108`,
-  `appendix-a-local-theory.tex:126-157`);
-* the mild equation `eq:mild` (`appendix-a-local-theory.tex:109-113`).  It is
+  `appendix-a-local-theory.tex:127-157`; `eq:Rhigh` is `:132-137` and
+  `eq:highcontinuation` is `:142-145`);
+* the mild equation `eq:mild` (`appendix-a-local-theory.tex:109-114`).  It is
   the *bridge* used by A02's Grönwall uniqueness and by A04's restart, not a
   clause of `prop:local`; stating it here would force a heat-semigroup object
   into the existence contract.  `research/A01/COMPARISON.md` §2 records it as
   an adapter edge with its owner.
-* the viscosity rescaling and the periodic mean reduction
-  (`appendix-a-local-theory.tex:93-107`): both are *proof devices* of the
+* the viscosity rescaling (`appendix-a-local-theory.tex:79-87`) and the
+  periodic mean reduction (`:89-107`): both are *proof devices* of the
   appendix, and the whole-space statement quantifies over `ν > 0` directly.
 
 ## Conventions
@@ -86,7 +87,7 @@ open NavierStokes.ProblemStatement (Space SpaceTime coordinateVector
   temporalDerivative spatialLaplacian pressureGradient)
 open NSFormalization.Paper3 (RealVectorSobolev)
 open BlowupDensity.Contracts.V1.Data
-open scoped ContDiff
+open scoped ContDiff ENNReal
 
 /-! ## 1. Objects `prop:local` needs and `Data.lean` does not define -/
 
@@ -104,12 +105,21 @@ def convectionDivergence (u : SpaceTimeField) (t : ℝ) (x : Space) : Space :=
     fderiv ℝ (fun y : Space => (u (t, y) j) • u (t, y)) x (coordinateVector j)
 
 /-- `02-preliminaries.tex:94` "its Fourier transform is parallel to `ξ`.  Hence
-`∂_jG_k = ∂_kG_j`": the Jacobian of `G` is symmetric.  This is exactly the
-hypothesis under which the manuscript's radial potential differentiates back to
-`G` (`02-preliminaries.tex:96-100`). -/
+`∂_jG_k = ∂_kG_j`": `G` is differentiable and its Jacobian is symmetric.  This
+is exactly the hypothesis under which the manuscript's radial potential
+differentiates back to `G` (`02-preliminaries.tex:96-100`).
+
+`Differentiable ℝ G` is part of the predicate, not a side condition of its
+consumers: Mathlib's `fderiv` returns junk `0` at a point of
+non-differentiability, so without it *every* nowhere-differentiable field would
+have a "symmetric Jacobian" and `IsLerayComplement` below would cease to be
+single-valued (`research/A01/REVIEW.md` H2).  It costs nothing where the
+predicate is used — `G = ∇p` and `ClassicalSolutionR.pressure_smooth` is
+`ContDiffOn ℝ ∞`. -/
 def HasSymmetricJacobian (G : SpatialField) : Prop :=
-  ∀ x : Space, ∀ i j : Fin 3,
-    (fderiv ℝ G x (coordinateVector i)) j = (fderiv ℝ G x (coordinateVector j)) i
+  Differentiable ℝ G ∧
+    ∀ x : Space, ∀ i j : Fin 3,
+      (fderiv ℝ G x (coordinateVector i)) j = (fderiv ℝ G x (coordinateVector j)) i
 
 /-- `02-preliminaries.tex:76-90`: `G = (I−P)w`, the gradient part of the
 Helmholtz decomposition of a spatial field `w`, characterized rather than
@@ -117,9 +127,15 @@ constructed.
 
 Three clauses, each a manuscript sentence: `G ∈ L²`
 (`02-preliminaries.tex:101` "Its gradient belongs to `L²`, so a nonzero
-constant pressure gradient is excluded"), `G` curl free
+constant pressure gradient is excluded"), `G` differentiable and curl free
 (`02-preliminaries.tex:94`), and `w − G = Pw` divergence free
 (`02-preliminaries.tex:76-79`, the range of `P`).
+
+Single-valuedness (unit **P2**) holds for **differentiable** `w`: two witnesses
+differ by an `L²` field that is curl free and divergence free, hence harmonic
+and zero.  `IsSolenoidal` also reads a bare `fderiv`, so the differentiability
+of `w` is a hypothesis of that unit, not of this definition; on the class this
+contract applies it to, `w = f − ∇·(u⊗u)` is smooth.
 
 The complement is `Pw = w − G`, so `eq:projected`'s right-hand side
 `P(f − ∇·(u⊗u))` is `(f − ∇·(u⊗u)) − G`; this is how `projected` below is
@@ -139,18 +155,18 @@ horizon; joint smoothness of velocity and pressure on `[0,T) × R³`, one-sided
 at `t = 0`; `u(·,0) = a`; `∇·u = 0`; `eq:NS` at interior times in the
 `(u·∇)u + ∇p` form; a *continuous* order-`m` datum path for every integer `m`;
 and `∇p ∈ L²`.  What is added below is precisely the content that
-`appendix-a-local-theory.tex:74-107` extracts beyond a classical solution:
+`appendix-a-local-theory.tex:60-107` extracts beyond a classical solution:
 Sobolev-valued *time smoothness* of every order, the projected form of the
 equation, and the pressure recovery.
 
 All four clauses are stated on the **one** horizon `T`.  That the order `m` is
 quantified *inside* the fixed `T` is the appendix's "one common existence
 interval for all Sobolev orders" (`02-preliminaries.tex:117`,
-`appendix-a-local-theory.tex:81`); it is the reason a fixed-order witness does
+`appendix-a-local-theory.tex:66-67`); it is the reason a fixed-order witness does
 not discharge this contract. -/
 structure ManuscriptLocalRegularity (ν : ℝ) (a : SpatialField) (f : SpaceTimeField)
     (T : ℝ) (u : ClassicalSolutionR ν a f T) : Prop where
-  /-- `appendix-a-local-theory.tex:85-88`: "repeated time differentiation gives
+  /-- `appendix-a-local-theory.tex:71-76`: "repeated time differentiation gives
   `C^j_tH^k_x` regularity for all `j,k`, including one-sided derivatives at the
   initial time".  For every integer order `m` the velocity has an order-`m`
   angular datum at every time of `[0,T)`, and that datum path is `C^∞` in time
@@ -173,14 +189,18 @@ structure ManuscriptLocalRegularity (ν : ℝ) (a : SpatialField) (f : SpaceTime
   Stated at `t = 0` as well as at interior times, because
   `02-preliminaries.tex:90` prescribes the pressure of a classical solution
   everywhere on its interval, while `ClassicalSolutionR.momentum` is imposed on
-  `Ioo 0 T` only. -/
+  `Ioo 0 T` only.  On `Ioo 0 T` this clause is D01 unit **L9(c)**
+  (`research/D01/RECONCILIATION.md:160`, "eq:Rpressure ⟺ `momentum` given
+  `divergence` and `∇p ∈ L²`"), so the genuine increment of this field is the
+  `t = 0` endpoint; the redundancy is kept so that the manuscript's own
+  prescription is readable in one place. -/
   pressure_recovery : ∀ t ∈ Ico (0 : ℝ) T,
     IsLerayComplement
       (fun x : Space => f (t, x) - convectionDivergence u.velocity t x)
       (fun x : Space => pressureGradient u.pressure t x)
   /-- `02-preliminaries.tex:81` eq:projected,
   `∂_tu − νΔu = −P∇·(u⊗u) + P f`, with the force `P f` of
-  `appendix-a-local-theory.tex:88-90`.
+  `appendix-a-local-theory.tex:76-77`.
 
   Written as `P(f − ∇·(u⊗u)) = (f − ∇·(u⊗u)) − ∇p`, which is what the previous
   clause makes it: by `pressure_recovery` the subtracted field is exactly the
@@ -212,7 +232,7 @@ structure ManuscriptLocalRegularity (ν : ℝ) (a : SpatialField) (f : SpaceTime
 
 /-- **The existence half of `prop:local` on `R³`**
 (`paper/sections/02-preliminaries.tex:105`, derived at
-`paper/sections/appendix-a-local-theory.tex:74-107`).
+`paper/sections/appendix-a-local-theory.tex:60-107`).
 
 For every viscosity `ν > 0`, every initial velocity `a ∈ X_R` and every force
 `f ∈ F_R` there is a positive horizon `T₀(ν,a,f)` and a classical whole-space
@@ -223,17 +243,31 @@ The horizon and the solution are **data**, not existential statements, so a
 consumer can name `the` local solution.  This is what makes the contract usable
 by A02, which must compare the constructed insertion field with *the* solution
 for `(a,g)` and then identify the maximal one
-(`research/section4/STATEMENTS.md:310,333`); by R42, whose reference field `v`
-and pressure `π` are `LocalTheoryAPI.velocity`/`pressure` of `(a,g)`
-(`04-whole-space.tex:32`, `STATEMENTS.md:329-333`); by R43/R44, which
-invoke `prop:local` at every finite candidate endpoint
-(`04-whole-space.tex:132`, `STATEMENTS.md:549`); and by R45, which needs only
-`a ∈ X_R` so that the same framework covers `a ∈ S_σ`
-(`STATEMENTS.md:706`).
+(`research/section4/STATEMENTS.md:310,333`); by R43/R44, which invoke
+`prop:local` at every finite candidate endpoint (`04-whole-space.tex:132`,
+`STATEMENTS.md:549`); and by R45, which needs only `a ∈ X_R` so that the same
+framework covers `a ∈ S_σ` (`STATEMENTS.md:706`).
+
+**What this contract does *not* give R42.**  `RInsertAPI`
+(`STATEMENTS.md:330-333`) needs a reference `(v,π)` that is a classical
+solution on the *closed* interval `Icc 0 (T+δ)` together with
+`referenceLifespan : T + δ < maximalLifespanR ν a g`.  `LocalTheoryAPI`
+produces a solution only on `[0, horizon ν a g)`, and nothing here relates
+`horizon` to `T + δ`: the horizon is a *local* interval, not a maximal one.
+R42's reference is therefore supplied by its own `RegularThrough ν a g T`
+hypothesis (`02-preliminaries.tex:34`, `Data.lean:657`) — which already
+asserts a `ClassicalSolutionR ν a g (T+δ)` — with A02 identifying that
+solution with the one below on the overlap and turning `RegularThrough` into
+the strict lifespan inequality.  A01 supplies the *local piece* and the
+uniqueness input; the `[0,T+δ]` statement is A02's.
 
 No uniqueness clause appears: the solution field of this structure is *a*
 witness, and its identification with every other classical solution of the same
-data is A02's obligation.  Consequently `maximalLifespanR ν a f > 0` follows
+data is A02's obligation.
+
+No uniqueness clause appears: the solution field of this structure is *a*
+witness, and its identification with every other classical solution of the same
+Consequently `maximalLifespanR ν a f > 0` follows
 from this contract alone (`Data.lean:650`, the supremum is over nonempty
 horizons), which is the residual risk `research/D01/RECONCILIATION.md:243`
 records as "provable-but-vacuous until prop:local lands".
@@ -250,11 +284,20 @@ structure LocalTheoryAPI where
   /-- The classical solution itself, on `[0,T₀)`, for every manuscript datum:
   `ν > 0`, `a ∈ X_R = H^∞ ∩ L²_σ` (`02-preliminaries.tex:12` eq:Rinitial) and
   `f ∈ F_R` (`02-preliminaries.tex:17` eq:Rclasses).  Exposed as data, so that
-  `velocity` and `pressure` below are functions of the datum. -/
+  `velocity` and `pressure` below are functions of the datum.
+
+  *Narrowing, recorded deliberately.*  `prop:local` itself asks only for "each
+  force smooth into every `H^m` on compact time intervals"
+  (`02-preliminaries.tex:107-108`); `MemForceR` additionally demands the
+  `L¹_t`/`L²_t` finiteness of eq:Rclasses.  This contract is therefore stated
+  on a strictly smaller force class than the proposition.  That is exactly the
+  class Section 4 quantifies over — `F_c ⊆ F_rd ⊆ F_R`
+  (`04-whole-space.tex:183-192`) — so nothing downstream is lost; a consumer
+  needing the wider hypothesis must widen this field. -/
   solution : ∀ (ν : ℝ) (a : SpatialField) (f : SpaceTimeField),
     0 < ν → a ∈ initialClassR → MemForceR f →
       ClassicalSolutionR ν a f (horizon ν a f)
-  /-- `paper/sections/appendix-a-local-theory.tex:81-90` together with
+  /-- `paper/sections/appendix-a-local-theory.tex:66-77` together with
   `02-preliminaries.tex:81,90,96`: the four clauses of `prop:local` that go
   beyond `ClassicalSolutionR`, for that same solution on that same horizon —
   all-order Sobolev time smoothness, eq:Rpressure, eq:projected and the radial
@@ -262,21 +305,62 @@ structure LocalTheoryAPI where
   regularity : ∀ (ν : ℝ) (a : SpatialField) (f : SpaceTimeField)
     (hν : 0 < ν) (ha : a ∈ initialClassR) (hf : MemForceR f),
       ManuscriptLocalRegularity ν a f (horizon ν a f) (solution ν a f hν ha hf)
+  /-- `appendix-a-local-theory.tex:147-150`: "The `H¹` local existence bounds of
+  the cited Theorems 5.1(ii) and 5.4(ii) then give **a common positive
+  existence duration** when restarting at `t₀ ↑ S`: the initial `H¹` norms stay
+  bounded, and `f` is bounded into `H¹` on `[0,S+1]`."
 
-/-! ## 4. Accessors for A02 and R42
+  The horizon is uniform over any `H¹` ball: for each `ν > 0` and each finite
+  bound `K` on `‖a‖_{H¹}` and `‖f‖_{L¹_tH¹}` there is one `δ > 0` below every
+  horizon in that ball.  Quantifier order is the operative content — `δ` is
+  chosen *before* the datum, so a restart family with bounded `H¹` data gets one
+  step length.
+
+  *Why a field and not a remark.*  Without it `horizon` is an arbitrary total
+  function and **A04 cannot state its restart from this contract**
+  (`research/A01/REVIEW.md` M5): the continuation proof needs precisely the
+  displayed uniformity, applied at `t₀ ↑ S`.  A01 is the only owner of a
+  property of the local existence theorem.
+
+  *Why qualitative and not a formula.*  Neither `prop:local`
+  (`02-preliminaries.tex:105-115`) nor the appendix displays a lower bound for
+  `T₀` in terms of `ν` and the norms; the quantitative source behind the
+  appendix's sentence is Tao 2013 Theorem 5.4(ii), whose smallness condition is
+  `(‖u₀‖_{H¹} + ‖f‖_{L¹_tH¹})⁴ T ≤ c` at viscosity one (published p. 52,
+  eq. (46)), rescaled to `ν` by `appendix-a-local-theory.tex:79-87`.  This field
+  states only what the manuscript asserts.  If A04 turns out to need the
+  explicit `c`-form — for a quantitative restart rather than a merely uniform
+  one — that is a strengthening of this field, not a new one.
+
+  The `H¹` norms are the D01 quantities `sobolevENorm 1` (`Data.lean:189`) and
+  `forceSobolevENormL1 1` (`Data.lean:231`), both `ℝ≥0∞`-valued and fail-safe to
+  `⊤`, so `K ≠ ⊤` is the manuscript's "stay bounded". -/
+  horizon_lower_bound : ∀ (ν : ℝ), 0 < ν → ∀ K : ℝ≥0∞, K ≠ ⊤ →
+    ∃ δ : ℝ, 0 < δ ∧
+      ∀ (a : SpatialField) (f : SpaceTimeField),
+        a ∈ initialClassR → MemForceR f →
+          sobolevENorm 1 a ≤ K → forceSobolevENormL1 1 f ≤ K →
+            δ ≤ horizon ν a f
+
+/-! ## 4. Accessors for A02
 
 Naming the fields of the chosen solution, so that downstream contracts refer to
-`the` local velocity and pressure rather than re-deriving them. -/
+`the` local velocity and pressure rather than re-deriving them.  These are the
+*local* fields on `[0, horizon ν a f)`; R42's reference on `Icc 0 (T+δ)` is a
+different object, see the note in `LocalTheoryAPI`. -/
 
-/-- The local velocity `u` for the datum `(ν,a,f)`; the reference field `v` of
-`04-whole-space.tex:32` thm:Rinsert is this at `(ν,a,g)`. -/
+/-- The local velocity `u` for the datum `(ν,a,f)`.  R42's reference field `v`
+(`04-whole-space.tex:32` thm:Rinsert, `STATEMENTS.md:330-333`) *agrees* with
+this on `[0, horizon ν a g)` but is defined on the longer `Icc 0 (T+δ)`; the
+agreement and the extension are A02's, not this accessor's. -/
 def LocalTheoryAPI.velocity (api : LocalTheoryAPI) {ν : ℝ} {a : SpatialField}
     {f : SpaceTimeField} (hν : 0 < ν) (ha : a ∈ initialClassR) (hf : MemForceR f) :
     SpaceTimeField :=
   (api.solution ν a f hν ha hf).velocity
 
-/-- The local pressure `p` for the datum `(ν,a,f)`; the reference pressure `π`
-of `04-whole-space.tex:32` thm:Rinsert is this at `(ν,a,g)`. -/
+/-- The local pressure `p` for the datum `(ν,a,f)`.  As for `velocity`, R42's
+reference pressure `π` agrees with this only on `[0, horizon ν a g)` and up to
+`PressureGaugeEquivOn`; the `[0,T+δ]` statement is A02's. -/
 def LocalTheoryAPI.pressure (api : LocalTheoryAPI) {ν : ℝ} {a : SpatialField}
     {f : SpaceTimeField} (hν : 0 < ν) (ha : a ∈ initialClassR) (hf : MemForceR f) :
     SpaceTimeScalar :=
