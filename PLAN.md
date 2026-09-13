@@ -185,6 +185,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 079-D01-p2-sl4-transverse | 进行中 | — | — | P2 SL4 Fourier 横向形式：无散 `SmoothL2Field` 的任一 (m+1) 阶 datum 满足 a.e. `∑ⱼ ξⱼ Âⱼ(ξ) = 0`（经 066 `isSobolevDatum_partialDeriv` + 标量 datum 唯一性 + 符号消去），再推论到 `∂ₜu(t,·)`（D2 + 074 SL4α + `A05.SmoothL2` 包装），`Section4/D01/Transverse.lean` |
 | 080-R42-blowup-esssup | 进行中 | — | — | R42 子项 2a：逐点 `SpeedUnboundedAt T u` + 切片连续 ⇒ `limsupLeft T (speedENorm (u(t,·))) = ⊤`（开集正测度 ⇒ essSup 下界；limsup=⊤ 的 frequently 刻画），`Section4/R42/BlowupEssSup.lean` |
 | 081-D01-p2-leray-datum | 进行中 | — | — | P2 SL3 收尾：把 073 的 `lerayComplementL2` 重打包成 datum 载体上的 `lerayComplement m : RealVectorSobolev m →L[ℝ] RealVectorSobolev m`（`coordinates ∘ lerayComplementL2 ∘ assemble` + `codRestrict` 到实子空间），范数 ≤ 1、幂等、a.e. 作用、横向为零，`Section4/D01/LerayDatum.lean` |
+| 082-A04-sl3-real-pairing | 进行中 | — | — | A04 SL3 步骤 3a：实载体 `RealSobolevHilbert` 上的反自伴 `⟪f, D_a g⟫_ℝ = -⟪D_a f, g⟫_ℝ`（`angularDirectionalDerivativeReal`，实 `L2.inner_def`）、降阶配对 `⟪Λ⁻¹w, Λw⟫ = ‖w‖²`、降阶符号只依赖 r−s，`Section4/A04/RealPairing.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

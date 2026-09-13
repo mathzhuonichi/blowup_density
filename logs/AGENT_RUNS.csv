@@ -196,3 +196,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,D01,081-D01-p2-leray-datum,opus-4.8,worker,RUNNING datum-carrier Leray complement CLM,—,
 2026-09-14,R42,075-R42-correction-path,opus-4.8,worker,DONE 1e-i both lemmas (cutoff route; 2 decls) in 33 min / 60 tool uses; 4 snags recorded (if_pos deprecated; split_ifs consumes hyps),—,reviewer launched
 2026-09-14,R42,075-R42-correction-path,opus,reviewer,ACCEPT-WITH-NOTES (token-identical to sobolev field; t₁>0 from ScalingAPI.eps_time; 4 snags reproduced; 7 notes none blocking; Section4 modules not in NSFormalization.lean import closure) in 8 min / 33 tool uses,PR,PR #79 opened; merging
+2026-09-14,A04,082-A04-sl3-real-pairing,opus-4.8,worker,RUNNING SL3 step 3a real-carrier skew-adjointness + lowering pairing,—,
