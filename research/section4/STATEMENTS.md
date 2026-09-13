@@ -1,4 +1,4 @@
-# Section 4 statement ledger (task 006-SPEC)
+# Section 4 statement ledger (task 006-SPEC) — version 2 (2026-09-13, after review)
 
 Top-down, BFS order: Theorem 4.1 → Theorem 4.2 → Proposition 4.3 → Proposition 4.4 →
 Corollary 4.5 → Proposition 4.6 → Theorem 4.7. Authoritative source is
@@ -15,13 +15,23 @@ Most are `⟪D01:…⟫`; a few belong to `I01` (packet constants) or `G01` (gri
 marked accordingly. Every field listed in a skeleton is consumed by at least one
 downstream proof in Section 4 — the lists are intended to be complete and minimal.
 
+**Version 2** applies every correction of `research/section4/REVIEW.md` (whose verdict on
+version 1 was ACCEPT-WITH-NOTES). Each edit, the ledger line it touched and the paper line that
+justifies it are listed in `research/section4/CHANGELOG.md`. The `⟪X:name⟫` placeholders stay;
+where `research/D01/DraftB.lean` already names an object, §8 records the intended Lean name in
+parentheses after the placeholder. Packet facts use the field names of `research/I01/Spec.lean`
+(`PacketAPI`) and correction facts those of `research/I02/Spec.lean` (`CorrectionAPI`);
+`verification/Contracts/V1/Packet.lean` is not yet present on this branch. The reviewer's five
+DAG proposals are reproduced verbatim in the closing section — they are proposals for the
+repository owner, and `formalization/blueprint/` is not edited here.
+
 ## 0. Global conventions that all seven results share
 
 | Convention | Where fixed | Content |
 |---|---|---|
 | Equation | `01-introduction.tex:4` `eq:NS` | `∂_t u + (u·∇)u − νΔu + ∇p = f`, `∇·u = 0`, `u(·,0) = a` on `D = R³` |
 | Fourier | `01-introduction.tex:82–98` | `ẑ(ξ) = (2π)^{-3/2}∫ e^{-ix·ξ} z(x) dx`; `‖z‖²_{H^s(R³)} = ∫ (1+|ξ|²)^s |ẑ|²` |
-| Homogeneous | `01-introduction.tex:105–117`, `02-preliminaries.tex:52–74`, App. B | three distinct realizations — see §8.4 |
+| Homogeneous | `01-introduction.tex:105–117`, `02-preliminaries.tex:52–74`, App. B | one definition `Ḣ^s`, `−3/2 < s < 3/2`, with three usages — see §8.4 |
 | Time norms | `01-introduction.tex:125` `eq:time-norms` | `L^q_t X_x = L^q(0,∞;X)` for **forces**; velocity norms use `(0,T)` |
 | Velocity metric | `01-introduction.tex:143` `eq:Enorm` | `‖z‖_{E_T} = ‖z‖_{L^∞(0,T;L²)} + ‖∇z‖_{L²(0,T;L²)}` |
 | Packet | `01-introduction.tex:15` `thm:packet`, line 64 | one solution of Thm 1.1 is fixed once and renamed `(U,P,F)` |
@@ -60,8 +70,12 @@ and give `F_R` the relative topology of the norm `‖·‖_{L^q(0,∞;H^s(R³))}
 So the thresholds are `1/2` for `L¹_t H^s_x` and `−1/2` for `L²_t H^s_x`. The trailing sentence of
 the theorem adds a rider on the approximant produced in the density direction: around every
 reference that is regular through `T`, the approximating solution can be chosen to have
-(a) the same initial velocity `a`, (b) the same earlier history, (c) singularity exactly at `T`
-(not merely by `T`), and (d) velocity difference tending to zero in `E_T`.
+(a) the same initial velocity `a`, (b) the same earlier history — on the insertion theorem's
+window `0 ≤ t ≤ T − 2ε²` (`04-whole-space.tex:36`), a window fixed by the inserted family and
+*not* by the force radius — (c) singularity exactly at `T` (not merely by `T`), which by
+`04-whole-space.tex:34–35` means both `T^ν_{max,R}(a,f) = T` and `limsup_{t↑T}‖u‖_∞ = ∞`
+(`02-preliminaries.tex:47–48`, "unbounded speed at their terminal time"), and (d) velocity
+difference tending to zero in `E_T`.
 
 Quantifier/typing notes that a Lean statement must not lose:
 * `a` is **fixed and universally quantified** in (i); (ii) is asserted **only at `a = 0`**. There
@@ -71,8 +85,9 @@ Quantifier/typing notes that a Lean statement must not lose:
 * The topology is relative on `F_R`, i.e. density inside the smooth class, not in a completion
   (contrast Proposition 4.6). Clarification **C4** is exactly about not conflating the two.
 * `T^ν_{max,R}(a,f) ≤ T` is breakdown **by** `T`, not at `T` (see optional wording change **O1**).
-* Non-density direction means: there exist `f₀ ∈ F_R` and `ρ > 0` with
-  `‖f' − f₀‖_{L^q_tH^s} ≥ ρ` for every `f' ∈ B^R_{ν,0,T}`; the proof takes `f₀ = 0`.
+* Non-density direction means: there is `ρ > 0` with `‖f'‖_{L^q_tH^s} ≥ ρ` for every
+  `f' ∈ B^R_{ν,0,T}`. The paper centres the excluded ball at `0` in both `q` cases
+  (`04-whole-space.tex:179`), so both skeletons state it centred at `0`, never existentially.
 * Context sentence after the theorem (`04-whole-space.tex:16`): "For `q = 2`, the converse uses a
   regular neighborhood whose radius depends on `T`" — i.e. the `q=2` obstruction radius is
   `r_{ν,T}` from Proposition 4.4 and is *not* uniform in `T`.
@@ -144,16 +159,22 @@ structure RMainAPI where
         ∃ f, f ∈ ⟪D01:B_R⟫ ν 0 T ∧ ⟪D01:normLqHs⟫ q s (f - g) < ρ
   nonDensityZero :
     ∀ s : ℝ, thresholds.exponent q 0 ≤ s →
-      ∃ g ρ, g ∈ ⟪D01:F_R⟫ ∧ 0 < ρ ∧
-        ∀ f, f ∈ ⟪D01:B_R⟫ ν 0 T → ρ ≤ ⟪D01:normLqHs⟫ q s (f - g)
+      ∃ ρ : ℝ, 0 < ρ ∧
+        ∀ f, f ∈ ⟪D01:B_R⟫ ν 0 T → ρ ≤ ⟪D01:normLqHs⟫ q s f
+        -- centred at `0 ∈ F_R` (`04-whole-space.tex:179`), matching `RClassesAPI.nonDensityZero`
   -- trailing rider: the approximant around a regular reference is the inserted family
   regularReferenceRider :
     ∀ a g, a ∈ ⟪D01:X_R⟫ → g ∈ ⟪D01:F_R⟫ → ⟪D01:RegularThrough⟫ ν a g T →
       ∀ s : ℝ, s < thresholds.exponent q 0 → ∀ ρ : ℝ, 0 < ρ →
-        ∃ f u, f ∈ ⟪D01:F_R⟫ ∧
-          ⟪D01:Tmax⟫ ν a f = T ∧                                 -- singular exactly at T
-          ⟪D01:IsMaximalSolution⟫ ν a f u ∧
-          (∀ t, 0 ≤ t → t ≤ T - ρ → u t = ⟪D01:refVelocity⟫ ν a g t) ∧  -- same earlier history
+        ∃ f u p ε, 0 < ε ∧ f ∈ ⟪D01:F_R⟫ ∧
+          ⟪D01:Tmax⟫ ν a f = T ∧                                 -- lifespan exactly T
+          ⟪D01:limsupLeft⟫ T (fun t => ⟪D01:normLinfty⟫ (u t)) = ⊤ ∧
+              -- unbounded speed at T (`04-whole-space.tex:35`, `02-preliminaries.tex:47–48`);
+              -- with the previous line this is the rider's "singularity exactly at T"
+          ⟪D01:IsMaximalSolution⟫ ν a f u p ∧    -- five arguments, as in `RInsertAPI.isSol`
+          (∀ t, 0 ≤ t → t ≤ T - 2*ε^2 → u t = ⟪D01:refVelocity⟫ ν a g t) ∧
+              -- same earlier history on the paper's window `T − 2ε²`
+              -- (`04-whole-space.tex:36`), independent of the force radius `ρ`
           ⟪D01:normET⟫ T (u - ⟪D01:refVelocity⟫ ν a g) < ρ ∧
           ⟪D01:normLqHs⟫ q s (f - g) < ρ
 ```
@@ -240,11 +261,12 @@ divergence-free cutoff of Lemma 3.4, and `H_ε` is the correction force of Lemma
 * `⟪D01:normLinfty⟫` = `‖·‖_{L^∞(R³)}` and the embedding `‖z‖_∞ ≤ C‖z‖_{H²}` (`eq:Rproduct`,
   App. A — this is **A03**, see risk note).
 * `⟪D01:normHs s⟫` with `‖z‖_{H^s} ≤ ‖z‖_2` for `s ≤ 0` and `‖z‖_{H^s} ≤ ‖z‖_{H^r}` for `s ≤ r`.
-* `⟪D01:dotHsFinite s⟫` — the *plain Fourier-integral* homogeneous norm
-  `(∫ |ξ|^{2s}|ẑ|²)^{1/2}` for smooth compactly supported `z` and `−3/2 < s < 0`, together with
-  the two facts used at `04-whole-space.tex:70–72`: finiteness (split at `|ξ|=1`, using
-  `|ẑ| ≤ C‖z‖₁` on `|ξ|<1` and `∫_{|ξ|<1}|ξ|^{2s} < ∞`), and `(1+|ξ|²)^s ≤ |ξ|^{2s}` for `s<0`,
-  giving `‖z‖_{H^s} ≤ ‖z‖_{Ḣ^s}`. Uniformity over the rescaled profile family is required.
+* `⟪D01:dotHs s⟫` at `−3/2 < s < 0` — the one homogeneous definition of §8.4, whose norm on a
+  smooth compactly supported `z` is the plain Fourier integral `(∫ |ξ|^{2s}|ẑ|²)^{1/2}`, together
+  with the two facts used at `04-whole-space.tex:70–72`: the smooth-compact finiteness **lemma**
+  (split at `|ξ|=1`, using `|ẑ| ≤ C‖z‖₁` on `|ξ|<1` and `∫_{|ξ|<1}|ξ|^{2s} < ∞`), and
+  `(1+|ξ|²)^s ≤ |ξ|^{2s}` for `s<0`, giving `‖z‖_{H^s} ≤ ‖z‖_{Ḣ^s}`. Uniformity over the rescaled
+  profile family is required.
 * `⟪D01:Cc_infty⟫` on `R³ × (0,∞)` and the fact that `F_R + C_c^∞(R³×(0,∞)) ⊆ F_R`.
 * `⟪I01:packetU⟫`, `⟪I01:packetP⟫`, `⟪I01:packetF⟫`, `⟪I01:packetM⟫ = M`, `⟪I01:packetD⟫ = D`,
   the compact support set `K`, and the zero extension of `U,P,F` to nonpositive source times
@@ -272,6 +294,19 @@ divergence-free cutoff of Lemma 3.4, and `H_ε` is the correction force of Lemma
      neighbourhood of `supp U_ε(t)` during the active interval (`eq:bgzero`); `H_ε` as in
      `eq:H`, smooth across `T`, spacetime compact, `|∂_x^β H_ε| ≤ C_β ε^{-2-|β|}`,
      `‖w_ε‖_{E_T} ≤ Cε^{3/2}`, `‖H_ε‖_{L^q_tL^p_x} ≤ C_{p,q}ε^{α(p,q)+1}`.
+     Field names, `research/I02/Spec.lean` `CorrectionAPI`: `correction` (`w_ε`) with
+     `correction_smooth`, `correction_divergence_free`, `correction_support_ball`,
+     `correction_vanishes_before`, `correction_cancels`/`correction_cancels_germ` (`eq:bgzero`),
+     `correction_energy_bound`; `forceCorrection` (`H_ε`) with `force_smooth`,
+     `force_compactSupport`, `force_positive_time`, `force_derivative_bound`, `force_mixed_bound`
+     (exponent `alpha p q + 1`); `scaledPacket` (`U_ε`), `scaledSpatialCutoff`,
+     `scaledTemporalCutoff`.
+  6. also from I02, the two conclusions Theorem 4.2's proof extracts but its statement omits:
+     `corrected_background` (the background `b_ε = v + w_ε` solves the equation with the
+     *unchanged* pressure `π`, which is why `p_ε − π` may be taken to be the compact `P_ε`,
+     `04-whole-space.tex:51`) and `perturbation_divergence_free` (`u_ε − v = w_ε + U_ε`
+     divergence free at every presingular time). These are the sources of `velDivFree` and
+     `pressureCompact` below.
 * **From A02 (uniqueness and maximal solution identification; `← A01`)**:
   1. the constructed `u_ε` coincides with the unique maximal solution for `(a,g_ε)` on every
      `[0,T']`, `T' < T` — so the lifespan is `≥ T`;
@@ -287,6 +322,7 @@ structure RInsertAPI where
   hν : 0 < ν
   hT : 0 < T
   hδ : 0 < δ
+  thresholds : ThresholdAPI                       -- V1 contract; `s_q = thresholds.exponent q 0`
   a : ⟪D01:VectorField⟫
   g : ⟪D01:ForceField⟫
   ha : a ∈ ⟪D01:X_R⟫
@@ -294,6 +330,7 @@ structure RInsertAPI where
   v : ℝ → ⟪D01:VectorField⟫
   π : ℝ → ⟪D01:Scalar⟫
   reference : ⟪D01:IsClassicalSolution⟫ ν a g v π (Set.Icc 0 (T + δ))
+  referenceLifespan : T + δ < ⟪D01:Tmax⟫ ν a g    -- "*the* solution …, regular through T+δ"
   B : ⟪D01:Ball⟫
   hB : ⟪D01:Nonempty⟫ B
   -- the single ε-family
@@ -302,32 +339,49 @@ structure RInsertAPI where
   gPert : ℝ → ⟪D01:ForceField⟫                    -- ε ↦ g_ε
   uPert : ℝ → ℝ → ⟪D01:VectorField⟫               -- ε ↦ t ↦ u_ε(t)
   pPert : ℝ → ℝ → ⟪D01:Scalar⟫                    -- ε ↦ t ↦ p_ε(t)
+  Cconst : ℝ                                      -- the `C` of eq:REclose, declared before use
   -- conclusions, all for the same family
   memF   : ∀ ε, 0 < ε → ε < ε₀ → gPert ε ∈ ⟪D01:F_R⟫
   isSol  : ∀ ε, 0 < ε → ε < ε₀ →
              ⟪D01:IsMaximalSolution⟫ ν a (gPert ε) (uPert ε) (pPert ε)
   lifespan : ∀ ε, 0 < ε → ε < ε₀ → ⟪D01:Tmax⟫ ν a (gPert ε) = T
   blowup : ∀ ε, 0 < ε → ε < ε₀ →
-             ¬ ⟪D01:BoundedNear⟫ (fun t => ⟪D01:normLinfty⟫ (uPert ε t)) T
+             ⟪D01:limsupLeft⟫ T (fun t => ⟪D01:normLinfty⟫ (uPert ε t)) = ⊤
+             -- the displayed `limsup_{t↑T}‖u_ε(t)‖_∞ = ∞` of `04-whole-space.tex:35`;
+             -- do not substitute the equivalent `¬ BoundedNear` restatement
   history : ∀ ε, 0 < ε → ε < ε₀ → ∀ t, 0 ≤ t → t ≤ T - 2*ε^2 → uPert ε t = v t
-  velSupport : ∀ ε, 0 < ε → ε < ε₀ → ∀ t, t < T →
+  velSupport : ∀ ε, 0 < ε → ε < ε₀ → ∀ t, 0 ≤ t → t < T →
              ⟪D01:support⟫ (uPert ε t - v t) ⊆ B
-  velDivFree : ∀ ε, 0 < ε → ε < ε₀ → ∀ t, t < T →
-             ⟪D01:divFree⟫ (uPert ε t - v t)                 -- used by R47
+  velDivFree : ∀ ε, 0 < ε → ε < ε₀ → ∀ t, 0 ≤ t → t < T →
+             ⟪D01:divFree⟫ (uPert ε t - v t)                 -- used by R47; provenance below
   forceDiff : ∀ ε, 0 < ε → ε < ε₀ →
              gPert ε - g ∈ ⟪D01:Cc_infty⟫ B (Set.Ioi 0)
-  pressureCompact : ∀ ε, 0 < ε → ε < ε₀ → ∀ t, t < T →
+  pressureCompact : ∀ ε, 0 < ε → ε < ε₀ → ∀ t, 0 ≤ t → t < T →
              ⟪D01:support⟫ (pPert ε t - π t) ⊆ B             -- used by R47
   energyRate : ∀ ε, 0 < ε → ε < ε₀ →
              ⟪D01:normET⟫ T (uPert ε - v)
                ≤ (⟪I01:packetM⟫ + ⟪I01:packetD⟫) * ε^(1/2 : ℝ) + Cconst * ε^(3/2 : ℝ)
-  Cconst : ℝ
-  forceConvergence : ∀ q, (q = 1 ∨ q = 2) → ∀ s : ℝ, s < 2/q - 3/2 →
+  forceConvergence : ∀ q, (q = 1 ∨ q = 2) → ∀ s : ℝ, s < thresholds.exponent q 0 →
              ⟪D01:TendsToZero⟫ (fun ε => ⟪D01:normLqHs⟫ q s (gPert ε - g))
 ```
 
-`velDivFree` and `pressureCompact` are not displayed in the paper's Theorem 4.2 but are proved
-inside its proof and are consumed by Theorem 4.7; exposing them here avoids a re-proof.
+The velocity fields (`history`, `velSupport`, `velDivFree`, `pressureCompact`) are guarded by
+`0 ≤ t` because the velocity lives on `[0,T)` only (`04-whole-space.tex:36,38`; §9.15). The force
+fields are not so guarded: `g_ε − g` is defined on all of `(0,∞)` and is generally nonzero after
+`T` (**C3**).
+
+`velDivFree` and `pressureCompact` are not displayed in Theorem 4.2's statement, and their
+provenance is not the same. `pressureCompact` *is* fixed inside the proof:
+`04-whole-space.tex:51`, "The pressure difference may be chosen to be the compact scalar `P_ε`".
+`velDivFree` is **not** proved there; divergence-freeness of `u_ε − v` is imported — with
+`w_ε` from Lemma 3.4 (`03-torus.tex:188`, "a smooth, divergence-free field") and with `U_ε` from
+Proposition 3.3 (`03-torus.tex:141`, "incompressibility is preserved"), both reused verbatim on
+`R³` by `04-whole-space.tex:23–27` — and is *displayed* only in the torus twin, Theorem 3.6(iii)
+(`03-torus.tex:295`, "`u_ε−v` divergence free and supported, for every `t<T`"; see also
+`03-torus.tex:332`, "Each summand of the velocity is divergence free"). In the task graph it
+arrives as `CorrectionAPI.perturbation_divergence_free` (I02). Both are consumed by Theorem 4.7
+(`04-whole-space.tex:306,308`), so exposing them here avoids a re-proof — but the ledger must
+cite the right source for each.
 
 ### 2(v). Risk notes
 
@@ -337,7 +391,8 @@ inside its proof and are consumed by Theorem 4.7; exposing them here avoids a re
   `[0, T + δ + δ']`. Recommendation: state the hypothesis as
   `∃ δ > 0, IsClassicalSolution … (Icc 0 (T+δ))` and record the deviation.
 * **"the solution for `a` and `g`".** The definite article presupposes uniqueness (A02) and that
-  `T^ν_{max,R}(a,g) > T + δ`. Both should be explicit hypotheses.
+  `T^ν_{max,R}(a,g) > T + δ`. Both must be explicit hypotheses; the second is now the field
+  `referenceLifespan` in the skeleton above, the first is A02's job.
 * **C1 (source-force zero extension).** `F_ε(x,t)` evaluates `F` at negative source times for
   `0 < t < t_ε`. The repair (zero extension, smooth because `supp_t F ⋐ (0,∞)`) is already in the
   torus text at `03-torus.tex:108–111` and must be part of `⟪I01:packetF⟫`.
@@ -348,9 +403,12 @@ inside its proof and are consumed by Theorem 4.7; exposing them here avoids a re
   `T`, even though `u_ε` only exists on `[0,T)`. This is the technical root of **C3** and must not
   be quietly dropped.
 * **Missing DAG edge to A03.** The lifespan-`≤ T` argument uses `‖z‖_∞ ≤ C‖z‖_{H²}` from
-  Lemma A.1, whose task is **A03** (`← D01, U04, A05`). `A03` is not an ancestor of `R42` in
-  `DEPENDENCY_GRAPH.md` (`R42 ← I03, A02`). Either add `A03 → R42`, or have `A02` export a
-  ready-made `L^∞`-blowup continuation criterion.
+  Lemma A.1 (`appendix-a-local-theory.tex:9–13`, `eq:Rproduct`, second clause), whose task is
+  **A03** (`← D01, U04, A05`). `A03` is not an ancestor of `R42` in `DEPENDENCY_GRAPH.md`
+  (`R42 ← I03, A02`). The decisive sentence is `04-whole-space.tex:53`. Add `A03 → R42`: no cycle,
+  since none of `D01, U04, A05` descends from `R42`. The alternative — have `A02` export an
+  `L^∞`-blowup continuation criterion — additionally needs `A03 → A02`, which does not exist
+  today. See "DAG changes recommended" at the end of this file.
 * **Pressure gauge.** The proof chooses the *compact* representative `P_ε`, which is generally
   **not** the gauge produced by the potential formula `p = ∫₀¹ G(rx)·x dr`. The contract must
   carry the gauge choice explicitly; Theorem 4.7 depends on it.
@@ -362,7 +420,7 @@ inside its proof and are consumed by Theorem 4.7; exposing them here avoids a re
   `supp θ` strictly inside the coordinate ball, and `ε ≤ 1` (used to absorb lower-order terms).
   A Lean statement should either produce `ε₀` or take these as explicit side conditions.
 * **`E_T` is a norm on `(0,T)` only**; `u_ε` is undefined at `t = T`. `eq:Enorm` "imposes no
-  endpoint value at `T`" (`01-introduction.tex:151`).
+  endpoint value at `T`" (`01-introduction.tex:149–150`).
 * Clarifications affecting this result: **C1**, **C2**, **O2**; **C3** originates here.
 
 ---
@@ -402,11 +460,18 @@ Proof quantities (needed if the statement is decomposed): `Λ = (−Δ)^{1/2}`,
 ### 3(ii). D01 needs
 
 * `⟪D01:X_R⟫`, `⟪D01:F_R⟫`, `⟪D01:Tmax⟫` as above.
-* `⟪D01:dotHs (1/2)⟫` and `⟪D01:dotHs (3/2)⟫` — the **Appendix B Euclidean homogeneous
-  realization** (`appendix-b-embeddings.tex:41–72`): completion of
-  `{v : v̂ ∈ C_c^∞(R³∖{0})}` in `‖Λ^a v‖₂`, realized by `v̂ = |ξ|^{-a}G`, `G ∈ L²`, valid for
-  `0 < a < 3/2`. Applied only to smooth `H^∞` fields, for which the norm is the plain Fourier
-  integral. `‖a‖_{Ḣ^{1/2}} ≤ ‖a‖_{H^{1/2}} < ∞` for `a ∈ X_R`.
+* `⟪D01:dotHs (1/2)⟫` — the single homogeneous definition of §8.4 at `s = 1/2`, together with
+  the **Appendix B identity lemma** (`appendix-b-embeddings.tex:41–72`): the completion of
+  `{v : v̂ ∈ C_c^∞(R³∖{0})}` in `‖Λ^a v‖₂`, realized by `v̂ = |ξ|^{-a}G`, `G ∈ L²`, `0 < a < 3/2`,
+  *is* that same set (`:56–70`), the annular class being dense in it (`:67–69`), with a unique
+  `L^{p_a}` representative, `p_a = 6/(3−2a)`. Applied only to smooth `H^∞` fields, for which the
+  norm is the plain Fourier integral. `‖a‖_{Ḣ^{1/2}} ≤ ‖a‖_{H^{1/2}} < ∞` for `a ∈ X_R`.
+* `‖Λ^{3/2}u‖₂` — a *quantity* on smooth fields, not a space: `z = ‖Λ^{3/2}u‖₂`
+  (`04-whole-space.tex:91`). Appendix B's range excludes the endpoint (`:44`, `:64`) and
+  `:101–102` says "no embedding of `Ḣ^{3/2}` into `L^∞` is asserted". The *notation*
+  `‖v‖_{Ḣ^{3/2}}` nevertheless occurs (`appendix-b-embeddings.tex:31,107`,
+  `appendix-a-local-theory.tex:24`), so D01 must define the norm at `s = 3/2` on `H^∞` fields even
+  though it builds no completion there.
 * `⟪D01:Lambda⟫ = (−Δ)^{1/2}`, symbol `|ξ|` (`02-preliminaries.tex:51`, App. B header).
 * `⟪D01:normLqDotHs 1 (1/2)⟫` = `‖·‖_{L^1(0,∞;Ḣ^{1/2})}`, and the inhomogeneous
   `‖·‖_{L^1(0,∞;H^{1/2})}` with `‖z‖_{Ḣ^{1/2}} ≤ ‖z‖_{H^{1/2}}`.
@@ -459,12 +524,15 @@ at `q = 1`.
 
 ### 3(v). Risk notes
 
-* **Which homogeneous realization.** `Ḣ^{1/2}` and `Ḣ^{3/2}` here are the Appendix B completion,
-  a *different* object from the `Ḣ^{-1}` of `eq:homogeneous-realization` used in Prop. 4.6, and
-  from the "finite Fourier integral" usage at negative orders in Thm 4.2's proof. Three
-  realizations coexist in Section 4 — see §8.4. `Ḣ^{3/2}` sits at the endpoint `a = 3/2` of the
-  Appendix B range and appears only as the *quantity* `‖Λ^{3/2}u‖₂` for smooth fields, never as a
-  completion; do not build a `Ḣ^{3/2}` space.
+* **Which homogeneous realization.** One definition serves all of Section 4 (§8.4):
+  `Ḣ^s = {h ∈ S' : ĥ measurable, |ξ|^s ĥ ∈ L²}`, `‖h‖_{Ḣ^s} = ‖|ξ|^s ĥ‖₂`, for `−3/2 < s < 3/2`.
+  The Appendix B object used here at `s = 1/2` is that same set
+  (`appendix-b-embeddings.tex:56–70`, with `:67–69` giving the density that makes the completion
+  equal it), and the `Ḣ^{-1}` of `eq:homogeneous-realization` used in Prop. 4.6 is the `s = −1`
+  instance verbatim (`02-preliminaries.tex:59–61`). What differs between the three usages is the
+  *lemma* attached, not the object. The one genuine exception is `Ḣ^{3/2}`: it sits at the
+  excluded endpoint and appears only as the quantity `‖Λ^{3/2}u‖₂` on smooth fields; define the
+  norm, do not build the space.
 * **Universality of `c`.** Two separate shrinkings occur (`c < 1/(4C₀)`, then `C₁y ≤ ν/4`). Both
   are `ν`-free because `y ≤ cν`. A formalisation that lets `c` depend on `ν` still yields a true
   statement but breaks the `cν`-ball scaling used in Theorem 4.1's converse.
@@ -664,10 +732,14 @@ structure RClassesAPI where
 
 ### 5(v). Risk notes
 
-* **Missing DAG edge `R42 → R45`.** The corollary's density half needs the *compact support of
-  the force difference*, a Theorem 4.2 conclusion that Theorem 4.1's statement does not carry.
-  With `R45 ← R41` alone, the contract cannot be discharged. Either add `R42 → R45`, or make
-  `R41D` export a "class-preserving" density statement parameterised by the admissible subclass.
+* **Interface gap between `R41` and `R45` — not a missing edge.** The corollary's density half
+  needs the *compact support of the force difference*, Theorem 4.2 conclusion 5
+  (`04-whole-space.tex:38`, "`g_ε−g ∈ C_c^∞(B×(0,∞))`"), which Theorem 4.1's statement
+  (`04-whole-space.tex:7–14`) does not carry. Reachability is fine: `R42` already reaches `R45`
+  transitively through `R42 → R41D → R41 → R45`. What is missing is a *contract* clause, not a
+  graph edge. The fix is to make `R41D` class-parametric over `Y ∈ {F_R, F_c, F_rd}` and route
+  `R41D → R45` alongside the existing `R41 → R45`; `R45` still needs `R41` for the two critical
+  balls (`04-whole-space.tex:198`). See "DAG changes recommended" at the end of this file.
 * **`F_rd ⊆ F_R` is an unproved assertion.** The paper never checks that rapid-decay forces are
   `C^∞([0,∞);H^∞)` with finite `L^1_t`/`L^2_t` `H^m` norms; it is routine but must be in D01's
   obligations. Note `F_rd` allows `f(·,0) ≠ 0` (unlike the periodic class).
@@ -792,21 +864,28 @@ structure REnergyAPI where
   densityHomogeneous :
     ∀ b, b ∈ ⟪D01:BochnerLq⟫ 2 ⟪D01:dotHminus1⟫ → ∀ ρ : ℝ, 0 < ρ →
       ∃ f, f ∈ ⟪D01:F_c⟫ ∧ ⟪D01:Tmax⟫ ν a f ≤ T ∧ ⟪D01:normLqDotHminus1⟫ 2 (f - b) < ρ
-  -- (B) simultaneous convergence for the SAME family as Theorem 4.2
+  -- (B) simultaneous convergence for ONE threaded family — the family of Theorem 4.2
+  insertion : RInsertAPI                     -- the single ε-family, threaded R42 → R46 → R47
+  insertionData : insertion.ν = ν ∧ insertion.T = T ∧ insertion.a = a
   simultaneous :
-    ∀ ins : RInsertAPI, ins.ν = ν → ins.T = T → ins.a = a →
-      ⟪D01:TendsToZero⟫ (fun ε => ⟪D01:normET⟫ T (ins.uPert ε - ins.v)) ∧
-      ⟪D01:TendsToZero⟫ (fun ε => ⟪D01:normLqLp⟫ 1 2 (ins.gPert ε - ins.g)) ∧
-      ⟪D01:TendsToZero⟫ (fun ε => ⟪D01:normLqHs⟫ 2 (-1) (ins.gPert ε - ins.g)) ∧
-      ⟪D01:TendsToZero⟫ (fun ε => ⟪D01:normLqDotHminus1⟫ 2 (ins.gPert ε - ins.g))
+    ⟪D01:TendsToZero⟫ (fun ε => ⟪D01:normET⟫ T (insertion.uPert ε - insertion.v)) ∧
+    ⟪D01:TendsToZero⟫ (fun ε => ⟪D01:normLqLp⟫ 1 2 (insertion.gPert ε - insertion.g)) ∧
+    ⟪D01:TendsToZero⟫ (fun ε => ⟪D01:normLqHs⟫ 2 (-1) (insertion.gPert ε - insertion.g)) ∧
+    ⟪D01:TendsToZero⟫ (fun ε => ⟪D01:normLqDotHminus1⟫ 2 (insertion.gPert ε - insertion.g))
   -- the homogeneous norm is only ever applied to the compact difference
   differenceOnly :
-    ∀ ins : RInsertAPI, ∀ ε, 0 < ε → ε < ins.ε₀ →
-      ins.gPert ε - ins.g ∈ ⟪D01:BochnerLq⟫ 2 ⟪D01:dotHminus1⟫
+    ∀ ε, 0 < ε → ε < insertion.ε₀ →
+      insertion.gPert ε - insertion.g ∈ ⟪D01:BochnerLq⟫ 2 ⟪D01:dotHminus1⟫
 ```
 
-`simultaneous` is deliberately phrased as a property of an `RInsertAPI` value, so that the family
-cannot silently differ from Theorem 4.2's. `differenceOnly` records that no membership claim is
+`insertion` is a **field**, not a universally quantified argument. `04-whole-space.tex:221` reads
+"For every reference in Theorem~\ref{thm:Rinsert}, one may **simultaneously** arrange", i.e. the
+family may be *chosen* so that the four convergences hold. A `∀ ins : RInsertAPI` phrasing asserts
+them for every insertion family; that is strictly stronger than the paper, and for the
+`L²_tḢ^{-1}` clause it is not even implied by `RInsertAPI`'s own fields — that clause is proved
+separately at `04-whole-space.tex:264–271`. Carrying the family as a field also keeps the
+`ν`/`T`/`a` guards (which the earlier `∀ ins` form of `differenceOnly` dropped) and lets `R47`
+demand `convergences.insertion = insertion`. `differenceOnly` records that no membership claim is
 made about `g` or `g_ε` individually.
 
 ### 6(v). Risk notes
@@ -821,8 +900,11 @@ made about `g` or `g_ε` individually.
   ("Given a compact smooth reference force …"). Worth pinning: it is `F_c`, not "smooth forces
   with compact spatial support", and not `F_R`.
 * **Which homogeneous realization.** `Ḣ^{-1}` here is `eq:homogeneous-realization`
-  (`02-preliminaries.tex:58`), which is *not* the Appendix B `Λ^a`-completion used in Prop. 4.3.
-  A single "homogeneous Sobolev space" typeclass covering both would need care at `s < 0`.
+  (`02-preliminaries.tex:58`), i.e. the `s = −1` instance of the one definition in §8.4; the
+  Appendix B `Λ^a`-completion used in Prop. 4.3 is the same set at `s = 1/2`
+  (`appendix-b-embeddings.tex:56–70`). One definition therefore covers both. What needs care is
+  that the temperedness of `h ↦ (|ξ|^s ĥ)^∨` be proved once, uniformly on `|s| < 3/2`, from the
+  estimate the paper gives twice (`appendix-b-embeddings.tex:58–65`, `02-preliminaries.tex:66–69`).
 * **`R46 ← R41D` vs the proof's citation of Corollary 4.5.** The manuscript proof says
   "Corollary 4.5 supplies a singular smooth compact force within the other half". The DAG has
   `R46 ← R41D` and `R45 ← R41`, so the graph and the text disagree about which node carries the
@@ -953,6 +1035,7 @@ structure RGridAPI where
       ⟪G01:cellAverage⟫ G (insertion.gPert ε t) = ⟪G01:cellAverage⟫ G (g t)
   lifespan : ∀ ε, 0 < ε → ε < insertion.ε₀ → ⟪D01:Tmax⟫ ν a (insertion.gPert ε) = T
   convergences : REnergyAPI                       -- re-export of §6(B) for this same family
+  convergencesFamily : convergences.insertion = insertion   -- literally the same ε-family
   differenceSupport :
     ∀ ε, 0 < ε → ε < insertion.ε₀ → ∀ t, t < T →
       ⟪D01:support⟫ (insertion.uPert ε t - v t) ⊆ ball ∧
@@ -1004,16 +1087,30 @@ structure RGridAPI where
 Deduplicated list of everything D01 (and the two objects that belong to I01 and G01) must define,
 with the exact properties Section 4 consumes. Consumers in brackets.
 
+Names in parentheses are the intended Lean names, taken from `research/D01/DraftB.lean`
+(namespace `BlowupDensity.D01.DraftB`) for D01, from `research/I01/Spec.lean` (`PacketAPI`) for
+I01 and from `research/I02/Spec.lean` (`CorrectionAPI`) for the correction facts. They are
+provisional: `verification/Contracts/V1/Data.lean` is being finalized on another lane, and
+`verification/Contracts/V1/Packet.lean` is not on this branch yet. Where no name is given, DraftB
+does not yet define the object.
+
 ### 8.1 Base setting and Fourier normalisation
-* `⟪D01:R3⟫`, real vector fields `R³ → R³`, tensors by componentwise squared sums.
-  `ẑ(ξ) = (2π)^{-3/2}∫ e^{-ix·ξ}z(x) dx`; Plancherel with this normalisation.
+* `⟪D01:R3⟫` (`Space`), real vector fields `R³ → R³` (`SpatialField`), spacetime fields
+  (`VelocityField` = `SpaceTimeField`) and scalars (`PressureField` = `SpaceTimeScalar`), tensors
+  by componentwise squared sums. `ẑ(ξ) = (2π)^{-3/2}∫ e^{-ix·ξ}z(x) dx`; Plancherel with this
+  normalisation (the unitary angular convention, `NSFormalization.Source.angularFourier`, *not*
+  Mathlib's `𝓕`).
   [everything; the `H^s ↪ H^{r}` norm-one embeddings depend on the exact weight]
 * Real subspace of a Fourier space: `F(−ξ) = conj F(ξ)`; conjugation is an isometry for every
-  weight used (real, even), so taking real parts is a contraction. [4.6/B01/B02]
+  weight used (real, even), so taking real parts is a contraction
+  (`RealAngularDatum s`, `RealVectorAngularDatum s`, via
+  `NSFormalization.Source.RealSobolev.realSubspace`). [4.6/B01/B02]
 
 ### 8.2 Inhomogeneous Sobolev scale
-* `⟪D01:Hs s⟫`, all real `s`, norm `‖z‖²_{H^s} = ∫(1+|ξ|²)^s|ẑ|²`; separable Hilbert; isometry
-  `h ↦ ⟨ξ⟩^s ĥ` onto `L²`. [4.1, 4.2, 4.4, 4.6]
+* `⟪D01:Hs s⟫` (`RealVectorAngularDatum s`, realized by `angularVectorRealization s`; norm
+  `vectorSobolevENorm s`, scalar case `sobolevENorm s`, physical slicewise form
+  `physicalSobolevNorm s`), all real `s`, norm `‖z‖²_{H^s} = ∫(1+|ξ|²)^s|ẑ|²`; separable Hilbert;
+  isometry `h ↦ ⟨ξ⟩^s ĥ` onto `L²`. [4.1, 4.2, 4.4, 4.6]
 * Monotonicity with constant one: `‖z‖_{H^s} ≤ ‖z‖_{H^r}` for `s ≤ r`; in particular
   `‖z‖_{H^s} ≤ ‖z‖_2` for `s ≤ 0`. [4.1 converse; 4.2 negative orders]
 * `‖z‖²_{H^{3/2}} = ‖z‖²_{H^{1/2}} + ‖∇z‖²_{H^{1/2}}` (exact weight identity). [4.4]
@@ -1021,85 +1118,136 @@ with the exact properties Section 4 consumes. Consumers in brackets.
 * `H^∞ = ⋂_m H^m` with its Fréchet topology (set only). [X_R]
 
 ### 8.3 Multiplication / embedding facts imported from Appendix A (task A03)
-* `‖z‖_∞ ≤ C‖z‖_{H²}` (`eq:Rproduct`). [4.2 lifespan `≤ T`]
+* `‖z‖_∞ ≤ C‖z‖_{H²}` (`eq:Rproduct`, second clause, `appendix-a-local-theory.tex:12`).
+  [4.2 lifespan `≤ T`, `04-whole-space.tex:53`; this is the input that needs `A03 → R42`]
 * `‖vw‖_{H^m} ≤ C_m(‖v‖_{H²}‖w‖_{H^m} + ‖w‖_{H²}‖v‖_{H^m})`, `m ≥ 2`. [via `prop:local`/A04]
 
-### 8.4 Homogeneous realizations — **three distinct objects**
-1. `⟪D01:dotHs a⟫` for `0 < a < 3/2`: Appendix B completion of `{v : v̂ ∈ C_c^∞(R³∖{0})}` under
-   `‖Λ^a v‖₂`, realized by `v̂ = |ξ|^{-a}G`, `G ∈ L²`, with a unique `L^{p_a}` representative,
-   `p_a = 6/(3−2a)`. Contains all Schwartz and all `H^∞` fields of finite norm. [4.3, 4.4 via A05]
-   Note `Ḣ^{3/2}` is used only as the *quantity* `‖Λ^{3/2}u‖₂` on smooth fields; no space.
-2. `⟪D01:dotHsFinite s⟫` for `−3/2 < s < 0`: the plain Fourier integral
-   `(∫|ξ|^{2s}|ẑ|²)^{1/2}` for smooth compactly supported `z`, finite by splitting at `|ξ|=1`;
-   plus `(1+|ξ|²)^s ≤ |ξ|^{2s}` for `s<0`, so `‖z‖_{H^s} ≤ ‖z‖_{Ḣ^s}`; uniform over the rescaled
-   profile family (common compact support, uniform derivatives). [4.2 negative orders]
-3. `⟪D01:dotHminus1⟫`: `eq:homogeneous-realization`, `{h ∈ S' : ĥ = F` measurable,
-   `|ξ|^{-1}F ∈ L²}`, `h ↦ |ξ|^{-1}ĥ` an isometric bijection onto `L²`; separable Hilbert; no
-   polynomial ambiguity; `|⟨h,z⟩| ≤ ‖h‖_{Ḣ^{-1}}‖∇z‖₂`; `‖k‖²_{Ḣ^{-1}} ≤ C‖k‖₁² + ‖k‖₂²`
-   (`eq:Rnegative-cutoff`). [4.6, 4.7]
+### 8.4 Homogeneous realizations — **one definition, three usages**
+
+Section 4 uses the homogeneous scale in three places, but they are the same formula, so D01
+defines **one** object and proves **three** lemmas about it.
+
+* **The definition.** `⟪D01:dotHs s⟫` (`MemHomogeneous s`; norm `homogeneousENorm s`, vector form
+  `vectorHomogeneousENorm s`) for `−3/2 < s < 3/2`:
+  `Ḣ^s = {h ∈ S' : ĥ measurable, |ξ|^s ĥ ∈ L²}`, `‖h‖_{Ḣ^s} = ‖ |ξ|^s ĥ ‖₂`. The inverse map
+  `G ↦ (|ξ|^s G)^∨` lands in `S'` uniformly on `|s| < 3/2` by the estimate the paper gives twice
+  (`appendix-b-embeddings.tex:58–65`, `02-preliminaries.tex:66–69`): the weight is locally
+  integrable at the origin exactly because `2|s| < 3`. Separable Hilbert, no polynomial ambiguity.
+* **Lemma (a): the Appendix B identity**, `s ∈ {1/2, 1}`. The completion of
+  `{v : v̂ ∈ C_c^∞(R³∖{0})}` under `‖Λ^s v‖₂` *is* `Ḣ^s`: `appendix-b-embeddings.tex:56–70`
+  constructs the realization `v̂ = |ξ|^{-s}G`, `G ∈ L²`, and `:67–69` shows that the annular class
+  is dense in `L²`, so completion and set coincide. Each element has a unique `L^{p_s}`
+  representative, `p_s = 6/(3−2s)`; all Schwartz and all `H^∞` fields of finite norm belong.
+  [4.3, 4.4 via A05]
+* **Lemma (b): smooth-compact finiteness**, `−3/2 < s < 0`. Every smooth compactly supported `z`
+  has finite `‖z‖_{Ḣ^s}`: split at `|ξ|=1`, using `|ẑ| ≤ C‖z‖₁` and `∫_{|ξ|<1}|ξ|^{2s} < ∞` below,
+  the `L²` norm above (`04-whole-space.tex:70`). With `(1+|ξ|²)^s ≤ |ξ|^{2s}` for `s<0`
+  (`04-whole-space.tex:71`) this gives `‖z‖_{H^s} ≤ ‖z‖_{Ḣ^s}`. Required uniformly over the
+  rescaled profile family (common compact support, uniform derivatives).
+  [4.2 negative orders]
+* **Lemma (c): the `s = −1` instance is `eq:homogeneous-realization` verbatim**
+  (`02-preliminaries.tex:58–61`, `MemDotHNegOne`): `h ↦ |ξ|^{-1}ĥ` is an isometric bijection onto
+  `L²`; `|⟨h,z⟩| ≤ ‖h‖_{Ḣ^{-1}}‖∇z‖₂`; `‖k‖²_{Ḣ^{-1}} ≤ C‖k‖₁² + ‖k‖₂²` (`eq:Rnegative-cutoff`).
+  [4.6, 4.7]
+* **`Ḣ^{3/2}` is not one of the usages: it is a quantity, not a space.** It sits at the excluded
+  endpoint of the range (`appendix-b-embeddings.tex:44`, `:64`), and `:101–102` states that "no
+  embedding of `Ḣ^{3/2}` into `L^∞` is asserted". In Section 4 it occurs only as
+  `z = ‖Λ^{3/2}u‖₂` on smooth fields (`04-whole-space.tex:91`). But the *notation* `‖v‖_{Ḣ^{3/2}}`
+  does occur (`appendix-b-embeddings.tex:31,107`, `appendix-a-local-theory.tex:24`), so D01 must
+  still define the norm at `s = 3/2` on `H^∞` fields. Do not build the space.
 * `⟪D01:Lambda⟫ = (−Δ)^{1/2}` (symbol `|ξ|`), `⟪D01:J⟫ = (I−Δ)^{1/2}`. [4.3, 4.4]
 
 ### 8.5 Bochner spaces and mixed norms
 * `⟪D01:BochnerLq q X⟫` on `I = (0,∞)`, `1 ≤ q < ∞`, strongly measurable, a.e. identification,
-  norm `eq:time-norms`; simple-function density; separability of the target. [all]
-* `⟪D01:normLqHs q s⟫`, `⟪D01:normLqLp q p⟫`, `⟪D01:normLqDotHs q s⟫`,
-  `⟪D01:normLqDotHminus1 2⟫`. [all]
-* `⟪D01:normET T⟫ = ‖·‖_{L^∞(0,T;L²)} + ‖∇·‖_{L²(0,T;L²)}` (`eq:Enorm`), no endpoint value at `T`.
-  [4.1 rider, 4.2, 4.6, 4.7]
+  norm `eq:time-norms`; simple-function density; separability of the target. DraftB currently
+  supplies only the *norms* below, not the Bochner space object; 4.6(A) quantifies over elements
+  of the completion, so the space itself is still owed. [all]
+* `⟪D01:normLqHs q s⟫` (`bochnerSobolevENorm q s`, with `l1SobolevENorm`, `l2SobolevENorm`; the
+  physical slicewise form is `physicalBochnerENorm`), `⟪D01:normLqLp q p⟫`,
+  `⟪D01:normLqDotHs q s⟫` and `⟪D01:normLqDotHminus1 2⟫` (`bochnerHomogeneousENorm q s`).
+  Pairwise distances on `F_R`: `forceRelativeDistance q s`, `forceHomogeneousDistance q s`. [all]
+* `⟪D01:normET T⟫ = ‖·‖_{L^∞(0,T;L²)} + ‖∇·‖_{L²(0,T;L²)}` (`eq:Enorm`, `energyNormET T`), no
+  endpoint value at `T` (`01-introduction.tex:149–150`). [4.1 rider, 4.2, 4.6, 4.7]
 * `⟪D01:normLinfty⟫`, `⟪D01:normLp p⟫` for `p ∈ {1,2,3,6}`. [4.2, 4.3, 4.4, 4.6]
 
 ### 8.6 Data and force classes
-* `⟪D01:L2sigma⟫`, `⟪D01:X_R⟫ = H^∞ ∩ L²_σ`. [all]
-* `⟪D01:F_R⟫` (`eq:Rclasses`): `C^∞([0,∞);H^∞)` with one-sided derivatives at `0`, and
+* `⟪D01:L2sigma⟫` (`IsSolenoidal`), `⟪D01:HInfty⟫` (`MemHInfty`),
+  `⟪D01:X_R⟫ = H^∞ ∩ L²_σ` (`XR`). [all]
+* `⟪D01:F_R⟫` (`ForceR`, distributional form `MemForceR`, time path `ForceR.toDistribution`)
+  (`eq:Rclasses`): `C^∞([0,∞);H^∞)` with one-sided derivatives at `0`, and
   `‖f‖_{L^1_tH^m} + ‖f‖_{L^2_tH^m} < ∞` for every integer `m ≥ 0`. Derived facts needed:
   real vector space; `0 ∈ F_R`; `‖f‖_{L^q_tH^s} < ∞` for every real `s`, `q ∈ {1,2}`;
   `F_R + C_c^∞(R³×(0,∞)) ⊆ F_R`; forces may be nonzero at `t = 0` and need not have compact
   support; forces are defined **through and past** any singular time of the velocity. [all]
-* `⟪D01:F_c⟫ = C_c^∞(R³×(0,∞);R³)`; `⟪D01:F_rd⟫` (rapid decay, all `N, α, j`, no common bound);
-  `⟪D01:S_sigma⟫ = S(R³;R³) ∩ L²_σ`. Inclusions `F_c ⊆ F_rd ⊆ F_R`, `S_σ ⊆ X_R`; both subclasses
-  stable under adding `C_c^∞(R³×(0,∞))`; both contain `0`. [4.5, 4.6]
+* `⟪D01:F_c⟫ = C_c^∞(R³×(0,∞);R³)` (`MemFc`); `⟪D01:F_rd⟫` (`MemFrd`; rapid decay, all
+  `N, α, j`, no common bound); `⟪D01:S_sigma⟫ = S(R³;R³) ∩ L²_σ` (`SchwartzSolenoidal`).
+  Inclusions `F_c ⊆ F_rd ⊆ F_R`, `S_σ ⊆ X_R`; both subclasses stable under adding
+  `C_c^∞(R³×(0,∞))`; both contain `0`. [4.5, 4.6]
 * `⟪D01:V⟫ = H¹(R³;R³) ∩ L²_σ` and `V'` — documentation of the intended pairing only. [4.6]
 
 ### 8.7 Equation, projection, pressure, solutions
 * `⟪D01:Leray⟫` with symbol `I − ξ⊗ξ/|ξ|²`, bounded on every `H^s`, commuting with derivatives
   and the heat semigroup; projected equation `eq:projected`. [4.2, 4.3, 4.4]
-* `⟪D01:gradPressure⟫`: `∇p = (I−P)(f − ∇·(u⊗u))` (`eq:Rpressure`); potential formula
-  `p(x,t) = ∫₀¹ G(rx,t)·x dr`; scalar `p` determined up to a function of time; `∇p ∈ L²`, so no
-  nonzero constant pressure gradient; **no** `p ∈ L²(R³)` requirement.
-  `⟪D01:pressureGaugeFreedom⟫`: `p ∼ p + κ(t)`. [4.2, 4.7]
-* `⟪D01:IsClassicalSolution ν a f u p I⟫`: `u ∈ C(I;H^m)` for every integer `m ≥ 0` on each
-  compact subinterval, `∇·u = 0`, `u(0)=a`, `eq:NS` with the pressure convention. [all]
-* `⟪D01:IsMaximalSolution⟫`, `⟪D01:Tmax ν a f⟫ ∈ (0,∞]`, uniqueness, mild formulation `eq:mild`,
-  continuation criterion `∫₀^S ‖u‖²_{H²} < ∞ ⟹` extension (`eq:criterion`). [all]
-* `⟪D01:RegularThrough ν a f T⟫` = extends smoothly to `[0,T+δ]` for some `δ > 0`. [4.1, 4.2, 4.7]
-* `⟪D01:B_R ν a T⟫ = {f ∈ F_R : Tmax ν a f ≤ T}` (`eq:Rsingularforces`). [4.1, 4.5]
-* `⟪D01:DenseRel S Y ‖·‖⟫` — relative density of `S ⊆ Y` in the norm topology; and ordinary
-  density in a complete space. Must be two distinguishable predicates. [4.1/4.5 vs 4.6]
+* `⟪D01:gradPressure⟫` (`pressureGradient`): `∇p = (I−P)(f − ∇·(u⊗u))` (`eq:Rpressure`);
+  potential formula `p(x,t) = ∫₀¹ G(rx,t)·x dr` (`pressurePotential`); scalar `p` determined up to
+  a function of time; `∇p ∈ L²`, so no nonzero constant pressure gradient; **no** `p ∈ L²(R³)`
+  requirement. `⟪D01:pressureGaugeFreedom⟫` (`PressureGaugeEquiv`): `p ∼ p + κ(t)`. [4.2, 4.7]
+* `⟪D01:IsClassicalSolution ν a f u p I⟫` (`ClassicalSolutionR ν a f T`, with `velocity` and
+  `pressure` as fields): `u ∈ C(I;H^m)` for every integer `m ≥ 0` on each compact subinterval,
+  `∇·u = 0`, `u(0)=a`, `eq:NS` with the pressure convention. [all]
+* `⟪D01:IsMaximalSolution⟫` — **one arity throughout: `ν a f u p`**, matching
+  `ClassicalSolutionR`'s velocity/pressure pair. DraftB has the lifespan but not yet the
+  predicate. `⟪D01:Tmax ν a f⟫ ∈ (0,∞]` (`maximalLifespanR`), uniqueness, mild formulation
+  `eq:mild`, continuation criterion `∫₀^S ‖u‖²_{H²} < ∞ ⟹` extension (`eq:criterion`). [all]
+* `⟪D01:RegularThrough ν a f T⟫` (`RegularThrough`) = extends smoothly to `[0,T+δ]` for some
+  `δ > 0`. [4.1, 4.2, 4.7]
+* `⟪D01:B_R ν a T⟫ = {f ∈ F_R : Tmax ν a f ≤ T}` (`breakdownSetR`, zero-datum case
+  `breakdownSetRZero`) (`eq:Rsingularforces`). [4.1, 4.5]
+* `⟪D01:DenseRel S Y ‖·‖⟫` (`RelativelyDense q s`) — relative density of `S ⊆ Y` in the norm
+  topology; and ordinary density in a complete space (`CompletedDense q s`). Must be two
+  distinguishable predicates. [4.1/4.5 vs 4.6]
+* `⟪D01:limsupLeft T φ⟫` — the left limit superior `limsup_{t↑T} φ(t)` in `ℝ≥0∞`, so that
+  `= ⊤` is literally `04-whole-space.tex:35`. Not yet in DraftB. [4.1 rider, 4.2]
 
 ### 8.8 Packet data (task I01) and geometry
-* `⟪I01:packetU⟫, ⟪I01:packetP⟫, ⟪I01:packetF⟫` — one fixed solution of Theorem 1.1, renamed
-  `(U,P,F)` at `01-introduction.tex:64`; compact set `K`; `F ∈ C_c^∞(R³×(0,∞))`;
-  `sup_{t<1}‖U(t)‖₂ < ∞`; `limsup_{t↑1}‖U(t)‖_∞ = ∞`.
-* `⟪I01:packetM⟫ = M`, `⟪I01:packetD⟫ = D` (`lem:packetenergy`), both finite;
-  `U, P` vanish on an initial interval, hence extend smoothly by zero to negative times;
-  **`F` likewise extends by zero to nonpositive source times (C1)**.
+Names from `research/I01/Spec.lean` `PacketAPI` (the registered `Contracts/V1/Packet.lean` is not
+on this branch) and `research/I02/Spec.lean` `CorrectionAPI`.
+* `⟪I01:packetU⟫, ⟪I01:packetP⟫, ⟪I01:packetF⟫` (`PacketAPI.velocity`, `.pressure`, `.force`) —
+  one fixed solution of Theorem 1.1, renamed `(U,P,F)` at `01-introduction.tex:64`; compact set
+  `K` (`.carrier`, `.carrier_compact`, `.velocity_support`, `.pressure_support`);
+  `F ∈ C_c^∞(R³×(0,∞))` (`.force_support`); `sup_{t<1}‖U(t)‖₂ < ∞` (`.energy_isLUB`);
+  `limsup_{t↑1}‖U(t)‖_∞ = ∞` (`.speed_unbounded`). One choice for all viscosities:
+  `PacketFamily.select`.
+* `⟪I01:packetM⟫ = M` (`PacketAPI.energyBound`), `⟪I01:packetD⟫ = D` (`.dissipationBound`)
+  (`lem:packetenergy`), both finite; `U, P` vanish on an initial interval of length
+  `.quietTime` (`.velocity_quiet`, `.pressure_quiet`), hence extend smoothly by zero to negative
+  times (`.velocity_extension_smooth`, `.pressure_extension_smooth`);
+  **`F` likewise extends by zero to nonpositive source times (C1)** (`.force_zero_nonpos`).
 * `K_*` = a compact set containing `K` and the spatial projection of `supp F`;
-  `R_* = sup_{y ∈ K_*}|y|`; scaling center `x₀ ∈ B` (**C2**); `t_ε = T − ε²`.
+  `R_* = sup_{y ∈ K_*}|y|` (`CorrectionAPI.θRadius`); scaling center `x₀ ∈ B`
+  (`CorrectionAPI.x₀`, `.r`) (**C2**); `t_ε = T − ε²` (inside `scaledPacket`).
 * Cutoffs: `θ ∈ C_c^∞(R³)` equal to one near `K_*`; `η ∈ C_c^∞((−2,2))` equal to one on `[−1,1]`;
-  `θ_ε(x) = θ((x−x₀)/ε)`, `η_ε(t) = η((t−T)/ε²)`; smooth-Urysohn construction.
+  `θ_ε(x) = θ((x−x₀)/ε)`, `η_ε(t) = η((t−T)/ε²)`; smooth-Urysohn construction
+  (`CorrectionAPI.θ`, `.η`, `.theta_one`, `.eta_one`, `scaledSpatialCutoff`,
+  `scaledTemporalCutoff`).
 * `χ ∈ C_c^∞`, `χ = 1` on the unit ball, `0` outside radius `2`, `χ_R(x) = χ(x/R)`. [4.6]
 
 ### 8.9 Grids (task G01)
-* `⟪G01:UniformCartesianGrid⟫` (mesh widths, offset, half-open cells, partition of `R³`,
-  infinitely many cells, `|C| > 0`); `⟪G01:cells⟫`; `⟪G01:faceSet⟫` closed, locally finite union
-  of planes, measure zero; `⟪G01:cellAverage⟫ A_h` on `L¹_loc`, codomain `(R³)^{T_h}` with
-  coordinatewise equality; the recorded inequality `Σ_C |C||(A_h z)_C|² ≤ ‖z‖₂²`.
+* `⟪G01:UniformCartesianGrid⟫` (`NSFormalization.Paper3.CartesianGrid`, as reused by DraftB)
+  (mesh widths, offset, half-open cells, partition of `R³`, infinitely many cells, `|C| > 0`);
+  `⟪G01:cells⟫` (`CartesianGrid.cell`); `⟪G01:faceSet⟫` closed, locally finite union of planes,
+  measure zero; `⟪G01:cellAverage⟫ A_h` (`cellAverage`, whole map `gridObservation`) on `L¹_loc`,
+  codomain `(R³)^{T_h}` with coordinatewise equality; the recorded inequality
+  `Σ_C |C||(A_h z)_C|² ≤ ‖z‖₂²`.
 
 ### 8.10 Exponent arithmetic (already frozen)
 * `ThresholdAPI.exponent q s = 2/q − 3/2 − s`, `positive`, `l1`, `l2`, `negativeIndex`,
   `energy : exponent 1 0 = 1/2 ∧ exponent 2 (-1) = 1/2`
-  (`verification/Contracts/V1/Thresholds.lean`). Also `α(p,q) = −3 + 3/p + 2/q` and the relation
-  `‖H_ε‖`-exponent `= ‖F_ε‖`-exponent `+ 1`.
+  (`verification/Contracts/V1/Thresholds.lean`). Also `α(p,q) = −3 + 3/p + 2/q`
+  (`CorrectionAPI`'s `alpha p q`) and the relation `‖H_ε‖`-exponent `= ‖F_ε‖`-exponent `+ 1`.
+* DraftB re-derives the same arithmetic as `criticalOrder q` and `scalingExponent q s`. Those are
+  duplicates: they must be bridged to `ThresholdAPI.exponent` by an `rfl` theorem, and no skeleton
+  may spell `2/q − 3/2` out by hand (this ledger's rule at the top of §0).
 
 ---
 
@@ -1116,8 +1264,9 @@ a place where independent formalisation of two results would silently diverge.
    *simultaneously* arrange …"; Theorem 4.7 says "the inserted solutions may be chosen so that …
    *and* the energy and force convergences in Proposition 4.6 hold". In Lean this must be one
    value (`RInsertAPI`) threaded through R42 → R46 → R47, not three independently existentially
-   quantified families. `I03`'s contract already states "Preserve one epsilon family for all
-   required convergences".
+   quantified families: `REnergyAPI.insertion` is that value, and
+   `RGridAPI.convergencesFamily` pins R47's copy to it. `I03`'s contract already states
+   "Preserve one epsilon family for all required convergences".
 3. **`ε₀` is a single threshold.** All constraints (`2ε² < min(T,δ)`, `x₀+εK_* ⊂ B`,
    `εR_* < dist(x₀,∂B)`, scaled `supp θ` inside the ball, `ε ≤ 1`, plus whatever 4.6's four
    convergences need, plus 4.7's "fixed upper bound on `ε`") must be minimised **before** the
@@ -1168,8 +1317,39 @@ a place where independent formalisation of two results would silently diverge.
 16. **`prop:local` is one proposition serving both domains** (`prop:local` = `lem:Rlocal` =
     merged Proposition 2.1, task A04). Its whole-space instance is the only one Section 4 uses;
     the periodic mean reduction in Appendix A is irrelevant here.
-17. **Missing DAG edges found while reading** (all recorded above): `A03 → R42` (the
-    `H² ↪ L^∞` step in the lifespan argument); `R42 → R45` (compact force difference, needed to
-    stay inside `F_c` / `F_rd`); and the `R46 ← R41D` vs "Corollary 4.5" discrepancy — the cleanest
-    fix is to make `R41D` parametric in the admissible force class so that `R45` and `R46` share
-    one instance.
+17. **DAG defects found while reading** (all recorded above). One is a genuinely missing edge:
+    `A03 → R42`, the `H² ↪ L^∞` step in the lifespan argument (`04-whole-space.tex:53`,
+    `appendix-a-local-theory.tex:9–13`). The second is an **interface** gap, not a reachability
+    gap: `R41`'s contract does not carry the compact force difference that `R45` needs, even
+    though `R42` already reaches `R45` transitively via `R41D → R41 → R45`. The third is the
+    `R46 ← R41D` vs "Corollary 4.5" discrepancy (`04-whole-space.tex:262`). The cleanest fix for
+    the last two is one class-parametric `R41D` over `Y ∈ {F_R, F_c, F_rd}`, shared by `R45` and
+    `R46`. The reviewer's proposals are reproduced verbatim in the next section.
+
+---
+
+## DAG changes recommended
+
+Reproduced **verbatim** from `research/section4/REVIEW.md` ("Recommended DAG changes"). These are
+proposals for the repository owner; `formalization/blueprint/DEPENDENCY_GRAPH.md` and
+`formalization/blueprint/tasks.json` are **not** edited by this ledger.
+
+1. **Add `A03 → R42`** (item 2). No cycle: `A03 ← D01, U04, A05` and none of those
+   descends from `R42`. The ledger's alternative — have `A02` export an `L^∞`-blowup
+   continuation criterion — additionally requires `A03 → A02` (today `A02 ← A01` only, and
+   `A01` does not depend on `A03`), so the direct edge is cleaner. Name
+   `‖z‖_∞ ≤ C‖z‖_{H²}` as an input in `R42`'s contract text.
+2. **Make `R41D` class-parametric** over `Y ∈ {F_R, F_c, F_rd}` (its contract in
+   `tasks.json` currently fixes no class), and **route `R41D → R45`** alongside the
+   existing `R41 → R45`. This is the interface fix for item 3's first half; `R45` still
+   needs `R41` for the two critical balls (`04:198`).
+3. **Keep `R41D → R46` and do not add `R45 → R46`**, provided change 2 lands: `R46` then
+   consumes the same `F_c` instance of `R41D` that `R45` does, matching `04:262` without
+   dragging `R43`/`R44` into `R46`'s closure. If change 2 is rejected, add `R45 → R46`
+   instead (no cycle, but a wider closure).
+4. **No new edge for item 5**: `R42 → R47` already exists. Instead amend `R42`'s contract
+   to export `u_ε − v` divergence free and `p_ε − π = P_ε` compactly supported (the
+   compact gauge), and amend `R47`'s to permit the extra spatially constant `κ(t)`
+   (`04:303`, `04:320`).
+5. **No change** to `I03 → R46`: the `s = −1` homogeneous estimate at `04:264–270` is
+   genuinely I03's, independent of the Cor 4.5 route.
