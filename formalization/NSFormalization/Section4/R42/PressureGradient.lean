@@ -53,10 +53,9 @@ noncomputable section
 
 namespace NSFormalization.Section4.R42
 
-open Set MeasureTheory Filter Topology
+open Set MeasureTheory Topology
 open NavierStokes.ProblemStatement
-open NSFormalization.Section4.A02
-open scoped ContDiff ENNReal
+open scoped ContDiff
 
 /-- A spatial slice `x ↦ p(t,x)` of a scalar field smooth on the closed-at-zero
 slab `[0,T) × ℝ³` is smooth on all of `ℝ³`, **including at `t = 0`**: the slab

@@ -40,8 +40,8 @@ canonical local copy `NSFormalization.Source.PacketScaling.SpeedUnboundedAt`
 
 noncomputable section
 
-open Set MeasureTheory Filter Topology
-open scoped ENNReal ContDiff
+open Set MeasureTheory Filter
+open scoped ContDiff
 open NavierStokes.ProblemStatement
 open NSFormalization.Source.PacketScaling
 

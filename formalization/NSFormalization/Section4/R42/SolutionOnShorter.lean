@@ -52,11 +52,11 @@ noncomputable section
 
 namespace NSFormalization.Section4.R42
 
-open Set MeasureTheory Filter Topology
+open Set
 open NavierStokes.ProblemStatement
 open NSFormalization.Paper3
 open NSFormalization.Section4.A02
-open scoped ContDiff ENNReal SchwartzMap
+open scoped ContDiff
 
 /-- **Item 1 (`sol_on_shorter`).**  Given a reference classical solution `ref` on
 `[0, T+δ)` for `(a, g)`, and the inserted pair `(u, p)` satisfying the

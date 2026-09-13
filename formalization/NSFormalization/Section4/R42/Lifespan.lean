@@ -61,7 +61,7 @@ correct-strength reference (an R42-V2) must carry -- item #6 (6).
 
 noncomputable section
 
-open Set MeasureTheory Filter Topology
+open MeasureTheory Filter
 open scoped ContDiff ENNReal
 open NavierStokes.ProblemStatement
 open NSFormalization.Paper3

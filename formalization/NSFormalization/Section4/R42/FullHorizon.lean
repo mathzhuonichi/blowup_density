@@ -43,11 +43,11 @@ noncomputable section
 
 namespace NSFormalization.Section4.R42
 
-open Set MeasureTheory Filter Topology
+open Set Topology
 open NavierStokes.ProblemStatement
 open NSFormalization.Paper3
 open NSFormalization.Section4.A02
-open scoped ContDiff ENNReal SchwartzMap
+open scoped ContDiff
 
 /-- **Gluing datum paths through datum uniqueness (Lemma A).**  If, for every
 shorter horizon `0 < S < T`, the velocity `u` has an order-`m` datum path
