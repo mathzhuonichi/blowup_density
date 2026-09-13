@@ -309,10 +309,13 @@ The `Integrable` clause is the manuscript's own displayed temperedness estimate
 Bochner integral would silently totalize to `0`.  What the clause constrains is
 the **upper** end: it is the Cauchy-Schwarz bound
 `∫ abs(ξ)^{-s} abs(G·φ) ≤ ‖G‖₂ (∫ abs(ξ)^{-2s} abs(φ)²)^{1/2}`, whose right
-factor is finite at the origin exactly when `2s < 3`, so for `s ≥ 3/2` the
-clause fails for every nonzero `G` and the space collapses to `{0}` — the right
-behaviour, given that `appendix-b-embeddings.tex:101` refuses `Ḣ^{3/2}` as a
-space.  For `s ≤ 0` the integrand is integrable at every `s`.  The **lower**
+factor is finite at the origin exactly when `2s < 3`.  For `s ≥ 3/2` that
+*sufficient* bound is unavailable, but the clause itself can still hold (any
+`G` supported away from the origin, or `G = |ξ|^{3/2} v̂` with `v ∈ H^∞`, since
+then `|ξ|^{-3/2} G = v̂ ∈ L²`); what is lost is surjectivity of the realization
+onto `L²`, which is why `appendix-b-embeddings.tex:101` refuses `Ḣ^{3/2}` as a
+space while still using `‖Λ^{3/2}u‖₂` as a quantity.  For `s ≤ 0` the integrand
+is integrable at every `s`.  The **lower**
 bound `-3/2 < s` is not a hypothesis of this definition: it is what the
 manuscript needs for injectivity and the absence of polynomial ambiguity
 (`02-preliminaries.tex:70`), and it appears as a hypothesis of unit L7, not
@@ -411,12 +414,16 @@ def homogeneousFourierENorm (s : ℝ) (z : SpatialField) : ℝ≥0∞ :=
 
 /-- `04-whole-space.tex:91` and `appendix-b-embeddings.tex:31`:
 `‖z‖_{Ḣ^{3/2}} = ‖Λ^{3/2}z‖₂`, required to exist as a quantity even though
-`Ḣ^{3/2}` is never completed to a space. -/
+`Ḣ^{3/2}` is never completed to a space.  Like `homogeneousFourierENorm` it is
+faithful only on `L¹ ∩ L²` slices; for a general `H^∞` field A05 uses the
+datum-infimum form of this quantity, which agrees with it where both apply. -/
 abbrev dotHThreeHalvesENorm (z : SpatialField) : ℝ≥0∞ :=
   homogeneousFourierENorm (3 / 2) z
 
 /-- `04-whole-space.tex:85` prop:Rcritical1: `‖a‖_{Ḣ^{1/2}}`, the critical
-homogeneous quantity of the small-data hypothesis. -/
+homogeneous quantity of the small-data hypothesis.  Same caveat as
+`dotHThreeHalvesENorm`: faithful on `L¹ ∩ L²` slices; A05 supplies the
+datum-infimum form for general `H^∞` fields. -/
 abbrev dotHHalfENorm (z : SpatialField) : ℝ≥0∞ :=
   homogeneousFourierENorm (1 / 2) z
 
