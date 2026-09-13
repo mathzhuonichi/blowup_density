@@ -60,7 +60,6 @@ namespace NSFormalization.Section4.D01
 open Set MeasureTheory FourierTransform NavierStokes.ProblemStatement
 open NSFormalization.Paper3
 open NSFormalization.Source.RealSobolev
-open scoped ENNReal SchwartzMap ComplexConjugate
 
 variable {z : Space → Space}
 

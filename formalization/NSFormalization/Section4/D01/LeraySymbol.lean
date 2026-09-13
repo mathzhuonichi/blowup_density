@@ -45,7 +45,6 @@ noncomputable section
 
 namespace NSFormalization.Section4.D01.Leray
 
-open scoped RealInnerProductSpace
 open NavierStokes.ProblemStatement (Space)
 
 /-- **The Leray complement fiber symbol** at frequency `ξ`: the orthogonal projection

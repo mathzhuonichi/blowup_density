@@ -59,7 +59,7 @@ noncomputable section
 open MeasureTheory NavierStokes.ProblemStatement
 open NSFormalization.Paper3
 open NSFormalization.Source NSFormalization.Source.RealSobolev
-open scoped ContDiff SchwartzMap ENNReal
+open scoped ContDiff ENNReal
 
 namespace NSFormalization.Section4.D01
 
