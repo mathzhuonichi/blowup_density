@@ -100,7 +100,6 @@ open Set MeasureTheory
 open NavierStokes.ProblemStatement
 open EulerLpTranslation EulerMeanSolenoidal
 open NSFormalization.Paper3 NSFormalization.Source.FourierPhysicalJets
-open scoped ContDiff ENNReal
 
 variable {ν : ℝ} {a : A02.SpatialField} {f : A02.SpaceTimeField} {S T : ℝ}
 
@@ -119,6 +118,8 @@ def velocityField (u : A02.ClassicalSolutionR ν a f T) (hST : S < T)
   smooth := (velocity_slice_smoothL2 u (mem_Ico_of_mem_Icc hST t.2)).1
   integrable := (velocity_slice_smoothL2 u (mem_Ico_of_mem_Icc hST t.2)).2
 
+/-- The representative of `velocityField u hST t` is literally the velocity slice
+`u(t,·)` (`rfl`); a `@[simp]` normal form for the path's underlying field. -/
 @[simp] theorem velocityField_field (u : A02.ClassicalSolutionR ν a f T) (hST : S < T)
     (t : Icc (0 : ℝ) S) :
     (velocityField u hST t).field = fun x => u.velocity (t.1, x) := rfl

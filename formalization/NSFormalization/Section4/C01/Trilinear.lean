@@ -53,7 +53,7 @@ open MeasureTheory
 open NavierStokes.ProblemStatement
 open NSFormalization.Section4.A05 (lap gradTensor SmoothL2 dirDeriv gradientL6Const)
 open NSFormalization.Section4.A02 (SpatialField SpaceTimeField)
-open scoped ContDiff ENNReal
+open scoped ENNReal
 
 namespace NSFormalization.Section4.C01
 
@@ -233,7 +233,8 @@ theorem integrable_advection_inner_laplacian (z : SpatialField) (hz : SmoothL2 z
 
 /-! ## 3. The three spec fields -/
 
-/-- **`trilinearHolder`** (`Spec.lean:410`).  `|⟨(z·∇)z, Δz⟩| ≤ ‖z‖₃‖∇z‖₆‖Δz‖₂`,
+/-- **`trilinearHolder`** (`research/C01/Spec.lean:410`; paper
+`paper/sections/04-whole-space.tex:108`).  `|⟨(z·∇)z, Δz⟩| ≤ ‖z‖₃‖∇z‖₆‖Δz‖₂`,
 in `ℝ≥0∞`.  The real work integral is injected by `enorm`, then bounded by
 `lintegral_advection_inner_laplacian_le`. -/
 theorem trilinearHolder (z : SpatialField) (hz : SmoothL2 z) :
@@ -247,7 +248,8 @@ theorem trilinearHolder (z : SpatialField) (hz : SmoothL2 z) :
     _ ≤ criticalL3 z * eLpNorm (gradTensor z) 6 volume * eLpNorm (lap z) 2 volume :=
         lintegral_advection_inner_laplacian_le z hz
 
-/-- **`trilinearAbsorbed`** (`Spec.lean:435`).  `|⟨(z·∇)z, Δz⟩| ≤ C₁‖z‖₃‖Δz‖₂²`
+/-- **`trilinearAbsorbed`** (`research/C01/Spec.lean:435`; paper
+`paper/sections/04-whole-space.tex:109-112`).  `|⟨(z·∇)z, Δz⟩| ≤ C₁‖z‖₃‖Δz‖₂²`
 with `C₁ = gradientL6Const`, obtained from `trilinearHolder` by the registered
 gradient-`L⁶` clause `A05.eLpNorm_gradTensor_six_le`. -/
 theorem trilinearAbsorbed (z : SpatialField) (hz : SmoothL2 z) :
@@ -265,7 +267,8 @@ theorem trilinearAbsorbed (z : SpatialField) (hz : SmoothL2 z) :
     _ = ENNReal.ofReal gradientL6Const * criticalL3 z * eLpNorm (lap z) 2 volume ^ (2 : ℝ) := by
         rw [ENNReal.rpow_two]; ring
 
-/-- **`laplacianSqENorm`** (`Spec.lean:471`).  `‖Δz‖₂ (as eLpNorm)² = ofReal (∫ ‖Δz‖²)`.
+/-- **`laplacianSqENorm`** (`research/C01/Spec.lean:471`; paper
+`paper/sections/04-whole-space.tex:109,115`).  `‖Δz‖₂ (as eLpNorm)² = ofReal (∫ ‖Δz‖²)`.
 The `L²` case `eLpNorm_two_eq_ofReal_sqrt` is squared. -/
 theorem laplacianSqENorm (z : SpatialField) (hz : SmoothL2 z) :
     eLpNorm (lap z) 2 volume ^ (2 : ℝ) = ENNReal.ofReal (laplacianSq z) := by
