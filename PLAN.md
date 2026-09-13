@@ -165,7 +165,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 059-B02-unit-7 | ACCEPT-WITH-NOTES，已合入（含角约定 Plancherel） | — | #62 | B02 单元 7：`lowHighSplit`（低/高频拆分，`k ∈ L¹ ∩ L²`，角坐标约定），`Section4/B02/LowHigh.lean` |
 | 060-B02-unit-8 | ACCEPT-WITH-NOTES，已合入 | — | #63 | B02 单元 8：`cutoffLebesgue` + `spatialApproxHomogeneous`（对角逼近），`Section4/B02/Cutoff.lean` |
 | 061-A02-maximal-partial-contract | ACCEPT，已合入 | **`A02.maximal_partial`（第 13 条）** | #60 | 注册 `A02.maximal_partial`：`MaximalSolutionAPI` 中已证的 10 个字段（六个序论 + `restrict` + `pressure_normalization` + `patch` + `lifespan_le_of_unbounded`），`horizon_le_lifespan` 带 ⟪A01:solution⟫ 显式假设 |
-| 062-D01-p2-split | 进行中 | — | — | 义务 P2（Leray 补投影在实角约定全空间 H^m 上有界）的拆分 + S 级子步：盘点 HeliCorgi 港口的 `r3LerayComplementL2`/`R3LerayRealLinearBridge`，列出实线性/约定/分布↔经典/L²→H^m 四座桥的精确陈述 |
+| 062-D01-p2-split | ACCEPT-WITH-NOTES 已修，已合入 | — | #64 | 义务 P2（Leray 补投影在实角约定全空间 H^m 上有界）的拆分 + S 级子步：盘点 HeliCorgi 港口的 `r3LerayComplementL2`/`R3LerayRealLinearBridge`，列出实线性/约定/分布↔经典/L²→H^m 四座桥的精确陈述 |
 | 063-B01-unit-7-split | 进行中 | — | — | B01 单元 7（`temporalApprox` / `SeparatedTemporalDense`，L）的拆分 + S 级子步：`dense_span_separatedLp` 在 `H := RealVectorSobolev s` 的实例化、`Submodule.span` 展开、`Lp` 商到代表元 |
 | 064-A02-unit-u7 | 进行中 | — | — | A02 单元 U7：`exists_maximal` + `maximal_unique`（以 ⟪A01:solution⟫ 为显式假设；S ↑ T_max 的有向并 + U2/U3/U4 归一化的相干性），`Section4/A02/Maximal.lean` |
 | 065-A04-sl2-momentum | 进行中 | — | — | A04 子引理 SL2：动量方程的 datum 形式（用 D2 + 钉代表元技巧把 `∂ₜu = f − (u·∇)u + νΔu − ∇p` 提升到 `RealVectorSobolev m` 的 datum 等式），`Section4/A04/MomentumDatum.lean` |
