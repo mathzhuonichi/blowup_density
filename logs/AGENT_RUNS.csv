@@ -129,3 +129,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A02,052-A02-units-u2-u3,opus-4.8,worker-resume,DONE import switch in 4 min / 18 tool uses,,reviewer pending
 2026-09-13,D01,054-D01-datum-lemmas-v2,opus-4.8,contract,DONE (DatumLemmasV2API extends V1 + 3 fields; 2 rfl bridges; make test 11 contracts standard; mutations pass; base compat true; 8 min / 37 tool uses),,reviewer pending
 2026-09-13,A02,052-A02-units-u2-u3,opus,reviewer,ACCEPT (fields verbatim; gauge form correct incl. t=0; 15 hypotheses of classical_uniqueness_on_Icc discharged; rfl residual),PR,PR opened
+2026-09-13,A04,053-A04-unit-d1,opus-4.8,worker-resume,DONE notes in 9 min / 22 tool uses (instance lifted to Paper3),PR,PR opened; merge after current gates
