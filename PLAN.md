@@ -117,7 +117,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 010-U05-port | 已合入（ACCEPT-WITH-NOTES） | — | #11 | 88 模块全部编过；补丁只在 4 个副本、1 处 have；vendor 零改动；make snapshot 待 owner 重拍 |
 | 009-D01-reconcile | 已合入（ACCEPT-WITH-NOTES，已修） | **`Contracts/V1/Data.lean`**（定义合同，不注册） | #14 | 63 个定义；**合同 import 精确白名单 6 本地 + 1 上游模块，待 owner 批准** |
 | 013-A01-spec | review 中 | — | — | LocalTheoryAPI 通过检查；三库都缺"全阶共用区间 + 经典场同定"；建议 OpenAI/本地 forced Duhamel 主干 + HeliCorgi 压力；A2 单元 = A04 的 Grönwall 可共用 |
-| 014-A05-spec | review 中 | — | — | CriticalEmbeddingAPI 通过检查；L⁶ 界几乎现成（OpenAI）；L^{p_a} 骨架在 FractionalRealization 需搬约定（常数差 (2π)^{-a}）；Λ 做关系 |
+| 014-A05-spec | PR #16 待合（CI 跑完） | — | #16 | ACCEPT-WITH-NOTES 已修（端点 3/2）；L⁶ 界几乎现成；L^{p_a} 骨架需搬约定（(2π)^{-a}）；Λ 做关系 |
 | 015-I03-spec | review 中 | — | — | ScalingAPI 46 字段通过检查；正/负阶非齐次缩放源码全覆盖；唯一新数学：缩放场的齐次范数界（R46 用）；ε₀ 需与 CorrectionAPI 钉同一族 |
 | 其余节点 | 未开始 | — | — | |
 

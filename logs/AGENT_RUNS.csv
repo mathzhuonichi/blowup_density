@@ -24,3 +24,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A05,014 critical embeddings spec,opus,worker,done: CriticalEmbeddingAPI (5 estimates + 9 identifications) typechecks; 10-unit split; (2pi)^-a normalization risk; Data.lean docstring issue at s>=3/2,,
 2026-09-13,A01,013 review,opus,reviewer,ACCEPT-WITH-NOTES spec; survey: H1 order-shrink claim unproven; H2 Differentiable needed; M1 missing continuation unit; strategy corrected (T0 at q=6 then propagate),,fixes sent to worker
 2026-09-13,I03,015 scaling spec,opus,worker,done: ScalingAPI 46 fields typechecks; source covers pos/neg inhomogeneous ranges; gap: homogeneous norm of scaled fields (U7 L); convention bridge (2pi)^|s|,,
+2026-09-13,A05,014 review,opus,reviewer,ACCEPT-WITH-NOTES: endpoint 3/2 unowned; citation drift; confirmed (2pi)^-a and Data.lean docstring bug,#16,
+2026-09-13,A05,014 review fixes,opus,worker,done: endpoint added; ~40 citations fixed; not-covered section,#16,
