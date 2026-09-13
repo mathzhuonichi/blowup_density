@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-14 「总化积分」陷阱（与 ⊤ 陷阱同类）：用 Bochner 积分定义的「分布」谓词（`IsSliceDistribution`）对不可积的野场**空洞成立**（两边都是 junk 0），于是零 datum 满足一切，像 `homogeneousDatumSub` 这种无可积性假设的字段就是假的（068 reviewer 反例）。spec 审查要问：这个谓词对不可积输入是不是 vacuous？必要时加 `Integrable (ψ·z)` 或用 `LocIntField`。
 - 2026-09-13 **lead 自己动 Lean 文件必须先 build 再 commit**：063 的 docstring 按行号替换吞掉了 `-/`，而检查命令用了 `lake build … | grep`（管道吃掉了退出码，`set -e` 不生效），提交并合入了坏文件（#67），靠 070 热修。规则：改 `.lean` 只用 Edit/精确字符串替换；`set -o pipefail`；门禁绿了才 commit。
 - 2026-09-13 新建 worktree **必须先 `bash scripts/lean-install.sh`** 再碰 lake，否则 `verification/.lake/packages` 不存在，lake 会从头 clone Mathlib（070 热修时又犯了一次，3.9G 才发现）。
 - 2026-09-13 `pkill -f`/`pgrep -f <字面串>` 会匹配到自己 shell 的命令行并把自己杀掉（exit 144）；用 `pgrep -f "merge_6[7]_then"` 这种带字符类的模式避免自匹配。
