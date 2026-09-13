@@ -216,6 +216,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 110-B02-approx-compact | 审阅中 | — | — | B02 结论字段 `approxCompactHomogeneous`（M，90–140 行）：跨 realization 的三角不等式粘合 `bochnerDatumENorm q s (separatedPath φ A − separatedPath φ A') ≤ ∑ ‖φ_j‖_{L^q}·‖A_j − A'_j‖ₑ` + `temporalApprox` + `spatialApproxHomogeneous` + `separatedAssembly`（103），`Section4/B02/ApproxCompact.lean` |
 | 111-D01-p2-sl8-prep | 审阅中 | — | — | P2 SL8 预备：`orderZeroDatum` 可加性/线性（唯一性）、`∂ₜu(t,·)` 与 `∇p(t,·)` 的 `MemLp 2` 与 `ContDiff`（`∂ₜu = h − ∇p`，`h ∈ H^∞`）、0 阶 `(I−P) datum⁰(h) = datum⁰(∇p)` 的表（等 108 的纵向引理）与 bootstrap 路线（085 `isSobolevDatum_lower_iff`），`Section4/D01/OrderZeroAlgebra.lean` + `research/D01/SL8_SPLIT.md` |
 | 112-A01-regularity-partial | 已合并 | #111 | — | A01 部分合同 `A01.regularity_partial`：`ManuscriptLocalRegularity` 已证的两个字段 `projected`（093）与 `pressure_potential`（106）逐字进 `Contracts/V1/RegularityPartial.lean` + Bindings（含 `pressurePotential`/`HasSymmetricJacobian` 的 `rfl` 桥）+ Tests + contracts.json（模板 091/099） |
+| 113-SIMP-A01 | 进行中 | — | — | A01 已合入的四个模块（ConvectionDivergence, ProjectedEquation, RadialPotential, PressureGauge）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；conformance 重跑 axioms_a01/p1/m4；MAINT 清单） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
