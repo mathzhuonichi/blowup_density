@@ -216,3 +216,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,086-SIMP-A04,opus-4.8,simplifier+tester,RUNNING 8 early A04 modules,—,
 2026-09-14,A04,082-A04-sl3-real-pairing,opus-4.8,worker-resume,DONE record fixes F1-F9 in 3 min / 12 tool uses,PR,PR #84 opened; merging
 2026-09-14,R42,087-R42-sol-on-shorter,opus-4.8,worker,RUNNING assembly #1 ClassicalSolutionR on every shorter horizon,—,
+2026-09-14,B02,084-B02-unit-2-sl3,opus-4.8,worker,DONE SL3 + SL4a + SL4b (8 decls) in 23 min / 41 tool uses; SL4c + assembly remain,—,reviewer launched
