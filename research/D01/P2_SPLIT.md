@@ -1,5 +1,16 @@
 # D01 obligation P2 — the split from the L² Helmholtz decomposition to `SmoothSquareIntegrableJets (∇p(t,·))`
 
+> **P2 COMPLETE (lane 117), modulo contract registration.**  SL8's target is proved unconditionally
+> as `NSFormalization.Section4.D01.pressureGradient_slice_smoothSquareIntegrableJets_of_memForceR`
+> in `formalization/NSFormalization/Section4/D01/PressureJets.lean`:
+> for `u : ClassicalSolutionR ν a f T`, `hf : MemForceR f`, `t ∈ Ioo 0 T`,
+> `SmoothSquareIntegrableJets (fun x => pressureGradient u.pressure t x)` — this is
+> `Contracts.V1.SmoothSquareIntegrableJets` by the `rfl` bridge in `Bindings/DatumLemmas.lean:61-62`
+> (checked in `research/D01/axioms_sl8_assembly.lean`).  Order-0 seed = `orderZeroDatum_pressureGradient_eq`
+> (SL8 row i.7); corollary `temporalDerivative_slice_smoothSquareIntegrableJets_of_memForceR` gives
+> `∂ₜu(t,·) ∈ H^∞`.  All axioms standard.  See `research/D01/SL8_SPLIT.md` and
+> `research/D01/ATTEMPTS_SL8_ASSEMBLY.md`.  Remaining for P2: register the P2 contract field/binding.
+
 Lane 062, task **D01**, obligation **P2** (from lanes 050/055, `PLAN.md §8`).
 Split-and-start document: the precise chain of sub-lemmas, each with a Lean-ready statement
 in *our* vocabulary and an S/M/L cost + blocker.  **Revised after `research/D01/REVIEW_P2.md`
@@ -74,7 +85,7 @@ in 𝓢') is the order-0 identity and is the natural cross-check for SL8, **not*
 | SL5 | c2 | `∇p` longitudinal via **curl-freeness** (Clairaut), so `(I−P)∇p = ∇p` (fibre fact, **done SL1**) | M | needs SL6 (`iξⱼ` datum) |
 | SL6 | d | **the one substantive lemma:** `IsSobolevDatum m (∂ⱼz) (iξⱼ·A)` from `IsSobolevDatum m z A` | **DONE** (066 `D01/DerivativeDatum.lean:245` `isSobolevDatum_partialDeriv`, for `Z : SmoothL2Field`, order `m+1 → m`) | — |
 | SL7 | b,c3 | eq:Rpressure at every order, **non-circular**: order-0 Plancherel seed + `pressure_gradient` + bootstrap | S/M (seed) + M | order-0 `MemLp⟹IsSobolevDatum 0` constructor not yet wired |
-| SL8 | e | pin datum → classical field (`representative_ae`), feed `DatumToJets` ⇒ `SmoothSquareIntegrableJets (∇p)` | M | needs SL5, SL7b/c and the transport lemma `IsSobolevDatum s z A → IsSobolevDatum s ((I−P)z) (lerayComplement s A)` (needs complex-symbol 0-homogeneity; 081 review) |
+| SL8 | e | pin datum → classical field, feed `DatumToJets` ⇒ `SmoothSquareIntegrableJets (∇p)` | **DONE (117)** — `PressureJets.pressureGradient_slice_smoothSquareIntegrableJets_of_memForceR`; assembly route (rows i.7 → ii → iii via `orderZeroDatum`/`lowerVectorL`/`isSobolevDatum_lower_iff`), not the `representative_ae` route | — |
 
 **Bottom line (finding 4 rewrite).**  P2 is **not** gated by any **L** piece.  Its three genuine
 work items are all S/M: **SL7's order-0 Plancherel seed**, **SL6 (`iξⱼ` datum)**, and **SL3**
