@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-13 CI 突然全部秒失败且作业没有 steps：先看 check-run annotations（`gh api repos/.../check-runs/<jid>/annotations`），这次是 owner 账户的 Actions 账单/额度问题，不是代码。
 - 2026-09-13 integration 上**不要 `pull --rebase`**（会改写本地记账提交的 SHA；之前从本地 integration 开出的车道就带着旧提交，rebase 时在 PLAN/CSV 冲突）。规则：开车道前先 push 本地 integration；本地落后时用 `git pull --ff-only`，实在分叉就 `git merge origin/erenup/integration`。合并脚本现已自动让记账文件取 integration 版。
 - 2026-09-13 盲稿有价值的前提是"只看论文"：037 的 R43 草稿在 A04/C01 未合入的 worktree 里写出来，反而给出了上游"必须导出的确切形状"清单；比对阶段再对实际 spec。但另一份盲稿要拿到最新 spec，否则两份都在猜。
 

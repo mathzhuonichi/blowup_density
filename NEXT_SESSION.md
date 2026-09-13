@@ -21,4 +21,6 @@
 
 ## 待 owner 决定
 
+- **CI 被 GitHub 账单挡住（2026-09-13 14:54Z 起）**：所有 run 立即失败，annotation 为 "The job was not started because recent account payments have failed or your spending limit needs to be increased"。owner 需在 GitHub Billing & plans 处理。此前最后一次全绿 run：34759326799（13:15–14:43Z，10 条合同 + 全部已合模块）。恢复前合并只靠本地 `scripts/gates.sh` + 显式 build 全部 `Section4` 模块。
+
 - `erenup/integration` → `main` 的第一个 PR 何时提（建议：D01 定稿 + U05 报告出来后）。
