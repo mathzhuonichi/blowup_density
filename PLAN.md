@@ -189,6 +189,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 083-R42-pressure-gradient | PR 已开 | #83 | — | R42 子项 1f：`∇p_ε = ∇π + ∇P_ε ∈ L²`（参考压力梯度 L² + 修正压力空间紧支光滑 ⇒ 梯度 L²，`MemLp.add`），`Section4/R42/PressureGradient.lean` |
 | 084-B02-unit-2-sl3 | 进行中 | — | — | B02 单元 2 SL3（M）：由 datum 的共轭反射对称得 `angularFourier (postcompCLM ofRealCLM (ψ i)) =ᵐ G i`（`ψ i` = `φ i` 的实部），加 SL4a（slice distribution）与 SL4b（可积性），`Section4/B02/AnnularReal.lean` |
 | 085-D01-p2-sl7c-commute | 进行中 | — | — | P2 SL7c：`lerayComplement` 与降阶 `lowerDatum` 交换（复符号 0-齐次 + 与 `angularFrequencyDilation` 交换 + 标量权交换），推论：各阶 datum 的 Leray 补由 0 阶决定，`Section4/D01/LerayLowering.lean` |
+| 086-SIMP-A04 | 进行中 | — | — | A04 八个较早合入模块（Forcing, Continuity, Gronwall, Regularized, DerivNorm, HighEnergy, TimeDerivative, MomentumDatum）的 simplifier+tester（陈述逐字不变；负向检查用 `set_option autoImplicit false`；conformance；CI 闭包） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
