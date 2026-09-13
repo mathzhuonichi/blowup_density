@@ -129,6 +129,8 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 023-A03-l2linf-contract | 已合入 | **`A03.bounded_representative` V1 已注册** | #25 | H² jet 形式，逐点 + ess-sup；复用 OpenAI `smooth_pointwise_le_H2`；datum 形式待 D01 反向 |
 | 024-D01-homogeneous-witness | 进行中 | — | — | 齐次数据的第一个见证：L¹∩L²/光滑紧支撑场的 `IsHomogeneousSliceDatum s` + 范数子句（B02 单元 6 = I03 U7c 的空间核心） |
 | 025-D01-datum-to-jets | 进行中 | — | — | D01 L2 反向：datum ⇒ jets + 从 ClassicalSolutionR 提取时间切片（让 R43/R44/A02 能用 019/023 的 jet 形式合同） |
+| 026-A03-tame-contract | 进行中 | 目标 `A03.tame_products` V1 | — | Lemma A.1 的 tame 积（实向量/张量层 + 实性稳定性），标量理论树内现成 |
+| 027-R42-assembly-contract | 进行中 | 目标 `R42.insertion_family` V1 | — | 定理 4.2 的构造与全部定量子句（除最大寿命同定），组合 I01/I02/I03 三条合同；暴露接口缺口 |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
