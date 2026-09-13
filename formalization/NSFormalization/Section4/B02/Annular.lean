@@ -48,7 +48,7 @@ noncomputable section
 
 namespace NSFormalization.Section4.B02
 
-open MeasureTheory Set Filter
+open MeasureTheory Filter
 open NSFormalization.Paper3
 open NSFormalization.Source.RealSobolev
 open NavierStokes.ProblemStatement (Space)
@@ -84,14 +84,18 @@ def IsAnnularSupported {s : ℝ} (δ R : ℝ) (Z : RealVectorSobolev s) : Prop :
 
 /-! ## §1.  Elementary facts about the annulus and the datum norm -/
 
+/-- The open frequency annulus is measurable. -/
 theorem measurableSet_frequencyAnnulus (δ R : ℝ) : MeasurableSet (frequencyAnnulus δ R) :=
   (measurableSet_lt measurable_const continuous_norm.measurable).inter
     (measurableSet_lt continuous_norm.measurable measurable_const)
 
+/-- The closed frequency annulus is closed. -/
 theorem isClosed_closedFrequencyAnnulus (δ R : ℝ) : IsClosed (closedFrequencyAnnulus δ R) :=
   (isClosed_le continuous_const continuous_norm).inter
     (isClosed_le continuous_norm continuous_const)
 
+/-- The open frequency annulus is invariant under `ξ ↦ -ξ` (its two constraints only
+see `‖ξ‖`). -/
 theorem neg_mem_frequencyAnnulus (δ R : ℝ) (ξ : Space) :
     -ξ ∈ frequencyAnnulus δ R ↔ ξ ∈ frequencyAnnulus δ R := by
   show (δ < ‖-ξ‖ ∧ ‖-ξ‖ < R) ↔ (δ < ‖ξ‖ ∧ ‖ξ‖ < R)
@@ -123,6 +127,21 @@ theorem exists_real_le_enorm {η : ℝ≥0∞} (hη : 0 < η) : ∃ ε : ℝ, 0 
   rcases eq_or_ne η ⊤ with rfl | hη'
   · exact ⟨1, one_pos, le_top⟩
   · exact ⟨η.toReal, ENNReal.toReal_pos hη.ne' hη', (ENNReal.ofReal_toReal hη').le⟩
+
+/-- The a.e. conjugate-reflection (Hermitian) symmetry of the Fourier-side
+representative of an element of the reality subspace `realSubspace s`:
+`(X ξ) = conj (X (-ξ))` a.e.  This is the `mem_realSubspace_iff`/`realSymmetry_ae`
+step used to keep truncations and realized weights real; it is factored out here so
+`annularTruncLp_mem` and `AnnularReal.angularFourier_realPart_ae` share the one copy. -/
+theorem realSobolevHilbert_conj_reflection_ae {s : ℝ} (X : RealSobolevHilbert s) :
+    ((X : FourierData) : Space → ℂ) =ᵐ[volume]
+      fun ξ => conj (((X : FourierData) : Space → ℂ) (-ξ)) := by
+  have hA : realSymmetry (X : FourierData) = (X : FourierData) :=
+    (mem_realSubspace_iff s _).mp X.property
+  have h1 : ((realSymmetry (X : FourierData) : Space → ℂ)) =ᵐ[volume]
+      ((X : FourierData) : Space → ℂ) := by rw [hA]
+  filter_upwards [realSymmetry_ae (X : FourierData), h1] with ξ e1 e2
+  rw [← e2]; exact e1
 
 /-! ## §2.  `annularRestriction`: truncation to a compact annulus -/
 
@@ -186,6 +205,8 @@ class. -/
 def annularTruncLp {s : ℝ} (δ R : ℝ) (A : RealSobolevHilbert s) : FourierData :=
   ((Lp.memLp (A : FourierData)).indicator (measurableSet_frequencyAnnulus δ R)).toLp
 
+/-- The annular restriction agrees a.e. with the indicator (on the open annulus) of
+the datum component's Fourier-side representative. -/
 theorem annularTruncLp_ae {s : ℝ} (δ R : ℝ) (A : RealSobolevHilbert s) :
     (annularTruncLp δ R A : Space → ℂ) =ᵐ[volume]
       (frequencyAnnulus δ R).indicator ((A : FourierData) : Space → ℂ) :=
@@ -197,14 +218,7 @@ theorem annularTruncLp_mem {s : ℝ} (δ R : ℝ) (A : RealSobolevHilbert s) :
     annularTruncLp δ R A ∈ realSubspace s := by
   rw [mem_realSubspace_iff]
   apply Lp.ext
-  have hA : realSymmetry (A : FourierData) = (A : FourierData) :=
-    (mem_realSubspace_iff s _).mp A.property
-  have hSym : ((A : FourierData) : Space → ℂ) =ᵐ[volume]
-      fun ξ => conj (((A : FourierData) : Space → ℂ) (-ξ)) := by
-    have h1 : ((realSymmetry (A : FourierData) : Space → ℂ)) =ᵐ[volume]
-        ((A : FourierData) : Space → ℂ) := by rw [hA]
-    filter_upwards [realSymmetry_ae (A : FourierData), h1] with ξ e1 e2
-    rw [← e2]; exact e1
+  have hSym := realSobolevHilbert_conj_reflection_ae A
   have hI := annularTruncLp_ae δ R A
   have hIneg := (Measure.measurePreserving_neg (volume : Measure Space)).quasiMeasurePreserving.ae hI
   filter_upwards [realSymmetry_ae (annularTruncLp δ R A), hI, hIneg, hSym]
@@ -218,6 +232,11 @@ theorem annularTruncLp_mem {s : ℝ} (δ R : ℝ) (A : RealSobolevHilbert s) :
       fun h => hmem ((neg_mem_frequencyAnnulus δ R ξ).mp h)
     rw [Set.indicator_of_notMem hmem, Set.indicator_of_notMem hnegmem, map_zero]
 
+/-- `research/B02/Spec.lean:302-304` `annularRestriction`, `04-whole-space.tex:241`
+("One first restricts to `1/n < |ξ| < n`, with `L²` error tending to zero"): every
+order-`s` datum `A` is approximated in the datum norm by its restriction `Z` to a
+compact frequency annulus `0 < δ ≤ ‖ξ‖ ≤ R` away from the origin, `Z` still in the
+reality subspace. -/
 theorem annularRestriction (s : ℝ) (A : RealVectorSobolev s) (η : ℝ≥0∞) (hη : 0 < η) :
     ∃ (δ R : ℝ) (Z : RealVectorSobolev s),
       0 < δ ∧ δ < R ∧ IsAnnularRestriction δ R A Z ∧ ‖Z - A‖ₑ < η := by
@@ -275,22 +294,27 @@ theorem annularRestriction (s : ℝ) (A : RealVectorSobolev s) (η : ℝ≥0∞)
 supported in the open annulus `δ/2 < ‖ξ‖ < 2R`, built from the fixed bump. -/
 def annularCutoff (δ R : ℝ) (ξ : Space) : ℝ := cutoff R ξ * (1 - cutoff (δ / 2) ξ)
 
+/-- The annular cutoff is smooth (product of the two smooth bump factors). -/
 theorem annularCutoff_smooth (δ R : ℝ) : ContDiff ℝ ∞ (annularCutoff δ R) :=
   (cutoff_smooth R).mul (contDiff_const.sub (cutoff_smooth (δ / 2)))
 
+/-- The annular cutoff is nonnegative. -/
 theorem annularCutoff_nonneg (δ R : ℝ) (ξ : Space) : 0 ≤ annularCutoff δ R ξ :=
   mul_nonneg (cutoff_nonneg R ξ) (by linarith [cutoff_le_one (δ / 2) ξ])
 
+/-- The annular cutoff is bounded by `1`. -/
 theorem annularCutoff_le_one (δ R : ℝ) (ξ : Space) : annularCutoff δ R ξ ≤ 1 :=
   mul_le_one₀ (cutoff_le_one R ξ) (by linarith [cutoff_le_one (δ / 2) ξ])
     (by linarith [cutoff_nonneg (δ / 2) ξ])
 
+/-- The annular cutoff equals `1` on the closed annulus `δ ≤ ‖ξ‖ ≤ R`. -/
 theorem annularCutoff_eq_one {δ R : ℝ} (hδ : 0 < δ) (hR : 0 < R) {ξ : Space}
     (h : δ ≤ ‖ξ‖ ∧ ‖ξ‖ ≤ R) : annularCutoff δ R ξ = 1 := by
   have h1 : cutoff R ξ = 1 := cutoff_eq_one hR h.2
   have h2 : cutoff (δ / 2) ξ = 0 := cutoff_eq_zero (by positivity) (by nlinarith [h.1])
   rw [annularCutoff, h1, h2]; ring
 
+/-- The annular cutoff is supported in the open annulus `δ/2 < ‖ξ‖ < 2R`. -/
 theorem annularCutoff_support {δ R : ℝ} (hδ : 0 < δ) (hR : 0 < R) {ξ : Space}
     (h : annularCutoff δ R ξ ≠ 0) : δ / 2 < ‖ξ‖ ∧ ‖ξ‖ < 2 * R := by
   rw [annularCutoff] at h
@@ -304,6 +328,12 @@ theorem annularCutoff_support {δ R : ℝ} (hδ : 0 < δ) (hR : 0 < R) {ξ : Spa
     rw [not_lt] at hle
     exact hc1 (cutoff_eq_zero hR hle)
 
+/-- `research/B02/Spec.lean:314-318` `annularSmoothing`, `04-whole-space.tex:241`
+("then smooths each restricted function with a sufficiently small mollification
+radius and a slightly larger annular cutoff"): a datum `Z` supported a.e. in the
+open annulus `δ < ‖ξ‖ < R` is approximated in the datum norm by a smooth one `W`,
+compactly supported in a slightly larger closed annulus `δ' ≤ ‖ξ‖ ≤ R'`, still in
+the reality subspace. -/
 theorem annularSmoothing (s : ℝ) (δ R : ℝ) (hδ : 0 < δ) (hδR : δ < R)
     (Z : RealVectorSobolev s) (hZ : IsAnnularSupported δ R Z) (η : ℝ≥0∞) (hη : 0 < η) :
     ∃ (δ' R' : ℝ) (W : RealVectorSobolev s),

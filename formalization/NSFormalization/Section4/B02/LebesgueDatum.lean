@@ -107,7 +107,7 @@ open NSFormalization.Source.RealSobolev
 open NSFormalization.Section4.D01.Homogeneous
   (homogeneousProfile norm_homogeneousProfile_sq angularFourier_conj_neg ae_ne_zero
     enorm_sq_piLp isHomogeneousSliceDatum_unique isHomogeneousSliceDatum_sub)
-open scoped ENNReal FourierTransform RealInnerProductSpace SchwartzMap ContDiff ComplexConjugate
+open scoped ENNReal FourierTransform SchwartzMap ContDiff ComplexConjugate
 
 noncomputable section
 namespace NSFormalization.Section4.B02
@@ -263,6 +263,7 @@ def lebesgueDatum {s : ℝ} (hs : -3 / 2 < s) (hs0 : s ≤ 0)
     (g : Space → ℂ) (hg1 : Integrable g volume) (hg2 : MemLp g 2 volume) : FourierData :=
   (homogeneousProfile_memLp hs hs0 g hg1 hg2).toLp (homogeneousProfile s g)
 
+/-- The `L²` datum agrees a.e. with the homogeneous profile it is built from. -/
 theorem lebesgueDatum_ae {s : ℝ} (hs : -3 / 2 < s) (hs0 : s ≤ 0)
     (g : Space → ℂ) (hg1 : Integrable g volume) (hg2 : MemLp g 2 volume) :
     (lebesgueDatum hs hs0 g hg1 hg2 : Space → ℂ) =ᵐ[volume] homogeneousProfile s g :=
@@ -284,6 +285,7 @@ theorem realSymmetry_lebesgueDatum {s : ℝ} (hs : -3 / 2 < s) (hs0 : s ≤ 0)
   rw [map_mul, Complex.conj_ofReal, norm_neg]
   exact congrArg _ (angularFourier_conj_neg hre ξ)
 
+/-- The datum of a real field lies in the reality subspace `realSubspace s`. -/
 theorem mem_realSubspace_lebesgueDatum {s : ℝ} (hs : -3 / 2 < s) (hs0 : s ≤ 0)
     (g : Space → ℂ) (hg1 : Integrable g volume) (hg2 : MemLp g 2 volume)
     (hre : ∀ x, conj (g x) = g x) : lebesgueDatum hs hs0 g hg1 hg2 ∈ realSubspace s :=
@@ -328,6 +330,7 @@ def lebesgueVectorDatum {s : ℝ} (hs : -3 / 2 < s) (hs0 : s ≤ 0)
   WithLp.toLp 2 fun i => ⟨lebesgueDatum hs hs0 (g i) (hg1 i) (hg2 i),
     mem_realSubspace_lebesgueDatum hs hs0 (g i) (hg1 i) (hg2 i) (hre i)⟩
 
+/-- The `i`-th component of the vector datum is the single-component `lebesgueDatum`. -/
 @[simp] theorem lebesgueVectorDatum_coe {s : ℝ} (hs : -3 / 2 < s) (hs0 : s ≤ 0)
     (g : Fin 3 → Space → ℂ) (hg1 : ∀ i, Integrable (g i) volume)
     (hg2 : ∀ i, MemLp (g i) 2 volume) (hre : ∀ i x, conj (g i x) = g i x) (i : Fin 3) :
@@ -434,6 +437,12 @@ fully-proved form is `D01`'s `isHomogeneousSliceDatum_sub`, re-exposed here in t
 integrability of `z` and `w`; they are `Integrable.mul_bdd` facts, supplied for
 lane 060's diagonal by `Cutoff.lean`'s `integrable_schwartzVector` /
 `integrable_cutoffCompl_schwartzVector`. -/
+
+/-- `research/B02/Spec.lean:470` `homogeneousDatumSub`, integrability-carrying form:
+the datum of a difference is the difference of the data, given the *physical* pairing
+integrability of `z` and `w` against Schwartz tests (the verbatim, hypothesis-free
+spec field is **false**, lane 068; see the §6 note above).  This is `D01`'s
+`isHomogeneousSliceDatum_sub` re-exposed in the `B02` shape. -/
 theorem isHomogeneousSliceDatum_sub_of_integrable {s : ℝ} {z w : Space → Space}
     {Z W : RealVectorSobolev s}
     (hZ : IsHomogeneousSliceDatum s z Z) (hW : IsHomogeneousSliceDatum s w W)

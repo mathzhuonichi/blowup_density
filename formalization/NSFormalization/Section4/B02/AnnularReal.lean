@@ -20,7 +20,7 @@ in `AnnularSchwartz`.  Here we prove:
   Fourier transform `=ᵐ Gᵢ`.  The proof uses the conjugate-reflection symmetry of
   `angularFourier` (`angularFourier_conj`, from `fourier_conjugate`) together with
   the reality (conjugate-reflection) symmetry of the datum `W` in the sense of
-  `Source.RealSobolev` (pattern of `Annular.lean:200-207`).  Only an a.e. identity
+  `Source.RealSobolev` (via `Annular.realSobolevHilbert_conj_reflection_ae`).  Only an a.e. identity
   is proved — that is all the integral identity in SL4c needs.
 * **SL4a** (slice) `isSliceDistribution_schwartzVector`: the complexified real
   Schwartz vector realizes the datum's slice distribution.
@@ -35,12 +35,12 @@ noncomputable section
 
 namespace NSFormalization.Section4.B02
 
-open MeasureTheory Set Filter
+open MeasureTheory
 open NSFormalization.Paper3
 open NSFormalization.Source (angularFourier)
 open NSFormalization.Source.RealSobolev
 open NavierStokes.ProblemStatement (Space)
-open scoped ContDiff Topology FourierTransform ComplexConjugate SchwartzMap ENNReal
+open scoped ContDiff ComplexConjugate SchwartzMap ENNReal
 
 /-! ## Linearity and conjugation of the angular Fourier transform on Schwartz data -/
 
@@ -109,15 +109,8 @@ theorem angularFourier_realPart_ae {s : ℝ} (W : RealVectorSobolev s) (i : Fin 
     angularFourier (↑(SchwartzMap.postcompCLM Complex.ofRealCLM
         (SchwartzMap.postcompCLM Complex.reCLM φ)))
       =ᵐ[volume] fun ξ => ((‖ξ‖ ^ (-s) : ℝ) : ℂ) * g ξ := by
-  -- Reality of the datum component (pattern `Annular.lean:200-207`).
-  have hA : realSymmetry (W i : FourierData) = (W i : FourierData) :=
-    (mem_realSubspace_iff s _).mp (W i).property
-  have hSym : ((W i : FourierData) : Space → ℂ) =ᵐ[volume]
-      fun ξ => conj (((W i : FourierData) : Space → ℂ) (-ξ)) := by
-    have h1 : ((realSymmetry (W i : FourierData) : Space → ℂ)) =ᵐ[volume]
-        ((W i : FourierData) : Space → ℂ) := by rw [hA]
-    filter_upwards [realSymmetry_ae (W i : FourierData), h1] with ξ e1 e2
-    rw [← e2]; exact e1
+  -- Reality of the datum component (shared helper `realSobolevHilbert_conj_reflection_ae`).
+  have hSym := realSobolevHilbert_conj_reflection_ae (W i)
   have hWaeneg := (Measure.measurePreserving_neg
     (volume : Measure Space)).quasiMeasurePreserving.ae hae
   -- Conjugate-reflection symmetry of the representative `g`.

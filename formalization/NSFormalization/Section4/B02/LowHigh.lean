@@ -45,7 +45,7 @@ Everything is in `ℝ≥0∞`, so no field has to be assumed finite.
 -/
 
 open MeasureTheory Set NavierStokes.ProblemStatement NSFormalization.Source
-open scoped ENNReal FourierTransform RealInnerProductSpace SchwartzMap ContDiff
+open scoped ENNReal FourierTransform SchwartzMap ContDiff
 
 noncomputable section
 
@@ -138,6 +138,7 @@ theorem sq_eLpNorm_two {E : Type*} [NormedAddCommGroup E] (f : Space → E) :
   rw [← ENNReal.rpow_mul]
   norm_num
 
+/-- `Space = ℝ³` has real dimension three. -/
 theorem finrank_space_eq_three : Module.finrank ℝ Space = 3 := by
   simp [Space, finrank_euclideanSpace]
 
