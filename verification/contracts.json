@@ -35,6 +35,17 @@
       "enabled": true
     },
     {
+      "id": "I02.correction_v2",
+      "parent_task": "I02",
+      "version": 2,
+      "specification": "verification/Contracts/V2/Correction.lean",
+      "binding_module": "Bindings.CorrectionV2",
+      "test_module": "Tests.CorrectionV2",
+      "declaration": "BlowupDensity.Tests.checkedCorrectionV2",
+      "scope": "the R³ content of Lemmas 3.4–3.5 exactly as in I02.correction version 1, strengthened so that the caller prescribes the compact set the cutoff plateau must cover (the manuscript's K_*, 03-torus.tex:101-102): every version-1 field is inherited unchanged and the single new field prescribed_subset_plateau makes ε·θRadius < r alone place x₀+εK_* inside B; not Theorem 4.2's lifespan or density statements",
+      "enabled": true
+    },
+    {
       "id": "A05.gradient_l6",
       "parent_task": "A05",
       "version": 1,
