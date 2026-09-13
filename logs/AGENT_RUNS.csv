@@ -80,3 +80,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A04,030-A04-spec,opus,reviewer,ACCEPT-WITH-NOTES (2 MAJOR in lifespanInfiniteOfLocallyFinite: guard S ≤ lifespan + add 0 < lifespan clause; import TameProduct instead of mirrors; 3 notes),,worker resumed for fixes
 2026-09-13,A02,032-A02-restrict-order,opus,reviewer,ACCEPT-WITH-NOTES (record-only: binding cost overstated 3x — 4 of 6 defs bridge by rfl; +7 line drift; nit),PR,lead fixed citations; PR opened
 2026-09-13,A02,033-A02-energy-u1a,opus,reviewer,ACCEPT-WITH-NOTES (target elaborated exactly; SolutionClass byte-identical to 032 §0; merge-time dedupe: drop 032 §0 + Energy §1-2 vs DatumToJets),,merge pending
+2026-09-13,A04,030-A04-spec,opus,worker-resume,DONE fixes in 9 min / 17 tool uses (resume of the original worker),PR,PR opened
