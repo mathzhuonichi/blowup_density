@@ -38,11 +38,19 @@ asserts nothing about them.
 * **Time.**  `01-introduction.tex:140` — force norms use `(0,∞)`
   (`positiveTimeMeasure`), velocity norms before blowup use `(0,T)`.  Time is
   the **first** spacetime coordinate, following the pinned upstream package.
-* **Totalization.**  Every norm here is `ℝ≥0∞`-valued and takes the value `⊤`
-  off its space.  No `.toReal`, and no lower Lebesgue integral of a function
-  whose measurability is unavailable: time norms are `eLpNorm` of a genuine
-  Banach-valued path, and the measurability of that path is part of the
-  quantified data (`REVIEW_B` issues 2 and 3).
+* **Totalization.**  Every norm here is `ℝ≥0∞`-valued and no norm is routed
+  through `.toReal`, so no bound can be met vacuously by an infinite quantity
+  (`REVIEW_B` issue 2).  For the **time** norms there is also no lower-integral
+  gap: `forceSobolevENorm`, `forceHomogeneousENorm` and `mixedLebesgueENorm` are
+  `eLpNorm` of a genuine Banach-valued path whose `AEStronglyMeasurable`ity is
+  part of the quantified data, and the empty infimum is `⊤`
+  (`REVIEW_B` issue 3).  Two places still rely on a totalized integral, both
+  deliberately and neither reachable from the classes Section 4 quantifies over:
+  the Schwartz pairing inside `IsSobolevDatum`, and the spatial norms inside
+  `energyEssSup` / `energyGradient`.  Each carries the caveat in its own
+  docstring; both are harmless because every field to which Section 4 applies
+  them is smooth (`MemForceR`, `MemHInfty`, `ClassicalSolutionR.velocity_smooth`)
+  and hence locally integrable and measurable in every slice.
 
 ## Canonical local dependencies
 
@@ -54,14 +62,21 @@ with the declarations actually used:
 |---|---|---|
 | `NSFormalization.Source.FourierConvention` | `angularFourier` | the manuscript's `(2π)^{-3/2}∫e^{-ix·ξ}` transform; `angularFourier_eq_integral` is the proof that it is literally the displayed formula |
 | `NSFormalization.Paper3.AngularFourierDilation` | `angularRealization`, `angularFourierDistribution` | the distributional realization of an `L²` datum in that same normalization; the only in-tree map `L² → 𝓢'` carrying the manuscript weights |
-| `NSFormalization.Source.RealSobolev` | `FourierData`, `RealSobolevHilbert` | the reality constraint `F(-ξ) = conj (F ξ)` as a closed real subspace |
+| `NSFormalization.Source.RealSobolev` | `FourierData` (and, through `RealVectorSobolev`, `realSubspace` / `RealSobolevHilbert`) | the reality constraint `F(-ξ) = conj (F ξ)` as a closed real subspace |
 | `NSFormalization.Paper3.RealVectorPositiveDensity` | `RealVectorSobolev` | the Euclidean (`PiLp 2`) three-vector carrier and its normed instances |
 | `NSFormalization.Paper3.PositiveTemporalDensity` | `positiveTimeMeasure` | the `(0,∞)` force-time measure `volume.restrict (Ioi 0)` |
 | `NSFormalization.Paper3.GridGeometry` | `CartesianGrid`, `CartesianGrid.cell` | grid geometry: per-axis widths, arbitrary offset, half-open cells |
 
-No module whose role is a proof is imported.  Everything else comes from
-Mathlib and from the pinned upstream `NavierStokes.*` / `NavierStokesR3.*`
-packages, which the import policy allows freely.
+On the vendor side exactly one module is used, `NavierStokes.R3.ProblemStatement`
+(and its own import `NavierStokes.ProblemStatement`), for `Space`,
+`VelocityField`, `PressureField`, `futureDomain`, `spatialDerivative`,
+`spatialDivergence`, `pressureGradient`, `coordinateVector`,
+`navierStokesResidual` and `CompactPositiveTimeSupport`.  `NavierStokesR3` is a
+Lean *namespace* inside that module, not a package.
+
+No module whose role is a proof is imported.  `experiments/check_contracts.py`
+enforces this list by exact module name for both the local and the vendor half;
+it governs **direct** imports, not the transitive closure.
 -/
 
 noncomputable section
@@ -130,6 +145,15 @@ test exactly as `z` does.  This is the pairing shape of
 The datum is unique when it exists, because `angularRealization` is injective;
 that uniqueness is a lemma (unit L1), not built into this definition.
 
+*Totalization caveat.*  The right-hand side is Mathlib's Bochner integral, which
+returns `0` when the integrand is not integrable.  If `z` pairs integrably with
+no Schwartz test at all, both sides vanish for every `ψ` and `A = 0` satisfies
+the predicate, so `sobolevENorm s z` is then a junk `0` rather than `⊤`.  This
+is unreachable from every class in this file: `MemHInfty` and the `m = 0` clause
+of `MemForceR` put the slice in `L²`, where Schwartz times `L²` is `L¹`.  A
+local-integrability side condition is deliberately not added, to keep the
+predicate the same shape as `angularRealVectorSlice_pairing`.
+
 A used a distributional pairing (`IsAngularDatum`), B used the same pairing
 (`RepresentsSlice`).  Chosen: the shared pairing, because it is the only form
 that makes negative orders meaningful for a classical field. -/
@@ -139,14 +163,24 @@ def IsSobolevDatum (s : ℝ) (z : SpatialField) (A : RealVectorSobolev s) : Prop
 
 /-- `02-preliminaries.tex:18` eq:Rclasses.  `G` is the order-`s` angular datum
 trajectory of the spacetime field `f` on the closed half line `[0,∞)`.  Nothing
-is required at negative times. -/
+is required at negative times.
+
+The datum is demanded at **every** `t ≥ 0`, whereas `01-introduction.tex:124`
+and `02-preliminaries.tex:62` identify time slices almost everywhere.  This is
+strictly stronger, so the derived norms fail safe to `⊤`; on the smooth classes
+of this file (`MemForceR`, `ClassicalSolutionR`) the two agree, because a
+`ContDiffOn` path has a datum at every time of the interval.  The same remark
+applies to `IsLebesgueSlicePath` and `IsHomogeneousPath`. -/
 def IsSobolevPath (s : ℝ) (f : SpaceTimeField) (G : ℝ → RealVectorSobolev s) : Prop :=
   ∀ t : ℝ, 0 ≤ t → IsSobolevDatum s (fun x => f (t, x)) (G t)
 
 /-- `01-introduction.tex:94`, `‖z‖_{H^s(R³)}` for a real vector field, as an
 `ℝ≥0∞` quantity: the norm of the (unique) order-`s` datum, and `⊤` when `z` has
-no order-`s` datum.  The empty infimum in `ℝ≥0∞` is `⊤`, so this is total and
-fail-safe.
+no order-`s` datum.  The empty infimum in `ℝ≥0∞` is `⊤`, so this is total.  It
+is fail-safe on every locally integrable slice, which is every slice reachable
+from the classes of this file; on a slice that pairs integrably with no Schwartz
+test the value is a junk `0` instead, for the reason recorded in the
+`IsSobolevDatum` docstring.
 
 A gave a literal Fourier integral (`angularVectorSobolevNorm`), which
 `REVIEW_A` issue 2 showed to be junk `0` for slices outside `L¹`; B gave the
@@ -249,17 +283,41 @@ distribution.  Defined locally rather than imported: it is one line, and the
 in-tree spelling lives in a module whose remaining content is proof. -/
 abbrev VectorDistribution := Fin 3 → 𝓢'(Space, ℂ)
 
+/-- `01-introduction.tex:99` "Fourier transforms and coefficients are understood
+distributionally": `U` is the tempered vector distribution represented by the
+physical field `z`.  `IsSobolevDatum s z A` is exactly the special case
+`U i = angularRealization s (A i)`, and `IsHomogeneousSliceDatum` below is the
+case in which the same `U` carries a homogeneous datum instead.  A tempered
+distribution is determined by its action on Schwartz tests, so `U` is unique
+when it exists.  The right-hand integral is totalized exactly as in
+`IsSobolevDatum`; the caveat recorded there applies verbatim.
+
+This is the bridge that makes prop:Renergy's homogeneous clause statable without
+an `L² → 𝓢'` homogeneous multiplier, which
+`Paper3/HomogeneousRealization.lean` deliberately does not build. -/
+def IsSliceDistribution (z : SpatialField) (U : VectorDistribution) : Prop :=
+  ∀ (i : Fin 3) (ψ : SchwartzMap Space ℂ),
+    U i ψ = ∫ x : Space, ψ x * ((z x i : ℝ) : ℂ)
+
 /-- `02-preliminaries.tex:58-69` eq:homogeneous-realization, and its
 `appendix-b-embeddings.tex:56-70` counterpart at positive orders:
 `Ḣ^s(R³) = {h ∈ 𝓢' : ĥ measurable and |ξ|^s ĥ ∈ L²}`, realized by
 `ĥ = |ξ|^{-s} G` with `G ∈ L²`.  `G` is the datum, and `‖h‖_{Ḣ^s} = ‖G‖₂`.
 
 The `Integrable` clause is the manuscript's own displayed temperedness estimate
-(`02-preliminaries.tex:67`, `appendix-b-embeddings.tex:59-64`), which holds
-exactly on `-3/2 < s < 3/2`; without it the Bochner integral would silently
-totalize to `0`.  Outside that range this definition is not claimed faithful:
-`appendix-b-embeddings.tex:44` restricts the completion to `0 < a < 3/2` and
-`:101` refuses `Ḣ^{3/2}` as a space. -/
+(`02-preliminaries.tex:67`, `appendix-b-embeddings.tex:59-64`); without it the
+Bochner integral would silently totalize to `0`.  What the clause constrains is
+the **upper** end: it is the Cauchy-Schwarz bound
+`∫ abs(ξ)^{-s} abs(G·φ) ≤ ‖G‖₂ (∫ abs(ξ)^{-2s} abs(φ)²)^{1/2}`, whose right
+factor is finite at the origin exactly when `2s < 3`, so for `s ≥ 3/2` the
+clause fails for every nonzero `G` and the space collapses to `{0}` — the right
+behaviour, given that `appendix-b-embeddings.tex:101` refuses `Ḣ^{3/2}` as a
+space.  For `s ≤ 0` the integrand is integrable at every `s`.  The **lower**
+bound `-3/2 < s` is not a hypothesis of this definition: it is what the
+manuscript needs for injectivity and the absence of polynomial ambiguity
+(`02-preliminaries.tex:70`), and it appears as a hypothesis of unit L7, not
+here.  `appendix-b-embeddings.tex:44` restricts the completion to
+`0 < a < 3/2`. -/
 def IsHomogeneousDatum (s : ℝ) (G : FourierData) (u : 𝓢'(Space, ℂ)) : Prop :=
   ∀ φ : SchwartzMap Space ℂ,
     Integrable (fun ξ : Space => φ ξ * (((‖ξ‖ ^ (-s) : ℝ) : ℂ) * G ξ)) ∧
@@ -290,6 +348,46 @@ def MemHomogeneousVector (s : ℝ) (U : VectorDistribution) : Prop :=
 `Ḣ^s` norm.  `⊤` propagates correctly through the `ℝ≥0∞` arithmetic. -/
 def homogeneousVectorENorm (s : ℝ) (U : VectorDistribution) : ℝ≥0∞ :=
   (∑ i : Fin 3, homogeneousENorm s (U i) ^ (2 : ℝ)) ^ ((2 : ℝ)⁻¹)
+
+/-- `02-preliminaries.tex:72` with `01-introduction.tex:103`: the
+datum-carrying vector form of `Ḣ^s`, componentwise.  `MemHomogeneousVector` is
+its existential shadow, and `homogeneousVectorENorm` its norm. -/
+def IsHomogeneousVectorDatum (s : ℝ) (U : VectorDistribution)
+    (G : RealVectorSobolev s) : Prop :=
+  ∀ i : Fin 3, IsHomogeneousDatum s ((G i : FourierData)) (U i)
+
+/-- `04-whole-space.tex:219,226` prop:Renergy: `G` is the order-`s`
+*homogeneous* datum of the physical slice `z`, i.e. `z` is represented by a
+tempered vector distribution whose angular transform is `abs(ξ)^{-s} G`.  This
+is the homogeneous counterpart of `IsSobolevDatum`, and the reason the
+`L²(0,∞;Ḣ^{-1})` clause of prop:Renergy is statable here. -/
+def IsHomogeneousSliceDatum (s : ℝ) (z : SpatialField)
+    (G : RealVectorSobolev s) : Prop :=
+  ∃ U : VectorDistribution, IsSliceDistribution z U ∧ IsHomogeneousVectorDatum s U G
+
+/-- `04-whole-space.tex:226` prop:Renergy: the order-`s` homogeneous datum
+trajectory of a spacetime field on `[0,∞)`, the homogeneous counterpart of
+`IsSobolevPath`, with the same `∀ t ≥ 0` versus a.e. deviation recorded
+there. -/
+def IsHomogeneousPath (s : ℝ) (f : SpaceTimeField)
+    (G : ℝ → RealVectorSobolev s) : Prop :=
+  ∀ t : ℝ, 0 ≤ t → IsHomogeneousSliceDatum s (fun x => f (t, x)) (G t)
+
+/-- `04-whole-space.tex:212,226` prop:Renergy: `‖f‖_{L^q(0,∞;Ḣ^s(R³))}`, the
+homogeneous counterpart of `forceSobolevENorm`, in the same measurable-path form
+and `⊤` when no such path exists.  `q = 2`, `s = -1` is the norm in which
+`‖g_ε − g‖ → 0` is asserted (`04-whole-space.tex:226`) and the norm of the
+completed space `L²(0,∞;Ḣ^{-1}(R³))` of `04-whole-space.tex:219`.
+
+The two Bochner norms are the *same expression* on datum paths, because
+`h ↦ abs(ξ)^{-s} ĥ` is an isometry of `Ḣ^s` onto the same `L²` that
+`h ↦ ⟨ξ⟩^s ĥ` maps `H^s` onto (`02-preliminaries.tex:63,71`); only the
+realization predicate differs.  Neither draft reached this object: A defined a
+scalar `Ḣ^{-1}` with no time norm, B a time norm with a lower-integral gap. -/
+def forceHomogeneousENorm (q : ℝ≥0∞) (s : ℝ) (f : SpaceTimeField) : ℝ≥0∞ :=
+  ⨅ G : {G : ℝ → RealVectorSobolev s //
+      IsHomogeneousPath s f G ∧ AEStronglyMeasurable G forceTimeMeasure},
+    bochnerDatumENorm q s G.1
 
 /-- `01-introduction.tex:105` "The homogeneous norm `Ḣ^s` replaces the weights
 above by `|ξ|^{2s}`", written as the literal Fourier integral on a physical
@@ -326,7 +424,16 @@ abbrev dotHHalfENorm (z : SpatialField) : ℝ≥0∞ :=
 
 /-- `01-introduction.tex:143` eq:Enorm, first summand:
 `‖z‖_{L^∞(0,T;L²(R³))}`, on the *open* interval `(0,T)`, so no endpoint value
-at `T` is imposed (`01-introduction.tex:150`). -/
+at `T` is imposed (`01-introduction.tex:150`).
+
+*Totalization caveat.*  Unlike the force time norms, no measurability of `z` is
+required here, so for a slice that is not a.e. strongly measurable the inner
+`eLpNorm` is a lower Lebesgue integral and can under-report.  `E_T` is applied
+in `04-whole-space.tex:39` eq:REclose and `:223` only to differences of
+classical velocities, which are smooth on `Ico 0 T ×ˢ univ`
+(`ClassicalSolutionR.velocity_smooth`) and therefore measurable in every slice,
+so the gap cannot bite there.  A measurability clause is deliberately not added,
+to keep `E_T` a plain quantity usable on both sides of a bound. -/
 def energyEssSup (T : ℝ) (z : SpaceTimeField) : ℝ≥0∞ :=
   essSup (fun t => eLpNorm (fun x => z (t, x)) 2 volume)
     (volume.restrict (Ioo (0 : ℝ) T))
@@ -340,7 +447,8 @@ def spatialGradient (z : SpaceTimeField) (t : ℝ) (x : Space) : WithLp 2 (Fin 3
   WithLp.toLp 2 (fun i => spatialDerivative z t x (coordinateVector i))
 
 /-- `01-introduction.tex:145` eq:Enorm, second summand:
-`‖∇z‖_{L²(0,T;L²(R³))}`. -/
+`‖∇z‖_{L²(0,T;L²(R³))}`.  The outer `∫⁻` carries the same totalization caveat as
+`energyEssSup`, in the time variable as well as in space. -/
 def energyGradient (T : ℝ) (z : SpaceTimeField) : ℝ≥0∞ :=
   (∫⁻ t in Ioo (0 : ℝ) T,
       (eLpNorm (fun x => spatialGradient z t x) 2 volume) ^ (2 : ℝ)) ^ ((2 : ℝ)⁻¹)
@@ -351,7 +459,12 @@ endpoint value at `T`.
 
 A returned `ℝ≥0∞`; B returned `ℝ` through `.toReal`, which `REVIEW_B` issue 2
 showed makes the *bound* eq:REclose satisfiable by a field of infinite energy.
-Chosen: A's `ℝ≥0∞`, so the bound is never vacuous. -/
+Chosen: A's `ℝ≥0∞`, so the bound is never vacuous.
+
+For `T ≤ 0` both summands are over the empty interval and the value is `0`; the
+manuscript only ever writes `E_T` for `T > 0` (`01-introduction.tex:141`), and
+every consumer carries that hypothesis.  See `energyEssSup` for the
+measurability caveat. -/
 def energyENorm (T : ℝ) (z : SpaceTimeField) : ℝ≥0∞ :=
   energyEssSup T z + energyGradient T z
 
@@ -558,9 +671,11 @@ def breakdownSetIn (Y : Set SpaceTimeField) (ν : ℝ) (a : SpatialField) (T : �
 def breakdownSetR (ν : ℝ) (a : SpatialField) (T : ℝ) : Set SpaceTimeField :=
   breakdownSetIn forceClassR ν a T
 
-/-- `02-preliminaries.tex:41` eq:Rsingularforces:
-`B^{R,0}_{ν,T} = B^R_{ν,0,T}`, the zero-datum case for which
-`04-whole-space.tex:11` thm:Rmain (ii) is an if-and-only-if. -/
+/-- `04-whole-space.tex:11` thm:Rmain (ii), "For zero initial velocity,
+`B^R_{ν,0,T}` is dense if and only if `s < s_q`": the zero-datum instance of
+`02-preliminaries.tex:42` eq:Rsingularforces.  The manuscript's `B^0_{ν,T}` of
+`02-preliminaries.tex:41` is the *torus* set; the whole-space zero case has no
+separate symbol and is written `B^R_{ν,0,T}`. -/
 def breakdownSetRZero (ν T : ℝ) : Set SpaceTimeField :=
   breakdownSetR ν (fun _ => 0) T
 
@@ -585,23 +700,50 @@ set: the exact predicate asserted for `a ∈ X_R` when `s < s_q`. -/
 def BreakdownDenseR (ν : ℝ) (a : SpatialField) (T : ℝ) (q : ℝ≥0∞) (s : ℝ) : Prop :=
   RelativelyDense q s forceClassR (breakdownSetR ν a T)
 
-/-- `04-whole-space.tex:219` prop:Renergy: density of `S` in the **full** Bochner
-space `L^q(0,∞;H^s(R³))`, i.e. against an arbitrary element of the completion
-rather than against a smooth force.
+/-- `04-whole-space.tex:219` prop:Renergy: density of `S` in the **full**
+Bochner space over the completion, parametric in the realization `path` that
+reads a physical force as a datum path.  `04-whole-space.tex:219` asserts this
+twice with two different realizations — `L^q(0,∞;H^s(R³))` for `q ∈ {1,2}`,
+`s < s_q`, and `L²(0,∞;Ḣ^{-1}(R³))` — and both completions are the same space of
+datum paths, since `h ↦ ⟨ξ⟩^s ĥ` and `h ↦ abs(ξ)^{-s} ĥ` are isometries onto the
+same `L²` (`02-preliminaries.tex:63,71`).  Only `path` distinguishes them, so
+the predicate is stated once and instantiated twice below.
 
 Draft B quantified the target over *all* `ℝ → ForceDistribution`;
 `REVIEW_B` issue 1 showed that this makes the predicate false for every `S`
 (a target off `H^s` sits at distance `⊤` from everything), so prop:Renergy
 stated with it is unprovable.  Fixed here by quantifying the target over the
 completion itself: a datum path with finite Bochner norm and strong
-measurability, i.e. `MemBochnerDatum`.  This is a genuinely different predicate
-from `RelativelyDense` — `research/section4/STATEMENTS.md` §9 item 11 requires
-the two roles to be distinguishable. -/
-def CompletedDense (q : ℝ≥0∞) (s : ℝ) (S : Set SpaceTimeField) : Prop :=
+measurability, i.e. `MemBochnerDatum`.  The approximating path `D` carries
+`AEStronglyMeasurable` for the same reason `forceSobolevENorm` does: without it
+`bochnerDatumENorm q s (D - b)` would be a lower Lebesgue integral and could
+under-report the distance (`REVIEW_B` issue 3).
+
+This is a genuinely different predicate from `RelativelyDense` —
+`research/section4/STATEMENTS.md` §9 item 11 requires the two roles to be
+distinguishable. -/
+def CompletedDenseVia (q : ℝ≥0∞) (s : ℝ)
+    (path : SpaceTimeField → (ℝ → RealVectorSobolev s) → Prop)
+    (S : Set SpaceTimeField) : Prop :=
   ∀ b : ℝ → RealVectorSobolev s, MemBochnerDatum q s b →
     ∀ r : ℝ≥0∞, 0 < r →
       ∃ f ∈ S, ∃ D : ℝ → RealVectorSobolev s,
-        IsSobolevPath s f D ∧ bochnerDatumENorm q s (D - b) < r
+        path f D ∧ AEStronglyMeasurable D forceTimeMeasure ∧
+          bochnerDatumENorm q s (D - b) < r
+
+/-- `04-whole-space.tex:219` prop:Renergy, first clause: density of `S` in the
+full Bochner space `L^q(0,∞;H^s(R³))`. -/
+abbrev CompletedDense (q : ℝ≥0∞) (s : ℝ) (S : Set SpaceTimeField) : Prop :=
+  CompletedDenseVia q s (IsSobolevPath s) S
+
+/-- `04-whole-space.tex:219` prop:Renergy, second clause: density of `S` in
+`L²(0,∞;Ḣ^{-1}(R³))`, i.e. the case `q = 2`, `s = -1` of
+`CompletedDenseVia _ _ (IsHomogeneousPath _)`.  `04-whole-space.tex:228` stresses
+that the homogeneous norm is a norm of the *compact difference*; the background
+force itself need not lie in that space, which is why `S` remains a set of
+physical fields while the target ranges over the completion. -/
+abbrev CompletedDenseHomogeneous (q : ℝ≥0∞) (s : ℝ) (S : Set SpaceTimeField) : Prop :=
+  CompletedDenseVia q s (IsHomogeneousPath s) S
 
 /-! ## 11. Cell averages on prescribed grids (thm:Rgrid) -/
 

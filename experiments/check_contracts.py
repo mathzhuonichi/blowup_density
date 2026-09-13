@@ -11,20 +11,25 @@ from check_formalization_plan import uncomment
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = 'verification/contracts.json'
 
-# A versioned specification stays independent of this project's *proofs*.
-# It may import Mathlib, Lean core, another contract, and the pinned upstream
-# packages under `vendor/`, whose declarations are frozen imported source and
-# not implementation work of this repository.
-CONTRACT_IMPORT_PREFIXES = ('Mathlib', 'Lean', 'Init', 'Contracts.', 'NavierStokes.')
+# A versioned specification stays independent of this project's *proofs*. It may
+# import Mathlib, Lean core and another contract. The root names carry no
+# trailing dot of their own, so they are matched exactly or with a dot, and
+# `MathlibExtras.X` or `Initialize.X` do not slip through.
+CONTRACT_IMPORT_ROOTS = frozenset({'Mathlib', 'Lean', 'Init'})
+CONTRACT_IMPORT_PREFIXES = ('Mathlib.', 'Lean.', 'Init.', 'Contracts.')
 
-# A specification may additionally name a local module when that module fixes a
-# *definition-level convention* the whole project treats as canonical, and only
-# from this explicit list: the manuscript's angular Fourier transform and its
-# distributional realization, the real-Sobolev and Euclidean-vector carriers,
-# the (0, infinity) force-time measure, and grid geometry. Every other local
-# module is an implementation dependency and stays rejected. Extending this
-# list is a reviewed policy change, not a routine edit.
+# A specification may additionally name a module that fixes a *definition-level
+# convention* the whole project treats as canonical, and only from this explicit
+# list, matched by exact module name: one pinned upstream module under `vendor/`
+# for the equation, fields and operators; and, locally, the manuscript's angular
+# Fourier transform and its distributional realization, the real-Sobolev and
+# Euclidean-vector carriers, the (0, infinity) force-time measure, and grid
+# geometry. Every other module, upstream or local, is an implementation
+# dependency and stays rejected. The list governs *direct* imports, not the
+# transitive closure. Extending it is a reviewed policy change, not a routine
+# edit.
 CONTRACT_CANONICAL_MODULES = frozenset({
+    'NavierStokes.R3.ProblemStatement',
     'NSFormalization.Source.FourierConvention',
     'NSFormalization.Source.RealSobolev',
     'NSFormalization.Paper3.AngularFourierDilation',
@@ -35,8 +40,10 @@ CONTRACT_CANONICAL_MODULES = frozenset({
 
 
 def contract_import_allowed(module):
-    """Whether a versioned specification may import `module`."""
-    return module.startswith(CONTRACT_IMPORT_PREFIXES) or module in CONTRACT_CANONICAL_MODULES
+    """Whether a versioned specification may directly import `module`."""
+    return (module in CONTRACT_IMPORT_ROOTS
+            or module.startswith(CONTRACT_IMPORT_PREFIXES)
+            or module in CONTRACT_CANONICAL_MODULES)
 
 
 def git_bytes(root, ref, path):

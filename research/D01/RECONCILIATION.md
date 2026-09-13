@@ -1,9 +1,10 @@
 # D01 reconciliation: drafts A and B into `verification/Contracts/V1/Data.lean`
 
 Target: `verification/Contracts/V1/Data.lean`, namespace
-`BlowupDensity.Contracts.V1.Data`.  56 declarations (`abbrev`/`def`/`structure`),
+`BlowupDensity.Contracts.V1.Data`.  63 declarations (`abbrev`/`def`/`structure`),
 no theorem with content, no `sorry`, no `axiom`, no placeholder `Prop` field,
 a doc comment on every declaration and on every structure field.
+§5 records the revisions made after `REVIEW_RECONCILIATION.md`.
 
 Inputs: `DraftA.lean` + `COMPARISON_A.md` + `REVIEW_A.md` (**REJECT**),
 `DraftB.lean` + `COMPARISON_B.md` + `REVIEW_B.md` (**ACCEPT-WITH-NOTES**),
@@ -25,71 +26,72 @@ declaration lines.
 
 | Object | Paper | A | B | Reviews | Final choice and reason | Ledger |
 |---|---|---|---|---|---|---|
-| `R³`, real Euclidean 3-vector fields | `01-intro:91,103` eq:NS | upstream `Space` | upstream `Space` | both faithful | **Both.** `SpatialField`, `SpaceTimeField`, `SpaceTimeScalar` (`:84,89,93`) reuse the pinned `NavierStokes.ProblemStatement` types; time is the first coordinate. | `⟪D01:R3⟫` |
+| `R³`, real Euclidean 3-vector fields | `01-intro:91,103` eq:NS | upstream `Space` | upstream `Space` | both faithful | **Both.** `SpatialField`, `SpaceTimeField`, `SpaceTimeScalar` (`:99,104,108`) reuse the pinned `NavierStokes.ProblemStatement` types; time is the first coordinate. | `⟪D01:R3⟫` |
 | angular Fourier transform | `01-intro:91` | `Source.angularFourier` + `angularRealization` | same | A: "normalization discharged by `angularFourier_eq_integral` rather than assumed"; B: "never uses Mathlib's cycles `𝓕` as the normalization" | **Both.** Every Sobolev object routes through `angularRealization`. | `⟪D01:R3⟫` |
 | reality `F(-ξ) = conj F(ξ)` | `02-prelim:72` | `realSubspace` (+ a named predicate) | `realSubspace` via `RealSobolevHilbert` | both faithful | **B.** Reality is built into the carrier, so no separate field or predicate is needed; A's `IsRealFrequencyDatum` is dropped as redundant. | `⟪D01:R3⟫` |
 | vector norm | `01-intro:103` | `RealVectorSobolev` (`PiLp 2`) | same | both reviews: `PiLp 2` is right, the sup-normed `ForceDatum` is not | **Both.** | `⟪D01:R3⟫` |
-| `[0,∞)` vs `(0,∞)` | `02-prelim:22`, `01-intro:140` | `forceTimeDomain` (dead), `positiveTimeMeasure` | `Ici 0`, `positiveTimeMeasure` | REVIEW_A minor: A's `forceTimeDomain` is dead code | **Both, deduplicated.** `futureTimes` (`:98`) is now actually used in `MemForceR`; `forceTimeMeasure` (`:103`) is `positiveTimeMeasure`. | `⟪D01:BochnerLq⟫` |
-| negative-time freedom | `02-prelim:24` | not addressed | docstring claimed a zero extension, nothing enforced it | REVIEW_B issue 5: "not extensional; blocks a separated metric (U10)" | **New: `AgreesOnFuture` (`:113`).** Imposing `f = 0` for `t < 0` inside `MemForceR` would *weaken* Theorem 4.1(i) (fewer reference forces `g`), so the convention is recorded as the equivalence by which the classes are extensional and by which a separated metric must be quotiented. | — |
+| `[0,∞)` vs `(0,∞)` | `02-prelim:22`, `01-intro:140` | `forceTimeDomain` (dead), `positiveTimeMeasure` | `Ici 0`, `positiveTimeMeasure` | REVIEW_A minor: A's `forceTimeDomain` is dead code | **Both, deduplicated.** `futureTimes` (`:113`) is now actually used in `MemForceR`; `forceTimeMeasure` (`:118`) is `positiveTimeMeasure`. | `⟪D01:BochnerLq⟫` |
+| negative-time freedom | `02-prelim:24` | not addressed | docstring claimed a zero extension, nothing enforced it | REVIEW_B issue 5: "not extensional; blocks a separated metric (U10)" | **New: `AgreesOnFuture` (`:128`).** Imposing `f = 0` for `t < 0` inside `MemForceR` would *weaken* Theorem 4.1(i) (fewer reference forces `g`), so the convention is recorded as the equivalence by which the classes are extensional and by which a separated metric must be quotiented. | — |
 
 ### 1.2 Inhomogeneous Sobolev scale and time norms
 
 | Object | Paper | A | B | Reviews | Final choice and reason | Ledger |
 |---|---|---|---|---|---|---|
-| `z` has an order-`s` datum | `01-intro:94` | `IsAngularDatum` (Schwartz pairing) | `RepresentsSlice` (same pairing) | both faithful; modelled on `angularRealVectorSlice_pairing` | **Both** — `IsSobolevDatum` (`:136`), `IsSobolevPath` (`:143`).  The pairing is the only form that makes negative orders meaningful for a classical field. | `⟪D01:Hs s⟫` |
-| `‖z‖_{H^s(R³)}` | `01-intro:94` | literal Fourier integral `angularVectorSobolevNorm` | `⨅` over data, on `𝓢'` | REVIEW_A issue 2: A's integral is junk `0` whenever the slice is outside `L¹`, and `H^∞ ⊄ L¹` on `R³` | **B's totalization, on the physical field.** `sobolevENorm` (`:155`) = the norm of the unique datum, `⊤` off `H^s`. A's literal integral is dropped as theorem-facing junk. | `⟪D01:Hs s⟫` |
-| Bochner norm of a datum path | `01-intro:118-129` | `forceBochnerNorm = eLpNorm G q` | `∫⁻` of a pointwise `⨅` | REVIEW_B issue 3: B's is a *lower* integral, can under-report | **A.** `bochnerDatumENorm` (`:171`) is `eLpNorm` on `positiveTimeMeasure`; `MemBochnerDatum` (`:178`) is Hunter's strongly-measurable membership. The same expression is also the `L^q(0,∞;Ḣ^s)` norm, since `h ↦ abs(ξ)^{-s}·ĥ` is an isometry onto the same `L²`. | `⟪D01:BochnerLq⟫`, `⟪D01:normLqHs⟫`, `⟪D01:normLqDotHs⟫` |
-| `‖f‖_{L^q_tH^s_x}` on a physical field | `01-intro:125` | `forcePhysicalTimeNorm` (junk) **and** an `∃`-path form inside the density predicate | `bochnerSobolevENorm` on distributions (lower integral) | REVIEW_A issue 2 kills A's physical norm; REVIEW_B issue 3 flags B's | **New, combining both:** `forceSobolevENorm` (`:191`) = `⨅` over order-`s` paths that are `AEStronglyMeasurable`, of the Bochner `eLpNorm`.  Measurable-path form, no lower-integral gap; the fail-safe value is `⊤`, never an under-report. `forceSobolevENormL1/L2` (`:197,201`). | `⟪D01:normLqHs⟫` |
-| `‖f‖_{L^q_tL^p_x}` | `01-intro:134` | absent | absent | — | **New:** `IsLebesgueSlicePath` (`:208`), `mixedLebesgueENorm` (`:217`), same measurable-path shape. `q=1,p=2` is prop:Renergy's `L¹_tL²_x`; `q=⊤` is `⟪D01:normLinfty⟫`. | `⟪D01:normLqLp⟫`, `⟪D01:normLinfty⟫` |
-| `s_q = 2/q − 3/2` | `04:8` | `criticalOrder` | `criticalOrder` | both correct (`1 ↦ 1/2`, `2 ↦ −1/2`) | **Both.** `criticalOrder` (`:225`). | `⟪D01:F_R⟫` consumers, §8.10 |
-| `β(q,s)` | `04:57` | absent (only `criticalOrder`) | `scalingExponent` | REVIEW_B: matches `ThresholdAPI.exponent` | **B.** `scalingExponent` (`:231`); a binding should identify it with `ThresholdAPI.exponent` / `Paper3.forceExponent`. | §8.10 |
+| `z` has an order-`s` datum | `01-intro:94` | `IsAngularDatum` (Schwartz pairing) | `RepresentsSlice` (same pairing) | both faithful; modelled on `angularRealVectorSlice_pairing` | **Both** — `IsSobolevDatum` (`:160`), `IsSobolevPath` (`:174`).  The pairing is the only form that makes negative orders meaningful for a classical field. | `⟪D01:Hs s⟫` |
+| `‖z‖_{H^s(R³)}` | `01-intro:94` | literal Fourier integral `angularVectorSobolevNorm` | `⨅` over data, on `𝓢'` | REVIEW_A issue 2: A's integral is junk `0` whenever the slice is outside `L¹`, and `H^∞ ⊄ L¹` on `R³` | **B's totalization, on the physical field.** `sobolevENorm` (`:189`) = the norm of the unique datum, `⊤` off `H^s`. A's literal integral is dropped as theorem-facing junk. | `⟪D01:Hs s⟫` |
+| Bochner norm of a datum path | `01-intro:118-129` | `forceBochnerNorm = eLpNorm G q` | `∫⁻` of a pointwise `⨅` | REVIEW_B issue 3: B's is a *lower* integral, can under-report | **A.** `bochnerDatumENorm` (`:205`) is `eLpNorm` on `positiveTimeMeasure`; `MemBochnerDatum` (`:212`) is Hunter's strongly-measurable membership. The same expression is also the `L^q(0,∞;Ḣ^s)` norm, since `h ↦ abs(ξ)^{-s}·ĥ` is an isometry onto the same `L²`. | `⟪D01:BochnerLq⟫`, `⟪D01:normLqHs⟫`, `⟪D01:normLqDotHs⟫` |
+| `‖f‖_{L^q_tH^s_x}` on a physical field | `01-intro:125` | `forcePhysicalTimeNorm` (junk) **and** an `∃`-path form inside the density predicate | `bochnerSobolevENorm` on distributions (lower integral) | REVIEW_A issue 2 kills A's physical norm; REVIEW_B issue 3 flags B's | **New, combining both:** `forceSobolevENorm` (`:225`) = `⨅` over order-`s` paths that are `AEStronglyMeasurable`, of the Bochner `eLpNorm`.  Measurable-path form, no lower-integral gap; the fail-safe value is `⊤`, never an under-report. `forceSobolevENormL1/L2` (`:231,235`). | `⟪D01:normLqHs⟫` |
+| `‖f‖_{L^q_tL^p_x}` | `01-intro:134` | absent | absent | — | **New:** `IsLebesgueSlicePath` (`:242`), `mixedLebesgueENorm` (`:251`), same measurable-path shape. `q=1,p=2` is prop:Renergy's `L¹_tL²_x`; `q=⊤` is `⟪D01:normLinfty⟫`. | `⟪D01:normLqLp⟫`, `⟪D01:normLinfty⟫` |
+| `s_q = 2/q − 3/2` | `04:8` | `criticalOrder` | `criticalOrder` | both correct (`1 ↦ 1/2`, `2 ↦ −1/2`) | **Both.** `criticalOrder` (`:259`). | `⟪D01:F_R⟫` consumers, §8.10 |
+| `β(q,s)` | `04:57` | absent (only `criticalOrder`) | `scalingExponent` | REVIEW_B: matches `ThresholdAPI.exponent` | **B.** `scalingExponent` (`:265`); a binding should identify it with `ThresholdAPI.exponent` / `Paper3.forceExponent`. | §8.10 |
 | exponent typing | — | `q : ℝ` in one norm, `ℝ≥0∞` in another | `q : ℝ` throughout | REVIEW_A minor: A's mismatch forces `ENNReal.ofReal` round-trips | **Fixed:** every *time* exponent is `ℝ≥0∞` (so `q = ⊤` is available), every *Sobolev order* is `ℝ`, and `criticalOrder`/`scalingExponent` stay in `ℝ`. | — |
 
 ### 1.3 Homogeneous realizations
 
 | Object | Paper | A | B | Reviews | Final choice and reason | Ledger |
 |---|---|---|---|---|---|---|
-| the space `Ḣ^s` | `02-prelim:58-69`, `app-B:44,56-70` | scalar `Ḣ^{-1}` only | general `s`, no integrability clause | REVIEW_A minor: A's is unusable for prop:Renergy (needs vector, time-integrated); REVIEW_B issue 4: B's non-integrable integrand silently returns `0` | **B's general `s`, plus the paper's own temperedness estimate as an explicit `Integrable` clause.** `IsHomogeneousDatum` (`:263`), `MemHomogeneous` (`:271`), `homogeneousENorm` (`:277`), `MemDotHNegOne` (`:282`), and the vector forms (`:286,291`) over a locally declared `VectorDistribution` (`:250`).  This is exactly `research/section4/REVIEW.md` item 1's recommendation: **one** definition for `−3/2 < s < 3/2`, with the App-B completion identity and the smooth-compact finiteness left as lemmas. Sign convention checked at `s = −1`: `ĥ = abs(ξ)·G`, i.e. `abs(ξ)^{-1}·ĥ = G ∈ L²`, literally eq:homogeneous-realization. | `⟪D01:dotHs a⟫`, `⟪D01:dotHminus1⟫` |
-| the *quantity* `‖z‖_{Ḣ^s}` on a smooth field | `01-intro:105`, `04:70-72`, `app-B:31,107`, `app-A:24` | `angularVectorHomogeneousNorm` (real-valued) | absent | REVIEW.md item 1: "`‖v‖_{Ḣ^{3/2}}` occurs as notation, so D01 must still define that norm" | **A's literal integral, in `ℝ≥0∞`.** `homogeneousFourierENorm` (`:309`), with `dotHThreeHalvesENorm` (`:317`) and `dotHHalfENorm` (`:322`).  This is the only object usable at `s = 3/2`, where `app-B:101` refuses a space and where the realization above genuinely fails (the temperedness integral diverges at `2s = 3`).  Its docstring records that it must not be used on a general `H^∞` slice. | `⟪D01:dotHsFinite s⟫`, the `Ḣ^{3/2}` quantity |
+| the space `Ḣ^s` | `02-prelim:58-69`, `app-B:44,56-70` | scalar `Ḣ^{-1}` only | general `s`, no integrability clause | REVIEW_A minor: A's is unusable for prop:Renergy (needs vector, time-integrated); REVIEW_B issue 4: B's non-integrable integrand silently returns `0` | **B's general `s`, plus the paper's own temperedness estimate as an explicit `Integrable` clause.** `IsHomogeneousDatum` (`:321`), `MemHomogeneous` (`:329`), `homogeneousENorm` (`:335`), `MemDotHNegOne` (`:340`), and the vector forms (`:344,349`) over a locally declared `VectorDistribution` (`:284`).  This is exactly `research/section4/REVIEW.md` item 1's recommendation: **one** definition for `−3/2 < s < 3/2`, with the App-B completion identity and the smooth-compact finiteness left as lemmas. Sign convention checked at `s = −1`: `ĥ = abs(ξ)·G`, i.e. `abs(ξ)^{-1}·ĥ = G ∈ L²`, literally eq:homogeneous-realization. | `⟪D01:dotHs a⟫`, `⟪D01:dotHminus1⟫` |
+| `L^q(0,∞;Ḣ^s)` on a physical field | `04:212,219,226` prop:Renergy | absent | `bochnerHomogeneousENorm` via a pointwise `∫⁻` (lower integral) | REVIEW_A minor and REVIEW_RECONCILIATION issue 2: prop:Renergy's homogeneous clause must be statable | **New.** `IsSliceDistribution` (`:298`) reads a physical slice as a tempered vector distribution — the same Schwartz pairing `IsSobolevDatum` uses, so no `L² → 𝓢'` homogeneous multiplier and no new Parseval convention.  `IsHomogeneousVectorDatum` (`:355`), `IsHomogeneousSliceDatum` (`:364`), `IsHomogeneousPath` (`:372`), and `forceHomogeneousENorm` (`:387`) in the same measurable-path form as `forceSobolevENorm`. | `⟪D01:normLqDotHs⟫`, `⟪D01:normLqDotHminus1 2⟫` |
+| the *quantity* `‖z‖_{Ḣ^s}` on a smooth field | `01-intro:105`, `04:70-72`, `app-B:31,107`, `app-A:24` | `angularVectorHomogeneousNorm` (real-valued) | absent | REVIEW.md item 1: "`‖v‖_{Ḣ^{3/2}}` occurs as notation, so D01 must still define that norm" | **A's literal integral, in `ℝ≥0∞`.** `homogeneousFourierENorm` (`:407`), with `dotHThreeHalvesENorm` (`:415`) and `dotHHalfENorm` (`:420`).  This is the only object usable at `s = 3/2`, where `app-B:101` refuses a space and where the realization above genuinely fails (the temperedness integral diverges at `2s = 3`).  Its docstring records that it must not be used on a general `H^∞` slice. | `⟪D01:dotHsFinite s⟫`, the `Ḣ^{3/2}` quantity |
 
 ### 1.4 Energy norm
 
 | Object | Paper | A | B | Reviews | Final choice and reason | Ledger |
 |---|---|---|---|---|---|---|
-| `E_T` | `01-intro:143` eq:Enorm | `ℝ≥0∞`, `essSup` on `Ioo 0 T`, Frobenius gradient in `WithLp 2` | `ℝ` via `.toReal`, reusing `CompactEnergy.l2Sq`/`dissipation` | REVIEW_A: A's is faithful (no endpoint at `T`, Frobenius not operator norm); REVIEW_B issue 2: `.toReal` sends `⊤ ↦ 0`, so eq:REclose is satisfiable by a field of infinite energy | **A.** `energyEssSup` (`:330`), `spatialGradient` (`:339`), `energyGradient` (`:344`), `energyENorm` (`:355`).  `ℝ≥0∞` removes the vacuity; B's reuse of `CompactEnergy` is dropped because it forces the `.toReal`. | `⟪D01:normET T⟫` |
+| `E_T` | `01-intro:143` eq:Enorm | `ℝ≥0∞`, `essSup` on `Ioo 0 T`, Frobenius gradient in `WithLp 2` | `ℝ` via `.toReal`, reusing `CompactEnergy.l2Sq`/`dissipation` | REVIEW_A: A's is faithful (no endpoint at `T`, Frobenius not operator norm); REVIEW_B issue 2: `.toReal` sends `⊤ ↦ 0`, so eq:REclose is satisfiable by a field of infinite energy | **A.** `energyEssSup` (`:437`), `spatialGradient` (`:446`), `energyGradient` (`:452`), `energyENorm` (`:468`).  `ℝ≥0∞` removes the vacuity; B's reuse of `CompactEnergy` is dropped because it forces the `.toReal`. | `⟪D01:normET T⟫` |
 
 ### 1.5 Data and force classes
 
 | Object | Paper | A | B | Reviews | Final choice and reason | Ledger |
 |---|---|---|---|---|---|---|
-| `H^∞` | `02-prelim:12,15` | `ContDiff` + a datum at every integer order | `ContDiff` + `∀ n, MemLp (iteratedFDeriv ℝ n a) 2 volume` | both faithful; A: `ContDiff` "usefully pins the representative"; B: field-for-field `SmoothL2Field` | **A's datum form.** `MemHInfty` (`:375`).  Uniformity: "`H^m`" then means one thing across `X_R`, `F_R` and the solution class. B's jet form is the binding to the upstream structure and becomes unit L2. | `⟪D01:X_R⟫` |
-| `L²_σ` | `02-prelim:6` | inlined `∑ᵢ (fderiv …) i` | `spatialDivergence` on the time-independent lift | equivalent | **B.** `IsSolenoidal` (`:384`), so one divergence operator serves the datum class and the solution class. | `⟪D01:L2sigma⟫` |
-| `X_R` | `02-prelim:12` eq:Rinitial | `datumClassR` | `XR` | both: no Fréchet topology, correct because 4.1 fixes `a` | **Both.** `initialClassR` (`:389`). | `⟪D01:X_R⟫` |
-| `S_σ` | `04:192` | absent | `SchwartzSolenoidal` | REVIEW_A: outside A's scope | **B.** `initialClassSchwartz` (`:393`). | `⟪D01:S_sigma⟫` |
-| **`F_R`** | `02-prelim:17` eq:Rclasses | `MemForceR` **without** `f ∈ C^∞` | `ForceR` structure **with** `ContDiffOn ℝ ∞ field futureDomain` | **REVIEW_A issue 1 (BLOCKER):** without the `C^∞` clause `MemForceR` is stable under null-set edits of `f`, so `B^R_{ν,a,T}` leaks, 4.1(i) is vacuous and the "only if" of 4.1(ii) is **false** (machine-checked). REVIEW_B explicitly cleared B on this point. | **B's smoothness clause, in A's predicate form.** `MemForceR` (`:424`) = `ContDiffOn ℝ ∞ f futureDomain` ∧ per-order (datum path, `ContDiffOn … (Ici 0)`, `MemLp _ 1`, `MemLp _ 2`).  Predicate on `SpaceTimeField`, **not** B's bundled structure, so that `F_c ⊆ F_rd ⊆ F_R` are set inclusions in one type and `maximalLifespanR ν a ·` is literally the same function on all three — STATEMENTS §9 items 11 and 12. | `⟪D01:F_R⟫` |
-| `F_c` | `04:185` | `MemForceCompact` | `MemFc` | identical, both reuse `CompactPositiveTimeSupport` | **Both.** `MemForceCompact` (`:439`), `forceClassCompact` (`:443`). | `⟪D01:F_c⟫` |
-| `F_rd` | `04:186-191` | absent | joint `iteratedFDerivWithin` on `futureDomain`, `∀ N k, ∃ C` | REVIEW_B: "matches the paper's `∀ N, α, j` family exactly; no common bound imposed" | **B.** `MemForceRapid` (`:452`), `forceClassRapid` (`:458`). | `⟪D01:F_rd⟫` |
+| `H^∞` | `02-prelim:12,15` | `ContDiff` + a datum at every integer order | `ContDiff` + `∀ n, MemLp (iteratedFDeriv ℝ n a) 2 volume` | both faithful; A: `ContDiff` "usefully pins the representative"; B: field-for-field `SmoothL2Field` | **A's datum form.** `MemHInfty` (`:488`).  Uniformity: "`H^m`" then means one thing across `X_R`, `F_R` and the solution class. B's jet form is the binding to the upstream structure and becomes unit L2. | `⟪D01:X_R⟫` |
+| `L²_σ` | `02-prelim:6` | inlined `∑ᵢ (fderiv …) i` | `spatialDivergence` on the time-independent lift | equivalent | **B.** `IsSolenoidal` (`:497`), so one divergence operator serves the datum class and the solution class. | `⟪D01:L2sigma⟫` |
+| `X_R` | `02-prelim:12` eq:Rinitial | `datumClassR` | `XR` | both: no Fréchet topology, correct because 4.1 fixes `a` | **Both.** `initialClassR` (`:502`). | `⟪D01:X_R⟫` |
+| `S_σ` | `04:192` | absent | `SchwartzSolenoidal` | REVIEW_A: outside A's scope | **B.** `initialClassSchwartz` (`:506`). | `⟪D01:S_sigma⟫` |
+| **`F_R`** | `02-prelim:17` eq:Rclasses | `MemForceR` **without** `f ∈ C^∞` | `ForceR` structure **with** `ContDiffOn ℝ ∞ field futureDomain` | **REVIEW_A issue 1 (BLOCKER):** without the `C^∞` clause `MemForceR` is stable under null-set edits of `f`, so `B^R_{ν,a,T}` leaks, 4.1(i) is vacuous and the "only if" of 4.1(ii) is **false** (machine-checked). REVIEW_B explicitly cleared B on this point. | **B's smoothness clause, in A's predicate form.** `MemForceR` (`:537`) = `ContDiffOn ℝ ∞ f futureDomain` ∧ per-order (datum path, `ContDiffOn … (Ici 0)`, `MemLp _ 1`, `MemLp _ 2`).  Predicate on `SpaceTimeField`, **not** B's bundled structure, so that `F_c ⊆ F_rd ⊆ F_R` are set inclusions in one type and `maximalLifespanR ν a ·` is literally the same function on all three — STATEMENTS §9 items 11 and 12. | `⟪D01:F_R⟫` |
+| `F_c` | `04:185` | `MemForceCompact` | `MemFc` | identical, both reuse `CompactPositiveTimeSupport` | **Both.** `MemForceCompact` (`:552`), `forceClassCompact` (`:556`). | `⟪D01:F_c⟫` |
+| `F_rd` | `04:186-191` | absent | joint `iteratedFDerivWithin` on `futureDomain`, `∀ N k, ∃ C` | REVIEW_B: "matches the paper's `∀ N, α, j` family exactly; no common bound imposed" | **B.** `MemForceRapid` (`:565`), `forceClassRapid` (`:571`). | `⟪D01:F_rd⟫` |
 
 ### 1.6 Pressure, solutions, lifespan, breakdown
 
 | Object | Paper | A | B | Reviews | Final choice and reason | Ledger |
 |---|---|---|---|---|---|---|
-| pressure gauge | `02-prelim:31` | `PressureGaugeEquiv T` (on `Ico 0 T`) | global | both faithful | **Set-parametric, subsuming both:** `PressureGaugeEquivOn` (`:469`).  The *spatially constant* gauge of `04:320` is the case of a constant `c`. | `⟪D01:pressureGaugeFreedom⟫` |
-| radial potential | `02-prelim:97` | `radialPressurePotential` | `pressurePotential` | identical transcription | **Both.** `pressurePotential` (`:476`). | `⟪D01:gradPressure⟫` (potential clause) |
+| pressure gauge | `02-prelim:31` | `PressureGaugeEquiv T` (on `Ico 0 T`) | global | both faithful | **Set-parametric, subsuming both:** `PressureGaugeEquivOn` (`:582`).  The *spatially constant* gauge of `04:320` is the case of a constant `c`. | `⟪D01:pressureGaugeFreedom⟫` |
+| radial potential | `02-prelim:97` | `radialPressurePotential` | `pressurePotential` | identical transcription | **Both.** `pressurePotential` (`:589`). | `⟪D01:gradPressure⟫` (potential clause) |
 | `∇p = (I−P)(f − ∇·(u⊗u))` | `02-prelim:90` eq:Rpressure | not encoded | not encoded | both reviews: correct to omit — for a smooth solenoidal solution it follows from the momentum equation plus `∇p ∈ L²` | **Omitted deliberately**; becomes unit L9. | `⟪D01:gradPressure⟫` (partial) |
-| classical solution | `02-prelim` §2.1/§2.3, prop:local | `ClassicalSolutionR ν T a f`, all-order continuous **datum** path | `ClassicalSolutionR ν a f T`, `MemHInfty` slices + `L²` **jet** paths + a.e. identification + continuity | both faithful; both impose the equation on `Ioo 0 T` (two-sided `∂_t` at `0` is undetermined) | **A's datum form, B's argument order.** `ClassicalSolutionR` (`:504`).  Fewer fields, and `C([0,S];H^m)` is `ContinuousOn G (Ico 0 T)` in the same `H^m` sense as `F_R`.  `pressure_gradient : MemLp (pressureGradient …) 2 volume` and **no** scalar `p ∈ L²`, per `02-prelim:101`. | `⟪D01:IsClassicalSolution⟫` |
-| `T^ν_{max,R}(a,f)` | `02-prelim:32` | `⨆ T, ⨆ _ : Nonempty …, ofReal T` | identical | both: same shape as `SmoothLifespan.lifespan`; empty sup `= 0`, so downstream statements must carry the class hypotheses | **Both.** `maximalLifespanR` (`:537`). | `⟪D01:Tmax⟫` |
-| "regular through `T`" | `02-prelim:34` | `RegularThrough` | identical | both faithful | **Both.** `RegularThrough` (`:544`). | `⟪D01:RegularThrough⟫` |
-| `B^R_{ν,a,T}` | `02-prelim:42` | `Set SpaceTimeField` with a `MemForceR` conjunct | `Set ForceR` | REVIEW_A/B both accept theirs | **A's carrier, generalized:** `breakdownSetIn` (`:552`) is parametric in the ambient class, `breakdownSetR` (`:558`) and `breakdownSetRZero` (`:564`) are the `F_R` instances.  STATEMENTS §9 item 12 requires one lifespan function across `F_R`, `F_c`, `F_rd`. | `⟪D01:B_R⟫` |
+| classical solution | `02-prelim` §2.1/§2.3, prop:local | `ClassicalSolutionR ν T a f`, all-order continuous **datum** path | `ClassicalSolutionR ν a f T`, `MemHInfty` slices + `L²` **jet** paths + a.e. identification + continuity | both faithful; both impose the equation on `Ioo 0 T` (two-sided `∂_t` at `0` is undetermined) | **A's datum form, B's argument order.** `ClassicalSolutionR` (`:617`).  Fewer fields, and `C([0,S];H^m)` is `ContinuousOn G (Ico 0 T)` in the same `H^m` sense as `F_R`.  `pressure_gradient : MemLp (pressureGradient …) 2 volume` and **no** scalar `p ∈ L²`, per `02-prelim:101`. | `⟪D01:IsClassicalSolution⟫` |
+| `T^ν_{max,R}(a,f)` | `02-prelim:32` | `⨆ T, ⨆ _ : Nonempty …, ofReal T` | identical | both: same shape as `SmoothLifespan.lifespan`; empty sup `= 0`, so downstream statements must carry the class hypotheses | **Both.** `maximalLifespanR` (`:650`). | `⟪D01:Tmax⟫` |
+| "regular through `T`" | `02-prelim:34` | `RegularThrough` | identical | both faithful | **Both.** `RegularThrough` (`:657`). | `⟪D01:RegularThrough⟫` |
+| `B^R_{ν,a,T}` | `02-prelim:42` | `Set SpaceTimeField` with a `MemForceR` conjunct | `Set ForceR` | REVIEW_A/B both accept theirs | **A's carrier, generalized:** `breakdownSetIn` (`:665`) is parametric in the ambient class, `breakdownSetR` (`:671`) and `breakdownSetRZero` (`:679`) are the `F_R` instances.  STATEMENTS §9 item 12 requires one lifespan function across `F_R`, `F_c`, `F_rd`. | `⟪D01:B_R⟫` |
 
 ### 1.7 Density and grids
 
 | Object | Paper | A | B | Reviews | Final choice and reason | Ledger |
 |---|---|---|---|---|---|---|
-| relative density | `01-intro:137`, `04:8` | `RelativelyDenseInForceR` (`Y = F_R` fixed) | `RelativelyDense` (`Y` = the whole bundled type) | both: the `ε` form is right for a pseudometric topology (periodic analogue `denseAt_iff_approximation` proved) | **Parametric in the ambient class:** `RelativelyDense q s Y S` (`:580`), `BreakdownDenseR` (`:585`).  `research/section4/REVIEW.md` item 17 asks exactly for this so that R45 and R46 share one instance. | `⟪D01:DenseRel⟫` |
-| density in the completion | `04:219` prop:Renergy | absent (declared out of scope) | `CompletedDense` quantified over **all** `ℝ → ForceDistribution` | **REVIEW_B issue 1 (major):** a target off `H^s` sits at distance `⊤` from everything, so B's predicate is false for every `S` and prop:Renergy stated with it is unprovable | **Fixed:** `CompletedDense` (`:600`) quantifies the target over the completion itself — a datum path with `MemBochnerDatum q s b`, i.e. strong measurability plus finite Bochner norm — which is what REVIEW_B's fix demanded.  Kept distinct from `RelativelyDense` (STATEMENTS §9 item 11, C4). | `⟪D01:DenseRel⟫` (second half) |
-| grid | `04:288` | absent | reuses `CartesianGrid` | REVIEW_B: per-axis widths, half-open `cell`, positive finite volume | **B.** `Grid` (`:617`), with the docstring stating the ledger's recommended shape explicitly: **per-axis mesh widths, arbitrary offset, half-open cells**, infinitely many cells indexed by `Fin 3 → ℤ`. | `⟪G01:UniformCartesianGrid⟫`, `⟪G01:cells⟫` |
-| `A_h` | `04:290-291` | absent | `cellAverage` + `gridObservation` | REVIEW_B: matches §4.8 with coordinatewise equality | **B.** `cellAverage` (`:625`), `gridObservation` (`:634`).  The componentwise spelling `Paper3.componentCellAverage` (`CompactObservations.lean:62`) already exists and carries the grid theorems; agreement is unit L11. | `⟪G01:cellAverage⟫` |
+| relative density | `01-intro:137`, `04:8` | `RelativelyDenseInForceR` (`Y = F_R` fixed) | `RelativelyDense` (`Y` = the whole bundled type) | both: the `ε` form is right for a pseudometric topology (periodic analogue `denseAt_iff_approximation` proved) | **Parametric in the ambient class:** `RelativelyDense q s Y S` (`:695`), `BreakdownDenseR` (`:700`).  `research/section4/REVIEW.md` item 17 asks exactly for this so that R45 and R46 share one instance. | `⟪D01:DenseRel⟫` |
+| density in the completion | `04:219` prop:Renergy | absent (declared out of scope) | `CompletedDense` quantified over **all** `ℝ → ForceDistribution` | **REVIEW_B issue 1 (major):** a target off `H^s` sits at distance `⊤` from everything, so B's predicate is false for every `S` and prop:Renergy stated with it is unprovable. **REVIEW_RECONCILIATION issue 1:** the *approximating* path also needs measurability | **Fixed twice.** `CompletedDenseVia` (`:725`) quantifies the target over the completion itself — a datum path with `MemBochnerDatum q s b` — and requires `AEStronglyMeasurable D forceTimeMeasure` of the approximant, closing the lower-integral gap on both sides of the quantifier.  It is parametric in the realization, so prop:Renergy's two clauses are `CompletedDense` (`:736`, inhomogeneous) and `CompletedDenseHomogeneous` (`:745`, `q = 2`, `s = -1`).  Kept distinct from `RelativelyDense` (STATEMENTS §9 item 11, C4). | `⟪D01:DenseRel⟫` (second half) |
+| grid | `04:288` | absent | reuses `CartesianGrid` | REVIEW_B: per-axis widths, half-open `cell`, positive finite volume | **B.** `Grid` (`:759`), with the docstring stating the ledger's recommended shape explicitly: **per-axis mesh widths, arbitrary offset, half-open cells**, infinitely many cells indexed by `Fin 3 → ℤ`. | `⟪G01:UniformCartesianGrid⟫`, `⟪G01:cells⟫` |
+| `A_h` | `04:290-291` | absent | `cellAverage` + `gridObservation` | REVIEW_B: matches §4.8 with coordinatewise equality | **B.** `cellAverage` (`:767`), `gridObservation` (`:776`).  The componentwise spelling `Paper3.componentCellAverage` (`CompactObservations.lean:62`) already exists and carries the grid theorems; agreement is unit L11. | `⟪G01:cellAverage⟫` |
 
 ---
 
@@ -106,28 +108,35 @@ convention that other lanes already build on.
 |---|---|---|
 | `NSFormalization.Source.FourierConvention` | `angularFourier` | It *is* the manuscript's `(2π)^{-3/2}∫e^{-ix·ξ}` transform, and `angularFourier_eq_integral` is the in-tree proof of that identification.  A local copy would have to be re-proved equal to it, or silently diverge on the `2π` convention — the single largest fidelity hazard in this project. |
 | `NSFormalization.Paper3.AngularFourierDilation` | `angularRealization`, `angularFourierDistribution` | The only in-tree `L² → 𝓢'` map carrying the manuscript weights, built from `angularDistributionDilation ∘ 𝓕` in ~200 lines of definitions; its injectivity (`:203`) is what makes every datum in this contract unique. |
-| `NSFormalization.Source.RealSobolev` | `FourierData`, `RealSobolevHilbert` | The reality constraint `F(-ξ) = conj (F ξ)` as a *closed real subspace*, so reality is carried by the type rather than by a side condition. Already in the closure of the previous module. |
+| `NSFormalization.Source.RealSobolev` | `FourierData` in code; `realSubspace` / `RealSobolevHilbert` reach the contract only through `RealVectorSobolev` | The reality constraint `F(-ξ) = conj (F ξ)` as a *closed real subspace*, so reality is carried by the type rather than by a side condition. Already in the closure of the previous module. |
 | `NSFormalization.Paper3.RealVectorPositiveDensity` | `RealVectorSobolev` | The Euclidean (`PiLp 2`) three-vector carrier of `01-intro:103`, and the normed instances the Bochner norms need.  One module beyond the closure already forced by `AngularFourierDilation`.  The alternative sup-normed `ForceDatum` is *not* the manuscript's vector norm. |
 | `NSFormalization.Paper3.PositiveTemporalDensity` | `positiveTimeMeasure` | The `(0,∞)` force-time measure of `01-intro:140`.  Already in the closure above; re-declaring `volume.restrict (Ioi 0)` would fork the name that `RealAdmissibleForce` and the existing density work already use. |
 | `NSFormalization.Paper3.GridGeometry` | `CartesianGrid`, `CartesianGrid.cell` | Grid geometry in exactly the shape STATEMENTS §8.9 recommends; two modules, 279 lines, no proof content beyond the geometry lemmas.  The existing grid-observation theorems are stated against this structure. |
 
-Total added closure over Mathlib + upstream: 51 local modules / ~7.1 kLOC,
-built in ~2 min from a cold local cache.  Explicitly **not** imported:
+Total added closure over Mathlib: 51 modules / 7161 LOC, of which 35 local
+(3795 LOC) and 16 pinned upstream, built in ~2 min from a cold local cache.  Explicitly **not** imported:
 `RealAdmissibleForce`, `AngularForceNorms`, `HomogeneousRealization`,
 `InsertionEnergy`, `CompactEnergy`, `CompactObservations`, `SmoothLifespan`,
 `ManuscriptTopology`, `Euler.LpSmoothField` — every one of these is a *proof*
 module; each is named below as a binding target instead.
 
-**Policy change required.**  `experiments/check_contracts.py:72` previously
+**Policy change required.**  `experiments/check_contracts.py` previously
 allowed a `Contracts.*` module to import only `Mathlib`, `Lean`, `Init` and
-`Contracts.*`, which rejects the import policy this task mandates.  The gate was
-widened to an explicit, auditable form: prefix allowance for
-`NavierStokes.` (pinned upstream source under `vendor/`) plus a hard-coded
-six-element `CONTRACT_CANONICAL_MODULES` set naming exactly the modules above.
-Every other local module is still rejected, and
-`experiments/test_contract_policy.py` gained a regression test
-(`ContractImportBoundary`) pinning both directions.  This is a reviewed policy
-change, not a routine edit; see the open questions in §4.
+`Contracts.*`, which rejects the import policy this task mandates.  The gate is
+now an explicit, auditable list matched by **exact module name on both halves**:
+a seven-element `CONTRACT_CANONICAL_MODULES` frozenset holding the six local
+modules above plus the single pinned upstream module
+`NavierStokes.R3.ProblemStatement`, together with a prefix rule for
+`Mathlib.` / `Lean.` / `Init.` / `Contracts.` and exact matches for the bare
+roots `Mathlib`, `Lean`, `Init`.  There is no package prefix on the vendor side
+any more, so the 643 other `NavierStokes.*` modules — the comparator machinery
+included — are rejected, and `MathlibExtras.X` or `Initialize.X` no longer slip
+past the root rule.  The list governs **direct** imports, not the transitive
+closure.  `experiments/test_contract_policy.py` pins this in both directions:
+four unit tests on `contract_import_allowed`, and two **end-to-end** tests that
+drive `check()` over a throwaway tree containing one probe contract — the
+negative case asserts the `AssertionError` names the offending module.  This is
+a reviewed policy change, not a routine edit; see the open questions in §4.
 
 ---
 
@@ -200,15 +209,17 @@ in the Bochner space; the recorded grid inequality
 4. `⟪D01:V⟫ = H¹(R³;R³) ∩ L²_σ` and `V'`.  `04:202-206` calls these
    "documentation of the intended pairing only"; no Section 4 statement
    quantifies over them.
-5. Physical-field `L^q_t Ḣ^s_x`.  `bochnerDatumENorm` *is* the
-   `L^q(0,∞;Ḣ^s)` norm at the datum level (same isometry class), but the
-   bridge from a *physical* field to a homogeneous datum path is exactly the
-   `L² → 𝓢'` homogeneous multiplier that `HomogeneousRealization.lean`
-   deliberately does not build.  prop:Renergy applies the homogeneous norm only
-   to a smooth compactly supported difference, where
-   `homogeneousFourierENorm` plus a time norm is the right object once L8 is
-   available.  Writing a physical-field version now would bake a Parseval
-   convention into a V1 contract before it is checked.
+5. *(Closed after review — was listed here as not covered.)* Physical-field
+   `L^q_t Ḣ^s_x` and prop:Renergy's `L²(0,∞;Ḣ^{-1})` clause are now defined:
+   `IsSliceDistribution` reads a physical slice as a tempered vector
+   distribution, `IsHomogeneousVectorDatum` / `IsHomogeneousSliceDatum` /
+   `IsHomogeneousPath` carry the homogeneous datum along a trajectory, and
+   `forceHomogeneousENorm` is the measurable-path Bochner norm.  No `L² → 𝓢'`
+   homogeneous multiplier is needed — the bridge goes through the Schwartz
+   pairing that `IsSobolevDatum` already uses, so no new Parseval convention is
+   introduced.  What remains genuinely absent is the *scalar* physical
+   `Ḣ^s`-norm identity relating `forceHomogeneousENorm` to
+   `homogeneousFourierENorm` on smooth compact profiles, which is unit L8.
 6. The Fréchet topology on `H^∞` (§8.2, `02-prelim:15`).  eq:Rinitial fixes
    only the set, thm:Rmain fixes `a` and never topologizes `X_R`.  Both drafts
    omitted it and both reviews ratified the omission.
@@ -231,3 +242,40 @@ right-hand integral is Lean-totalized for a slice that is not locally
 integrable, which the `m = 0` clause of `MemForceR`/`MemHInfty` excludes but
 which a bare use of `IsSobolevDatum` does not; and `homogeneousFourierENorm`
 is faithful only on `L¹ ∩ L²` slices, as its docstring says.
+
+---
+
+## 5. Revisions after `REVIEW_RECONCILIATION.md`
+
+The reviewer accepted `Data.lean` with notes and accepted the six-module local
+allowlist while asking for the vendor half to be narrowed.  Every ranked issue
+is addressed below; line numbers throughout this file are the revised ones.
+
+| # | Sev | Reviewer's point | What changed |
+|---|---|---|---|
+| 1 | moderate | `CompletedDense`'s approximating path `D` carried no measurability, re-introducing the lower-integral gap on the other side of the quantifier | `CompletedDenseVia` (`:725`) now requires `AEStronglyMeasurable D forceTimeMeasure`, matching `forceSobolevENorm` |
+| 2 | moderate | prop:Renergy's `L²(0,∞;Ḣ^{-1})` clause was not statable | added `IsSliceDistribution` (`:298`), `IsHomogeneousVectorDatum` (`:355`), `IsHomogeneousSliceDatum` (`:364`), `IsHomogeneousPath` (`:372`), `forceHomogeneousENorm` (`:387`); `CompletedDenseVia` is parametric in the realization, with `CompletedDense` (`:736`) and `CompletedDenseHomogeneous` (`:745`) as its two instances. §4 item 5 is closed |
+| 3 | minor | `E_T` applies `eLpNorm`/`∫⁻` with no measurability, contradicting the blanket "no lower Lebesgue integral" claim in the module docstring | the module docstring's Totalization bullet now names the two remaining totalized places and why they cannot bite (every field Section 4 applies them to is smooth); `energyEssSup`, `energyGradient` and `energyENorm` carry the caveat, and `energyENorm` records that `T ≤ 0` gives `0` |
+| 4 | minor | `IsSobolevDatum`'s totalized right-hand side admits a junk `0` for a slice that pairs integrably with no Schwartz test | recorded in both the `IsSobolevDatum` and the `sobolevENorm` docstrings, with the reason it is unreachable from `MemHInfty` / `MemForceR`; no side condition added, to keep the shape of `angularRealVectorSlice_pairing` |
+| 5 | minor | a datum is demanded at every `t ≥ 0`, while the paper identifies slices a.e. | recorded in the `IsSobolevPath` docstring, covering `IsLebesgueSlicePath` and `IsHomogeneousPath` too |
+| 6 | minor | the `Integrable` clause note claimed the range `-3/2 < s < 3/2` | reworded: the clause constrains only `2s < 3`; for `s ≤ 0` the integrand is integrable at every `s`, and the lower bound belongs to injectivity / no-polynomial-ambiguity, i.e. to unit L7 |
+| 7 | cosmetic | `breakdownSetRZero` cited the torus line `02-prelim:41` | now cites `04:11` thm:Rmain (ii) and `02-prelim:42`, noting the torus symbol is a different set |
+| 8 | cosmetic | the dependency table listed `RealSobolevHilbert` as used in code and claimed `NavierStokesR3.*` is an allowed package | both rows corrected, in `Data.lean` and in §2 here; the vendor half is now one exact module |
+| 9 | cosmetic | closure counts | §2 now says 51 modules / 7161 LOC, of which 35 local (3795 LOC) and 16 vendor |
+
+Reviewer recommendations on the policy gate, all applied: the `NavierStokes.`
+prefix is replaced by the exact entry `NavierStokes.R3.ProblemStatement` inside
+`CONTRACT_CANONICAL_MODULES`; `Mathlib` / `Lean` / `Init` are matched exactly or
+with a dot, so `MathlibExtras.X` and `Initialize.X` no longer pass; the comment
+states that the list governs direct imports, not the closure; and
+`test_contract_policy.py` gained two end-to-end cases that drive `check()` over
+a throwaway tree (one rejected non-allowlisted local import whose message must
+name the module, one accepted canonical import).
+
+Infrastructure, per the reviewer's bookkeeping note: `verification/lakefile.toml`
+now has `defaultTargets = ["Tests", "Contracts"]`, so a bare `lake build`
+elaborates `Contracts.V1.Data` even when the file is unchanged; `testDriver`
+is untouched.  The Paper-to-Lean table and the attempts log moved out of the
+generated task card into `research/D01/PAPER_TO_LEAN.md` and
+`research/D01/ATTEMPTS.md`, and `python3 experiments/tasks.py render` restored
+`collaboration/tasks/D01.md` to its generated form.
