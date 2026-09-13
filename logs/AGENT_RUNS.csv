@@ -288,3 +288,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,101-A01-p1-potential,opus-4.8,worker-resume,DONE record fixes + eta in 4 min / 13 tool uses (edited A01_SPLIT in the root checkout — committed by lead),PR,PR #103 opened; merging
 2026-09-14,A01,106-A01-m4-gauge,opus-4.8,worker,RUNNING pressure_potential gauge wrapping,—,
 2026-09-14,B02,103-B02-separated-assembly,opus-4.8,worker,DONE separatedAssembly with extra hypothesis -3/2 < s (6 decls; reusable isHomogeneousSliceDatum_sum_smul) in 28 min / 60 tool uses; verbatim ∀ s needs the long additivity route,—,reviewer launched
+2026-09-14,D01,104-SIMP-D01,opus-4.8,simplifier+tester,DONE opens-only (6 removed; 8 negative checks break; conformance via registered fields; 5/8 in Tests closure; MAINT: ForceClass §4 vs DatumToJets) in 21 min / 47 tool uses,PR,PR #104 opened; merging on gates
