@@ -48,8 +48,8 @@
     {
       "id": "D01",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
+      "state": "in-progress",
+      "owner": "erenup",
       "contracts": [],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
