@@ -55,7 +55,7 @@ Legend: `S` = discharged this lane by a direct reuse; `M` = needs a new lemma.
 
 | # | field | Spec:line | size | needed lemma / route | blocker |
 |---|---|---|---|---|---|
-| 6 | `separatedAssembly` | :582 | M (~80-120 ln) | homogeneous datum-path additivity `isHomogeneousPath_separated` (below) | no scalar-`smul`/finite-`sum` combinator for `IsHomogeneousSliceDatum` exists — only `isHomogeneousSliceDatum_sub` (`HomogeneousWitness.lean:585`) |
+| 6 | `separatedAssembly` | :582 | M (~80-120 ln) | homogeneous datum-path additivity `isHomogeneousPath_separated` (below) | no scalar-`smul`/finite-`sum` combinator for `IsHomogeneousSliceDatum` exists — only `isHomogeneousSliceDatum_sub` (`HomogeneousWitness.lean:585`) | **UPDATE (lane 103, REVIEW_SEPARATED.md): proved on `-3/2 < s` as `B02.separatedAssembly` (`Section4/B02/SeparatedAssembly.lean:211`) via the shorter route (`isHomogeneousSliceDatum_unique` + constructor linearity `isHomogeneousSliceDatum_sum_smul`); the verbatim `∀ s` field would need the general additivity route and is nearly vacuous for `s ≤ -3/2`; recommendation: register with `-3/2 < s` (not `SplitRange`) in a V2 of `B02.homogeneous_partial` and add a ⚠ note at `Spec.lean:582`.** |
 | 7 | `annularPathApprox` | :337 | M (~100-150 ln) | path-level annular truncation via measurable selection + DCT (below) | no measurable-in-`t` selection of `annularTruncLp δ R (b t)` and no path-level DCT over `(δ,R)` |
 | 8 | `approxCompactHomogeneous` | :607 | M-L (largest) | `SeparatedCompactHomogeneousDense` glue: `temporalApprox` + `spatialApproxHomogeneous` + `separatedAssembly` (below) | depends on row 6; and `B01`'s `approxCompact` is **monolithic** (not this glue), so cannot be reused/parametrized |
 
@@ -138,3 +138,8 @@ so the `B02` contract binding can point `temporalApprox` at
 `NSFormalization.Section4.B01.temporalApprox` (or the re-export
 `NSFormalization.Section4.B02.temporalApprox`) exactly as `Bindings/BochnerPartial.lean:73`
 does.
+
+
+## Lane 103 follow-up (lead): `approxCompactHomogeneous` recipe from REVIEW_SEPARATED.md §5
+
+All three inputs exist. The one new piece is the realization-independent triangle-inequality gluing next to `separatedPath`: `bochnerDatumENorm q s (separatedPath φ A - separatedPath φ A') ≤ ∑ j, eLpNorm (φ j) q forceTimeMeasure * ‖A j - A' j‖ₑ` (the manuscript's `04-whole-space.tex:257`), from `eLpNorm_sum_le` and a short `eLpNorm (fun t => φ j t • v) q = ‖v‖ₑ * eLpNorm (φ j) q`; `CompletedDenseVia` does not require `MemBochnerDatum q s D`. Size 90–140 lines; the difficulty is `ℝ≥0∞` bookkeeping (`⊤`/`0`, `J = 0`), not analysis. B01's `approxCompact` cannot be reused.
