@@ -60,3 +60,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,D01,024 review,opus,reviewer,ACCEPT-WITH-NOTES: 59 declarations standard axioms; 13 rfl agreements; rulings a-d all confirmed (uniqueness at every real s; B02 sub counterexample real); notes: header overclaim; stale counts; rebase,,fixes sent to worker
 2026-09-13,R42,027 insertion family assembly,opus,worker,done: R42.insertion_family V1 registered (7th contract); all Thm 4.2 clauses except lifespan; 42 declarations standard axioms,,gaps: K->K_* at R42 cost; g_eps in F_R unprovided; blowup pointwise form
 2026-09-13,D01,024 review fixes,opus,worker,done: header corrected; 59/59 axioms re-audited; mul_bdd simplifications; B02 fix recorded,,
+2026-09-13,R42,027 review,opus,reviewer,ACCEPT: 99 constants standard axioms; clause table exact; K->K_* fix sound (file I02 V2); g_eps in F_R gap real (R42 V2 needs hg); docs corrections required,,fixes sent to worker
