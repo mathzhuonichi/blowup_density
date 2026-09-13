@@ -43,7 +43,9 @@ jobs:
           test: true
           lint: false
           use-mathlib-cache: true
-          use-github-cache: true
+          # Repacking the full Mathlib tree exhausts the standard runner disk.
+          # Mathlib's own content-addressed cache is sufficient here.
+          use-github-cache: false
       - name: Compile changed modules outside the registered test closure
         if: github.event_name != 'workflow_dispatch'
         env:

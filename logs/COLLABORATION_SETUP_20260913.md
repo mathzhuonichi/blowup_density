@@ -55,3 +55,8 @@ checks, with pinned actions, read-only permissions and cancellation of supersede
 runs. It tests the registered target package rather than the upstream default
 libraries. The initial setup is delivered through a PR. Remote application and
 branch-protection results are recorded below after verification.
+
+The first Linux run passed architecture checks but failed before Lean tests:
+the extra GitHub cache archive exhausted runner disk after Mathlib restoration.
+The workflow now keeps Mathlib's official cache download and disables the
+second archive of the entire dependency tree. No proof check was weakened.
