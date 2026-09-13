@@ -37,6 +37,26 @@ theorem preSingularDomain_eq :
 theorem positiveTimeDomain_eq :
     Contracts.V1.positiveTimeDomain = NavierStokesR3.ProblemStatement.positiveTimeDomain := rfl
 
+/-- The contract's time derivative is the upstream one. -/
+theorem temporalDerivative_eq : Contracts.V1.temporalDerivative u t x =
+    NavierStokes.ProblemStatement.temporalDerivative u t x := rfl
+
+/-- The contract's spatial Frechet derivative is the upstream one. -/
+theorem spatialDerivative_eq : Contracts.V1.spatialDerivative u t x =
+    NavierStokes.ProblemStatement.spatialDerivative u t x := rfl
+
+/-- The contract's advection term is the upstream one. -/
+theorem advection_eq : Contracts.V1.advection u t x =
+    NavierStokes.ProblemStatement.advection u t x := rfl
+
+/-- The contract's pressure gradient is the upstream one. -/
+theorem pressureGradient_eq : Contracts.V1.pressureGradient p t x =
+    NavierStokes.ProblemStatement.pressureGradient p t x := rfl
+
+/-- The contract's Laplacian is the upstream componentwise Laplacian. -/
+theorem spatialLaplacian_eq : Contracts.V1.spatialLaplacian u t x =
+    NavierStokes.ProblemStatement.spatialLaplacian u t x := rfl
+
 /-- The contract's divergence is the upstream Euclidean divergence. -/
 theorem spatialDivergence_eq : Contracts.V1.spatialDivergence u t x =
     NavierStokes.ProblemStatement.spatialDivergence u t x := rfl

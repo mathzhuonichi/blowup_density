@@ -20,7 +20,7 @@
       "binding_module": "Bindings.Packet",
       "test_module": "Tests.Packet",
       "declaration": "BlowupDensity.Tests.checkedPacket",
-      "scope": "The compact OpenAI packet at every viscosity nu > 0: the Theorem 1.1 properties, the Lemma 2.2 constants M and D with the closed initial quiet interval, and the negative-time zero extensions of velocity, pressure and force. Not the local insertion theorem and not any density statement.",
+      "scope": "The compact OpenAI packet: the Theorem 1.1 construction properties (not its nonexistence corollary) plus Lemma 2.2 and the zero extensions, for every \u03bd>0; not the local insertion theorem and not any density statement.",
       "enabled": true
     }
   ]

@@ -31,9 +31,19 @@ none is an abstract proposition variable.  Introducing `packetStatement` or
 
 Self-containedness.  A registered specification may depend only on Mathlib, so
 every Navier-Stokes notion below is written out here rather than imported from
-`NavierStokes.*` or `NSFormalization.*`.  Each definition is character-for-
-character the pinned upstream one; the adapter records the correspondence with
-`rfl` bridges.  Cross references: `Space`, `SpaceTime`, `VelocityField`,
+`NavierStokes.*` or `NSFormalization.*`.  Each definition is definitionally
+equal to the pinned upstream one, and the adapter checks every one of them with
+a `rfl` bridge, except the three reducible type abbreviations `SpaceTime`,
+`VelocityField` and `PressureField`, whose defeq is already forced by the
+bridges that mention them.  Most of the definitions are additionally written
+character-for-character as upstream; the exception is `dissipation`, which
+inlines the upstream
+`NavierStokes.PeriodicIntegration.spatialPartial i (fun y => u (t, y)) x`
+(`vendor/NavierStokesAndEuler/NavierStokes/PeriodicIntegration.lean:43-45`) as
+`fderiv ℝ (fun y : Space => u (t, y)) x (coordinateVector i)`, which is exactly
+how that definition unfolds.
+
+Cross references: `Space`, `SpaceTime`, `VelocityField`,
 `PressureField`, `coordinateVector`, `preSingularDomain`, `temporalDerivative`,
 `spatialDerivative`, `advection`, `spatialDivergence`, `pressureGradient`,
 `spatialLaplacian`, `SpeedUnboundedAtOne` are
@@ -77,11 +87,12 @@ abbrev PressureField := SpaceTime → ℝ
 /-- The standard unit coordinate vectors of `R^3`. -/
 def coordinateVector (i : Fin 3) : Space := EuclideanSpace.single i 1
 
-/-- `R^3 x [0,1)`, the physical domain before the singular time, with the
-initial time included. -/
+/-- `[0,1) x R^3`, the physical domain before the singular time, with the
+initial time included.  Time is the first factor, as in the term below. -/
 def preSingularDomain : Set SpaceTime := Ico 0 1 ×ˢ univ
 
-/-- `R^3 x (0,∞)`, the open set in which the force must have compact support. -/
+/-- `(0,∞) x R^3`, time first as in the term below: the open set in which the
+force must have compact support. -/
 def positiveTimeDomain : Set SpaceTime := Ioi 0 ×ˢ univ
 
 /-- `∂_t u`, evaluated on the positive unit time direction. -/
