@@ -113,7 +113,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 007-I01-contract | 已合入（ACCEPT-WITH-NOTES，已修） | **`I01.packet` V1 已注册** | #12 | 第一条 PDE 合同；27 义务全证；20 个内联定义 + 19 个 rfl 桥；标准 3 公理 |
 | 008-I02-correction-spec | 已合入（ACCEPT-WITH-NOTES） | — | #10 | 76 字段 CorrectionAPI；3.4/3.5 的 R³ 内容本地已基本证完，缺 4 小项 |
 | 011-I02-contract | PR #19 待合（CI 跑完） | **`I02.correction` V1 已注册（rebase 后门禁全绿）** | #19 | 73 义务全证；范数已搬到 Data.lean 的 ℝ≥0∞ 规范范数；多一条论文自带的假设 π 光滑；参考解开板光滑桥因单切片消失 |
-| 016-A02-spec | review 中 | — | — | UniquenessAPI + MaximalSolutionAPI 通过检查；找到本地 `classical_uniqueness_on_Icc`（同载体）；主张需加边 A03 → A02（与台账 v2 相反，待 reviewer 裁定）；10 单元无 L |
+| 016-A02-spec | review 中 | — | — | UniquenessAPI + MaximalSolutionAPI 通过检查；找到本地 `classical_uniqueness_on_Icc`（同载体）；reviewer 裁定：加边 A03 → A02（必要），A03 → R42 保留；修正中（压力规范、假设措辞、U1 尺寸） |
 | 017-A03-spec | PR #20 待合（CI 跑完） | — | #20 | ACCEPT-WITH-NOTES 已修；标量理论本地已完整，缺实向量/张量层与实性稳定性；U2 依赖 D01 L2（风险） |
 | 018-B01-spec | PR #21 待合（CI 跑完） | — | #21 | ACCEPT-WITH-NOTES 已修；主字段已由本地源码覆盖（所有 s、q<∞）；缺口只剩时间 C^∞ 搬运；无 L 单元 |
 | 012-SPEC-ledger-fixes | 已合入 | — | #13 | 台账 v2：12 处修正 + DAG 提案 + CHANGELOG |
@@ -127,6 +127,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
 
 - 加边 A03 → R42：定理 4.2 的"寿命 ≤ T"一步用了引理 A.1 的 H² → L^∞。
+- 加边 A03 → A02：唯一性证明的 Grönwall 系数 ‖∇u₂‖_∞ 只靠 H² → L^∞ 才有限（appendix-a:120-123）；A03 的祖先闭包 {D01, U04, A05, U03} 无环。
 - R41D 按外力子类（F_R / F_c / F_rd）参数化，并加边 R41D → R45；推论 4.5 和命题 4.6 都需要定理 4.2 的紧支撑修正，而不只是定理 4.1 的结论。
 - R42 的合同要显式导出 u_ε − v 无散和紧支撑压力规范，定理 4.7 的证明用到；R47 允许多一个只依赖时间的常数 κ(t)。
 - 定理 4.2 / 命题 4.6 / 定理 4.7 必须共用同一个 ε 族（一个线程化的见证），ε₀ 取所有约束的最小值。

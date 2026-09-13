@@ -39,3 +39,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A03,017 review,opus,reviewer,ACCEPT-WITH-NOTES: 2 med (H^k not H^inf for product fields; which field carries A03->R42); 4 low; admissibility-predicate argument confirmed,,fixes sent to worker
 2026-09-13,A03,017 review fixes,opus,worker,done: H^k on divergence-form fields; edge docstrings; half-integer hypothesis; citations; U2 risk note,#20,kept H^inf on two classical-derivative fields (justified)
 2026-09-13,B01,018 review fixes,opus,worker,done: anchors verified; SeparatedCompactDense def; reuse credited; componentwise Schwartz; units resized,#21,
+2026-09-13,A02,016 review,opus,reviewer,ACCEPT-WITH-NOTES: H1 pressure gauge in exists_maximal; H2 hypothesis claim false; sizing; DAG ruling: add A03->A02 keep A03->R42,,fixes sent to worker
