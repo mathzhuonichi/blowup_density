@@ -154,7 +154,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 048-B01-units-6-8 | ACCEPT-WITH-NOTES 已修，已合入 | — | #51 | B01 单元 6（`separatedAssembly`）+ 8（`spatialApprox`），`Section4/B01/Separated.lean` |
 | 049-A02-unit-u1b | ACCEPT，已合入 | — | #50 | A02 单元 U1b：`ClassicalSolutionR` 在 `Icc 0 T'` 上的 `‖u‖` 与 `‖∇u‖` 一致上界（经 `D01.datum_lemmas` + `A03.bounded_representative`），`Section4/A02/Bounds.lean` |
 | 050-C01-units-u1-u3 | ACCEPT-WITH-NOTES 已修，已合入 | — | #52 | C01 单元 U1（`velocityJets`，经 `D01.datum_lemmas` 现为 S）+ U3（演化打包成 `SmoothL2Field` 路径），`Section4/C01/{VelocityJets,Evolution}.lean` |
-| 051-B02-unit-1 | 进行中 | — | — | B02 单元 1：环形截断 + 光滑化（`annularRestriction`、`annularSmoothing`），`Section4/B02/Annular.lean` |
+| 051-B02-unit-1 | ACCEPT-WITH-NOTES 已修，已合入 | — | #56 | B02 单元 1：环形截断 + 光滑化（`annularRestriction`、`annularSmoothing`），`Section4/B02/Annular.lean` |
 | 052-A02-units-u2-u3 | ACCEPT，已合入 | — | #53 | A02 单元 U2（`velocity_unique` 经 `classical_uniqueness_on_Icc` + U1a + U1b）+ U3（`pressure_gauge`）；**叠在 049 分支上**，`Section4/A02/Uniqueness.lean` |
 | 053-A04-unit-d1 | ACCEPT-WITH-NOTES 已修，已合入 | — | #54 | A04 单元 D1：`HasSmoothSobolevPath` ⇒ 平方 datum 范数的导数 `2⟪G t, G' t⟫`，与 `sobolevNormAt = ‖G‖`；**叠在 039 分支上**，`Section4/A04/DerivNorm.lean` |
 | 054-D01-datum-lemmas-v2 | ACCEPT-WITH-NOTES 已修，已合入 | **`D01.datum_lemmas_v2`（第 11 条）** | #55 | `D01.datum_lemmas` **V2**：`extends` V1 + 042 的 `forceSobolevENorm_ne_top` 字段；Bindings import `HalfOrder`（进合同闭包） |
