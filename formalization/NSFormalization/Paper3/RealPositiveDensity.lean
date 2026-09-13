@@ -17,6 +17,16 @@ instance realSobolevNormedAddCommGroup (s : ℝ) : NormedAddCommGroup (RealSobol
 instance realSobolevNormedSpace (s : ℝ) : NormedSpace ℝ (RealSobolevHilbert s) :=
   inferInstanceAs (NormedSpace ℝ (realSubspace s).toSubmodule)
 
+/-- Introduced by lane 053 (A04 unit D1): the real inner product on the closed
+Sobolev subspace, taken from `Submodule.innerProductSpace` on the very submodule
+`(realSubspace s).toSubmodule` the two instances above are built from, so
+`InnerProductSpace.toNormedSpace` is `rfl`-equal to `realSobolevNormedSpace s`
+(and its `NormedAddCommGroup` to `realSobolevNormedAddCommGroup s`) — no diamond.
+Lifting it here rather than into an A04 leaf lets `PiLp.innerProductSpace` find
+`InnerProductSpace ℝ (RealVectorSobolev s)` for any consumer of `Paper3`. -/
+instance realSobolevInnerProductSpace (s : ℝ) : InnerProductSpace ℝ (RealSobolevHilbert s) :=
+  inferInstanceAs (InnerProductSpace ℝ (realSubspace s).toSubmodule)
+
 /-- The existing real-part projection with its actual closed-subspace codomain. -/
 def realProjectionTo (s : ℝ) : SobolevHilbert s →L[ℝ] RealSobolevHilbert s :=
   realProjection.codRestrict (realSubspace s).toSubmodule (realProjection_mem s)
