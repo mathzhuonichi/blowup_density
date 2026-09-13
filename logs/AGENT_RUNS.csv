@@ -95,3 +95,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A04,039-A04-units-f1-n1,opus,reviewer,ACCEPT-WITH-NOTES (integrand character-for-character under a strict subset of the field's hypotheses; low: 3rd bochnerDatumENorm copy undocumented; 3 Data.lean line cites; dead Nat.cast_ofNat simp; table off-by-one),,worker resumed for fixes
 2026-09-13,R43,037-R43-spec-A,opus,compare+reconcile,DONE (RCritical1API 4 fields; 7 of A's 11 blind restatements mismatched real siblings; new gaps G3 half-order force norms may be ⊤ for MemForceR -> vacuous; G2 path-level Ḣ≤H monotonicity; merged #40),#40,merged
 2026-09-13,A04,039-A04-units-f1-n1,opus-4.8,worker-resume,DONE notes in 5 min / 20 tool uses,PR,PR opened; hold merge until CI window
+2026-09-13,B02,036-B02-units-3-4,opus,reviewer,ACCEPT-WITH-NOTES (3 fields string-identical; constants verified against paper; notes for unit 9 only),PR,PR opened; hold merge until CI window

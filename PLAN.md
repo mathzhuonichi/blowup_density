@@ -139,7 +139,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 033-A02-energy-u1a | ACCEPT-WITH-NOTES，已合入（去重 → 040） | — | #38 | A02 单元 U1a：`ClassicalSolutionR` ⇒ `UniformFiniteEnergy (Icc 0 T')` |
 | 034-D01-lemma-contract | ACCEPT-WITH-NOTES 已修，已合入 | **`D01.datum_lemmas` V1（第 10 条）** | #37 | 把 020/024/025/028 的 D01 引理收成合同 `D01.datum_lemmas`（jets⇔datum、齐次见证、F_R 闭包、切片提取），进 `make test` 闭包 |
 | 035-B01-units-1-3 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | B01 单元 1–3（R46 实际消费的三条：Schwartz/紧支稠密 + 完备化代表元），`Section4/B01/` |
-| 036-B02-units-3-4 | 进行中 | — | — | B02 单元 3+4（低频权重可积性/积分值；角 Fourier 上确界界），`Section4/B02/` |
+| 036-B02-units-3-4 | ACCEPT-WITH-NOTES，PR 待合 | — | — | B02 单元 3+4（低频权重可积性/积分值；角 Fourier 上确界界），`Section4/B02/` |
 | 037-R43-spec-A | 盲稿 A+B 比对调和完成，已合入 | — | #40 | `RCritical1API` 4 字段（B 形状）；上游缺口 G1–G7 见 `research/R43/COMPARISON.md` §4 |
 | 038-R43-spec-B | 已合入（经 037） | — | #40 | 命题 4.3 spec 盲稿 B（与 037 互不可见） |
 | 039-A04-units-f1-n1 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A04 单元 F1（`MemForceR` ⇒ L¹_tH^m / 有界 H¹ 力）+ N1（被积函数连续性），`Section4/A04/` |
