@@ -112,7 +112,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 006-SPEC-section4-statements | 已合入（ACCEPT-WITH-NOTES） | — | #6 | 1175 行台账；DAG 修正建议见下 |
 | 007-I01-contract | 已合入（ACCEPT-WITH-NOTES，已修） | **`I01.packet` V1 已注册** | #12 | 第一条 PDE 合同；27 义务全证；20 个内联定义 + 19 个 rfl 桥；标准 3 公理 |
 | 008-I02-correction-spec | 已合入（ACCEPT-WITH-NOTES） | — | #10 | 76 字段 CorrectionAPI；3.4/3.5 的 R³ 内容本地已基本证完，缺 4 小项 |
-| 011-I02-contract | ACCEPT，修 3 条低级项后合入 | **`I02.correction` V1 已注册（本地全绿）** | — | 73 义务全证；范数已搬到 Data.lean 的 ℝ≥0∞ 规范范数；多一条论文自带的假设 π 光滑；参考解开板光滑桥因单切片消失 |
+| 011-I02-contract | PR #19 待合（CI 跑完） | **`I02.correction` V1 已注册（rebase 后门禁全绿）** | #19 | 73 义务全证；范数已搬到 Data.lean 的 ℝ≥0∞ 规范范数；多一条论文自带的假设 π 光滑；参考解开板光滑桥因单切片消失 |
 | 016-A02-spec | 进行中 | — | — | 唯一性 / 最大解 / 定量重启（依赖 A01 spec） |
 | 017-A03-spec | 进行中 | — | — | Lemma A.1 tame 积 + H²↪L^∞（R42、A04 用） |
 | 018-B01-spec | 进行中 | — | — | 完备 Bochner 空间里 F_c 稠密（Prop 4.6 前半） |
