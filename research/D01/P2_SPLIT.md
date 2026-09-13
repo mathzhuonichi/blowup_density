@@ -68,13 +68,13 @@ in 𝓢') is the order-0 identity and is the natural cross-check for SL8, **not*
 |---|--------|-------------------|------|---------|
 | SL0 | — | `h = f−(u·∇)u+νΔu ∈ H^∞`; P2 ⇔ `∂ₜu(t,·) ∈ H^∞` | **done (055)** | — |
 | **SL1** | **d1,a** | `complementSymbol ξ = ξξᵀ/‖ξ‖²` — projection, opNorm ≤ 1, real, even, **0-homog**, kills transverse, fixes longitudinal | **S — DONE (this lane)** | — |
-| SL2 | a | land the multiplier in the real subspace `RealVectorSobolev` (via `realProjectionTo`); even+real ⇒ preserves it | S/M | needs SL3 obj |
-| SL3 | d2 | operator-valued `L²` multiplier `RVSᵐ →L[ℝ] RVSᵐ`, opNorm ≤ 1, a.e. `= complementSymbol ξ (·)` | **S/M** | template exists upstream — the only real work is the `q=2` `assemble/coordinates` isometry |
+| SL2 | a | land the multiplier in the real subspace `RealVectorSobolev` (via `realProjectionTo`); even+real ⇒ preserves it | **DONE** (073 `realSymmetryVec_lerayComplementL2`, 081 `image_component_mem_realSubspace`; reality built into the codomain of `lerayComplement s`) | — |
+| SL3 | d2 | operator-valued `L²` multiplier `RVSᵐ →L[ℝ] RVSᵐ`, opNorm ≤ 1, a.e. `= complementSymbol ξ (·)` | **DONE** (073 `D01/LerayMultiplier.lean` raw carrier + bridge; 081 `D01/LerayDatum.lean` `lerayComplement s`, PR #82) | — |
 | SL4 | c1 | `div ∂ₜu(t,·)=0` (α); `(I−P)` kills a solenoidal field (fibre fact, **done SL1**) | α: S/M | α **proved** (lane 074, `D01/DivergenceTime.lean` `spatialDivergence_temporalDerivative_eq_zero`, `Ioo 0 T`); **SL4β/unit L3 DELETED — not needed** |
 | SL5 | c2 | `∇p` longitudinal via **curl-freeness** (Clairaut), so `(I−P)∇p = ∇p` (fibre fact, **done SL1**) | M | needs SL6 (`iξⱼ` datum) |
-| SL6 | d | **the one substantive lemma:** `IsSobolevDatum m (∂ⱼz) (iξⱼ·A)` from `IsSobolevDatum m z A` | M | scalar block exists (`SobolevDirectionalDerivative`); vector `IsSobolevDatum` form is new |
+| SL6 | d | **the one substantive lemma:** `IsSobolevDatum m (∂ⱼz) (iξⱼ·A)` from `IsSobolevDatum m z A` | **DONE** (066 `D01/DerivativeDatum.lean:245` `isSobolevDatum_partialDeriv`, for `Z : SmoothL2Field`, order `m+1 → m`) | — |
 | SL7 | b,c3 | eq:Rpressure at every order, **non-circular**: order-0 Plancherel seed + `pressure_gradient` + bootstrap | S/M (seed) + M | order-0 `MemLp⟹IsSobolevDatum 0` constructor not yet wired |
-| SL8 | e | pin datum → classical field (`representative_ae`), feed `DatumToJets` ⇒ `SmoothSquareIntegrableJets (∇p)` | M | needs SL3–SL7 |
+| SL8 | e | pin datum → classical field (`representative_ae`), feed `DatumToJets` ⇒ `SmoothSquareIntegrableJets (∇p)` | M | needs SL5, SL7b/c and the transport lemma `IsSobolevDatum s z A → IsSobolevDatum s ((I−P)z) (lerayComplement s A)` (needs complex-symbol 0-homogeneity; 081 review) |
 
 **Bottom line (finding 4 rewrite).**  P2 is **not** gated by any **L** piece.  Its three genuine
 work items are all S/M: **SL7's order-0 Plancherel seed**, **SL6 (`iξⱼ` datum)**, and **SL3**
