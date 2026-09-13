@@ -215,3 +215,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,R42,083-R42-pressure-gradient,opus-4.8,worker-resume,DONE retract false negative example + rename + notes in 4 min / 17 tool uses,PR,PR #83 opened; merging
 2026-09-14,A04,086-SIMP-A04,opus-4.8,simplifier+tester,RUNNING 8 early A04 modules,—,
 2026-09-14,A04,082-A04-sl3-real-pairing,opus-4.8,worker-resume,DONE record fixes F1-F9 in 3 min / 12 tool uses,PR,PR #84 opened; merging
+2026-09-14,R42,087-R42-sol-on-shorter,opus-4.8,worker,RUNNING assembly #1 ClassicalSolutionR on every shorter horizon,—,

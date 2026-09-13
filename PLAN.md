@@ -190,6 +190,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 084-B02-unit-2-sl3 | 进行中 | — | — | B02 单元 2 SL3（M）：由 datum 的共轭反射对称得 `angularFourier (postcompCLM ofRealCLM (ψ i)) =ᵐ G i`（`ψ i` = `φ i` 的实部），加 SL4a（slice distribution）与 SL4b（可积性），`Section4/B02/AnnularReal.lean` |
 | 085-D01-p2-sl7c-commute | 进行中 | — | — | P2 SL7c：`lerayComplement` 与降阶 `lowerDatum` 交换（复符号 0-齐次 + 与 `angularFrequencyDilation` 交换 + 标量权交换），推论：各阶 datum 的 Leray 补由 0 阶决定，`Section4/D01/LerayLowering.lean` |
 | 086-SIMP-A04 | 进行中 | — | — | A04 八个较早合入模块（Forcing, Continuity, Gronwall, Regularized, DerivNorm, HighEnergy, TimeDerivative, MomentumDatum）的 simplifier+tester（陈述逐字不变；负向检查用 `set_option autoImplicit false`；conformance；CI 闭包） |
+| 087-R42-sol-on-shorter | 进行中 | — | — | R42 装配子引理 #1 `sol_on_shorter`：由 `InsertionFamilyAPI` 在每个 `0<S<T` 上构造 `ClassicalSolutionR ν a (g_ε) S`（区间收缩 + 075 `CorrectionPath` + 083 `PressureGradient` + 080 切片连续），`Section4/R42/SolutionOnShorter.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
