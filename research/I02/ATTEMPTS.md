@@ -318,3 +318,66 @@ statement.
   needs a rebase onto `erenup/integration` before the PR; nothing in
   `Correction.lean`, the binding or the new proof modules depends on the changed
   docstrings.
+
+## 9. Contract review round (`research/I02/REVIEW_CONTRACT.md`)
+
+**ACCEPT**, six findings, all Low or Trivial.  Three were applied in a second
+pass on the same worktree.  **No field of `CorrectionAPI` changed** — the field
+list is still the same 73 names in the same order; the diff is one new binding
+theorem, one new import, and docstrings.
+
+* **Finding 1 (Low), applied — `scaledPacket_eq` was not a drift guard.**  The
+  bridge only restated the contract's own right-hand side
+  (`parabolicVelocity ε⁻¹ (T−ε²) x₀ (zeroPastField U)`), so the docstring claim
+  "this is the third summand of `Source.InsertionFamily.velocity`" was
+  unguarded.  `Bindings/Correction.lean` now also carries
+  `insertionFamily_velocity_eq`, which states the whole three-term
+  decomposition
+  `InsertionFamily.velocity U W x₀ T θ η ε z = W z + physicalCorrection W … z +
+  Contracts.V1.scaledPacket U x₀ T ε z` and closes by `rfl`.  It names
+  `InsertionFamily.velocity`, so it stops compiling if the insertion family
+  changes shape.  `Bindings/Correction.lean` now imports
+  `NSFormalization.Source.InsertionFamily` explicitly (it was already in the
+  test closure through `Paper1.InsertionEnergy`, so the closure is unchanged at
+  597 modules).  The `scaledPacket` docstring points at the new theorem, and
+  `scaledPacket_eq`'s own docstring no longer overclaims.  14 bridges now.
+* **Finding 2 (Low), applied — the `P.carrier` vs `K_*` narrowing was recorded
+  only in `ATTEMPTS.md`.**  Two places in the registered contract now say it: a
+  new bullet in the module header's *Conventions*, and a "*Narrowing to
+  record*" paragraph in the `carrier_subset_plateau` docstring.  Both state that
+  `P.carrier` is the packet's own `K` (`01-introduction.tex:17-18, 24-25`), not
+  the enlarged `K_*` of `03-torus.tex:101-102`, that this is exactly what
+  Lemmas 3.4/3.5 use here because I02 never mentions the packet force, and that
+  `I03`/`R42` must supply the enlargement (built inline at
+  `Source/InsertionFamily.lean:218-234`).
+* **Finding 3 (Low) + finding 4 (Trivial), applied — wrong docstring list and
+  one off-by-one citation.**  The structure docstring listed
+  `velocity_smooth, quietTime, quiet_pos, velocity_quiet`, none of which the
+  binding uses, and omitted `velocity_extension_smooth`, which it does use.  It
+  now names exactly the six fields the binding touches — `velocity`, `carrier`,
+  `carrier_compact`, `velocity_support`, `divergence_free`,
+  `velocity_extension_smooth` — and says that the quiet interval is not used
+  directly because `velocity_extension_smooth` already packages it.
+  `eps_time`'s citation `03-torus.tex:104` (the opening `\[`) became `:105`, the
+  display line itself.
+* **Finding 5 (Trivial), not applied.**  `energyConst`/`mixedConst` carry no
+  nonnegativity field while `correctionDerivConst`/`forceDerivConst` do.  Both
+  bounds are `ENNReal.ofReal`-clamped, so a negative constant makes the bound
+  *stronger*, not vacuous; adding a field would change the contract, which this
+  pass was told not to do.
+* **Finding 6 (Trivial), not applied.**  `verification/contracts.json` re-encodes
+  the neighbouring committed `I01.packet` scope string (`ν` → literal `ν`)
+  because the entry was appended with `json.dump(..., ensure_ascii=False)`.  The
+  JSON is semantically identical and `check_contracts.py` compares the parsed
+  entry field by field, not the bytes, so it passes; leaving it is a lead call
+  at merge time.
+
+Gates after the second pass, from the worktree root with
+`. scripts/lean-env.sh`: `make check` exit 0 (3 registered contracts, policy
+suite 13/13 OK, 30 work items consistent); `make test` exit 0 with all three
+`checked; standard logical axioms only`; `make test-mutations` exit 0
+(`implementation_refactor: accepted`, the other three `rejected as required`);
+`check_contracts.py --base-ref c8bde6e` exit 0 with
+`base_compatibility_checked: true`.  `--base-ref erenup/integration` still fails
+on the stale `Data.lean` docstrings described in §8; the rebase is still
+outstanding.

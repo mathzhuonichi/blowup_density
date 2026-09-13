@@ -7,6 +7,7 @@ import NSFormalization.Paper1.InsertionEnergy
 import NSFormalization.Paper1.CorrectionEnergy
 import NSFormalization.Paper1.CorrectionVectorNorms
 import NSFormalization.Source.PhysicalRemoval
+import NSFormalization.Source.InsertionFamily
 
 /-! The only layer that knows the current implementation's names and paths for
 the correction contract.
@@ -66,11 +67,23 @@ theorem parabolicVelocity_eq :
     Contracts.V1.parabolicVelocity k t₀ x₀ u = NSFormalization.Source.parabolicVelocity k t₀ x₀ u :=
   rfl
 
-/-- The contract's `U_ε` is the third summand of the implementation's
-insertion family. -/
+/-- The contract's `U_ε` is the implementation's parabolic rescaling of the
+past-zero extension of the packet velocity. -/
 theorem scaledPacket_eq :
     Contracts.V1.scaledPacket u x₀ T ε =
       NSFormalization.Source.parabolicVelocity ε⁻¹ (T - ε ^ 2) x₀ (zeroPastField u) := rfl
+
+/-- The contract's `U_ε` really is the third summand of the implementation's
+insertion family `NSFormalization.Source.InsertionFamily.velocity`
+(`formalization/NSFormalization/Source/InsertionFamily.lean:32-35`), which is
+what the `scaledPacket` docstring claims.  `scaledPacket_eq` alone cannot see
+that: it only restates the contract's own right-hand side.  This theorem names
+`InsertionFamily.velocity` and so stops compiling the moment the insertion
+family changes shape. -/
+theorem insertionFamily_velocity_eq (U W : Contracts.V1.VelocityField)
+    (z : Contracts.V1.SpaceTime) :
+    NSFormalization.Source.InsertionFamily.velocity U W x₀ T θ η ε z =
+      W z + physicalCorrection W x₀ T θ η ε z + Contracts.V1.scaledPacket U x₀ T ε z := rfl
 
 /-- The contract's `E_T` gradient vector is the one the transport lemmas use. -/
 theorem spatialGradient_eq (z : Contracts.V1.VelocityField) :

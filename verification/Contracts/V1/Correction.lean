@@ -45,6 +45,11 @@ open slab `(0,T+delta) x R^3`.
   `01-introduction.tex:134`), not the ad hoc real-valued norms of the
   implementation.  Both are `ENNReal`-valued, so neither bound can be met
   vacuously by an infinite quantity.
+* The packet carrier used below is `P.carrier`, the packet's own compact `K`
+  (`01-introduction.tex:17-18`), **not** the enlarged `K_*` of
+  `03-torus.tex:101-102`, which also contains the spatial projection of
+  `supp F`.  I02 never mentions the packet force, so `K` is all that is needed;
+  `I03` and `R42` must supply the enlargement.  See `carrier_subset_plateau`.
 * The manuscript's "for all sufficiently small `eps`" is the single threshold
   `eps0` together with the smallness clauses `eps_time` and `eps_space`, which
   transcribe `2 eps^2 < min(T,delta)` and `x0 + eps K subset B`
@@ -136,7 +141,14 @@ def parabolicVelocity (k t₀ : ℝ) (x₀ : Space) (u : VelocityField) : Veloci
 (`paper/sections/03-torus.tex:112-113`), applied to the zero extension of the
 packet velocity to nonpositive source time (clarification `C1`,
 `03-torus.tex:108-111`).  Only its *support* enters `I02`.  This is the third
-summand of `NSFormalization.Source.InsertionFamily.velocity`. -/
+summand of `NSFormalization.Source.InsertionFamily.velocity`, and that claim is
+itself a drift guard:
+`BlowupDensity.Bindings.insertionFamily_velocity_eq` in
+`verification/Bindings/Correction.lean` states the whole three-term
+decomposition and stops compiling if the insertion family changes shape.  The
+`rfl` bridge `BlowupDensity.Bindings.scaledPacket_eq` separately pins the
+rescaling itself to
+`NSFormalization.Source.parabolicVelocity`/`PacketScaling.zeroPastField`. -/
 def scaledPacket (U : VelocityField) (x₀ : Space) (T ε : ℝ) : VelocityField :=
   parabolicVelocity ε⁻¹ (T - ε ^ 2) x₀ (zeroPastField U)
 
@@ -155,9 +167,12 @@ correction `w_eps` and the correction force `H_eps`, in exactly the form
 Theorem 4.2 (`thm:Rinsert`, `paper/sections/04-whole-space.tex:31-79`) consumes.
 
 The packet is not restated: it is the already registered `PacketAPI nu` of
-`I01.packet`, and only the five facts `velocity`, `carrier`, `carrier_compact`,
-`velocity_support`, `divergence_free` (plus `velocity_smooth`, `quietTime`,
-`quiet_pos`, `velocity_quiet` for the zero extension) are used.
+`I01.packet`, and only six of its fields are used -- `velocity`, `carrier`,
+`carrier_compact`, `velocity_support` and `divergence_free`, together with
+`velocity_extension_smooth`, which is the smooth zero extension of `U` to
+nonpositive source time that `scaledPacket` rescales (clarification `C1`,
+`03-torus.tex:108-111`).  The packet's quiet interval is not used directly:
+`velocity_extension_smooth` already packages it.
 
 Layout of the fields.
 
@@ -245,7 +260,18 @@ structure CorrectionAPI (ν : ℝ) (P : PacketAPI ν) where
   /-- The plateau is open, `paper/sections/03-torus.tex:181-182`. -/
   plateau_open : IsOpen plateau
   /-- The packet carrier is inside the plateau,
-  `paper/sections/03-torus.tex:181`. -/
+  `paper/sections/03-torus.tex:181`.
+
+  *Narrowing to record.*  The set the manuscript puts inside the plateau there is
+  `K_*` (`03-torus.tex:101-102`), the compact enlargement containing the packet
+  carrier `K` **and** the spatial projection of `supp F`.  The set used here is
+  `P.carrier`, the packet's own `K` (`01-introduction.tex:17-18, 24-25`;
+  `I01.packet`).  Nothing in this contract mentions the packet force, and the
+  only consumer of the plateau below is `eq:bgzero`, which needs the plateau to
+  dominate `supp U_eps(t)` alone -- so `K` is exactly what Lemmas 3.4 and 3.5 use
+  here, and this field is correspondingly the weaker hypothesis.  `I03` and `R42`
+  must supply the enlargement to `K_*` themselves before they may use the cutoffs
+  against `supp F`; `Source/InsertionFamily.lean:218-234` builds it inline. -/
   carrier_subset_plateau : P.carrier ⊆ plateau
   /-- `theta = 1` on the plateau, `paper/sections/03-torus.tex:181`. -/
   theta_one : EqOn θ (fun _ => 1) plateau
@@ -279,7 +305,7 @@ structure CorrectionAPI (ν : ℝ) (P : PacketAPI ν) where
   uniform, `paper/sections/03-torus.tex:242`. -/
   eps_le_one : ε₀ ≤ 1
   /-- `2 eps^2 < min(T, delta)`, `paper/sections/03-torus.tex:212` and
-  `03-torus.tex:104`.  It puts the whole cutoff window inside `(0, T+delta)`,
+  `03-torus.tex:105`.  It puts the whole cutoff window inside `(0, T+delta)`,
   where the reference is regular. -/
   eps_time : ∀ ε ∈ Ioc (0 : ℝ) ε₀, 2 * ε ^ 2 < min T δ
   /-- `eps R_* < r`, i.e. the scaled support of `theta` is strictly inside the
