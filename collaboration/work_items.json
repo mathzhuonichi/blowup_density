@@ -131,9 +131,11 @@
     {
       "id": "R42",
       "kind": "specification",
-      "state": "needs-specification",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "R42.insertion_family"
+      ],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
     {

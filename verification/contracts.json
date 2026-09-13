@@ -77,6 +77,17 @@
       "declaration": "BlowupDensity.Tests.checkedTameProduct",
       "scope": "Lemma A.1's product clauses on the whole space, at the datum level of Contracts/V1/Data: eq:Rproduct's first clause for a scalar-scalar and a scalar-vector product at every integer order m >= 2, eq:algebra and eq:tame at every integer order k >= 3 with the low factor at order two, the u(x)u - v(x)v product difference bound (the manuscript states this one only qualitatively at appendix-a-local-theory.tex:51-52, so the registered inequality is derived from the factorization plus eq:algebra), and the H^m bound for the advection (u.grad)v; plus the two componentwise comparisons between the scalar and the three-vector norm and the admissibility instances for smooth fields with square-integrable jets. Not the embedding clauses (eq:Rproduct's L-infinity half is A03.bounded_representative, H^1 into L^6 and eq:embeddings are A05.gradient_l6), not the torus half of lem:calculus, not the order shift for the gradient, and no clause whose hypothesis is the datum form Data.MemHInfty: the advection clause is stated for the jet class, and two of the draft's four MemHInfty clauses (memHInfty_memHm and the MemHInfty advection bound), plus the exact componentwise norm identity, are collected unproved and unregistered in UnprovedTameProductObligations; the other two, memHInfty_component and memHInfty_partialDeriv, are one-step corollaries of memHInfty_memHm together with registered fields and are deliberately not restated there.",
       "enabled": true
+    },
+    {
+      "id": "R42.insertion_family",
+      "parent_task": "R42",
+      "version": 1,
+      "specification": "verification/Contracts/V1/InsertionFamily.lean",
+      "binding_module": "Bindings.InsertionFamily",
+      "test_module": "Tests.InsertionFamily",
+      "declaration": "BlowupDensity.Tests.checkedInsertionFamily",
+      "scope": "Theorem 4.2's inserted family and all its quantitative clauses except the maximal-lifespan identification and the reference-lifespan clause; the force-class membership g_eps in F_R and the ClassicalSolutionR fields sobolev/pressure_gradient for u_eps are not asserted, and the blow-up clause is registered in the pointwise SpeedUnboundedAt form, a deviation from the displayed limsup of the spatial sup norm that is equivalent for every inhabitant because the velocity slice is continuous",
+      "enabled": true
     }
   ]
 }
