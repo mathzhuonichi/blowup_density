@@ -16,10 +16,15 @@
 - 本机 gh 登录 = `erenup`（协作者，仓库级写权限，无 admin）。owner = `mathzhuonichi`。
 - 主干 `main`（2026-09-13 从 `codex/section4-blueprint` 改名，见 `logs/MAIN_BRANCH_20260913.md`）。`codex/*` 都是已合入的死分支。
 - 分支保护：PR 需 1 个 review，作者不能自审，CI 必须绿。
-- 一条车道 = 一个 worktree + 分支 `erenup/<TASK>-<slug>` + 一个 PR。先提 claim 小 PR
-  （`python3 experiments/tasks.py claim <ID> erenup && python3 experiments/tasks.py render`），再干活。
-- 冲突只会出现在 `verification/contracts.json`、`collaboration/work_items.json`、`collaboration/TASKS.md`（生成物）。
-  rebase 后重跑 `tasks.py render`。
+- **集成分支 `erenup/integration`**：我们自己能合。每条 lane 的 PR 以它为 base，reviewer 跑通后由 lead 合入；
+  攒一批再从它向 `main` 提 PR 给 owner review。根目录 `/data_8T/ping/blowup_density` 永远停在干净的 `main`，只 `git pull`，不在这里改东西。
+- **编号规则**：lane 序号 `NNN` 三位、全局递增，唯一分配点是 `PLAN.md` 进度表。
+  worktree = `.claude/worktrees/NNN-<TaskID>-<slug>`，分支 = `erenup/NNN-<TaskID>-<slug>`，PR 标题 = `[NNN-<TaskID>] 一句话`。
+  TaskID 用 DAG 节点（D01…R47）；非节点的工程活用 `MAINT`，纯陈述整理用 `SPEC`。`000-integration` 是集成分支的 worktree。
+- 一条 lane：从 `erenup/integration` 开 worktree → claim（`python3 experiments/tasks.py claim <ID> erenup && python3 experiments/tasks.py render`，
+  单独一个 commit）→ 干活（草稿放 `research/<ID>/`）→ PR to `erenup/integration` → opus reviewer 跑通 Lean → lead 合入并记 CSV。
+- 冲突只会出现在 `verification/contracts.json`、`collaboration/work_items.json`、`collaboration/TASKS.md`（生成物）、`logs/AGENT_RUNS.csv`。
+  CSV 只由 lead 在合入时追加。rebase 后重跑 `tasks.py render`。
 - 已有的 `Contracts/V1/*`、`Tests/*` 不改；数学变了加 V2。CI 会拒绝静默修改。
 - 提交前 `make check`；Lean 改动再跑 `make test`、`make test-mutations`。PR 用模板，写任务 ID、合同版本、跑过的命令。
 
@@ -33,6 +38,8 @@
   `vendor/HeliCorgi` 是 4.32.1 的独立包，尚未与主包混编（任务 U05）。
 - 依赖链：`verification` → `../formalization` → `../vendor/NavierStokesAndEuler` → mathlib（git，锁在 lake-manifest）。
 - `make test` 只编译已注册合同的闭包，秒级；不会编 340 个本地文件或 2486 个 OpenAI 文件。
+- 草稿文件放 `research/<ID>/X.lean`，检查用 `cd verification && lake env lean ../research/<ID>/X.lean`；
+  它 import 的本地模块先 `lake build -j 6 NSFormalization.Foo.Bar`（首次一个闭包约 2–3 分钟，之后秒级）。
 
 ## 本机资源（2026-09-13 实测）
 

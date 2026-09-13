@@ -65,13 +65,18 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 
 ## 4. 并发安排（5 条 lane）
 
-| 阶段 | lane 1 | lane 2 | lane 3 | lane 4 | lane 5 |
-|---|---|---|---|---|---|
-| 现在 | D01 定义 | U05 工具链 | I01 packet 能量 | A05 嵌入（spec） | 陈述 BFS：R41→R47 草案 |
-| D01 落地后 | A01 存在性 | A01 正则性 | I02 | B01 | B02 |
-| 之后 | A02 | A03 | I03 | G01 | C01（等 A02） |
-| 之后 | A04 | R42 | R41D | — | — |
-| 收尾 | R43 | R44 | R46 | R41 | R45、R47 |
+| 波次 | lane 编号 | 节点 | 说明 |
+|---|---|---|---|
+| 1（进行中） | 002 / 003 | D01 定义草案 A / B | 两个互不可见的 agent，lead 比对后定稿 |
+| 1 | 004 | U05 工具链探针 | HeliCorgi 模块在 4.34.0-rc2 下试编 |
+| 1 | 005 | I01 packet 能量 spec | 只依赖 OpenAI 包 |
+| 1 | 006 | SPEC 第 4 节陈述台账 | R41→R47 自顶向下 BFS，产出 D01 需求清单 |
+| 2 | 007+ | A01（2 条：存在性、正则性）、A05、I02、B01、B02 | D01 定稿后 |
+| 3 | | A02、A03、I03、G01、C01 | |
+| 4 | | A04、R42、R41D | |
+| 收尾 | | R43、R44、R46、R41、R45、R47 | |
+
+编号规则见 `CLAUDE.md`；每条 lane 的 PR 以 `erenup/integration` 为 base，lead 合入；攒一批后从 `erenup/integration` 向 `main` 提 PR。
 
 A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCorgi 的 R³ 算子）和
 全阶正则性 / 场同定 是两块可分的工作。
@@ -99,5 +104,10 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 节点 | 状态 | 合同 | PR | 备注 |
 |---|---|---|---|---|
 | R41 算术部件 | 绿 | `R41.threshold_arithmetic` V1 | #1 | owner 提交，只含算术 |
-| 环境搭建 | 本地完成，待 PR | — | — | CLAUDE.md / scripts / .gitignore |
-| 其余 29 节点 | 未开始 | — | — | |
+| 001-MAINT-setup | 已合入 integration | — | #4 | CLAUDE.md / PLAN / scripts / .gitignore |
+| 002-D01a-definitions | 进行中 | — | — | D01 草案 A（opus） |
+| 003-D01b-definitions | 进行中 | — | — | D01 草案 B（opus，独立） |
+| 004-U05-toolchain-probe | 进行中 | — | — | HeliCorgi 4.34 试编报告 |
+| 005-I01-packet-energy | 进行中 | — | — | Lemma 2.2 / Thm 1.1 对照 + spec |
+| 006-SPEC-section4-statements | 进行中 | — | — | 第 4 节陈述台账 |
+| 其余节点 | 未开始 | — | — | |
