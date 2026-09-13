@@ -184,9 +184,9 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 078-B02-unit-2-split | 已合并 | #80 | #80 | B02 单元 2 `annularSchwartz`（L）拆分起步：`|ξ|^{-s}·g` 在环上光滑紧支（SL1）、Schwartz 逆角 Fourier（SL2）、实值性（SL3）、组装到 `IsHomogeneousSliceDatum`（SL4）；`research/B02/U2_SPLIT.md` + `Section4/B02/AnnularSchwartz.lean` |
 | 079-D01-p2-sl4-transverse | 进行中 | — | — | P2 SL4 Fourier 横向形式：无散 `SmoothL2Field` 的任一 (m+1) 阶 datum 满足 a.e. `∑ⱼ ξⱼ Âⱼ(ξ) = 0`（经 066 `isSobolevDatum_partialDeriv` + 标量 datum 唯一性 + 符号消去），再推论到 `∂ₜu(t,·)`（D2 + 074 SL4α + `A05.SmoothL2` 包装），`Section4/D01/Transverse.lean` |
 | 080-R42-blowup-esssup | 已合并 | #81 | #81 | R42 子项 2a：逐点 `SpeedUnboundedAt T u` + 切片连续 ⇒ `limsupLeft T (speedENorm (u(t,·))) = ⊤`（开集正测度 ⇒ essSup 下界；limsup=⊤ 的 frequently 刻画），`Section4/R42/BlowupEssSup.lean` |
-| 081-D01-p2-leray-datum | 审阅中 | — | — | P2 SL3 收尾：把 073 的 `lerayComplementL2` 重打包成 datum 载体上的 `lerayComplement m : RealVectorSobolev m →L[ℝ] RealVectorSobolev m`（`coordinates ∘ lerayComplementL2 ∘ assemble` + `codRestrict` 到实子空间），范数 ≤ 1、幂等、a.e. 作用、横向为零，`Section4/D01/LerayDatum.lean` |
+| 081-D01-p2-leray-datum | PR 已开 | #82 | — | P2 SL3 收尾：把 073 的 `lerayComplementL2` 重打包成 datum 载体上的 `lerayComplement m : RealVectorSobolev m →L[ℝ] RealVectorSobolev m`（`coordinates ∘ lerayComplementL2 ∘ assemble` + `codRestrict` 到实子空间），范数 ≤ 1、幂等、a.e. 作用、横向为零，`Section4/D01/LerayDatum.lean` |
 | 082-A04-sl3-real-pairing | 审阅中 | — | — | A04 SL3 步骤 3a：实载体 `RealSobolevHilbert` 上的反自伴 `⟪f, D_a g⟫_ℝ = -⟪D_a f, g⟫_ℝ`（`angularDirectionalDerivativeReal`，实 `L2.inner_def`）、降阶配对 `⟪Λ⁻¹w, Λw⟫ = ‖w‖²`、降阶符号只依赖 r−s，`Section4/A04/RealPairing.lean` |
-| 083-R42-pressure-gradient | 审阅中 | — | — | R42 子项 1f：`∇p_ε = ∇π + ∇P_ε ∈ L²`（参考压力梯度 L² + 修正压力空间紧支光滑 ⇒ 梯度 L²，`MemLp.add`），`Section4/R42/PressureGradient.lean` |
+| 083-R42-pressure-gradient | 续改中 | — | — | R42 子项 1f：`∇p_ε = ∇π + ∇P_ε ∈ L²`（参考压力梯度 L² + 修正压力空间紧支光滑 ⇒ 梯度 L²，`MemLp.add`），`Section4/R42/PressureGradient.lean` |
 | 084-B02-unit-2-sl3 | 进行中 | — | — | B02 单元 2 SL3（M）：由 datum 的共轭反射对称得 `angularFourier (postcompCLM ofRealCLM (ψ i)) =ᵐ G i`（`ψ i` = `φ i` 的实部），加 SL4a（slice distribution）与 SL4b（可积性），`Section4/B02/AnnularReal.lean` |
 | 其余节点 | 未开始 | — | — | |
 
