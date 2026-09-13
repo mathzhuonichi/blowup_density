@@ -68,3 +68,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A03,026 review,opus,reviewer,ACCEPT-WITH-NOTES: 83 declarations standard axioms; math spot-checks sound; 6 of 8 maxHeartbeats dead; provenance and wording notes,,fixes sent to worker
 2026-09-13,A03,026 review fixes,opus,worker,done: 6 dead maxHeartbeats removed; 2 lowered; provenance; order-only constant in unregistered obligations; scope,,
 2026-09-13,D01,028 review,opus,reviewer,ACCEPT: 23 theorems standard axioms; 7 rfl agreements; consumer shapes compiled against the real InsertionFamily contract; 2 prose notes,,fixes sent to worker
+2026-09-13,D01,028 review fixes,opus,worker,done: prose corrections (MemForceR g provenance; route 1 dischargeable today),,
