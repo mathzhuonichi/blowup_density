@@ -135,6 +135,8 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 029-I02-v2-thetaradius | ACCEPT，PR 待合 | **`I02.correction_v2` 已注册** | — | `extends` V1 + 1 字段 `K ⊆ plateau`；兼容绑定 V1-of-V2；`force_carrier_subset_ball` 直接证出 021/027 说"无法履行"的前提；政策脚本零改动 |
 | 030-A04-spec | 进行中 | — | — | 平方 H² continuation 适配器（∫‖u‖²_{H²} < ∞ ⇒ 高阶界 + 越过 S 的一致重启；R43/R44 的关键路径） |
 | 031-C01-spec | 进行中 | — | — | 常规能量与 H¹ 吸收（eq:RL2、eq:RH1；R43/R44 用） |
+| 032-A02-restrict-order | 进行中 | — | — | A02 单元 U4+U6：`restrict`/congruence/`pressure_normalization` 与六个序论字段（无分析） |
+| 033-A02-energy-u1a | 进行中 | — | — | A02 单元 U1a：`ClassicalSolutionR` ⇒ `UniformFiniteEnergy (Icc 0 T')` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
