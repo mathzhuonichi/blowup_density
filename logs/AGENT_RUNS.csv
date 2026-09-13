@@ -55,3 +55,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A03,023 review fixes,opus,worker,done: bridge renames (no clash with 019); SmoothJetsUpTo 2 hypothesis; provenance chain; scope; 15/15 standard axioms,#25,
 2026-09-13,I03,021 review fixes,opus,worker,done: inert premise dropped (30 fields; no proof changed); U7c/B02 named; scope extended; gates green,#26,
 2026-09-13,MERGE,wave 4-5 merges,lead,merge,merged #23 #24 #25 #26 #27 into integration; registry conflicts resolved from lane tips (two lanes squashed),,CI green on clean runner before merges
+2026-09-13,D01,024 homogeneous witness,opus,worker,done: witness for Schwartz fields at all s>-3/2; uniqueness at every real s; sub with side condition; path lift minus AEStronglyMeasurable; 56 declarations standard axioms,,B02 homogeneousDatumSub false as written; U7c blocker = measurable path
