@@ -17,30 +17,31 @@ about explicitly named objects of `Contracts.V1.Data`.
 
 The **approximation half** of Proposition 4.6 (`prop:Renergy`,
 `paper/sections/04-whole-space.tex:218-229`), in its inhomogeneous realization:
-the four stages of the proof at `04-whole-space.tex:232-260`, packaged as the
+the four stages of the proof at `04-whole-space.tex:231-260`, packaged as the
 single statement that `F_c` is dense in the completed Bochner space
 `L^q(0,∞;H^s(R³;R³))`.
 
 The stages, in the manuscript's order:
 
-1. `04-whole-space.tex:233-237` — Fourier truncation and mollification of
+1. `04-whole-space.tex:231-235` — Fourier truncation and mollification of
    `G = ⟨ξ⟩^s ĥ ∈ L²` give Schwartz `h_n → h` in `H^s`, "by the isometry
    defining `H^s`".  Field `schwartzApprox`.
-2. `04-whole-space.tex:238-243` — the spatial cutoff `χ_R(x) = χ(x/R)`:
-   `‖(1−χ_R)h_n‖_{H^m} → 0` for every integer `m ≥ 0`, and
+2. `04-whole-space.tex:235-239` — the spatial cutoff `χ_R(x) = χ(x/R)`
+   (defined at `:235`): the display `‖(1−χ_R)h_n‖_{H^m} → 0` at `:237` for every
+   integer `m ≥ 0`, and
    `‖z‖_{H^s} ≤ ‖z‖_{H^m}` for `m ≥ max(s,0)`.  Fields `χ`…`chi_range` and
    `cutoffApprox`.
-3. `04-whole-space.tex:250-252` — "take real parts of each component of the
+3. `04-whole-space.tex:249` — "take real parts of each component of the
    approximants"; conjugation is an isometry for these real even weights.  This
    stage is invisible in Lean, because `RealVectorSobolev s` *is* the
-   conjugate-reflection subspace (`02-preliminaries.tex:74`,
+   conjugate-reflection subspace (`02-preliminaries.tex:73`,
    `Data.lean` §2), so 1–3 are packaged as the single field `spatialApprox`.
-4. `04-whole-space.tex:253-260` — the Bochner stage: restrict to `[1/N,N]`,
+4. `04-whole-space.tex:251-260` — the Bochner stage: restrict to `[1/N,N]`,
    approximate by finite simple functions, approximate each `E_j` by a finite
    union of intervals, smooth the indicators.  Field `temporalApprox`.
 
 Stage 4 is written for "any of the preceding separable Hilbert spaces `X`"
-(`04-whole-space.tex:253`) and is therefore stated here on the *datum* carrier
+(`04-whole-space.tex:251`) and is therefore stated here on the *datum* carrier
 `RealVectorSobolev s`, which `Data.lean` §4 records as the common carrier of the
 `H^s` and `Ḣ^s` realizations.  `B02` reuses `temporalApprox` verbatim; only its
 spatial stage differs.  See the interface note in `research/B01/COMPARISON.md`.
@@ -50,15 +51,15 @@ spatial stage differs.  See the interface note in `research/B01/COMPARISON.md`.
 Explicitly, and contrary to what the surrounding statement of `prop:Renergy`
 might suggest:
 
-* **`s` is arbitrary real.**  `04-whole-space.tex:233` "Fix any real `s`" and
-  `04-whole-space.tex:243` "proves spatial compact-smooth density in `H^s` for
+* **`s` is arbitrary real.**  `04-whole-space.tex:231` "Fix any real `s`" and
+  `04-whole-space.tex:239` "proves spatial compact-smooth density in `H^s` for
   every real `s`".  No stage of the approximation uses `s < s_q`.
-* **`q` is any exponent in `[1,∞)`.**  `04-whole-space.tex:253` "Write `X` for
+* **`q` is any exponent in `[1,∞)`.**  `04-whole-space.tex:251` "Write `X` for
   any of the preceding separable Hilbert spaces and `1 ≤ q < ∞`."
 
 The threshold `s < s_q = 2/q − 3/2` (`04-whole-space.tex:8`,
 `Data.lean.criticalOrder`) belongs to the *singular*-force half of `prop:Renergy`
-— the appeal to `cor:Rclasses` at `04-whole-space.tex:262-264`, i.e. node
+— the appeal to `cor:Rclasses` at `04-whole-space.tex:262`, i.e. node
 `R41D`/`R45` — and never to `B01`.  `manuscriptApproximation` below records the
 instance `R46` actually consumes, with the threshold hypothesis present but
 unused, so that no reader mistakes `B01` for a thresholded statement.
@@ -116,10 +117,20 @@ open scoped ContDiff ENNReal SchwartzMap
 
 /-! ## 1. Named objects of the approximation -/
 
-/-- `04-whole-space.tex:239`, `χ_R(x) = χ(x/R)`: the dilated spatial cutoff of
+/-- `04-whole-space.tex:235`, `χ_R(x) = χ(x/R)`: the dilated spatial cutoff of
 stage 2.  Written with `R⁻¹ • x` so that no positivity of `R` is needed to form
 the expression; `cutoffApprox` takes `R → ∞`. -/
 def scaledCutoff (χ : Space → ℝ) (R : ℝ) : Space → ℝ := fun x => χ (R⁻¹ • x)
+
+/-- The real Euclidean three-vector field assembled from three real scalar
+components.  `04-whole-space.tex:249` "take real parts of **each component** of
+the approximants": the manuscript's stage 1 is componentwise, and Mathlib has no
+finite-product assembly of `SchwartzMap`, so `schwartzApprox` and `cutoffApprox`
+carry `ψ : Fin 3 → SchwartzMap Space ℝ` and assemble here.  Same shape as
+`NSFormalization.Paper3.physicalVector`
+(`formalization/NSFormalization/Paper3/RealVectorPositiveDensity.lean:18`). -/
+def schwartzVector (ψ : Fin 3 → SchwartzMap Space ℝ) : SpatialField :=
+  fun x => WithLp.toLp 2 (fun i => ψ i x)
 
 /-- `04-whole-space.tex:260`, "the finite sum `Σ_j φ_j(t) h_j(x)`": the physical
 spacetime field assembled from smooth compactly supported time factors `φ` and
@@ -140,7 +151,7 @@ def separatedPath {J : ℕ} {s : ℝ} (φ : Fin J → ℝ → ℝ)
 /-- `04-whole-space.tex:219` and `research/section4/STATEMENTS.md:812-814`
 `⟪D01:BochnerLq q X⟫`: the full Bochner space `L^q(0,∞;H^s(R³;R³))` as a bundled
 Banach space, i.e. the completion object of `prop:Renergy` read through the
-`H^s` isometry `h ↦ ⟨ξ⟩^s ĥ` of `02-preliminaries.tex:70-74`.  Its underlying
+`H^s` isometry `h ↦ ⟨ξ⟩^s ĥ` of `02-preliminaries.tex:71-72`.  Its underlying
 carrier is `Data.lean`'s datum type, so the *same* type is the `Ḣ^s` completion
 of `B02`; only the realization predicate distinguishes them
 (`Data.lean:200-210, 380-390`). -/
@@ -150,21 +161,21 @@ abbrev bochnerSpace (q : ℝ≥0∞) (s : ℝ) := Lp (RealVectorSobolev s) q for
 
 /-- Every obligation that the approximation half of Proposition 4.6
 (`prop:Renergy`, `paper/sections/04-whole-space.tex:218-229`, proof at
-`:232-260`) places on the inhomogeneous completed force space, in exactly the
+`:231-260`) places on the inhomogeneous completed force space, in exactly the
 form `R46` consumes (`research/section4/STATEMENTS.md:823-830`).
 
 Layout of the fields.
 
-* `χ … chi_range`: the fixed cutoff of `04-whole-space.tex:238-239`.
+* `χ … chi_range`: the fixed cutoff of `04-whole-space.tex:235`.
 * `schwartzApprox`, `cutoffApprox`, `spatialApprox`: stages 1–3, the spatial
   half.  `spatialApprox` is the only one `approxCompact` needs; the other two
   are the manuscript's own intermediate displays, kept separately because
-  `04-whole-space.tex:243` states stage 2 as a limit in `R` rather than as an
+  `04-whole-space.tex:239` states stage 2 as a limit in `R` rather than as an
   `ε`-approximation, and because `B02`'s spatial stage
-  (`04-whole-space.tex:245-250`) is stated by contrast with them.
+  (`04-whole-space.tex:241-249`) is stated by contrast with them.
 * `temporalApprox`: stage 4, the Bochner step.  Shared verbatim with `B02`.
 * `separatedAssembly`: the packaging of a finite separated sum as an element of
-  `F_c` together with its datum path, `04-whole-space.tex:259-260`.
+  `F_c` together with its datum path, `04-whole-space.tex:260`.
 * `approxCompact`: the conclusion, in `Data.lean`'s `CompletedDense`.
 * `completionRepresentative … completionCongr`: the identification of the
   datum-path completion with the bundled Bochner space `bochnerSpace q s`.
@@ -172,41 +183,47 @@ Layout of the fields.
   forces" usable where `T^ν_{max,R}` and `cor:Rclasses` live.
 
 Nothing about `Ḣ^{-1}` appears here; that is `B02`
-(`04-whole-space.tex:244-252`), which consumes `temporalApprox` and
+(`04-whole-space.tex:241-249`), which consumes `temporalApprox` and
 `separatedAssembly` unchanged.
 
 No field is a hypothesis about an unspecified proposition, and no field is
 `True`, `∃ x, True` or any similar placeholder. -/
 structure BochnerApproxAPI where
-  -- ### The fixed spatial cutoff, `04-whole-space.tex:238-239`
+  -- ### The fixed spatial cutoff, `04-whole-space.tex:235`
   /-- `χ ∈ C_c^∞`, "equal to one on the unit ball and zero outside the ball of
-  radius two, with `0 ≤ χ ≤ 1`", `paper/sections/04-whole-space.tex:238`. -/
+  radius two, with `0 ≤ χ ≤ 1`", `paper/sections/04-whole-space.tex:235`. -/
   χ : Space → ℝ
-  /-- `χ` is smooth, `04-whole-space.tex:238`. -/
+  /-- `χ` is smooth, `04-whole-space.tex:235`. -/
   chi_smooth : ContDiff ℝ ∞ χ
-  /-- `χ = 1` on the closed unit ball, `04-whole-space.tex:238`. -/
+  /-- `χ = 1` on the closed unit ball, `04-whole-space.tex:235`. -/
   chi_one : ∀ x : Space, ‖x‖ ≤ 1 → χ x = 1
-  /-- `χ = 0` outside the ball of radius two, `04-whole-space.tex:238`.  With
+  /-- `χ = 0` outside the ball of radius two, `04-whole-space.tex:235`.  With
   `chi_smooth` this gives `HasCompactSupport χ`. -/
   chi_vanishes : ∀ x : Space, 2 ≤ ‖x‖ → χ x = 0
-  /-- `0 ≤ χ ≤ 1`, `04-whole-space.tex:238`. -/
+  /-- `0 ≤ χ ≤ 1`, `04-whole-space.tex:235`. -/
   chi_range : ∀ x : Space, χ x ∈ Icc (0 : ℝ) 1
 
   -- ### Stage 1: Schwartz approximation through the `H^s` isometry
-  /-- `04-whole-space.tex:233-237`.  "Fix any real `s`, and let `h ∈ H^s`.
+  /-- `04-whole-space.tex:231-235`.  "Fix any real `s`, and let `h ∈ H^s`.
   Approximate `G = ⟨ξ⟩^s ĥ ∈ L²` by `G_n ∈ C_c^∞` in `L²` … By the isometry
   defining `H^s`, `h_n → h` in `H^s`."  Stated directly on the datum, since
   `RealVectorSobolev s` *is* the `L²` datum space that the isometry lands in:
   every datum is approximated by the datum of a real vector Schwartz field.
 
+  The Schwartz field is carried as its three real scalar components
+  (`schwartzVector`), matching both the manuscript's componentwise phrasing at
+  `04-whole-space.tex:249` and the source's three `SchwartzMap Space ℂ`;
+  Mathlib has no product assembly of `SchwartzMap`.
+
   Every real `s` is covered; no threshold enters. -/
   schwartzApprox : ∀ (s : ℝ) (A : RealVectorSobolev s) (η : ℝ≥0∞), 0 < η →
-    ∃ (ψ : SchwartzMap Space Space) (Z : RealVectorSobolev s),
-      IsSobolevDatum s (⇑ψ) Z ∧ ‖Z - A‖ₑ < η
+    ∃ (ψ : Fin 3 → SchwartzMap Space ℝ) (Z : RealVectorSobolev s),
+      IsSobolevDatum s (schwartzVector ψ) Z ∧ ‖Z - A‖ₑ < η
 
   -- ### Stage 2: the spatial cutoff
-  /-- `04-whole-space.tex:238-243`.  "For fixed `n` and any nonnegative integer
-  `m`, Leibniz' rule shows `‖(1−χ_R)h_n‖_{H^m} → 0` … Choosing `m ≥ max(s,0)`
+  /-- `04-whole-space.tex:235-239`, with the display at `:237`.  "For fixed `n`
+  and any nonnegative integer `m`, Leibniz' rule shows
+  `‖(1−χ_R)h_n‖_{H^m} → 0` … Choosing `m ≥ max(s,0)`
   and using `‖z‖_{H^s} ≤ ‖z‖_{H^m}` proves spatial compact-smooth density in
   `H^s` for every real `s`."
 
@@ -214,13 +231,14 @@ structure BochnerApproxAPI where
   the order `s` that the conclusion needs, which is what the manuscript's two
   sentences jointly give.  `sobolevENorm` is `⊤` on a slice with no order-`s`
   datum, so the statement is not weakened by the totalization. -/
-  cutoffApprox : ∀ (s : ℝ) (ψ : SchwartzMap Space Space),
+  cutoffApprox : ∀ (s : ℝ) (ψ : Fin 3 → SchwartzMap Space ℝ),
     Filter.Tendsto
-      (fun R : ℝ => sobolevENorm s (fun x => (1 - scaledCutoff χ R x) • ψ x))
+      (fun R : ℝ =>
+        sobolevENorm s (fun x => (1 - scaledCutoff χ R x) • schwartzVector ψ x))
       Filter.atTop (nhds 0)
 
   -- ### Stages 1–3 combined: real compact smooth spatial density
-  /-- `04-whole-space.tex:243` together with `:250-252`.  "These constructions
+  /-- `04-whole-space.tex:239` together with `:249`.  "These constructions
   also prove the real vector-valued versions: take real parts of each component
   of the approximants."
 
@@ -228,13 +246,13 @@ structure BochnerApproxAPI where
   real `s`.  This is the only spatial input `approxCompact` uses; it is the
   conjunction of `schwartzApprox` and `cutoffApprox`, with the real-part step
   discharged by the fact that `RealVectorSobolev s` is the conjugate-reflection
-  subspace (`02-preliminaries.tex:74`). -/
+  subspace (`02-preliminaries.tex:73`). -/
   spatialApprox : ∀ (s : ℝ) (A : RealVectorSobolev s) (η : ℝ≥0∞), 0 < η →
     ∃ (h : SpatialField) (H : RealVectorSobolev s),
       ContDiff ℝ ∞ h ∧ HasCompactSupport h ∧ IsSobolevDatum s h H ∧ ‖H - A‖ₑ < η
 
   -- ### Stage 4: the Bochner step, shared with `B02`
-  /-- `04-whole-space.tex:253-260`.  "Write `X` for any of the preceding
+  /-- `04-whole-space.tex:251-260`.  "Write `X` for any of the preceding
   separable Hilbert spaces and `1 ≤ q < ∞`.  Given `b ∈ L^q((0,∞);X)`, first
   restrict it to `[1/N,N]` … strongly measurable functions can be approximated
   in `L^q` by finite simple functions `Σ_j 1_{E_j} b_j` … Each measurable
@@ -250,7 +268,7 @@ structure BochnerApproxAPI where
 
   The coefficients `A j` are arbitrary elements of the completion's fibre; the
   spatial compactness of the profiles is supplied separately by
-  `spatialApprox`, exactly as `04-whole-space.tex:256` ("Approximate each `b_j`
+  `spatialApprox`, exactly as `04-whole-space.tex:252` ("Approximate each `b_j`
   by a physical `h_j ∈ C_c^∞(R³)` in `X`") separates the two errors. -/
   temporalApprox : ∀ (q : ℝ≥0∞), 1 ≤ q → q ≠ ⊤ → ∀ (s : ℝ)
       (b : ℝ → RealVectorSobolev s), MemBochnerDatum q s b →
@@ -261,7 +279,7 @@ structure BochnerApproxAPI where
       bochnerDatumENorm q s (separatedPath φ A - b) < η
 
   -- ### Packaging a separated sum as an element of `F_c`
-  /-- `04-whole-space.tex:259-260`.  "Thus the finite sum `Σ_j φ_j(t)h_j(x)`
+  /-- `04-whole-space.tex:260`.  "Thus the finite sum `Σ_j φ_j(t)h_j(x)`
   approximates `b` and is jointly smooth with compact support strictly inside
   `R³ × (0,∞)`.  This proves the claimed Bochner density with both kinds of
   compactness, rather than merely compactness of a Sobolev-valued time path."
@@ -286,10 +304,10 @@ structure BochnerApproxAPI where
   "Smooth compact forces … are dense in each full Bochner space
   `L^q(0,∞;H^s(R³))`", stripped of the breakdown condition
   `T^ν_{max,R}(a,f) ≤ T` (which `R46` supplies from `R41D` by the two-radius
-  argument of `04-whole-space.tex:262-264`).
+  argument of `04-whole-space.tex:262`).
 
   `q` ranges over all of `[1,∞)` and `s` over all of `ℝ`, per
-  `04-whole-space.tex:233` and `:253`.  `R46` uses `q ∈ {1,2}`; see
+  `04-whole-space.tex:231` and `:251`.  `R46` uses `q ∈ {1,2}`; see
   `manuscriptApproximation`. -/
   approxCompact : ∀ (q : ℝ≥0∞), 1 ≤ q → q ≠ ⊤ → ∀ s : ℝ,
     CompletedDense q s forceClassCompact
@@ -320,9 +338,10 @@ structure BochnerApproxAPI where
     b =ᵐ[forceTimeMeasure] c → bochnerDatumENorm q s b = bochnerDatumENorm q s c
 
   -- ### `F_c ⊆ F_R`
-  /-- `04-whole-space.tex:185-193` cor:Rclasses, "Theorem~\ref{thm:Rmain}
-  remains valid with `F_R` replaced by `F_c`": the compact class is a
-  *subclass*, so every `f ∈ F_c` satisfies `eq:Rclasses`
+  /-- `04-whole-space.tex:183`, "Define the following two **subclasses of
+  `F_R`**", which is what cor:Rclasses (`:194-196`, "Theorem~\ref{thm:Rmain}
+  remains valid with `F_R` replaced by `F_c` or `F_rd`", quote at `:195`)
+  presupposes: every `f ∈ F_c` satisfies `eq:Rclasses`
   (`02-preliminaries.tex:17`).
 
   Concretely this discharges, for a spacetime compact smooth `f`, the two
@@ -346,9 +365,9 @@ exponents, and the Sobolev range in which `prop:Renergy` states its density.
 
 The hypothesis `s < s_q` is *present and unused*.  It is written here only so
 that the shape matches `REnergyAPI.densityInhomogeneous`
-(`research/section4/STATEMENTS.md:849-853`); `04-whole-space.tex:233,243`
+(`research/section4/STATEMENTS.md:849-853`); `04-whole-space.tex:231,239`
 establish the approximation for every real `s`, and the threshold is consumed
-solely by the singular-force half at `04-whole-space.tex:262-264`. -/
+solely by the singular-force half at `04-whole-space.tex:262`. -/
 def manuscriptApproximation : Prop :=
   ∀ q : ℝ≥0∞, (q = 1 ∨ q = 2) → ∀ s : ℝ, s < criticalOrder q.toReal →
     CompletedDense q s forceClassCompact
@@ -356,15 +375,44 @@ def manuscriptApproximation : Prop :=
 /-- The stage-4 predicate in isolation, so that `B02` can require the *same*
 proposition rather than a paraphrase of it: separated finite sums with
 `C_c^∞((0,∞))` time factors are dense in the datum-path Bochner space.
-`04-whole-space.tex:253-260`.
+`04-whole-space.tex:251-260`.
 
 It mentions no realization, hence applies unchanged to the `Ḣ^{-1}` completion
-of `04-whole-space.tex:244-252`. -/
+of `04-whole-space.tex:241-249`. -/
 def SeparatedTemporalDense (q : ℝ≥0∞) (s : ℝ) : Prop :=
   ∀ (b : ℝ → RealVectorSobolev s), MemBochnerDatum q s b → ∀ η : ℝ≥0∞, 0 < η →
     ∃ (J : ℕ) (φ : Fin J → ℝ → ℝ) (A : Fin J → RealVectorSobolev s),
       (∀ j, ContDiff ℝ ∞ (φ j)) ∧ (∀ j, HasCompactSupport (φ j)) ∧
       (∀ j, tsupport (φ j) ⊆ Ioi (0 : ℝ)) ∧
+      bochnerDatumENorm q s (separatedPath φ A - b) < η
+
+/-- The ledger's `B01` export shape, `research/section4/STATEMENTS.md:825-830`:
+"there are finite sums `Σ_{j≤J} φ_j(t) h_j(x)` with `φ_j ∈ C_c^∞((0,∞))`,
+`h_j ∈ C_c^∞(R³;R³)` real-valued, converging to `b` in `L^q((0,∞);H^s)`; the
+resulting function is jointly smooth with compact support strictly inside
+`R³ × (0,∞)`, i.e. lies in `F_c`."  This is `04-whole-space.tex:260`, "Thus the
+finite sum `Σ_j φ_j(t)h_j(x)` approximates `b` and is jointly smooth with
+compact support strictly inside `R³ × (0,∞)`".
+
+`approxCompact` only produces *some* `f ∈ F_c`; this predicate additionally
+exposes the separated shape, which is what `R46`'s two-radius argument
+(`04-whole-space.tex:262`) may inspect.  It is a consequence of three fields and
+not an extra assumption: `temporalApprox` supplies `J`, `φ` and coefficients
+`A' j`, `spatialApprox` replaces each `A' j` by the datum `A j` of a physical
+`h j ∈ C_c^∞(R³;R³)`, and `separatedAssembly` turns the pair into the member of
+`F_c` together with its datum path.  Stated as a `def` rather than a field for
+exactly that reason. -/
+def SeparatedCompactDense (q : ℝ≥0∞) (s : ℝ) : Prop :=
+  ∀ (b : ℝ → RealVectorSobolev s), MemBochnerDatum q s b → ∀ η : ℝ≥0∞, 0 < η →
+    ∃ (J : ℕ) (φ : Fin J → ℝ → ℝ) (h : Fin J → SpatialField)
+      (A : Fin J → RealVectorSobolev s),
+      (∀ j, ContDiff ℝ ∞ (φ j)) ∧ (∀ j, HasCompactSupport (φ j)) ∧
+      (∀ j, tsupport (φ j) ⊆ Ioi (0 : ℝ)) ∧
+      (∀ j, ContDiff ℝ ∞ (h j)) ∧ (∀ j, HasCompactSupport (h j)) ∧
+      (∀ j, IsSobolevDatum s (h j) (A j)) ∧
+      MemForceCompact (separatedField φ h) ∧
+      IsSobolevPath s (separatedField φ h) (separatedPath φ A) ∧
+      AEStronglyMeasurable (separatedPath φ A) forceTimeMeasure ∧
       bochnerDatumENorm q s (separatedPath φ A - b) < η
 
 /-- The existential form of the contract, the object a later
