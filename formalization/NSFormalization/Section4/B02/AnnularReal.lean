@@ -44,18 +44,11 @@ open scoped ContDiff ComplexConjugate SchwartzMap ENNReal
 
 /-! ## Linearity and conjugation of the angular Fourier transform on Schwartz data -/
 
-/-- The angular Fourier transform intertwines physical conjugation with conjugate
-reflection: `angularFourier (conj f) ξ = conj (angularFourier f (-ξ))`.  This is
-`fourier_conjugate` (`Source/RealSobolev.lean:61`) plus the real dilation
-amplitude passing through `conj`.  This generalizes
-`Section4/D01/HomogeneousWitness.lean:190` `angularFourier_conj_neg` (the real-`f`
-special case, same simp set); promoting it to `Source/FourierConvention.lean` next
-to `angularFourier` is a MAINT follow-up (not done in this lane). -/
-theorem angularFourier_conj (f : Space → ℂ) (ξ : Space) :
-    angularFourier (fun x => conj (f x)) ξ = conj (angularFourier f (-ξ)) := by
-  unfold angularFourier
-  rw [fourier_conjugate, smul_neg, Complex.real_smul, Complex.real_smul, map_mul,
-    Complex.conj_ofReal]
+/-- Moved to `Paper3/AngularFourierDilation.lean` in lane 109; alias kept for downstream.
+
+The angular Fourier transform intertwines physical conjugation with conjugate reflection:
+`angularFourier (conj f) ξ = conj (angularFourier f (-ξ))`. -/
+alias angularFourier_conj := NSFormalization.Paper3.angularFourier_conj
 
 /-- The angular Fourier transform is additive on Schwartz data (routed through the
 Schwartz-level CLM `schwartzAngularDilation`, so no integrability side condition is

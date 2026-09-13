@@ -476,53 +476,11 @@ theorem orderZeroDatum_transverse_symm (hz : MemLp z 2 volume) (hsmooth : ContDi
   rw [Fin.sum_univ_three] at hf
   exact hf
 
-/-- **Shared cycles→angular dilation transport.**  Given any family `g : Fin 3 → FourierData`
-whose pre-dilation data are transverse a.e., the post-dilation (angular) data are transverse a.e.
-The normalized `L²` frequency dilation `angularFrequencyDilation` has a.e. coefficient
-`c^{-3/2} f(c⁻¹·)` (`Transverse.angularFrequencyDilation_coeFn`); transporting the hypothesis by
-`ξ ↦ c⁻¹ξ` and cancelling the nonzero prefactors gives the conclusion.
+/-- Moved to `Paper3/AngularFourierDilation.lean` (lane 109); alias kept for downstream.
 
-This factors out the transport step that lanes 079 (`transverse_of_divergence_free`) and 089
-(`longitudinal_of_curl_free`) each copy verbatim; the proof body is 079's §3 with `A j ↦ g j`.
-Lemma statement supplied by the lane-094 reviewer (`research/D01/REVIEW_ORDER_ZERO.md` F1,
-`/tmp/rev094/factor.lean`).  A SIMP lane should promote this (and 079's
-`angularFrequencyDilation_coeFn`) to `Paper3/AngularFourierDilation.lean` and rewrite
-`Transverse.lean` / `Longitudinal.lean` to consume it (they are frozen/merged, so not touched here). -/
-theorem transverse_of_transverse_symm {g : Fin 3 → FourierData}
-    (hstar : ∀ᵐ ξ : Space ∂volume,
-      ∑ j : Fin 3, ((ξ j : ℝ) : ℂ) * (angularFrequencyDilation.symm (g j)) ξ = 0) :
-    ∀ᵐ ξ : Space ∂volume, ∑ j : Fin 3, ((ξ j : ℝ) : ℂ) * ((g j) ξ) = 0 := by
-  have hc0 : (0 : ℝ) < frequencyUnit := frequencyUnit_pos
-  set κ : ℝ≥0∞ := ENNReal.ofReal (|(frequencyUnit⁻¹ ^ (Module.finrank ℝ Space))⁻¹|) with hκ
-  have hMP : MeasurePreserving (fun ξ : Space => frequencyUnit⁻¹ • ξ) volume (κ • volume) :=
-    ⟨(continuous_const_smul _).measurable, Measure.map_addHaar_smul volume (inv_ne_zero hc0.ne')⟩
-  have htrans : ∀ᵐ ξ : Space ∂volume,
-      (∑ j : Fin 3, (((frequencyUnit⁻¹ • ξ) j : ℝ) : ℂ) *
-        (angularFrequencyDilation.symm (g j)) (frequencyUnit⁻¹ • ξ)) = 0 :=
-    hMP.quasiMeasurePreserving.ae (Measure.ae_smul_measure hstar κ)
-  have hfwd : ∀ j : Fin 3, ∀ᵐ ξ : Space ∂volume,
-      ((g j) ξ) = (frequencyUnit ^ (-3/2:ℝ) : ℝ) •
-        (angularFrequencyDilation.symm (g j)) (frequencyUnit⁻¹ • ξ) := by
-    intro j
-    have h1 := angularFrequencyDilation_coeFn (angularFrequencyDilation.symm (g j))
-    rw [LinearIsometryEquiv.apply_symm_apply] at h1
-    exact h1
-  filter_upwards [htrans, hfwd 0, hfwd 1, hfwd 2] with ξ ht h0 h1 h2
-  have hsmul : ∀ j : Fin 3, ((frequencyUnit⁻¹ • ξ) j : ℝ) = frequencyUnit⁻¹ * ξ j := fun j => rfl
-  rw [Fin.sum_univ_three, h0, h1, h2]
-  rw [Fin.sum_univ_three] at ht
-  simp only [hsmul, Complex.ofReal_mul, Complex.real_smul] at ht ⊢
-  have hcinv : ((frequencyUnit⁻¹ : ℝ) : ℂ) ≠ 0 := by
-    rw [Complex.ofReal_ne_zero]; exact inv_ne_zero hc0.ne'
-  have hgs : ((ξ 0 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 0)) (frequencyUnit⁻¹ • ξ)
-      + ((ξ 1 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 1)) (frequencyUnit⁻¹ • ξ)
-      + ((ξ 2 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 2)) (frequencyUnit⁻¹ • ξ) = 0 := by
-    have : ((frequencyUnit⁻¹ : ℝ) : ℂ) * (((ξ 0 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 0)) (frequencyUnit⁻¹ • ξ)
-        + ((ξ 1 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 1)) (frequencyUnit⁻¹ • ξ)
-        + ((ξ 2 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 2)) (frequencyUnit⁻¹ • ξ)) = 0 := by
-      linear_combination ht
-    exact (mul_eq_zero.mp this).resolve_left hcinv
-  linear_combination ((frequencyUnit ^ (-3/2:ℝ) : ℝ) : ℂ) * hgs
+**Shared cycles→angular dilation transport.** Transports a.e. transversality of the
+pre-dilation data `g` to the post-dilation (angular) data. -/
+alias transverse_of_transverse_symm := NSFormalization.Paper3.transverse_of_transverse_symm
 
 /-- **SL7b-α, Lemma A — the order-0 transverse identity.**  For a smooth square-integrable field
 that is pointwise divergence-free, the order-0 angular Sobolev datum is transverse at a.e.

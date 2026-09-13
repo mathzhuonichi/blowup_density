@@ -189,12 +189,10 @@ theorem homogeneousDatum_weight_ae {s : ℝ} (hs : -3 / 2 < s) (φ : SchwartzMap
 conjugate-reflection symmetry `F(-ξ) = conj (F ξ)`. -/
 theorem angularFourier_conj_neg {f : Space → ℂ} (hf : ∀ x, conj (f x) = f x) (ξ : Space) :
     conj (angularFourier f (-ξ)) = angularFourier f ξ := by
-  have hfc : (fun x => conj (f x)) = f := funext hf
-  have h := NSFormalization.Source.RealSobolev.fourier_conjugate f (frequencyUnit⁻¹ • ξ)
-  rw [hfc] at h
-  simp only [NSFormalization.Source.angularFourier, smul_neg, Complex.real_smul, map_mul,
-    Complex.conj_ofReal]
-  rw [← h]
+  -- one-line corollary of the promoted `Paper3.angularFourier_conj` (lane 109)
+  have h := angularFourier_conj f ξ
+  rw [funext hf] at h
+  exact h.symm
 
 /-- The datum of a real-valued Schwartz profile lies in the closed real
 subspace `Source.RealSobolev.realSubspace` of `02-preliminaries.tex:72`. -/
