@@ -127,12 +127,12 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 021-I03-contract | 已合入 | **`I03.scaling` V1 已注册** | #26 | 31 字段全证（等式处证等式；力收敛 q=1,2）；HomogeneousScalingAPI 未注册；定理 4.2 不依赖齐次界，R46 只卡 U7c |
 | 022-B02-spec | 已合入 | — | #27 | 20 字段；范围 −3/2 < s ≤ 0；常数经 reviewer 独立推导一致；齐次实现半边为空（单元 6 = U7c，XL，建一次共用） |
 | 023-A03-l2linf-contract | 已合入 | **`A03.bounded_representative` V1 已注册** | #25 | H² jet 形式，逐点 + ess-sup；复用 OpenAI `smooth_pointwise_le_H2`；datum 形式待 D01 反向 |
-| 024-D01-homogeneous-witness | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | **已证**：Schwartz/C_c^∞ 场在所有 s > −3/2 有齐次数据 + 范数恒等式；任意实数阶唯一性（L7）；差分；路径提升缺强可测；56 声明标准公理；发现 B02 `homogeneousDatumSub` 原样为假 |
-| 025-D01-datum-to-jets | ACCEPT，PR 待合 | — | — | **已证**：`MemHInfty ↔ SmoothSquareIntegrableJets`、定量 jet 界（一个 (2π)^m）、含 t=0 的切片提取、`MemHInfty` 导数封闭；两条 jet 合同已从 `ClassicalSolutionR` 端到端应用成功；L2 全部关闭 |
-| 026-A03-tame-contract | ACCEPT-WITH-NOTES 已修，PR 待合 | **`A03.tame_products` V1 已注册** | — | datum 层：eq:Rproduct(1)、eq:algebra、eq:tame（H² 低阶因子）、差分、对流；新证实子空间在完备乘法下稳定；3 字段待 datum⇒jets（025）后补；8 处 maxHeartbeats 待 reviewer 评估 |
-| 027-R42-assembly-contract | ACCEPT 已修，PR 待合 | **`R42.insertion_family` V1 已注册（第 7 条）** | — | 定理 4.2 除寿命同定外全部子句；K→K_* 在 R42 侧以缩小 ε₀ 解决；**缺口：无合同提供 g_ε ∈ F_R（时间正则性）**，连寿命 ≥ T 都无法陈述 → 028 |
-| 028-D01-forceclass-closure | ACCEPT，PR 待合 | — | — | **已证**：F_c ⊆ F_R（datum 路径时间 C^∞）、F_R/F_c 加法封闭、g+H_ε+F_ε ∈ F_R（R42 可直接消费）；23 定理标准公理；余：u_ε 的 `ClassicalSolutionR.sobolev`（非紧支） |
-| 029-I02-v2-thetaradius | ACCEPT，PR 待合 | **`I02.correction_v2` 已注册** | — | `extends` V1 + 1 字段 `K ⊆ plateau`；兼容绑定 V1-of-V2；`force_carrier_subset_ball` 直接证出 021/027 说"无法履行"的前提；政策脚本零改动 |
+| 024-D01-homogeneous-witness | ACCEPT-WITH-NOTES 已修，已合入 | — | #28 | **已证**：Schwartz/C_c^∞ 场在所有 s > −3/2 有齐次数据 + 范数恒等式；任意实数阶唯一性（L7）；差分；路径提升缺强可测；56 声明标准公理；发现 B02 `homogeneousDatumSub` 原样为假 |
+| 025-D01-datum-to-jets | ACCEPT，已合入 | — | #29 | **已证**：`MemHInfty ↔ SmoothSquareIntegrableJets`、定量 jet 界（一个 (2π)^m）、含 t=0 的切片提取、`MemHInfty` 导数封闭；两条 jet 合同已从 `ClassicalSolutionR` 端到端应用成功；L2 全部关闭 |
+| 026-A03-tame-contract | ACCEPT-WITH-NOTES 已修，已合入 | **`A03.tame_products` V1 已注册** | #31 | datum 层：eq:Rproduct(1)、eq:algebra、eq:tame（H² 低阶因子）、差分、对流；新证实子空间在完备乘法下稳定；3 字段待 datum⇒jets（025）后补；8 处 maxHeartbeats 待 reviewer 评估 |
+| 027-R42-assembly-contract | ACCEPT 已修，已合入 | **`R42.insertion_family` V1 已注册（第 7 条）** | #30 | 定理 4.2 除寿命同定外全部子句；K→K_* 在 R42 侧以缩小 ε₀ 解决；**缺口：无合同提供 g_ε ∈ F_R（时间正则性）**，连寿命 ≥ T 都无法陈述 → 028 |
+| 028-D01-forceclass-closure | ACCEPT，已合入 | — | #32 | **已证**：F_c ⊆ F_R（datum 路径时间 C^∞）、F_R/F_c 加法封闭、g+H_ε+F_ε ∈ F_R（R42 可直接消费）；23 定理标准公理；余：u_ε 的 `ClassicalSolutionR.sobolev`（非紧支） |
+| 029-I02-v2-thetaradius | ACCEPT，已合入 | **`I02.correction_v2` 已注册** | #33 | `extends` V1 + 1 字段 `K ⊆ plateau`；兼容绑定 V1-of-V2；`force_carrier_subset_ball` 直接证出 021/027 说"无法履行"的前提；政策脚本零改动 |
 | 030-A04-spec | 进行中 | — | — | 平方 H² continuation 适配器（∫‖u‖²_{H²} < ∞ ⇒ 高阶界 + 越过 S 的一致重启；R43/R44 的关键路径） |
 | 031-C01-spec | 进行中 | — | — | 常规能量与 H¹ 吸收（eq:RL2、eq:RH1；R43/R44 用） |
 | 032-A02-restrict-order | 进行中 | — | — | A02 单元 U4+U6：`restrict`/congruence/`pressure_normalization` 与六个序论字段（无分析） |
