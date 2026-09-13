@@ -14,8 +14,9 @@
 
 ## 下一步
 
-1. CI 绿 → PR #15 标 ready，请 owner review（正文列了待批项）。CI 若再失败：看 `gh run view <id> --log-failed`，磁盘/超时问题改 workflow，Lean 问题回对应 lane。
-2. 收 019（A05 L⁶ 合同）、reviewer-020 → 合入。
+1. CI 绿 → 合入排队的 PR：#23（`A05.gradient_l6`，ACCEPT）、#24（D01 L2，已修）、#25（`A03.bounded_representative`，review 中）、#26（`I03.scaling`，review 中）、#27（B02 spec，ACCEPT-WITH-NOTES）→ 推送积压记录 → PR #15 标 ready 交 owner。
+   合入顺序：先合同类（#23、#25、#26 都改 `contracts.json`/`work_items.json`，逐个 rebase + render），再 #24、#27。CI 若再失败：`gh run view <id> --log-failed`。
+2. 024-D01-homogeneous-witness（进行中）：齐次数据的第一个见证，解锁 R46 和 `HomogeneousScalingAPI`。
 3. 第五波候选（编号从 021 起）：I03 合同（依赖 `I02.correction`，已合）、B02 spec、A03 合同（标量层现成，先做 H²↪L^∞ 那条）、A01 证明单元 A2（全阶 Grönwall，与 A04 共用）、A02 单元 U1a/U2（唯一性绑定 `classical_uniqueness_on_Icc`）。
 4. 每次收工更新本文件；agent 运行记 `logs/AGENT_RUNS.csv`；Attempts 放 `research/<ID>/ATTEMPTS*.md`。
 

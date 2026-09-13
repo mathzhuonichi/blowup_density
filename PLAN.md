@@ -125,8 +125,9 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 019-A05-l6-contract | ACCEPT，PR #23 待合（CI 跑完） | **`A05.gradient_l6` V1 已注册** | #23 | 论文原形；Hessian–Laplacian 等式；无 Fourier；R43/R44 消费它还需 datum ⇒ jets + 时间切片提取（下一条 D01 lane） |
 | 020-D01-hm-datum | PR #24 待合（CI 跑完） | — | #24 | **已证** jets ⇒ datum，任意实数阶、无紧支撑；29 定理标准公理；ACCEPT-WITH-NOTES 已修；余：datum ⇒ jets、双边范数、时间路径 |
 | 021-I03-contract | review 中，PR #26 | **`I03.scaling` V1 已注册** | #26 | 31 字段全证（等式处证等式；力收敛 q=1,2）；HomogeneousScalingAPI 未注册；定理 4.2 不依赖齐次界，R46 只卡 U7c |
-| 022-B02-spec | ACCEPT-WITH-NOTES，PR 待合（CI 跑完） | — | — | 20 字段；范围 −3/2 < s ≤ 0；常数经 reviewer 独立推导一致；齐次实现半边为空（单元 6 = U7c，XL，建一次共用） |
+| 022-B02-spec | ACCEPT-WITH-NOTES，PR #27 待合（CI 跑完） | — | #27 | 20 字段；范围 −3/2 < s ≤ 0；常数经 reviewer 独立推导一致；齐次实现半边为空（单元 6 = U7c，XL，建一次共用） |
 | 023-A03-l2linf-contract | review 中，PR #25 | **`A03.bounded_representative` V1 已注册** | #25 | jet 形式，逐点 + ess-sup；复用 OpenAI `smooth_pointwise_le_H2`；datum 形式待 D01 反向 |
+| 024-D01-homogeneous-witness | 进行中 | — | — | 齐次数据的第一个见证：L¹∩L²/光滑紧支撑场的 `IsHomogeneousSliceDatum s` + 范数子句（B02 单元 6 = I03 U7c 的空间核心） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
