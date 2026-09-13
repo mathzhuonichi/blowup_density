@@ -106,3 +106,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A04,043-A04-unit-z1,opus,reviewer,ACCEPT-WITH-NOTES (factor-2 convention verified against C01 and A04 feeds; b≥0 load-bearing with counterexample; low: wrong positivity claim in ATTEMPTS; stale citations; weaken hK/hb to Ioo; split lemma),,worker resumed for fixes
 2026-09-13,A04,041-A04-unit-g3,opus-4.8,worker-resume,DONE notes in 5 min / 15 tool uses; closure 8763 -> 2680 jobs after minimal imports,PR,PR opened; hold merge until CI window
 2026-09-13,A04,043-A04-unit-z1,opus-4.8,worker-resume,DONE notes in 6 min / 9 tool uses (5 theorems after split),PR,PR opened; hold merge until CI window
+2026-09-13,C01,044-C01-unit-u6,opus-4.8,proof,DONE U6 (Trilinear.lean: trilinearHolder/Absorbed/laplacianSqENorm; C₁ = A05 gradientL6Const; standard axioms; 38 min / 60 tool uses; 3-factor Hölder in ℝ≥0∞ avoided L³ interpolation),,reviewer pending
