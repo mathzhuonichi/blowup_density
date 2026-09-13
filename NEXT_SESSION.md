@@ -2,21 +2,21 @@
 
 更新：2026-09-13（erenup 侧）。规矩看 [`CLAUDE.md`](CLAUDE.md)，全貌和顺序看 [`PLAN.md`](PLAN.md)。
 
-## 现状
+## 现状（2026-09-13 深夜）
 
-- 分支模型：根目录停在干净的 `main`；集成分支 `erenup/integration`（worktree `.claude/worktrees/000-integration`），lane PR 以它为 base，lead 自己合；攒一批后向 `main` 提 PR。
-- 已合入 integration：001 setup（#4）、005 I01 spec（#5）、006 陈述台账（#6）、002 D01 草案 A 含 REJECT 审稿（#7）。
-- review 中：003 D01 草案 B、004 U05 探针。
-- 进行中：007-I01-contract（第一条证明 lane）、008-I02-correction-spec。
-- 关键事实：草案 A 的 REJECT 原因是 `F_R` 漏了 `C^∞`；台账指出 DAG 有 3 处需要改（见 `PLAN.md` §8）；HeliCorgi 88 模块闭包在 4.34 下 84 个直接编过。
-- 每次 subagent 运行都记在 `logs/AGENT_RUNS.csv`（lead 合入时追加）。
+- 分支模型：根目录停在干净的 `main`；集成分支 `erenup/integration`（worktree `.claude/worktrees/000-integration`，Lean 环境已装、全绿）。
+- 已合入 integration（PR #4–#13）：001 setup、002/003 D01 草案 A/B（A 带 REJECT 留档）、004 U05 探针、005 I01 spec、006 台账 v1、
+  **007 `I01.packet` 合同（第一条 PDE 合同，标准 3 公理）**、008 I02 spec、**010 HeliCorgi 88 模块移植（vendor 零改动）**、012 台账 v2。
+- 进行中：009 D01 归并 → `Contracts/V1/Data.lean`（reviewer ACCEPT-WITH-NOTES，worker 正在应用修正 + 收窄合同 import 白名单）。
+- 待起（009 合入后，从 integration 开 worktree）：011 I02 合同、013 A01 spec、014 A05 spec、015 I03 spec；再后 B01/B02。
+- 三条流程教训已写进 CLAUDE.md：Lake 无 `-j`；合同只能 import Mathlib（+ 6 模块白名单，待 owner）；任务卡是生成的，Attempts 放 `research/<ID>/ATTEMPTS.md`。
+- `make snapshot` 因 `formalization/lakefile.toml` 变化而失败，属预期，待 owner 重拍。
 
 ## 下一步
 
-1. 收 reviewer-003 → 起 009-D01-reconcile（读 A、B、两份审稿、台账 §"Consolidated D01 requirements"，出最终 `research/D01/Draft.lean` + `RECONCILIATION.md`）。
-2. 收 reviewer-004 → 起 010-U05-port（把 84 个模块接进主包 + `NNReal.mk` 补丁作为 reviewed patch）。
-3. 收 007 / 008 → reviewer → 合入。007 合入后就有第一条真正的 PDE 合同（`I01.packet`）。
-4. D01 定稿后：A05、B01、B02 spec，A01 两条。
+1. 收 009 修正 → rebase 到 integration（`collaboration/tasks/D01.md` 冲突用 `tasks.py render` 解）→ 合入。
+2. 起 011 / 013 / 014 / 015（并发 4，留 1 个给 reviewer）。
+3. 第一个 integration → main 的 PR：建议在 009 + 011 合入后提，PR 正文单列"政策变更待批"（合同 import 白名单、`defaultTargets` 加 Contracts、`make snapshot` 重拍）和"DAG 修正提案"（台账 v2 末节）。
 
 ## 待 owner 决定
 
