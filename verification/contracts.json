@@ -99,6 +99,17 @@
       "declaration": "BlowupDensity.Tests.checkedInsertionFamily",
       "scope": "Theorem 4.2's inserted family and all its quantitative clauses except the maximal-lifespan identification and the reference-lifespan clause; the force-class membership g_eps in F_R and the ClassicalSolutionR fields sobolev/pressure_gradient for u_eps are not asserted, and the blow-up clause is registered in the pointwise SpeedUnboundedAt form, a deviation from the displayed limsup of the spatial sup norm that is equivalent for every inhabitant because the velocity slice is continuous",
       "enabled": true
+    },
+    {
+      "id": "D01.datum_lemmas",
+      "parent_task": "D01",
+      "version": 1,
+      "specification": "verification/Contracts/V1/DatumLemmas.lean",
+      "binding_module": "Bindings.DatumLemmas",
+      "test_module": "Tests.DatumLemmas",
+      "declaration": "BlowupDensity.Tests.checkedDatumLemmas",
+      "scope": "The proved lemmas of D01, stated in the vocabulary of Contracts/V1/Data, GradientL6 and BoundedRepresentative: unit L2 in both directions (jets to datum at every real order with no compact support, datum to jets, MemHInfty iff the jet class, L² membership from a single order, derivative closure of MemHInfty, and the one-sided quantitative bound jetSobolevENorm m <= C_m * sobolevENorm m); the time-slice extraction of the velocity jet class and of spatial smoothness of the pressure gradient from Data.ClassicalSolutionR; uniqueness of the angular Sobolev datum (unit L1) and additivity of the datum and of the datum path, each with the Schwartz-pairing integrability side condition the Bochner totalization of Data.IsSobolevDatum forces, plus its discharger on F_R; the force-class closures F_c ⊆ F_R, F_R and F_c closed under addition, AgreesOnFuture invariance of F_R, and the two shapes g_ε = g + H_ε + F_ε and g_ε - g compact in which the inserted force of Theorem 4.2 lands in F_R; and the homogeneous half: existence of a homogeneous slice datum for Schwartz-component and for C_c^∞ fields at every s > -3/2 with its norm equal to homogeneousFourierENorm, uniqueness of the homogeneous datum at every real order (unit L7), finiteness of homogeneousENorm on a Schwartz distribution, the difference rule with its integrability side condition and the discharger for Schwartz components, the homogeneous datum path of a compactly supported force, the identification of every such path's Bochner norm with the L^q_t norm of the slice quantity, and the unconditional lower bound on forceHomogeneousENorm. Not asserted anywhere: the reverse inequality sobolevENorm <= C * jetSobolevENorm (no norm equivalence), any time regularity of a datum path beyond what MemForceR itself carries (the ContinuousOn conjunct of ClassicalSolutionR.sobolev is discarded by every slice clause), any Sobolev datum or jet class for the pressure or its gradient, finiteness of forceHomogeneousENorm (its infimum also demands AEStronglyMeasurable, which no clause produces, so only the lower bound and the per-path identification are registered), the L¹∩L² homogeneous class of B02, the order shift for the gradient, F_rd, and every estimate of Lemma A.1 or Lemma B.1.",
+      "enabled": true
     }
   ]
 }
