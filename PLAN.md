@@ -197,7 +197,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 091-C01-partial-contract | 已合并 | #90 | #90 | 注册 `C01.energy_absorption_partial`：已证的 C01 spec 字段（velocityJets, forceTimeRegularity, trilinearHolder, trilinearAbsorbed, laplacianSqENorm）逐字进 `Contracts/V1/EnergyAbsorptionPartial.lean` + Bindings + Tests + contracts.json（模板 071 `B01.bochner_partial`），把 C01 模块纳入 CI 闭包 |
 | 092-R42-lifespan-binding | 已合并 | #93 | #93 | R42 寿命两子句的绑定层装配（`verification/Bindings/InsertionLifespan.lean`）：由 `InsertionFamilyAPI` + `hg : MemForceR g` + `RegularThrough ν a g (T+δ)` 得 `maximalLifespanR ν a g_ε = ofReal T` 与 `ofReal (T+δ) < maximalLifespanR ν a g`（087 + 080 + 072 + `A02.maximal_partial`），为 V2 合同铺路 |
 | 093-A01-split | 已合并 | #98 | #98 | A01（局部理论）拆分起步：对照 `research/A01/Spec.lean` 与 HeliCorgi 的 mild 存在/唯一/续接 API，写子引理表，证第一个 S 项（把 HeliCorgi 的局部解包装成 `A02.ClassicalSolutionR` 所需字段的桥），`research/A01/A01_SPLIT.md` |
-| 094-D01-p2-sl7b-order0 | PR 已开 | #105 | — | P2 SL7b-α：光滑 L² 场（不要求导数可积）的 0 阶 datum 的 a.e. 符号恒等式——无散 ⇒ 横向、无旋 ⇒ 纵向（分布导数 + `physicalDistribution_directionalField` + `OrderZeroDatum`），`Section4/D01/OrderZeroSymbol.lean` |
+| 094-D01-p2-sl7b-order0 | 已合并 | #105 | #105 | P2 SL7b-α：光滑 L² 场（不要求导数可积）的 0 阶 datum 的 a.e. 符号恒等式——无散 ⇒ 横向、无旋 ⇒ 纵向（分布导数 + `physicalDistribution_directionalField` + `OrderZeroDatum`），`Section4/D01/OrderZeroSymbol.lean` |
 | 095-A04-sl5-nonlinear | 已合并 | #97 | #97 | A04 G1 SL5：非线性项的 H^m 分部积分 `⟪G, datum((u·∇)u)⟫ = -⟪∇G, datum(u⊗u)⟫`（实反自伴 082 + `derivDatumStep` 088）+ Cauchy–Schwarz ⇒ `hnl : -⟪G, N⟫ ≤ NLbound`（`A04.inner_energy_assembly` 的输入），`Section4/A04/NonlinearPairing.lean` |
 | 096-R42-lifespan-contract | 已合并 | #95 | #95 | 注册 `R42.insertion_lifespan`（V1 新合同，含 `family`、`memForce`、`regular` + 两条寿命子句；Bindings 用 092 的 `insertionLifespan`；Tests 公理审计 + 两条论文显示式 example + `hν`/`ha` 可导出 example），把 `Bindings/InsertionLifespan` 纳入 CI 闭包 |
 | 097-B02-remaining-fields | 已合并 | #96 | #96 | B02 剩余 spec 字段：`chi_*`（vendor `baseCutoff`，同 B01 绑定）、`temporalApprox`/`separatedAssembly`（B01 已证、逐字复用）、`annularPathApprox`（路径级截断，M）、`approxCompactHomogeneous`（stage 1–5 组装）；先表后证 S 项，`Section4/B02/Remaining.lean` + `research/B02/REMAINING_SPLIT.md` |
@@ -211,6 +211,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 105-A04-sl5c-column-data | 审阅中 | — | — | A04 SL5 行 5c（M）：每列 `W_j = u_j • u` 的 `SmoothL2Field` 包装（Leibniz + L^∞ 因子）+ `N = ∑ⱼ derivDatumStep m j (castOrder … B_j)`（`isSobolevDatum_partialDeriv` 一次 + `isSobolevDatum_add` + 唯一性），`Section4/A04/NonlinearDatum.lean` |
 | 106-A01-m4-gauge | 进行中 | — | — | A01 字段 `pressure_potential`（m4）的规范包装：`PressureGaugeEquivOn (Ico 0 T)` 于 `p` 与 `pressurePotential (∇p)`（`is_const_of_fderiv_eq_zero` + 切片 fderiv 引理 + Hessian 对称 `ContDiffAt.isSymmSndFDerivAt`），reviewer 已写 52 行，`Section4/A01/PressureGauge.lean` |
 | 107-SIMP-R42 | 进行中 | — | — | R42 已合模块（Assembly, Lifespan, CorrectionPath, PressureGradient, BlowupEssSup, SolutionOnShorter, FullHorizon）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；conformance；`Bindings/InsertionLifespan` 闭包必须保持绿） |
+| 108-D01-p2-sl7b-curl | 进行中 | — | — | P2 SL7b-β：把 094 的截断配对机器推广为常数权重矩阵 `physical_weighted_pairing_zero`，得 0 阶 datum 的无旋 ⇒ 纵向（`OrderZeroSymbol` 上 Lemma B，reviewer 估 ≈30–40 行），推论 `lerayComplement 0 (orderZeroDatum hz) = orderZeroDatum hz`，`Section4/D01/OrderZeroCurl.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

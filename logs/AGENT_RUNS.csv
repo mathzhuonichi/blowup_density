@@ -292,3 +292,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,R42,107-SIMP-R42,opus-4.8,simplifier+tester,RUNNING 7 R42 modules,—,
 2026-09-14,D01,094-D01-p2-sl7b-order0,opus-4.8,worker-resume,DONE shared transport lemma + honest records (21 decls) in 6 min / 13 tool uses; rebased clean,PR,PR #105 opened; chain after #104
 2026-09-14,A04,105-A04-sl5c-column-data,opus-4.8,worker,DONE 5c both parts (5 decls; datum route avoids the Leibniz jet expansion; hypothesis MemHInfty alone) in 15 min / 36 tool uses; only 5h remains,—,reviewer launched
+2026-09-14,D01,108-D01-p2-sl7b-curl,opus-4.8,worker,RUNNING order-0 curl-free ⇒ longitudinal via weight-matrix pairing,—,
