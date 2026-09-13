@@ -7,7 +7,7 @@ cd "$(git rev-parse --show-toplevel)"
 . scripts/lean-env.sh
 export LEAN_NUM_THREADS="${LEAN_NUM_THREADS:-6}"
 echo "== make check";           make check
-if [ $# -gt 0 ]; then echo "== lake build $*"; ( cd verification && lake build "$@" ); fi
+MODULES="$*"; if [ -n "$MODULES" ]; then echo "== lake build $MODULES"; ( cd verification && lake build $MODULES ); fi
 echo "== make test";            make test 2>&1 | grep -E 'Contract|error|sorry' || true
 echo "== make test-mutations";  make test-mutations 2>&1 | tail -3
 echo "== check_contracts";      python3 experiments/check_contracts.py --base-ref "${BASE_REF:-origin/erenup/integration}" | tail -3
