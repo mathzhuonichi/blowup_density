@@ -72,3 +72,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,I02,029 V2 contract,opus,worker,done: I02.correction_v2 registered (extends V1 + prescribed_subset_plateau); compatibility binding; K->K_* premise discharged; policy scripts unchanged,,binding duplicates V1 argument (4 hunks)
 2026-09-13,I02,029 review,opus,reviewer,ACCEPT: V2 = V1 (73 fields) + 1 verified via getStructureFields; compat binding rfl; premise discharged by bare term; 6 cosmetic notes,,fixes sent to worker
 2026-09-13,I02,029 review fixes,opus,worker,done: dead maxHeartbeats dropped; counts corrected; refactor suggestion recorded,,
+2026-09-13,A04,030-A04-spec,opus,spec,DONE (Spec.lean 544 lines + COMPARISON 245; typecheck 0; A04 card evidence is a false lead; crux = variable-coefficient Grönwall (unit G3) absent in Mathlib),,reviewer pending
