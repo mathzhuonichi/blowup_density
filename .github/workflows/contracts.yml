@@ -31,7 +31,7 @@ jobs:
     # modules) and the HeliCorgi port; a cold build on a 2-core runner exceeds
     # the former 25-minute limit. Local build outputs are cached below so warm
     # runs stay short; the limit covers a cold rebuild.
-    timeout-minutes: 120
+    timeout-minutes: 180
     env:
       LEAN_NUM_THREADS: 2
     steps:
@@ -48,9 +48,13 @@ jobs:
           sudo docker image prune --all --force >/dev/null 2>&1 || true
           df -h / | tail -1
       - name: Restore this repository's own Lean build outputs
-        # actions/cache v4.2.3, pinned by commit. Only our oleans are cached;
-        # Mathlib still comes from its official content-addressed cache.
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        # actions/cache v4.2.3 (restore half), pinned by commit. Only our oleans
+        # are cached; Mathlib still comes from its official content-addressed
+        # cache. The save half runs unconditionally at the end so that a run
+        # which times out or fails late still leaves its partial build for the
+        # next one (actions/cache's combined action skips saving on failure).
+        id: lean-cache
+        uses: actions/cache/restore@5a3ec84eff668545956fd18022155c47e93e2684
         with:
           path: |
             formalization/.lake/build
@@ -77,3 +81,12 @@ jobs:
         run: python3 experiments/build_changed_lean.py --base-ref "$BASE_SHA"
       - name: Test rejection and refactoring behavior
         run: python3 experiments/test_contract_mutations.py --skip-build
+      - name: Save this repository's own Lean build outputs
+        if: always() && steps.lean-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@5a3ec84eff668545956fd18022155c47e93e2684
+        with:
+          path: |
+            formalization/.lake/build
+            verification/.lake/build
+            vendor/NavierStokesAndEuler/.lake/build
+          key: lean-local-${{ runner.os }}-${{ hashFiles('formalization/lean-toolchain', 'formalization/lakefile.toml', 'verification/lakefile.toml', 'formalization/**/*.lean', 'verification/**/*.lean', 'vendor/HeliCorgi/**/*.lean', 'vendor/NavierStokesAndEuler/**/*.lean') }}
