@@ -153,6 +153,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 047-R44-spec-B | 进行中 | — | — | 命题 4.4 spec 盲稿 B（与 046 互不可见，同样输入） |
 | 048-B01-units-6-8 | 进行中 | — | — | B01 单元 6（`separatedAssembly`）+ 8（`spatialApprox`），`Section4/B01/Separated.lean` |
 | 049-A02-unit-u1b | 进行中 | — | — | A02 单元 U1b：`ClassicalSolutionR` 在 `Icc 0 T'` 上的 `‖u‖` 与 `‖∇u‖` 一致上界（经 `D01.datum_lemmas` + `A03.bounded_representative`），`Section4/A02/Bounds.lean` |
+| 050-C01-units-u1-u3 | 进行中 | — | — | C01 单元 U1（`velocityJets`，经 `D01.datum_lemmas` 现为 S）+ U3（演化打包成 `SmoothL2Field` 路径），`Section4/C01/{VelocityJets,Evolution}.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
