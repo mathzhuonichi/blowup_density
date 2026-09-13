@@ -299,3 +299,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,106-A01-m4-gauge,opus-4.8,worker,DONE m4 pressure_potential token-identical (7 decls; Hessian symmetry via isSymmSndFDerivAt; reviewer's scratch orientation corrected) in 20 min / 51 tool uses,—,reviewer launched
 2026-09-14,R42,107-SIMP-R42,opus-4.8,simplifier+tester,DONE opens-only (1308→1306; 7 negative checks break; all split obligations discharged; 6/7 in Tests closure; Lifespan.lean not) in 21 min / 52 tool uses,PR,PR #107 opened; merging on gates
 2026-09-14,B02,110-B02-approx-compact,opus-4.8,worker,RUNNING approxCompactHomogeneous assembly,—,
+2026-09-14,A04,105-A04-sl5c-column-data,opus-4.8,worker-resume,DONE row 5h folded in (9 decls; SL5 CLOSED; hnl conformance example into inner_energy_assembly) in 10 min / 31 tool uses,PR,PR #108 opened; chain after #107
