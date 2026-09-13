@@ -45,3 +45,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A05,019 gradient-L6 contract,opus,worker,done: A05.gradient_l6 V1 registered; paper form; Hessian-Laplacian equality by IBP; Fourier-free; standard axioms,#23,needs datum=>jets for MemHInfty consumers
 2026-09-13,D01,020 review,opus,reviewer,ACCEPT-WITH-NOTES: 29 theorems standard axioms; rfl agreement with Data.lean verified; 2 scope overclaims in docstrings (A03 U2 half; A02 U1 label); citation; shadowing,,fixes sent to worker
 2026-09-13,D01,020 review fixes,opus,worker,done: scope wording; U1b label; smoothAngularDatum rename; citations,#24,
+2026-09-13,A05,019 review,opus,reviewer,ACCEPT: 4 gates green; 32 declarations standard axioms; equality identity; medium: consumers need datum=>jets + time-slice extraction,#23,
