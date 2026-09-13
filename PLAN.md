@@ -151,11 +151,11 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 045-C01-unit-u2 | ACCEPT-WITH-NOTES，已合入 | — | #48 | C01 单元 U2：`MemForceR f ⇒ MemLp (slice f t) 2` + `t ↦ ‖f(t)‖₂` 连续（`forceTimeRegularity`），`Section4/C01/ForceSlices.lean` |
 | 046-R44-spec-A | 盲稿 A+B 比对调和完成，已合入 | — | #49 | `RCritical2API` 9 字段；缺口 G1（J 权重恒等式）、G2（eq:Rcritical2）、G3（H^{-1/2} 力切片）、G5（幂拼写）见 `research/R44/COMPARISON.md` §4 |
 | 047-R44-spec-B | 已并入 046 | — | — | 命题 4.4 spec 盲稿 B（与 046 互不可见，同样输入） |
-| 048-B01-units-6-8 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | B01 单元 6（`separatedAssembly`）+ 8（`spatialApprox`），`Section4/B01/Separated.lean` |
+| 048-B01-units-6-8 | ACCEPT-WITH-NOTES 已修，已合入 | — | #51 | B01 单元 6（`separatedAssembly`）+ 8（`spatialApprox`），`Section4/B01/Separated.lean` |
 | 049-A02-unit-u1b | ACCEPT，已合入 | — | #50 | A02 单元 U1b：`ClassicalSolutionR` 在 `Icc 0 T'` 上的 `‖u‖` 与 `‖∇u‖` 一致上界（经 `D01.datum_lemmas` + `A03.bounded_representative`），`Section4/A02/Bounds.lean` |
-| 050-C01-units-u1-u3 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | C01 单元 U1（`velocityJets`，经 `D01.datum_lemmas` 现为 S）+ U3（演化打包成 `SmoothL2Field` 路径），`Section4/C01/{VelocityJets,Evolution}.lean` |
+| 050-C01-units-u1-u3 | ACCEPT-WITH-NOTES 已修，已合入 | — | #52 | C01 单元 U1（`velocityJets`，经 `D01.datum_lemmas` 现为 S）+ U3（演化打包成 `SmoothL2Field` 路径），`Section4/C01/{VelocityJets,Evolution}.lean` |
 | 051-B02-unit-1 | 进行中 | — | — | B02 单元 1：环形截断 + 光滑化（`annularRestriction`、`annularSmoothing`），`Section4/B02/Annular.lean` |
-| 052-A02-units-u2-u3 | 进行中 | — | — | A02 单元 U2（`velocity_unique` 经 `classical_uniqueness_on_Icc` + U1a + U1b）+ U3（`pressure_gauge`）；**叠在 049 分支上**，`Section4/A02/Uniqueness.lean` |
+| 052-A02-units-u2-u3 | ACCEPT，已合入 | — | #53 | A02 单元 U2（`velocity_unique` 经 `classical_uniqueness_on_Icc` + U1a + U1b）+ U3（`pressure_gauge`）；**叠在 049 分支上**，`Section4/A02/Uniqueness.lean` |
 | 053-A04-unit-d1 | 进行中 | — | — | A04 单元 D1：`HasSmoothSobolevPath` ⇒ 平方 datum 范数的导数 `2⟪G t, G' t⟫`，与 `sobolevNormAt = ‖G‖`；**叠在 039 分支上**，`Section4/A04/DerivNorm.lean` |
 | 054-D01-datum-lemmas-v2 | 进行中 | — | — | `D01.datum_lemmas` **V2**：`extends` V1 + 042 的 `forceSobolevENorm_ne_top` 字段；Bindings import `HalfOrder`（进合同闭包） |
 | 055-D01-unit-l9c | 进行中 | — | — | D01 单元 L9(c)：eq:Rpressure `∇p = (I−P)(f − ∇·(u⊗u))` 与压力梯度的全阶 jet（C01 U4/U7 的根缺口），`Section4/D01/Pressure.lean` |
