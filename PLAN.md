@@ -168,6 +168,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 062-D01-p2-split | 进行中 | — | — | 义务 P2（Leray 补投影在实角约定全空间 H^m 上有界）的拆分 + S 级子步：盘点 HeliCorgi 港口的 `r3LerayComplementL2`/`R3LerayRealLinearBridge`，列出实线性/约定/分布↔经典/L²→H^m 四座桥的精确陈述 |
 | 063-B01-unit-7-split | 进行中 | — | — | B01 单元 7（`temporalApprox` / `SeparatedTemporalDense`，L）的拆分 + S 级子步：`dense_span_separatedLp` 在 `H := RealVectorSobolev s` 的实例化、`Submodule.span` 展开、`Lp` 商到代表元 |
 | 064-A02-unit-u7 | 进行中 | — | — | A02 单元 U7：`exists_maximal` + `maximal_unique`（以 ⟪A01:solution⟫ 为显式假设；S ↑ T_max 的有向并 + U2/U3/U4 归一化的相干性），`Section4/A02/Maximal.lean` |
+| 065-A04-sl2-momentum | 进行中 | — | — | A04 子引理 SL2：动量方程的 datum 形式（用 D2 + 钉代表元技巧把 `∂ₜu = f − (u·∇)u + νΔu − ∇p` 提升到 `RealVectorSobolev m` 的 datum 等式），`Section4/A04/MomentumDatum.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
