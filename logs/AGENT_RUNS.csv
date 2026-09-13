@@ -199,3 +199,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,082-A04-sl3-real-pairing,opus-4.8,worker,RUNNING SL3 step 3a real-carrier skew-adjointness + lowering pairing,—,
 2026-09-14,B02,078-B02-unit-2-split,opus,reviewer,ACCEPT-WITH-NOTES (SL1 weight token-identical; only 0<δ used; SL2 pointwise and the manuscript transform; SL3-SL4 statements #check well-typed; SL4a coercion lemma = SchwartzMap.coe_apply; 5 low notes: realPart/postcomp bridge missing from SL3 brief; helper = equiv.right_inv one-liner; scope traps) in 12 min / 35 tool uses,—,worker resumed for record + helper fixes
 2026-09-14,R42,080-R42-blowup-esssup,opus-4.8,worker,DONE item 2a both lemmas (3 decls incl. one SpeedUnboundedAt restatement) in 13 min / 38 tool uses; 3 suggested Mathlib names did not exist (nhdsLT_basis used),—,reviewer launched
+2026-09-14,B02,078-B02-unit-2-split,opus-4.8,worker-resume,DONE 5 review fixes (helper one-liner; table) in 4 min / 12 tool uses,PR,PR #80 opened; merging
