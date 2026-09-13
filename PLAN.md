@@ -210,6 +210,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 104-SIMP-D01 | PR 已开 | #104 | — | D01 较早合入的八个模块（ForceClass, SmoothDatum, DatumToJets, HalfOrder, Pressure, HomogeneousWitness, OrderZeroDatum, LeraySymbol）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；conformance；MAINT 清单） |
 | 105-A04-sl5c-column-data | 进行中 | — | — | A04 SL5 行 5c（M）：每列 `W_j = u_j • u` 的 `SmoothL2Field` 包装（Leibniz + L^∞ 因子）+ `N = ∑ⱼ derivDatumStep m j (castOrder … B_j)`（`isSobolevDatum_partialDeriv` 一次 + `isSobolevDatum_add` + 唯一性），`Section4/A04/NonlinearDatum.lean` |
 | 106-A01-m4-gauge | 进行中 | — | — | A01 字段 `pressure_potential`（m4）的规范包装：`PressureGaugeEquivOn (Ico 0 T)` 于 `p` 与 `pressurePotential (∇p)`（`is_const_of_fderiv_eq_zero` + 切片 fderiv 引理 + Hessian 对称 `ContDiffAt.isSymmSndFDerivAt`），reviewer 已写 52 行，`Section4/A01/PressureGauge.lean` |
+| 107-SIMP-R42 | 进行中 | — | — | R42 已合模块（Assembly, Lifespan, CorrectionPath, PressureGradient, BlowupEssSup, SolutionOnShorter, FullHorizon）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；conformance；`Bindings/InsertionLifespan` 闭包必须保持绿） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
