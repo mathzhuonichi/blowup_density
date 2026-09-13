@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-13 同一 namespace 两份同名重述（032 的 Restrict §0 与 033 的 SolutionClass）在各自模块里都能编译，但任何同时 import 两者的文件会报 `environment already contains`；CI 的 changed-modules 步骤逐模块编译，抓不到。合入同节点多条车道后立刻跑 SIMP 去重。
 - 2026-09-13 每次向 integration 合 PR 都会取消正在跑的 CI（cancel-in-progress 按 PR #15 分组）；一轮要约 2 小时。今天 12:45 的一轮被 13:15 的一次合并掐掉。规则：CI 在跑时只攒 PR 不合，等它结束再批量合；一晚上最多 3–4 个合并窗口。
 - 2026-09-13 "范数 < 阈值"型假设的空洞陷阱：若该范数对所有合法输入都可能是 ⊤（例如半阶范数是半阶 datum 路径上的下确界，而输入类只保证整数阶路径），则结论空洞为真、错误实现照样通过。spec 审查要问"这个范数对论文的输入类一定有限吗"，并把"有限性"作为上游必须证的引理登记。
 - 2026-09-13 `gh pr merge` 在 force-push 后 `mergeable` 会在 MERGEABLE/UNKNOWN 间跳变；轮询到 MERGEABLE 后仍可能失败，要循环重试（6 秒 × 10 次）。

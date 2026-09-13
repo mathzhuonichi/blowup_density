@@ -96,3 +96,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,R43,037-R43-spec-A,opus,compare+reconcile,DONE (RCritical1API 4 fields; 7 of A's 11 blind restatements mismatched real siblings; new gaps G3 half-order force norms may be ⊤ for MemForceR -> vacuous; G2 path-level Ḣ≤H monotonicity; merged #40),#40,merged
 2026-09-13,A04,039-A04-units-f1-n1,opus-4.8,worker-resume,DONE notes in 5 min / 20 tool uses,PR,PR opened; hold merge until CI window
 2026-09-13,B02,036-B02-units-3-4,opus,reviewer,ACCEPT-WITH-NOTES (3 fields string-identical; constants verified against paper; notes for unit 9 only),PR,PR opened; hold merge until CI window
+2026-09-13,A02,040-SIMP-A02-dedupe,opus-4.8,simplifier+tester,DONE (Restrict 404->291 + Energy 258->163; statements byte-identical; negative checks: hbT and normalization load-bearing; found latent name collision Restrict§0 vs SolutionClass; ((0:ℕ):ℝ)=0 not rfl),,reviewer pending
