@@ -137,7 +137,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 031-C01-spec | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | 常规能量与 H¹ 吸收（eq:RL2、eq:RH1；R43/R44 用） |
 | 032-A02-restrict-order | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A02 单元 U4+U6：`restrict`/congruence/`pressure_normalization` 与六个序论字段（无分析） |
 | 033-A02-energy-u1a | ACCEPT-WITH-NOTES，待合（合入时去重） | — | — | A02 单元 U1a：`ClassicalSolutionR` ⇒ `UniformFiniteEnergy (Icc 0 T')` |
-| 034-D01-lemma-contract | 完成，review 中 | — | — | 把 020/024/025/028 的 D01 引理收成合同 `D01.datum_lemmas`（jets⇔datum、齐次见证、F_R 闭包、切片提取），进 `make test` 闭包 |
+| 034-D01-lemma-contract | ACCEPT-WITH-NOTES 已修，PR 待合 | **`D01.datum_lemmas` V1（第 10 条）** | — | 把 020/024/025/028 的 D01 引理收成合同 `D01.datum_lemmas`（jets⇔datum、齐次见证、F_R 闭包、切片提取），进 `make test` 闭包 |
 | 035-B01-units-1-3 | 进行中 | — | — | B01 单元 1–3（R46 实际消费的三条：Schwartz/紧支稠密 + 完备化代表元），`Section4/B01/` |
 | 036-B02-units-3-4 | 进行中 | — | — | B02 单元 3+4（低频权重可积性/积分值；角 Fourier 上确界界），`Section4/B02/` |
 | 037-R43-spec-A | 进行中 | — | — | 命题 4.3（L¹ 临界正则性）spec 盲稿 A；消费 A04/C01/A02 |

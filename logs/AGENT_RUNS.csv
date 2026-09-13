@@ -84,3 +84,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,C01,031-C01-spec,opus,reviewer,ACCEPT-WITH-NOTES (2 MEDIUM: Hölder fields need jet-form hypothesis; add ℝ≥0∞/ℝ bridge for laplacianSq; cosmetic notes),,worker resumed for fixes
 2026-09-13,D01,034-D01-lemma-contract,opus,reviewer,ACCEPT-WITH-NOTES (binding proves nothing — 0 by-blocks; both flagged statements hold; doc-level notes: bound misattribution + 5 line cites + docstring contradiction; suggest 23rd bridge for TameProduct.SmoothJets),,worker resumed for doc fixes
 2026-09-13,C01,031-C01-spec,opus,worker-resume,DONE fixes in 5 min / 14 tool uses (23 fields),PR,PR opened
+2026-09-13,D01,034-D01-lemma-contract,opus,worker-resume,DONE doc fixes + 23rd bridge in 3 min / 15 tool uses,PR,PR opened
