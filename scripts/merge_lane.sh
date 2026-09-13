@@ -14,6 +14,11 @@ if ! GIT_EDITOR=true git rebase origin/erenup/integration >/dev/null 2>&1; then
       python3 "$(git rev-parse --show-toplevel)/scripts/merge_json3.py" "$f" /tmp/mb.json /tmp/int.json /tmp/lane.json; git add "$f"
     fi
   done
+  # Bookkeeping files are owned by integration: a lane's stale copies (e.g. from a rewritten local
+  # integration history) always lose to the version being rebased onto.
+  for f in PLAN.md NEXT_SESSION.md CLAUDE.md logs/AGENT_RUNS.csv logs/LESSONS.md; do
+    if git ls-files -u -- "$f" | grep -q .; then git checkout --ours -- "$f"; git add "$f"; fi
+  done
   git checkout --ours -- collaboration/TASKS.md collaboration/tasks 2>/dev/null || true
   python3 experiments/tasks.py render >/dev/null; git add collaboration
   GIT_EDITOR=true git -c core.editor=true rebase --continue >/dev/null
