@@ -27,7 +27,11 @@ jobs:
   lean-contracts:
     needs: architecture
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # The registered closure now includes PDE modules (I01.packet: ~530 local
+    # modules) and the HeliCorgi port; a cold build on a 2-core runner exceeds
+    # the former 25-minute limit. Local build outputs are cached below so warm
+    # runs stay short; the limit covers a cold rebuild.
+    timeout-minutes: 90
     env:
       LEAN_NUM_THREADS: 2
     steps:
@@ -35,6 +39,17 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - name: Restore this repository's own Lean build outputs
+        # actions/cache v4.2.3, pinned by commit. Only our oleans are cached;
+        # Mathlib still comes from its official content-addressed cache.
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        with:
+          path: |
+            formalization/.lake/build
+            verification/.lake/build
+          key: lean-local-${{ runner.os }}-${{ hashFiles('formalization/lean-toolchain', 'formalization/lakefile.toml', 'verification/lakefile.toml', 'formalization/**/*.lean', 'verification/**/*.lean', 'vendor/HeliCorgi/**/*.lean') }}
+          restore-keys: |
+            lean-local-${{ runner.os }}-
       - uses: leanprover/lean-action@96e06131c0e9943c780388fd166f55d1e2fa0433
         with:
           lake-package-directory: verification
