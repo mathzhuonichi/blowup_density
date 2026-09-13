@@ -55,7 +55,8 @@ jobs:
           path: |
             formalization/.lake/build
             verification/.lake/build
-          key: lean-local-${{ runner.os }}-${{ hashFiles('formalization/lean-toolchain', 'formalization/lakefile.toml', 'verification/lakefile.toml', 'formalization/**/*.lean', 'verification/**/*.lean', 'vendor/HeliCorgi/**/*.lean') }}
+            vendor/NavierStokesAndEuler/.lake/build
+          key: lean-local-${{ runner.os }}-${{ hashFiles('formalization/lean-toolchain', 'formalization/lakefile.toml', 'verification/lakefile.toml', 'formalization/**/*.lean', 'verification/**/*.lean', 'vendor/HeliCorgi/**/*.lean', 'vendor/NavierStokesAndEuler/**/*.lean') }}
           restore-keys: |
             lean-local-${{ runner.os }}-
       - uses: leanprover/lean-action@96e06131c0e9943c780388fd166f55d1e2fa0433
