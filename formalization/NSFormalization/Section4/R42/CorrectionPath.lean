@@ -50,11 +50,11 @@ noncomputable section
 
 namespace NSFormalization.Section4.R42
 
-open Set MeasureTheory Filter Topology
+open Set Topology
 open NavierStokes.ProblemStatement
 open NSFormalization.Paper3
 open NSFormalization.Section4.A02
-open scoped ContDiff ENNReal SchwartzMap
+open scoped ContDiff
 
 /-- **Item 1e-i.**  A field `d` smooth on `[0,T) × ℝ³`, spatially supported in a
 fixed ball at every time, and vanishing for `0 ≤ t ≤ t₁` (`t₁ > 0`), has for
