@@ -154,12 +154,13 @@
       "title": "Whole-space tame products and bounded representatives",
       "dependencies": [
         "D01",
-        "U04"
+        "U04",
+        "A05"
       ],
       "kind": "adapter",
       "priority": 1,
       "status": "source-present-adaptation-open",
-      "contract": "Reuse complete H2/Hm scalar product and angular normalization. Assemble real vectors/tensors, difference estimates and actual physical multiplication for the energy argument, with constants independent of support.",
+      "contract": "Reuse complete H2/Hm scalar product and angular normalization. Assemble real vectors/tensors, difference estimates and actual physical multiplication for the energy argument, with constants independent of support. The embedding clauses of shared Lemma A.1 are supplied by A05; the product estimate itself can be reused before that adapter is finished.",
       "evidence": [
         "formalization/NSFormalization/Paper3/CompleteTameProduct.lean",
         "formalization/NSFormalization/Paper3/SobolevPhysicalProduct.lean",

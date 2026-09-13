@@ -45,6 +45,7 @@ flowchart TD
   A01 --> A02
   D01 --> A03
   U04 --> A03
+  A05 --> A03
   A02 --> A04
   A03 --> A04
   D01 --> A05
@@ -191,15 +192,6 @@ Patch ordinary local solutions by velocity uniqueness in the manuscript class. I
 - [formalization/NSFormalization/Source/InsertionBreakdown.lean](../../formalization/NSFormalization/Source/InsertionBreakdown.lean)
 - [vendor/HeliCorgi/Formal/R3MildContinuation.lean](../../vendor/HeliCorgi/Formal/R3MildContinuation.lean)
 
-### A04: Squared-H2 continuation adapter
-
-Priority: P0. Status: `source-present-adaptation-open`. Dependencies: A02, A03.
-
-From integral_0^S ||u||_H2^2 < infinity at a finite candidate endpoint derive higher-order bounds and a uniform restart interval extending beyond S. Use L1 Hm forcing and bounded local H1 forcing. Do not require a whole-space spectral gap.
-
-- [formalization/NSFormalization/Paper1/ScalarEnergyContinuation.lean](../../formalization/NSFormalization/Paper1/ScalarEnergyContinuation.lean)
-- [vendor/HeliCorgi/Formal/R3MildContinuation.lean](../../vendor/HeliCorgi/Formal/R3MildContinuation.lean)
-
 ### A05: Critical embeddings for the actual whole-space fields
 
 Priority: P0. Status: `source-present-adaptation-open`. Dependencies: D01, U03.
@@ -210,11 +202,20 @@ Connect a=1/2 and a=1 estimates to the same real vector/tensor distributions, fu
 - [formalization/NSFormalization/Source/FractionalRepresentative.lean](../../formalization/NSFormalization/Source/FractionalRepresentative.lean)
 - [formalization/NSFormalization/Paper1/SchwartzCriticalEmbedding.lean](../../formalization/NSFormalization/Paper1/SchwartzCriticalEmbedding.lean)
 
+### A04: Squared-H2 continuation adapter
+
+Priority: P0. Status: `source-present-adaptation-open`. Dependencies: A02, A03.
+
+From integral_0^S ||u||_H2^2 < infinity at a finite candidate endpoint derive higher-order bounds and a uniform restart interval extending beyond S. Use L1 Hm forcing and bounded local H1 forcing. Do not require a whole-space spectral gap.
+
+- [formalization/NSFormalization/Paper1/ScalarEnergyContinuation.lean](../../formalization/NSFormalization/Paper1/ScalarEnergyContinuation.lean)
+- [vendor/HeliCorgi/Formal/R3MildContinuation.lean](../../vendor/HeliCorgi/Formal/R3MildContinuation.lean)
+
 ### A03: Whole-space tame products and bounded representatives
 
-Priority: P1. Status: `source-present-adaptation-open`. Dependencies: D01, U04.
+Priority: P1. Status: `source-present-adaptation-open`. Dependencies: D01, U04, A05.
 
-Reuse complete H2/Hm scalar product and angular normalization. Assemble real vectors/tensors, difference estimates and actual physical multiplication for the energy argument, with constants independent of support.
+Reuse complete H2/Hm scalar product and angular normalization. Assemble real vectors/tensors, difference estimates and actual physical multiplication for the energy argument, with constants independent of support. The embedding clauses of shared Lemma A.1 are supplied by A05; the product estimate itself can be reused before that adapter is finished.
 
 - [formalization/NSFormalization/Paper3/CompleteTameProduct.lean](../../formalization/NSFormalization/Paper3/CompleteTameProduct.lean)
 - [formalization/NSFormalization/Paper3/SobolevPhysicalProduct.lean](../../formalization/NSFormalization/Paper3/SobolevPhysicalProduct.lean)
