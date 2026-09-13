@@ -45,12 +45,13 @@ if tool in ("Edit", "Write", "MultiEdit"):
         deny("guard: paper/ is the owner's manuscript; do not edit it. Record issues under logs/.")
     m = re.search(r"(?:^|/)(verification/(?:Contracts/V1|Tests)/[^/]+\.lean)$", path)
     if m and os.path.exists(path):
+        # Frozen = already merged into the integration branch (a lane's own new contract stays editable).
         try:
-            tracked = subprocess.run(["git", "ls-files", "--error-unmatch", path], cwd=os.path.dirname(path),
-                                     capture_output=True).returncode == 0
+            frozen = subprocess.run(["git", "cat-file", "-e", "origin/erenup/integration:" + m.group(1)],
+                                    cwd=os.path.dirname(path), capture_output=True).returncode == 0
         except Exception:
-            tracked = False
-        if tracked:
-            deny("guard: %s is a frozen contract/test (tracked). Do not modify; add a V2 under Contracts/V2/ "
-                 "or a new file." % m.group(1))
+            frozen = False
+        if frozen:
+            deny("guard: %s is a frozen contract/test (already on erenup/integration). Do not modify; add a V2 "
+                 "under Contracts/V2/ or a new file." % m.group(1))
 sys.exit(0)
