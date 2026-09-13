@@ -194,3 +194,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,076-A04-sl3-pairing,opus-4.8,worker-resume,DONE record/doc fixes (step 3 → M; recommends real-carrier re-proof) in 5 min / 20 tool uses,PR,PR #78 opened; merging
 2026-09-14,B02,078-B02-unit-2-split,opus-4.8,worker,DONE split table (SL1-SL4) + SL1 + SL2 proved (3 decls) in 19 min / 37 tool uses; SL3 reality (M) + SL4a/b/c assembly remain,—,reviewer launched
 2026-09-14,D01,081-D01-p2-leray-datum,opus-4.8,worker,RUNNING datum-carrier Leray complement CLM,—,
+2026-09-14,R42,075-R42-correction-path,opus-4.8,worker,DONE 1e-i both lemmas (cutoff route; 2 decls) in 33 min / 60 tool uses; 4 snags recorded (if_pos deprecated; split_ifs consumes hyps),—,reviewer launched
