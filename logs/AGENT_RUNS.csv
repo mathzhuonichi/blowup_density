@@ -335,3 +335,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,SIMP,115-SIMP-A04,opus,reviewer,ACCEPT-WITH-NOTES (11 opens confirmed; 62 conformance decls; N1–N4 unbound-name not evidence → reviewer collapse probes prove hL and the sign load-bearing; non-vacuity witnesses degenerate → unitBall witness; MAINT: D01/LerayLowering imports A04/{LaplacianPairing,RealPairing} which use no A04 decls → move to Paper3 clean; 3 record errors) in 14 min / 61 tool uses,resume,worker resumed to fold probes in
 2026-09-14,A01,119-A01-c1b-split,prover,worker,launched: C1b carrier-bridge split-and-start,running,
 2026-09-14,D01,117-D01-p2-sl8-assembly,prover,worker-resume,Exported order-m identity + ∃-form + pin (reviewer appendix B, credited); main theorem consumes it; 6 decls standard; MAINT notes recorded in 5 min / 12 tool uses,PR,PR #118 opened; merging
+2026-09-14,D01,120-D01-p2-contract-v3,prover,worker,launched: D01.datum_lemmas V3 (P2 fields) per REVIEW_SL8_ASSEMBLY §6,running,
+2026-09-14,A04,121-A04-hpr-leray-adjoint,prover,worker,launched: lerayComplement self-adjoint + transverse velocity datum ⇒ hpr,running,
