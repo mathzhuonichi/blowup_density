@@ -41,3 +41,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,B01,018 review fixes,opus,worker,done: anchors verified; SeparatedCompactDense def; reuse credited; componentwise Schwartz; units resized,#21,
 2026-09-13,A02,016 review,opus,reviewer,ACCEPT-WITH-NOTES: H1 pressure gauge in exists_maximal; H2 hypothesis claim false; sizing; DAG ruling: add A03->A02 keep A03->R42,,fixes sent to worker
 2026-09-13,A02,016 review fixes,opus,worker,done: pressure_normalization field; narrowing recorded; U1 split M+L; closed-form referenceLifespan; DAG wording per ruling,#22,
+2026-09-13,D01,020 unit L2 proofs,opus,worker,done: exists_isSobolevDatum_of_contDiff_memLp at every real s; MemHInfty and sobolevENorm ne top; derivative identification; 29 theorems standard axioms,,no contract binding (formalization cannot import Contracts)
