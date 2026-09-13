@@ -158,7 +158,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 052-A02-units-u2-u3 | ACCEPT，已合入 | — | #53 | A02 单元 U2（`velocity_unique` 经 `classical_uniqueness_on_Icc` + U1a + U1b）+ U3（`pressure_gauge`）；**叠在 049 分支上**，`Section4/A02/Uniqueness.lean` |
 | 053-A04-unit-d1 | ACCEPT-WITH-NOTES 已修，已合入 | — | #54 | A04 单元 D1：`HasSmoothSobolevPath` ⇒ 平方 datum 范数的导数 `2⟪G t, G' t⟫`，与 `sobolevNormAt = ‖G‖`；**叠在 039 分支上**，`Section4/A04/DerivNorm.lean` |
 | 054-D01-datum-lemmas-v2 | ACCEPT-WITH-NOTES 已修，已合入 | **`D01.datum_lemmas_v2`（第 11 条）** | #55 | `D01.datum_lemmas` **V2**：`extends` V1 + 042 的 `forceSobolevENorm_ne_top` 字段；Bindings import `HalfOrder`（进合同闭包） |
-| 055-D01-unit-l9c | 进行中 | — | — | D01 单元 L9(c)：eq:Rpressure `∇p = (I−P)(f − ∇·(u⊗u))` 与压力梯度的全阶 jet（C01 U4/U7 的根缺口），`Section4/D01/Pressure.lean` |
+| 055-D01-unit-l9c | ACCEPT-WITH-NOTES 已修，已合入 | — | #59 | D01 单元 L9(c)：eq:Rpressure `∇p = (I−P)(f − ∇·(u⊗u))` 与压力梯度的全阶 jet（C01 U4/U7 的根缺口），`Section4/D01/Pressure.lean` |
 | 056-A04-g1-split | 进行中 | — | — | A04 单元 G1（forced viscous eq:Rhigh 在 datum 载体上；= A01 A2）的 spec 级拆分：给定 D1/D2/动量/tame 积，列出子引理与精确陈述，证能证的 S 级子步 |
 | 057-A02-uniqueness-contract | ACCEPT-WITH-NOTES 已修，已合入 | **`A02.uniqueness`（第 12 条）** | #57 | 注册 `A02.uniqueness`（`UniquenessAPI`：`velocity_unique` + `pressure_gauge`，绑定 052/049/033 的定理，`ClassicalSolutionR` 逐字段桥） |
 | 058-A02-units-u5-u9 | ACCEPT，已合入 | — | #58 | A02 单元 U5（`patch`，取更长 horizon）+ U9（`lifespan_le_of_unbounded`，经 U1b 的 H² 上界机制），`Section4/A02/Patch.lean` |
