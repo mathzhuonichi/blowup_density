@@ -2,7 +2,6 @@
 - 2026-09-14 Lean v4.34.0-rc2：`if_pos`/`if_neg` 已弃用（用 `split_ifs`，或 `ite_eq_left/right`）；`split_ifs` 会消耗上下文里已有的同名符号假设、分支数变少，先看有没有 `h0 : 0 ≤ t` 之类在 context 里（075）。
 - 2026-09-14 `set x := … with hx` 之后 `dsimp only [hx]` 可能无进展，`simp only [hx]` 才展开+beta+对字面 pair 做投影约简；`image_eq_zero_of_notMem_tsupport` 在目标带类型标注时会把函数参数推错，先 destructure 再 `exact`（075）。
 - 2026-09-14 shell：往 python heredoc 里写含反引号的 markdown 时 heredoc 必须加引号（`<<'PYEOF'`），否则反引号被 shell 当命令替换、内容被吃掉（本条就是这样出错后补的）。
-- 2026-09-14  之后  可能无进展， 才展开+beta+对字面 pair 做投影约简； 在目标带类型标注时会把函数参数推错，先 destructure 再 （075）。
 - 2026-09-14 负向检查的坑：`formalization/` 包开着 `autoImplicit`，把出现在陈述类型里的假设删掉会被静默重绑成隐式参数、证明照常通过（假阴性）。只有仅在证明体里用到的假设才能这样测；否则先 `set_option autoImplicit false in` 再删（077）。
 - 2026-09-14 zsh：`--include=*.lean` 不加引号会被 glob 展开报 `no matches found`；`grep -n … $(grep -rl …)` 内层为空时外层 grep 读 stdin 挂死（表现为 120 s 超时）。写成 `--include='*.lean'`，并先把文件名存变量、判空再用。
 - 2026-09-14 worker 报的"heartbeat 爆炸、10⁶ 也卡"（073 `FiniteHilbertBochner.assemble`）是假堵点：reviewer 只 import 该模块、默认预算下 18 行证出 `coordinates_assemble`，真正的错误是 `insert` 与 `Insert.insert` 重名歧义。规矩：worker 声称的编译级堵点必须由 reviewer 用 /tmp 探针复现后才能进计划；lead 不要把它直接写成 lesson（本条替换了一条错误 lesson）。
