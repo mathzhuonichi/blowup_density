@@ -115,3 +115,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,C01,044-C01-unit-u6,opus-4.8,worker-resume,DONE integrability lemma in 8 min / 18 tool uses (5 theorems),PR,PR opened; hold merge until CI window
 2026-09-13,C01,045-C01-unit-u2,opus,reviewer,ACCEPT-WITH-NOTES (closure verified free of A02.Energy; Ici 0 confirmed; 2 doc notes applied by lead),PR,PR opened; hold merge until CI window
 2026-09-13,R44,046-R44-spec-A,opus,compare+reconcile,DONE (RCritical2API 9 fields; drafts agreed on all math; 2 draft-reported gaps already provided by A04/C01; -1/2 vs -(1/2) not rfl),PR,PR opened; hold merge until CI window
+2026-09-13,A02,049-A02-unit-u1b,opus-4.8,proof,DONE U1b both bounds (Bounds.lean; jet-side order shift jetENorm_dirDeriv_le sidesteps the open datum shift; scratch applies classical_uniqueness_on_Icc with U1a+U1b; standard axioms; 22 min / 37 tool uses),,reviewer pending
