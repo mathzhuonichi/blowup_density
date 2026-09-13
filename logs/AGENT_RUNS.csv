@@ -250,3 +250,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,R42,092-R42-lifespan-binding,opus-4.8,worker-resume,DONE hypotheses reduced to hg+hreg; initialClassR_a; rfl guard (9 decls) in 4 min / 18 tool uses,PR,PR #93 opened; merging
 2026-09-14,R42,096-R42-lifespan-contract,opus-4.8,worker,RUNNING register R42.insertion_lifespan,—,
 2026-09-14,A04,088-A04-sl3-assembly,opus-4.8,worker-resume,DONE consumer-shaped hlap corollary + lowerVectorL reuse + records (20 decls) in 9 min / 27 tool uses,PR,PR #94 opened; merging
+2026-09-14,B02,097-B02-remaining-fields,opus-4.8,worker,RUNNING remaining B02 spec fields (chi via vendor; B01 reuse; assembly table),—,
