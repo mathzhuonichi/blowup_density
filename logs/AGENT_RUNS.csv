@@ -186,3 +186,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,B02,078-B02-unit-2-split,opus-4.8,worker,RUNNING unit 2 split-and-start (SL1 + SL2 if S),—,
 2026-09-14,A04,076-A04-sl3-pairing,opus-4.8,worker,DONE SL3 steps 1+2 (10 decls: mid multiplier factorization D = U∘M∘U⁻¹; skew-adjoint via inner_map_map; lowering self-adjoint) in 14 min / 30 tool uses; compiled first try,—,reviewer launched
 2026-09-14,C01,077-SIMP-C01,opus-4.8,simplifier+tester,DONE docs/opens only (0 signature or proof lines changed; 14 thms standard; 3 negative checks break; autoImplicit false-negative finding; C01 not in any Tests closure) in 16 min / 46 tool uses,PR,PR #76 opened; merging on gates (no separate reviewer: no proof lines changed)
+2026-09-14,D01,079-D01-p2-sl4-transverse,opus-4.8,worker,RUNNING SL4 transverse a.e. symbol identity (abstract) + ∂ₜu corollary,—,
