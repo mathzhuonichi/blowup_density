@@ -111,3 +111,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,C01,045-C01-unit-u2,opus-4.8,proof,DONE U2 (ForceSlices.lean: forceTimeRegularity on Ici 0 incl. endpoint; standard axioms; 20 min / 53 tool uses); depends on A02.Energy §1-2 helpers that PR #43 deletes -> rewire to D01 before merge,,worker resumed for rewire
 2026-09-13,R44,047-R44-spec-B,opus-4.8,spec-draft-B,DONE (RCritical2API; converges with A: same constants/radius/inhomogeneous norm/lifespan conclusion; typecheck 0; 13 min),,compare+reconcile in 046
 2026-09-13,C01,044-C01-unit-u6,opus,reviewer,ACCEPT-WITH-NOTES (fields verbatim; C₁ = registered Csix; real inequality extractable; minor: hoist lintegral Hölder chain into a lemma to certify integrability for U7),,worker resumed for the lemma
+2026-09-13,C01,045-C01-unit-u2,opus-4.8,worker-resume,DONE rewire to D01 in 29 min / 66 tool uses (imports: SolutionClass + DatumToJets + LpNormTools),,reviewer pending
