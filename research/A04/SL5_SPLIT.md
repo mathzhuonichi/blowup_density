@@ -60,16 +60,21 @@ datum of the **advection slice** `advection u t = (u·∇)u(t,·)` (`MomentumDat
 |---|---|---|---|---|---|
 | 5a | div-free pointwise divergence form `advection u t x = ∑_j partialDeriv j (outerColumn z z j) x`, hyps `DifferentiableAt ℝ z x` + `spatialDivergence u t x = 0` (`z := u(t·)`) | identity of `Space` fields | **M** | **DONE** (lane 100: `advection_eq_sum_partialDeriv_outerColumn`, slice form `advection_slice_eq_sum_partialDeriv_outerColumn`; the bridge `convectionDivergence_eq_sum_partialDeriv_outerColumn` is `rfl`; `Section4/A04/AdvectionDivergence.lean`) | `Section4/A04/AdvectionDivergence.lean`: `convectionDivergence_eq_sum_partialDeriv_outerColumn` (the bridge, `rfl`), `advection_eq_sum_partialDeriv_outerColumn` (row 5a, function identity), `advection_slice_eq_sum_partialDeriv_outerColumn` (`ClassicalSolutionR` corollary). Reused lane 093's `convectionDivergence_eq_advection` (no re-proof of Leibniz); step (i) was `rfl` (not `HasFDerivAt.smul`); axioms = the standard 3 |
 | 5b | order-`(m+1)` datum of each column `W_j = u_j·u`: `∃ B_j, IsSobolevDatum ((m:ℝ)+1) W_j B_j` | `A03.exists_sobolevDatum` after enorm `≠ ⊤` | **S** | open | `A03.tameProductVector (m+1)` (`VectorTameProduct.lean:256`) ⇒ `sobolevENorm ((m+1:ℕ):ℝ) (outerColumn z z j) ≠ ⊤`, then `A03.exists_sobolevDatum`; needs `MemHmVector (m+1) (u t·)` from `velocity_smooth`. **No `SmoothL2Field` here** (that is 5c's need) |
-| 5c | `N = ∑_j (datum_m of ∂_j W_j)` | `N = ∑_j derivDatumStep m j (castOrder … B_j)`, via `isSobolevDatum_partialDeriv` + `isSobolevDatum_add` (over 3 j) + `isSobolevDatum_unique` against `hN` | **S–M** | open | 5a + 5b; copy 088's `isSobolevDatum_laplacian` with **one** derivative step instead of two; `derivDatumStep`/`castOrder`/`isSobolevDatum_castOrder`/`isSobolevDatum_add`/`isSobolevDatum_unique` from #94 + D01; each `W_j` wrapped as a `SmoothL2Field` (088's `Z.directionalField` repackaging is the pattern) |
+| 5c | `N = ∑_j (datum_m of ∂_j W_j)` | `N = ∑_j derivDatumStep m j B_j`, via `isSobolevDatum_partialDeriv` (per column, `Z := outerColumnField`) + `isSobolevDatum_add` (over 3 j) + `isSobolevDatum_unique` against `hN` | **M** | **DONE** (lane 105, `Section4/A04/NonlinearDatum.lean`) | Part 1 `outerColumn_smoothL2` + `outerColumnField`/`_field` (each `W_j = u_j·u` is `A05.SmoothL2` from **`MemHInfty z` alone**, via the **datum route** — row 5b at order `max n 2` + lowering + `D01.memHInfty_jets`, **not** a Leibniz jet expansion; F3's `L^∞`-factor argument avoided). Part 2 `isSobolevDatum_advection_sum` (copies 088's `isSobolevDatum_laplacian` with **one** derivative step; field rewritten by lane 100's `advection_eq_sum_partialDeriv_outerColumn`) + `advection_slice_datum_eq` (`ClassicalSolutionR` corollary pinning any `N` to the sum by `isSobolevDatum_unique`). Axioms = standard 3. `B_j` at order `m+1` from row 5b's `exists_outerColumn_datum_succ`; no `castOrder` needed on the `B_j` side |
 | 5d.amb | summed real skew-adjointness, ambient carrier: `∑_i ⟪f_i, D g_i⟫ = -∑_i ⟪D f_i, g_i⟫` | `sum_real_inner_angularDirectionalDerivative` | **S** | **DONE (this lane)** | 082 `real_inner_angularDirectionalDerivative` + `Finset.sum_neg_distrib`. This is the form the double-sum IBP consumes (`G_i` order `m`, `B_j i` order `m+1`, on the shared `FourierData`) |
 | 5d.sub | vector lift of 082 on the datum carrier (common order `s`): `∑_i ⟪f_i, D g_i⟫ = -∑_i ⟪D f_i, g_i⟫` | `sum_real_inner_angularDirectionalDerivativeReal` | **S** | **DONE (this lane)** | 082 `real_inner_angularDirectionalDerivativeReal` + `Finset.sum_neg_distrib` |
 | 5e | discrete Cauchy–Schwarz over a finset of inner products: `∑_j ⟪a_j,b_j⟫ ≤ √(∑‖a_j‖²)·√(∑‖b_j‖²)` (and the `\|·\|` form) | `sum_inner_le_sqrt_mul_sqrt`, `abs_sum_inner_le_sqrt_mul_sqrt`, generic `[InnerProductSpace ℝ E]` | **S** | **DONE (this lane)** | `real_inner_le_norm` / `abs_real_inner_le_norm` + `Real.sum_mul_le_sqrt_mul_sqrt` |
 | **5i** | **two-vector, two-source-order lowering transfer**: `⟪Λ_{s→r} v, Λ_{s'→t} w⟫ = ⟪Λ_{s→r'} v, Λ_{s'→t'} w⟫` for `r + t = r' + t'` (mid / complex / real layers) | `inner_loweringMid_transfer`, `inner_lowering_transfer_complex`, `real_inner_lowering_transfer` | **S** | **DONE (this lane)** | generalizes 082's single-vector `inner_loweringMid_pairing`/`…_complex`/`real_inner_lowering_pairing` from one vector to two and from one source order to two; `lowering_mid_symbol_eq` + `sobolevBesselWeight_mul` + `angularFrequencyDilation.inner_map_map` + `real_inner_eq_re_complex`. **SL5's only genuinely new analytic content** |
 | 5f.grad | `√(∑_j ‖D_j A'‖²) = gradientSobolevNormAt (m:ℝ) u t`, `A' = datum_{m+1}(u)` | `gradientSobolevENorm_toReal_sq_eq_datum_sum` (`LaplacianDatum.lean:130`) + `Real.sqrt_sq ENNReal.toReal_nonneg` | **S** | open | **no order shift as stated**: the row uses `D_j` on `datum_{m+1}(u)`, exactly what `gradientSobolevENorm_toReal_sq_eq_datum_sum` gives; the shift `D_j G` vs `D_j A'` is 5h/5i's concern, not this row's |
 | 5g.outer | `√(∑_j ‖C_j‖²) = (outerSobolevENorm (m:ℝ) z z).toReal`, `C_j = datum_m(W_j)` (≤ suffices) | `columnsSobolevENorm` `.toReal` ℓ² arithmetic of `gradientSobolevENorm_toReal_sq_eq_sum` (`LaplacianDatum.lean:96`) with `outerColumn` for `partialDeriv` + `sobolevENorm_eq` on `C_j` | **S–M** | open | 5b at order `m` (same route, `tameProductVector m`) |
-| 5h | assembly: `inner_sum` → 5d.amb → **5i** → 5e at `E = RealVectorSobolev m` → 5f/5g → target | one calc | **M** (L overall) | open | 5c, 5i, 5f, 5g; the order reconciliations `G = Λ_{m+1→m} A'`, `C_j = Λ_{m+1→m} B_j` (`isSobolevDatum_lowerVectorL` + `isSobolevDatum_unique` + `coe_lowerVectorL`, #94) and `D_j G = Λ_{m→m-1}(D_j A')` (`directionalDerivative_orderLowering_comm`, #94); use `abs_sum_inner_le_sqrt_mul_sqrt` so the sign need not be tracked |
+| 5h | assembly: `inner_sum` → 5d → **5i** → 5e at `E = RealVectorSobolev m` → 5f/5g → target | one calc | **S** (was M; reviewer-verified core ≈75 lines) | **DONE** (lane 105, `Section4/A04/NonlinearBound.lean`) | `inner_component_advection` / `inner_datum_advectionDir` / `inner_advection_bound` (reviewer-authored core) + `inner_advection_bound_slice` (`ClassicalSolutionR` corollary, the `hnl` of `inner_energy_assembly`). Order reconciliations `G = Λ_{m+1→m} A'`, `C_j = Λ_{m+1→m} B_j` (`isSobolevDatum_lowerVectorL` + `isSobolevDatum_unique` + `coe_lowerVectorL`) and `D_j(Λ A') = Λ(D_j A')` (`directionalDerivative_orderLowering_comm` + `real_inner_lowering_transfer`). Axioms = standard 3; conformance `example` in `axioms_sl5c.lean` feeds it into `inner_energy_assembly`'s `hnl` slot |
 
-Overall SL5 stays **L**, but the critical path is now short and concrete: **5i → 5a → 5b/5c → 5f/5g → 5h**.
+**SL5 is CLOSED.**  All nine rows (5a/5b/5c/5d/5e/5f/5g/5h/5i) are DONE.  The `hnl` of
+`A04.inner_energy_assembly` is delivered by `inner_advection_bound_slice`
+(`Section4/A04/NonlinearBound.lean`), matching the assembly's slot exactly (conformance `example`).
+What G1 still lacks to reach `energyIdentityHigh` is **only `hpr`**, the D01 obligation **P2** (the
+pressure datum / Leray-regularity gap) — that is `momentum_datum`'s explicit `hP` hypothesis, not part
+of SL5.
 
 ## What this lane proves (the S items)
 
@@ -85,12 +90,14 @@ Overall SL5 stays **L**, but the critical path is now short and concrete: **5i �
   `real_inner_lowering_transfer` — the two-vector, two-source-order lowering transfer (mid /
   complex / real), SL5's only genuinely new analytic content.
 
-## Remaining frontier (the L unit)
+## Frontier — SL5 CLOSED
 
-5b (**S**) / 5c (**S–M**,
-need the per-column `SmoothL2Field` wrapping and PR #94's `derivDatumStep`/`castOrder` transport),
-5f.grad (**S**, `gradientSobolevENorm_toReal_sq_eq_datum_sum` + `Real.sqrt_sq`), 5g.outer (**S–M**,
-`.toReal` ℓ² arithmetic), 5h (**M**, the calc assembly, using PR #94's order transports plus 5i).
-No row is gated on an unowned or unmerged item.  5a is now **DONE** (lane 100,
-`Section4/A04/AdvectionDivergence.lean`); the next sub-lane on the critical path is 5b/5c (5a and 5i
-are done and can be assembled into 5h).
+**Nothing remains in SL5.**  5a (lane 100), 5b/5f/5g (lane 102), 5d/5e/5i (lane 095), 5c and 5h
+(lane 105, `Section4/A04/NonlinearDatum.lean` + `NonlinearBound.lean`) are all **DONE**.  Row 5h's
+`inner_advection_bound_slice` is `inner_energy_assembly`'s `hnl` (conformance `example` in
+`research/A04/axioms_sl5c.lean` feeds it into the assembly and derives the full energy inequality).
+
+The remaining G1 gap to `energyIdentityHigh` is **only `hpr`** — the pressure drop `⟪G, ∇p datum⟫ = 0`,
+i.e. `momentum_datum`'s explicit `hP` hypothesis, which is the D01 obligation **P2** (Leray-regularity
+gap).  `hlap` is 088 (`inner_datum_laplacian_le'`), `hnl` is this lane, and `hd`/`hmom`/`hG`/`hF` are
+D1/D2/N1/momentum — none blocked.
