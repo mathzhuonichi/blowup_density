@@ -176,12 +176,12 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 070-MAINT-hotfix-temporal | 已合入 | — | #68 | 热修 063 的 docstring（lead 手改吞掉 `-/`）；全量门禁 58 模块绿 |
 | 071-B01-partial-contract | ACCEPT-WITH-NOTES 已修，已合入 | **`B01.bochner_partial`（第 15 条）** | #71 | 注册 `B01.bochner_partial`：`BochnerApproxAPI` 中已证的字段（χ 五条 + 单元 1–3、6、7、8），排除单元 9 的两条保真字段与 `SeparatedCompactDense` 打包 |
 | 072-R42-lifespan-split | 已合并 | #72 | #72 | R42 剩余的寿命同定子句拆分 + S 级子步：用已注册的 `A02.maximal_partial`（`lifespan_le_of_unbounded`、`lifespan_ge_of_forall_shorter`）把定理 4.2 的 `T_max(u_ε) = 1` 拆成「包的 L^∞ 爆破 ⇒ ≤ 1」与「每个 S<1 上有解 ⇒ ≥ 1」，列出缺的 `sobolev` 字段（非紧支 u_ε）与 `hg : MemForceR g` |
-| 073-D01-p2-sl3-multiplier | PR 已开 | #77 | — | P2 子引理 SL3：Leray 补投影的算子值 L² 乘子 CLM（HeliCorgi `R3LerayPointwiseL2` 模板 / `holderL` 取算子值 E），范数 ≤ 1，a.e. 作用，保实（SL2），`Section4/D01/LerayMultiplier.lean` |
+| 073-D01-p2-sl3-multiplier | 已合并 | #77 | #77 | P2 子引理 SL3：Leray 补投影的算子值 L² 乘子 CLM（HeliCorgi `R3LerayPointwiseL2` 模板 / `holderL` 取算子值 E），范数 ≤ 1，a.e. 作用，保实（SL2），`Section4/D01/LerayMultiplier.lean` |
 | 074-D01-p2-sl4a-div | 已合并 | #75 | #75 | P2 子引理 SL4α：经典解的 `div ∂ₜu(t,·) = 0`（`∂ₜ` 与 `div` 交换 + `divergence`），以及 `∂ₜu(t,·)` 的零阶 datum 横截（`⟪ξ, Â(ξ)⟫ = 0` a.e.），`Section4/D01/DivergenceTime.lean` |
 | 075-R42-correction-path | 进行中 | — | — | R42 子引理 1e-i：修正 `w_ε + U_ε`（时空光滑、空间紧支）的 datum 路径在时间上连续（`D01.contDiff_angularPath` + 时间截断 + L1 唯一性），从而 `u_ε = v + (w_ε+U_ε)` 的 `sobolev` 字段由 `reference.sobolev` + 可加性得到，`Section4/R42/CorrectionPath.lean` |
-| 076-A04-sl3-pairing | 审阅中 | — | — | A04 SL3 配对：`⟨Δ_datum, ·⟩ = -‖∇‖²`，经 `angularFrequencyDilation` 酉性 (`inner_map_map`) 与 066 的符号事实 (`mid_symbol_imaginary`, `mid_symbol_order_independent`)，`Section4/A04/LaplacianPairing.lean` |
+| 076-A04-sl3-pairing | PR 已开 | #78 | — | A04 SL3 配对：`⟨Δ_datum, ·⟩ = -‖∇‖²`，经 `angularFrequencyDilation` 酉性 (`inner_map_map`) 与 066 的符号事实 (`mid_symbol_imaginary`, `mid_symbol_order_independent`)，`Section4/A04/LaplacianPairing.lean` |
 | 077-SIMP-C01 | 已合并 | #76 | #76 | C01 四个已合模块的 simplifier+tester（陈述逐字不变；负向检查；conformance examples；CI 闭包） |
-| 078-B02-unit-2-split | 进行中 | — | — | B02 单元 2 `annularSchwartz`（L）拆分起步：`|ξ|^{-s}·g` 在环上光滑紧支（SL1）、Schwartz 逆角 Fourier（SL2）、实值性（SL3）、组装到 `IsHomogeneousSliceDatum`（SL4）；`research/B02/U2_SPLIT.md` + `Section4/B02/AnnularSchwartz.lean` |
+| 078-B02-unit-2-split | 审阅中 | — | — | B02 单元 2 `annularSchwartz`（L）拆分起步：`|ξ|^{-s}·g` 在环上光滑紧支（SL1）、Schwartz 逆角 Fourier（SL2）、实值性（SL3）、组装到 `IsHomogeneousSliceDatum`（SL4）；`research/B02/U2_SPLIT.md` + `Section4/B02/AnnularSchwartz.lean` |
 | 079-D01-p2-sl4-transverse | 进行中 | — | — | P2 SL4 Fourier 横向形式：无散 `SmoothL2Field` 的任一 (m+1) 阶 datum 满足 a.e. `∑ⱼ ξⱼ Âⱼ(ξ) = 0`（经 066 `isSobolevDatum_partialDeriv` + 标量 datum 唯一性 + 符号消去），再推论到 `∂ₜu(t,·)`（D2 + 074 SL4α + `A05.SmoothL2` 包装），`Section4/D01/Transverse.lean` |
 | 080-R42-blowup-esssup | 进行中 | — | — | R42 子项 2a：逐点 `SpeedUnboundedAt T u` + 切片连续 ⇒ `limsupLeft T (speedENorm (u(t,·))) = ⊤`（开集正测度 ⇒ essSup 下界；limsup=⊤ 的 frequently 刻画），`Section4/R42/BlowupEssSup.lean` |
 | 其余节点 | 未开始 | — | — | |
