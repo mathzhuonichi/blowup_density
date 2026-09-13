@@ -267,3 +267,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,101-A01-p1-potential,opus-4.8,worker,RUNNING P1 radial potential gradient,—,
 2026-09-14,R42,098-R42-full-horizon,opus-4.8,worker,DONE gluing lemma + full-horizon ClassicalSolutionR (2 decls) in 15 min / 29 tool uses; IsMaximalSolution reduces to sol_on_shorter + lifespan_eq (5 lines at Bindings),—,reviewer launched
 2026-09-14,A01,093-A01-split,opus-4.8,worker-resume,DONE projected_of_classicalSolution + table fixes (5 decls) in 7 min / 29 tool uses,PR,PR #98 opened; merging
+2026-09-14,A04,102-A04-sl5-columns-norms,opus-4.8,worker,RUNNING SL5 rows 5b/5f/5g,—,

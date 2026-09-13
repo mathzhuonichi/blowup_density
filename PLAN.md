@@ -205,6 +205,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 099-B02-partial-contract | 进行中 | — | — | 注册 `B02.homogeneous_partial`：16 个已证字段（含带可积性形式的 `homogeneousDatumSub` + 反例注释）逐字进 `Contracts/V1/HomogeneousPartial.lean` + Bindings + Tests + contracts.json（模板 071/091），把 B02 八个模块纳入 CI 闭包；缺 `separatedAssembly`/`annularPathApprox`/`approxCompactHomogeneous` |
 | 100-A04-sl5a-divergence-form | 进行中 | — | — | A04 SL5 行 5a（M）：无散场的对流项散度形式 `advection u t x = ∑ⱼ partialDeriv j (fun y => u (t,y) j • u (t,y)) x`（Leibniz + `spatialDivergence = 0`），`Section4/A04/AdvectionDivergence.lean` |
 | 101-A01-p1-potential | 进行中 | — | — | A01 单元 P1（M，无依赖无 gap）：径向势 `pressurePotential G` 在 `HasSymmetricJacobian G` 下梯度为 `G`（`02-preliminaries.tex:96-100`；`intervalIntegral` 下求导 + FTC），同时结掉 `pressure_potential`(m4) 与 D01 L9(b)，`Section4/A01/RadialPotential.lean` |
+| 102-A04-sl5-columns-norms | 进行中 | — | — | A04 SL5 行 5b/5f/5g（均 S）：列 `W_j = u_j • u` 的 m+1 阶 datum（`tameProductVector`/`outerProductTame`）；`√(∑‖D_j G'‖²) = gradientSobolevNormAt`；`√(∑‖B_j‖²) ≤ (outerSobolevENorm …).toReal`，`Section4/A04/NonlinearColumns.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
