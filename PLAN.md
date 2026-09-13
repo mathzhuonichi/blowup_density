@@ -122,6 +122,8 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 013-A01-spec | 已合入 | — | #17 | ACCEPT-WITH-NOTES 已修；路线：OpenAI/本地 forced Duhamel 主干 + HeliCorgi 压力；缺的关键单元是阶数 m 的 continuation + 跨阶一致（A2b）；15 单元 3S/7M/5L |
 | 014-A05-spec | 已合入 | — | #16 | ACCEPT-WITH-NOTES 已修（端点 3/2）；L⁶ 界几乎现成；L^{p_a} 骨架需搬约定（(2π)^{-a}）；Λ 做关系 |
 | 015-I03-spec | PR #18 待合（CI 跑完） | — | #18 | ACCEPT-WITH-NOTES 已修（scalingStatement 补 7 条前提可满足；Prop 3.3 转运 3 字段）；U7c 是 R46 阻塞点 |
+| 019-A05-l6-contract | 进行中 | 目标 `A05.gradient_l6` V1 | — | Lemma B.1 第三条 ‖∇u‖₆ ≤ C‖Δu‖₂；OpenAI `smooth_eLpNorm_six_le` 几乎现成，难点 ‖D²u‖₂ = ‖Δu‖₂ |
+| 020-D01-hm-datum | 进行中 | — | — | D01 单元 L2：光滑 H^∞ 场每阶都有角向数据（A02 U1 / A03 U2 的关键路径风险） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
