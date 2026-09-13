@@ -42,7 +42,18 @@
       "binding_module": "Bindings.GradientL6",
       "test_module": "Tests.GradientL6",
       "declaration": "BlowupDensity.Tests.checkedGradientL6",
-      "scope": "Lemma B.1's gradient-L\u2076 clause only; not the \u1e22^{1/2}/\u1e22^{3/2} embeddings. Stated for smooth fields with square-integrable Fr\u00e9chet jets, the jet form of H^\u221e; its equivalence with the datum form Data.MemHInfty is not asserted.",
+      "scope": "Lemma B.1's gradient-L⁶ clause only; not the Ḣ^{1/2}/Ḣ^{3/2} embeddings. Stated for smooth fields with square-integrable Fréchet jets, the jet form of H^∞; its equivalence with the datum form Data.MemHInfty is not asserted.",
+      "enabled": true
+    },
+    {
+      "id": "A03.bounded_representative",
+      "parent_task": "A03",
+      "version": 1,
+      "specification": "verification/Contracts/V1/BoundedRepresentative.lean",
+      "binding_module": "Bindings.BoundedRepresentative",
+      "test_module": "Tests.BoundedRepresentative",
+      "declaration": "BlowupDensity.Tests.checkedBoundedRepresentative",
+      "scope": "Lemma A.1's H² ↪ L^∞ bounded-representative clause in jet form, whole space only (the torus half of lem:calculus is not stated); not the tame product estimates. Stated for smooth fields whose Fréchet jets of order at most 2 are square integrable, the jet form of H²; its equivalence with the datum form Data.MemHInfty is not asserted.",
       "enabled": true
     }
   ]
