@@ -184,3 +184,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,D01,073-D01-p2-sl3-multiplier,opus-4.8,worker,DONE 21 decls (complement symbol over ℂ; lerayComplementL2 CLM ‖·‖≤1 idempotent; Helmholtz split; fibre facts lifted; reality commutation; coordinates isometry) in 43 min / 70 tool uses; datum-carrier repackaging blocked by assemble/insert whnf blow-up,—,reviewer launched
 2026-09-14,D01,074-D01-p2-sl4a-div,opus-4.8,worker-resume,DONE 4 doc fixes in 3 min / 10 tool uses,PR,PR #75 opened; merging
 2026-09-14,B02,078-B02-unit-2-split,opus-4.8,worker,RUNNING unit 2 split-and-start (SL1 + SL2 if S),—,
+2026-09-14,A04,076-A04-sl3-pairing,opus-4.8,worker,DONE SL3 steps 1+2 (10 decls: mid multiplier factorization D = U∘M∘U⁻¹; skew-adjoint via inner_map_map; lowering self-adjoint) in 14 min / 30 tool uses; compiled first try,—,reviewer launched

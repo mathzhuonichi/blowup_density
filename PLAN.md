@@ -179,7 +179,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 073-D01-p2-sl3-multiplier | 审阅中 | — | — | P2 子引理 SL3：Leray 补投影的算子值 L² 乘子 CLM（HeliCorgi `R3LerayPointwiseL2` 模板 / `holderL` 取算子值 E），范数 ≤ 1，a.e. 作用，保实（SL2），`Section4/D01/LerayMultiplier.lean` |
 | 074-D01-p2-sl4a-div | 已合并 | #75 | #75 | P2 子引理 SL4α：经典解的 `div ∂ₜu(t,·) = 0`（`∂ₜ` 与 `div` 交换 + `divergence`），以及 `∂ₜu(t,·)` 的零阶 datum 横截（`⟪ξ, Â(ξ)⟫ = 0` a.e.），`Section4/D01/DivergenceTime.lean` |
 | 075-R42-correction-path | 进行中 | — | — | R42 子引理 1e-i：修正 `w_ε + U_ε`（时空光滑、空间紧支）的 datum 路径在时间上连续（`D01.contDiff_angularPath` + 时间截断 + L1 唯一性），从而 `u_ε = v + (w_ε+U_ε)` 的 `sobolev` 字段由 `reference.sobolev` + 可加性得到，`Section4/R42/CorrectionPath.lean` |
-| 076-A04-sl3-pairing | 进行中 | — | — | A04 SL3 配对：`⟨Δ_datum, ·⟩ = -‖∇‖²`，经 `angularFrequencyDilation` 酉性 (`inner_map_map`) 与 066 的符号事实 (`mid_symbol_imaginary`, `mid_symbol_order_independent`)，`Section4/A04/LaplacianPairing.lean` |
+| 076-A04-sl3-pairing | 审阅中 | — | — | A04 SL3 配对：`⟨Δ_datum, ·⟩ = -‖∇‖²`，经 `angularFrequencyDilation` 酉性 (`inner_map_map`) 与 066 的符号事实 (`mid_symbol_imaginary`, `mid_symbol_order_independent`)，`Section4/A04/LaplacianPairing.lean` |
 | 077-SIMP-C01 | 进行中 | — | — | C01 四个已合模块的 simplifier+tester（陈述逐字不变；负向检查；conformance examples；CI 闭包） |
 | 078-B02-unit-2-split | 进行中 | — | — | B02 单元 2 `annularSchwartz`（L）拆分起步：`|ξ|^{-s}·g` 在环上光滑紧支（SL1）、Schwartz 逆角 Fourier（SL2）、实值性（SL3）、组装到 `IsHomogeneousSliceDatum`（SL4）；`research/B02/U2_SPLIT.md` + `Section4/B02/AnnularSchwartz.lean` |
 | 其余节点 | 未开始 | — | — | |
