@@ -31,6 +31,7 @@
   **临时放宽（integration 分支，待 owner 批准）**：009 把规则放宽为"+ 上游 `NavierStokes.*` + 6 个本地规范定义模块白名单"（见 `check_contracts.py` 的 `CONTRACT_CANONICAL_MODULES`）。扩白名单是政策变更，不是日常改动。
 - `verification/Tests` 是 `warningAsError = true`：任何 Tests 模块都不能 import HeliCorgi 的 `Formal.*`（52 个上游 warning 会变成 error），先经过 Bindings。
 - 提交前 `make check`；Lean 改动再跑 `make test`、`make test-mutations`。PR 用模板，写任务 ID、合同版本、跑过的命令。
+- **CI 是 `cancel-in-progress`**：integration → main 的 PR 在跑 CI 时（约 20 分钟），不要往 integration 连续 push 小 commit，会把 run 取消。记录类 commit 攒着，CI 结束再 push。用 `gh run list --branch erenup/integration` 看状态（`gh pr checks` 对这个 workflow 不显示）。
 
 ## Lean 环境（自包含，不碰 `~/.elan`）
 
