@@ -148,6 +148,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 042-D01-halforder-force-norms | 进行中 | — | — | D01 G3+G2：`MemForceR f → forceSobolevENormL1 (1/2) f ≠ ⊤`（及齐次孪生）、路径级 Ḣ^{1/2} ≤ H^{1/2}；`Section4/D01/HalfOrder.lean` |
 | 043-A04-unit-z1 | 进行中 | — | — | A04 单元 Z1：带线性项的 ζ-正则化开方微分不等式（推广 `Paper1.sqrt_energy_le_primitive`），`Section4/A04/Regularized.lean` |
 | 044-C01-unit-u6 | 进行中 | — | — | C01 单元 U6（无 U1 依赖）：L³ 插值 + `laplacianSqENorm` 桥，`Section4/C01/` |
+| 045-C01-unit-u2 | 进行中 | — | — | C01 单元 U2：`MemForceR f ⇒ MemLp (slice f t) 2` + `t ↦ ‖f(t)‖₂` 连续（`forceTimeRegularity`），`Section4/C01/ForceSlices.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
