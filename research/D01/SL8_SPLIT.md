@@ -1,5 +1,15 @@
 # SL8 assembly table — `SmoothSquareIntegrableJets (∇p(t,·))` from `h ∈ H^∞` (D01 · P2)
 
+> **DONE (lane 117).**  The whole table (rows i.1 … iii.3) is assembled in
+> `formalization/NSFormalization/Section4/D01/PressureJets.lean` (namespace
+> `NSFormalization.Section4.D01`).  Row i.7 = `orderZeroDatum_pressureGradient_eq`; P2 =
+> `pressureGradient_slice_smoothSquareIntegrableJets_of_memForceR`; plus the corollary
+> `temporalDerivative_slice_smoothSquareIntegrableJets_of_memForceR` (`∂ₜu(t,·) ∈ H^∞`).  All three
+> `#print axioms` = `[propext, Classical.choice, Quot.sound]`
+> (`research/D01/axioms_sl8_assembly.lean`).  `hcurl` uses lane 111's in-tree
+> `partialDeriv_pressureGradient_symm` (not lane 106's `A01.PressureGauge`), so the module does not
+> import A01.  See `research/D01/ATTEMPTS_SL8_ASSEMBLY.md`.
+
 > Lane 111.  Records the full route from the order-0 Plancherel seed to P2's target,
 > `SmoothSquareIntegrableJets (fun x => pressureGradient u.pressure t x)` for
 > `u : ClassicalSolutionR ν a f T`, `hf : MemForceR f`, `t ∈ Ioo 0 T`.  Companion to
@@ -85,6 +95,10 @@ not demoted.
 
 ## Status summary
 
+- **DONE (lane 117).**  All rows are assembled in `Section4/D01/PressureJets.lean`; see the header
+  note above for the theorem names.  Rows i.2/i.4/i.6/i.7 are the body of
+  `orderZeroDatum_pressureGradient_eq`; rows ii.1–ii.4 + iii.1–iii.3 are the body of
+  `pressureGradient_slice_smoothSquareIntegrableJets_of_memForceR`.  Every "S"/"≈10 lines" size held.
 - **No blocker remains.**  Lane 108 (PR #110) merged its order-0 longitudinal fix
   `Leray.lerayComplement_zero_orderZeroDatum_eq_self` (`OrderZeroCurl.lean:510`, `D01.Leray`), so
   row i.6 is now an in-tree one-liner; lane 106 (PR #109) merged
