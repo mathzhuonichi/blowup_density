@@ -35,3 +35,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,B01,018 Bochner approximation spec,opus,worker,done: BochnerApproxAPI typechecks; main field already in source for all s and q<inf; gap: ContDiff-in-time transport,,
 2026-09-13,A03,017 tame products spec,opus,worker,done: TameProductAPI 23 fields typechecks; scalar theory complete in tree; vector/tensor layer and realSubspace stability are the gaps; 10 units no L,,confirms missing A03->R42 edge
 2026-09-13,A02,016 uniqueness spec,opus,worker,done: UniquenessAPI/MaximalSolutionAPI typecheck; found classical_uniqueness_on_Icc; claims A03->A02 edge needed; 10 units 6S/4M,,DAG claim to be adjudicated
+2026-09-13,B01,018 review,opus,reviewer,ACCEPT-WITH-NOTES: citation drift; export-shape def; under-credited reuse; unit 9 restate; pairing = IsSobolevDatum verified in Lean,,fixes sent to worker
