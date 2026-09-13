@@ -212,6 +212,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 106-A01-m4-gauge | 进行中 | — | — | A01 字段 `pressure_potential`（m4）的规范包装：`PressureGaugeEquivOn (Ico 0 T)` 于 `p` 与 `pressurePotential (∇p)`（`is_const_of_fderiv_eq_zero` + 切片 fderiv 引理 + Hessian 对称 `ContDiffAt.isSymmSndFDerivAt`），reviewer 已写 52 行，`Section4/A01/PressureGauge.lean` |
 | 107-SIMP-R42 | 进行中 | — | — | R42 已合模块（Assembly, Lifespan, CorrectionPath, PressureGradient, BlowupEssSup, SolutionOnShorter, FullHorizon）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；conformance；`Bindings/InsertionLifespan` 闭包必须保持绿） |
 | 108-D01-p2-sl7b-curl | 进行中 | — | — | P2 SL7b-β：把 094 的截断配对机器推广为常数权重矩阵 `physical_weighted_pairing_zero`，得 0 阶 datum 的无旋 ⇒ 纵向（`OrderZeroSymbol` 上 Lemma B，reviewer 估 ≈30–40 行），推论 `lerayComplement 0 (orderZeroDatum hz) = orderZeroDatum hz`，`Section4/D01/OrderZeroCurl.lean` |
+| 109-MAINT-promotions | 进行中 | — | — | MAINT：把各 reviewer 标记的 Paper3/Source 级事实上提（`angularFrequencyDilation_coeFn`+`transverse_of_transverse_symm`→Paper3，`angular_plancherel`→Paper3，`angularFourier_conj`→Source/FourierConvention，A04 datum 线性引理→A03，`columnsSobolevENorm_toReal_sq_eq_sum`→A03），旧位置留 alias，陈述逐字不变，`make test` 18/18 |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

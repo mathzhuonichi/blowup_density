@@ -294,3 +294,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,105-A04-sl5c-column-data,opus-4.8,worker,DONE 5c both parts (5 decls; datum route avoids the Leibniz jet expansion; hypothesis MemHInfty alone) in 15 min / 36 tool uses; only 5h remains,—,reviewer launched
 2026-09-14,D01,108-D01-p2-sl7b-curl,opus-4.8,worker,RUNNING order-0 curl-free ⇒ longitudinal via weight-matrix pairing,—,
 2026-09-14,B02,103-B02-separated-assembly,opus,reviewer,ACCEPT-WITH-NOTES (only diff -3/2<s; 9 rfl bridges verified; uniqueness pins data; hs enters only via memLp_homogeneousProfile; s ≤ -3/2 nearly vacuous; register with -3/2<s in V2; approxCompactHomogeneous recipe 90-140 lines) in 9 min / 39 tool uses,PR,PR #106 opened (lead updated REMAINING_SPLIT); merging
+2026-09-14,MAINT,109-MAINT-promotions,opus-4.8,worker,RUNNING promotions with aliases,—,
