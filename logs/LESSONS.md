@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-14 worker 的 worktree 比 integration 旧时，它会去根目录改不在自己 worktree 里的记录文件（101 改了根目录的 `research/A01/A01_SPLIT.md`）。简报里要写死"只改本 worktree；文件不存在就在报告里说明，由 lead 处理"；lead 收到后单独 commit 根目录改动。
 - 2026-09-14 仅 `MemLp 2` + 光滑（导数不可积）的场，对 Schwartz 测试函数逐项分部积分是假的（094 给了反例）：必须先乘紧支截断 `χ(·/R)`（`ContDiffBump`）再让 `R→∞`（边界项 `‖∇χ_R‖ ≤ C/R` + DCT）。Mathlib 没有"C_c^∞ 在 Schwartz 中稠密"/"对测试函数消失的分布为零"引理，`ae_eq_zero_of_integral_contDiff_smul_eq_zero` 是可用的基本引理。
 - 2026-09-14 conformance 文件会漂移：068 改了 `spatialApproxHomogeneous_of` 的假设后，`research/B02/axioms_u8.lean` 在 HEAD 上其实已经编不过，直到 090 才发现。改任何已合陈述的假设时，必须重跑该节点全部 `axioms_*.lean`（SIMP/tester 车道的固定检查项）。
 - 2026-09-14 复制 helper 前先量真实 import 代价：闭包大小取决于本模块已 import 什么（087 已经过 `CorrectionPath → D01.ForceClass`，再 import `D01.DatumToJets` 只多 2 个模块，而不是给 `PressureGradient` 量出的 +548）；用 `lake build` 的 job 数差做判断。
