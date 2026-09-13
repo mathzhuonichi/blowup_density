@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-14 Mathlib 里 `@[to_dual]`/`to_additive` 生成的名字（如 `Set.Ico_subset_Ico_right`）在源码里 grep 不到，"不存在"只能用 `#check` 判定，不能用 grep（087 记了一条假负例）。
 - 2026-09-14 重述前的查重必须扫 `formalization/NSFormalization/{Source,Paper3,Paper1,Section4}` 全部（`grep -rn 'def <Name>' formalization/NSFormalization`），不能只扫 `Section4/`：080 重述了 `Source/PacketScaling.lean:22` 已有的 `SpeedUnboundedAt`，且同 namespace 的 `open` 会静默遮蔽、桥只抓一份。
 - 2026-09-14 Lean v4.34.0-rc2：`if_pos`/`if_neg` 已弃用（用 `split_ifs`，或 `ite_eq_left/right`）；`split_ifs` 会消耗上下文里已有的同名符号假设、分支数变少，先看有没有 `h0 : 0 ≤ t` 之类在 context 里（075）。
 - 2026-09-14 `set x := … with hx` 之后 `dsimp only [hx]` 可能无进展，`simp only [hx]` 才展开+beta+对字面 pair 做投影约简；`image_eq_zero_of_notMem_tsupport` 在目标带类型标注时会把函数参数推错，先 destructure 再 `exact`（075）。
