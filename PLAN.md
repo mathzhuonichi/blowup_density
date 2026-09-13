@@ -131,7 +131,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 025-D01-datum-to-jets | ACCEPT，PR 待合 | — | — | **已证**：`MemHInfty ↔ SmoothSquareIntegrableJets`、定量 jet 界（一个 (2π)^m）、含 t=0 的切片提取、`MemHInfty` 导数封闭；两条 jet 合同已从 `ClassicalSolutionR` 端到端应用成功；L2 全部关闭 |
 | 026-A03-tame-contract | review 中 | **`A03.tame_products` V1 已注册** | — | datum 层：eq:Rproduct(1)、eq:algebra、eq:tame（H² 低阶因子）、差分、对流；新证实子空间在完备乘法下稳定；3 字段待 datum⇒jets（025）后补；8 处 maxHeartbeats 待 reviewer 评估 |
 | 027-R42-assembly-contract | ACCEPT 已修，PR 待合 | **`R42.insertion_family` V1 已注册（第 7 条）** | — | 定理 4.2 除寿命同定外全部子句；K→K_* 在 R42 侧以缩小 ε₀ 解决；**缺口：无合同提供 g_ε ∈ F_R（时间正则性）**，连寿命 ≥ T 都无法陈述 → 028 |
-| 028-D01-forceclass-closure | 进行中 | — | — | F_R + F_c ⊆ F_R：datum 路径可加 + 紧支撑光滑力的 datum 路径 C^∞ 时间正则（B01 单元 5 同一缺口） |
+| 028-D01-forceclass-closure | review 中 | — | — | **已证**：F_c ⊆ F_R（datum 路径时间 C^∞）、F_R/F_c 加法封闭、g+H_ε+F_ε ∈ F_R（R42 可直接消费）；23 定理标准公理；余：u_ε 的 `ClassicalSolutionR.sobolev`（非紧支） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
