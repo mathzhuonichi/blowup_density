@@ -33,6 +33,17 @@
       "declaration": "BlowupDensity.Tests.checkedCorrection",
       "scope": "the R³ content of Lemmas 3.4–3.5 for the inserted packet: correction field, force correction and their bounds; not Theorem 4.2's lifespan or density statements",
       "enabled": true
+    },
+    {
+      "id": "A05.gradient_l6",
+      "parent_task": "A05",
+      "version": 1,
+      "specification": "verification/Contracts/V1/GradientL6.lean",
+      "binding_module": "Bindings.GradientL6",
+      "test_module": "Tests.GradientL6",
+      "declaration": "BlowupDensity.Tests.checkedGradientL6",
+      "scope": "Lemma B.1's gradient-L\u2076 clause only; not the \u1e22^{1/2}/\u1e22^{3/2} embeddings. Stated for smooth fields with square-integrable Fr\u00e9chet jets, the jet form of H^\u221e; its equivalence with the datum form Data.MemHInfty is not asserted.",
+      "enabled": true
     }
   ]
 }
