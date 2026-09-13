@@ -176,7 +176,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 070-MAINT-hotfix-temporal | 已合入 | — | #68 | 热修 063 的 docstring（lead 手改吞掉 `-/`）；全量门禁 58 模块绿 |
 | 071-B01-partial-contract | ACCEPT-WITH-NOTES 已修，已合入 | **`B01.bochner_partial`（第 15 条）** | #71 | 注册 `B01.bochner_partial`：`BochnerApproxAPI` 中已证的字段（χ 五条 + 单元 1–3、6、7、8），排除单元 9 的两条保真字段与 `SeparatedCompactDense` 打包 |
 | 072-R42-lifespan-split | 已合并 | #72 | #72 | R42 剩余的寿命同定子句拆分 + S 级子步：用已注册的 `A02.maximal_partial`（`lifespan_le_of_unbounded`、`lifespan_ge_of_forall_shorter`）把定理 4.2 的 `T_max(u_ε) = 1` 拆成「包的 L^∞ 爆破 ⇒ ≤ 1」与「每个 S<1 上有解 ⇒ ≥ 1」，列出缺的 `sobolev` 字段（非紧支 u_ε）与 `hg : MemForceR g` |
-| 073-D01-p2-sl3-multiplier | 审阅中 | — | — | P2 子引理 SL3：Leray 补投影的算子值 L² 乘子 CLM（HeliCorgi `R3LerayPointwiseL2` 模板 / `holderL` 取算子值 E），范数 ≤ 1，a.e. 作用，保实（SL2），`Section4/D01/LerayMultiplier.lean` |
+| 073-D01-p2-sl3-multiplier | 续改中 | — | — | P2 子引理 SL3：Leray 补投影的算子值 L² 乘子 CLM（HeliCorgi `R3LerayPointwiseL2` 模板 / `holderL` 取算子值 E），范数 ≤ 1，a.e. 作用，保实（SL2），`Section4/D01/LerayMultiplier.lean` |
 | 074-D01-p2-sl4a-div | 已合并 | #75 | #75 | P2 子引理 SL4α：经典解的 `div ∂ₜu(t,·) = 0`（`∂ₜ` 与 `div` 交换 + `divergence`），以及 `∂ₜu(t,·)` 的零阶 datum 横截（`⟪ξ, Â(ξ)⟫ = 0` a.e.），`Section4/D01/DivergenceTime.lean` |
 | 075-R42-correction-path | 进行中 | — | — | R42 子引理 1e-i：修正 `w_ε + U_ε`（时空光滑、空间紧支）的 datum 路径在时间上连续（`D01.contDiff_angularPath` + 时间截断 + L1 唯一性），从而 `u_ε = v + (w_ε+U_ε)` 的 `sobolev` 字段由 `reference.sobolev` + 可加性得到，`Section4/R42/CorrectionPath.lean` |
 | 076-A04-sl3-pairing | 审阅中 | — | — | A04 SL3 配对：`⟨Δ_datum, ·⟩ = -‖∇‖²`，经 `angularFrequencyDilation` 酉性 (`inner_map_map`) 与 066 的符号事实 (`mid_symbol_imaginary`, `mid_symbol_order_independent`)，`Section4/A04/LaplacianPairing.lean` |

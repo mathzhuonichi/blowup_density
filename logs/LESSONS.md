@@ -1,7 +1,7 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
 - 2026-09-14 负向检查的坑：`formalization/` 包开着 `autoImplicit`，把出现在陈述类型里的假设删掉会被静默重绑成隐式参数、证明照常通过（假阴性）。只有仅在证明体里用到的假设才能这样测；否则先 `set_option autoImplicit false in` 再删（077）。
 - 2026-09-14 zsh：`--include=*.lean` 不加引号会被 glob 展开报 `no matches found`；`grep -n … $(grep -rl …)` 内层为空时外层 grep 读 stdin 挂死（表现为 120 s 超时）。写成 `--include='*.lean'`，并先把文件名存变量、判空再用。
-- 2026-09-14 从导入模块操作 `FiniteHilbertBochner.assemble/insert`（`LinearMap.mkContinuous` 可约 def）会 whnf 爆炸（10⁶ heartbeats 仍卡）；模块内部（section 变量不透明）便宜。结论：这类桥引理写进定义所在模块，不在下游硬啃（073）。
+- 2026-09-14 worker 报的"heartbeat 爆炸、10⁶ 也卡"（073 `FiniteHilbertBochner.assemble`）是假堵点：reviewer 只 import 该模块、默认预算下 18 行证出 `coordinates_assemble`，真正的错误是 `insert` 与 `Insert.insert` 重名歧义。规矩：worker 声称的编译级堵点必须由 reviewer 用 /tmp 探针复现后才能进计划；lead 不要把它直接写成 lesson（本条替换了一条错误 lesson）。
 - 2026-09-14 「总化积分」陷阱（与 ⊤ 陷阱同类）：用 Bochner 积分定义的「分布」谓词（`IsSliceDistribution`）对不可积的野场**空洞成立**（两边都是 junk 0），于是零 datum 满足一切，像 `homogeneousDatumSub` 这种无可积性假设的字段就是假的（068 reviewer 反例）。spec 审查要问：这个谓词对不可积输入是不是 vacuous？必要时加 `Integrable (ψ·z)` 或用 `LocIntField`。
 - 2026-09-13 **lead 自己动 Lean 文件必须先 build 再 commit**：063 的 docstring 按行号替换吞掉了 `-/`，而检查命令用了 `lake build … | grep`（管道吃掉了退出码，`set -e` 不生效），提交并合入了坏文件（#67），靠 070 热修。规则：改 `.lean` 只用 Edit/精确字符串替换；`set -o pipefail`；门禁绿了才 commit。
 - 2026-09-13 新建 worktree **必须先 `bash scripts/lean-install.sh`** 再碰 lake，否则 `verification/.lake/packages` 不存在，lake 会从头 clone Mathlib（070 热修时又犯了一次，3.9G 才发现）。
