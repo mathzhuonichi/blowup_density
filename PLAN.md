@@ -112,13 +112,16 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 006-SPEC-section4-statements | 已合入（ACCEPT-WITH-NOTES） | — | #6 | 1175 行台账；DAG 修正建议见下 |
 | 007-I01-contract | 已合入（ACCEPT-WITH-NOTES，已修） | **`I01.packet` V1 已注册** | #12 | 第一条 PDE 合同；27 义务全证；20 个内联定义 + 19 个 rfl 桥；标准 3 公理 |
 | 008-I02-correction-spec | 已合入（ACCEPT-WITH-NOTES） | — | #10 | 76 字段 CorrectionAPI；3.4/3.5 的 R³ 内容本地已基本证完，缺 4 小项 |
-| 011-I02-contract | 进行中 | 目标 `I02.correction` V1 | — | 合同 + 绑定 + 4 个缺口证明；用 Data.lean 的 E_T / 混合范数 |
+| 011-I02-contract | ACCEPT，修 3 条低级项后合入 | **`I02.correction` V1 已注册（本地全绿）** | — | 73 义务全证；范数已搬到 Data.lean 的 ℝ≥0∞ 规范范数；多一条论文自带的假设 π 光滑；参考解开板光滑桥因单切片消失 |
+| 016-A02-spec | 进行中 | — | — | 唯一性 / 最大解 / 定量重启（依赖 A01 spec） |
+| 017-A03-spec | 进行中 | — | — | Lemma A.1 tame 积 + H²↪L^∞（R42、A04 用） |
+| 018-B01-spec | 进行中 | — | — | 完备 Bochner 空间里 F_c 稠密（Prop 4.6 前半） |
 | 012-SPEC-ledger-fixes | 已合入 | — | #13 | 台账 v2：12 处修正 + DAG 提案 + CHANGELOG |
 | 010-U05-port | 已合入（ACCEPT-WITH-NOTES） | — | #11 | 88 模块全部编过；补丁只在 4 个副本、1 处 have；vendor 零改动；make snapshot 待 owner 重拍 |
 | 009-D01-reconcile | 已合入（ACCEPT-WITH-NOTES，已修） | **`Contracts/V1/Data.lean`**（定义合同，不注册） | #14 | 63 个定义；**合同 import 精确白名单 6 本地 + 1 上游模块，待 owner 批准** |
 | 013-A01-spec | 已合入 | — | #17 | ACCEPT-WITH-NOTES 已修；路线：OpenAI/本地 forced Duhamel 主干 + HeliCorgi 压力；缺的关键单元是阶数 m 的 continuation + 跨阶一致（A2b）；15 单元 3S/7M/5L |
 | 014-A05-spec | 已合入 | — | #16 | ACCEPT-WITH-NOTES 已修（端点 3/2）；L⁶ 界几乎现成；L^{p_a} 骨架需搬约定（(2π)^{-a}）；Λ 做关系 |
-| 015-I03-spec | 修正中 | — | — | ACCEPT-WITH-NOTES + 1 HIGH（scalingStatement 量化过宽，修法：以 CorrectionAPI 为输入）；Prop 3.3 转运归 I03；U7c（缩放场齐次范数）是 R46 的阻塞点 |
+| 015-I03-spec | PR #18 待合（CI 跑完） | — | #18 | ACCEPT-WITH-NOTES 已修（scalingStatement 补 7 条前提可满足；Prop 3.3 转运 3 字段）；U7c 是 R46 阻塞点 |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

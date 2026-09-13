@@ -28,3 +28,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A05,014 review fixes,opus,worker,done: endpoint added; ~40 citations fixed; not-covered section,#16,
 2026-09-13,A01,013 review fixes,opus,worker,done: Differentiable in Leray complement; horizon_lower_bound; survey corrected; memo revised (route kept),#17,
 2026-09-13,I03,015 review,opus,reviewer,ACCEPT-WITH-NOTES + HIGH: scalingStatement unsatisfiable; recommend CorrectionAPI as input; Prop 3.3 transport to I03; U7c under-sized,,fixes sent to worker
+2026-09-13,I03,015 review fixes,opus,worker,done: scalingStatement satisfiable (7 premises); Prop 3.3 transport fields; U7 split; 9 rfl bridges,#18,
+2026-09-13,I02,011 contract+proofs,opus,worker,done: I02.correction V1 registered; 73 fields proved; standard axioms; norms transported to Data.lean ENNReal norms; slab-smoothness bridge unnecessary,,needs rebase (Data.lean docstring drift)
+2026-09-13,I02,011 review,opus,reviewer,ACCEPT: all gates green; 32 declarations standard axioms; 10 copied notions bridged; 6 low/trivial findings (fixes sent),,

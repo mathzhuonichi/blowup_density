@@ -20,7 +20,18 @@
       "binding_module": "Bindings.Packet",
       "test_module": "Tests.Packet",
       "declaration": "BlowupDensity.Tests.checkedPacket",
-      "scope": "The compact OpenAI packet: the Theorem 1.1 construction properties (not its nonexistence corollary) plus Lemma 2.2 and the zero extensions, for every \u03bd>0; not the local insertion theorem and not any density statement.",
+      "scope": "The compact OpenAI packet: the Theorem 1.1 construction properties (not its nonexistence corollary) plus Lemma 2.2 and the zero extensions, for every ν>0; not the local insertion theorem and not any density statement.",
+      "enabled": true
+    },
+    {
+      "id": "I02.correction",
+      "parent_task": "I02",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Correction.lean",
+      "binding_module": "Bindings.Correction",
+      "test_module": "Tests.Correction",
+      "declaration": "BlowupDensity.Tests.checkedCorrection",
+      "scope": "the R³ content of Lemmas 3.4–3.5 for the inserted packet: correction field, force correction and their bounds; not Theorem 4.2's lifespan or density statements",
       "enabled": true
     }
   ]
