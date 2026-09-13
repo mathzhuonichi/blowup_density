@@ -140,11 +140,12 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 034-D01-lemma-contract | ACCEPT-WITH-NOTES 已修，已合入 | **`D01.datum_lemmas` V1（第 10 条）** | #37 | 把 020/024/025/028 的 D01 引理收成合同 `D01.datum_lemmas`（jets⇔datum、齐次见证、F_R 闭包、切片提取），进 `make test` 闭包 |
 | 035-B01-units-1-3 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | B01 单元 1–3（R46 实际消费的三条：Schwartz/紧支稠密 + 完备化代表元），`Section4/B01/` |
 | 036-B02-units-3-4 | 进行中 | — | — | B02 单元 3+4（低频权重可积性/积分值；角 Fourier 上确界界），`Section4/B02/` |
-| 037-R43-spec-A | 进行中 | — | — | 命题 4.3（L¹ 临界正则性）spec 盲稿 A；消费 A04/C01/A02 |
-| 038-R43-spec-B | 进行中 | — | — | 命题 4.3 spec 盲稿 B（与 037 互不可见） |
+| 037-R43-spec-A | 盲稿 A+B 比对调和完成，已合入 | — | #40 | `RCritical1API` 4 字段（B 形状）；上游缺口 G1–G7 见 `research/R43/COMPARISON.md` §4 |
+| 038-R43-spec-B | 已合入（经 037） | — | #40 | 命题 4.3 spec 盲稿 B（与 037 互不可见） |
 | 039-A04-units-f1-n1 | 进行中 | — | — | A04 单元 F1（`MemForceR` ⇒ L¹_tH^m / 有界 H¹ 力）+ N1（被积函数连续性），`Section4/A04/` |
 | 040-SIMP-A02-dedupe | 待开（槽位满） | — | — | A02 四模块的 simplifier + tester：Restrict §0 → import SolutionClass；Energy §1–2 → D01 DatumToJets；conformance/negative 检查 |
 | 041-A04-unit-g3 | 进行中 | — | — | A04 单元 G3：连续变系数 Grönwall（纯 ODE 引理，Mathlib 缺），`Section4/A04/Gronwall.lean` |
+| 042-D01-halforder-force-norms | 进行中 | — | — | D01 G3+G2：`MemForceR f → forceSobolevENormL1 (1/2) f ≠ ⊤`（及齐次孪生）、路径级 Ḣ^{1/2} ≤ H^{1/2}；`Section4/D01/HalfOrder.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
@@ -156,4 +157,5 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 - 定理 4.2 / 命题 4.6 / 定理 4.7 必须共用同一个 ε 族（一个线程化的见证），ε₀ 取所有约束的最小值。
 - 齐次实现：一个定义 Ḣ^s = {ĥ 可测, |ξ|^s ĥ ∈ L²}（−3/2 < s < 3/2）可覆盖 4.3 / 4.2 / 4.6 三处用法，其余作引理；‖·‖_{Ḣ^{3/2}} 只需定义为量。
 
+- **D01 需补（R43 调和发现，阻塞 R43/R44 陈述的非空洞性）**：(G3) `MemForceR f → forceSobolevENormL1 (1/2) f ≠ ⊤` 及齐次孪生——`MemForceR` 只给整数阶 datum 路径，半阶范数是 1/2 阶路径上的下确界，可能对所有真实 f 都是 ⊤，使小性假设空洞；(G2) 路径级 `‖f‖_{L¹_tḢ^{1/2}} ≤ ‖f‖_{L¹_tH^{1/2}}`（A05 只有空间切片版）；(G1) 把 datum 形式 `dotHomogeneousENorm` 提升为注册定义。
 - **D01 定义缺口（037 发现，待 D01 V2）**：`Data.lean` 的 `dotHHalfENorm`/`dotHThreeHalvesENorm` 是逐点 Fourier 积分，对非 L¹ 的 H^∞ 场退化为 0；R43/R44/A05/C01 的 smallness 假设必须共用 datum-下确界的齐次范数（A05 的 `dotHomogeneousENorm`），否则错误实现可空洞满足。
