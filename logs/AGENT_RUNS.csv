@@ -270,3 +270,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,102-A04-sl5-columns-norms,opus-4.8,worker,RUNNING SL5 rows 5b/5f/5g,—,
 2026-09-14,B02,099-B02-partial-contract,opus-4.8,worker,DONE contract B02.homogeneous_partial (16 fields + χ; 9 rfl-bridged defs; 18 contracts; gates + mutations OK) in 15 min / 38 tool uses,—,reviewer launched
 2026-09-14,R42,098-R42-full-horizon,opus,reviewer,ACCEPT-WITH-NOTES (Lemma A token-identical incl. t=0 one-sided; Lemma B bindings instance 22 lines zero mismatch; IsMaximalSolution reduces to sol_on_shorter + lifespan_eq, 5 lines in Data/V2 vocabulary via A02.maximal_partial_v2 — table cited only the A02 restatement; docstring self-contradiction; FullHorizon not in any Tests closure) in 10 min / 38 tool uses,—,worker resumed: docs + Bindings lemmas
+2026-09-14,A04,102-A04-sl5-columns-norms,opus-4.8,worker,DONE 5b/5f/5g (7 decls; 5g as equality) in 9 min / 24 tool uses,—,reviewer launched
