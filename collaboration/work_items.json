@@ -24,8 +24,8 @@
     {
       "id": "U05",
       "kind": "compatibility",
-      "state": "ready",
-      "owner": null,
+      "state": "in-progress",
+      "owner": "erenup",
       "contracts": [],
       "deliverable": "Check a minimal upstream import closure under the chosen pinned toolchain; report compatibility or exact failures. Do not mass-upgrade both dependency trees."
     },
