@@ -128,7 +128,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 022-B02-spec | 已合入 | — | #27 | 20 字段；范围 −3/2 < s ≤ 0；常数经 reviewer 独立推导一致；齐次实现半边为空（单元 6 = U7c，XL，建一次共用） |
 | 023-A03-l2linf-contract | 已合入 | **`A03.bounded_representative` V1 已注册** | #25 | H² jet 形式，逐点 + ess-sup；复用 OpenAI `smooth_pointwise_le_H2`；datum 形式待 D01 反向 |
 | 024-D01-homogeneous-witness | review 中 | — | — | **已证**：Schwartz/C_c^∞ 场在所有 s > −3/2 有齐次数据 + 范数恒等式；任意实数阶唯一性（L7）；差分；路径提升缺强可测；56 声明标准公理；发现 B02 `homogeneousDatumSub` 原样为假 |
-| 025-D01-datum-to-jets | 进行中 | — | — | D01 L2 反向：datum ⇒ jets + 从 ClassicalSolutionR 提取时间切片（让 R43/R44/A02 能用 019/023 的 jet 形式合同） |
+| 025-D01-datum-to-jets | review 中 | — | — | **已证**：`MemHInfty ↔ SmoothSquareIntegrableJets`、定量 jet 界（一个 (2π)^m）、含 t=0 的切片提取、`MemHInfty` 导数封闭；两条 jet 合同已从 `ClassicalSolutionR` 端到端应用成功；L2 全部关闭 |
 | 026-A03-tame-contract | 进行中 | 目标 `A03.tame_products` V1 | — | Lemma A.1 的 tame 积（实向量/张量层 + 实性稳定性），标量理论树内现成 |
 | 027-R42-assembly-contract | 进行中 | 目标 `R42.insertion_family` V1 | — | 定理 4.2 的构造与全部定量子句（除最大寿命同定），组合 I01/I02/I03 三条合同；暴露接口缺口 |
 | 其余节点 | 未开始 | — | — | |
