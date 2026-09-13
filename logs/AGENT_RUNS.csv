@@ -51,3 +51,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,I03,021 scaling contract,opus,worker,done: I03.scaling V1 registered; 31 fields proved incl. equalities and force convergence; homogeneous clauses unregistered (no witness),#26,2849 new lines
 2026-09-13,B02,022 review,opus,reviewer,ACCEPT-WITH-NOTES: constants and s-range independently verified; 12 homogeneous names 0 users; unit 6 = U7c (XL),,
 2026-09-13,A03,023 review,opus,reviewer,ACCEPT-WITH-NOTES: gates green; 11 declarations standard axioms; medium: binding name clash with 019 (smoothSquareIntegrableJets_eq); hypothesis stronger than needed,#25,fixes sent to worker
+2026-09-13,I03,021 review,opus,reviewer,ACCEPT-WITH-NOTES: 115 declarations standard axioms (no sampling); medium: force_carrier_subset inert premise R42 cannot discharge; 2 low,#26,fix sent to worker
