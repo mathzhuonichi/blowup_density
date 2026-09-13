@@ -16,9 +16,9 @@
 
 ## 下一步
 
-1. 收 011 → reviewer → 合入（第二条 PDE 合同 `I02.correction`）。收 015 修正 → 合入。
-2. CI 绿后把 PR #15 标 ready，请 owner review（正文列了 5 项待批：import 白名单、defaultTargets、snapshot、DAG 提案、CI 超时/缓存）。
-3. 第三波（编号从 016 起）：A02 spec（唯一性/最大解，依赖 A01 spec）、B01/B02 spec、A03 spec（tame 积，R42 也需要）、I03 合同、A05 合同（先做 L⁶ 那条）。
+1. CI（run 34744090538）绿后：推送积压记录 → 按序合 #18（I03 spec）、#19（`I02.correction`）、#20（A03 spec）、#21（B01 spec）、#22（A02 spec）→ PR #15 标 ready 交 owner。
+2. 第四波（已开 worktree）：019-A05-l6-contract（Lemma B.1 的 ‖∇u‖₆ ≤ C‖Δu‖₂ 单条合同，OpenAI `smooth_eLpNorm_six_le` 几乎现成）、020-D01-hm-datum（D01 单元 L2：光滑 H^∞ 场的切片是每阶 `IsSobolevDatum`，A02/A03 的关键路径风险）。
+3. 之后：I03 合同（等 #19）、B02 spec、A01 证明单元（A2 全阶 Grönwall = A04 共用；C1b Fourier 约定桥；A2b 阶数 m continuation）。
 
 ## 待 owner 决定
 
