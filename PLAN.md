@@ -122,7 +122,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 013-A01-spec | 已合入 | — | #17 | ACCEPT-WITH-NOTES 已修；路线：OpenAI/本地 forced Duhamel 主干 + HeliCorgi 压力；缺的关键单元是阶数 m 的 continuation + 跨阶一致（A2b）；15 单元 3S/7M/5L |
 | 014-A05-spec | 已合入 | — | #16 | ACCEPT-WITH-NOTES 已修（端点 3/2）；L⁶ 界几乎现成；L^{p_a} 骨架需搬约定（(2π)^{-a}）；Λ 做关系 |
 | 015-I03-spec | 已合入 | — | #18 | ACCEPT-WITH-NOTES 已修（scalingStatement 补 7 条前提可满足；Prop 3.3 转运 3 字段）；U7c 是 R46 阻塞点 |
-| 019-A05-l6-contract | 进行中 | 目标 `A05.gradient_l6` V1 | — | Lemma B.1 第三条 ‖∇u‖₆ ≤ C‖Δu‖₂；OpenAI `smooth_eLpNorm_six_le` 几乎现成，难点 ‖D²u‖₂ = ‖Δu‖₂ |
+| 019-A05-l6-contract | review 中，PR #23 | **`A05.gradient_l6` V1 已注册（rebase 后 4 合同全绿）** | #23 | 论文原形；Hessian–Laplacian 恒等式用分部积分证成等式；全程无 Fourier；余：datum ⇒ jets 方向 |
 | 020-D01-hm-datum | review 中 | — | — | **已证**：任意实数阶 s、无紧支撑假设；29 定理标准公理；与 Data.lean 定义 rfl 一致；余：反向、双边范数等价、时间路径 |
 | 其余节点 | 未开始 | — | — | |
 
