@@ -280,3 +280,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,100-A04-sl5a-divergence-form,opus-4.8,worker,DONE row 5a (3 decls; the bridge to convectionDivergence is rfl) in 7 min / 21 tool uses,—,reviewer launched
 2026-09-14,A04,102-A04-sl5-columns-norms,opus-4.8,worker-resume,DONE six low notes (succ lemma 2 lines, 1 ≤ m) in 6 min / 26 tool uses,PR,PR #101 opened; merging
 2026-09-14,D01,104-SIMP-D01,opus-4.8,simplifier+tester,RUNNING 8 early D01 modules,—,
+2026-09-14,D01,094-D01-p2-sl7b-order0,opus-4.8,worker,DONE Lemma A order-0 transverse (20 decls, 520 lines; cutoff χ(·/R) + DCT + fundamental lemma; no derivative integrability) in 80 min / 132 tool uses; Lemma B (curl) deferred (same technique ~100 lines),—,reviewer launched
