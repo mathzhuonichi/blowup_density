@@ -205,3 +205,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,R42,080-R42-blowup-esssup,opus-4.8,worker-resume,DONE dedupe + drop hT + slice-continuity lemma in 6 min / 15 tool uses,PR,PR #81 opened; merging
 2026-09-14,B02,084-B02-unit-2-sl3,opus-4.8,worker,RUNNING unit 2 SL3 reality a.e. identity + SL4a/SL4b,—,
 2026-09-14,R42,083-R42-pressure-gradient,opus-4.8,worker,DONE item 1f (4 decls incl. consumer corollary) in 11 min / 24 tool uses,—,reviewer launched
+2026-09-14,D01,081-D01-p2-leray-datum,opus-4.8,worker,DONE datum-carrier lerayComplement s (14 decls; componentwise mkContinuous, no codRestrict since RealVectorSobolev is PiLp of a subtype) in 27 min / 51 tool uses,—,reviewer launched
