@@ -163,6 +163,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 057-A02-uniqueness-contract | 进行中 | — | — | 注册 `A02.uniqueness`（`UniquenessAPI`：`velocity_unique` + `pressure_gauge`，绑定 052/049/033 的定理，`ClassicalSolutionR` 逐字段桥） |
 | 058-A02-units-u5-u9 | 进行中 | — | — | A02 单元 U5（`patch`，取更长 horizon）+ U9（`lifespan_le_of_unbounded`，经 U1b 的 H² 上界机制），`Section4/A02/Patch.lean` |
 | 059-B02-unit-7 | 进行中 | — | — | B02 单元 7：`lowHighSplit`（低/高频拆分，`k ∈ L¹ ∩ L²`，角坐标约定），`Section4/B02/LowHigh.lean` |
+| 060-B02-unit-8 | 进行中 | — | — | B02 单元 8：`cutoffLebesgue` + `spatialApproxHomogeneous`（对角逼近），`Section4/B02/Cutoff.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
