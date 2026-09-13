@@ -111,41 +111,12 @@ distributional side scales because `angularRealization` is `ℂ`-linear (real
 scalar through `LinearMapClass.map_smul_of_tower`), the physical side because the
 Bochner integral is `ℝ`-linear (`integral_smul`). -/
 
-/-- **The datum of a real scalar multiple, scalar case.**  `c • A` is the order-`s`
-datum of `c · a`. -/
-theorem isScalarSobolevDatum_smul {s : ℝ} (c : ℝ) {a : Space → ℝ} {A : RealSobolevHilbert s}
-    (hA : IsScalarSobolevDatum s a A) :
-    IsScalarSobolevDatum s (fun x => c * a x) (c • A) := by
-  intro ψ
-  show angularRealization s ((c • A : RealSobolevHilbert s) : FourierData) ψ = _
-  have hco : ((c • A : RealSobolevHilbert s) : FourierData)
-      = c • ((A : RealSobolevHilbert s) : FourierData) := rfl
-  rw [hco, LinearMapClass.map_smul_of_tower, smul_apply, hA ψ, ← integral_smul]
-  refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
-  simp only [Complex.real_smul]
-  push_cast
-  ring
-
-/-- **The datum of a real scalar multiple, vector case.**  `c • A` is the order-`s`
-datum of `x ↦ c • F x`.  Componentwise from `isScalarSobolevDatum_smul`
-(`(c • F x) i = c · F x i`, `(c • A) i = c • A i`). -/
-theorem isSobolevDatum_smul {s : ℝ} (c : ℝ) {F : Space → Space} {A : RealVectorSobolev s}
-    (hA : IsSobolevDatum s F A) : IsSobolevDatum s (fun x => c • F x) (c • A) := by
-  refine (isSobolevDatum_iff s _ (c • A)).mpr (fun i => ?_)
-  show IsScalarSobolevDatum s (fun x => c * F x i) (c • A i)
-  exact isScalarSobolevDatum_smul c (IsSobolevDatum.component hA i)
-
-/-- **The datum of a negation, scalar case.**  `-A` is the order-`s` datum of `-a`
-(`c = -1`). -/
-theorem isScalarSobolevDatum_neg {s : ℝ} {a : Space → ℝ} {A : RealSobolevHilbert s}
-    (hA : IsScalarSobolevDatum s a A) : IsScalarSobolevDatum s (fun x => - a x) (- A) := by
-  simpa using isScalarSobolevDatum_smul (-1 : ℝ) hA
-
-/-- **The datum of a negation, vector case.**  `-A` is the order-`s` datum of
-`x ↦ - F x`. -/
-theorem isSobolevDatum_neg {s : ℝ} {F : Space → Space} {A : RealVectorSobolev s}
-    (hA : IsSobolevDatum s F A) : IsSobolevDatum s (fun x => - F x) (- A) := by
-  simpa using isSobolevDatum_smul (-1 : ℝ) hA
+/-! Moved to `Section4/A03` in lane 109 (scalar cases → `ScalarTameProduct`, vector cases →
+`VectorTameProduct`); `NSFormalization.Section4.A04` aliases are kept here for downstream. -/
+alias isScalarSobolevDatum_smul := NSFormalization.Section4.A03.isScalarSobolevDatum_smul
+alias isSobolevDatum_smul := NSFormalization.Section4.A03.isSobolevDatum_smul
+alias isScalarSobolevDatum_neg := NSFormalization.Section4.A03.isScalarSobolevDatum_neg
+alias isSobolevDatum_neg := NSFormalization.Section4.A03.isSobolevDatum_neg
 
 /-! ## 2. SL2: the momentum equation in datum form -/
 

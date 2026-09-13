@@ -87,6 +87,26 @@ def outerDiffSobolevENorm (s : ℝ) (u v : Space → Space) : ℝ≥0∞ :=
 def gradientSobolevENorm (s : ℝ) (v : Space → Space) : ℝ≥0∞ :=
   columnsSobolevENorm s (fun j => partialDeriv j v)
 
+/-- The squared `.toReal` of a Frobenius column-assembly is the sum of the squared `.toReal` column
+norms, whenever each column norm is finite.  Pure `ENNReal.toReal` arithmetic on the
+`columnsSobolevENorm` definition; the general column family behind
+`A04.gradientSobolevENorm_toReal_sq_eq_sum` (`LaplacianDatum.lean:96`).
+
+Promoted from `Section4/A04/NonlinearColumns.lean` in lane 109; a
+`NSFormalization.Section4.A04` alias is kept there for downstream. -/
+theorem columnsSobolevENorm_toReal_sq_eq_sum {s : ℝ} {T : Fin 3 → Space → Space}
+    (hfin : ∀ j : Fin 3, sobolevENorm s (T j) ≠ ⊤) :
+    (columnsSobolevENorm s T).toReal ^ 2 = ∑ j : Fin 3, (sobolevENorm s (T j)).toReal ^ 2 := by
+  unfold columnsSobolevENorm
+  rw [← ENNReal.toReal_rpow,
+    ← Real.rpow_natCast ((∑ j : Fin 3, sobolevENorm s (T j) ^ (2 : ℝ)).toReal ^ (2 : ℝ)⁻¹) 2,
+    ← Real.rpow_mul ENNReal.toReal_nonneg]
+  norm_num
+  rw [ENNReal.toReal_sum (fun j _ => ENNReal.pow_ne_top (hfin j))]
+  apply Finset.sum_congr rfl
+  intro j _
+  rw [ENNReal.toReal_pow]
+
 /-- The Frobenius assembly is at most the sum of the three column norms:
 `ℓ² ≤ ℓ¹` on three terms, a factor of at most `3` that
 `appendix-a-local-theory.tex:10` leaves free. -/

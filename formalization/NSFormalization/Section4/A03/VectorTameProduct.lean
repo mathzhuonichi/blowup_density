@@ -189,6 +189,23 @@ theorem isSobolevDatum_sub {s : ℝ} (hs : 2 ≤ s) {F G : Space → Space}
     IsSobolevDatum s (fun x => F x - G x) (A - B) := fun i =>
   isScalarSobolevDatum_sub hs (hF i) (hG i) (hA i) (hB i)
 
+/-! ### Scalar multiplication of vector Sobolev data (promoted from A04/MomentumDatum in lane 109) -/
+
+/-- **The datum of a real scalar multiple, vector case.**  `c • A` is the order-`s`
+datum of `x ↦ c • F x`.  Componentwise from `isScalarSobolevDatum_smul`
+(`(c • F x) i = c · F x i`, `(c • A) i = c • A i`). -/
+theorem isSobolevDatum_smul {s : ℝ} (c : ℝ) {F : Space → Space} {A : RealVectorSobolev s}
+    (hA : IsSobolevDatum s F A) : IsSobolevDatum s (fun x => c • F x) (c • A) := by
+  refine (isSobolevDatum_iff s _ (c • A)).mpr (fun i => ?_)
+  show IsScalarSobolevDatum s (fun x => c * F x i) (c • A i)
+  exact isScalarSobolevDatum_smul c (IsSobolevDatum.component hA i)
+
+/-- **The datum of a negation, vector case.**  `-A` is the order-`s` datum of
+`x ↦ - F x`. -/
+theorem isSobolevDatum_neg {s : ℝ} {F : Space → Space} {A : RealVectorSobolev s}
+    (hA : IsSobolevDatum s F A) : IsSobolevDatum s (fun x => - F x) (- A) := by
+  simpa using isSobolevDatum_smul (-1 : ℝ) hA
+
 /-- Subadditivity of the manuscript norm on physical three-vector fields, with
 constant one. -/
 theorem sobolevENorm_add_le {s : ℝ} (hs : 2 ≤ s) {F G : Space → Space}
