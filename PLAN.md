@@ -183,6 +183,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 077-SIMP-C01 | 已合并 | #76 | #76 | C01 四个已合模块的 simplifier+tester（陈述逐字不变；负向检查；conformance examples；CI 闭包） |
 | 078-B02-unit-2-split | 进行中 | — | — | B02 单元 2 `annularSchwartz`（L）拆分起步：`|ξ|^{-s}·g` 在环上光滑紧支（SL1）、Schwartz 逆角 Fourier（SL2）、实值性（SL3）、组装到 `IsHomogeneousSliceDatum`（SL4）；`research/B02/U2_SPLIT.md` + `Section4/B02/AnnularSchwartz.lean` |
 | 079-D01-p2-sl4-transverse | 进行中 | — | — | P2 SL4 Fourier 横向形式：无散 `SmoothL2Field` 的任一 (m+1) 阶 datum 满足 a.e. `∑ⱼ ξⱼ Âⱼ(ξ) = 0`（经 066 `isSobolevDatum_partialDeriv` + 标量 datum 唯一性 + 符号消去），再推论到 `∂ₜu(t,·)`（D2 + 074 SL4α + `A05.SmoothL2` 包装），`Section4/D01/Transverse.lean` |
+| 080-R42-blowup-esssup | 进行中 | — | — | R42 子项 2a：逐点 `SpeedUnboundedAt T u` + 切片连续 ⇒ `limsupLeft T (speedENorm (u(t,·))) = ⊤`（开集正测度 ⇒ essSup 下界；limsup=⊤ 的 frequently 刻画），`Section4/R42/BlowupEssSup.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
