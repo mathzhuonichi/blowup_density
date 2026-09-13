@@ -149,8 +149,8 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 043-A04-unit-z1 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A04 单元 Z1：带线性项的 ζ-正则化开方微分不等式（推广 `Paper1.sqrt_energy_le_primitive`），`Section4/A04/Regularized.lean` |
 | 044-C01-unit-u6 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | C01 单元 U6（无 U1 依赖）：L³ 插值 + `laplacianSqENorm` 桥，`Section4/C01/` |
 | 045-C01-unit-u2 | ACCEPT-WITH-NOTES，PR 待合 | — | — | C01 单元 U2：`MemForceR f ⇒ MemLp (slice f t) 2` + `t ↦ ‖f(t)‖₂` 连续（`forceTimeRegularity`），`Section4/C01/ForceSlices.lean` |
-| 046-R44-spec-A | 进行中 | — | — | 命题 4.4（L² 临界正则性）spec 盲稿 A；输入含 R43 调和版、A04/C01 |
-| 047-R44-spec-B | 进行中 | — | — | 命题 4.4 spec 盲稿 B（与 046 互不可见，同样输入） |
+| 046-R44-spec-A | 盲稿 A+B 比对调和完成，PR 待合 | — | — | `RCritical2API` 9 字段；缺口 G1（J 权重恒等式）、G2（eq:Rcritical2）、G3（H^{-1/2} 力切片）、G5（幂拼写）见 `research/R44/COMPARISON.md` §4 |
+| 047-R44-spec-B | 已并入 046 | — | — | 命题 4.4 spec 盲稿 B（与 046 互不可见，同样输入） |
 | 048-B01-units-6-8 | 进行中 | — | — | B01 单元 6（`separatedAssembly`）+ 8（`spatialApprox`），`Section4/B01/Separated.lean` |
 | 049-A02-unit-u1b | 进行中 | — | — | A02 单元 U1b：`ClassicalSolutionR` 在 `Icc 0 T'` 上的 `‖u‖` 与 `‖∇u‖` 一致上界（经 `D01.datum_lemmas` + `A03.bounded_representative`），`Section4/A02/Bounds.lean` |
 | 050-C01-units-u1-u3 | 进行中 | — | — | C01 单元 U1（`velocityJets`，经 `D01.datum_lemmas` 现为 S）+ U3（演化打包成 `SmoothL2Field` 路径），`Section4/C01/{VelocityJets,Evolution}.lean` |
