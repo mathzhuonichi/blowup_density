@@ -148,7 +148,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 042-D01-halforder-force-norms | ACCEPT-WITH-NOTES，PR 待合 | — | — | D01 G3+G2：`MemForceR f → forceSobolevENormL1 (1/2) f ≠ ⊤`（及齐次孪生）、路径级 Ḣ^{1/2} ≤ H^{1/2}；`Section4/D01/HalfOrder.lean` |
 | 043-A04-unit-z1 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A04 单元 Z1：带线性项的 ζ-正则化开方微分不等式（推广 `Paper1.sqrt_energy_le_primitive`），`Section4/A04/Regularized.lean` |
 | 044-C01-unit-u6 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | C01 单元 U6（无 U1 依赖）：L³ 插值 + `laplacianSqENorm` 桥，`Section4/C01/` |
-| 045-C01-unit-u2 | 进行中 | — | — | C01 单元 U2：`MemForceR f ⇒ MemLp (slice f t) 2` + `t ↦ ‖f(t)‖₂` 连续（`forceTimeRegularity`），`Section4/C01/ForceSlices.lean` |
+| 045-C01-unit-u2 | ACCEPT-WITH-NOTES，PR 待合 | — | — | C01 单元 U2：`MemForceR f ⇒ MemLp (slice f t) 2` + `t ↦ ‖f(t)‖₂` 连续（`forceTimeRegularity`），`Section4/C01/ForceSlices.lean` |
 | 046-R44-spec-A | 进行中 | — | — | 命题 4.4（L² 临界正则性）spec 盲稿 A；输入含 R43 调和版、A04/C01 |
 | 047-R44-spec-B | 进行中 | — | — | 命题 4.4 spec 盲稿 B（与 046 互不可见，同样输入） |
 | 048-B01-units-6-8 | 进行中 | — | — | B01 单元 6（`separatedAssembly`）+ 8（`spatialApprox`），`Section4/B01/Separated.lean` |
