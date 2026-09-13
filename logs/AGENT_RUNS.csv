@@ -214,3 +214,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,D01,079-D01-p2-sl4-transverse,opus-4.8,worker,DONE Lemma A transverse form (3 decls incl. angularFrequencyDilation_coeFn) in 50 min / 71 tool uses; Lemma B (∂ₜu) deferred: needs all-orders spatial smoothness of the time-derivative slice + datum order-lowering at orders 0/1,—,reviewer launched
 2026-09-14,R42,083-R42-pressure-gradient,opus-4.8,worker-resume,DONE retract false negative example + rename + notes in 4 min / 17 tool uses,PR,PR #83 opened; merging
 2026-09-14,A04,086-SIMP-A04,opus-4.8,simplifier+tester,RUNNING 8 early A04 modules,—,
+2026-09-14,A04,082-A04-sl3-real-pairing,opus-4.8,worker-resume,DONE record fixes F1-F9 in 3 min / 12 tool uses,PR,PR #84 opened; merging
