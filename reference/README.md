@@ -21,6 +21,13 @@ already stored here was compared with the previous local source copy. No
 separate HeliCorgi paper PDF has been identified; the source repository itself
 is the formalization reference.
 
+The torus-only predecessor of the merged article was posted as
+arXiv:2609.10262v1 [math.AP] on 9 September 2026 (Cao and Chi, 22 pages). It is
+saved here as `Cao_Chi_2026_arXiv_2609.10262v1_Torus_Paper1.pdf`; its text is
+identical to `paper/originals/local/paper_1_theory.pdf` apart from the arXiv
+stamp, and its results are renumbered into Section 3 of the merged article
+(see `logs/THEOREM_CORRESPONDENCE.md`).
+
 ## Manuscript citation audit
 
 For the source and convention audit of the introductory notation, see
