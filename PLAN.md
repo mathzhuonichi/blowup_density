@@ -112,16 +112,16 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 006-SPEC-section4-statements | 已合入（ACCEPT-WITH-NOTES） | — | #6 | 1175 行台账；DAG 修正建议见下 |
 | 007-I01-contract | 已合入（ACCEPT-WITH-NOTES，已修） | **`I01.packet` V1 已注册** | #12 | 第一条 PDE 合同；27 义务全证；20 个内联定义 + 19 个 rfl 桥；标准 3 公理 |
 | 008-I02-correction-spec | 已合入（ACCEPT-WITH-NOTES） | — | #10 | 76 字段 CorrectionAPI；3.4/3.5 的 R³ 内容本地已基本证完，缺 4 小项 |
-| 011-I02-contract | PR #19 待合（CI 跑完） | **`I02.correction` V1 已注册（rebase 后门禁全绿）** | #19 | 73 义务全证；范数已搬到 Data.lean 的 ℝ≥0∞ 规范范数；多一条论文自带的假设 π 光滑；参考解开板光滑桥因单切片消失 |
-| 016-A02-spec | PR #22 待合（CI 跑完） | — | #22 | ACCEPT-WITH-NOTES 已修（压力基点归一化字段；U1 拆成 M+L）；本地 `classical_uniqueness_on_Icc` 同载体；加边 A03 → A02 |
-| 017-A03-spec | PR #20 待合（CI 跑完） | — | #20 | ACCEPT-WITH-NOTES 已修；标量理论本地已完整，缺实向量/张量层与实性稳定性；U2 依赖 D01 L2（风险） |
-| 018-B01-spec | PR #21 待合（CI 跑完） | — | #21 | ACCEPT-WITH-NOTES 已修；主字段已由本地源码覆盖（所有 s、q<∞）；缺口只剩时间 C^∞ 搬运；无 L 单元 |
+| 011-I02-contract | 已合入 | **`I02.correction` V1 已注册（rebase 后门禁全绿）** | #19 | 73 义务全证；范数已搬到 Data.lean 的 ℝ≥0∞ 规范范数；多一条论文自带的假设 π 光滑；参考解开板光滑桥因单切片消失 |
+| 016-A02-spec | 已合入 | — | #22 | ACCEPT-WITH-NOTES 已修（压力基点归一化字段；U1 拆成 M+L）；本地 `classical_uniqueness_on_Icc` 同载体；加边 A03 → A02 |
+| 017-A03-spec | 已合入 | — | #20 | ACCEPT-WITH-NOTES 已修；标量理论本地已完整，缺实向量/张量层与实性稳定性；U2 依赖 D01 L2（风险） |
+| 018-B01-spec | 已合入 | — | #21 | ACCEPT-WITH-NOTES 已修；主字段已由本地源码覆盖（所有 s、q<∞）；缺口只剩时间 C^∞ 搬运；无 L 单元 |
 | 012-SPEC-ledger-fixes | 已合入 | — | #13 | 台账 v2：12 处修正 + DAG 提案 + CHANGELOG |
 | 010-U05-port | 已合入（ACCEPT-WITH-NOTES） | — | #11 | 88 模块全部编过；补丁只在 4 个副本、1 处 have；vendor 零改动；make snapshot 待 owner 重拍 |
 | 009-D01-reconcile | 已合入（ACCEPT-WITH-NOTES，已修） | **`Contracts/V1/Data.lean`**（定义合同，不注册） | #14 | 63 个定义；**合同 import 精确白名单 6 本地 + 1 上游模块，待 owner 批准** |
 | 013-A01-spec | 已合入 | — | #17 | ACCEPT-WITH-NOTES 已修；路线：OpenAI/本地 forced Duhamel 主干 + HeliCorgi 压力；缺的关键单元是阶数 m 的 continuation + 跨阶一致（A2b）；15 单元 3S/7M/5L |
 | 014-A05-spec | 已合入 | — | #16 | ACCEPT-WITH-NOTES 已修（端点 3/2）；L⁶ 界几乎现成；L^{p_a} 骨架需搬约定（(2π)^{-a}）；Λ 做关系 |
-| 015-I03-spec | PR #18 待合（CI 跑完） | — | #18 | ACCEPT-WITH-NOTES 已修（scalingStatement 补 7 条前提可满足；Prop 3.3 转运 3 字段）；U7c 是 R46 阻塞点 |
+| 015-I03-spec | 已合入 | — | #18 | ACCEPT-WITH-NOTES 已修（scalingStatement 补 7 条前提可满足；Prop 3.3 转运 3 字段）；U7c 是 R46 阻塞点 |
 | 019-A05-l6-contract | 进行中 | 目标 `A05.gradient_l6` V1 | — | Lemma B.1 第三条 ‖∇u‖₆ ≤ C‖Δu‖₂；OpenAI `smooth_eLpNorm_six_le` 几乎现成，难点 ‖D²u‖₂ = ‖Δu‖₂ |
 | 020-D01-hm-datum | review 中 | — | — | **已证**：任意实数阶 s、无紧支撑假设；29 定理标准公理；与 Data.lean 定义 rfl 一致；余：反向、双边范数等价、时间路径 |
 | 其余节点 | 未开始 | — | — | |
