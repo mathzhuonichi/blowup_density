@@ -1,5 +1,12 @@
 # Density of forces producing Navier--Stokes blowup
 
+For two-person development, start with [CONTRIBUTING.md](CONTRIBUTING.md),
+the [owned work queue](collaboration/TASKS.md), and the
+[versioned Lean acceptance interfaces](verification/README.md).
+Use `make check`, `make test`, and `make test-mutations` before a proof PR.
+The current active contract covers threshold arithmetic only; it does not
+certify the Section 4 main theorem.
+
 The active formalization priority is **Section 4 (the former Paper 3)**.
 The [proof task tree](formalization/blueprint/README.md) reuses the existing
 OpenAI and HeliCorgi whole-space libraries and isolates the remaining

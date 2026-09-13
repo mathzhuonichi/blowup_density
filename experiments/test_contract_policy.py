@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+"""Regression tests for append-only specifications and stable acceptance tests."""
+import json
+from pathlib import Path
+import subprocess
+import tempfile
+import unittest
+from check_contracts import check_compatibility
+from build_changed_lean import targets
+
+
+class ChangedModuleSelection(unittest.TestCase):
+    def test_unimported_new_proof_is_still_selected(self):
+        self.assertEqual(targets(['formalization/NSFormalization/Paper3/NewProof.lean',
+                                  'verification/Bindings/NewProof.lean', 'README.md']),
+                         ['Bindings.NewProof', 'NSFormalization.Paper3.NewProof'])
+
+    def test_incompatible_vendor_is_not_silently_skipped(self):
+        with self.assertRaisesRegex(ValueError, '4.32.1'):
+            targets(['vendor/HeliCorgi/Formal/NewProof.lean'])
+
+
+class CompatibilityPolicy(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.item = {'id': 'test.v1', 'version': 1,
+                     'specification': 'verification/Contracts/V1/Test.lean',
+                     'binding_module': 'Bindings.Test', 'test_module': 'Tests.Test',
+                     'declaration': 'Tests.test', 'enabled': True}
+        for path, text in [
+            (self.item['specification'], 'def FixedStatement := True\n'),
+            ('verification/Tests/Test.lean', 'example : True := trivial\n'),
+            ('verification/Bindings/Test.lean', '-- original binding\n'),
+            ('verification/contracts.json', json.dumps({'contracts': [self.item]})),
+        ]:
+            p = self.root / path
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(text)
+        self.git('init', '-q')
+        self.git('add', '.')
+        self.git('-c', 'user.name=Contract Tests', '-c', 'user.email=tests@example.invalid',
+                 'commit', '-qm', 'Baseline')
+
+    def git(self, *args):
+        subprocess.run(['git', *args], cwd=self.root, check=True, capture_output=True)
+
+    def check(self, items=None):
+        check_compatibility(self.root, 'HEAD', items if items is not None else [self.item])
+
+    def test_binding_refactor_is_allowed(self):
+        (self.root / 'verification/Bindings/Test.lean').write_text('-- reorganized implementation\n')
+        self.check()
+
+    def test_existing_specification_cannot_change(self):
+        (self.root / self.item['specification']).write_text('def FixedStatement := False\n')
+        with self.assertRaisesRegex(AssertionError, 'Changed stable specification'):
+            self.check()
+
+    def test_existing_acceptance_test_cannot_change(self):
+        (self.root / 'verification/Tests/Test.lean').write_text('-- test silently removed\n')
+        with self.assertRaisesRegex(AssertionError, 'Changed stable acceptance'):
+            self.check()
+
+    def test_contract_cannot_be_deleted_or_disabled(self):
+        with self.assertRaisesRegex(AssertionError, 'Removed contract'):
+            self.check([])
+        with self.assertRaisesRegex(AssertionError, 'enabled'):
+            self.check([{**self.item, 'enabled': False}])
+
+    def test_new_version_does_not_replace_old_version(self):
+        path = self.root / 'verification/Contracts/V2/Test.lean'
+        path.parent.mkdir(parents=True)
+        path.write_text('def NewStatement := True\n')
+        self.check([self.item, {**self.item, 'id': 'test.v2', 'version': 2,
+                              'specification': str(path.relative_to(self.root))}])
+
+
+if __name__ == '__main__':
+    unittest.main()

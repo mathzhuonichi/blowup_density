@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Validate and render the source-only proof plan; never invoke Lean or Lake."""
-from collections import Counter
+import argparse
 from pathlib import Path
 import hashlib
 import json
 import re
+import os
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 PLAN = ROOT / "formalization/blueprint"
@@ -50,6 +52,20 @@ def uncomment(text):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--snapshot", action="store_true",
+                        help="Also require byte identity with the historical migration snapshot")
+    parser.add_argument("--check", action="store_true",
+                        help="Verify generated plan documents without rewriting any files")
+    args = parser.parse_args()
+
+    def emit(path, content, generated=False):
+        if args.check:
+            if generated:
+                assert path.read_text() == content, f"Regenerate {path.relative_to(ROOT)}"
+        else:
+            path.write_text(content)
+
     data = json.loads((PLAN / "tasks.json").read_text())
     nodes = {n["id"]: n for n in data["nodes"]}
     assert len(nodes) == len(data["nodes"]), "Duplicate task IDs"
@@ -75,15 +91,20 @@ def main():
         assert (ROOT / data[field]).is_file()
 
     manifest = json.loads((ROOT / "logs/FORMALIZATION_SOURCE_MANIFEST.json").read_text())
+    changed_snapshot_files = []
     for item in manifest["files"]:
         path = ROOT / item["path"]
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == item["sha256"], path
+        if not path.exists() or hashlib.sha256(path.read_bytes()).hexdigest() != item["sha256"]:
+            changed_snapshot_files.append(item["path"])
+    if args.snapshot:
+        assert not changed_snapshot_files, changed_snapshot_files
     roots = [ROOT / "formalization", ROOT / "vendor/NavierStokesAndEuler",
              ROOT / "vendor/HeliCorgi"]
-    for root in roots:
-        forbidden = [p for p in root.rglob("*") if p.name in [".lake", ".git", ".elan"]
-                     or p.suffix in [".olean", ".ilean", ".o", ".trace", ".pyc"]]
-        assert not forbidden, forbidden
+    tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode().split("\0")
+    forbidden = [p for p in tracked if p and
+                 (any(x in Path(p).parts for x in [".lake", ".elan", "__pycache__"])
+                  or Path(p).suffix in [".olean", ".ilean", ".o", ".trace", ".pyc"])]
+    assert not forbidden, forbidden
     local_cfg = (roots[0] / "lakefile.toml").read_text()
     lock = json.loads((roots[0] / "lake-manifest.json").read_text())
     assert 'path = "../vendor/NavierStokesAndEuler"' in local_cfg
@@ -93,7 +114,11 @@ def main():
 
     modules, imports, tokens, counts = {}, {}, [], {}
     for root in roots:
-        files = sorted(root.rglob("*.lean"))
+        files = []
+        for directory, dirs, names in os.walk(root):
+            dirs[:] = [d for d in dirs if d not in [".lake", ".git", ".elan", "__pycache__"]]
+            files.extend(Path(directory) / name for name in names if name.endswith(".lean"))
+        files.sort()
         counts[str(root.relative_to(ROOT))] = len(files)
         for path in files:
             mod = ".".join(path.relative_to(root).with_suffix("").parts)
@@ -165,7 +190,7 @@ def main():
         graph.extend(f'- [{e}](../../{e})' for e in n["evidence"])
         graph.append("")
     # blueprint is two directories below the repository root.
-    (PLAN / "DEPENDENCY_GRAPH.md").write_text("\n".join(graph).rstrip() + "\n")
+    emit(PLAN / "DEPENDENCY_GRAPH.md", "\n".join(graph).rstrip() + "\n", generated=True)
     table = ["# Result-to-task correspondence", "", "All 34 source occurrences map to "
              "28 merged results. Shared analytic nodes cover the whole-space branch first; "
              "their periodic specialization remains in T01-T04.", "",
@@ -173,7 +198,7 @@ def main():
     for x, key in rows:
         table.append(f'| {x["source"]} | `{x["label"]}` | {x["merged_kind"]} '
                      f'{x["merged_number"]} | {key} |')
-    (PLAN / "RESULT_MAP.md").write_text("\n".join(table) + "\n")
+    emit(PLAN / "RESULT_MAP.md", "\n".join(table) + "\n", generated=True)
     summary = {"scope": "Static source/manifest/import/task validation; no Lean build, "
                "kernel proof check, or transitive axiom audit.", "task_count": len(nodes),
                "topological_order": order, "source_counts": counts,
@@ -186,11 +211,13 @@ def main():
                "explicit_axiom_or_admission_tokens": tokens,
                "tokens_in_copied_umbrella_closure": reachable_tokens,
                "original_result_occurrences": len(rows), "merged_result_count": 28,
-               "cache_free": True, "source_hashes_match": True}
-    (ROOT / "logs/FORMALIZATION_PLAN_CHECK.json").write_text(json.dumps(summary, indent=2) + "\n")
+               "tracked_cache_free": True, "source_hashes_match": not changed_snapshot_files,
+               "changed_snapshot_files": changed_snapshot_files,
+               "snapshot_identity_required": args.snapshot}
+    emit(ROOT / "logs/FORMALIZATION_PLAN_CHECK.json", json.dumps(summary, indent=2) + "\n")
     print(json.dumps({k: summary[k] for k in ["task_count", "source_counts",
           "source_manifest_entries", "missing_copied_imports", "citation_interfaces_reachable",
-          "tokens_in_copied_umbrella_closure", "cache_free", "source_hashes_match"]}, indent=2))
+          "tokens_in_copied_umbrella_closure", "tracked_cache_free", "source_hashes_match"]}, indent=2))
     print("Explicit axiom/admission tokens, all copied sources:", len(tokens))
 
 

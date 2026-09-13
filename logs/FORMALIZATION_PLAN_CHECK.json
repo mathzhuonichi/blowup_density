@@ -151,6 +151,8 @@
   ],
   "original_result_occurrences": 34,
   "merged_result_count": 28,
-  "cache_free": true,
-  "source_hashes_match": true
+  "tracked_cache_free": true,
+  "source_hashes_match": true,
+  "changed_snapshot_files": [],
+  "snapshot_identity_required": false
 }

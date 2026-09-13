@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "contracts": [
+    {
+      "id": "R41.threshold_arithmetic",
+      "parent_task": "R41",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Thresholds.lean",
+      "binding_module": "Bindings.Thresholds",
+      "test_module": "Tests.Thresholds",
+      "declaration": "BlowupDensity.Tests.checkedThresholds",
+      "scope": "Threshold arithmetic only: formula, positivity, endpoints, intermediate negative index and energy exponents. Not Theorem 4.1 or a PDE norm estimate.",
+      "enabled": true
+    }
+  ]
+}
