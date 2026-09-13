@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-13 跨节点复用要只用"规范模块"（D01 的 lemma 模块、合同绑定指向的定理），不要复用别的证明车道模块里的内部辅助引理：045 复用了 A02 `Energy.lean` §1–2 的辅助，而 040 的去重正要删它们。brief 里写明"只从 D01/合同绑定的定理复用"。
 - 2026-09-13 "树里没有 X"这种断言要 grep vendor 再说：041 声称没有变系数 Grönwall，vendor 里有齐次版 `Euler/OrdinaryVariableGronwall.lean`（同一积分因子路线）。spec/attempt 里的 prior-art 断言都要给 grep 命令。
 - 2026-09-13 同一 namespace 两份同名重述（032 的 Restrict §0 与 033 的 SolutionClass）在各自模块里都能编译，但任何同时 import 两者的文件会报 `environment already contains`；CI 的 changed-modules 步骤逐模块编译，抓不到。合入同节点多条车道后立刻跑 SIMP 去重。
 - 2026-09-13 每次向 integration 合 PR 都会取消正在跑的 CI（cancel-in-progress 按 PR #15 分组）；一轮要约 2 小时。今天 12:45 的一轮被 13:15 的一次合并掐掉。规则：CI 在跑时只攒 PR 不合，等它结束再批量合；一晚上最多 3–4 个合并窗口。
