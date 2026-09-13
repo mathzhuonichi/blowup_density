@@ -162,7 +162,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 056-A04-g1-split | ACCEPT-WITH-NOTES ×2 已修，已合入（D2 已证） | — | #61 | A04 单元 G1（forced viscous eq:Rhigh 在 datum 载体上；= A01 A2）的 spec 级拆分：给定 D1/D2/动量/tame 积，列出子引理与精确陈述，证能证的 S 级子步 |
 | 057-A02-uniqueness-contract | ACCEPT-WITH-NOTES 已修，已合入 | **`A02.uniqueness`（第 12 条）** | #57 | 注册 `A02.uniqueness`（`UniquenessAPI`：`velocity_unique` + `pressure_gauge`，绑定 052/049/033 的定理，`ClassicalSolutionR` 逐字段桥） |
 | 058-A02-units-u5-u9 | ACCEPT，已合入 | — | #58 | A02 单元 U5（`patch`，取更长 horizon）+ U9（`lifespan_le_of_unbounded`，经 U1b 的 H² 上界机制），`Section4/A02/Patch.lean` |
-| 059-B02-unit-7 | 进行中 | — | — | B02 单元 7：`lowHighSplit`（低/高频拆分，`k ∈ L¹ ∩ L²`，角坐标约定），`Section4/B02/LowHigh.lean` |
+| 059-B02-unit-7 | ACCEPT-WITH-NOTES，已合入（含角约定 Plancherel） | — | #62 | B02 单元 7：`lowHighSplit`（低/高频拆分，`k ∈ L¹ ∩ L²`，角坐标约定），`Section4/B02/LowHigh.lean` |
 | 060-B02-unit-8 | 进行中 | — | — | B02 单元 8：`cutoffLebesgue` + `spatialApproxHomogeneous`（对角逼近），`Section4/B02/Cutoff.lean` |
 | 061-A02-maximal-partial-contract | ACCEPT，已合入 | **`A02.maximal_partial`（第 13 条）** | #60 | 注册 `A02.maximal_partial`：`MaximalSolutionAPI` 中已证的 10 个字段（六个序论 + `restrict` + `pressure_normalization` + `patch` + `lifespan_le_of_unbounded`），`horizon_le_lifespan` 带 ⟪A01:solution⟫ 显式假设 |
 | 062-D01-p2-split | 进行中 | — | — | 义务 P2（Leray 补投影在实角约定全空间 H^m 上有界）的拆分 + S 级子步：盘点 HeliCorgi 港口的 `r3LerayComplementL2`/`R3LerayRealLinearBridge`，列出实线性/约定/分布↔经典/L²→H^m 四座桥的精确陈述 |
