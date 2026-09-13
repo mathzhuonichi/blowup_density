@@ -196,6 +196,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 090-SIMP-B02 | 进行中 | — | — | B02 七个已合模块（LowFrequency, Annular, LowHigh, Cutoff, LebesgueDatum, AnnularSchwartz, AnnularReal）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；conformance；MAINT 清单：a.e. 共轭模式去重、`angularFourier_conj`/`angular_plancherel`/`angularFrequencyDilation_coeFn` 上提） |
 | 091-C01-partial-contract | PR 已开 | #90 | — | 注册 `C01.energy_absorption_partial`：已证的 C01 spec 字段（velocityJets, forceTimeRegularity, trilinearHolder, trilinearAbsorbed, laplacianSqENorm）逐字进 `Contracts/V1/EnergyAbsorptionPartial.lean` + Bindings + Tests + contracts.json（模板 071 `B01.bochner_partial`），把 C01 模块纳入 CI 闭包 |
 | 092-R42-lifespan-binding | 审阅中 | — | — | R42 寿命两子句的绑定层装配（`verification/Bindings/InsertionLifespan.lean`）：由 `InsertionFamilyAPI` + `hg : MemForceR g` + `RegularThrough ν a g (T+δ)` 得 `maximalLifespanR ν a g_ε = ofReal T` 与 `ofReal (T+δ) < maximalLifespanR ν a g`（087 + 080 + 072 + `A02.maximal_partial`），为 V2 合同铺路 |
+| 093-A01-split | 进行中 | — | — | A01（局部理论）拆分起步：对照 `research/A01/Spec.lean` 与 HeliCorgi 的 mild 存在/唯一/续接 API，写子引理表，证第一个 S 项（把 HeliCorgi 的局部解包装成 `A02.ClassicalSolutionR` 所需字段的桥），`research/A01/A01_SPLIT.md` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
