@@ -106,13 +106,13 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | R41 算术部件 | 绿 | `R41.threshold_arithmetic` V1 | #1 | owner 提交，只含算术 |
 | 001-MAINT-setup | 已合入 integration | — | #4 | CLAUDE.md / PLAN / scripts / .gitignore |
 | 002-D01a-definitions | 已合入（REJECT 留档） | — | #7 | 草案 A 漏了 F_R 的 C^∞ 条件 → 定理 4.1(ii) 变假；归并 lane 修 |
-| 003-D01b-definitions | review 中 | — | — | 草案 B，45 个定义，通过类型检查 |
+| 003-D01b-definitions | 已合入（ACCEPT-WITH-NOTES） | — | #9 | 草案 B 带 C^∞；major：CompletedDense 量词过宽；归并基底 |
 | 004-U05-toolchain-probe | 已合入（ACCEPT-WITH-NOTES） | — | #8 | 88 模块闭包 84 过、1 错（NNReal.mk）、3 阻塞；reviewer 实测 srcDir+roots 方案可行 |
 | 005-I01-packet-energy | 已合入（ACCEPT-WITH-NOTES） | — | #5 | 27 字段 PacketAPI；11 条是 OpenAI 直接投影 |
 | 006-SPEC-section4-statements | 已合入（ACCEPT-WITH-NOTES） | — | #6 | 1175 行台账；DAG 修正建议见下 |
 | 007-I01-contract | 进行中 | 目标 `I01.packet` V1 | — | 第一条证明 lane：合同 + 绑定 + 公理审计 |
 | 008-I02-correction-spec | 进行中 | — | — | Lemma 3.4/3.5 的 R³ 内容，spec |
-| 009-D01-reconcile | 待 003 review | — | — | 归并 A/B + 两份审稿 + 台账的 D01 需求清单 |
+| 009-D01-reconcile | 进行中 | 目标 `Contracts/V1/Data.lean` | — | 归并 A/B + 两份审稿 + 台账需求；产出合同层定义 |
 | 010-U05-port | 进行中 | — | — | lean_lib Formal(srcDir=vendor, 84 roots) + FormalPatched 四个模块 |
 | 其余节点 | 未开始 | — | — | |
 
