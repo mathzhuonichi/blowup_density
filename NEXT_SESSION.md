@@ -4,12 +4,12 @@
 
 ## 现状（2026-09-13 下午）
 
-- 分支模型不变：根目录干净 `main`；`erenup/integration`（worktree `000-integration`）；lane PR 由 lead 合；**PR #15 integration → main 已交 owner**。
+- 分支模型：**根目录直接检出 `erenup/integration`**（`000-integration` worktree 已退役）；lane PR 由 lead 合；**PR #15 integration → main 已交 owner**。hooks/skills 在 `.claude/`（`guard.py`、`post_lean.py`、`/lane-merge`、`/lane-review`），`scripts/gates.sh`、`scripts/merge_lane.sh`。
 - integration 上已注册 **6 条合同**（`R41.threshold_arithmetic`、`I01.packet`、`I02.correction`、`I03.scaling`、`A05.gradient_l6`、`A03.bounded_representative`），`Data.lean` 63 定义，HeliCorgi 移植，D01 单元 L2 正向（020），十份 spec，台账 v2。
 - **待合入队列（全部 review ACCEPT，等 CI 34750241117 结束后按序合）**：合同 lane 先——#31（026 `A03.tame_products`）、#30（027 `R42.insertion_family`）、#33（029 `I02.correction_v2`）；再 lemma 模块——#28（024 齐次数据见证）、#29（025 datum ⇒ jets，L2 全关）、#32（028 F_R 闭包，g_ε ∈ F_R）。合完 = 9 条合同。
 - **本地攒着未推的 integration commit**：记账 + 三处 workflow 修复（vendor 构建缓存路径；cache restore/save 拆开、失败也保存；timeout 180 分钟）。CI 结束立刻 `git push`。
 - **进行中的车道（4 条 opus）**：030-A04-spec（平方 H² continuation 适配器 spec）、031-C01-spec（能量 + H¹ 吸收 spec）、032-A02-restrict-order（A02 U4+U6 证明，无分析）、033-A02-energy-u1a（A02 U1a：`ClassicalSolutionR ⇒ UniformFiniteEnergy`）。
-- 合并工具：`tmp/merge_lane.sh <lane> "<msg>"`（压成一个 commit → rebase → JSON 三方合并 `tmp/merge_json3.py` → render）；`tmp/` 不入库，丢了照 memory 里的协议重写。
+- 合并工具：`scripts/merge_lane.sh <lane> "<msg>"`（压成一个 commit → rebase → JSON 三方合并 `scripts/merge_json3.py` → render），见 `/lane-merge`。
 - 本轮关键发现（未变）：R42 寿命子句还缺 `ClassicalSolutionR.sobolev`（非紧支 u_ε）与 R42 V2 的 `hg : MemForceR g`；I03 U7c 卡 datum 路径强可测；A01 单元 A2 = A04 的 Grönwall，只建一次。
 
 ## 下一步

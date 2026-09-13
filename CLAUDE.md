@@ -17,10 +17,10 @@
 - 主干 `main`（2026-09-13 从 `codex/section4-blueprint` 改名，见 `logs/MAIN_BRANCH_20260913.md`）。`codex/*` 都是已合入的死分支。
 - 分支保护：PR 需 1 个 review，作者不能自审，CI 必须绿。
 - **集成分支 `erenup/integration`**：我们自己能合。每条 lane 的 PR 以它为 base，reviewer 跑通后由 lead 合入；
-  攒一批再从它向 `main` 提 PR 给 owner review。根目录 `/data_8T/ping/blowup_density` 永远停在干净的 `main`，只 `git pull`，不在这里改东西。
+  攒一批再从它向 `main` 提 PR 给 owner review（PR #15）。**根目录 `/data_8T/ping/blowup_density` 检出的就是 `erenup/integration`**（2026-09-13 下午起；`main` 暂无其他进展），lead 在根目录做记账、合并、跑门禁；改代码仍然只在 lane worktree 里。
 - **编号规则**：lane 序号 `NNN` 三位、全局递增，唯一分配点是 `PLAN.md` 进度表。
   worktree = `.claude/worktrees/NNN-<TaskID>-<slug>`，分支 = `erenup/NNN-<TaskID>-<slug>`，PR 标题 = `[NNN-<TaskID>] 一句话`。
-  TaskID 用 DAG 节点（D01…R47）；非节点的工程活用 `MAINT`，纯陈述整理用 `SPEC`。`000-integration` 是集成分支的 worktree。
+  TaskID 用 DAG 节点（D01…R47）；非节点的工程活用 `MAINT`，纯陈述整理用 `SPEC`。（`000-integration` worktree 已退役，根目录即集成分支。）
 - 一条 lane：从 `erenup/integration` 开 worktree → claim（`python3 experiments/tasks.py claim <ID> erenup && python3 experiments/tasks.py render`，
   单独一个 commit）→ 干活（草稿放 `research/<ID>/`）→ PR to `erenup/integration` → opus reviewer 跑通 Lean → lead 合入并记 CSV。
 - 冲突只会出现在 `verification/contracts.json`、`collaboration/work_items.json`、`collaboration/TASKS.md`（生成物）、`logs/AGENT_RUNS.csv`。
