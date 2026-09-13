@@ -215,7 +215,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 109-MAINT-promotions | 进行中 | — | — | MAINT：把各 reviewer 标记的 Paper3/Source 级事实上提（`angularFrequencyDilation_coeFn`+`transverse_of_transverse_symm`→Paper3，`angular_plancherel`→Paper3，`angularFourier_conj`→Source/FourierConvention，A04 datum 线性引理→A03，`columnsSobolevENorm_toReal_sq_eq_sum`→A03），旧位置留 alias，陈述逐字不变，`make test` 18/18 |
 | 110-B02-approx-compact | 进行中 | — | — | B02 结论字段 `approxCompactHomogeneous`（M，90–140 行）：跨 realization 的三角不等式粘合 `bochnerDatumENorm q s (separatedPath φ A − separatedPath φ A') ≤ ∑ ‖φ_j‖_{L^q}·‖A_j − A'_j‖ₑ` + `temporalApprox` + `spatialApproxHomogeneous` + `separatedAssembly`（103），`Section4/B02/ApproxCompact.lean` |
 | 111-D01-p2-sl8-prep | 进行中 | — | — | P2 SL8 预备：`orderZeroDatum` 可加性/线性（唯一性）、`∂ₜu(t,·)` 与 `∇p(t,·)` 的 `MemLp 2` 与 `ContDiff`（`∂ₜu = h − ∇p`，`h ∈ H^∞`）、0 阶 `(I−P) datum⁰(h) = datum⁰(∇p)` 的表（等 108 的纵向引理）与 bootstrap 路线（085 `isSobolevDatum_lower_iff`），`Section4/D01/OrderZeroAlgebra.lean` + `research/D01/SL8_SPLIT.md` |
-| 112-A01-regularity-partial | 进行中 | — | — | A01 部分合同 `A01.regularity_partial`：`ManuscriptLocalRegularity` 已证的两个字段 `projected`（093）与 `pressure_potential`（106）逐字进 `Contracts/V1/RegularityPartial.lean` + Bindings（含 `pressurePotential`/`HasSymmetricJacobian` 的 `rfl` 桥）+ Tests + contracts.json（模板 091/099） |
+| 112-A01-regularity-partial | 审阅中 | — | — | A01 部分合同 `A01.regularity_partial`：`ManuscriptLocalRegularity` 已证的两个字段 `projected`（093）与 `pressure_potential`（106）逐字进 `Contracts/V1/RegularityPartial.lean` + Bindings（含 `pressurePotential`/`HasSymmetricJacobian` 的 `rfl` 桥）+ Tests + contracts.json（模板 091/099） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
