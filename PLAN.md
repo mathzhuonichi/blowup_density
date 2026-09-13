@@ -219,6 +219,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 113-SIMP-A01 | 进行中 | — | — | A01 已合入的四个模块（ConvectionDivergence, ProjectedEquation, RadialPotential, PressureGauge）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；conformance 重跑 axioms_a01/p1/m4；MAINT 清单） |
 | 114-R42-lifespan-v2 | 进行中 | — | — | R42 `insertion_lifespan` **V2** 合同：`extends` V1 + 098 已证的 `solution`（`u_ε,p_ε` 是 `ClassicalSolutionR ν a g_ε T`，导出 `sobolev`/`pressure_gradient`）+ `maximal`（`Contracts.V2.MaximalPartial.IsMaximalSolution`）+ 论文 04:34 第二显示式 `limsup` 形（`limsupLeft_speedENorm_eq_top`）；补 REVIEW_CONTRACT.md 列的三个欠项 |
 | 115-SIMP-A04 | 进行中 | — | — | A04 SL3 簇四个模块（LaplacianDatum, LaplacianPairing, RealPairing, LaplacianAssembly；086 未覆盖）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；重跑 axioms_sl3*；MAINT 清单）。SL5 簇五个 Nonlinear* 模块另开 |
+| 116-B02-homogeneous-v2 | 进行中 | — | — | B02 `homogeneous_partial` **V2** 合同：`extends` V1 + `separatedAssembly`（在 `−3/2<s` 上，103）+ `approxCompactHomogeneous`（110，`SplitRange`）；`annularPathApprox` 仍排除（无证明、无消费者）；Bindings/Tests/contracts.json（第 20/21 条） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
