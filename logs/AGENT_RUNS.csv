@@ -298,3 +298,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,105-A04-sl5c-column-data,opus,reviewer,ACCEPT-WITH-NOTES (datum route non-circular; derivDatumStep term identical to 088; uniqueness pins N; 5h WRITTEN by reviewer ~75 lines compiles → 5h is S; notes: hdiff redundant; line ref 287; Ico/Ioo glue) in 11 min / 44 tool uses,—,worker resumed: fold in 5h
 2026-09-14,A01,106-A01-m4-gauge,opus-4.8,worker,DONE m4 pressure_potential token-identical (7 decls; Hessian symmetry via isSymmSndFDerivAt; reviewer's scratch orientation corrected) in 20 min / 51 tool uses,—,reviewer launched
 2026-09-14,R42,107-SIMP-R42,opus-4.8,simplifier+tester,DONE opens-only (1308→1306; 7 negative checks break; all split obligations discharged; 6/7 in Tests closure; Lifespan.lean not) in 21 min / 52 tool uses,PR,PR #107 opened; merging on gates
+2026-09-14,B02,110-B02-approx-compact,opus-4.8,worker,RUNNING approxCompactHomogeneous assembly,—,
