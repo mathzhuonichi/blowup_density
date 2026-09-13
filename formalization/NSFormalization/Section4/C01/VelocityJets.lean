@@ -48,11 +48,12 @@ noncomputable section
 
 namespace NSFormalization.Section4.C01
 
-open Set MeasureTheory
+open Set
 open NavierStokes.ProblemStatement
-open scoped ContDiff ENNReal
 
-/-- **C01 unit U1, the field `velocityJets` of `research/C01/Spec.lean:295`.**
+/-- **C01 unit U1, the field `velocityJets` of `research/C01/Spec.lean:295-300`**
+(paper `paper/sections/02-preliminaries.tex:12` eq:Rinitial, the `H^∞` regularity
+of the class).
 Every velocity slice `u(t,·)`, `t ∈ [0,T)`, of a classical whole-space solution
 is an `H^∞(R³;R³)` field in both the datum form `A02.MemHInfty`
 (definitionally `Contracts.V1.Data.MemHInfty`) and the jet form `A05.SmoothL2`
