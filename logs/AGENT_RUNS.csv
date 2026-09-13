@@ -279,3 +279,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,101-A01-p1-potential,opus-4.8,worker,DONE P1 (3 decls; extra hypothesis ContDiff ℝ ∞ G for differentiation under the integral; 6 failed approaches recorded) in 31 min / 42 tool uses,—,reviewer launched
 2026-09-14,A04,100-A04-sl5a-divergence-form,opus-4.8,worker,DONE row 5a (3 decls; the bridge to convectionDivergence is rfl) in 7 min / 21 tool uses,—,reviewer launched
 2026-09-14,A04,102-A04-sl5-columns-norms,opus-4.8,worker-resume,DONE six low notes (succ lemma 2 lines, 1 ≤ m) in 6 min / 26 tool uses,PR,PR #101 opened; merging
+2026-09-14,D01,104-SIMP-D01,opus-4.8,simplifier+tester,RUNNING 8 early D01 modules,—,

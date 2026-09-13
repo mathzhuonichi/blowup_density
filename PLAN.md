@@ -207,6 +207,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 101-A01-p1-potential | 审阅中 | — | — | A01 单元 P1（M，无依赖无 gap）：径向势 `pressurePotential G` 在 `HasSymmetricJacobian G` 下梯度为 `G`（`02-preliminaries.tex:96-100`；`intervalIntegral` 下求导 + FTC），同时结掉 `pressure_potential`(m4) 与 D01 L9(b)，`Section4/A01/RadialPotential.lean` |
 | 102-A04-sl5-columns-norms | PR 已开 | #101 | — | A04 SL5 行 5b/5f/5g（均 S）：列 `W_j = u_j • u` 的 m+1 阶 datum（`tameProductVector`/`outerProductTame`）；`√(∑‖D_j G'‖²) = gradientSobolevNormAt`；`√(∑‖B_j‖²) ≤ (outerSobolevENorm …).toReal`，`Section4/A04/NonlinearColumns.lean` |
 | 103-B02-separated-assembly | 进行中 | — | — | B02 `separatedAssembly`（M）：分离和 `∑ φ_j(t) h_j(x)` 的齐次 datum 路径，经 reviewer 给的短路线（`isHomogeneousSliceDatum_unique` + `isHomogeneousPath_compact` + `homogeneousVectorDatum` 线性性，`-3/2<s`），`Section4/B02/SeparatedAssembly.lean` |
+| 104-SIMP-D01 | 进行中 | — | — | D01 较早合入的八个模块（ForceClass, SmoothDatum, DatumToJets, HalfOrder, Pressure, HomogeneousWitness, OrderZeroDatum, LeraySymbol）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；conformance；MAINT 清单） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
