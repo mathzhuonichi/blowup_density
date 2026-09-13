@@ -15,3 +15,10 @@ open BlowupDensity.Bindings.InsertionLifespan
 #print axioms referenceLifespan
 #print axioms insertionLifespan
 #print axioms insertionLifespan_family
+
+/-! Lane 098 additions (R42 full horizon): the two new Bindings declarations
+`sol_fullHorizon` and `isMaximalSolution_of_inserted` must also print exactly
+`[propext, Classical.choice, Quot.sound]`. -/
+
+#print axioms sol_fullHorizon
+#print axioms isMaximalSolution_of_inserted
