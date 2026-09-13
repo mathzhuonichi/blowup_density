@@ -1,0 +1,22 @@
+.DS_Store
+tmp/
+output/pdf/*.aux
+output/pdf/*.fdb_latexmk
+output/pdf/*.fls
+output/pdf/*.log
+output/pdf/*.out
+output/pdf/*.toc
+output/pdf/*.synctex.gz
+
+# Source-only Lean snapshot and local environments
+**/.lake/
+**/.elan/
+**/__pycache__/
+*.olean
+*.ilean
+*.o
+*.c.o
+*.so
+*.dylib
+*.trace
+*.pyc

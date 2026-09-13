@@ -1,0 +1,232 @@
+\section{Introduction}\label{sec:intro}
+The three-dimensional incompressible Navier--Stokes equations with
+viscosity $\nu>0$ and external force $f$ are
+\begin{equation}\label{eq:NS}
+ \partial_tu+(u\cdot\nabla)u-\nu\Delta u+\nabla p=f,
+ \qquad \nabla\cdot u=0,\qquad u(\cdot,0)=a.
+\end{equation}
+Here $u$ is the velocity, $p$ is the pressure, and $a$ is the prescribed
+initial velocity. We work on $D=\R^3$ or on the unit torus
+$D=\TT=\R^3/\mathbb Z^3$, with volume one and periodic velocity and
+pressure in the latter case. Our starting point is the following theorem, stated with
+the notation of OpenAI~\cite[Theorem~1.1]{openai}.
+
+\Needspace{12\baselineskip}
+\begin{theorem}[OpenAI]\label{thm:packet}
+For every $\nu>0$ there exist a force
+$f\in C_c^\infty(\R^3\times(0,\infty);\R^3)$, a compact set
+$K\subset\R^3$, and smooth velocity and pressure fields $u,p$ on
+$\R^3\times[0,1)$ satisfying
+\begin{equation}\label{eq:packet}
+ \partial_tu+(u\cdot\nabla)u-\nu\Delta u+\nabla p=f,
+ \qquad \nabla\cdot u=0,\qquad u(\cdot,0)=0,
+\end{equation}
+such that $\supp u(\cdot,t)\cup\supp p(\cdot,t)\subset K$ for every
+$0\le t<1$,
+\begin{equation}\label{eq:packetblowup}
+ \sup_{0\le t<1}\norm{u(t)}_{L^2(\R^3)}<\infty,
+ \qquad \limsup_{t\uparrow1}\norm{u(t)}_{L^\infty(\R^3)}=\infty.
+\end{equation}
+Consequently, there is no smooth solution $(u,P)$ on
+$\R^3\times[0,\infty)$ with the same force and initial datum whose
+kinetic energy is uniformly bounded
+$\sup_{t\ge0}\frac12\int_{\R^3}|u(x,t)|^2\dd x<\infty$.
+\end{theorem}
+
+Fix a viscosity $\nu>0$, an initial velocity $a$, and a time $T>0$.
+Our aim is to determine in which norms smooth forces producing breakdown
+of the classical Navier--Stokes solution by time $T$ are dense among smooth
+forces. The force is allowed to vary, while the initial velocity is kept
+fixed. This formulation asks how closely a regular flow can be approximated
+by a flow that becomes singular, when closeness is measured in a prescribed
+force norm.
+
+Our construction follows a local insertion strategy closely related to
+the work of Enciso, Pe\~nafiel-Tom\'as and Peralta-Salas~\cite{eppt2025}
+on the incompressible Euler equations. Their Theorem~1.5 constructs weak
+solutions that agree with a prescribed smooth flow outside a chosen region
+and have singular behavior inside it. Lemma~2.11 and Section~11 combine
+local modification of the background, preservation of incompressibility,
+and insertion of localized singular solutions. In particular,
+Section~11.3 first makes the background spatially constant in a small
+region before inserting the singular construction. Our argument uses
+the same general strategy, with the compact classical forced
+Navier--Stokes solution of Theorem~\ref{thm:packet} as its input.
+Here the smooth gluing defect is absorbed into a modified external force;
+in~\cite{eppt2025}, convex integration removes the Reynolds stress to
+produce unforced weak Euler solutions. We study the resulting quantitative
+force-density consequences, preserving the initial velocity and earlier
+history and identifying the Sobolev thresholds stated below.
+
+In Theorem~\ref{thm:packet}, $C_c^\infty$ denotes smooth functions with compact support in the
+indicated open set, so the force is smooth through the blowup time and
+vanishes near $t=0$. For the construction below, fix one solution from
+Theorem~\ref{thm:packet} and denote its velocity, pressure, and force by
+$(U,P,F)$. This distinguishes it from the reference solution to be
+modified. The corresponding compact solution and its support and
+zero-data properties are also recorded in the source repository~\cite{lean}.
+
+We now define the spaces in which the force approximation is measured.
+For background on Fourier transforms, distributions, and Sobolev spaces,
+see Taylor~\cite[Chapter~3, Sections~3--4, and Chapter~4, Sections~1 and~3]{taylor2011};
+the definitions and normalizations used here are specified explicitly
+below.\footnote{On $\R^3$, our Fourier normalization and inhomogeneous
+Sobolev norm agree with Taylor's. His Bessel multiplier $\Lambda^s$
+corresponds to our $J^s=(I-\Delta)^{s/2}$, whereas we use
+$\Lambda^s=(-\Delta)^{s/2}$. His torus formulas use $2\pi$-periodic
+angular coordinates; we use the unit torus. The weights
+$(1+|k|^2)^s$ and $(1+4\pi^2|k|^2)^s$ give equivalent, not identical,
+periodic norms after the coordinate change.}
+For $s\in\R$ and $D\in\{\R^3,\TT\}$, $H^s(D)$ denotes the
+inhomogeneous $L^2$-based Sobolev space of order $s$. Its norm is
+\begin{align*}
+ \norm{z}_{H^s(\TT)}^2
+ &=\sum_{k\in\mathbb Z^3}(1+4\pi^2|k|^2)^s|\widehat z(k)|^2,\\
+ \norm{z}_{H^s(\R^3)}^2
+ &=\int_{\R^3}(1+|\xi|^2)^s|\widehat z(\xi)|^2\dd\xi,
+\end{align*}
+where
+$\widehat z(k)=\int_{\TT}z(x)e^{-2\pi i k\cdot x}\dd x$ on the torus
+and
+$\widehat z(\xi)=(2\pi)^{-3/2}\int_{\R^3}e^{-ix\cdot\xi}z(x)\dd x$
+on the whole space. More precisely,
+\begin{align*}
+ H^s(\R^3)&=\{z\in\mathcal S'(\R^3):
+        (1+|\xi|^2)^{s/2}\widehat z\in L^2(\R^3)\},\\
+ H^s(\TT)&=\{z\in\mathcal D'(\TT):
+        \norm{z}_{H^s(\TT)}<\infty\}.
+\end{align*}
+Here $\mathcal S'(\R^3)$ is the space of tempered distributions and
+$\mathcal D'(\TT)$ the space of periodic distributions; Fourier transforms
+and coefficients are understood distributionally. Thus $H^0(D)=L^2(D)$,
+and negative orders allow distributions that need not be $L^2$ functions.
+For vectors and tensors we sum the squared component norms.
+The notation $\norm{z}_p$ means the spatial $L^p(D)$
+norm. The homogeneous norm $\dot H^s$ replaces the weights above by
+$(2\pi|k|)^{2s}$ or $|\xi|^{2s}$, respectively. On the torus we omit
+$k=0$ and require zero mean; on $\R^3$ the homogeneous norm is used
+when finite, with the relevant distributional realizations specified
+in Section~\ref{sec:preliminaries} and Appendix~\ref{sec:critical-appendix}.
+For background on homogeneous Sobolev norms, see
+Tao~\cite[Appendix~A]{taodispersive}.\footnote{Tao uses the unnormalized
+Fourier transform and includes a compensating factor $(2\pi)^{-3/2}$
+in the Fourier formula for the Sobolev norm on $\R^3$; the resulting
+norm agrees with ours wherever finite. This reference does not replace
+our explicit conventions for low frequencies and homogeneous-space
+realizations.}
+
+For a time interval $I$ and a spatial normed space $X$, $L^q(I;X)$ is the
+space of strongly measurable maps with finite norm; for the Bochner-space
+framework, see Hunter~\cite[Appendix~6.A, Definitions~6.14 and~6.27]{hunterpde}.\footnote{Hunter
+states these definitions for Banach-valued functions on a finite interval
+$(0,T)$. Here the same measurability condition and norm formulas are used
+on the indicated interval $I$, including $(0,\infty)$; functions equal
+almost everywhere are identified.}
+\begin{equation}\label{eq:time-norms}
+ \norm{z}_{L^q(I;X)}=\left(\int_I\norm{z(t)}_X^q\dd t\right)^{1/q},
+ \qquad
+ \norm{z}_{L^\infty(I;X)}=\operatorname*{ess\,sup}_{t\in I}\norm{z(t)}_X,
+\end{equation}
+where the first formula applies for $1\le q<\infty$. In particular,
+\[
+ L^q_tH^s_x=L^q(0,\infty;H^s(D)),\qquad
+ L^q_t\dot H^s_x=L^q(0,\infty;\dot H^s(D)),\qquad
+ L^q_tL^p_x=L^q(0,\infty;L^p(D))
+\]
+for forces: the time exponent controls integrability, and the Sobolev
+order measures only spatial regularity. We give each smooth force class
+the relative topology induced by the stated norm. This differs from the
+test-function topology, which controls all derivatives on a common compact
+support. Unless an interval is displayed, force norms use $(0,\infty)$
+and velocity norms before blowup use $(0,T)$. For a fixed finite time
+$T>0$, the velocity approximation is measured by
+\begin{equation}\label{eq:Enorm}
+ \norm{z}_{E_T}=\norm{z}_{L^\infty(0,T;L^2(D))}
+                +\norm{\nabla z}_{L^2(0,T;L^2(D))}.
+\end{equation}
+Since $\norm{z}_{L^2_tL^2_x}\le T^{1/2}\norm{z}_{L^\infty_tL^2_x}$,
+this is equivalent to the sum norm on
+$L^\infty_tL^2_x\cap L^2_tH^1_x$ on a fixed finite interval; it imposes
+no endpoint value at $T$.
+
+The construction combines compact support, parabolic scaling, and smooth
+cutoffs. Scaling places the singular solution in an arbitrarily small
+spatial ball and a short interval ending at $T$. To insert it into a
+regular reference solution $v$, one must also remove $v$ near that ball:
+direct addition would create nonlinear interaction terms involving the
+singular velocity. The cutoff construction is the smooth form of the
+Urysohn lemma: a function is chosen to equal one near a compact set and
+zero outside a slightly larger open set. Incompressibility requires a
+further step. Locally write $v=\nabla\times A$ and set
+\[
+ w_\eps=-\nabla\times(\eta_\eps\theta_\eps A),
+ \qquad u_\eps=v+w_\eps+U_\eps,
+\]
+where $U_\eps$ is the rescaled singular solution. The cutoffs are chosen
+so that $v+w_\eps$ vanishes on a neighborhood of its active support.
+Both nonlinear interaction terms then vanish identically. The new force
+is the sum of the original force, the rescaled smooth force, and a smooth
+correction determined entirely by $v$ and the cutoffs.
+
+This construction explains the positive density results. A force rescales
+with amplitude $\eps^{-3}$, spatial volume $\eps^3$, and time scale
+$\eps^2$. Its homogeneous $L^q_t\dot H^s_x$ scaling factor, whenever that
+norm is finite, is
+\[
+ \eps^{\,2/q-3/2-s}.
+\]
+The background correction has one additional power of $\eps$. On the
+whole space, negative orders require a separate estimate near frequency
+zero. On the torus, a localization estimate compares a compactly supported
+function with its periodization. These arguments give the following
+thresholds for breakdown from rest:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Domain & Force topology & Density holds exactly when\\
+\midrule
+$\TT$ & $L^1(0,\infty;H^s)$ & $s<1/2$\\
+$\R^3$ & $L^1(0,\infty;H^s)$ & $s<1/2$\\
+$\R^3$ & $L^2(0,\infty;H^s)$ & $s<-1/2$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Theorems~\ref{thm:main} and~\ref{thm:Rmain} give the precise statements.
+Below each threshold, density holds for every fixed admissible smooth
+initial velocity. The converse statements are proved for initial velocity
+zero, by constructing a nonempty open set of regular forces. In particular,
+they require estimates beyond the scaling calculation.
+
+The approximation is also strong at the level of the velocity. Its
+$L^\infty_tL^2_x$ difference and the $L^2_{t,x}$ norm of its gradient both
+tend to zero. The solution agrees with the reference until shortly before
+$T$, and its speed becomes unbounded exactly at $T$ whenever the reference
+is regular through that time. For density around a general force, the
+conclusion is breakdown \emph{by} $T$: a force whose solution already
+breaks down earlier is left unchanged.
+
+A related force-density result was proved by Hofmanov\'a, Zhu and Zhu
+\cite[Theorem~1.4, Corollary~4.6, and Theorem~5.1]{hzz2024}. In the
+deterministic setting, forces yielding nonunique Leray--Hopf solutions
+from rest are dense in $L^1(0,1;L^2(\R^3))$, and each divergence-free
+$L^2$ initial velocity admits a force yielding nonuniqueness. Here the
+property under study is classical breakdown with a globally smooth force.
+The compact blowup theorem supplies that property, while the local
+construction above places it near an arbitrary regular reference.
+Fujita and Kato~\cite{fujita} and Tao~\cite{tao2018} provide background
+for the critical velocity framework. We use the classical forced local
+theory of Tao~\cite[Theorems~5.1 and~5.4]{tao2013} and the classical
+Sobolev embeddings cited in the appendices. The precise continuation
+criterion, normalization reductions, and critical force estimates needed
+here are justified below.
+
+Section~\ref{sec:preliminaries} specifies the smooth data classes,
+pressure conventions, and local theory, and derives an energy estimate
+for the compact singular solution. Section~\ref{sec:torus} proves the periodic
+result and its further consequences. Section~\ref{sec:whole} treats the
+whole space, including rapidly decaying forces, completed force spaces,
+and cell averages. Section~\ref{sec:discussion} discusses the scope of
+the conclusions. Appendices~\ref{sec:local-appendix}
+and~\ref{sec:critical-appendix} state the classical local theory and
+Sobolev embeddings, with the continuation argument and the
+normalization and homogeneous-space details needed on both domains.

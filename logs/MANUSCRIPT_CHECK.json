@@ -1,0 +1,329 @@
+{
+  "main_sections": [
+    "Introduction",
+    "Definitions and preliminary results",
+    "The torus",
+    "The whole space",
+    "Conclusion"
+  ],
+  "original_results": 34,
+  "merged_results": 28,
+  "labels": 106,
+  "bibliography_entries": 14,
+  "warnings": [],
+  "source_sha256": {
+    "paper/originals/local/paper_1_theory.tex": "0ce4894ba92ad814f86a7f0b172a3e92f0460a09789a68124e05161525b07fc4",
+    "paper/originals/local/paper_3_whole_space.tex": "fd35076e8844a3326f4ca054a7eecf222b710458b04b4bc6e4b59453cb63c3ae",
+    "paper/originals/server/paper_1_theory.tex": "66698828f50ac7781e8db42199d301d2399811443d00bcecd196f4e6c2ae1817",
+    "paper/originals/server/paper_3_whole_space.tex": "3b754f693d4d4d1bb75c6e7b5b16020d413c4c7a7d33f90e65824d3840e49fed"
+  },
+  "correspondence": [
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "theorem",
+      "source_title": "Sobolev density threshold",
+      "label": "thm:main",
+      "merged_kind": "theorem",
+      "merged_number": "3.1",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "lemma",
+      "source_title": "Sobolev estimates used below",
+      "label": "lem:calculus",
+      "merged_kind": "lemma",
+      "merged_number": "A.1",
+      "statement_math_unchanged": false
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "proposition",
+      "source_title": "Local solutions, uniqueness and continuation",
+      "label": "prop:local",
+      "merged_kind": "proposition",
+      "merged_number": "2.1",
+      "statement_math_unchanged": false
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "theorem",
+      "source_title": "Compact forced blowup packet, OpenAI",
+      "label": "thm:packet",
+      "merged_kind": "theorem",
+      "merged_number": "1.1",
+      "statement_math_unchanged": false
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "lemma",
+      "source_title": "Energy, dissipation and initial vanishing",
+      "label": "lem:packetenergy",
+      "merged_kind": "lemma",
+      "merged_number": "2.2",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "lemma",
+      "source_title": "Uniform localization of fractional norms",
+      "label": "lem:localization",
+      "merged_kind": "lemma",
+      "merged_number": "3.2",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "proposition",
+      "source_title": "Packet scaling at fixed viscosity",
+      "label": "prop:scaling",
+      "merged_kind": "proposition",
+      "merged_number": "3.3",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "lemma",
+      "source_title": "A local divergence-free cutoff",
+      "label": "lem:potential",
+      "merged_kind": "lemma",
+      "merged_number": "3.4",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "lemma",
+      "source_title": "Bounds for the background correction",
+      "label": "lem:correction",
+      "merged_kind": "lemma",
+      "merged_number": "3.5",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "theorem",
+      "source_title": "Exact local insertion",
+      "label": "thm:insertion",
+      "merged_kind": "theorem",
+      "merged_number": "3.6",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "corollary",
+      "source_title": "Interior no-slip insertion",
+      "label": "cor:boundary",
+      "merged_kind": "corollary",
+      "merged_number": "3.14",
+      "statement_math_unchanged": false
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "proposition",
+      "source_title": "Density on every fixed initial-velocity slice",
+      "label": "prop:density",
+      "merged_kind": "proposition",
+      "merged_number": "3.7",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "corollary",
+      "source_title": "A sufficient mixed-norm region",
+      "label": "cor:mixed",
+      "merged_kind": "corollary",
+      "merged_number": "3.10",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "corollary",
+      "source_title": "Strong closure in energy and dissipation",
+      "label": "cor:closure",
+      "merged_kind": "corollary",
+      "merged_number": "3.11",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "proposition",
+      "source_title": "Projection of extended singular data",
+      "label": "prop:projection",
+      "merged_kind": "proposition",
+      "merged_number": "3.12",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "proposition",
+      "source_title": "Global regularity for small critical force",
+      "label": "prop:critical",
+      "merged_kind": "proposition",
+      "merged_number": "3.8",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "corollary",
+      "source_title": "Non-density at and above the critical exponent",
+      "label": "cor:nondensity",
+      "merged_kind": "corollary",
+      "merged_number": "3.9",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "proposition",
+      "source_title": "Infinite-dimensional variations away from the endpoints",
+      "label": "prop:affine",
+      "merged_kind": "proposition",
+      "merged_number": "3.15",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "proposition",
+      "source_title": "Finitely many prescribed singular regions",
+      "label": "prop:multiple",
+      "merged_kind": "proposition",
+      "merged_number": "3.16",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "proposition",
+      "source_title": "Conservative forcing from rest",
+      "label": "prop:conservative",
+      "merged_kind": "proposition",
+      "merged_number": "3.17",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_1_theory.tex",
+      "source_kind": "lemma",
+      "source_title": "Critical embeddings on the two domains",
+      "label": "lem:critical-embeddings",
+      "merged_kind": "lemma",
+      "merged_number": "B.1",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "theorem",
+      "source_title": "Two whole-space Sobolev thresholds",
+      "label": "thm:Rmain",
+      "merged_kind": "theorem",
+      "merged_number": "4.1",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "lemma",
+      "source_title": "Whole-space local theory and continuation",
+      "label": "lem:Rlocal",
+      "merged_kind": "proposition",
+      "merged_number": "2.1",
+      "statement_math_unchanged": false
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "theorem",
+      "source_title": "Compact forced blowup packet, OpenAI",
+      "label": "thm:packet",
+      "merged_kind": "theorem",
+      "merged_number": "1.1",
+      "statement_math_unchanged": false
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "lemma",
+      "source_title": "Energy, dissipation and initial vanishing",
+      "label": "lem:packetenergy",
+      "merged_kind": "lemma",
+      "merged_number": "2.2",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "lemma",
+      "source_title": "A local divergence-free cutoff",
+      "label": "lem:potential",
+      "merged_kind": "lemma",
+      "merged_number": "3.4",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "lemma",
+      "source_title": "Bounds for the background correction",
+      "label": "lem:correction",
+      "merged_kind": "lemma",
+      "merged_number": "3.5",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "theorem",
+      "source_title": "Whole-space local insertion",
+      "label": "thm:Rinsert",
+      "merged_kind": "theorem",
+      "merged_number": "4.2",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "proposition",
+      "source_title": "Global regularity for small critical data and $L^1$ force",
+      "label": "prop:Rcritical1",
+      "merged_kind": "proposition",
+      "merged_number": "4.3",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "proposition",
+      "source_title": "A regular neighborhood for the second force metric",
+      "label": "prop:Rcritical2",
+      "merged_kind": "proposition",
+      "merged_number": "4.4",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "corollary",
+      "source_title": "The same thresholds in the source-compatible classes",
+      "label": "cor:Rclasses",
+      "merged_kind": "corollary",
+      "merged_number": "4.5",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "proposition",
+      "source_title": "Density in completed force spaces and strong trajectory closure",
+      "label": "prop:Renergy",
+      "merged_kind": "proposition",
+      "merged_number": "4.6",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "theorem",
+      "source_title": "Identical whole-space cell observations",
+      "label": "thm:Rgrid",
+      "merged_kind": "theorem",
+      "merged_number": "4.7",
+      "statement_math_unchanged": true
+    },
+    {
+      "source": "paper_3_whole_space.tex",
+      "source_kind": "lemma",
+      "source_title": "Critical embeddings on the two domains",
+      "label": "lem:critical-embeddings",
+      "merged_kind": "lemma",
+      "merged_number": "B.1",
+      "statement_math_unchanged": true
+    }
+  ],
+  "scope": "Structural and formula comparison only; mathematical equivalence requires the accompanying proof review."
+}

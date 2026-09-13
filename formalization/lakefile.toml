@@ -1,0 +1,10 @@
+name = "NSFormalization"
+version = "0.1.0"
+defaultTargets = ["NSFormalization"]
+
+[[require]]
+name = "NavierStokesAndEuler"
+path = "../vendor/NavierStokesAndEuler"
+
+[[lean_lib]]
+name = "NSFormalization"

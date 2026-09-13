@@ -1,0 +1,742 @@
+\section{The torus}\label{sec:torus}
+All spatial norms in this section are on $\TT$, unless another domain is
+shown. The spaces $\XX$, $\FF$, and $\BB_{\nu,a,T}$ are those defined in
+Section~\ref{sec:preliminaries}.
+\subsection{Statement of the density theorem}
+\begin{theorem}[Sobolev density threshold]\label{thm:main}
+Equip $\FF$ with its relative $L^1(0,\infty;H^s(\TT))$ norm topology.
+\begin{enumerate}[label=(\roman*),nosep]
+\item For every fixed $a\in\XX$, the set $\BB_{\nu,a,T}$ is dense if $s<1/2$.
+\item For zero initial velocity,
+\[
+ \BB^0_{\nu,T}\text{ is dense in }\FF
+ \quad\Longleftrightarrow\quad s<\tfrac12.
+\]
+\end{enumerate}
+\end{theorem}
+
+We first construct a singular solution close to a regular reference. The
+force estimates yield density below the stated threshold. A separate
+small-force estimate then proves non-density at and above it.
+\subsection{Localization and scaling}\label{sec:packet}
+\begin{lemma}[Uniform localization of fractional norms]\label{lem:localization}
+Let $B$ be a fixed coordinate ball whose closure lies inside a torus fundamental cube. If $z$ is smooth and supported in $B$, let $z_{\R}$ be its zero extension in that cube to $\R^3$, and let $z_{\TT}$ be its periodization. For $0<s<1$,
+\begin{equation}\label{eq:localization}
+ \norm{z_{\TT}}_{H^s(\TT)}
+ \le C_{s,B}\bigl(\norm{z_{\R}}_2+
+                   \norm{z_{\R}}_{\dot H^s(\R^3)}\bigr).
+\end{equation}
+The constant is uniform as the support shrinks inside $B$. At $s=0$ the $L^2$ norms are equal; at $s=1$ the corresponding equality holds for the $L^2$ gradient norms.
+\end{lemma}
+\begin{proof}
+We first identify the difference expressions with the Fourier norms used
+in this article. Define
+\[
+ c_s=\int_{\R^3}\frac{|e^{ih_1}-1|^2}{|h|^{3+2s}}\dd h.
+\]
+It is positive and finite: near zero the numerator is at most $|h|^2$,
+giving a radial integral $\int_0^1r^{1-2s}\dd r$; away from zero it is at
+most four, giving $\int_1^\infty r^{-1-2s}\dd r$.
+For a compact smooth $Z$ on $\R^3$, change variables $y=x+h$, then use
+Plancherel and Tonelli on the nonnegative integrands to obtain
+\begin{align*}
+ I_{\R}(Z)&:=\int_{\R^3}\int_{\R^3}
+       \frac{|Z(x+h)-Z(x)|^2}{|h|^{3+2s}}\dd x\dd h\\
+ &=\int_{\R^3}|\widehat Z(\xi)|^2
+       \left(\int_{\R^3}\frac{|e^{i\xi\cdot h}-1|^2}
+                                      {|h|^{3+2s}}\dd h\right)\dd\xi
+ =c_s\norm{Z}_{\dot H^s(\R^3)}^2.
+\end{align*}
+For $\xi\ne0$, rotation and dilation identify the inner integral with
+$c_s|\xi|^{2s}$; it is zero when $\xi=0$.
+
+Let $Q$ be the chosen unit fundamental cube and define the nonnegative
+periodic kernel, off its lattice singularities, by
+\[
+ K_s(h)=\sum_{n\in\mathbb Z^3}|h+n|^{-3-2s}.
+\]
+For a smooth periodic $z$, partitioning $\R^3$ into translates of $Q$ and
+using periodicity gives
+\begin{align*}
+ I_{\TT}(z)&:=\int_Q\int_Q|z(x)-z(y)|^2K_s(x-y)\dd x\dd y\\
+ &=\int_{\R^3}\frac{\norm{z(\,\cdot+h)-z}_{L^2(Q)}^2}
+                            {|h|^{3+2s}}\dd h\\
+ &=\sum_{\ell\in\mathbb Z^3}|\widehat z(\ell)|^2
+       \int_{\R^3}\frac{|e^{2\pi i\ell\cdot h}-1|^2}
+                            {|h|^{3+2s}}\dd h
+ =c_s\norm{z-\widehat z(0)}_{\dot H^s(\TT)}^2.
+\end{align*}
+The second line uses ordinary periodic $L^2$ norms. Parseval proves the
+third line and Tonelli justifies interchanging the nonnegative sum and
+integral. Thus both identifications have the same explicitly specified
+constant $c_s$, with the frequency factor $2\pi$ retained on the torus.
+Also $(1+r^2)^s\le1+r^{2s}$ for $0<s<1$, so
+\[
+ \norm{z}_{H^s(\TT)}^2
+ \le\norm{z}_2^2+c_s^{-1}I_{\TT}(z).
+\]
+
+It remains to compare the two difference integrals uniformly. Set
+$d=\operatorname{dist}(\overline B,\partial Q)>0$.
+For $x\in B$, $y\in Q$ and $n\ne0$ we have
+$|x-y+n|\ge d$: the point $y-n$ lies outside $Q$ up to its boundary.
+For $|n|>2\sqrt3$ the same distance is at least $|n|/2$.
+Consequently
+\[
+ \sup_{x\in B,\,y\in Q}
+ \sum_{n\ne0}|x-y+n|^{-3-2s}\le C_{s,d}<\infty,
+\]
+and the identical estimate holds with $x,y$ reversed. The $n=0$ term of
+$I_{\TT}(z_{\TT})$ is at most $I_{\R}(z_{\R})$.
+For all the other terms use
+$|z(x)-z(y)|^2\le2|z(x)|^2+2|z(y)|^2$; each nonzero term on the right has
+its corresponding point in $B$. As $|Q|=1$, their total is at most
+$4C_{s,d}\norm{z_{\R}}_2^2$.
+This proves \eqref{eq:localization}. Both $d$ and all constants refer to
+$B,Q,s$, independently of any smaller support. At orders zero and one,
+integration over the single copy of the support proves the stated $L^2$
+and gradient identities.
+\end{proof}
+
+Choose a compact set $K_*$ containing $K$ and the spatial projection of
+$\supp F$. Fix $x_0\in B$, where $B$ is the ball in
+Lemma~\ref{lem:localization}. For sufficiently small $\eps>0$, require
+\[
+ 2\eps^2<T,\qquad x_0+\eps K_*\subset B,
+ \qquad t_\eps=T-\eps^2.
+\]
+We extend $F$ by zero to nonpositive source times; this extension is smooth
+because its temporal support is compact in $(0,\infty)$. Using this
+extension and the negative-time zero extensions of $U,P$ from
+Lemma~\ref{lem:packetenergy}, define
+\begin{align}
+ U_\eps(x,t)&=\eps^{-1}U\left(\frac{x-x_0}{\eps},
+                              \frac{t-t_\eps}{\eps^2}\right),\nonumber\\
+ P_\eps(x,t)&=\eps^{-2}P\left(\frac{x-x_0}{\eps},
+                              \frac{t-t_\eps}{\eps^2}\right),\label{eq:scaling}\\
+ F_\eps(x,t)&=\eps^{-3}F\left(\frac{x-x_0}{\eps},
+                              \frac{t-t_\eps}{\eps^2}\right).\nonumber
+\end{align}
+The first two fields are used for $t<T$; the force is defined for all positive times. Place the rescaled whole-space solution in $B$ and then periodize it. The torus contains a single copy of its support.
+
+\begin{proposition}[Scaling at fixed viscosity]\label{prop:scaling}
+The fields in \eqref{eq:scaling} solve the periodic momentum equation at viscosity $\nu$, start from zero, and have unbounded speed at $T$. A spatially constant pressure adjustment enforces the mean-zero normalization. Their norms satisfy
+\begin{align}
+ \norm{U_\eps}_{L^\infty(0,T;L^2)}
+    &=\eps^{1/2}M,&
+ \norm{\nabla U_\eps}_{L^2(0,T;L^2)}
+    &=\eps^{1/2}D,\label{eq:packetEscale}\\
+ \norm{F_\eps}_{L^q(0,\infty;L^p)}
+    &=\eps^{\alpha(p,q)}\norm{F}_{L^q(0,\infty;L^p)},&
+ \alpha(p,q)&=-3+\frac3p+\frac2q,\label{eq:packetFscale}
+\end{align}
+for $1\le p,q\le\infty$. For $0\le s\le1$,
+\begin{equation}\label{eq:packetHs}
+ \norm{F_\eps}_{L^1(0,\infty;H^s(\TT))}
+ \le C_s\bigl(\eps^{1/2}+\eps^{1/2-s}\bigr).
+\end{equation}
+In particular the force tends to zero in $L^1_tH^s_x$ for every $s<1/2$, including negative $s$.
+\end{proposition}
+\begin{proof}
+Writing $y=(x-x_0)/\eps$ and $\sigma=(t-t_\eps)/\eps^2$, every term of the momentum equation gains the common factor $\eps^{-3}$. Incompressibility is preserved and no viscosity rescaling occurs. The temporal extension is smooth by initial vanishing. The speed identity
+$\norm{U_\eps(t)}_\infty=\eps^{-1}\norm{U(\sigma)}_\infty$
+proves unboundedness as $t\uparrow T$.
+
+At a fixed time the velocity has amplitude factor $\eps^{-1}$ and spatial volume factor $\eps^3$, giving the first identity in \eqref{eq:packetEscale}. Its gradient has amplitude factor $\eps^{-2}$. Squaring and integrating in both space and time gives
+$\eps^{-4}\eps^3\eps^2=\eps$ times the original dissipation integral, proving the second identity.
+
+For finite $p,q$, the force's spatial norm gains $\eps^{-3+3/p}$ and its time norm gains $\eps^{2/q}$. The positive-time domain includes the whole transformed support because $t_\eps>0$ and the original force vanishes at negative times. This proves \eqref{eq:packetFscale}; the essential-supremum cases follow by the same change of variables with zero reciprocal exponents.
+
+Euclidean homogeneous Sobolev scaling gives, for $0<s<1$,
+\[
+ \norm{\eps^{-3}F((\,\cdot-x_0)/\eps,\sigma)}
+          _{\dot H^s(\R^3)}
+ =\eps^{-3/2-s}\norm{F(\cdot,\sigma)}_{\dot H^s(\R^3)}.
+\]
+One may verify the exponent either by Fourier transform or by the double integral in Lemma~\ref{lem:localization}: its squared scaling factor is
+$\eps^{-6}\eps^6\eps^{-3-2s}=\eps^{-3-2s}$.
+Time integration contributes $\eps^2$. The inhomogeneous $L^2$ term has order $\eps^{1/2}$. Lemma~\ref{lem:localization} therefore proves \eqref{eq:packetHs}. At $s=0$ use the mixed-norm identity, and at $s=1$ use the gradient scaling. For $s<0$, the Fourier definition gives $\norm{z}_{H^s}\le\norm{z}_2$, so the $s=0$ estimate proves convergence without any homogeneous negative-order claim.
+\end{proof}
+
+The force amplitude is $\eps^{-3}\norm{F}_\infty$, even though its integrated norm tends to zero below the critical order. The homogeneous $L^1_t\dot H^{1/2}_x$ norm is scale invariant. Section~\ref{sec:critical} supplies the regularity estimate needed at that order.
+
+\subsection{Insertion into a regular solution}\label{sec:insertion}
+Fix a reference solution $(v,\pi,g)$ smooth on $[0,T+\delta]$, where
+$\delta>0$, $g\in\FF$, and $v(0)=a\in\XX$. We first make the reference velocity vanish near the support of $U_\eps$. This prevents nonlinear interaction terms from introducing a singularity into the new force.
+
+The smooth cutoff functions used below can be constructed directly.
+If a compact set $K_*$ lies in an open set $O$, choose $d>0$ so that its
+closed $3d$-neighborhood lies in $O$. Convolve the indicator of its
+$2d$-neighborhood with a nonnegative smooth mollifier supported in the
+ball of radius $d$ and of integral one. The resulting function takes
+values in $[0,1]$, equals one near $K_*$, and has compact support in $O$.
+This is the smooth cutoff form of the Urysohn lemma. The same construction
+in one dimension provides the time cutoff.
+
+\begin{lemma}[A local divergence-free cutoff]\label{lem:potential}
+Let $v$ be smooth and divergence free in a spatial ball centered at $x_0$. In that ball, with $y=x-x_0$, define
+\begin{equation}\label{eq:potential}
+ A(x,t)=\int_0^1 r\,v(x_0+ry,t)\times y\dd r.
+\end{equation}
+Then $\nabla\times A=v$. Choose $\theta\in C_c^\infty(\R^3)$ equal to one on a neighborhood of $K_*$, and choose
+$\eta\in C_c^\infty((-2,2))$ equal to one on $[-1,1]$. Put
+\begin{equation}\label{eq:cutoff}
+ \theta_\eps(x)=\theta((x-x_0)/\eps),\quad
+ \eta_\eps(t)=\eta((t-T)/\eps^2),\quad
+ w_\eps=-\nabla\times(\eta_\eps\theta_\eps A).
+\end{equation}
+For sufficiently small $\eps$, $w_\eps$ is a smooth, divergence-free field supported inside the coordinate ball and in
+$(T-2\eps^2,T+2\eps^2)$. During the active interval before blowup of $U_\eps$,
+\begin{equation}\label{eq:bgzero}
+ v+w_\eps=0
+ \quad\hbox{on an open neighborhood of }\supp U_\eps(t).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Use the vector identity
+\[
+ \nabla\times(V\times y)
+ =V\,\nabla\cdot y-y\,\nabla\cdot V
+   +(y\cdot\nabla)V-(V\cdot\nabla)y.
+\]
+For $V(y)=v(x_0+ry,t)$, incompressibility gives $\nabla_y\cdot V=0$,
+$\nabla_y\cdot y=3$, and $(V\cdot\nabla_y)y=V$.
+Consequently,
+\begin{align*}
+ \nabla_y\times\bigl(r\,v(x_0+ry,t)\times y\bigr)
+ &=2r\,v(x_0+ry,t)+r^2(y\cdot\nabla_x)v(x_0+ry,t)\\
+ &=\frac{\dd}{\dd r}\bigl(r^2v(x_0+ry,t)\bigr).
+\end{align*}
+Integrating from $r=0$ to $r=1$ proves $\nabla\times A=v$.
+
+Take $\eps$ small enough that the scaled support of $\theta$ is strictly inside the coordinate ball and $2\eps^2<\min(T,\delta)$. Since the spatial cutoff is zero near the boundary of the coordinate ball, extending \eqref{eq:cutoff} by zero gives a globally smooth periodic field. Its divergence vanishes because it is a curl. The temporal support follows directly from $\eta_\eps$.
+
+The rescaled velocity $U_\eps$ is zero before $t_\eps=T-\eps^2$. For
+$t_\eps\le t<T$, the variable $(t-T)/\eps^2$ belongs to $[-1,0)$, on which $\eta=1$. On a neighborhood of the localized solution support, $\theta_\eps=1$ and its derivatives vanish. There $w_\eps=-\nabla\times A=-v$, proving \eqref{eq:bgzero}.
+\end{proof}
+
+\begin{lemma}[Bounds for the background correction]\label{lem:correction}
+For $w_\eps$ in Lemma~\ref{lem:potential}, define
+\begin{align}
+ H_\eps={}&\partial_tw_\eps-\nu\Delta w_\eps
+ +(v\cdot\nabla)w_\eps+(w_\eps\cdot\nabla)v
+ +(w_\eps\cdot\nabla)w_\eps.\label{eq:H}
+\end{align}
+The force $H_\eps$ is smooth across $T$ and extends by zero to all times outside its cutoff support. Its spatial support has volume $O(\eps^3)$, and its temporal support has length $O(\eps^2)$. For every spatial multi-index $\beta$ and integer $j\ge0$,
+\begin{equation}\label{eq:derivativebounds}
+ |\partial_t^j\partial_x^\beta w_\eps|
+ \le C_{\beta,j}\eps^{-2j-|\beta|},\qquad
+ |\partial_x^\beta H_\eps|
+ \le C_\beta\eps^{-2-|\beta|}.
+\end{equation}
+In particular,
+\begin{align}
+ \norm{w_\eps}_{E_T}&\le C\eps^{3/2},\label{eq:wE}\\
+ \norm{H_\eps}_{L^q(0,\infty;L^p)}
+   &\le C_{p,q}\eps^{-2+3/p+2/q}
+     =C_{p,q}\eps^{\alpha(p,q)+1},\label{eq:Hmixed}\\
+ \norm{H_\eps}_{L^1(0,\infty;H^s)}
+   &\le C_s\bigl(\eps^{3/2}+\eps^{3/2-s}\bigr)
+       \quad(0\le s\le1).\label{eq:HHs}
+\end{align}
+All constants are independent of sufficiently small $\eps$.
+\end{lemma}
+\begin{proof}
+Introduce $z=(x-x_0)/\eps$ and $\sigma=(t-T)/\eps^2$. Then
+\[
+ A(x_0+\eps z,T+\eps^2\sigma)=\eps\,\mathcal A_\eps(z,\sigma),
+\]
+where
+\[
+ \mathcal A_\eps(z,\sigma)
+ =\int_0^1r\,v(x_0+\eps rz,T+\eps^2\sigma)\times z\dd r.
+\]
+On the fixed support of $\theta(z)\eta(\sigma)$, every fixed-order derivative of $\mathcal A_\eps$ is bounded uniformly in $\eps$. Differentiation of $v$ in $z$ or $\sigma$ introduces nonnegative powers of $\eps$, and the reference is smooth on a fixed neighborhood of the relevant spacetime set. Thus
+\[
+ w_\eps(x_0+\eps z,T+\eps^2\sigma)
+ =W_\eps(z,\sigma)
+ :=-\nabla_z\times\bigl(\eta(\sigma)\theta(z)\mathcal A_\eps(z,\sigma)\bigr)
+\]
+is a uniformly smooth family supported in a fixed cylinder. This proves the first bound in \eqref{eq:derivativebounds}.
+
+To check the force bound, set
+$V_\eps(z,\sigma)=v(x_0+\eps z,T+\eps^2\sigma)$.
+Formula~\eqref{eq:H} becomes
+\begin{align*}
+ H_\eps(x_0+\eps z,T+\eps^2\sigma)
+ =\eps^{-2}\bigl[&
+ \partial_\sigma W_\eps-\nu\Delta_zW_\eps
+ +\eps(V_\eps\cdot\nabla_z)W_\eps\\
+ &+\eps^2(W_\eps\cdot\nabla_x)v(x_0+\eps z,T+\eps^2\sigma)
+ +\eps(W_\eps\cdot\nabla_z)W_\eps\bigr].
+\end{align*}
+The bracketed expression and each of its spatial derivatives are uniformly bounded on the fixed cylinder, proving the second bound in~\eqref{eq:derivativebounds}. In particular, $H_\eps$ depends only on the smooth reference and the cutoffs.
+
+From the support volume and duration,
+\[
+ \norm{w_\eps}_{L^\infty_tL^2_x}\le C\eps^{3/2},\qquad
+ \norm{\nabla w_\eps}_{L^2_tL^2_x}
+ \le C\eps^{-1}\eps^{3/2}\eps=C\eps^{3/2}.
+\]
+This proves \eqref{eq:wE}. The amplitude bound $C\eps^{-2}$ gives
+\eqref{eq:Hmixed} by the same support calculation, including the essential-supremum endpoints.
+
+For \eqref{eq:HHs}, the rescaled force profiles have uniformly bounded spatial $H^s$ norms, supported on a fixed spatial set during a fixed interval of $\sigma$. An amplitude $\eps^{-2}$ gives the spatial homogeneous factor $\eps^{-1/2-s}$; time integration adds $\eps^2$. Thus the homogeneous contribution is $O(\eps^{3/2-s})$, while the $L^2$ contribution is $O(\eps^{3/2})$. Lemma~\ref{lem:localization} transfers these estimates to the torus. Smooth zero extension in time is valid because $\eta$, with all its derivatives, vanishes near the fixed interval endpoints $\sigma=-2$ and $\sigma=2$, where the reference remains smooth.
+\end{proof}
+
+\begin{theorem}[Exact local insertion]\label{thm:insertion}
+Let $(v,\pi,g)$ be a periodic solution smooth on $[0,T+\delta]$, with
+$\delta>0$, $g\in\FF$ and $v(0)=a\in\XX$. Fix any nonempty coordinate ball.
+For all sufficiently small $\eps>0$, there are $g_\eps\in\FF$ and a solution $u_\eps$ with
+\begin{enumerate}[label=(\roman*),nosep]
+\item $T_{\max}^{\nu}(a,g_\eps)=T$ and
+$\limsup_{t\uparrow T}\norm{u_\eps(t)}_\infty=\infty$;
+\item $u_\eps=v$ for $0\le t\le T-2\eps^2$;
+\item $u_\eps-v$ divergence free and supported, for every $t<T$, in a ball of diameter $O(\eps)$ inside the chosen ball;
+\item the simultaneous bounds
+\end{enumerate}
+\begin{align}
+ \norm{u_\eps-v}_{E_T}
+   &\le (M+D)\eps^{1/2}+C\eps^{3/2},\label{eq:Eclose}\\
+ \norm{g_\eps-g}_{L^q_tL^p_x}
+   &\le C_{p,q}\bigl(\eps^{\alpha(p,q)}
+                    +\eps^{\alpha(p,q)+1}\bigr),\label{eq:Fclose}\\
+ \norm{g_\eps-g}_{L^1_tH^s_x}
+   &\le C_s\bigl(\eps^{1/2-s}+\eps^{3/2-s}\bigr)
+                         \quad(0\le s<1/2).\label{eq:Hsclose}
+\end{align}
+Here force norms are taken over $(0,\infty)$, and
+$\alpha(p,q)=-3+3/p+2/q$ for $1\le p,q\le\infty$.
+For $s<0$, the force difference also tends to zero in $L^1_tH^s_x$.
+\end{theorem}
+\begin{proof}
+Choose the rescaled singular solution and the correction from Lemmas~\ref{lem:potential}--\ref{lem:correction}, with all supports inside the prescribed ball, and set
+\begin{equation}\label{eq:insertion}
+ u_\eps=v+w_\eps+U_\eps,\qquad
+ p_\eps=\pi+P_\eps,\qquad
+ g_\eps=g+H_\eps+F_\eps.
+\end{equation}
+Initially use the compact representative $P_\eps$; subtract its spatial mean to normalize $p_\eps$.
+
+Let $b_\eps=v+w_\eps$. Expanding the reference equation and \eqref{eq:H} gives
+\[
+ \partial_tb_\eps+(b_\eps\cdot\nabla)b_\eps
+ -\nu\Delta b_\eps+\nabla\pi=g+H_\eps.
+\]
+Adding the localized solution equation produces the equation for $u_\eps$ except for
+\[
+ (b_\eps\cdot\nabla)U_\eps+(U_\eps\cdot\nabla)b_\eps.
+\]
+Both terms are identically zero. On a neighborhood of $\supp U_\eps$ this follows from $b_\eps=0$, including its derivatives, by \eqref{eq:bgzero}. Outside that support $U_\eps$ and its derivatives vanish, including at the support boundary by smoothness. Before its starting time it vanishes everywhere. Thus \eqref{eq:NS} holds exactly for \eqref{eq:insertion} on $[0,T)$.
+
+Each summand of the velocity is divergence free. The correction is zero for
+$t\le T-2\eps^2$, and the localized solution is zero before $T-\eps^2$, so the initial datum and the stated earlier history are unchanged. On the active localized solution support, $u_\eps=U_\eps$. Hence
+\[
+ \norm{u_\eps(t)}_\infty\ge\norm{U_\eps(t)}_\infty
+\]
+and the maximum norm is unbounded as $t\uparrow T$.
+
+The velocity is smooth on every closed interval before blowup. The force $F_\eps$ is globally smooth by its original definition, and $H_\eps$ is globally smooth by Lemma~\ref{lem:correction}. Their time supports remain compact subsets of $(0,\infty)$ when $\eps$ is sufficiently small. Therefore $g_\eps\in\FF$, independently of the absence of a classical extension of $u_\eps$ at $T$. Uniqueness in Proposition~\ref{prop:local} identifies the constructed velocity with the maximal solution for $(a,g_\eps)$ up to every $T'<T$. Its lifespan is at least $T$, and the unbounded maximum norm excludes extension beyond $T$. Thus the lifespan is exactly $T$.
+
+Finally, the triangle inequality, Proposition~\ref{prop:scaling} and
+Lemma~\ref{lem:correction} give \eqref{eq:Eclose}--\eqref{eq:Hsclose}. In
+\eqref{eq:Hsclose}, the lower-order inhomogeneous terms are absorbed because
+$0<\eps\le1$ and $s\ge0$. For negative $s$, use
+$\norm{z}_{H^s}\le\norm{z}_2$ and the $s=0$ estimate.
+\end{proof}
+
+\subsection{Density below the critical order}\label{sec:density}
+\begin{proposition}[Density for each fixed initial velocity]\label{prop:density}
+For $a\in\XX$, $\nu>0$, $T>0$ and $s<1/2$,
+\[
+ \forall g\in\FF\ \forall\rho>0\ \exists f\in\FF:
+ \quad \norm{f-g}_{L^1_tH^s_x}<\rho,\qquad
+       T_{\max}^{\nu}(a,f)\le T.
+\]
+\end{proposition}
+\begin{proof}
+Fix $g$ and $\rho$. There are two exhaustive cases.
+
+If $T_{\max}^{\nu}(a,g)\le T$, choose $f=g$. It already belongs to
+$\BB_{\nu,a,T}$ and the norm difference is zero.
+
+If $T_{\max}^{\nu}(a,g)>T$, choose $\delta>0$ so that
+$T+\delta<T_{\max}^{\nu}(a,g)$, and use its smooth solution as the reference in Theorem~\ref{thm:insertion}. For every sufficiently small $\eps$, that theorem supplies $g_\eps\in\BB_{\nu,a,T}$ with lifespan exactly $T$.
+For $0\le s<1/2$, \eqref{eq:Hsclose} tends to zero. For $s<0$, its $s=0$ case and the embedding $L^2\hookrightarrow H^s$ do so. Choose $\eps$ so that the force difference is less than $\rho$ and set $f=g_\eps$.
+
+Both choices preserve $a$, $\nu$, and $T$, and give the required approximation.
+\end{proof}
+
+\subsection{Critical regularity and completion of the proof}\label{sec:critical}
+To prove non-density at $s=1/2$, we exhibit an open ball of forces whose
+solutions from rest are globally regular. The following proposition is a
+forced adaptation of the classical critical small-data theory of Fujita
+and Kato~\cite{fujita}; see also Tao~\cite[Theorem~45]{tao2018} for the
+periodic small-data global existence theorem without external forcing.
+It expresses persistence of global regularity near the zero solution
+under a small force in $L^1_tH^{1/2}_x$. We include a proof for this
+precise force class, allowing a nonzero spatial mean: the argument removes
+the mean, controls the critical velocity norm, and applies the continuation
+criterion. This estimate is independent of the compact blowup theorem
+used in the density construction.
+
+\begin{proposition}[Global regularity for small critical force]\label{prop:critical}
+There is $c>0$, depending only on the unit torus and the stated norm conventions, such that
+\begin{equation}\label{eq:smallcritical}
+ g\in\FF,\qquad
+ \rho:=\norm{g}_{L^1(0,\infty;H^{1/2})}<c\nu
+\end{equation}
+imply $T_{\max}^{\nu}(0,g)=\infty$.
+\end{proposition}
+\begin{proof}
+Let $u$ be the maximal classical solution from Proposition~\ref{prop:local}.
+All estimates are first made on a compact subinterval of its lifespan.
+
+\emph{Removal of the spatial mean.}
+Define
+\[
+ \overline g(t)=\int_{\TT}g(x,t)\dd x,\qquad
+ m(t)=\int_{\TT}u(x,t)\dd x,\qquad
+ v=u-m,\qquad h=g-\overline g.
+\]
+Integrating the periodic equation eliminates the convective, Laplacian and pressure terms, giving
+$m'=\overline g$ and $m(0)=0$. Thus
+\begin{equation}\label{eq:meanbound}
+ |m(t)|\le\int_0^t|\overline g(s)|\dd s\le\rho.
+\end{equation}
+The mean-zero field $v$ solves
+\begin{equation}\label{eq:meanfree}
+ \partial_tv+(v\cdot\nabla)v+(m\cdot\nabla)v-\nu\Delta v+\nabla p=h.
+\end{equation}
+For any real Sobolev order, the spatially constant transport $m(t)\cdot\nabla$ commutes with the corresponding Fourier multiplier and is skew-adjoint in $L^2$. It therefore contributes zero to both energy identities used below. This step is necessary because the force is not assumed to have zero spatial mean.
+
+\emph{Critical energy estimate.}
+Let $\Lambda=(-\Delta)^{1/2}$ on mean-zero fields, and set
+\[
+ y(t)=\norm{\Lambda^{1/2}v(t)}_2,\qquad
+ z(t)=\norm{\Lambda^{3/2}v(t)}_2,\qquad
+ b(t)=\norm{h(t)}_{\dot H^{1/2}}.
+\]
+Testing \eqref{eq:meanfree} against $\Lambda v$ gives
+\[
+ \frac12(y^2)'+\nu z^2
+ =-\ip{(v\cdot\nabla)v}{\Lambda v}+\ip{h}{\Lambda v}.
+\]
+The pressure term is zero because $\nabla\cdot\Lambda v=0$.
+By Lemma~\ref{lem:calculus} and H\"older's inequality,
+\[
+ |\ip{(v\cdot\nabla)v}{\Lambda v}|
+ \le\norm{v}_3\norm{\nabla v}_3\norm{\Lambda v}_3
+ \le C_0yz^2.
+\]
+The force term is bounded by
+\[
+ |\ip{h}{\Lambda v}|
+ =|\ip{\Lambda^{1/2}h}{\Lambda^{1/2}v}|\le b(t)y(t).
+\]
+Consequently,
+\begin{equation}\label{eq:criticalenergy}
+ \frac12(y^2)'+(\nu-C_0y)z^2\le by.
+\end{equation}
+Removing the zero Fourier mode cannot increase the relevant norm, so
+\begin{equation}\label{eq:bintegral}
+ \int_0^\infty b(t)\dd t\le\rho.
+\end{equation}
+
+\emph{A continuity argument.}
+On any interval where $y\le\nu/(2C_0)$, \eqref{eq:criticalenergy} implies
+$\tfrac12(y^2)'\le by$. For $\zeta>0$,
+\[
+ \frac{\dd}{\dd t}(y^2+\zeta^2)^{1/2}
+ \le b\,\frac{y}{(y^2+\zeta^2)^{1/2}}\le b.
+\]
+Since $y(0)=0$, integration and $\zeta\downarrow0$ yield
+\begin{equation}\label{eq:ybound}
+ y(t)\le\int_0^t b(s)\dd s\le\rho
+\end{equation}
+throughout such an interval. Choose $c<1/(4C_0)$.
+If a first time with $y=\nu/(2C_0)$ existed, continuity would permit the preceding calculation up to that time, where it would give the strictly smaller bound $y\le\rho<\nu/(4C_0)$. Thus the bound holds throughout the classical lifespan.
+
+In particular the critical dissipation also obeys
+\[
+ \frac12y(t)^2+\frac{\nu}{2}\int_0^t z(s)^2\dd s
+ \le\int_0^t b(s)y(s)\dd s\le\rho^2.
+\]
+We next obtain a stronger integrability bound that directly implies classical continuation.
+
+\emph{The $H^1$ estimate.}
+Take the inner product of \eqref{eq:meanfree} with $-\Delta v$.
+The pressure and mean-transport terms vanish. The nonlinear term satisfies
+\begin{align*}
+ |\ip{(v\cdot\nabla)v}{\Delta v}|
+ &\le\norm{v}_3\norm{\nabla v}_6\norm{\Delta v}_2\\
+ &\le C_1y\,\norm{\Delta v}_2^2.
+\end{align*}
+Here $\norm{\nabla v}_6\le C\norm{\Delta v}_2$ follows from
+Lemma~\ref{lem:critical-embeddings}, applied to each mean-zero derivative:
+$\norm{\nabla(\partial_jv)}_2\le\norm{\Delta v}_2$ by its Fourier series. Choose also $c<1/(4C_1)$.
+By \eqref{eq:ybound}, the convection term is at most
+$(\nu/4)\norm{\Delta v}_2^2$. Young's inequality bounds the force term by
+$(\nu/4)\norm{\Delta v}_2^2+C\nu^{-1}\norm{h}_2^2$.
+After multiplying the resulting inequality by two and weakening its positive coefficient if necessary,
+\begin{equation}\label{eq:H1energy}
+ (\norm{\nabla v}_2^2)'
+ +\nu\norm{\Delta v}_2^2\le C\nu^{-1}\norm{h}_2^2.
+\end{equation}
+Since $v(0)=0$, integration gives a uniform bound on
+$\norm{\nabla v(t)}_2^2$ and on $\int_0^t\norm{\Delta v(s)}_2^2\dd s$.
+The integral of $\norm{h}_2^2$ over all positive times is finite because each fixed force is smooth and time compact. It need not be small.
+
+\emph{Continuation.}
+Suppose the maximal lifespan were a finite number $S$.
+For mean-zero $v$, Fourier series give
+$\norm{v}_{H^2}\le C\norm{\Delta v}_2$.
+Together with \eqref{eq:H1energy} and \eqref{eq:meanbound}, the
+orthogonality of the constant and mean-zero Fourier modes gives
+\begin{align*}
+ \int_0^S\norm{u(t)}_{H^2}^2\dd t
+ &=\int_0^S\bigl(|m(t)|^2+\norm{v(t)}_{H^2}^2\bigr)\dd t\\
+ &\le S\rho^2+C\nu^{-2}
+             \int_0^\infty\norm{h(t)}_2^2\dd t<\infty.
+\end{align*}
+Proposition~\ref{prop:local} then extends $u$ beyond $S$, a contradiction.
+Thus the maximal lifespan is infinite. The choice of $c$ uses only the constants in the periodic Sobolev estimates, not the amplitude, derivatives or support size of a particular force.
+\end{proof}
+
+\begin{corollary}[Non-density at and above the critical exponent]\label{cor:nondensity}
+For every $s\ge1/2$ and $T>0$, $\BB^0_{\nu,T}$ is not dense in
+$\FF$ with the relative $L^1_tH^s_x$ topology.
+\end{corollary}
+\begin{proof}
+At $s=1/2$, the set
+\[
+ \{g\in\FF:\norm{g}_{L^1_tH^{1/2}_x}<c\nu\}
+\]
+is a nonempty relative open ball, containing zero, and is disjoint from
+$\BB^0_{\nu,T}$ by Proposition~\ref{prop:critical}.
+For $s\ge1/2$, the Fourier weights imply
+$\norm{g(t)}_{H^{1/2}}\le\norm{g(t)}_{H^s}$.
+The ball $\norm{g}_{L^1_tH^s_x}<c\nu$ is therefore also disjoint from the singular-force set. A dense subset cannot miss a nonempty open set.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Proposition~\ref{prop:density} gives density for every fixed smooth initial velocity when $s<1/2$. Corollary~\ref{cor:nondensity} gives non-density for zero initial velocity when $s\ge1/2$. These are the two assertions of the theorem.
+\end{proof}
+The converse has been proved for zero initial velocity. The behavior for general nonzero initial velocities at or above the critical order remains outside this classification.
+
+\subsection{Other force norms, trajectory approximation, and data pairs}
+\begin{corollary}[A sufficient mixed-norm region]\label{cor:mixed}
+For every fixed $a\in\XX$, the set $\BB_{\nu,a,T}$ is dense in $\FF$ with its relative $L^q(0,\infty;L^p)$ topology whenever
+\begin{equation}\label{eq:mixedregion}
+ 1\le p,q\le\infty,\qquad \frac3p+\frac2q>3.
+\end{equation}
+\end{corollary}
+\begin{proof}
+Use the same two cases as in Proposition~\ref{prop:density}. In the regular-reference case, \eqref{eq:Fclose} tends to zero because
+$\alpha(p,q)>0$ and hence $\alpha(p,q)+1>0$.
+\end{proof}
+The sufficient region includes $L^1_tL^2_x$ and $L^2_tL^{4/3}_x$. The other mixed Lebesgue topologies require further analysis.
+
+\begin{corollary}[Strong closure in energy and dissipation]\label{cor:closure}
+Fix $a\in\XX$. Let $\mathcal R_{a,T}$ be the trajectories with initial velocity $a$ and forces in $\FF$ that are smooth through $T$.
+Let $\mathcal S_{a,T}$ be the trajectories with the same initial velocity and forces in $\FF$ that are smooth on $[0,T)$, have finite $E_T$ norm, and have unbounded maximum velocity at $T$. Then
+\begin{equation}\label{eq:closure}
+ \mathcal R_{a,T}\subseteq\overline{\mathcal S_{a,T}}^{\,E_T}.
+\end{equation}
+For each reference pair $(v,g)$ and every fixed $s<1/2$, the approximating pairs can be chosen with
+\[
+ (u_\eps,g_\eps)\longrightarrow(v,g)
+ \quad\hbox{in }E_T\times L^1(0,\infty;H^s).
+\]
+\end{corollary}
+\begin{proof}
+A reference smooth through $T$ is smooth through $T+\delta$ for some
+$\delta>0$, by local continuation; equivalently one may take this as the meaning of smoothness through the endpoint. Apply Theorem~\ref{thm:insertion}. Its energy estimate gives convergence in $E_T$, and its force estimates give simultaneous convergence. The reference has finite $E_T$ norm and the localized solution and correction do also, so $u_\eps$ belongs to the specified ambient energy space.
+
+To verify the claimed interpretation of the norm, note that
+\[
+ \norm{z}_{L^2(0,T;L^2)}
+ \le T^{1/2}\norm{z}_{L^\infty(0,T;L^2)}.
+\]
+Thus $E_T$ controls both terms of $L^2_tH^1_x$, while the usual sum norm controls $E_T$ directly. This proves the equivalence used in \eqref{eq:closure}. No endpoint value or classical continuation of $u_\eps$ is implied by convergence in this norm.
+\end{proof}
+
+\begin{proposition}[Projection of extended singular data]\label{prop:projection}
+Define
+\[
+ \mathfrak B_{\nu,T}
+ =\{(a,f)\in\XX\times\FF:T_{\max}^{\nu}(a,f)\le T\}.
+\]
+If $s<1/2$, this set is dense in the product of any topology on $\XX$ and the relative $L^1_tH^s_x$ topology on $\FF$. Its projection onto $\XX$ is all of $\XX$.
+The family obtained while requiring $a=0$ projects instead to the singleton $\{0\}$.
+\end{proposition}
+\begin{proof}
+Take a point $(a,g)$ and a basic product neighborhood $U\times V$ containing it. The initial datum $a$ already belongs to $U$. Proposition~\ref{prop:density} supplies a force $f\in V$ with $T_{\max}^{\nu}(a,f)\le T$. Hence
+$(a,f)\in\mathfrak B_{\nu,T}\cap(U\times V)$, proving density.
+Applying the same proposition with any fixed $g$ and any positive radius gives at least one singular force over each $a$, which proves the projection statement. The final assertion follows directly from fixing the initial velocity to zero.
+\end{proof}
+
+The projection statement has the quantifier order
+$\forall a\,\exists f$, not $\exists f\,\forall a$.
+For a fixed prescribed force $f_*$, the set
+\[
+ \{a\in\XX:T_{\max}^{\nu}(a,f_*)\le T\}
+\]
+is a different object and is not classified by these force-changing constructions.
+In a nontrivial normed initial-velocity space, $\{0\}$ is not dense: if
+$a\ne0$, the ball of radius $\norm{a}/2$ centered at $a$ excludes zero.
+
+There is also a distinction between the two terminal-time assertions.
+Theorem~\ref{thm:insertion} gives singularity exactly at $T$ around every reference regular through $T$. Proposition~\ref{prop:density} uses breakdown by $T$, because a general reference may already break down earlier and is then left unchanged. It does not prove density of exactly-time-$T$ singular forces around every earlier-breaking reference.
+\begin{remark}[Concentration and force amplitudes]\label{rem:peaks}
+The force convergence in Theorem~\ref{thm:insertion} is compatible with diverging pointwise amplitudes. Since the original force is nonzero,
+\[
+ \norm{g_\eps-g}_{L^\infty_{t,x}}
+ \ge\eps^{-3}\norm{F}_\infty-C\eps^{-2}\longrightarrow\infty.
+\]
+Here the first term is the amplitude of $F_\eps$ and the second bounds $H_\eps$. The force $F$ is nonzero by~\eqref{eq:packetenergy}, since $U$ blows up. Hence the approximating smooth forces have unbounded amplitudes and cannot obey uniform bounds on all derivatives.
+\end{remark}
+
+\subsection{Insertion in a bounded domain}
+For the following bounded-domain statement, $H^s(\Omega)$ is the space
+of restrictions of $H^s(\R^3)$ distributions, with quotient norm
+\begin{equation}\label{eq:restriction-norm}
+ \norm{z}_{H^s(\Omega)}=\inf_{Z|_\Omega=z}\norm{Z}_{H^s(\R^3)}.
+\end{equation}
+This convention applies also to negative orders. At order zero it is the
+usual $L^2(\Omega)$ norm.
+For every fixed compact $K\Subset\Omega$ and $s\in\R$, smooth fields supported
+in $K$ obey
+\begin{equation}\label{eq:zero-extension}
+ \norm{z}_{H^s(\Omega)}\le\norm{E_0z}_{H^s(\R^3)}
+ \le C_{s,K,\Omega}\norm{z}_{H^s(\Omega)},
+ \qquad \operatorname{supp}z\subset K,
+\end{equation}
+where $E_0z$ is extension by zero. To prove the second inequality, fix
+$\chi\in C_c^\infty(\Omega)$ equal to one near $K$. For every extension $Z$
+of $z$, $\chi Z=E_0z$. Multiplication by this fixed $\chi$ is bounded on
+$H^s(\R^3)$ for every real $s$: the Fourier convolution formula and
+\[
+ \frac{(1+|\xi|^2)^{s/2}}{(1+|\eta|^2)^{s/2}}
+ \le C_s(1+|\xi-\eta|^2)^{|s|/2}
+\]
+reduce the estimate to Young's $L^1*L^2\to L^2$ inequality, since
+$\widehat\chi$ decays faster than every power. Taking the infimum over $Z$
+proves the bound; the first inequality follows from the definition.
+The constant depends on the fixed cutoff and $s$, not on a smaller support
+or a shrinking scale $\eps$. Applying the pointwise bounds in time gives the
+same comparison for all the mixed norms in \eqref{eq:time-norms}, provided
+$K$ is fixed for all times. No bounded zero-extension operator on arbitrary
+$H^s(\Omega)$ is asserted. All vector and tensor norms in these definitions
+are the square root of the sum of the squared component norms.
+\begin{corollary}[Interior no-slip insertion]\label{cor:boundary}
+Let $\Omega\subset\R^3$ be a bounded box or a bounded smooth domain.
+Suppose that, for some $\delta>0$, $(v,\pi,g)$ is a smooth no-slip
+solution on $[0,T+\delta]$, and that $g$ is smooth on
+$\overline\Omega\times[0,\infty)$ with temporal support compact in
+$(0,\infty)$.
+Here smoothness on a closed spacetime slab means restriction of a
+$C^\infty$ field from an open neighborhood of that slab; this convention
+also specifies smoothness at the edges and corners of a box. We assume
+$v,\pi$ have this regularity on
+$\overline\Omega\times[0,T+\delta]$, and $g$ on each finite closed slab.
+The equation and incompressibility hold in $\Omega$, and
+$v|_{\partial\Omega}=0$. Pressure may be normalized by zero spatial mean.
+Existence of this compatible reference is an assumption of the corollary.
+The construction in Theorem~\ref{thm:insertion} applies inside any prescribed interior ball, preserving the initial velocity and no-slip boundary values.
+The energy estimates use $L^2(\Omega)$ and the force estimates use
+$L^1(0,\infty;H^s(\Omega))$, with the restriction norm
+\eqref{eq:restriction-norm}. For every real $s$, the domain and zero-extended
+force-difference norms are comparable by \eqref{eq:zero-extension}, with a
+constant independent of $\eps$; the convergence assertion remains $s<1/2$.
+\end{corollary}
+\begin{proof}
+The vector potential and all cutoff estimates are local. Choose the correction and localized solution supports in a smaller closed ball strictly inside $\Omega$.
+The computation of the momentum equation in Theorem~\ref{thm:insertion} is unchanged. The new velocity equals the reference in a fixed boundary collar for all times before blowup, so the no-slip boundary values are preserved. The force correction is supported in the same interior region and has the same globally smooth time extension.
+
+For $0\le s<1/2$, the Euclidean scaling proof directly bounds the zero
+extensions of the force differences in $L^1(0,\infty;H^s(\R^3))$.
+For $s<0$, use $\norm{E_0(g_\eps-g)}_{H^s(\R^3)}
+\le\norm{E_0(g_\eps-g)}_{L^2(\R^3)}$ at each time.
+All these force-difference supports, including those after $T$, lie in one
+fixed compact interior ball $K$ for every sufficiently small $\eps$.
+Consequently \eqref{eq:zero-extension} gives the asserted domain estimates
+and the scale-independent comparison after time integration. The energy estimates follow by integrating over that ball. Finally, classical uniqueness on a no-slip domain follows from the same difference-energy calculation as in Proposition~\ref{prop:local}; its boundary terms vanish. Thus the constructed solution is singular exactly at $T$.
+\end{proof}
+
+\subsection{Further constructions}\label{sec:variants}
+\begin{proposition}[Infinite-dimensional variations away from the endpoints]\label{prop:affine}
+Fix the localized solution $(U,P,F)$ of Theorem~\ref{thm:packet}, and fix a spacetime cylinder $Q=B_0\times(\tau_0,\tau_1)$ with
+$0<\tau_0<\tau_1<1$ and $B_0\Subset\R^3$ an open ball.
+For any $b\in C_c^\infty(Q;\R^3)$ with $\nabla\cdot b=0$, define
+\begin{align}
+ \widetilde U&=U+b,\qquad \widetilde P=P,\nonumber\\
+ \widetilde F&=F+\partial_tb-\nu\Delta b
+       +(U\cdot\nabla)b+(b\cdot\nabla)U+(b\cdot\nabla)b.\label{eq:affine}
+\end{align}
+These fields give an infinite-dimensional affine family of distinct velocities with zero initial data, finite energy and dissipation, and the same late singular behavior as $U$. For each fixed nonzero $b$, the family obtained by replacing $b$ with $\lambda b$ is non-isolated as $\lambda\to0$ in every fixed smooth seminorm of the velocity and force differences on their compact support.
+\end{proposition}
+\begin{proof}
+Expanding the momentum equation for $U+b$ gives exactly the force in
+\eqref{eq:affine}; its divergence remains zero. Every correction term is supported in $\supp b$, a compact subset of $Q$. The original singular solution is smooth with bounded derivatives of every fixed order on a neighborhood of that set. Thus the force correction extends smoothly by zero to the whole positive time axis, including time one, despite the singularity of $U$ there.
+
+Since $b=0$ near time zero and near time one,
+$\widetilde U(0)=0$ and $\widetilde U=U$ on a fixed late interval.
+The same unbounded-speed limit holds. The energy and dissipation norms of $b$ are finite by compact smooth support, so the triangle inequality gives the corresponding bounds for $\widetilde U$.
+
+To verify infinite dimensionality explicitly, choose countably many disjoint small balls inside $B_0$. In each ball choose a smooth compactly supported vector potential with nonzero curl, and multiply that curl by a fixed nonzero time bump in $(\tau_0,\tau_1)$. These divergence-free fields are linearly independent because their spatial supports are disjoint. Their finite linear combinations belong to the allowed class. The map $b\mapsto U+b$ is injective and affine, so its image is infinite dimensional.
+
+For the non-isolation statement, the velocity difference is $\lambda b$, while the force difference has the form
+\[
+ \lambda L_U b+\lambda^2(b\cdot\nabla)b,\qquad
+ L_Ub=\partial_tb-\nu\Delta b+(U\cdot\nabla)b+(b\cdot\nabla)U.
+\]
+On the fixed compact support, all coefficients and their derivatives are bounded. Hence for each integer $m\ge0$ the $C^m$ norm of the force difference is at most $C_m|\lambda|+C_m'\lambda^2$, and the velocity difference is at most $C_m''|\lambda|$. Both tend to zero. The forces vary in this family; no open singularity basin for one fixed force follows.
+\end{proof}
+
+\begin{proposition}[Finitely many prescribed singular regions]\label{prop:multiple}
+Fix finitely many disjoint interior balls $B_1,\ldots,B_N$ in the torus or in a bounded three-dimensional domain. At fixed $\nu>0$ and $T>0$, there is a smooth forced solution starting from rest, smooth on $[0,T)$, with finite energy and dissipation, such that
+\[
+ \limsup_{t\uparrow T}\norm{u(t)}_{L^\infty(B_j)}=\infty
+ \qquad(1\le j\le N).
+\]
+In a bounded domain its boundary condition is homogeneous no-slip.
+\end{proposition}
+\begin{proof}
+Choose $x_j\in B_j$ and scales $\eps_j>0$ sufficiently small that the complete scaled compact set $x_j+\eps_jK_*$ lies strictly inside $B_j$ and $\eps_j^2<T$. Apply \eqref{eq:scaling} to each localized solution with start time $T-\eps_j^2$, and denote the resulting fields by $U_j,P_j,F_j$.
+Set
+\[
+ u=\sum_{j=1}^N U_j,\qquad p=\sum_{j=1}^N P_j,\qquad f=\sum_{j=1}^N F_j.
+\]
+For $i\ne j$, the supports of $U_i$ and $U_j$ are separated, so
+$(U_i\cdot\nabla)U_j=0$. The sum therefore satisfies the momentum equation exactly. All force supports are compact in positive time and all forces are smooth. Initial vanishing gives $u(0)=0$.
+
+On $B_j$ the velocity equals $U_j$, proving the stated separate limsup for each ball. Disjoint supports also give
+\[
+ \sup_{t<T}\norm{u(t)}_2^2\le M^2\sum_{j=1}^N\eps_j,\qquad
+ \int_0^T\norm{\nabla u(t)}_2^2\dd t=D^2\sum_{j=1}^N\eps_j.
+\]
+These sums are finite. In a bounded domain, all fields vanish in a boundary collar; hence $u=0$ on the boundary. On the torus a spatially constant pressure adjustment gives the chosen gauge.
+\end{proof}
+Only finitely many solutions are superposed, all with terminal time $T$. The sequences along which their maxima diverge may differ; the conclusion is a separate limsup statement in each ball.
+
+\begin{proposition}[Conservative forcing from rest]\label{prop:conservative}
+On the torus, let $f=-\nabla\phi$ for a globally defined periodic scalar
+$\phi$. On a bounded domain, let $f=-\nabla\phi$ and impose homogeneous no-slip velocity. In either case, any smooth solution starting from rest is identically zero on its classical lifespan.
+\end{proposition}
+\begin{proof}
+Incompressibility and periodicity or the zero normal boundary trace give
+\[
+ \int f\cdot u
+ =-\int\nabla\phi\cdot u=0.
+\]
+The classical energy identity, integrated from zero, becomes
+\[
+ \frac12\norm{u(t)}_2^2
+ +\nu\int_0^t\norm{\nabla u(s)}_2^2\dd s=0.
+\]
+Both terms are nonnegative, so $u(t)=0$ at every time before blowup.
+The periodic-potential condition excludes affine potentials, whose gradients need not be removable by the allowed periodic pressure gauge.
+\end{proof}
+
+Thus a nontrivial solution starting from rest requires a nonconservative force.

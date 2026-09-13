@@ -1,0 +1,153 @@
+\section{Definitions and preliminary results}\label{sec:preliminaries}
+\subsection{Smooth data and solution classes}
+We use the equation, domains, and norms introduced in
+Section~\ref{sec:intro}.
+All fields are real, and forces need not be divergence free. We write
+$L^2_\sigma(D)$ for the divergence-free subspace of $L^2(D;\R^3)$.
+The allowed initial velocities and forces are
+\begin{align}
+ \XX=\mathcal X_{\TT}&=C^\infty_{\mathrm{div}}(\TT;\R^3),&
+ \FF=\mathcal F_{\TT}&=C_c^\infty(\TT\times(0,\infty);\R^3),
+ \label{eq:inputspaces}\\
+ \mathcal X_{\R}&=H^\infty(\R^3;\R^3)\cap L^2_\sigma(\R^3),
+ \label{eq:Rinitial}
+\end{align}
+where $H^\infty=\bigcap_{m=0}^\infty H^m$ has its usual Fr\'echet topology.
+On the whole space set
+\begin{equation}\label{eq:Rclasses}
+ \mathcal F_{\R}=\left\{f\in C^\infty([0,\infty);H^\infty):
+ \norm{f}_{L^1_tH^m_x}+\norm{f}_{L^2_tH^m_x}<\infty
+ \text{ for every integer }m\ge0\right\}.
+\end{equation}
+Smoothness into $H^\infty$ means smoothness into each $H^m$, with
+one-sided time derivatives at zero. Thus periodic forces vanish near zero
+and outside a compact time interval; whole-space forces may be nonzero at
+zero and need not have compact support. Both classes consist of forces
+defined through any possible singular time of the velocity.
+
+On the torus, velocity and pressure are periodic and $\int_{\TT}p=0$.
+On $\R^3$, a classical velocity belongs to $C([0,S];H^m)$ for every
+integer $m\ge0$ on each compact interval of its lifespan. Its pressure
+gradient is specified below, and the scalar pressure is determined up to
+a function of time. In either case local uniqueness defines a maximal
+classical lifespan, denoted by $T^\nu_{\max}(a,f)$ on the torus and
+$T^\nu_{\max,\R}(a,f)$ on the whole space. A reference solution is
+\emph{regular through $T$} if it extends smoothly to $[0,T+\delta]$
+for some $\delta>0$ in the relevant class.
+
+For fixed $\nu,T>0$, define
+\begin{align}
+ \BB_{\nu,a,T}&=\{f\in\FF:T^\nu_{\max}(a,f)\le T\},&
+ \BB^0_{\nu,T}&=\BB_{\nu,0,T},\label{eq:singularforces}\\
+ \mathcal B^\R_{\nu,a,T}
+ &=\{f\in\mathcal F_{\R}:T^\nu_{\max,\R}(a,f)\le T\}.
+ \label{eq:Rsingularforces}
+\end{align}
+We call these the forces producing classical breakdown by $T$.
+The inserted solutions satisfy the more specific condition of unbounded
+speed at their terminal time.
+
+\subsection{Homogeneous spaces and Fourier multipliers}
+Write $\Lambda=(-\Delta)^{1/2}$ and $J=(I-\Delta)^{1/2}$, with the
+Fourier conventions of Section~\ref{sec:intro}. On mean-zero periodic
+fields, the homogeneous and inhomogeneous Sobolev norms are equivalent
+at each fixed order. Appendix~\ref{sec:critical-appendix} specifies the
+whole-space homogeneous realization for the positive orders used in the
+embeddings.
+For the completed energy-force space we fix
+\begin{equation}\label{eq:homogeneous-realization}
+ \dot H^{-1}(\R^3)=\{h\in\mathcal S':\widehat h=F
+ \text{ is a measurable function and }|\xi|^{-1}F\in L^2\}.
+\end{equation}
+Functions representing distributions are identified almost everywhere.
+The map $h\mapsto|\xi|^{-1}\widehat h$ is an isometric bijection onto
+$L^2$: its inverse sends $G$ to the inverse transform of $|\xi|G$, which
+is tempered because
+\[
+ \left|\int|\xi|G(\xi)\phi(\xi)\dd\xi\right|
+ \le\norm{G}_2\norm{|\xi|\phi}_2\qquad(\phi\in\mathcal S).
+\]
+Thus this is a separable Hilbert space with no polynomial ambiguity.
+The same statement for $H^s$ follows from the isometry
+$h\mapsto\langle\xi\rangle^s\widehat h$. Real vector fields correspond
+to the closed subspace with $F(-\xi)=\overline{F(\xi)}$.
+
+\subsection{Projection, pressure, and local existence}\label{sec:analytic}
+The Leray projection $\PP$ has Fourier symbol
+$I-\xi\otimes\xi/|\xi|^2$ on $\R^3\setminus\{0\}$ and the same
+symbol at $k\ne0$ on the torus. At the periodic zero mode it is the
+identity. It is bounded on every $H^s$ and commutes with derivatives and
+the heat semigroup. The projected equation is
+\begin{equation}\label{eq:projected}
+ \partial_tu-\nu\Delta u=-\PP\nabla\cdot(u\otimes u)+\PP f.
+\end{equation}
+On the torus, pressure is recovered from
+\[
+ \Delta p=\nabla\cdot f-\sum_{i,j}\partial_i\partial_j(u_i u_j),
+ \qquad \int_{\TT}p=0.
+\]
+The right side has zero mean. On $\R^3$ we require
+\begin{equation}\label{eq:Rpressure}
+ \nabla p=(I-\PP)(f-\nabla\cdot(u\otimes u))=:G.
+\end{equation}
+For smooth $H^\infty$ data, $G$ is smooth and its Fourier transform is
+parallel to $\xi$. Hence $\partial_jG_k=\partial_kG_j$, and a potential
+is
+\[
+ p(x,t)=\int_0^1G(rx,t)\cdot x\dd r.
+\]
+Differentiating and using this symmetry gives
+$\partial_jp=\int_0^1\partial_r[rG_j(rx,t)]\dd r=G_j(x,t)$.
+There is no requirement that $p\in L^2(\R^3)$. Its gradient belongs to
+$L^2$, so a nonzero constant pressure gradient is excluded. On the torus,
+the requirement of periodic pressure also excludes an affine pressure.
+
+\begin{proposition}[Local existence, uniqueness, and continuation]
+\label{prop:local}\label{lem:Rlocal}
+For each initial velocity in the stated class and each force smooth into
+every $H^m$ on compact time intervals, equation~\eqref{eq:NS} has a unique
+maximal smooth velocity, with pressure determined as above. If a solution
+is defined on $[0,S)$, $S<\infty$, and
+\begin{equation}\label{eq:criterion}
+ \int_0^S\norm{u(t)}_{H^2(D)}^2\dd t<\infty,
+\end{equation}
+then it extends smoothly beyond $S$.
+\end{proposition}
+Appendix~\ref{sec:local-appendix} derives this statement from the classical
+forced local theory, with one common existence interval for all Sobolev
+orders, and proves the displayed continuation criterion. It explains
+the viscosity and pressure conventions and the periodic mean reduction;
+no compact support of the whole-space velocity is required.
+
+\subsection{Energy and initial vanishing of the compact solution}
+We use the fixed solution $(U,P,F)$ chosen after
+Theorem~\ref{thm:packet}. Its energy estimate supplies the time-integrated
+dissipation bound and the initial vanishing needed for rescaling.
+
+\begin{lemma}[Energy, dissipation and initial vanishing]\label{lem:packetenergy}
+The localized solution satisfies
+\[
+ M:=\sup_{0\le t<1}\norm{U(t)}_2<\infty,\qquad
+ D:=\norm{\nabla U}_{L^2((0,1)\times\R^3)}<\infty.
+\]
+Both $U$ and $P$ vanish on an initial time interval and therefore extend smoothly by zero to negative times.
+\end{lemma}
+\begin{proof}
+On each closed interval $[0,b]$ with $b<1$, compact spatial support justifies the energy identity
+\[
+ \tfrac12(\norm{U(t)}_2^2)'
+ +\nu\norm{\nabla U(t)}_2^2=\ip{F(t)}{U(t)}.
+\]
+Set $N(t)=\int_0^t\norm{F(s)}_2\dd s$. Dropping dissipation gives
+$\tfrac12(\norm{U}_2^2)'\le\norm{F}_2\norm{U}_2$.
+For $\zeta>0$, the derivative of $(\norm{U}_2^2+\zeta^2)^{1/2}$ is at most $\norm{F}_2$. Integrating from zero and letting $\zeta\downarrow0$ proves $\norm{U(t)}_2\le N(t)$.
+
+Substituting this bound into the integrated energy identity gives
+\begin{equation}\label{eq:packetenergy}
+ \norm{U(t)}_2^2+2\nu\int_0^t\norm{\nabla U(s)}_2^2\dd s
+ \le 2\int_0^t\norm{F(s)}_2N(s)\dd s=N(t)^2.
+\end{equation}
+Since $F$ is smooth and time compact, the right side is bounded independently of $t<1$. Monotone convergence of the dissipation integral proves $D<\infty$.
+
+The temporal support of $F$ is a compact subset of $(0,\infty)$, so $F=0$ on $[0,\tau]$ for some $\tau>0$. Estimate~\eqref{eq:packetenergy} gives $U=0$ there. Equation~\eqref{eq:packet} then implies $\nabla P=0$, and compact spatial support fixes this spatial constant to zero. Vanishing on an interval proves smoothness of both zero extensions.
+\end{proof}

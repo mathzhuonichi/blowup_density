@@ -1,0 +1,156 @@
+{
+  "scope": "Static source/manifest/import/task validation; no Lean build, kernel proof check, or transitive axiom audit.",
+  "task_count": 30,
+  "topological_order": [
+    "U01",
+    "U04",
+    "U05",
+    "U02",
+    "U03",
+    "D01",
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "I01",
+    "I02",
+    "I03",
+    "R42",
+    "R41D",
+    "C01",
+    "R43",
+    "R44",
+    "R41",
+    "R45",
+    "B01",
+    "B02",
+    "R46",
+    "G01",
+    "R47",
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+  ],
+  "source_counts": {
+    "formalization": 340,
+    "vendor/NavierStokesAndEuler": 2486,
+    "vendor/HeliCorgi": 129
+  },
+  "source_manifest_entries": 2975,
+  "local_umbrella_reachable_copied_modules": 1689,
+  "local_modules_outside_umbrella": [
+    "NSFormalization.Citations.CitationRecords",
+    "NSFormalization.Citations.ForcedLocalTheoryInterface",
+    "NSFormalization.Citations.OpenAIPacketInterface",
+    "NSFormalization.Citations.PressureRecoveryInterface",
+    "NSFormalization.Citations.SquaredH2Continuation",
+    "NSFormalization.Citations.WholeSpaceForcedLocalInterface",
+    "NSFormalization.Paper1.BoundarySupportComposition",
+    "NSFormalization.Paper1.Check",
+    "NSFormalization.Paper1.ConservativeForce",
+    "NSFormalization.Paper1.PeriodicCompactSobolevL6",
+    "NSFormalization.Paper1.PeriodicConstantLocal",
+    "NSFormalization.Paper1.PeriodicCorrectionEndpointInstantiation",
+    "NSFormalization.Paper1.PeriodicCriticalBoxConvergence",
+    "NSFormalization.Paper1.PeriodicCriticalCauchySharpness",
+    "NSFormalization.Paper1.PeriodicCriticalLowQuantitative",
+    "NSFormalization.Paper1.PeriodicCriticalShellCounting",
+    "NSFormalization.Paper1.PeriodicForceFiniteEndpoints",
+    "NSFormalization.Paper1.PeriodicForceSeparation",
+    "NSFormalization.Paper1.PeriodicInsertionFiniteEndpoints",
+    "NSFormalization.Paper1.PeriodicPacketEndpointInstantiation",
+    "NSFormalization.Paper1.PeriodicPicardTwoStepFirstError",
+    "NSFormalization.Paper1.PeriodicPressureNormalizationBridge",
+    "NSFormalization.Paper1.PeriodicScalarEndpointRate",
+    "NSFormalization.Paper1.PeriodicScalingBounds",
+    "NSFormalization.Paper1.PeriodicSingleModeDensity",
+    "NSFormalization.Paper1.PeriodicWeightedPairingZero",
+    "NSFormalization.Paper1.SchwartzCriticalEmbedding",
+    "NSFormalization.Paper1.Test",
+    "NSFormalization.Paper1.Type"
+  ],
+  "missing_copied_imports": [],
+  "citation_interfaces_reachable": [],
+  "explicit_axiom_or_admission_tokens": [
+    {
+      "module": "NSFormalization.Citations.ForcedLocalTheoryInterface",
+      "path": "formalization/NSFormalization/Citations/ForcedLocalTheoryInterface.lean",
+      "line": 25,
+      "token": "axiom"
+    },
+    {
+      "module": "NSFormalization.Citations.PressureRecoveryInterface",
+      "path": "formalization/NSFormalization/Citations/PressureRecoveryInterface.lean",
+      "line": 9,
+      "token": "axiom"
+    },
+    {
+      "module": "NSFormalization.Citations.PressureRecoveryInterface",
+      "path": "formalization/NSFormalization/Citations/PressureRecoveryInterface.lean",
+      "line": 16,
+      "token": "axiom"
+    },
+    {
+      "module": "NSFormalization.Citations.SquaredH2Continuation",
+      "path": "formalization/NSFormalization/Citations/SquaredH2Continuation.lean",
+      "line": 10,
+      "token": "axiom"
+    },
+    {
+      "module": "NSFormalization.Citations.SquaredH2Continuation",
+      "path": "formalization/NSFormalization/Citations/SquaredH2Continuation.lean",
+      "line": 12,
+      "token": "axiom"
+    },
+    {
+      "module": "NSFormalization.Citations.WholeSpaceForcedLocalInterface",
+      "path": "formalization/NSFormalization/Citations/WholeSpaceForcedLocalInterface.lean",
+      "line": 25,
+      "token": "axiom"
+    },
+    {
+      "module": "NSFormalization.Paper1.BoundaryCorollary",
+      "path": "formalization/NSFormalization/Paper1/BoundaryCorollary.lean",
+      "line": 90,
+      "token": "sorry"
+    },
+    {
+      "module": "ComparatorChallenges.Euler",
+      "path": "vendor/NavierStokesAndEuler/ComparatorChallenges/Euler.lean",
+      "line": 88,
+      "token": "sorry"
+    },
+    {
+      "module": "ComparatorChallenges.Euler",
+      "path": "vendor/NavierStokesAndEuler/ComparatorChallenges/Euler.lean",
+      "line": 184,
+      "token": "sorry"
+    },
+    {
+      "module": "ComparatorChallenges.NavierStokes",
+      "path": "vendor/NavierStokesAndEuler/ComparatorChallenges/NavierStokes.lean",
+      "line": 277,
+      "token": "sorry"
+    },
+    {
+      "module": "ComparatorChallenges.NavierStokes",
+      "path": "vendor/NavierStokesAndEuler/ComparatorChallenges/NavierStokes.lean",
+      "line": 284,
+      "token": "sorry"
+    }
+  ],
+  "tokens_in_copied_umbrella_closure": [
+    {
+      "module": "NSFormalization.Paper1.BoundaryCorollary",
+      "path": "formalization/NSFormalization/Paper1/BoundaryCorollary.lean",
+      "line": 90,
+      "token": "sorry"
+    }
+  ],
+  "original_result_occurrences": 34,
+  "merged_result_count": 28,
+  "cache_free": true,
+  "source_hashes_match": true
+}

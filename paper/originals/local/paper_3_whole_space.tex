@@ -1,0 +1,959 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=26mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem,needspace,xcolor,hyperref}
+\definecolor{ink}{HTML}{16364A}
+\hypersetup{colorlinks=true,linkcolor=ink,urlcolor=ink,citecolor=ink,
+pdfauthor={Zhuoni Chi and Shaozhen Cao},
+pdftitle={Singular Forces on the Whole Space: Sobolev Density Thresholds and Energy Approximation}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}\newcommand{\TT}{\mathbb T^3}
+\newcommand{\FF}{\mathcal F}\newcommand{\XX}{\mathcal X}
+\newcommand{\BB}{\mathcal B}\newcommand{\PP}{\mathbb P}
+\newcommand{\dd}{\,\mathrm d}\newcommand{\eps}{\varepsilon}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ip}[2]{\left\langle#1,#2\right\rangle}
+\DeclareMathOperator{\supp}{supp}
+\title{Singular Forces on the Whole Space:\\ Sobolev Density Thresholds and Energy Approximation}
+\author{Zhuoni Chi\\\texttt{znchi@zju.edu.cn}\and Shaozhen Cao\\\texttt{shaozhencao@zju.edu.cn}}
+\date{9 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We derive whole-space distribution results from the established compact, smoothly forced Navier--Stokes blowup construction of OpenAI. For every fixed positive viscosity and deadline, smooth forces causing classical breakdown from rest on $\mathbb R^3$ are dense in the relative $L^1_tH^s_x$ topology exactly when $s<1/2$, and in the relative $L^2_tH^s_x$ topology exactly when $s<-1/2$. The positive results preserve every fixed initial velocity in $H^\infty_\sigma(\R^3)$. They follow from a compact divergence-free removal of a regular background, followed by exact insertion of a single whole-space singular packet. Separate critical estimates prove non-density; low spatial frequencies are controlled explicitly, without a periodic mean or a Poincar\'e inequality. The conclusions hold for spacetime-compact forces and for the rapidly decaying data class in the Clay formulation. We also obtain density in the usual completed energy-force spaces, strong energy-and-dissipation approximation of regular trajectories, and exact equality of cell observations on a prescribed finite family of whole-space grids. Initial-state spaces, forcing spaces and numerical error regularity are distinguished throughout. No claim of fixed-force instability, loss of weak existence or new formal verification is made.
+\end{abstract}
+\noindent\textbf{Keywords:} forced Navier--Stokes equations; whole space; singular-force density; negative Sobolev norms; finite energy; numerical observations.
+
+\section{Introduction and data spaces}\label{sec:whole}
+The spatially compact blowup construction of OpenAI supplies a singular solution directly on $\R^3$. We take that theorem and its associated Lean source formalization as established inputs \cite{openai,lean}. The question here is how widely singular forces are distributed among standard whole-space inputs, and what remains visible in energy and discrete observation norms. We prove new analytic consequences of the source packet, with every domain and force metric specified.
+
+Hofmanov\'a, Zhu and Zhu \cite[Theorem~1.4, Corollary~4.6 and Theorem~5.1]{hzz2024} provide a close antecedent: forces producing nonunique Leray--Hopf solutions are dense in $L^1(0,1;L^2(\R^3))$ from rest, and every $L^2_\sigma$ initial velocity admits a force producing nonuniqueness. This motivates our emphasis on force topology and on fixing the initial velocity while varying the force. Here the target property is classical breakdown under globally smooth forcing, and the construction removes a regular background locally before inserting the compact packet. The weak-solution nonuniqueness theorem does not supply that packet or the sharp Sobolev thresholds proved here; our conclusions do not assert nonuniqueness of Leray--Hopf continuations.
+
+The analytic prerequisites are elementary calculus, Lebesgue and Bochner integration, Fourier inversion and Plancherel, H\"older's inequality, and the contraction principle. The critical embeddings are proved in Appendix~\ref{sec:critical-appendix}; the multiplication estimates, local evolution and continuation arguments used here are proved in the text. The other references provide historical and conceptual context, rather than additional PDE existence inputs.
+
+Fix a viscosity $\nu>0$ and a deadline $T>0$. The equation is
+\begin{equation}\label{eq:NS}
+ \partial_tu+(u\cdot\nabla)u-\nu\Delta u+\nabla p=f,
+ \qquad \nabla\cdot u=0,\qquad u(0)=a,
+ \quad x\in\R^3.
+\end{equation}
+All spatial norms in this article are on $\R^3$, unless a cell is explicitly shown. Define
+\begin{equation}\label{eq:Enorm}
+ \norm{z}_{E_T}=\norm{z}_{L^\infty(0,T;L^2)}
+                   +\norm{\nabla z}_{L^2(0,T;L^2)}.
+\end{equation}
+On a fixed finite interval this is equivalent to the usual sum norm of $L^\infty_tL^2_x\cap L^2_tH^1_x$: the missing $L^2_tL^2_x$ term is at most $T^{1/2}\norm{z}_{L^\infty_tL^2_x}$. No endpoint value or classical continuation is implicit in this norm. We use a single localized copy of the source solution, never a periodic extension.
+
+\subsection{Initial states and forces in PDE and numerical analysis}
+There is no single data space that serves every Navier--Stokes question. Three distinctions matter here.
+
+\emph{Energy solutions.} The usual finite-energy initial-state space is
+\[
+ L^2_\sigma(\R^3)=\{a\in L^2(\R^3;\R^3):\nabla\cdot a=0\},
+ \qquad V=H^1(\R^3;\R^3)\cap L^2_\sigma.
+\]
+The corresponding velocity class on a finite interval is $L^\infty_tL^2_\sigma\cap L^2_tV$, with an energy inequality and an initial trace. A standard full-distribution force assumption is $f\in L^2(0,T;H^{-1}(\R^3;\R^3))$. Its restriction to divergence-free test fields lies in $L^2_tV'$. These are different descriptions of the force: the latter records only its action on solenoidal tests. Berselli and Spirito \cite[Definition 1 and Remark 4]{berselli} explain the energy class and the distinction between these dual-space formulations. The homogeneous alternative $L^2_t\dot H^{-1}_x$ pairs directly with $\nabla u\in L^2_{t,x}$; $L^1_tL^2_x$ instead pairs with $u\in L^\infty_tL^2_x$. For example,
+\[
+ \left|\int_0^T\!\ip{f}{u}\dd t\right|
+ \le \norm{f}_{L^2_t\dot H^{-1}_x}\norm{\nabla u}_{L^2_{t,x}}.
+\]
+With inhomogeneous $H^{-1}$ one uses $\norm{u}_{H^1}$ and Gr\"onwall's inequality on a finite interval; no whole-space Poincar\'e inequality is available.
+
+% Citation audit (11 September 2026): Tao's cited results are pressure-bearing
+% but unforced and mean-zero in the periodic setting. They are background for
+% the critical initial-velocity framework only; they are not the source of the
+% forced L^\infty blow-up packet below. That packet is cited to OpenAI Theorem
+% 1.1 at Theorem~\ref{thm:packet}.
+\emph{Classical and critical solutions.} To discuss a unique maximal classical lifespan, it is convenient to begin with smooth finite-energy data, for example $H^\infty_\sigma:=\bigcap_{m\ge0}H^m\cap L^2_\sigma$. Local theory may already be constructed in $H^m$ for an integer $m\ge3$. The critical homogeneous velocity space in three dimensions is $\dot H^{1/2}$; see the classical framework discussed in \cite{fujita,tao2018} as background only. This is an initial-velocity space, not a specification of the external force. Since the force scales with amplitude three rather than one, its critical indices depend on its time exponent. The two forced estimates needed here are proved below rather than inferred from the unforced theory.
+
+\emph{Computational spaces and stronger error hypotheses.} On a bounded no-slip computational domain, projection and finite-element analyses commonly use $H=L^2_\sigma$ with zero normal trace and $V=H^1_0\cap H$. Their finite-dimensional velocity and pressure spaces discretize that variational framework. Guermond, Minev and Shen \cite[Section 2]{gms} state these spaces explicitly, and their Theorem 3.2 separately assumes sufficient space-time smoothness for the quoted error order. Thus energy admissibility is not the regularity hypothesis of a high-order error estimate. Nor is the initial pressure an arbitrary additional dynamical datum: its consistent value is constrained by velocity, force and boundary conditions. These bounded-domain conventions do not impose a wall at infinity in the whole-space problem.
+
+The full-space Clay formulation is narrower in its spatial decay: the initial field is Schwartz and the force and all its mixed derivatives decay faster than every polynomial in $|x|+t$ \cite[equations (4)--(5)]{clay}. We will state a result for this precise class as well. We do not require the evolved velocity to remain Schwartz; that extra property is unnecessary and is not supplied by the local theory.
+
+\subsection{Admissible smooth classes and the whole-space theorem}
+Write $H^\infty=\bigcap_{m=0}^\infty H^m(\R^3;\R^3)$ with its usual Fr\'echet topology. Define
+\begin{align}
+ \mathcal X_{\R}&=H^\infty\cap L^2_\sigma,\nonumber\\
+ \mathcal F_{\R}&=\left\{f\in C^\infty([0,\infty);H^\infty):
+ \norm{f}_{L^1_tH^m_x}+\norm{f}_{L^2_tH^m_x}<\infty
+ \text{ for every integer }m\ge0\right\}.\label{eq:Rclasses}
+\end{align}
+Smoothness here means smoothness into each $H^m$, including one-sided derivatives at $t=0$. Forces need not be divergence free, spatially compact, or zero near the initial time. This integrable smooth class contains both the spacetime-compact forces and the rapidly decaying forces described below. The global time integrability simply makes every force metric used here finite; local well-posedness needs only local bounds.
+
+For $a\in\mathcal X_{\R}$ and $f\in\mathcal F_{\R}$, let $T^\nu_{\max,\R}(a,f)$ be the maximal lifespan in the class $u\in C([0,S];H^m)$ for every $m$ and every $S<T^\nu_{\max,\R}$. Pressure is specified by its gradient, as below. Put
+\[
+ \mathcal B^\R_{\nu,a,T}
+ =\{f\in\mathcal F_{\R}:T^\nu_{\max,\R}(a,f)\le T\}.
+\]
+
+\begin{theorem}[Two whole-space Sobolev thresholds]\label{thm:Rmain}
+Fix $\nu,T>0$, let $q\in\{1,2\}$, and set $s_q=2/q-3/2$. In the relative $L^q(0,\infty;H^s(\R^3))$ topology on $\mathcal F_{\R}$:
+\begin{enumerate}[label=(\roman*),nosep]
+\item For every fixed $a\in\mathcal X_{\R}$, $\mathcal B^\R_{\nu,a,T}$ is dense if $s<s_q$.
+\item For zero initial velocity, $\mathcal B^\R_{\nu,0,T}$ is dense if and only if $s<s_q$.
+\end{enumerate}
+Thus the thresholds are $1/2$ for $L^1_tH^s_x$ and $-1/2$ for $L^2_tH^s_x$. Around every reference regular through $T$, the approximating solution can have the same initial velocity, the same earlier history, singularity exactly at $T$, and a velocity difference tending to zero in $E_T$.
+\end{theorem}
+
+The theorem concerns smooth inputs in a specified norm topology. It does not assert that every force in the norm completion has a unique classical evolution. The proof of the second threshold uses a finite-horizon regular neighborhood; it will not be described as an all-time small-force theorem in the inhomogeneous negative-order norm.
+
+\section{Local evolution and the pressure gradient}
+Use a unitary Fourier transform with $\widehat{\partial_j z}(\xi)=i\xi_j\widehat z(\xi)$. Then
+\[
+ \norm{z}_{H^s}^2=\int(1+|\xi|^2)^s|\widehat z(\xi)|^2\dd\xi,
+ \qquad
+ \norm{z}_{\dot H^s}^2=\int|\xi|^{2s}|\widehat z(\xi)|^2\dd\xi
+\]
+whenever the latter is finite. For the completed spaces, $H^s$ means the tempered distributions whose Fourier transforms are measurable functions with the displayed inhomogeneous norm finite. In particular, we use the following fixed realization:
+\begin{equation}\label{eq:homogeneous-realization}
+ \dot H^{-1}(\R^3)
+ =\{h\in\mathcal S'(\R^3):\widehat h=F\text{ is a measurable function},
+                         |\xi|^{-1}F\in L^2\}.
+\end{equation}
+Functions representing a distribution are identified almost everywhere. The map $h\mapsto|\xi|^{-1}\widehat h$ is an isometric bijection onto $L^2$: for every $G\in L^2$, the function $F=|\xi|G$ defines a tempered distribution, since
+\[
+ \left|\int |\xi|G(\xi)\phi(\xi)\dd\xi\right|
+ \le\norm{G}_2\norm{|\xi|\phi}_2\qquad(\phi\in\mathcal S).
+\]
+Its inverse Fourier transform realizes the inverse map. This proves completeness and separability. The analogous isometry for $H^s$ is $h\mapsto\langle\xi\rangle^s\widehat h$, where $\langle\xi\rangle=(1+|\xi|^2)^{1/2}$; its inverse is tempered by the same weighted Cauchy--Schwarz argument. For real vector fields these statements hold componentwise in the closed subspace defined by $F(-\xi)=\overline{F(\xi)}$. Definition~\eqref{eq:homogeneous-realization} does not admit nonzero distributions supported at the Fourier origin, so no additional polynomial or quotient ambiguity is present. It also gives directly the energy pairing
+$|\ip{h}{z}|\le\norm{h}_{\dot H^{-1}}\norm{\nabla z}_2$, first on Schwartz functions and then by completion.
+
+The whole-space Leray multiplier is $I-\xi\otimes\xi/|\xi|^2$ for $\xi\ne0$; its value at the single point $0$ does not affect an $L^2$ operator. We require
+\begin{equation}\label{eq:Rpressure}
+ \nabla p=(I-\PP)\bigl(f-\nabla\cdot(u\otimes u)\bigr)=:G.
+\end{equation}
+The Fourier transform of $G$ is parallel to $\xi$, so $\partial_jG_k=\partial_kG_j$ distributionally, and pointwise once $G$ is smooth. There is a direct choice of scalar potential:
+\[
+ p(x,t)=\int_0^1G(rx,t)\cdot x\dd r.
+\]
+Indeed,
+$\partial_jp=\int_0^1[G_j(rx,t)+r x_k\partial_jG_k(rx,t)]\dd r
+=\int_0^1\partial_r[rG_j(rx,t)]\dd r=G_j(x,t)$,
+where the repeated index is summed. The local theory below gives $G$ smooth in space and time, making differentiation under this integral valid on compact sets. Any two such potentials differ by a function of time. We do not require $p\in L^2$ or prescribe a spatial average over $\R^3$. A nonzero constant pressure gradient is excluded because it is not in $L^2(\R^3)$.
+
+\begin{lemma}[Whole-space local theory and continuation]\label{lem:Rlocal}
+For the data in \eqref{eq:Rclasses}, the preceding maximal solution exists and is unique. If $S<\infty$ and
+$\int_0^S\norm{u(t)}_{H^2}^2\dd t<\infty$, it extends beyond $S$.
+\end{lemma}
+\begin{proof}
+We first prove the product estimate used throughout this construction. For every integer $m\ge2$,
+$\langle\xi\rangle^m\le C_m(\langle\eta\rangle^m+\langle\xi-\eta\rangle^m)$.
+Apply this inequality to the Fourier convolution for a product. The bound
+$\norm{a*b}_2\le\norm{a}_1\norm{b}_2$ follows by applying the integral triangle inequality to $\int a(\eta)b(\,\cdot-\eta)\dd\eta$. Since $\int\langle\xi\rangle^{-4}\dd\xi<\infty$, Cauchy--Schwarz gives
+$\norm{\widehat v}_1\le C\norm{v}_{H^2}$. Consequently
+\begin{equation}\label{eq:Rproduct}
+ \norm{vw}_{H^m}
+ \le C_m\bigl(\norm{v}_{H^2}\norm{w}_{H^m}
+              +\norm{w}_{H^2}\norm{v}_{H^m}\bigr),\qquad
+ \norm{v}_{\infty}\le C\norm{v}_{H^2}.
+\end{equation}
+The last bound is Fourier inversion and the same Cauchy--Schwarz estimate. The argument initially applies to Schwartz functions and extends by Fourier approximation in $H^m$. It applies componentwise to tensors, and factorizing $u\otimes u-v\otimes v$ gives the corresponding difference estimate. No integer Gagliardo--Nirenberg interpolation is needed.
+
+For $m\ge3$, consider the mild equation
+\begin{align}
+ u(t)={}&e^{\nu t\Delta}a
+ -\int_0^t e^{\nu(t-r)\Delta}\PP\nabla\cdot(u\otimes u)(r)\dd r\nonumber\\
+ &+\int_0^t e^{\nu(t-r)\Delta}\PP f(r)\dd r.\label{eq:mild}
+\end{align}
+The heat multiplier and $\sup_{\rho\ge0}\rho e^{-\nu r\rho^2}\le C(\nu r)^{-1/2}$ give
+\[
+ \norm{e^{\nu r\Delta}\PP\nabla\cdot A}_{H^m}
+ \le C(\nu r)^{-1/2}\norm{A}_{H^m}.
+\]
+The heat semigroup is strongly continuous in each $H^m$ by dominated
+convergence in its Fourier integral. The nonlinear time integral is
+continuous: remove a short interval next to its upper limit, whose norm is
+$O(h^{1/2})$, and use strong continuity on the remaining interval.
+Thus on $C([0,\tau];H^3)$ the quadratic term is bounded by
+$C\nu^{-1/2}\tau^{1/2}\norm{u}_{C_tH^3}^2$, and its difference by the same factor times
+$(\norm{u}_{C_tH^3}+\norm{v}_{C_tH^3})\norm{u-v}_{C_tH^3}$.
+Choose $R=2(\norm{a}_{H^3}+1)$, then choose $\tau>0$ so that $\int_0^\tau\norm{f}_{H^3}\dd t\le1$ and the ball of radius $R$ is preserved with contraction factor at most $1/2$. The contraction theorem supplies $u\in C([0,\tau];H^3)$. Divergence is preserved by the projected formula.
+
+Here are the regularization and common-interval details. Let $Q_N$ be the orthogonal Fourier projection with symbol $\mathbf1_{\{|\xi|\le N\}}$, $N\ge1$. It is self-adjoint, contractive in every $H^m$, commutes with derivatives, the heat semigroup and $\PP$, and converges strongly to the identity in each $H^m$. Solve
+\[
+ \partial_tu_N-\nu\Delta u_N
+   +Q_N\PP\nabla\cdot(u_N\otimes u_N)=Q_N\PP f,
+ \qquad u_N(0)=Q_Na.
+\]
+The mild contraction just given applies with the same $R,\tau$ for every $N$. Its output satisfies $Q_Nu_N=u_N$. On this frequency range all spatial derivatives are bounded operators on $H^3$, so the equation gives $u_N\in C^1_tH^m$ for every $m$; repeated differentiation gives time smoothness as well. Pairing the equation with $u_N$ in $H^m$ removes $Q_N$ by self-adjointness and $Q_Nu_N=u_N$, and removes $\PP$ by solenoidality. Integration by parts and \eqref{eq:Rproduct} give
+\begin{equation}\label{eq:Rhigh}
+ \frac12\frac{\dd}{\dd t}\norm{u_N}_{H^m}^2
+ +\nu\norm{\nabla u_N}_{H^m}^2
+ \le C_m\norm{u_N}_{H^2}\norm{u_N}_{H^m}
+                 \norm{\nabla u_N}_{H^m}
+       +\norm{f}_{H^m}\norm{u_N}_{H^m}.
+\end{equation}
+These calculations use Plancherel or Sobolev approximation, with no compact-support hypothesis on the velocity. Young's inequality, division by $(\norm{u_N}_{H^m}^2+\zeta^2)^{1/2}$ and then $\zeta\downarrow0$ yield
+\[
+ \norm{u_N(t)}_{H^m}
+ \le \left(\norm{a}_{H^m}+\int_0^\tau\norm{f(r)}_{H^m}\dd r\right)
+       \exp(C_{m,\nu}R^2\tau)=:M_m.
+\]
+This is uniform in $N$ on the same $H^3$ interval for every $m\ge3$. Integration of \eqref{eq:Rhigh} also gives a uniform $L^2_tH^{m+1}$ bound.
+
+Convergence uses the mild equation, rather than a compact embedding on $\R^3$. Subtract the equations for $u_N$ and $u$. The terms involving $u_N\otimes u_N-u\otimes u$ contribute at most $\frac12\norm{u_N-u}_{C_tH^3}$. The remaining error tends to zero: its initial part is bounded by $\norm{(Q_N-I)a}_{H^3}$, its force part by $\int_0^\tau\norm{(Q_N-I)f}_{H^3}\dd t$, and its nonlinear part by
+\[
+ C\nu^{-1/2}\tau^{1/2}
+ \sup_{0\le t\le\tau}\norm{(Q_N-I)(u\otimes u)(t)}_{H^3}.
+\]
+The last supremum tends to zero because $u\otimes u$ is continuous into $H^3$: its image of $[0,\tau]$ is compact, and uniformly bounded operators converging strongly converge uniformly on that image, as a finite-net argument shows. Dominated convergence handles the force term. Absorbing the difference term proves $u_N\to u$ in $C_tH^3$.
+
+For $3<m<M$, weighted Cauchy--Schwarz, or H\"older applied directly to the Fourier integral, gives
+\[
+ \norm{z}_{H^m}\le
+ \norm{z}_{H^3}^{(M-m)/(M-3)}\norm{z}_{H^M}^{(m-3)/(M-3)}.
+\]
+Apply this to $z=u_N-u_L$ and use $2M_M$ as the uniform high-order bound. It proves the Cauchy property in $C_tH^m$ for every finite $m$, hence convergence to the same $u$ in each such space. The high-order energy bounds therefore pass to $u$, with the integrated dissipation also following by lower semicontinuity. The right sides of the truncated equations converge in $C_tH^m$, using convergence in $C_tH^{m+3}$ and uniform projection convergence on continuous images. Passing to their time integrals proves the evolution equation in $H^m$ and gives $u\in C^1_tH^m$. Iterating this observation and differentiating the bilinear product proves $u\in C^j_tH^m$ for all $j,m$, on the common interval. Fourier inversion and the bound $\norm{z}_\infty\le C\norm{z}_{H^2}$ applied to all space and time derivatives give joint classical smoothness. The pressure construction above now recovers a smooth solution of \eqref{eq:NS}.
+
+For two smooth solutions with the same data, put $z=u_1-u_2$. The ordinary difference-energy identity and solenoidality give
+$\tfrac12(\norm{z}_2^2)'+\nu\norm{\nabla z}_2^2
+\le\norm{\nabla u_2}_\infty\norm{z}_2^2$.
+Its coefficient is bounded on compact common intervals by \eqref{eq:Rproduct} applied to derivatives and $u_2\in H^3$. Gr\"onwall proves uniqueness, and patching the unique local solutions defines the maximal lifespan.
+
+The same high-order estimate for the limit gives
+\[
+ (\norm{u}_{H^m})'
+ \le C_{m,\nu}\norm{u}_{H^2}^2\norm{u}_{H^m}+\norm{f}_{H^m},
+\]
+understood through regularized norm division at zeros. If the integral in the lemma is finite, Gr\"onwall bounds every $H^m$ norm uniformly up to $S$. In particular the $H^3$ contraction can be restarted at times $t_0\uparrow S$ with a fixed positive duration: its initial $H^3$ radius stays bounded, and $f$ has a bounded $H^3$ norm on $[0,S+1]$. One of these intervals passes beyond $S$, and uniqueness identifies its solution with the original one on the overlap. The common-interval argument already proved preserves all higher orders on this extension. This proves the stated continuation criterion without a Poincar\'e estimate or a zero-mean hypothesis.
+\end{proof}
+
+\section{The compact source and whole-space insertion}
+\begin{theorem}[Compact forced blowup packet, OpenAI]\label{thm:packet}
+At the fixed viscosity $\nu>0$, there exist smooth fields $U,P$ on
+$\R^3\times[0,1)$, a force
+$F\in C_c^\infty(\R^3\times(0,\infty);\R^3)$, and a compact set $K$ such that
+\begin{align}
+ &\partial_tU+(U\cdot\nabla)U-\nu\Delta U+\nabla P=F,\qquad
+ \nabla\cdot U=0,\qquad U(0)=0,\label{eq:packet}\\
+ &\supp U(t)\cup\supp P(t)\subset K\quad(0\le t<1),\nonumber\\
+ &\sup_{0\le t<1}\norm{U(t)}_2<\infty,\qquad
+ \limsup_{t\uparrow1}\norm{U(t)}_\infty=\infty.\label{eq:packetblowup}
+\end{align}
+\end{theorem}
+% Citation audit (11 September 2026): the displayed pressure-bearing forced
+% packet, including the L^\infty blow-up conclusion, is cited to OpenAI
+% Theorem 1.1. Tao Theorem 38 gives H^s blow-up for a different, unforced
+% mean-zero periodic problem and is not used for this conclusion.
+This is \cite[Theorem 1.1]{openai}. Its associated formalization \cite{lean} supplies the zero-data witness and compact-support properties. We use precisely the displayed packet properties to derive the estimates and distribution results below.
+
+\begin{lemma}[Energy, dissipation and initial vanishing]\label{lem:packetenergy}
+The packet satisfies
+\[
+ M:=\sup_{0\le t<1}\norm{U(t)}_2<\infty,\qquad
+ D:=\norm{\nabla U}_{L^2((0,1)\times\R^3)}<\infty.
+\]
+Both $U$ and $P$ vanish on an initial time interval and therefore extend smoothly by zero to negative times.
+\end{lemma}
+\begin{proof}
+On each closed interval $[0,b]$ with $b<1$, compact spatial support justifies the energy identity
+\[
+ \tfrac12(\norm{U(t)}_2^2)'
+ +\nu\norm{\nabla U(t)}_2^2=\ip{F(t)}{U(t)}.
+\]
+Set $N(t)=\int_0^t\norm{F(s)}_2\dd s$. Dropping dissipation gives
+$\tfrac12(\norm{U}_2^2)'\le\norm{F}_2\norm{U}_2$.
+For $\zeta>0$, the derivative of $(\norm{U}_2^2+\zeta^2)^{1/2}$ is at most $\norm{F}_2$. Integrating from zero and letting $\zeta\downarrow0$ proves $\norm{U(t)}_2\le N(t)$.
+
+Substituting this bound into the integrated energy identity gives
+\begin{equation}\label{eq:packetenergy}
+ \norm{U(t)}_2^2+2\nu\int_0^t\norm{\nabla U(s)}_2^2\dd s
+ \le 2\int_0^t\norm{F(s)}_2N(s)\dd s=N(t)^2.
+\end{equation}
+Since $F$ is smooth and time compact, the right side is bounded independently of $t<1$. Monotone convergence of the dissipation integral proves $D<\infty$.
+
+The temporal support of $F$ is a compact subset of $(0,\infty)$, so $F=0$ on $[0,\tau]$ for some $\tau>0$. Estimate~\eqref{eq:packetenergy} gives $U=0$ there. Equation~\eqref{eq:packet} then implies $\nabla P=0$, and compact spatial support fixes this spatial constant to zero. Vanishing on an interval proves smoothness of both zero extensions.
+\end{proof}
+
+
+Fix an open ball $B\subset\R^3$. Choose a compact set $K_*$ containing $K$ and the spatial projection of $\operatorname{supp}F$. Choose $x_0\in B$ and $\eps>0$ small enough that the complete scaled support lies strictly inside $B$ and $2\eps^2<T$. Extend $F$ by zero to nonpositive times as well; its compact support in positive time makes this extension smooth. Put $t_\eps=T-\eps^2$ and define, using the initial zero extensions of $U,P$ from Lemma~\ref{lem:packetenergy},
+\begin{align}
+ U_\eps(x,t)&=\eps^{-1}U\left(\frac{x-x_0}{\eps},\frac{t-t_\eps}{\eps^2}\right),\nonumber\\
+ P_\eps(x,t)&=\eps^{-2}P\left(\frac{x-x_0}{\eps},\frac{t-t_\eps}{\eps^2}\right),\label{eq:scaling}\\
+ F_\eps(x,t)&=\eps^{-3}F\left(\frac{x-x_0}{\eps},\frac{t-t_\eps}{\eps^2}\right).\nonumber
+\end{align}
+The first two fields are used for $t<T$, whereas the force is defined for every positive time. Every term of the momentum equation acquires the common factor $\eps^{-3}$, so viscosity remains $\nu$. The velocity norm and dissipation scale as
+\begin{equation}\label{eq:packetEscale}
+ \norm{U_\eps}_{L^\infty_tL^2_x}=\eps^{1/2}M,\qquad
+ \norm{\nabla U_\eps}_{L^2_{t,x}}=\eps^{1/2}D,
+ \qquad 0<t<T.
+\end{equation}
+Indeed, the squared velocity has amplitude $\eps^{-2}$ and volume $\eps^3$, while the squared gradient has amplitude $\eps^{-4}$, volume $\eps^3$ and time factor $\eps^2$. Also $\norm{U_\eps(t)}_\infty=\eps^{-1}\norm{U((t-t_\eps)/\eps^2)}_\infty$, so its maximum norm is unbounded at $T$.
+
+The corresponding mixed force identity is
+\[
+ \norm{F_\eps}_{L^q(0,\infty;L^p)}
+ =\eps^{\alpha(p,q)}\norm{F}_{L^q(0,\infty;L^p)},
+ \qquad \alpha(p,q)=-3+\frac3p+\frac2q,
+ \qquad 1\le p,q\le\infty.
+\]
+The spatial factor is $\eps^{-3+3/p}$ and the time factor is $\eps^{2/q}$, with zero reciprocal exponent at infinity.
+
+Fix a regular reference $(v,\pi,g)$ through $T+\delta$. The next two lemmas provide the background removal, including the estimates that make its force correction admissible.
+
+\begin{lemma}[A local divergence-free cutoff]\label{lem:potential}
+Let $v$ be smooth and divergence free in a spatial ball centered at $x_0$. In that ball, with $y=x-x_0$, define
+\begin{equation}\label{eq:potential}
+ A(x,t)=\int_0^1 r\,v(x_0+ry,t)\times y\dd r.
+\end{equation}
+Then $\nabla\times A=v$. Choose $\theta\in C_c^\infty(\R^3)$ equal to one on a neighborhood of $K_*$, and choose
+$\eta\in C_c^\infty((-2,2))$ equal to one on $[-1,1]$. Put
+\begin{equation}\label{eq:cutoff}
+ \theta_\eps(x)=\theta((x-x_0)/\eps),\quad
+ \eta_\eps(t)=\eta((t-T)/\eps^2),\quad
+ w_\eps=-\nabla\times(\eta_\eps\theta_\eps A).
+\end{equation}
+For sufficiently small $\eps$, $w_\eps$ is a smooth, divergence-free field supported inside the chosen ball and in
+$(T-2\eps^2,T+2\eps^2)$. During the active presingular interval of $U_\eps$,
+\begin{equation}\label{eq:bgzero}
+ v+w_\eps=0
+ \quad\hbox{on an open neighborhood of }\supp U_\eps(t).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Use the vector identity
+\[
+ \nabla\times(V\times y)
+ =V\,\nabla\cdot y-y\,\nabla\cdot V
+   +(y\cdot\nabla)V-(V\cdot\nabla)y.
+\]
+For $V(y)=v(x_0+ry,t)$, incompressibility gives $\nabla_y\cdot V=0$,
+$\nabla_y\cdot y=3$, and $(V\cdot\nabla_y)y=V$.
+Consequently,
+\begin{align*}
+ \nabla_y\times\bigl(r\,v(x_0+ry,t)\times y\bigr)
+ &=2r\,v(x_0+ry,t)+r^2(y\cdot\nabla_x)v(x_0+ry,t)\\
+ &=\frac{\dd}{\dd r}\bigl(r^2v(x_0+ry,t)\bigr).
+\end{align*}
+Integrating from $r=0$ to $r=1$ proves $\nabla\times A=v$.
+
+Take $\eps$ small enough that the scaled support of $\theta$ is strictly inside the chosen ball and $2\eps^2<\min(T,\delta)$. Since the spatial cutoff is zero near the boundary of the chosen ball, extending \eqref{eq:cutoff} by zero gives a globally smooth compactly supported field. Its divergence vanishes because it is a curl. The temporal support follows directly from $\eta_\eps$.
+
+The packet is zero before $t_\eps=T-\eps^2$. For
+$t_\eps\le t<T$, the variable $(t-T)/\eps^2$ belongs to $[-1,0)$, on which $\eta=1$. On a neighborhood of the packet support, $\theta_\eps=1$ and its derivatives vanish. There $w_\eps=-\nabla\times A=-v$, proving \eqref{eq:bgzero}.
+\end{proof}
+
+\begin{lemma}[Bounds for the background correction]\label{lem:correction}
+For $w_\eps$ in Lemma~\ref{lem:potential}, define
+\begin{align}
+ H_\eps={}&\partial_tw_\eps-\nu\Delta w_\eps
+ +(v\cdot\nabla)w_\eps+(w_\eps\cdot\nabla)v
+ +(w_\eps\cdot\nabla)w_\eps.\label{eq:H}
+\end{align}
+The force $H_\eps$ is smooth across $T$ and extends by zero to all times outside its cutoff support. Its spatial support has volume $O(\eps^3)$, and its temporal support has length $O(\eps^2)$. For every spatial multi-index $\beta$ and integer $j\ge0$,
+\begin{equation}\label{eq:derivativebounds}
+ |\partial_t^j\partial_x^\beta w_\eps|
+ \le C_{\beta,j}\eps^{-2j-|\beta|},\qquad
+ |\partial_x^\beta H_\eps|
+ \le C_\beta\eps^{-2-|\beta|}.
+\end{equation}
+In particular,
+\begin{align}
+ \norm{w_\eps}_{E_T}&\le C\eps^{3/2},\label{eq:wE}\\
+ \norm{H_\eps}_{L^q(0,\infty;L^p)}
+   &\le C_{p,q}\eps^{-2+3/p+2/q}
+     =C_{p,q}\eps^{\alpha(p,q)+1},\label{eq:Hmixed}\\
+ \norm{H_\eps}_{L^1(0,\infty;H^s)}
+   &\le C_s\bigl(\eps^{3/2}+\eps^{3/2-s}\bigr)
+       \quad(0\le s\le1).\label{eq:HHs}
+\end{align}
+All constants are independent of sufficiently small $\eps$.
+\end{lemma}
+\begin{proof}
+Introduce $z=(x-x_0)/\eps$ and $\sigma=(t-T)/\eps^2$. Then
+\[
+ A(x_0+\eps z,T+\eps^2\sigma)=\eps\,\mathcal A_\eps(z,\sigma),
+\]
+where
+\[
+ \mathcal A_\eps(z,\sigma)
+ =\int_0^1r\,v(x_0+\eps rz,T+\eps^2\sigma)\times z\dd r.
+\]
+On the fixed support of $\theta(z)\eta(\sigma)$, every fixed-order derivative of $\mathcal A_\eps$ is bounded uniformly in $\eps$. Differentiation of $v$ in $z$ or $\sigma$ introduces nonnegative powers of $\eps$, and the reference is smooth on a fixed neighborhood of the relevant spacetime set. Thus
+\[
+ w_\eps(x_0+\eps z,T+\eps^2\sigma)
+ =W_\eps(z,\sigma)
+ :=-\nabla_z\times\bigl(\eta(\sigma)\theta(z)\mathcal A_\eps(z,\sigma)\bigr)
+\]
+is a uniformly smooth family supported in a fixed cylinder. This proves the first bound in \eqref{eq:derivativebounds}.
+
+To check the force bound, set
+$V_\eps(z,\sigma)=v(x_0+\eps z,T+\eps^2\sigma)$.
+Formula~\eqref{eq:H} becomes
+\begin{align*}
+ H_\eps(x_0+\eps z,T+\eps^2\sigma)
+ =\eps^{-2}\bigl[&
+ \partial_\sigma W_\eps-\nu\Delta_zW_\eps
+ +\eps(V_\eps\cdot\nabla_z)W_\eps\\
+ &+\eps^2(W_\eps\cdot\nabla_x)v(x_0+\eps z,T+\eps^2\sigma)
+ +\eps(W_\eps\cdot\nabla_z)W_\eps\bigr].
+\end{align*}
+The expression in brackets and all its fixed spatial derivatives are uniformly bounded on the fixed cylinder. This proves the second bound in \eqref{eq:derivativebounds}. It also makes explicit that $H_\eps$ involves only the smooth reference and fixed cutoffs, not derivatives of a singular field.
+
+From the support volume and duration,
+\[
+ \norm{w_\eps}_{L^\infty_tL^2_x}\le C\eps^{3/2},\qquad
+ \norm{\nabla w_\eps}_{L^2_tL^2_x}
+ \le C\eps^{-1}\eps^{3/2}\eps=C\eps^{3/2}.
+\]
+This proves \eqref{eq:wE}. The amplitude bound $C\eps^{-2}$ gives
+\eqref{eq:Hmixed} by the same support calculation, including the essential-supremum endpoints.
+
+For \eqref{eq:HHs}, the rescaled force profiles have uniformly bounded spatial $H^s$ norms, supported on a fixed spatial set during a fixed interval of $\sigma$. An amplitude $\eps^{-2}$ gives the spatial homogeneous factor $\eps^{-1/2-s}$; time integration adds $\eps^2$. Thus the homogeneous contribution is $O(\eps^{3/2-s})$, while the $L^2$ contribution is $O(\eps^{3/2})$. Smooth zero extension in time is valid because $\eta$, with all its derivatives, vanishes near the fixed interval endpoints $\sigma=-2$ and $\sigma=2$, where the reference remains smooth.
+\end{proof}
+
+\Needspace{14\baselineskip}
+\begin{theorem}[Whole-space local insertion]\label{thm:Rinsert}
+Let $(v,\pi,g)$ be the solution for $a\in\mathcal X_{\R}$ and $g\in\mathcal F_{\R}$, regular through $T+\delta$ for some $\delta>0$. Fix any nonempty open ball $B\subset\R^3$. For all sufficiently small $\eps>0$, there are $g_\eps\in\mathcal F_{\R}$ and a solution $u_\eps$ such that
+\[
+ T^\nu_{\max,\R}(a,g_\eps)=T,\quad
+ \limsup_{t\uparrow T}\norm{u_\eps(t)}_\infty=\infty,\quad
+ u_\eps=v\ \ (0\le t\le T-2\eps^2).
+\]
+The velocity difference is supported inside $B$ at every $t<T$, and $g_\eps-g\in C_c^\infty(B\times(0,\infty))$. Moreover,
+\begin{equation}\label{eq:REclose}
+ \norm{u_\eps-v}_{E_T}\le(M+D)\eps^{1/2}+C\eps^{3/2}.
+\end{equation}
+For $q\in\{1,2\}$ the force difference tends to zero in $L^q_tH^s_x$ whenever $s<2/q-3/2$. All of these conclusions hold for the same family of inserted solutions.
+\end{theorem}
+\begin{proof}
+Place the fields in \eqref{eq:scaling} inside $B$, and choose the compact cutoffs of Lemma~\ref{lem:potential}. Define $A,w_\eps,H_\eps$ by \eqref{eq:potential}, \eqref{eq:cutoff} and \eqref{eq:H}. These formulas only use $v$ on a fixed compact neighborhood of $B$ and of time $T$, so the preceding lemmas apply. In particular $v+w_\eps=0$ on a neighborhood of the active packet support. Put
+\[
+ u_\eps=v+w_\eps+U_\eps,\qquad
+ p_\eps=\pi+P_\eps,\qquad
+ g_\eps=g+H_\eps+F_\eps.
+\]
+Writing $b_\eps=v+w_\eps$, expansion of the equation leaves only the cross-advection terms $(b_\eps\cdot\nabla)U_\eps+(U_\eps\cdot\nabla)b_\eps$. They vanish on a neighborhood of the packet support because $b_\eps=0$ there. Outside that support, the packet and its derivatives vanish; smoothness gives the same conclusion at the support boundary. When the packet is inactive it is identically zero. Thus the two terms vanish pointwise everywhere, and the equation is exact. The pressure difference may be chosen to be the compact scalar $P_\eps$: the equation gives an $L^2$ pressure gradient, and applying $I-\PP$ recovers \eqref{eq:Rpressure}. Both force corrections are globally smooth and spacetime compact, including across $T$, so their sum preserves membership in $\mathcal F_{\R}$.
+
+The initial value and earlier history are unchanged. At each $t<T$ the compact packet and cutoff correction lie in $H^\infty$, whereas the packet's maximum norm is unbounded at $T$. Lemma~\ref{lem:Rlocal} identifies the solution with the unique maximal solution. An extension through $T$ would be bounded in $C_tH^2$ on a neighborhood of $T$, hence bounded in $L^\infty_x$ by \eqref{eq:Rproduct}, contradicting the packet blowup. Thus its maximal lifespan is exactly $T$. Equation~\eqref{eq:packetEscale} and the correction estimate in Lemma~\ref{lem:correction} give \eqref{eq:REclose} by the triangle inequality.
+
+It remains to justify every asserted force topology, including negative orders. Let
+\[
+ \beta(q,s)=\frac2q-\frac32-s.
+\]
+For $0\le s\le1$, Euclidean scaling and
+$\norm{z}_{H^s}\le C_s(\norm{z}_2+\norm{z}_{\dot H^s})$ give
+\begin{align}
+ \norm{F_\eps}_{L^q_tH^s_x}
+ &\le C_{q,s}\bigl(\eps^{2/q-3/2}+\eps^{\beta(q,s)}\bigr),\nonumber\\
+ \norm{H_\eps}_{L^q_tH^s_x}
+ &\le C_{q,s}\bigl(\eps^{2/q-1/2}+\eps^{\beta(q,s)+1}\bigr).
+ \label{eq:RpositiveScale}
+\end{align}
+The second line uses the uniformly smooth compact rescaled profile of Lemma~\ref{lem:correction}, whose amplitude is $\eps^{-2}$.
+
+For $-3/2<s<0$, every smooth compact profile has finite $\dot H^s$ norm. Indeed, on $|\xi|<1$ its Fourier transform is bounded by its $L^1$ norm and $\int_{|\xi|<1}|\xi|^{2s}\dd\xi<\infty$; on $|\xi|\ge1$ its $L^2$ norm suffices. These bounds are uniform for the rescaled correction profiles, which have common compact support and uniform derivatives. Since
+$(1+|\xi|^2)^s\le|\xi|^{2s}$, scaling gives
+\begin{equation}\label{eq:RnegativeScale}
+ \norm{F_\eps}_{L^q_tH^s_x}\le C_{q,s}\eps^{\beta(q,s)},\qquad
+ \norm{H_\eps}_{L^q_tH^s_x}\le C_{q,s}\eps^{\beta(q,s)+1}.
+\end{equation}
+The time norms run over the entire positive axis. Each rescaled force has time support of length $O(\eps^2)$, including any part after $T$.
+
+For $q=1$, \eqref{eq:RpositiveScale} proves convergence for $0\le s<1/2$; all $s<0$ follow from $\norm{z}_{H^s}\le\norm{z}_2$. For $q=2$, \eqref{eq:RnegativeScale} proves convergence for $-3/2<s<-1/2$. If $s\le-3/2$, choose $r\in(-3/2,-1/2)$ with $r>s$ and use $\norm{z}_{H^s}\le\norm{z}_{H^r}$. This last step avoids making any false homogeneous scaling assertion at indices where a generic compact profile can have an infinite homogeneous norm.
+\end{proof}
+
+\section{The \texorpdfstring{$L^1$}{L1} critical obstruction and low-frequency energy}
+\begin{proposition}[Global regularity for small critical data and $L^1$ force]\label{prop:Rcritical1}
+There is a universal $c>0$ such that, for $a\in\mathcal X_{\R}$ and $f\in\mathcal F_{\R}$,
+\[
+ \norm{a}_{\dot H^{1/2}}+\norm{f}_{L^1_t\dot H^{1/2}_x}<c\nu
+ \quad\Longrightarrow\quad T^\nu_{\max,\R}(a,f)=\infty.
+\]
+In particular, for $a=0$, the ball $\norm{f}_{L^1_tH^{1/2}_x}<c\nu$ consists of globally regular inputs.
+\end{proposition}
+\begin{proof}
+Set $\Lambda=(-\Delta)^{1/2}$, $y=\norm{\Lambda^{1/2}u}_2$, $z=\norm{\Lambda^{3/2}u}_2$, and $b=\norm{f}_{\dot H^{1/2}}$. Lemma~\ref{lem:critical-embeddings} in Appendix~\ref{sec:critical-appendix} gives
+\[
+ \norm{u}_3\le Cy,\qquad
+ \norm{\nabla u}_3+\norm{\Lambda u}_3\le Cz.
+\]
+Testing the projected equation against $\Lambda u$ consequently yields
+\begin{equation}\label{eq:Rcritical1}
+ \tfrac12(y^2)'+(\nu-C_0y)z^2\le by.
+\end{equation}
+On an interval with $y\le\nu/(2C_0)$, regularization by $(y^2+\zeta^2)^{1/2}$ and then $\zeta\downarrow0$ gives
+\[
+ y(t)\le y(0)+\int_0^tb(s)\dd s.
+\]
+Choosing $c<1/(4C_0)$ closes the bootstrap by continuity. This argument includes times at which $y=0$.
+
+To prove continuation, testing against $-\Delta u$ gives
+\[
+ |\ip{(u\cdot\nabla)u}{\Delta u}|
+ \le\norm{u}_3\norm{\nabla u}_6\norm{\Delta u}_2
+ \le C_1y\norm{\Delta u}_2^2.
+\]
+The derivative estimate $\norm{\nabla u}_6\le C\norm{\Delta u}_2$ follows from the $\dot H^1\to L^6$ case of Lemma~\ref{lem:critical-embeddings}, since Plancherel gives $\norm{D^2u}_2=\norm{\Delta u}_2$. Decrease $c$ so that $C_1y\le\nu/4$. Young's inequality then gives
+\begin{equation}\label{eq:RH1}
+ (\norm{\nabla u}_2^2)'+\nu\norm{\Delta u}_2^2
+ \le C\nu^{-1}\norm{f}_2^2.
+\end{equation}
+This controls the gradient and the integral of the squared Laplacian. It does not control low frequencies by itself. The separate ordinary energy identity, with regularized norm division, supplies
+\begin{equation}\label{eq:RL2}
+ \norm{u(t)}_2\le\norm{a}_2+\int_0^t\norm{f(s)}_2\dd s=:K(t).
+\end{equation}
+For every finite $S$ within or at the maximal lifespan, $K(S)<\infty$, and the Fourier inequality
+\[
+ \norm{u}_{H^2}^2\le C\bigl(\norm{u}_2^2+\norm{\Delta u}_2^2\bigr)
+\]
+therefore gives
+\[
+ \int_0^S\norm{u(t)}_{H^2}^2\dd t
+ \le C S K(S)^2
+  +C\nu^{-1}\norm{\nabla a}_2^2
+  +C\nu^{-2}\int_0^S\norm{f(t)}_2^2\dd t<\infty.
+\]
+Lemma~\ref{lem:Rlocal} excludes every finite maximal lifespan. The low frequencies have been controlled directly by the ordinary energy estimate. Finally $\norm{f}_{\dot H^{1/2}}\le\norm{f}_{H^{1/2}}$ proves the stated inhomogeneous consequence.
+\end{proof}
+
+\section{The \texorpdfstring{$L^2$}{L2} critical obstruction on a fixed horizon}
+\begin{proposition}[A regular neighborhood for the second force metric]\label{prop:Rcritical2}
+For each $\nu,S>0$ there is $r_{\nu,S}>0$ such that
+\[
+ f\in\mathcal F_{\R},\qquad
+ \norm{f}_{L^2(0,\infty;H^{-1/2})}<r_{\nu,S}
+ \quad\Longrightarrow\quad T^\nu_{\max,\R}(0,f)>S.
+\]
+One can take $r_{\nu,S}=c\nu^{3/2}e^{-C\nu S}$ for suitable universal positive constants $c,C$.
+\end{proposition}
+\begin{proof}
+Use the inhomogeneous multiplier $J=(I-\Delta)^{1/2}$ and set
+\[
+ Y=\norm{u}_{H^{1/2}},\qquad
+ Z=\norm{\nabla u}_{H^{1/2}},\qquad
+ B=\norm{f}_{H^{-1/2}}.
+\]
+Fourier weights give $\norm{u}_{H^{3/2}}^2=Y^2+Z^2$. Testing the equation against $Ju$ yields an energy identity with dissipation $\nu Z^2$. By Lemma~\ref{lem:critical-embeddings} and Fourier Cauchy--Schwarz,
+\begin{align*}
+ |\ip{(u\cdot\nabla)u}{Ju}|
+ &\le\norm{u}_3\norm{\nabla u}_3\norm{Ju}_3
+ \le C Y Z(Y^2+Z^2)^{1/2}
+ \le C_0Y(Y^2+Z^2),\\
+ |\ip{f}{Ju}|&\le B(Y^2+Z^2)^{1/2}\le B(Y+Z).
+\end{align*}
+Thus, while $Y\le\theta\nu$ for a sufficiently small universal $\theta>0$, Young's inequality gives constants $C_2,C_3$ with
+\begin{equation}\label{eq:Rcritical2}
+ (Y^2)'+\nu Z^2\le C_2\nu Y^2+C_3\nu^{-1}B^2.
+\end{equation}
+For instance absorb the $C_0YZ^2$ and $BZ$ terms into dissipation, use $C_0Y^3\le C_0\theta\nu Y^2$, and bound $BY$ by a multiple of $\nu Y^2+\nu^{-1}B^2$. Since $Y(0)=0$, Gr\"onwall gives, for $t\le S$ on that bootstrap interval,
+\[
+ Y(t)^2\le C_3\nu^{-1}e^{C_2\nu S}
+            \norm{f}_{L^2_tH^{-1/2}_x}^2.
+\]
+Choose $r_{\nu,S}$ so that the right side is less than $\theta^2\nu^2/4$. The first possible time with $Y=\theta\nu$ would contradict this bound, so the bootstrap holds up to the lesser of $S$ and the maximal lifespan.
+
+Take $\theta$ smaller if necessary. Then $\norm{u}_3\le CY\le C\theta\nu$ allows precisely the $H^1$ absorption in \eqref{eq:RH1}. Because $f\in\mathcal F_{\R}$, its $L^1_tL^2_x$ and $L^2_tL^2_x$ norms are finite, even though they are not required to be small. The separate $L^2$ estimate \eqref{eq:RL2} and the last continuation calculation in Proposition~\ref{prop:Rcritical1} exclude a maximal lifespan at or before $S$.
+
+The inhomogeneous calculation is essential: smallness in $H^{-1/2}$ does not imply smallness in $\dot H^{-1/2}$ at low frequencies. The factor depending on $S$ is retained, and no all-time assertion in this metric is used.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:Rmain}]
+Fix $a,g$ and a positive radius in the indicated force norm. There are two cases. If $T^\nu_{\max,\R}(a,g)\le T$, take $f=g$. Otherwise choose $\delta>0$ so that the reference exists through $T+\delta$, and apply Theorem~\ref{thm:Rinsert}. For $s<s_q$, its force difference is smaller than the prescribed radius when $\eps$ is sufficiently small, its initial velocity is exactly $a$, and its lifespan is exactly $T$. This proves density on every fixed smooth initial-velocity slice.
+
+For zero initial velocity and $q=1$, Proposition~\ref{prop:Rcritical1} provides an open ball about zero disjoint from $\mathcal B^\R_{\nu,0,T}$ in $L^1_tH^{1/2}_x$. The inclusion $H^s\hookrightarrow H^{1/2}$ with norm at most one for $s\ge1/2$ gives the same obstruction in each stronger metric. For $q=2$, use Proposition~\ref{prop:Rcritical2} with $S=T$ and then $H^s\hookrightarrow H^{-1/2}$ for $s\ge-1/2$. These nonempty relative open balls prove non-density. The energy and earlier-history assertions are part of the insertion theorem.
+\end{proof}
+
+\section{Rapid decay and completed energy-force spaces}
+Define the following two subclasses of $\mathcal F_{\R}$:
+\begin{align*}
+ \mathcal F_c&=C_c^\infty(\R^3\times(0,\infty);\R^3),\\
+ \mathcal F_{\mathrm{rd}}
+ &=\left\{f\in C^\infty(\R^3\times[0,\infty)):
+ \sup_{x\in\R^3,\ t\ge0}(1+|x|+t)^N
+       |\partial_x^\alpha\partial_t^jf(x,t)|<\infty
+ \text{ for all }N,\alpha,j\right\}.
+\end{align*}
+Vector values are understood in the second line. The initial class corresponding to the rapid-decay formulation is $\mathcal S_\sigma=\mathcal S(\R^3;\R^3)\cap L^2_\sigma$. These are exactly the decay requirements relevant to \cite[equations (4)--(5)]{clay}; a common numerical bound on their seminorms is not imposed.
+
+\begin{corollary}[The same thresholds in the source-compatible classes]\label{cor:Rclasses}
+Theorem~\ref{thm:Rmain} remains valid with $\mathcal F_{\R}$ replaced by $\mathcal F_c$ or $\mathcal F_{\mathrm{rd}}$. In particular it holds for every fixed $a\in\mathcal S_\sigma$ in the rapid-decay class, with the complete if-and-only-if classification at $a=0$.
+\end{corollary}
+\begin{proof}
+The initial value is preserved exactly, and the force correction in Theorem~\ref{thm:Rinsert} is spacetime compact. Addition of that correction preserves each stated force class, including all rapid-decay bounds. The two-case density proof therefore stays within the chosen subclass. Each critical regular ball contains zero and remains a nonempty relative open ball in that subclass. The local framework only requires $a\in\mathcal X_{\R}$, so it applies in particular to Schwartz initial data. Nothing here requires the nonzero reference velocity or its pressure to be spatially compact.
+\end{proof}
+
+\begin{proposition}[Density in completed force spaces and strong trajectory closure]\label{prop:Renergy}
+Fix $a\in\mathcal X_{\R}$ and $\nu,T>0$. Smooth compact forces with $T^\nu_{\max,\R}(a,f)\le T$ are dense in each full Bochner space $L^q(0,\infty;H^s(\R^3))$ for $q\in\{1,2\}$ and $s<s_q$. They are also dense in $L^2(0,\infty;\dot H^{-1}(\R^3))$.
+
+For every reference in Theorem~\ref{thm:Rinsert}, one may simultaneously arrange
+\[
+ \norm{u_\eps-v}_{E_T}\longrightarrow0,\qquad
+ \norm{g_\eps-g}_{L^1_tL^2_x}
+ +\norm{g_\eps-g}_{L^2_tH^{-1}_x}
+ +\norm{g_\eps-g}_{L^2_t\dot H^{-1}_x}\longrightarrow0.
+\]
+The homogeneous norm here is a norm of the compact difference; the background itself need not belong to that homogeneous force space.
+\end{proposition}
+\begin{proof}
+We first give the approximation details for the complete spaces just defined. Fix any real $s$, and let $h\in H^s$. Approximate $G=\langle\xi\rangle^s\widehat h\in L^2$ by $G_n\in C_c^\infty$ in $L^2$, using truncation and convolution with a smooth approximate identity. Set
+\[
+ \widehat h_n(\xi)=\langle\xi\rangle^{-s}G_n(\xi).
+\]
+The right side is smooth and compactly supported, so repeated integration by parts in Fourier inversion shows that $h_n$ is Schwartz. By the isometry defining $H^s$, $h_n\to h$ in $H^s$. Now choose $\chi\in C_c^\infty$ equal to one on the unit ball and zero outside the ball of radius two, with $0\le\chi\le1$, and let $\chi_R(x)=\chi(x/R)$. For fixed $n$ and any nonnegative integer $m$, Leibniz' rule shows
+\[
+ \norm{(1-\chi_R)h_n}_{H^m}\longrightarrow0.
+\]
+Indeed, the term with no derivative on the cutoff is a tail of each square-integrable derivative of $h_n$. Each remaining term has a factor bounded by $C R^{-j}$, $j\ge1$, is supported where $|x|\ge R$, and multiplies a Schwartz derivative. Every such $L^2$ norm tends to zero. Choosing $m\ge\max(s,0)$ and using $\norm{z}_{H^s}\le\norm{z}_{H^m}$ proves spatial compact-smooth density in $H^s$ for every real $s$.
+
+For $h\in\dot H^{-1}$, instead approximate $G=|\xi|^{-1}\widehat h$ in $L^2$ by smooth compactly supported $G_n$ supported away from $0$. One first restricts to $1/n<|\xi|<n$, with $L^2$ error tending to zero, and then smooths each restricted function with a sufficiently small mollification radius and a slightly larger annular cutoff. Set $\widehat h_n=|\xi|G_n$. Again $h_n$ is Schwartz and $h_n\to h$ in $\dot H^{-1}$. To make $h_n$ spatially compact, a low/high-frequency split suffices: for every $k\in L^1\cap L^2$,
+\begin{align}
+ \norm{k}_{\dot H^{-1}}^2
+ &=\int_{|\xi|<1}|\xi|^{-2}|\widehat k(\xi)|^2\dd\xi
+    +\int_{|\xi|\ge1}|\xi|^{-2}|\widehat k(\xi)|^2\dd\xi\nonumber\\
+ &\le C\norm{k}_1^2\int_{|\xi|<1}|\xi|^{-2}\dd\xi+\norm{k}_2^2
+ \le C'\norm{k}_1^2+\norm{k}_2^2.\label{eq:Rnegative-cutoff}
+\end{align}
+The integral at the origin is finite in dimension three. Since $(1-\chi_R)h_n\to0$ in both $L^1$ and $L^2$, \eqref{eq:Rnegative-cutoff} proves $\chi_Rh_n\to h_n$ in $\dot H^{-1}$. A diagonal choice gives compact-smooth density in this realization, without a dual Sobolev-embedding assumption. These constructions also prove the real vector-valued versions: take real parts of each component of the approximants. Complex conjugation is an isometry for every Fourier norm here because its weight is real and even, so taking real parts is a contraction and preserves convergence to real data, smoothness and compact support.
+
+We next make the time and spatial compactness simultaneous. Write $X$ for any of the preceding separable Hilbert spaces and $1\le q<\infty$. Given $b\in L^q((0,\infty);X)$, first restrict it to $[1/N,N]$. The omitted $L^q$ norm tends to zero by integrability. On this finite interval, strongly measurable functions can be approximated in $L^q$ by finite simple functions
+$\sum_{j=1}^J\mathbf1_{E_j}b_j$: truncate the norm of $b$, approximate its values by a countable dense set in $X$, and retain a finite number of the resulting value sets with arbitrarily small remaining measure. Approximate each $b_j$ by a physical $h_j\in C_c^\infty(\R^3)$ in $X$. The error is at most
+\[
+ \sum_{j=1}^J |E_j|^{1/q}\norm{b_j-h_j}_X.
+\]
+Each measurable $E_j\subset[1/N,N]$ can be approximated in measure by a finite union of intervals lying in a fixed compact subset of $(0,\infty)$, by regularity of Lebesgue measure. Smoothing their indicators by convolution gives $\varphi_j\in C_c^\infty((0,\infty))$ with arbitrarily small $\norm{\mathbf1_{E_j}-\varphi_j}_{L^q}$; the $L^q$ convergence of this smoothing follows first for an interval by estimating its shrinking boundary strips and then for a finite union. The resulting error is at most
+\[
+ \sum_{j=1}^J\norm{\mathbf1_{E_j}-\varphi_j}_{L^q}\norm{h_j}_X.
+\]
+Thus the finite sum $\sum_j\varphi_j(t)h_j(x)$ approximates $b$ and is jointly smooth with compact support strictly inside $\R^3\times(0,\infty)$. This proves the claimed Bochner density with both kinds of compactness, rather than merely compactness of a Sobolev-valued time path.
+
+For the inhomogeneous singular-force density, first choose such a smooth compact force within half the prescribed radius of the target. Corollary~\ref{cor:Rclasses} supplies a singular smooth compact force within the other half. This is density of a smooth subset in the completion, not a definition of classical breakdown for every rough force.
+
+For the homogeneous insertion estimate, apply the Fourier scaling calculation of \eqref{eq:RnegativeScale} at $s=-1$. Explicitly, an amplitude $\eps^{-a}$ has spatial $\dot H^{-1}$ factor $\eps^{5/2-a}$, because
+$\widehat{\eps^{-a}h(\,\cdot/\eps)}(\xi)=\eps^{3-a}\widehat h(\eps\xi)$.
+The time $L^2$ factor is $\eps$. The source force has $a=3$, while the correction has $a=2$ and uniformly bounded compact rescaled profiles; their $\dot H^{-1}$ norms are uniformly finite by \eqref{eq:Rnegative-cutoff}. Hence
+\[
+ \norm{F_\eps}_{L^2_t\dot H^{-1}_x}\le C\eps^{1/2},\qquad
+ \norm{H_\eps}_{L^2_t\dot H^{-1}_x}\le C\eps^{3/2}.
+\]
+Given a compact smooth reference force, if its lifespan is at most $T$ it already belongs to the required singular set. Otherwise insert the packet and use these estimates. Combining this relative approximation with the proved compact-smooth Bochner density establishes density in $L^2_t\dot H^{-1}_x$. Finally these estimates, \eqref{eq:REclose}, and the $q=1,s=0$ and $q=2,s=-1$ cases of the insertion estimates prove the simultaneous convergence for the same family.
+\end{proof}
+
+The energy-force conclusion is consistent with global weak existence. The constructed solutions lose classical regularity while their energy and dissipation stay finite; it is not claimed that a Leray--Hopf continuation ceases to exist. Likewise the projection of the extended singular input set onto $\mathcal X_{\R}$ is all of $\mathcal X_{\R}$, by the positive density result, but this quantifier is $\forall a\,\exists f$. It supplies no classification at one fixed prescribed force. Finally, no periodic solution is being interpreted as a finite-energy whole-space field: all perturbations in this section are single localized copies of the original $\R^3$ packet.
+
+
+\section{Whole-space cell observations}\label{sec:grids}
+To relate the continuous norms to a concrete numerical observation, let $\mathcal T_h$ be a complete uniform Cartesian grid of $\R^3$ with positive mesh widths. For a locally integrable vector field, define the cell-observation map with sequence codomain
+\[
+ A_h:L^1_{\mathrm{loc}}(\R^3;\R^3)\longrightarrow(\R^3)^{\mathcal T_h},
+ \qquad (A_hz)_C=\frac1{|C|}\int_Cz(x)\dd x.
+\]
+Only coordinatewise equality in this codomain is needed. If a sequence norm is desired for $z\in L^2$, the natural volume-weighted norm obeys
+$\sum_{C\in\mathcal T_h}|C|\,|(A_hz)_C|^2\le\norm{z}_2^2$
+by Cauchy--Schwarz in each cell and summation. Each grid has infinitely many cells. The next result concerns a finite number of such grids and equality on every cell of each grid, at every presingular time.
+
+\begin{theorem}[Identical whole-space cell observations]\label{thm:Rgrid}
+Under the regular-reference hypotheses of Theorem~\ref{thm:Rinsert}, fix a finite family of complete uniform Cartesian grids. The inserted solutions may be chosen so that, for every grid in that family,
+\[
+ A_hu_\eps(t)=A_hv(t),\qquad A_hg_\eps(t)=A_hg(t)
+ \qquad(0\le t<T),
+\]
+while $T^\nu_{\max,\R}(a,g_\eps)=T$ and the energy and force convergences in Proposition~\ref{prop:Renergy} hold. All differences are supported inside a ball contained in one cell of every grid, except for an optional spatially constant pressure gauge.
+\end{theorem}
+\begin{proof}
+The union of faces in one grid is a closed, locally finite union of planes. For the fixed finite family their union is closed and has measure zero. Choose a point outside that union and a ball with closure inside one cell of each grid. Apply Theorem~\ref{thm:Rinsert} inside that ball, using the compact pressure representative. Put $\delta u=u_\eps-v$, $\delta p=p_\eps-\pi=P_\eps$, and $\delta g=g_\eps-g$.
+
+Fix one containing cell $C$. For every $t<T$, $\delta u$ is smooth, divergence free and compactly supported in its interior. For component $j$,
+\[
+ \delta u_j=\nabla\cdot(x_j\delta u),\qquad
+ \int_C\delta u_j\dd x=\int_{\partial C}x_j\delta u\cdot n\dd S=0.
+\]
+Subtract the two momentum equations and integrate to obtain
+\begin{equation}\label{eq:gridforce}
+ \int_C\delta g\dd x
+ =\frac{\dd}{\dd t}\int_C\delta u\dd x
+ +\int_{\partial C}\bigl(u_\eps\otimes u_\eps-v\otimes v
+                         +\delta p\,I-\nu\nabla\delta u\bigr)n\dd S.
+\end{equation}
+The time derivative is zero by the preceding identity. All differences vanish in a neighborhood of the cell boundary, so the surface term is zero. A spatially constant pressure gauge adds a multiple of $\int_{\partial C}n\dd S=0$. The averages therefore agree in $C$; in every other cell they agree by support. The same construction fits the containing cell of each grid, and the convergence estimates are unaffected by this fixed upper bound on $\eps$.
+\end{proof}
+
+The theorem specifies an observation map; it is not a statement about every possible numerical input rule. A deterministic procedure supplied only the same initial and force cell-average histories on these grids receives identical problem data in the two cases. Additional point samples, pressure observations, subcell force values or derivative-sensitive data are not asserted to coincide. Nor does the result contradict convergence for a fixed smooth problem as spatial and temporal resolution increase. The perturbation may depend on the prescribed grid family, and its force peaks and derivative norms grow as its support shrinks.
+
+\section{Discussion}
+The two thresholds have distinct analytic obstructions. Small $L^1_tH^{1/2}_x$ force from rest gives global regularity. Small $L^2_tH^{-1/2}_x$ force gives a regular neighborhood on each prescribed finite horizon, with a radius that depends on that horizon. The positive insertion argument gives density below either threshold while keeping the initial velocity exactly fixed. It also preserves the source-compatible compact or rapid-decay force class.
+
+Consequently, the full-space extension concerns finite-energy $\R^3$ solutions directly. It does not rely on interpreting a nonzero periodic function as an $L^2(\R^3)$ function. The absence of a spectral gap is addressed both in the negative-order scaling proof and in the critical regularity estimates. The force convergence can be strong in the usual energy-force norms while the maximum velocity becomes unbounded at the prescribed time.
+
+These conclusions separate distribution from stability: density in a force norm does not establish a positive probability of singularity, an open singular basin, or a fixed-force instability theorem. The statements also separate classical regularity from energy-solution existence. They do not choose a unique continuation after the singular time. No CFD experiment is claimed.
+
+\section*{Declaration of generative AI use}
+GPT Astra (OpenAI) was used to assist with literature and Lean-source inspection, development and checking of mathematical arguments, adversarial review, drafting, and LaTeX preparation. The use of generative AI does not constitute formal verification. Responsibility for the final content remains with the authors.
+
+\appendix
+
+\section{A direct proof of the critical embeddings}\label{sec:critical-appendix}
+This appendix proves the two critical embeddings used in the nonlinear
+estimates.  Only elementary integration, Fourier inversion and Plancherel,
+H\"older's inequality, and approximation in $L^2$ are used.  In particular,
+no Hardy--Littlewood--Sobolev or Sobolev embedding theorem is assumed.
+Throughout this appendix $\Lambda=(-\Delta)^{1/2}$, with Fourier symbol
+$|\xi|$ on $\R^3$ and $2\pi|k|$ on $\TT=\R^3/\mathbb Z^3$.
+
+\begin{lemma}[Critical embeddings on the two domains]\label{lem:critical-embeddings}
+For $a\in\{1/2,1\}$ and $p_a=6/(3-2a)$, there are finite constants,
+depending only on $a$ and on the fixed unit torus when relevant, such that
+\begin{equation}\label{eq:critical-embedding-pair}
+ \norm{v}_{L^{p_a}(\R^3)}\le C_a\norm{\Lambda^a v}_{L^2(\R^3)},
+ \qquad
+ \norm{v}_{L^{p_a}(\TT)}\le C_a'\norm{\Lambda^a v}_{L^2(\TT)}.
+\end{equation}
+The first inequality holds initially for Schwartz functions and extends
+to the homogeneous completion specified below.  The second holds for
+mean-zero periodic distributions with finite displayed right-hand side;
+the mean-zero condition is essential.  Componentwise application gives
+the same statements for vector and tensor fields, with constants allowed
+to depend on their fixed number of components.
+
+Consequently, on either domain and whenever the indicated homogeneous
+norms are finite (with mean-zero representatives on the torus),
+\begin{align}
+ \norm{v}_3&\le C\norm{v}_{\dot H^{1/2}},\nonumber\\
+ \norm{\nabla v}_3+\norm{\Lambda v}_3
+   &\le C\norm{v}_{\dot H^{3/2}},\label{eq:critical-derived}\\
+ \norm{\nabla v}_6&\le C\norm{\Delta v}_2.\nonumber
+\end{align}
+Here the derivative statements on $\R^3$ refer to distributions whose
+derivatives have the homogeneous realizations described in the proof;
+in particular they apply to all the smooth $H^\infty$ fields used in
+the article.
+\end{lemma}
+
+\begin{proof}
+\emph{1. A maximal-function estimate, including its proof.}
+For a locally integrable $g$ on $\R^3$ let
+\[
+ Mg(x)=\sup_{r>0}\frac{1}{|B(x,r)|}
+                    \int_{B(x,r)}|g(y)|\dd y.
+\]
+For $g\in L^1$ and $\lambda>0$, the set $E_\lambda=\{Mg>\lambda\}$
+is open: for each fixed radius the ball integral is continuous in its
+center, by translation continuity in $L^1$ on bounded sets.  Every compact
+$K\subset E_\lambda$ is covered by finitely many balls whose averages
+exceed $\lambda$.  Select the largest remaining ball and discard all balls
+meeting it, then repeat.  The selected balls $B_j$ are disjoint, and each
+discarded ball lies in the concentric triple of the ball that discarded it.
+Therefore
+\[
+ |K|\le\sum_j|3B_j|=27\sum_j|B_j|
+       \le\frac{27}{\lambda}\norm{g}_1.
+\]
+Exhaustion by compact subsets proves
+$|E_\lambda|\le27\lambda^{-1}\norm{g}_1$.
+
+For $g\in L^2$, split $g=g\mathbf1_{\{|g|\le\lambda/2\}}
++g\mathbf1_{\{|g|>\lambda/2\}}$.  The first part has maximal function at
+most $\lambda/2$, and the second is in $L^1$.  The preceding estimate gives
+\[
+ |\{Mg>\lambda\}|\le\frac{54}{\lambda}
+             \int_{\{|g|>\lambda/2\}}|g(x)|\dd x.
+\]
+The layer-cake identity and Tonelli's theorem now yield
+\begin{equation}\label{eq:critical-maximal-ltwo}
+ \norm{Mg}_2^2
+ =2\int_0^\infty\lambda|\{Mg>\lambda\}|\dd\lambda
+ \le108\int_{\R^3}|g(x)|
+             \int_0^{2|g(x)|}\dd\lambda\dd x
+ =216\norm{g}_2^2.
+\end{equation}
+This also proves that $Mg$ is finite almost everywhere; no prior
+integrability of $Mg$ was needed.
+
+\emph{2. The potential kernel from the Fourier multiplier.}
+For $0<a<3$, define $I_a$ by the multiplier $|\xi|^{-a}$ on Schwartz
+functions.  The Gamma integral gives, for $\xi\ne0$,
+\[
+ |\xi|^{-a}=\frac{1}{\Gamma(a/2)}
+       \int_0^\infty t^{a/2-1}e^{-t|\xi|^2}\dd t,
+ \qquad
+ \Gamma(b)=\int_0^\infty s^{b-1}e^{-s}\dd s.
+\]
+Direct Gaussian Fourier integration shows that the heat multiplier
+$e^{-t|\xi|^2}$ acts by convolution with
+$h_t(x)=(4\pi t)^{-3/2}e^{-|x|^2/(4t)}$ in the unitary Fourier convention
+of this article.  Substituting $s=|x|^2/(4t)$ gives
+\begin{align*}
+ K_a(x)&=\frac{1}{\Gamma(a/2)}
+           \int_0^\infty t^{a/2-1}h_t(x)\dd t\\
+ &=\frac{\Gamma((3-a)/2)}{2^a\pi^{3/2}\Gamma(a/2)}|x|^{a-3}
+   =:c_a|x|^{a-3},\qquad x\ne0.
+\end{align*}
+Thus $I_ag=K_a*g$.  To justify the identity without a formal interchange,
+for Schwartz $g$ the small-$t$ integrand is bounded by
+$t^{a/2-1}\norm{g}_\infty$, and the large-$t$ integrand is bounded by
+$C t^{(a-3)/2-1}\norm{g}_1$.  Both are integrable in their respective
+ranges.  The same bounds after pairing with a Schwartz test function
+justify the heat representation in distributions.  On the Fourier side,
+$|\xi|^{-a}$ is locally integrable for $a<3$ and the other factors decay
+rapidly, so Fubini gives exactly the displayed multiplier.  On the spatial
+side the locally integrable kernel and the decay of $g$ justify the
+convolution and its heat-integral representation.
+
+\emph{3. The potential estimate.}
+Take $0<a<3/2$, $g\in L^2$ and $R>0$.  Splitting the potential at radius
+$R$, and dividing the inner ball into the annuli with outer radii
+$2^{-j}R$, gives
+\begin{align*}
+ \int_{|y|<R}|y|^{a-3}|g(x-y)|\dd y
+ &\le C_a\sum_{j=0}^\infty(2^{-j}R)^a Mg(x)
+ \le C_a R^a Mg(x),\\
+ \int_{|y|\ge R}|y|^{a-3}|g(x-y)|\dd y
+ &\le\norm{g}_2
+       \left(4\pi\int_R^\infty r^{2a-4}\dd r\right)^{1/2}
+ \le C_a\norm{g}_2 R^{a-3/2}.
+\end{align*}
+The first inequality uses the average over each outer ball and the maximum
+of the kernel on that annulus.  The second integral converges precisely
+because $a<3/2$.  At points where $0<Mg(x)<\infty$ choose
+$R=(\norm{g}_2/Mg(x))^{2/3}$.  The zero function is harmless; if $Mg(x)=0$
+at some point, the integrals over every ball centered there show that
+$g=0$ almost everywhere.  We have proved almost everywhere
+\[
+ |I_ag(x)|\le C_a\norm{g}_2^{2a/3}Mg(x)^{1-2a/3}.
+\]
+This also proves absolute convergence of the kernel integral almost
+everywhere for $g\in L^2$.  With $p_a=6/(3-2a)$, the identity
+$p_a(1-2a/3)=2$ and \eqref{eq:critical-maximal-ltwo} imply
+\begin{equation}\label{eq:critical-potential}
+ \norm{I_ag}_{p_a}
+ \le C_a\norm{g}_2^{2a/3}\norm{Mg}_2^{1-2a/3}
+ \le C_a\norm{g}_2.
+\end{equation}
+
+\emph{4. The Euclidean function class and passage to the limit.}
+First let $v$ have Fourier transform in
+$C_c^\infty(\R^3\setminus\{0\})$.  Then $g=\Lambda^a v$ is Schwartz,
+the multiplier identity in step 2 gives $v=I_ag$, and
+\eqref{eq:critical-potential} proves the Euclidean inequality.
+For clarity, the homogeneous space here is the completion of this class
+in $\norm{\Lambda^a v}_2$, for $0<a<3/2$.  It has a unique realization as
+distributions, and the estimate gives a unique $L^{p_a}$ representative.
+Indeed, if $G\in L^2$ is the limit of $|\xi|^a\widehat v_n$, its
+distributional representative has Fourier transform $|\xi|^{-a}G$:
+for every Schwartz test function $\phi$,
+\[
+ \int_{\R^3}|\xi|^{-a}|G(\xi)\widehat\phi(\xi)|\dd\xi
+ \le\norm{G}_2
+      \left(\int_{\R^3}|\xi|^{-2a}|\widehat\phi(\xi)|^2\dd\xi\right)^{1/2}
+ <\infty.
+\]
+The last integral is finite at zero because $2a<3$, and finite at infinity
+by rapid decay.  This estimate also proves distributional convergence.
+Meanwhile the embedding makes $v_n$ Cauchy in $L^{p_a}$, and convergence
+in that space implies distributional convergence by H\"older's inequality;
+the two limits coincide.  Every $G\in L^2$ is approximable by smooth
+functions supported in compact annuli: first truncate in frequency, then
+mollify within a slightly larger annulus.  Hence this realization covers
+every such $G$, without an ambiguity by additive polynomials.  In
+particular any Schwartz $v$, and any $H^\infty$ field with the stated
+homogeneous norm, is covered by approximating
+$G=|\xi|^a\widehat v$ in this way.
+
+\emph{5. Transfer to the unit torus.}
+Choose $\eta\in C_c^\infty(\R^3)$ equal to one on the cube
+$[-1/2,1/2]^3$.  For a trigonometric polynomial $v$, extend it periodically
+and set $V=\eta v$.  Write $\langle\xi\rangle=(1+|\xi|^2)^{1/2}$.
+Fourier transformation gives
+\[
+ \widehat V(\xi)=\sum_{k\in\mathbb Z^3}\widehat v(k)
+                                  \widehat\eta(\xi-2\pi k).
+\]
+Integration by parts in the compactly supported smooth function $\eta$
+gives arbitrarily fast decay of $\widehat\eta$.  Together with
+$\langle\xi\rangle^a\le C_a\langle2\pi k\rangle^a
+\langle\xi-2\pi k\rangle^a$, this yields
+\[
+ \langle\xi\rangle^a|\widehat V(\xi)|
+ \le C_{a,\eta}\sum_k A_k Q(\xi-2\pi k),
+ \quad
+ A_k=\langle2\pi k\rangle^a|\widehat v(k)|,
+ \quad Q(z)=(1+|z|^2)^{-2}.
+\]
+Here $Q\in L^1(\R^3)$, and
+$\sup_\xi\sum_k Q(\xi-2\pi k)<\infty$: reduce $\xi$ to a fixed
+lattice cell and group the lattice points into shells, whose contributions
+are bounded by $C\sum_{n\ge0}(n+1)^2(1+n^2)^{-2}<\infty$.
+Weighted Cauchy--Schwarz, followed by integration, therefore proves
+\begin{align*}
+ \norm{V}_{H^a(\R^3)}^2
+ &\le C_{a,\eta}\int_{\R^3}
+       \left(\sum_k A_k^2Q(\xi-2\pi k)\right)
+       \left(\sum_k Q(\xi-2\pi k)\right)\dd\xi\\
+ &\le C_{a,\eta}\sum_k A_k^2
+  =C_{a,\eta}\norm{v}_{H^a(\TT)}^2.
+\end{align*}
+Apply the Euclidean estimate to $V$ and restrict to the unit cell.  If
+$\widehat v(0)=0$, the elementary spectral-gap estimate
+\[
+ (1+4\pi^2|k|^2)^a
+ \le(1+(2\pi)^{-2})^a(2\pi|k|)^{2a},\qquad k\ne0,
+\]
+then gives
+\[
+ \norm{v}_{L^{p_a}(\TT)}
+ \le\norm{V}_{L^{p_a}(\R^3)}
+ \le C_a\norm{V}_{\dot H^a(\R^3)}
+ \le C_a'\norm{v}_{\dot H^a(\TT)}.
+\]
+Fourier truncations converge in $\dot H^a$ for every mean-zero periodic
+distribution with finite norm, hence also in $L^{p_a}$ by this estimate.
+Their distributional limits identify the two representatives.  This proves
+the periodic statement, including its extension beyond polynomials.
+
+Finally apply the $a=1/2$ estimate to each $\partial_jv$ and to $\Lambda v$,
+and the $a=1$ estimate to each $\partial_jv$.  Plancherel and
+$\sum_j|\xi_j|^2=|\xi|^2$ (or its Fourier-series version) give
+\eqref{eq:critical-derived}.  For smooth fields the resulting nonlinear
+bound is, explicitly,
+\[
+ |\ip{(v\cdot\nabla)v}{\Lambda v}|
+ \le\norm{v}_3\norm{\nabla v}_3\norm{\Lambda v}_3
+ \le C\norm{v}_{\dot H^{1/2}}\norm{v}_{\dot H^{3/2}}^2.
+\]
+Every constant above is independent of the field and of its frequency
+support.
+\end{proof}
+
+\begin{thebibliography}{9}\small\raggedright
+\bibitem{openai}
+OpenAI. \emph{Finite Time Blowup for Navier--Stokes}. Manuscript, 166 pp., accessed 9 September 2026.
+\href{https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf}{Official manuscript}.
+\bibitem{lean}
+OpenAI. \emph{NavierStokesAndEuler}. Lean source repository, revision
+\texttt{8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538}, accessed 9 September 2026.
+\href{https://github.com/openai/NavierStokesAndEuler/tree/8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538}{Source revision}.
+Compact witness: \href{https://github.com/openai/NavierStokesAndEuler/blob/8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538/NavierStokes/R3ActualCandidate.lean#L18-L21}{\texttt{selected\_compact\_candidate}};
+its support and zero-data conditions: \href{https://github.com/openai/NavierStokesAndEuler/blob/8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538/NavierStokes/R3CompactCandidate.lean#L24-L37}{\texttt{R3CompactCandidate.Properties}}.
+\bibitem{hzz2024}
+M. Hofmanov\'a, R. Zhu and X. Zhu.
+\emph{Non-uniqueness of Leray--Hopf solutions for stochastic forced Navier--Stokes equations}.
+arXiv:2309.03668v2, 10 September 2024.
+\href{https://arxiv.org/abs/2309.03668}{arXiv:2309.03668}.
+\bibitem{fujita}
+H. Fujita and T. Kato. On the Navier--Stokes initial value problem. I.
+\emph{Archive for Rational Mechanics and Analysis} \textbf{16} (1964), 269--315.
+\href{https://doi.org/10.1007/BF00276188}{doi:10.1007/BF00276188}.
+\bibitem{tao2018}
+T. Tao. \emph{254A, Notes 1: Local well-posedness of the Navier--Stokes equations}.
+Author's course notes, 16 September 2018.
+\href{https://terrytao.wordpress.com/2018/09/16/254a-notes-1-local-well-posedness-of-the-navier-stokes-equations/}{Original text}.
+\bibitem{berselli}
+L. C. Berselli and S. Spirito. On the existence of Leray--Hopf weak solutions to the Navier--Stokes equations.
+\emph{Fluids} \textbf{6}(1) (2021), article 42.
+\href{https://doi.org/10.3390/fluids6010042}{doi:10.3390/fluids6010042}.
+\bibitem{gms}
+J. L. Guermond, P. Minev and J. Shen. An overview of projection methods for incompressible flows.
+\emph{Computer Methods in Applied Mechanics and Engineering} \textbf{195} (2006), 6011--6045.
+\href{https://doi.org/10.1016/j.cma.2005.10.010}{doi:10.1016/j.cma.2005.10.010}.
+\bibitem{clay}
+C. L. Fefferman. \emph{Existence and smoothness of the Navier--Stokes equation}.
+Clay Mathematics Institute, official problem description.
+\href{https://www.claymath.org/wp-content/uploads/2022/06/navierstokes.pdf}{Original text}.
+\end{thebibliography}
+\end{document}

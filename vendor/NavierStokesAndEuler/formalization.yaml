@@ -1,0 +1,128 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+
+# formalization.yaml (v0.4): repo-root metadata for formalization projects.
+version: "v0.4"
+
+project:
+  name: "NavierStokesAndEuler"
+  description: >-
+    This project formalizes finite-time blowup in Lean 4 for the three-dimensional
+    incompressible Navier–Stokes equations with smooth forcing, for every positive
+    viscosity, on Euclidean space and the periodic torus. It also formalizes
+    unforced Euler blowup.
+  authors:
+    - "OpenAI"
+  license: "Apache-2.0"
+
+sources:
+  - title: "Finite time blowup for Navier–Stokes"
+    authors:
+      - "OpenAI"
+    type: "article"
+    location: "Main theorem and periodic finite-time blowup corollary"
+    relationship: "formalizes"
+  - title: "Finite time blowup for the Euler equation"
+    authors:
+      - "OpenAI"
+    type: "article"
+    location: "Main theorem"
+    relationship: "formalizes"
+
+related_formalizations:
+  - id: "https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Millenium/NavierStokes.lean"
+    relationship: "builds-on"
+    note: >-
+      The Formal Conjectures Navier–Stokes formalization supplies the independent
+      Comparator reference statements and definitions for alternatives (C) and (D).
+
+classification:
+  arxiv:
+    - "math.AP"
+  msc2020:
+    - "35Q30"
+    - "35Q31"
+
+status:
+  scope: "Full formalization of main results."
+  sorry_count: 0
+  sorry_in_definitions: 0
+  main_results:
+    - description: >-
+        (C) Non-existence of global smooth solutions with uniformly bounded kinetic
+        energy on Euclidean space.
+      declaration: "NavierStokes.Comparator.navier_stokes_breakdown_R3"
+      file: "NavierStokes/ComparatorSolution.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Classical.choice"
+        - "Quot.sound"
+      comparator_config: "ComparatorChallenges/NavierStokes.json"
+    - description: "(D) Non-existence of global smooth periodic solutions"
+      declaration: "NavierStokes.Comparator.navier_stokes_breakdown_periodic"
+      file: "NavierStokes/ComparatorSolution.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Classical.choice"
+        - "Quot.sound"
+      comparator_config: "ComparatorChallenges/NavierStokes.json"
+    - description: >-
+        Non-existence of global smooth unforced Euler solutions with uniformly
+        bounded kinetic energy on Euclidean space.
+      declaration: "Euler.euler_breakdown_R3"
+      file: "Euler/Solution.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Classical.choice"
+        - "Quot.sound"
+      comparator_config: "ComparatorChallenges/Euler.json"
+    - description: >-
+        Compact smooth initial data for unforced Euler with a positive finite
+        maximal lifespan in the all-order Sobolev solution class, an infinite
+        C1 norm limsup, and an infinite time integral of the vorticity norm.
+      declaration: "Euler.exists_compact_smooth_euler_singularity"
+      file: "Euler/Solution.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Classical.choice"
+        - "Quot.sound"
+      comparator_config: "ComparatorChallenges/Euler.json"
+
+automation:
+  methods:
+    - method: "agent"
+      models:
+        - "GPT-6 Astra"
+      framework: "Codex"
+
+review:
+  status: "self-assessed"
+
+alignment:
+  namespaces:
+    - "NavierStokes.Comparator"
+    - "Euler"
+  statements:
+    - source: "Theorem 1.1 (Navier–Stokes on ℝ³)"
+      lean: "NavierStokes.Comparator.navier_stokes_breakdown_R3"
+      module: "NavierStokes.ComparatorSolution"
+      status: "proved"
+    - source: "Corollary 10.6 (Navier–Stokes on ℝ³/ℤ³)"
+      lean: "NavierStokes.Comparator.navier_stokes_breakdown_periodic"
+      module: "NavierStokes.ComparatorSolution"
+      status: "proved"
+    - source: "Theorem 1.1 (Euler)"
+      lean: "Euler.euler_breakdown_R3"
+      module: "Euler.Solution"
+      status: "proved"
+    - source: "Theorem 1.1 (Euler), alternate version"
+      lean: "Euler.exists_compact_smooth_euler_singularity"
+      module: "Euler.Solution"
+      status: "proved"
+
+acknowledgements: >-
+  Thank you very much to the authors of Lean 4 and mathlib, as well as Formal
+  Conjectures, Lake, Comparator, lean4export, nanoda, and related tools.
