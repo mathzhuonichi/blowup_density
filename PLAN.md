@@ -174,7 +174,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 068-B02-unit-6 | 进行中 | — | — | B02 单元 6：`lebesgueHomogeneousDatum`（k ∈ L¹∩L² 在 −3/2 < s ≤ 0 的齐次 datum 存在 + 范数子句）与 `homogeneousDatumSub`，用 059 的角 Plancherel，`Section4/B02/LebesgueDatum.lean` |
 | 069-A02-maximal-partial-v2 | ACCEPT，已合入 | **`A02.maximal_partial_v2`（第 14 条）** | #70 | `A02.maximal_partial` **V2**：`extends` V1 + `maximal_unique`（无条件）+ `exists_maximal`（以 A01 存在性为显式假设），绑定 064 的 `Maximal.lean` |
 | 070-MAINT-hotfix-temporal | 已合入 | — | #68 | 热修 063 的 docstring（lead 手改吞掉 `-/`）；全量门禁 58 模块绿 |
-| 071-B01-partial-contract | 进行中 | — | — | 注册 `B01.bochner_partial`：`BochnerApproxAPI` 中已证的字段（χ 五条 + 单元 1–3、6、7、8），排除单元 9 的两条保真字段与 `SeparatedCompactDense` 打包 |
+| 071-B01-partial-contract | ACCEPT-WITH-NOTES 已修，已合入 | **`B01.bochner_partial`（第 15 条）** | #71 | 注册 `B01.bochner_partial`：`BochnerApproxAPI` 中已证的字段（χ 五条 + 单元 1–3、6、7、8），排除单元 9 的两条保真字段与 `SeparatedCompactDense` 打包 |
 | 072-R42-lifespan-split | 进行中 | — | — | R42 剩余的寿命同定子句拆分 + S 级子步：用已注册的 `A02.maximal_partial`（`lifespan_le_of_unbounded`、`lifespan_ge_of_forall_shorter`）把定理 4.2 的 `T_max(u_ε) = 1` 拆成「包的 L^∞ 爆破 ⇒ ≤ 1」与「每个 S<1 上有解 ⇒ ≥ 1」，列出缺的 `sobolev` 字段（非紧支 u_ε）与 `hg : MemForceR g` |
 | 073-D01-p2-sl3-multiplier | 进行中 | — | — | P2 子引理 SL3：Leray 补投影的算子值 L² 乘子 CLM（HeliCorgi `R3LerayPointwiseL2` 模板 / `holderL` 取算子值 E），范数 ≤ 1，a.e. 作用，保实（SL2），`Section4/D01/LerayMultiplier.lean` |
 | 074-D01-p2-sl4a-div | 进行中 | — | — | P2 子引理 SL4α：经典解的 `div ∂ₜu(t,·) = 0`（`∂ₜ` 与 `div` 交换 + `divergence`），以及 `∂ₜu(t,·)` 的零阶 datum 横截（`⟪ξ, Â(ξ)⟫ = 0` a.e.），`Section4/D01/DivergenceTime.lean` |
