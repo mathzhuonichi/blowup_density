@@ -578,7 +578,18 @@ structure HomogeneousApproxAPI where
   `IsHomogeneousPath s` instead of `IsSobolevPath s`, and the per-profile
   hypothesis is `IsHomogeneousSliceDatum` instead of `IsSobolevDatum`.
   `MemForceCompact` and the strong measurability are word-for-word the same and
-  are proved once. -/
+  are proved once.
+
+  ⚠ **Proved only on `-3/2 < s`, not the stated `∀ (s : ℝ)`** (lane 103; finding
+  5-A of `research/B02/REVIEW_APPROX_COMPACT.md`).  The tree has
+  `NSFormalization.Section4.B02.separatedAssembly` (`Section4/B02/SeparatedAssembly.lean:211`),
+  which carries an extra hypothesis `hs : -3 / 2 < s` (needed by the uniqueness
+  route through `D01`'s compact-datum constructor `homogeneousVectorDatum`, finite
+  only at `s > -3/2`).  The verbatim `∀ s : ℝ` field is **not** proved and is
+  near-vacuous for `s ≤ -3/2`.  No consumer is affected:
+  `approxCompactHomogeneous` (`:607`) feeds it `SplitRange.1 = -3/2 < s` only.  A
+  V2 contract should register `separatedAssembly` with the honest hypothesis
+  `-3/2 < s` (lane 103's recommendation, `REMAINING_SPLIT.md` row 6), not `∀ s`. -/
   separatedAssembly : ∀ (s : ℝ) (J : ℕ) (φ : Fin J → ℝ → ℝ)
       (h : Fin J → SpatialField) (A : Fin J → RealVectorSobolev s),
       (∀ j, ContDiff ℝ ∞ (φ j)) → (∀ j, HasCompactSupport (φ j)) →
