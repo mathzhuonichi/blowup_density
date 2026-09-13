@@ -134,7 +134,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 028-D01-forceclass-closure | ACCEPT，已合入 | — | #32 | **已证**：F_c ⊆ F_R（datum 路径时间 C^∞）、F_R/F_c 加法封闭、g+H_ε+F_ε ∈ F_R（R42 可直接消费）；23 定理标准公理；余：u_ε 的 `ClassicalSolutionR.sobolev`（非紧支） |
 | 029-I02-v2-thetaradius | ACCEPT，已合入 | **`I02.correction_v2` 已注册** | #33 | `extends` V1 + 1 字段 `K ⊆ plateau`；兼容绑定 V1-of-V2；`force_carrier_subset_ball` 直接证出 021/027 说"无法履行"的前提；政策脚本零改动 |
 | 030-A04-spec | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | 平方 H² continuation 适配器（∫‖u‖²_{H²} < ∞ ⇒ 高阶界 + 越过 S 的一致重启；R43/R44 的关键路径） |
-| 031-C01-spec | spec 完成，review 中 | — | — | 常规能量与 H¹ 吸收（eq:RL2、eq:RH1；R43/R44 用） |
+| 031-C01-spec | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | 常规能量与 H¹ 吸收（eq:RL2、eq:RH1；R43/R44 用） |
 | 032-A02-restrict-order | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A02 单元 U4+U6：`restrict`/congruence/`pressure_normalization` 与六个序论字段（无分析） |
 | 033-A02-energy-u1a | ACCEPT-WITH-NOTES，待合（合入时去重） | — | — | A02 单元 U1a：`ClassicalSolutionR` ⇒ `UniformFiniteEnergy (Icc 0 T')` |
 | 034-D01-lemma-contract | 完成，review 中 | — | — | 把 020/024/025/028 的 D01 引理收成合同 `D01.datum_lemmas`（jets⇔datum、齐次见证、F_R 闭包、切片提取），进 `make test` 闭包 |
