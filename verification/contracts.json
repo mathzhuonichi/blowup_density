@@ -11,6 +11,17 @@
       "declaration": "BlowupDensity.Tests.checkedThresholds",
       "scope": "Threshold arithmetic only: formula, positivity, endpoints, intermediate negative index and energy exponents. Not Theorem 4.1 or a PDE norm estimate.",
       "enabled": true
+    },
+    {
+      "id": "I01.packet",
+      "parent_task": "I01",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Packet.lean",
+      "binding_module": "Bindings.Packet",
+      "test_module": "Tests.Packet",
+      "declaration": "BlowupDensity.Tests.checkedPacket",
+      "scope": "The compact OpenAI packet at every viscosity nu > 0: the Theorem 1.1 properties, the Lemma 2.2 constants M and D with the closed initial quiet interval, and the negative-time zero extensions of velocity, pressure and force. Not the local insertion theorem and not any density statement.",
+      "enabled": true
     }
   ]
 }
