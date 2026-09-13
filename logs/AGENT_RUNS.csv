@@ -7,3 +7,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,I01,005 review,opus,reviewer,ACCEPT-WITH-NOTES: 8 minors; rfl bridge verified,#5,
 2026-09-13,SPEC,006 statement ledger,opus,worker,done: 1175-line ledger; 5 structural findings,#6,
 2026-09-13,SPEC,006 review,opus,reviewer,ACCEPT-WITH-NOTES: 6/8 confirmed 2 partly; 12 skeleton defects; DAG changes recommended,#6,
+2026-09-13,U05,004 review,opus,reviewer,ACCEPT-WITH-NOTES: cold rebuild reproduced 84/88; srcDir+roots lakefile built 84 oleans in 124s; 2 report inaccuracies,#8,
