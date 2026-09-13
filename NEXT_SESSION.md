@@ -8,7 +8,7 @@
 - **CI 仍被 owner 账单挡住**；每次合并后本地 `scripts/gates.sh` + 全部 `Section4` 模块显式 build（最近：76 模块、全绿）。合并模板 `tmp/merge_<PR>_then_gates.sh`。
 - integration 上 **16 条注册合同**（新增 `C01.energy_absorption_partial`，5 个已证字段 + `C₁`）；已合入证明模块 76 个。今日合入 #72–#92（21 条 lane）。里程碑：**A04 SL3 闭合**（`hlap` 交付，`A04/LaplacianAssembly`）；**B02 单元 2 完成、stage-4 密度 `spatialApproxHomogeneous` 无条件**；**R42 寿命两子句在 Bindings 层装配完成**（`Bindings/InsertionLifespan.lean`，只剩两个真假设 `hg : MemForceR g`、`hreg : RegularThrough ν a g (T+δ)`，PR #93 合并中）；P2 剩 SL7b 0 阶种子（094 在做）+ SL8；C01/A04/B02 各过了一遍 simplifier+tester（077/086/090）。
 - **在跑（5/5）**：088 A04 SL3 续改（消费者形状推论 + 去重）；093 A01 拆分起步（HeliCorgi mild 理论对照，U05 编译实测）；094 P2 SL7b-α 0 阶符号恒等式（分布导数）；095 A04 G1 SL5 拆分起步（非线性 IBP + CS）。
-- 关键判断：A04 eq:Rhigh 8 条子引理闭 6（SL4=P2 阻塞、SL5 在拆）；P2 剩 SL7b（094）+ SL8 组装；R42 剩 V2 合同 `R42.insertion_lifespan`（reviewer 已给形状：`family/memForce/regular` + 两子句）；B02 合同待开（未证字段：`chi_*`、`annularPathApprox`、`temporalApprox`、`separatedAssembly`、`approxCompactHomogeneous`）；A02 只剩 `restart*`/`insertion_lifespan_eq`（需 A01 + R42）；**A01 仍无证明（093 起步）**。
+- 关键判断：A04 eq:Rhigh 8 条子引理闭 6（SL4=P2 阻塞、SL5 在拆）；P2 剩 SL7b（094）+ SL8 组装；R42 剩 V2 合同 `R42.insertion_lifespan`（reviewer 已给形状：`family/memForce/regular` + 两子句）；B02 合同待开（未证字段：`chi_*`、`annularPathApprox`、`temporalApprox`、`separatedAssembly`、`approxCompactHomogeneous`）；A02 只剩 `restart*`/`insertion_lifespan_eq`（需 A01 + R42）；**A01 起步（093：14 单元表 + E1；U05 不阻塞，HeliCorgi mild 栈可 import；下一步 P1 径向势梯度；脊柱 A3/B1/C1b/C1c 为 L 级）**。
 - 已知未入 CI 闭包：`Section4/*` 大多不在注册合同 Tests 闭包（C01 五字段已入）；CI 只靠 `build_changed_lean.py`。MAINT 清单：`angularFourier_conj`/`angular_plancherel`/`angularFrequencyDilation_coeFn` 上提到 Paper3/Source；A04 datum 线性引理搬 A03；079/089 共享约 52 行；`OrderZeroDatum`/`HalfOrder` 各处小副本。
 
 ## 下一步

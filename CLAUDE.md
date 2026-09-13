@@ -42,7 +42,7 @@
 - 工具链在 `<主仓>/.elan/`，依赖在 `verification/.lake/packages/`，都 gitignored，所有 worktree 共用。
   在 worktree 里跑同一个安装脚本会自动软链 `.lake/packages` 到主仓，不重复下载。
 - 版本 `leanprover/lean4:v4.34.0-rc2`（根、`formalization/`、`verification/` 一致）。
-  `vendor/HeliCorgi` 是 4.32.1 的独立包，尚未与主包混编（任务 U05）。
+  `vendor/HeliCorgi` 源码是 4.32.1，但 U05 已把它在本 pin 下**就地编进主 workspace**：`formalization/lakefile.toml` 的 `Formal` 库（`srcDir` 指向 vendor，88 个显式 root，vendor 零改动）＋ `FormalPatched` 库（4 个在 4.34.0-rc2 下编不过的模块的补丁副本）。`Formal.MildSolutionSemantics` / `MildFlowMapBridge` / `MildZeroUniqueness` 不在 root 列表，`lake build` 报 `unknown target`，要用先加 root（配置变更）。
 - 依赖链：`verification` → `../formalization` → `../vendor/NavierStokesAndEuler` → mathlib（git，锁在 lake-manifest）。
 - `make test` 只编译已注册合同的闭包，秒级；不会编 340 个本地文件或 2486 个 OpenAI 文件。
 - 草稿文件放 `research/<ID>/X.lean`，检查用 `cd verification && lake env lean ../research/<ID>/X.lean`；
@@ -77,8 +77,8 @@
 
 ## 关键路径与并发
 
-- 关键链：D01 → A01 → A02 → A04 → R43/R44 → R41（定理 4.1）。A01 还卡 U05（HeliCorgi 工具链兼容）。
-- 可并行起步、互不依赖：U05、D01、A05、I01。并发上限 5 条车道。
+- 关键链：D01 → A01 → A02 → A04 → R43/R44 → R41（定理 4.1）。**A01 不再卡 U05**（U05 已于 004/010 两条 lane 完成，PR #8/#11，见 `PLAN.md`）：HeliCorgi mild 栈已就地编进主 workspace，093 的 reviewer 复现 `lake build Formal.R3EndpointSafeProjectedLocalExistence` 成功。A01 现在卡的是载体桥 C1b/C1c 与 A3/B1 三个 L 单元（`research/A01/A01_SPLIT.md`）。
+- 可并行起步、互不依赖：D01、A05、I01（U05 已完成）。并发上限 5 条车道。
 - 帮手模型：优先 `prover` agent（`.claude/agents/prover.md`，钉 Opus 4.8，本地未提交；**新会话启动时才加载**）。
   若 `prover` 不可用则 `general-purpose` + `model: opus`（当前解析为 Opus 5, 1M）。
   lead 自己留在关键路径上，只做拆任务、比对、归并、记账。
