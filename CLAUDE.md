@@ -86,7 +86,8 @@
    kernel 负责"证明对不对"，agent 和人负责"证的是不是论文那个定理"。
 3. 不用 `sorry`，不加公理，不在合同里放占位 `Prop` 字段。`Citations/` 的 schematic axiom 和
    `Paper1/BoundaryCorollary.lean` 的 sorry 不得 import。
-4. **正负例都记**。证不出的引理、试过的路径、失败原因，追加到 `collaboration/tasks/<ID>.md` 末尾的 `## Attempts` 段。
+4. **正负例都记**。证不出的引理、试过的路径、失败原因，写到 `research/<ID>/ATTEMPTS.md`（非生成文件）。
+   `collaboration/tasks/*.md` 和 `TASKS.md` 是 `tasks.py render` 生成的，**手写内容会被下次 render 整文件覆盖**，不要往里追加。
 5. **报告讲人话**，固定四段：证了哪个定理 / Lean 里现在有什么 / 缺口是什么 / 跑了什么命令、什么结果。
 6. 关键细节写进 md，不留在对话里。每次收工更新 `NEXT_SESSION.md`。
 7. 不改 `paper/` 里的数学陈述。发现论文问题只写进 `logs/`，交 owner 决定。
