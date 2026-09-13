@@ -195,6 +195,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 089-D01-p2-sl5-longitudinal | 进行中 | — | — | P2 SL5：无旋（curl-free）光滑 L² 场的任一 datum a.e. 纵向 `ξᵢ Âⱼ = ξⱼ Âᵢ` ⇒ `Â(ξ) ∈ ℂ∙ξ`（镜像 079），再 datum 层 `lerayComplement m A = A`（081 review 的 4 行），`Section4/D01/Longitudinal.lean` |
 | 090-SIMP-B02 | 进行中 | — | — | B02 七个已合模块（LowFrequency, Annular, LowHigh, Cutoff, LebesgueDatum, AnnularSchwartz, AnnularReal）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；conformance；MAINT 清单：a.e. 共轭模式去重、`angularFourier_conj`/`angular_plancherel`/`angularFrequencyDilation_coeFn` 上提） |
 | 091-C01-partial-contract | 进行中 | — | — | 注册 `C01.energy_absorption_partial`：已证的 C01 spec 字段（velocityJets, forceTimeRegularity, trilinearHolder, trilinearAbsorbed, laplacianSqENorm）逐字进 `Contracts/V1/EnergyAbsorptionPartial.lean` + Bindings + Tests + contracts.json（模板 071 `B01.bochner_partial`），把 C01 模块纳入 CI 闭包 |
+| 092-R42-lifespan-binding | 进行中 | — | — | R42 寿命两子句的绑定层装配（`verification/Bindings/InsertionLifespan.lean`）：由 `InsertionFamilyAPI` + `hg : MemForceR g` + `RegularThrough ν a g (T+δ)` 得 `maximalLifespanR ν a g_ε = ofReal T` 与 `ofReal (T+δ) < maximalLifespanR ν a g`（087 + 080 + 072 + `A02.maximal_partial`），为 V2 合同铺路 |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
