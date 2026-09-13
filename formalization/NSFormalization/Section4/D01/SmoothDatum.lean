@@ -90,7 +90,7 @@ open NSFormalization.Source NSFormalization.Source.RealSobolev
 open NSFormalization.Source.PhysicalSobolevDistribution
 open NSFormalization.Source.PhysicalBesselSobolev
 open NSFormalization.Source.PhysicalIntegerSobolev
-open scoped ContDiff ENNReal SchwartzMap ComplexConjugate LineDeriv
+open scoped ContDiff ENNReal ComplexConjugate LineDeriv
 
 /-! ## 1. Conjugation, conjugate reflection and the `L²` Fourier transform -/
 

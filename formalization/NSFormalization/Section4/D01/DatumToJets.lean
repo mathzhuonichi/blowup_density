@@ -104,7 +104,7 @@ open Set MeasureTheory NavierStokes.ProblemStatement
 open NSFormalization.Paper3
 open NSFormalization.Source NSFormalization.Source.RealSobolev
 open NSFormalization.Source.FourierPhysicalJets
-open scoped ContDiff ENNReal SchwartzMap
+open scoped ContDiff ENNReal
 
 /-! ## 1. The jet-form classes of the two registered contracts, restated
 
