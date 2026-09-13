@@ -16,3 +16,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,U05,010 review,opus,reviewer,ACCEPT-WITH-NOTES: cold CI-path build reproduced (2m08s; 84+4 oleans); 9 capstone axioms standard; closure recomputed; patch minimality verified,#11,
 2026-09-13,I01,007 review,opus,reviewer,ACCEPT-WITH-NOTES: all gates green; 20 inlined defs = upstream; 14 rfl bridges; 5 more bridges requested; docstring/scope wording,,fixes applied by resumed worker
 2026-09-13,D01,009 reconcile,opus,worker,done: Contracts/V1/Data.lean 56 defs; RECONCILIATION.md; widened contract import gate (policy change for owner),,make check needed the allowlist
+2026-09-13,I01,007 review fixes,opus,worker,done: 5 rfl bridges added; docstring/scope fixed; ATTEMPTS.md written; gates green,#12,generated task card had wiped the first Attempts section
