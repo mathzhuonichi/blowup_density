@@ -175,3 +175,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,B02,068-B02-unit-6,opus,reviewer,ACCEPT-WITH-NOTES (unit 6 fully delivered; spec field homogeneousDatumSub is FALSE — counterexample via totalized integral + zero datum; Cutoff.lean's diagonal takes it verbatim -> weaken at the single call site, side conditions proved by reviewer),,worker resumed to fix Cutoff.lean + spec + records
 2026-09-14,R42,072-R42-lifespan-split,opus-4.8,worker-resume,DONE split fixes + 2 S lemmas in 7 min / 15 tool uses (8 lemmas),PR,PR #72 opened; merging
 2026-09-14,A04,066-A04-sl3-laplacian,opus-4.8,worker-resume,DONE review fixes + 6 symbol lemmas in 12 min / 25 tool uses (21 decls),PR,PR #73 opened; merging
+2026-09-14,B02,068-B02-unit-6,opus-4.8,worker-resume,DONE review fixes in 11 min / 29 tool uses (Cutoff hDatumSub weakened; diagonal → unit 2 only),PR,PR #74 opened; merging
+2026-09-14,D01,074-D01-p2-sl4a-div,opus-4.8,worker,DONE SL4α div ∂ₜu = 0 (4 decls) in 23 min / 25 tool uses; Fourier transverse part reduced to 066 lemma,—,reviewer launched
+2026-09-14,R42,075-R42-correction-path,opus-4.8,worker,RUNNING 1e-i cutoff route (2 lemmas),—,
+2026-09-14,A04,076-A04-sl3-pairing,opus-4.8,worker,RUNNING SL3 step 1 skew-adjointness,—,
