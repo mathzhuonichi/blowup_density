@@ -144,7 +144,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 038-R43-spec-B | 已合入（经 037） | — | #40 | 命题 4.3 spec 盲稿 B（与 037 互不可见） |
 | 039-A04-units-f1-n1 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A04 单元 F1（`MemForceR` ⇒ L¹_tH^m / 有界 H¹ 力）+ N1（被积函数连续性），`Section4/A04/` |
 | 040-SIMP-A02-dedupe | ACCEPT-WITH-NOTES，PR 待合 | — | — | A02 四模块的 simplifier + tester：Restrict §0 → import SolutionClass；Energy §1–2 → D01 DatumToJets；conformance/negative 检查 |
-| 041-A04-unit-g3 | 进行中 | — | — | A04 单元 G3：连续变系数 Grönwall（纯 ODE 引理，Mathlib 缺），`Section4/A04/Gronwall.lean` |
+| 041-A04-unit-g3 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A04 单元 G3：连续变系数 Grönwall（纯 ODE 引理，Mathlib 缺），`Section4/A04/Gronwall.lean` |
 | 042-D01-halforder-force-norms | ACCEPT-WITH-NOTES，PR 待合 | — | — | D01 G3+G2：`MemForceR f → forceSobolevENormL1 (1/2) f ≠ ⊤`（及齐次孪生）、路径级 Ḣ^{1/2} ≤ H^{1/2}；`Section4/D01/HalfOrder.lean` |
 | 043-A04-unit-z1 | 进行中 | — | — | A04 单元 Z1：带线性项的 ζ-正则化开方微分不等式（推广 `Paper1.sqrt_energy_le_primitive`），`Section4/A04/Regularized.lean` |
 | 044-C01-unit-u6 | 进行中 | — | — | C01 单元 U6（无 U1 依赖）：L³ 插值 + `laplacianSqENorm` 桥，`Section4/C01/` |
