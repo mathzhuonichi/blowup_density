@@ -91,7 +91,7 @@ namespace NSFormalization.Section4.D01
 open Set MeasureTheory NavierStokes.ProblemStatement
 open NSFormalization.Paper3
 open NSFormalization.Source NSFormalization.Source.RealSobolev
-open scoped ContDiff ENNReal SchwartzMap
+open scoped ContDiff
 
 /-! ## 1. Time regularity of the angular datum path
 
