@@ -133,16 +133,18 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 027-R42-assembly-contract | ACCEPT 已修，已合入 | **`R42.insertion_family` V1 已注册（第 7 条）** | #30 | 定理 4.2 除寿命同定外全部子句；K→K_* 在 R42 侧以缩小 ε₀ 解决；**缺口：无合同提供 g_ε ∈ F_R（时间正则性）**，连寿命 ≥ T 都无法陈述 → 028 |
 | 028-D01-forceclass-closure | ACCEPT，已合入 | — | #32 | **已证**：F_c ⊆ F_R（datum 路径时间 C^∞）、F_R/F_c 加法封闭、g+H_ε+F_ε ∈ F_R（R42 可直接消费）；23 定理标准公理；余：u_ε 的 `ClassicalSolutionR.sobolev`（非紧支） |
 | 029-I02-v2-thetaradius | ACCEPT，已合入 | **`I02.correction_v2` 已注册** | #33 | `extends` V1 + 1 字段 `K ⊆ plateau`；兼容绑定 V1-of-V2；`force_carrier_subset_ball` 直接证出 021/027 说"无法履行"的前提；政策脚本零改动 |
-| 030-A04-spec | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | 平方 H² continuation 适配器（∫‖u‖²_{H²} < ∞ ⇒ 高阶界 + 越过 S 的一致重启；R43/R44 的关键路径） |
-| 031-C01-spec | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | 常规能量与 H¹ 吸收（eq:RL2、eq:RH1；R43/R44 用） |
-| 032-A02-restrict-order | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | A02 单元 U4+U6：`restrict`/congruence/`pressure_normalization` 与六个序论字段（无分析） |
-| 033-A02-energy-u1a | ACCEPT-WITH-NOTES，待合（合入时去重） | — | — | A02 单元 U1a：`ClassicalSolutionR` ⇒ `UniformFiniteEnergy (Icc 0 T')` |
-| 034-D01-lemma-contract | ACCEPT-WITH-NOTES 已修，PR 待合 | **`D01.datum_lemmas` V1（第 10 条）** | — | 把 020/024/025/028 的 D01 引理收成合同 `D01.datum_lemmas`（jets⇔datum、齐次见证、F_R 闭包、切片提取），进 `make test` 闭包 |
-| 035-B01-units-1-3 | 进行中 | — | — | B01 单元 1–3（R46 实际消费的三条：Schwartz/紧支稠密 + 完备化代表元），`Section4/B01/` |
+| 030-A04-spec | ACCEPT-WITH-NOTES 已修，已合入 | — | #35 | 平方 H² continuation 适配器（∫‖u‖²_{H²} < ∞ ⇒ 高阶界 + 越过 S 的一致重启；R43/R44 的关键路径） |
+| 031-C01-spec | ACCEPT-WITH-NOTES 已修，已合入 | — | #36 | 常规能量与 H¹ 吸收（eq:RL2、eq:RH1；R43/R44 用） |
+| 032-A02-restrict-order | ACCEPT-WITH-NOTES 已修，已合入 | — | #34 | A02 单元 U4+U6：`restrict`/congruence/`pressure_normalization` 与六个序论字段（无分析） |
+| 033-A02-energy-u1a | ACCEPT-WITH-NOTES，已合入（去重 → 040） | — | #38 | A02 单元 U1a：`ClassicalSolutionR` ⇒ `UniformFiniteEnergy (Icc 0 T')` |
+| 034-D01-lemma-contract | ACCEPT-WITH-NOTES 已修，已合入 | **`D01.datum_lemmas` V1（第 10 条）** | #37 | 把 020/024/025/028 的 D01 引理收成合同 `D01.datum_lemmas`（jets⇔datum、齐次见证、F_R 闭包、切片提取），进 `make test` 闭包 |
+| 035-B01-units-1-3 | ACCEPT-WITH-NOTES 已修，PR 待合 | — | — | B01 单元 1–3（R46 实际消费的三条：Schwartz/紧支稠密 + 完备化代表元），`Section4/B01/` |
 | 036-B02-units-3-4 | 进行中 | — | — | B02 单元 3+4（低频权重可积性/积分值；角 Fourier 上确界界），`Section4/B02/` |
 | 037-R43-spec-A | 进行中 | — | — | 命题 4.3（L¹ 临界正则性）spec 盲稿 A；消费 A04/C01/A02 |
 | 038-R43-spec-B | 进行中 | — | — | 命题 4.3 spec 盲稿 B（与 037 互不可见） |
 | 039-A04-units-f1-n1 | 进行中 | — | — | A04 单元 F1（`MemForceR` ⇒ L¹_tH^m / 有界 H¹ 力）+ N1（被积函数连续性），`Section4/A04/` |
+| 040-SIMP-A02-dedupe | 待开（槽位满） | — | — | A02 四模块的 simplifier + tester：Restrict §0 → import SolutionClass；Energy §1–2 → D01 DatumToJets；conformance/negative 检查 |
+| 041-A04-unit-g3 | 进行中 | — | — | A04 单元 G3：连续变系数 Grönwall（纯 ODE 引理，Mathlib 缺），`Section4/A04/Gronwall.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
@@ -153,3 +155,5 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 - R42 的合同要显式导出 u_ε − v 无散和紧支撑压力规范，定理 4.7 的证明用到；R47 允许多一个只依赖时间的常数 κ(t)。
 - 定理 4.2 / 命题 4.6 / 定理 4.7 必须共用同一个 ε 族（一个线程化的见证），ε₀ 取所有约束的最小值。
 - 齐次实现：一个定义 Ḣ^s = {ĥ 可测, |ξ|^s ĥ ∈ L²}（−3/2 < s < 3/2）可覆盖 4.3 / 4.2 / 4.6 三处用法，其余作引理；‖·‖_{Ḣ^{3/2}} 只需定义为量。
+
+- **D01 定义缺口（037 发现，待 D01 V2）**：`Data.lean` 的 `dotHHalfENorm`/`dotHThreeHalvesENorm` 是逐点 Fourier 积分，对非 L¹ 的 H^∞ 场退化为 0；R43/R44/A05/C01 的 smallness 假设必须共用 datum-下确界的齐次范数（A05 的 `dotHomogeneousENorm`），否则错误实现可空洞满足。
