@@ -179,3 +179,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,D01,074-D01-p2-sl4a-div,opus-4.8,worker,DONE SL4α div ∂ₜu = 0 (4 decls) in 23 min / 25 tool uses; Fourier transverse part reduced to 066 lemma,—,reviewer launched
 2026-09-14,R42,075-R42-correction-path,opus-4.8,worker,RUNNING 1e-i cutoff route (2 lemmas),—,
 2026-09-14,A04,076-A04-sl3-pairing,opus-4.8,worker,RUNNING SL3 step 1 skew-adjointness,—,
+2026-09-14,C01,077-SIMP-C01,opus-4.8,simplifier+tester,RUNNING 4 C01 modules,—,
