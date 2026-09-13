@@ -121,10 +121,10 @@ increment is the `t=0` endpoint and the `Ico`-wide statement.
 | m1 | `sobolev_smooth` (`:180`): all-order `ContDiffOn ℝ ∞ G (Ico 0 T)` datum path | T1+B1 | L | **gap** (the all-order time smoothness) |
 | m2 | `pressure_recovery` (`:197`): `IsLerayComplement (f−∇·(u⊗u)) (∇p)` on `Ico 0 T` | P2, P3 | M | P2 needs Liouville for `L²`-harmonic (gap); P3 imports a4 |
 | m3 | `projected` (`:214`): `∂ₜu − νΔu = (f − ∇·(u⊗u)) − ∇p` on `Ioo 0 T` | **DONE — a theorem** `projected_of_classicalSolution` (`Section4/A01/ProjectedEquation.lean`) | — | **no separate obligation**: reducible to c7/B2 (producing the `ClassicalSolutionR`). E1 + `velocity_smooth`/`divergence`/`momentum` discharge it outright |
-| m4 | `pressure_potential` (`:227`): gauge-equiv to the radial potential `∫₀¹ G(rx)·x dr` | P1 | M | `02-prelim:98-100`; differentiate under `intervalIntegral` |
+| m4 | `pressure_potential` (`:227`): gauge-equiv to the radial potential `∫₀¹ G(rx)·x dr` | **P1 DONE (lane 101)** — pointwise `∇(radial potential)=G` (`Section4/A01/RadialPotential.lean`, `hasFDerivAt_radialPotential` + `pressureGradient_pressurePotential`); gauge wrapping ~90 lines left, **all S** | S | `02-prelim:98-100`; pointwise core done. Wrapping = "equal gradients on connected ℝ³ differ by a constant of time": lane-101 reviewer wrote+compiled **52 lines** (`is_const_of_fderiv_eq_zero` + 15-line "`pressureGradient` determines the slice `fderiv`" helper) with standard axioms, plus **14 lines** of slice smoothness straight from `pressure_smooth` (the `t=0` endpoint is *not* an obstacle), leaving **~25 lines** of Hessian symmetry via `ContDiffAt.isSymmSndFDerivAt`. **Recommended next A01 lane** (retires D01 L9(b)). |
 
 Supporting characterization units (from `Spec.lean` §1 defs):
-`E1` **DONE**; `P1` (radial potential has gradient `G`) M; `P2`
+`E1` **DONE**; `P1` **DONE (lane 101)** — radial potential has gradient `G`; `P2`
 (`IsLerayComplement` single-valued, needs `Differentiable`) M — Liouville gap;
 `C1a` (=D01 L2) M; `C1b`/`C1c` (Fourier-convention bridges) **L**;
 `P3` (physical eq:Rpressure) M.
