@@ -159,5 +159,5 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 - 定理 4.2 / 命题 4.6 / 定理 4.7 必须共用同一个 ε 族（一个线程化的见证），ε₀ 取所有约束的最小值。
 - 齐次实现：一个定义 Ḣ^s = {ĥ 可测, |ξ|^s ĥ ∈ L²}（−3/2 < s < 3/2）可覆盖 4.3 / 4.2 / 4.6 三处用法，其余作引理；‖·‖_{Ḣ^{3/2}} 只需定义为量。
 
-- **D01 需补（R43 调和发现，阻塞 R43/R44 陈述的非空洞性）**：(G3) `MemForceR f → forceSobolevENormL1 (1/2) f ≠ ⊤` 及齐次孪生——`MemForceR` 只给整数阶 datum 路径，半阶范数是 1/2 阶路径上的下确界，可能对所有真实 f 都是 ⊤，使小性假设空洞；(G2) 路径级 `‖f‖_{L¹_tḢ^{1/2}} ≤ ‖f‖_{L¹_tH^{1/2}}`（A05 只有空间切片版）；(G1) 把 datum 形式 `dotHomogeneousENorm` 提升为注册定义。
+- **D01 需补（R43 调和发现，阻塞 R43/R44 陈述的非空洞性）**：(G3) `MemForceR f → forceSobolevENormL1 (1/2) f ≠ ⊤` 及齐次孪生——`MemForceR` 只给整数阶 datum 路径，半阶范数是 1/2 阶路径上的下确界，可能对所有真实 f 都是 ⊤，使小性假设空洞；(G2) 路径级 `‖f‖_{L¹_tḢ^{1/2}} ≤ ‖f‖_{L¹_tH^{1/2}}`（A05 只有空间切片版）——**042 关掉了不齐次的 G3；齐次 G3 与 G2 仍开：需要一般 H^∞ 切片的齐次 datum（乘子 |ξ|^{1/2}(1+|ξ|²)^{-1/4} 经 `weightedAngularFourier_realization`），树里只有 Schwartz/紧支的构造**；(G1) 把 datum 形式 `dotHomogeneousENorm` 提升为注册定义。
 - **D01 定义缺口（037 发现，待 D01 V2）**：`Data.lean` 的 `dotHHalfENorm`/`dotHThreeHalvesENorm` 是逐点 Fourier 积分，对非 L¹ 的 H^∞ 场退化为 0；R43/R44/A05/C01 的 smallness 假设必须共用 datum-下确界的齐次范数（A05 的 `dotHomogeneousENorm`），否则错误实现可空洞满足。
