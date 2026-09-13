@@ -53,59 +53,10 @@ namespace NSFormalization.Section4.D01
 
 /-! ## 1. The pointwise coefficient of the normalized angular frequency dilation -/
 
-/-- **Coefficient of the normalized `L²` frequency dilation.**  `angularFrequencyDilation`
-is the normalized dilation `f ↦ c^{-3/2} f(c⁻¹·)`, `c = frequencyUnit`; it is defined as an
-isometric extension, so this pointwise identity is proved by exhibiting the same operator as a
-`Lp.compMeasurePreserving` change of variables (`map_addHaar_smul` supplies the Jacobian) and
-matching their tempered-distribution actions.
+/-- Moved to `Paper3/AngularFourierDilation.lean` in lane 109; alias kept for downstream.
 
-This is a `Paper3`-level fact about `NSFormalization.Paper3.angularFrequencyDilation`; it lives
-here only because lane 076 (merged, PR #78) supplies the *middle-multiplier* coefficient, not
-the dilation's.  It is to be promoted to `Paper3/AngularFourierDilation.lean` by a SIMP lane
-(lane 085 is copying it meanwhile); deduplicate in favour of the promoted lemma. -/
-theorem angularFrequencyDilation_coeFn (h : Lp ℂ 2 (volume : Measure Space)) :
-    (angularFrequencyDilation h : Space → ℂ) =ᵐ[volume]
-      fun ξ => (frequencyUnit ^ (-3/2 : ℝ) : ℝ) • h (frequencyUnit⁻¹ • ξ) := by
-  have hc0 : (0:ℝ) < frequencyUnit := frequencyUnit_pos
-  set κ : ℝ≥0∞ := ENNReal.ofReal (|(frequencyUnit⁻¹ ^ (Module.finrank ℝ Space))⁻¹|) with hκ
-  have hMP : MeasurePreserving (fun ξ : Space => frequencyUnit⁻¹ • ξ) volume (κ • volume) :=
-    ⟨(continuous_const_smul _).measurable, Measure.map_addHaar_smul volume (inv_ne_zero hc0.ne')⟩
-  have hGmem : MemLp (h : Space → ℂ) 2 (κ • volume) :=
-    (Lp.memLp h).smul_measure (by rw [hκ]; exact ENNReal.ofReal_ne_top)
-  set Dfwd : Lp ℂ 2 (volume : Measure Space) :=
-    ((frequencyUnit ^ (-3/2 : ℝ) : ℝ)) •
-      Lp.compMeasurePreserving (fun ξ : Space => frequencyUnit⁻¹ • ξ) hMP (hGmem.toLp _) with hDfwd
-  have hDcoe : (Dfwd : Space → ℂ) =ᵐ[volume]
-      fun ξ => (frequencyUnit ^ (-3/2:ℝ) : ℝ) • h (frequencyUnit⁻¹ • ξ) := by
-    filter_upwards [Lp.coeFn_smul ((frequencyUnit ^ (-3/2:ℝ):ℝ) : ℝ)
-        (Lp.compMeasurePreserving (fun ξ : Space => frequencyUnit⁻¹ • ξ) hMP (hGmem.toLp _)),
-      Lp.coeFn_compMeasurePreserving (hGmem.toLp _) hMP,
-      hMP.quasiMeasurePreserving.ae hGmem.coeFn_toLp] with ξ hs hcmp hgh
-    rw [hDfwd, hs]
-    simp only [Pi.smul_apply, hcmp, Function.comp_apply, hgh]
-  have hfr3 : Module.finrank ℝ Space = 3 := by simp [Space]
-  have hdist : (Dfwd : 𝓢'(Space, ℂ)) = (angularFrequencyDilation h : 𝓢'(Space, ℂ)) := by
-    rw [angularFrequencyDilation_toDistribution]
-    ext ψ
-    rw [Lp.toTemperedDistribution_apply, angularDistributionDilation_apply,
-      Lp.toTemperedDistribution_apply]
-    rw [integral_congr_ae (hDcoe.mono (fun ξ hξ => by rw [hξ]))]
-    have hcv := Measure.integral_comp_inv_smul (volume : Measure Space)
-      (fun ξ => ψ (frequencyUnit • ξ) • ((frequencyUnit ^ (-3/2:ℝ) : ℝ) • h ξ)) frequencyUnit
-    rw [hfr3] at hcv
-    simp only [smul_inv_smul₀ hc0.ne'] at hcv
-    rw [abs_of_nonneg (by positivity : (0:ℝ) ≤ frequencyUnit ^ 3)] at hcv
-    rw [hcv]
-    rw [show (fun x : Space => ψ (frequencyUnit • x) • (frequencyUnit ^ (-3/2:ℝ) : ℝ) • (h x : ℂ))
-          = (fun x : Space => (frequencyUnit ^ (-3/2:ℝ) : ℝ) • (ψ (frequencyUnit • x) • (h x : ℂ)))
-          from by funext x; rw [smul_comm]]
-    rw [integral_smul, ← mul_smul]
-    congr 1
-    · rw [← Real.rpow_natCast frequencyUnit 3, ← Real.rpow_add hc0]; norm_num
-  have hi : Function.Injective (Lp.toTemperedDistributionCLM ℂ (volume : Measure Space) 2) :=
-    LinearMap.ker_eq_bot.mp Lp.ker_toTemperedDistributionCLM_eq_bot
-  have hEq : Dfwd = angularFrequencyDilation h := hi hdist
-  rw [← hEq]; exact hDcoe
+**Coefficient of the normalized `L²` frequency dilation** `f ↦ c^{-3/2} f(c⁻¹·)`, `c = frequencyUnit`. -/
+alias angularFrequencyDilation_coeFn := NSFormalization.Paper3.angularFrequencyDilation_coeFn
 
 /-! ## 2. The cycles-convention transverse form -/
 

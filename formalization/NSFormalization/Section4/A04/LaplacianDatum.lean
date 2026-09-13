@@ -96,17 +96,10 @@ assembly). -/
 theorem gradientSobolevENorm_toReal_sq_eq_sum {s : ℝ} {z : Space → Space}
     (hfin : ∀ j : Fin 3, sobolevENorm s (partialDeriv j z) ≠ ⊤) :
     (gradientSobolevENorm s z).toReal ^ 2 =
-      ∑ j : Fin 3, (sobolevENorm s (partialDeriv j z)).toReal ^ 2 := by
-  unfold gradientSobolevENorm columnsSobolevENorm
-  rw [← ENNReal.toReal_rpow,
-    ← Real.rpow_natCast ((∑ j : Fin 3, sobolevENorm s (partialDeriv j z) ^ (2 : ℝ)).toReal
-      ^ (2 : ℝ)⁻¹) 2,
-    ← Real.rpow_mul ENNReal.toReal_nonneg]
-  norm_num
-  rw [ENNReal.toReal_sum (fun j _ => ENNReal.pow_ne_top (hfin j))]
-  apply Finset.sum_congr rfl
-  intro j _
-  rw [ENNReal.toReal_pow]
+      ∑ j : Fin 3, (sobolevENorm s (partialDeriv j z)).toReal ^ 2 :=
+  -- one-line corollary of the promoted general lemma (lane 109); `gradientSobolevENorm s z`
+  -- is `columnsSobolevENorm s (fun j => partialDeriv j z)` by `rfl`
+  NSFormalization.Section4.A03.columnsSobolevENorm_toReal_sq_eq_sum hfin
 
 /-- The `gradientSobolevNormAt` form of the same identity, on the time-`t` slice. -/
 theorem gradientSobolevNormAt_sq_eq_sum {s : ℝ} {u : SpaceTimeField} {t : ℝ}

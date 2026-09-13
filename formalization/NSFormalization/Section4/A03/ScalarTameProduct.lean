@@ -219,6 +219,29 @@ theorem isScalarSobolevDatum_sub {s : ℝ} (hs : 2 ≤ s) {a b : Space → ℝ}
   push_cast
   ring
 
+/-! ## 2b. Scalar multiplication of Sobolev data (promoted from A04/MomentumDatum in lane 109) -/
+
+/-- **The datum of a real scalar multiple, scalar case.**  `c • A` is the order-`s`
+datum of `c · a`. -/
+theorem isScalarSobolevDatum_smul {s : ℝ} (c : ℝ) {a : Space → ℝ} {A : RealSobolevHilbert s}
+    (hA : IsScalarSobolevDatum s a A) :
+    IsScalarSobolevDatum s (fun x => c * a x) (c • A) := by
+  intro ψ
+  show angularRealization s ((c • A : RealSobolevHilbert s) : FourierData) ψ = _
+  have hco : ((c • A : RealSobolevHilbert s) : FourierData)
+      = c • ((A : RealSobolevHilbert s) : FourierData) := rfl
+  rw [hco, LinearMapClass.map_smul_of_tower, smul_apply, hA ψ, ← integral_smul]
+  refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+  simp only [Complex.real_smul]
+  push_cast
+  ring
+
+/-- **The datum of a negation, scalar case.**  `-A` is the order-`s` datum of `-a`
+(`c = -1`). -/
+theorem isScalarSobolevDatum_neg {s : ℝ} {a : Space → ℝ} {A : RealSobolevHilbert s}
+    (hA : IsScalarSobolevDatum s a A) : IsScalarSobolevDatum s (fun x => - a x) (- A) := by
+  simpa using isScalarSobolevDatum_smul (-1 : ℝ) hA
+
 /-! ## 3. The estimates -/
 
 -- Needs more than the default: the `ENNReal.ofReal_add` step re-elaborates the datum norms

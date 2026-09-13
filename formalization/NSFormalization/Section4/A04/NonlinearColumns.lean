@@ -130,22 +130,10 @@ theorem sqrt_sum_norm_sq_derivDatumStep_eq_slice (m : ℕ)
 
 /-! ## 3. Row 5g — the outer norm identification -/
 
-/-- The squared `.toReal` of a Frobenius column-assembly is the sum of the squared `.toReal` column
-norms, whenever each column norm is finite.  Pure `ENNReal.toReal` arithmetic on the
-`columnsSobolevENorm` definition; the general column family behind
-`A04.gradientSobolevENorm_toReal_sq_eq_sum` (`LaplacianDatum.lean:96`). -/
-theorem columnsSobolevENorm_toReal_sq_eq_sum {s : ℝ} {T : Fin 3 → Space → Space}
-    (hfin : ∀ j : Fin 3, sobolevENorm s (T j) ≠ ⊤) :
-    (columnsSobolevENorm s T).toReal ^ 2 = ∑ j : Fin 3, (sobolevENorm s (T j)).toReal ^ 2 := by
-  unfold columnsSobolevENorm
-  rw [← ENNReal.toReal_rpow,
-    ← Real.rpow_natCast ((∑ j : Fin 3, sobolevENorm s (T j) ^ (2 : ℝ)).toReal ^ (2 : ℝ)⁻¹) 2,
-    ← Real.rpow_mul ENNReal.toReal_nonneg]
-  norm_num
-  rw [ENNReal.toReal_sum (fun j _ => ENNReal.pow_ne_top (hfin j))]
-  apply Finset.sum_congr rfl
-  intro j _
-  rw [ENNReal.toReal_pow]
+/-- Moved to `Section4/A03/OuterTameProduct.lean` in lane 109;
+`NSFormalization.Section4.A04` alias kept for downstream. -/
+alias columnsSobolevENorm_toReal_sq_eq_sum :=
+  NSFormalization.Section4.A03.columnsSobolevENorm_toReal_sq_eq_sum
 
 /-- The outer-norm specialization of `columnsSobolevENorm_toReal_sq_eq_sum`:
 `(outerSobolevENorm s z z).toReal² = ∑ⱼ (sobolevENorm s Wⱼ).toReal²`. -/
