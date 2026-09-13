@@ -16,7 +16,7 @@
 
 1. 收 009 修正 → rebase 到 integration（`collaboration/tasks/D01.md` 冲突用 `tasks.py render` 解）→ 合入。
 2. 起 011 / 013 / 014 / 015（并发 4，留 1 个给 reviewer）。
-3. integration → main 的 draft PR 已开：**#graphql)**（跟随 integration 分支，每次合入自动更新并跑 CI）。等 011 合入、CI 绿后标 ready。正文已单列"待 owner 决定"四项。
+3. integration → main 的 draft PR 已开：**#15**（跟随 integration 分支，每次合入自动更新并跑 CI）。等 011 合入、CI 绿后标 ready。正文已单列"待 owner 决定"四项。
 
 ## 待 owner 决定
 
