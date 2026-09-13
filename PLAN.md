@@ -123,7 +123,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 014-A05-spec | 已合入 | — | #16 | ACCEPT-WITH-NOTES 已修（端点 3/2）；L⁶ 界几乎现成；L^{p_a} 骨架需搬约定（(2π)^{-a}）；Λ 做关系 |
 | 015-I03-spec | 已合入 | — | #18 | ACCEPT-WITH-NOTES 已修（scalingStatement 补 7 条前提可满足；Prop 3.3 转运 3 字段）；U7c 是 R46 阻塞点 |
 | 019-A05-l6-contract | review 中，PR #23 | **`A05.gradient_l6` V1 已注册（rebase 后 4 合同全绿）** | #23 | 论文原形；Hessian–Laplacian 恒等式用分部积分证成等式；全程无 Fourier；余：datum ⇒ jets 方向 |
-| 020-D01-hm-datum | review 中 | — | — | **已证**：任意实数阶 s、无紧支撑假设；29 定理标准公理；与 Data.lean 定义 rfl 一致；余：反向、双边范数等价、时间路径 |
+| 020-D01-hm-datum | PR #24 待合（CI 跑完） | — | #24 | **已证** jets ⇒ datum，任意实数阶、无紧支撑；29 定理标准公理；ACCEPT-WITH-NOTES 已修；余：datum ⇒ jets、双边范数、时间路径 |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
