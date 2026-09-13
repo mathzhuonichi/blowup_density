@@ -59,7 +59,7 @@ Appendix A, and none is specified.
 `algebraProductScalar` | `:14-16` eq:algebra | Gap. Immediate from `tameProductScalar` plus `‖·‖_{H²} ≤ ‖·‖_{H^k}`, which is `Paper3.sobolevOrderLowering_norm_le` (`Paper3/SobolevOrderLowering.lean:39`) — and is D01 unit **L5** on the physical carrier (`research/D01/RECONCILIATION.md:156`) | No new analysis.
 `outerProductTame` | `:17-18` eq:tame | Gap on this carrier. **Closest existing statement anywhere:** `EulerOrdinarySobolev.tame_outer_product` (`vendor/NavierStokesAndEuler/Euler/OrdinaryTameProduct.lean:83`) — `‖(wordField (coordinateProduct i (wordField A w) (wordField B v)) a).toLp‖ ≤ 2^n·h3ProductConstant·M·N` with hypotheses `WordBound 3 M A`, `WordBound m N A`, i.e. a genuine tame outer-product bound with the **low norm at order three**, real vector `SmoothL2Field Space`, no Fourier at all. Supporting: `coordinateProduct_tame` (`:63`), `gradient_outer_product` (`Euler/OrdinaryH3Products.lean:133`), `coordinateProduct` (`Euler/OrdinaryFieldAlgebra.lean:109`) | Three mismatches: the low norm is `H³` (via `WordBound 3`), not the manuscript's `H²`; the carrier is the word-jet `SmoothL2Field` scale, not the datum scale; and the norms are sup-over-words (`wordMaximum`, `Euler/OrdinaryWordInterpolation.lean:17`) rather than the Euclidean `PiLp 2` assembly. Useful as a cross-check on the shape, **not** as a discharge — `eq:Rhigh`'s `‖u‖_{H²}` factor is what makes the continuation criterion an `H²` criterion, so lowering it to `H³` would break Theorem 4.2's consumer A04.
 `outerProductDifference` | `:51-52`; `paper/originals/local/paper_3_whole_space.tex:157,192` | Gap. Factorization `u⊗u − v⊗v = (u−v)⊗u + v⊗(u−v)` plus `algebraProductScalar`; no new analysis. Bilinearity of the completed product is available: `Paper3.sobolevProductLeftLinear` (`Paper3/CompleteTameProduct.lean:73`), `sobolevProduct` is a `→L[ℝ] … →L[ℝ]` | Purely algebraic given the algebra bound.
-`advectionTame` | `01-introduction.tex:83` eq:NS, `02-preliminaries.tex:81` eq:projected; estimate by `:9-11` with `:50` | **Proved, but only at one order and non-tame, in HeliCorgi:** `MNS2.norm_r3SchwartzToHsCLM_two_convection_le_H3` (`vendor/HeliCorgi/Formal/R3SchwartzConvectionSobolevEstimate.lean:92`), `‖(u·∇)v‖_{H²} ≤ r3SchwartzConvectionFullH3Constant·‖u‖_{H³}‖v‖_{H³}` with an explicit constant (`:81`), packaged as `r3SchwartzConvectionSobolevEstimate_three` (`:115`) discharging the gate proposition `R3SchwartzConvectionSobolevEstimate` (`Formal/R3SchwartzSobolevCore.lean:94`), and extended off the Schwartz core by `r3ConvectionH3ToH2` (`Formal/R3SobolevConvectionExtension.lean:138`). Frequency inputs: `r3H2BesselWeight_le_additive_split` (`Formal/R3H2AdditiveConvolutionWeight.lean:11`), `Formal/R3H2WeightedConvolutionKernel.lean:19`. Upstream `advection` (`vendor/NavierStokesAndEuler/NavierStokes/ProblemStatement.lean:63`) is the pinned nonlinearity; `EulerOrdinarySobolev.advectionField` (`Euler/OrdinaryFieldAlgebra.lean:118`) is the two-field version | Four mismatches: only `m = 3 → 2` (HeliCorgi's own docstring calls the general-`m` version an open "gate"), both factors at the **high** order (not tame), Schwartz/cycles carrier, and **Lean 4.32.1** — HeliCorgi is a separate toolchain, blocked by task **U05** (`CLAUDE.md`, layout table). So this row is discharged from the local `tameProductVector` route, not from HeliCorgi; HeliCorgi is a cross-check.
+`advectionTame` | `01-introduction.tex:83` eq:NS, `02-preliminaries.tex:81` eq:projected; estimate by `:9-11` with `:50` | **Proved, but only at one order and non-tame, in HeliCorgi:** `MNS2.norm_r3SchwartzToHsCLM_two_convection_le_H3` (`vendor/HeliCorgi/Formal/R3SchwartzConvectionSobolevEstimate.lean:89`), `‖(u·∇)v‖_{H²} ≤ r3SchwartzConvectionFullH3Constant·‖u‖_{H³}‖v‖_{H³}` with an explicit constant (`:81`), packaged as `r3SchwartzConvectionSobolevEstimate_three` (`:114`) discharging the gate proposition `R3SchwartzConvectionSobolevEstimate` (`Formal/R3SchwartzSobolevCore.lean:94`), and extended off the Schwartz core by `r3ConvectionH3ToH2` (`Formal/R3SobolevConvectionExtension.lean:138`). Frequency inputs: `r3H2BesselWeight_le_additive_split` (`Formal/R3H2AdditiveConvolutionWeight.lean:11`), `Formal/R3H2WeightedConvolutionKernel.lean:19`. Upstream `advection` (`vendor/NavierStokesAndEuler/NavierStokes/ProblemStatement.lean:63`) is the pinned nonlinearity; `EulerOrdinarySobolev.advectionField` (`Euler/OrdinaryFieldAlgebra.lean:118`) is the two-field version | Four mismatches: only `m = 3 → 2` (HeliCorgi's own docstring calls the general-`m` version an open "gate"), both factors at the **high** order (not tame), Schwartz/cycles carrier, and **Lean 4.32.1** — HeliCorgi is a separate toolchain, blocked by task **U05** (`CLAUDE.md`, layout table). So this row is discharged from the local `tameProductVector` route, not from HeliCorgi; HeliCorgi is a cross-check.
 
 ### Summary of the gap surface
 
@@ -130,6 +130,23 @@ part of the statement rather than a separate obligation.
 
 ## 3. Convention risks
 
+* **"A finite right-hand side asserts that the left-hand side has a datum" is a
+  meta-argument, not a field.** `Spec.lean`'s conventions section notes that,
+  because `Data.sobolevENorm` is `⊤` when no datum exists, a product bound with
+  a finite right-hand side also forces the product into `H^m` — the "closed
+  under multiplication" half of `eq:Rproduct`. That reading is sound but it is
+  a remark *about* the clauses; **no field of `TameProductAPI` states it**, and
+  it relies on one step the structure does not supply: the junk-`0`
+  totalization of `Contracts/V1/Data.lean:148-155` must be excluded on the
+  **left**-hand side, which needs the product to be genuinely `L²`. That in
+  turn follows from the factors being in `H^m ⊆ L^∞ ∩ L²` for `m ≥ 2` (the
+  second clause of `eq:Rproduct` applied to each factor, i.e. `eLpNormTop_le`),
+  and from `MemHmScalar`/`MemHmVector` on the inputs. A consumer that needs
+  `MemHmScalar m (fun x => a x * b x)` as a conclusion must run that argument;
+  the alternative — adding the membership to the conclusion of each product
+  field — was not taken, so that each field states exactly one inequality of
+  `lem:calculus` and nothing more. Whichever implementation unit discharges
+  **U7** should record the derived membership lemma next to the bound.
 * **Cycles vs angular.** Every product and bounded-representative theorem is
   proved for `weightedFourierLp` / `sobolevRealization`, Mathlib's cycles
   convention (`𝓕 f(ξ) = ∫e^{-2πi x·ξ}f`). The manuscript fixes the unitary
@@ -182,14 +199,28 @@ analysis is already in tree.
 | **U7** | `tameProductScalar`: transport `angularProduct_tame_bound` to physical scalars; includes the new lemma "`realSubspace` is stable under `angularProduct`" | M | U1, U2 | `Paper3.angularProduct_tame_bound` (`Paper3/AngularTameProduct.lean:76`), `angularProduct_datum` (`:131`), `angularRealization_product` (`:174`), `angularRealization_orderLowering` (`:51`), `Source.RealSobolev.realSymmetry_involutive` (`Source/RealSobolev.lean:34`) |
 | **U8** | `tameProductVector` and `algebraProductScalar` | S | U3, U7 | `Paper3.sobolevOrderLowering_norm_le` (`Paper3/SobolevOrderLowering.lean:39`) for `‖·‖_{H²} ≤ ‖·‖_{H^k}` (D01 **L5**) |
 | **U9** | `outerProductTame` and `outerProductDifference`: columns `u_j·u`, Frobenius sum, factorization | M | U8 | shape cross-check `EulerOrdinarySobolev.tame_outer_product` (`Euler/OrdinaryTameProduct.lean:83`); bilinearity from `Paper3.sobolevProduct` (`Paper3/CompleteTameProduct.lean:101`) |
-| **U10** | `advectionTame`: U8 applied to `u_j·∂_jv`, summed over `j` | M | U6, U8 | shape cross-check `MNS2.norm_r3SchwartzToHsCLM_two_convection_le_H3` (`vendor/HeliCorgi/Formal/R3SchwartzConvectionSobolevEstimate.lean:92`), blocked from direct use by U05 |
+| **U10** | `advectionTame`: U8 applied to `u_j·∂_jv`, summed over `j` | M | U6, U8 | shape cross-check `MNS2.norm_r3SchwartzToHsCLM_two_convection_le_H3` (`vendor/HeliCorgi/Formal/R3SchwartzConvectionSobolevEstimate.lean:89`), blocked from direct use by U05 |
 
 Order: U1 → U3 → {U2, U6} → U4 → U5, and U7 → U8 → {U9, U10}. U1/U3 and U7 can
-start in parallel; U2 is on the critical path for every physical-field clause
-and is the one unit whose prerequisite (D01 L2) is itself recorded as a gap.
+start in parallel.
 
 Four S, six M, no L. The constants are opaque structure fields, so no unit has
 to compute a numeric value.
+
+**Sizing risk on U2 (reviewer's note, `research/A03/REVIEW.md`).** U2's
+prerequisite is D01 unit **L2**, and L2 is *itself* an open gap:
+`research/D01/RECONCILIATION.md:153` records that the direction needed here
+(datum form ⟹ jet form / `SmoothL2Field`, i.e. producing a datum from a
+physical field) currently has only `Paper3.realCompactSobolevTimeSlice`
+(`RealPositiveDensity.lean:54`) behind it, and that "only for compact smooth
+input" — whereas `X_R` fields are not compactly supported. U2 is on the
+critical path for **every** physical-field clause of the contract
+(`memHInfty_memHm` feeds `boundedRepresentative`, `supNorm_le_of_continuous`,
+`gradientSupNorm_le`, `advectionTame`, and — through `memHInfty_component` —
+the whole product chain). **If L2 stalls, U2 is an L, and the "no L unit"
+claim above fails.** Nothing else in the split depends on an open prerequisite;
+the second-riskiest, U6, is M only at the optimistic end, since it must remove
+`HasCompactSupport` from `Source/AngularGradientIdentity.lean:82,92,108`.
 
 ---
 
@@ -218,3 +249,27 @@ to compute a numeric value.
    `advection`, so a consumer that never converts to divergence form still needs
    it. The conversion `∇·(u⊗u) = (u·∇)u` is A01's unit **E1**
    (`research/A01/COMPARISON.md:190`) and is deliberately absent here.
+5. **Two hypothesis classes, on purpose** (revision after
+   `research/A03/REVIEW.md` issue 1). Clauses involving only pointwise products
+   — `tameProductScalar`, `tameProductVector`, `algebraProductScalar`,
+   `outerProductTame`, `outerProductDifference`, and the three
+   bounded-representative clauses — are stated at `MemHmScalar`/`MemHmVector`,
+   so they hold on `H^k` exactly as `eq:algebra`/`eq:tame` do and can be applied
+   to two arbitrary elements of the `C([0,τ];H³)` ball that the `prop:local`
+   mild contraction runs on (`appendix-a-local-theory.tex:110-116`,
+   `paper/originals/local/paper_3_whole_space.tex:186-192`). Clauses whose
+   statement contains a **classical** derivative — `gradientSupNorm_le` and
+   `advectionTame`, both built from `Data.spatialGradient` /
+   `spatialDerivative` — keep `MemHInfty`, because `MemHmVector` does not make
+   `fderiv` meaningful and the bound would otherwise be a statement about a
+   field that totalizes to `0` off the differentiability set. Their consumers
+   are classical smooth solutions in every case. `memHInfty_memHm` is the
+   bridge, so every `H^∞` instance remains derivable.
+6. **`gradientSobolevENorm_le` carries a non-vacuity hypothesis**
+   (`REVIEW.md` issue 4). `sobolevENorm (s + 1) v ≠ ⊤` was added rather than
+   restricting `s` to `ℕ`: `MemHInfty` supplies integer data only, so at the
+   half-integer orders the clause advertises for Proposition 4.4 the right-hand
+   side could be `⊤` and the clause true-but-empty. The hypothesis is implied
+   by `memHInfty_memHm` at every integer order, so integer consumers pay
+   nothing, and restricting to `ℕ` would have made both the `s = 1/2` use and
+   the stated agreement with A05's `tensorSobolevENorm` unstatable here.

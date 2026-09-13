@@ -32,10 +32,15 @@ The consumers, and the exact clause each one needs:
 * **Theorem 4.2** (`thm:Rinsert`, `paper/sections/04-whole-space.tex:31-46`),
   lifespan `≤ T` step at `:53`: "An extension through `T` would be bounded in
   `C_tH²` on a neighborhood of `T`, hence bounded in `L^∞_x` by
-  `eq:Rproduct`".  This is `supNorm_le_of_continuous` below, applied to the
-  smooth velocity slice at each time.  `research/section4/STATEMENTS.md:261-262`,
-  `:314`, `:1120-1122` and `:1321` record that this is the edge `A03 → R42`
-  that `DEPENDENCY_GRAPH.md` is missing.
+  `eq:Rproduct`".  This is `eLpNormTop_le` below, applied to the velocity slice
+  at each time: `research/section4/STATEMENTS.md:261-262` pins
+  `⟪D01:normLinfty⟫` to the ess-sup and `:348-350` states the blowup as
+  `limsupLeft T (normLinfty ∘ uPert) = ⊤`, so the ess-sup form is the literal
+  match.  `supNorm_le_of_continuous` is the strictly stronger per-slice
+  everywhere form, offered as a convenience for a consumer that already holds a
+  continuous representative.  `research/section4/STATEMENTS.md:314`,
+  `:1120-1122` and `:1321` record that this is the edge `A03 → R42` that
+  `DEPENDENCY_GRAPH.md` is missing.
 * **A04** (`collaboration/tasks/A04.md`) through `eq:Rhigh`
   (`appendix-a-local-theory.tex:132-137`): the nonlinear term of the order-`m`
   energy identity is bounded by `eq:Rproduct` applied to `u ⊗ u`, i.e. by
@@ -93,9 +98,16 @@ The consumers, and the exact clause each one needs:
   multiplication for the energy argument".
 * Every norm is `ℝ≥0∞`-valued and no norm is routed through `.toReal`, so a
   field outside the space makes a right-hand side `⊤` rather than making a
-  bound vacuous.  Conversely a bound with a finite right-hand side *asserts*
-  that the left-hand side has a datum, which is the "closed under
-  multiplication" half of `eq:Rproduct`.
+  bound vacuous.  A bound with a finite right-hand side therefore also rules
+  out `⊤` on the left, i.e. it forces the product to have an order-`m` datum —
+  the "closed under multiplication" half of `eq:Rproduct`.  Note that this
+  reading is a **meta-argument about the clauses, not a field of the
+  structure**, and it needs one input the structure does not state: the product
+  of two `H^m` factors with `m ≥ 2` is itself in `L²` (each factor is in
+  `L^∞ ∩ L²` by the second clause of `eq:Rproduct`), which is what excludes the
+  junk-`0` totalization on the *left*-hand side.  A consumer that wants
+  `MemHmScalar m (fun x => a x * b x)` as a hypothesis-free conclusion must
+  derive it; see `research/A03/COMPARISON.md` §3.
 * Constants are structure fields, hence quantified **outside** every field,
   every viscosity and every solution.  `eq:Rproduct` writes them `C_m` and
   `C`: they depend only on the integer order, never on the field, its support
@@ -335,10 +347,22 @@ structure TameProductAPI where
   `eq:Rhigh`'s `‖∇u‖_{H^m}` against `‖u‖_{H^{m+1}}`.  Stated at real `s ≥ 0`
   because both integer and the half-integer orders of Proposition 4.4 use it;
   `research/A05/Spec.lean` states the companion inequality
-  `dotThreeHalvesLeGradientSobolev` at `s = 1/2`. -/
+  `dotThreeHalvesLeGradientSobolev` at `s = 1/2`.
+
+  *Non-vacuity hypothesis.*  `MemHInfty` (`Contracts/V1/Data.lean:495`) supplies
+  data at **integer** orders only, so at a half-integer `s` the right-hand side
+  can be `⊤` and the clause, while true, would say nothing — exactly the orders
+  the previous paragraph advertises.  `sobolevENorm (s + 1) v ≠ ⊤` is therefore
+  part of the statement.  It is the weakest possible repair: it is implied by
+  `memHInfty_memHm` at every integer `s`, so no integer consumer pays anything,
+  and it is precisely the hypothesis under which the `s = 1/2` instance
+  Proposition 4.4 uses has content.  The alternative — restricting `s` to `ℕ` —
+  was rejected because it would make the advertised `s = 1/2` use, and the
+  agreement with A05's `tensorSobolevENorm`, unstatable here. -/
   gradientSobolevENorm_le :
     ∀ (s : ℝ), 0 ≤ s → ∀ v : SpatialField, MemHInfty v →
-      gradientSobolevENorm s v ≤ sobolevENorm (s + 1) v
+      sobolevENorm (s + 1) v ≠ ⊤ →
+        gradientSobolevENorm s v ≤ sobolevENorm (s + 1) v
 
   /-- `appendix-a-local-theory.tex:12` eq:Rproduct, second clause, and `:49-50`
   "Absolute Fourier convergence also proves the `L^∞` estimate": every field of
@@ -363,27 +387,35 @@ structure TameProductAPI where
           ∀ x : Space, ‖w x‖ₑ ≤ ENNReal.ofReal Cinfty * sobolevENorm 2 z
 
   /-- `appendix-a-local-theory.tex:12` eq:Rproduct, second clause, as an
-  essential-supremum bound: `‖z‖_{L^∞(R³)} ≤ C‖z‖_{H²}`.  This is
-  `research/section4/STATEMENTS.md:261-262`'s `⟪D01:normLinfty⟫` clause verbatim,
-  and the form in which a bound on `‖·‖_∞` composes with the `L^p` machinery of
-  `Contracts/V1/Data.lean`. -/
+  essential-supremum bound: `‖z‖_{L^∞(R³)} ≤ C‖z‖_{H²}`.
+
+  **This is the field the missing DAG edge `A03 → R42` carries.**
+  `research/section4/STATEMENTS.md:261-262` pins `⟪D01:normLinfty⟫` to be the
+  ess-sup `‖·‖_{L^∞(R³)}`, and `:348-350` states Theorem 4.2's blowup as
+  `limsupLeft T (normLinfty ∘ uPert) = ⊤`, so this clause — not the pointwise
+  one below — is the literal match for the `04-whole-space.tex:53` step, and it
+  is also the form in which a bound on `‖·‖_∞` composes with the `L^p`
+  machinery of `Contracts/V1/Data.lean`.  `research/section4/STATEMENTS.md:314`
+  and `:1120-1122` identify it as the input requiring that edge. -/
   eLpNormTop_le :
     ∀ z : SpatialField, MemHmVector 2 z →
       eLpNorm z ⊤ volume ≤ ENNReal.ofReal Cinfty * sobolevENorm 2 z
 
-  /-- `04-whole-space.tex:53`, the decisive sentence of Theorem 4.2: "An
-  extension through `T` would be bounded in `C_tH²` on a neighborhood of `T`,
-  hence bounded in `L^∞_x` by `eq:Rproduct`, contradicting the blowup of
-  `U_ε`."  The contradiction is with
-  `limsup_{t↑T}‖u_ε(t)‖_∞ = ∞`, a statement about the **actual pointwise
-  values** of a smooth field, so the bound is needed at every point and not
-  merely almost everywhere.  Two continuous fields that agree almost everywhere
+  /-- `appendix-a-local-theory.tex:12` eq:Rproduct, second clause, in the
+  per-slice **everywhere-pointwise** form, for a consumer that already holds a
+  continuous representative.  Two continuous fields agreeing almost everywhere
   on `R³` agree everywhere, so this is `boundedRepresentative` with the
-  representative discharged; it is a separate field so that R42 never has to
-  perform that step.
+  representative discharged; it is a separate field only so that no consumer has
+  to redo that step.
 
-  `research/section4/STATEMENTS.md:314` and `:1120-1122` identify this as the
-  input that requires the missing DAG edge `A03 → R42`. -/
+  It is **strictly stronger than, and not the same clause as,
+  `eLpNormTop_le`**.  The `A03 → R42` edge is carried by `eLpNormTop_le`,
+  because `research/section4/STATEMENTS.md:261-262,348-350` writes
+  `⟪D01:normLinfty⟫` as the ess-sup and Theorem 4.2's blowup as a `limsupLeft`
+  of it.  This field is *sufficient* for the `04-whole-space.tex:53` step and
+  convenient there — the velocity slice is smooth by
+  `Data.ClassicalSolutionR.velocity_smooth`, so `Continuous z` is free — but it
+  is a convenience, not the ledger's clause. -/
   supNorm_le_of_continuous :
     ∀ z : SpatialField, Continuous z → MemHmVector 2 z →
       ∀ x : Space, ‖z x‖ₑ ≤ ENNReal.ofReal Cinfty * sobolevENorm 2 z
@@ -395,7 +427,16 @@ structure TameProductAPI where
   `∂_ju₂` (`:50` "The argument applies componentwise to vectors and tensors"),
   reassembled in the Frobenius norm of `gradientTensor`; composing with
   `gradientSobolevENorm_le` at `s = 2` turns the right-hand side into
-  `C‖u₂‖_{H³}`, which is the form the manuscript quotes. -/
+  `C‖u₂‖_{H³}`, which is the form the manuscript quotes.
+
+  *Hypothesis.*  `MemHInfty` is kept here, unlike in `outerProductTame` and
+  `outerProductDifference`.  `gradientTensor` is built from the **classical**
+  `fderiv` (`Contracts/V1/Data.lean:453`), which `MemHmVector k` does not
+  supply: on a merely-`H^k` field `fderiv` totalizes to `0` off the
+  differentiability set, and the left-hand side would then be a quantity about
+  a junk field rather than about `∇v`.  The consumer is in any case a classical
+  smooth solution — `appendix-a-local-theory.tex:117` "two such solutions",
+  `Data.ClassicalSolutionR.velocity_smooth` — so no generality is lost. -/
   gradientSupNorm_le :
     ∀ v : SpatialField, MemHInfty v →
       ∀ x : Space,
@@ -410,7 +451,7 @@ structure TameProductAPI where
   finite right-hand side makes this clause assert that `H^m(R³)` is closed under
   multiplication, which is the half of `eq:Rproduct` that the completed
   in-tree product `NSFormalization.Paper3.sobolevProduct`
-  (`Paper3/CompleteTameProduct.lean:100`) constructs. -/
+  (`Paper3/CompleteTameProduct.lean:101`) constructs. -/
   tameProductScalar :
     ∀ m : ℕ, 2 ≤ m → ∀ a b : Space → ℝ,
       MemHmScalar m a → MemHmScalar m b →
@@ -457,9 +498,19 @@ structure TameProductAPI where
   factor is Lemma A.1's, and it is exactly this field.
 
   The tensor is `u ⊗ u` in the nine-entry Frobenius norm of
-  `columnsSobolevENorm`, per `01-introduction.tex:103`. -/
+  `columnsSobolevENorm`, per `01-introduction.tex:103`.
+
+  *Hypothesis.*  `MemHmVector k`, not `MemHInfty`: `eq:tame` holds on `H^k`, and
+  the other consumer of this clause — the mild contraction of `prop:local`
+  (`appendix-a-local-theory.tex:110-116`,
+  `paper/originals/local/paper_3_whole_space.tex:186-192`) — runs on the ball of
+  `C([0,τ];H³)`, whose elements are `H³` and not `H^∞`.  Stating it at
+  `MemHInfty` would make the clause strictly weaker than `eq:tame` and unusable
+  there.  The `H^∞` instance every smooth consumer wants is recovered by
+  `memHInfty_memHm`, so nothing is lost.  Only pointwise products occur here, so
+  no differentiability is needed and none is assumed. -/
   outerProductTame :
-    ∀ k : ℕ, 3 ≤ k → ∀ u : SpatialField, MemHInfty u →
+    ∀ k : ℕ, 3 ≤ k → ∀ u : SpatialField, MemHmVector k u →
       outerSobolevENorm (k : ℝ) u u ≤
         ENNReal.ofReal (Ctame k) * (sobolevENorm 2 u * sobolevENorm (k : ℝ) u)
 
@@ -472,9 +523,15 @@ structure TameProductAPI where
 
   The factorization is `u⊗u − v⊗v = (u−v)⊗u + v⊗(u−v)`, so the constant is
   eq:algebra's.  This is the estimate the mild contraction and the uniqueness
-  argument of `prop:local` run on; A01/A02 consume it. -/
+  argument of `prop:local` run on; A01/A02 consume it (A01 unit **A1**,
+  `research/A01/COMPARISON.md:197`).
+
+  *Hypothesis.*  `MemHmVector k` for the same reason as `outerProductTame`: the
+  contraction is over two arbitrary elements of the ball of `C([0,τ];H³)`, so a
+  clause quantified over `MemHInfty` fields could not be applied to them at all.
+  `memHInfty_memHm` recovers the smooth instances. -/
   outerProductDifference :
-    ∀ k : ℕ, 3 ≤ k → ∀ u v : SpatialField, MemHInfty u → MemHInfty v →
+    ∀ k : ℕ, 3 ≤ k → ∀ u v : SpatialField, MemHmVector k u → MemHmVector k v →
       outerDiffSobolevENorm (k : ℝ) u v ≤
         ENNReal.ofReal (Calg k) *
           ((sobolevENorm (k : ℝ) u + sobolevENorm (k : ℝ) v) *
@@ -495,7 +552,15 @@ structure TameProductAPI where
   (`research/A01/COMPARISON.md:190`) and is deliberately not asserted here.
 
   As in `tameProductVector`, the factor of three from summing over `j` is
-  absorbed into `C m`. -/
+  absorbed into `C m`.
+
+  *Hypothesis.*  `MemHInfty`, for the same reason as `gradientSupNorm_le`:
+  `advectionOf u v` is built from the classical `spatialDerivative` of `v`,
+  which `MemHmVector` does not supply.  This clause is **not** the one the
+  `prop:local` mild contraction runs on — that contraction uses the divergence
+  form `∇·(u⊗u)` (`eq:mild`, `appendix-a-local-theory.tex:110-114`), i.e.
+  `outerProductTame`/`outerProductDifference`, which are stated at
+  `MemHmVector k` precisely so that they apply on the ball of `C([0,τ];H³)`. -/
   advectionTame :
     ∀ m : ℕ, 2 ≤ m → ∀ u v : SpatialField, MemHInfty u → MemHInfty v →
       sobolevENorm (m : ℝ) (advectionOf u v) ≤
