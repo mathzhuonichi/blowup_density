@@ -116,9 +116,9 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 012-SPEC-ledger-fixes | 已合入 | — | #13 | 台账 v2：12 处修正 + DAG 提案 + CHANGELOG |
 | 010-U05-port | 已合入（ACCEPT-WITH-NOTES） | — | #11 | 88 模块全部编过；补丁只在 4 个副本、1 处 have；vendor 零改动；make snapshot 待 owner 重拍 |
 | 009-D01-reconcile | 已合入（ACCEPT-WITH-NOTES，已修） | **`Contracts/V1/Data.lean`**（定义合同，不注册） | #14 | 63 个定义；**合同 import 精确白名单 6 本地 + 1 上游模块，待 owner 批准** |
-| 013-A01-spec | review 中 | — | — | LocalTheoryAPI 通过检查；三库都缺"全阶共用区间 + 经典场同定"；建议 OpenAI/本地 forced Duhamel 主干 + HeliCorgi 压力；A2 单元 = A04 的 Grönwall 可共用 |
+| 013-A01-spec | PR #17 待合（CI 跑完） | — | #17 | ACCEPT-WITH-NOTES 已修；路线：OpenAI/本地 forced Duhamel 主干 + HeliCorgi 压力；缺的关键单元是阶数 m 的 continuation + 跨阶一致（A2b）；15 单元 3S/7M/5L |
 | 014-A05-spec | PR #16 待合（CI 跑完） | — | #16 | ACCEPT-WITH-NOTES 已修（端点 3/2）；L⁶ 界几乎现成；L^{p_a} 骨架需搬约定（(2π)^{-a}）；Λ 做关系 |
-| 015-I03-spec | review 中 | — | — | ScalingAPI 46 字段通过检查；正/负阶非齐次缩放源码全覆盖；唯一新数学：缩放场的齐次范数界（R46 用）；ε₀ 需与 CorrectionAPI 钉同一族 |
+| 015-I03-spec | 修正中 | — | — | ACCEPT-WITH-NOTES + 1 HIGH（scalingStatement 量化过宽，修法：以 CorrectionAPI 为输入）；Prop 3.3 转运归 I03；U7c（缩放场齐次范数）是 R46 的阻塞点 |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

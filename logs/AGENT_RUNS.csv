@@ -26,3 +26,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,I03,015 scaling spec,opus,worker,done: ScalingAPI 46 fields typechecks; source covers pos/neg inhomogeneous ranges; gap: homogeneous norm of scaled fields (U7 L); convention bridge (2pi)^|s|,,
 2026-09-13,A05,014 review,opus,reviewer,ACCEPT-WITH-NOTES: endpoint 3/2 unowned; citation drift; confirmed (2pi)^-a and Data.lean docstring bug,#16,
 2026-09-13,A05,014 review fixes,opus,worker,done: endpoint added; ~40 citations fixed; not-covered section,#16,
+2026-09-13,A01,013 review fixes,opus,worker,done: Differentiable in Leray complement; horizon_lower_bound; survey corrected; memo revised (route kept),#17,
+2026-09-13,I03,015 review,opus,reviewer,ACCEPT-WITH-NOTES + HIGH: scalingStatement unsatisfiable; recommend CorrectionAPI as input; Prop 3.3 transport to I03; U7c under-sized,,fixes sent to worker
