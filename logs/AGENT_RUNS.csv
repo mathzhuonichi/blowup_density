@@ -43,3 +43,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A02,016 review fixes,opus,worker,done: pressure_normalization field; narrowing recorded; U1 split M+L; closed-form referenceLifespan; DAG wording per ruling,#22,
 2026-09-13,D01,020 unit L2 proofs,opus,worker,done: exists_isSobolevDatum_of_contDiff_memLp at every real s; MemHInfty and sobolevENorm ne top; derivative identification; 29 theorems standard axioms,,no contract binding (formalization cannot import Contracts)
 2026-09-13,A05,019 gradient-L6 contract,opus,worker,done: A05.gradient_l6 V1 registered; paper form; Hessian-Laplacian equality by IBP; Fourier-free; standard axioms,#23,needs datum=>jets for MemHInfty consumers
+2026-09-13,D01,020 review,opus,reviewer,ACCEPT-WITH-NOTES: 29 theorems standard axioms; rfl agreement with Data.lean verified; 2 scope overclaims in docstrings (A03 U2 half; A02 U1 label); citation; shadowing,,fixes sent to worker
