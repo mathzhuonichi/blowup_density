@@ -235,3 +235,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,D01,085-D01-p2-sl7c-commute,opus-4.8,worker-resume,DONE closed-form multiplier + 3 transport lemmas (10 decls) in 6 min / 14 tool uses,PR,PR #89 opened; merging
 2026-09-14,R42,092-R42-lifespan-binding,opus-4.8,worker,RUNNING bindings-level lifespan clauses,—,
 2026-09-14,C01,091-C01-partial-contract,opus-4.8,worker,DONE contract C01.energy_absorption_partial (5 proved fields + C₁/C₁_pos; 16 contracts; gates OK incl. mutations) in 14 min / 40 tool uses,—,reviewer launched
+2026-09-14,D01,089-D01-p2-sl5-longitudinal,opus-4.8,worker,DONE SL5 Lemmas A/B/C + assembled fixed point (5 decls) in 27 min / 39 tool uses; monolithic proof hit 200k heartbeats → split like 079,—,reviewer launched
