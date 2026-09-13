@@ -23,6 +23,14 @@ if [ "$WT" != "$ROOT" ] && [ ! -e .lake/packages ] && [ -d "$ROOT/verification/.
   mkdir -p .lake && ln -s "$ROOT/verification/.lake/packages" .lake/packages
   echo "== linked .lake/packages -> $ROOT/verification/.lake/packages"
 fi
+# Guard: lake must be run from verification/. If someone runs it inside formalization/ by
+# mistake, Lake treats that directory as its own workspace and would clone and compile Mathlib
+# from source (2.8 GB, hours). Pointing its packages directory at the shared clone makes that
+# mistake harmless instead.
+if [ ! -e "$WT/formalization/.lake/packages" ] && [ -d "$ROOT/verification/.lake/packages" ]; then
+  mkdir -p "$WT/formalization/.lake" && ln -s "$ROOT/verification/.lake/packages" "$WT/formalization/.lake/packages"
+  echo "== linked formalization/.lake/packages -> $ROOT/verification/.lake/packages"
+fi
 echo "== lake exe cache get"
 lake exe cache get
 echo "== lake test"
