@@ -50,3 +50,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,B02,022 homogeneous approximation spec,opus,worker,done: HomogeneousApproxAPI 20 fields typechecks; s-range -3/2<s<=0; explicit constants; homogeneous realization half absent in tree (unit 6 = I03 U7c),,
 2026-09-13,I03,021 scaling contract,opus,worker,done: I03.scaling V1 registered; 31 fields proved incl. equalities and force convergence; homogeneous clauses unregistered (no witness),#26,2849 new lines
 2026-09-13,B02,022 review,opus,reviewer,ACCEPT-WITH-NOTES: constants and s-range independently verified; 12 homogeneous names 0 users; unit 6 = U7c (XL),,
+2026-09-13,A03,023 review,opus,reviewer,ACCEPT-WITH-NOTES: gates green; 11 declarations standard axioms; medium: binding name clash with 019 (smoothSquareIntegrableJets_eq); hypothesis stronger than needed,#25,fixes sent to worker
