@@ -115,7 +115,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 011-I02-contract | PR #19 待合（CI 跑完） | **`I02.correction` V1 已注册（rebase 后门禁全绿）** | #19 | 73 义务全证；范数已搬到 Data.lean 的 ℝ≥0∞ 规范范数；多一条论文自带的假设 π 光滑；参考解开板光滑桥因单切片消失 |
 | 016-A02-spec | 进行中 | — | — | 唯一性 / 最大解 / 定量重启（依赖 A01 spec） |
 | 017-A03-spec | 进行中 | — | — | Lemma A.1 tame 积 + H²↪L^∞（R42、A04 用） |
-| 018-B01-spec | 进行中 | — | — | 完备 Bochner 空间里 F_c 稠密（Prop 4.6 前半） |
+| 018-B01-spec | review 中 | — | — | BochnerApproxAPI 通过检查；主字段已由本地 `exists_angular_real_vector_positive_physical_approx` 覆盖（所有 s、q<∞）；缺口只剩时间 C^∞ 搬运 |
 | 012-SPEC-ledger-fixes | 已合入 | — | #13 | 台账 v2：12 处修正 + DAG 提案 + CHANGELOG |
 | 010-U05-port | 已合入（ACCEPT-WITH-NOTES） | — | #11 | 88 模块全部编过；补丁只在 4 个副本、1 处 have；vendor 零改动；make snapshot 待 owner 重拍 |
 | 009-D01-reconcile | 已合入（ACCEPT-WITH-NOTES，已修） | **`Contracts/V1/Data.lean`**（定义合同，不注册） | #14 | 63 个定义；**合同 import 精确白名单 6 本地 + 1 上游模块，待 owner 批准** |

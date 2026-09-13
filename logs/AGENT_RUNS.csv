@@ -32,3 +32,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,I02,011 contract+proofs,opus,worker,done: I02.correction V1 registered; 73 fields proved; standard axioms; norms transported to Data.lean ENNReal norms; slab-smoothness bridge unnecessary,,needs rebase (Data.lean docstring drift)
 2026-09-13,I02,011 review,opus,reviewer,ACCEPT: all gates green; 32 declarations standard axioms; 10 copied notions bridged; 6 low/trivial findings (fixes sent),,
 2026-09-13,I02,011 review fixes,opus,worker,done: cross-module rfl drift guard (insertionFamily_velocity_eq); K_* narrowing in contract; docstrings; gates green,#19,
+2026-09-13,B01,018 Bochner approximation spec,opus,worker,done: BochnerApproxAPI typechecks; main field already in source for all s and q<inf; gap: ContDiff-in-time transport,,
