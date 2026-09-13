@@ -200,7 +200,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 094-D01-p2-sl7b-order0 | 进行中 | — | — | P2 SL7b-α：光滑 L² 场（不要求导数可积）的 0 阶 datum 的 a.e. 符号恒等式——无散 ⇒ 横向、无旋 ⇒ 纵向（分布导数 + `physicalDistribution_directionalField` + `OrderZeroDatum`），`Section4/D01/OrderZeroSymbol.lean` |
 | 095-A04-sl5-nonlinear | 续改中 | — | — | A04 G1 SL5：非线性项的 H^m 分部积分 `⟪G, datum((u·∇)u)⟫ = -⟪∇G, datum(u⊗u)⟫`（实反自伴 082 + `derivDatumStep` 088）+ Cauchy–Schwarz ⇒ `hnl : -⟪G, N⟫ ≤ NLbound`（`A04.inner_energy_assembly` 的输入），`Section4/A04/NonlinearPairing.lean` |
 | 096-R42-lifespan-contract | PR 已开 | #95 | — | 注册 `R42.insertion_lifespan`（V1 新合同，含 `family`、`memForce`、`regular` + 两条寿命子句；Bindings 用 092 的 `insertionLifespan`；Tests 公理审计 + 两条论文显示式 example + `hν`/`ha` 可导出 example），把 `Bindings/InsertionLifespan` 纳入 CI 闭包 |
-| 097-B02-remaining-fields | 审阅中 | — | — | B02 剩余 spec 字段：`chi_*`（vendor `baseCutoff`，同 B01 绑定）、`temporalApprox`/`separatedAssembly`（B01 已证、逐字复用）、`annularPathApprox`（路径级截断，M）、`approxCompactHomogeneous`（stage 1–5 组装）；先表后证 S 项，`Section4/B02/Remaining.lean` + `research/B02/REMAINING_SPLIT.md` |
+| 097-B02-remaining-fields | PR 已开 | #96 | — | B02 剩余 spec 字段：`chi_*`（vendor `baseCutoff`，同 B01 绑定）、`temporalApprox`/`separatedAssembly`（B01 已证、逐字复用）、`annularPathApprox`（路径级截断，M）、`approxCompactHomogeneous`（stage 1–5 组装）；先表后证 S 项，`Section4/B02/Remaining.lean` + `research/B02/REMAINING_SPLIT.md` |
 | 098-R42-full-horizon | 进行中 | — | — | R42 导出：由每个 `Ico 0 S`（S<T）上的 datum 路径经唯一性粘成 `Ico 0 T` 上的连续路径（S–M），从而 `ClassicalSolutionR ν a g_ε T`（水平线恰为 T）；A02 `IsMaximalSolution`/`insertion_lifespan_eq` 半边的表，`Section4/R42/FullHorizon.lean` |
 | 其余节点 | 未开始 | — | — | |
 
