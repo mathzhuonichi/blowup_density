@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- **合并链脚本别用 sed 从上一条 lane 的脚本派生**：094/103/105/106/108 五个 squash commit 的标题都错成了「Simplifier and tester pass over the four merged C01 modules」（模板里的标题被上一次 sed 漏改，之后代代相传）。PR 标题和 `Merge pull request #N` 提交是对的，历史可以还原，但以后一律用 `tmp/mkchain.sh <lane> <PR> <wave> "<title>"` 显式传标题生成，生成后 `grep merge_lane` 肉眼核对再跑。（2026-09-14）
 - 2026-09-14 ATTEMPTS/REVIEW 里引用 `/tmp/...` 探针文件是易失的（106 的审稿人发现 101 引的 `/tmp/a01p1rev/slice.lean` 已不在）；负例要把报错原文抄进 md，探针若值得留就放 `research/<ID>/probes/`。
 - 2026-09-14 worker 的 worktree 比 integration 旧时，它会去根目录改不在自己 worktree 里的记录文件（101 改了根目录的 `research/A01/A01_SPLIT.md`）。简报里要写死"只改本 worktree；文件不存在就在报告里说明，由 lead 处理"；lead 收到后单独 commit 根目录改动。
 - 2026-09-14 仅 `MemLp 2` + 光滑（导数不可积）的场，对 Schwartz 测试函数逐项分部积分是假的（094 给了反例）：必须先乘紧支截断 `χ(·/R)`（`ContDiffBump`）再让 `R→∞`（边界项 `‖∇χ_R‖ ≤ C/R` + DCT）。Mathlib 没有"C_c^∞ 在 Schwartz 中稠密"/"对测试函数消失的分布为零"引理，`ae_eq_zero_of_integral_contDiff_smul_eq_zero` 是可用的基本引理。
