@@ -39,14 +39,14 @@ noncomputable section
 
 namespace NSFormalization.Section4.B02
 
-open MeasureTheory Set Filter
+open MeasureTheory Filter
 open NSFormalization.Paper3
 open NSFormalization.Source (angularFourier)
 open NSFormalization.Source.RealSobolev
 open NavierStokes.ProblemStatement (Space)
 open NavierStokesR3.ComparisonCutoffs
 open NavierStokesR3.SchwartzCompactApproximation
-open scoped ENNReal ContDiff Topology BigOperators SchwartzMap
+open scoped ENNReal ContDiff Topology SchwartzMap
 
 /-- `research/B02/Spec.lean:199`.  The dilated spatial cutoff `χ_R(x) = χ(R⁻¹ • x)`.
 With `χ = baseCutoff` this is `NavierStokesR3.ComparisonCutoffs.cutoff R` by `rfl`. -/
@@ -57,8 +57,10 @@ from three real scalar components (`SpatialField = Space → Space`). -/
 def schwartzVector (ψ : Fin 3 → SchwartzMap Space ℝ) : Space → Space :=
   fun x => WithLp.toLp 2 (fun i => ψ i x)
 
+/-- With `χ = baseCutoff` the dilated cutoff is the vendor `cutoff R`, by `rfl`. -/
 theorem scaledCutoff_baseCutoff (R : ℝ) : scaledCutoff baseCutoff R = cutoff R := rfl
 
+/-- Component-projection normal form for the assembled Schwartz vector field. -/
 @[simp] theorem schwartzVector_apply (ψ : Fin 3 → SchwartzMap Space ℝ) (x : Space) (i : Fin 3) :
     schwartzVector ψ x i = ψ i x := rfl
 
@@ -75,10 +77,12 @@ theorem norm_le_sum_norm (v : Space) : ‖v‖ ≤ ∑ i, ‖v i‖ := by
       ≤ Real.sqrt ((∑ i, ‖v i‖) ^ 2) := Real.sqrt_le_sqrt hsq
     _ = ∑ i, ‖v i‖ := Real.sqrt_sq (Finset.sum_nonneg fun i _ => hnn i)
 
+/-- The assembled Schwartz vector field is smooth (each component is Schwartz). -/
 theorem schwartzVector_contDiff (ψ : Fin 3 → SchwartzMap Space ℝ) :
     ContDiff ℝ ∞ (schwartzVector ψ) :=
   (contDiff_piLp 2).mpr (fun i => (ψ i).smooth')
 
+/-- The assembled Schwartz vector field lies in every `Lᵖ` (each component is Schwartz). -/
 theorem schwartzVector_memLp (ψ : Fin 3 → SchwartzMap Space ℝ) (p : ℝ≥0∞) :
     MemLp (schwartzVector ψ) p volume :=
   memLp_piLp_iff.mpr (fun i => (ψ i).memLp p volume)

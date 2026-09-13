@@ -15,10 +15,13 @@ not on the Lake module path, so it cannot be imported.  This file instead:
 * exhibits an `example` whose type is the arrow
   `annularSchwartz → lebesgueHomogeneousDatum → homogeneousDatumSub → lowHighSplit
    → spatialApproxHomogeneous` — i.e. the four hypotheses of
-  `spatialApproxHomogeneous_of` are **exactly** the spec fields of units 2/6/7
-  (`Spec.lean:362-364, 454-458, 470-472, 421-425`), token-for-token, and the
-  conclusion is the spec field `spatialApproxHomogeneous` (`Spec.lean:515-518`),
-  discharged by `NSFormalization.Section4.B02.spatialApproxHomogeneous_of`.
+  `spatialApproxHomogeneous_of` are **exactly** the current spec fields of units
+  2/6/7 (`Spec.lean:362-364, 454-458, 490-496, 421-425`), token-for-token, and the
+  conclusion is the spec field `spatialApproxHomogeneous` (`Spec.lean:539-543`),
+  discharged by `NSFormalization.Section4.B02.spatialApproxHomogeneous_of`.  The
+  `homogeneousDatumSub` field (`Spec.lean:490`) carries physical-pairing
+  integrability side conditions; its historical hypothesis-free form was *false*
+  (lane 068 review, `REVIEW_U6.md` §4).
 
 The `example`s type-check because the mirrored `SpecMirror.*` predicates and the
 `NSFormalization.Section4.B02.*` / `Contracts.V1.Data.*` predicates used inside the
@@ -79,11 +82,17 @@ example : ∀ ψ : Fin 3 → SchwartzMap Space ℝ,
       Filter.atTop (nhds 0) :=
   NSFormalization.Section4.B02.cutoffLebesgue
 
-/-- The four antecedents are the spec fields `annularSchwartz` (`Spec.lean:362-364`),
-`lebesgueHomogeneousDatum` (`Spec.lean:454-458`), `homogeneousDatumSub`
-(`Spec.lean:470-472`) and `lowHighSplit` (`Spec.lean:421-425`), verbatim; the
-consequent is the spec field `spatialApproxHomogeneous` (`Spec.lean:515-518`).
-Discharged by `NSFormalization.Section4.B02.spatialApproxHomogeneous_of`. -/
+/-- The four antecedents are the current spec fields `annularSchwartz`
+(`Spec.lean:362-364`), `lebesgueHomogeneousDatum` (`Spec.lean:454-458`),
+`homogeneousDatumSub` (`Spec.lean:490-496`) and `lowHighSplit` (`Spec.lean:421-425`),
+verbatim; the consequent is the spec field `spatialApproxHomogeneous`
+(`Spec.lean:539-543`).  The `homogeneousDatumSub` antecedent carries the two
+physical-pairing `Integrable` side conditions: this is what makes it provable — the
+historical hypothesis-free form of that field is *false* under `Data.lean:298`'s
+totalizing convention (lane 068 review `REVIEW_U6.md` §4), and the current Spec field
+was corrected to this integrability-carrying shape (matching `axioms_u6.lean`, which
+discharges it by `isHomogeneousSliceDatum_sub_of_integrable`).  Discharged by
+`NSFormalization.Section4.B02.spatialApproxHomogeneous_of`. -/
 example :
     (∀ (s : ℝ) (δ R : ℝ), 0 < δ → δ < R →
         ∀ W : RealVectorSobolev s, IsAnnularDatum δ R W →
@@ -95,6 +104,10 @@ example :
           ‖G‖ₑ = homogeneousFourierENorm s k) →
     (∀ (s : ℝ) (z w : SpatialField) (Z W : RealVectorSobolev s),
         IsHomogeneousSliceDatum s z Z → IsHomogeneousSliceDatum s w W →
+        (∀ (i : Fin 3) (ψ : SchwartzMap Space ℂ),
+            Integrable (fun x : Space => ψ x * ((z x i : ℝ) : ℂ)) volume) →
+        (∀ (i : Fin 3) (ψ : SchwartzMap Space ℂ),
+            Integrable (fun x : Space => ψ x * ((w x i : ℝ) : ℂ)) volume) →
           IsHomogeneousSliceDatum s (z - w) (Z - W)) →
     (∀ s : ℝ, SplitRange s → ∀ k : SpatialField,
         MemLp k 1 volume → MemLp k 2 volume →
