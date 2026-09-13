@@ -5,7 +5,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
-from check_contracts import check_compatibility
+from check_contracts import check_compatibility, contract_import_allowed
 from build_changed_lean import targets
 
 
@@ -18,6 +18,22 @@ class ChangedModuleSelection(unittest.TestCase):
     def test_incompatible_vendor_is_not_silently_skipped(self):
         with self.assertRaisesRegex(ValueError, '4.32.1'):
             targets(['vendor/HeliCorgi/Formal/NewProof.lean'])
+
+
+class ContractImportBoundary(unittest.TestCase):
+    def test_upstream_and_canonical_conventions_are_allowed(self):
+        for module in ['Mathlib.Data.Real.Basic', 'Contracts.V1.Thresholds',
+                       'NavierStokes.R3.ProblemStatement',
+                       'NSFormalization.Paper3.GridGeometry',
+                       'NSFormalization.Paper3.AngularFourierDilation']:
+            self.assertTrue(contract_import_allowed(module), module)
+
+    def test_arbitrary_local_implementation_is_still_rejected(self):
+        for module in ['NSFormalization', 'NSFormalization.Source.Insertion',
+                       'NSFormalization.Paper3.RealAdmissibleForce',
+                       'NSFormalization.Paper1.InsertionEnergy', 'Bindings.Thresholds',
+                       'Euler.EulerProof']:
+            self.assertFalse(contract_import_allowed(module), module)
 
 
 class CompatibilityPolicy(unittest.TestCase):

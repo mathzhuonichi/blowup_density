@@ -11,6 +11,33 @@ from check_formalization_plan import uncomment
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = 'verification/contracts.json'
 
+# A versioned specification stays independent of this project's *proofs*.
+# It may import Mathlib, Lean core, another contract, and the pinned upstream
+# packages under `vendor/`, whose declarations are frozen imported source and
+# not implementation work of this repository.
+CONTRACT_IMPORT_PREFIXES = ('Mathlib', 'Lean', 'Init', 'Contracts.', 'NavierStokes.')
+
+# A specification may additionally name a local module when that module fixes a
+# *definition-level convention* the whole project treats as canonical, and only
+# from this explicit list: the manuscript's angular Fourier transform and its
+# distributional realization, the real-Sobolev and Euclidean-vector carriers,
+# the (0, infinity) force-time measure, and grid geometry. Every other local
+# module is an implementation dependency and stays rejected. Extending this
+# list is a reviewed policy change, not a routine edit.
+CONTRACT_CANONICAL_MODULES = frozenset({
+    'NSFormalization.Source.FourierConvention',
+    'NSFormalization.Source.RealSobolev',
+    'NSFormalization.Paper3.AngularFourierDilation',
+    'NSFormalization.Paper3.RealVectorPositiveDensity',
+    'NSFormalization.Paper3.PositiveTemporalDensity',
+    'NSFormalization.Paper3.GridGeometry',
+})
+
+
+def contract_import_allowed(module):
+    """Whether a versioned specification may import `module`."""
+    return module.startswith(CONTRACT_IMPORT_PREFIXES) or module in CONTRACT_CANONICAL_MODULES
+
 
 def git_bytes(root, ref, path):
     result = subprocess.run(['git', 'show', f'{ref}:{path}'], cwd=root, capture_output=True)
@@ -69,8 +96,9 @@ def check(root=ROOT, base=None):
                     r'^\s*(?:public\s+)?import\s+([^\n]+)', code, re.M) for v in line.split()]
                 if module.startswith('Contracts.'):
                     assert not re.search(r'\b(?:axiom|sorry|admit)\b', code), p
-                    assert all(x.startswith(('Mathlib', 'Lean', 'Init', 'Contracts.'))
-                               for x in imports[module]), f'Implementation-dependent specification: {p}'
+                    forbidden = [x for x in imports[module] if not contract_import_allowed(x)]
+                    assert not forbidden, (
+                        f'Implementation-dependent specification: {p}: {forbidden}')
     registered_tests = set()
     closures = {}
     for contract in contracts:
