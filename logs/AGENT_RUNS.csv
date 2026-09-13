@@ -37,3 +37,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A02,016 uniqueness spec,opus,worker,done: UniquenessAPI/MaximalSolutionAPI typecheck; found classical_uniqueness_on_Icc; claims A03->A02 edge needed; 10 units 6S/4M,,DAG claim to be adjudicated
 2026-09-13,B01,018 review,opus,reviewer,ACCEPT-WITH-NOTES: citation drift; export-shape def; under-credited reuse; unit 9 restate; pairing = IsSobolevDatum verified in Lean,,fixes sent to worker
 2026-09-13,A03,017 review,opus,reviewer,ACCEPT-WITH-NOTES: 2 med (H^k not H^inf for product fields; which field carries A03->R42); 4 low; admissibility-predicate argument confirmed,,fixes sent to worker
+2026-09-13,A03,017 review fixes,opus,worker,done: H^k on divergence-form fields; edge docstrings; half-integer hypothesis; citations; U2 risk note,#20,kept H^inf on two classical-derivative fields (justified)
