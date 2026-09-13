@@ -52,3 +52,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,B02,022 review,opus,reviewer,ACCEPT-WITH-NOTES: constants and s-range independently verified; 12 homogeneous names 0 users; unit 6 = U7c (XL),,
 2026-09-13,A03,023 review,opus,reviewer,ACCEPT-WITH-NOTES: gates green; 11 declarations standard axioms; medium: binding name clash with 019 (smoothSquareIntegrableJets_eq); hypothesis stronger than needed,#25,fixes sent to worker
 2026-09-13,I03,021 review,opus,reviewer,ACCEPT-WITH-NOTES: 115 declarations standard axioms (no sampling); medium: force_carrier_subset inert premise R42 cannot discharge; 2 low,#26,fix sent to worker
+2026-09-13,A03,023 review fixes,opus,worker,done: bridge renames (no clash with 019); SmoothJetsUpTo 2 hypothesis; provenance chain; scope; 15/15 standard axioms,#25,
