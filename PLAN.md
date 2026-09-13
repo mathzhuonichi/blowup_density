@@ -203,6 +203,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 097-B02-remaining-fields | 已合并 | #96 | #96 | B02 剩余 spec 字段：`chi_*`（vendor `baseCutoff`，同 B01 绑定）、`temporalApprox`/`separatedAssembly`（B01 已证、逐字复用）、`annularPathApprox`（路径级截断，M）、`approxCompactHomogeneous`（stage 1–5 组装）；先表后证 S 项，`Section4/B02/Remaining.lean` + `research/B02/REMAINING_SPLIT.md` |
 | 098-R42-full-horizon | 进行中 | — | — | R42 导出：由每个 `Ico 0 S`（S<T）上的 datum 路径经唯一性粘成 `Ico 0 T` 上的连续路径（S–M），从而 `ClassicalSolutionR ν a g_ε T`（水平线恰为 T）；A02 `IsMaximalSolution`/`insertion_lifespan_eq` 半边的表，`Section4/R42/FullHorizon.lean` |
 | 099-B02-partial-contract | 进行中 | — | — | 注册 `B02.homogeneous_partial`：16 个已证字段（含带可积性形式的 `homogeneousDatumSub` + 反例注释）逐字进 `Contracts/V1/HomogeneousPartial.lean` + Bindings + Tests + contracts.json（模板 071/091），把 B02 八个模块纳入 CI 闭包；缺 `separatedAssembly`/`annularPathApprox`/`approxCompactHomogeneous` |
+| 100-A04-sl5a-divergence-form | 进行中 | — | — | A04 SL5 行 5a（M）：无散场的对流项散度形式 `advection u t x = ∑ⱼ partialDeriv j (fun y => u (t,y) j • u (t,y)) x`（Leibniz + `spatialDivergence = 0`），`Section4/A04/AdvectionDivergence.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

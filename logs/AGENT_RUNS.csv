@@ -262,3 +262,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,B02,097-B02-remaining-fields,opus,reviewer,ACCEPT-WITH-NOTES (5 fields token-identical; temporalApprox reuse verified by 3 rfl; 16/19 confirmed; separatedAssembly shorter route via isHomogeneousSliceDatum_unique (needs -3/2<s, fine for SplitRange); annularPathApprox not a paper step; approxCompact monolithic confirmed; REGISTER partial B02 contract now) in 9 min / 44 tool uses,PR,PR #96 opened; chain after #95
 2026-09-14,B02,099-B02-partial-contract,opus-4.8,worker,RUNNING register 16 proved B02 fields,—,
 2026-09-14,A04,095-A04-sl5-nonlinear,opus-4.8,worker-resume,DONE row 5i (3 layers) + table corrections (7 decls) in 10 min / 15 tool uses,PR,PR #97 opened; merging
+2026-09-14,A04,100-A04-sl5a-divergence-form,opus-4.8,worker,RUNNING SL5 row 5a pointwise divergence form,—,
