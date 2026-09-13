@@ -1,4 +1,5 @@
 import Contracts.V1.InsertionFamily
+import Contracts.V1.InsertionLifespan
 import Contracts.V1.MaximalPartial
 import Contracts.V1.DatumLemmas
 import Bindings.MaximalPartial
@@ -8,11 +9,17 @@ import NSFormalization.Section4.R42.BlowupEssSup
 
 /-! The Bindings-level assembly of the **two lifespan clauses of Theorem 4.2**
 (`paper/sections/04-whole-space.tex:32,34`) from the registered contracts and the
-merged `R42` modules.  This is the still-unregistered target
-`Contracts.V1.InsertionFamily.InsertionLifespanAPI`
-(`Contracts/V1/InsertionFamily.lean:421-436`); contract registration is a later
-lane, so this file only inhabits the structure and records the exact extra
-hypothesis list the V2 contract must carry.
+merged `R42` modules.  This file has two inhabitants:
+
+* §8 `insertionLifespanAPI` inhabits the **registered** contract
+  `R42.insertion_lifespan` (version 1 of a new id,
+  `Contracts.V1.InsertionLifespan.InsertionLifespanAPI`, 5 fields — lane 096);
+  this is the record consumers should use.
+* §7 `insertionLifespan` inhabits the legacy, frozen, unregistered 3-field
+  `Contracts.V1.InsertionFamily.InsertionLifespanAPI`
+  (`Contracts/V1/InsertionFamily.lean:421-436`) — the lane-092 record.  It is
+  kept because it is that structure's only inhabitant and §8 reuses its two
+  clause proofs (`referenceLifespan`, `lifespan_eq`) verbatim.
 
 The whole assembly rests on three registered interfaces and the merged R42
 analytic lemmas:
@@ -51,12 +58,15 @@ analytic lemmas:
    step from `regularThrough_iff` at `T' = T+δ`.  Taken through the registered
    `maximalPartial.regularThrough_iff` (Data vocabulary), so no `A02`/`Data`
    `RegularThrough` bridge is needed.
-7. `insertionLifespan` — the structure inhabitant.
+7. `insertionLifespan` — the legacy frozen 3-field inhabitant (lane 092).
+8. `insertionLifespanAPI` — the registered `R42.insertion_lifespan` inhabitant
+   (lane 096), reusing (6) and `lifespan_eq` and additionally storing `hg`/`hreg`
+   as the record's `memForce`/`regular` fields.
 
-## The V2 contract's hypothesis list (recorded for the next lane)
+## The registered contract's hypothesis list
 
-`insertionLifespan` — hence a correct-strength R42-V2 — adds exactly **two**
-hypotheses beyond `F : InsertionFamilyAPI ν P`, and no more:
+`insertionLifespanAPI` — the registered `R42.insertion_lifespan` — adds exactly
+**two** hypotheses beyond `F : InsertionFamilyAPI ν P`, and no more:
 
 * `hg  : Data.MemForceR F.g`  (the reference force is in `F_R`,
   `04-whole-space.tex:32`).  `Data.ClassicalSolutionR` has no force-class field
@@ -228,11 +238,12 @@ theorem referenceLifespan (hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin
   (maximalPartial.regularThrough_iff ν F.a F.g (F.T + F.margin)
     (add_pos F.scaling.correction.time_pos F.scaling.correction.margin_pos)).mp hreg
 
-/-! ## 7. `insertionLifespan` — the structure inhabitant
+/-! ## 7. `insertionLifespan` — the legacy frozen 3-field inhabitant (lane 092)
 
-Takes exactly the two hypotheses `hg`, `hreg` — the V2 contract's shape (module
-docstring).  `0 < ν` and `F.a ∈ Data.initialClassR` are derived inside
-`lifespan_upper` from `P.viscosity_pos` and `initialClassR_a`. -/
+Inhabits the frozen, unregistered `Contracts.V1.InsertionFamily.InsertionLifespanAPI`.
+Takes exactly the two hypotheses `hg`, `hreg` — the same two the registered
+`R42.insertion_lifespan` carries (see §8).  `0 < ν` and `F.a ∈ Data.initialClassR`
+are derived inside `lifespan_upper` from `P.viscosity_pos` and `initialClassR_a`. -/
 def insertionLifespan (hg : Data.MemForceR F.g)
     (hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin)) :
     InsertionLifespanAPI ν P where
@@ -245,5 +256,29 @@ def insertionLifespan (hg : Data.MemForceR F.g)
 theorem insertionLifespan_family (hg : Data.MemForceR F.g)
     (hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin)) :
     (insertionLifespan F hg hreg).family = F := rfl
+
+/-! ## 8. `insertionLifespanAPI` — the **registered** structure inhabitant
+
+Inhabits the registered `Contracts.V1.InsertionLifespan.InsertionLifespanAPI`
+(`Contracts/V1/InsertionLifespan.lean`, contract `R42.insertion_lifespan`).  It
+differs from the frozen 3-field `insertionLifespan` above only by additionally
+storing the two hypotheses `hg`, `hreg` as the new record's `memForce`/`regular`
+fields — so a downstream consumer holding the record can reuse them (R47 needs
+`g ∈ F_R`).  The two lifespan clauses reuse the same `referenceLifespan` and
+`lifespan_eq` proofs. -/
+def insertionLifespanAPI (hg : Data.MemForceR F.g)
+    (hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin)) :
+    Contracts.V1.InsertionLifespan.InsertionLifespanAPI ν P where
+  family := F
+  memForce := hg
+  regular := hreg
+  referenceLifespan := referenceLifespan F hreg
+  lifespan := fun _ε hε => lifespan_eq F hg hε
+
+/-- Regression guard (lane-092 review finding 5): the two clauses of the
+registered record are about the **given** family `F`, not a substituted one. -/
+theorem insertionLifespanAPI_family (hg : Data.MemForceR F.g)
+    (hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin)) :
+    (insertionLifespanAPI F hg hreg).family = F := rfl
 
 end BlowupDensity.Bindings.InsertionLifespan
