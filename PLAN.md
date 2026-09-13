@@ -152,7 +152,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 046-R44-spec-A | 盲稿 A+B 比对调和完成，PR 待合 | — | — | `RCritical2API` 9 字段；缺口 G1（J 权重恒等式）、G2（eq:Rcritical2）、G3（H^{-1/2} 力切片）、G5（幂拼写）见 `research/R44/COMPARISON.md` §4 |
 | 047-R44-spec-B | 已并入 046 | — | — | 命题 4.4 spec 盲稿 B（与 046 互不可见，同样输入） |
 | 048-B01-units-6-8 | 进行中 | — | — | B01 单元 6（`separatedAssembly`）+ 8（`spatialApprox`），`Section4/B01/Separated.lean` |
-| 049-A02-unit-u1b | 进行中 | — | — | A02 单元 U1b：`ClassicalSolutionR` 在 `Icc 0 T'` 上的 `‖u‖` 与 `‖∇u‖` 一致上界（经 `D01.datum_lemmas` + `A03.bounded_representative`），`Section4/A02/Bounds.lean` |
+| 049-A02-unit-u1b | ACCEPT，PR 待合 | — | — | A02 单元 U1b：`ClassicalSolutionR` 在 `Icc 0 T'` 上的 `‖u‖` 与 `‖∇u‖` 一致上界（经 `D01.datum_lemmas` + `A03.bounded_representative`），`Section4/A02/Bounds.lean` |
 | 050-C01-units-u1-u3 | 进行中 | — | — | C01 单元 U1（`velocityJets`，经 `D01.datum_lemmas` 现为 S）+ U3（演化打包成 `SmoothL2Field` 路径），`Section4/C01/{VelocityJets,Evolution}.lean` |
 | 051-B02-unit-1 | 进行中 | — | — | B02 单元 1：环形截断 + 光滑化（`annularRestriction`、`annularSmoothing`），`Section4/B02/Annular.lean` |
 | 052-A02-units-u2-u3 | 进行中 | — | — | A02 单元 U2（`velocity_unique` 经 `classical_uniqueness_on_Icc` + U1a + U1b）+ U3（`pressure_gauge`）；**叠在 049 分支上**，`Section4/A02/Uniqueness.lean` |
