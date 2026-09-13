@@ -70,7 +70,7 @@ in 𝓢') is the order-0 identity and is the natural cross-check for SL8, **not*
 | **SL1** | **d1,a** | `complementSymbol ξ = ξξᵀ/‖ξ‖²` — projection, opNorm ≤ 1, real, even, **0-homog**, kills transverse, fixes longitudinal | **S — DONE (this lane)** | — |
 | SL2 | a | land the multiplier in the real subspace `RealVectorSobolev` (via `realProjectionTo`); even+real ⇒ preserves it | S/M | needs SL3 obj |
 | SL3 | d2 | operator-valued `L²` multiplier `RVSᵐ →L[ℝ] RVSᵐ`, opNorm ≤ 1, a.e. `= complementSymbol ξ (·)` | **S/M** | template exists upstream — the only real work is the `q=2` `assemble/coordinates` isometry |
-| SL4 | c1 | `div ∂ₜu(t,·)=0` (α); `(I−P)` kills a solenoidal field (fibre fact, **done SL1**) | α: S/M | α unproved in tree; **SL4β/unit L3 DELETED — not needed** |
+| SL4 | c1 | `div ∂ₜu(t,·)=0` (α); `(I−P)` kills a solenoidal field (fibre fact, **done SL1**) | α: S/M | α **proved** (lane 074, `D01/DivergenceTime.lean` `spatialDivergence_temporalDerivative_eq_zero`, `Ioo 0 T`); **SL4β/unit L3 DELETED — not needed** |
 | SL5 | c2 | `∇p` longitudinal via **curl-freeness** (Clairaut), so `(I−P)∇p = ∇p` (fibre fact, **done SL1**) | M | needs SL6 (`iξⱼ` datum) |
 | SL6 | d | **the one substantive lemma:** `IsSobolevDatum m (∂ⱼz) (iξⱼ·A)` from `IsSobolevDatum m z A` | M | scalar block exists (`SobolevDirectionalDerivative`); vector `IsSobolevDatum` form is new |
 | SL7 | b,c3 | eq:Rpressure at every order, **non-circular**: order-0 Plancherel seed + `pressure_gradient` + bootstrap | S/M (seed) + M | order-0 `MemLp⟹IsSobolevDatum 0` constructor not yet wired |
@@ -150,6 +150,7 @@ reaches `opNorm ≤ 1` only through a 9-term triangle inequality (`≤ 3`, never
 
 ### SL4 (task c1) — α: S/M; β (unit L3): **DELETED, not needed**
 ```lean
+-- planned name (ill-typed sketch; delivered as `spatialDivergence_temporalDerivative_eq_zero` on the pair-form field, lane 074)
 theorem div_temporalDerivative_eq_zero {ν a f T} (u : ClassicalSolutionR ν a f T)
     {t} (ht : t ∈ Ioo (0:ℝ) T) (x : Space) :
     (∑ i, spatialDerivative (fun y => temporalDerivative u.velocity t y) i x i) = 0
@@ -161,7 +162,7 @@ The closed solenoidal subspace (HeliCorgi builds `P` that way, `R3LerayL2Operato
 required only if `P` is *defined* as its projection.  Route B defines `P` by symbol, so the
 kill-solenoidal step is `complementSymbol_eq_zero_of_inner_eq_zero` (SL1) composed with SL3's a.e.
 action (upstream's exact shape: `R3LerayComplexDivergenceBridge.lean:23,54`).  **Unit L3 leaves the
-critical path.**  **Blocker:** SL4α (routine `ContDiff`/Clairaut, unproved in tree).
+critical path.**  SL4α proved in lane 074 (PR #75). Remaining for SL4: the Fourier transverse form via D2 + `isSobolevDatum_partialDeriv` (needs a `SmoothL2Field` wrapper of the slice and the `m+1 → m` order bookkeeping) + `complementSymbol_eq_zero_of_inner_eq_zero`.
 
 ### SL5 (task c2) — M — gradient longitudinal via curl-freeness (not a datum for `p`)
 ```lean
