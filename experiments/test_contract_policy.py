@@ -5,7 +5,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
-from check_contracts import check_compatibility
+from check_contracts import check, check_compatibility, contract_import_allowed
 from build_changed_lean import targets
 
 
@@ -18,6 +18,72 @@ class ChangedModuleSelection(unittest.TestCase):
     def test_incompatible_vendor_is_not_silently_skipped(self):
         with self.assertRaisesRegex(ValueError, '4.32.1'):
             targets(['vendor/HeliCorgi/Formal/NewProof.lean'])
+
+
+class ContractImportBoundary(unittest.TestCase):
+    def test_upstream_and_canonical_conventions_are_allowed(self):
+        for module in ['Mathlib', 'Lean', 'Init', 'Mathlib.Data.Real.Basic',
+                       'Contracts.V1.Thresholds',
+                       'NavierStokes.R3.ProblemStatement',
+                       'NSFormalization.Paper3.GridGeometry',
+                       'NSFormalization.Paper3.AngularFourierDilation']:
+            self.assertTrue(contract_import_allowed(module), module)
+
+    def test_arbitrary_local_implementation_is_still_rejected(self):
+        for module in ['NSFormalization', 'NSFormalization.Source.Insertion',
+                       'NSFormalization.Paper3.RealAdmissibleForce',
+                       'NSFormalization.Paper1.InsertionEnergy', 'Bindings.Thresholds',
+                       'Euler.EulerProof']:
+            self.assertFalse(contract_import_allowed(module), module)
+
+    def test_vendor_is_an_exact_list_not_a_package_prefix(self):
+        for module in ['NavierStokes.ComparatorTheorem', 'NavierStokes.ProblemStatement',
+                       'NavierStokes.R3.CompactEnergy']:
+            self.assertFalse(contract_import_allowed(module), module)
+
+    def test_root_names_match_exactly_or_with_a_dot(self):
+        for module in ['MathlibExtras.Tactic', 'LeanFoo.Bar', 'Initialize.X', 'Contracts']:
+            self.assertFalse(contract_import_allowed(module), module)
+
+
+class ContractImportBoundaryEndToEnd(unittest.TestCase):
+    """Drive `check()` itself, so a refactor that stops consulting the predicate fails."""
+
+    def tree(self, probe_import):
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        root = Path(temp.name)
+        item = {'id': 'probe.v1', 'parent_task': 'R41', 'version': 1,
+                'specification': 'verification/Contracts/V1/Thresholds.lean',
+                'binding_module': 'Bindings.Thresholds', 'test_module': 'Tests.Thresholds',
+                'declaration': 'Probe.checked', 'scope': 'Probe only.', 'enabled': True}
+        for path, text in [
+            ('lean-toolchain', 'leanprover/lean4:probe\n'),
+            ('verification/lean-toolchain', 'leanprover/lean4:probe\n'),
+            ('formalization/lean-toolchain', 'leanprover/lean4:probe\n'),
+            ('formalization/blueprint/tasks.json', json.dumps({'nodes': [{'id': 'R41'}]})),
+            ('verification/contracts.json',
+             json.dumps({'schema_version': 1, 'contracts': [item]})),
+            ('verification/Contracts/V1/Thresholds.lean', 'import Mathlib.Data.Real.Basic\n'),
+            ('verification/Bindings/Thresholds.lean', 'import Contracts.V1.Thresholds\n'),
+            ('verification/Tests/Thresholds.lean', 'import Bindings.Thresholds\n'),
+            ('verification/Contracts/V1/Probe.lean', f'import {probe_import}\n'),
+        ]:
+            p = root / path
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(text)
+        return root
+
+    def test_check_rejects_a_non_allowlisted_local_import(self):
+        root = self.tree('NSFormalization.Paper3.RealAdmissibleForce')
+        with self.assertRaises(AssertionError) as caught:
+            check(root=root)
+        self.assertIn('NSFormalization.Paper3.RealAdmissibleForce', str(caught.exception))
+        self.assertIn('Implementation-dependent specification', str(caught.exception))
+
+    def test_check_accepts_a_canonical_convention_import(self):
+        result = check(root=self.tree('NSFormalization.Paper3.GridGeometry'))
+        self.assertEqual(result['registered_contracts'], 1)
 
 
 class CompatibilityPolicy(unittest.TestCase):

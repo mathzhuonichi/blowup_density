@@ -1,6 +1,6 @@
 name = "BlowupDensityVerification"
 version = "0.1.0"
-defaultTargets = ["Tests"]
+defaultTargets = ["Tests", "Contracts"]
 testDriver = "Tests"
 
 [[require]]
