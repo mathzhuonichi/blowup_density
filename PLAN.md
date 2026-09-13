@@ -141,6 +141,8 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 035-B01-units-1-3 | 进行中 | — | — | B01 单元 1–3（R46 实际消费的三条：Schwartz/紧支稠密 + 完备化代表元），`Section4/B01/` |
 | 036-B02-units-3-4 | 进行中 | — | — | B02 单元 3+4（低频权重可积性/积分值；角 Fourier 上确界界），`Section4/B02/` |
 | 037-R43-spec-A | 进行中 | — | — | 命题 4.3（L¹ 临界正则性）spec 盲稿 A；消费 A04/C01/A02 |
+| 038-R43-spec-B | 进行中 | — | — | 命题 4.3 spec 盲稿 B（与 037 互不可见） |
+| 039-A04-units-f1-n1 | 进行中 | — | — | A04 单元 F1（`MemForceR` ⇒ L¹_tH^m / 有界 H¹ 力）+ N1（被积函数连续性），`Section4/A04/` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
