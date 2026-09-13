@@ -34,14 +34,13 @@ supplies the `I01`/`I02`/`I03` fields to these lemmas.
 
 noncomputable section
 
-open Set Filter MeasureTheory
+open Set Filter
 open scoped ContDiff Topology
 
 namespace NSFormalization.Section4.R42
 
 open NavierStokes.ProblemStatement
 open NSFormalization.Source NSFormalization.Source.PacketScaling
-open NSFormalization.Source.LocalizedInsertion
 
 /-! ## 1. Geometry: the rescaled carriers sit inside the ball -/
 
