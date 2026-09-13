@@ -10,6 +10,8 @@ Canonical norms: `verification/Contracts/V1/Data.lean`
 All `formalization/…` line numbers are as of this worktree.
 Paper locations are `paper/sections/…`.
 
+**Revision 2** (after `research/I03/REVIEW.md`, ACCEPT-WITH-NOTES): issue 1 (HIGH, unsatisfiable `scalingStatement`) fixed by premises; issues 2, 3 and 5 applied; the `prop:scaling` transport moved into `ScalingAPI` per the reviewer's recommendation; `U7` split per the reviewer's sizing note. Issues 4 and 6 were `LOW`/`INFO` with "no fix required" and are left as they were.
+
 ---
 
 ## 1. Field-by-field table
@@ -31,11 +33,14 @@ Abbreviations. `k = ε⁻¹`; `β(q,s) = ThresholdAPI.exponent q s = 2/q − 3/2
 | `ε₀`, `eps_pos`, `eps_le_one`, `eps_time`, `eps_space` | `03-torus.tex:104-105, 212`; `04-whole-space.tex:33` | `exists_insertion_family` builds `ε₀ = min 1 (min (r/R) ((T−τ)/2))` `Source/InsertionFamily.lean:238` | source uses `Ioo (0,ε₀)`, I02 and I03 use `Ioc (0,ε₀)`; harmless, but the binding must convert |
 | `correction`, `correction_smooth`, `correction_compactSupport` | `03-torus.tex:186-188` | concrete: `Paper1.CorrectionProfile.physicalCorrection`, smooth/compact via `CorrectionVectorNorms.physicalCorrection_smooth` `Paper1/CorrectionVectorNorms.lean:14` and `physicalCorrection_compact` `:28`; abstract: `⟪I02:CorrectionAPI.correction⟫` | I02 pins `w_ε` only by the curl formula, never by `physicalCorrection`; the I02↔source identification is an open binding obligation, not an I03 one |
 | `forceCorrection`, `forceCorrection_smooth`, `forceCorrection_compactSupport` | eq:H, `03-torus.tex:220-225` | `Source.correctionForce ν v (physicalCorrection …)`; `Paper1/CorrectionVectorNorms.lean:22` (`physicalForce_smooth`), `:37` (`physicalForce_compact`); abstract: `⟪I02:CorrectionAPI.forceCorrection⟫` | same as above |
+| `scaledEquation` (prop:scaling, momentum equation at the **same** `ν`, all `t < T`) | `03-torus.tex:123, 141`; `04-whole-space.tex:21-23` | **present.** `Source.parabolic_equation` `Source/ParabolicScaling.lean:112` (every term gains the common `k³`, viscosity untouched) and `PacketScaling.delayed_parabolic_equation` `Source/PacketScaling.lean:489`, whose hypotheses are exactly `PacketAPI.extension_navier_stokes` and the quiet interval. With `k = ε⁻¹`, `t₀ = T − ε²`, `t₀ + (k²)⁻¹ = T`. Residual convention: `Contracts.V1.navierStokesResidual = Source.residual`, **verified `rfl`** (§4) | none; `S`-sized, unit U6 |
+| `scaledDivergenceFree` | `03-torus.tex:141` | **present.** `PacketScaling.delayed_parabolic_divergence` `Source/PacketScaling.lean:506` from `PacketAPI.extension_divergence_free`; `Contracts.V1.spatialDivergence = NavierStokes.ProblemStatement.spatialDivergence`, **verified `rfl`** | none |
+| `scaledBlowup` (`SpeedUnboundedAt T`) | `03-torus.tex:123, 142-143`; `04-whole-space.tex:35` | **present.** `PacketScaling.speed_unbounded_at_target` `Source/PacketScaling.lean:179` (from `speed_unbounded_parabolic` `:147`), delay hypothesis `ε² ≤ T` supplied by `eps_time`, applied to `zeroPastField_speed` `:278` of `PacketAPI.speed_unbounded`. The local `SpeedUnboundedAt` `def` is **verified `rfl`**-equal to `PacketScaling.SpeedUnboundedAt` `Source/PacketScaling.lean:22`, and at `T = 1` to `Contracts.V1.SpeedUnboundedAtOne` | none |
 | `packetEnergyIdentity` `‖U_ε‖_{L^∞(0,T;L²)} = ε^{1/2}M` | eq:packetEscale first identity, `03-torus.tex:125-126` | **partial.** Exact slicewise identity `PacketScaling.l2Sq_parabolic` `Source/PacketScaling.lean:37` (`l2Sq (parabolicVelocity k t₀ x₀ u) t = k⁻¹ · l2Sq u (k²(t−t₀))`) and its square root `l2Norm_parabolic` `:100`. Uniform-in-time version is only an **inequality** with an arbitrary bound `N`: `uniform_l2Norm_parabolic` `:118`. Packet side: `Paper1.InsertionEnergy.packet_l2_bound` `Paper1/InsertionEnergy.lean:203` is again `≤ εE`. | the **equality** with the least upper bound `M` is missing; needs `PacketAPI.energy_isLUB` plus the `Ico t_ε T ↔ Ico 0 1` time bijection (`PacketScaling.reference_time_mem` `:107`). Norm object differs: `Data.energyEssSup` is an `ℝ≥0∞` `essSup` of `eLpNorm … 2`, source uses `velocityL2 = sqrt ∘ l2Sq` (`Paper1/InsertionEnergy.lean:20`) |
 | `packetDissipationIdentity` `‖∇U_ε‖_{L²(0,T;L²)} = ε^{1/2}D` | eq:packetEscale second identity, `03-torus.tex:127-128` | **essentially present.** Exact: `PacketScaling.dissipation_parabolic` `:46`, `total_dissipation_parabolic` `:78`, and `Paper1.InsertionEnergy.packet_gradientSquare` `Paper1/InsertionEnergy.lean:228` (`gradientSquare T U_ε = ε · gradientSquare 1 u`, an equality) | only the `Data.energyGradient` ↔ `sqrt ∘ gradientSquare` bridge and `PacketAPI.dissipation_eq` remain |
 | `correctionEnergyBound` `‖w_ε‖_{E_T} ≤ Cε^{3/2}` | eq:wE, `03-torus.tex:234` | `Paper1.InsertionEnergy.insertion_energy_bound` `Paper1/InsertionEnergy.lean:327` contains the correction half (`physicalCorrection_uniform_energy`, `correction_gradientSquare_bound` `:175`); `⟪I02:CorrectionAPI.correction_energy_bound⟫` states it in the `energyNorm` (real-valued) convention | I02 uses `Paper1.InsertionEnergy.energyNorm : ℝ` (`:30`), the contract uses `Data.energyENorm : ℝ≥0∞` (`Data.lean:468`); the two agree on finite values but the bridge is not written |
 | `perturbationEnergyBound` (eq:REclose) | `04-whole-space.tex:39-41` | **shape mismatch.** `insertion_energy_bound` `Paper1/InsertionEnergy.lean:327` proves `energyNorm T (perturbation …) ≤ √(2(Aε³+Bε)) + √(2(Cε³+Dε))` with four opaque constants, and `insertion_energy_tendsto_zero` `:372` proves the limit | the paper's exact shape `(M+D)ε^{1/2} + Cε^{3/2}` (with **the** Lemma 2.2 constants) is not proved; the source constants `B = 2E`, `D = gradientSquare 1 u` are not `M`, `D` |
-| `packetMixedScaling` (eq:packetFscale) | `03-torus.tex:129-131, 148-149` | **inequality only.** `Source.MixedForceScaling.compact_force_mixed_bound` `Source/MixedForceScaling.lean:62`: `mixedNorm p q (parabolicForce ε⁻¹ t₀ x₀ F) ≤ ofReal (ε^{−3+3/p+2/q}) · C` with `C` from a support indicator, all `p,q ∈ ℝ≥0∞`, all `ε>0`, all centres. Exact ingredients: `spatial_force_norm_real` `:12` and `TimeNormScaling.eLpNorm_parabolic_time` `Source/TimeNormScaling.lean:19` (both **equalities**) | the paper's **equality** `= ε^{α}‖F‖` is not assembled. Norm object: `Paper1.CorrectionMixedNorms.mixedNorm` `Paper1/CorrectionMixedNorms.lean:13` is `eLpNorm (t ↦ (eLpNorm (F(t,·)) p).toReal) q volume` over **all of ℝ**; `Data.mixedLebesgueENorm` `Data.lean:251` is an infimum over `Lp`-valued paths over `(0,∞)` |
+| `packetMixedScaling` (eq:packetFscale; `1 ≤ p` by the `Fact` instance, `1 ≤ q` explicitly, per review issue 3) | `03-torus.tex:129-131, 132, 148-149` | **inequality only.** `Source.MixedForceScaling.compact_force_mixed_bound` `Source/MixedForceScaling.lean:62`: `mixedNorm p q (parabolicForce ε⁻¹ t₀ x₀ F) ≤ ofReal (ε^{−3+3/p+2/q}) · C` with `C` from a support indicator, all `p,q ∈ ℝ≥0∞`, all `ε>0`, all centres. Exact ingredients: `spatial_force_norm_real` `:12` and `TimeNormScaling.eLpNorm_parabolic_time` `Source/TimeNormScaling.lean:19` (both **equalities**) | the paper's **equality** `= ε^{α}‖F‖` is not assembled. Norm object: `Paper1.CorrectionMixedNorms.mixedNorm` `Paper1/CorrectionMixedNorms.lean:13` is `eLpNorm (t ↦ (eLpNorm (F(t,·)) p).toReal) q volume` over **all of ℝ**; `Data.mixedLebesgueENorm` `Data.lean:251` is an infimum over `Lp`-valued paths over `(0,∞)` |
 | `packetPositiveScaling` (eq:RpositiveScale line 1) | `04-whole-space.tex:64-66` | **present, stronger.** `TimeNormScaling.force_eLpNorm_positive_epsilon` `Source/TimeNormScaling.lean:117`: for `0 ≤ s`, `0 < ε ≤ 1`, any `q : ℝ≥0∞`, `eLpNorm (fourierSobolevNorm s ∘ parabolicComplexForce ε⁻¹ t₀ f) q ≤ ofReal (ε^{2/q−3/2−s}) · eLpNorm (fourierSobolevNorm s ∘ f) q`. Single-term, hence stronger than the paper's two-term bound for `ε ≤ 1`. Vector lift: `VectorForceNorms.eLpNorm_vector_le_sum` `Source/VectorForceNorms.lean:47`, `coordinate_norm_parabolicForce` `:79` | cycles convention; time norm on all of `ℝ`; scalar/complex components, not the `Data` datum norm |
 | `correctionPositiveScaling` (eq:RpositiveScale line 2, and eq:HHs) | `04-whole-space.tex:67-69`, `03-torus.tex:238-240` | **present, exact exponent.** `CorrectionVectorNorms.vectorPhysicalForce_uniform_positive_time` `Paper1/CorrectionVectorNorms.lean:60`: `0 ≤ s ≤ 1`, `1 ≤ q`, `ε ∈ Ioc 0 1`, bound `ofReal (ε^{2/q−1/2−s}) · C` — that exponent is exactly `β(q,s)+1`. Scalar: `CorrectionPositiveNorms.scalarPhysicalForce_uniform_positive_time` `Paper1/CorrectionPositiveNorms.lean:107` | cycles convention (`vectorFourierSobolevNorm`), time on `ℝ` |
 | `packetNegativeHomogeneous` `‖F_ε‖_{L^q_tḢ^s} ≤ Cε^{β}` | `04-whole-space.tex:70-76`, and at `q=2,s=−1` `:264-272` | **absent.** The homogeneous norm is only ever used on the *profile*, never on the scaled field: `FourierScaling.fourierSobolevSq_concentrated_le_negative` `Source/FourierScaling.lean:134` bounds the *inhomogeneous* energy of `F_ε` by `k^{3+2s}` times the profile's homogeneous energy | genuine gap. The missing piece is the exact homogeneous analogue of `fourierSobolevSq_concentrated` `Source/FourierScaling.lean:51`, then its `L^q_t` and vector/angular/datum lifts. **This is what Proposition 4.6's `L²_tḢ^{-1}` clause needs.** |
@@ -45,7 +50,7 @@ Abbreviations. `k = ε⁻¹`; `β(q,s) = ThresholdAPI.exponent q s = 2/q − 3/2
 | `forceDifference`, `forceDifference_formula` | `04-whole-space.tex:48` | `InsertionFamily.force` `Source/InsertionFamily.lean:40-43`; **verified `rfl`** to be `correctionForce ν v (physicalCorrection …) + scaledForce f x₀ T ε` | none |
 | `forceLowOrderBound` (intermediate index) | `04-whole-space.tex:78` | **present in two variants.** Arithmetic: `Paper3.negative_intermediate_index` `Paper3/Thresholds.lean:28` (`s < −1/2 → ∃ r, −3/2 < r < −1/2 ∧ s < r`), already a `ThresholdAPI.negativeIndex` field. Monotonicity: `CompactForceConvergence.fourierSobolevNorm_mono_of_compact` `Source/CompactForceConvergence.lean:36`, `scalar_force_eLpNorm_mono` `:44`. Assembled for the packet force at `q=2` in `compact_scalar_force_L2_tendsto` `:98` and for the correction in `CorrectionVectorNorms.scalarPhysicalForce_all_negative_tendsto_zero` `Paper1/CorrectionVectorNorms.lean:134` | the correction version lowers to the **fixed** index `r = −1`, not to an existential `r`; my field's shape (one `r` serving both `F_ε` and `H_ε`) must be reconciled, or split into two witnesses |
 | `forceConvergence` | `04-whole-space.tex:42-43` | **present for the full range, in the angular convention.** `InsertionFamily.force_angular_L1_tendsto_zero` `Source/InsertionForceConvergence.lean:66` (`s < 1/2`) and `force_angular_L2_tendsto_zero` `:78` (`s < −1/2`), both for the **whole** `H_ε + F_ε` and for the **one** `ε`-family, via `AngularForceNorms.angular_family_tendsto_zero` `Source/AngularForceNorms.lean:54`. Bundled as `ForceApproximation` `Source/ForceApproximatingInsertion.lean:36` and produced together with the energy limit by `LocalApproximatingInsertion.exists_local_approximating_insertion` `Source/LocalApproximatingInsertion.lean:86` | measured by `vectorAngularSobolevNorm` `Source/AngularForceNorms.lean:16` (a slicewise Fourier integral over all of `ℝ` in time), not by `Data.forceSobolevENorm` |
-| `scalingStatement` | — | the existential shape of `LocalApproximatingInsertion.exists_local_approximating_insertion` `:97` | packet is pinned by `HEq` because `PacketAPI` is viscosity-indexed |
+| `scalingStatement` | `04-whole-space.tex:44-55` | the existential shape of `LocalApproximatingInsertion.exists_local_approximating_insertion` `Source/LocalApproximatingInsertion.lean:86`, which produces the whole family from a smooth divergence-free reference | **revision 2 (review issue 1, HIGH).** The revision-1 form quantified over *arbitrary* `w H : ℝ → VelocityField` and was therefore **false**, not merely loose: `ScalingAPI` forces smoothness, compact support, `≤ Cε^{3/2}` and three decaying `L^q_tH^s` bounds on the nonempty `Ioc 0 ε₀`, so a non-smooth `w`, or a constant nonzero `H ε ≡ H₀`, admits no `A`. Now `w`, `H` carry the `I02` conclusions as **premises**: `correction_smooth`, `correction_compactSupport`, `correction_energy_bound`, `force_smooth`, `force_compactSupport`, `force_support`, and `force_derivative_bound` at `m = 0`. The last two are load-bearing and were **not** among the six restated `ScalingAPI` fields: smoothness + compact support + the `E_T` bound do not force any decay of `‖H_ε‖_{L^q_tH^s}`, whereas amplitude `O(ε^{-2})` on a support of spatial diameter `O(ε)` and temporal length `O(ε²)` does, by splitting the frequency integral at `|ξ| = 1/ε`. Packet still pinned by `HEq` (viscosity-indexed type) |
 
 ---
 
@@ -158,17 +163,52 @@ paper's argument at `03-torus.tex:148`.
 componentwise.  The objects agree on finite values; `REVIEW_B` issue 2 is exactly
 why the contract keeps `ℝ≥0∞`.  Bridge not written.
 
-### 2.6 Scope deliberately not covered by `ScalingAPI`
+### 2.6 `prop:scaling` transport — now owned by `ScalingAPI` (revision 2)
 
-`research/section4/STATEMENTS.md:281-286` item 1 (the rescaled fields solve the
-momentum equation at the same `ν`, are divergence free, vanish for `t ≤ t_ε`,
-and blow up as `t ↑ T`) is **not** a field of `ScalingAPI`.  It is fully proved
-in source — `parabolic_equation` `Source/ParabolicScaling.lean:112`,
-`PacketScaling.delayed_parabolic_equation` `:489`,
-`delayed_parabolic_divergence` `:506`, `speed_unbounded_parabolic` `:147`,
-`zeroPast_dilate_early` `:300` — and is pure transport of `PacketAPI` through
-`eq:scaling`.  Recommendation: expose it either as a small separate `I03`
-addendum record or directly in `R42`; do not leave it unowned.
+`research/section4/STATEMENTS.md:281-286` item 1 was orphaned in revision 1.  On
+the reviewer's recommendation it is now three fields of `ScalingAPI`:
+`scaledEquation`, `scaledDivergenceFree`, `scaledBlowup`.  The argument for
+placing it here rather than in `R42`: the manuscript states it in the *first
+sentence* of `prop:scaling` (`03-torus.tex:123`), immediately before
+`eq:packetEscale` and `eq:packetFscale`, which this record already owns; and the
+statement needs no data beyond `packet`, `x₀`, `T` and the three `scaled*`
+`def`s that are already here, so `R42` would otherwise have to re-derive it.
+
+It is fully proved in source — `parabolic_equation`
+`Source/ParabolicScaling.lean:112`, `PacketScaling.delayed_parabolic_equation`
+`Source/PacketScaling.lean:489`, `delayed_parabolic_divergence` `:506`,
+`speed_unbounded_at_target` `:179` (from `speed_unbounded_parabolic` `:147`) and
+`zeroPastField_speed` `:278` — and is pure transport of `PacketAPI`'s
+`extension_navier_stokes`, `extension_divergence_free` and `speed_unbounded`
+through `eq:scaling`.  Unit **U6**, `S`.
+
+One clause of `STATEMENTS.md` item 1 is still **not** a field: "vanish for
+`t ≤ t_ε`" (`PacketScaling.zeroPast_dilate_early` `:300`).  It is the
+`u_ε = v` on `0 ≤ t ≤ T − 2ε²` clause of `04-whole-space.tex:36`, which is a
+statement about the *assembled* velocity, not about `U_ε` in isolation, and is
+already carried by `⟪I02:CorrectionAPI.correction_vanishes_before⟫` for `w_ε`.
+`R42` should combine the two.
+
+### 2.7 The ball: `x₀` as centre is a WLOG (review issue 5)
+
+The manuscript fixes the ball `B₀` first — "Fix any nonempty open ball
+`B ⊂ ℝ³`" (`04-whole-space.tex:33`) — and only then chooses the scaling centre
+`x₀ ∈ B₀` (`03-torus.tex:103`, clarification `C2`,
+`research/section4/STATEMENTS.md:342-344`).  `ScalingAPI` instead makes `x₀` the
+**centre**: it carries `x₀`, `r > 0` and works in `B = ball x₀ r`.
+
+This is the standard shrink (any nonempty open `B₀` and any `x₀ ∈ B₀` admit
+`0 < r < dist(x₀, ∂B₀)` with `ball x₀ r ⊆ B₀`) and it is the convention of both
+`⟪I02:CorrectionAPI.x₀, r⟫` and
+`Source.LocalApproximatingInsertion.exists_local_approximating_insertion`
+`Source/LocalApproximatingInsertion.lean:86`, so nothing is lost.  What is lost
+is the *record* of the inclusion: `B₀` never appears in `ScalingAPI`, so the
+inclusion `ball x₀ r ⊆ B₀` is not a field and **`R42`, whose statement
+quantifies over the given `B₀`, must perform and carry the shrink itself**.
+Alternative if that is judged too implicit: add `B₀ : Set Space`,
+`hB₀ : IsOpen B₀`, `x₀ ∈ B₀` and `ball_subset : Metric.ball x₀ r ⊆ B₀` to
+`ScalingAPI` (four fields, no proof content).  Recorded in the `r` docstring of
+`Spec.lean`.
 
 ---
 
@@ -180,7 +220,7 @@ addendum record or directly in `R42`; do not leave it unowned.
 | eq:RpositiveScale, correction: `‖H_ε‖ ≲ ε^{β(q,s)+1}` | `0 ≤ s ≤ 1`, `q ∈ {1,2}` | `vectorPhysicalForce_uniform_positive_time` `CorrectionVectorNorms.lean:60`: `0 ≤ s ≤ 1`, `1 ≤ q`, `ε ∈ Ioc 0 1`; exponent literally `2/q − 1/2 − s` | exact match |
 | eq:RnegativeScale, packet, **inhomogeneous** | `−3/2 < s < 0`, `q ∈ {1,2}` | `force_eLpNorm_negative_epsilon` `TimeNormScaling.lean:133`: `s ≤ 0`, all `q`, all `ε > 0`; usable range fixed by profile finiteness `−3/2 < s ≤ 0` (`HomogeneousTime.lean:82,108`) | source ⊇ paper (adds `s = 0`) |
 | eq:RnegativeScale, correction, **inhomogeneous** | `−3/2 < s < 0`, `q ∈ {1,2}` | `vectorPhysicalForce_uniform_negative_time` `CorrectionVectorNorms.lean:83`: `−3/2 < s ≤ 0`, `1 ≤ q`, `ε ∈ Ioc 0 1` | source ⊇ paper |
-| eq:RnegativeScale, **homogeneous** `‖·‖_{L^q_tḢ^s}` of the *scaled* fields | `−3/2 < s < 0` (and `s = −1`, `q = 2` for prop:Renergy) | **nothing.** The homogeneous norm appears only on profiles (`homogeneousFourierNorm`, `HomogeneousTime.lean`) | **gap** |
+| eq:RnegativeScale, **homogeneous** `‖·‖_{L^q_tḢ^s}` of the *scaled* fields | `−3/2 < s < 0` (and `s = −1`, `q = 2` for prop:Renergy) | **nothing.** The homogeneous norm appears only on profiles (`homogeneousFourierNorm` `TimeNormScaling.lean:68`, `HomogeneousTime.lean`); `Data.forceHomogeneousENorm` and `Data.IsHomogeneousDatum` have zero users outside `Contracts/V1/Data.lean`, and `Paper3/HomogeneousRealization.lean` is 26 lines against the 143-line inhomogeneous `Paper3/AngularRealVectorBochner.lean` | **gap — unit U7c (`L`), and the sole blocker for R46's `L²_tḢ^{-1}` clause** |
 | `s ≤ −3/2` by monotonicity, packet | `q = 2`, any `s ≤ −3/2` | `compact_scalar_force_L2_tendsto` `CompactForceConvergence.lean:98` / `compact_vector_force_L2_tendsto` `:123`: all `s < −1/2`, `s ≤ −3/2` included, via `negative_intermediate_index` | exact match |
 | `s ≤ −3/2` by monotonicity, correction | same | `scalarPhysicalForce_all_negative_tendsto_zero` `CorrectionVectorNorms.lean:134` / vector `:155`: all `s ≤ 0` with `β(q,s)+1 > 0`, by lowering to the fixed `r = −1` | covers the paper; different witness |
 | convergence, `q = 1` | `s < 1/2` | `force_angular_L1_tendsto_zero` `InsertionForceConvergence.lean:66`: `s < 1/2`, whole `H_ε+F_ε`, one family | exact match |
@@ -190,14 +230,17 @@ addendum record or directly in `R42`; do not leave it unowned.
 | eq:packetFscale | equality, `1 ≤ p,q ≤ ∞` | `compact_force_mixed_bound` `MixedForceScaling.lean:62`: inequality, all `p,q`, all `ε>0`; the two exact change-of-variable lemmas exist (`MixedForceScaling.lean:12`, `TimeNormScaling.lean:19`) | inequality only |
 | eq:REclose | `(M+D)ε^{1/2} + Cε^{3/2}` | `insertion_energy_bound` `InsertionEnergy.lean:327`: `√(2(Aε³+Bε)) + √(2(Cε³+Dε))` | different shape, opaque constants |
 | eq:HHs (`q = 1`, `0 ≤ s ≤ 1`) | `C(ε^{3/2}+ε^{3/2−s})` | the `q = 1` case of `vectorPhysicalForce_uniform_positive_time` `:60` | present |
+| prop:scaling transport: equation at the same `ν`, incompressibility, blowup | all `t < T`, all admissible `ε` | `parabolic_equation` `ParabolicScaling.lean:112`, `delayed_parabolic_equation` `PacketScaling.lean:489`, `delayed_parabolic_divergence` `:506`, `speed_unbounded_at_target` `:179` | complete in source; now three `ScalingAPI` fields (U6) |
 | `β(q,s)` arithmetic and the intermediate index | `04-whole-space.tex:57-60, 78` | `Paper3/Thresholds.lean:11,13,17,21,28,38`, already registered as `ThresholdAPI` (`contracts.json` `R41.threshold_arithmetic`) | complete |
 
 ---
 
 ## 4. Machine-checked definitional bridges
 
-Run in this worktree (`verification/`, `lake env lean /tmp/i03_defeq_check.lean`),
-all by `rfl`, all succeeded:
+Run in this worktree (`verification/`, `lake env lean /tmp/i03_defeq_check.lean`
+and `/tmp/i03_defeq_check2.lean`), all by `rfl`, all succeeded.
+
+Revision 1 (five bridges):
 
 * `scaledVelocity U x₀ T ε = parabolicVelocity ε⁻¹ (T−ε²) x₀ (zeroPastField U)`
 * `scaledPressure P x₀ T ε = parabolicPressure ε⁻¹ (T−ε²) x₀ (zeroPastField P)`
@@ -208,44 +251,83 @@ all by `rfl`, all succeeded:
 The last two are the family-threading claim of `04-whole-space.tex:43`, checked
 rather than asserted.
 
+Revision 2, for the three new `prop:scaling` transport fields (four bridges):
+
+* `@SpeedUnboundedAt = @Source.PacketScaling.SpeedUnboundedAt`
+* `SpeedUnboundedAt 1 u = Contracts.V1.SpeedUnboundedAtOne u`
+* `@Contracts.V1.navierStokesResidual = @Source.residual` — so `scaledEquation`
+  is literally the conclusion shape of `parabolic_equation` /
+  `delayed_parabolic_equation`
+* `@Contracts.V1.spatialDivergence = @NavierStokes.ProblemStatement.spatialDivergence`
+
 ---
 
 ## 5. Bounded implementation split
 
-Ten units.  U1 and U2 are prerequisites for almost everything else; U7 is the
-only genuinely new mathematics.
+Eleven rows (revision 2).  U1 and U2 are prerequisites for almost everything
+else.  `U7` is split into `U7a`/`U7b`/`U7c` on the reviewer's sizing note, the
+old `U3` is folded into `U2` (same bridge work) and the old `U8`/`U9` are merged
+(same one-application-each pattern), so the row count is unchanged apart from
+the new **U6** (`prop:scaling` transport, now owned by `ScalingAPI`).
+**U7c is the only genuinely new mathematics, and the only `L`.**
 
 | # | Unit | Size | Inputs | Delivers |
 |---|---|---|---|---|
 | **U1** | **Inhomogeneous norm bridge.** For `F` smooth with compact support, `Data.forceSobolevENorm q s F ≤ ofReal ((2π)^{|s|}) · eLpNorm (Source.vectorFourierSobolevNorm s F) q volume`, and the corresponding `Tendsto` transfer. | M | `angularRealVectorSlice` + `_pairing` `AngularRealVectorBochner.lean:47,54`; `memLp_angularRealVectorSlice` `:64`; `cyclesToAngularRealVector_norm_le` `:24`; `norm_compactVectorFourierLp` `Source/ForceNormAddition.lean:31`; `eLpNorm_mono_measure` for `Ioi 0 ⊆ ℝ` | the single hypothesis every `Data`-valued Sobolev field below rests on |
 | **U2** | **`E_T` bridge.** `Data.energyEssSup T z = eLpNorm (velocityL2 z) ⊤ (restrict (Ioo 0 T))` and `Data.energyGradient T z = ofReal (√(gradientSquare T z))` for slice-measurable `z`; hence `Data.energyENorm T z ≤ ofReal (energyNorm T z)` and the reverse on finite values. | S | `Data.lean:437,452,468`; `InsertionEnergy.lean:20,22,26,30`; `Data.spatialGradient` `Data.lean:446` vs `dissipation` | `correctionEnergyBound`, and the E_T identities |
-| **U3** | `packetDissipationIdentity`. | S | `total_dissipation_parabolic` `PacketScaling.lean:78`, `packet_gradientSquare` `InsertionEnergy.lean:228`, `PacketAPI.dissipation_eq`, U2 | one field |
-| **U4** | `packetEnergyIdentity`: upgrade `uniform_l2Norm_parabolic` to an `essSup` **equality** with the LUB `M`. | M | `l2Norm_parabolic` `PacketScaling.lean:100`, `reference_time_mem` `:107`, `zeroPast_dilate_early` `:300`, `PacketAPI.energy_isLUB`, U2 | one field; the only place `energy_isLUB` (rather than a bound) is consumed |
-| **U5** | `perturbationEnergyBound` (eq:REclose) in the paper's shape. | S | U2–U4 + `correctionEnergyBound` + triangle inequality for `Data.energyENorm` | one field; replaces the opaque `A,B,C,D` shape of `insertion_energy_bound` |
-| **U6** | `packetMixedScaling` as an **equality**, and the `Data.mixedLebesgueENorm` ↔ `mixedNorm` bridge on `(0,∞)`. | M | `spatial_force_norm_real` `MixedForceScaling.lean:12`, `eLpNorm_parabolic_time` `TimeNormScaling.lean:19`, `parabolicForce_positive_support` `PacketScaling.lean:552`, `eps_time` | one field |
-| **U7** | **Homogeneous scaling of the scaled fields.** (a) exact identity `∫‖ξ‖^{2s}‖𝓕(concentratedForce k f)‖² = k^{3+2s}∫‖ξ‖^{2s}‖𝓕 f‖²`, mirroring `fourierSobolevSq_concentrated` `FourierScaling.lean:51`; (b) its `L^q_t` form, mirroring `force_eLpNorm_negative_epsilon`; (c) the vector/angular/`IsHomogeneousDatum` lift to `Data.forceHomogeneousENorm`. | L | `FourierScaling.lean:22,51`; `HomogeneousTime.lean:14,47,82,108`; `CorrectionForceNorms.lean:78,100`; `Data.IsHomogeneousDatum` `Data.lean:321`, `forceHomogeneousENorm` `:387` | `packetNegativeHomogeneous`, `correctionNegativeHomogeneous`; **and prop:Renergy's `L²_tḢ^{-1}` clause (R46)**. (c) is the new work: no source declaration produces an `IsHomogeneousDatum` witness |
-| **U8** | `packetPositiveScaling`, `correctionPositiveScaling`. | S | `force_eLpNorm_positive_epsilon` `TimeNormScaling.lean:117`, `vectorPhysicalForce_uniform_positive_time` `CorrectionVectorNorms.lean:60`, `eLpNorm_vector_le_sum` `VectorForceNorms.lean:47`, `coordinate_norm_parabolicForce` `:79`, U1 | two fields |
-| **U9** | `packetNegativeScaling`, `correctionNegativeScaling`. | S | `force_eLpNorm_negative_epsilon` `TimeNormScaling.lean:133`, `memLp_homogeneousFourier_time` `HomogeneousTime.lean:108`, `vectorPhysicalForce_uniform_negative_time` `CorrectionVectorNorms.lean:83`, U1 | two fields |
-| **U10** | `forceLowOrderBound` and `forceConvergence`. | M | `ThresholdAPI.negativeIndex` (= `negative_intermediate_index` `Paper3/Thresholds.lean:28`), `scalar_force_eLpNorm_mono` `CompactForceConvergence.lean:44`, `vectorPhysicalForce_all_negative_tendsto_zero` `CorrectionVectorNorms.lean:155`, `force_angular_L1/L2_tendsto_zero` `InsertionForceConvergence.lean:66,78`, U1 | two fields; reconcile the existential `r` with the source's fixed `r = −1` for the correction |
+| **U3** | `packetEnergyIdentity`: upgrade `uniform_l2Norm_parabolic` to an `essSup` **equality** with the LUB `M`. | M | `l2Norm_parabolic` `PacketScaling.lean:100`, `reference_time_mem` `:107`, `zeroPast_dilate_early` `:300`, `PacketAPI.energy_isLUB`, U2 | one field; the only place `energy_isLUB` (rather than a bound) is consumed |
+| **U4** | `perturbationEnergyBound` (eq:REclose) in the paper's shape. | S | U2, U3 + `correctionEnergyBound` + subadditivity of `Data.energyENorm` | one field; replaces the opaque `A,B,C,D` shape of `insertion_energy_bound` `InsertionEnergy.lean:327` |
+| **U5** | `packetMixedScaling` as an **equality**, and the `Data.mixedLebesgueENorm` ↔ `mixedNorm` bridge on `(0,∞)`. | M | `spatial_force_norm_real` `MixedForceScaling.lean:12`, `eLpNorm_parabolic_time` `TimeNormScaling.lean:19`, `parabolicForce_positive_support` `PacketScaling.lean:552`, `eps_time` | one field |
+| **U6** | **`prop:scaling` transport** (new in revision 2): `scaledEquation`, `scaledDivergenceFree`, `scaledBlowup`. | S | `parabolic_equation` `ParabolicScaling.lean:112`, `delayed_parabolic_equation` `PacketScaling.lean:489`, `delayed_parabolic_divergence` `:506`, `speed_unbounded_at_target` `:179`, `zeroPastField_speed` `:278`; `PacketAPI.extension_navier_stokes` / `extension_divergence_free` / `speed_unbounded`; the four `rfl` bridges of §4 | three fields; no norm bridge needed, so it is independent of U1 and U2 |
+| **U7a** | **Homogeneous change of variables.** The exact identity `∫‖ξ‖^{2s}‖𝓕(concentratedForce k f)‖² = k^{3+2s}∫‖ξ‖^{2s}‖𝓕 f‖²`. | S | mirrors `fourierSobolevSq_concentrated` `FourierScaling.lean:51`, and is **easier** than it: the weight `‖ξ‖^{2s}` is exactly homogeneous, so no `positive_weight_scale`/`negative_weight_scale` step is needed (`FourierScaling.lean:69,83`) | the scalar core of the homogeneous fields |
+| **U7b** | **Its `L^q_t` form.** `eLpNorm (homogeneousFourierNorm s ∘ parabolicComplexForce ε⁻¹ t₀ f) q ≤ ofReal (ε^{β(q,s)}) · eLpNorm (homogeneousFourierNorm s ∘ f) q`. | S | mirrors `force_eLpNorm_negative_epsilon` `TimeNormScaling.lean:133` line for line, with `eLpNorm_parabolic_majorant` `:47`; profile finiteness from `memLp_homogeneousFourier_time` `HomogeneousTime.lean:108`; correction profile from `scalarProfile_uniform_homogeneous_time` `CorrectionForceNorms.lean:100` | the scalar `L^q_t` homogeneous bound |
+| **U7c** | **`Data.forceHomogeneousENorm` witnesses — a new `Paper3` module.** Vector + angular + `IsHomogeneousDatum` realization for the scaled fields. | **L** | `Data.IsHomogeneousDatum` `Data.lean:321`, `forceHomogeneousENorm` `:387`; U7a, U7b | `packetNegativeHomogeneous`, `correctionNegativeHomogeneous`. **Not a "lift".** The inhomogeneous analogue is the whole 143-line `Paper3/AngularRealVectorBochner.lean` with its `RealVectorSobolev s ≃L[ℝ] RealVectorSobolev s` construction; on the homogeneous side `Paper3/HomogeneousRealization.lean` is **26 lines**, carries one bound, and produces **no** `IsHomogeneousDatum`. `Data.forceHomogeneousENorm` and `IsHomogeneousDatum` have zero users outside `Contracts/V1/Data.lean`, and since `forceHomogeneousENorm` is an infimum with `⨅ ∅ = ⊤`, the two fields are *unprovable* until a witness exists. **Proposition 4.6's `L²(0,∞;Ḣ^{-1})` clause (R46) blocks on U7c specifically** — not on U7a or U7b, which only feed the inhomogeneous route |
+| **U8** | The four inhomogeneous Sobolev display fields: `packet/correctionPositiveScaling`, `packet/correctionNegativeScaling`. | S | `force_eLpNorm_positive_epsilon` `TimeNormScaling.lean:117`, `force_eLpNorm_negative_epsilon` `:133`, `vectorPhysicalForce_uniform_positive_time` `CorrectionVectorNorms.lean:60`, `vectorPhysicalForce_uniform_negative_time` `:83`, `memLp_homogeneousFourier_time` `HomogeneousTime.lean:108`, `eLpNorm_vector_le_sum` `VectorForceNorms.lean:47`, `coordinate_norm_parabolicForce` `:79`, U1 | four fields, one application each |
+| **U9** | `forceLowOrderBound` and `forceConvergence`. | M | `ThresholdAPI.negativeIndex` (= `negative_intermediate_index` `Paper3/Thresholds.lean:28`), `scalar_force_eLpNorm_mono` `CompactForceConvergence.lean:44`, `vectorPhysicalForce_all_negative_tendsto_zero` `CorrectionVectorNorms.lean:155`, `force_angular_L1/L2_tendsto_zero` `InsertionForceConvergence.lean:66,78`, U1, U8 | two fields; the uniform intermediate-index shape chosen in `forceLowOrderBound`'s docstring must be reconciled with the source's fixed `r = −1` for the correction |
 
-Critical path: **U1 → U8/U9/U10** closes the two Sobolev displays and the
-convergence clause; **U2 → U3/U4 → U5** closes the energy rates; **U7** is
-independent and is the item that also unblocks R46.
+Critical path: **U1 → U8 → U9** closes the four inhomogeneous Sobolev displays,
+the intermediate-index reduction and the convergence clause; **U2 → U3 → U4**
+closes the energy rates; **U5** is standalone; **U6** is standalone and needs no
+norm bridge; **U7a → U7b → U7c** is the homogeneous branch, and **R46 blocks on
+U7c alone**.
 
 ---
 
-## 6. Open questions for review
+## 6. Open questions — status after `REVIEW.md`
 
-1. Should the equation/divergence/blowup transport of `eq:scaling`
-   (`STATEMENTS.md:281-286` item 1) live in `ScalingAPI` or in `R42`?  It is
-   fully proved in source and currently unowned by any contract (§2.6).
-2. `ScalingAPI.ε₀` versus `CorrectionAPI.ε₀`: should `R42` receive an equation,
-   or should `I03` take a `CorrectionAPI` as a field (making the threading
-   structural rather than an obligation on `R42`)?  The latter costs `I03` a
-   dependency on `research/I02/Spec.lean` becoming a registered module.
+**Resolved in revision 2.**
+
+1. *Prop 3.3 transport, `ScalingAPI` or `R42`?* — **`ScalingAPI`**, per the
+   reviewer's recommendation.  Three new fields, unit U6 (`S`); see §2.6.
+2. *`ScalingAPI.ε₀` versus `CorrectionAPI.ε₀`.* — Escalated by the reviewer to
+   the HIGH defect (issue 1) and fixed for now by making the `I02` conclusions
+   **premises** of `scalingStatement` rather than free variables; see the
+   `scalingStatement` row of §1.  The reviewer's preferred end state is recorded
+   in `Spec.lean`'s `scalingStatement` docstring: when
+   `Contracts/V1/Correction.lean` lands (lane 011, in progress), `ScalingAPI`
+   takes `C : CorrectionAPI ν P` as a **field**, with the pinning equations on
+   `x₀`, `r`, `carrierRadius = C.θRadius`, `T`, `ν` and the scale relation
+   **`ε₀ ≤ C.ε₀`** — an inequality, because `I03` may shrink the threshold (for
+   instance to enforce `ε₀ ≤ 1`) but may never enlarge it beyond the range on
+   which `I02`'s bounds hold.  Six restated fields and all seven premises then
+   disappear.  The option the reviewer rejects — leaving it as an equation for
+   `R42` — is not taken.
+4. *`forceLowOrderBound`'s single witness.* — Kept as one uniform
+   intermediate-index route for both `q`, with the deviation from the paper's
+   `q = 1` argument (index `r = 0`), the three reasons, and the split-in-two
+   alternative all written into the field's docstring.
+
+**Still open.**
+
 3. `packetMixedScaling` is stated as the paper's equality.  If the equality is
-   judged not worth U6, the ledger item `STATEMENTS.md:284` (`eq:packetFscale`)
-   must be weakened to the bound that `compact_force_mixed_bound` already proves.
-4. `forceLowOrderBound` gives one intermediate index `r` for both `F_ε` and
-   `H_ε`.  The source proves the correction case with the fixed `r = −1`; if a
-   single shared witness is awkward, split the field in two.
+   judged not worth U5, the ledger item `STATEMENTS.md:284` (`eq:packetFscale`)
+   must be weakened to the bound that `compact_force_mixed_bound`
+   `MixedForceScaling.lean:62` already proves.
+5. Should `ScalingAPI` carry the originally given ball `B₀` and the inclusion
+   `Metric.ball x₀ r ⊆ B₀` (four fields, no proof content), or does `R42` do the
+   shrink?  See §2.7.
+6. Review issues 4 (`q = ⊤` admitted in the Sobolev display fields, a harmless
+   strengthening matched by the source) and 6 (no nonnegativity fields for the
+   four constant families) were `LOW`/`INFO` with "no fix required" and are left
+   as they are.  Flagging them here so the next reviewer need not re-derive
+   that they are deliberate.

@@ -133,6 +133,18 @@ def scaledForce (F : VelocityField) (x₀ : Space) (T ε : ℝ) : VelocityField 
 `CorrectionAPI.force_mixed_bound` uses with the extra power `α(p,q) + 1`. -/
 def alpha (p q : ℝ≥0∞) : ℝ := -3 + 3 / p.toReal + 2 / q.toReal
 
+/-- "have unbounded speed at `T`", `prop:scaling`,
+`paper/sections/03-torus.tex:123`: the pointwise reading of
+`limsup_{t↑T}‖u(t)‖_∞ = ∞` that `PacketAPI.speed_unbounded` uses at `T = 1`.
+Written character-for-character as
+`NSFormalization.Source.PacketScaling.SpeedUnboundedAt`
+(`formalization/NSFormalization/Source/PacketScaling.lean:22`), whose
+`speedUnboundedAt_one` (`:26`) is `Iff.rfl` against
+`Contracts.V1.SpeedUnboundedAtOne`. -/
+def SpeedUnboundedAt (T : ℝ) (u : VelocityField) : Prop :=
+  ∀ M : ℝ, 0 < M → ∀ δ : ℝ, 0 < δ →
+    ∃ t : ℝ, ∃ x : Space, t ∈ Ioo 0 T ∧ T - δ < t ∧ M < ‖u (t, x)‖
+
 /-! ## 2. The contract -/
 
 /-- Every scaling obligation of the proof of Theorem 4.2 (`thm:Rinsert`,
@@ -150,6 +162,10 @@ Layout of the fields.
   and `H_ε`, restated with exactly the regularity that the negative-order
   Fourier estimates consume (a smooth compactly supported profile is what makes
   a `Ḣ^s` norm finite for `-3/2 < s < 0`).
+* `scaledEquation`, `scaledDivergenceFree`, `scaledBlowup`: the first sentence
+  of `prop:scaling` (`03-torus.tex:123`), transported to `ℝ³`.  The manuscript
+  co-locates it with `eq:packetEscale` and `eq:packetFscale`, so this record
+  owns it rather than leaving half of one proposition to `R42`.
 * `packetEnergyIdentity … perturbationEnergyBound`: `eq:packetEscale`,
   `eq:wE`, `eq:REclose`.
 * `packetMixedScaling`: `eq:packetFscale`.
@@ -192,7 +208,21 @@ structure ScalingAPI where
   x₀ : Space
   /-- The radius of `B = ball x₀ r`, `paper/sections/04-whole-space.tex:33`
   ("fix any nonempty open ball `B ⊂ ℝ³`").  Same `r` as
-  `⟪I02:CorrectionAPI.r⟫`. -/
+  `⟪I02:CorrectionAPI.r⟫`.
+
+  **WLOG on the ball (clarification `C2`).**  The manuscript fixes the ball
+  `B₀` *first* and only then picks the scaling centre `x₀ ∈ B₀`
+  (`03-torus.tex:103`, `04-whole-space.tex:33`).  This record instead makes `x₀`
+  the **centre** of the ball it works in, `B = ball x₀ r`.  That is the standard
+  shrink — every nonempty open `B₀` contains a concentric-at-`x₀` ball
+  `ball x₀ r ⊆ B₀` for `0 < r < dist(x₀, ∂B₀)` — and it is the convention of
+  `NSFormalization.Source.LocalApproximatingInsertion.exists_local_approximating_insertion`
+  (`formalization/NSFormalization/Source/LocalApproximatingInsertion.lean:86`)
+  and of `⟪I02:CorrectionAPI.r⟫`.  Consequence for the consumer: `R42`, whose
+  statement quantifies over the *given* ball `B₀`, must perform the shrink
+  `ball x₀ r ⊆ B₀` itself and carry that inclusion; nothing in this record
+  records it, because `B₀` never appears here.  `research/I03/COMPARISON.md`
+  §2.7 repeats this. -/
   r : ℝ
   /-- `r > 0`: `B` is nonempty, `paper/sections/04-whole-space.tex:33`. -/
   radius_pos : 0 < r
@@ -263,6 +293,46 @@ structure ScalingAPI where
   forceCorrection_compactSupport : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
     HasCompactSupport (forceCorrection ε)
 
+  -- ### `prop:scaling` transport: equation, incompressibility, blowup
+  /-- "The fields in `eq:scaling` solve the periodic momentum equation at
+  viscosity `ν`", `prop:scaling`, `paper/sections/03-torus.tex:123`, reused
+  verbatim on `ℝ³` by `04-whole-space.tex:21-23` ("Use the scaling
+  `eq:scaling` directly, without periodization").  The viscosity is
+  **unchanged**: "every term of the momentum equation gains the common factor
+  `ε^{-3}` … no viscosity rescaling occurs" (`03-torus.tex:141`).  The
+  transported presingular interval is `t < t_ε + ε² = T`, and the statement
+  covers the whole inactive past `t ≤ t_ε` as well, which is what
+  `04-whole-space.tex:36` (`u_ε = v` for `0 ≤ t ≤ T - 2ε²`) needs.
+
+  Source: `NSFormalization.Source.parabolic_equation`
+  (`Source/ParabolicScaling.lean:112`) composed with
+  `PacketScaling.delayed_parabolic_equation` (`Source/PacketScaling.lean:489`);
+  the packet-side hypothesis is `PacketAPI.extension_navier_stokes`. -/
+  scaledEquation : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t : ℝ, t < T → ∀ x : Space,
+    navierStokesResidual ν (scaledVelocity packet.velocity x₀ T ε)
+        (scaledPressure packet.pressure x₀ T ε) t x =
+      scaledForce packet.force x₀ T ε (t, x)
+  /-- "Incompressibility is preserved", `prop:scaling`,
+  `paper/sections/03-torus.tex:141`.  Source:
+  `PacketScaling.delayed_parabolic_divergence` (`Source/PacketScaling.lean:506`)
+  from `PacketAPI.extension_divergence_free`.  `research/section4/REVIEW.md`
+  and `STATEMENTS.md:281-286` route this to `R42` through `I03`; it is one of
+  the two summands of `⟪I02:CorrectionAPI.perturbation_divergence_free⟫`. -/
+  scaledDivergenceFree : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t : ℝ, t < T → ∀ x : Space,
+    spatialDivergence (scaledVelocity packet.velocity x₀ T ε) t x = 0
+  /-- "… and have unbounded speed at `T`", `prop:scaling`,
+  `paper/sections/03-torus.tex:123`, from the speed identity
+  `‖U_ε(t)‖_∞ = ε^{-1}‖U(σ)‖_∞` (`03-torus.tex:142-143`).  This is the
+  `limsup_{t↑T}‖u_ε(t)‖_∞ = ∞` clause of Theorem 4.2
+  (`04-whole-space.tex:35`) before the background `v + w_ε` is added back.
+  Source: `PacketScaling.speed_unbounded_at_target`
+  (`Source/PacketScaling.lean:179`, from `speed_unbounded_parabolic` `:147`),
+  whose delay hypothesis `ε² ≤ T` is `eps_time`, applied to
+  `PacketScaling.zeroPastField_speed` (`:278`) of
+  `PacketAPI.speed_unbounded`. -/
+  scaledBlowup : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+    SpeedUnboundedAt T (scaledVelocity packet.velocity x₀ T ε)
+
   -- ### `eq:packetEscale`, `eq:wE`, `eq:REclose`
   /-- `‖U_ε‖_{L^∞(0,T;L²)} = ε^{1/2}M`, the first identity of
   `eq:packetEscale`, `paper/sections/03-torus.tex:125-126`, reused verbatim on
@@ -311,8 +381,11 @@ structure ScalingAPI where
   (`03-torus.tex:148`), the essential-supremum endpoints included
   (`03-torus.tex:149`).  The time norms are over `(0,∞)` on both sides, which is
   legitimate because `t_ε > 0` (`eps_time`) and `F` vanishes at nonpositive
-  times (`PacketAPI.force_zero_nonpos`). -/
-  packetMixedScaling : ∀ (p q : ℝ≥0∞) [Fact (1 ≤ p)], ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+  times (`PacketAPI.force_zero_nonpos`).  Both exponents are constrained:
+  `1 ≤ p` is the `Fact` instance that `Data.mixedLebesgueENorm` requires, and
+  `1 ≤ q` is the manuscript's own range "for `1 ≤ p,q ≤ ∞`"
+  (`03-torus.tex:132`). -/
+  packetMixedScaling : ∀ (p q : ℝ≥0∞) [Fact (1 ≤ p)], 1 ≤ q → ∀ ε ∈ Ioc (0 : ℝ) ε₀,
     Data.mixedLebesgueENorm q p (scaledForce packet.force x₀ T ε) =
       ENNReal.ofReal (ε ^ alpha p q) * Data.mixedLebesgueENorm q p packet.force
 
@@ -414,20 +487,44 @@ structure ScalingAPI where
     forceDifference ε z = forceCorrection ε z + scaledForce packet.force x₀ T ε z
   /-- Every order below the threshold is reached from a *valid* homogeneous
   index by inhomogeneous monotonicity, never by a homogeneous claim outside
-  `(-3/2, 0)`.  Transcribes `paper/sections/04-whole-space.tex:78`: "For `q = 1`,
-  `eq:RpositiveScale` proves convergence for `0 ≤ s < 1/2`; all `s < 0` follow
-  from `‖z‖_{H^s} ≤ ‖z‖₂`.  For `q = 2`, `eq:RnegativeScale` proves convergence
-  for `-3/2 < s < -1/2`.  If `s ≤ -3/2`, choose `r ∈ (-3/2,-1/2)` with `r > s`
-  and use `‖z‖_{H^s} ≤ ‖z‖_{H^r}`.  This last step avoids making any false
-  homogeneous scaling assertion at indices where a generic compact profile can
-  have an infinite homogeneous norm."
+  `(-3/2, 0)`.  This is the content of `paper/sections/04-whole-space.tex:78`:
+  "For `q = 1`, `eq:RpositiveScale` proves convergence for `0 ≤ s < 1/2`; all
+  `s < 0` follow from `‖z‖_{H^s} ≤ ‖z‖₂`.  For `q = 2`, `eq:RnegativeScale`
+  proves convergence for `-3/2 < s < -1/2`.  If `s ≤ -3/2`, choose
+  `r ∈ (-3/2,-1/2)` with `r > s` and use `‖z‖_{H^s} ≤ ‖z‖_{H^r}`.  This last
+  step avoids making any false homogeneous scaling assertion at indices where a
+  generic compact profile can have an infinite homogeneous norm."
 
-  The witness `r` exists by `ThresholdAPI.negativeIndex` when
-  `s < -1/2 = thresholds.exponent 2 0`, and may be taken to be `s` itself when
-  `-3/2 < s`; the conclusion carries `r`'s own subcritical exponent
-  `β(q,r) > 0`, so `forceConvergence` follows.  The two conclusions use the
-  constants of `eq:RnegativeScale` at the index `r`, i.e. the bounds are
-  `‖F_ε‖_{L^q_tH^s} ≤ ‖F_ε‖_{L^q_tH^r} ≤ C_{q,r}ε^{β(q,r)}`. -/
+  **This field states one uniform route, not the manuscript's two.**  The paper
+  argues `q = 1` through the index `r = 0` (`‖z‖_{H^s} ≤ ‖z‖₂`, hence the
+  `eq:RpositiveScale` constants at `s = 0`) and `q = 2` through an index
+  `r ∈ (-3/2,-1/2)` (the `eq:RnegativeScale` constants).  The field instead
+  demands, for **both** `q`, a single witness `r ∈ (-3/2, 0)` with `s ≤ r` and
+  `r < s_q`, and states both conclusions with the `eq:RnegativeScale` constants
+  `negativeConst` / `correctionNegativeConst` at that `r`.
+
+  Why the uniform route was chosen over splitting the field in two.  (i) It is
+  strictly derivable from what the record already contains: for any such `r`,
+  `‖F_ε‖_{L^q_tH^s} ≤ ‖F_ε‖_{L^q_tH^r}` by `‖z‖_{H^s} ≤ ‖z‖_{H^r}` and then
+  `packetNegativeScaling` / `correctionNegativeScaling` at `r` apply, since
+  `-3/2 < r < 0`.  A witness always exists: take `r := s` when `-3/2 < s`, and
+  otherwise `ThresholdAPI.negativeIndex` (`s < -1/2`) supplies
+  `r ∈ (-3/2,-1/2)` with `s < r`.  At `q = 1` this uses a negative `r` where the
+  paper uses `r = 0`; both are legitimate and the negative one keeps the
+  statement inside the range where `packetNegativeScaling` is available.
+  (ii) One shape and one constant family, so `forceConvergence` is a single
+  application rather than a case split; the exponent `β(q,r) > 0` is carried
+  explicitly by `r < thresholds.exponent q.toReal 0`.
+  (iii) It matches the source, which also does not follow the paper's `q = 1`
+  route: `CorrectionVectorNorms.scalarPhysicalForce_all_negative_tendsto_zero`
+  (`formalization/NSFormalization/Paper1/CorrectionVectorNorms.lean:134`) lowers
+  to the fixed negative index `r = -1` for **every** `q`.
+
+  Cost, recorded for the reviewer: the field is *not* a literal transcription of
+  the `q = 1` sentence of `:78`.  If a literal transcription is wanted, split
+  into `forceLowOrderBoundL1` (witness `r = 0`, `positiveConst` /
+  `correctionPositiveConst`) and `forceLowOrderBoundL2` (witness in
+  `(-3/2,-1/2)`, `negativeConst` / `correctionNegativeConst`). -/
   forceLowOrderBound : ∀ (q : ℝ≥0∞), (q = 1 ∨ q = 2) → ∀ s : ℝ,
       s < thresholds.exponent q.toReal 0 → s < 0 →
       ∃ r : ℝ, -3 / 2 < r ∧ r < 0 ∧ s ≤ r ∧ r < thresholds.exponent q.toReal 0 ∧
@@ -471,16 +568,81 @@ def ScalingAPI.perturbation (A : ScalingAPI) (ε : ℝ) : VelocityField :=
 
 /-- What `R42` and `R46` receive from `I03`: given the ambient data of
 Theorem 4.2 — a viscosity with its chosen packet, a singular time, a regularity
-margin, a ball, and the two `I02` families for that ball — the whole scaling
-package exists on one common `ε`-family.  The packet is pinned by `HEq` because
+margin, the ball geometry, and **two families `w`, `H` that already satisfy the
+Euclidean conclusions of Lemma 3.4 and Lemma 3.5** — the whole scaling package
+exists on one common `ε`-family.  The packet is pinned by `HEq` because
 `PacketAPI` is indexed by the viscosity.  Introducing this definition asserts
-nothing. -/
+nothing.
+
+**Why `w` and `H` carry premises.**  An earlier draft quantified over
+*arbitrary* `w H : ℝ → VelocityField` and then demanded
+`∃ A, A.correction = w ∧ A.forceCorrection = H`.  That is not merely loose, it
+is **false**: `ScalingAPI` forces `correction_smooth`,
+`correction_compactSupport`, `correctionEnergyBound ≤ Cε^{3/2}` and the three
+`correction*Scaling` bounds on `Ioc 0 ε₀`, which `eps_pos` makes nonempty, so a
+non-smooth `w`, or a constant nonzero `H ε ≡ H₀` (whose `L^q_tH^s` norm does not
+decay), admits no `A`.  In the manuscript `w_ε` and `H_ε` are never arbitrary:
+they are the objects of `eq:cutoff` (`03-torus.tex:186`) and `eq:H`
+(`03-torus.tex:220-223`).  The premises below are the subset of
+`research/I02/Spec.lean` `CorrectionAPI` that this record's own estimates
+consume, each tagged with the field it restates.
+
+Note that smoothness, compact support and the `E_T` bound alone are **not**
+enough: they do not force `‖H_ε‖_{L^q_tH^s}` to decay at all.  What does is the
+pair `force_support` + the `m = 0` case of `force_derivative_bound`, i.e.
+amplitude `O(ε^{-2})` carried on a set of spatial diameter `O(ε)` and temporal
+length `O(ε²)`; that is exactly the "uniformly smooth compact rescaled profile
+… whose amplitude is `ε^{-2}`" of `04-whole-space.tex:69`, and splitting the
+frequency integral at `|ξ| = 1/ε` turns it into the `ε^{β(q,s)+1}` of
+`eq:RnegativeScale`.  Both premises are therefore included.
+
+**Migration.**  This premise list is an interim shape.  When
+`Contracts/V1/Correction.lean` lands (lane 011, in progress; the registered form
+of `research/I02/Spec.lean`), the contract-level version of this record takes
+`C : CorrectionAPI ν P` as a **field** of `ScalingAPI`, with
+`correction := C.correction`, `forceCorrection := C.forceCorrection` and the
+pinning equations `x₀ = C.x₀`, `r = C.r`, `carrierRadius = C.θRadius`,
+`T = C.T`, `ν = C.ν`, together with `ε₀ ≤ C.ε₀` — an **inequality**, not an
+equality, because `I03` may legitimately shrink the scale threshold further
+(for instance to enforce `ε₀ ≤ 1`) but may never enlarge it beyond the range on
+which `I02`'s bounds hold.  All six restated `correction*` / `forceCorrection*`
+fields and every premise below then disappear, and the `ε`-family threading
+becomes structural instead of an obligation on `R42`. -/
 def scalingStatement : Prop :=
-  ∀ (ν : ℝ) (packet : PacketAPI ν) (T δ : ℝ) (x₀ : Space) (r : ℝ)
-    (w H : ℝ → VelocityField) (thresholds : ThresholdAPI),
-    0 < T → 0 < δ → 0 < r →
+  ∀ (ν : ℝ) (packet : PacketAPI ν) (T δ : ℝ) (x₀ : Space)
+    (r carrierRadius ε₀ : ℝ) (thresholds : ThresholdAPI)
+    (w H : ℝ → VelocityField) (correctionEnergyConst forceAmplitudeConst : ℝ),
+    -- ambient data, as in the corresponding `ScalingAPI` fields
+    0 < T → 0 < δ → 0 < r → 0 < carrierRadius → 0 < ε₀ → ε₀ ≤ 1 →
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, 2 * ε ^ 2 < min T δ) →
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, ε * carrierRadius < r) →
+    packet.carrier ⊆ Metric.ball (0 : Space) carrierRadius →
+    (∀ z ∈ tsupport packet.force, z.2 ∈ Metric.ball (0 : Space) carrierRadius) →
+    -- Lemma 3.4 for `w`: `⟪I02:CorrectionAPI.correction_smooth⟫`,
+    -- `⟪I02:CorrectionAPI.correction_compactSupport⟫`
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, ContDiff ℝ ∞ (w ε)) →
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, HasCompactSupport (w ε)) →
+    -- `eq:wE`: `⟪I02:CorrectionAPI.correction_energy_bound⟫`
+    0 ≤ correctionEnergyConst →
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, Data.energyENorm T (w ε) ≤
+      ENNReal.ofReal (correctionEnergyConst * ε ^ ((3 : ℝ) / 2))) →
+    -- Lemma 3.5 for `H`: `⟪I02:CorrectionAPI.force_smooth⟫`,
+    -- `⟪I02:CorrectionAPI.force_compactSupport⟫`
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, ContDiff ℝ ∞ (H ε)) →
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, HasCompactSupport (H ε)) →
+    -- `⟪I02:CorrectionAPI.force_support⟫`, `03-torus.tex:225`: spatial volume
+    -- `O(ε³)` and temporal length `O(ε²)`
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, tsupport (H ε) ⊆
+      Ioo (T - 2 * ε ^ 2) (T + 2 * ε ^ 2) ×ˢ Metric.ball x₀ (ε * carrierRadius)) →
+    -- `⟪I02:CorrectionAPI.force_derivative_bound⟫` at `m = 0`,
+    -- `eq:derivativebounds`, `03-torus.tex:229-230`: amplitude `C ε^{-2}`
+    0 ≤ forceAmplitudeConst →
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ z : SpaceTime,
+      ‖H ε z‖ ≤ forceAmplitudeConst * (ε⁻¹) ^ 2) →
     ∃ A : ScalingAPI,
-      A.ν = ν ∧ HEq A.packet packet ∧ A.T = T ∧ A.δ = δ ∧ A.x₀ = x₀ ∧ A.r = r ∧
-        A.correction = w ∧ A.forceCorrection = H ∧ A.thresholds = thresholds
+      A.ν = ν ∧ HEq A.packet packet ∧ A.T = T ∧ A.δ = δ ∧ A.x₀ = x₀ ∧
+        A.r = r ∧ A.carrierRadius = carrierRadius ∧ A.ε₀ = ε₀ ∧
+        A.thresholds = thresholds ∧
+        A.correction = w ∧ A.forceCorrection = H
 
 end BlowupDensity.I03.Draft
