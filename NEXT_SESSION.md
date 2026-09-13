@@ -15,7 +15,7 @@
 ## 下一步
 
 1. 五条车道回来 → 各派 reviewer（`/lane-review`）→ 合入（`/lane-merge`）→ 记 CSV/PLAN。R43 两份盲稿回来后做比对 + reconciliation（同 D01 流程）。
-2. 槽位一空先开 040-SIMP-A02。之后：A04 单元 G3（变系数 Grönwall，M，新数学，先做纯 ODE 引理）与 D1/Z1；C01 单元 U6/U2（无 U1 依赖的先做）；A02 U1b 先拆 spec；B01 单元 4/6；R44 spec 盲稿；R42 V2。
+2. 后续合同车道：`D01.datum_lemmas` **V2**（加 042 的 `forceSobolevENorm_ne_top` 字段 + Bindings import `HalfOrder`；顺带把 B01/B02/A04 的 lemma 模块接进闭包）；A02 合同注册（U1a/U4/U6 已证，等 U1b/U2）。之后：A04 单元 G3（变系数 Grönwall，M，新数学，先做纯 ODE 引理）与 D1/Z1；C01 单元 U6/U2（无 U1 依赖的先做）；A02 U1b 先拆 spec；B01 单元 4/6；R44 spec 盲稿；R42 V2。
 3. 每次收工更新本文件；agent 运行记 `logs/AGENT_RUNS.csv`；坑记 `logs/LESSONS.md`；Attempts 放 `research/<ID>/ATTEMPTS*.md`。
 
 ## 待 owner 决定
