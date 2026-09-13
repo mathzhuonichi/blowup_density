@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- **zsh 不对未加引号的 $VAR 做分词**： 会把整串当一个文件名（No such file），后面靠它的 git add / PR 全空， 为空又生成了 。多文件一律用数组  + ，并在用  前 。（2026-09-14）
 - **负向检查不能只用「省略参数再 apply 原定理」**：那只证明签名里有这个参数，不证明假设必要（113 审稿：`pressure_potential_of_pointwise` 的 `hsym` 这样「通过」了，实际可由 `hsm`+`hdp` 推出，陈述已冻结只能记 V2 备注）。有效做法：(a) 删掉假设后重述 + `set_option autoImplicit false in` + 独立尝试证明失败/成功都记；或 (b) 给反例证明弱化陈述为假。（2026-09-14）
 - **`open` 多个命名空间时，导出的谓词可能不是你以为的那个**：111 的 `MomentumSlice` 导出的是 `D01.MemForceR` 而非 `open` 暗示的 `A02.MemForceR`（两者 `rfl` 相等，`Pressure.lean` 一直如此，无害）。写合同/绑定前用 `#check @thm` 看全名，别看 `open`。（2026-09-14）
 - **本 Mathlib pin 里 `add_le_add_right (h : a ≤ b) c : c + a ≤ c + b` 是左加**。把它怼到右加目标上时，若两边是 `eLpNorm`/`∫⁻`/`essSup` 这类大项，`isDefEq` 会去展开积分体找交换律，`(deterministic) timeout at isDefEq`（110 审稿复现：400000 heartbeats 13 s 烧光；纯变量则是秒级 type mismatch）。用 `add_le_add h le_rfl` 或 `gcongr`。（2026-09-14）
