@@ -2,19 +2,20 @@
 
 更新：2026-09-13（erenup 侧）。规矩看 [`CLAUDE.md`](CLAUDE.md)，全貌和顺序看 [`PLAN.md`](PLAN.md)。
 
-## 现状（2026-09-13 深夜）
+## 现状（2026-09-13 深夜，第三次更新）
 
-- 分支模型：根目录直接检出 `erenup/integration`；lane PR 由 lead 合；**PR #15 integration → main 已交 owner**。hooks/skills 在 `.claude/`；`scripts/gates.sh [modules]`、`scripts/merge_lane.sh`（记账文件冲突自动取 integration 版）；坑 `logs/LESSONS.md`（25+ 条）；总结 `logs/PROGRESS_20260913.md`。
-- **CI 被 owner 账户账单挡住（14:54Z 起）**；最后全绿 run 34759326799。此后所有合并只靠本地 `scripts/gates.sh` + 全部 `Section4` 模块显式 build（最近一次：47 模块、10070 jobs、全绿）。
-- integration 上 **10 条注册合同**（054 的 `D01.datum_lemmas_v2` 是第 11 条，review 中）。已合入证明模块 47 个：A02 全部唯一性单元（U1a/U1b/U2/U3/U4/U6：`SolutionClass/Restrict/Order/Energy/Bounds/Uniqueness`）；A04 F1/N1/G3/Z1/D1（`Forcing/Continuity/Gronwall/Regularized/DerivNorm` + Paper3 上的 `realSobolevInnerProductSpace`）；B01 单元 1–3、6、8；B02 单元 3–4；C01 U1/U2/U6 + U3 速度半边；D01 四模块 + `HalfOrder`；spec：A04、C01、R43、R44（调和版）。
-- **在跑（5/5）**：055 D01 L9(c) 压力梯度正则性；056 A04 G1 拆分 + S 级子步；057 `A02.uniqueness` 合同；054、051 reviewer。
-- 缺口登记（PLAN §8）：D2（`deriv G t` = ∂ₜu 的 datum，G1 前置）；L9(c)（055 在做）；R43 G3-齐次 + G2；R44 G1/G2/G3；A04↔C01 幂拼写；R42 寿命子句；I03 U7c。
+- 分支模型：根目录直接检出 `erenup/integration`；lane PR 由 lead 合；**PR #15 integration → main 已交 owner**。`.claude/` hooks/skills；`scripts/gates.sh [modules]`、`scripts/merge_lane.sh`；坑 `logs/LESSONS.md`；总结 `logs/PROGRESS_20260913.md`。
+- **CI 被 owner 账户账单挡住（14:54Z 起）**，靠本地 `scripts/gates.sh` + 全部 `Section4` 模块显式 build（最近：50 模块、全绿）。合并流程：`tmp/merge_<PR>_then_gates.sh` 模板（squash → rebase → 记账文件取 integration → merge → pull → gates）。
+- integration 上 **13 条注册合同**：R41 阈值算术、I01、I02(+v2)、I03、A05、A03×2、R42、`D01.datum_lemmas`(+v2)、**`A02.uniqueness`、`A02.maximal_partial`**。A02 的 `MaximalSolutionAPI` 20 字段中 11 已注册；剩 `exists_maximal`/`maximal_unique`/`restart*`/`insertion_lifespan_eq` 及 A01 接口。
+- 已合入证明模块 50 个（A02 全部非 A01 依赖单元；A04 F1/N1/G3/Z1/D1/SL6/SL8；B01 单元 1–3、6、8；B02 单元 1、3–4；C01 U1/U2/U6 + U3 速度半边；D01 四模块 + `HalfOrder` + `Pressure`(L9(c)-partial) ）；spec：A04、C01、R43、R44。
+- **在跑（5/5）**：059 B02 单元 7；060 B02 单元 8；063 B01 单元 7 拆分；056 续改（把 reviewer 证的 D2 提成模块 `A04/TimeDerivative.lean`）；062 reviewer（P2 拆分）。
+- 关键路线判断（056/062 的拆分结论）：A04 G1 的核心 = A01 的 datum 层正则性（动量方程 datum 形式 SL2、datum 侧阶移 SL3、H^m 分部积分 SL5）；D2 不需要 A01（钉代表元技巧）；P2 的关键是算子值 Fourier 乘子 CLM（SL3，新基础设施）+ 单元 L3。**下一个大方向：A01 的 datum 层单元（把 `HasSmoothSobolevPath` 与动量方程 datum 形式作为 A01 产出）与 P2 的乘子 CLM。**
 
 ## 下一步
 
-1. 回来的车道 → reviewer → 续改 → PR → `scripts/merge_lane.sh` 合入 → `scripts/gates.sh <全部 Section4 模块>`。CI 恢复前不要跳过本地全量 build。
-2. 合同注册候选：`A02.uniqueness`（057）；C01 部分合同（U2/U6 + U1）；A04 lemma 合同（F1/N1/G3/Z1/D1）；B01（1–3、6、8）、B02（1、3、4）lemma 合同——把 lemma 模块接进 `make test` 闭包。
-3. 下一波单元：A02 U5（patch）、U7/U8（需 A01）；A04 D2、G2（G1 拆分回来后）；C01 U4/U7（L9(c) 后）、U5（用 `sqrt_le_primitive_linear`）；B01 单元 7（L，先拆）、9、10（打包合同）；B02 单元 2、5–9；R42 V2；A01 A2b（HeliCorgi mild 续接）。
+1. 回来的车道 → reviewer → 续改 → PR → 合并链 → 门禁。
+2. 合同：C01 lemma 合同（U1/U2/U6 + 三线性可积性）；A04 lemma 合同（F1/N1/G3/Z1/D1/SL6/SL8/D2）；B01（1–3、6、8）、B02（1、3、4、7、8）lemma 合同——把 lemma 模块接进 `make test` 闭包。
+3. 单元：A04 SL2（动量 datum 形式，钉代表元）、SL3（datum 侧阶移）、SL5；P2 SL3 乘子 CLM；C01 U4/U5/U7（有 P2 或带 `MemForceR` + `∂ₜu` jets 假设的条件版）；B01 单元 9/10；B02 单元 2/5/6/9；A01 A2b（HeliCorgi mild 续接）；R42 V2 spec。
 4. 每次收工更新本文件；agent 运行记 `logs/AGENT_RUNS.csv`；坑记 `logs/LESSONS.md`；Attempts 放 `research/<ID>/ATTEMPTS*.md`。
 
 ## 待 owner 决定
