@@ -7,31 +7,45 @@ import NavierStokes.R3.ProblemStatement
 /-!
 # The D01 solution class, restated for `Section4.A02`
 
-`verification/Contracts/V1/Data.lean` is the canonical statement of
-`ClassicalSolutionR` (`:624-648`), `maximalLifespanR` (`:657`),
-`RegularThrough` (`:664`), `PressureGaugeEquivOn` (`:589`), `initialClassR`
-(`:509`), `MemForceR` (`:544`) and `IsSobolevDatum` (`:160`).  The
-`NSFormalization` package is a *dependency* of the `Contracts` library and
-cannot import it, so §0 below restates those objects verbatim, exactly as
-`NSFormalization/Section4/D01/SmoothDatum.lean:237` restates
-`Data.IsSobolevDatum`.
+This module is the **single** A02-local restatement of the Section-4 solution
+class of `verification/Contracts/V1/Data.lean`:  `ClassicalSolutionR`
+(`:624-648`), `maximalLifespanR` (`:657`), `RegularThrough` (`:664`),
+`PressureGaugeEquivOn` (`:589`), `initialClassR` (`:509`), `MemForceR` (`:544`)
+and `IsSobolevDatum` (`:160`), together with the supporting `IsSobolevPath`,
+`MemHInfty`, `IsSolenoidal` and the field/time-domain abbreviations.  Every one of the
+A02 units imports it — `Restrict.lean` (U4), `Order.lean` (U6) and `Energy.lean`
+(U1a) — so there is exactly one copy in the `A02` namespace (lane 040 deleted the
+byte-identical inline copy that lane 032 had left in `Restrict.lean` §0).
 
-The text of this module is **byte-identical** to §0 of lane 032's
-`Section4/A02/Restrict.lean` (units U4/U6), from which it was extracted so that
-`Section4/A02/Energy.lean` (unit U1a) and `Restrict.lean` share one copy of the
-class instead of declaring two incompatible structures in the same namespace.
-Every field type is definitionally the contract's, so a `verification/Bindings`
-module can move a `ClassicalSolutionR` across the two copies field by field and
-discharge each contract statement by `exact`.  A `rfl` bridge is not available
-for the structure itself: two separately declared structures are distinct
-inductive types.
+The `NSFormalization` package is a *dependency* of the `Contracts` library and
+cannot import it, so the objects below are restated **verbatim**, token for token
+with `Contracts/V1/Data.lean` (the abbreviation `SpatialField` and friends
+included).  Every field type is therefore definitionally the contract's, so a
+`verification/Bindings` module can move a `ClassicalSolutionR` across the two
+copies field by field and discharge each contract statement by `exact`.  A `rfl`
+bridge is not available for the structure itself: two separately declared
+structures are distinct inductive types.
 
-`IsSobolevDatum` is restated here rather than imported from
-`Section4/D01/SmoothDatum.lean:237`, which already carries a verbatim copy.  The
-three predicates — `Data.IsSobolevDatum`, `D01.IsSobolevDatum`,
-`A02.IsSobolevDatum` — are definitionally equal, so any one discharges any other
-by `exact`; the reason for the copy is build hygiene: `D01.SmoothDatum` drags in
-33 further local modules that units U4 and U6 never touch.
+## Canonical copy, and the relation to the D01 copies
+
+`Section4/D01/{SmoothDatum,ForceClass}.lean` carry their own restatements of
+`IsSobolevDatum`, `IsSobolevPath`, `MemForceR`, `futureTimes` and
+`forceTimeMeasure`.  They are **definitionally equal** to the ones here — lane
+040 verified `example : A02.IsSobolevDatum = D01.IsSobolevDatum := rfl` and the
+same for `IsSobolevPath`, `MemForceR`, `futureTimes`, `forceTimeMeasure` — so a
+`Bindings` or downstream module discharges either from the other by `exact` with
+no transport.  They are **not token-identical**, however: the D01 copies unfold
+`SpatialField`/`SpaceTimeField` to `Space → Space`/`VelocityField`, whereas the
+copies here keep the abbreviations, matching `Contracts/V1/Data.lean` on the
+nose.  This module is therefore kept as the canonical copy for the A02 chain and
+does **not** import the D01 ones: (i) the token-for-token agreement with the
+contract is what the `Bindings` `rfl` bridges rely on, and (ii) importing
+`D01.SmoothDatum`/`D01.ForceClass` would drag their ~35-module analytic closure
+into the otherwise lightweight `Restrict`/`Order` (which need only `Paper3` and
+`NavierStokes.R3.ProblemStatement`).  No `rfl` bridge lemma is stated here for
+the same import-hygiene reason; the equalities are recorded in
+`research/A02/ATTEMPTS_SIMP.md`.  `Energy.lean` alone imports D01 (unit U1a is
+analytic), and there the A02↔D01 datum defeq is used directly.
 -/
 
 noncomputable section
