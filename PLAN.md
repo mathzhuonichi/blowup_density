@@ -170,7 +170,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 064-A02-unit-u7 | ACCEPT-WITH-NOTES，已合入 | — | #65 | A02 单元 U7：`exists_maximal` + `maximal_unique`（以 ⟪A01:solution⟫ 为显式假设；S ↑ T_max 的有向并 + U2/U3/U4 归一化的相干性），`Section4/A02/Maximal.lean` |
 | 065-A04-sl2-momentum | ACCEPT-WITH-NOTES，已合入 | — | #66 | A04 子引理 SL2：动量方程的 datum 形式（用 D2 + 钉代表元技巧把 `∂ₜu = f − (u·∇)u + νΔu − ∇p` 提升到 `RealVectorSobolev m` 的 datum 等式），`Section4/A04/MomentumDatum.lean` |
 | 066-A04-sl3-laplacian | 进行中 | — | — | A04 子引理 SL3：Laplace 配对恒等式 `⟪G, datum(Δu)⟫ ≤ −‖∇u‖²_{H^m}` 在 datum 载体上（datum 侧阶移 / `∂ⱼ` 的 datum = `iξⱼ`·datum，与 P2 共用），`Section4/A04/LaplacianDatum.lean` |
-| 067-D01-p2-sl7a | 进行中 | — | — | P2 子引理 SL7a：零阶 Plancherel 种子 `MemLp z 2 ⟹ ∃ A, IsSobolevDatum 0 z A`（用 059 的 `angular_plancherel`；从 `pressure_gradient` 出发给 ∇p 一个零阶 datum），`Section4/D01/OrderZeroDatum.lean` |
+| 067-D01-p2-sl7a | ACCEPT-WITH-NOTES 已修，已合入 | — | #69 | P2 子引理 SL7a：零阶 Plancherel 种子 `MemLp z 2 ⟹ ∃ A, IsSobolevDatum 0 z A`（用 059 的 `angular_plancherel`；从 `pressure_gradient` 出发给 ∇p 一个零阶 datum），`Section4/D01/OrderZeroDatum.lean` |
 | 068-B02-unit-6 | 进行中 | — | — | B02 单元 6：`lebesgueHomogeneousDatum`（k ∈ L¹∩L² 在 −3/2 < s ≤ 0 的齐次 datum 存在 + 范数子句）与 `homogeneousDatumSub`，用 059 的角 Plancherel，`Section4/B02/LebesgueDatum.lean` |
 | 069-A02-maximal-partial-v2 | 进行中 | — | — | `A02.maximal_partial` **V2**：`extends` V1 + `maximal_unique`（无条件）+ `exists_maximal`（以 A01 存在性为显式假设），绑定 064 的 `Maximal.lean` |
 | 070-MAINT-hotfix-temporal | 已合入 | — | #68 | 热修 063 的 docstring（lead 手改吞掉 `-/`）；全量门禁 58 模块绿 |
