@@ -159,3 +159,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A02,064-A02-unit-u7,opus,reviewer,ACCEPT-WITH-NOTES (construction honest; spec byte-identical; maximal_unique needs no A01; record fix by lead),PR,PR #65 opened; merging
 2026-09-13,D01,067-D01-p2-sl7a,opus-4.8,proof,DONE SL7a (OrderZeroDatum.lean: exists_isSobolevDatum_zero_of_memLp from bare L² via sobolevRealization_zero + Lp Fourier isometry; standard axioms; 19 min / 41 tool uses); norm identity left out,,reviewer pending
 2026-09-13,A04,065-A04-sl2-momentum,opus,reviewer,ACCEPT-WITH-NOTES (statement verbatim; signs verified; defeq rfl; composition real; advisory: relocate linearity lemmas to A03),PR,PR #66 opened; merging
+2026-09-13,B01,063-B01-unit-7-split,opus,reviewer,ACCEPT-WITH-NOTES (targeted bump needed, floor 375k -> 400000; attribution corrected by lead; spec verbatim),PR,PR #67 opened; merging after #66 chain
