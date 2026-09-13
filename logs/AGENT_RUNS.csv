@@ -85,3 +85,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,D01,034-D01-lemma-contract,opus,reviewer,ACCEPT-WITH-NOTES (binding proves nothing — 0 by-blocks; both flagged statements hold; doc-level notes: bound misattribution + 5 line cites + docstring contradiction; suggest 23rd bridge for TameProduct.SmoothJets),,worker resumed for doc fixes
 2026-09-13,C01,031-C01-spec,opus,worker-resume,DONE fixes in 5 min / 14 tool uses (23 fields),PR,PR opened
 2026-09-13,D01,034-D01-lemma-contract,opus,worker-resume,DONE doc fixes + 23rd bridge in 3 min / 15 tool uses,PR,PR opened
+2026-09-13,B01,035-B01-units-1-3,opus-4.8,proof,DONE units 1-3 (Compact.lean + Completion.lean; 8 axioms checks standard; 19 min / 34 tool uses with seeded builds; unit 4 already in D01/ForceClass),,reviewer pending
