@@ -47,8 +47,9 @@ binding only proves a weaker statement.
 
 We tested four cases in actual Lean: a binding refactor passes; a `sorry`,
 an extra assumed axiom and a weakened negative-index hypothesis each fail for
-the intended reason. Five separate policy tests exercise version immutability,
-test deletion, registry disabling and allowed binding/new-version changes.
+the intended reason. Seven separate policy tests exercise version immutability,
+test deletion, registry disabling, allowed binding/new-version changes and
+the selection of changed modules outside the existing test closure.
 
 ## Honest coverage and maintenance
 

@@ -34,7 +34,7 @@ accidentally use an older global default.
 ## Validation
 
 - `make check`: task DAG and registration, dependency boundaries, queue/card
-  consistency and five compatibility-policy tests.
+  consistency and seven compatibility/changed-module policy tests.
 - `make test`: actual Lean typecheck of the stable interface binding and
   transitive axiom inspection. The acceptance target reports only the standard
   logical axioms.

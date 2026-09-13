@@ -20,9 +20,9 @@ jobs:
           persist-credentials: false
       - run: make check
       - name: Preserve established contracts against the PR base
-        if: github.event_name == 'pull_request'
+        if: github.event_name != 'workflow_dispatch'
         env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: python3 experiments/check_contracts.py --base-ref "$BASE_SHA"
   lean-contracts:
     needs: architecture
@@ -33,6 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
+          fetch-depth: 0
           persist-credentials: false
       - uses: leanprover/lean-action@96e06131c0e9943c780388fd166f55d1e2fa0433
         with:
@@ -43,5 +44,10 @@ jobs:
           lint: false
           use-mathlib-cache: true
           use-github-cache: true
+      - name: Compile changed modules outside the registered test closure
+        if: github.event_name != 'workflow_dispatch'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: python3 experiments/build_changed_lean.py --base-ref "$BASE_SHA"
       - name: Test rejection and refactoring behavior
         run: python3 experiments/test_contract_mutations.py --skip-build

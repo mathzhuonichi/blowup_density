@@ -103,7 +103,10 @@ their own PR. A green check certifies only its stated scope.
 The CI jobs are `architecture` and `lean-contracts`. They run on PRs and pushes
 to the current default branch, with
 read-only workflow permissions and cancellation of superseded runs. The Lean
-job tests the registered suite, not the legacy all-source umbrella. No full
+job tests the registered suite and compiles changed Lean modules even when
+they are not yet imported by an acceptance test. Thus a new, unimported proof
+file cannot silently escape compilation. HeliCorgi source changes require a
+separate runner for its pinned version. No full
 OpenAI or HeliCorgi build is scheduled by default. Branch-protection availability
 for a private repository depends on the GitHub account plan; see the current
 [setup record](logs/COLLABORATION_SETUP_20260913.md) for the applied settings.

@@ -6,6 +6,18 @@ import subprocess
 import tempfile
 import unittest
 from check_contracts import check_compatibility
+from build_changed_lean import targets
+
+
+class ChangedModuleSelection(unittest.TestCase):
+    def test_unimported_new_proof_is_still_selected(self):
+        self.assertEqual(targets(['formalization/NSFormalization/Paper3/NewProof.lean',
+                                  'verification/Bindings/NewProof.lean', 'README.md']),
+                         ['Bindings.NewProof', 'NSFormalization.Paper3.NewProof'])
+
+    def test_incompatible_vendor_is_not_silently_skipped(self):
+        with self.assertRaisesRegex(ValueError, '4.32.1'):
+            targets(['vendor/HeliCorgi/Formal/NewProof.lean'])
 
 
 class CompatibilityPolicy(unittest.TestCase):
