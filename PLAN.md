@@ -125,7 +125,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 019-A05-l6-contract | ACCEPT，PR #23 待合（CI 跑完） | **`A05.gradient_l6` V1 已注册** | #23 | 论文原形；Hessian–Laplacian 等式；无 Fourier；R43/R44 消费它还需 datum ⇒ jets + 时间切片提取（下一条 D01 lane） |
 | 020-D01-hm-datum | PR #24 待合（CI 跑完） | — | #24 | **已证** jets ⇒ datum，任意实数阶、无紧支撑；29 定理标准公理；ACCEPT-WITH-NOTES 已修；余：datum ⇒ jets、双边范数、时间路径 |
 | 021-I03-contract | 进行中 | 目标 `I03.scaling` V1 | — | 以 `I02.correction` 为输入的缩放合同；正/负阶非齐次界源码已有；齐次界（U7c）若不成则诚实分拆 |
-| 022-B02-spec | 进行中 | — | — | Prop 4.6 的 L²_tḢ⁻¹ 逼近（共用 B01 的 SeparatedTemporalDense 阶段） |
+| 022-B02-spec | review 中 | — | — | HomogeneousApproxAPI 20 字段通过检查；范围 −3/2 < s ≤ 0；显式常数；齐次实现半边在树里为空（单元 6 = I03 的 U7c，建一次共用） |
 | 023-A03-l2linf-contract | review 中，PR #25 | **`A03.bounded_representative` V1 已注册** | #25 | jet 形式，逐点 + ess-sup；复用 OpenAI `smooth_pointwise_le_H2`；datum 形式待 D01 反向 |
 | 其余节点 | 未开始 | — | — | |
 
