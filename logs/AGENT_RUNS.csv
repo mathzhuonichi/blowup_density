@@ -65,3 +65,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,R42,027 review fixes,opus,worker,done: scope extended; blowup docstring corrected; citations; follow-ups (I02 V2 thetaRadius; R42 V2 hg) recorded; 7 contracts green,,
 2026-09-13,A03,026 tame products contract,opus,worker,done: A03.tame_products V1 registered at datum level; realSubspace stability of completed product; 3 fields unregistered (datum=>jets); 8 maxHeartbeats,,
 2026-09-13,D01,028 force class closure,opus,worker,done: F_c subset F_R; memForceR_add; inserted force in F_R in R42-consumable forms; 23 theorems standard axioms,,remaining: ClassicalSolutionR.sobolev for u_eps
+2026-09-13,A03,026 review,opus,reviewer,ACCEPT-WITH-NOTES: 83 declarations standard axioms; math spot-checks sound; 6 of 8 maxHeartbeats dead; provenance and wording notes,,fixes sent to worker
