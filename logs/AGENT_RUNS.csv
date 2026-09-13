@@ -86,3 +86,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,C01,031-C01-spec,opus,worker-resume,DONE fixes in 5 min / 14 tool uses (23 fields),PR,PR opened
 2026-09-13,D01,034-D01-lemma-contract,opus,worker-resume,DONE doc fixes + 23rd bridge in 3 min / 15 tool uses,PR,PR opened
 2026-09-13,B01,035-B01-units-1-3,opus-4.8,proof,DONE units 1-3 (Compact.lean + Completion.lean; 8 axioms checks standard; 19 min / 34 tool uses with seeded builds; unit 4 already in D01/ForceClass),,reviewer pending
+2026-09-13,R43,037-R43-spec-A,opus-4.8,spec-draft-A,DONE (CriticalRegularityL1API; typecheck 0; 19 min; finding: Data.dotHHalfENorm degenerates to 0 on non-L1 fields -> smallness vacuous; use datum-infimum homogeneous norm; worktree predates A04/C01 merge so upstream clauses restated from need),,await draft B then compare

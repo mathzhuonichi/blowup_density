@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-13 盲稿有价值的前提是"只看论文"：037 的 R43 草稿在 A04/C01 未合入的 worktree 里写出来，反而给出了上游"必须导出的确切形状"清单；比对阶段再对实际 spec。但另一份盲稿要拿到最新 spec，否则两份都在猜。
 
 - 2026-09-13 续用原 worker 改 review 意见（SendMessage 回同一个 agent）：9 分钟、17 次工具调用；新开一个要 30–45 分钟。review 后先想"能不能续用"。
 - 2026-09-13 同一 worktree 里并发两个 lake 会弄坏 `vendor/.lake/build`（缺 olean、瞬时竞态）；lake 的锁挡不住。一个 worktree 一次一个 lake；安装脚本的 `lake test` 没跑完别自己起 build。
