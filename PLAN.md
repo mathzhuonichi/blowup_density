@@ -133,6 +133,8 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 027-R42-assembly-contract | ACCEPT 已修，PR 待合 | **`R42.insertion_family` V1 已注册（第 7 条）** | — | 定理 4.2 除寿命同定外全部子句；K→K_* 在 R42 侧以缩小 ε₀ 解决；**缺口：无合同提供 g_ε ∈ F_R（时间正则性）**，连寿命 ≥ T 都无法陈述 → 028 |
 | 028-D01-forceclass-closure | ACCEPT，PR 待合 | — | — | **已证**：F_c ⊆ F_R（datum 路径时间 C^∞）、F_R/F_c 加法封闭、g+H_ε+F_ε ∈ F_R（R42 可直接消费）；23 定理标准公理；余：u_ε 的 `ClassicalSolutionR.sobolev`（非紧支） |
 | 029-I02-v2-thetaradius | ACCEPT，PR 待合 | **`I02.correction_v2` 已注册** | — | `extends` V1 + 1 字段 `K ⊆ plateau`；兼容绑定 V1-of-V2；`force_carrier_subset_ball` 直接证出 021/027 说"无法履行"的前提；政策脚本零改动 |
+| 030-A04-spec | 进行中 | — | — | 平方 H² continuation 适配器（∫‖u‖²_{H²} < ∞ ⇒ 高阶界 + 越过 S 的一致重启；R43/R44 的关键路径） |
+| 031-C01-spec | 进行中 | — | — | 常规能量与 H¹ 吸收（eq:RL2、eq:RH1；R43/R44 用） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
