@@ -221,6 +221,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 115-SIMP-A04 | 进行中 | — | — | A04 SL3 簇四个模块（LaplacianDatum, LaplacianPairing, RealPairing, LaplacianAssembly；086 未覆盖）的 simplifier+tester（陈述逐字不变；负向检查 autoImplicit off；重跑 axioms_sl3*；MAINT 清单）。SL5 簇五个 Nonlinear* 模块另开 |
 | 116-B02-homogeneous-v2 | 进行中 | — | — | B02 `homogeneous_partial` **V2** 合同：`extends` V1 + `separatedAssembly`（在 `−3/2<s` 上，103）+ `approxCompactHomogeneous`（110，`SplitRange`）；`annularPathApprox` 仍排除（无证明、无消费者）；Bindings/Tests/contracts.json（第 20/21 条） |
 | 117-D01-p2-sl8-assembly | 进行中 | — | — | **P2 SL8 组装**（S，≈55 行，reviewer 探针已编译）：`D01/PressureJets.lean`，0 阶恒等式 `datum⁰(∇p) = (I−P)₀ datum⁰(h)`（094 横向 + 108 纵向 + 111 代数）→ 085 `isSobolevDatum_lower_iff` 逐阶提升 → `SmoothSquareIntegrableJets (∇p(t,·))`；即 P2 = eq:Rpressure 的 Lean 定理 |
+| 118-SIMP-A04-nonlinear | 进行中 | — | — | A04 SL5 簇五个模块（AdvectionDivergence, NonlinearPairing, NonlinearColumns, NonlinearDatum, NonlinearBound；100/102/105）的 simplifier+tester（陈述逐字不变；真负向检查；重跑 axioms_sl5*；MAINT 清单） |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
