@@ -273,3 +273,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,102-A04-sl5-columns-norms,opus-4.8,worker,DONE 5b/5f/5g (7 decls; 5g as equality) in 9 min / 24 tool uses,—,reviewer launched
 2026-09-14,B02,099-B02-partial-contract,opus,reviewer,ACCEPT-WITH-NOTES (17 fields identical by script; 9 rfl bridges target the implementation objects; both hard requirements met; 18 contracts, mutations OK; notes: homogeneousDatumSub duplicates D01.datum_lemmas' isHomogeneousSliceDatum_sub — say so in scope; lebesgueHomogeneousDatum docstring says compact support but the field is L¹∩L²) in 12 min / 53 tool uses,—,worker resumed for two prose fixes
 2026-09-14,B02,099-B02-partial-contract,opus-4.8,worker-resume,DONE 2 prose fixes in 4 min / 10 tool uses,PR,PR #99 opened; merging
+2026-09-14,R42,098-R42-full-horizon,opus-4.8,worker-resume,DONE sol_fullHorizon + isMaximalSolution_of_inserted (Bindings) + records in 8 min / 19 tool uses; rebased clean,PR,PR #100 opened; chain after #99
+2026-09-14,B02,103-B02-separated-assembly,opus-4.8,worker,RUNNING separatedAssembly via the unique/compact route,—,

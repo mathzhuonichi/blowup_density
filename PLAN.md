@@ -201,11 +201,12 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 095-A04-sl5-nonlinear | 已合并 | #97 | #97 | A04 G1 SL5：非线性项的 H^m 分部积分 `⟪G, datum((u·∇)u)⟫ = -⟪∇G, datum(u⊗u)⟫`（实反自伴 082 + `derivDatumStep` 088）+ Cauchy–Schwarz ⇒ `hnl : -⟪G, N⟫ ≤ NLbound`（`A04.inner_energy_assembly` 的输入），`Section4/A04/NonlinearPairing.lean` |
 | 096-R42-lifespan-contract | 已合并 | #95 | #95 | 注册 `R42.insertion_lifespan`（V1 新合同，含 `family`、`memForce`、`regular` + 两条寿命子句；Bindings 用 092 的 `insertionLifespan`；Tests 公理审计 + 两条论文显示式 example + `hν`/`ha` 可导出 example），把 `Bindings/InsertionLifespan` 纳入 CI 闭包 |
 | 097-B02-remaining-fields | 已合并 | #96 | #96 | B02 剩余 spec 字段：`chi_*`（vendor `baseCutoff`，同 B01 绑定）、`temporalApprox`/`separatedAssembly`（B01 已证、逐字复用）、`annularPathApprox`（路径级截断，M）、`approxCompactHomogeneous`（stage 1–5 组装）；先表后证 S 项，`Section4/B02/Remaining.lean` + `research/B02/REMAINING_SPLIT.md` |
-| 098-R42-full-horizon | 续改中 | — | — | R42 导出：由每个 `Ico 0 S`（S<T）上的 datum 路径经唯一性粘成 `Ico 0 T` 上的连续路径（S–M），从而 `ClassicalSolutionR ν a g_ε T`（水平线恰为 T）；A02 `IsMaximalSolution`/`insertion_lifespan_eq` 半边的表，`Section4/R42/FullHorizon.lean` |
+| 098-R42-full-horizon | PR 已开 | #100 | — | R42 导出：由每个 `Ico 0 S`（S<T）上的 datum 路径经唯一性粘成 `Ico 0 T` 上的连续路径（S–M），从而 `ClassicalSolutionR ν a g_ε T`（水平线恰为 T）；A02 `IsMaximalSolution`/`insertion_lifespan_eq` 半边的表，`Section4/R42/FullHorizon.lean` |
 | 099-B02-partial-contract | PR 已开 | #99 | — | 注册 `B02.homogeneous_partial`：16 个已证字段（含带可积性形式的 `homogeneousDatumSub` + 反例注释）逐字进 `Contracts/V1/HomogeneousPartial.lean` + Bindings + Tests + contracts.json（模板 071/091），把 B02 八个模块纳入 CI 闭包；缺 `separatedAssembly`/`annularPathApprox`/`approxCompactHomogeneous` |
 | 100-A04-sl5a-divergence-form | 进行中 | — | — | A04 SL5 行 5a（M）：无散场的对流项散度形式 `advection u t x = ∑ⱼ partialDeriv j (fun y => u (t,y) j • u (t,y)) x`（Leibniz + `spatialDivergence = 0`），`Section4/A04/AdvectionDivergence.lean` |
 | 101-A01-p1-potential | 进行中 | — | — | A01 单元 P1（M，无依赖无 gap）：径向势 `pressurePotential G` 在 `HasSymmetricJacobian G` 下梯度为 `G`（`02-preliminaries.tex:96-100`；`intervalIntegral` 下求导 + FTC），同时结掉 `pressure_potential`(m4) 与 D01 L9(b)，`Section4/A01/RadialPotential.lean` |
 | 102-A04-sl5-columns-norms | 审阅中 | — | — | A04 SL5 行 5b/5f/5g（均 S）：列 `W_j = u_j • u` 的 m+1 阶 datum（`tameProductVector`/`outerProductTame`）；`√(∑‖D_j G'‖²) = gradientSobolevNormAt`；`√(∑‖B_j‖²) ≤ (outerSobolevENorm …).toReal`，`Section4/A04/NonlinearColumns.lean` |
+| 103-B02-separated-assembly | 进行中 | — | — | B02 （M）：分离和  的齐次 datum 路径，经 reviewer 给的短路线（ +  +  线性性，）， |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
