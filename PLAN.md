@@ -113,7 +113,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 007-I01-contract | 已合入（ACCEPT-WITH-NOTES，已修） | **`I01.packet` V1 已注册** | #12 | 第一条 PDE 合同；27 义务全证；20 个内联定义 + 19 个 rfl 桥；标准 3 公理 |
 | 008-I02-correction-spec | 已合入（ACCEPT-WITH-NOTES） | — | #10 | 76 字段 CorrectionAPI；3.4/3.5 的 R³ 内容本地已基本证完，缺 4 小项 |
 | 011-I02-contract | PR #19 待合（CI 跑完） | **`I02.correction` V1 已注册（rebase 后门禁全绿）** | #19 | 73 义务全证；范数已搬到 Data.lean 的 ℝ≥0∞ 规范范数；多一条论文自带的假设 π 光滑；参考解开板光滑桥因单切片消失 |
-| 016-A02-spec | review 中 | — | — | UniquenessAPI + MaximalSolutionAPI 通过检查；找到本地 `classical_uniqueness_on_Icc`（同载体）；reviewer 裁定：加边 A03 → A02（必要），A03 → R42 保留；修正中（压力规范、假设措辞、U1 尺寸） |
+| 016-A02-spec | PR #22 待合（CI 跑完） | — | #22 | ACCEPT-WITH-NOTES 已修（压力基点归一化字段；U1 拆成 M+L）；本地 `classical_uniqueness_on_Icc` 同载体；加边 A03 → A02 |
 | 017-A03-spec | PR #20 待合（CI 跑完） | — | #20 | ACCEPT-WITH-NOTES 已修；标量理论本地已完整，缺实向量/张量层与实性稳定性；U2 依赖 D01 L2（风险） |
 | 018-B01-spec | PR #21 待合（CI 跑完） | — | #21 | ACCEPT-WITH-NOTES 已修；主字段已由本地源码覆盖（所有 s、q<∞）；缺口只剩时间 C^∞ 搬运；无 L 单元 |
 | 012-SPEC-ledger-fixes | 已合入 | — | #13 | 台账 v2：12 处修正 + DAG 提案 + CHANGELOG |
