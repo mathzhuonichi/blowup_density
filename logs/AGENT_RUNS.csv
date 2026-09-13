@@ -266,3 +266,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,093-A01-split,opus,reviewer,ACCEPT-WITH-NOTES (E1 clean; projected_of_classicalSolution proved by reviewer in 12 lines; U05 reproduced but was completed by 004/010 — CLAUDE.md stale; §e wrong (A02 restart needs H1); A2b needs C1c carrier bridge; B1 crux confirmed, four entry points listed; next lane P1) in 19 min / 77 tool uses,—,worker resumed; CLAUDE.md/NEXT_SESSION updated
 2026-09-14,A01,101-A01-p1-potential,opus-4.8,worker,RUNNING P1 radial potential gradient,—,
 2026-09-14,R42,098-R42-full-horizon,opus-4.8,worker,DONE gluing lemma + full-horizon ClassicalSolutionR (2 decls) in 15 min / 29 tool uses; IsMaximalSolution reduces to sol_on_shorter + lifespan_eq (5 lines at Bindings),—,reviewer launched
+2026-09-14,A01,093-A01-split,opus-4.8,worker-resume,DONE projected_of_classicalSolution + table fixes (5 decls) in 7 min / 29 tool uses,PR,PR #98 opened; merging
