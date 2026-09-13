@@ -91,35 +91,25 @@ theorem pressureGradient_apply (p : PressureField) (t : ℝ) (x : Space) (j : Fi
 
 /-- Component of a Fréchet derivative through coordinate evaluation: the `b`-th
 coordinate of `fderiv ℝ G x v` is the derivative of the scalar component
-`fun y => (G y) b`.  Evaluation `EuclideanSpace ℝ (Fin 3) →L[ℝ] ℝ` is the
-continuous linear map `innerSL ℝ (coordinateVector b)`. -/
+`fun y => (G y) b`.  Coordinate evaluation `EuclideanSpace ℝ (Fin 3) →L[ℝ] ℝ` is
+the continuous linear map `EuclideanSpace.proj b`, with `(EuclideanSpace.proj b) u = u b`
+definitionally. -/
 private theorem fderiv_apply_component {G : Space → Space} {x : Space}
     (hG : DifferentiableAt ℝ G x) (v : Space) (b : Fin 3)
     {H : Space → ℝ} (hH : H = fun y : Space => (G y) b) :
     (fderiv ℝ G x v) b = fderiv ℝ H x v := by
-  have hpt : ∀ u : Space, (u b : ℝ) = (innerSL ℝ (coordinateVector b)) u := by
-    intro u
-    rw [innerSL_apply_apply, coordinateVector, EuclideanSpace.inner_single_left]
-    simp
-  have heq : H = ⇑(innerSL ℝ (coordinateVector b)) ∘ G := by
-    funext y
-    simp only [hH, Function.comp_apply]
-    exact hpt (G y)
-  rw [heq, ((innerSL ℝ (coordinateVector b)).hasFDerivAt.comp x hG.hasFDerivAt).fderiv,
+  have heq : H = ⇑(EuclideanSpace.proj b) ∘ G := hH
+  rw [heq, ((EuclideanSpace.proj b).hasFDerivAt.comp x hG.hasFDerivAt).fderiv,
     ContinuousLinearMap.comp_apply]
-  exact hpt (fderiv ℝ G x v)
+  rfl
 
 /-- Interchange: the derivative of `fun y => (fderiv ℝ f y) w` in direction `v`
-is the second derivative `(fderiv ℝ (fderiv ℝ f) x v) w`.  Uses that
-`ContinuousLinearMap.apply` acts as evaluation at `w`. -/
+is the second derivative `(fderiv ℝ (fderiv ℝ f) x v) w`, by `fderiv_clm_apply`
+(the `w`-slot is constant, so its contribution drops). -/
 private theorem fderiv_fderiv_apply {f : Space → ℝ} {x : Space}
     (hf : DifferentiableAt ℝ (fderiv ℝ f) x) (v w : Space) :
     fderiv ℝ (fun y : Space => (fderiv ℝ f y) w) x v = (fderiv ℝ (fderiv ℝ f) x v) w := by
-  have heq : (fun y : Space => (fderiv ℝ f y) w)
-      = ⇑(ContinuousLinearMap.apply ℝ ℝ w) ∘ (fderiv ℝ f) := by
-    funext y; simp [Function.comp_apply]
-  rw [heq, ((ContinuousLinearMap.apply ℝ ℝ w).hasFDerivAt.comp x hf.hasFDerivAt).fderiv,
-    ContinuousLinearMap.comp_apply, ContinuousLinearMap.apply_apply]
+  rw [fderiv_clm_apply hf (differentiableAt_const w)]; simp
 
 /-- **`∇(p(t,·))` is `ContDiff ℝ ∞` (m4 helper).**  The spatial gradient of the
 smooth pressure slice is smooth.  (Lane-101 reviewer's `contDiff_gradSlice`,
