@@ -131,3 +131,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,A02,052-A02-units-u2-u3,opus,reviewer,ACCEPT (fields verbatim; gauge form correct incl. t=0; 15 hypotheses of classical_uniqueness_on_Icc discharged; rfl residual),PR,PR opened
 2026-09-13,A04,053-A04-unit-d1,opus-4.8,worker-resume,DONE notes in 9 min / 22 tool uses (instance lifted to Paper3),PR,PR opened; merge after current gates
 2026-09-13,B02,051-B02-unit-1,opus-4.8,proof,DONE unit 1 (Annular.lean: annularRestriction + annularSmoothing; standard axioms; 54 min / 77 tool uses / 411k tokens — upper end of M),,reviewer pending
+2026-09-13,D01,054-D01-datum-lemmas-v2,opus,reviewer,ACCEPT-WITH-NOTES (gates green; V1 unchanged; R44 instance derivable; 2 citation nits fixed by lead),PR,PR #55 opened; merging
