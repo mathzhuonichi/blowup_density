@@ -91,3 +91,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,R43,038-R43-spec-B,opus-4.8,spec-draft-B,DONE (RCritical1API 4 fields; typecheck 0; 16 min; same rejection of Data.dotHHalfENorm; 5 gaps listed incl. A04 ^(2:ℕ) vs C01 ^(2:ℝ) and per-horizon vs endpoint h2 integral),,compare+reconcile in 037
 2026-09-13,A04,039-A04-units-f1-n1,opus-4.8,proof,DONE F1+N1 (Forcing.lean + Continuity.lean; 10 axioms checks standard; 17 min / 33 tool uses; imports A02 SolutionClass, not a new copy),,reviewer pending
 2026-09-13,B01,035-B01-units-1-3,opus-4.8,worker-resume,DONE notes in 5 min / 14 tool uses,PR,PR opened
+2026-09-13,B02,036-B02-units-3-4,opus-4.8,proof,DONE units 3+4 (LowFrequency.lean; 3 spec fields verbatim incl 4π value; standard axioms; 32 min / 53 tool uses; 6 small Mathlib snags recorded),,reviewer pending
