@@ -170,6 +170,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 064-A02-unit-u7 | 进行中 | — | — | A02 单元 U7：`exists_maximal` + `maximal_unique`（以 ⟪A01:solution⟫ 为显式假设；S ↑ T_max 的有向并 + U2/U3/U4 归一化的相干性），`Section4/A02/Maximal.lean` |
 | 065-A04-sl2-momentum | 进行中 | — | — | A04 子引理 SL2：动量方程的 datum 形式（用 D2 + 钉代表元技巧把 `∂ₜu = f − (u·∇)u + νΔu − ∇p` 提升到 `RealVectorSobolev m` 的 datum 等式），`Section4/A04/MomentumDatum.lean` |
 | 066-A04-sl3-laplacian | 进行中 | — | — | A04 子引理 SL3：Laplace 配对恒等式 `⟪G, datum(Δu)⟫ ≤ −‖∇u‖²_{H^m}` 在 datum 载体上（datum 侧阶移 / `∂ⱼ` 的 datum = `iξⱼ`·datum，与 P2 共用），`Section4/A04/LaplacianDatum.lean` |
+| 067-D01-p2-sl7a | 进行中 | — | — | P2 子引理 SL7a：零阶 Plancherel 种子 `MemLp z 2 ⟹ ∃ A, IsSobolevDatum 0 z A`（用 059 的 `angular_plancherel`；从 `pressure_gradient` 出发给 ∇p 一个零阶 datum），`Section4/D01/OrderZeroDatum.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
