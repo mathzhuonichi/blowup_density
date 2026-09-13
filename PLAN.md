@@ -198,6 +198,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 092-R42-lifespan-binding | 续改中 | — | — | R42 寿命两子句的绑定层装配（`verification/Bindings/InsertionLifespan.lean`）：由 `InsertionFamilyAPI` + `hg : MemForceR g` + `RegularThrough ν a g (T+δ)` 得 `maximalLifespanR ν a g_ε = ofReal T` 与 `ofReal (T+δ) < maximalLifespanR ν a g`（087 + 080 + 072 + `A02.maximal_partial`），为 V2 合同铺路 |
 | 093-A01-split | 进行中 | — | — | A01（局部理论）拆分起步：对照 `research/A01/Spec.lean` 与 HeliCorgi 的 mild 存在/唯一/续接 API，写子引理表，证第一个 S 项（把 HeliCorgi 的局部解包装成 `A02.ClassicalSolutionR` 所需字段的桥），`research/A01/A01_SPLIT.md` |
 | 094-D01-p2-sl7b-order0 | 进行中 | — | — | P2 SL7b-α：光滑 L² 场（不要求导数可积）的 0 阶 datum 的 a.e. 符号恒等式——无散 ⇒ 横向、无旋 ⇒ 纵向（分布导数 + `physicalDistribution_directionalField` + `OrderZeroDatum`），`Section4/D01/OrderZeroSymbol.lean` |
+| 095-A04-sl5-nonlinear | 进行中 | — | — | A04 G1 SL5：非线性项的 H^m 分部积分 `⟪G, datum((u·∇)u)⟫ = -⟪∇G, datum(u⊗u)⟫`（实反自伴 082 + `derivDatumStep` 088）+ Cauchy–Schwarz ⇒ `hnl : -⟪G, N⟫ ≤ NLbound`（`A04.inner_energy_assembly` 的输入），`Section4/A04/NonlinearPairing.lean` |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
