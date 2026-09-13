@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- **`open` 多个命名空间时，导出的谓词可能不是你以为的那个**：111 的 `MomentumSlice` 导出的是 `D01.MemForceR` 而非 `open` 暗示的 `A02.MemForceR`（两者 `rfl` 相等，`Pressure.lean` 一直如此，无害）。写合同/绑定前用 `#check @thm` 看全名，别看 `open`。（2026-09-14）
 - **本 Mathlib pin 里 `add_le_add_right (h : a ≤ b) c : c + a ≤ c + b` 是左加**。把它怼到右加目标上时，若两边是 `eLpNorm`/`∫⁻`/`essSup` 这类大项，`isDefEq` 会去展开积分体找交换律，`(deterministic) timeout at isDefEq`（110 审稿复现：400000 heartbeats 13 s 烧光；纯变量则是秒级 type mismatch）。用 `add_le_add h le_rfl` 或 `gcongr`。（2026-09-14）
 - **上提 + 老位置留 `alias` 之后，新模块别在顶层同时 `open` 新旧两个命名空间**（自己又不在其中任何一个里）：裸名会 `Ambiguous term`（109 审稿用探针复现：`angularFourier_conj` 在 `Paper3` 与 `Section4.B02` 各一份）。`#print axioms` 对歧义名会把两个解释都打印，所以 axioms 探针不会报错，别把它当证据。（2026-09-14）
 - **合并链脚本别用 sed 从上一条 lane 的脚本派生**：094/103/105/106/108 五个 squash commit 的标题都错成了「Simplifier and tester pass over the four merged C01 modules」（模板里的标题被上一次 sed 漏改，之后代代相传）。PR 标题和 `Merge pull request #N` 提交是对的，历史可以还原，但以后一律用 `tmp/mkchain.sh <lane> <PR> <wave> "<title>"` 显式传标题生成，生成后 `grep merge_lane` 肉眼核对再跑。（2026-09-14）
