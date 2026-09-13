@@ -70,3 +70,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-13,D01,028 review,opus,reviewer,ACCEPT: 23 theorems standard axioms; 7 rfl agreements; consumer shapes compiled against the real InsertionFamily contract; 2 prose notes,,fixes sent to worker
 2026-09-13,D01,028 review fixes,opus,worker,done: prose corrections (MemForceR g provenance; route 1 dischargeable today),,
 2026-09-13,I02,029 V2 contract,opus,worker,done: I02.correction_v2 registered (extends V1 + prescribed_subset_plateau); compatibility binding; K->K_* premise discharged; policy scripts unchanged,,binding duplicates V1 argument (4 hunks)
+2026-09-13,I02,029 review,opus,reviewer,ACCEPT: V2 = V1 (73 fields) + 1 verified via getStructureFields; compat binding rfl; premise discharged by bare term; 6 cosmetic notes,,fixes sent to worker
