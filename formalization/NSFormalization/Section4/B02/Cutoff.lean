@@ -274,13 +274,59 @@ def lowHighConstant (s : ℝ) : ℝ :=
 
 /-! ## §5.  The diagonal assembly, conditional on units 2, 6 and 7 -/
 
+/-- The physical pairing of a Schwartz-vector field `schwartzVector ψ` with a
+Schwartz test is integrable (bounded × integrable): the first integrability side
+condition of `spatialApproxHomogeneous_of`'s (weakened) `hDatumSub`.  Lane 068
+review finding: `homogeneousDatumSub` is *false* without such a hypothesis. -/
+theorem integrable_schwartzVector (ψ : Fin 3 → SchwartzMap Space ℝ)
+    (i : Fin 3) (χ : SchwartzMap Space ℂ) :
+    Integrable (fun x : Space => χ x * ((schwartzVector ψ x i : ℝ) : ℂ)) volume := by
+  refine χ.integrable.mul_bdd (c := SchwartzMap.seminorm ℝ 0 0 (ψ i))
+    ((Complex.continuous_ofReal.comp (ψ i).continuous).aestronglyMeasurable)
+    (ae_of_all _ fun x => ?_)
+  rw [schwartzVector_apply, Complex.norm_real]
+  exact SchwartzMap.norm_le_seminorm ℝ (ψ i) x
+
+/-- The physical pairing of the cutoff complement `(1 − χ_R) • schwartzVector ψ`
+with a Schwartz test is integrable (bounded × integrable): the second
+integrability side condition of `spatialApproxHomogeneous_of`'s `hDatumSub`. -/
+theorem integrable_cutoffCompl_schwartzVector (ψ : Fin 3 → SchwartzMap Space ℝ)
+    (R : ℝ) (i : Fin 3) (χ : SchwartzMap Space ℂ) :
+    Integrable
+      (fun x : Space => χ x * ((((1 - cutoff R x) • schwartzVector ψ x) i : ℝ) : ℂ)) volume := by
+  refine χ.integrable.mul_bdd (c := SchwartzMap.seminorm ℝ 0 0 (ψ i)) ?_
+    (ae_of_all _ fun x => ?_)
+  · have hcont : Continuous
+        (fun x : Space => ((((1 - cutoff R x) • schwartzVector ψ x) i : ℝ) : ℂ)) := by
+      refine Complex.continuous_ofReal.comp ?_
+      simp only [PiLp.smul_apply, schwartzVector_apply, smul_eq_mul]
+      exact (continuous_const.sub (cutoff_smooth R).continuous).mul (ψ i).continuous
+    exact hcont.aestronglyMeasurable
+  · simp only [PiLp.smul_apply, schwartzVector_apply, smul_eq_mul, Complex.norm_real,
+      Real.norm_eq_abs, abs_mul]
+    have h1 : |1 - cutoff R x| ≤ 1 := by
+      rw [abs_of_nonneg (by linarith [cutoff_le_one R x])]; linarith [cutoff_nonneg R x]
+    have h2 : |ψ i x| ≤ SchwartzMap.seminorm ℝ 0 0 (ψ i) := by
+      rw [← Real.norm_eq_abs]; exact SchwartzMap.norm_le_seminorm ℝ (ψ i) x
+    calc |1 - cutoff R x| * |ψ i x|
+        ≤ 1 * |ψ i x| := mul_le_mul_of_nonneg_right h1 (abs_nonneg _)
+      _ = |ψ i x| := one_mul _
+      _ ≤ SchwartzMap.seminorm ℝ 0 0 (ψ i) := h2
+
 /-- `research/B02/Spec.lean:515-518` `spatialApproxHomogeneous`, `04-whole-space.tex:249`:
 compact-smooth real vector fields are dense in `Ḣ^s(R³;R³)` for `s` in
 `SplitRange`, measured by the datum norm.  Proved as the **diagonal** of the
 manuscript's stage-4 argument, taking as explicit hypotheses the three units not
 yet on this branch — `annularSchwartz` (unit 2), `lebesgueHomogeneousDatum` +
-`homogeneousDatumSub` (unit 6), `lowHighSplit` (unit 7) — stated token-for-token
-from `research/B02/Spec.lean`; the annular fields (unit 1) are the merged
+`homogeneousDatumSub` (unit 6), `lowHighSplit` (unit 7).  `hLebesgueDatum` and
+`hLowHighSplit` are token-for-token from `research/B02/Spec.lean`; `hDatumSub` is
+the **integrability-carrying** form, not the verbatim spec field, which lane 068's
+review proved *false* under `Data.lean:298`'s totalizing convention (a field
+pairing non-integrably with every test carries the zero datum vacuously).  The two
+extra hypotheses on `hDatumSub` — physical integrability of the `z`- and
+`w`-pairings against Schwartz tests — are discharged at the single call site by
+`integrable_schwartzVector` / `integrable_cutoffCompl_schwartzVector`
+(`Integrable.mul_bdd`).  The annular fields (unit 1) are the merged
 `annularRestriction` / `annularSmoothing`, and `cutoffLebesgue` is proved above.
 
 Given `A` and `η`: restrict `A` to a compact frequency annulus (`annularRestriction`),
@@ -303,6 +349,10 @@ theorem spatialApproxHomogeneous_of
           ‖G‖ₑ = homogeneousFourierENorm s k)
     (hDatumSub : ∀ (s : ℝ) (z w : SpatialField) (Z W : RealVectorSobolev s),
         IsHomogeneousSliceDatum s z Z → IsHomogeneousSliceDatum s w W →
+        (∀ (i : Fin 3) (ψ : SchwartzMap Space ℂ),
+            Integrable (fun x : Space => ψ x * ((z x i : ℝ) : ℂ)) volume) →
+        (∀ (i : Fin 3) (ψ : SchwartzMap Space ℂ),
+            Integrable (fun x : Space => ψ x * ((w x i : ℝ) : ℂ)) volume) →
           IsHomogeneousSliceDatum s (z - w) (Z - W))
     (hLowHighSplit : ∀ s : ℝ, SplitRange s → ∀ k : SpatialField,
         MemLp k 1 volume → MemLp k 2 volume →
@@ -397,6 +447,8 @@ theorem spatialApproxHomogeneous_of
       (W - Hdiff) := by
     have hsub := hDatumSub s (schwartzVector ψ)
       (fun x => (1 - cutoff R x) • schwartzVector ψ x) W Hdiff hψW hHdiff
+      (fun i χ => integrable_schwartzVector ψ i χ)
+      (fun i χ => integrable_cutoffCompl_schwartzVector ψ R i χ)
     rwa [hheq] at hsub
   refine ⟨fun x => cutoff R x • schwartzVector ψ x, W - Hdiff, ?_, ?_, hdatum, ?_⟩
   · exact (cutoff_smooth R).smul (schwartzVector_contDiff ψ)

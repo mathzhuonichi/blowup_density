@@ -459,16 +459,40 @@ structure HomogeneousApproxAPI where
 
   /-- Linearity of the homogeneous realization in the one instance the diagonal
   argument needs (`04-whole-space.tex:249`, "`χ_Rh_n → h_n` in `Ḣ^{-1}`"): the
-  difference of two fields carries the difference of their data.
+  difference of two fields carries the difference of their data, **with the
+  physical-pairing integrability of `z` and `w` against Schwartz tests as side
+  conditions**.
 
-  Together with the norm clause of `lebesgueHomogeneousDatum` this replaces a
-  uniqueness lemma for the datum (`research/D01/RECONCILIATION.md` unit L7,
-  only partially bound in the tree): the *norm* of every datum of a given
-  `L¹ ∩ L²` field is pinned, which is all the estimate uses, so `H − W` being
-  *a* datum of `χ_Rh_n − h_n` suffices and no injectivity of the realization is
-  invoked. -/
+  ⚠ *The original statement of this field (no integrability hypotheses) was
+  refuted* by lane 068's review (`research/B02/REVIEW_U6.md` §4, machine-checked;
+  restated in the `NSFormalization.Section4.B02.LebesgueDatum` docstring).  Under
+  `Data.lean:298`'s totalizing Bochner convention, a field pairing non-integrably
+  with every Schwartz test satisfies `IsSliceDistribution z 0` vacuously and so
+  carries the *zero* homogeneous datum at every order.  Taking
+  `f = Σ_n 2^{-n}|x−q_n|^{-3}·1_{0<|x−q_n|<2^{-n}}` over an enumeration of `ℚ³`
+  (a.e. finite by Borel–Cantelli, yet `∫_B f = ∞` on every ball, so `∫ ψ·f`
+  totalizes to `0`) and `c` a nonzero real Schwartz function, `z := (f,0,0)`,
+  `w := (f − c,0,0)` both carry `Z = W = 0` while `z − w = (c,0,0)` has a nonzero
+  datum: a counterexample to the unhypothesised field.  No temperate-growth
+  argument can recover it, because the existence of the distribution does not
+  force `z` to be locally integrable when the pairing totalizes.
+
+  The corrected field is the integrability-carrying form actually proved,
+  `NSFormalization.Section4.B02.isHomogeneousSliceDatum_sub_of_integrable`
+  (= `D01.Homogeneous.isHomogeneousSliceDatum_sub`).  The two side conditions are
+  `Integrable.mul_bdd` facts, discharged at the diagonal's single call site by
+  `Section4/B02/Cutoff.lean`'s `integrable_schwartzVector` /
+  `integrable_cutoffCompl_schwartzVector`; `Cutoff.lean`'s
+  `spatialApproxHomogeneous_of` has been rewired to this form.  Together with the
+  norm clause of `lebesgueHomogeneousDatum` this still replaces a uniqueness
+  lemma: the *norm* of every datum of a given field is pinned, so `H − W` being
+  *a* datum of `χ_Rh_n − h_n` suffices and no injectivity is invoked. -/
   homogeneousDatumSub : ∀ (s : ℝ) (z w : SpatialField) (Z W : RealVectorSobolev s),
     IsHomogeneousSliceDatum s z Z → IsHomogeneousSliceDatum s w W →
+    (∀ (i : Fin 3) (ψ : SchwartzMap Space ℂ),
+        Integrable (fun x : Space => ψ x * ((z x i : ℝ) : ℂ)) volume) →
+    (∀ (i : Fin 3) (ψ : SchwartzMap Space ℂ),
+        Integrable (fun x : Space => ψ x * ((w x i : ℝ) : ℂ)) volume) →
       IsHomogeneousSliceDatum s (z - w) (Z - W)
 
   -- ### Stage 4: the physical cutoff, in `L¹` and `L²`
