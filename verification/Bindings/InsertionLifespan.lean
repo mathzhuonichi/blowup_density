@@ -2,10 +2,12 @@ import Contracts.V1.InsertionFamily
 import Contracts.V1.InsertionLifespan
 import Contracts.V1.MaximalPartial
 import Contracts.V1.DatumLemmas
+import Contracts.V2.MaximalPartial
 import Bindings.MaximalPartial
 import Bindings.DatumLemmas
 import NSFormalization.Section4.R42.SolutionOnShorter
 import NSFormalization.Section4.R42.BlowupEssSup
+import NSFormalization.Section4.R42.FullHorizon
 
 /-! The Bindings-level assembly of the **two lifespan clauses of Theorem 4.2**
 (`paper/sections/04-whole-space.tex:32,34`) from the registered contracts and the
@@ -280,5 +282,79 @@ registered record are about the **given** family `F`, not a substituted one. -/
 theorem insertionLifespanAPI_family (hg : Data.MemForceR F.g)
     (hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin)) :
     (insertionLifespanAPI F hg hreg).family = F := rfl
+
+/-! ## 9. `sol_fullHorizon` and `isMaximalSolution_of_inserted` (lane 098)
+
+The inserted pair on the **full** horizon `[0,T)`, and its identification as the
+maximal classical solution.
+
+* `sol_fullHorizon` instantiates lane 098's
+  `NSFormalization.Section4.R42.classicalSolutionR_of_inserted_fullHorizon`
+  (`Section4/R42/FullHorizon.lean`) exactly as §1's `sol_on_shorter` instantiates
+  `classicalSolutionR_of_inserted`, but at the horizon `F.T` itself — the only
+  differences from `sol_on_shorter` are the dropped `∀ S, 0 < S → S < F.T` binder
+  and the trailing `hS0 hST` replaced by `F.scaling.correction.time_pos` (the
+  `0 < T` that `classicalSolutionR_of_inserted_fullHorizon` needs, since
+  `F.reference.horizon_pos` only gives `0 < T + δ`).  This is the single
+  `Data.ClassicalSolutionR ν F.a (F.force ε) F.T` object — one velocity, one
+  pressure, one `sobolev` path continuous on all of `[0,F.T)`, and `∇p_ε ∈ L²` at
+  every `t < F.T` — that the family from `sol_on_shorter` does not assemble
+  (`contracts.json:188`: `sobolev`/`pressure_gradient` for `u_ε` are "NOT
+  asserted" by the registered `R42.insertion_lifespan`).
+
+* `isMaximalSolution_of_inserted` records, in the **registered** Data/V2 vocabulary
+  (`Contracts.V2.MaximalPartial.IsMaximalSolution`, contract `A02.maximal_partial_v2`,
+  inhabited by `Bindings.maximalPartialV2`), that `(u_ε, p_ε)` **is** the maximal
+  classical solution for `(ν, a, g_ε)`.  Under `lifespan_eq`
+  (`Data.maximalLifespanR ν a g_ε = ofReal T`) the predicate's `∀ S` clause
+  quantifies only over `S < T` (the endpoint `S = T` is never asked for, since the
+  guard is strict), so it is discharged by `sol_on_shorter` directly — 5 lines,
+  no A02↔Data bridge, needing only `hg` (through `lifespan_eq`) and
+  `CorrectionAPI.time_pos`.  The A02-vocabulary form
+  `NSFormalization.Section4.A02.IsMaximalSolution` is then one `.mpr` of
+  `Bindings.maximalPartial_isMaximalSolution_iff` away.
+
+Both are reviewer-verified (`research/R42/REVIEW_FULL_HORIZON.md`,
+`/tmp/r42rev098/Scratch.lean` §B1/§B2). -/
+theorem sol_fullHorizon (hε : ε ∈ Ioc (0 : ℝ) F.ε₀) :
+    ∃ w : Data.ClassicalSolutionR ν F.a (F.force ε) F.T,
+      w.velocity = F.velocity ε ∧ w.pressure = F.pressure ε := by
+  have hεS : ε ∈ Ioc (0 : ℝ) F.scaling.ε₀ := ⟨hε.1, hε.2.trans F.eps_le_scaling⟩
+  have ht₁ : 0 < F.scaling.correction.T - 2 * ε ^ 2 := by
+    have := lt_of_lt_of_le (F.scaling.eps_time ε hεS) (min_le_left _ _); linarith
+  have href : F.reference.velocity = F.scaling.correction.v := F.reference_velocity
+  have hrefp : F.reference.pressure = F.scaling.correction.π := F.reference_pressure
+  obtain ⟨w, hv, hp⟩ :=
+    NSFormalization.Section4.R42.classicalSolutionR_of_inserted_fullHorizon
+      (uniqueness_toA02 F.reference) F.scaling.correction.margin_pos ht₁
+      (F.velocity ε) (F.pressure ε)
+      (F.velocity_smooth ε hε) (F.pressure_smooth ε hε) (F.initial ε hε)
+      (F.incompressible ε hε) (F.momentum ε hε)
+      (by intro t h0 h1 x
+          show F.velocity ε (t, x) = F.reference.velocity (t, x)
+          rw [href]; exact F.history ε hε t h0 h1 x)
+      (by intro t ht
+          show tsupport (fun x => F.velocity ε (t, x) - F.reference.velocity (t, x)) ⊆ _
+          rw [href]; exact F.velocityDifference_support ε hε t ht)
+      (by intro t ht
+          show tsupport (fun x => F.pressure ε (t, x) - F.reference.pressure (t, x)) ⊆ _
+          rw [hrefp]; exact F.pressureDifference_support ε hε t ht)
+      F.scaling.correction.time_pos
+  exact ⟨maximalPartial_ofA02 w, hv, hp⟩
+
+/-- **`(u_ε, p_ε)` is the maximal classical solution** of `(ν, a, g_ε)`, in the
+registered Data/V2 vocabulary.  Five lines from `lifespan_eq` (needing only `hg`)
+and `sol_on_shorter`, since the `IsMaximalSolution` predicate quantifies its
+solution clause strictly below `T^ν_{max,R} = T`. -/
+theorem isMaximalSolution_of_inserted (hg : Data.MemForceR F.g)
+    (hε : ε ∈ Ioc (0 : ℝ) F.ε₀) :
+    Contracts.V2.MaximalPartial.IsMaximalSolution ν F.a (F.force ε)
+      (F.velocity ε) (F.pressure ε) := by
+  have hlife := lifespan_eq F hg hε
+  refine ⟨hlife ▸ ENNReal.ofReal_pos.mpr F.scaling.correction.time_pos,
+    fun S hS0 hSlt => ?_⟩
+  rw [hlife] at hSlt
+  exact sol_on_shorter F hε S hS0
+    ((ENNReal.ofReal_lt_ofReal_iff F.scaling.correction.time_pos).mp hSlt)
 
 end BlowupDensity.Bindings.InsertionLifespan
