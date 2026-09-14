@@ -461,3 +461,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,149-A01-a3-widen-converse,prover,worker,launched on integration 2cb5116 (iii: Icc widening for T₀<T; ii: converse norm comparison at order q+1),running,
 2026-09-14,C01,148-C01-e4b-pressure-jets,prover,worker,DONE at every order: pressureGradientPath/temporalSlicePath jetLp continuous on Icc c S; jet-norm glue into HasWeakDerivsL2Bound; datum path continuity via D01.isSobolevDatum_sub (order-1 hole was a false alarm); 12 decls standard; committed 341a01b,done,
 2026-09-14,C01,148-C01-e4b-pressure-jets,opus,reviewer,launched (concurrency 2 with 149 worker),running,
+2026-09-14,C01,148-C01-e4b-pressure-jets,opus,reviewer,ACCEPT-WITH-NOTES (N1 drop unused hcS + set_option; N2 one-point Icc 1 1 in axioms → Icc 1/2 1; N3 no wordEnergy_zero in vendor; N4 hd not exported): REVIEW_E4B.md + 3 probes; N2 order-1 correction confirmed,accepted,
+2026-09-14,C01,148-C01-e4b-pressure-jets,prover,worker,resumed to apply N1–N4 (concurrency 2 with 149 worker),running,
