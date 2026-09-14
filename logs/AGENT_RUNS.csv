@@ -515,3 +515,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,MAINT,155-SIMP-d01-c01-dedup,prover,worker,FAILED again at resume: router 429 still in window; 30-min back-off,queued,
 2026-09-14,MAINT,155-SIMP-d01-c01-dedup,prover,worker,FAILED third time at resume (router 429 on claude-opus-4-8 after 30-min back-off); probing the Opus 5 upstream with a trivial agent,queued,
 2026-09-14,MAINT,probe,opus,probe,Opus 5 upstream also 429 (both upstreams in window); 60-min back-off,queued,
+2026-09-14,MAINT,155-SIMP-d01-c01-dedup,prover,worker,resumed after 60-min back-off (Opus 5 probe succeeded at 1146Z); 157 follows after a 3-min survival probe,running,
