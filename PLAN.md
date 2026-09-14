@@ -243,6 +243,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 137-A01-a3-force-cap | 续改中 | 09-14 0253Z | — | — | A01 A3 行 **A3-L1·f**（S）：力的一致积分帽 `∫₀ᵗ ‖f(s)‖_{H^m} ds ≤ Bbnd` 对 `t ∈ [0,T₀)`（由 `MemForceR` 经 `Continuity.lean` 的 `continuousOn_sobolevNormAt_force` + 区间可积得到），喂 122 的 `gronwall_bddAbove_Ico` 的 `Bbnd` 槽；顺带 `0 ≤ y_m 0` 无需桥的说明 |
 | 138-A04-g2b-integral | PR 已开 | 09-14 0255Z | #138 | — | A04 **G2b** `highContinuationIntegral`（`Spec.lean:471-494`，S）：ζ↓0 的积分式 eq:highcontinuation —— 135 的 `deriv_normSq_absorbed_deriv` + `Regularized.lean` 的 `sqrt_le_primitive_linear`（E=‖u‖²_{H^m}, K=Cgron·‖u‖²_{H²}, b=‖f‖_{H^m}）+ `Continuity.lean` 的 `intervalIntegrable_highContinuationIntegrand`（显式传 `A04.Cgron`）；逐字取 spec 字段；之后 A04 V2 合同一批注册 |
 | 139-A01-a3-l2-horizon | 进行中 | 09-14 0255Z | — | — | A01 A3 行 **A3-L2**（S，无依赖）：`horizon := S`——用 134 的 `forced_global_of_bound_unconditional` 在给定先验界下定义并证明 A01 在指定 `[0,S]` 上的局部理论输出（`LocalTheoryAPI.horizon`/`solution` 的 `hbound` 条件形），不再对 `exists_local` 的 `∃ T` 做选择 |
+| 140-A01-euler-pairing | 待开（限并发） | 09-14 0256Z | — | — | C1b 行 **D-euler-pairing / C1b-m-E**（M）：Euler 侧把柱面导数 word（`word_hasDerivAt`/`word_has_jet`/`ofJet` + `exists_ordinary_value`）降成 L² 场并证 Schwartz 配对形 `∫ψ·(∂ⱼz)ᵢ = ∫(−∂ⱼψ)·zᵢ`（132 审稿的 E1 记账 ≈60–90 行 + E2 平移不变性 ≈40–120 行），产出 `HasWeakDerivsL2 (⇑(U t)) m`（m ≤ q−2），从而 132 的 `exists_isSobolevDatum_of_memLp_derivs` 在速度上点火；解锁 A3-L1·k 与 C1b-c8-m |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
