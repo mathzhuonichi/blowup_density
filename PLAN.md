@@ -240,6 +240,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 134-A01-a2b-invariance | PR 已开 | 09-14 0220Z | #135 | — | A01 行 **A2b-b**（M，≈150–190 行）：带角不变性的续接——每个窗口在 `kernelMass δ·L<1` 唯一性区间内（126 审稿探针 `probe_window_invariance`/`probe_restart_window_invariance`），做 invariance-carrying restart（≈80）+ `gluePath_invariant`（≈10）+ fork vendor 的 45 行归纳（≈60），从而无条件得到 `forced_global_of_bound` 的 `hinv` |
 | 135-A04-g2-highcontinuation | PR 已开 | 09-14 0222Z | #136 | — | A04 G2：eq:highcontinuation（`appendix-a-local-theory.tex:139-145`）——由 128 的 `energyIdentityHigh` 经 Young + ζ 正则化除法（`Regularized.lean` 的 `sqrt_le_primitive_linear`/`regularized_sqrt_deriv`）得 `(‖u‖_{H^m})' ≤ C_{m,ν}‖u‖²_{H²}‖u‖_{H^m} + ‖f‖_{H^m}`，逐字取 Spec 字段 |
 | 136-C01-e2-vocabulary | 进行中 | 09-14 0220Z | — | — | C01 行 **E2 词汇桥**（S–M，≈60–90 行）：spec 的 `l2Sq`/`gradientSq`/`pairing`（`slice`）与载体 B 的 `field_inner`/`PiLp.norm_sq_eq_of_L2`/`laplacian_pairing` 平方和之间的三条恒等式 + `Real.sqrt` 适配器，喂 131 的 `inner_energy_identity` |
+| 137-A01-a3-force-cap | 进行中 | 09-14 0222Z | — | — | A01 A3 行 **A3-L1·f**（S）：力的一致积分帽 `∫₀ᵗ ‖f(s)‖_{H^m} ds ≤ Bbnd` 对 `t ∈ [0,T₀)`（由 `MemForceR` 经 `Continuity.lean` 的 `continuousOn_sobolevNormAt_force` + 区间可积得到），喂 122 的 `gronwall_bddAbove_Ico` 的 `Bbnd` 槽；顺带 `0 ≤ y_m 0` 无需桥的说明 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

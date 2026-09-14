@@ -400,3 +400,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,134-A01-a2b-invariance,opus,reviewer,ACCEPT-WITH-NOTES (statement = forced_global_of_bound' minus hinv by pp-diff + defeq; full-circle invariance; no hidden uniqueness; 400k fails reproduced; 3 doc notes applied by lead; A3-L2 ready) in 9 min / 37 tool uses,PR,PR #135 opened; merging
 2026-09-14,C01,136-C01-e2-vocabulary,prover,worker,launched: E2 vocabulary bridge between the spec's l2Sq/gradientSq/pairing and carrier B,running,
 2026-09-14,A04,135-A04-g2-highcontinuation,prover,worker-resume,deriv_normSq_absorbed hoisted (+deriv form); ATTEMPTS corrected; G2b recipe (S) + MAINT notes; V2 plan in 6 min / 18 tool uses,PR,PR #136 opened; chain queued after #135
+2026-09-14,A01,137-A01-a3-force-cap,prover,worker,launched: force integral cap for the A3 Grönwall skeleton,running,
