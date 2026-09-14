@@ -63,9 +63,9 @@ Nothing here restates a definition.  `outerColumn`, `partialDeriv` are `A03.Oute
 
 noncomputable section
 
-open Set MeasureTheory
+open Set
 open NavierStokes.ProblemStatement
-open scoped ContDiff ENNReal
+open scoped ContDiff
 
 namespace NSFormalization.Section4.A04
 
