@@ -477,3 +477,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,151-A01-carrier-words,prover,worker,launched on integration d16b291 (carrier-bridge sub-lemmas (a)(b)(c) → hword_jet for n ≤ q−2; probe (d)),running,
 2026-09-14,A01,151-A01-carrier-words,prover,worker,FAILED early: router 429 rate limit (not our quota); 10-min back-off then relaunch from the worktree state,queued,
 2026-09-14,C01,150-C01-e4-assembly,opus,reviewer,FAILED at start: router 429 rate limit (both upstreams in window); review re-queued after back-off,queued,
+2026-09-14,C01,150-C01-e4-assembly,opus,reviewer,relaunched after 15-min back-off (reusing rev150_* probes); 151 follows after a 3-min survival probe,running,
