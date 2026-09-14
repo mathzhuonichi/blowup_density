@@ -1,4 +1,6 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- （09-14 0707Z，149）柱面 → 能量的反向范数比较（阶 q+1）不能经 `⇑U` 的下降 datum（`n + 3 ≤ q + 1`，顶三阶不下降；`DatumToJets` 反向界要 `ContDiff ℝ ∞`），要走 `ClassicalSolutionR` 的光滑速度切片，并把「词下降 = 经典喷流」孤立成具名假设留给载体桥。
+- （09-14 0707Z，149）`sobolevENorm`（ENNReal）的 `.toReal` 反向界在右边为 `⊤` 时假（`⊤.toReal = 0`）：任何 `(… ).toReal ≤ C · (sobolevENorm s z).toReal` 形式的陈述都要带 `≠ ⊤` 或 order-s datum 假设，否则空洞/不可证。
 - （09-14 0641Z，148）任意阶的 datum 相减用 `D01.isSobolevDatum_sub`（`OrderZeroAlgebra.lean:51`，只要 `SchwartzPairable`，`SmoothL2Field` 经 `schwartzPairable_of_memLp` 任意阶都有），不要用 `A03.isSobolevDatum_sub`（带 `2 ≤ s`）；146 审稿据后者判定的「一阶空洞」并不存在。审稿判「树里没有」之前先 grep 同名引理的所有命名空间。
 - （09-14 0541Z）lead 写 brief 时引用的文件名要先 `ls` 核实：145 的 brief 写了不存在的 `research/A01/REVIEW_EULER_PAIRING.md`（实为 `REVIEW_C1B_C8.md`），worker 只能按拆分表重建形状。另：python f-string 里含 `{…}` 的 Lean 记法会被当表达式，记录脚本用 `.replace` 拼。
 - （09-14 0508Z）zsh 里 `echo ====` 会报 `=== not found`：`=word` 是 zsh 的命令路径展开（`=ls` → `/bin/ls`）。分隔符用 `----` 或加引号 `'===='`。

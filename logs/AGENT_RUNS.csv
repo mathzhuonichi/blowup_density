@@ -466,3 +466,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,148-C01-e4b-pressure-jets,prover,worker,fixes N1–N4 applied (hcS dropped from both theorems; no set_option; window [1/2,1] in axioms; records),done,
 2026-09-14,C01,148-C01-e4b-pressure-jets,lead,merge,PR #150 merged; gates wave106 OK over 120 modules,merged,150
 2026-09-14,C01,150-C01-e4-assembly,prover,worker,launched on integration 123d941 (E4: window shift, hd re-proved, s=0 word bridge, energyDerivative_hasDerivAt → energyIdentity_classical unconditional),running,
+2026-09-14,A01,149-A01-a3-widen-converse,prover,worker,DONE: (iii) Icc widening for T₀<T fully (cap/high-order/all-orders, same constants); (ii) converse ‖u t‖ ≤ jetSobolevConst(q+1)·sobolevNormAt (q+1) v t through the smooth slice modulo named hword_jet (descent-to-jet identity = carrier bridge); 9 decls standard; committed 06bbef6,done,
+2026-09-14,A01,149-A01-a3-widen-converse,opus,reviewer,launched (concurrency 2 with 150 worker),running,
