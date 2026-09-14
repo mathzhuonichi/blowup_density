@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- （09-14 0541Z）lead 写 brief 时引用的文件名要先 `ls` 核实：145 的 brief 写了不存在的 `research/A01/REVIEW_EULER_PAIRING.md`（实为 `REVIEW_C1B_C8.md`），worker 只能按拆分表重建形状。另：python f-string 里含 `{…}` 的 Lean 记法会被当表达式，记录脚本用 `.replace` 拼。
 - （09-14 0508Z）zsh 里 `echo ====` 会报 `=== not found`：`=word` 是 zsh 的命令路径展开（`=ls` → `/bin/ls`）。分隔符用 `----` 或加引号 `'===='`。
 - **router 429（上游限流窗口）会直接杀死 subagent**，已完成的 worktree 文件还在但对话丢失：重启时让新 worker 先 `git status` 看已有文件、从中续做；限流期间并发降到 2，不要同时起两个新 agent。（2026-09-14 0420Z，144 reviewer / 145 worker）
 - **PLAN.md 表格单元格里不能有 `|`**（如 `Σ_{|α|≤m}`，连 `\|` 也不行——`tmp/plan_row.py` 按 `|` 切 6 列）：描述里改写成不含竖线的写法。（2026-09-14）
