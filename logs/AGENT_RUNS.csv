@@ -446,3 +446,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,D01,145-D01-quantitative-constructor,opus,reviewer,launched (concurrency 2 with 146 worker),running,
 2026-09-14,C01,146-C01-jet-paths,prover,worker,DONE all 4: forcePath/laplacianPath/viscousPath/advectionPath/residualPath with jetLp continuity; ∂ₜu = residual − ∇p; 18 decls standard axioms; zeroSol non-vacuity; committed 6ab29f3,done,
 2026-09-14,C01,146-C01-jet-paths,opus,reviewer,launched (concurrency 2 with 145 review),running,
+2026-09-14,D01,145-D01-quantitative-constructor,opus,reviewer,ACCEPT-WITH-NOTES (F4 line cites; F5 missed audit line; F6 A04 bridge exists; F7 residual = quantitative Euler twin c=1; F2 sharp 4^m and F3 dedupe → SIMP): REVIEW_FINITE_ORDER_NORM.md + 6 probes,accepted,
+2026-09-14,D01,145-D01-quantitative-constructor,lead,merge,record notes applied; PR #147 merged; gates wave103 OK over 117 modules; check_contracts vs main ok,merged,147
