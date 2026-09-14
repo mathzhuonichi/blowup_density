@@ -504,6 +504,8 @@ move is stronger than this lane reported):**
 
 None of these are moved here (namespace/file changes are out of scope for a simplifier lane).
 
+**DONE — lane 123 (MAINT, 2026-09-13):** the `LaplacianPairing`/`RealPairing` move (reviewer Finding 6) is completed. Both files `git mv`d to `Section4/D01/` (**not** `Paper3/` as Finding 6 suggested — a Paper3 home is infeasible: both use `angularDirectionalDerivative`/`mid_symbol_imaginary`/`lowering_symbol_real`/`angularDirectionalDerivativeReal(_coe)`, all defined only in the D01 module `Section4/D01/DerivativeDatum.lean`, which `Paper3/` cannot import). Namespace `NSFormalization.Paper3` unchanged; only import lines changed; bodies byte-identical. D01→A04 reverse edge removed. Details + evidence: `research/MAINT/ATTEMPTS_123.md`.
+
 ## Commands run (all `lake` from `WT/verification`, one at a time; env sourced first)
 
 | command | result |

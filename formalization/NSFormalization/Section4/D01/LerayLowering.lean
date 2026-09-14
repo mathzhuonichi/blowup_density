@@ -1,8 +1,8 @@
 import NSFormalization.Section4.D01.LerayDatum
 import NSFormalization.Section4.D01.HalfOrder
 import NSFormalization.Section4.D01.Transverse
-import NSFormalization.Section4.A04.LaplacianPairing
-import NSFormalization.Section4.A04.RealPairing
+import NSFormalization.Section4.D01.LaplacianPairing
+import NSFormalization.Section4.D01.RealPairing
 
 /-!
 # The Leray complement commutes with order lowering (D01 · P2 · SL7c)

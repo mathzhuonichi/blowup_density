@@ -1,4 +1,4 @@
-import NSFormalization.Section4.A04.LaplacianPairing
+import NSFormalization.Section4.D01.LaplacianPairing
 
 open NSFormalization.Paper3
 

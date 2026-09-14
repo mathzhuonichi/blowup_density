@@ -1,5 +1,7 @@
 # A04 unit G1 — sub-lemma SL3, step 3a: the real-carrier pairing identities
 
+> **Lane 123 (MAINT, 2026-09-13):** this module was relocated to `formalization/NSFormalization/Section4/D01/RealPairing.lean` (namespace `NSFormalization.Paper3` unchanged; only the `import` of the sibling pairing module changed). See `research/MAINT/ATTEMPTS_123.md`.
+
 Lane 082, task A04.  One bounded unit: three lemma families in one new module
 `formalization/NSFormalization/Section4/A04/RealPairing.lean`, importing
 `NSFormalization.Section4.A04.LaplacianPairing` (lane 076) and

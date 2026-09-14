@@ -1,4 +1,4 @@
-import NSFormalization.Section4.A04.RealPairing
+import NSFormalization.Section4.D01.RealPairing
 
 /-!
 # A04 unit G1, sub-lemma SL5 — the nonlinear pairing (S items)
