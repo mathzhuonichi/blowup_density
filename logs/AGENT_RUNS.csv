@@ -512,3 +512,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,157-A01-slice-wiring,prover,worker,launched on integration 38abd97 (Z/hfin from the velocity slice; unconditional converse on the real solution; hslice/horizon matching attempt),running,
 2026-09-14,MAINT,155-SIMP-d01-c01-dedup,prover,worker,FAILED mid-work: router 429 rate limit (partial edits left in worktree); resume after back-off,queued,
 2026-09-14,A01,157-A01-slice-wiring,prover,worker,FAILED mid-work: router 429 rate limit (same window as 155); resume after back-off one at a time,queued,
+2026-09-14,MAINT,155-SIMP-d01-c01-dedup,prover,worker,FAILED again at resume: router 429 still in window; 30-min back-off,queued,
