@@ -240,3 +240,74 @@ lane 053's instance, on integration), SL8 (`inner_energy_Rhigh`).  With SL4's `h
 (`Spec.lean:424-434`) token-for-token (std axioms).  Remaining for the contract lane:
 register the A04 V1 field + binding + test (the field statement is contract-ready — it is
 token-identical to the spec).
+
+## Unit G2 — eq:highcontinuation before the limit (lane 135, DONE)
+
+Module `formalization/NSFormalization/Section4/A04/HighContinuation.lean`
+(`appendix-a-local-theory.tex:139-145`, spec field `Spec.lean:459-470`
+`regularizedNormDerivative`; `COMPARISON.md` §4 unit **G2**). Consumes G1
+(`energyIdentityHigh`) and Z1 (`Regularized.lean`'s `regularized_sqrt_bound`).
+Details and load-bearing hypotheses in `ATTEMPTS_HIGH_CONTINUATION.md`.
+
+Declarations (all std axioms `[propext, Classical.choice, Quot.sound]`):
+* `Cgron (m : ℕ) (ν : ℝ) : ℝ := Chigh m ^ 2 / (4 * ν)` — the constant Young's
+  inequality produces; **`Cgron m ν = (Chigh m)²/(4ν)`**, the value `Spec.lean`
+  leaves free.
+* `Cgron_pos : ∀ m ν, 0 < ν → 0 < Cgron m ν`.
+* `young_high_real` — pure real-arithmetic Young step
+  `(½ d + ν g² ≤ C·a·n·g + F·n) → ½ d ≤ (C²/4ν)·a²·n² + F·n`.
+* `young_absorption_high` — the same at `C = Chigh m`, folded into `Cgron`.
+* `deriv_normSq_absorbed` (**review finding (a) hoist**) — the absorbed
+  squared-norm derivative bound, `∃ d, HasDerivAt (‖u‖²_{H^m}) d t ∧ ½ d ≤
+  Cgron·‖u‖²_{H²}·‖u‖²_{H^m} + ‖f‖_{H^m}·‖u‖_{H^m}` (`energyIdentityHigh` then
+  `young_absorption_high`), and `deriv_normSq_absorbed_deriv` its `HasDerivAt.deriv`
+  form. `regularizedNormDerivative` now consumes `deriv_normSq_absorbed`.
+* `regularizedNormDerivative` — the spec field token-for-token (two-sided
+  `HasDerivAt`, so `HasDerivAt.sqrt` is used directly, not Z1's one-sided
+  `regularized_sqrt_hasDerivWithinAt`; only Z1's inequality `regularized_sqrt_bound`
+  is consumed).
+
+Conformance: `research/A04/axioms_high_continuation.lean` (`#print axioms` for all
+six + a spec-shape `example` discharged by `regularizedNormDerivative`).
+
+### Naming: unit G2b, not "G3"
+
+The `ζ↓0` integral field `highContinuationIntegral` (`Spec.lean:471-494`) is
+**unit G2b**, distinct from `COMPARISON.md` §4's **G3** = the variable-coefficient
+Grönwall, which is **already done in tree** (`Gronwall.lean`, lane 041:
+`gronwall_integral:70`, `gronwall_deriv:172`, `gronwall_integral_mul:202`). Calling
+`highContinuationIntegral` "G3" clashes; use **G2b**.
+
+### G2b recipe (size **S**, per the reviewer — every ingredient is proved)
+
+`highContinuationIntegral`'s two conjuncts, both on `[t₀,t] ⊆ [0,T)`:
+
+1. **The bound** `‖u(t)‖_{H^m} ≤ ‖u(t₀)‖_{H^m} + ∫_{t₀}^t (Cgron m ν ‖u‖²_{H²}‖u‖_{H^m} + ‖f‖_{H^m})`
+   is `Regularized.lean:134` `sqrt_le_primitive_linear` with
+   `E := fun r => sobolevNormAt m w.velocity r ^ 2` (so `√E = ‖u‖_{H^m}` by
+   `Real.sqrt_sq`), `K := fun s => Cgron m ν * sobolevNormAt 2 w.velocity s ^ 2`,
+   `b := fun s => sobolevNormAt m f s`. Its `hineq` is exactly
+   **`deriv_normSq_absorbed_deriv`** doubled and `Real.sqrt_sq`-rewritten
+   (`deriv E t ≤ 2(K·E + b·√E)`); its `ContinuousOn (Icc t₀ t₁)` hypotheses are
+   `continuousOn_sobolevNormAt_velocity` (`Continuity.lean:105`) and
+   `continuousOn_sobolevNormAt_force` (`:114`) mono'd along `Icc t₀ t ⊆ Ico 0 T`;
+   the `hdE` interior-derivative family is `deriv_normSq_absorbed`'s `HasDerivAt`.
+2. **`IntervalIntegrable` of the integrand** is `Continuity.lean:132`
+   `intervalIntegrable_highContinuationIntegrand`, stated in the spec's own
+   spelling with a `Cgron` parameter — **free**, one application. **Pass
+   `A04.Cgron` explicitly** (finding 4: a local `Cgron` binder shadows the def
+   inside that theorem and inside `Gronwall.lean:202`).
+
+The `t₀ = 0` endpoint is fine: `energyIdentityHigh` gives derivatives on `Ioo 0 T`
+and `sqrt_le_primitive_linear` needs them only on `Ioo t₀ t ⊆ Ioo 0 T`, with
+continuity on `Icc t₀ t ⊆ Ico 0 T`; the field's `0 ≤ t₀` is exactly right.
+
+### Next A04 contract = **V2** (not a fresh V1)
+
+**Correction (coordinator):** A04's V1 contract `A04.energy_high_partial` was
+merged as **PR #134**. The next registration is a **V2** adding `Cgron`
+(→ `A04.Cgron`), `Cgron_pos` (→ `A04.Cgron_pos`), `regularizedNormDerivative`
+(→ `A04.regularizedNormDerivative`), and `highContinuationIntegral` — opened
+**after G2b lands** (so `regularizedNormDerivative`'s only consumer exists before
+CI freezes its spelling). Carry `Cgron` as the spec's **opaque** `ℕ → ℝ → ℝ` field
+plus `Cgron_pos`; the value `(Chigh m)²/(4ν)` lives only in the binding.
