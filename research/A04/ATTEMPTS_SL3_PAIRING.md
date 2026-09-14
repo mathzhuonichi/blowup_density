@@ -1,5 +1,7 @@
 # A04 unit G1 — sub-lemma SL3, step 1: skew-adjointness of `angularDirectionalDerivative`
 
+> **Lane 123 (MAINT, 2026-09-13):** this module was relocated to `formalization/NSFormalization/Section4/D01/LaplacianPairing.lean` (namespace `NSFormalization.Paper3` unchanged; only the import line changed). See `research/MAINT/ATTEMPTS_123.md`.
+
 Lane 076, task A04, step 1 of the SL3 route recorded in lane 066
 (`research/A04/ATTEMPTS_SL3.md` §"What remains", and the end docstring of
 `Section4/A04/LaplacianDatum.lean`).  One bounded unit: prove that the angular
