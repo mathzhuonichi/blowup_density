@@ -456,3 +456,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,147-A01-a3-l1k-glue,opus,reviewer,launched (concurrency 2 with 148 worker),running,
 2026-09-14,A01,147-A01-a3-l1k-glue,opus,reviewer,ACCEPT-WITH-NOTES (F1 hslice literal → a.e. via IsSobolevDatum.congr_field; F2 sobolevENorm ≠ ⊤; F3 A3_SPLIT wording + 4th residual row hinv/T-matching; F4 /tmp ref): REVIEW_ORDER_TWO_CAP.md + probe,accepted,
 2026-09-14,A01,147-A01-a3-l1k-glue,prover,worker,resumed to apply F1–F4 (concurrency 2 with 148 worker),running,
+2026-09-14,A01,147-A01-a3-l1k-glue,prover,worker,fixes F1–F4 applied (a.e. hslice; ne_top; records); 9 decls standard; plug-in probe still typechecks,done,
+2026-09-14,A01,147-A01-a3-l1k-glue,lead,merge,PR #149 merged; gates wave105 OK over 119 modules,merged,149
