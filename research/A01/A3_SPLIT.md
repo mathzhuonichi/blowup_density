@@ -1,0 +1,211 @@
+# A01 units A2 / A2b / A3 — propagation-and-continuation spine split (lane 122)
+
+Task **A01** ("Whole-space local solution adapter"), the L-units A01_SPLIT.md §b
+marks `gap`: **A2** high-order propagation (eq:Rhigh), **A2b** order-`m`
+continuation + cross-order agreement, **A3** the order-independent `T₀`, plus
+**T1**'s dependence on them.
+
+> **Revised after lane-122 review** (`REVIEW_A3.md`, ACCEPT-WITH-NOTES).  The
+> Lean (`Section4/A01/Propagation.lean`) is accepted; this table's revision-1
+> claim in §3b that the OpenAI/local layer has *no* forced-path continuation was
+> **false** (finding F5) — the vendored package has
+> `EulerBoundedMildContinuation.exists_global_mild_of_bound` on exactly
+> `exists_local`'s carrier and `Coefficients` bundle.  A2b is therefore **not** an
+> L and **not** blocked on C1c; A3-L2 collapses; and two more rows are
+> re-attributed (F6, F7) and two added (F8, F9).  The composability is verified in
+> `research/A01/probes/a2b_continuation_probe.lean` (compiles, standard 3 axioms).
+
+Recommended route (COMPARISON.md §4, unchanged): **OpenAI/local forced Duhamel**
+spine (`Source/OrdinaryForcedLocal.exists_local`), HeliCorgi for the pressure
+edge only.  Lowest propagated order `m₀ = q+1 = 7` (`hq : 6 ≤ q`).  The
+manuscript's **driver order is the fixed order 2** (eq:criterion,
+`02-preliminaries.tex:111`), which is *below* `m₀`; do not conflate them (F6).
+
+Size key: **S** ≤ ~100 lines; **M** self-contained known-proof lemma; **L**
+multi-file campaign.  Status: **DONE** this lane / **★ next lane** (probe compiles)
+/ **open** / **blocked**.
+
+---
+
+## 0. The reduction chain (what A3 actually is)
+
+A3 is the assembly turning A04's per-order energy identity into a single horizon
+carrying every order.  Top to bottom:
+
+1. **eq:Rhigh** (A2, shared with A04), `E := ‖u‖²_{H^m}`, `m ≥ 3`
+   (`appendix-a:129,132-137`): `½ E' + ν‖∇u‖²_{H^m} ≤ C‖u‖_{H²}‖u‖_{H^m}‖∇u‖_{H^m}
+   + ‖f‖_{H^m}‖u‖_{H^m}`.  = `A04.inner_energy_Rhigh` (`HighEnergy.lean:136`) once
+   its `hpr` lands (A04 `energyIdentityHigh`, `research/A04/Spec.lean:424`).
+   **A01 consumes, does not reprove.**
+2. **Young** (A3-M1): absorb `‖∇u‖_{H^m}` into dissipation ⟹
+   `E' ≤ 2(K·E + b·√E)`, `K = (C²/4ν)‖u‖²_{H²}`, `b = ‖f‖_{H^m}`.
+3. **ζ↓0 device** (A3-M2): `A04.sqrt_le_primitive_linear` (`Regularized.lean:134`)
+   ⟹ integral step for `y := √E = ‖u‖_{H^m}`: `y t ≤ y 0 + ∫₀ᵗ(C_gron·k·y + b)`,
+   `k = ‖u‖²_{H²}`, `C_gron = C²/4ν`.
+4. **Uniform bound on `[0,T₀)`** (A3-S1, **DONE**): `gronwall_bddAbove_Ico` reuses
+   `A04.gronwall_integral_mul` (`Gronwall.lean:202`) and caps to
+   `(y 0 + Bbnd)·exp(C_gron·Kbnd)`.
+5. **Same `T₀`, every order** (A3-S2, **DONE**): `higherOrder_bddAbove`.
+
+`Propagation.lean` proves steps 4–5.  The Grönwall consequence is
+`appendix-a:146-147` (F10); `:148-152` is the *restart* passage = A2b.
+
+---
+
+## 1. Sub-lemma table
+
+| # | unit | Lean-ready statement | size | inputs (file:line, only `#check`ed) | status / blocker |
+|---|---|---|---|---|---|
+| **A3-S1** | per-order uniform bound | `gronwall_bddAbove_Ico` (§2) | **S** | `A04.gronwall_integral_mul` (`Gronwall.lean:202`) | **DONE this lane** |
+| **A3-S2** | same-`T₀` packaging | `higherOrder_bddAbove` (§2): shared `k`,`Kbnd`,`T₀` ⟹ `∀ m≥m₀, BddAbove (y m '' Ico 0 T₀)` | **S** | A3-S1 | **DONE this lane** |
+| **A3-S2′** | fixed-driver coupling | `higherOrder_bddAbove_fixedDriverSq`: `k := (y m_drive)²`, `m_drive` **independent of** `m₀` (paper: `m_drive=2`, `k=‖u‖²_{H²}`, eq:criterion `02-prelim:111`) | **S** | A3-S2 | **DONE this lane**. (`higherOrder_bddAbove_lowestOrderSq` also kept, but its `k=(y m₀)²` is the WRONG driver — F6 — a docstring caveat says so) |
+| **A2** | eq:Rhigh propagation | consume `A04.energyIdentityHigh`; **do not reprove** | M (=A04 G1) | `A04.inner_energy_Rhigh` (`HighEnergy.lean:136`) | **blocked on A04 `hpr`** (D01 L9(c)/P2); lane 121 concurrent |
+| **A3-M1** | Young reduction | `C·u₂·uₘ·g ≤ ν·g² + (C²/4ν)·u₂²·uₘ²` (reals, `nlinarith`) ⟹ `E' ≤ 2(K·E+b·√E)` | **S** | A2 | open (waits on A2's `hpr`) |
+| **A3-M2** | derivative → integral step | A3-M1 + `sqrt_le_primitive_linear` ⟹ the `hstep` A3-S1 consumes | **M** | `A04.sqrt_le_primitive_linear` (`Regularized.lean:134`), `A04.regularized_sqrt_deriv` (`:98`), `A04.continuousOn_sobolevNormAt_velocity` (`Continuity.lean:105`) | open (waits on A2's `hpr`). Adapter-free composition into A3-S1 verified by the reviewer (F2, ~20 lines, `probe_zeta_device_to_horizon`) |
+| **A2b-a′** ★ | forced global mild from a-priori bound | `forced_global_mild_of_bound` (see §3): a uniform `‖u‖≤R` on all windows ⟹ the forced `quadraticDuhamel` solution exists on **all** `[0,S]`; **one-line proof term** | **S** | `EulerBoundedMildContinuation.exists_global_mild_of_bound` (`BoundedMildContinuation.lean:39`), `ForcedCylinderLocal.coefficients` (`ForcedCylinderLocal.lean:52`) — both `#check`ed, probe compiles | **★ next lane**, new module `Section4/A01/Continuation.lean` |
+| **A2b-a** | full `exists_local`-shaped continuation | A2b-a′ **+** restore the div-free and angle-invariance clauses across the glue **+** `ordinaryValue` descent to `U : C(Icc 0 S, EulerMeanSolenoidal.L2)` | **M** (was L) | `EulerCorrectionContinuation.correction_mild_divergenceFree` (`CorrectionContinuation.lean:17`), `ForcedCylinderInvariant.exists_local_forced_mild_invariant` (`ForcedCylinderInvariant.lean:30`), `OrdinaryCylinderDescent.{ordinaryValue,ordinaryValue_lift}` (`:56`,`:60`) | open, **not blocked on C1c**; HeliCorgi/`FormalPatched` **not needed** |
+| **A2b-b** | cross-order agreement | order-`(q+1)`/`(q′+1)` solutions coincide where both exist | S–M | `A02.uniqueness` (registered; not re-`#check`ed) | open once both orders share a carrier |
+| **A3-Tm** | order-`m` solution exists on `T₀` | for the shared `T₀`, every order `m` has a solution on `Ico 0 T₀` (so `higherOrder_bddAbove`'s `∀ m` hypothesis can even be stated); `exists_local`'s `T` depends on `q` — no cross-order handle | M | A2b-a′ (bounded ⟹ extends to prescribed `S` at each fixed `q`) | **gap**; `appendix-a:66-67` ("same local interval for every order"); F8. The Grönwall bound is the *tool*, not this statement |
+| **A3-L1** | uniform integral caps | `∃ Kbnd, ∀ t∈Ico 0 T₀, ∫₀ᵗ‖u‖²_{H²}≤Kbnd` and `∃ Bbnd, ∀ t, ∫₀ᵗ‖f‖_{H^m}≤Bbnd` | see split rows below | — | see split rows |
+| A3-L1·k | order-2 norm comparison | `sobolevNormAt 2 (⇑(U t)) ≤ c · ‖u t‖_{SobolevSpace 1 (q+1)}` (one direction), turning `exists_local`'s `‖u‖≤‖u₀‖+1` into `Kbnd` | **M** | `A04.sobolevNormAt` (`Forcing.lean:74`), `A04.intervalIntegrable_highContinuationIntegrand` (`Continuity.lean:132`) | **open, NOT a C1b row** — 119 explicitly disclaims this norm identity (F7); it is a new one-directional comparison. Also blocked by 119's **C1b-m-D** (missing D01 finite-order datum constructor) |
+| A3-L1·f | force cap `Bbnd` | `∫₀ᵗ‖f‖_{H^m} ≤ ‖f‖_{L¹_tH^m}` | **S** | `A04.forceSobolevENormL1` (`Forcing.lean:105`), `A04.continuousOn_sobolevNormAt_force` (`Continuity.lean:115`) | open (bookkeeping over `MemForceR`) |
+| **A3-L2** | choose `T₀`, define `horizon` | **collapses given A2b-a′**: with the a-priori bound, `exists_global_mild_of_bound` hands the *whole* prescribed `[0,S]`, so `horizon := S`; no choice over `exists_local`'s `∃ T` | S | A2b-a′ | open (dissolved by F5) |
+| **H1** | `horizon_lower_bound` | `∀ ν>0, ∀ K≠⊤, ∃ δ>0, ∀ a f, a∈X_R→f∈F_R→‖a‖_{H¹}≤K→‖f‖_{L¹H¹}≤K→ δ≤horizon ν a f` (quantifier order: `δ` before `(a,f)` — A02 `restart`'s "whole point") | M | **lead:** `EulerUniformHeatLocal.exists_uniform_restart_time` (`UniformHeatLocal.lean:29`) — `δ` depends only on `R` and the `Coefficients`, uniform over restart points | **gap**; `appendix-a:148-152`. The tree lead uses order-`q+1` cylinder `‖u₀‖≤R`, not `‖a‖_{H¹}` — a **candidate, not literally H1** |
+| **T1** | `C^j_tH^k_x` all `j,k` | `∂ₜu = νΔu + P(f−∇·(u⊗u)) ∈ C_tH^k`, induct; one-sided at 0 | M | A3 (all-order `T₀`), E1 (`ConvectionDivergence.lean`, DONE) | **gap**; `appendix-a:71-76` |
+
+**Proved in Lean now:** A3-S1, A3-S2, A3-S2′ (this lane; four theorems).  A2b-a′
+is a one-line proof term whose composability is verified (probe), scheduled for
+`Section4/A01/Continuation.lean` next lane.
+
+---
+
+## 2. The Lean-ready statements proved this lane (`Section4/A01/Propagation.lean`)
+
+Four theorems, `#print axioms` = `[propext, Classical.choice, Quot.sound]` for all
+(`research/A01/axioms_a3.lean`):
+
+* `gronwall_bddAbove_Ico` — per-order uniform bound on `[0,T₀)` (§0 step 4).
+* `higherOrder_bddAbove` — `∀ m ≥ m₀, BddAbove (y m '' Ico 0 T₀)`, one shared `T₀`.
+* `higherOrder_bddAbove_fixedDriverSq` — coupling `k := (y m_drive)²`, `m_drive`
+  independent of `m₀` (the manuscript's fixed-order-2 driver; F6).
+* `higherOrder_bddAbove_lowestOrderSq` — coupling `k := (y m₀)²` (kept, but the
+  wrong driver for this route; docstring caveat).
+
+---
+
+## 3. The four questions the brief asks (revised after F5–F9)
+
+### (a) `exists_local` output ⇄ A04 Grönwall machinery — interface and orders
+
+`exists_local` (`OrdinaryForcedLocal.lean:32`, `#check`ed): for `q ≥ 6` produces
+`T>0`, `T≤S`, `u : C(Icc 0 T, SobolevSpace 1 (q+1))`, ordinary
+`U : C(Icc 0 T, EulerMeanSolenoidal.L2)`, `U 0 = a.toLp`, forced mild eq,
+div-free, angle-invariant, with the single quantitative clause `‖u‖ ≤ ‖u₀‖+1` in
+the **fixed-order** `q+1` cylinder sup-norm.  A04's Grönwall lives on the D01
+datum carrier (`sobolevNormAt`, `Forcing.lean:74`).  The bridges:
+
+* **Initial datum, all orders — ready, not C1b-blocked.**  119's row
+  **C1b-c5-all** (per lane-122 review F7; 119's `C1B_SPLIT.md` merged into
+  integration but is *absent from this worktree*, base `6801945`) is *ready*: from
+  `a : SmoothL2Field`, `D01/SmoothDatum.lean:278 smoothAngularDatum_isSobolevDatum`
+  gives the order-`m` initial datum at **every** order.  And `hy0 : 0 ≤ y_m 0`
+  needs **no bridge at all**: `sobolevNormAt s u t = (sobolevENorm s _).toReal`
+  (`Forcing.lean:74`), so it is `ENNReal.toReal_nonneg` (revision-1 §3a wrongly
+  said this needs the order-0 bridge — F7).
+* **Order-2 norm cap for `t>0`.**  What A3-L1·k needs is a *one-directional norm
+  comparison* `sobolevNormAt 2 (⇑(U t)) ≤ c·‖u t‖_{SobolevSpace 1 (q+1)}`, to turn
+  `‖u‖≤‖u₀‖+1` into `Kbnd`.  **This is NOT a C1b row** — 119 explicitly disclaims
+  the Euler-`SobolevSpace`↔D01-datum norm *identity* (they are equivalent with
+  `m`-dependent constants, and `ClassicalSolutionR.sobolev` asks for datum
+  existence + continuity, not a norm identity, F7).  A04 already supplies the
+  *continuity* (`continuousOn_sobolevNormAt_velocity`, `:105`) and
+  *interval-integrability* (`intervalIntegrable_highContinuationIntegrand`,
+  `:132`) of these norms; only the cap *value* is missing, and it is additionally
+  gated by 119's **C1b-m-D** (the missing D01 finite-order datum constructor,
+  which 119's reviewer flags as C1b's real blocker).
+
+So A04's Grönwall runs entirely on `ClassicalSolutionR`; A01's work is producing
+that structure from `U` (B1/B2) and the order-2 cap (A3-L1·k), **not** a C1b norm
+identity.
+
+### (b) The continuation argument A2b in Lean terms — **corrected (F5)**
+
+The revision-1 claim "OpenAI/local layer has no forced-path continuation" was
+**false**.  The vendored package has, on exactly `exists_local`'s carrier and
+`Coefficients` bundle:
+
+| declaration | file:line | content |
+|---|---|---|
+| `EulerBoundedMildContinuation.exists_global_mild_of_bound` | `BoundedMildContinuation.lean:39` | a uniform `‖u‖≤R` on every window ⟹ the forced `quadraticDuhamel` solution exists on **all** `[0,S]` with `‖u‖≤R` |
+| `EulerCorrectionContinuation.exists_global_correction_of_bound` | `CorrectionContinuation.lean:32` | same, zero-initial correction, **plus** the div-free clause (`correction_mild_divergenceFree`, `:17`) |
+| `EulerUniformHeatLocal.exists_uniform_restart_time` | `UniformHeatLocal.lean:29` | `∃ δ>0, δ≤S` depending only on `R` and the `Coefficients`, restart from any `‖u₀‖≤R` |
+
+Composability with `ForcedCylinderLocal.coefficients 1 hq (sobolevPath F hF q)` —
+the same bundle `exists_local` feeds to `quadraticDuhamel` — is a **one-line proof
+term**, verified this round: `research/A01/probes/a2b_continuation_probe.lean`
+(`probe_forced_global_mild_of_bound`, compiles, standard 3 axioms).
+
+Consequences: A2b-a is **S–M, not L, not blocked on C1c**; HeliCorgi /
+`FormalPatched.R3MildContinuation` is **not needed**.  A3-L2 collapses
+(`horizon := S`).  `exists_uniform_restart_time` is the **first real lead for
+H1** (its `δ` is uniform over restarts) — but it is stated with `‖u₀‖≤R` in the
+order-`q+1` cylinder norm, whereas H1 wants dependence on `‖a‖_{H¹}`,
+`‖f‖_{L¹H¹}` only, so it is a candidate, not a solution.
+
+The `hbound` hypothesis (all windows, all solutions bounded) is genuine — it is
+exactly what A3-S1 (the Grönwall bound) plus the order-2 norm comparison (A3-L1·k)
+supply.  So A2b-a is "apply an existing theorem", not "build an L".
+
+Everything else in the revision-1 §3b holds: `ElapsedTimePathGluing.join_extend`
+(path concatenation), `LocalizedBlowup.no_continuous_continuation` (Section-3,
+opposite direction), the inviscid Theorem-1.1 maximal stack are all irrelevant to
+forced continuation.  The revision-1 error was one of omission of the one file
+that mattered.
+
+**Cross-order agreement** (A2b-b): `A02.uniqueness` pins the two orders where both
+exist — S–M bookkeeping.
+
+### (c) The constant `C_{m,ν}` and its `T₀`-independence — **with §3c overstatement removed (F9)**
+
+`C_{m,ν} = C_m²/(4ν)` after Young, `C_m = A03.outerTameConst m` (the tame-product
+constant, order + embedding only).  **At the type level** it cannot depend on `T₀`:
+`A03.outerTameConst : ℕ → ℝ`, A04's `Chigh : ℕ → ℝ`, `Cgron : ℕ → ℝ → ℝ` (`m`, `ν`)
+— no interval argument (F12).  In `Propagation.lean`, `Cgron`/`C m` appear only
+multiplied by `k` and inside `exp`, never as a function of `T₀`/`t`, so the bound
+`(y_m 0 + Bbnd)·exp(C m·Kbnd)` is a genuine order-`m` constant on the half-open
+interval.
+
+**Correction (F9):** the revision-1 closing claim that this "is what makes H1
+readable off the same bound" is **too strong** and is withdrawn.  Grönwall
+produces an **upper bound on the norms given a horizon**, never a **lower bound
+`δ` on the horizon**.  The `δ` of H1 must come from a quantitative lifespan
+(manuscript: Tao 5.4(ii) eq. (46) rescaled; in tree:
+`exists_uniform_restart_time`), not from the propagation constant.
+
+### (d) Pure-bookkeeping rows
+
+* **A3-S2′ / lowestOrderSq** — specializations of A3-S2; DONE.
+* **A3-L2** — dissolved by A2b-a′ (`horizon := S`); no analysis.
+* **A2b-b** — an `A02.uniqueness` application.
+* **A3-L1·f** — `∫₀ᵗ‖f‖_{H^m} ≤ ‖f‖_{L¹_tH^m}` from `MemForceR`.
+* **A2** for A01 — not work: A01 consumes A04's `energyIdentityHigh`.
+
+---
+
+## 4. Notes for the lead
+
+* `research/A01/C1B_SPLIT.md` (lane 119) was genuinely **absent at this lane's
+  merge-base `6801945`** (the lane-122 review verified this).  119 has since
+  merged into integration (`0415366`, PR #121); its rows **C1b-c5-all** (ready),
+  **C1b-0**, **C1b-m-D** (the real blocker: missing D01 finite-order datum
+  constructor) are cited above via the lane-122 review, not from this worktree.
+  Reconcile the A3-L1·k "order-2 norm comparison" row — which is **not** in either
+  119's or this table — when both are on one branch.
+* `Propagation.lean` is imported by no `Contracts/`/`Bindings/` module, so
+  `make test`'s closure does not compile it (only `lake build` does) — not
+  CI-covered until a consumer imports it (lane-122 review F1).
+* Recommended next lane (review §3, ★): `forced_global_mild_of_bound` in
+  `Section4/A01/Continuation.lean` (step 1 = the probe, S; step 2 = restore
+  div-free + angle-invariance + `ordinaryValue` descent, M).  Do **not** start
+  A3-M1/M2 (gated on A04 `hpr`) or A3-L1·k (needs the new norm-comparison row +
+  C1b-m-D) yet.
