@@ -129,6 +129,17 @@ Supporting characterization units (from `Spec.lean` §1 defs):
 `C1a` (=D01 L2) M; `C1b`/`C1c` (Fourier-convention bridges) **L**;
 `P3` (physical eq:Rpressure) M.
 
+**C1b split (lane 119):** decomposed into 12 rows in
+[`research/A01/C1B_SPLIT.md`](C1B_SPLIT.md); order-0 sub-unit **C1b-0** proved
+(`Section4/A01/CarrierBridge.lean`), the order-0 constant is exactly `1` and the
+`(2π)` factors cancel.  The true L blocker is **C1b-m-D**, a *missing D01
+finite-order datum constructor* (order-`m` analogue of `orderZeroDatum`) — **not**
+B1/T1: the Euler side (`C1b-m-E`) already exposes strong `L²` derivatives up to
+order `q+1` at `t>0` via `word_hasDerivAt`.  The `∀ m` of
+`ClassicalSolutionR.sobolev` on one horizon is gated by **A3**, and B1 is needed
+only for the hand-off `velocity t =ᵐ ⇑(U t)` (row `C1b-rep`, absorbed by
+`congr_field`).  Recommended next lane: **C1b-c8-0** (order-0 path continuity, M).
+
 ## §d  `horizon_lower_bound`
 
 | # | field | Lean-ready statement (`Spec.lean:338`) | size | inputs | blocker |
