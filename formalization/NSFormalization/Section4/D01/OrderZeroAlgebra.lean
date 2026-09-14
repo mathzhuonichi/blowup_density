@@ -39,7 +39,7 @@ namespace NSFormalization.Section4.D01
 
 open Set MeasureTheory NavierStokes.ProblemStatement
 open NSFormalization.Paper3
-open NSFormalization.Source NSFormalization.Source.RealSobolev
+open NSFormalization.Source.RealSobolev
 
 variable {s : ℝ} {z w : Space → Space}
 

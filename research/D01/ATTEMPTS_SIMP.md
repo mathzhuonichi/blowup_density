@@ -292,3 +292,228 @@ These are recorded gaps, not regressions — copied here for the ledger:
 | `git diff` (signatures) | every changed line is an `open scoped` line; no signature or proof line changed |
 | `make check` | exit 0 (architecture; contract-policy 13 tests; work-queue 30 items consistent) |
 | `make test` | **18/18** contracts "checked; standard logical axioms only" (incl. `checkedDatumLemmas`, `checkedDatumLemmasV2`, which rebuild the edited modules) |
+
+---
+
+# Lane 129 — P2 chain (SIMP-D01-orderzero)
+
+Follow-up SIMP + tester lane over the **five newer P2-route** D01 modules that lane 104 did **not**
+touch: `Section4/D01/{OrderZeroSymbol,OrderZeroCurl,OrderZeroAlgebra,MomentumSlice,PressureJets}.lean`
+(lanes 094/108/111/117).  **No new mathematics.**  Every exported statement is byte-identical to the
+merged version — verified by `git diff` restricted to declaration lines: **no `theorem`/`lemma`/`def`/
+`abbrev`/`structure`/`instance` signature line was added or removed** (the only `+`/`-` lines are
+`open`/`open scoped` lines, one docstring line-number cite, and one proof body — see below).  A
+`#check` of the three frozen-consumed `PressureJets` exports
+(`pressureGradient_slice_smoothSquareIntegrableJets_of_memForceR`,
+`temporalDerivative_slice_smoothSquareIntegrableJets_of_memForceR`,
+`exists_isSobolevDatum_pressureGradient_slice`) is character-identical to REVIEW_SL8_ASSEMBLY §2(a).
+
+Worktree `.claude/worktrees/129-SIMP-D01-orderzero`, base `origin/erenup/integration`.
+
+## Line counts (before → after)
+
+| module | before | after | Δ | what changed |
+|---|---|---|---|---|
+| `OrderZeroSymbol.lean` | 494 | 491 | −3 | line-42 `open scoped` dropped `ENNReal` (0 `ℝ≥0∞`/`eLpNorm`/`‖·‖ₑ` tokens); deleted line `open …RealSobolev (FourierData)` (redundant with the full `open …RealSobolev` on the next line); deleted `open …Source (frequencyUnit frequencyUnit_pos)` (unused — `frequencyUnit` occurs only in that open line); deleted `open scoped SchwartzMap LineDeriv Real ENNReal RealInnerProductSpace` (SchwartzMap/LineDeriv already file-wide from line 42, `Real`/`ENNReal`/`RealInnerProductSpace` all unused — 0 `⟪⟫`/bare-`π`/`ℝ≥0∞`) |
+| `OrderZeroCurl.lean` | 517 | 506 | −11 | deleted redundant `open …RealSobolev (FourierData)` (next line opens the whole ns); deleted `open scoped SchwartzMap LineDeriv Real ENNReal RealInnerProductSpace` (dups of line 51 + `Real`/`RealInnerProductSpace` unused; `ℝ≥0∞`@450 covered by line 51); deleted the two `Leray`-block opens `(FourierData)`/`(RealVectorSobolev)` (unused in that block); **proof-body dedup**: `fourier_antisym`'s two byte-identical `rw [show … from by …]` blocks (differing only in the `p↔q` swap) factored into one local `have hpull : ∀ d c, …` (−6 lines) |
+| `OrderZeroAlgebra.lean` | 112 | 112 | 0 | `open NSFormalization.Source NSFormalization.Source.RealSobolev` → `open NSFormalization.Source.RealSobolev` (parent `Source` contributes nothing used — `SchwartzPairable`/`schwartzPairable_of_memLp` are `D01.ForceClass`, in the enclosing namespace). Dependency removed, no line change. |
+| `MomentumSlice.lean` | 201 | 201 | 0 | **untouched.** All opens genuinely used: `A03 (partialDeriv)` (5 bare `partialDeriv` uses, e.g. `:119`), `scoped ContDiff` (`ContDiff ℝ ∞` throughout), `A02 (ClassicalSolutionR …)`. |
+| `PressureJets.lean` | 156 | 154 | −2 | deleted `open …A03 (partialDeriv)` (0 bare `partialDeriv`; only theorem *names* `sum_partialDeriv_…`/`partialDeriv_pressureGradient_symm` appear) and `open scoped ContDiff` (0 `ContDiff`/`∞`/`⊤` outside docstring prose); **docstring-only** cite fix `02-preliminaries.tex:76-81` → `:89-94` (`\label{eq:Rpressure}` is at `:90`, block spans 89–94; re-checked with `grep`, LESSONS 2026-09-14) |
+| **total** | **1480** | **1464** | **−16** | + one dependency (`Source`) removed from `OrderZeroAlgebra` with no line delta |
+
+Every removal was verified empirically: after each edit `lake env lean <file>` is **silent, exit 0**
+(0 bytes of output), and the full `lake build` of the five + `A04.PressureDrop` + `Tests.DatumLemmasV3`
+is green with **no own-line warning** on any D01 module.
+
+## Simplified — details / negative (failed) simplification attempts
+
+* **Unused/redundant `open`s (verified each empirically).**  The `open …RealSobolev (FourierData)`
+  lines in `OrderZeroSymbol`/`OrderZeroCurl` are strictly redundant because the *very next* line is
+  the whole-namespace `open …RealSobolev`.  The `open scoped … Real ENNReal RealInnerProductSpace`
+  second-namespace lines are redundant (`SchwartzMap`/`LineDeriv`/`ENNReal` already opened file-wide
+  at the top) and partly unused (`Real`: 0 bare `π`; `RealInnerProductSpace`: 0 `⟪⟫`, the code writes
+  `inner ℝ ξ v` — the same finding lane 104 recorded for `LeraySymbol`).  `frequencyUnit` in
+  `OrderZeroSymbol` occurs **only** inside its own `open` line ⇒ unused (contrast `OrderZeroCurl`,
+  where `frequencyUnit`/`frequencyUnit_pos` are used at `:449` — that open was **kept**).
+* **`fourier_antisym` dedup (the only proof-body change).**  Two adjacent `rw [show (∫ … p … q …) =
+  … from by apply integral_congr_ae; …]` blocks were byte-identical up to the `p↔q` swap; factored
+  into one `have hpull : ∀ d c : Fin 3, …` and finished with `rw [integral_sub …, hpull p q,
+  hpull q p, hpp, sub_self]`.  Statement unchanged; `#print axioms fourier_antisym` still
+  `[propext, Classical.choice, Quot.sound]`; downstream `orderZeroDatum_longitudinal_of_curl_free`
+  and `Leray.lerayComplement_zero_orderZeroDatum_eq_self` rebuild green.
+* **NEGATIVE simplification (recorded, reverted).**  I did **not** trim the `open A02
+  (ClassicalSolutionR MemForceR)` lines in `MomentumSlice`/`PressureJets` even though `MemForceR`
+  there resolves to `D01.MemForceR` (the enclosing namespace wins; A02's copy is shadowed, `rfl`-equal
+  — REVIEW_SL8_PREP F-5).  Removing the shadowed `MemForceR` from the open list is a legal dependency
+  trim, but it changes nothing exported, saves no line, and both modules are consumed by the frozen
+  `Bindings.DatumLemmasV3` / `A04.PressureDrop`; the reviews already flagged it "harmless".  Left
+  as-is to avoid churn on statement-adjacent frozen-consumed files.  Recorded as an observation, not a
+  change.
+* **No proof body was shortened in `OrderZeroSymbol`/`OrderZeroAlgebra`/`MomentumSlice`/`PressureJets`.**
+  The reviews (108 §3, 111 §3, 117 §4) found these tight and dead-`have`-free; `lake env lean` is
+  silent (no `unusedVariables`/`unnecessarySeqFocus` hits) before and after.  The four duplicated
+  `OrderZeroCurl` units (`fderiv_zc_eq'`, `cs_ibp`, the cutoff/DCT machine, the transports) duplicate
+  094/089 **across modules** — that is MAINT (must not move code across modules per the brief), listed
+  below; the only *within-module* duplication that shortened was `fourier_antisym`'s pair.
+
+## Tester — (a) builds / (b) axioms
+
+| check | result |
+|---|---|
+| `lake build` of the 5 + `A04.PressureDrop` + `Tests.DatumLemmasV3` | `Build completed successfully`; **0** own-line warnings on any D01 module (only pre-existing `Source.*`/`Paper3.*`/`vendor/HeliCorgi` deps) |
+| `Tests.DatumLemmasV3` | `Contract …checkedDatumLemmasV3: checked; standard logical axioms only` |
+| `lake env lean` on each of the 5 | each silent, exit 0 (0 bytes) — before and after |
+| `axioms_order_zero.lean` | exit 0, **21** decls, each `[propext, Classical.choice, Quot.sound]` |
+| `axioms_order_zero_curl.lean` | exit 0, **14** decls, each `[propext, Classical.choice, Quot.sound]` (incl. the re-proved `fourier_antisym`) |
+| `axioms_sl8_prep.lean` | exit 0, **13** decls (incl. dead-code `lerayComplement_orderZeroDatum_add/_sub`), each standard |
+| `axioms_sl8_assembly.lean` | exit 0, **6** decls each standard + the `Contracts.V1`-vocabulary `example` elaborates silently |
+| `make check` | exit 0 (contract policy 13/13; 30 work items consistent) |
+| `cd verification && make test` | exit 0, **22** contracts "checked; standard logical axioms only" (incl. `checkedDatumLemmasV3`, which rebuilds `PressureJets`) |
+
+## Tester — (c) negative checks (real, drop-one-hypothesis)
+
+Two research files (kept, not `/tmp` per LESSONS 2026-09-14):
+
+* **`research/D01/negative_simp_p2.lean` — MUST COMPILE (exit 0; 13 `#print axioms`, all standard —
+  incl. the machine-checked counterexample `transverse_without_hdiv_is_false`, §5).**
+* **`research/D01/negative_simp_p2_fail.lean` — MUST FAIL (exit 1; 5 blocks, 8 error messages: 3
+  `Type mismatch` + 3 `Unknown identifier hw` + 2 `Unknown identifier hf`).**
+
+For five of the six main exports one load-bearing hypothesis is dropped under
+`set_option autoImplicit false in` (so a hypothesis appearing in the statement type cannot be silently
+re-bound as implicit — LESSONS 2026-09-14); the sixth (`P2_drop_hf`) was deleted (below).  Three
+dependency strengths, **labelled honestly**:
+
+**STRUCTURAL** (the dropped hypothesis / its data appears in the *conclusion*, so the statement is not
+even well-formed without it — a genuine necessity, not a signature artefact):
+
+| export | dropped | pasted error (`negative_simp_p2_fail.lean`) |
+|---|---|---|
+| `orderZeroDatum_add` | `hw` | `65:27 … 65:68 … 66:33: error: Unknown identifier 'hw'` — the conclusion `orderZeroDatum (hz.add hw) = … + orderZeroDatum hw` names `hw` |
+| `orderZeroDatum_pressureGradient_eq` | `hf` | `75:61 … 76:48: error: Unknown identifier 'hf'` — the RHS names `smoothL2_momentumResidual_slice u hf ht` |
+
+**FALSIFIED** (the drop-one-hypothesis statement is provably FALSE — the strongest kind, corrected
+after the lane-129 review, which showed my earlier "not feasible in a SIMP lane" claim was wrong):
+
+| export | dropped | evidence |
+|---|---|---|
+| `orderZeroDatum_transverse_of_divergence_free` | `hdiv` | `transverse_without_hdiv_is_false : ¬ TransverseNoDiv` in `negative_simp_p2.lean` §5 (lifted verbatim from REVIEW_SIMP_P2.md §6, opus reviewer; standard axioms).  Applied to the nonzero curl-free `∇bump`, the `hdiv`-free statement collapses `orderZeroDatum gradBump = 0` (`lerayComplement_eq_zero_of_transverse` + lane-108 `lerayComplement_zero_orderZeroDatum_eq_self`), giving `∫ (∂ᵢbump)² = 0` via `isSobolevDatum_orderZeroDatum` against `∇bump`'s own (Schwartz) components — i.e. `∇bump ≡ 0`, contradicting `gradBump_ne_zero`.  The fail-file `transverse_drop_hdiv` (`43:5: Type mismatch`) is now a *secondary* witness of the same necessity. |
+
+**ROUTE** (the hypothesis is consumed inside the proof; the established proof no longer typechecks —
+these are *not* full falsifications, honestly labelled):
+
+| export | dropped | pasted error |
+|---|---|---|
+| `orderZeroDatum_longitudinal_of_curl_free` | `hcurl` | `52:5: error: Type mismatch — … has type (∀ i j x, (partialDeriv i z x).ofLp j = (partialDeriv j z x).ofLp i) → ∀ᵐ ξ, … but is expected to have type ∀ᵐ ξ, …` |
+| `lerayComplement_zero_orderZeroDatum_eq_self` | `hcurl` | `59:5: error: Type mismatch` (same shape, conclusion `lerayComplement 0 (orderZeroDatum hz) = orderZeroDatum hz`) |
+
+**`P2_drop_hf` DELETED (review finding 3).**  Dropping `hf` from
+`pressureGradient_slice_smoothSquareIntegrableJets_of_memForceR` leaves a *complete, well-formed*
+statement (`hf` occurs nowhere in the conclusion), so the drop-one-arg check produced only
+`Unknown identifier 'hf'` inside the **proof term** — an empty check (any undefined name yields it),
+the exact anti-pattern of LESSONS 2026-09-14.  It was removed; a comment in `negative_simp_p2_fail.lean`
+records why.  `hf`'s necessity for P2 is genuine but is known only from the paper-level counterexample
+`D01/Pressure.lean:62-66` (a smooth divergence-free `u` with `∇p ∈ L² \ H¹`, whose `f` is defined by
+the momentum equation and is **not** in `F_R`), which was **not** formalized here.  The STRUCTURAL
+`pressureGradient_eq_drop_hf` already exhibits a genuine statement-level `hf`-dependence of the order-0
+identity.
+
+**Follow-up recorded, NOT done (review finding 4).**  The two `hcurl` ROUTE rows are *also* falsifiable
+by the same route once a nonzero divergence-free compactly-supported witness exists:
+`w := curl(bump·e₀) = (0, ∂₂φ, −∂₁φ)`, divergence-free by Clairaut (`partialDeriv_gradient_eq_sndFDeriv`
++ `ContDiffAt.isSymmSndFDerivAt`, exactly as `gradBump_curl`), `w ≠ 0` because `∂₁φ ≡ 0` would force
+`φ(0) = φ(3·e₁)` i.e. `1 = 0`; then transverse (proved) + longitudinal (the `hcurl`-free claim) ⇒
+`lerayComplement 0 = 0` and `= self` ⇒ datum `= 0` ⇒ `w = 0`.  Estimated 40–60 lines; left for a
+follow-up (out of this lane's time-box).
+
+## Tester — (d) non-vacuity witnesses (all machine-checked, standard axioms)
+
+In `research/D01/negative_simp_p2.lean`:
+
+* **`ClassicalSolutionR` exports — the zero solution** (`zeroSol : ClassicalSolutionR ν 0 0 1`,
+  `memForceR_zero`, reconstructed verbatim from REVIEW_SL8_ASSEMBLY appendix A).  A nonzero classical
+  solution is out of reach, so per the brief `zeroSol` is the witness.  Instantiated:
+  `orderZeroDatum_pressureGradient_eq`, `pressureGradient_slice_…_of_memForceR`,
+  `temporalDerivative_…_of_memForceR`, `exists_isSobolevDatum_pressureGradient_slice` (all elaborate,
+  standard axioms).  `memForceR_zero` genuinely forces the datum path to be the zero path
+  (`forceTimeMeasure` is infinite ⇒ `memLp_const_iff` rules out a nonzero constant), so it is not a
+  loophole.
+* **The conclusion has content** — `const_not_jets {c ≠ 0}`: a nonzero constant field is `C^∞` but
+  **not** `SmoothSquareIntegrableJets` (`memLp_const_iff` + `volume (univ : Space) = ⊤`).  So P2's
+  target is not vacuously true of every smooth field.
+* **Order-0 / algebra exports — the zero field** satisfies every hypothesis (div-free and curl-free
+  trivially), inhabiting `orderZeroDatum_transverse_of_divergence_free`,
+  `orderZeroDatum_longitudinal_of_curl_free`, `lerayComplement_zero_orderZeroDatum_eq_self`,
+  `orderZeroDatum_add`.
+* **A NONZERO curl-free witness `∇(bump)`** (reconstructs lane-108 reviewer `nonvac.lean`).
+  `gradBump := fun y => pressureGradient (fun q => bump q.2) 0 y` is proved: `ContDiff ℝ ∞`
+  (`gradBump_smooth`), `MemLp _ 2` (`gradBump_mem`, via `HasCompactSupport` — bump's gradient vanishes
+  for `‖x‖ > 2`), curl-free (`gradBump_curl`, via the module's own `partialDeriv_gradient_eq_sndFDeriv`
+  + `ContDiffAt.isSymmSndFDerivAt`), and **`gradBump ≠ 0`** (`gradBump_ne_zero`: if `∇bump ≡ 0` then
+  every coordinate derivative of `bump` vanishes ⇒ `fderiv bump ≡ 0` (basis reconstruction
+  `euclid_recon` + `clm`-on-basis) ⇒ `is_const_of_fderiv_eq_zero` ⇒ `bump 0 = bump (3·e₀)`, i.e.
+  `1 = 0`).  Then `nonvac_longitudinal_nonzero` and `nonvac_leray_nonzero` package
+  `gradBump ≠ 0 ∧ <the export applied to gradBump>`, showing the curl-free hypothesis class of both
+  order-0 curl lemmas is **not** forced to `z = 0`.  (A nonzero divergence-free `L²` witness for the
+  *transverse* lemma would need a compactly-supported `curl(A)` — not constructed; the zero field is
+  the machine-checked inhabitant there, and `∇bump` is the machine-checked non-div-free member of the
+  same ambient smooth-`L²` class showing `hdiv` is a genuine restriction.)
+
+## Tester — (e) gates
+
+`make check` exit 0; `cd verification && make test` exit 0 (22 contracts standard).  The tester brief
+lists only `make check` + `make test`; the lane-129 **reviewer additionally ran `make test-mutations`
+and it PASSES** (`implementation_refactor: accepted`; `admitted_proof`/`extra_axiom`/`weakened_hypothesis`
+all `rejected as required`; `Mutation suite passed`) — so `scripts/gates.sh` is not an open item.
+
+## MAINT list (recorded, NOT done — cross-module moves are MAINT, statements frozen)
+
+1. **Dedup `OrderZeroCurl`'s 094/089-duplicating units — but NOT all to `Paper3` (amended per review
+   finding 5: the original destination would create an import cycle).**  `Paper3/AngularFourierDilation.lean`
+   imports only `Paper3.*` + Mathlib, and `Section4.D01.*` imports `Paper3`; so anything that mentions
+   `Section4` symbols cannot move to `Paper3` (would make `Paper3 → Section4 → Paper3`).
+   - **Only `longitudinal_of_longitudinal_symm` (:435)** is Paper3-level (stated purely for
+     `g : Fin 3 → FourierData`) and can join `transverse_of_transverse_symm` (already at
+     `Paper3/AngularFourierDilation.lean:297`) — **using lane-109's alias pattern verbatim**
+     (`OrderZeroSymbol.lean:476-480`: `alias … := NSFormalization.Paper3.…`; the enclosing-namespace
+     alias wins over the file's `open NSFormalization.Paper3`, which is why 109 compiles).  A half-move
+     (Paper3 copy, no alias, both namespaces `open`ed) is what produced 109's `Ambiguous term`.
+   - `fderiv_zc_eq'` (:59), `cs_ibp` (:67), `physical_weighted_pairing_zero` (:148, re-derive 094's
+     `physical_pairing_zero` at `w=δ`, ~90 lines) and `fourier_lineDeriv_apply` (:330) all mention
+     `Cut.zc`/`Cut.Pj`/`A03.partialDeriv`/`D01.componentLp` (all `Section4`), so they must go to a
+     **new module under `Section4/D01/`**, not `Paper3`.  Then rewrite 079/089/094/108 to consume them.
+   Cannot be done in this lane (moves code across modules + edits frozen 094/089).
+2. **111 dead code:** `OrderZeroAlgebra.lerayComplement_orderZeroDatum_add`/`_sub` (:97,:106) are now
+   only referenced by `research/D01/axioms_sl8_prep.lean:10-11` (`PressureJets:86` uses `map_sub` on
+   the CLM directly).  **Kept** (statements frozen for conformance); note for a future contract-cleanup
+   lane that they are convenience wrappers, not load-bearing.
+3. **`pressureGradient_apply` duplicate:** `MomentumSlice.pressureGradient_apply` (:127) is
+   statement-identical (bound var aside) to `A01/PressureGauge.pressureGradient_apply` (106).  Different
+   namespaces, no clash; consolidate in a MAINT lane (keep 106's, per REVIEW_SL8_PREP §3). **Not
+   changed** (per the brief).
+4. **`isSobolevDatum_zero`-style / `datum_zero` helper written by ≥3 lanes:** the "zero field is an
+   order-0 datum" helper is re-proved in each reviewer's non-vacuity file (108/111/117) and again here
+   (`negative_simp_p2.lean:datum_zero`).  A shared witness lemma in a test-support module would retire
+   the duplication (research-file only, low priority).
+5. **Transverse-argument duplication `PressureJets.lean:71-77,97-112` vs
+   `A04/PressureDrop.velocity_datum_lerayComplement_eq_zero`:** both apply the order-0 transverse fibre
+   fact (`orderZeroDatum_transverse_of_divergence_free` + `lerayComplement_eq_zero_of_transverse`) to a
+   divergence-free slice; a shared `transverse-of-divergence-free ⇒ lerayComplement 0 = 0` corollary
+   would dedup them.  Cross-module ⇒ MAINT.
+6. **`open A02 (… MemForceR)` shadowing** in `MomentumSlice`/`PressureJets` (REVIEW_SL8_PREP F-5): the
+   `MemForceR` in the open list is shadowed by `D01.MemForceR`; removable but left (see NEGATIVE note
+   above).
+
+## Commands run (all `lake` from `WT/verification`, `LEAN_NUM_THREADS=6`, one at a time)
+
+| command | result |
+|---|---|
+| baseline `lake build` of the 5 + `A04.PressureDrop` (+ `Tests.DatumLemmasV3`) | green, 0 D01 own-line warnings |
+| `lake env lean` on each of the 5 (after every edit + final) | silent, exit 0 (0 bytes) |
+| `lake build` of the 5 + `A04.PressureDrop` + `Tests.DatumLemmasV3` (after edits) | `Build completed successfully`; `checkedDatumLemmasV3: checked; standard logical axioms only` |
+| `lake env lean` on `axioms_{order_zero,order_zero_curl,sl8_prep,sl8_assembly}.lean` | exit 0; 21 / 14 / 13 / 6 decls each `[propext, Classical.choice, Quot.sound]`; sl8_assembly `example` silent |
+| `lake env lean ../research/D01/negative_simp_p2.lean` | **exit 0**, 13 `#print axioms` all standard (incl. `gradBump_ne_zero`, `nonvac_longitudinal_nonzero`, `nonvac_leray_nonzero`, and the counterexample `transverse_without_hdiv_is_false`) |
+| `lake env lean ../research/D01/negative_simp_p2_fail.lean` | **exit 1** (as required); 5 blocks, **8 error messages**: 3 `Type mismatch` + 3 `Unknown identifier hw` + 2 `Unknown identifier hf` (Lean emits one message per occurrence, not per block) |
+| `git diff` (declaration lines) | every `+`/`-` line is an `open`/`open scoped` line, one docstring cite, or the `fourier_antisym` body; no signature line changed |
+| `make check` | exit 0 (contract policy 13/13; 30 work items consistent) |
+| `cd verification && make test` | exit 0, 22 contracts "checked; standard logical axioms only" |

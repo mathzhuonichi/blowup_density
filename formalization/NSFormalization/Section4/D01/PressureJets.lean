@@ -8,7 +8,7 @@ import NSFormalization.Section4.D01.LerayLowering
 # eq:Rpressure at every order: `SmoothSquareIntegrableJets (∇p(t,·))` (unit D01 / P2 = SL8)
 
 `research/D01/P2_SPLIT.md` obligation **P2**, sub-lemma **SL8** (`research/D01/SL8_SPLIT.md`).  The
-final assembly of `paper/sections/02-preliminaries.tex:76-81` (eq:Rpressure): for a classical
+final assembly of `paper/sections/02-preliminaries.tex:89-94` (eq:Rpressure): for a classical
 solution `u : ClassicalSolutionR ν a f T` with real admissible force `hf : MemForceR f` and interior
 time `t ∈ Ioo 0 T`, the pressure-gradient slice `∇p(t,·)` lies in `Contracts.V1.SmoothSquareIntegrableJets`.
 
@@ -39,9 +39,7 @@ namespace NSFormalization.Section4.D01
 
 open Set MeasureTheory NavierStokes.ProblemStatement
 open NSFormalization.Section4.A02 (ClassicalSolutionR MemForceR)
-open NSFormalization.Section4.A03 (partialDeriv)
 open NSFormalization.Paper3 (RealVectorSobolev)
-open scoped ContDiff
 
 variable {ν : ℝ} {a : Space → Space} {f : VelocityField} {T : ℝ}
 
