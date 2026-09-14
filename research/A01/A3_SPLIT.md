@@ -69,7 +69,7 @@ carrying every order.  Top to bottom:
 | **A3-L1** | uniform integral caps | `∃ Kbnd, ∀ t∈Ico 0 T₀, ∫₀ᵗ‖u‖²_{H²}≤Kbnd` and `∃ Bbnd, ∀ t, ∫₀ᵗ‖f‖_{H^m}≤Bbnd` | see split rows below | — | see split rows |
 | A3-L1·k | order-2 norm comparison | `sobolevNormAt 2 (⇑(U t)) ≤ c · ‖u t‖_{SobolevSpace 1 (q+1)}`, `c` `t`-free, turning `‖u‖≤‖u₀‖+1` into `Kbnd := c²·(‖u₀‖+1)²·T₀` | **M** | `A04.sobolevNormAt` (`Forcing.lean:74`), `A04.intervalIntegrable_highContinuationIntegrand` (`Continuity.lean:132`) | **still M, still blocked — gate only half-lifted.** C1b-m-D is now **closed on the D01 side** (`D01.exists_isSobolevDatum_of_memLp_derivs`, `FiniteOrderConstructor.lean:269`, lane 132/#137). Residual blocker = **row `D-euler-pairing`**: the Euler side must give `HasWeakDerivsL2 (⇑(U t)) 2` (`MemLp 2` + order-≤2 Schwartz-pairing IBP). Until it lands the cap is **vacuous** (`sobolevENorm=⊤⇒sobolevNormAt=0`). `orderZeroDatumCLM` (`DatumPathContinuity.lean:103`) does **not** generalize — raising by `(1+‖ξ‖²)^{1/2}` is unbounded on `L²`, so `c` at order 2 must be a hand-made Plancherel-with-constants bound, not a CLM norm. Last blocker on the A3 chain |
 | A3-L1·f | force cap `Bbnd` | `∫₀ᵗ‖f‖_{H^m} ≤ ‖f‖_{L¹_tH^m}` | **S** | `A04.forceSobolevENormL1` (`Forcing.lean:105`), `A04.continuousOn_sobolevNormAt_force` (`Continuity.lean:115`) | **DONE (lane 137)**, module `Section4/A01/ForceCap.lean`: `forceCap` (route-robust cap `∫₀^{T₀}`, feeds Grönwall), `intervalIntegral_le_forceSobolevENormL1` (the row's literal inequality, conditional on `≠⊤`) + `_of_memForceR` (finiteness free via `A04.memL1Hm_of_memForceR`), `forceCap_L1` (bundle with `Bbnd:=‖f‖_{L¹_tH^m}.toReal`), `sobolevNormAt_nonneg`, and an `example` plugging into `gronwall_bddAbove_Ico`. `hfin` in the conditional lemma is **derivable from `hf`** (`memL1Hm_of_memForceR`, review Finding 2), kept only to make the argument visible; the `⊤↦0`-false remark applies to a version that also drops `hf` (counterexample = nonzero *time-independent* `g ∉ F_R`). Non-vacuity now includes the reviewer's **nonzero** bump witness (`research/A01/probes/memForceR_bump_witness.lean`, first nonzero closed `F_R` term). `research/A01/ATTEMPTS_A3_FORCE.md`, axioms `research/A01/axioms_a3_force.lean` (13 decls, 3-axiom) |
-| **A3-L2** | choose `T₀`, define `horizon` | **collapses given A2b-a′**: with the a-priori bound, the whole prescribed `[0,S]` is available, so `horizon := S`; no choice over `exists_local`'s `∃ T` | S | A2b-a′ (134) | **ready now, no dependencies** — dissolved by 134's `forced_global_of_bound_unconditional`; `horizon` is a definition + one-line lemma. Good filler lane |
+| **A3-L2** | choose `T₀`, define `horizon` | with the a-priori bound, `exists_global_mild_of_bound` hands the *whole* prescribed `[0,S]`, so `horizon := S`; no choice over `exists_local`'s `∃ T` | S | A2b-a′ | **DONE (lane 139)**, module `Section4/A01/Horizon.lean`: `HasAprioriBound` (named `hbound`), `horizonOf` (`:= S`) + `horizonOf_eq`, `localTheory_on_prescribed_horizon` (= `forced_global_of_bound_unconditional`, `hbound` named, `T` fixed to `S`, no `∃ T`), `exists_local_shape_of_aprioriBound` (the `∃ T` shape with witness `T := S`, bound `‖u‖ ≤ R`). Supplying `HasAprioriBound` remains A3's job (A3-M2 + A3-L1·k). `research/A01/axioms_a3_l2.lean`: 5 decls, standard 3 axioms |
 | **H1** | `horizon_lower_bound` | `∀ ν>0, ∀ K≠⊤, ∃ δ>0, ∀ a f, a∈X_R→f∈F_R→‖a‖_{H¹}≤K→‖f‖_{L¹H¹}≤K→ δ≤horizon ν a f` (quantifier order: `δ` before `(a,f)` — A02 `restart`'s "whole point") | M | **lead:** `EulerUniformHeatLocal.exists_uniform_restart_time` (`UniformHeatLocal.lean:29`) — `δ` depends only on `R` and the `Coefficients`, uniform over restart points | **gap**; `appendix-a:148-152`. The tree lead uses order-`q+1` cylinder `‖u₀‖≤R`, not `‖a‖_{H¹}` — a **candidate, not literally H1** |
 | **T1** | `C^j_tH^k_x` all `j,k` | `∂ₜu = νΔu + P(f−∇·(u⊗u)) ∈ C_tH^k`, induct; one-sided at 0 | M | A3 (all-order `T₀`), E1 (`ConvectionDivergence.lean`, DONE) | **gap**; `appendix-a:71-76` |
 
@@ -80,7 +80,10 @@ the manuscript-literal L¹ forms).  A2b-a′
 the full `exists_local`-shaped continuation with div-free/invariance/descent restored)
 **DONE (lane 134)** in `Section4/A01/ContinuationInvariant.lean` —
 `forced_global_of_bound_unconditional` gives the full local shape on `[0,S]` from `hbound`
-alone (`hinv` discharged).
+alone (`hinv` discharged).  **A3-L2 DONE (lane 139)** in `Section4/A01/Horizon.lean`:
+`HasAprioriBound` names the `hbound` predicate and `localTheory_on_prescribed_horizon` /
+`exists_local_shape_of_aprioriBound` package the `horizon := S` content; supplying
+`HasAprioriBound` is still A3's job (A3-M2 + A3-L1·k).
 
 ---
 
@@ -190,7 +193,11 @@ produces an **upper bound on the norms given a horizon**, never a **lower bound
 ### (d) Pure-bookkeeping rows
 
 * **A3-S2′ / lowestOrderSq** — specializations of A3-S2; DONE.
-* **A3-L2** — dissolved by A2b-a′ (`horizon := S`); no analysis.
+* **A3-L2** — **DONE (lane 139)**, `Section4/A01/Horizon.lean`: `HasAprioriBound` names the
+  `hbound` predicate; `horizonOf`/`horizonOf_eq` fix the horizon at the prescribed `S`;
+  `localTheory_on_prescribed_horizon` (`T` fixed to `S`, no `∃ T`) and
+  `exists_local_shape_of_aprioriBound` (the `∃ T` shape, witness `T := S`) package it.  Naming +
+  fixing `T := S` only, no new analysis — supplying `HasAprioriBound` remains A3-M2 + A3-L1·k.
 * **A2b-c** — an `A02.uniqueness` application.
 * **A3-L1·f** — `∫₀ᵗ‖f‖_{H^m} ≤ ‖f‖_{L¹_tH^m}` from `MemForceR`.
 * **A2** for A01 — not work: A01 consumes A04's `energyIdentityHigh`.
