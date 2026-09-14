@@ -242,6 +242,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 136-C01-e2-vocabulary | 审阅中 | 09-14 0243Z | — | — | C01 行 **E2 词汇桥**（S–M，≈60–90 行）：spec 的 `l2Sq`/`gradientSq`/`pairing`（`slice`）与载体 B 的 `field_inner`/`PiLp.norm_sq_eq_of_L2`/`laplacian_pairing` 平方和之间的三条恒等式 + `Real.sqrt` 适配器，喂 131 的 `inner_energy_identity` |
 | 137-A01-a3-force-cap | 续改中 | 09-14 0253Z | — | — | A01 A3 行 **A3-L1·f**（S）：力的一致积分帽 `∫₀ᵗ ‖f(s)‖_{H^m} ds ≤ Bbnd` 对 `t ∈ [0,T₀)`（由 `MemForceR` 经 `Continuity.lean` 的 `continuousOn_sobolevNormAt_force` + 区间可积得到），喂 122 的 `gronwall_bddAbove_Ico` 的 `Bbnd` 槽；顺带 `0 ≤ y_m 0` 无需桥的说明 |
 | 138-A04-g2b-integral | 审阅中 | 09-14 0241Z | — | — | A04 **G2b** `highContinuationIntegral`（`Spec.lean:471-494`，S）：ζ↓0 的积分式 eq:highcontinuation —— 135 的 `deriv_normSq_absorbed_deriv` + `Regularized.lean` 的 `sqrt_le_primitive_linear`（E=‖u‖²_{H^m}, K=Cgron·‖u‖²_{H²}, b=‖f‖_{H^m}）+ `Continuity.lean` 的 `intervalIntegrable_highContinuationIntegrand`（显式传 `A04.Cgron`）；逐字取 spec 字段；之后 A04 V2 合同一批注册 |
+| 139-A01-a3-l2-horizon | 待开（限并发） | 09-14 0253Z | — | — | A01 A3 行 **A3-L2**（S，无依赖）：`horizon := S`——用 134 的 `forced_global_of_bound_unconditional` 在给定先验界下定义并证明 A01 在指定 `[0,S]` 上的局部理论输出（`LocalTheoryAPI.horizon`/`solution` 的 `hbound` 条件形），不再对 `exists_local` 的 `∃ T` 做选择 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
