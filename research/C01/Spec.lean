@@ -376,8 +376,8 @@ structure EnergyAbsorptionAPI where
   for every presingular time, with `K` spelled `energyBudget a f t`.  No
   smallness hypothesis and no absorption: this is the *ordinary* energy
   estimate, which is the whole point of keeping it separate from eq:RH1 —
-  `04-whole-space.tex:116` "It does not control low frequencies by itself", and
-  `:131` "The low frequencies have been controlled directly by the ordinary
+  `04-whole-space.tex:117` "It does not control low frequencies by itself", and
+  `:132` "The low frequencies have been controlled directly by the ordinary
   energy estimate".  On `R³` there is no spectral gap to obtain this from the
   dissipation term instead (`04-whole-space.tex:4-5`). -/
   l2Bound :
