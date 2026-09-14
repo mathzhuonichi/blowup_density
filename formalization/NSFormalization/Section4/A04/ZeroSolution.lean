@@ -1,6 +1,5 @@
 import NSFormalization.Section4.A04.DerivNorm
 import NSFormalization.Section4.A04.LaplacianDatum
-import NSFormalization.Section4.A04.PressureDrop
 import NSFormalization.Section4.D01.DatumToJets
 
 /-!
@@ -35,8 +34,10 @@ field.
 
 ## Reuse, not duplication
 
-`isSobolevDatum_zero` (the "zero datum at every order") already lives one module
-down at `A04.PressureDrop:170`; it is used directly here rather than restated.
+`isSobolevDatum_zero` (the "zero datum at every order") lives in `D01.SmoothDatum`
+(next to `IsSobolevDatum`; lane 155 sank it there from `A04.PressureDrop`); it is
+used directly here through `open NSFormalization.Section4.D01` rather than restated,
+and this module no longer imports `A04.PressureDrop`.
 `memForceR_zero` is proved directly against `D01.MemForceR` (as lane 142 did)
 rather than through `memForceR_of_memForceCompact`, because the compact route
 would additionally need a `CompactPositiveTimeSupport 0` proof for no gain.
@@ -53,7 +54,7 @@ is named with a leading underscore.
 
 open Set MeasureTheory NavierStokes.ProblemStatement
 open NSFormalization.Section4.D01
-  (IsSobolevDatum MemForceR SmoothSquareIntegrableJets sobolevENorm)
+  (IsSobolevDatum isSobolevDatum_zero MemForceR SmoothSquareIntegrableJets sobolevENorm)
 open NSFormalization.Section4.A02 (ClassicalSolutionR initialClassR SpaceTimeField SpatialField)
 open NSFormalization.Section4.A03 (partialDeriv)
 open scoped ContDiff

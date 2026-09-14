@@ -36,7 +36,7 @@ Index type is `Icc (0:ℝ) S`, mirroring `velocityField`.
   `EulerSmoothEulerEvolution.advection_jet_continuous` (`SmoothEulerEvolution.lean:29`)
   at the velocity path and transporting jets across the field equality with
   `EulerLpSmoothCoefficientProduct.jetLp_congr`.
-* `continuous_jetLp_sumField` / `laplacianField_jetLp_continuous` — a general
+* `sumField_jetLp_continuous` / `laplacianField_jetLp_continuous` — a general
   `sumField`/Laplacian jet-continuity, mirroring the `SmoothL2Field ℂ` versions of
   `Source.PhysicalBesselSobolev` (`:83,105`, which cannot be instantiated at `Space`);
   the Laplacian is `sumField Finset.univ` of a double `directionalField`, so it
@@ -152,8 +152,10 @@ time then so does their finite `sumField`.  This is the `SmoothL2Field V` (any `
 generalisation of `Source.PhysicalBesselSobolev.continuous_jetLp_sumField` (`:83`), which
 is stated only for `SmoothL2Field ℂ` and so cannot be instantiated at `Space`.  Proof by
 `Finset` induction, using `continuous_jetLp_addField` (`LpSmoothFieldAlgebra.lean:128`)
-at each step and `field_ext` to peel one summand. -/
-theorem continuous_jetLp_sumField {K ι : Type*} [TopologicalSpace K]
+at each step and `field_ext` to peel one summand.  Named `sumField_jetLp_continuous` (not
+`continuous_jetLp_sumField`) so that a module which `open`s both this namespace and
+`Source.PhysicalBesselSobolev` sees no bare-name clash with the `ℂ` version (LESSONS-109). -/
+theorem sumField_jetLp_continuous {K ι : Type*} [TopologicalSpace K]
     {V : Type*} [NormedAddCommGroup V] [NormedSpace ℝ V]
     (I : Finset ι) (A : ι → K → SmoothL2Field V)
     (hA : ∀ i n, Continuous (fun t => (A i t).jetLp n)) (n : ℕ) :
@@ -178,14 +180,14 @@ theorem continuous_jetLp_sumField {K ι : Type*} [TopologicalSpace K]
 
 /-- **General Laplacian jet-continuity.**  If a path has jets continuous in time, so does
 its `laplacianField` (`OrdinaryViscousStability.lean:12`, `sumField Finset.univ` of the
-double directional derivative), by `continuous_jetLp_sumField` fed
+double directional derivative), by `sumField_jetLp_continuous` fed
 `continuous_jetLp_directionalField` (`LpSmoothFieldAlgebra.lean:147`) applied twice.
 Mirror of `Source.PhysicalBesselSobolev.continuous_jetLp_laplacianField` (`:105`) for
 `SmoothL2Field Space`. -/
 theorem laplacianField_jetLp_continuous {K : Type*} [TopologicalSpace K]
     (A : K → SmoothL2Field Space) (hA : ∀ n, Continuous (fun t => (A t).jetLp n)) (n : ℕ) :
     Continuous (fun t => (laplacianField (A t)).jetLp n) := by
-  apply continuous_jetLp_sumField
+  apply sumField_jetLp_continuous
   intro i m
   exact continuous_jetLp_directionalField _
     (continuous_jetLp_directionalField A hA (axis i)) (axis i) m

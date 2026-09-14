@@ -13,17 +13,25 @@ open scoped SchwartzMap
 #print axioms norm_toLp_component_sq_sum
 -- §1 deliverable 1: the order-0 bound (c₀ = 1)
 #print axioms norm_orderZeroDatum_le
--- §2 deliverable 2: the raising bound (c = 4)
-#print axioms coord_smul_deriv_ae
+-- §2 deliverable 2: the raising bound (c = 4).  `coord_smul_deriv_ae` was hoisted to
+-- `FiniteOrderConstructor` in lane 155 (see `axioms_finite_order_close.lean`).
 #print axioms eLpNorm_coord_smul_eq
 #print axioms norm_raiseHilbert_le
 #print axioms norm_raise_le
+-- §2′ deliverable F2 (lane 155): the sharp raising identity
+#print axioms eLpNorm_raiseIntegrand_sq_eq
+#print axioms norm_raiseHilbert_sq_eq
+#print axioms norm_raise_sq_eq
 -- §3 deliverable 3: the quantitative constructor (c_m = 16^m)
 #print axioms HasWeakDerivsL2Bound
 #print axioms weakDerivsBound_mono
 #print axioms exists_isSobolevDatum_norm_le
 #print axioms norm_isSobolevDatum_le_of_memLp_derivs
 #print axioms norm_isSobolevDatum_le_two
+-- §3′ deliverable F2 (lane 155): the sharp c_m = 4^m constructor
+#print axioms exists_isSobolevDatum_norm_le_sharp
+#print axioms norm_isSobolevDatum_le_of_memLp_derivs_sharp
+#print axioms norm_isSobolevDatum_le_two_sharp
 -- §4 non-vacuity
 #print axioms weakDerivsBound_mono_le
 #print axioms exists_hasWeakDerivsL2Bound_smooth
@@ -47,3 +55,11 @@ example (Z : EulerLpTranslation.SmoothL2Field Space) :
   obtain ⟨M, hM⟩ := exists_hasWeakDerivsL2Bound_smooth 2 Z
   obtain ⟨A, hA, _⟩ := exists_isSobolevDatum_norm_le 2 Z.field M hM
   exact ⟨M, A, hA, norm_isSobolevDatum_le_two Z.field M hM A hA⟩
+
+-- the sharp order-2 cap (lane 155, c₂ = 16, not 256) is likewise inhabited and quantitative.
+example (Z : EulerLpTranslation.SmoothL2Field Space) :
+    ∃ (M : ℝ) (A : NSFormalization.Paper3.RealVectorSobolev ((2 : ℕ) : ℝ)),
+      IsSobolevDatum ((2 : ℕ) : ℝ) Z.field A ∧ ‖A‖ ^ 2 ≤ 16 * M := by
+  obtain ⟨M, hM⟩ := exists_hasWeakDerivsL2Bound_smooth 2 Z
+  obtain ⟨A, hA, _⟩ := exists_isSobolevDatum_norm_le_sharp 2 Z.field M hM
+  exact ⟨M, A, hA, norm_isSobolevDatum_le_two_sharp Z.field M hM A hA⟩

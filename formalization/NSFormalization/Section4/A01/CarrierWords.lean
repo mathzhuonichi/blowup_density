@@ -30,31 +30,27 @@ top three orders `n ∈ {q−1, q, q+1}` remain, on piece **(d)**.
 * **`word_eq_zero_of_mem_zero`** — the general form: a word with an angular slot in **any** position
   (`∃ k, w k = 0`) is `0` (leading slot is (c); a non-leading `0` vanishes by induction on the
   prefix).
-* **(a) `word_descent_ae_partial`** (with `descent_step_ae`, `wordField`, `wordField_field`,
-  `word_descent_ae`) — the descent-to-classical-jet a.e. identity for a spatial word: for a smooth
-  `L²` slice `Z : SmoothL2Field Space` with `⇑U =ᵐ Z.field`, and `Zw` descending the word,
-  `⇑Zw =ᵐ fun x => iteratedFDeriv ℝ n Z.field x (fun i => coordinateVector (w i))`.  The descent's
-  **complex-Schwartz** weak-derivative pairing (`weakDeriv_pairing_of_lift_hasDerivAt`, lane 140) and
-  the classical field's own pairing (`D01.smoothField_weakDeriv_pairing`) are cancelled through
-  `A03.ae_eq_of_schwartz_pairing` (`Section4/A03/ScalarTameProduct.lean:136` — the fundamental lemma
-  in exactly the complex-Schwartz pairing shape, performing the complex→real and Schwartz→compact
-  conversions internally).  Induction on the word length; base case `⇑U =ᵐ Z.field`.
-* **`hword_jet_of_descent`** — the assembly, now **unconditional**: from `(u, hu, U, hU, Z, hUz)` the
-  `hword_jet` bound holds for every `w : Fin n → Fin 4` with `n + 3 ≤ q + 1` (angular words `0 ≤ …`;
-  spatial words by (a)+(b) through `ordinaryLift.norm_map` / `Lp.norm_def`).  The `.toReal`
-  finiteness is free from `Z.integrable`.
+* **(a) the descent helpers** `descent_step_ae` (inductive step), `wordField` / `wordField_field`
+  (the iterated `SmoothL2Field.directionalField` word field and its classical Fréchet-jet identity),
+  and `locInt_component_lp` / `locInt_component_smooth`.  The step's descent cancels the
+  **complex-Schwartz** weak-derivative pairing (`weakDeriv_pairing_of_lift_hasDerivAt`, lane 140)
+  against the classical field's own pairing (`D01.smoothField_weakDeriv_pairing`) through
+  `A03.ae_eq_of_schwartz_pairing` (`Section4/A03/ScalarTameProduct.lean:136`).  These feed the
+  full-order descent identity `word_descent_ae_full` in `L2Descent.lean` directly.
 
-## What is still open
+The restricted assembly `hword_jet_of_descent` and the descent identities `word_descent_ae` /
+`word_descent_ae_partial` (all with `n + 3 ≤ q + 1`) were **retired** (lane 155): lane 153's
+`L2Descent.hword_jet_full` / `word_descent_ae_full` prove the same statements for every `n ≤ q + 1`
+and strictly subsume them (see the retirement note at the foot of this file).
 
-* **Top three orders** `n ∈ {q−1, q, q+1}`: `exists_descend` requires `n + 3 ≤ q + 1`, so those
-  spatial words never descend.  They need piece **(d)** — an `L²`-level descent of the invariant
-  lift, no jet loss (route: the `AddCircle` Fourier Hilbert basis
-  `Mathlib/Analysis/Fourier/AddCircle.lean:411/:261` killing nonzero modes;
-  `liftMeasure = volume.prod volume`, `EulerProof.lean:1092`).  Probed in
-  `research/A01/probes/probe151_descent_L2.lean`.
+## What was open, now closed
+
+The top three orders `n ∈ {q−1, q, q+1}` — which `exists_descend` (`n + 3 ≤ q + 1`) could not reach —
+are supplied by lane 153's `L2Descent.word_descent_ae_top` (the `L²`-level descent of the invariant
+lift, no jet loss), so `hword_jet` is now discharged for every `n ≤ q + 1` in `L2Descent.lean`.
 
 Downstream, a `ClassicalSolutionR` velocity slice supplies the `SmoothL2Field` carrier for free
-(`D01.exists_smoothL2Field_of_memHInfty`, `DatumToJets.lean:306`), so `word_descent_ae_partial`'s
+(`D01.exists_smoothL2Field_of_memHInfty`, `DatumToJets.lean:306`), so the descent helpers'
 `Z` and the review's `ContDiff ℝ ∞ z` form coincide there.
 
 `#print axioms` is standard for every declaration (`research/A01/axioms_carrier_words.lean`).
@@ -235,105 +231,15 @@ theorem wordField_field (Z : SmoothL2Field Space) :
         Function.comp_apply]
       rfl
 
-/-- **(a), word-field form.**  The descent-to-classical-jet a.e. identity, phrased with the iterated
-`SmoothL2Field.directionalField` word field.  Induction on the word length: base case is the a.e.
-hand-off `⇑U =ᵐ Z.field` (the empty spatial word descends to `U`); the step descends one further
-coordinate derivative and applies `descent_step_ae`. -/
-theorem word_descent_ae {q : ℕ} (u : SobolevSpace 1 (q + 1))
-    (hu : ∀ θ : AddCircle (1 : ℝ), sobolevTranslation 1 (q + 1) (0, θ) u = u)
-    (U : EulerMeanSolenoidal.L2) (hU : ordinaryLift U = value 1 u)
-    (Z : SmoothL2Field Space) (hUz : (⇑U) =ᵐ[volume] Z.field) :
-    ∀ (n : ℕ) (hn : n + 3 ≤ q + 1) (w : Fin n → Fin 3) (Zw : EulerMeanSolenoidal.L2),
-      ordinaryLift Zw = word 1 u (by omega) (fun i => (w i).succ) →
-      (⇑Zw) =ᵐ[volume] (wordField Z w).field := by
-  intro n
-  induction n with
-  | zero =>
-    intro hn w Zw hZw
-    have hwemp : (fun i => ((w : Fin 0 → Fin 3) i).succ) = (Fin.elim0 : Fin 0 → Fin 4) :=
-      Subsingleton.elim _ _
-    have hval : word 1 u (by omega : (0 : ℕ) ≤ q + 1) (fun i => (w i).succ) = value 1 u := by
-      rw [hwemp]; rfl
-    have hZU : Zw = U := ordinaryLift.injective (by rw [hZw, hval, hU])
-    subst hZU
-    exact hUz
-  | succ n ih =>
-    intro hn w Zw hZw
-    have hlt : n < q + 1 := by omega
-    have hn' : n + 3 ≤ q + 1 := by omega
-    obtain ⟨Zw', hZw'⟩ := exists_descend u hu (fun i => ((Fin.tail w) i).succ)
-      (by omega) (by omega)
-    have hIH := ih hn' (Fin.tail w) Zw' hZw'
-    have hcons : Fin.cons ((w 0).succ) (fun i => ((Fin.tail w) i).succ)
-        = fun i => (w i).succ := by
-      funext i
-      refine Fin.cases ?_ ?_ i
-      · simp
-      · intro k; simp [Fin.tail]
-    have hderiv := word_hasDerivAt 1 u hlt (fun i => ((Fin.tail w) i).succ) ((w 0).succ)
-    rw [hcons] at hderiv
-    rw [← hZw', ← hZw] at hderiv
-    exact descent_step_ae (wordField Z (Fin.tail w)) (w 0) Zw' Zw hIH hderiv
+/-! ## Retired: `word_descent_ae`, `word_descent_ae_partial`, `hword_jet_of_descent`
 
-/-- **(a) — the review's statement.**  The descent-to-classical-jet a.e. identity in `iteratedFDeriv`
-form: for a spatial word `w : Fin n → Fin 3` with `n + 3 ≤ q + 1` and `Zw` descending it,
-`⇑Zw =ᵐ fun x => iteratedFDeriv ℝ n Z.field x (fun i => coordinateVector (w i))`.  The smooth slice is
-carried as `Z : SmoothL2Field Space` (smooth + all-order `L²` jets); downstream a `ClassicalSolutionR`
-velocity slice supplies it (`D01.exists_smoothL2Field_of_memHInfty`), so the review's
-`ContDiff ℝ ∞ z` form is a corollary. -/
-theorem word_descent_ae_partial {q : ℕ} (u : SobolevSpace 1 (q + 1))
-    (hu : ∀ θ : AddCircle (1 : ℝ), sobolevTranslation 1 (q + 1) (0, θ) u = u)
-    (U : EulerMeanSolenoidal.L2) (hU : ordinaryLift U = value 1 u)
-    (Z : SmoothL2Field Space) (hUz : (⇑U) =ᵐ[volume] Z.field)
-    (n : ℕ) (hn : n + 3 ≤ q + 1) (w : Fin n → Fin 3) (Zw : EulerMeanSolenoidal.L2)
-    (hZw : ordinaryLift Zw = word 1 u (by omega) (fun i => (w i).succ)) :
-    (⇑Zw) =ᵐ[volume] fun x => iteratedFDeriv ℝ n Z.field x (fun i => coordinateVector (w i)) := by
-  have h := word_descent_ae u hu U hU Z hUz n hn w Zw hZw
-  refine h.trans (Filter.EventuallyEq.of_eq ?_)
-  funext x
-  exact wordField_field Z n w x
-
-/-! ## Assembly: `hword_jet` for the orders the descent reaches (`n + 3 ≤ q + 1`), unconditional -/
-
-/-- **Assembly (unconditional).**  From the cylinder pair `(u, U)`, its angle invariance `hu`, and a
-smooth `L²` velocity slice `Z` with `⇑U =ᵐ Z.field`, the `hword_jet` bound holds for **every** word
-`w : Fin n → Fin 4` with `n + 3 ≤ q + 1`.  Case split on whether `w` has an angular slot:
-
-* angular (`∃ k, w k = 0`): the word is `0` (`word_eq_zero_of_mem_zero`), so `0 ≤ (…).toReal`;
-* spatial (`∀ k, w k ≠ 0`, so `w i = (w' i).succ`): `exists_descend` gives `Zw` with
-  `ordinaryLift Zw = word 1 u _ w`; **(a)** `word_descent_ae_partial` a.e.-identifies `⇑Zw` with the
-  jet component of `Z.field`, and the norm chain `ordinaryLift.norm_map` / `Lp.norm_def` /
-  `eLpNorm_congr_ae` / **(b)** closes it, with `Z.integrable` supplying
-  `eLpNorm (iteratedFDeriv ℝ n Z.field) 2 ≠ ⊤` for the `.toReal` monotonicity.
-
-This discharges `hword_jet` for `n ≤ q − 2`.  The top three orders `n ∈ {q−1, q, q+1}` need piece (d)
-(`research/A01/probes/probe151_descent_L2.lean`). -/
-theorem hword_jet_of_descent {q : ℕ} (u : SobolevSpace 1 (q + 1))
-    (hu : ∀ θ : AddCircle (1 : ℝ), sobolevTranslation 1 (q + 1) (0, θ) u = u)
-    (U : EulerMeanSolenoidal.L2) (hU : ordinaryLift U = value 1 u)
-    (Z : SmoothL2Field Space) (hUz : (⇑U) =ᵐ[volume] Z.field) :
-    ∀ (n : ℕ) (hn : n + 3 ≤ q + 1) (w : Fin n → Fin 4),
-      ‖word 1 u (by omega) w‖ ≤ (eLpNorm (iteratedFDeriv ℝ n Z.field) 2 volume).toReal := by
-  intro n hn w
-  have hnle : n ≤ q + 1 := by omega
-  by_cases hex : ∃ k, w k = 0
-  · rw [word_eq_zero_of_mem_zero u hu n hnle w hex, norm_zero]
-    exact ENNReal.toReal_nonneg
-  · have hne : ∀ i, w i ≠ 0 := fun i hi => hex ⟨i, hi⟩
-    set w' : Fin n → Fin 3 := fun i => (w i).pred (hne i) with hw'def
-    have hw_eq : w = fun i => (w' i).succ := by
-      funext i; simp only [hw'def, Fin.succ_pred]
-    obtain ⟨Zw, hZw⟩ := exists_descend u hu (fun i => (w' i).succ) hnle hn
-    have hae := word_descent_ae_partial u hu U hU Z hUz n hn w' Zw hZw
-    have hjet_fin : eLpNorm (iteratedFDeriv ℝ n Z.field) 2 volume ≠ ⊤ := (Z.integrable n).2.ne
-    calc ‖word 1 u hnle w‖
-        = ‖word 1 u hnle (fun i => (w' i).succ)‖ := by rw [hw_eq]
-      _ = ‖ordinaryLift Zw‖ := by rw [hZw]
-      _ = ‖Zw‖ := ordinaryLift.norm_map Zw
-      _ = (eLpNorm (⇑Zw) 2 volume).toReal := Lp.norm_def Zw
-      _ = (eLpNorm (fun x => iteratedFDeriv ℝ n Z.field x (fun i => coordinateVector (w' i)))
-            2 volume).toReal := by rw [eLpNorm_congr_ae hae]
-      _ ≤ (eLpNorm (iteratedFDeriv ℝ n Z.field) 2 volume).toReal :=
-            ENNReal.toReal_mono hjet_fin (eLpNorm_jet_component_le n Z.field w')
+These three carried the `n + 3 ≤ q + 1` order restriction (spatial words only up to `n ≤ q − 2`).
+Lane 153's `L2Descent.word_descent_ae_full` / `hword_jet_full` (`Section4/A01/L2Descent.lean`) prove
+the same identities for **every** `n ≤ q + 1`, so they strictly subsume the three and reduce to them
+by restriction (`research/A01/probes/rev153_subsumes.lean`).  Having two `hword_jet` suppliers with
+different order hypotheses invited miscitation, so the restricted versions were retired here (lane
+155, `research/A01/REVIEW_L2_DESCENT.md` §N3).  The helpers above (`wordField`, `wordField_field`,
+`descent_step_ae`, `word_eq_zero_of_mem_zero`, `eLpNorm_jet_component_le`, `locInt_component_*`) stay:
+the `L2Descent` full versions are built directly on them. -/
 
 end NSFormalization.Section4.A01

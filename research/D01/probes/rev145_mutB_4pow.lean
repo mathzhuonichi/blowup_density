@@ -149,7 +149,7 @@ exported); `eLpNorm_coord_smul_eq` reads off that each coordinate multiple `ξ�
 combines this with the symbol bound for the per-component estimate `‖raiseHilbert (A i)‖ ≤
 ‖A i‖ + ∑ⱼ ‖C j i‖`, and `norm_raise_le` assembles the vector bound with a four-term Cauchy–Schwarz. -/
 
-theorem coord_smul_deriv_ae {s : ℝ} {z : Space → Space} {w : Fin 3 → Space → Space}
+theorem coord_smul_deriv_ae_local {s : ℝ} {z : Space → Space} {w : Fin 3 → Space → Space}
     {A : RealVectorSobolev s} (hA : IsSobolevDatum s z A)
     {C : Fin 3 → RealVectorSobolev s} (hC : ∀ j, IsSobolevDatum s (w j) (C j))
     (hw : ∀ (j i : Fin 3) (ψ : SchwartzMap Space ℂ),
@@ -213,7 +213,7 @@ theorem eLpNorm_coord_smul_eq {s : ℝ} {z : Space → Space} {w : Fin 3 → Spa
     (i j : Fin 3) :
     eLpNorm (fun ξ => (ξ j : ℂ) • (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ) 2 volume
       = eLpNorm (fun ξ => (((C j i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ) 2 volume := by
-  have hae := coord_smul_deriv_ae hA hC hw i j
+  have hae := coord_smul_deriv_ae_local hA hC hw i j
   have hcong :
       eLpNorm ((2 * (Real.pi : ℂ) * Complex.I) •
         (fun ξ => (ξ j : ℂ) • (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ)) 2 volume
