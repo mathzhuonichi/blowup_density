@@ -386,3 +386,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,126-A01-a2b-continuation,prover,worker-resume,forced_global_of_bound' added; genuine non-vacuity; gap corrected to A2b-b (M); 3 reviewer probes preserved (port at 300k); A01_SPLIT conflict resolved by lead (HEAD A2/A3, lane A2b) in 11 min / 31 tool uses,PR,PR #131 opened; merging
 2026-09-14,A01,134-A01-a2b-invariance,prover,worker,launched: invariance-carrying continuation (A2b-b) from the 126 reviewer probes,running,
 2026-09-14,SIMP,129-SIMP-D01-orderzero,prover,worker-resume,hdiv counterexample lifted (13 decls standard); empty check removed; MAINT #1 amended; nits in 6 min / 16 tool uses,PR,PR #132 opened; merging
+2026-09-14,A04,135-A04-g2-highcontinuation,prover,worker,launched: eq:highcontinuation from energyIdentityHigh via Young + ζ-regularization,running,
