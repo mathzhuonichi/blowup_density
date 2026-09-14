@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- **router 429（上游限流窗口）会直接杀死 subagent**，已完成的 worktree 文件还在但对话丢失：重启时让新 worker 先 `git status` 看已有文件、从中续做；限流期间并发降到 2，不要同时起两个新 agent。（2026-09-14 0420Z，144 reviewer / 145 worker）
 - **PLAN.md 表格单元格里不能有 `|`**（如 `Σ_{|α|≤m}`，连 `\|` 也不行——`tmp/plan_row.py` 按 `|` 切 6 列）：描述里改写成不含竖线的写法。（2026-09-14）
 - **`autoImplicit` 会把忘了 `open` 的类型名当自由变量**：`(0 : SpatialField)` 报 `OfNat` 合成失败，真因是 `SpatialField` 没 `open`，被绑成自由变量（报错第二行两侧类型不同是证据）；把名字加进 `open` 列表即好。见到「找不到实例」先看名字是否解析到了预期常量（142 审稿）。（2026-09-14）
 - **改 `contracts.json` 必须 `json.dump(..., ensure_ascii=False, indent=2)`**：默认 `ensure_ascii=True` 会把冻结 scope 里的 `ν`/`R³` 转义成 `\uXXXX`，diff 里出现对 V1 条目的假删改（141）。写完后 `git diff --stat verification/contracts.json` 必须只有增行。（2026-09-14）
