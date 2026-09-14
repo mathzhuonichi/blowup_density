@@ -39,7 +39,7 @@ No `sorry`, no `axiom`; `#print axioms` is standard (`research/D01/axioms_order_
 
 noncomputable section
 open Set MeasureTheory FourierTransform NavierStokes.ProblemStatement
-open scoped ENNReal SchwartzMap ContDiff LineDeriv
+open scoped SchwartzMap ContDiff LineDeriv
 open NSFormalization.Section4.A03 (partialDeriv)
 
 namespace NSFormalization.Section4.D01.Cut
@@ -342,11 +342,8 @@ theorem physical_pairing_zero (hz : MemLp z 2 volume) (hsmooth : ContDiff ℝ �
 end NSFormalization.Section4.D01.Cut
 namespace NSFormalization.Section4.D01
 open Cut
-open NSFormalization.Source.RealSobolev (FourierData)
 open NSFormalization.Source.RealSobolev
-open NSFormalization.Source (frequencyUnit frequencyUnit_pos)
 open NSFormalization.Paper3
-open scoped SchwartzMap LineDeriv Real ENNReal RealInnerProductSpace
 
 variable {z : Space → Space}
 
