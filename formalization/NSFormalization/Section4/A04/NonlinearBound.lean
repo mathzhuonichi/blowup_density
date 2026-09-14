@@ -62,17 +62,16 @@ noncomputable section
 
 open Set MeasureTheory
 open NavierStokes.ProblemStatement
-open scoped ContDiff ENNReal
 
 namespace NSFormalization.Section4.A04
 
 open NSFormalization.Section4.D01 (IsSobolevDatum isSobolevDatum_unique lowerVectorL)
 open NSFormalization.Section4.A03 (outerColumn outerSobolevENorm)
-open NSFormalization.Section4.A02 (SpaceTimeField ClassicalSolutionR MemHInfty SpatialField)
+open NSFormalization.Section4.A02 (SpaceTimeField ClassicalSolutionR SpatialField)
 open NSFormalization.Paper3 (RealVectorSobolev angularDirectionalDerivative angularOrderLowering
   real_inner_angularDirectionalDerivative real_inner_lowering_transfer angularOrderLowering_self
   realSobolev_inner_eq_ambient)
-open NSFormalization.Source.RealSobolev (RealSobolevHilbert FourierData)
+open NSFormalization.Source.RealSobolev (RealSobolevHilbert)
 
 /-! ## 1. Per-component and per-direction integration by parts
 
