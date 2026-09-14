@@ -500,3 +500,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,154-C01-v3-bounds,opus,reviewer,launched (statement-fidelity review for V3; concurrency 2 with 153 review),running,
 2026-09-14,A01,153-A01-l2-descent,opus,reviewer,ACCEPT-WITH-NOTES (no Lean changes; N1/N2 record notes; N5 stale-base noise): REVIEW_L2_DESCENT.md + 6 probes,accepted,
 2026-09-14,A01,153-A01-l2-descent,lead,merge,record notes applied; PR #155 chain launched,merging,155
+2026-09-14,A01,153-A01-l2-descent,lead,merge,PR #155 merged; gates wave111 OK,merged,155
+2026-09-14,C01,154-C01-v3-bounds,opus,reviewer,ACCEPT (statements byte-identical to Spec modulo binders; Icc variant provably false; V3 binding dry run compiles): REVIEW_ENERGY_BOUNDS.md + 7 probes,accepted,
+2026-09-14,C01,154-C01-v3-bounds,lead,merge,PR #156 merged (queued after #155); gates wave112 OK over 126 modules,merged,156
+2026-09-14,MAINT,155-SIMP-d01-c01-dedup,prover,worker,launched on integration 86bf360 (dedup/sharpening backlog from reviews 144/145/146/153),running,
