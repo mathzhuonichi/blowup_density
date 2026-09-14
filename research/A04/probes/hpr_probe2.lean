@@ -1,5 +1,5 @@
 import NSFormalization.Section4.D01.PressureJets
-import NSFormalization.Section4.A04.RealPairing
+import NSFormalization.Section4.D01.RealPairing
 import Mathlib.Analysis.InnerProductSpace.Adjoint
 
 open Set MeasureTheory NavierStokes.ProblemStatement
