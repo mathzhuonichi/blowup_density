@@ -1,4 +1,6 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- （09-14 0839Z，151）弱导数唯一性（复 Schwartz 测试函数配对 ⇒ a.e. 相等）树里有：`A03.ae_eq_of_schwartz_pairing`（`ScalarTameProduct.lean:136`），经典侧配对是 `D01.smoothField_weakDeriv_pairing`（`FiniteOrderConstructor.lean:306`）。worker 只 grep 了 Mathlib 就宣称「树里没有、需要实紧支转换」——「不在树里」的结论必须先 `grep -rn` 全部 `Section4/{D01,A03,A04,C01}` 命名空间（第三次踩这个坑）。
+- （09-14 0839Z，152）选择性 `open X (a b)` 下裸类型名可能解析到 vendor 的同名类型（`SpatialField` 解析成非函数类型，报 `Function expected`，下游再变成 `EulerSmoothLimit.Space` vs `Space` 的假错配）：新 `def` 的参数类型写全限定名（`A02.SpatialField`），`rfl` 桥不受影响。
 - （09-14 0707Z，149）柱面 → 能量的反向范数比较（阶 q+1）不能经 `⇑U` 的下降 datum（`n + 3 ≤ q + 1`，顶三阶不下降；`DatumToJets` 反向界要 `ContDiff ℝ ∞`），要走 `ClassicalSolutionR` 的光滑速度切片，并把「词下降 = 经典喷流」孤立成具名假设留给载体桥。
 - （09-14 0707Z，149）`sobolevENorm`（ENNReal）的 `.toReal` 反向界在右边为 `⊤` 时假（`⊤.toReal = 0`）：任何 `(… ).toReal ≤ C · (sobolevENorm s z).toReal` 形式的陈述都要带 `≠ ⊤` 或 order-s datum 假设，否则空洞/不可证。
 - （09-14 0641Z，148）任意阶的 datum 相减用 `D01.isSobolevDatum_sub`（`OrderZeroAlgebra.lean:51`，只要 `SchwartzPairable`，`SmoothL2Field` 经 `schwartzPairable_of_memLp` 任意阶都有），不要用 `A03.isSobolevDatum_sub`（带 `2 ≤ s`）；146 审稿据后者判定的「一阶空洞」并不存在。审稿判「树里没有」之前先 grep 同名引理的所有命名空间。

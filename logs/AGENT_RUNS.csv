@@ -484,3 +484,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,152-C01-v2-contract,prover,worker,launched on integration eca71f5 (EnergySpec prerequisite; Contracts/V2 + Bindings + Tests + registry entry 25),running,
 2026-09-14,A01,151-A01-carrier-words,prover,worker,DONE partial: (b) jet component bound; (c) angular words vanish (general position); hword_jet_of_descent for n ≤ q−2 conditional on named (a) hdescent; (a) blocked on complex-Schwartz vs real-compact test-function mismatch, (d) L² descent probed; 4 decls standard; committed ab13588,done,
 2026-09-14,A01,151-A01-carrier-words,opus,reviewer,launched (concurrency 2 with 152 worker),running,
+2026-09-14,A01,151-A01-carrier-words,opus,reviewer,ACCEPT-WITH-NOTES; N1: (a) is provable — A03.ae_eq_of_schwartz_pairing (ScalarTameProduct.lean:136) + D01.smoothField_weakDeriv_pairing; reviewer proved (a) in rev151_descent_a_proved.lean (~120 lines): REVIEW_CARRIER_WORDS.md,accepted,
+2026-09-14,A01,151-A01-carrier-words,prover,worker,resumed to fold the reviewer's proof of (a) into the module (unconditional hword_jet for n ≤ q−2) and fix records,running,
+2026-09-14,C01,152-C01-v2-contract,prover,worker,DONE: C01 V2 registered (EnergyAbsorptionPartialV2API extends V1 + energyIdentity token-for-token; EnergySpec.lean pairing/energyIdentity_l2Sq; gradientSq bridge PiLp.norm_sq_eq_of_L2); 25 contracts; gates OK; committed c3f7e70,done,
+2026-09-14,C01,152-C01-v2-contract,opus,reviewer,launched (contract-fidelity review; concurrency 2 with 151 worker),running,
