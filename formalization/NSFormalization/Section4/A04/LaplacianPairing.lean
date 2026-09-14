@@ -41,7 +41,7 @@ remains, per the `LaplacianDatum.lean` docstring and `ATTEMPTS_SL3_PAIRING.md`.
 noncomputable section
 
 open MeasureTheory NavierStokes.ProblemStatement
-open scoped InnerProductSpace ComplexConjugate ENNReal
+open scoped InnerProductSpace
 
 namespace NSFormalization.Paper3
 
