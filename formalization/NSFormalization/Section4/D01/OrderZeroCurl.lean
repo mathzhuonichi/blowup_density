@@ -317,11 +317,9 @@ end NSFormalization.Section4.D01.Cut
 
 namespace NSFormalization.Section4.D01
 open Cut
-open NSFormalization.Source.RealSobolev (FourierData)
 open NSFormalization.Source.RealSobolev
 open NSFormalization.Source (frequencyUnit frequencyUnit_pos)
 open NSFormalization.Paper3
-open scoped SchwartzMap LineDeriv Real ENNReal RealInnerProductSpace
 
 variable {z : Space → Space}
 
@@ -404,21 +402,15 @@ theorem fourier_antisym (hz : MemLp z 2 volume) (hsmooth : ContDiff ℝ ∞ z)
   have hpp := hpair (hg1.toSchwartzMap hg2)
   have hInt_pq := (hloc p q).integrable_smul_left_of_hasCompactSupport hg.continuous hgc
   have hInt_qp := (hloc q p).integrable_smul_left_of_hasCompactSupport hg.continuous hgc
+  have hpull : ∀ d c : Fin 3,
+      (∫ ξ, g ξ • (((ξ d : ℝ) : ℂ) * (𝓕 (componentLp hz c) : FourierData) ξ))
+        = ∫ ξ, ((ξ d : ℝ) : ℂ) * (hg1.toSchwartzMap hg2) ξ * (𝓕 (componentLp hz c) : FourierData) ξ := by
+    intro d c
+    apply integral_congr_ae; filter_upwards with ξ
+    have hψξ : (hg1.toSchwartzMap hg2) ξ = ((g ξ : ℝ) : ℂ) := rfl
+    rw [hψξ, Complex.real_smul]; ring
   simp only [Pi.sub_apply, smul_sub]
-  rw [integral_sub hInt_pq hInt_qp]
-  rw [show (∫ ξ, g ξ • (((ξ p : ℝ) : ℂ) * (𝓕 (componentLp hz q) : FourierData) ξ))
-        = ∫ ξ, ((ξ p : ℝ) : ℂ) * (hg1.toSchwartzMap hg2) ξ * (𝓕 (componentLp hz q) : FourierData) ξ
-      from by
-        apply integral_congr_ae; filter_upwards with ξ
-        have hψξ : (hg1.toSchwartzMap hg2) ξ = ((g ξ : ℝ) : ℂ) := rfl
-        rw [hψξ, Complex.real_smul]; ring]
-  rw [show (∫ ξ, g ξ • (((ξ q : ℝ) : ℂ) * (𝓕 (componentLp hz p) : FourierData) ξ))
-        = ∫ ξ, ((ξ q : ℝ) : ℂ) * (hg1.toSchwartzMap hg2) ξ * (𝓕 (componentLp hz p) : FourierData) ξ
-      from by
-        apply integral_congr_ae; filter_upwards with ξ
-        have hψξ : (hg1.toSchwartzMap hg2) ξ = ((g ξ : ℝ) : ℂ) := rfl
-        rw [hψξ, Complex.real_smul]; ring]
-  rw [hpp, sub_self]
+  rw [integral_sub hInt_pq hInt_qp, hpull p q, hpull q p, hpp, sub_self]
 
 /-! ## 4. The datum-level longitudinal identity (Lemma B) -/
 
@@ -497,9 +489,6 @@ theorem orderZeroDatum_longitudinal_of_curl_free (hz : MemLp z 2 volume)
 end NSFormalization.Section4.D01
 
 namespace NSFormalization.Section4.D01.Leray
-
-open NSFormalization.Source.RealSobolev (FourierData)
-open NSFormalization.Paper3 (RealVectorSobolev)
 
 variable {z : Space → Space}
 
