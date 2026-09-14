@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- **搬模块的 MAINT lane 合入后，所有在跑的 lane 里引用旧路径的 import 会在合入时炸门禁**（123 搬 `RealPairing` 后，121 的 `PressureDrop.lean` 带着 `import …A04.RealPairing` 经 rebase 无冲突直接合入，integration 门禁红）。rebase 不冲突不等于能编译：搬家 lane 合入后立刻 `grep -rl 旧路径 .claude/worktrees/*/formalization`，并让 merge 前先 `lake build` 该 lane 改动的模块。（2026-09-14）
 - **`git mv` 不删旧编译产物**：搬模块后旧路径的 `.olean` 还在，漏改的 `import 旧路径` 本地照样编过、门禁全绿，只有 CI 干净检出才炸。搬完必须 `grep -rn '旧模块名' formalization research verification` 证明零残留（123 审稿）。另：`lake env lean … | tee log | head` 会 SIGPIPE 把 lean 中途打死，先重定向到文件再过滤。（2026-09-14）
 - **论文行号引用会代代相传**：117 审稿把 eq:Rpressure 抄成 `02-preliminaries.tex:76-81`（实为 `:89-94`），120 合同照抄进冻结的 scope 字符串，共 9 处。合同/绑定/记录里引论文行号前，用 `grep -n 'label{eq:…}' paper/sections/*.tex` 现查一次，别从上一份 review 抄。（2026-09-14）
 - **`set -e` 不会在 `a && b && c` 链中途失败时退出**：118 的 `git rebase` 冲突后脚本继续往下跑，`PR=` 为空又生成空链（第二次）。现在 `tmp/mkchain.sh` 拒绝非数字 PR；取 PR 号后必须 `[ -n "$PR" ] || exit 1` 再往下。另：`pkill -f`/`pgrep -f` 的模式若出现在自己命令行里会把自己杀掉（exit 144），用 `pgrep -f 'pattern\.sh$'` 这类锚定或 `grep '[m]erge'` 技巧。（2026-09-14）
