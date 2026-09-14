@@ -494,3 +494,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,152-C01-v2-contract,lead,merge,notes applied; gates + check_contracts (25) rerun OK; PR #154 chain launched,merging,154
 2026-09-14,C01,152-C01-v2-contract,lead,merge,PR #154 merged; gates wave110 OK over 124 modules; 25 contracts,merged,154
 2026-09-14,A01,153-A01-l2-descent,prover,worker,launched on integration 0077b7e (piece (d): L²-level descent of angle-invariant lifts via θ-average / AddCircle Fourier; hword_jet top orders),running,
+2026-09-14,A01,153-A01-l2-descent,prover,worker,DONE: exists_ordinaryLift_of_invariant (θ-average/Fubini, no regularity); word_descent_ae_top/full at all n ≤ q+1; hword_jet_full unconditional; 4 decls standard; committed b251d28,done,
+2026-09-14,A01,153-A01-l2-descent,opus,reviewer,launched (concurrency 2 with 154 worker),running,
