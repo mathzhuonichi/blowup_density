@@ -46,16 +46,15 @@ the calc assembly (5h) and the pointwise divergence form (5a) are elsewhere.
 
 noncomputable section
 
-open Set MeasureTheory NavierStokes.ProblemStatement
-open scoped ENNReal
+open NavierStokes.ProblemStatement
 
 namespace NSFormalization.Section4.A04
 
 open NSFormalization.Section4.D01 (sobolevENorm IsSobolevDatum)
 open NSFormalization.Section4.A03
-  (MemHmVector outerColumn outerSobolevENorm columnsSobolevENorm gradientSobolevENorm
+  (MemHmVector outerColumn outerSobolevENorm gradientSobolevENorm
     le_columnsSobolevENorm outerProductTame sobolevENorm_two_le exists_sobolevDatum)
-open NSFormalization.Paper3 (RealVectorSobolev angularDirectionalDerivativeReal)
+open NSFormalization.Paper3 (RealVectorSobolev)
 open EulerLpTranslation (SmoothL2Field)
 
 /-! ## 1. Row 5b — Sobolev data of the outer-product columns -/

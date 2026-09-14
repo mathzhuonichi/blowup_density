@@ -1,7 +1,7 @@
 # A04 unit G1, sub-lemma SL5 — split of the nonlinear pairing (lane 095)
 
 SL5 (`research/A04/G1_SPLIT.md:157-165`, rated **L**) is the `hnl` input of
-`A04.inner_energy_assembly` / `inner_energy_Rhigh` (`HighEnergy.lean:101,106`):
+`A04.inner_energy_assembly` / `inner_energy_Rhigh` (`HighEnergy.lean:100,136`):
 
 ```
 − ⟪G t, N⟫_ℝ ≤ gradientSobolevNormAt (m:ℝ) u t * (outerSobolevENorm (m:ℝ) (u t·) (u t·)).toReal

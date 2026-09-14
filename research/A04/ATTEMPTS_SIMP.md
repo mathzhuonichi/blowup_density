@@ -519,3 +519,188 @@ None of these are moved here (namespace/file changes are out of scope for a simp
 | `git diff` (four modules) | every changed line is an `open`/`open scoped` line; no signature/proof line changed |
 | `make check` | exit 0 (plan, contracts, contract policy 13/13, work queue: "30 work items … consistent") |
 | `make test` (`lake -d verification test`, from repo root) | exit 0; all 19 registered `Tests.*` contracts (incl. `Tests.EnergyAbsorptionPartial`) report "checked; standard logical axioms only"; 0 `error:` lines |
+# Lane 118 — SL5 cluster (SIMP-A04-nonlinear)
+
+Simplifier + tester pass over the five SL5-cluster modules
+`Section4/A04/{AdvectionDivergence,NonlinearPairing,NonlinearColumns,NonlinearDatum,NonlinearBound}.lean`
+(lanes 100/102/105; the `hnl` input of `eq:Rhigh` / Theorem 4.3 and its ingredients), following
+lane 086's format above and the SL5 reviewer notes
+(`REVIEW_SL5.md`, `REVIEW_SL5A.md`, `REVIEW_SL5C.md`, `REVIEW_SL5_COLUMNS.md`).  **No new
+mathematics**; every public statement is byte-identical to the merged version — a full `git diff`
+of the five modules shows every changed `+`/`-` line is an `open`/`open scoped` line (confirmed by a
+grep that no changed line contains `theorem`/`lemma`/`def`/`abbrev`/`:=`/`by`/`exact`/`refine`/
+`rw [`/`intro`/`obtain`/`have`/`calc`/`nlinarith`/`linarith`/`funext`).  The SL3-route modules
+(`LaplacianDatum/Pairing`, `RealPairing`, `LaplacianAssembly`) were **not** touched (lane 115 owns
+that cluster in its own worktree).  Worktree `.claude/worktrees/118-SIMP-A04-nonlinear`, base
+`erenup/integration`.
+
+## Line counts (before → after)
+
+| module | before | after | note |
+|---|---|---|---|
+| `AdvectionDivergence.lean` | 104 | 104 | **untouched** — `open Set` and `open scoped ContDiff` both tested NEEDED (see below) |
+| `NonlinearPairing.lean` | 188 | 188 | dropped unused `ENNReal` from `open scoped` (token, not a line) |
+| `NonlinearColumns.lean` | 167 | 166 | removed dead `open scoped ENNReal` line; dropped `Set`, `MeasureTheory` from the line-49 `open`; dropped `columnsSobolevENorm` (A03) and `angularDirectionalDerivativeReal` (Paper3) from the two selective opens (tokens) |
+| `NonlinearDatum.lean` | 199 | 199 | dropped unused `MeasureTheory` from `open Set MeasureTheory`; dropped `ENNReal` from `open scoped ContDiff ENNReal` (tokens) |
+| `NonlinearBound.lean` | 209 | 208 | removed dead `open scoped ContDiff ENNReal` line; dropped `MemHInfty` (A02) and `FourierData` (Source.RealSobolev) from the two selective opens (tokens) |
+| **total** | **867** | **865** | **−2 lines; 12 dead `open`/`open scoped` targets removed** |
+
+As in lane 086, the net line change is small because these modules were reviewed
+(ACCEPT / ACCEPT-WITH-NOTES) with their review fixes already applied and build **warning-free**:
+`lake env lean` on each is silent, so the active `unusedVariables` and `unusedSimpArgs` linters find
+**no** dead `have`s, unused binders, or trimmable `simp only` args, and every exported statement must
+stay byte-identical — so no proof body was shortened.  The value of the pass is the dead
+`open`/import removal and the tester half.
+
+## Method for the open/scoped removals
+
+Each candidate was decided empirically (`/tmp/probe_sl5.py`): a scratch copy of the module with
+exactly one `open`/`open scoped` target — or one whole line — removed was re-elaborated with
+`lake env lean`, and the removal was accepted **only** if the file still elaborated with zero output
+(exit 0).  All 16 candidates were probed; results:
+
+* **REMOVABLE (silent):** `NonlinearPairing` `ENNReal`; `NonlinearColumns` `Set`, `MeasureTheory`,
+  `open scoped ENNReal`, `columnsSobolevENorm`, `angularDirectionalDerivativeReal`;
+  `NonlinearDatum` `MeasureTheory`, `ENNReal`; `NonlinearBound` `ContDiff`, `ENNReal`, `MemHInfty`,
+  `FourierData`.
+* **NEEDED (kept):** `AdvectionDivergence` `open Set` → `error: Function expected` (`Ico` in the
+  `advection_slice_…` corollary), `open scoped ContDiff` → `error: type expected, got` (the
+  `ContDiff ℝ ∞` in `hcd`).  So `AdvectionDivergence` is left completely untouched.
+
+Rationale per removal: `⊤` is core (`OrderTop`) notation, not `ENNReal`-scoped, and no `ℝ≥0∞`/`∞`
+literal or `Lp`/`volume`/`Measure`/`MemLp` identifier is typed in `NonlinearColumns`/`NonlinearDatum`/
+`NonlinearBound`/`NonlinearPairing`; `columnsSobolevENorm` (the A03 *def*) is never spelled — only the
+lane-109 **alias** `columnsSobolevENorm_toReal_sq_eq_sum` (a distinct identifier, kept) and the
+docstring mention it; `angularDirectionalDerivativeReal`, `MemHInfty`, `FourierData` appear only in
+docstrings.  After applying all removals the whole closure rebuilt (`Build completed successfully
+(9903 jobs)`), each of the five modules re-checked silent, and all four `axioms_sl5*` files re-run
+standard-axiom-clean (below).
+
+## Negative checks (task 2c/2d) — `research/A04/negative_simp_sl5.lean`
+
+The committed file `research/A04/negative_simp_sl5.lean` holds the **route (i)** concrete refutations
+and the **non-vacuity** witness; it elaborates **silently** (`lake env lean … → exit 0, 0 lines`).
+The **route (ii)** failing searches are throwaway `/tmp` probes whose transcripts are pasted below
+(a raw failing tactic would make the committed file error, so those blocks live here + as `Prop`
+statements in the `.lean`).
+
+### Route (i): concrete counterexamples that PROVE the weakened statement false
+
+| export | hypothesis dropped / conclusion strengthened | verdict | mechanism |
+|---|---|---|---|
+| `AdvectionDivergence.advection_eq_sum_partialDeriv_outerColumn` | drop `hdiv` (`∀x, ∇·u = 0`) | **PROVED FALSE** — `hdiv` is load-bearing | field `u(t,x)=x` (`fun p => p.2`) is smooth (`hdiff` via `fderiv_fun_id`) but `∇·u = 3`; `convectionDivergence_eq_advection_add_smul_div` (A01) gives the two sides differ by `3 • x`, and `(3 : ℝ) • coordinateVector 0 ≠ 0` |
+| `NonlinearPairing.sum_inner_le_sqrt_mul_sqrt` | drop the second ℓ² factor `√(∑‖bⱼ‖²)` | **PROVED FALSE** — the factor is load-bearing | `E = ℝ`, `ι = Unit`, `a ≡ 1`, `b ≡ 2`: LHS `∑⟪a,b⟫ = 2`, RHS `√(∑‖a‖²) = 1`; `simp` closes `¬ (2 ≤ 1)` |
+| `NonlinearPairing.abs_sum_inner_le_sqrt_mul_sqrt` | drop the second ℓ² factor `√(∑‖bⱼ‖²)` | **PROVED FALSE** — the factor is load-bearing | same witness; `|∑⟪a,b⟫| = 2 > 1` |
+
+The `AdvectionDivergence` counterexample is the flagship (the task names "the divergence form … dropping
+the divergence-free hypothesis").  It corroborates `REVIEW_SL5A.md`'s prose claim that dropping `hdiv`
+makes the statement false, now as a machine-checked refutation.
+
+### Route (ii): witness-heavy exports — hypotheses "could not prove without" (no cheap counterexample)
+
+These exports quantify over / require a `ClassicalSolutionR` or `SmoothL2`/`MemHInfty` **field**
+witness, which is infeasible to inhabit non-trivially in a SIMP lane (a Schwartz/Gaussian field or an
+actual classical solution).  The zero field makes the datum predicates vacuously hold (the "junk-0"
+trap in `logs/LESSONS.md`), so it cannot refute anything.  I therefore state each weakened theorem
+(well-formed, all remaining args present, `set_option autoImplicit false`) and run bounded searches
+on the goal — they fail, so the dropped hypothesis is not eliminable by proof search:
+
+```
+-- advection_slice_datum_eq (NonlinearDatum), hN dropped:  /tmp/rii_a.lean
+/tmp/rii_a.lean:17:2: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+-- same goal, `simp` instead of `exact?`:  /tmp/rii_a_simp.lean
+/tmp/rii_a_simp.lean:17:2: error: `simp` made no progress
+
+-- inner_advection_bound (NonlinearBound), hN dropped:  /tmp/rii_b.lean
+/tmp/rii_b.lean:21:2: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+-- same goal, `simp`:  /tmp/rii_b_simp.lean
+/tmp/rii_b_simp.lean:21:2: error: `simp` made no progress
+
+-- advection_eq_sum_partialDeriv_outerColumn, hdiff dropped:  /tmp/rii_c.lean  (= `weak_advection_drop_hdiff`)
+/tmp/rii_c.lean:11:2: error: `exact?` could not close the goal. Try `apply?` to see partial suggestions.
+```
+
+Load-bearing verdicts (revised per `REVIEW_SIMP_SL5.md`):
+* `NonlinearDatum.advection_slice_datum_eq` `hN`: **could not prove without** — the weakened statement
+  has the shape `∀ N, N = c` with `N` a free, otherwise-unconstrained `RealVectorSobolev (m:ℝ)`, so it
+  is false as soon as (i) *some* `ClassicalSolutionR ν a f T` is inhabited and (ii) the carrier is
+  non-subsingleton.  The reviewer's `grep -rn "ClassicalSolutionR"` finds **no inhabitant anywhere in
+  the tree**, which is the sole obstruction to a machine refutation — not any doubt about falsity.
+  A `ClassicalSolutionR` **zero-solution instance** would unlock it (see MAINT list).  `exact?` times
+  out (`isDefEq`), `simp` makes no progress.
+* `NonlinearBound.inner_advection_bound` `hN`: **could not prove without** — here a *degenerate*
+  witness genuinely **cannot** refute: with the zero field, `hG` + `isSobolevDatum_unique` force
+  `G = 0`, hence `-⟪G,N⟫ = 0 ≤ RHS` for every `N`.  A refutation needs a field with a **non-zero**
+  datum (a Schwartz/Gaussian witness), out of scope for a SIMP lane; the lane's judgement stands.
+  `exact?` times out (`whnf`), `simp` makes no progress.
+* `AdvectionDivergence.advection_eq_sum_partialDeriv_outerColumn` `hdiff`: **mathematically false —
+  witness known, Lean check TODO** (the earlier "needs a nowhere-differentiable field" label was too
+  strong; `REVIEW_SIMP_SL5.md` §6).  The `hdiff`-free statement is FALSE with an explicit witness that
+  fails to be differentiable **only on the single plane `{y₀ = 0}`**:
+  `u(t,y) = ε(y₀) • (y₁, y₀, 1)` with `ε = sign` (`ε r = if 0 ≤ r then 1 else -1`, so `ε² ≡ 1`).
+  Then `∇·u = 0` at every point (`±(∂₀U₀+∂₁U₁+∂₂U₂)=0` on the open half-spaces; on the plane `u` is
+  discontinuous so `fderiv = 0` by junk convention).  At `x = e₁` (`x₀ = 0`) the LHS
+  `advection u t e₁ = fderiv … = 0` (junk), while the columns `u_j • u` are the **polynomial** field
+  `U_j • U` (the `ε² = 1` cancels), so the RHS `= ∑ⱼ ∂ⱼ(U_j U) = (U·∇)U + (∇·U)U` equals `(0,1,0) ≠ 0`.
+  Machine check **deferred** (≈80–120 lines: `Filter.EventuallyEq.fderiv_eq` on the two half-spaces,
+  a discontinuity/junk-`fderiv` step on the plane, `fderiv` of an affine map — routed through the
+  *unconditional* `rfl` bridge `A04.convectionDivergence_eq_sum_partialDeriv_outerColumn` +
+  `A01.convectionDivergence_eq_advection_add_smul_div`, avoiding all coordinate-level `fderiv` of the
+  quadratic columns).  Recorded as a negative-check MAINT item, not "could not prove without".
+  `exact?` on the raw goal could not close it.
+
+### Non-vacuity (task 2d)
+
+`negative_simp_sl5.lean`'s closing `example` exhibits a **non-zero** field — the constant
+`u ≡ coordinateVector 0` — that satisfies both `hdiff` (`differentiableAt_const`) and `hdiv`
+(`∇·(const) = 0` via `fderiv_const`), with `u(0,0) = e₀ ≠ 0` (`‖coordinateVector 0‖ = 1`).  So
+`advection_eq_sum_partialDeriv_outerColumn` (and its divergence-free corollary) is inhabited by more
+than the zero field.
+
+For the datum-carrier exports (`exists_outerColumn_datum(_succ)`, `sqrt_sum_norm_sq_columnData_eq`,
+`isSobolevDatum_advection_sum`, `advection_slice_datum_eq`, `inner_advection_bound(_slice)`) a
+**non-zero** non-vacuity witness needs a genuine `MemHmVector`/`SmoothL2`/`MemHInfty` field (Sobolev
+decay), which is out of scope for a SIMP lane; the zero field inhabits the classes (so they are
+non-empty) but is the vacuous case.  Their non-triviality is instead established upstream by the
+reviewer's analytic derivations (`REVIEW_SL5C.md` §5–6) and the C01 slice constructions.
+
+## Conformance (task 2b) — re-run after the edits, all standard-axiom-clean
+
+| file | declarations | result |
+|---|---|---|
+| `axioms_sl5.lean` | 7 (SL5 e/d/i) | all `[propext, Classical.choice, Quot.sound]`, exit 0 |
+| `axioms_sl5a.lean` | 3 (row 5a) | all standard, exit 0 |
+| `axioms_sl5c.lean` | 9 (rows 5c + 5h) + conformance `example` | all standard; the `example` feeding `inner_advection_bound_slice` into `inner_energy_assembly`'s `hnl` slot still type-checks, exit 0 |
+| `axioms_sl5_columns.lean` | 7 (rows 5b/5f/5g) | all standard, exit 0 |
+
+## MAINT list — non-A04 facts still living in these modules (do NOT move here; namespace change)
+
+| declaration | file:line | nature | suggested home |
+|---|---|---|---|
+| `inner_loweringMid_transfer` | `NonlinearPairing.lean:62` (`namespace NSFormalization.Paper3`) | SL5(i) mid-layer lowering transfer on `Lp ℂ 2`; pure Paper3 lowering-operator content (lane 095) | `Section4/A04/RealPairing.lean` (Paper3-namespace home of the single-vector `inner_loweringMid_pairing`, `:168`) or a `Paper3` module |
+| `inner_lowering_transfer_complex` | `NonlinearPairing.lean:92` (`Paper3`) | SL5(i) complex-layer transfer | same |
+| `real_inner_lowering_transfer` | `NonlinearPairing.lean:108` (`Paper3`) | SL5(i) real-layer transfer | same |
+| `sum_real_inner_angularDirectionalDerivative` | `NonlinearPairing.lean:163` (`A04`) | SL5(d): finset sum of `Paper3.real_inner_angularDirectionalDerivative`; no A04-specific content | `Section4/A04/RealPairing.lean` (Paper3) alongside the summand lemma |
+| `sum_real_inner_angularDirectionalDerivativeReal` | `NonlinearPairing.lean:176` (`A04`) | SL5(d) datum-carrier lift; no A04-specific content | same |
+| `outerSobolevENorm_toReal_sq_eq_sum` | `NonlinearColumns.lean:139` (`A04`) | thin `columnsSobolevENorm_toReal_sq_eq_sum hfin` wrapper; pure A03 `outerSobolevENorm` arithmetic | `Section4/A03/OuterTameProduct.lean`, next to the lane-109-moved `columnsSobolevENorm_toReal_sq_eq_sum`; **leave an `A04` `alias` behind** (lane-109 pattern) or `research/A04/axioms_sl5_columns.lean:13` (the only consumer outside `NonlinearColumns.lean`, resolving the name via `open …A04`) breaks |
+| *(new item, not a lemma move)* `ClassicalSolutionR` **zero-solution instance** | — | no `ClassicalSolutionR` inhabitant exists anywhere in the tree (`grep`); this blocks the concrete refutation of `advection_slice_datum_eq`'s `hN` and several deferred non-vacuity checks | add a zero-solution instance (D01/A02 level); it is the shared unlock for the datum-carrier negative checks |
+
+Docstring citation nit (`REVIEW_SIMP_SL5.md` findings 6–7): the stale `HighEnergy.lean:101,106`
+citation is **not** at `NonlinearColumns.lean:9` (that line already reads `:100,136`, as does
+`NonlinearBound.lean:10`); it lived at `NonlinearPairing.lean:7` and `research/A04/SL5_SPLIT.md:4`.
+Both are docstring/prose only (no statement), so this lane **fixed** them to `HighEnergy.lean:100,136`
+(the actual `inner_energy_assembly` `:100` / `inner_energy_Rhigh` `:136`).
+
+## Commands run (all `lake` from `WT/verification`, `LEAN_NUM_THREADS=6`, one at a time)
+
+| command | result |
+|---|---|
+| `lake build …A04.NonlinearBound` (pre- and post-edit; pulls all five) | `Build completed successfully (9903 jobs)` both times; only pre-existing dependency warnings (`Source.*`, `Paper3/SobolevDirectionalDerivative.lean:103`), none on the five modules |
+| `lake env lean` on each of the five modules (pre- and post-edit) | each silent, exit 0 (0 output lines) |
+| `python3 /tmp/probe_sl5.py` (16 open/scoped removal probes) | as tabled under "Method"; `AdvectionDivergence` `Set` + `ContDiff` NEEDED, the other 12 REMOVABLE |
+| `lake env lean ../research/A04/negative_simp_sl5.lean` | exit 0, 0 output lines (all route-(i) refutations + non-vacuity elaborate) |
+| `lake env lean ../research/A04/{axioms_sl5,axioms_sl5a,axioms_sl5c,axioms_sl5_columns}.lean` | 7/3/9/7 declarations, all `[propext, Classical.choice, Quot.sound]`, exit 0; `axioms_sl5c` conformance `example` type-checks |
+| route-(ii) probes `/tmp/rii_{a,b,c}.lean` (+ `_simp`) | `exact?` timeout/`could not close`; `simp` "made no progress" (pasted above) |
+| `git diff` of the five modules | every changed line is an `open`/`open scoped` line; no signature/proof line changed |
+| `make check` (repo root); `make test` (**repo root**, = `lake -d verification test`; from `verification/` it is `No rule to make target 'test'`) | both exit 0 — see final report |
+| coverage note | `grep -rn "Section4.A04" verification/` is **empty**: no `Bindings`/`Tests` module reaches this cluster (no A04 contract registered), so `make test` does **not** cover these five modules — the `lake build …NonlinearBound` (9903 jobs) + five `lake env lean` + four axioms probes are the compile evidence |

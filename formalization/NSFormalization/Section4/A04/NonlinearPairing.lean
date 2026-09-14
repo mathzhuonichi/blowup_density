@@ -4,7 +4,7 @@ import NSFormalization.Section4.A04.RealPairing
 # A04 unit G1, sub-lemma SL5 — the nonlinear pairing (S items)
 
 `research/A04/SL5_SPLIT.md`.  SL5 is the `hnl` input of `A04.inner_energy_assembly` /
-`inner_energy_Rhigh` (`HighEnergy.lean:101,106`):
+`inner_energy_Rhigh` (`HighEnergy.lean:100,136`):
 
 `− ⟪G t, N⟫_ℝ ≤ gradientSobolevNormAt (m:ℝ) u t · (outerSobolevENorm (m:ℝ) (u t·) (u t·)).toReal`,
 
@@ -41,7 +41,7 @@ noncomputable section
 open MeasureTheory NavierStokes.ProblemStatement
 open NSFormalization.Source.RealSobolev (RealSobolevHilbert FourierData)
 open NSFormalization.Source (frequencyUnit)
-open scoped InnerProductSpace ComplexConjugate ENNReal
+open scoped InnerProductSpace ComplexConjugate
 
 namespace NSFormalization.Paper3
 
