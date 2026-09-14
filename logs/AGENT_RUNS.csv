@@ -535,3 +535,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,R43,159-R43-split,opus,reviewer,launched (incl. proved-vs-unproved audit of the three sibling clauses),running,
 2026-09-14,R43,159-R43-split,opus,reviewer,ACCEPT-WITH-NOTES (C₁ citation :260); audit: the three sibling clauses are unproved (A05 partial via Paper1 Riesz route; C01 E5–E7 open; A04 C1 over R1) → R43 blocked on proof lanes; order A04 V3 → G1 → C01 V4 → A05 V2 → G7: REVIEW_SPLIT.md + probes,accepted,
 2026-09-14,R43,159-R43-split,lead,merge,note applied; PR #160 chain launched,merging,160
+2026-09-14,R43,159-R43-split,lead,merge,PR #160 merged; gates wave116 OK over 128 modules,merged,160
+2026-09-14,A04,160-A04-restart-beyond,prover,worker,launched on integration 1ad3df2 (R1 restartBeyond + C1 lifespan clause, conditional on A02.restart),running,
