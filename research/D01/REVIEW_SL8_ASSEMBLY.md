@@ -94,7 +94,7 @@ condition smuggled in. Confirmations (all `rfl`, `/tmp/rev117/fid_a.lean`, `fid_
 
 ### (b) What of P2 / eq:Rpressure is still open
 
-The manuscript (`paper/sections/02-preliminaries.tex:76-81`) says:
+The manuscript (`paper/sections/02-preliminaries.tex:89-94`) says:
 
 > On $\R^3$ we require $\nabla p=(I-\PP)(f-\nabla\cdot(u\otimes u))=:G$.
 > For smooth $H^\infty$ data, $G$ is smooth and its Fourier transform is parallel to $\xi$.
@@ -271,7 +271,7 @@ Inside `namespace BlowupDensity.Contracts.V3.DatumLemmas` with
 `Contracts/V1/DatumLemmas.lean:125-129` already uses):
 
 ```lean
-/-- eq:Rpressure's regularity conclusion (`02-preliminaries.tex:76-81`), obligation P2. -/
+/-- eq:Rpressure's regularity conclusion (`02-preliminaries.tex:89-94`), obligation P2. -/
 solution_slice_pressureGradient_smoothJets :
   ∀ (ν : ℝ) (a : SpatialField) (f : SpaceTimeField) (T : ℝ)
     (u : ClassicalSolutionR ν a f T), MemForceR f → ∀ t : ℝ, t ∈ Ioo (0 : ℝ) T →
@@ -326,7 +326,7 @@ and `D01.MemForceR = Contracts.V1.Data.MemForceR` are already pinned in `Binding
 
 ### Scope-string delta for the V3 registry entry
 
-"… extended by the pressure half of obligation P2 (eq:Rpressure, `02-preliminaries.tex:76-81`):
+"… extended by the pressure half of obligation P2 (eq:Rpressure, `02-preliminaries.tex:89-94`):
 for a classical solution with a force in `F_R`, the pressure-gradient slice and the time-derivative
 slice at every interior time lie in the jet form of `H^∞`, and `∇p(t,·)` therefore has an angular
 Sobolev datum at every integer order. **Not asserted**: the identity
