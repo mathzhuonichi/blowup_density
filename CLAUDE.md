@@ -78,7 +78,7 @@
 ## 关键路径与并发
 
 - 关键链：D01 → A01 → A02 → A04 → R43/R44 → R41（定理 4.1）。**A01 不再卡 U05**（U05 已于 004/010 两条 lane 完成，PR #8/#11，见 `PLAN.md`）：HeliCorgi mild 栈已就地编进主 workspace，093 的 reviewer 复现 `lake build Formal.R3EndpointSafeProjectedLocalExistence` 成功。A01 现在卡的是载体桥 C1b/C1c 与 A3/B1 三个 L 单元（`research/A01/A01_SPLIT.md`）。
-- 可并行起步、互不依赖：D01、A05、I01（U05 已完成）。并发上限 5 条车道。
+- 可并行起步、互不依赖：D01、A05、I01（U05 已完成）。并发上限 5 条车道；**2026-09-14 起因 API 限额，当前并发 2–3 个 subagent（含 reviewer）**，关键链优先。
 - 帮手模型：优先 `prover` agent（`.claude/agents/prover.md`，钉 Opus 4.8，本地未提交；**新会话启动时才加载**）。
   若 `prover` 不可用则 `general-purpose` + `model: opus`（当前解析为 Opus 5, 1M）。
   lead 自己留在关键路径上，只做拆任务、比对、归并、记账。
