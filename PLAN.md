@@ -234,6 +234,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 128-A04-energy-identity-high | 已合并 | 09-14 0116Z | #127 | — | **A04 eq:Rhigh 组装**（S，121 审稿探针已编译）：`Section4/A04/EnergyIdentityHigh.lean`，`def Chigh m := A03.outerTameConst m` + `Chigh_pos`，`energyIdentityHigh` 逐字取 `research/A04/Spec.lean:424-434` 的 ∀ 前缀形；顺手修 121 两个 probe 的旧 import |
 | 129-SIMP-D01-orderzero | 进行中 | 09-14 0105Z | — | — | D01 P2 链五个模块（OrderZeroSymbol 094, OrderZeroCurl 108, OrderZeroAlgebra 111, MomentumSlice 111, PressureJets 117）的 simplifier+tester（陈述逐字不变；真负例/反例；重跑 axioms_order_zero*/sl8*；MAINT 清单：108 四处重复、111 死代码 `lerayComplement_orderZeroDatum_add/_sub`、与 121 的横向论证重复） |
 | 130-SPEC-A04-rhigh-blind | 进行中 | 09-14 0115Z | — | — | 硬规矩 2：eq:Rhigh 的盲写双稿（两个只读论文 + 合同词汇、互不可见的 agent 各写一版 `research/A04/blind/rhigh_{A,B}.lean`），再由 comparer 与 128 的 `energyIdentityHigh` 三方比对，差异写进 `research/A04/BLIND_RHIGH.md`；A04 合同冻结前必做 |
+| 131-C01-energy-split | 进行中 | 09-14 0123Z | — | — | C01 剩余能量/涡量字段拆分起步（`energyIdentity`/`energyDifferentialBound`/`l2Bound`、`enstrophyIdentity` 等，Spec.lean:344-541）：对照 A04 已有的 `inner_energy_assembly`/`TimeDerivative`/`Continuity` 与 121 的 `pressure_drop`（m=0/1 实例），产出 `research/C01/ENERGY_SPLIT.md` + 证第一个 S 单元 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
