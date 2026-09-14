@@ -225,6 +225,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 119-A01-c1b-split | 审阅中 | — | — | A01 L 单元 **C1b** 拆分起步：D01 角向 datum `IsSobolevDatum m` ⟷ Euler `ordinarySobolev`/`EulerMeanSolenoidal.L2` 坐标（经 cylinder `ordinaryLift` 伴随）逐阶桥；产出 `research/A01/C1B_SPLIT.md`（S/M 子引理表 + file:line 输入）+ 证第一个 S 单元 |
 | 120-D01-p2-contract-v3 | 进行中 | — | — | **P2 合同**：`D01.datum_lemmas` V3（`Contracts/V3/DatumLemmas.lean` extends V2）三字段 `solution_slice_pressureGradient_smoothJets` / `…_temporalDerivative_smoothJets` / `…_pressureGradient_exists_datum`（A04 `hP` 形）+ `Bindings.DatumLemmasV3`（经 `uniqueness_toA02`）+ Tests + contracts.json（第 22 条）；照 `REVIEW_SL8_ASSEMBLY.md` §6/附录 C |
 | 121-A04-hpr-leray-adjoint | 进行中 | — | — | A04 eq:Rhigh 最后一块 **`hpr : ⟪G,P⟫ = 0`**（S–M）：`lerayComplement s` 在 `RealVectorSobolev s` 上自伴（符号 `ξξᵀ/‖ξ‖²` 实对称投影，062）；`(I−P)ₘ G = 0` 对无散速度切片的 order-m datum（0 阶横向 094 + 085 lowering，同 117 的 bootstrap）；配合 117 的 `pin_pressureGradient_datum` 得 `⟪G,(I−P)ₘ Am⟫ = 0` 即 `HighEnergy.lean:105` 的 `hpr` |
+| 122-A01-a3-split | 进行中 | — | — | A01 L 单元 **A2/A2b/A3** 拆分起步（高阶传播 eq:Rhigh 的 A01 用法、order-m 续接、阶无关 T₀）：对照 A04 已有的 `Gronwall`/`HighEnergy`/`TimeDerivative`/`Continuity`/`Regularized` 与 OpenAI `Source/OrdinaryForced*`，产出 `research/A01/A3_SPLIT.md` + 证第一个 S 单元 |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
