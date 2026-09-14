@@ -529,3 +529,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,157-A01-slice-wiring,lead,merge,PR #159 merged; gates wave115 OK over 127 modules,merged,159
 2026-09-14,A01,158-A01-b1-constructor-split,prover,worker,launched on integration 1b8c8a4 (CONSTRUCTOR_SPLIT for CarrierConstructor q ν S; first S piece),running,
 2026-09-14,R43,159-R43-split,prover,worker,launched on integration 1b8c8a4 (R43_SPLIT per COMPARISON §4 G1–G8; first S rows: G6/G8/G3/S2 scalar bootstrap),running,
+2026-09-14,A01,158-A01-b1-constructor-split,prover,worker,DONE: CONSTRUCTOR_SPLIT.md (c3 velocity_smooth = B1 rests on A3 Duhamel bootstrap; interface needs hu + Duhamel); ConstructorPieces.lean per-time datum existence m ≤ q−2; committed 47cf101,done,
+2026-09-14,A01,158-A01-b1-constructor-split,opus,reviewer,launched,running,
+2026-09-14,R43,159-R43-split,prover,worker,DONE: R43_SPLIT.md S1–S6; registration audit (A05 velocityCriticalL3, C01 h2TimeIntegral, A04 lifespanInfiniteOfLocallyFinite unregistered; G1 blocks stating); Pieces.lean G6/G8/S2 (reuses Paper1.critical_norm_bound); committed e58b056,done,
+2026-09-14,R43,159-R43-split,opus,reviewer,launched (incl. proved-vs-unproved audit of the three sibling clauses),running,
