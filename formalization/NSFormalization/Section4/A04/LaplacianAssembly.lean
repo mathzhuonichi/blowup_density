@@ -54,8 +54,7 @@ unfolding.
 
 noncomputable section
 
-open Set MeasureTheory NavierStokes.ProblemStatement
-open scoped ENNReal InnerProductSpace ComplexConjugate
+open MeasureTheory NavierStokes.ProblemStatement
 
 namespace NSFormalization.Section4.A04
 

@@ -51,7 +51,7 @@ noncomputable section
 open MeasureTheory NavierStokes.ProblemStatement
 open NSFormalization.Source.RealSobolev (RealSobolevHilbert FourierData)
 open NSFormalization.Source (frequencyUnit)
-open scoped InnerProductSpace ComplexConjugate ENNReal
+open scoped InnerProductSpace ComplexConjugate
 
 namespace NSFormalization.Paper3
 

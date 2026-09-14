@@ -268,3 +268,254 @@ contract is registered.
 | `git diff` (signatures) | every changed line is an `import`/`open`/`open scoped`; no signature or proof line changed |
 | negative checks (8 `/tmp` scratches) | all controls silent (exit 0); all removals break as tabled above |
 | `make check` | see final report |
+
+---
+
+# Lane 115 — SL3 cluster
+
+Simplifier + tester pass over the four SL3-route modules
+`Section4/A04/{LaplacianDatum,LaplacianPairing,RealPairing,LaplacianAssembly}.lean`
+(units SL3 step 1/2/3a/3b: the dissipation identity `hlap` on the datum carrier).
+These are exactly the modules lane 086 left untouched ("active lanes"); lane 086's eight
+modules are **not** revisited here.  Base `erenup/integration`; worktree
+`.claude/worktrees/115-SIMP-A04`.
+
+**No new mathematics; every exported statement is byte-for-byte identical to the merged
+version.**  Verified by full `git diff`: every changed `+`/`-` line is an `open`/`open scoped`
+line (a grep for `theorem`/`lemma`/`def`/`abbrev`/`:=`/`by`/`exact`/`refine`/`rw`/`intro`/
+`have`/`calc`/`linarith`/`ring`/`import` on the changed lines returns nothing but the four
+`open`/`open scoped` edits).  All four modules still elaborate silently under `lake env lean`,
+and all four SL3 axioms files still report only `[propext, Classical.choice, Quot.sound]`.
+
+## Line counts (before → after)
+
+| module | before | after | what was removed |
+|---|---|---|---|
+| `LaplacianDatum.lean` | 138 | 137 | dropped dead `open Set`, `open MeasureTheory`, whole `open scoped ENNReal` line (−1 line), and dead `columnsSobolevENorm` from the A03 open-list |
+| `LaplacianPairing.lean` | 199 | 199 | dropped dead `ComplexConjugate`, `ENNReal` from `open scoped` (tokens, not lines) |
+| `RealPairing.lean` | 225 | 225 | dropped dead `ENNReal` from `open scoped` (token, not a line) |
+| `LaplacianAssembly.lean` | 370 | 369 | dropped dead `open Set`, and whole dead `open scoped ENNReal InnerProductSpace ComplexConjugate` line (−1 line) |
+| **total** | **932** | **930** | **−2 lines, 11 dead open/scoped-open tokens removed** |
+
+Net line change is small (these modules were reviewed ACCEPT-WITH-NOTES and already build
+warning-free — no dead `have`s, unused binders, `maxHeartbeats`, or missing docstrings), so the
+value is the dead-`open` removal and the tester half.  Same shape as lane 086's finding on the
+other eight A04 modules.
+
+## Method for the open removals
+
+Every candidate was decided empirically, not by eye (`/tmp/prune_probe.py`, one scratch per
+`open`/`open scoped`/`import` token): a copy of the module with exactly one token removed was
+re-elaborated with `lake env lean`, and a removal was accepted **only** if the file still
+elaborated with exit 0 and **zero output**.  After applying the accepted removals the whole
+closure was rebuilt (`Build completed successfully (9897 jobs)` — identical job count to the
+pre-edit baseline, confirming the closure is unchanged: every removed open was already available
+transitively) and each of the four modules re-checked silent.
+
+## Simplified (all four dead-open removals verified individually then jointly)
+
+* `LaplacianDatum`: `open Set MeasureTheory NavierStokes.ProblemStatement` → `open
+  NavierStokes.ProblemStatement` (`Set`/`MeasureTheory` identifiers are never typed here — no
+  `Icc`/`Ioo`/`volume`/`eLpNorm`; `ProblemStatement` kept for `Space`); whole `open scoped
+  ENNReal` line deleted (`ℝ≥0∞` is never typed and the `⊤` in `≠ ⊤` is core `Top.top`, not from
+  the `ENNReal` scope); `columnsSobolevENorm` dropped from the A03 open-list (used only fully
+  qualified, as `A03.columnsSobolevENorm_toReal_sq_eq_sum` at `:101`).
+* `LaplacianPairing`: `open scoped InnerProductSpace ComplexConjugate ENNReal` → `open scoped
+  InnerProductSpace` (`conj` and `ℝ≥0∞` never typed — the module uses `⟪·,·⟫_ℂ` and
+  `map_mul`/`mid_symbol_imaginary`; `InnerProductSpace` kept for the `⟪·,·⟫` notation).
+* `RealPairing`: `open scoped InnerProductSpace ComplexConjugate ENNReal` → `open scoped
+  InnerProductSpace ComplexConjugate` (`ℝ≥0∞` never typed; `ComplexConjugate` kept — `conj`
+  is used 8×; `InnerProductSpace` kept for `⟪·,·⟫`).
+* `LaplacianAssembly`: `open Set MeasureTheory NavierStokes.ProblemStatement` → `open
+  MeasureTheory NavierStokes.ProblemStatement` (`Set` never typed); whole `open scoped ENNReal
+  InnerProductSpace ComplexConjugate` line deleted — this module writes `inner ℝ …` explicitly
+  (5×) and never types `⟪·,·⟫`, `conj`, or `ℝ≥0∞`, so all three scoped notations are dead.
+
+## Not simplified, and why
+
+* **No proof body was shortened, and no import was removed.**  Findings 1–2 of `REVIEW_SL3.md`
+  (the avoidable `maxHeartbeats 400000` at the old `LaplacianDatum.lean:106` and the redundant
+  `hfin` hypothesis) were **applied in lane 066 itself, in response to that review, before merge**
+  (`REVIEW_SL3.md` reviewed the pre-merge commit `e779166`; the merged 066 commit `8e4450e`
+  already has no `set_option` in `LaplacianDatum.lean` and already derives `hfin` internally) — no
+  later lane was involved.  Lane 109 (`38585d4`) only re-pointed
+  `gradientSobolevENorm_toReal_sq_eq_sum` at the promoted `A03.columnsSobolevENorm_toReal_sq_eq_sum`.
+  In the current file `gradientSobolevENorm_toReal_sq_eq_datum_sum` derives its `hfin` internally
+  (`:128`).  The remaining proofs (the calc transports across the unitary `U`,
+  the three-way symbol `ring`s, the datum order-cast bookkeeping) are load-bearing and reviewed;
+  collapsing any risks the transitive axioms or a byte-identical statement, so none was attempted
+  (same conclusion as lane 086 / lane 077).
+* **Removable-but-kept imports (semantic home / hygiene, matching lane 086).**  Several `import`s
+  probed REMOVABLE (they arrive transitively through `import …RealPairing`, whose chain
+  `RealPairing → LaplacianPairing → LaplacianDatum → {HighEnergy, DerivativeDatum} → A03/…`
+  already pulls the whole closure — hence the unchanged 9897-job count), but each is the **direct
+  home of a declaration the file references by name**, so it is kept as build hygiene, exactly as
+  lane 086 kept its four semantic-home imports:
+  - `RealPairing`: `D01.DerivativeDatum` — home of `angularDirectionalDerivativeReal`
+    (`DerivativeDatum.lean:134`) and `angularDirectionalDerivativeReal_coe` (`:141`), both used.
+  - `LaplacianAssembly`: `A04.LaplacianDatum` (home of `gradientSobolevENorm_toReal_sq_eq_datum_sum`,
+    `gradientSobolevNormAt`, used `:338`/`:362`/`:366`), `D01.DerivativeDatum` (home of
+    `isSobolevDatum_partialDeriv`), `A03.VectorTameProduct` (home of `isSobolevDatum_iff`),
+    `A03.ScalarTameProduct` (home of `IsScalarSobolevDatum(.lower)`), `A03.RealAngularProduct`
+    (home of `coe_lowerDatum`), `A05.SmoothJets` (home of `SmoothL2`, `SmoothJets.lean:44`).
+    `import …LaplacianDatum` and `import …HalfOrder` are additionally *not* removable
+    (`HalfOrder` is the only source of `lowerVectorL`; `import …RealPairing` is required for the
+    operators).
+  Removing any of these would not shrink the build closure (all stay in it via `RealPairing`),
+  only delete a redundant edge that documents a genuine semantic dependency, so keeping is the
+  cleaner engineering choice.
+* **No `alias` statements exist in these four modules.**  Lane 109's "aliases" for the promoted
+  Paper3-level facts are the *delegating* theorems (`gradientSobolevENorm_toReal_sq_eq_sum` at
+  `LaplacianDatum.lean:95` forwarding to `A03.columnsSobolevENorm_toReal_sq_eq_sum`); these are
+  exported statements kept byte-identical, not touched.
+
+## Negative-check results (task 2c) — REVISED after `REVIEW_SIMP_SL3.md` (Findings 3–4)
+
+The reviewer's ruling: the original single-file, seven-block check was **weak evidence**.  N1–N4
+dropped a binder but left the proof term citing it, so they failed with `Unknown identifier` — the
+"you can't name a hypothesis you didn't assume" failure mode, which a purely-decorative hypothesis
+would produce identically; N5–N7 weakened the conclusion but still cited the real theorem, so they
+failed with a `Type mismatch` that only pins the exported *shape*, not the *truth* of the
+weakening.  Neither shows a hypothesis is load-bearing.  The conclusions are nonetheless true, and
+the reviewer proved them **by collapse**; that evidence is now transcribed, and the file is **split
+into two** (mirroring lane 113's repair):
+
+* **`research/A04/negative_simp_sl3.lean` — MUST COMPILE SILENTLY** (the genuine load-bearing
+  evidence).  For each weakened claim, a closed `Prop` `Weakened*` and a *proved* theorem that it
+  entails something manifestly false:
+  - `WeakenedNoHL` (`inner_datum_laplacian_le'` minus `hL`) ⇒ `datum_zero_of_weakenedNoHL` /
+    `physical_pairing_zero_of_weakenedNoHL`: every smooth `L²` field vanishes distributionally
+    (take `L := G`, so `‖G‖² ≤ -‖∇u‖² ≤ 0`).  **`hL` load-bearing.**
+  - `WeakenedPairing` (`real_inner_angularDirectionalDerivative` minus the minus) ⇒
+    `deriv_eq_zero_of_weakenedPairing` / `distributional_deriv_zero_of_weakenedPairing`:
+    `angularDirectionalDerivative s a = 0` at every order/direction.  **The sign is load-bearing**
+    (same argument for the ℂ export `inner_angularDirectionalDerivative_right`, of which the real
+    one is the real part — so N7's export is covered too).
+  - `WeakenedN1` (`gradientSobolevENorm_toReal_sq_eq_datum_sum` minus `hA`) ⇒
+    `gradient_zero_of_weakenedN1` (`A := 0`): `‖∇Z‖_{H^m} = 0` for every smooth `L²` field.
+    **`hA` load-bearing.**
+  - §4 **fidelity** examples: each `Weakened*` is exactly the named export with the one
+    hypothesis (or the sign) restored — proved by `exact <real export>` — so the collapse premises
+    are faithful weakenings, not strawmen.
+  - `#print axioms` on all five collapse theorems (and `unitBall_ne_zero`) →
+    `[propext, Classical.choice, Quot.sound]`.
+* **`research/A04/negative_simp_sl3_fail.lean` — MUST FAIL** (weaker checks, labelled as such).
+  N1–N7 are the original signature/drift checks (kept because they still guard the exported
+  statement against silent drift), plus the reviewer's two **controls** C1/C2: the collapse
+  *conclusions* (`datum = 0`, `D_a f = 0`) stated WITHOUT the weakened hypothesis — `simp` / `aesop`
+  cannot prove them, which is why the collapse proofs genuinely use `H`.  Errors, verbatim:
+
+  | block | export / control | failure |
+  |---|---|---|
+  | N1 | `gradientSobolevENorm_toReal_sq_eq_datum_sum` (drop `hA`) | `:57:48: error(lean.unknownIdentifier): Unknown identifier hA` |
+  | N2 | `inner_datum_laplacian` (drop `hA`) | `:66:33: … Unknown identifier hA` |
+  | N3 | `inner_datum_laplacian_le'` (drop `hL`) | `:78:44: … Unknown identifier hL` |
+  | N4 | `isSobolevDatum_laplacian` (drop `hA`) | `:84:29: … Unknown identifier hA` |
+  | N5 | `real_inner_lowering_pairing` (drop `^2`) | `:92:2: error: Type mismatch … ‖…‖ ^ 2 vs ‖…‖` |
+  | N6 | `real_inner_angularDirectionalDerivative` (drop `-`) | `:99:2: error: Type mismatch … -⟪…⟫_ℝ vs ⟪…⟫_ℝ` |
+  | N7 | `inner_angularDirectionalDerivative_right` (drop `-`) | `:105:2: error: Type mismatch … -⟪…⟫_ℂ vs ⟪…⟫_ℂ` |
+  | C1 | control: `datum = 0` without `WeakenedNoHL` | `:113:2: error: simp made no progress` |
+  | C2 | control: `D_a f = 0` without `WeakenedPairing` | `:119:2: warning: aesop: failed to prove the goal after exhaustive search`; `:118:46: error: unsolved goals` |
+
+**Technique note (reviewer + a `LESSONS.md` candidate):** `exact?` is **not** usable on this
+cluster — it hits `(deterministic) timeout at whnf, 1000000 heartbeats` on `WeakenedNoHL`
+(`/tmp/rev115/p1_assembly_nohL.lean`).  Refutation-by-collapse, not `exact?`, is the right
+technique here.  The N1 collapse additionally needed a repair the reviewer left open (`p5`): the
+`A := 0` datum-sum term is elaborated at `RealSobolevHilbert (↑m+1-1)`, defeq to `↑m` only at
+`default` transparency, so `WithLp.toLp_zero` will not fire; routing the norm through the in-module
+`derivDatumStep` / `norm_sq_derivDatumStep` (which passes through `angularDirectionalDerivative` on
+`Lp`, where no order cast appears) closes it — `gradient_zero_of_weakenedN1` above.
+`autoImplicit false` on every block still guards the 077 silent-rebind trap.
+
+## Non-vacuity (task 2d) — strengthened per `REVIEW_SIMP_SL3.md` Finding 5
+
+Finding 5: the original `V0/V2/V3/V4` were witnessed by *trivial* objects (zero field, `0 : Lp`,
+`s=r=t=0`), which show the classes non-empty but never exercise the identities on anything where
+they say more than `0 = 0`.  `V1` was already strong.  The must-compile file
+`research/A04/negative_simp_sl3.lean` §5 now carries the reviewer's non-degenerate witnesses
+(`/tmp/rev115/p4_nonvacuity.lean`, verbatim):
+
+* `V0` — `Nonempty (SmoothL2Field Space)` (zero field) — kept purely to show `V1`'s `∀ Z` is not
+  over an empty class.
+* `V1` (strong) — for **any** `Z : SmoothL2Field Space` and any `m`, the three datum hypotheses of
+  `inner_datum_laplacian(_le)` / `gradientSobolevENorm_toReal_sq_eq_datum_sum` /
+  `isSobolevDatum_laplacian` hold *simultaneously* at orders `m`, `m+1`, `m+2`
+  (`D01.smoothAngularDatum_isSobolevDatum`).
+* `unitBall := indicatorConstLp 2 (ball 0 1) 1`, with `unitBall_ne_zero` proved (via
+  `norm_indicatorConstLp` + `measure_ball_pos`, standard axioms) — a genuinely **nonzero** `L²`
+  carrier element.
+* strict pairwise-distinct orders `∃ s r t, r < s ∧ t < s ∧ (r+t)/2 < s ∧ r ≠ t` (`1, 0, -1`).
+* both pairing exports run **on `unitBall` at strict, unequal orders `s=1, r=0, t=-1`** and a
+  **nonzero direction `coordinateVector 0`**: `real_inner_lowering_pairing 1 0 (-1) … unitBall` and
+  `real_inner_angularDirectionalDerivative 1 (coordinateVector 0) unitBall unitBall` both
+  type-check — the identities hold on a non-degenerate input, not just on `0`.
+
+Verified: `lake env lean ../research/A04/negative_simp_sl3.lean` → **exit 0, output is only the six
+`#print axioms` lines** (all `[propext, Classical.choice, Quot.sound]`), i.e. every collapse
+theorem, fidelity example and non-vacuity witness elaborates cleanly.
+
+## Conformance (task 2b) re-run after the edits
+
+| axioms file | result |
+|---|---|
+| `axioms_sl3.lean` | 21 declarations, each exactly `[propext, Classical.choice, Quot.sound]` |
+| `axioms_sl3_pairing.lean` | 10 declarations, all standard |
+| `axioms_sl3_real.lean` | 11 declarations, all standard |
+| `axioms_sl3_assembly.lean` | 20 declarations, all standard |
+
+## For the MAINT lane (do NOT do here — changes namespaces / files)
+
+Paper3-/D01-level facts still living in these `Section4/A04/` files that a later MAINT lane could
+promote (name — current `file:line` — suggested home):
+
+| declaration | file:line | note / suggested home |
+|---|---|---|
+| the whole `LaplacianPairing.lean` body | namespace `NSFormalization.Paper3`, `:46`–`:199` | 10 Paper3-namespace angular-operator (skew/self-)adjointness facts living in an `A04` file — a MAINT lane could move to a `Paper3/` module (near `AngularFourierDilation`/`SobolevDirectionalDerivative`) |
+| the whole `RealPairing.lean` body | namespace `NSFormalization.Paper3`, `:56`–`:225` | 11 Paper3-namespace real-inner-product operator facts in an `A04` file — same MAINT home |
+| `real_inner_eq_re_complex` | `RealPairing.lean:66` | a general `Lp ℂ 2 volume` real↔complex inner-product bridge (not SL3-specific) — belongs in a general real-inner-product Sobolev module |
+| `realSobolev_inner_eq_ambient` | `RealPairing.lean:77` | general `RealSobolevHilbert`↔ambient inner bridge (`rfl`) — general Source.RealSobolev / A03 fact |
+| `isSobolevDatum_castOrder`, `castOrder`, `castOrder_coe` | `LaplacianAssembly.lean:80,86,232` | generic order-transport of a Sobolev datum — D01-datum-level fact, could go to `D01` |
+| `isSobolevDatum_lowerVectorL`, `coe_lowerVectorL` | `LaplacianAssembly.lean:218,226` | the file's own docstring says to replace `isSobolevDatum_lowerVectorL` with the merged `D01.isSobolevDatum_lower` (lane 085, `D01/LerayLowering.lean`) once it lands; both are D01 `lowerVectorL` (HalfOrder) facts |
+| `angularMid_comm`, `directionalDerivative_orderLowering_comm` | `LaplacianAssembly.lean:184,201` | Paper3-level operator-commutation facts (`D_j ∘ Λ = Λ ∘ D_j`) — could go to `Paper3/` next to the middle-operator machinery |
+
+**Reviewer's MAINT finding (`REVIEW_SIMP_SL3.md` Finding 6 — the `LaplacianPairing`/`RealPairing`
+move is stronger than this lane reported):**
+
+1. **There is already a back-edge from D01 into A04.**  `Section4/D01/LerayLowering.lean` (lane
+   085, commit `3c0c132`) has `import NSFormalization.Section4.A04.LaplacianPairing` and
+   `import NSFormalization.Section4.A04.RealPairing`, and consumes
+   `angularOrderLowering_eq_dilation_mid`, `angularOrderLoweringMid_coeFn`, `lowering_mid_symbol_eq`
+   and `angularOrderLowering_self` (`LerayLowering.lean:105–135`).  D01 is the *root* of the
+   critical chain (D01 → A01 → A02 → A04), so this is a genuine inverted module edge, not a
+   cosmetic namespace mismatch.
+2. **Neither file actually depends on A04.**  `grep -n 'Section4.A04' LaplacianPairing.lean
+   RealPairing.lean` returns only the `import` lines and two docstring mentions — no `Section4.A04`
+   declaration is used; `LaplacianPairing`'s sole import (`A04.LaplacianDatum`) is pure transport
+   of the Paper3/Source closure.  So the MAINT move is clean: re-point the two imports at the real
+   `Paper3/`/`Source/` modules and the bodies relocate with no mathematical change.
+3. **No name collisions.**  All 21 `NSFormalization.Paper3` declarations introduced in these two
+   A04 files were checked against every other `def`/`theorem`/`lemma`/`abbrev` in
+   `formalization/NSFormalization`: zero duplicates; nothing under `Paper3/`/`Source/` imports
+   `Section4.*`, so the target layer stays acyclic.  **Recommended MAINT scope:** move the two
+   bodies to `Paper3/` (near `AngularFourierDilation` / `SobolevDirectionalDerivative`), re-point
+   `D01/LerayLowering.lean`, `A04/LaplacianAssembly.lean`, `A04/NonlinearPairing.lean`, and re-run
+   `axioms_sl3_pairing.lean` / `axioms_sl3_real.lean` (they cite these names unqualified — the
+   namespace is unchanged, so they keep working).
+
+None of these are moved here (namespace/file changes are out of scope for a simplifier lane).
+
+## Commands run (all `lake` from `WT/verification`, one at a time; env sourced first)
+
+| command | result |
+|---|---|
+| `lake build …A04.{LaplacianDatum,LaplacianPairing,RealPairing,LaplacianAssembly,NonlinearColumns,NonlinearPairing}` (pre- and post-edit) | `Build completed successfully (9897 jobs)` both times |
+| `lake env lean` on each of the four modules (post-edit) | each silent, exit 0 (0 output lines) |
+| `lake env lean ../research/A04/axioms_sl3.lean` | 21 decls, all `[propext, Classical.choice, Quot.sound]` |
+| `lake env lean ../research/A04/axioms_sl3_pairing.lean` | 10 decls, all standard |
+| `lake env lean ../research/A04/axioms_sl3_real.lean` | 11 decls, all standard |
+| `lake env lean ../research/A04/axioms_sl3_assembly.lean` | 20 decls, all standard |
+| `lake env lean ../research/A04/negative_simp_sl3.lean` (must-compile) | exit 0; output is only the six `#print axioms` lines, all `[propext, Classical.choice, Quot.sound]` |
+| `lake env lean ../research/A04/negative_simp_sl3_fail.lean` (must-fail) | exit 1; one error per block: N1–N4 `Unknown identifier` at `:57/:66/:78/:84`, N5–N7 `Type mismatch` at `:92/:99/:105`, controls C1/C2 at `:113/:118` (`simp made no progress`; `aesop failed`) |
+| `git diff` (four modules) | every changed line is an `open`/`open scoped` line; no signature/proof line changed |
+| `make check` | exit 0 (plan, contracts, contract policy 13/13, work queue: "30 work items … consistent") |
+| `make test` (`lake -d verification test`, from repo root) | exit 0; all 19 registered `Tests.*` contracts (incl. `Tests.EnergyAbsorptionPartial`) report "checked; standard logical axioms only"; 0 `error:` lines |
