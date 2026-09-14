@@ -524,3 +524,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,MAINT,155-SIMP-d01-c01-dedup,opus,reviewer,ACCEPT-WITH-NOTES (signature diff changed=0 over 7 modules; closure 109→89 confirmed; N1 dangling docstrings in L2Descent; N2 counts): REVIEW_SIMP_155.md + probe,accepted,
 2026-09-14,MAINT,155-SIMP-d01-c01-dedup,lead,merge,notes applied; PR #158 chain launched,merging,158
 2026-09-14,MAINT,155-SIMP-d01-c01-dedup,lead,merge,PR #158 merged; gates wave114 OK over 126 modules; 26 contracts,merged,158
+2026-09-14,A01,157-A01-slice-wiring,opus,reviewer,ACCEPT-WITH-NOTES (reduction verified in Lean via rev157_constructor_loop; S<T necessary; N1 cite localTheory_on_prescribed_horizon; N2 hinv supply-side; N3 cost L multi-lane): REVIEW_SLICE_WIRING.md + 7 probes,accepted,
+2026-09-14,A01,157-A01-slice-wiring,lead,merge,notes applied; PR #159 chain launched,merging,159
