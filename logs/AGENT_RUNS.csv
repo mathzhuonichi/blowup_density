@@ -444,3 +444,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,146-C01-jet-paths,prover,worker,launched (E4 route (a) S half: force/Laplacian/advection/residual SmoothL2Field paths with jetLp continuity),running,
 2026-09-14,D01,145-D01-quantitative-constructor,prover,worker,DONE all 3: c0=1 order-0 bound; raising bound 4; ‖A‖² ≤ 16^m·M (m=2: 256); HasWeakDerivsL2Bound; 15 decls standard axioms; committed f7e18fd,done,
 2026-09-14,D01,145-D01-quantitative-constructor,opus,reviewer,launched (concurrency 2 with 146 worker),running,
+2026-09-14,C01,146-C01-jet-paths,prover,worker,DONE all 4: forcePath/laplacianPath/viscousPath/advectionPath/residualPath with jetLp continuity; ∂ₜu = residual − ∇p; 18 decls standard axioms; zeroSol non-vacuity; committed 6ab29f3,done,
+2026-09-14,C01,146-C01-jet-paths,opus,reviewer,launched (concurrency 2 with 145 review),running,
