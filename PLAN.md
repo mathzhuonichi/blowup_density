@@ -233,6 +233,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 127-MAINT-hotfix-pressuredrop-import | 已合并 | 09-14 0049Z | #125 | — | 热修：#124（121）在 #123（搬 RealPairing 到 D01）之后合入，`A04/PressureDrop.lean` 仍 `import …A04.RealPairing`，integration 门禁红（wave80 exit=2）；改一行 import 为 `D01.RealPairing`（lead 手改，一行） |
 | 128-A04-energy-identity-high | PR 已开 | 09-14 0115Z | #127 | — | **A04 eq:Rhigh 组装**（S，121 审稿探针已编译）：`Section4/A04/EnergyIdentityHigh.lean`，`def Chigh m := A03.outerTameConst m` + `Chigh_pos`，`energyIdentityHigh` 逐字取 `research/A04/Spec.lean:424-434` 的 ∀ 前缀形；顺手修 121 两个 probe 的旧 import |
 | 129-SIMP-D01-orderzero | 进行中 | 09-14 0105Z | — | — | D01 P2 链五个模块（OrderZeroSymbol 094, OrderZeroCurl 108, OrderZeroAlgebra 111, MomentumSlice 111, PressureJets 117）的 simplifier+tester（陈述逐字不变；真负例/反例；重跑 axioms_order_zero*/sl8*；MAINT 清单：108 四处重复、111 死代码 `lerayComplement_orderZeroDatum_add/_sub`、与 121 的横向论证重复） |
+| 130-SPEC-A04-rhigh-blind | 进行中 | 09-14 0115Z | — | — | 硬规矩 2：eq:Rhigh 的盲写双稿（两个只读论文 + 合同词汇、互不可见的 agent 各写一版 `research/A04/blind/rhigh_{A,B}.lean`），再由 comparer 与 128 的 `energyIdentityHigh` 三方比对，差异写进 `research/A04/BLIND_RHIGH.md`；A04 合同冻结前必做 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
