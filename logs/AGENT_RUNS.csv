@@ -452,3 +452,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,146-C01-jet-paths,opus,reviewer,ACCEPT-WITH-NOTES (N1 dedupe vs Source/PhysicalBesselSobolev → SIMP; N2 E4b record corrected; N3 closed-window shift for E4b; N4 typo): REVIEW_JET_PATHS.md + 1 probe,accepted,
 2026-09-14,C01,146-C01-jet-paths,lead,merge,record notes applied; PR #148 merged; gates wave104 OK over 118 modules,merged,148
 2026-09-14,C01,148-C01-e4b-pressure-jets,prover,worker,launched on integration 41eda3e (E4b: glue eLpNorm(∂^α) ≤ ‖jetLp‖; jets ⇒ datum path continuity; Leray + pin; ∇p and ∂ₜu jets continuous on Icc c S),running,
+2026-09-14,A01,147-A01-a3-l1k-glue,prover,worker,DONE: quantitative Euler twin c=1; sobolevNormAt 2 ≤ 16‖u‖ (q≥4); kbnd_of_sup_bound Kbnd=256R²T₀ token-identical to hkbnd; plug-in probe into highOrder_bddAbove_of_kbnd typechecks; 8 decls standard; committed daf14ca,done,
+2026-09-14,A01,147-A01-a3-l1k-glue,opus,reviewer,launched (concurrency 2 with 148 worker),running,
