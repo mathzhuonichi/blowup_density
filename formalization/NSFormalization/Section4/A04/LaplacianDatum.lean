@@ -67,14 +67,13 @@ proved as `≤` suffices.
 
 noncomputable section
 
-open Set MeasureTheory NavierStokes.ProblemStatement
-open scoped ENNReal
+open NavierStokes.ProblemStatement
 
 namespace NSFormalization.Section4.A04
 
 open NSFormalization.Section4.A02 (SpaceTimeField)
 open NSFormalization.Section4.D01 (sobolevENorm IsSobolevDatum isSobolevDatum_partialDeriv)
-open NSFormalization.Section4.A03 (gradientSobolevENorm columnsSobolevENorm partialDeriv)
+open NSFormalization.Section4.A03 (gradientSobolevENorm partialDeriv)
 open NSFormalization.Paper3 (RealVectorSobolev angularDirectionalDerivativeReal)
 open EulerLpTranslation (SmoothL2Field)
 
