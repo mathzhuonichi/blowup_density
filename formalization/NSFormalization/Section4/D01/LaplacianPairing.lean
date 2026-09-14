@@ -1,4 +1,4 @@
-import NSFormalization.Section4.A04.LaplacianDatum
+import NSFormalization.Section4.D01.DerivativeDatum
 
 /-!
 # A04 unit G1, sub-lemma SL3, step 1: skew-adjointness of the directional-derivative operator
