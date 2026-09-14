@@ -61,19 +61,23 @@ carrying every order.  Top to bottom:
 | **A3-S2′** | fixed-driver coupling | `higherOrder_bddAbove_fixedDriverSq`: `k := (y m_drive)²`, `m_drive` **independent of** `m₀` (paper: `m_drive=2`, `k=‖u‖²_{H²}`, eq:criterion `02-prelim:111`) | **S** | A3-S2 | **DONE this lane**. (`higherOrder_bddAbove_lowestOrderSq` also kept, but its `k=(y m₀)²` is the WRONG driver — F6 — a docstring caveat says so) |
 | **A2** | eq:Rhigh propagation | consume `A04.energyIdentityHigh`; **do not reprove** | M (=A04 G1) | `A04.inner_energy_Rhigh` (`HighEnergy.lean:136`) | **blocked on A04 `hpr`** (D01 L9(c)/P2); lane 121 concurrent |
 | **A3-M1** | Young reduction | `C·u₂·uₘ·g ≤ ν·g² + (C²/4ν)·u₂²·uₘ²` ⟹ `E' ≤ 2(K·E+b·√E)` | **S** | — | **DONE in A04 = G2 (lane 135)**: `A04.young_high_real` / `A04.young_absorption_high` (`HighContinuation.lean:91,111`), and it *fixes* `Cgron m ν = (Chigh m)²/(4ν)` (`:73`, `Cgron_pos` `:77`). No longer an A01 row — A01 consumes |
-| **A3-M2** | derivative → integral step | A3-M1 + ζ↓0 ⟹ the `hstep` A3-S1 consumes | **S glue** | `A04.highContinuationIntegral` (lane 138, `HighContinuationIntegral.lean:85`) | **gate lifted once 138 merges**: `highContinuationIntegral` at `t₀:=0` **is** `gronwall_bddAbove_Ico`'s `hstep` verbatim — `y t ≤ y 0 + ∫₀ᵗ(Cgron·k·y+b)` with `y=sobolevNormAt m u`, `k=sobolevNormAt 2 u ^2`, `b=sobolevNormAt m f`; same parse, no adapter |
+| **A3-M2** | derivative → integral step, glued into Grönwall | A3-M1 + ζ↓0 ⟹ the `hstep` A3-S1 consumes; then instantiate `gronwall_bddAbove_Ico`/`higherOrder_bddAbove_fixedDriverSq` on a `ClassicalSolutionR` | **S glue** | `A04.highContinuationIntegral` (lane 138, `HighContinuationIntegral.lean:85`) | **DONE (lane 142)**, module `Section4/A01/GronwallInstance.lean`: `highOrder_bddAbove_of_kbnd` (one order, explicit bound `(‖u(0)‖_{H^m}+‖f‖_{L¹_tH^m})·exp(Cgron m ν·Kbnd)`) and `highOrder_bddAbove_all_orders_of_kbnd` (all orders `m≥3`, one `T₀`, one `Kbnd`, via fixed order-2 driver). `hstep ← highContinuationIntegral` at `t₀:=0` **verbatim** (integrands agree up to β + left-assoc of `*`, **no** `integral_congr`/`ring_nf` — confirms the "same parse, no adapter" prediction); forcing data ← `forceCap_L1`; the single remaining hypothesis is the order-2 cap `hkbnd` (row A3-L1·k). Non-vacuity on `zeroSol` with `Kbnd:=0` (`research/A01/axioms_a3_m2.lean`, 4 decls, 3-axiom); records `research/A01/ATTEMPTS_A3_M2.md` |
 | **A2b-a′** ★ | forced global mild from a-priori bound | `forced_global_mild_of_bound` (see §3): a uniform `‖u‖≤R` on all windows ⟹ the forced `quadraticDuhamel` solution exists on **all** `[0,S]`; **one-line proof term** | **S** | `EulerBoundedMildContinuation.exists_global_mild_of_bound` (`BoundedMildContinuation.lean:39`), `ForcedCylinderLocal.coefficients` (`ForcedCylinderLocal.lean:52`) — both `#check`ed, probe compiles | **DONE (lane 126)**, module `Section4/A01/Continuation.lean` (`forced_global_mild_of_bound`) |
 | **A2b-a** = reviewer §3 **A2b-b** | full `exists_local`-shaped continuation | A2b-a′ **+** restore the div-free and angle-invariance clauses across the glue **+** `ordinaryValue` descent to `U : C(Icc 0 S, EulerMeanSolenoidal.L2)` | **M** (was L) | `EulerCorrectionContinuation.correction_mild_divergenceFree` (`CorrectionContinuation.lean:17`), `ForcedCylinderInvariant.exists_local_forced_mild_invariant` (`ForcedCylinderInvariant.lean:30`), `OrdinaryCylinderDescent.{ordinaryValue,ordinaryValue_lift}` (`:56`,`:60`) | **DONE (lane 134)**, module `Section4/A01/ContinuationInvariant.lean`: `restart_window_invariance` (per-window, reviewer probe promoted, `maxHeartbeats 600000`), `exists_uniform_restart_time_invariant`, `gluePath_invariant`, `forced_global_mild_of_bound_invariant` (forked induction), `forced_global_of_bound_unconditional` (= `forced_global_of_bound'`, `hinv` discharged). No global uniqueness; not blocked on C1c; HeliCorgi/`FormalPatched` not needed |
 | **A2b-c** (was A2b-b) | cross-order agreement | order-`(q+1)`/`(q′+1)` solutions coincide where both exist | S–M | `A02.uniqueness` (registered; not re-`#check`ed) | open once both orders share a carrier. **Renamed A2b-b→A2b-c** so "A2b-b" matches the reviewer's §3 name for the invariance lane (A2b-a above, done lane 134) |
 | **A3-Tm** | order-`m` solution exists on `T₀` | for the shared `T₀`, every order `m` has a solution on `Ico 0 T₀` (so `higherOrder_bddAbove`'s `∀ m` hypothesis can even be stated); `exists_local`'s `T` depends on `q` — no cross-order handle | M | A2b-a′ (bounded ⟹ extends to prescribed `S` at each fixed `q`) | **gap**; `appendix-a:66-67` ("same local interval for every order"); F8. The Grönwall bound is the *tool*, not this statement |
 | **A3-L1** | uniform integral caps | `∃ Kbnd, ∀ t∈Ico 0 T₀, ∫₀ᵗ‖u‖²_{H²}≤Kbnd` and `∃ Bbnd, ∀ t, ∫₀ᵗ‖f‖_{H^m}≤Bbnd` | see split rows below | — | see split rows |
-| A3-L1·k | order-2 norm comparison | `sobolevNormAt 2 (⇑(U t)) ≤ c · ‖u t‖_{SobolevSpace 1 (q+1)}`, `c` `t`-free, turning `‖u‖≤‖u₀‖+1` into `Kbnd := c²·(‖u₀‖+1)²·T₀` | **M** | `A04.sobolevNormAt` (`Forcing.lean:74`), `A04.intervalIntegrable_highContinuationIntegrand` (`Continuity.lean:132`) | **still M, still blocked — gate only half-lifted.** C1b-m-D is now **closed on the D01 side** (`D01.exists_isSobolevDatum_of_memLp_derivs`, `FiniteOrderConstructor.lean:269`, lane 132/#137). Residual blocker = **row `D-euler-pairing`**: the Euler side must give `HasWeakDerivsL2 (⇑(U t)) 2` (`MemLp 2` + order-≤2 Schwartz-pairing IBP). Until it lands the cap is **vacuous** (`sobolevENorm=⊤⇒sobolevNormAt=0`). `orderZeroDatumCLM` (`DatumPathContinuity.lean:103`) does **not** generalize — raising by `(1+‖ξ‖²)^{1/2}` is unbounded on `L²`, so `c` at order 2 must be a hand-made Plancherel-with-constants bound, not a CLM norm. Last blocker on the A3 chain |
+| A3-L1·k | order-2 norm comparison | `sobolevNormAt 2 (⇑(U t)) ≤ c · ‖u t‖_{SobolevSpace 1 (q+1)}`, `c` `t`-free, turning `‖u‖≤‖u₀‖+1` into `Kbnd := c²·(‖u₀‖+1)²·T₀` | **M** | `A04.sobolevNormAt` (`Forcing.lean:74`), `A04.intervalIntegrable_highContinuationIntegrand` (`Continuity.lean:132`) | **still M, still blocked — gate only half-lifted.** C1b-m-D is now **closed on the D01 side** (`D01.exists_isSobolevDatum_of_memLp_derivs`, `FiniteOrderConstructor.lean:269`, lane 132/#137). Residual blocker = **row `D-euler-pairing`**: the Euler side must give `HasWeakDerivsL2 (⇑(U t)) 2` (`MemLp 2` + order-≤2 Schwartz-pairing IBP). Until it lands the cap is **vacuous** (`sobolevENorm=⊤⇒sobolevNormAt=0`). `orderZeroDatumCLM` (`DatumPathContinuity.lean:103`) does **not** generalize — raising by `(1+‖ξ‖²)^{1/2}` is unbounded on `L²`, so `c` at order 2 must be a hand-made Plancherel-with-constants bound, not a CLM norm. Last blocker on the A3 chain. **Consumer's exact expected shape (lane 142):** the Grönwall instantiation `GronwallInstance.highOrder_bddAbove_of_kbnd` takes A3-L1·k as the single explicit hypothesis `hkbnd : ∀ t ∈ Ico (0:ℝ) T₀, (∫ s in (0:ℝ)..t, sobolevNormAt 2 w.velocity s ^ 2) ≤ Kbnd` (literal order `2:ℝ`, `w.velocity` the classical solution's velocity). A3-L1·k must produce a real `Kbnd` making this hold; the norm comparison + `‖u‖≤‖u₀‖+1` gives `Kbnd := c²·(‖u₀‖+1)²·T₀` |
 | A3-L1·f | force cap `Bbnd` | `∫₀ᵗ‖f‖_{H^m} ≤ ‖f‖_{L¹_tH^m}` | **S** | `A04.forceSobolevENormL1` (`Forcing.lean:105`), `A04.continuousOn_sobolevNormAt_force` (`Continuity.lean:115`) | **DONE (lane 137)**, module `Section4/A01/ForceCap.lean`: `forceCap` (route-robust cap `∫₀^{T₀}`, feeds Grönwall), `intervalIntegral_le_forceSobolevENormL1` (the row's literal inequality, conditional on `≠⊤`) + `_of_memForceR` (finiteness free via `A04.memL1Hm_of_memForceR`), `forceCap_L1` (bundle with `Bbnd:=‖f‖_{L¹_tH^m}.toReal`), `sobolevNormAt_nonneg`, and an `example` plugging into `gronwall_bddAbove_Ico`. `hfin` in the conditional lemma is **derivable from `hf`** (`memL1Hm_of_memForceR`, review Finding 2), kept only to make the argument visible; the `⊤↦0`-false remark applies to a version that also drops `hf` (counterexample = nonzero *time-independent* `g ∉ F_R`). Non-vacuity now includes the reviewer's **nonzero** bump witness (`research/A01/probes/memForceR_bump_witness.lean`, first nonzero closed `F_R` term). `research/A01/ATTEMPTS_A3_FORCE.md`, axioms `research/A01/axioms_a3_force.lean` (13 decls, 3-axiom) |
 | **A3-L2** | choose `T₀`, define `horizon` | with the a-priori bound, `exists_global_mild_of_bound` hands the *whole* prescribed `[0,S]`, so `horizon := S`; no choice over `exists_local`'s `∃ T` | S | A2b-a′ | **DONE (lane 139)**, module `Section4/A01/Horizon.lean`: `HasAprioriBound` (named `hbound`), `horizonOf` (`:= S`) + `horizonOf_eq`, `localTheory_on_prescribed_horizon` (= `forced_global_of_bound_unconditional`, `hbound` named, `T` fixed to `S`, no `∃ T`), `exists_local_shape_of_aprioriBound` (the `∃ T` shape with witness `T := S`, bound `‖u‖ ≤ R`). Supplying `HasAprioriBound` remains A3's job (A3-M2 + A3-L1·k). `research/A01/axioms_a3_l2.lean`: 5 decls, standard 3 axioms |
 | **H1** | `horizon_lower_bound` | `∀ ν>0, ∀ K≠⊤, ∃ δ>0, ∀ a f, a∈X_R→f∈F_R→‖a‖_{H¹}≤K→‖f‖_{L¹H¹}≤K→ δ≤horizon ν a f` (quantifier order: `δ` before `(a,f)` — A02 `restart`'s "whole point") | M | **lead:** `EulerUniformHeatLocal.exists_uniform_restart_time` (`UniformHeatLocal.lean:29`) — `δ` depends only on `R` and the `Coefficients`, uniform over restart points | **gap**; `appendix-a:148-152`. The tree lead uses order-`q+1` cylinder `‖u₀‖≤R`, not `‖a‖_{H¹}` — a **candidate, not literally H1** |
 | **T1** | `C^j_tH^k_x` all `j,k` | `∂ₜu = νΔu + P(f−∇·(u⊗u)) ∈ C_tH^k`, induct; one-sided at 0 | M | A3 (all-order `T₀`), E1 (`ConvectionDivergence.lean`, DONE) | **gap**; `appendix-a:71-76` |
 
-**Proved in Lean now:** A3-S1, A3-S2, A3-S2′ (lane 122; four theorems).  **A3-L1·f DONE
+**Proved in Lean now:** A3-S1, A3-S2, A3-S2′ (lane 122; four theorems).  **A3-M2 DONE
+(lane 142)** in `Section4/A01/GronwallInstance.lean` (`highOrder_bddAbove_of_kbnd`,
+`highOrder_bddAbove_all_orders_of_kbnd`): the Grönwall skeleton instantiated slot-by-slot on a
+`ClassicalSolutionR` (`hstep ← highContinuationIntegral` at `t₀:=0`, no adapter), leaving the
+order-2 cap `hkbnd` (A3-L1·k) as the single hole.  **A3-L1·f DONE
 (lane 137)** in `Section4/A01/ForceCap.lean` (the forcing cap `Bbnd`, both the route-robust and
 the manuscript-literal L¹ forms).  A2b-a′
 **DONE (lane 126)** in `Section4/A01/Continuation.lean`; A2b-a (= reviewer §3 A2b-b,
@@ -206,24 +210,24 @@ produces an **upper bound on the norms given a horizon**, never a **lower bound
 
 ## 3.5 The `gronwall_bddAbove_Ico` instantiation lane (recommended next A01 lane, S)
 
-New module `Section4/A01/Horizon.lean` instantiating `gronwall_bddAbove_Ico` on a
-`ClassicalSolutionR`.  After lanes 137 + 138 its hypothesis list is discharged slot-by-slot
-(review §5), leaving **one** hole:
+**DONE (lane 142)** as module `Section4/A01/GronwallInstance.lean` (the brief renamed the
+planned `Horizon.lean`).  Its hypothesis list is discharged slot-by-slot, leaving **one** hole:
 
 | Grönwall slot | supplied by | status |
 |---|---|---|
-| `hCgron : 0 ≤ Cgron` | `A04.Cgron_pos m ν hν |>.le` (135) | ready |
-| `hy0 : 0 ≤ y 0` | `A01.sobolevNormAt_nonneg` (**137**) | ready |
-| `hy`, `hk` continuity | `A04.continuousOn_sobolevNormAt_velocity` (`Continuity.lean:105`) | ready |
-| `hknn` | `sq_nonneg` | ready |
-| `hb`, `hbnn`, `hbbnd` | `A01.forceCap` (**137**) | ready |
-| `hstep` | `A04.highContinuationIntegral` at `t₀=0` (138) | ready once 138 merges |
-| `hkbnd : ∫₀ᵗ‖u‖²_{H²} ≤ Kbnd` | **A3-L1·k** | **the only hole** (`Kbnd`) |
+| `hCgron : 0 ≤ Cgron` | `A04.Cgron_pos m ν hν |>.le` (135) | **used** |
+| `hy0 : 0 ≤ y 0` | `A01.sobolevNormAt_nonneg` (**137**) | **used** |
+| `hy`, `hk` continuity | `A04.continuousOn_sobolevNormAt_velocity` (`Continuity.lean:105`), `.pow 2` for `k` | **used** |
+| `hknn` | `sq_nonneg` | **used** |
+| `hb`, `hbnn`, `hbbnd` | `A01.forceCap_L1` (**137**), `Bbnd := (forceSobolevENormL1 m f).toReal` | **used** |
+| `hstep` | `A04.highContinuationIntegral` at `t₀=0` (138) | **used verbatim, no adapter** |
+| `hkbnd : ∫₀ᵗ‖u‖²_{H²} ≤ Kbnd` | **A3-L1·k** | **the only hole** (`Kbnd`) — remains |
 
-So after 138 merges, **`Kbnd` (row A3-L1·k) is the single missing input** to the per-order
-uniform bound.  Suggested order (review §5): **A3-L2** (S, ready) → this instantiation lane (S,
-ready modulo `Kbnd`) → **`D-euler-pairing`** (the Euler-side order-≤2 Schwartz pairing, M — it
-unblocks A3-L1·k and hence the whole A3 chain) → **A3-L1·k**.
+Exports: `highOrder_bddAbove_of_kbnd` (one order) and `highOrder_bddAbove_all_orders_of_kbnd`
+(all `m≥3`, one `T₀`/`Kbnd`).  **`Kbnd` (row A3-L1·k) is the single missing input** to the
+per-order uniform bound; its consumer's exact expected shape is the `hkbnd` signature recorded
+in the §1 A3-L1·k row.  Remaining order (review §5): **`D-euler-pairing`** (the Euler-side
+order-≤2 Schwartz pairing, M — it unblocks A3-L1·k and hence the whole A3 chain) → **A3-L1·k**.
 
 ---
 
@@ -245,3 +249,5 @@ unblocks A3-L1·k and hence the whole A3 chain) → **A3-L1·k**.
   `gronwall_bddAbove_Ico` instantiation lane §3.5 (S, ready modulo `Kbnd`) → **`D-euler-pairing`**
   (M, unblocks A3-L1·k) → **A3-L1·k** (M).  A3-L1·k is still blocked (C1b-m-D closed D01-side by
   132, but `D-euler-pairing` remains).
+
+> Note (142 review): for `T₀ < T` a `Kbnd` always exists (continuity ⇒ compact-interval bound); row A3-L1·k's real content is the endpoint `T₀ = T` (eq:criterion). Rows still to add before `HasAprioriBound` can be built: converse norm comparison (cylinder ≤ R³), `Ico → Icc` widening, mild ⇒ energy bridge.
