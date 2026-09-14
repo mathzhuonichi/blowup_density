@@ -155,7 +155,7 @@ insist for the `cν`-ball scaling of Theorem 4.1(ii) and Corollary 4.5.  The
 proof's two internal constants `C₀` (`:98`) and `C₁` (`:110`) are **not**
 exposed: they belong to the shrinkings `c < 1/(4C₀)` (`:104`) and `C₁y ≤ ν/4`
 (`:112`), both of which are `ν`-free because `y ≤ cν`, so one `c` suffices and
-the contract offers only `c`.  `C₁` is owned by `research/C01/Spec.lean:266` and
+the contract offers only `c`.  `C₁` is owned by `research/C01/Spec.lean:260` and
 the embedding constant by `research/A05/Spec.lean:201`.
 
 Every field is either data or a fully spelled-out manuscript statement; no field
