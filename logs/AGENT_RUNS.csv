@@ -436,3 +436,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,D01,145-D01-quantitative-constructor,prover,worker,relaunched after 10-min back-off (reusing probe145_names.lean),running,
 2026-09-14,D01,145-D01-quantitative-constructor,prover,worker,FAILED again at start: router 429 still in window; 30-min back-off,queued,
 2026-09-14,D01,145-D01-quantitative-constructor,prover,worker,relaunched (3rd start) after 30-min back-off; survived first reads,running,
+2026-09-14,MAINT,144-MAINT-zero-solution,opus,reviewer,launched after 145 survived 3 min; concurrency 2,running,
