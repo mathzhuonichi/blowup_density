@@ -432,3 +432,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,143-C01-e3-e4-momentum,prover,worker,DONE: MomentumCarrierB.lean 12 decls — Ep packaging (∇p via P2; velocity/∂ₜu/force slices, .field rfl), hp/hgrad/hdiv, E3 momentum_split_toLp, energyIdentity_classical given hd; E4 (HasDerivAt of ‖u(s)‖²) BLOCKED: wordEnergy_hasDerivWithinAt needs jet-continuity in time of ∂ₜu ⇒ of ∇p — P2 is per-time only (new unit: time-regular P2); standard axioms in 28 min / 68 tool uses,review,opus reviewer launched
 2026-09-14,MAINT,144-MAINT-zero-solution,opus,reviewer,FAILED at start: router 429 rate limit (not our quota); review re-queued,queued,
 2026-09-14,D01,145-D01-quantitative-constructor,prover,worker,FAILED mid-probe: router 429 rate limit; relaunched from the worktree state,relaunch,
+2026-09-14,C01,143-C01-e3-e4-momentum,opus,reviewer,FAILED at start: router 429 rate limit; review re-queued after a 10-min back-off,queued,
