@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- **`ContDiffBump.contDiff` 的阶参数是 `ℕ∞`**：写 `(n := ∞)` 会解析成 `ℕ∞ω` 报错，要写 `(n := (⊤ : ℕ∞))`（137 审稿造非零 `MemForceR` 见证时踩到）。（2026-09-14）
 - **`simpa using h` 会把假设里的 `•` 归一成 `*`，造出假的 unification 失败**：132 记录的「`MemLp.const_smul` 函数/lambda 不匹配」其实裸 `exact` 三种写法都过，只有 `simpa` 那条路失败。先试 `exact`，再考虑 `memLp_congr_ae` 垫片；把 `simpa` 的报错当作「定理不适用」之前先看一眼。（2026-09-14）
 - **合同文件可以 `open` 传递 import 到的命名空间**（如 `open NSFormalization.Paper3 (RealVectorSobolev)`），`check_contracts.py` 只扫 `import` 行；这不违反 import 政策，但 scope/docstring 要写明该名字来自哪里（133）。（2026-09-14）
 - **rebase 与 push/开链必须分两步**：126 的 rebase 在第二个 commit 又冲突，同一条命令里的 `push -f` 与合并链照常跑了（zsh 下 `set -e` 没拦住 `rebase --continue | tail` 的失败），链在半 rebase 的 worktree 上跑出 UNRESOLVED。规则：`rebase --continue` 后先 `git status --short | grep -q '^UU' && exit 1`、`git rev-parse --abbrev-ref HEAD` 必须是分支名，再在下一条命令里 push/开链。（2026-09-14）
