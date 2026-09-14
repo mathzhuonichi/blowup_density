@@ -42,13 +42,14 @@ The chain is: pair the projected momentum equation `∂ₜu = νΔu − (u·∇)
 |---|---|---|---|---|
 | SL0 | D1: `d = 2⟪G t, deriv G t⟫`, `sobolevNormAt = ‖G·‖` | M | **DONE (lane 053, in PR)** | — |
 | SL1 | **D2**: `deriv G t` is the datum of `∂ₜu(t,·)` (+ existence of `∂ₜu`) | S/M | **DONE** (`TimeDerivative.timeDeriv_isSobolevDatum`) | — |
-| SL2 | momentum eq in datum form: `Gt = ν•L − N − P + F` | M | open | SL1(done) + `ClassicalSolutionR.momentum` + datum linearity (`isSobolevDatum_smul`) |
-| SL3 | Laplacian identity: `⟪G t, L⟫ = −(‖∇u‖_{H^m})²` | L | open | datum-side order shift (`SmoothDatum.lean:388` is jet-side) |
-| SL4 | pressure drop: `⟪G t, P⟫ = 0` | L | open | `∇p` datum at order m (D01 **L9(c)**, other lane) |
-| SL5 | nonlinear IBP + Cauchy–Schwarz: `−⟪G t, N⟫ ≤ ‖∇u‖_{H^m}·‖u⊗u‖_{H^m}` | L | open | H^m IBP of `∇·(u⊗u)` on datum carrier |
+| SL2 | momentum eq in datum form: `Gt = ν•L − N − P + F` | M | **DONE** (`momentum_datum`, `A04/MomentumDatum.lean:140`) | — |
+| SL3 | Laplacian identity: `⟪G t, L⟫ = −(‖∇u‖_{H^m})²` | L | **DONE** (`inner_datum_laplacian` / `inner_datum_laplacian_le'`, `A04/LaplacianAssembly.lean:330,354`) | — |
+| SL4 | pressure drop: `⟪G t, P⟫ = 0` | **S** (Leray self-adjoint route) | **DONE** (lane 121, `A04/PressureDrop.lean` `pressure_drop`) | — |
+| SL5 | nonlinear IBP + Cauchy–Schwarz: `−⟪G t, N⟫ ≤ ‖∇u‖_{H^m}·‖u⊗u‖_{H^m}` | L | **DONE** (`inner_advection_bound_slice`, `A04/NonlinearBound.lean:186`; see `SL5_SPLIT.md`) | — |
 | SL6 | outer tame transport: `‖u⊗u‖_{H^m} ≤ Ctame m · ‖u‖_{H²}‖u‖_{H^m}` (reals) | **S** | **DONE** (`outerNormAt_le`) | — |
 | SL7 | force CS + norm identifications: `⟪G,F⟫ ≤ ‖G‖‖F‖`, `‖G t‖=sobolevNormAt`, `‖F‖=sobolevNormAt f` | **S** | generic CS **DONE** (in SL8); carrier identifications need lane 053 | lane 053 instance for `⟪⟫`↔`sobolevNormAt` |
 | SL8 | assembly to eq:Rhigh's RHS | **S** | **DONE** (`inner_energy_assembly`/`inner_energy_Rhigh`) | — |
+| assembly | `energyIdentityHigh` (Spec.lean:424-434) | **S** | **probe compiled** by the 121 reviewer (`research/A04/probes/energy_identity_high_probe.lean`, std axioms); remaining bookkeeping: `def Chigh m := A03.outerTameConst m` + `Chigh_pos`, the spec's ∀-prefix, contract V1 field + binding + test | — |
 
 `Chigh m := Ctame m = A03.outerTameConst m`; `Chigh_pos` from
 `A03.outerTameConst_pos`. Registered clause used: `A03.outerProductTame`
@@ -143,16 +144,26 @@ add it as N1-style bookkeeping over `A03.gradientSobolevENorm`). The
 identity `⟪a, ∂ᵢb⟫ = −⟪∂ᵢa, b⟫`, reducing it to a pointwise integration by parts
 of continuous representatives once the order-`m` datum of `∂ᵢu` is available.
 
-### SL4 — pressure drop (L; D01 L9(c) gap, worked in another lane)
+### SL4 — pressure drop (**S**, DONE lane 121, `A04/PressureDrop.lean`)
 ```
-theorem pressure_datum {…} (hdiv : div-free u) : ⟪G t, P⟫ = 0
+theorem pressure_drop (u : ClassicalSolutionR ν a f T) (hf : MemForceR f)
+    {m : ℕ} {t : ℝ} (ht : t ∈ Ioo 0 T) {G P : RealVectorSobolev (m:ℝ)}
+    (hG : IsSobolevDatum (m:ℝ) (fun x => u.velocity (t,x)) G)
+    (hP : IsSobolevDatum (m:ℝ) (fun x => pressureGradient u.pressure t x) P) :
+    ⟪G, P⟫ = 0
 ```
-`⟪u, ∇p⟫_{H^m} = −⟪div u, p⟫_{H^m} = 0`. Needs `∇p(t,·)` present in the datum
-carrier at order `m` — the L9(c) obligation currently being closed elsewhere.
-State as a dependency; do not reprove here. Supplies `hpr`. As for SL2/SL3, the
-"pin-the-representative" technique (`representative_ae` +
-`angularRealization_boundedRepresentative`) reduces the datum identity to a
-pointwise one and is the recommended route once `∇p`'s order-`m` datum is in hand.
+Proved by the **cheap operator-algebra route** of `research/D01/REVIEW_SL8_ASSEMBLY.md` §7,
+NOT the pin-the-representative IBP. Three recorded theorems:
+* `lerayComplement_selfAdjoint` — `Leray.lerayComplement s` is self-adjoint on the real datum
+  carrier (restriction of `lerayComplementAmbient`, which is `coordinates∘lerayComplementL2∘assemble`
+  with `lerayComplementL2` fibrewise self-adjoint via `isSelfAdjoint_starProjection`);
+  `inner_lerayComplement_eq_zero_of_eq_zero` is its `(I−P)G=0 ⟹ ⟪G,(I−P)B⟫=0` consequence.
+* `velocity_datum_lerayComplement_eq_zero` — `(I−P)ₘG = 0` for any order-`m` datum `G` of the
+  solenoidal velocity slice (lane-117 bootstrap: order-0 transversality lifted via `lowerVectorL`).
+* `pressure_drop` — pins `P = (I−P)ₘAm` (lane 117 `pin_pressureGradient_datum`), then combines the
+  two. The `hP` slot input (`∇p`'s order-`m` datum, D01 P2) is now unconditional (lane 117).
+Binder shapes match `momentum_datum`'s `hGd`/`hP` and `inner_energy_assembly`'s `hpr`; a fit
+`example` in the module feeds `pressure_drop` into the assembly verbatim.
 
 ### SL5 — nonlinear IBP + Cauchy–Schwarz (L)
 ```
@@ -218,12 +229,13 @@ already in eq:Rhigh's literal displayed shape: instantiate `C = Chigh m`,
 `d` from SL0; then `energyIdentityHigh` packages `⟨d, hderiv, inner_energy_Rhigh …⟩`.
 
 ## Assembly dependency order
-`SL0(done), SL1(done)→SL2, SL3, SL4, SL5+SL6(SL6 done), SL7(partly done) ⟶ SL8(done)`.
-Closed today: **SL1 (D2)**, **SL6**, **SL8**, and the SL7 arithmetic. The
-remaining **frontier** is SL2 (momentum eq in datum form — needs the residual
-equation transported to datums plus `isSobolevDatum_smul`), SL3 (datum-side order
-shift, open), SL4 (D01 **L9(c)** pressure gap, another lane), SL5 (H^m
-integration by parts of `∇·(u⊗u)`), and the SL7 carrier link (lane 053's
-inner-product instance in PR). D2 is **no longer** on that list, and none of the
-remaining items is blocked on an unowned A01 clause; SL2–SL4 should each shorten
-via the "pin-the-representative" technique SL1 uses.
+`SL0(done), SL1(done)→SL2(done), SL3(done), SL4(done, lane 121), SL5(done)+SL6(done), SL7(partly done) ⟶ SL8(done) ⟶ assembly (probe compiled, lane 121 reviewer)`.
+**All SL rows are now DONE in the tree** (as of lane 121): SL0/SL1 (D1/D2), SL2
+(`momentum_datum`), SL3 (`inner_datum_laplacian_le'`), SL4 (`pressure_drop`, this lane),
+SL5 (`inner_advection_bound_slice`), SL6 (`outerNormAt_le`), SL7 (carrier identifications via
+lane 053's instance, on integration), SL8 (`inner_energy_Rhigh`).  With SL4's `hpr` in place the
+**whole eq:Rhigh (`energyIdentityHigh`) assembles** — the 121 reviewer compiled the reconstruction
+first try (`research/A04/probes/energy_identity_high_probe.lean`, standard axioms), so the
+`energyIdentityHigh` lane is **S**.  Remaining is bookkeeping only: `def Chigh m := A03.outerTameConst m`
++ `Chigh_pos`, the spec's exact ∀-prefix (its `a ∈ initialClassR` hypothesis is unused), and the
+contract V1 field + binding + test.

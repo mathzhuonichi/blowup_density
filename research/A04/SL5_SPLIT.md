@@ -72,9 +72,10 @@ datum of the **advection slice** `advection u t = (u·∇)u(t,·)` (`MomentumDat
 **SL5 is CLOSED.**  All nine rows (5a/5b/5c/5d/5e/5f/5g/5h/5i) are DONE.  The `hnl` of
 `A04.inner_energy_assembly` is delivered by `inner_advection_bound_slice`
 (`Section4/A04/NonlinearBound.lean`), matching the assembly's slot exactly (conformance `example`).
-What G1 still lacks to reach `energyIdentityHigh` is **only `hpr`**, the D01 obligation **P2** (the
-pressure datum / Leray-regularity gap) — that is `momentum_datum`'s explicit `hP` hypothesis, not part
-of SL5.
+The `hpr` pressure drop was G1's last missing input; it is now **DONE (lane 121,
+`Section4/A04/PressureDrop.lean` `pressure_drop`)**, by the Leray self-adjointness route
+(`REVIEW_SL8_ASSEMBLY.md` §7), not part of SL5.  The `hP` datum-existence side (D01 **P2**) is
+lane 117's `exists_isSobolevDatum_pressureGradient_slice`.
 
 ## What this lane proves (the S items)
 
@@ -97,7 +98,8 @@ of SL5.
 `inner_advection_bound_slice` is `inner_energy_assembly`'s `hnl` (conformance `example` in
 `research/A04/axioms_sl5c.lean` feeds it into the assembly and derives the full energy inequality).
 
-The remaining G1 gap to `energyIdentityHigh` is **only `hpr`** — the pressure drop `⟪G, ∇p datum⟫ = 0`,
-i.e. `momentum_datum`'s explicit `hP` hypothesis, which is the D01 obligation **P2** (Leray-regularity
-gap).  `hlap` is 088 (`inner_datum_laplacian_le'`), `hnl` is this lane, and `hd`/`hmom`/`hG`/`hF` are
-D1/D2/N1/momentum — none blocked.
+`hpr` (the pressure drop `⟪G, P⟫ = 0`) is **DONE — lane 121, `Section4/A04/PressureDrop.lean`
+`pressure_drop`** (Leray self-adjointness + solenoidality; theorems `lerayComplement_selfAdjoint`,
+`velocity_datum_lerayComplement_eq_zero`, `pressure_drop`, with a fit `example` against
+`inner_energy_assembly`).  `hlap` is 088 (`inner_datum_laplacian_le'`), `hnl` is this lane, and
+`hd`/`hmom`/`hG`/`hF` are D1/D2/N1/momentum — none blocked.
