@@ -448,3 +448,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,146-C01-jet-paths,opus,reviewer,launched (concurrency 2 with 145 review),running,
 2026-09-14,D01,145-D01-quantitative-constructor,opus,reviewer,ACCEPT-WITH-NOTES (F4 line cites; F5 missed audit line; F6 A04 bridge exists; F7 residual = quantitative Euler twin c=1; F2 sharp 4^m and F3 dedupe → SIMP): REVIEW_FINITE_ORDER_NORM.md + 6 probes,accepted,
 2026-09-14,D01,145-D01-quantitative-constructor,lead,merge,record notes applied; PR #147 merged; gates wave103 OK over 117 modules; check_contracts vs main ok,merged,147
+2026-09-14,A01,147-A01-a3-l1k-glue,prover,worker,launched (quantitative Euler twin c=1; sobolevNormAt 2 ≤ 16‖u‖; Kbnd := 256 R² T₀),running,
