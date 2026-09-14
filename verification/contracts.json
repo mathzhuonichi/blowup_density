@@ -123,6 +123,17 @@
       "enabled": true
     },
     {
+      "id": "D01.datum_lemmas_v3",
+      "parent_task": "D01",
+      "version": 3,
+      "specification": "verification/Contracts/V3/DatumLemmas.lean",
+      "binding_module": "Bindings.DatumLemmasV3",
+      "test_module": "Tests.DatumLemmasV3",
+      "declaration": "BlowupDensity.Tests.checkedDatumLemmasV3",
+      "scope": "The D01 datum lemmas of versions 1 and 2 exactly, inherited unchanged through extends, extended by the pressure half of obligation P2 (eq:Rpressure, 02-preliminaries.tex:89-94) proved by lane 117 (Section4/D01/PressureJets.lean). Three new fields, all restricted to the interior slices t in Ioo 0 T: solution_slice_pressureGradient_smoothJets states that for a classical solution u in ClassicalSolutionR with force f in F_R (Data.MemForceR), the pressure-gradient slice grad p(t,.) lies in the jet form of H^infinity (Contracts.V1.SmoothSquareIntegrableJets); solution_slice_temporalDerivative_smoothJets is the corollary that the time-derivative slice d_t u(t,.) lies in the same jet class, via the pointwise d_t u = h - grad p; solution_slice_pressureGradient_exists_datum is the existence form the hP slot of A04.momentum_datum consumes, that grad p(t,.) has an angular Sobolev datum (Data.IsSobolevDatum) at every integer order m. This supersedes, for the gradient only, the version-1/2 scope sentence 'no Sobolev datum or jet class for the pressure or its gradient is asserted': the gradient datum and jet class are now asserted, on Ioo 0 T (the scalar pressure p is untouched, see below). Not asserted: the identity grad p = (I-P)(f - div(u tensor u)) in the manuscript's own spelling (what lane 117 proves at order 0 is the datum identity with the momentum residual f - (u.grad)u + nu*Laplacian u in place of f - div(u tensor u)); the order-m datum identity datum^m grad p = (I-P)_m (datum^m h) is proved and exported upstream (PressureJets.isSobolevDatum_pressureGradient_lerayComplement) but is NOT a field here: the momentum residual f - (u.grad)u + nu*Laplacian u is itself contract vocabulary (Contracts.V1.Packet), so the obstacle is the operator (I-P)_m (D01.Leray.lerayComplement), which has no Contracts/V1 counterpart; the operator-free Helmholtz split datum^m h = datum^m d_t u + datum^m grad p IS statable and provable in pure contract vocabulary (a V4 candidate, research/D01/probes/v4_split_identity.lean) but is not registered in V3; only the consumer-facing consequence, the existence of some order-m datum, is registered here; anything at t = 0 (the interior route consumes ClassicalSolutionR.momentum, imposed only on Ioo 0 T); any statement about the scalar pressure p itself as opposed to its gradient (the manuscript fixes p by a radial potential, an A01 field); the pointwise IsLerayComplement characterization of A01's pressure_recovery (a family of order-zero MemLp statements one level below the datum carrier, neither sufficient nor required by these datum fields); and everything versions 1 and 2 already list as out of scope.",
+      "enabled": true
+    },
+    {
       "id": "A02.uniqueness",
       "parent_task": "A02",
       "version": 1,
