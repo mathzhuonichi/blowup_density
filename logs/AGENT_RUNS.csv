@@ -353,3 +353,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,124-A01-c1b-c8-0,prover,worker,launched: order-0 datum path continuity (C1b-c8-0),running,
 2026-09-14,MAINT,123-MAINT-pairing-home,prover,worker,DONE: moved to Section4/D01/ (not Paper3: bodies use D01.DerivativeDatum's angularDirectionalDerivative etc., proved by positive+negative probes); bodies sha256-identical; 5 importers repointed; closure probe: no D01→A04 edge; full gates OK (96 modules) in 12 min / 32 tool uses,review,opus reviewer launched
 2026-09-14,D01,120-D01-p2-contract-v3,prover,worker-resume,Citation :89-94 fixed (6× contract, bindings, tests, scope, records); scope reason corrected; V4 probe preserved; bridge list completed in 8 min / 19 tool uses,PR,PR #122 opened; merging
+2026-09-14,D01,125-D01-finite-order-datum,prover,worker,launched: finite-order datum constructor split-and-start (C1b-m-D),running,
