@@ -103,3 +103,13 @@ lane 117's `exists_isSobolevDatum_pressureGradient_slice`.
 `velocity_datum_lerayComplement_eq_zero`, `pressure_drop`, with a fit `example` against
 `inner_energy_assembly`).  `hlap` is 088 (`inner_datum_laplacian_le'`), `hnl` is this lane, and
 `hd`/`hmom`/`hG`/`hF` are D1/D2/N1/momentum — none blocked.
+
+## eq:Rhigh assembly — DONE (lane 128)
+
+With every slot in tree (`hd`/`hmom`/`hlap`/`hpr`/`hnl`=this SL5's
+`inner_advection_bound_slice`+`outerNormAt_le`/`hG`/`hF`), the **whole eq:Rhigh assembles**:
+lane 128 landed `Section4/A04/EnergyIdentityHigh.lean` with `Chigh`/`Chigh_pos`,
+`energyIdentityHigh_core` (the 121 reviewer's probe promoted verbatim), and
+`energyIdentityHigh` = the spec field `research/A04/Spec.lean:424-434` token-for-token
+(std axioms; conformance `example` in `research/A04/axioms_energy_identity_high.lean`).
+SL5's `hnl` slot fed into it unchanged.

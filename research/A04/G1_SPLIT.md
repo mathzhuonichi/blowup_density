@@ -49,7 +49,7 @@ The chain is: pair the projected momentum equation `∂ₜu = νΔu − (u·∇)
 | SL6 | outer tame transport: `‖u⊗u‖_{H^m} ≤ Ctame m · ‖u‖_{H²}‖u‖_{H^m}` (reals) | **S** | **DONE** (`outerNormAt_le`) | — |
 | SL7 | force CS + norm identifications: `⟪G,F⟫ ≤ ‖G‖‖F‖`, `‖G t‖=sobolevNormAt`, `‖F‖=sobolevNormAt f` | **S** | generic CS **DONE** (in SL8); carrier identifications need lane 053 | lane 053 instance for `⟪⟫`↔`sobolevNormAt` |
 | SL8 | assembly to eq:Rhigh's RHS | **S** | **DONE** (`inner_energy_assembly`/`inner_energy_Rhigh`) | — |
-| assembly | `energyIdentityHigh` (Spec.lean:424-434) | **S** | **probe compiled** by the 121 reviewer (`research/A04/probes/energy_identity_high_probe.lean`, std axioms); remaining bookkeeping: `def Chigh m := A03.outerTameConst m` + `Chigh_pos`, the spec's ∀-prefix, contract V1 field + binding + test | — |
+| assembly | `energyIdentityHigh` (Spec.lean:424-434) | **S** | **DONE (lane 128, `Section4/A04/EnergyIdentityHigh.lean`)**: `def Chigh m := A03.outerTameConst m` + `Chigh_pos`, `energyIdentityHigh_core` (probe promoted verbatim, credit lane-121 reviewer), and `energyIdentityHigh` = spec field token-for-token (∀-prefix, `a ∈ initialClassR` unused). Std axioms; conformance `example` in `research/A04/axioms_energy_identity_high.lean`. Contract V1 field + binding + test not yet registered | — |
 
 `Chigh m := Ctame m = A03.outerTameConst m`; `Chigh_pos` from
 `A03.outerTameConst_pos`. Registered clause used: `A03.outerProductTame`
@@ -234,8 +234,9 @@ already in eq:Rhigh's literal displayed shape: instantiate `C = Chigh m`,
 (`momentum_datum`), SL3 (`inner_datum_laplacian_le'`), SL4 (`pressure_drop`, this lane),
 SL5 (`inner_advection_bound_slice`), SL6 (`outerNormAt_le`), SL7 (carrier identifications via
 lane 053's instance, on integration), SL8 (`inner_energy_Rhigh`).  With SL4's `hpr` in place the
-**whole eq:Rhigh (`energyIdentityHigh`) assembles** — the 121 reviewer compiled the reconstruction
-first try (`research/A04/probes/energy_identity_high_probe.lean`, standard axioms), so the
-`energyIdentityHigh` lane is **S**.  Remaining is bookkeeping only: `def Chigh m := A03.outerTameConst m`
-+ `Chigh_pos`, the spec's exact ∀-prefix (its `a ∈ initialClassR` hypothesis is unused), and the
-contract V1 field + binding + test.
+**whole eq:Rhigh (`energyIdentityHigh`) assembles**, and lane 128 landed it as
+`Section4/A04/EnergyIdentityHigh.lean`: `Chigh`/`Chigh_pos`, `energyIdentityHigh_core`
+(the 121 reviewer's probe promoted verbatim), and `energyIdentityHigh` = the spec field
+(`Spec.lean:424-434`) token-for-token (std axioms).  Remaining for the contract lane:
+register the A04 V1 field + binding + test (the field statement is contract-ready — it is
+token-identical to the spec).
