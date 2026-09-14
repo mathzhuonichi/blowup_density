@@ -437,3 +437,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,D01,145-D01-quantitative-constructor,prover,worker,FAILED again at start: router 429 still in window; 30-min back-off,queued,
 2026-09-14,D01,145-D01-quantitative-constructor,prover,worker,relaunched (3rd start) after 30-min back-off; survived first reads,running,
 2026-09-14,MAINT,144-MAINT-zero-solution,opus,reviewer,launched after 145 survived 3 min; concurrency 2,running,
+2026-09-14,MAINT,144-MAINT-zero-solution,opus,reviewer,ACCEPT-WITH-NOTES (docstring wording; 5 unused opens; paper anchors; layering note deferred): REVIEW_144.md + 4 probes,accepted,
+2026-09-14,MAINT,144-MAINT-zero-solution,lead,merge,notes applied (docstring/open-level); PR #145 merged; gates wave101 OK over 115 modules; check_contracts vs main ok,merged,145
