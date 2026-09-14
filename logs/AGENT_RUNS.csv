@@ -441,3 +441,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,MAINT,144-MAINT-zero-solution,lead,merge,notes applied (docstring/open-level); PR #145 merged; gates wave101 OK over 115 modules; check_contracts vs main ok,merged,145
 2026-09-14,C01,143-C01-e3-e4-momentum,opus,reviewer,ACCEPT-WITH-NOTES (4 doc notes; value identity unconditional; E4 route (a) re-estimated M–L; route (b) dearer): REVIEW_E3E4.md + 3 probes,accepted,
 2026-09-14,C01,143-C01-e3-e4-momentum,lead,merge,notes applied (doc-level); PR #146 merged; gates wave102 OK; 116 modules,merged,146
+2026-09-14,C01,146-C01-jet-paths,prover,worker,launched (E4 route (a) S half: force/Laplacian/advection/residual SmoothL2Field paths with jetLp continuity),running,
