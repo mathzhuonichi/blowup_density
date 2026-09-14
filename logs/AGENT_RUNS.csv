@@ -507,3 +507,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,156-C01-v3-contract,prover,worker,launched on integration f7cd6db (V3: extends V2 + energyDifferentialBound + l2Bound; registry entry 26),running,
 2026-09-14,C01,156-C01-v3-contract,prover,worker,DONE: V3 registered (extends V2 + energyDifferentialBound + l2Bound token-for-token; l2Bound bridge-free; energyDifferentialBound via V2 gradientSq bridge); 26 contracts; gates OK; committed 0de4416,done,
 2026-09-14,C01,156-C01-v3-contract,opus,reviewer,launched (contract-fidelity review; concurrency 2 with 155 SIMP worker),running,
+2026-09-14,C01,156-C01-v3-contract,opus,reviewer,ACCEPT-WITH-NOTES (byte-identical to Spec; five paper line citations): REVIEW_V3_CONTRACT.md + 3 probes,accepted,
+2026-09-14,C01,156-C01-v3-contract,lead,merge,citation notes applied (contract, registry scope, Spec.lean); gates rerun OK; PR #157 merged; gates wave113 OK over 126 modules; 26 contracts,merged,157
