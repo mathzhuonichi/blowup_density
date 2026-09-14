@@ -504,3 +504,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,154-C01-v3-bounds,opus,reviewer,ACCEPT (statements byte-identical to Spec modulo binders; Icc variant provably false; V3 binding dry run compiles): REVIEW_ENERGY_BOUNDS.md + 7 probes,accepted,
 2026-09-14,C01,154-C01-v3-bounds,lead,merge,PR #156 merged (queued after #155); gates wave112 OK over 126 modules,merged,156
 2026-09-14,MAINT,155-SIMP-d01-c01-dedup,prover,worker,launched on integration 86bf360 (dedup/sharpening backlog from reviews 144/145/146/153),running,
+2026-09-14,C01,156-C01-v3-contract,prover,worker,launched on integration f7cd6db (V3: extends V2 + energyDifferentialBound + l2Bound; registry entry 26),running,
