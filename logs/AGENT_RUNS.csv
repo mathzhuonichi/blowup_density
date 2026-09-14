@@ -362,3 +362,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,MAINT,127-MAINT-hotfix-pressuredrop-import,lead,hotfix,one import line A04.RealPairing→D01.RealPairing after #123/#124 ordering; PressureDrop builds; axioms 10× standard,PR,PR #125 opened; merging
 2026-09-14,A04,128-A04-energy-identity-high,prover,worker,launched: energyIdentityHigh assembly from the 121 reviewer probe,running,
 2026-09-14,A01,122-A01-a3-split,prover,worker-resume,Applied review: continuation probe preserved; fixedDriverSq corollary; table re-attributed (A2b M; A3-L1·k/·f; A3-Tm; H1 lead); hy0 necessity probe; citations in 10 min / 31 tool uses,PR,PR #126 opened; merging
+2026-09-14,SIMP,129-SIMP-D01-orderzero,prover,worker,launched: simplifier+tester over D01/{OrderZeroSymbol,OrderZeroCurl,OrderZeroAlgebra,MomentumSlice,PressureJets},running,
