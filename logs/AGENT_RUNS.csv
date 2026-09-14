@@ -479,3 +479,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,150-C01-e4-assembly,opus,reviewer,FAILED at start: router 429 rate limit (both upstreams in window); review re-queued after back-off,queued,
 2026-09-14,C01,150-C01-e4-assembly,opus,reviewer,relaunched after 15-min back-off (reusing rev150_* probes); 151 follows after a 3-min survival probe,running,
 2026-09-14,A01,151-A01-carrier-words,prover,worker,relaunched after back-off + 3-min survival probe (concurrency 2 with 150 review),running,
+2026-09-14,C01,150-C01-e4-assembly,opus,reviewer,ACCEPT-WITH-NOTES (no math gap; N1 vendor line; N2 record line; N3 eq:RL2 citation → 02-preliminaries:136-139 / 04-whole-space:117; N4 optional l2Sq export): REVIEW_E4.md + 6 probes (relaunched after 429),accepted,
+2026-09-14,C01,150-C01-e4-assembly,lead,merge,notes applied (docstring/record); PR #152 merged; gates wave108 OK over 122 modules,merged,152
