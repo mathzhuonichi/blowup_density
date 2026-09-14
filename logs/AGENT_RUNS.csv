@@ -527,3 +527,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,157-A01-slice-wiring,opus,reviewer,ACCEPT-WITH-NOTES (reduction verified in Lean via rev157_constructor_loop; S<T necessary; N1 cite localTheory_on_prescribed_horizon; N2 hinv supply-side; N3 cost L multi-lane): REVIEW_SLICE_WIRING.md + 7 probes,accepted,
 2026-09-14,A01,157-A01-slice-wiring,lead,merge,notes applied; PR #159 chain launched,merging,159
 2026-09-14,A01,157-A01-slice-wiring,lead,merge,PR #159 merged; gates wave115 OK over 127 modules,merged,159
+2026-09-14,A01,158-A01-b1-constructor-split,prover,worker,launched on integration 1b8c8a4 (CONSTRUCTOR_SPLIT for CarrierConstructor q ν S; first S piece),running,
+2026-09-14,R43,159-R43-split,prover,worker,launched on integration 1b8c8a4 (R43_SPLIT per COMPARISON §4 G1–G8; first S rows: G6/G8/G3/S2 scalar bootstrap),running,
