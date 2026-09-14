@@ -27,7 +27,7 @@ namespace NSFormalization.Section4.C01
 #print axioms advectionPath_jetLp_continuous
 
 -- Laplacian jet-continuity tools and path.
-#print axioms continuous_jetLp_sumField
+#print axioms sumField_jetLp_continuous
 #print axioms laplacianField_jetLp_continuous
 #print axioms laplacianPath
 #print axioms laplacianPath_field

@@ -4,8 +4,9 @@ import NSFormalization.Section4.A01.CarrierWords
 
 `#print axioms` for every declaration of the module must be exactly
 `[propext, Classical.choice, Quot.sound]`.  Non-vacuity: each theorem fires on a cheap concrete
-instance (`u = 0`, `U = 0`, `Z = zeroField`); the **unconditional** assembly `hword_jet_of_descent`
-is exercised end-to-end (through (a) `word_descent_ae_partial` and (b)), so it is not vacuous. -/
+instance (`u = 0`, `U = 0`, `Z = zeroField`).  The order-restricted descent identities and assembly
+(`word_descent_ae`, `word_descent_ae_partial`, `hword_jet_of_descent`) were retired in lane 155
+(subsumed by `L2Descent`); only the shared descent helpers remain here. -/
 
 noncomputable section
 
@@ -31,9 +32,6 @@ local instance : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
 #print axioms descent_step_ae
 #print axioms wordField
 #print axioms wordField_field
-#print axioms word_descent_ae
-#print axioms word_descent_ae_partial
-#print axioms hword_jet_of_descent
 
 /-! ### Non-vacuity -/
 
@@ -53,16 +51,8 @@ example (q n : ℕ) (hn : n ≤ q) (w : Fin n → Fin 4) (hex : ∃ k, w k = 0) 
     word 1 (0 : SobolevSpace 1 q) hn w = 0 :=
   word_eq_zero_of_mem_zero (0 : SobolevSpace 1 q) (fun _ => map_zero _) n hn w hex
 
--- The **unconditional** assembly fires on `u = 0`, `U = 0`, `Z = zeroField`: a real inequality
--- `‖word 1 0 _ w‖ ≤ (eLpNorm (iteratedFDeriv ℝ n 0) 2).toReal` for every `w` with `n + 3 ≤ q + 1`,
--- exercising (a) `word_descent_ae_partial` and (b) end-to-end.
-example (q : ℕ) :
-    ∀ (n : ℕ) (hn : n + 3 ≤ q + 1) (w : Fin n → Fin 4),
-      ‖word 1 (0 : SobolevSpace 1 (q + 1)) (by omega) w‖
-        ≤ (eLpNorm (iteratedFDeriv ℝ n (SmoothL2Field.zeroField : SmoothL2Field Space).field)
-            2 volume).toReal :=
-  hword_jet_of_descent (0 : SobolevSpace 1 (q + 1)) (fun _ => map_zero _)
-    (0 : EulerMeanSolenoidal.L2) (by rw [map_zero]; rfl)
-    SmoothL2Field.zeroField (Lp.coeFn_zero Space 2 volume)
+-- (The order-restricted assembly `hword_jet_of_descent` that used to be exercised here was retired
+-- in lane 155; its full-order successor lives in `L2Descent` and is exercised by
+-- `research/A01/probes/rev153_subsumes.lean`.)
 
 end Axioms151

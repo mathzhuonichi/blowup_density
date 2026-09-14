@@ -238,6 +238,15 @@ def IsSobolevDatum (s : ℝ) (z : Space → Space) (A : RealVectorSobolev s) : P
   ∀ (i : Fin 3) (ψ : SchwartzMap Space ℂ),
     angularRealization s ((A i : FourierData)) ψ = ∫ x : Space, ψ x * ((z x i : ℝ) : ℂ)
 
+/-- **The zero field has the zero datum at every order.**  Lives here, next to `IsSobolevDatum`,
+so that a consumer needing only this three-line fact does not inherit the Leray/pressure stack
+(previously it sat in `A04/PressureDrop`, dragging in ~20 modules — lane 155,
+`research/MAINT/REVIEW_144.md` item 4).  A04 modules keep using the bare name via their existing
+`open NSFormalization.Section4.D01`. -/
+theorem isSobolevDatum_zero (s : ℝ) : IsSobolevDatum s (fun _ : Space => (0 : Space)) 0 := by
+  intro i ψ
+  simp
+
 /-- One component of the cycles-convention real Sobolev datum, at any real order `s`
 below the integer order `m` at which `Source.PhysicalIntegerSobolev` builds it. -/
 def cyclesComponentDatum (m : ℕ) (s : ℝ) (hs : s ≤ (m : ℝ)) (A : SmoothL2Field Space)

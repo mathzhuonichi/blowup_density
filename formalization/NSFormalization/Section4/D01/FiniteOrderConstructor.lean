@@ -151,34 +151,30 @@ substituting the cycles identity `db_cycles_full` they cancel, leaving the angul
 `(ξ j)·(A i) =ᵐ (frequencyUnit / 2πi)·(C j i)`.  Since `C j i` is `L²`, the coordinate multiple is
 `L²`. -/
 
-/-- **Row D-b-transport.**  Given an order-`s` datum `A` of `z` and, for each `j`, an order-`s`
-datum `C j` of the weak `j`-th derivative `w j` of `z` (Schwartz pairing `hw`), every
-coordinate-multiplied component `ξ ↦ (ξ j)·(A i)(ξ)` of `A` is square integrable — the shape
-`raisableWitness_of_memLp_smul` consumes.  The proof carries `db_cycles_full` from the pre-dilation
-cycles variable to the raw angular variable; the Bessel weight and dilation cancel between the two
-sides, and only the dilation Jacobian `frequencyUnit` and the constant `2πi` survive as the
-a.e. identity `(ξ j)·(A i) =ᵐ (frequencyUnit / 2πi)·(C j i)`. -/
-theorem memLp_coord_smul_datum {s : ℝ} {z : Space → Space} {w : Fin 3 → Space → Space}
+/-- **Row D-b-transport, the a.e. identity.**  Carries `db_cycles_full` from the pre-dilation
+cycles variable to the raw *angular* variable: the Bessel weight and dilation cancel between the
+`A i` and `C j i` sides, leaving `(2πi)·(ξⱼ·(A i)) =ᵐ frequencyUnit·(C j i)`.  Exported here (rather
+than kept inline in `memLp_coord_smul_datum`) so that `FiniteOrderNorm.eLpNorm_coord_smul_eq` can
+read the `L²`-norm identity off it without re-deriving the transport. -/
+theorem coord_smul_deriv_ae {s : ℝ} {z : Space → Space} {w : Fin 3 → Space → Space}
     {A : RealVectorSobolev s} (hA : IsSobolevDatum s z A)
     {C : Fin 3 → RealVectorSobolev s} (hC : ∀ j, IsSobolevDatum s (w j) (C j))
     (hw : ∀ (j i : Fin 3) (ψ : SchwartzMap Space ℂ),
       ∫ x, ψ x * ((w j x i : ℝ) : ℂ)
-        = ∫ x, (-∂_{coordinateVector j} ψ) x * ((z x i : ℝ) : ℂ)) :
-    ∀ (i j : Fin 3),
-      MemLp (fun ξ => (ξ j : ℂ) • (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ)
-        2 volume := by
-  intro i j
+        = ∫ x, (-∂_{coordinateVector j} ψ) x * ((z x i : ℝ) : ℂ))
+    (i j : Fin 3) :
+    (fun ξ => (2 * (Real.pi : ℂ) * Complex.I) *
+        ((ξ j : ℂ) • (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ)) =ᵐ[volume]
+      fun ξ => ((frequencyUnit : ℝ) : ℂ) *
+        (((C j i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ := by
   have hc0 : (0 : ℝ) < frequencyUnit := frequencyUnit_pos
   set c := frequencyUnit with hc
   have hdb := db_cycles_full j hA (hC j) (hw j) i
-  set f : FourierData := (cyclesToAngular s).symm ((A i : RealSobolevHilbert s) : FourierData)
-    with hfdef
-  set g : FourierData := (cyclesToAngular s).symm ((C j i : RealSobolevHilbert s) : FourierData)
-    with hgdef
+  set f : FourierData := (cyclesToAngular s).symm ((A i : RealSobolevHilbert s) : FourierData) with hfdef
+  set g : FourierData := (cyclesToAngular s).symm ((C j i : RealSobolevHilbert s) : FourierData) with hgdef
   set κm : ℝ≥0∞ := ENNReal.ofReal (|(c⁻¹ ^ (Module.finrank ℝ Space))⁻¹|) with hκm
   have hMP : MeasurePreserving (fun ξ : Space => c⁻¹ • ξ) volume (κm • volume) :=
     ⟨(continuous_const_smul _).measurable, Measure.map_addHaar_smul volume (inv_ne_zero hc0.ne')⟩
-  -- Identify `A i` and `C j i` with the dilation of their weighted cycles forms.
   have hAeq : angularFrequencyDilation (angularWeightEquiv s f)
       = ((A i : RealSobolevHilbert s) : FourierData) := by
     have h : cyclesToAngular s f = angularFrequencyDilation (angularWeightEquiv s f) := rfl
@@ -202,27 +198,43 @@ theorem memLp_coord_smul_datum {s : ℝ} {z : Space → Space} {w : Fin 3 → Sp
   have hI : ∀ᵐ ξ : Space ∂volume,
       (2 * (Real.pi : ℂ) * Complex.I) * (((c⁻¹ • ξ) j : ℝ) : ℂ) * (f (c⁻¹ • ξ))
         = g (c⁻¹ • ξ) := hMP.quasiMeasurePreserving.ae (Measure.ae_smul_measure hdb κm)
-  -- The angular a.e. identity, division-free: `(2πi)·(ξ j • A i) = c·(C j i)`.
-  have heq : (fun ξ => (2 * (Real.pi : ℂ) * Complex.I) *
-        ((ξ j : ℂ) • (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ)) =ᵐ[volume]
-      fun ξ => ((c : ℝ) : ℂ) * (((C j i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ := by
-    filter_upwards [hcoeA, hcoeC, hwA, hwC, hI] with ξ eA eC ewA ewC eI
-    rw [eA, ewA, eC, ewC]
-    have hcoord : (((c⁻¹ • ξ) j : ℝ) : ℂ) = ((c⁻¹ : ℝ) : ℂ) * ((ξ j : ℝ) : ℂ) := by
-      rw [show ((c⁻¹ • ξ) j : ℝ) = c⁻¹ * ξ j from rfl, Complex.ofReal_mul]
-    rw [hcoord] at eI
-    have hcc : ((c⁻¹ : ℝ) : ℂ) * ((c : ℝ) : ℂ) = 1 := by
-      rw [← Complex.ofReal_mul, inv_mul_cancel₀ hc0.ne', Complex.ofReal_one]
-    simp only [Complex.real_smul, smul_eq_mul]
-    linear_combination
-        (((c : ℝ) : ℂ) * ((c ^ (-3/2 : ℝ) : ℝ) : ℂ) * angularWeightSymbol s (c⁻¹ • ξ)) * eI
-      - ((2 * (Real.pi : ℂ) * Complex.I) * ((ξ j : ℝ) : ℂ) * ((c ^ (-3/2 : ℝ) : ℝ) : ℂ)
-          * angularWeightSymbol s (c⁻¹ • ξ) * (f (c⁻¹ • ξ))) * hcc
+  filter_upwards [hcoeA, hcoeC, hwA, hwC, hI] with ξ eA eC ewA ewC eI
+  rw [eA, ewA, eC, ewC]
+  have hcoord : (((c⁻¹ • ξ) j : ℝ) : ℂ) = ((c⁻¹ : ℝ) : ℂ) * ((ξ j : ℝ) : ℂ) := by
+    rw [show ((c⁻¹ • ξ) j : ℝ) = c⁻¹ * ξ j from rfl, Complex.ofReal_mul]
+  rw [hcoord] at eI
+  have hcc : ((c⁻¹ : ℝ) : ℂ) * ((c : ℝ) : ℂ) = 1 := by
+    rw [← Complex.ofReal_mul, inv_mul_cancel₀ hc0.ne', Complex.ofReal_one]
+  simp only [Complex.real_smul, smul_eq_mul]
+  linear_combination
+      (((c : ℝ) : ℂ) * ((c ^ (-3/2 : ℝ) : ℝ) : ℂ) * angularWeightSymbol s (c⁻¹ • ξ)) * eI
+    - ((2 * (Real.pi : ℂ) * Complex.I) * ((ξ j : ℝ) : ℂ) * ((c ^ (-3/2 : ℝ) : ℝ) : ℂ)
+        * angularWeightSymbol s (c⁻¹ • ξ) * (f (c⁻¹ • ξ))) * hcc
+
+/-- **Row D-b-transport.**  Given an order-`s` datum `A` of `z` and, for each `j`, an order-`s`
+datum `C j` of the weak `j`-th derivative `w j` of `z` (Schwartz pairing `hw`), every
+coordinate-multiplied component `ξ ↦ (ξ j)·(A i)(ξ)` of `A` is square integrable — the shape
+`raisableWitness_of_memLp_smul` consumes.  The proof reads the angular a.e. identity
+`coord_smul_deriv_ae` and divides by the constant `2πi`.  Since `C j i` is `L²`, the coordinate
+multiple is too. -/
+theorem memLp_coord_smul_datum {s : ℝ} {z : Space → Space} {w : Fin 3 → Space → Space}
+    {A : RealVectorSobolev s} (hA : IsSobolevDatum s z A)
+    {C : Fin 3 → RealVectorSobolev s} (hC : ∀ j, IsSobolevDatum s (w j) (C j))
+    (hw : ∀ (j i : Fin 3) (ψ : SchwartzMap Space ℂ),
+      ∫ x, ψ x * ((w j x i : ℝ) : ℂ)
+        = ∫ x, (-∂_{coordinateVector j} ψ) x * ((z x i : ℝ) : ℂ)) :
+    ∀ (i j : Fin 3),
+      MemLp (fun ξ => (ξ j : ℂ) • (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ)
+        2 volume := by
+  intro i j
+  -- The angular a.e. identity, division-free: `(2πi)·(ξ j • A i) =ᵐ frequencyUnit·(C j i)`.
+  have heq := coord_smul_deriv_ae hA hC hw i j
   have h2ne : (2 * (Real.pi : ℂ) * Complex.I) ≠ 0 := by
     simp [Complex.I_ne_zero, Real.pi_ne_zero]
-  have hRmem : MemLp (fun ξ => ((c : ℝ) : ℂ) *
+  have hRmem : MemLp (fun ξ => ((frequencyUnit : ℝ) : ℂ) *
       (((C j i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ) 2 volume := by
-    have h := (Lp.memLp ((C j i : RealSobolevHilbert s) : FourierData)).const_smul ((c : ℝ) : ℂ)
+    have h := (Lp.memLp ((C j i : RealSobolevHilbert s) : FourierData)).const_smul
+      ((frequencyUnit : ℝ) : ℂ)
     refine (memLp_congr_ae ?_).mp h
     filter_upwards with ξ; rw [Pi.smul_apply, smul_eq_mul]
   have hLmem : MemLp (fun ξ => (2 * (Real.pi : ℂ) * Complex.I) *

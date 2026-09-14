@@ -31,8 +31,8 @@ A01's order-2 cap `Kbnd`.
   `A'` satisfies `‖A'‖² ≤ 4·(‖A‖² + ∑ⱼ ‖C j‖²)`.  Two ingredients: the pointwise symbol bound
   `(1+‖ξ‖²)^{1/2} ≤ 1 + ∑ⱼ|ξⱼ|` (`FiniteOrderDatum.norm_raiseIntegrand_le`) controls the raised
   integrand by the datum plus its coordinate multiples; and the a.e. identity
-  `(2πi)·(ξⱼ·(A i)) =ᵐ frequencyUnit·(C j i)` (`coord_smul_deriv_ae`, re-derived from
-  `db_cycles_full`) shows each coordinate multiple `ξⱼ·(A i)` has the *same* `L²` norm as `(C j i)`
+  `(2πi)·(ξⱼ·(A i)) =ᵐ frequencyUnit·(C j i)` (`coord_smul_deriv_ae`, imported from
+  `FiniteOrderConstructor`) shows each coordinate multiple `ξⱼ·(A i)` has the *same* `L²` norm as `(C j i)`
   (`eLpNorm_coord_smul_eq`; `frequencyUnit = 2π = ‖2πi‖`).  A four-term Cauchy–Schwarz gives the
   constant `4`.
 
@@ -140,67 +140,12 @@ theorem norm_orderZeroDatum_le (hz : MemLp z 2 volume) :
 
 /-! ## 2. The raising bound (deliverable 2)
 
-`coord_smul_deriv_ae` re-derives the a.e. Fourier identity `(2πi)·(ξⱼ·(A i)) =ᵐ frequencyUnit·(C j i)`
-from `db_cycles_full` (the transport used inside `memLp_coord_smul_datum`, whose a.e. form is not
-exported); `eLpNorm_coord_smul_eq` reads off that each coordinate multiple `ξⱼ·(A i)` has the same
-`L²` norm as the derivative datum `C j i` (`frequencyUnit = 2π = ‖2πi‖`).  `norm_raiseHilbert_le`
+`FiniteOrderConstructor.coord_smul_deriv_ae` supplies the a.e. Fourier identity
+`(2πi)·(ξⱼ·(A i)) =ᵐ frequencyUnit·(C j i)` (imported; it is the transport `memLp_coord_smul_datum`
+also consumes); `eLpNorm_coord_smul_eq` reads off that each coordinate multiple `ξⱼ·(A i)` has the
+same `L²` norm as the derivative datum `C j i` (`frequencyUnit = 2π = ‖2πi‖`).  `norm_raiseHilbert_le`
 combines this with the symbol bound for the per-component estimate `‖raiseHilbert (A i)‖ ≤
 ‖A i‖ + ∑ⱼ ‖C j i‖`, and `norm_raise_le` assembles the vector bound with a four-term Cauchy–Schwarz. -/
-
-theorem coord_smul_deriv_ae {s : ℝ} {z : Space → Space} {w : Fin 3 → Space → Space}
-    {A : RealVectorSobolev s} (hA : IsSobolevDatum s z A)
-    {C : Fin 3 → RealVectorSobolev s} (hC : ∀ j, IsSobolevDatum s (w j) (C j))
-    (hw : ∀ (j i : Fin 3) (ψ : SchwartzMap Space ℂ),
-      ∫ x, ψ x * ((w j x i : ℝ) : ℂ)
-        = ∫ x, (-∂_{coordinateVector j} ψ) x * ((z x i : ℝ) : ℂ))
-    (i j : Fin 3) :
-    (fun ξ => (2 * (Real.pi : ℂ) * Complex.I) *
-        ((ξ j : ℂ) • (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ)) =ᵐ[volume]
-      fun ξ => ((frequencyUnit : ℝ) : ℂ) *
-        (((C j i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ := by
-  have hc0 : (0 : ℝ) < frequencyUnit := frequencyUnit_pos
-  set c := frequencyUnit with hc
-  have hdb := db_cycles_full j hA (hC j) (hw j) i
-  set f : FourierData := (cyclesToAngular s).symm ((A i : RealSobolevHilbert s) : FourierData) with hfdef
-  set g : FourierData := (cyclesToAngular s).symm ((C j i : RealSobolevHilbert s) : FourierData) with hgdef
-  set κm : ℝ≥0∞ := ENNReal.ofReal (|(c⁻¹ ^ (Module.finrank ℝ Space))⁻¹|) with hκm
-  have hMP : MeasurePreserving (fun ξ : Space => c⁻¹ • ξ) volume (κm • volume) :=
-    ⟨(continuous_const_smul _).measurable, Measure.map_addHaar_smul volume (inv_ne_zero hc0.ne')⟩
-  have hAeq : angularFrequencyDilation (angularWeightEquiv s f)
-      = ((A i : RealSobolevHilbert s) : FourierData) := by
-    have h : cyclesToAngular s f = angularFrequencyDilation (angularWeightEquiv s f) := rfl
-    rw [← h, hfdef]; exact (cyclesToAngular s).apply_symm_apply _
-  have hCeq : angularFrequencyDilation (angularWeightEquiv s g)
-      = ((C j i : RealSobolevHilbert s) : FourierData) := by
-    have h : cyclesToAngular s g = angularFrequencyDilation (angularWeightEquiv s g) := rfl
-    rw [← h, hgdef]; exact (cyclesToAngular s).apply_symm_apply _
-  have hcoeA := angularFrequencyDilation_coeFn (angularWeightEquiv s f)
-  have hcoeC := angularFrequencyDilation_coeFn (angularWeightEquiv s g)
-  rw [hAeq] at hcoeA
-  rw [hCeq] at hcoeC
-  have hwA : ∀ᵐ ξ : Space ∂volume,
-      ((angularWeightEquiv s f : FourierData) : Space → ℂ) (c⁻¹ • ξ)
-        = angularWeightSymbol s (c⁻¹ • ξ) * (f (c⁻¹ • ξ)) :=
-    hMP.quasiMeasurePreserving.ae (Measure.ae_smul_measure (angularWeightEquiv_coeFn s f) κm)
-  have hwC : ∀ᵐ ξ : Space ∂volume,
-      ((angularWeightEquiv s g : FourierData) : Space → ℂ) (c⁻¹ • ξ)
-        = angularWeightSymbol s (c⁻¹ • ξ) * (g (c⁻¹ • ξ)) :=
-    hMP.quasiMeasurePreserving.ae (Measure.ae_smul_measure (angularWeightEquiv_coeFn s g) κm)
-  have hI : ∀ᵐ ξ : Space ∂volume,
-      (2 * (Real.pi : ℂ) * Complex.I) * (((c⁻¹ • ξ) j : ℝ) : ℂ) * (f (c⁻¹ • ξ))
-        = g (c⁻¹ • ξ) := hMP.quasiMeasurePreserving.ae (Measure.ae_smul_measure hdb κm)
-  filter_upwards [hcoeA, hcoeC, hwA, hwC, hI] with ξ eA eC ewA ewC eI
-  rw [eA, ewA, eC, ewC]
-  have hcoord : (((c⁻¹ • ξ) j : ℝ) : ℂ) = ((c⁻¹ : ℝ) : ℂ) * ((ξ j : ℝ) : ℂ) := by
-    rw [show ((c⁻¹ • ξ) j : ℝ) = c⁻¹ * ξ j from rfl, Complex.ofReal_mul]
-  rw [hcoord] at eI
-  have hcc : ((c⁻¹ : ℝ) : ℂ) * ((c : ℝ) : ℂ) = 1 := by
-    rw [← Complex.ofReal_mul, inv_mul_cancel₀ hc0.ne', Complex.ofReal_one]
-  simp only [Complex.real_smul, smul_eq_mul]
-  linear_combination
-      (((c : ℝ) : ℂ) * ((c ^ (-3/2 : ℝ) : ℝ) : ℂ) * angularWeightSymbol s (c⁻¹ • ξ)) * eI
-    - ((2 * (Real.pi : ℂ) * Complex.I) * ((ξ j : ℝ) : ℂ) * ((c ^ (-3/2 : ℝ) : ℝ) : ℂ)
-        * angularWeightSymbol s (c⁻¹ • ξ) * (f (c⁻¹ • ξ))) * hcc
 
 theorem eLpNorm_coord_smul_eq {s : ℝ} {z : Space → Space} {w : Fin 3 → Space → Space}
     {A : RealVectorSobolev s} (hA : IsSobolevDatum s z A)
@@ -336,6 +281,121 @@ theorem norm_raise_le {s : ℝ} {z : Space → Space} {w : Fin 3 → Space → S
         intro j _
         exact (PiLp.norm_sq_eq_of_L2 (fun _ : Fin 3 => RealSobolevHilbert s) (C j)).symm
 
+/-! ## 2′. The sharp raising identity (deliverable F2: constant `4`, not `4` × slack)
+
+`norm_raise_le` routes the raised norm through the pointwise triangle bound
+`√(1+‖ξ‖²) ≤ 1 + ∑ⱼ|ξⱼ|`, which costs a factor 4 (four-term Cauchy–Schwarz).  The *identity*
+below avoids that: since `‖sobolevBesselWeight 1 ξ‖² = 1 + ‖ξ‖² = 1 + ∑ⱼ ξⱼ²` (Plancherel weight)
+and `‖(ξⱼ)·(A i)‖ = ‖C j i‖` (`eLpNorm_coord_smul_eq`), the raised integrand's squared `L²` norm is
+*exactly* `‖A i‖² + ∑ⱼ ‖C j i‖²`.  Summing over components gives
+`‖raise A‖² = ‖A‖² + ∑ⱼ ‖C j‖²`, whence the sharp `4^m` constructor `exists_isSobolevDatum_norm_le_sharp`
+(the `+3` directions give `4`, no Cauchy–Schwarz loss). -/
+
+/-- **The sharp raised-integrand `eLpNorm²` identity.**  `∫⁻ ‖(1+‖ξ‖²)^{1/2}·(A i)(ξ)‖ₑ²` splits
+exactly as `∫⁻ ‖(A i)(ξ)‖ₑ² + ∑ⱼ ∫⁻ ‖ξⱼ·(A i)(ξ)‖ₑ²`, using `‖ξ‖² = ∑ⱼ ξⱼ²`.  No slack. -/
+theorem eLpNorm_raiseIntegrand_sq_eq {s : ℝ} (A : RealVectorSobolev s) (i : Fin 3) :
+    (eLpNorm (fun ξ => sobolevBesselWeight 1 ξ •
+        (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ) 2 volume) ^ 2
+      = (eLpNorm (fun ξ => (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ) 2 volume) ^ 2
+        + ∑ j : Fin 3,
+          (eLpNorm (fun ξ => (ξ j : ℂ) •
+            (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) ξ) 2 volume) ^ 2 := by
+  set Ai : Space → ℂ := (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) with hAi
+  have hAmeas : AEStronglyMeasurable Ai volume := Lp.aestronglyMeasurable _
+  have hbmeas : AEMeasurable (fun ξ => ‖Ai ξ‖ₑ ^ (2 : ℝ)) volume := hAmeas.enorm.pow_const 2
+  have hcmeas : ∀ j : Fin 3,
+      AEMeasurable (fun ξ => ‖(ξ j : ℂ) • Ai ξ‖ₑ ^ (2 : ℝ)) volume := by
+    intro j
+    have hsm : AEStronglyMeasurable (fun ξ => (ξ j : ℂ) • Ai ξ) volume := by
+      have hcoord : AEStronglyMeasurable (fun ξ : Space => (ξ j : ℂ)) volume := by fun_prop
+      exact hcoord.smul hAmeas
+    exact hsm.enorm.pow_const 2
+  rw [eLpNorm_two_sq, eLpNorm_two_sq]
+  have hpt : ∀ ξ, ‖sobolevBesselWeight 1 ξ • Ai ξ‖ₑ ^ (2 : ℝ)
+      = ‖Ai ξ‖ₑ ^ (2 : ℝ) + ∑ j : Fin 3, ‖(ξ j : ℂ) • Ai ξ‖ₑ ^ (2 : ℝ) := by
+    intro ξ
+    have hnnAi : (0 : ℝ) ≤ ‖Ai ξ‖ := norm_nonneg _
+    have hns : ‖ξ‖ ^ 2 = ∑ j : Fin 3, (ξ j) ^ 2 := by
+      rw [EuclideanSpace.norm_eq, Real.sq_sqrt (by positivity)]
+      apply Finset.sum_congr rfl
+      intro j _
+      rw [Real.norm_eq_abs, sq_abs]
+    have hreal : (Real.sqrt (1 + ‖ξ‖ ^ 2) * ‖Ai ξ‖) ^ 2
+        = ‖Ai ξ‖ ^ 2 + ∑ j : Fin 3, (|ξ j| * ‖Ai ξ‖) ^ 2 := by
+      rw [mul_pow, Real.sq_sqrt (by positivity), hns, add_mul, one_mul, Finset.sum_mul]
+      congr 1
+      apply Finset.sum_congr rfl
+      intro j _
+      rw [mul_pow, sq_abs]
+    rw [ENNReal.rpow_two, ← ofReal_norm (sobolevBesselWeight 1 ξ • Ai ξ), norm_smul,
+      norm_sobolevBesselWeight_one, ← ENNReal.ofReal_pow (by positivity), hreal,
+      ENNReal.ofReal_add (by positivity) (Finset.sum_nonneg (fun j _ => by positivity)),
+      ENNReal.ofReal_sum_of_nonneg (fun j _ => by positivity)]
+    congr 1
+    · rw [ENNReal.rpow_two, ← ofReal_norm (Ai ξ), ← ENNReal.ofReal_pow hnnAi]
+    · apply Finset.sum_congr rfl
+      intro j _
+      rw [ENNReal.rpow_two, ← ofReal_norm ((ξ j : ℂ) • Ai ξ), norm_smul, Complex.norm_real,
+        Real.norm_eq_abs, ← ENNReal.ofReal_pow (by positivity)]
+  rw [lintegral_congr hpt, lintegral_add_left' hbmeas,
+    lintegral_finsetSum' _ (fun j _ => hcmeas j)]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro j _
+  rw [eLpNorm_two_sq]
+
+/-- **The sharp per-component raising identity.**  `‖raiseHilbert (A i)‖² = ‖A i‖² + ∑ⱼ ‖C j i‖²`. -/
+theorem norm_raiseHilbert_sq_eq {s : ℝ} {z : Space → Space} {w : Fin 3 → Space → Space}
+    {A : RealVectorSobolev s} (hA : IsSobolevDatum s z A)
+    {C : Fin 3 → RealVectorSobolev s} (hC : ∀ j, IsSobolevDatum s (w j) (C j))
+    (hw : ∀ (j i : Fin 3) (ψ : SchwartzMap Space ℂ),
+      ∫ x, ψ x * ((w j x i : ℝ) : ℂ)
+        = ∫ x, (-∂_{coordinateVector j} ψ) x * ((z x i : ℝ) : ℂ))
+    (i : Fin 3)
+    (hgi : RaisableWitness ((A i : RealSobolevHilbert s) : FourierData)) :
+    ‖raiseHilbert (A i) hgi‖ ^ 2 = ‖A i‖ ^ 2 + ∑ j : Fin 3, ‖C j i‖ ^ 2 := by
+  set Ai : Space → ℂ := (((A i : RealSobolevHilbert s) : FourierData) : Space → ℂ) with hAi
+  have hAtop : eLpNorm Ai 2 volume ≠ ∞ := (Lp.memLp _).2.ne
+  have hcoordtop : ∀ j : Fin 3, eLpNorm (fun ξ => (ξ j : ℂ) • Ai ξ) 2 volume ≠ ∞ :=
+    fun j => (memLp_coord_smul_datum hA hC hw i j).2.ne
+  have hraise_sq : ‖raiseHilbert (A i) hgi‖ ^ 2
+      = ((eLpNorm (fun ξ => sobolevBesselWeight 1 ξ • Ai ξ) 2 volume) ^ 2).toReal := by
+    rw [show ‖raiseHilbert (A i) hgi‖
+        = ‖((raiseHilbert (A i) hgi : RealSobolevHilbert (s + 1)) : FourierData)‖ from rfl,
+      coe_raiseHilbert, Lp.norm_toLp _ hgi, ENNReal.toReal_pow]
+  rw [hraise_sq, eLpNorm_raiseIntegrand_sq_eq A i,
+    ENNReal.toReal_add (ENNReal.pow_ne_top hAtop)
+      ((ENNReal.sum_ne_top).mpr (fun j _ => ENNReal.pow_ne_top (hcoordtop j))),
+    ENNReal.toReal_sum (fun j _ => ENNReal.pow_ne_top (hcoordtop j))]
+  congr 1
+  · rw [ENNReal.toReal_pow,
+      show ‖A i‖ = ‖((A i : RealSobolevHilbert s) : FourierData)‖ from rfl, Lp.norm_def]
+  · apply Finset.sum_congr rfl
+    intro j _
+    rw [ENNReal.toReal_pow, eLpNorm_coord_smul_eq hA hC hw i j,
+      show ‖C j i‖ = ‖((C j i : RealSobolevHilbert s) : FourierData)‖ from rfl, Lp.norm_def]
+
+/-- **The sharp vector raising identity (deliverable F2).**  `‖raise A‖² = ‖A‖² + ∑ⱼ ‖C j‖²`. -/
+theorem norm_raise_sq_eq {s : ℝ} {z : Space → Space} {w : Fin 3 → Space → Space}
+    {A : RealVectorSobolev s} (hA : IsSobolevDatum s z A)
+    {C : Fin 3 → RealVectorSobolev s} (hC : ∀ j, IsSobolevDatum s (w j) (C j))
+    (hw : ∀ (j i : Fin 3) (ψ : SchwartzMap Space ℂ),
+      ∫ x, ψ x * ((w j x i : ℝ) : ℂ)
+        = ∫ x, (-∂_{coordinateVector j} ψ) x * ((z x i : ℝ) : ℂ))
+    (hg : ∀ i, RaisableWitness ((A i : RealSobolevHilbert s) : FourierData)) :
+    ‖(WithLp.toLp 2 (fun i => raiseHilbert (A i) (hg i)) : RealVectorSobolev (s + 1))‖ ^ 2
+      = ‖A‖ ^ 2 + ∑ j : Fin 3, ‖C j‖ ^ 2 := by
+  rw [PiLp.norm_sq_eq_of_L2 (fun _ : Fin 3 => RealSobolevHilbert (s + 1))]
+  have hcomp : ∀ i : Fin 3, ‖raiseHilbert (A i) (hg i)‖ ^ 2
+      = ‖A i‖ ^ 2 + ∑ j : Fin 3, ‖C j i‖ ^ 2 :=
+    fun i => norm_raiseHilbert_sq_eq hA hC hw i (hg i)
+  rw [Finset.sum_congr rfl (fun i _ => hcomp i), Finset.sum_add_distrib,
+    PiLp.norm_sq_eq_of_L2 (fun _ : Fin 3 => RealSobolevHilbert s) A, Finset.sum_comm]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro j _
+  exact (PiLp.norm_sq_eq_of_L2 (fun _ : Fin 3 => RealSobolevHilbert s) (C j)).symm
+
 
 /-! ## 3. The quantitative constructor (deliverable 3)
 
@@ -422,6 +482,69 @@ theorem norm_isSobolevDatum_le_two (z : Space → Space) (M : ℝ)
     (hA : IsSobolevDatum ((2 : ℕ) : ℝ) z A) : ‖A‖ ^ 2 ≤ 256 * M := by
   have hb := norm_isSobolevDatum_le_of_memLp_derivs 2 z M h A hA
   rwa [show (16 : ℝ) ^ (2 : ℕ) = 256 from by norm_num] at hb
+
+/-! ## 3′. The sharp quantitative constructor (deliverable F2: `4^m`, not `16^m`)
+
+Same induction as `exists_isSobolevDatum_norm_le`, but the raising step uses the *identity*
+`norm_raise_sq_eq` (`‖raise A‖² = ‖A‖² + ∑ⱼ ‖C j‖²`) rather than the 4× lossy triangle bound, so the
+constant grows by exactly `4` per order (`1 + 3` directions) — `c_m = 4^m`, i.e. `16` at `m = 2`, not
+`256`.  These are **additive**: the `16^m`/`256` theorems above are untouched (lanes 147/148 consume
+them); `4^m ≤ 16^m` makes the sharp bounds strictly stronger. -/
+
+/-- **The sharp finite-order norm bound (`c_m = 4^m`).**  Mirrors `exists_isSobolevDatum_norm_le`
+with the raising *identity* in place of the four-term Cauchy–Schwarz. -/
+theorem exists_isSobolevDatum_norm_le_sharp : ∀ (m : ℕ) (z : Space → Space) (M : ℝ),
+    HasWeakDerivsL2Bound z M m →
+      ∃ A : RealVectorSobolev (m : ℝ), IsSobolevDatum (m : ℝ) z A ∧ ‖A‖ ^ 2 ≤ (4 : ℝ) ^ m * M
+  | 0, z, M, h => by
+      have hz0 : MemLp z 2 volume := h.1
+      have hM : (eLpNorm z 2 volume).toReal ^ 2 ≤ M := h.2
+      rw [show ((0 : ℕ) : ℝ) = (0 : ℝ) from Nat.cast_zero]
+      refine ⟨orderZeroDatum hz0, isSobolevDatum_orderZeroDatum hz0, ?_⟩
+      rw [pow_zero, one_mul]
+      calc ‖orderZeroDatum hz0‖ ^ 2 ≤ ‖hz0.toLp‖ ^ 2 :=
+            pow_le_pow_left₀ (norm_nonneg _) (norm_orderZeroDatum_le hz0) 2
+        _ = (eLpNorm z 2 volume).toReal ^ 2 := by rw [Lp.norm_toLp]
+        _ ≤ M := hM
+  | (m + 1), z, M, h => by
+      have hzm : HasWeakDerivsL2Bound z M m := weakDerivsBound_mono m z M h
+      obtain ⟨-, hstep⟩ := h
+      obtain ⟨A, hA, hAnorm⟩ := exists_isSobolevDatum_norm_le_sharp m z M hzm
+      choose w hwwd hwpair using hstep
+      have hCex : ∀ j, ∃ Cj : RealVectorSobolev (m : ℝ),
+          IsSobolevDatum (m : ℝ) (w j) Cj ∧ ‖Cj‖ ^ 2 ≤ (4 : ℝ) ^ m * M :=
+        fun j => exists_isSobolevDatum_norm_le_sharp m (w j) M (hwwd j)
+      choose C hCd hCnorm using hCex
+      have hcoord := memLp_coord_smul_datum hA hCd hwpair
+      have hg : ∀ i, RaisableWitness ((A i : RealSobolevHilbert (m : ℝ)) : FourierData) :=
+        fun i => raisableWitness_of_memLp_smul _ (fun j => hcoord i j)
+      rw [show (((m + 1 : ℕ)) : ℝ) = (m : ℝ) + 1 from by push_cast; ring]
+      refine ⟨WithLp.toLp 2 (fun i => raiseHilbert (A i) (hg i)),
+        isSobolevDatum_raise hA hg, ?_⟩
+      calc ‖(WithLp.toLp 2 (fun i => raiseHilbert (A i) (hg i)) : RealVectorSobolev ((m:ℝ)+1))‖ ^ 2
+          = ‖A‖ ^ 2 + ∑ j : Fin 3, ‖C j‖ ^ 2 := norm_raise_sq_eq hA hCd hwpair hg
+        _ ≤ (4 : ℝ) ^ m * M + ∑ _j : Fin 3, (4 : ℝ) ^ m * M :=
+            add_le_add hAnorm (Finset.sum_le_sum (fun j _ => hCnorm j))
+        _ = (4 : ℝ) ^ (m + 1) * M := by
+            simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul,
+              Nat.cast_ofNat, pow_succ]
+            ring
+
+/-- **Sharp transfer to any datum.**  `‖A‖² ≤ 4^m·M` for *any* order-`m` datum `A` of `z`. -/
+theorem norm_isSobolevDatum_le_of_memLp_derivs_sharp (m : ℕ) (z : Space → Space) (M : ℝ)
+    (h : HasWeakDerivsL2Bound z M m) (A : RealVectorSobolev (m : ℝ))
+    (hA : IsSobolevDatum (m : ℝ) z A) : ‖A‖ ^ 2 ≤ (4 : ℝ) ^ m * M := by
+  obtain ⟨B, hB, hBnorm⟩ := exists_isSobolevDatum_norm_le_sharp m z M h
+  rw [isSobolevDatum_unique hA hB]
+  exact hBnorm
+
+/-- **The sharp `m = 2` instance (`c₂ = 16`).**  The Plancherel identity gives `16`, not the `256`
+of `norm_isSobolevDatum_le_two`. -/
+theorem norm_isSobolevDatum_le_two_sharp (z : Space → Space) (M : ℝ)
+    (h : HasWeakDerivsL2Bound z M 2) (A : RealVectorSobolev ((2 : ℕ) : ℝ))
+    (hA : IsSobolevDatum ((2 : ℕ) : ℝ) z A) : ‖A‖ ^ 2 ≤ 16 * M := by
+  have hb := norm_isSobolevDatum_le_of_memLp_derivs_sharp 2 z M h A hA
+  rwa [show (4 : ℝ) ^ (2 : ℕ) = 16 from by norm_num] at hb
 
 
 /-! ## 4. Non-vacuity

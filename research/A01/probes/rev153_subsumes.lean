@@ -1,9 +1,10 @@
 import NSFormalization.Section4.A01.L2Descent
 
-/-! Reviewer probe (lane 153) — lane 151's two order-restricted results are now strictly subsumed by
-lane 153's, so nothing in `CarrierWords.lean` is still needed for `hword_jet` (a simplifier note, not
-a blocker: `word_descent_ae` / `word_descent_ae_partial` / `hword_jet_of_descent` remain in the tree
-as the `n + 3 ≤ q + 1` special cases). -/
+/-! Reviewer probe (lane 153) — lane 151's two order-restricted results are strictly subsumed by lane
+153's: the `n + 3 ≤ q + 1` statements below are proved directly from the full-order `L2Descent`
+versions.  Acted on in lane 155: `word_descent_ae` / `word_descent_ae_partial` /
+`hword_jet_of_descent` have been retired from `CarrierWords.lean` (this probe never referenced them —
+it re-proves their statements from `hword_jet_full` / `word_descent_ae_full`). -/
 
 noncomputable section
 namespace Rev153Subsumes

@@ -9,6 +9,7 @@ open NSFormalization.Section4.D01
 #print axioms isSobolevDatum_partialDeriv_weak
 #print axioms db_cycles_full
 -- §1 the transport (row D-b-transport, the new work)
+#print axioms coord_smul_deriv_ae
 #print axioms memLp_coord_smul_datum
 -- §2 the finite-order constructor (row D-close)
 #print axioms HasWeakDerivsL2

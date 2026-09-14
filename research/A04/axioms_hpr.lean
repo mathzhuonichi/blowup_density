@@ -13,7 +13,7 @@ open NSFormalization.Section4.A04
 #print axioms lerayComplement_selfAdjoint
 #print axioms inner_lerayComplement_eq_zero_of_eq_zero
 -- Step (S–M): transverse velocity datum
-#print axioms isSobolevDatum_zero
+#print axioms NSFormalization.Section4.D01.isSobolevDatum_zero
 #print axioms velocity_datum_lerayComplement_eq_zero
 -- Step (S): hpr
 #print axioms pressure_drop

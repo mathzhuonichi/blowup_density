@@ -149,7 +149,8 @@ theorem word_descent_ae_top {q : ℕ} (u : SobolevSpace 1 (q + 1))
       v.val ⟨⟨n, Nat.lt_succ_of_le hn⟩, fun i => (w i).succ⟩) (hu θ)
 
 /-- **Item 2, the descent identity extended to all orders.**  The descent-to-classical-jet a.e.
-identity of `CarrierWords.word_descent_ae`, now with **no** `n + 3 ≤ q + 1` restriction: the only use
+identity formerly stated in `CarrierWords` at orders `n + 3 ≤ q + 1` (retired by lane 155; this is
+now the only version), with **no** `n + 3 ≤ q + 1` restriction: the only use
 of the order bound there was to feed `exists_descend` the tail word, which `word_descent_ae_top` now
 supplies for every order.  `descent_step_ae` and `word_hasDerivAt` carry no order bound (`word_hasDerivAt`
 needs only `n < q + 1`), so the induction closes verbatim. -/
@@ -190,7 +191,7 @@ theorem word_descent_ae_full {q : ℕ} (u : SobolevSpace 1 (q + 1))
 
 /-- **Item 2 (b) — `hword_jet` for ALL orders, unconditional.**  The full `hword_jet` bound holds for
 every word `w : Fin n → Fin 4` with `n ≤ q + 1`, removing the `n + 3 ≤ q + 1` restriction of
-`CarrierWords.hword_jet_of_descent`.  Same case split: angular words vanish
+the former `CarrierWords.hword_jet_of_descent` (retired by lane 155).  Same case split: angular words vanish
 (`word_eq_zero_of_mem_zero`); spatial words `w i = (w' i).succ` descend via `word_descent_ae_top`,
 `word_descent_ae_full` identifies `⇑Zw` with the jet component of `Z.field`, and the norm chain
 (`ordinaryLift.norm_map` / `Lp.norm_def` / `eLpNorm_congr_ae` / `eLpNorm_jet_component_le`) closes it,

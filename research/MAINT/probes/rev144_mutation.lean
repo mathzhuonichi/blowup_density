@@ -10,7 +10,7 @@ open Set MeasureTheory NavierStokes.ProblemStatement
 open NSFormalization.Section4.D01 (IsSobolevDatum MemForceR SmoothSquareIntegrableJets sobolevENorm)
 open NSFormalization.Section4.A02 (initialClassR MemHInfty IsSolenoidal SpatialField SpaceTimeField)
 open NSFormalization.Paper3 (RealVectorSobolev)
-open NSFormalization.Section4.A04 (isSobolevDatum_zero)
+open NSFormalization.Section4.D01 (isSobolevDatum_zero)
 open scoped ContDiff
 
 noncomputable section

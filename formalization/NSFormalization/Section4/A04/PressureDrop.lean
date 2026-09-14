@@ -164,12 +164,13 @@ theorem inner_lerayComplement_eq_zero_of_eq_zero (s : ℝ) (G B : RealVectorSobo
     (inner ℝ G (lerayComplement s B) : ℝ) = 0 := by
   rw [← lerayComplement_selfAdjoint s G B, hG, inner_zero_left]
 
-/-! ## 2. Step (S–M): the velocity datum is transverse at every order -/
+/-! ## 2. Step (S–M): the velocity datum is transverse at every order
 
-/-- The zero field has the zero datum at every order. -/
-theorem isSobolevDatum_zero (s : ℝ) : IsSobolevDatum s (fun _ : Space => (0 : Space)) 0 := by
-  intro i ψ
-  simp
+`isSobolevDatum_zero` (the "zero field ↦ zero datum at every order" fact this section and
+`A04/ZeroSolution` use) now lives in `D01/SmoothDatum.lean`, next to `IsSobolevDatum`, so callers
+needing only it do not inherit this module's Leray/pressure closure (lane 155,
+`research/MAINT/REVIEW_144.md` item 4).  It resolves here as the bare name through the existing
+`open NSFormalization.Section4.D01`. -/
 
 /-- **Step (S–M) — the order-`m` velocity datum is Leray-transverse.**  For a classical solution `u`,
 interior time `t`, and any order-`m` datum `G` of the (pointwise divergence-free) velocity slice
