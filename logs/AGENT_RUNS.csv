@@ -498,3 +498,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,153-A01-l2-descent,opus,reviewer,launched (concurrency 2 with 154 worker),running,
 2026-09-14,C01,154-C01-v3-bounds,prover,worker,DONE: energyDifferentialBound (HasDerivAt.unique + Cauchy–Schwarz) and l2Bound = eq:RL2 (sqrt_energy_le_primitive' generalized endpoint; velocityL2Sq_continuousOn); 11 decls standard; committed ace32a3,done,
 2026-09-14,C01,154-C01-v3-bounds,opus,reviewer,launched (statement-fidelity review for V3; concurrency 2 with 153 review),running,
+2026-09-14,A01,153-A01-l2-descent,opus,reviewer,ACCEPT-WITH-NOTES (no Lean changes; N1/N2 record notes; N5 stale-base noise): REVIEW_L2_DESCENT.md + 6 probes,accepted,
+2026-09-14,A01,153-A01-l2-descent,lead,merge,record notes applied; PR #155 chain launched,merging,155
