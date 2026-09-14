@@ -517,3 +517,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,MAINT,probe,opus,probe,Opus 5 upstream also 429 (both upstreams in window); 60-min back-off,queued,
 2026-09-14,MAINT,155-SIMP-d01-c01-dedup,prover,worker,resumed after 60-min back-off (Opus 5 probe succeeded at 1146Z); 157 follows after a 3-min survival probe,running,
 2026-09-14,A01,157-A01-slice-wiring,prover,worker,resumed after 155 survived 3 min (concurrency 2),running,
+2026-09-14,MAINT,155-SIMP-d01-c01-dedup,prover,worker,DONE all 6 items (hoist; sharp 4^m as new lemmas; rename; layering 109→89; retire 3 subsumed; tester); 18 files +446/−262; full dependent set + gates OK; committed af21f47,done,
+2026-09-14,MAINT,155-SIMP-d01-c01-dedup,opus,reviewer,launched (statement-invariance audit; concurrency 2 with 157 worker),running,
