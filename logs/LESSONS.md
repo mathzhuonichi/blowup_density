@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- **`git mv` 不删旧编译产物**：搬模块后旧路径的 `.olean` 还在，漏改的 `import 旧路径` 本地照样编过、门禁全绿，只有 CI 干净检出才炸。搬完必须 `grep -rn '旧模块名' formalization research verification` 证明零残留（123 审稿）。另：`lake env lean … | tee log | head` 会 SIGPIPE 把 lean 中途打死，先重定向到文件再过滤。（2026-09-14）
 - **论文行号引用会代代相传**：117 审稿把 eq:Rpressure 抄成 `02-preliminaries.tex:76-81`（实为 `:89-94`），120 合同照抄进冻结的 scope 字符串，共 9 处。合同/绑定/记录里引论文行号前，用 `grep -n 'label{eq:…}' paper/sections/*.tex` 现查一次，别从上一份 review 抄。（2026-09-14）
 - **`set -e` 不会在 `a && b && c` 链中途失败时退出**：118 的 `git rebase` 冲突后脚本继续往下跑，`PR=` 为空又生成空链（第二次）。现在 `tmp/mkchain.sh` 拒绝非数字 PR；取 PR 号后必须 `[ -n "$PR" ] || exit 1` 再往下。另：`pkill -f`/`pgrep -f` 的模式若出现在自己命令行里会把自己杀掉（exit 144），用 `pgrep -f 'pattern\.sh$'` 这类锚定或 `grep '[m]erge'` 技巧。（2026-09-14）
 - **zsh 不对未加引号的 `$VAR` 做分词**：`FILES="a b c"; sed -i … $FILES` 会把整串当一个文件名（No such file），后面靠它的 `git add` / PR 全空，`PR=` 为空又生成了 `merge__then_gates.sh`。多文件一律用数组 `FILES=(a b c)` + `"${FILES[@]}"`，并在用 `$PR` 前 `[ -n "$PR" ]`。给 python 传值用环境变量 + 引号 heredoc，别用未引号 heredoc（反引号会被执行）。（2026-09-14）
