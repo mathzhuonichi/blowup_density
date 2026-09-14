@@ -470,3 +470,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,149-A01-a3-widen-converse,opus,reviewer,launched (concurrency 2 with 150 worker),running,
 2026-09-14,A01,149-A01-a3-widen-converse,opus,reviewer,ACCEPT-WITH-NOTES (N1 intermediate horizon T₁ so the two halves of (iii) connect; endpoint cap at T₀=T is 15 lines; hword_jet needs hu (angular words); residual row (v) F↦f bridge; N4 non-vacuity; N5 congr_ae): REVIEW_APRIORI_ROWS.md + 9 probes,accepted,
 2026-09-14,A01,149-A01-a3-widen-converse,prover,worker,resumed to apply N1–N5 + endpoint cap (concurrency 2 with 150 worker),running,
+2026-09-14,C01,150-C01-e4-assembly,prover,worker,DONE: energyDerivative_hasDerivAt (E4) + energyIdentity_classical_unconditional at every interior t; wordEnergy_zero/wordInner_sum_zero/velocity_hasDerivAt_time; 5 decls standard; committed 6c2de7f,done,
+2026-09-14,C01,150-C01-e4-assembly,opus,reviewer,launched (milestone review; concurrency 2 with 149 worker),running,
