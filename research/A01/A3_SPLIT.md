@@ -62,9 +62,9 @@ carrying every order.  Top to bottom:
 | **A2** | eq:Rhigh propagation | consume `A04.energyIdentityHigh`; **do not reprove** | M (=A04 G1) | `A04.inner_energy_Rhigh` (`HighEnergy.lean:136`) | **blocked on A04 `hpr`** (D01 L9(c)/P2); lane 121 concurrent |
 | **A3-M1** | Young reduction | `C·u₂·uₘ·g ≤ ν·g² + (C²/4ν)·u₂²·uₘ²` (reals, `nlinarith`) ⟹ `E' ≤ 2(K·E+b·√E)` | **S** | A2 | open (waits on A2's `hpr`) |
 | **A3-M2** | derivative → integral step | A3-M1 + `sqrt_le_primitive_linear` ⟹ the `hstep` A3-S1 consumes | **M** | `A04.sqrt_le_primitive_linear` (`Regularized.lean:134`), `A04.regularized_sqrt_deriv` (`:98`), `A04.continuousOn_sobolevNormAt_velocity` (`Continuity.lean:105`) | open (waits on A2's `hpr`). Adapter-free composition into A3-S1 verified by the reviewer (F2, ~20 lines, `probe_zeta_device_to_horizon`) |
-| **A2b-a′** ★ | forced global mild from a-priori bound | `forced_global_mild_of_bound` (see §3): a uniform `‖u‖≤R` on all windows ⟹ the forced `quadraticDuhamel` solution exists on **all** `[0,S]`; **one-line proof term** | **S** | `EulerBoundedMildContinuation.exists_global_mild_of_bound` (`BoundedMildContinuation.lean:39`), `ForcedCylinderLocal.coefficients` (`ForcedCylinderLocal.lean:52`) — both `#check`ed, probe compiles | **★ next lane**, new module `Section4/A01/Continuation.lean` |
-| **A2b-a** | full `exists_local`-shaped continuation | A2b-a′ **+** restore the div-free and angle-invariance clauses across the glue **+** `ordinaryValue` descent to `U : C(Icc 0 S, EulerMeanSolenoidal.L2)` | **M** (was L) | `EulerCorrectionContinuation.correction_mild_divergenceFree` (`CorrectionContinuation.lean:17`), `ForcedCylinderInvariant.exists_local_forced_mild_invariant` (`ForcedCylinderInvariant.lean:30`), `OrdinaryCylinderDescent.{ordinaryValue,ordinaryValue_lift}` (`:56`,`:60`) | open, **not blocked on C1c**; HeliCorgi/`FormalPatched` **not needed** |
-| **A2b-b** | cross-order agreement | order-`(q+1)`/`(q′+1)` solutions coincide where both exist | S–M | `A02.uniqueness` (registered; not re-`#check`ed) | open once both orders share a carrier |
+| **A2b-a′** ★ | forced global mild from a-priori bound | `forced_global_mild_of_bound` (see §3): a uniform `‖u‖≤R` on all windows ⟹ the forced `quadraticDuhamel` solution exists on **all** `[0,S]`; **one-line proof term** | **S** | `EulerBoundedMildContinuation.exists_global_mild_of_bound` (`BoundedMildContinuation.lean:39`), `ForcedCylinderLocal.coefficients` (`ForcedCylinderLocal.lean:52`) — both `#check`ed, probe compiles | **DONE (lane 126)**, module `Section4/A01/Continuation.lean` (`forced_global_mild_of_bound`) |
+| **A2b-a** = reviewer §3 **A2b-b** | full `exists_local`-shaped continuation | A2b-a′ **+** restore the div-free and angle-invariance clauses across the glue **+** `ordinaryValue` descent to `U : C(Icc 0 S, EulerMeanSolenoidal.L2)` | **M** (was L) | `EulerCorrectionContinuation.correction_mild_divergenceFree` (`CorrectionContinuation.lean:17`), `ForcedCylinderInvariant.exists_local_forced_mild_invariant` (`ForcedCylinderInvariant.lean:30`), `OrdinaryCylinderDescent.{ordinaryValue,ordinaryValue_lift}` (`:56`,`:60`) | **DONE (lane 134)**, module `Section4/A01/ContinuationInvariant.lean`: `restart_window_invariance` (per-window, reviewer probe promoted, `maxHeartbeats 600000`), `exists_uniform_restart_time_invariant`, `gluePath_invariant`, `forced_global_mild_of_bound_invariant` (forked induction), `forced_global_of_bound_unconditional` (= `forced_global_of_bound'`, `hinv` discharged). No global uniqueness; not blocked on C1c; HeliCorgi/`FormalPatched` not needed |
+| **A2b-c** (was A2b-b) | cross-order agreement | order-`(q+1)`/`(q′+1)` solutions coincide where both exist | S–M | `A02.uniqueness` (registered; not re-`#check`ed) | open once both orders share a carrier. **Renamed A2b-b→A2b-c** so "A2b-b" matches the reviewer's §3 name for the invariance lane (A2b-a above, done lane 134) |
 | **A3-Tm** | order-`m` solution exists on `T₀` | for the shared `T₀`, every order `m` has a solution on `Ico 0 T₀` (so `higherOrder_bddAbove`'s `∀ m` hypothesis can even be stated); `exists_local`'s `T` depends on `q` — no cross-order handle | M | A2b-a′ (bounded ⟹ extends to prescribed `S` at each fixed `q`) | **gap**; `appendix-a:66-67` ("same local interval for every order"); F8. The Grönwall bound is the *tool*, not this statement |
 | **A3-L1** | uniform integral caps | `∃ Kbnd, ∀ t∈Ico 0 T₀, ∫₀ᵗ‖u‖²_{H²}≤Kbnd` and `∃ Bbnd, ∀ t, ∫₀ᵗ‖f‖_{H^m}≤Bbnd` | see split rows below | — | see split rows |
 | A3-L1·k | order-2 norm comparison | `sobolevNormAt 2 (⇑(U t)) ≤ c · ‖u t‖_{SobolevSpace 1 (q+1)}` (one direction), turning `exists_local`'s `‖u‖≤‖u₀‖+1` into `Kbnd` | **M** | `A04.sobolevNormAt` (`Forcing.lean:74`), `A04.intervalIntegrable_highContinuationIntegrand` (`Continuity.lean:132`) | **open, NOT a C1b row** — 119 explicitly disclaims this norm identity (F7); it is a new one-directional comparison. Also blocked by 119's **C1b-m-D** (missing D01 finite-order datum constructor) |
@@ -73,9 +73,12 @@ carrying every order.  Top to bottom:
 | **H1** | `horizon_lower_bound` | `∀ ν>0, ∀ K≠⊤, ∃ δ>0, ∀ a f, a∈X_R→f∈F_R→‖a‖_{H¹}≤K→‖f‖_{L¹H¹}≤K→ δ≤horizon ν a f` (quantifier order: `δ` before `(a,f)` — A02 `restart`'s "whole point") | M | **lead:** `EulerUniformHeatLocal.exists_uniform_restart_time` (`UniformHeatLocal.lean:29`) — `δ` depends only on `R` and the `Coefficients`, uniform over restart points | **gap**; `appendix-a:148-152`. The tree lead uses order-`q+1` cylinder `‖u₀‖≤R`, not `‖a‖_{H¹}` — a **candidate, not literally H1** |
 | **T1** | `C^j_tH^k_x` all `j,k` | `∂ₜu = νΔu + P(f−∇·(u⊗u)) ∈ C_tH^k`, induct; one-sided at 0 | M | A3 (all-order `T₀`), E1 (`ConvectionDivergence.lean`, DONE) | **gap**; `appendix-a:71-76` |
 
-**Proved in Lean now:** A3-S1, A3-S2, A3-S2′ (this lane; four theorems).  A2b-a′
-is a one-line proof term whose composability is verified (probe), scheduled for
-`Section4/A01/Continuation.lean` next lane.
+**Proved in Lean now:** A3-S1, A3-S2, A3-S2′ (lane 122; four theorems).  A2b-a′
+**DONE (lane 126)** in `Section4/A01/Continuation.lean`; A2b-a (= reviewer §3 A2b-b,
+the full `exists_local`-shaped continuation with div-free/invariance/descent restored)
+**DONE (lane 134)** in `Section4/A01/ContinuationInvariant.lean` —
+`forced_global_of_bound_unconditional` gives the full local shape on `[0,S]` from `hbound`
+alone (`hinv` discharged).
 
 ---
 
@@ -162,7 +165,7 @@ opposite direction), the inviscid Theorem-1.1 maximal stack are all irrelevant t
 forced continuation.  The revision-1 error was one of omission of the one file
 that mattered.
 
-**Cross-order agreement** (A2b-b): `A02.uniqueness` pins the two orders where both
+**Cross-order agreement** (A2b-c): `A02.uniqueness` pins the two orders where both
 exist — S–M bookkeeping.
 
 ### (c) The constant `C_{m,ν}` and its `T₀`-independence — **with §3c overstatement removed (F9)**
@@ -186,7 +189,7 @@ produces an **upper bound on the norms given a horizon**, never a **lower bound
 
 * **A3-S2′ / lowestOrderSq** — specializations of A3-S2; DONE.
 * **A3-L2** — dissolved by A2b-a′ (`horizon := S`); no analysis.
-* **A2b-b** — an `A02.uniqueness` application.
+* **A2b-c** — an `A02.uniqueness` application.
 * **A3-L1·f** — `∫₀ᵗ‖f‖_{H^m} ≤ ‖f‖_{L¹_tH^m}` from `MemForceR`.
 * **A2** for A01 — not work: A01 consumes A04's `energyIdentityHigh`.
 

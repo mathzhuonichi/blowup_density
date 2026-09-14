@@ -1,3 +1,4 @@
+-- SUPERSEDED (lane 134): promoted verbatim into `Section4/A01/ContinuationInvariant.lean` as `restart_window_invariance`; kept only as the reviewer's original probe.
 import NSFormalization.Source.OrdinaryForcedLocal
 import Euler.BoundedMildContinuation
 set_option maxHeartbeats 600000
