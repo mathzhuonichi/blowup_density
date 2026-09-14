@@ -278,7 +278,13 @@ Grönwall, which is **already done in tree** (`Gronwall.lean`, lane 041:
 `gronwall_integral:70`, `gronwall_deriv:172`, `gronwall_integral_mul:202`). Calling
 `highContinuationIntegral` "G3" clashes; use **G2b**.
 
-### G2b recipe (size **S**, per the reviewer — every ingredient is proved)
+### G2b recipe (size **S**, per the reviewer — every ingredient is proved) — **DONE (lane 138)**
+
+Module `formalization/NSFormalization/Section4/A04/HighContinuationIntegral.lean`,
+theorem **`highContinuationIntegral`** = `Spec.lean:471-494` token-for-token
+(std axioms `[propext, Classical.choice, Quot.sound]`; conformance
+`research/A04/axioms_high_continuation_integral.lean`). Recipe followed verbatim;
+the two calc-shape and one nonnegativity subtlety are in `ATTEMPTS_G2B.md`.
 
 `highContinuationIntegral`'s two conjuncts, both on `[t₀,t] ⊆ [0,T)`:
 
@@ -311,3 +317,13 @@ merged as **PR #134**. The next registration is a **V2** adding `Cgron`
 **after G2b lands** (so `regularizedNormDerivative`'s only consumer exists before
 CI freezes its spelling). Carry `Cgron` as the spec's **opaque** `ℕ → ℝ → ℝ` field
 plus `Cgron_pos`; the value `(Chigh m)²/(4ν)` lives only in the binding.
+
+**G2b has now landed (lane 138)**, so the A04 **V2** contract can be opened: it
+should register `Cgron` (→ `A04.Cgron`, opaque field + `Cgron_pos` →
+`A04.Cgron_pos`), `regularizedNormDerivative` (→ `A04.regularizedNormDerivative`),
+and `highContinuationIntegral` (→ `A04.highContinuationIntegral`,
+`HighContinuationIntegral.lean`). The value `(Chigh m)²/(4ν)` stays in the
+binding only. `regularizedNormDerivative`'s consumer (`highContinuationIntegral`)
+now exists, as the plan required before freezing the spelling.
+
+> Correction (138 review, finding 4): `regularizedNormDerivative` (G2) has **no consumer** tree-wide — G2b bypasses it via `deriv_normSq_absorbed` + `sqrt_le_primitive_linear`. Any sentence above claiming a consumer now exists is wrong; register it in V2 only with that disclosure.
