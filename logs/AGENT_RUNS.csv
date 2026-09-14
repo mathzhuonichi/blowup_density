@@ -539,3 +539,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,160-A04-restart-beyond,prover,worker,launched on integration 1ad3df2 (R1 restartBeyond + C1 lifespan clause, conditional on A02.restart),running,
 2026-09-14,A01,158-A01-b1-constructor-split,opus,reviewer,FAILED at report-writing: router 429 (both upstreams); resume after back-off,queued,
 2026-09-14,A04,160-A04-restart-beyond,prover,worker,FAILED at start: router 429; resume after back-off,queued,
+2026-09-14,MAINT,pause,lead,pause,paused by user (API quota exhausted); resume after 5h: probe → resume 158 (fold rev158 probes; notes) → relaunch 160 → R43-order lanes,paused,
