@@ -127,8 +127,8 @@ normalization: see rows C1b-m-E / C1b-m-D.
 | **C1b-rep** | **the B1 hand-off:** `velocity t =ᵐ[volume] ⇑(U t)` for `t ∈ Ico 0 T`, and `velocity (0,·) = a.field` pointwise | **L** | `ClassicalSolutionR.velocity` (`Contracts/V1/Data.lean:624`), C1b-cong | (produced by B1; **consumed** here) | **owned by B1** — given it, every datum row transfers to `velocity` by `IsSobolevDatum.congr_field`.  This is the *pointwise* half of c5 and the reason no datum row discharges c5 by itself |
 | **C1b-m-E** | Euler side (`t>0`, no smoothness): each derivative word descends to an ordinary `L²` field — `{q n} (hq : n+3 ≤ q) (u : SobolevSpace 1 q) (hinv) (w : Fin n → Fin 4) → ∃ z, ordinaryLift z = word 1 u _ w` | M | abstract array `u t : SobolevSpace 1 (q+1)` + `word`/`word_hasDerivAt`/`word_has_jet`/`ofJet` (`Euler/CylinderSobolevSpace.lean:66,70,91,78`), `exists_ordinary_value` (`Source/OrdinaryCylinderDescent.lean:29`), clause 7 angle invariance (`Source/OrdinaryForcedLocal.lean:47`) | real analysis (Euler) | **ready→M** — no `SmoothOrbit`, no `SmoothL2Field`, no B1/T1: `word_hasDerivAt` already gives strong `L²` translation derivatives up to order `q+1` at fixed `t>0`; open item is whether `sobolevTranslation` is coordinatewise (reviewer did not verify) |
 | **C1b-m-D** | D01 side — **the missing finite-order constructor:** `{m} (hz : MemLp z 2 volume) (L² derivs of z up to order m) → ∃ A : RealVectorSobolev m, IsSobolevDatum m z A` | **M–L** | parallel to `orderZeroDatum` (`D01/OrderZeroDatum.lean:96`); `isSobolevDatum_partialDeriv` (`D01/DerivativeDatum.lean:245`) is `SmoothL2Field`-only, so does not apply; `memLp_of_isSobolevDatum` (`D01/DatumToJets.lean:267`) | **real analysis (the actual blocker)** | **gap** — D01 jumps from order 0 (`orderZeroDatum`, bare `MemLp`) to all orders (`smoothAngularDatum`, `SmoothL2Field`) with nothing in between; the one new analytic input is the homogeneous↔inhomogeneous comparison `(1+‖ξ‖²)^m ≤ c_m(1+∑_{|α|=m}|ξ^α|²)` that lands the weighted transform in `L²` |
-| **C1b-c8-0** | **★ next lane** — order-0 datum-path continuity: `{X}[TopologicalSpace X] (U : X → EulerMeanSolenoidal.L2) (hU : Continuous U) → Continuous (fun t => orderZeroDatum (Lp.memLp (U t)))` | M | `componentLp`/`memLp_component` as CLM of the `L²` arg (`D01/OrderZeroDatum.lean:67,72`), then `𝓕`/`realProjectionTo 0`/`WithLp.toLp`/`cyclesToAngularRealVector 0` (all CLM/CLE) | real analysis (CLM composition) | **ready→M** — no norm identity needed; must first prove `orderZeroDatum (Lp.memLp u) = Φ u` for an explicit CLM `Φ`, then transport continuity |
-| **C1b-c8-m** | continuity of the order-`m ≥ 1` datum path | M–L | C1b-m-E, C1b-m-D; the vector order-`m` Plancherel isometry `‖smoothAngularDatum …‖ = ‖·‖_{Hᵐ}` | real analysis | **gap** — the order-`m` isometry is absent from the tree (`D01/OrderZeroDatum.lean:40-53` records this) |
+| **C1b-c8-0** | order-0 datum-path continuity: `{X}[TopologicalSpace X] (U : X → EulerMeanSolenoidal.L2) (hU : Continuous U) → Continuous (fun t => orderZeroDatum (Lp.memLp (U t)))` | M | `componentLp`/`memLp_component` as CLM of the `L²` arg (`D01/OrderZeroDatum.lean:67,72`), then `𝓕`/`realProjectionTo 0`/`WithLp.toLp`/`cyclesToAngularRealVector 0` (all CLM/CLE) | real analysis (CLM composition) | **DONE (lane 124)** — `Section4/A01/DatumPathContinuity.lean`: `orderZeroDatumCLM` (explicit CLM `Φ`) + `orderZeroDatum_memLp_eq` (`orderZeroDatum (Lp.memLp u) = Φ u`, only non-`rfl` step `componentLp_eq_compLpL`) + `continuous_orderZeroDatum` (verbatim) + `datumPath`/`continuousOn_datumPath` (`ContinuousOn (Ico 0 T)`).  No norm identity used |
+| **C1b-c8-m** | continuity of the order-`m ≥ 1` datum path | M–L | C1b-m-E, C1b-m-D; the CLM/CLE tail of `smoothAngularDatum` (`D01/SmoothDatum.lean:260-266`): `sobolevOrderLowering` (`Paper3/SobolevOrderLowering.lean:26`, CLM), `realProjectionTo` (CLM), `PiLp.continuousLinearEquiv`/`cyclesToAngularRealVector` (CLEs) — bundles exactly as lane 124's order-0 tail; plus `continuous_vectorSobolevDatum` (`Source/PhysicalIntegerSobolev.lean:61`, `#check`ed) for the one non-CLM factor `integerSobolevDatum` (its argument is a `SmoothL2Field` structure, no CLM to bundle) | real analysis (input, not isometry) | **gap — but NOT the Plancherel isometry** (lane 124 review, finding 10; no norm identity is needed for continuity, order 0 or `m`). The real cost is `continuous_vectorSobolevDatum`'s hypothesis `∀ j, Continuous (fun t => (A t).jetLp j)` (all `L²` jets continuous in time) **for the velocity path** — B1/T1-strength; `exists_local` supplies it only for the *force* path (`Source/OrdinaryForcedLocal.lean:35`), never for the velocity `U` (`:38`, bare `C(Icc 0 T, EulerMeanSolenoidal.L2)`). **Lane 125's constructor does not hand this over**: its `isSobolevDatum_raise` (`D01/FiniteOrderDatum.lean:223`) uses `raiseHilbert` = multiplication by `(1+‖ξ‖²)^{1/2}` (`:130,187`), **unbounded** on `L²`, with output `MemLp.toLp` of a `(datum, proof)`-dependent product — no bounded operator to bundle, so continuity would need hand-made uniform-in-`t` domination. Asymmetry: *lowering is a CLM, raising is not*; the `smoothAngularDatum` route (lowers only) is the one that inherits lane 124's argument |
 | **C1b-c6** | divergence-free transport: `(∀ t, value 1 (u t) ∈ divergenceFreeSpace 1 1 0)` → `spatialDivergence (⇑(U t)) = 0` (a.e./distributional) | M | `exists_local` clause 5 (`Source/OrdinaryForcedLocal.lean:43`), `EulerMeanSolenoidal.solenoidalSpace` (`Euler/MeanSolenoidalSpace.lean:58`) + weak-divergence test `mem_solenoidal_iff` (`:79`), `ordinaryLift_ae` (`Euler/MeanOrdinaryLift.lean:27`) | real analysis (descent) + bookkeeping | **gap** — descend cylinder divergence-free membership through `ordinaryLift` to the ordinary field, then align with D01's `spatialDivergence` |
 
 ## 2. Reading of the table
@@ -139,13 +139,14 @@ normalization: see rows C1b-m-E / C1b-m-D.
   constant is settled (`= 1`).
 * **Real-analysis rows**: C1b-m-E (Euler descent, M, ready), C1b-m-D (**the
   blocker**, missing D01 finite-order constructor), C1b-c8-0 (order-0 continuity,
-  M, ready), C1b-c8-m (gap, needs the absent order-`m` isometry), C1b-c6
-  (divergence descent, gap).
+  **DONE lane 124**), C1b-c8-m (gap — **not** the absent isometry, but the
+  velocity-path jet continuity `∀ j, Continuous (fun t => (A t).jetLp j)`, a
+  B1/T1-strength input; see the row), C1b-c6 (divergence descent, gap).
 * **Which A01 obligation each row feeds** (reviewer's honest-status table):
 
   | A01 obligation | fed by C1b rows | honest status |
   |---|---|---|
-  | **c8** `∀ m, ∃ G, ContinuousOn G ∧ IsSobolevDatum m (velocity t) (G t)` (`Data.lean:643`) | C1b-0 + C1b-c8-0 (`m=0`); C1b-m-E + C1b-m-D + C1b-c8-m (`m≥1`); C1b-cong + C1b-rep (`velocity ↔ ⇑(U t)`); C1b-unique | the only obligation C1b really serves; the **`∀ m` on one `T`** is additionally gated by **A3** (order-independent horizon, `A01_SPLIT.md:88`), because `exists_local`'s `T` depends on `q` — **not** by B1/T1 |
+  | **c8** `∀ m, ∃ G, ContinuousOn G ∧ IsSobolevDatum m (velocity t) (G t)` (`Data.lean:643`) | C1b-0 + C1b-c8-0 (`m=0`); C1b-m-E + C1b-m-D + C1b-c8-m (`m≥1`); C1b-cong + C1b-rep (`velocity ↔ ⇑(U t)`); C1b-unique | **`m=0` DONE (lane 124):** `datumPath_isSobolevDatum` (`DatumPathContinuity.lean`) gives the full `m=0` shape `ContinuousOn (Ico 0 T) ∧ ∀ t ∈ Ico 0 T, IsSobolevDatum 0 (velocity t) (G t)` from the B1 hand-off `velocity t =ᵐ ⇑(U t)` (row C1b-rep).  `m≥1` still needs C1b-m-D + C1b-c8-m; the **`∀ m` on one `T`** is additionally gated by **A3** (order-independent horizon, `A01_SPLIT.md:88`), because `exists_local`'s `T` depends on `q` — **not** by B1/T1 |
   | **c6** `spatialDivergence velocity = 0` (`Data.lean:638`) | C1b-c6 only | gap, as marked |
   | **c5** `initial : ∀ x, velocity (0,x) = a x` (`Data.lean:636`) | **none directly** | c5 is a *pointwise field equality*; C1b-c5-0/c5-all produce *datum* statements (feeding c8 at `t=0`).  The pointwise half is **C1b-rep** (B1's) |
   | **A1** tame product | **none** | A1 is A03's (product estimate on the D01 carrier); no carrier bridge involved.  Not promised in this table |
@@ -175,8 +176,11 @@ Module `formalization/NSFormalization/Section4/A01/CarrierBridge.lean`
 
 ## 4. Recommended next lane
 
-**★ C1b-c8-0** (order-0 datum-path continuity) — the only self-contained **M**
-left, no new analysis and no upstream unit, half of what c8 wants at order 0:
+**C1b-c8-0 is DONE (lane 124)** — `Section4/A01/DatumPathContinuity.lean`, exactly
+the statement below plus the `ContinuousOn`/c8-`m=0` forms.  The next self-contained
+work is **C1b-m** (both halves, neither touching B1/T1): see the two lanes at the
+end of this section.  Kept for the record, the discharged C1b-c8-0 statement and its
+route:
 
 ```lean
 theorem continuous_orderZeroDatum {X : Type*} [TopologicalSpace X]
@@ -184,7 +188,7 @@ theorem continuous_orderZeroDatum {X : Type*} [TopologicalSpace X]
     Continuous (fun t => orderZeroDatum (Lp.memLp (U t)))
 ```
 
-Route (reviewer §5): re-express `componentLp` as
+Route (reviewer §5, as executed): re-express `componentLp` as
 `Lp.compLpₗ (Complex.ofRealCLM.comp (EuclideanSpace.proj i))` (matching
 `memLp_component`'s `comp_memLp'`, `OrderZeroDatum.lean:67,72`), compose the
 remaining CLM/CLE factors (`𝓕 = Lp.fourierTransformₗᵢ`, `realProjectionTo 0`,
