@@ -413,3 +413,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,140-A01-euler-pairing,prover,worker,launched: Euler-side Schwartz pairing of cylinder derivative words → HasWeakDerivsL2 (⇑(U t)) m,running,
 2026-09-14,A01,137-A01-a3-force-cap,prover,worker-resume,hfin reworded; bump witness preserved (13 audited decls); attribution fixed; A3 table updated in 9 min / 23 tool uses,PR,PR #140 opened; merging
 2026-09-14,A04,141-A04-energy-high-v2,prover,worker,launched: A04 V2 contract (Cgron + G2 + G2b),running,
+2026-09-14,A01,139-A01-a3-l2-horizon,prover,worker,DONE: Horizon.lean 5 decls — HasAprioriBound (named hbound, quantifier order documented), horizonOf := S (rfl), localTheory_on_prescribed_horizon (seven clauses on [0,S], no ∃T), exists_local_shape_of_aprioriBound (witness T := S); LocalTheoryAPI fields discharged/remaining documented; standard axioms in 15 min / 33 tool uses,queued,reviewer queued under cap
+2026-09-14,A01,142-A01-a3-m2-gronwall,prover,worker,launched: Grönwall instantiation on ClassicalSolutionR (A3-M2 glue) with Kbnd as the explicit hole,running,
