@@ -230,7 +230,8 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 124-A01-c1b-c8-0 | 进行中 | — | — | A01 C1b 行 **C1b-c8-0**（M）：0 阶 datum 路径连续性 `Continuous U → Continuous (fun t => orderZeroDatum (Lp.memLp (U t)))`（`orderZeroDatum` 作为 `L²` 参数的 CLM 复合）；喂 `ClassicalSolutionR.sobolev` 的 `m=0` 情形 |
 | 125-D01-finite-order-datum | 进行中 | — | — | D01 有限阶 datum 构造子（C1b 真正的阻塞 C1b-m-D，M–L，拆分起步）：`MemLp z 2` + 各阶 ≤ m 的 L² 弱导数 ⇒ `∃ A, IsSobolevDatum m z A`（D01 目前只有 0 阶 `orderZeroDatum` 与全阶 `smoothAngularDatum`）；产出 `research/D01/FINITE_ORDER_SPLIT.md` + 证第一个 S 单元 |
 | 126-A01-a2b-continuation | 进行中 | — | — | A01 A2b-a′（122 审稿改判：OpenAI 层有续接判据）：`Section4/A01/Continuation.lean`，S 步 `forced_global_mild_of_bound`（`Euler/BoundedMildContinuation.lean:39` 喂 `ForcedCylinderLocal.coefficients`），M 步补回无散与角不变两子句并降到 `C(Icc 0 S, EulerMeanSolenoidal.L2)`（照 `exists_local` 尾部） |
-| 127-MAINT-hotfix-pressuredrop-import | PR 已开 | #125 | — | 热修：#124（121）在 #123（搬 RealPairing 到 D01）之后合入，`A04/PressureDrop.lean` 仍 `import …A04.RealPairing`，integration 门禁红（wave80 exit=2）；改一行 import 为 `D01.RealPairing`（lead 手改，一行） |
+| 127-MAINT-hotfix-pressuredrop-import | 已合并 | #125 | — | 热修：#124（121）在 #123（搬 RealPairing 到 D01）之后合入，`A04/PressureDrop.lean` 仍 `import …A04.RealPairing`，integration 门禁红（wave80 exit=2）；改一行 import 为 `D01.RealPairing`（lead 手改，一行） |
+| 128-A04-energy-identity-high | 进行中 | — | — | **A04 eq:Rhigh 组装**（S，121 审稿探针已编译）：`Section4/A04/EnergyIdentityHigh.lean`，`def Chigh m := A03.outerTameConst m` + `Chigh_pos`，`energyIdentityHigh` 逐字取 `research/A04/Spec.lean:424-434` 的 ∀ 前缀形；顺手修 121 两个 probe 的旧 import |
 | 其余节点 | 未开始 | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

@@ -360,3 +360,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A04,121-A04-hpr-leray-adjoint,prover,worker-resume,Probes preserved (assembly + fit chain, credited); G1_SPLIT rows fixed; Ico/MAINT notes recorded in 5 min / 19 tool uses,PR,PR #124 opened; chain queued after #123
 2026-09-14,A01,126-A01-a2b-continuation,prover,worker,launched: forced global mild solution from a-priori bound + clause restoration,running,
 2026-09-14,MAINT,127-MAINT-hotfix-pressuredrop-import,lead,hotfix,one import line A04.RealPairing→D01.RealPairing after #123/#124 ordering; PressureDrop builds; axioms 10× standard,PR,PR #125 opened; merging
+2026-09-14,A04,128-A04-energy-identity-high,prover,worker,launched: energyIdentityHigh assembly from the 121 reviewer probe,running,
