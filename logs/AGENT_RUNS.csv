@@ -458,3 +458,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,147-A01-a3-l1k-glue,prover,worker,resumed to apply F1–F4 (concurrency 2 with 148 worker),running,
 2026-09-14,A01,147-A01-a3-l1k-glue,prover,worker,fixes F1–F4 applied (a.e. hslice; ne_top; records); 9 decls standard; plug-in probe still typechecks,done,
 2026-09-14,A01,147-A01-a3-l1k-glue,lead,merge,PR #149 merged; gates wave105 OK over 119 modules,merged,149
+2026-09-14,A01,149-A01-a3-widen-converse,prover,worker,launched on integration 2cb5116 (iii: Icc widening for T₀<T; ii: converse norm comparison at order q+1),running,
