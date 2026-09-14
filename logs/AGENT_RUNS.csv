@@ -521,3 +521,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,MAINT,155-SIMP-d01-c01-dedup,opus,reviewer,launched (statement-invariance audit; concurrency 2 with 157 worker),running,
 2026-09-14,A01,157-A01-slice-wiring,prover,worker,DONE: Z = C01.velocityField (rfl); sobolevENorm_slice_ne_top; converse on the real solution modulo hslice; apriori_rows_of_hslice; row (i) reduced to the mild ⇒ classical constructor; 6 decls standard; committed 90029bb,done,
 2026-09-14,A01,157-A01-slice-wiring,opus,reviewer,launched (concurrency 2 with 155 review),running,
+2026-09-14,MAINT,155-SIMP-d01-c01-dedup,opus,reviewer,ACCEPT-WITH-NOTES (signature diff changed=0 over 7 modules; closure 109→89 confirmed; N1 dangling docstrings in L2Descent; N2 counts): REVIEW_SIMP_155.md + probe,accepted,
+2026-09-14,MAINT,155-SIMP-d01-c01-dedup,lead,merge,notes applied; PR #158 chain launched,merging,158
