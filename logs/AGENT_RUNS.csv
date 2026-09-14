@@ -510,3 +510,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,C01,156-C01-v3-contract,opus,reviewer,ACCEPT-WITH-NOTES (byte-identical to Spec; five paper line citations): REVIEW_V3_CONTRACT.md + 3 probes,accepted,
 2026-09-14,C01,156-C01-v3-contract,lead,merge,citation notes applied (contract, registry scope, Spec.lean); gates rerun OK; PR #157 merged; gates wave113 OK over 126 modules; 26 contracts,merged,157
 2026-09-14,A01,157-A01-slice-wiring,prover,worker,launched on integration 38abd97 (Z/hfin from the velocity slice; unconditional converse on the real solution; hslice/horizon matching attempt),running,
+2026-09-14,MAINT,155-SIMP-d01-c01-dedup,prover,worker,FAILED mid-work: router 429 rate limit (partial edits left in worktree); resume after back-off,queued,
