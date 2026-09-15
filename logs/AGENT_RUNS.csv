@@ -710,3 +710,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,186-A01-a3-common-horizon,codex,worker,"DONE rc=0 (astra low): lowering/commutation proved; compatible_carriers_of_bounds/_Inv + compatible_carriers_hall under one named input MildUniqueness (order-6 mild uniqueness on [0,S]); 11 decls standard axioms; commit 6af395e",done,
 2026-09-15,A01,186-A01-a3-common-horizon,codex,reviewer,"launched (sol xhigh) with 5 check points (MildUniqueness minimality/truth, commutation proved, hall token match vs 178, route assessment for 188, hygiene) bd:rev-186",running,
 2026-09-15,A01,188-A01-mild-uniqueness,lead,plan,"lane opened on 186 branch: prove MildUniqueness (window contraction + restart/first-divergence iteration); install then auto-launch astra low",planned,
+2026-09-15,A01,180-A01-b2-assembly,codex,fix,"DONE rc=0: carrierConstructor_of_localTheory + carrierConstructorFull_of_hyps under hsob/hc3/hpg; divergence direct; zero-carrier instance; 9 decls standard axioms; commit 8282010",done,
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"re-review launched (sol xhigh) with 5 check points (inputs exact, hsob vs 178 j=0, hpg minimality → lane 189, zero instance, gates) bd:rev-180",running,
+2026-09-15,A01,188-A01-mild-uniqueness,codex,worker,"launched (astra low) after install; target theorem mildUniqueness : MildUniqueness",running,
