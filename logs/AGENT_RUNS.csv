@@ -720,3 +720,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,178-A01-b1-ladder-r3,lead,merge,"PR #186 merged via chain (wave 13) gates green",merged,186
 2026-09-15,A05,181-A05-v2-contract,codex,fix,"DONE rc=0: V2 mutation cases rejected as required; wording MemHInfty specialization of Lemma B.1; review artifacts committed; 29 contracts; commit 5eda560",done,
 2026-09-15,A05,181-A05-v2-contract,lead,merge,"lead re-verified; PR #187 opened; chain launched (wave 14)",running,187
+2026-09-15,A01,188-A01-mild-uniqueness,codex,worker,"DONE rc=0 (astra low): mildUniqueness : MildUniqueness proved unconditionally (volterra_window_bound causal windows, exists_positive_time_budget δ, kernelMass δ·L<1, finite induction incl. S); primed corollaries; 7 decls standard axioms; commit 2687da5",done,
+2026-09-15,A01,188-A01-mild-uniqueness,codex,reviewer,"adversarial review launched (sol xhigh): causal window bound, budget/Lipschitz constants, induction endpoint, token match, hygiene bd:rev-188",running,
