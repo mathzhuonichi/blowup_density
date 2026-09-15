@@ -791,3 +791,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,194-A01-complement-path,lead,plan,"lane opened (install then auto-launch astra low): Leray-complement datum paths of the residual + physical path w + per-time complement identity; joint representative via 190",planned,
 2026-09-15,A01,195-A01-interior-momentum,lead,plan,"lane opened (install then auto-launch astra low): temporal derivative of the joint representative = evaluated derivative datum; interior identity G = residual − ∂ₜu on Ioo",planned,
 2026-09-15,A05,191-A05-u4-shifted-data,lead,merge,"PR #195 merged via chain (wave 22) gates green; RieszShift.lean + R43/ShiftedData.lean on integration",merged,195
+2026-09-15,A01,193-A01-a3-m2-bounds,codex,reviewer,"ACCEPT-WITH-NOTES: MildGronwall honest (restriction of the H^{q+1} energy inequality), base bound/radius exact, 256→255 mutation fails; notes: composition probe vs 192 final export, record vendor regularized mild-energy route",accepted,
+2026-09-15,A01,193-A01-a3-m2-bounds,codex,fix,"launched (sol high): records + composition probe vs constructorInputs_of_bounds; review artifacts",running,
+2026-09-15,A01,196-A01-mild-gronwall,lead,plan,"lane opened on 193 branch (install then auto-launch astra low): prove MildGronwall via vendor regularized mild-energy chain + A03/A04 tame top term",planned,
