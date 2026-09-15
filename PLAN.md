@@ -295,7 +295,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 165-A05-critical-l3 | 待审（codex review 中；lead 附注：与 164 定义逐 token 比对、MemHInfty 假设、⊤ 空洞性、常数） | 09-15 1907Z | — | — | A05 **velocityCriticalL3**（HANDOFF P3）：Riesz 路线（Paper1/SchwartzCriticalEmbedding）到 spec 词汇的载体翻译 U1–U7；不注册（等 164） |
 | 166-R44-split | 已合并 | 09-15 1908Z | #175 | — | R44 **命题 4.4 拆分**（HANDOFF P6）：R44_SPLIT.md + Pieces.lean（拼写钉/常数算术/bootstrap 复用），注册审计 |
 | 167-A01-force-bridge | 返工完成，复审中（消费者方向：forcePath_of_memForceR、initialClassR_of_smoothL2） | 09-15 1918Z | — | — | A01 **行 (v) 数据/外力桥**（HANDOFF P7b）：forceOfPath F ↦ f' 与 MemForceR/MemL1Hm，a.field ∈ initialClassR，与 C01.forcePath 的往返 |
-| 168-A01-pressure-p3 | 合并中 | 09-15 1923Z | #177 | — | A01 **c4/c9 压力 P3**（HANDOFF P7c）：pressureOfVelocity（Leray 余投影的势 + 规范）、pressure_gradient MemLp、pressure_smooth（时间侧以 B1 为具名假设）、momentum 经 navierStokesResidual_eq_iff_projected |
+| 168-A01-pressure-p3 | 已合并 | 09-15 1926Z | #177 | — | A01 **c4/c9 压力 P3**（HANDOFF P7c）：pressureOfVelocity（Leray 余投影的势 + 规范）、pressure_gradient MemLp、pressure_smooth（时间侧以 B1 为具名假设）、momentum 经 navierStokesResidual_eq_iff_projected |
 | 169-A01-b1-ladder-r2 | 进行中（codex sol xhigh） | 09-15 1901Z | — | — | A01 **B1 阶梯 R2**（HANDOFF P8）：datum 路径对时间可导，导数 = 动量残差的 datum（Duhamel 方程微分；路线 α vendor Duhamel 导数 + L2Descent 下降，或 β 光滑代表元切片）；任务书 collaboration/briefs/169-*.md |
 | 170-C01-e6-e7-enstrophy-identity | 进行中（codex sol xhigh） | 09-15 1901Z | — | — | C01 **E6/E7**（HANDOFF P2 后续）：enstrophyIdentity（代入动量方程、压力配对消去）与 h2TimeIntegral（H¹ 吸收门 ⇒ ∫₀ˢ‖u‖²_{H²} < ∞）；不注册（C01 V4 另开） |
 | 171-SPEC-r41d-draft-a | 完成（盲稿 A，待与 B 比对） | 09-15 1920Z | — | — | R41D **定理 4.1 密度分支盲稿 A**（HANDOFF P11，规则 2）：只看论文 + Contracts/V1 + R42 已注册合同；产出 research/R41D/DraftA.lean + COMPARISON_A.md |
