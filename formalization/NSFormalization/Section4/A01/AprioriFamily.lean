@@ -145,7 +145,8 @@ all windows and competitors. The force is measured at order `q+1`.
 This is a restriction of the usual finite-order energy estimate, not an
 all-order smooth-solution constructor. -/
 def MildGronwall {q : ℕ} (hq : 6 ≤ q) {ν S : ℝ} (hν : 0 < ν)
-    (a : SmoothL2Field Space) (F : Icc (0 : ℝ) S → SmoothL2Field Space)
+    (a : SmoothL2Field Space) (ha : ∀ x, EulerSmoothLimit.divergence a.field x = 0)
+    (F : Icc (0 : ℝ) S → SmoothL2Field Space)
     (hF : ∀ n, Continuous fun t => (F t).jetLp n) (E C : ℝ) : Prop :=
   ∀ (T : ℝ) (hT : 0 ≤ T) (hTS : T ≤ S)
     (u : C(Icc (0 : ℝ) T, SobolevSpace 1 (q+1))),
@@ -175,14 +176,15 @@ set_option maxHeartbeats 400000 in
 /-- The all-order radius family follows from a single bounded base solution and
 one finite-order energy-envelope input per order. -/
 theorem hb_of_base {ν S R₆ : ℝ} (hν : 0 < ν) (hS : 0 ≤ S)
-    (a : SmoothL2Field Space) (F : Icc (0 : ℝ) S → SmoothL2Field Space)
+    (a : SmoothL2Field Space) (ha : ∀ x, EulerSmoothLimit.divergence a.field x = 0)
+    (F : Icc (0 : ℝ) S → SmoothL2Field Space)
     (hF : ∀ n, Continuous fun t => (F t).jetLp n)
     (u₆ : C(Icc (0 : ℝ) S, SobolevSpace 1 7)) (hR : ‖u₆‖ ≤ R₆)
     (h₆ : ∀ t, u₆ t = quadraticDuhamel 1 ν hν hS le_rfl
       (coefficients 1 (le_refl 6) (sobolevPath F hF 6))
       (ordinarySobolev 7 a.toLp a.translation_contDiff) u₆ t)
     (E C : ℕ → ℝ) (hE : ∀ q, 0 ≤ E q) (hC : ∀ q, 0 ≤ C q)
-    (hMG : ∀ q (hq : 6 ≤ q), MildGronwall hq hν a F hF (E q) (C q)) :
+    (hMG : ∀ q (hq : 6 ≤ q), MildGronwall hq hν a ha F hF (E q) (C q)) :
     ∀ q (hq : 6 ≤ q), HasAprioriBound hq hν a F hF (aprioriRadius a F hF R₆ E C q) := by
   intro q hq T hT hTS u hu
   obtain ⟨y, hyu, hy0, hstep⟩ := hMG q hq T hT hTS u hu
@@ -243,16 +245,17 @@ theorem hb_of_base {ν S R₆ : ℝ} (hν : 0 < ν) (hS : 0 ≤ S)
 
 /-- The invariant variant is an immediate restriction of the unrestricted family. -/
 theorem hb_of_base_inv {ν S R₆ : ℝ} (hν : 0 < ν) (hS : 0 ≤ S)
-    (a : SmoothL2Field Space) (F : Icc (0 : ℝ) S → SmoothL2Field Space)
+    (a : SmoothL2Field Space) (ha : ∀ x, EulerSmoothLimit.divergence a.field x = 0)
+    (F : Icc (0 : ℝ) S → SmoothL2Field Space)
     (hF : ∀ n, Continuous fun t => (F t).jetLp n)
     (u₆ : C(Icc (0 : ℝ) S, SobolevSpace 1 7)) (hR : ‖u₆‖ ≤ R₆)
     (h₆ : ∀ t, u₆ t = quadraticDuhamel 1 ν hν hS le_rfl
       (coefficients 1 (le_refl 6) (sobolevPath F hF 6))
       (ordinarySobolev 7 a.toLp a.translation_contDiff) u₆ t)
     (E C : ℕ → ℝ) (hE : ∀ q, 0 ≤ E q) (hC : ∀ q, 0 ≤ C q)
-    (hMG : ∀ q (hq : 6 ≤ q), MildGronwall hq hν a F hF (E q) (C q)) :
+    (hMG : ∀ q (hq : 6 ≤ q), MildGronwall hq hν a ha F hF (E q) (C q)) :
     ∀ q (hq : 6 ≤ q), HasAprioriBoundInv hq hν a F hF (aprioriRadius a F hF R₆ E C q) :=
   fun q hq => HasAprioriBound.toInv hq hν a F hF _
-    (hb_of_base hν hS a F hF u₆ hR h₆ E C hE hC hMG q hq)
+    (hb_of_base hν hS a ha F hF u₆ hR h₆ E C hE hC hMG q hq)
 
 end NSFormalization.Section4.A01
