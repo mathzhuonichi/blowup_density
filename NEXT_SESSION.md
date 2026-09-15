@@ -8,7 +8,7 @@
 - 本轮用户指定：代码由 `gpt-6-astra` / low subagents 编写，Lean 编译与验证由 `gpt-5.6-luna` / high subagent 执行。主 agent 负责云端对齐、审查、记录与 PR。
 - Windows 环境：先 `. .elan/env.ps1`，`lake` 从 `verification/` 运行，复用现有缓存和 `LEAN_NUM_THREADS=1`；不使用旧 Linux 的环境路径。
 - 云端最新 `main` CI（run `34922570431`）仍因账户账单/额度未启动，`lean-contracts` 被跳过。不能把该失败记为 Lean 失败或成功；本轮以实际本地验证结果交付。
-- 本轮 158 / 160 代码、源码审查和本地验证已完成：3 个新增模块、4 份研究探针、26 条现有合同、13 项合同保护测试及变异测试全部通过。详情见 [`logs/FORMALIZATION_RESUME_20260915.md`](logs/FORMALIZATION_RESUME_20260915.md)。PR 链接待创建后登记。
+- 本轮 158 / 160 代码、源码审查和本地验证已完成：3 个新增模块、4 份研究探针、26 条现有合同、13 项合同保护测试及变异测试全部通过。详情见 [`logs/FORMALIZATION_RESUME_20260915.md`](logs/FORMALIZATION_RESUME_20260915.md)。已提交 [PR #161](https://github.com/mathzhuonichi/blowup_density/pull/161)，面向 `main`，待审查，尚未合并。
 - 158：datum/弱导数提升到所有 `m ≤ q+1`，导数词普通 L² 路径连续；完整经典解构造子仍欠联合光滑性、共同时间区间、datum 范数连续性及数据/外力同定。
 - 160：外力平移界与 R1/C1 装配已证；最终 R1 保留精确 A02 `Restart`，最终 C1 另保留精确 G3 `HigherOrderBound`。两项分析输入未证明，未新增无条件 PDE 合同。
 - 后续继续 A01 B1/B2/A3 和原计划 G1 → C01 E5–E7 → A05 U1–U7 → R43 G7；下面 09-14 的恢复顺序保留为历史，其中 158 / 160 已由本轮推进。

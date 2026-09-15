@@ -7,7 +7,8 @@
 暂停记录中的 lane 158 提交 `47cf101` 仍在远端分支，本轮恢复其源文件，
 补齐记录中指出的顶阶和时间连续性两项；lane 160 从头实现。
 
-本轮通过 `codex/158-160-formalization-resume` 向 `main` 提 PR。
+本轮通过 `codex/158-160-formalization-resume` 向 `main` 提交
+[PR #161](https://github.com/mathzhuonichi/blowup_density/pull/161)，待审查，尚未合并。
 原 `research` 工作区的无关修改未纳入本仓工作。
 
 ## 2. Lean 中新增内容
