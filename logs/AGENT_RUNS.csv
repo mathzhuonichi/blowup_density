@@ -827,3 +827,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,194-A01-complement-path,codex,reviewer,"ACCEPT: 192/195 probes compile; interval-widening mutation fails",accepted,
 2026-09-15,A01,194-A01-complement-path,lead,merge,"PR #199 opened; chain launched (wave 26)",running,199
 2026-09-15,A01,194-A01-complement-path,lead,merge,"PR #199 merged via chain (wave 26) gates green",merged,199
+2026-09-15,A01,195-A01-interior-momentum,codex,fix,"DONE rc=0: honest split hprojected/hresidualAgreement, interior_momentum_identity_of_complement_paths adapter, canonical 192 probe; 10 decls standard axioms; commit 96ff85f",done,
+2026-09-15,A01,195-A01-interior-momentum,lead,merge,"lead re-verified (module, axioms); PR #200 opened; chain launched (wave 27)",running,200
