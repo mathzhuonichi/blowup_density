@@ -1,4 +1,22 @@
 # R43 — Proposition 4.3 proof-route split (`prop:Rcritical1`)
+## Lane 165 update (2026-09-15; supersedes the historical C01 registration status below)
+
+This branch now registers `C01.energy_absorption_v4` in
+`Contracts/V4/EnergyAbsorption.lean`, with the actual binding and
+`Tests/EnergyAbsorptionV4.lean`. It extends frozen V3 and supplies the six original
+remaining C01 fields, including enstrophy absorption, the genuine angular H²
+comparison, and the H² time integral for **0<S≤T, including S=T**. The test module
+and its exact parent projection and terminal-finiteness consumer compile with
+standard logical axioms only. Independent paper-first statement drafts and the
+comparison/review are in `research/C01/BLIND165_{A,B}.*`, `COMPARISON_165.md`, and
+`REVIEW_SPEC_165.md`.
+
+Consequently, the historical rows below saying C01 V4 / `h2TimeIntegral` /
+`enstrophyIntegralBound` / `sobolevTwoFourier` are unproved or unregistered no
+longer apply on this branch. C01's fixed-horizon endpoint is proved. Passing
+from a compatible maximal family to S=T_max (G5), critical energy (G7), and
+the other A05/A04 or force-path obligations are not closed by this registration.
+This is a local stacked-PR result; it does not assert merged or successful cloud CI.
 
 Statement `paper/sections/04-whole-space.tex:82-89`; proof `:90-133`.
 Contract `research/R43/Spec.lean` (`BlowupDensity.R43.Draft.RCritical1API`, 4 fields);
