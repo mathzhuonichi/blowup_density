@@ -1,4 +1,6 @@
 # NEXT_SESSION.md — 当前状态与下一步
+- **2026-09-15 文档整理**：`PLAN.md` 重排（§4 节点状态看板、§5 并行工作包、§6 并发与预算；旧 §4/§5 原文在 `logs/PLAN_HISTORY_20260913.md`；进度表现在是 §8，`tmp/plan_row.py` 不受影响）；新增 `collaboration/HANDOFF.md`（11 个可分发工作包 P1–P11，串行骨干 + 并行链，外部协作者 lane 号 200–299）。`collaboration/TASKS.md`/`tasks/*.md` 仍是 `tasks.py render` 生成物，`DESIGN.md` 是工程设计依据，二者不动。
+- **2026-09-15 协调（重要）**：owner 已把 PR #15 合入 `main`（`main` = 集成分支到 b7895f1），并开了 **PR #161**（`codex/158-160-formalization-resume` → `main`，作者 mathzhuonichi，基于 `main`，不基于我们的 lane 分支）：重写了 `A01/ConstructorPieces.lean`（4 条定理，把 datum 存在性扩到全阶 `m ≤ q+1`）、`research/A01/CONSTRUCTOR_SPLIT.md`，并完成了 lane 160 的内容（`A04/Continuation.lean`：`restartBeyond` 以 `Restart` 为假设、`lifespanInfiniteOfLocallyFinite` 以 `HigherOrderBound` 为假设；`A04/ForceShift.lean`）。**处理**：我们的 158 分支与 160 工作树不再合入；`research/A01/REVIEW_CONSTRUCTOR_SPLIT.md` + `rev158_*` 探针在 #161 合入 main 后作为跟进 PR 贡献（它们对 #161 的模块仍有价值：N1/N3 已被 #161 吸收，N2/N4/N5 待核）。**流程变化**：现在有两条合入路径（我们 `erenup/integration` → `main`，owner `codex/*` → `main`），每次 owner 合入后集成分支要先 `git merge origin/main` 再开新 lane；HANDOFF 的 P1 已由 owner 团队做完（#161），P7/P8 的一部分（顶三阶、路径连续）也在 #161 里。
 
 更新：2026-09-14 0122Z（erenup 侧）。规矩看 [`CLAUDE.md`](CLAUDE.md)，全貌和顺序看 [`PLAN.md`](PLAN.md)。
 
