@@ -11,6 +11,7 @@
 - **2026-09-15 2320Z A01 管线现状**：`hb`（193：条件于唯一命名输入 `MildGronwall`——有限阶 mild 能量不等式，下一条 lane 194）→ 192（`hU/hdiv/hsob` 合并导出，复审中）→ 190（`velocity/hslice/hc3` 联合光滑代表元，审稿中）+ 189（压力梯度场 `G`，fix 待 190 合入后启动）→ 180（构造器 fix4：以 `velocity/hslice/hc3` 与 `G/hG_int/hG` 为参数，运行中）。合上后经典解构造器只剩 `MildGronwall` 一个分析输入。R43 侧：175+182 已合入，191（U4/U8 shifted 数据）在跑，之后剩 Parseval 配对（可外包）。
 - **2026-09-15 2330Z**：193（A3-M2 先验界族，条件于 `MildGronwall`）、192（接线）、191（U4/U8）、190（联合光滑代表元）均已合入（#197/#196/#195/#194；164 模块、29 合同）。在跑：196 `MildGronwall`（astra）、194/195（189 重设计两半，astra）、fix5 180（供给方量词形状：消费者环直接用 190/192 落地定理，189 义务定义为作用于选定解的 `PressureSupply`）。180 前四轮审稿抓到的都是"命名输入对真实供给不可满足"这一类问题（夹住载体、Lp 强制逐点值、t=0 双侧 fderiv、未限定量词），教训已进 LESSONS。
 - **2026-09-15 2323Z A3 链**：`FiniteMildEnergy`（标量平方能量包络的微分不等式，下一条 lane 198，astra）→ 196 `mildGronwall`（条件版已证，审稿中）→ 193 `hb_of_base`（已合入 #197）→ 192 → 190/194+195+197（压力腿三块：余项路径、内点恒等式、投影桥 `hprojected`）→ 189 装配 → 180（fix5：供给方量词形状 + `PressureSupply`）。196 指出 `MildGronwall` 应限定无散数据（`ha`），等审稿建议后在 198 里一并 re-cut。
+- **2026-09-16 0100Z**：194（#199 余项路径）、195（#200 内点恒等式，条件于 `hprojected`+`hresidualAgreement`）、196（#198 mild Grönwall 归约，`FiniteMildEnergy` 为唯一输入；两个能量谓词已加 `ha`）均合入，167 模块。在跑：198（能量前提，astra）、fix 197（推导柱面 Helmholtz 分解并接 194→195，astra）、180 第五轮审稿（`PressureSupply`）。之后：189 装配（194+195+197 → `PressureSupply`）、199（`Z` 界 + 包络转换 → `FiniteMildEnergy`）、最终 A01 无条件构造器接线。
 - 坑：新 worktree 必须先 `LEAN_SEED_DIR=<root> bash scripts/lean-install.sh`（否则 lake 私 clone Mathlib 从源码编译数小时）；`pkill -f` 会杀自己。
 
 ## Integration handoff (2026-09-15)
