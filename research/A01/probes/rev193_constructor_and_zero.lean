@@ -44,7 +44,7 @@ theorem hb_feeds_constructorInputs_192
         (C01.forcePath_jetLp_continuous (S := S) hf) 6))
       (ordinarySobolev 7 a.toLp a.translation_contDiff) u₆ t)
     (E C : ℕ → ℝ) (hE : ∀ p, 0 ≤ E p) (hC : ∀ p, 0 ≤ C p)
-    (hMG : ∀ p (hp : 6 ≤ p), MildGronwall hp hν a (C01.forcePath (S := S) hf)
+    (hMG : ∀ p (hp : 6 ≤ p), MildGronwall hp hν a ha (C01.forcePath (S := S) hf)
       (C01.forcePath_jetLp_continuous (S := S) hf) (E p) (C p)) :
     ∃ (U : C(Icc (0 : ℝ) S, EulerMeanSolenoidal.L2))
       (u : C(Icc (0 : ℝ) S, SobolevSpace 1 (q + 1))),
@@ -56,7 +56,7 @@ theorem hb_feeds_constructorInputs_192
         ∀ t : Icc (0 : ℝ) S, IsSobolevDatum (m : ℝ) (⇑(U t)) (G t.1) := by
   apply constructorInputs192 hq hf hν hS a ha
     (aprioriRadius a _ _ R₆ E C)
-  exact hb_of_base hν hS.le a _ _ u₆ hR h₆ E C hE hC hMG
+  exact hb_of_base hν hS.le a ha _ _ u₆ hR h₆ E C hE hC hMG
 
 private theorem zero_value :
     (SmoothL2Field.zeroField : SmoothL2Field Space).toLp = 0 := by
@@ -89,6 +89,7 @@ private theorem zero_mild (p : ℕ) (hp : 6 ≤ p) {T : ℝ} (hT : 0 ≤ T)
 private theorem zero_mildGronwall (p : ℕ) (hp : 6 ≤ p) :
     MildGronwall hp (by norm_num : (0 : ℝ) < 1)
       (SmoothL2Field.zeroField : SmoothL2Field Space)
+      (by intro x; simp [EulerSmoothLimit.divergence, SmoothL2Field.zeroField])
       (fun _ : Icc (0 : ℝ) 1 => (SmoothL2Field.zeroField : SmoothL2Field Space))
       (fun _ => continuous_const) 1 1 := by
   intro T hT hTS u hu
@@ -125,7 +126,8 @@ example : ∀ p (hp : 6 ≤ p), HasAprioriBound hp (by norm_num : (0 : ℝ) < 1)
     (fun _ => continuous_const)
     (aprioriRadius (S := 1) SmoothL2Field.zeroField (fun _ => SmoothL2Field.zeroField)
       (fun _ => continuous_const) 1 (fun _ => 1) (fun _ => 1) p) := by
-  apply hb_of_base (by norm_num) (by norm_num) _ _ _ 0 (by norm_num)
+  apply hb_of_base (by norm_num) (by norm_num) _
+    (by intro x; simp [EulerSmoothLimit.divergence, SmoothL2Field.zeroField]) _ _ 0 (by norm_num)
     (zero_mild 6 le_rfl (by norm_num) le_rfl) (fun _ => 1) (fun _ => 1)
     (fun _ => by norm_num) (fun _ => by norm_num)
   exact zero_mildGronwall

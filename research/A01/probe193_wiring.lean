@@ -52,7 +52,7 @@ example
         (C01.forcePath_jetLp_continuous (S := S) hf) 6))
       (ordinarySobolev 7 a.toLp a.translation_contDiff) u₆ t)
     (E C : ℕ → ℝ) (hE : ∀ p, 0 ≤ E p) (hC : ∀ p, 0 ≤ C p)
-    (hMG : ∀ p (hp : 6 ≤ p), MildGronwall hp hν a (C01.forcePath (S := S) hf)
+    (hMG : ∀ p (hp : 6 ≤ p), MildGronwall hp hν a ha (C01.forcePath (S := S) hf)
       (C01.forcePath_jetLp_continuous (S := S) hf) (E p) (C p)) :
     ∃ (U : C(Icc (0 : ℝ) S, EulerMeanSolenoidal.L2))
       (u : C(Icc (0 : ℝ) S, SobolevSpace 1 (q + 1))),
@@ -74,6 +74,6 @@ example
         ∀ t : Icc (0 : ℝ) S, IsSobolevDatum (m : ℝ) (⇑(U t)) (G t.1) := by
   apply constructorInputs192 hq hf hν hS a ha
     (aprioriRadius a _ _ R₆ E C)
-  exact hb_of_base hν hS.le a _ _ u₆ hR h₆ E C hE hC hMG
+  exact hb_of_base hν hS.le a ha _ _ u₆ hR h₆ E C hE hC hMG
 
 end NSFormalization.Section4.A01.Probe193
