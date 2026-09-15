@@ -107,9 +107,19 @@ shape consumed by `criticalNormBound_radius`, conditional only on the named
 carrier hypothesis `hcrit : CriticalDatumPath w hf` and the separate S1b
 hypothesis `htri : CriticalTrilinearEstimate (C₀ := C₀) hcrit` (besides the
 ambient force-membership witness `hf`).
+| S1a pairing identities | `⟨∂_t u, Λu⟩ = ½(y²)'`, `ν⟨−Δu,Λu⟩ = νz²`, `⟨∇p,Λu⟩ = 0` (Leray) | R43-own; pressure orthogonality via `A02`/`D01` Leray | M |
+| S1b trilinear estimate | `|⟨(u·∇)u, Λu⟩| ≤ C₀·y·z²` | **Lane 182 conditional layer proved:** three-`L³` Hölder, shifted-data `derivativeCriticalL3`, and assembly with `C₀ = 16·criticalL3Const³`. Exact residual: `CriticalAdvectionLpBridge hcrit`, supplying the physical `Λu`/derivative homogeneous carriers and Parseval identity; A05 U4/U8 remain unexported. | L → carrier bridge M |
+| S1c force term | `|⟨f, Λu⟩| ≤ b·y` (Cauchy–Schwarz in `Ḣ^{1/2}`) | R43-own | S |
+| S1d differentiability of `y²` | `HasDerivAt (fun s => (y s)^2) (E' s) s` | R43-own smooth critical path (gap) | M |
 
 The **scalar consequence** of S1 (`E'/2 + (ν−C₀y)z² ≤ by`) is exactly the `henergy`
 hypothesis of the tree's scalar bootstrap (see S2), so once S1 is proved, S2 is free.
+
+Lane 182's `criticalTrilinearEstimate_of_hcrit` and `rcritical1_of_hcrit` are
+conditional on the single exact carrier hypothesis `CriticalAdvectionLpBridge hcrit`.
+That hypothesis contains no `L³` or trilinear bound. See `ATTEMPTS_S1B.md` for
+the exact statement, the complete mandated tree search, and why
+`CriticalDatumPath` alone does not yet construct it.
 
 ### S2 — regularized division + continuity bootstrap (M; **a=0 closed by reuse**)
 
