@@ -1,4 +1,4 @@
-# B1 时间正则阶梯 — lanes 161 / 169
+# B1 时间正则阶梯 — lanes 161 / 169 / 178
 
 本 lane 已证明 R1，范围 **所有 `m ≤ q + 1`**，包括闭端点。没有假设
 `ClassicalSolutionR`、空间光滑代表元、时间可导性或 Duhamel 方程；R1 只消费柱面路径本身的连续性、角不变性和下降恒等式。
@@ -13,8 +13,8 @@
 |---|---|---|---|
 | R1 | `∃ A : I → RealVectorSobolev (m : ℝ), (∀ t, IsSobolevDatum (m : ℝ) (⇑(U t)) (A t)) ∧ Continuous A` | 本 lane `exists_continuous_datumPath`；`continuous_cylinder_word`；`L2Descent.exists_ordinaryLift_of_invariant`；`EulerPairing.weakDeriv_pairing_of_lift_hasDerivAt`；D01 `exists_isSobolevDatum_norm_le_sharp`, `isSobolevDatum_sub` | **DONE**，全部 `m ≤ q+1`；不是只证范数连续 |
 | R2 | `∃ A R : C(I, RealVectorSobolev (m : ℝ)), (∀ t, IsSobolevDatum (m : ℝ) (⇑(U t)) (A t)) ∧ (∀ t, IsSobolevDatum (m : ℝ) (⇑(projectedResidualOrdinaryPath … t)) (R t)) ∧ ∀ t ∈ Ioo 0 S, HasDerivAt (extendPath S hS.le A) (R ⟨t,…⟩) t` | lane 169 `exists_differentiable_datumPath`；vendor `realization_hasDerivAt`；`hasDerivAt_of_injective_map`；R1 的定量 datum 选择；角不变下降 | **DONE**，全部 `m ≤ q-1`；残差精确为 `νΔu + P(F-(u·∇)u)`；端点只声明连续，不声明单侧导数 |
-| R3 | `∀ j m : ℕ, ∃ G : ℝ → RealVectorSobolev (m : ℝ), ContDiffOn ℝ j G (Icc 0 S) ∧ ∀ t : I, IsSobolevDatum (m : ℝ) (⇑(U t)) (G t.1)` | R1；R2 `exists_differentiable_datumPath`；D01 datum 唯一性；A03 有限阶乘积估计；C01 残差代数 | 仍需构造光滑代表元并把投影残差识别为物理 `∂ₜ`；每次时间微分消耗空间阶，力也需时间光滑；固定有限 `q` 不能给任意 `j`。**L** |
-| R4 | `∃ v : ℝ × Space → Space, ContDiffOn ℝ ∞ v (Ico 0 S ×ˢ univ) ∧ ∀ t : I, (fun x => v (t.1, x)) =ᵐ[volume] ⇑(U t)` | `Paper3.angularBoundedRepresentative`；`C01.jetOfDatum_continuous`；`D01.jetOfDatum_ae`；`Paper1.PeriodicH3RepresentativeBridge.continuous_pointwise_representative`, `differentiated_path_pointwise_continuous` | 选取各阶兼容的点值代表元，识别混合偏导并升级联合全阶光滑。**L**（已有 C⁰ / 空间导数设备） |
+| R3 | `∃ G : ℝ → RealVectorSobolev (m : ℝ), ContDiffOn ℝ j G (Icc 0 S) ∧ ∀ t : I, IsSobolevDatum (m : ℝ) (⇑(U t)) (G t.1)` | lane 178 `datumPath_contDiffOn`；`residualPath_hasDerivAt`；D01 datum 唯一性；有界双线性 `advection` 的 Leibniz 法则 | **DONE（有限范围，条件式）**：若柱面力路径 `f` 在时间为 `C∞`，则当前全 `j` 实现的范围为 `max 6 m + 2*j ≤ q+1`；对 `m<6` 不声称这是数学上的最优范围。原始 Horizon 输入无条件给 `datumPath_contDiffOn_one`：精确在 `m+2 ≤ q+1` 时为 `C¹`（R1 另给所有 `m≤q+1` 的 `C⁰`）。`datumPath_contDiffOn_all_orders` 在兼容的全阶柱面供给假设下给全部 `j,m`。树中仍缺 `MemForceR` datum 光滑性到 `sobolevPath F hF q` 柱面时间光滑性的桥，以及仅由 `∀q, HasAprioriBound` 得到同一个 `U` 的跨阶兼容性。 |
+| R4 | `∃ v : ℝ × Space → Space, ContDiffOn ℝ ∞ v (Ico 0 S ×ˢ univ) ∧ ∀ t : I, (fun x => v (t.1, x)) =ᵐ[volume] ⇑(U t)` | lane 178 `datumPath_contDiffOn_all_orders`（需要其 `hall` 全阶兼容供给）；`Paper3.angularBoundedRepresentative`；`C01.jetOfDatum_continuous`；`D01.jetOfDatum_ae`；`Paper1.PeriodicH3RepresentativeBridge.continuous_pointwise_representative`, `differentiated_path_pointwise_continuous` | 仍需从各阶 datum 路径选取一个兼容点值代表元，识别混合偏导并升级联合全阶光滑。**L**；R4 不能只消费单个有限 `q` 的 R3 结论。 |
 
 ## R1：已核验的完整语句与机制
 
@@ -96,6 +96,24 @@ lane 169 在真实 Duhamel 前提下证明：若 `hq : 6 ≤ q`、`hm : m ≤ q-
   无循环地产生所需的时空光滑代表元。
 
 ## R3/R4：同一 horizon、力的时间正则性和代表元
+
+lane 178 的有限阶 bootstrap 先在柱面 Sobolev 空间中进行。目标阶 `k≥6` 的残差改写成
+
+```lean
+ν • laplacianOperator 1 k (u at order k+2) +
+  leray 1 k (f at order k - advection 1 hk (u at order k+1) (u at order k+1))
+```
+
+因此 `cylinderPath_contDiffOn` 每次时间微分精确损失两个空间阶：`k + 2*j ≤ q+1`。
+`exists_contDiff_datumPath_of_cylinder` 再对 `j` 归纳，将柱面 within derivative 的角不变性
+下降到普通 L²，并用 `lowerVectorL p 0` 的单射性把 order-zero 导数提升回唯一 order-`p`
+datum。最后取 `k=max 6 m` 并降阶到 `m`，得到 `datumPath_contDiffOn` 当前全 `j`
+实现的范围 `max 6 m + 2*j ≤ q+1`；对 `m<6` 不声称该范围为数学上最优。
+
+`reducedResidualDerivativePath` 明确写出第一步再次微分的结果
+`νΔuₜ + P(fₜ-B(uₜ,u)-B(u,uₜ))`；`residualPath_hasDerivAt` 证明任意连续残差 datum
+选择的导数就是该路径的 datum。只使用 Horizon 的 `hF : ∀n, Continuous ...` 时，
+`datumPath_contDiffOn_one` 无条件在精确范围 `m+2 ≤ q+1` 闭合 `C¹`；第二次及以上时间微分确实需要外力的时间导数。
 
 R3 的共同 `U` 必须在同一个 `Icc 0 S` 上被任意高阶柱面解实现；需要跨阶唯一性与供给侧先验界。
 单独的 `F : I → SmoothL2Field Space` 加 `∀ n, Continuous (fun t => (F t).jetLp n)`
