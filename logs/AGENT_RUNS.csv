@@ -607,3 +607,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,codex,reviewer,launched (sol xhigh) with check points bd:rev-170,running,
 2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,codex,reviewer,ACCEPT (no fixes; E7 is strict-interior only, endpoint S=T_max open): REVIEW_170 + 2 probes,accepted,
 2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,lead,merge,PR #178 chain launched,merging,178
+2026-09-15,A01,169-A01-b1-ladder-r2,codex,worker,DONE rc=0: exists_differentiable_datumPath (HasDerivAt of the datum path, derivative = projected residual datum νΔu + P(F − (u·∇)u)) for m ≤ q−1; 23 decls standard; one maxHeartbeats 400000; lead reran gates OK; committed d6e0182,done,
+2026-09-15,A01,169-A01-b1-ladder-r2,codex,reviewer,launched (sol xhigh) with check points bd:rev-169,running,
