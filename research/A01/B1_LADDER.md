@@ -14,7 +14,7 @@
 | R1 | `∃ A : I → RealVectorSobolev (m : ℝ), (∀ t, IsSobolevDatum (m : ℝ) (⇑(U t)) (A t)) ∧ Continuous A` | 本 lane `exists_continuous_datumPath`；`continuous_cylinder_word`；`L2Descent.exists_ordinaryLift_of_invariant`；`EulerPairing.weakDeriv_pairing_of_lift_hasDerivAt`；D01 `exists_isSobolevDatum_norm_le_sharp`, `isSobolevDatum_sub` | **DONE**，全部 `m ≤ q+1`；不是只证范数连续 |
 | R2 | `∃ A R : C(I, RealVectorSobolev (m : ℝ)), (∀ t, IsSobolevDatum (m : ℝ) (⇑(U t)) (A t)) ∧ (∀ t, IsSobolevDatum (m : ℝ) (⇑(projectedResidualOrdinaryPath … t)) (R t)) ∧ ∀ t ∈ Ioo 0 S, HasDerivAt (extendPath S hS.le A) (R ⟨t,…⟩) t` | lane 169 `exists_differentiable_datumPath`；vendor `realization_hasDerivAt`；`hasDerivAt_of_injective_map`；R1 的定量 datum 选择；角不变下降 | **DONE**，全部 `m ≤ q-1`；残差精确为 `νΔu + P(F-(u·∇)u)`；端点只声明连续，不声明单侧导数 |
 | R3 | `∃ G : ℝ → RealVectorSobolev (m : ℝ), ContDiffOn ℝ j G (Icc 0 S) ∧ ∀ t : I, IsSobolevDatum (m : ℝ) (⇑(U t)) (G t.1)` | lane 178 `datumPath_contDiffOn`；`residualPath_hasDerivAt`；D01 datum 唯一性；有界双线性 `advection` 的 Leibniz 法则 | **DONE（有限范围，条件式）**：若柱面力路径 `f` 在时间为 `C∞`，则当前全 `j` 实现的范围为 `max 6 m + 2*j ≤ q+1`；对 `m<6` 不声称这是数学上的最优范围。原始 Horizon 输入无条件给 `datumPath_contDiffOn_one`：精确在 `m+2 ≤ q+1` 时为 `C¹`（R1 另给所有 `m≤q+1` 的 `C⁰`）。`datumPath_contDiffOn_all_orders` 在兼容的全阶柱面供给假设下给全部 `j,m`。树中仍缺 `MemForceR` datum 光滑性到 `sobolevPath F hF q` 柱面时间光滑性的桥，以及仅由 `∀q, HasAprioriBound` 得到同一个 `U` 的跨阶兼容性。 |
-| R4 | `∃ v : ℝ × Space → Space, ContDiffOn ℝ ∞ v (Ico 0 S ×ˢ univ) ∧ ∀ t : I, (fun x => v (t.1, x)) =ᵐ[volume] ⇑(U t)` | lane 178 `datumPath_contDiffOn_all_orders`（需要其 `hall` 全阶兼容供给）；`Paper3.angularBoundedRepresentative`；`C01.jetOfDatum_continuous`；`D01.jetOfDatum_ae`；`Paper1.PeriodicH3RepresentativeBridge.continuous_pointwise_representative`, `differentiated_path_pointwise_continuous` | 仍需从各阶 datum 路径选取一个兼容点值代表元，识别混合偏导并升级联合全阶光滑。**L**；R4 不能只消费单个有限 `q` 的 R3 结论。 |
+| R4 | `∃ v : SpaceTimeField, (∀ t : I, (fun x => v (t.1, x)) =ᵐ[volume] ⇑(U t)) ∧ ContDiffOn ℝ ∞ v (Ico 0 S ×ˢ univ)` | lane 190 `exists_joint_smooth_representative`；`jointRepresentative_contDiffOn` 实际给更强的 `Icc 0 S ×ˢ univ`；`exists_joint_smooth_representative_of_hall` 直接消费 lane 178 `datumPath_contDiffOn_all_orders` | **DONE（条件式）**：固定 order-two `angularBoundedRepresentative` 为唯一场；有限联合阶 `n` 用 order-`n+2` 路径和闭区间 within derivative 证明，再由“连续代表元 a.e. 相等即处处相等”跨阶搬运。供给侧仍是 lane 178 的诚实 `hall`；R4 本身不再有代表元或混合导数缺口。 |
 
 ## R1：已核验的完整语句与机制
 
@@ -114,7 +114,7 @@ datum。最后取 `k=max 6 m` 并降阶到 `m`，得到 `datumPath_contDiffOn` �
 `νΔuₜ + P(fₜ-B(uₜ,u)-B(u,uₜ))`；`residualPath_hasDerivAt` 证明任意连续残差 datum
 选择的导数就是该路径的 datum。只使用 Horizon 的 `hF : ∀n, Continuous ...` 时，
 `datumPath_contDiffOn_one` 无条件在精确范围 `m+2 ≤ q+1` 闭合 `C¹`；第二次及以上时间微分确实需要外力的时间导数。
-Lane 186: `compatible_carriers_of_bounds`（namespace `NSFormalization.Section4.A01`）及 `compatible_carriers_of_boundsInv` 固定 canonical datum/force，构造同一 `U`；`compatible_carriers_hall` 输出 lane 178 的原样 `hall`。因此 `hall` 的供给现在归约为所有阶的先验界、具名外力时间光滑输入 `hfs`，以及一个显式 `MildUniqueness`（阶六、整个 `[0,S]` 上任意两个 mild 解的唯一性）。降阶交换已证；此唯一性尚未证明，不能称共同载体无条件完成。详见 `ATTEMPTS_A3_COMMON_HORIZON.md` / `REPORT_186.md`。
+Lane 186: `compatible_carriers_of_bounds`（namespace `NSFormalization.Section4.A01`）及 `compatible_carriers_of_boundsInv` 固定 canonical datum/force，构造同一 `U`；`compatible_carriers_hall` 输出 lane 178 的原样 `hall`。因此 `hall` 的供给现在归约为所有阶的先验界、具名外力时间光滑输入 `hfs`，以及一个显式 `MildUniqueness`（阶六、整个 `[0,S]` 上任意两个 mild 解的唯一性）。降阶交换已证；此唯一性已由 lane 188（`mildUniqueness`，PR #191）证明，`hfs` 由 lane 187（PR #193）卸下，全阶数据路径 `hsob` 由 lane 192 从先验界族供给；共同载体现只条件于先验界族 `hb`（lane 193）。详见 `ATTEMPTS_A3_COMMON_HORIZON.md` / `REPORT_186.md`。
 
 R3 的共同 `U` 必须在同一个 `Icc 0 S` 上被任意高阶柱面解实现；需要跨阶唯一性与供给侧先验界。
 单独的 `F : I → SmoothL2Field Space` 加 `∀ n, Continuous (fun t => (F t).jetLp n)`
@@ -134,15 +134,20 @@ ContDiffOn ℝ ∞
 重复时间微分不再缺 force-side 时间导数及 Sobolev 控制。R1 仍不需要该假设。
 R3 的一致性由同一物理切片的 datum 唯一性保证，而跨柱面阶的 `U` 相同仍需另证。
 
-R4 表中的假设是 R3 全部 `j,m`（或等价的每阶 `ContDiffOn ℝ ∞` datum 路径），
-结论选择 **一个** 联合光滑 `v`，不声称原始 `Lp` coercion 逐点光滑。
-低阶连续代表元由高阶降阶一致性固定，空间求导和时间求导用连续线性求值搬运，再识别混合导数。
-有限阶 datum⇒喷流定理及周期/柱面 C⁰ 代表元定理只能作为设备。
+Lane 190 已完成 R4。`jointRepresentative` 固定选择 order-two datum 路径的
+`angularBoundedRepresentative`，不把原始 `Lp` coercion 当成逐点光滑函数。
+`scalarJointRepresentative_contDiffOn` 对联合阶归纳：时间分量使用 datum 路径的
+`derivWithin`，空间分量使用经 Schwartz 稠密性证明的
+`angularRepresentativeGradient`；因此 order-`n+2` 路径在整个闭 slab 上给 `C^n`。
+不同阶的连续代表元都 a.e. 等于同一 `U t`，故处处相等；这把每个有限阶正则性搬到
+固定 order-two 场。`jointRepresentative_contDiffOn` 汇总为
+`ContDiffOn ℝ ∞ … (Icc 0 S ×ˢ univ)`，`exists_joint_smooth_representative` 再限制到 `Ico`。
+`exists_joint_smooth_representative_of_hall` 直接与 lane 178 的
+`datumPath_contDiffOn_all_orders` 组合。剩余条件只在 `hall` 的供给侧，不在 R4。
 
 最终消费者还要 B2 各字段和压力、外力桥。`REVIEW_SLICE_WIRING.md` §3(b) 实际展示的是
 `CarrierConstructor`，没有名为 `CarrierConstructorFull` 的定义；该文件中的短版本仅有下降假设，
-不足以从任意路径推出经典解。本 checkout 也没有 owner 分支上的 `ConstructorPieces.lean`。
-必须使用包含真实 Duhamel 等式和正则外力的完整构造子前提。
+不足以从任意路径推出经典解。必须使用包含真实 Duhamel 等式和正则外力的完整构造子前提。
 另外 `S < T` 的构造子输出需要延拓／余量，R1–R4 在 `[0,S]` 上的正则性本身不会产生 `T > S`。
 
 论文核验：已用 `sed -n '71,76p' paper/sections/appendix-a-local-theory.tex` 核读：
