@@ -2,6 +2,8 @@
 
 ## 167-R43-endpoint（2026-09-15 0935Z）
 
+- 已推送 [PR #168](https://github.com/mathzhuonichi/blowup_density/pull/168)，base为PR #166分支。proof head为e2d05ad；architecture检查104329375348因账户账单/额度未启动，lean-contracts跳过；PR未合并。
+
 - G5实际最大族端点界及A04平方积分有限性已通过，包含S=T_max，原吸收前件不变。模块、四项标准公理、27合同（29checked）、变异和Python检查全部通过；见logs/VALIDATION_167_20260915.md。
 - 下一R43关键义务仍为A05临界嵌入与G7临界能量及bootstrap；A04无条件延拓仍依赖A01构造/持续性。全第4节尚未完成。
 
