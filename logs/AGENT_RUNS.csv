@@ -625,3 +625,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,169-A01-b1-ladder-r2,lead,merge,PR #180 chain launched,merging,180
 2026-09-15,R41D,174-SPEC-r41d-compare,codex,reviewer,ACCEPT (statement fidelity; L² threshold mutation fails; non-vacuity compiles),accepted,
 2026-09-15,R41D,174-SPEC-r41d-compare,lead,merge,PR #181 chain queued after #180,merging,181
+2026-09-15,A01,169-A01-b1-ladder-r2,lead,merge,PR #180 merged; gates wave125 OK over 137 modules,merged,180
