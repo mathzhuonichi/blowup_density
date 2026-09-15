@@ -1,5 +1,26 @@
 # NEXT_SESSION.md — 当前状态与下一步
 
+## 169-A01-plan（2026-09-15，当前执行方案）
+
+- 依据独立 Astra xhigh 审核完成 [H¹ 实施方案](research/A01/IMPLEMENTATION_PLAN_169.md)，并修正旧 split 的 horizon、时间动力学与构造依赖。审核原文归档在 [REVIEW_H1_REFACTOR_169.md](research/A01/REVIEW_H1_REFACTOR_169.md)，保留审查时的证据路径。
+- 本 lane 从 PR #169 的 `75bfb4e` 派生，worktree `169-a01-plan`，分支 `codex/169-a01-plan`。仅文档变化；独立 Astra xhigh 复核 ACCEPT，make check 的四个 Python 子命令通过，详见 [验证记录](logs/VALIDATION_169_20260915.md)。已推送 [PR #170](https://github.com/mathzhuonichi/blowup_density/pull/170)，base 为 PR #169 分支；未合并。首个方案 head `9e55927` 的 architecture 检查 `104341112912` 因账单/额度未启动，lean-contracts `104341129148` 跳过。
+- **下一全局 lane 170**：先完成 lane 168 实际正则化源对齐 → 有限 word 差值 uniform Cauchy → 连续高阶极限 → 初值/降阶/方程同定。保持同一 witness 与 T，不调用依赖经典解的能量来构造经典解。
+- 可并行推进真正 H¹-local 及低阶 persistence 供给。当前 q≥6 升阶不能直接接 H¹；固定基准阶时间上的全阶载体与 H¹ 球统一时间分别验收。
+- 后续顺序：低阶预算上同解全阶塔 → 真实 mild 全阶时间 bootstrap（含单侧 t=0）→ 普通压力与经典解 → 同 horizon 完整 API → A02 restart / A04 端点延拓。保留现有 tower、Horizon 辅助接口与冻结高阶合同。
+- 代码仍交 Astra low，全部 Lean 编译交 Luna high。平行 PR #168 的 R43 G5 仍有 `hsmall`，不代表无条件延拓或 A05/G7 完成。此前云端 CI 因账单/额度未启动，不记为 Lean 验证通过。
+
+## 168-A01-persistence（2026-09-15 0942Z）
+
+- 已推送 [PR #169](https://github.com/mathzhuonichi/blowup_density/pull/169)，base为PR #167分支。proof head为05b0ca0；architecture检查104331776975因账户账单/额度未启动，lean-contracts跳过；PR未合并。
+
+- 实际高阶sourceTime及同原源a.e.降阶已通过；从166同一local witness构造，保留原T、数据、force和方程。另已证明真实regularized heat终端gradient energy加耗散界及pointbound。
+- 两模块、九项标准公理输出、26条现有合同、变异及Python检查全部通过，独立review ACCEPT。见logs/VALIDATION_168_20260915.md；下一步为实际正则化源对齐、有限word差值的uniform Cauchy估计与连续高阶极限，不把time-L2当continuous。
+- 平行R43已交付 [PR #168](https://github.com/mathzhuonichi/blowup_density/pull/168)：真实最大族G5端点H2积分界，含S=T_max，仍保留吸收前件。该PR在另一堆叠分支，本tree不含其证明；R43 G7/A05和A04无条件延拓仍开。全局下一lane号169。
+
+- 从 PR #167 / d64704f 派生；同T时间L2升阶之后的连续高阶持续性；源审计并证明关键跨阶桥，禁止循环调用经典解能量。
+- 独立worktree和proof缓存，固定依赖；所有Lean编译交Luna high，代码交Astra low。原稿第4节和冻结合同仍为目标。
+
+
 ## 166-A01-maxreg（2026-09-15 0915Z）
 
 - 已推送 [PR #167](https://github.com/mathzhuonichi/blowup_density/pull/167)，base为PR #164分支。proof head为7faf625；architecture检查104323252207因账户账单/额度未启动，lean-contracts跳过；PR未合并。

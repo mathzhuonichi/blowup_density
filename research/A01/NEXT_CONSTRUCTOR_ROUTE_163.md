@@ -1,5 +1,21 @@
 # Next constructor route: same-horizon all-order tower (lane 163 audit)
 
+## Lane 168 update
+
+`A01/ForcedSourceUpgrade.lean` now builds the actual higher TimeLp source on
+the lane-166 horizon and identifies its restriction with the original nonlinear
+source. `A01/HeatGradientTrace.lean` separately retains terminal gradient energy
+and dissipation in the actual regularized heat estimate. Both modules, nine
+standard-axiom audits, 26 contracts and mutations passed; see
+`logs/VALIDATION_168_20260915.md` and `research/A01/PERSISTENCE_ROUTE_168.md`.
+
+The next step is to align actual regularizations with that higher source,
+apply the terminal bound to their differences and finite word blocks, prove
+uniform Cauchy convergence, and construct/identify a continuous higher path.
+The terminal estimate applies to regular heat paths; it is not by itself a
+trace theorem for the rough TimeLp witness. The common all-order tower and
+time bootstrap remain outstanding.
+
 ## Lane 166 update
 
 The recommended first step below is now proved in
