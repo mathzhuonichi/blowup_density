@@ -623,3 +623,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,173-A01-hinv-invariance,codex,reviewer,second review launched (sol xhigh) bd:rev-173,running,
 2026-09-15,A01,169-A01-b1-ladder-r2,codex,reviewer,ACCEPT-WITH-NOTES (stronger zero-residual example supplied by the reviewer's probe; default heartbeats genuinely time out at isDefEq),accepted,
 2026-09-15,A01,169-A01-b1-ladder-r2,lead,merge,PR #180 chain launched,merging,180
+2026-09-15,R41D,174-SPEC-r41d-compare,codex,reviewer,ACCEPT (statement fidelity; L² threshold mutation fails; non-vacuity compiles),accepted,
+2026-09-15,R41D,174-SPEC-r41d-compare,lead,merge,PR #181 chain queued after #180,merging,181
