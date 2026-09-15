@@ -6,9 +6,9 @@ The old `CarrierConstructor q ν S` in `probes/rev157_constructor_loop.lean` is 
 consumer skeleton: lift compatibility alone omits both angular invariance and the
 Duhamel equation. It is not the intended theorem to prove.
 
-The exact Lean target and its consumer reduction are in
+The historical Lean research target and its consumer reduction are in
 `research/A01/probes/ctor158_full.lean` (`CarrierConstructorFull`,
-`rows_from_constructor_full`). The corrected target consumes fixed input `hq : 6 ≤ q`,
+`rows_from_constructor_full`). That candidate consumes fixed input `hq : 6 ≤ q`,
 `hν : 0 < ν`, `hS : 0 < S`, `hR : 0 ≤ R`, a smooth solenoidal datum `a`, and the
 forcing path `F` with `∀ n, Continuous (fun t => (F t).jetLp n)`. For the paths
 `u : C(Icc 0 S, SobolevSpace 1 (q+1))` and `U : C(Icc 0 S, L2)`, retain **all seven**
@@ -28,6 +28,16 @@ Its desired output remains
 This is a research target, **not a proved theorem or a new axiom**. Row (v) additionally
 requires the chosen data and force to satisfy the manuscript classes and the links to
 `a` and `F`; the bare consumer skeleton does not encode those links.
+
+**Lane 163 scope audit:** this candidate is too strong as written: continuity of
+all spatial jets of `F` does not supply the time smoothness required by
+`ClassicalSolutionR.velocity_smooth`. The independent report
+[`REVIEW_CONSTRUCTOR_FORCE_SCOPE.md`](REVIEW_CONSTRUCTOR_FORCE_SCOPE.md) gives a
+mathematical counterexample route, not a Lean-formalized counterexample. Future
+constructor work must retain the original `MemForceR f`, identify `F` with the
+actual force slices, and preserve the original initial datum and force in the
+output. Do not treat `CarrierConstructorFull` as the theorem to prove. Its old Lean
+research declaration and all frozen contracts remain unchanged.
 
 ## 2. What is now proved
 
@@ -60,9 +70,9 @@ The full-order induction uses lane 153 `word_descent_ae_top`, not the order-losi
 | c3 `velocity_smooth` | Joint `ContDiffOn ℝ ∞` remains. Continuous spatial word paths are now proved. Duhamel time-derivative bootstrap and all spatial orders on one horizon still have to be assembled. |
 | c4 `pressure_smooth` | Joint pressure regularity from Helmholtz recovery and B1 remains. |
 | c5 `initial` | Defining `a'` as the initial slice gives this field by reflexivity; class membership and the link to `a` remain in (v). |
-| c6 `divergence` | Descend cylinder divergence a.e., then upgrade using a continuous representative. Still open. |
+| c6 `divergence` | Closed by lane 163 `ConstructorDivergence`: arbitrary ordinary L² lift in the cylinder divergence-free space implies ordinary solenoidality; the supplied actual smooth representative has pointwise zero divergence. The actual localTheory consumer passes. |
 | c7 `momentum` | Existing projected/residual identities give a reduction. Defining `f'` as the residual merely moves the content into its force-class membership and its link to `F`. |
-| c8 `sobolev` | Per-time datum existence now holds at all available `m≤q+1`. Continuous word paths are proved, but continuity in the order-`m` angular datum norm still needs a norm bridge. Also need compatible all-order paths on one horizon and the larger `Ico 0 T` domain. |
+| c8 `sobolev` | Per-time datum existence now holds at all available `m≤q+1`. Lane 161 `ConstructorDatumPath` proves the quantitative norm bridge and continuous order-`m` angular datum paths. Also need compatible all-order paths on one horizon and the larger `Ico 0 T` domain. |
 | c9 `pressure_gradient` | Align Helmholtz `L²` gradient with the solution's pressure gradient. |
 | `hslice` | B1 must supply this identity for its actual jointly smooth field. It cannot be discharged by citing an unrelated per-slice representative. |
 | (v) datum / force | Prove membership and the actual input-output links, including global force-domain regularity. `MemL1Hm` is in `A04/Forcing.lean:110`. |
@@ -78,9 +88,9 @@ However, neither vendor representative theorem alone supplies the required joint
 
 ## 4. Next work and verification
 
-The independent remaining carrier piece is c6 divergence descent. Row (v)'s force
+Finite-order datum continuity and c6 divergence descent are now closed. Row (v)'s force
 bridge and the Duhamel/bootstrap campaign remain substantive work. The finite-order
-word continuity proved here does not settle them or the constructor.
+datum continuity and divergence bridge do not settle them or the constructor. The next constructor target must retain the actual smooth force hypotheses identified in the lane 163 scope audit.
 
 Axiom and top-order zero-instance probe: `research/A01/axioms_constructor_pieces.lean`
 (`q=6`, `m=7`). The assigned Luna compiler passed the module, both non-vacuity consumers,

@@ -1,5 +1,15 @@
 # NEXT_SESSION.md — 当前状态与下一步
 
+## Lane 163（2026-09-15 0830Z）
+
+- 本地模块、8项标准公理输出、26条既有合同、13政策测试、计划/合同/队列/base兼容和变异检查已通过，详见 `logs/VALIDATION_163_20260915.md`。
+- `CONSTRUCTOR_SPLIT.md` 已更新c6与有限阶datum进展；旧constructor研究目标缺时间光滑强迫，须保留原版 `MemForceR f` 和实际输入同定。反例路线未Lean形式化。
+- 下一真实步骤见 `research/A01/NEXT_CONSTRUCTOR_ROUTE_163.md`：实际forced mild → 同horizon的TimeLp高一阶；共同连续全阶tower与时间bootstrap仍未完成。
+
+- 从 PR #162 / a4e18a2 派生；证明柱面无散约束到 ordinary L2 无散子空间的反向桥，再给实际光滑代表元的逐点散度结论。
+- 本 lane 独立 worktree：163-a01；代码由 Astra low 编写，所有 Lean 编译由 Luna high 执行。既有三个 PR 均未合并，按父分支继续堆叠 PR。
+- 正式数学目标仍是原版第 4 节与冻结合同；主目录新增 revision 文稿明确不是形式化依赖。
+
 ## Lane 161（2026-09-15 0710Z）
 
 - 分支 `codex/161-a01-datum-path`；基线 `0b8e5e4`（PR #161，尚未合并）。已提交 [PR #162](https://github.com/mathzhuonichi/blowup_density/pull/162)，以该 PR 分支为 base；尚未合并。

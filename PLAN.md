@@ -267,6 +267,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 159-R43-split | 已合并 | 09-14 1246Z | #160 | — | R43 **命题 4.3 拆分**（research + 首个 S 行）：照 research/R43/COMPARISON.md §4 的 G1–G8 与 Spec.lean RCritical1API 四字段，写 research/R43/R43_SPLIT.md（每个上游缺口现状：A05.gradient_l6、A04 energy_high V2、C01 V3 已注册；G7 eq:Rcritical1 自有 L 步）；证 S 行（G6 ℕ-pow/rpow 拼写钉、G3 非空洞、G8 常数算术）于 Section4/R43/*.lean |
 | 160-A04-restart-beyond | 恢复完成；本地检查通过，PR 待审查 | 09-15 0659Z | — | #161 | `ForceShift` 证明正时间平移的 L¹Hˢ 范数单调性；`Continuation` 完成最大解场搬运和完整 δ 端点步。R1 保留精确 A02 `Restart`；`extendsBeyond` / C1 另保留精确 G3 `HigherOrderBound`。两项分析输入未在本 lane 证明，不注册为无条件合同。 |
 | 161-A01-datum-path | 本地验收通过；PR 待审查 | 09-15 0731Z | — | #162 | 全阶定量下降控制 datum 差，构造所有 m ≤ q+1 的连续 RealVectorSobolev 路径；模块与顶阶消费者编译通过，七项公理仅标准三条；26条现有合同、13项保护测试、变异测试及base兼容性检查通过。独立 worktree 从 PR #161 的 0b8e5e4 派生。 |
+| 163-A01-divergence | 本地验证通过 | 09-15 0830Z | — | 待建 | 从 PR #162 / a4e18a2 派生；真无散下降及实际代表逐点散度。模块、8公理输出、26合同、政策/兼容与变异检查通过；旧constructor强迫范围已审计，尚非完整构造。 Astra low 编写/交叉审查，Luna high 编译。 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

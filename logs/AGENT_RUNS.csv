@@ -545,3 +545,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,MAINT,158-160-validation,gpt-5.6-luna high,verifier,"3 modules and 4 probe files pass; 26 contracts; 13 policy tests; base compatibility and mutations pass",#161,"Windows process-only autocrlf=false for temporary test repos; see FORMALIZATION_RESUME_20260915.md"
 2026-09-15,A01,161-datum-path,gpt-6-astra low,writer+reviewer,"Continuous datum paths compiled; 7 standard-axiom checks; independent C01 enstrophy source review",#162,"Worktree based on 0b8e5e4; full local validation passed"
 2026-09-15,A01,161-validation,gpt-5.6-luna high,verifier,"Module and 7 axiom outputs; 26 contracts; mutation suite pass",#162,"Python plan/contracts/policy/work-queue/base checks separately run by lead; all pass"
+2026-09-15,A01,163-divergence,gpt-6-astra low,writer,"Reverse cylinder-to-ordinary solenoidal bridge and actual smooth representative divergence",pending,"Based on PR 162; full local validation passed"
+2026-09-15,A01,163-review,gpt-6-astra low,reviewer,"Independent source review and final standard-axiom log inspection: ACCEPT",pending,"c6 only; full constructor not claimed"
+2026-09-15,A01,163-validation,gpt-5.6-luna high,verifier,"Module and 8 axioms outputs; 26 contracts; mutation suite passed",pending,"Python administrative checks separately passed by lead"
