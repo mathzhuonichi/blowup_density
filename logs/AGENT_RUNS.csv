@@ -734,3 +734,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,180-A01-b2-assembly,lead,hold,"design flaw: clamped carrier (projIcc, T:=S+1) makes hc3 unsatisfiable off stationary solutions; PR #190 → draft, queued chain killed; lesson recorded",held,190
 2026-09-15,A01,180-A01-b2-assembly,codex,fix2,"launched (sol xhigh): re-cut to T:=S (inputs only on Ico 0 S), consumer loop via lane-149 endpoint continuity, satisfiability probe",running,190
 2026-09-15,A01,189-A01-pressure-regularity,codex,worker,"launched (sol xhigh): slab-smooth pressure gradient, per-time L² via Leray complement, symmetric Jacobian (converse curl-free), packaged as hpg",running,
+2026-09-15,MAINT,176-MAINT-simp-codex-batch,lead,merge,"PR #188 merged via chain (wave 15) gates green",merged,188
+2026-09-15,A01,186-A01-a3-common-horizon,lead,merge,"PR #189 merged via queued chain (wave 16) gates green; CommonHorizon.lean on integration",merged,189
