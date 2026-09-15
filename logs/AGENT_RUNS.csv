@@ -640,3 +640,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,179-A01-gronwall-endpoint,codex,worker,DONE rc=0: highOrder_bddAbove_of_kbnd_Ico_full (endpoint constant 256R²T), all-orders BddAbove, hOne_uniform_Ico_full (∃ K ≠ ⊤ uniform H¹ bound on Ico 0 T, A04 restartBeyond input shape); 3 decls standard; lead reran gates OK; committed 6d491a6,done,
 2026-09-15,A01,179-A01-gronwall-endpoint,codex,reviewer,launched (sol xhigh) bd:rev-179,running,
 2026-09-15,A05,165-A05-critical-l3,codex,reviewer,second relaunch failed on upstream capacity; relaunched on gpt-6-astra low,running,
+2026-09-15,C01,177-C01-v4-contract,codex,worker,DONE rc=0 (after resume): C01 V4 registered (enstrophyIdentity token-for-token; V4 extends V3; only V2's gradientSq bridge non-rfl); 28 contracts; lead reran gates + check_contracts OK; committed 15cb546,done,
+2026-09-15,C01,177-C01-v4-contract,codex,reviewer,contract-fidelity review launched (sol xhigh) bd:rev-177,running,
