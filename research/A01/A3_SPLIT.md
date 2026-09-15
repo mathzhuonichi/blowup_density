@@ -288,3 +288,20 @@ order-≤2 Schwartz pairing, M — it unblocks A3-L1·k and hence the whole A3 c
 > from the mild cylinder pair; no `ClassicalSolutionR` is assumed by the pressure construction.
 > **Contract closure:** `ConstructorPressure` is currently in no registered contract closure,
 > so `make test` does not compile it; it must join the next registered A01 contract closure.
+
+
+> **Update (lane 173, P9a): row (iv) closed by route β.**
+> `HasAprioriBoundInv` in `AprioriInvariance.lean` (namespace `NSFormalization.Section4.A01`)
+> restricts the a-priori-bound quantifier to angle-invariant Duhamel solutions.
+> `HasAprioriBound.toInv` proves the old predicate implies the new one;
+> `forced_global_mild_core_of_boundInv` re-runs the invariance-carrying continuation
+> induction, supplying its existing invariance witness at both uses of the bound.
+> `forced_global_of_boundInv` exports the full seven-clause continuation, with a conclusion
+> token-identical to `forced_global_of_bound_unconditional`; the thin alias
+> `localTheory_on_prescribed_horizon_of_boundInv` has a conclusion token-identical to
+> `localTheory_on_prescribed_horizon`. Both include the ordinary L² path, its initial value,
+> descent, and divergence freedom. A3 supply can now target the
+> restricted predicate and receive `hinv` as a premise. No assertion that every solution
+> in the old `HasAprioriBound` scope is invariant; route α was inspected, not proved.
+> Other residual rows and the uniform-bound supply remain open as before.
+> See `ATTEMPTS_HINV.md`, `axioms_hinv.lean`, and `REPORT_173.md`.
