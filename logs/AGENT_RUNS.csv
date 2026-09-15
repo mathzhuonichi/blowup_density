@@ -650,3 +650,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,179-A01-gronwall-endpoint,lead,merge,PR #184 chain queued after #183,merging,184
 2026-09-15,A05,165-A05-critical-l3,lead,merge,PR #183 merged; gates wave128 OK over 139 modules,merged,183
 2026-09-15,A01,179-A01-gronwall-endpoint,lead,merge,PR #184 merged; gates wave129 OK over 140 modules,merged,184
+2026-09-15,R43,175-R43-s1-pairing,codex,worker,DONE rc=0 (after resume): critical_laplacian/pressure/force pairings, criticalEnergyPath derivative, rcritical1_of_trilinear with named hcrit (CriticalDatumPath) + htri; 16 decls standard; lead reran gates OK; committed a6fac76,done,
+2026-09-15,R43,175-R43-s1-pairing,codex,reviewer,launched (sol xhigh) with check points on hcrit honesty bd:rev-175,running,

@@ -302,7 +302,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 172-SPEC-r41d-draft-b | 已并入 174 | 09-15 2002Z | — | — | R41D **盲稿 B**（与 171 互不可见，同样输入）：DraftB.lean + COMPARISON_B.md；两稿完成后 lead 比对 → COMPARISON.md → Spec.lean |
 | 173-A01-hinv-invariance | 已合并 | 09-15 2013Z | #182 | — | A01 **行 (iv) 角不变性 hinv**（HANDOFF P9a）：路线 α 平移等变 + mild 唯一性 ⇒ HasAprioriBound 量化的每个 Duhamel 解自动角不变；路线 β 限制量化并重闭消费者环 |
 | 174-SPEC-r41d-compare | 已合并 | 09-15 2004Z | #181 | — | R41D **盲稿 A/B 比对与调和**（规则 2 第三人）：COMPARISON.md（逐条 论文↔A↔B）、RECONCILIATION.md、定稿 Spec.lean（可 elaborate）；合并两稿的上游缺口 G 表 |
-| 175-R43-s1-pairing | 进行中（codex sol xhigh） | 09-15 1944Z | — | — | R43 **S1 恒等式层**（HANDOFF P5）：临界路径 y² 的 datum 形定义、⟪Δu,Λu⟫ = −z²、⟪∇p,Λu⟫ = 0、⟪f,Λu⟫ ≤ by，装配成 henergy 形，只留 htri（三线性估计）与 hcrit（半阶齐次 datum 路径）两条具名假设 |
+| 175-R43-s1-pairing | 待审（S1 恒等式层；hcrit/htri 两条具名假设；codex review 中） | 09-15 2028Z | — | — | R43 **S1 恒等式层**（HANDOFF P5）：临界路径 y² 的 datum 形定义、⟪Δu,Λu⟫ = −z²、⟪∇p,Λu⟫ = 0、⟪f,Λu⟫ ≤ by，装配成 henergy 形，只留 htri（三线性估计）与 hcrit（半阶齐次 datum 路径）两条具名假设 |
 | 176-MAINT-simp-codex-batch | 待审（4 模块 +282/−117；lead 复跑 gates OK；不变性审计中） | 09-15 2022Z | — | — | MAINT **SIMP/tester 通道**（HANDOFF P10）：161/162/163/164/166/168/170 七个 codex 模块的简化与测试、156/157 遗留 note（Spec 行号、sqrt_energy_le_primitive' 上提到 Paper1、SliceWiring 别名/泛化）、合同闭包计划 CLOSURE_PLAN.md（A01 V2 / C01 V4 bundle）；被消费陈述逐字节不变 |
 | 177-C01-v4-contract | 待审（第 28 条合同已注册，gates 全绿；codex 合同保真审稿中） | 09-15 2020Z | — | — | C01 **V4 合同**（第 28 条）：extends V3 + enstrophyIdentity（逐 token 抄 Spec.lean:487）；h2TimeIntegral 仍排除（170 只证了严格内部） |
 | 178-A01-b1-ladder-r3 | 进行中（codex sol xhigh） | 09-15 2006Z | — | — | A01 **B1 阶梯 R3**：datum 路径的 C^j 时间正则（残差路径可导、tame 积的 Leibniz、逐阶损失记账；全阶版以供给侧界为具名假设） |
