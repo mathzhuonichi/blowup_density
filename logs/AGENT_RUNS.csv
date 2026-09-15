@@ -655,3 +655,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,MAINT,184-MAINT-merge-main,lead,merge,main (owner PRs #161–#171, their lanes 158–169 with our numbers) merged into a scratch worktree: theirs at conflicting paths, ours renamed; contracts union (28); full gates running (tmp/chain_merge184.log),running,
 2026-09-15,C01,177-C01-v4-contract,lead,cancel,superseded by owner's C01.energy_absorption_v4 on main (six fields); review killed; lane retired,cancelled,
 2026-09-15,C01,183-C01-h2-endpoint,lead,cancel,superseded by owner's C01/H2TimeIntegral + R43/MaximalEndpoint on main; worktree unused,cancelled,
+2026-09-15,A01,180-A01-b2-assembly,codex,worker,DONE rc=0 (boundary): constructedVelocity, slice identity, CarrierConstructorFull, rows_from_constructor_full; assembly blocked on sobolev ∀m vs order q+1 (A3), smooth-representative family, ContDiff of pressure gradient; 6 decls standard; lead reran gates OK; committed 6e8474b,done,
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,launched (sol xhigh) with residual-audit check points incl. owner's main modules bd:rev-180,running,

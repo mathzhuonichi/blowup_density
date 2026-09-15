@@ -307,7 +307,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 177-C01-v4-contract | 取消（owner 在 main 已注册完整 C01 V4：C01.energy_absorption_v4 六字段含 enstrophyIdentity/h2TimeIntegral；我们的 V4 被覆盖） | 09-15 2031Z | — | — | C01 **V4 合同**（第 28 条）：extends V3 + enstrophyIdentity（逐 token 抄 Spec.lean:487）；h2TimeIntegral 仍排除（170 只证了严格内部） |
 | 178-A01-b1-ladder-r3 | 进行中（codex sol xhigh） | 09-15 2006Z | — | — | A01 **B1 阶梯 R3**：datum 路径的 C^j 时间正则（残差路径可导、tame 积的 Leibniz、逐阶损失记账；全阶版以供给侧界为具名假设） |
 | 179-A01-gronwall-endpoint | 已合并 | 09-15 2027Z | #184 | — | A01 **行 (iii-b) Grönwall 端点**：把 149 的端点帽喂进 Grönwall 得整个 Ico 0 T 上不退化的显式界 + A04 restartBeyond 输入形状的一致 H¹ 界 |
-| 180-A01-b2-assembly | 进行中（codex sol xhigh） | 09-15 2014Z | — | — | A01 **B2 装配**：用已合入部件（161/162/167/168/169/173 + 153/157）装出有条件的 ClassicalSolutionR 构造子 carrierConstructor_of_localTheory，只留联合光滑性 hc3（B1 R3/R4）与可能的 hcurl 为具名假设；CarrierConstructorFull 形状 + 消费者环探针 |
+| 180-A01-b2-assembly | 待审（边界报告：constructedVelocity + 切片恒等式 + 消费者环；装配卡在 sobolev 全阶/光滑代表元族/压力梯度 ContDiff；codex review 中） | 09-15 2036Z | — | — | A01 **B2 装配**：用已合入部件（161/162/167/168/169/173 + 153/157）装出有条件的 ClassicalSolutionR 构造子 carrierConstructor_of_localTheory，只留联合光滑性 hc3（B1 R3/R4）与可能的 hcurl 为具名假设；CarrierConstructorFull 形状 + 消费者环探针 |
 | 184-MAINT-merge-main | 进行中（lead；全量门禁跑中） | 09-15 2031Z | — | — | MAINT **合并 main（owner PR #161–#171）进集成分支**：同路径冲突取 main 版本、我们的改名保留（C01/EnstrophyIdentityRaw、A01/ConstructorDivergenceSlice）；contracts.json = main 的 C01 V4 + 我们的 D01.homogeneous_norm（28 条）；记录文件两边保留；main 新模块：A04/Continuation（restartBeyond/lifespan 条件版）、C01/H2TimeIntegral + EnstrophyBounds + SobolevTwo、R43/MaximalEndpoint（G5）、A01/ConstructorDatumPath + ForcedMaximalRegularity + ForcedSourceUpgrade + HeatGradientTrace |
 | 其余节点 | 未开始 | — | — | — | |
 
