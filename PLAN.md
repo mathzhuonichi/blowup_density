@@ -307,6 +307,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 177-C01-v4-contract | 进行中（codex sol high） | 09-15 2006Z | — | — | C01 **V4 合同**（第 28 条）：extends V3 + enstrophyIdentity（逐 token 抄 Spec.lean:487）；h2TimeIntegral 仍排除（170 只证了严格内部） |
 | 178-A01-b1-ladder-r3 | 进行中（codex sol xhigh） | 09-15 2006Z | — | — | A01 **B1 阶梯 R3**：datum 路径的 C^j 时间正则（残差路径可导、tame 积的 Leibniz、逐阶损失记账；全阶版以供给侧界为具名假设） |
 | 179-A01-gronwall-endpoint | 进行中（codex gpt-6-astra low） | 09-15 2006Z | — | — | A01 **行 (iii-b) Grönwall 端点**：把 149 的端点帽喂进 Grönwall 得整个 Ico 0 T 上不退化的显式界 + A04 restartBeyond 输入形状的一致 H¹ 界 |
+| 180-A01-b2-assembly | 进行中（codex sol xhigh） | 09-15 2014Z | — | — | A01 **B2 装配**：用已合入部件（161/162/167/168/169/173 + 153/157）装出有条件的 ClassicalSolutionR 构造子 carrierConstructor_of_localTheory，只留联合光滑性 hc3（B1 R3/R4）与可能的 hcurl 为具名假设；CarrierConstructorFull 形状 + 消费者环探针 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 9. 发现与 DAG 修正记录（历史，只追加；待 owner 的部分见各条）
