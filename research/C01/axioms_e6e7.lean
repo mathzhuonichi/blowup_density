@@ -1,4 +1,4 @@
-import NSFormalization.Section4.C01.EnstrophyIdentity
+import NSFormalization.Section4.C01.EnstrophyIdentityRaw
 import NSFormalization.Section4.A04.ZeroSolution
 
 /-!

@@ -9,11 +9,9 @@ import Euler.MeanCylinderSolenoidal
 This module isolates the divergence field of the mild-to-classical constructor in the two layers
 required by `research/A01/A01_SPLIT.md` row c6.
 
-* `divergence_ae_of_cylinder` starts from one time slice of the cylinder pair.  It explicitly
-  descends the three first spatial words with `word_descent_ae_top`, identifies them a.e. with the
-  three classical coordinate derivatives using `word_descent_ae_full`, and sums their diagonal
-  components.  The source constraint enters through
-  `EulerClassicalDivergence.divergenceFree_classical_divergence_zero`.
+* `divergence_ae_of_cylinder` starts from one time slice of the cylinder pair.  The proof lifts
+  the smooth ordinary representative and applies
+  `divergenceFree_classical_divergence_zero` directly to the cylinder pair's `hdiv` clause.
 * `divergence_of_cylinder_pointwise_of_contDiff` is the c3 handoff.  A candidate velocity slice
   which is `ContDiff ℝ ∞` and agrees a.e. with the same ordinary `L²` carrier equals the smooth
   representative everywhere.  Continuity upgrades the a.e.-zero derivative sum to the pointwise
@@ -57,12 +55,10 @@ everywhere:
 
 `(∀ᵐ x) ∑ i, (fderiv ℝ Z.field x (coordinateVector i)) i = 0`.
 
-The proof descends the three words `∂ᵢu` to `Zi i`, identifies `Zi i` a.e. with
-`fderiv ℝ Z.field · eᵢ`, and sums the diagonal components.  The weak lifted constraint is
-converted to classical divergence zero by the vendor's
-`divergenceFree_classical_divergence_zero`; the conclusion is deliberately retained in a.e. form
-because identifying a merely a.e.-specified candidate velocity with `Z.field` is the separate c3
-handoff below. -/
+The proof lifts the smooth ordinary representative and applies
+`divergenceFree_classical_divergence_zero` directly to the cylinder pair's `hdiv` clause.  The
+conclusion is deliberately retained in a.e. form because identifying a merely a.e.-specified
+candidate velocity with `Z.field` is the separate c3 handoff below. -/
 theorem divergence_ae_of_cylinder {q : ℕ}
     (u : SobolevSpace 1 (q + 1))
     (U : EulerMeanSolenoidal.L2)
@@ -73,18 +69,9 @@ theorem divergence_ae_of_cylinder {q : ℕ}
     (hZ : Z.field =ᵐ[volume] ⇑U) :
     ∀ᵐ x ∂(volume : Measure Space),
       ∑ i : Fin 3, (fderiv ℝ Z.field x (coordinateVector i)) i = 0 := by
-  -- There is one cylinder word for each of the three spatial coordinate derivatives.
-  let n : ℕ := 1
-  have hn : n ≤ q + 1 := by omega
-  choose Zi hZi using fun i : Fin 3 =>
-    word_descent_ae_top u hu n hn (fun _ : Fin 1 => i)
-  have hZi_ae : ∀ i : Fin 3, (⇑(Zi i)) =ᵐ[volume]
-      (wordField Z (fun _ : Fin 1 => i)).field := by
-    intro i
-    exact word_descent_ae_full u hu U hU Z hZ.symm n hn
-      (fun _ : Fin 1 => i) (Zi i) (hZi i)
-
-  -- Lift `Z` to the cylinder.  It is a smooth representative of `value 1 u`.
+  have _hu := hu
+  -- Lift `Z` to the cylinder.  The vendor's weak-to-classical bridge already
+  -- gives the coordinate divergence directly; no word descent is needed here.
   have hrep0 := ordinaryLift_ae U
   rw [hU] at hrep0
   have hZlift : (fun p : LiftDomain 1 => U p.1) =ᵐ[liftMeasure 1]
@@ -106,30 +93,8 @@ theorem divergence_ae_of_cylinder {q : ℕ}
     simpa [EulerMeanCylinderSolenoidal.fieldDerivative_spatial 1 Z.field Z.smooth,
       coordinateDirection, coordinateVector] using hx
 
-  -- Match each descended word to its classical derivative, then sum the three diagonal entries.
-  have hcomponents : ∀ i : Fin 3, ∀ᵐ x ∂(volume : Measure Space),
-      Zi i x i = (fderiv ℝ Z.field x (coordinateVector i)) i := by
-    intro i
-    filter_upwards [hZi_ae i] with x hx
-    rw [hx, wordField_field]
-    simp only [iteratedFDeriv_one_apply]
-  have hwords_zero : ∀ᵐ x ∂(volume : Measure Space), ∑ i : Fin 3, Zi i x i = 0 := by
-    filter_upwards [ae_all_iff.mpr hcomponents] with x hx
-    calc
-      ∑ i : Fin 3, Zi i x i
-          = ∑ i : Fin 3, (fderiv ℝ Z.field x (coordinateVector i)) i := by
-              apply Finset.sum_congr rfl
-              intro i _
-              exact hx i
-      _ = 0 := hclassical x
-  filter_upwards [ae_all_iff.mpr hcomponents, hwords_zero] with x hx hzero
-  calc
-    ∑ i : Fin 3, (fderiv ℝ Z.field x (coordinateVector i)) i
-        = ∑ i : Fin 3, Zi i x i := by
-            apply Finset.sum_congr rfl
-            intro i _
-            exact (hx i).symm
-    _ = 0 := hzero
+  filter_upwards [] with x
+  exact hclassical x
 
 /-! ## 2. The c3 continuity handoff: a.e. to pointwise -/
 

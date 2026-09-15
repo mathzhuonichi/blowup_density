@@ -1,4 +1,4 @@
-import NSFormalization.Section4.C01.EnstrophyIdentity
+import NSFormalization.Section4.C01.EnstrophyIdentityRaw
 
 open Set
 open NSFormalization.Section4.A02 (ClassicalSolutionR MemForceR)
