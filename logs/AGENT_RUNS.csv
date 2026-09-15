@@ -601,3 +601,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,R41D,174-SPEC-r41d-compare,codex,worker,launched (sol xhigh) with both drafts imported bd:174-SPEC-r41d-compare,running,
 2026-09-15,A01,168-A01-pressure-p3,codex,fix,DONE rc=0: notes applied (2ad8f6f); 14 decls standard; lead reran gates OK,done,
 2026-09-15,A01,168-A01-pressure-p3,lead,merge,PR #177 chain launched,merging,177
+2026-09-15,A01,168-A01-pressure-p3,lead,merge,chain hit a rebase conflict in research/A01/A3_SPLIT.md (appended lane notes); resolved keeping both notes; chain relaunched,merging,177
