@@ -12,6 +12,11 @@ LANE=$1; MODEL=${2:-gpt-5.6-sol}; EFFORT=${3:-xhigh}
 ROOT=/data_8T/ping/blowup_density
 WT=$ROOT/.claude/worktrees/$LANE
 NODE=${LANE:4}; NODE=${NODE%%-*}
+# SPEC/MAINT lanes name the real node in the next token (e.g. 174-SPEC-r41d-compare → R41D).
+if [ "$NODE" = SPEC ] || [ "$NODE" = MAINT ]; then
+  N2=${LANE#*-*-}; N2=${N2%%-*}; N2=$(echo "$N2" | tr '[:lower:]' '[:upper:]')
+  [ -d "$ROOT/research/$N2" ] && NODE=$N2 || NODE=MAINT
+fi
 N=${LANE%%-*}
 BRIEF=$ROOT/collaboration/briefs/$LANE.md
 [ -d "$WT" ] || { echo "no worktree $WT"; exit 1; }
