@@ -1,5 +1,13 @@
 # NEXT_SESSION.md — 当前状态与下一步
 
+## 2026-09-15 2110Z 状态（lead 快照；codex 工作流）
+
+- **main 已并入集成分支**（lane 184，merge commit `c0f4439`，153 个 Section4 模块门禁绿，28 合同，vs `origin/main` 兼容）。owner 的模块占原路径，我们的同名模块改名：`C01/EnstrophyIdentityRaw.lean`、`A01/ConstructorDivergenceSlice.lean`（`ForceBridge` 已改 import）。我们的 177/183 取消（被 owner 的 C01 V4 / H2TimeIntegral + R43/MaximalEndpoint 取代）。
+- **在跑**（tmux `bd`）：审稿 178（B1 R3）；fix 180（B2 装配：三个命名输入 `hsob`/`hc3`/`hpg`）；fix 176（SIMP rebase 到新基线 + 备注）；181（A05 V2 合同，第 29 个）；182（R43 S1b 三线性估计）；186（**A3-U 公共视界**，astra low）；合并链 PR #185（175 R43 S1）。
+- **A01 主线的真正卡点**（178 与 180 的审稿一致）：一个 U 在每个柱阶实现（跨阶唯一性）= 178 的 `hall` 假设 → lane 186；力路径时间光滑 `hfs`（167 的 forcePath → `sobolevPath` 的桥）→ 待开 lane；压力梯度正则性 `hpg`（180 fix 会给出精确陈述）→ 待开 lane；B1 R4 联合光滑 `hc3`。
+- 处理顺序：DONE 文件到 → 读 `tmp/codex/<lane>.last.md` → 起审稿（`scripts/codex_review.sh`）→ ACCEPT 则 PR + `tmp/mkchain.sh` 合并链；REJECT 则写 `tmp/codex/briefs/fix_<lane>.md` 起 fix 运行（`codex_lane.sh … fix`）。记录：`tmp/plan_row.py set/add`、`logs/AGENT_RUNS.csv`。未 push 的记录 commit 让合并链吸收，别在链跑时 push。
+- 坑：新 worktree 必须先 `LEAN_SEED_DIR=<root> bash scripts/lean-install.sh`（否则 lake 私 clone Mathlib 从源码编译数小时）；`pkill -f` 会杀自己。
+
 ## Integration handoff (2026-09-15)
 
 The A01 and C01/R43 dependency chains are consolidated in this tree. PR #161
