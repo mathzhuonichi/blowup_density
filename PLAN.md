@@ -83,6 +83,8 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 
 ## 5. 模型与预算
 
+**2026-09-15 Codex 恢复覆盖配置：** 本轮用户指定代码任务使用 `gpt-6-astra` / low，编译验证使用 `gpt-5.6-luna` / high。以下 Claude 型号与 Linux 环境记录保留为历史，不作为本轮配置。PR #15 已合入 `main`；恢复工作从该基线通过新 PR 交付。
+
 - lead：本会话（Fable 5.1）。只做拆任务、比对、归并、记账，不亲自写长证明。
 - worker：`prover` agent（`.claude/agents/prover.md`，钉 `claude-opus-4-8`，本地未提交，`.git/info/exclude` 排除）。
   用户指定 Opus 4.8。项目级 agent 定义在会话启动时加载，本会话起不了，**下次启动先起一个 `prover` 自报型号**；
@@ -261,9 +263,9 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 155-SIMP-d01-c01-dedup | 已合并 | 09-14 1211Z | #158 | — | SIMP/tester 通道：145 F3（coord_smul_deriv_ae 上提到 FiniteOrderConstructor 去重）、145 F2（新增锐等式 ‖raise A‖² = ‖A‖² + Σ‖Cⱼ‖² 与 4^m 构造子，16^m/256 陈述不动）、146 N1（continuous_jetLp_sumField/laplacianField_jetLp_continuous 与 Source/PhysicalBesselSobolev.lean:83,105 去重）、144 分层（isSobolevDatum_zero 下沉到 D01，ZeroSolution 去掉 PressureDrop import）、153 N3（退役 151 被 subsume 的三条）；全部依赖模块重编 + gates |
 | 156-C01-v3-contract | 已合并 | 09-14 0955Z | #157 | — | C01 **V3 合同**：Contracts/V3/EnergyAbsorptionPartial.lean extends V2 + energyDifferentialBound + l2Bound（逐 token 抄 Spec.lean:364-370 / :383-387）+ forcePrimitive/energyBudget 两个 spec-local def；Bindings（V2 回投 rfl；l2Bound 无桥；energyDifferentialBound 用 V2 的 gradientSq 桥，154 审稿 dry run 已通）；Tests；contracts.json 第 26 条；照 research/C01/REVIEW_ENERGY_BOUNDS.md §3 |
 | 157-A01-slice-wiring | 已合并 | 09-14 1214Z | #159 | — | A01 载体桥 **切片接线（S）+ hslice/horizon 匹配（M–L）**：把 149/153 的 Z : SmoothL2Field 与 hfin 接到真实 ClassicalSolutionR 速度切片（D01.exists_smoothL2Field_of_memHInfty + contDiff_slice + w.sobolev），得到对真实解的无条件反向比较；再把 exists_local_shape_of_aprioriBound 的 (u,U) 与 ClassicalSolutionR 的速度切片对齐（hslice : ∀ t, v(t,·) =ᵐ ⇑(U t)，horizon T 匹配）；照 research/A01/REVIEW_L2_DESCENT.md 缺口排序 1–3 |
-| 158-A01-b1-constructor-split | 审稿中 | 09-14 1232Z | — | — | A01 **单元 B1/B2（mild ⇒ classical 构造子）拆分 + 首个 S 片**（L 多 lane 的第一条）：目标 CarrierConstructor q ν S（research/A01/REVIEW_SLICE_WIRING.md §3(b) 已 typecheck）；写 research/A01/CONSTRUCTOR_SPLIT.md（c1–c9 字段逐个：来源引理/缺口/大小），证首个 S 片（B2 的字段装配骨架或 c3 velocity_smooth 的 H^m-in-time ⇒ 联合 C^∞ 的最低阶情形）；不碰 A3_SPLIT 之外的既有模块 |
+| 158-A01-b1-constructor-split | 恢复完成；本地编译与源码审查通过，待 PR | 09-15 | — | — | `ConstructorPieces`：弱导数与候选切片 datum 扩至所有 `m ≤ q+1`，连续 ordinary L² derivative-word 路径；顶阶 datum/path、公理及完整前件消费探针通过。`CarrierConstructorFull` 仍是研究目标；联合光滑性、共同时间区间及初值/外力同定未闭合。 |
 | 159-R43-split | 已合并 | 09-14 1246Z | #160 | — | R43 **命题 4.3 拆分**（research + 首个 S 行）：照 research/R43/COMPARISON.md §4 的 G1–G8 与 Spec.lean RCritical1API 四字段，写 research/R43/R43_SPLIT.md（每个上游缺口现状：A05.gradient_l6、A04 energy_high V2、C01 V3 已注册；G7 eq:Rcritical1 自有 L 步）；证 S 行（G6 ℕ-pow/rpow 拼写钉、G3 非空洞、G8 常数算术）于 Section4/R43/*.lean |
-| 160-A04-restart-beyond | 进行中 | 09-14 1246Z | — | — | A04 **R1 restartBeyond（M）+ C1 lifespanInfiniteOfLocallyFinite（S）**：R43 消费的寿命子句（159 审稿判为三条未证兄弟子句中最便宜）；以 A02 MaximalSolutionAPI.restart（依赖 A01 存在性 ⟪A01:solution⟫）为具名显式假设，证 A04 自有部分：t₀ ↑ S 极限与 δ 与 t₀/S 无关、maximalLifespanR 的 sup 记账（模板 FormalPatched/R3MildContinuation.lean:122）、C1 序论证（Source/SmoothLifespan）；照 research/A04/COMPARISON.md:216-217 |
+| 160-A04-restart-beyond | 恢复完成；本地编译、公理探针与源码审查通过，待 PR | 09-15 | — | — | `ForceShift` 证明正时间平移的 L¹Hˢ 范数单调性；`Continuation` 完成最大解场搬运和完整 δ 端点步。R1 保留精确 A02 `Restart`；`extendsBeyond` / C1 另保留精确 G3 `HigherOrderBound`。两项分析输入未在本 lane 证明，不注册为无条件合同。 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）

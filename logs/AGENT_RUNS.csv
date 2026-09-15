@@ -540,3 +540,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,158-A01-b1-constructor-split,opus,reviewer,FAILED at report-writing: router 429 (both upstreams); resume after back-off,queued,
 2026-09-14,A04,160-A04-restart-beyond,prover,worker,FAILED at start: router 429; resume after back-off,queued,
 2026-09-14,MAINT,pause,lead,pause,paused by user (API quota exhausted); resume after 5h: probe → resume 158 (fold rev158 probes; notes) → relaunch 160 → R43-order lanes,paused,
+2026-09-15,A01,158-resume,gpt-6-astra low,writer+reviewer,"Full-order datum and continuous word paths; probes pass; independent A04 source review",pending,"Codex Windows; full constructor remains open"
+2026-09-15,A04,160-resume,gpt-6-astra low,writer,"Force shift and exact R1/C1 adapters compiled; 9 standard-axiom checks and 4 examples pass",pending,"Restart and HigherOrderBound remain explicit analytic inputs"
+2026-09-15,MAINT,158-160-validation,gpt-5.6-luna high,verifier,"3 modules and 4 probe files pass; 26 contracts; 13 policy tests; base compatibility and mutations pass",pending,"Windows process-only autocrlf=false for temporary test repos; see FORMALIZATION_RESUME_20260915.md"
