@@ -217,6 +217,23 @@ Critical path for **R43**: U1 → U2 → U3 → U4 → U6 → U7 → U8, with U9
 parallel. Critical path for **R44**: additionally U5 → U10. U9 alone already
 discharges site 3 of §0 and is the natural first PR.
 
+> **Lane 165 status note (2026-09-15, HANDOFF P3).**  New module
+> `Section4/A05/CriticalL3.lean` proves the requested
+> `velocityCriticalL3` against the datum-form homogeneous norm, with explicit
+> constant `criticalL3Const = 3 * scalarCriticalConst (1/2)`.  Relative to the
+> U-table: **U1 closed** by the already-landed D01 uniqueness plus attained
+> infimum; **U2 closed for the critical route** by the exact inverse-dilation /
+> normalized-multiplier identity; **U3 partial** (physical inverse-transform and
+> Plancherel norm from an existing homogeneous datum are closed, while the
+> independent `homogeneousLeSobolev` constructor and `s = 3/2` endpoint producer
+> remain); **U4 open**; **U5 open**; **U6 closed** for every `0<a<3/2`; and
+> **U7 closed for the `a=1/2` velocity clause** (the broader `a=1`
+> `embeddingPair`/named `criticalRepresentative` wrappers remain).  The proof
+> handles absent data by the honest empty-infimum value `⊤`.  Full signatures,
+> route, and failed diagnostics are in `ATTEMPTS_CRITICAL_L3.md`; the nonzero
+> compact-bump audit is `axioms_critical_l3.lean`.  No V2 contract is registered
+> pending D01's canonical norm definition.
+
 ---
 
 ## 4. Does `Λ` have to be an operator here?
