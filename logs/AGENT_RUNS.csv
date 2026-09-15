@@ -717,3 +717,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A05,181-A05-v2-contract,codex,fix,"launched (sol high): V2 mutation cases + wording + commit review artifacts",running,
 2026-09-15,A01,178-A01-b1-ladder-r3,codex,fix,"DONE rc=0: datumPath_contDiffOn_one sharpened to m+2 ≤ q+1 via reviewer proof; all-j range documented as implementation range; 18 decls standard axioms; commit 87b65ec",done,
 2026-09-15,A01,178-A01-b1-ladder-r3,lead,merge,"lead re-verified (build, axioms, diff); PR #186 opened; chain launched (wave 13)",running,186
+2026-09-15,A01,178-A01-b1-ladder-r3,lead,merge,"PR #186 merged via chain (wave 13) gates green",merged,186
+2026-09-15,A05,181-A05-v2-contract,codex,fix,"DONE rc=0: V2 mutation cases rejected as required; wording MemHInfty specialization of Lemma B.1; review artifacts committed; 29 contracts; commit 5eda560",done,
+2026-09-15,A05,181-A05-v2-contract,lead,merge,"lead re-verified; PR #187 opened; chain launched (wave 14)",running,187
