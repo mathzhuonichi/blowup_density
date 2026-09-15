@@ -1,5 +1,9 @@
 # A01 — mild ⇒ classical constructor split (lane 158, resumed)
 
+## 当前方案（lane 169，2026-09-15）
+
+以 [H¹ 实施方案](IMPLEMENTATION_PLAN_169.md) 为当前执行依据。独立 [Astra xhigh 审核](REVIEW_H1_REFACTOR_169.md) 原文归档保留审查时的路径/行号；云端核对源码时以报告记录的 A01 / R43 commit 为准。以下历史供应记录保留，当前顺序和完成边界由新方案明确。
+
 ## 1. Target and hypotheses
 
 The old `CarrierConstructor q ν S` in `probes/rev157_constructor_loop.lean` is a

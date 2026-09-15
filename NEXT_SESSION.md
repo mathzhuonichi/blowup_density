@@ -1,5 +1,14 @@
 # NEXT_SESSION.md — 当前状态与下一步
 
+## 169-A01-plan（2026-09-15，当前执行方案）
+
+- 依据独立 Astra xhigh 审核完成 [H¹ 实施方案](research/A01/IMPLEMENTATION_PLAN_169.md)，并修正旧 split 的 horizon、时间动力学与构造依赖。审核原文归档在 [REVIEW_H1_REFACTOR_169.md](research/A01/REVIEW_H1_REFACTOR_169.md)，保留审查时的证据路径。
+- 本 lane 从 PR #169 的 `75bfb4e` 派生，worktree `169-a01-plan`，分支 `codex/169-a01-plan`。仅文档变化；独立 Astra xhigh 复核 ACCEPT，make check 的四个 Python 子命令通过，详见 [验证记录](logs/VALIDATION_169_20260915.md)。PR 待创建。
+- **下一全局 lane 170**：先完成 lane 168 实际正则化源对齐 → 有限 word 差值 uniform Cauchy → 连续高阶极限 → 初值/降阶/方程同定。保持同一 witness 与 T，不调用依赖经典解的能量来构造经典解。
+- 可并行推进真正 H¹-local 及低阶 persistence 供给。当前 q≥6 升阶不能直接接 H¹；固定基准阶时间上的全阶载体与 H¹ 球统一时间分别验收。
+- 后续顺序：低阶预算上同解全阶塔 → 真实 mild 全阶时间 bootstrap（含单侧 t=0）→ 普通压力与经典解 → 同 horizon 完整 API → A02 restart / A04 端点延拓。保留现有 tower、Horizon 辅助接口与冻结高阶合同。
+- 代码仍交 Astra low，全部 Lean 编译交 Luna high。平行 PR #168 的 R43 G5 仍有 `hsmall`，不代表无条件延拓或 A05/G7 完成。此前云端 CI 因账单/额度未启动，不记为 Lean 验证通过。
+
 ## 168-A01-persistence（2026-09-15 0942Z）
 
 - 已推送 [PR #169](https://github.com/mathzhuonichi/blowup_density/pull/169)，base为PR #167分支。proof head为05b0ca0；architecture检查104331776975因账户账单/额度未启动，lean-contracts跳过；PR未合并。
