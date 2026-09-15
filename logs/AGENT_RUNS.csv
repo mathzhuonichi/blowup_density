@@ -736,3 +736,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,189-A01-pressure-regularity,codex,worker,"launched (sol xhigh): slab-smooth pressure gradient, per-time L² via Leray complement, symmetric Jacobian (converse curl-free), packaged as hpg",running,
 2026-09-15,MAINT,176-MAINT-simp-codex-batch,lead,merge,"PR #188 merged via chain (wave 15) gates green",merged,188
 2026-09-15,A01,186-A01-a3-common-horizon,lead,merge,"PR #189 merged via queued chain (wave 16) gates green; CommonHorizon.lean on integration",merged,189
+2026-09-15,A01,188-A01-mild-uniqueness,codex,reviewer,"ACCEPT (adversarial): causal-window proof sound; halved-mass mutation fails; tiny-window probe passes",accepted,
+2026-09-15,A01,188-A01-mild-uniqueness,lead,merge,"PR #191 opened; chain launched (wave 18, logged to chain_lane188.log)",running,191
+2026-09-15,A01,187-A01-hfs-force-path,codex,worker,"DONE rc=0: datumSobolevCLM (CLM reconstruction, = ordinarySobolev on data), forcePath_sobolevPath_contDiffOn ∀q, forcePath_of_memForceR_smooth (167 package + hfs clause); 17 decls standard axioms; commit 046e2ba",done,
+2026-09-15,A01,187-A01-hfs-force-path,codex,reviewer,"launched (sol xhigh) with 5 check points (CLM well-defined/bounded, pointwise agreement, composition, 186 hfs probe, hygiene) bd:rev-187",running,
