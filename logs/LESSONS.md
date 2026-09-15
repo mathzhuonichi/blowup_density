@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- （09-15 2004Z）合并链在根目录做 `git merge origin/erenup/integration && push` 的那几秒里，lead 在根目录 commit+push 记账会被拒（`fetch first`），链随后把本地 commit 一起合并推上去（多一个 merge commit，不丢内容）。排队的链跑到「已合入 PR」之后再记账，或直接 `git fetch && git rebase` 后重推。
 - （09-15 1925Z）并发 8 条 lane 时，`research/A01/A3_SPLIT.md` 这类共享拆分表的「追加注记」几乎必然在 rebase 时冲突（168 撞上 161/162）：`merge_lane.sh` 现在对 `research/*.md` 的冲突自动保留两边；worker 的注记尽量写成独立文件（`ATTEMPTS_<lane>.md`），只在拆分表加一行指针。
 - （09-15 1912Z，164）codex reviewer 只按拿到的任务书判：lane 经 fix 改了布局后，review 必须附上 fix 任务书，否则会因「与原任务书不符」误判 REJECT（`scripts/codex_review.sh` 现在自动附带 `fix_<lane>.md`）。另：新组件版本 1 的合同文件放 `Contracts/V1/`（冻结只针对已有 V1 文件），不要造空壳 shim。
 - （09-15 1905Z，167）**brief 写错方向，worker 会照着证出一条假设不可满足的定理**：A01 行 (v) 我让 worker 从柱面路径 `F` 造物理力 `f'`，零延拓在 `t = S` 处不 `C^∞`，`ForcePathSmoothness (forcePath f)` 对非零 `f` 可证伪；正确方向是消费者方向（论文的全局 `f` 给定，`F := C01.forcePath hf`，`f' := f`）。写 brief 前先问「谁消费这条定理、它手里有什么」，再定方向；审稿附注（`review_notes_<lane>.md`）抓住了它。

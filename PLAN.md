@@ -301,7 +301,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 171-SPEC-r41d-draft-a | 已并入 174 | 09-15 2002Z | — | — | R41D **定理 4.1 密度分支盲稿 A**（HANDOFF P11，规则 2）：只看论文 + Contracts/V1 + R42 已注册合同；产出 research/R41D/DraftA.lean + COMPARISON_A.md |
 | 172-SPEC-r41d-draft-b | 已并入 174 | 09-15 2002Z | — | — | R41D **盲稿 B**（与 171 互不可见，同样输入）：DraftB.lean + COMPARISON_B.md；两稿完成后 lead 比对 → COMPARISON.md → Spec.lean |
 | 173-A01-hinv-invariance | 返工完成，复审中（七子句版本 + 消费者匹配探针） | 09-15 1956Z | — | — | A01 **行 (iv) 角不变性 hinv**（HANDOFF P9a）：路线 α 平移等变 + mild 唯一性 ⇒ HasAprioriBound 量化的每个 Duhamel 解自动角不变；路线 β 限制量化并重闭消费者环 |
-| 174-SPEC-r41d-compare | 合并中（排在 #180 后） | 09-15 2002Z | #181 | — | R41D **盲稿 A/B 比对与调和**（规则 2 第三人）：COMPARISON.md（逐条 论文↔A↔B）、RECONCILIATION.md、定稿 Spec.lean（可 elaborate）；合并两稿的上游缺口 G 表 |
+| 174-SPEC-r41d-compare | 已合并 | 09-15 2004Z | #181 | — | R41D **盲稿 A/B 比对与调和**（规则 2 第三人）：COMPARISON.md（逐条 论文↔A↔B）、RECONCILIATION.md、定稿 Spec.lean（可 elaborate）；合并两稿的上游缺口 G 表 |
 | 175-R43-s1-pairing | 进行中（codex sol xhigh） | 09-15 1944Z | — | — | R43 **S1 恒等式层**（HANDOFF P5）：临界路径 y² 的 datum 形定义、⟪Δu,Λu⟫ = −z²、⟪∇p,Λu⟫ = 0、⟪f,Λu⟫ ≤ by，装配成 henergy 形，只留 htri（三线性估计）与 hcrit（半阶齐次 datum 路径）两条具名假设 |
 | 176-MAINT-simp-codex-batch | 进行中（codex sol high） | 09-15 1944Z | — | — | MAINT **SIMP/tester 通道**（HANDOFF P10）：161/162/163/164/166/168/170 七个 codex 模块的简化与测试、156/157 遗留 note（Spec 行号、sqrt_energy_le_primitive' 上提到 Paper1、SliceWiring 别名/泛化）、合同闭包计划 CLOSURE_PLAN.md（A01 V2 / C01 V4 bundle）；被消费陈述逐字节不变 |
 | 其余节点 | 未开始 | — | — | — | |
