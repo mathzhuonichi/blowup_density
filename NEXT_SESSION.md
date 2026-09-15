@@ -6,6 +6,7 @@
 - **在跑**（tmux `bd`）：审稿 178（B1 R3）；fix 180（B2 装配：三个命名输入 `hsob`/`hc3`/`hpg`）；fix 176（SIMP rebase 到新基线 + 备注）；181（A05 V2 合同，第 29 个）；182（R43 S1b 三线性估计）；186（**A3-U 公共视界**，astra low）；合并链 PR #185（175 R43 S1）。
 - **A01 主线的真正卡点**（178 与 180 的审稿一致）：一个 U 在每个柱阶实现（跨阶唯一性）= 178 的 `hall` 假设 → lane 186；力路径时间光滑 `hfs`（167 的 forcePath → `sobolevPath` 的桥）→ 待开 lane；压力梯度正则性 `hpg`（180 fix 会给出精确陈述）→ 待开 lane；B1 R4 联合光滑 `hc3`。
 - 处理顺序：DONE 文件到 → 读 `tmp/codex/<lane>.last.md` → 起审稿（`scripts/codex_review.sh`）→ ACCEPT 则 PR + `tmp/mkchain.sh` 合并链；REJECT 则写 `tmp/codex/briefs/fix_<lane>.md` 起 fix 运行（`codex_lane.sh … fix`）。记录：`tmp/plan_row.py set/add`、`logs/AGENT_RUNS.csv`。未 push 的记录 commit 让合并链吸收，别在链跑时 push。
+- **2026-09-15 2200Z 补充**：main 已并入；175/178/181 已合并（#185/#186/#187，29 合同）；176（#188）、186（#189）合并链串行排队中。**180 的接口有设计缺陷**（夹住载体 + 视界 S+1 使 `hc3` 对非定常解不可满足），PR #190 转草稿，fix2 改视界 `T:=S`；188 声称无条件证出 `MildUniqueness`（审稿中）；187（hfs 桥）、189（压力梯度正则性 `hpg`）、182（三线性估计，审稿中）在跑。合并链现在用 `tmp/queue_chain.sh <上一条链窗口> <merge脚本> tmp/chain_lane<NNN>.log` 串行排队并写日志给 Monitor。
 - 坑：新 worktree 必须先 `LEAN_SEED_DIR=<root> bash scripts/lean-install.sh`（否则 lake 私 clone Mathlib 从源码编译数小时）；`pkill -f` 会杀自己。
 
 ## Integration handoff (2026-09-15)
