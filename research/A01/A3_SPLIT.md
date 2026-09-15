@@ -308,3 +308,8 @@ order-≤2 Schwartz pairing, M — it unblocks A3-L1·k and hence the whole A3 c
 > Other residual rows and the uniform-bound supply remain open as before.
 > See `ATTEMPTS_HINV.md`, `axioms_hinv.lean`, and `REPORT_173.md`.
 > **Update (lane 179, P9b — row (iii-b)):** `Section4/A01/GronwallEndpoint.lean` closes the **uniform bound on all of `Ico 0 T`**, with the endpoint constant `256·R²·T`, by applying `highOrder_bddAbove_of_kbnd` directly at its horizon `T₀ := T` to `kbnd_of_sup_bound_Icc_endpoint`. It also packages every `m ≥ 3` as `BddAbove` and supplies the finite-`ENNReal` H¹ velocity-bound premise of A04's `restartBeyond` by lowering order three. No bound for the field's value at `T` or energy identity limit is needed for this interpretation. This is conditional on the cylinder sup-bound and carrier/path hypotheses: the `Kbnd(R)` circularity in `HasAprioriBound`, force bounds with a common restart `K`, and A02's uniform restart/constructor supply remain separate. Exact statements, diagnostics and gates: `REPORT_179.md`, `ATTEMPTS_GRONWALL_ENDPOINT.md`.
+
+
+| 新分项 | 状态 | 交付与范围 |
+|---|---|---|
+| P4a complement path | 已证（lane 194） | `ComplementPath.lean`：固定物理余项路径，所有 j/m 的闭区间 datum 光滑性，每时刻零阶余项恒等式，任意光滑速度代表元的物理残差 a.e. 桥，以及 190 联合代表元；输入仅 192 cylinder-pair 供给、标准外力和正性。见 `REPORT_194.md`。 |
