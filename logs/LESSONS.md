@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- （09-15 2031Z）两支团队（我们 `erenup/integration`，owner `codex/*`→`main`）在同一天用**同一批 lane 号做同一批题**（158–169），合并时两个同路径模块 add/add 冲突、V4 合同重名。规则：`main` 是主干，同路径以 `main` 为准、我方改名保留后 SIMP 去重；开 lane 前先 `git fetch origin main` 并看 owner 的 PR 列表；lane 号分段（HANDOFF §0）。
 - （09-15 2025Z）Claude 侧长时间 `sleep` 的后台 Bash 等待任务会被 harness 以「low on memory」停掉（系统内存其实充足）；盯 codex `DONE` 文件与合并链 `CHAIN DONE` 都用持久 Monitor（按 mtime 去重），不要再起 `until … sleep` 的后台 Bash。链本身在 nohup 下不受影响。
 - （09-15 2004Z）合并链在根目录做 `git merge origin/erenup/integration && push` 的那几秒里，lead 在根目录 commit+push 记账会被拒（`fetch first`），链随后把本地 commit 一起合并推上去（多一个 merge commit，不丢内容）。排队的链跑到「已合入 PR」之后再记账，或直接 `git fetch && git rebase` 后重推。
 - （09-15 1925Z）并发 8 条 lane 时，`research/A01/A3_SPLIT.md` 这类共享拆分表的「追加注记」几乎必然在 rebase 时冲突（168 撞上 161/162）：`merge_lane.sh` 现在对 `research/*.md` 的冲突自动保留两边；worker 的注记尽量写成独立文件（`ATTEMPTS_<lane>.md`），只在拆分表加一行指针。

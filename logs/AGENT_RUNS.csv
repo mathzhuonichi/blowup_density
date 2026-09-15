@@ -652,3 +652,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,179-A01-gronwall-endpoint,lead,merge,PR #184 merged; gates wave129 OK over 140 modules,merged,184
 2026-09-15,R43,175-R43-s1-pairing,codex,worker,DONE rc=0 (after resume): critical_laplacian/pressure/force pairings, criticalEnergyPath derivative, rcritical1_of_trilinear with named hcrit (CriticalDatumPath) + htri; 16 decls standard; lead reran gates OK; committed a6fac76,done,
 2026-09-15,R43,175-R43-s1-pairing,codex,reviewer,launched (sol xhigh) with check points on hcrit honesty bd:rev-175,running,
+2026-09-15,MAINT,184-MAINT-merge-main,lead,merge,main (owner PRs #161–#171, their lanes 158–169 with our numbers) merged into a scratch worktree: theirs at conflicting paths, ours renamed; contracts union (28); full gates running (tmp/chain_merge184.log),running,
+2026-09-15,C01,177-C01-v4-contract,lead,cancel,superseded by owner's C01.energy_absorption_v4 on main (six fields); review killed; lane retired,cancelled,
+2026-09-15,C01,183-C01-h2-endpoint,lead,cancel,superseded by owner's C01/H2TimeIntegral + R43/MaximalEndpoint on main; worktree unused,cancelled,
