@@ -1,4 +1,4 @@
-# B1 时间正则阶梯 — lane 161
+# B1 时间正则阶梯 — lanes 161 / 169
 
 本 lane 已证明 R1，范围 **所有 `m ≤ q + 1`**，包括闭端点。没有假设
 `ClassicalSolutionR`、空间光滑代表元、时间可导性或 Duhamel 方程；R1 只消费柱面路径本身的连续性、角不变性和下降恒等式。
@@ -12,8 +12,8 @@
 | 阶梯 | 精确 Lean 结论（完整绑定见下方） | 已有供给 | 缺口 / 大小 |
 |---|---|---|---|
 | R1 | `∃ A : I → RealVectorSobolev (m : ℝ), (∀ t, IsSobolevDatum (m : ℝ) (⇑(U t)) (A t)) ∧ Continuous A` | 本 lane `exists_continuous_datumPath`；`continuous_cylinder_word`；`L2Descent.exists_ordinaryLift_of_invariant`；`EulerPairing.weakDeriv_pairing_of_lift_hasDerivAt`；D01 `exists_isSobolevDatum_norm_le_sharp`, `isSobolevDatum_sub` | **DONE**，全部 `m ≤ q+1`；不是只证范数连续 |
-| R2 | `∃ R : ℝ → RealVectorSobolev (m : ℝ), ContinuousOn R (Icc 0 S) ∧ (∀ t ∈ Icc 0 S, IsSobolevDatum (m : ℝ) (ρ t) (R t)) ∧ ∀ t ∈ Icc 0 S, HasDerivWithinAt G (R t) (Icc 0 S) t` | Duhamel 方程来自 `Horizon.localTheory_on_prescribed_horizon`；A04 `timeDeriv_isSobolevDatum` 是反向识别的参考；C01 `residualPath`, `residualPath_jetLp_continuous`, `smoothAngularDatum_path_continuous`；Leray 的 CLM | 从 mild 方程证明 Banach 空间导数 / 积分恒等式；先造投影残差 datum，需高两阶（非线性还需嵌入阶）。**L** |
-| R3 | `∀ j m : ℕ, ∃ G : ℝ → RealVectorSobolev (m : ℝ), ContDiffOn ℝ j G (Icc 0 S) ∧ ∀ t : I, IsSobolevDatum (m : ℝ) (⇑(U t)) (G t.1)` | R1；R2 完成后的微积分归纳；D01 datum 唯一性；A03 有限阶乘积估计；C01 残差代数 | 每次时间微分消耗空间阶，力也需时间光滑；在同一 horizon 上兼容所有阶。**L**，不能从一个固定有限 `q` 推出 |
+| R2 | `∃ A R : C(I, RealVectorSobolev (m : ℝ)), (∀ t, IsSobolevDatum (m : ℝ) (⇑(U t)) (A t)) ∧ (∀ t, IsSobolevDatum (m : ℝ) (⇑(projectedResidualOrdinaryPath … t)) (R t)) ∧ ∀ t ∈ Ioo 0 S, HasDerivAt (extendPath S hS.le A) (R ⟨t,…⟩) t` | lane 169 `exists_differentiable_datumPath`；vendor `realization_hasDerivAt`；`hasDerivAt_of_injective_map`；R1 的定量 datum 选择；角不变下降 | **DONE**，全部 `m ≤ q-1`；残差精确为 `νΔu + P(F-(u·∇)u)`；端点只声明连续，不声明单侧导数 |
+| R3 | `∀ j m : ℕ, ∃ G : ℝ → RealVectorSobolev (m : ℝ), ContDiffOn ℝ j G (Icc 0 S) ∧ ∀ t : I, IsSobolevDatum (m : ℝ) (⇑(U t)) (G t.1)` | R1；R2 `exists_differentiable_datumPath`；D01 datum 唯一性；A03 有限阶乘积估计；C01 残差代数 | 仍需构造光滑代表元并把投影残差识别为物理 `∂ₜ`；每次时间微分消耗空间阶，力也需时间光滑；固定有限 `q` 不能给任意 `j`。**L** |
 | R4 | `∃ v : ℝ × Space → Space, ContDiffOn ℝ ∞ v (Ico 0 S ×ˢ univ) ∧ ∀ t : I, (fun x => v (t.1, x)) =ᵐ[volume] ⇑(U t)` | `Paper3.angularBoundedRepresentative`；`C01.jetOfDatum_continuous`；`D01.jetOfDatum_ae`；`Paper1.PeriodicH3RepresentativeBridge.continuous_pointwise_representative`, `differentiated_path_pointwise_continuous` | 选取各阶兼容的点值代表元，识别混合偏导并升级联合全阶光滑。**L**（已有 C⁰ / 空间导数设备） |
 
 ## R1：已核验的完整语句与机制
@@ -50,35 +50,50 @@ D01 的 `isSobolevDatum_sub` 和 `Lp.coeFn_sub` 处理代表元的 a.e. 差异�
 范数路径 `fun t => ‖A t‖` 连续直接由 `Continuous.norm` 得到。
 不需要将高阶 Bessel 升阶算子错误地当作裸 L² 上的有界算子。
 
-## R2：目标中的全部约定，防止循环
+## R2：已核验的完整语句与机制
 
-表中结论在如下上下文使用：`S > 0`，`G : ℝ → RealVectorSobolev (m : ℝ)`
-是 R1 路径在区间外的任意延拓，且 `∀ t : I, IsSobolevDatum (m : ℝ) (⇑(U t)) (G t.1)`；
-`ρ : ℝ → Space → Space` 是 **投影后** 的动量右端。
-若先恢复压力，则其精确点值式为：
+lane 169 在真实 Duhamel 前提下证明：若 `hq : 6 ≤ q`、`hm : m ≤ q-1`、
+`hν : 0 < ν`、`hS : 0 < S`，则存在闭区间上的连续 datum 路径 `A,R`，其中
+`A t` 是 `⇑(U t)` 的 order-`m` datum，`R t` 是普通 L² 投影残差的 order-`m` datum，且
 
 ```lean
-∀ t ∈ Icc (0 : ℝ) S, ∀ x : Space,
-  ρ t x = f (t, x) - NavierStokes.ProblemStatement.advection v t x
-    + ν • NavierStokes.ProblemStatement.spatialLaplacian v t x - NavierStokes.ProblemStatement.pressureGradient p t x
+∀ (t : ℝ) (ht : t ∈ Ioo (0 : ℝ) S),
+  HasDerivAt (extendPath S hS.le A)
+    (R ⟨t, ht.1.le, ht.2.le⟩) t
 ```
 
-等价地可先在 datum 上施加 Leray 投影，避免在 R2 前要求光滑压力。
-**`C01.residualPath` 本身是未投影的 `f − advection + νΔ`，不是时间导数：还要减压力梯度。**
-未来 R2 的前提必须包含真实 Duhamel 等式，即 `Horizon.lean` 中的
-`u t = quadraticDuhamel 1 ν hν hS.le le_rfl
-  (coefficients 1 hq (sobolevPath F hF q))
-  (ordinarySobolev (q+1) a.toLp a.translation_contDiff) u t`，以及相应的数据、力和高阶路径兼容条件。
-表格给出待证明的精确结论，不把这些未完成的前提伪装成已证 theorem。
-`HasDerivWithinAt ... (Icc 0 S)` 包含初始时刻的右导数和末端的左导数。
+这里 `extendPath` 是用 `projIcc` 的夹紧延拓；只在开区间内部声明两侧导数。
+`projectedResidualPath_eq` 把柱面残差逐字识别为
 
-逐条核读后的限制：
+```lean
+ν • laplacianOperator 1 m (restrictOperator 1 _ (u t)) +
+  restrictOperator 1 _
+    (leray 1 q (sobolevPath F hF q t - advection 1 hq (u t) (u t)))
+```
+
+即 `νΔu + P(F-(u·∇)u)`。`ordinaryLift_projectedResidualOrdinaryPath` 证明普通 L²
+残差重新 lift 后恰为上述柱面残差，所以 `R` 的语义不是仅靠名称约定。
+
+证明先用 `Source.OrdinaryForcedTime.realization_hasDerivAt` 对 mild/Duhamel 方程求导，
+得到普通 L² 路径的导数。R1 的定量构造分别为速度与残差选出连续的 order-`m` datum。
+将两条路径用 `lowerVectorL m 0` 降到 order zero 后，datum 唯一性把它们识别为普通 L²
+的标准 order-zero datum；`lowerVectorL_injective` 与
+`EulerInjectivePathDerivative.hasDerivAt_of_injective_map` 再把导数提升回 order `m`。
+两阶空间损失来自 Laplacian，给出恰好 `m ≤ q-1`。
+
+`residualDatum_is_timeDerivative` 还给出 R3 接口：若已经有代表元 `v`，并逐点证明其时间
+导数等于 `projectedResidualOrdinaryPath`，则 `R t` 是 `fun x => ∂ₜv(t,x)` 的 datum。
+目前没有无条件构造该光滑代表元，也没有恢复压力，因此未声称物理式
+`F-(u·∇)u+νΔu-∇p`。在不可压缩情形中这应与投影式对应，但该桥属于后续 rung。
+
+物理侧路线仍有循环限制：
 
 - `A04.timeDeriv_isSobolevDatum` 假设 `w : ClassicalSolutionR ...`、`2 ≤ m`、
-  `hGc : ContDiffOn ℝ ∞ G (Ico 0 T)`，识别 `deriv G`，没有从 Duhamel 产生可导性。
-- `C01.residualPath` 和其连续性定理也以 `ClassicalSolutionR` 为输入；只能镜像代数，不能直接供给 B1。
-- `C01.pressureGradientPath_jetLp_continuous` 在 `[c,S] ⊂ (0,T)` 上工作，依赖已经存在的经典解，不能解决初始端点。
-- `D01.exists_smoothL2Field_of_memHInfty` **显式要求** `ContDiff ℝ ∞ z`；它从 datum 得喷流可积性，不会从裸 a.e. 切片造出光滑性。
+  `hGc : ContDiffOn ℝ ∞ G (Ico 0 T)`，只能反向识别已经存在的 `deriv G`。
+- `C01.residualPath`、jet 连续性和压力梯度路径也以 `ClassicalSolutionR` 为输入，不能用于
+  从 A01 的 Duhamel 输入首次建立时间可导性。
+- `D01.exists_smoothL2Field_of_memHInfty` 要求 `ContDiff ℝ ∞ z`；它不能从裸 a.e. 切片
+  无循环地产生所需的时空光滑代表元。
 
 ## R3/R4：同一 horizon、力的时间正则性和代表元
 
