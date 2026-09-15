@@ -581,3 +581,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,167-A01-force-bridge,codex,fix,rework launched (sol xhigh) bd:fix-167,running,
 2026-09-15,A05,165-A05-critical-l3,codex,worker,DONE rc=0: velocityCriticalL3 (‖z‖₃ ≤ criticalL3Const · dotHomogeneousENorm (1/2) z under MemHInfty), U1/U2/U6/U7 closed, U3 partial, U4/U5 API open; 24 decls standard; lead reran gates OK; committed b96b733,done,
 2026-09-15,A05,165-A05-critical-l3,codex,reviewer,launched (sol xhigh) with lead check points bd:rev-165,running,
+2026-09-15,R44,166-R44-split,codex,fix,DONE rc=0: four record notes applied (75ee8d5),done,
+2026-09-15,R44,166-R44-split,lead,merge,PR #175 chain launched,merging,175
