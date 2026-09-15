@@ -757,3 +757,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,189-A01-pressure-regularity,codex,reviewer,"launched (sol xhigh) with 5 check points (htime satisfiability/derivability at t=0, Helmholtz converse proof, hmom vs 169, interface match with 180 fix2, hygiene) bd:rev-189",running,
 2026-09-15,A01,192-A01-wiring-hsob,codex,worker,"DONE rc=0: CylinderWiring.lean — cylinderPair_of_bounds(/Inv), hsob_of_bounds, hsobContinuous_of_bounds, hU_hdiv_of_bounds (+Inv); only input hb; 8 decls standard axioms; commit c8ebc2e",done,
 2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"launched (sol high) with 4 check points (same U throughout, interface probe vs 180 fix2, hb circularity assessment, hygiene) bd:rev-192",running,
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"third review REJECT: hc3 stated for the raw Lp coercion constructedVelocity (unsatisfiable; lane 190 gives an existential smooth representative); branch 113 commits stale",rejected,190
+2026-09-15,A01,180-A01-b2-assembly,codex,fix3,"launched (sol xhigh): parameterize by velocity+hslice, hc3/hpg for that field, interface probes vs 190/192/189 shapes, rebase allowed",running,190
