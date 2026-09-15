@@ -1,4 +1,7 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-15 worktree 创建后没跑 `LEAN_SEED_DIR=… lean-install.sh` 就跑 lake：lake 在 worktree 里私自 clone 一份 Mathlib 并从源码编译（8.7 GB、数小时、看似"门禁在跑"）。跑门禁前先 `ls -la verification/.lake/packages` 确认是软链；发现私有 clone 直接删掉重链。
+- 2026-09-15 `pkill -f`/`pgrep -f <pattern>` 会匹配到自己这个 shell（命令行里含 pattern），把自己杀了（exit 144）。用 `grep "patter[n]"` 括号技巧或排除 `$$`。
+- 2026-09-15 合并 main 时把我们的模块改名（ConstructorDivergence→ConstructorDivergenceSlice），要 grep 所有 `import` 该路径的消费者（ForceBridge 167）一起改；门禁会抓到，但先 grep 省一轮。
 - （09-15 2031Z）两支团队（我们 `erenup/integration`，owner `codex/*`→`main`）在同一天用**同一批 lane 号做同一批题**（158–169），合并时两个同路径模块 add/add 冲突、V4 合同重名。规则：`main` 是主干，同路径以 `main` 为准、我方改名保留后 SIMP 去重；开 lane 前先 `git fetch origin main` 并看 owner 的 PR 列表；lane 号分段（HANDOFF §0）。
 - （09-15 2025Z）Claude 侧长时间 `sleep` 的后台 Bash 等待任务会被 harness 以「low on memory」停掉（系统内存其实充足）；盯 codex `DONE` 文件与合并链 `CHAIN DONE` 都用持久 Monitor（按 mtime 去重），不要再起 `until … sleep` 的后台 Bash。链本身在 nohup 下不受影响。
 - （09-15 2004Z）合并链在根目录做 `git merge origin/erenup/integration && push` 的那几秒里，lead 在根目录 commit+push 记账会被拒（`fetch first`），链随后把本地 commit 一起合并推上去（多一个 merge commit，不丢内容）。排队的链跑到「已合入 PR」之后再记账，或直接 `git fetch && git rebase` 后重推。

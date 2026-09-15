@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Run one lane's brief through `codex exec` inside a tmux window, non-interactively.
 #
-#   scripts/codex_lane.sh <lane> <model> <effort> <brief.md>
+#   scripts/codex_lane.sh <lane> <model> <effort> <brief.md> [tag]   (tag=fix → names fix_<lane>)
 #
 #   lane    = NNN-<node>-<slug>; the worktree .claude/worktrees/<lane> must already exist
 #             (create it with `git worktree add … origin/erenup/integration` + scripts/lean-install.sh)
@@ -14,15 +14,16 @@
 # --sandbox danger-full-access and approval never (user's choice); the brief must forbid
 # `git push`, touching other worktrees, and the root checkout.
 set -euo pipefail
-LANE=$1; MODEL=$2; EFFORT=$3; BRIEF=$4
+LANE=$1; MODEL=$2; EFFORT=$3; BRIEF=$4; TAG=${5:-}
+NAME=${TAG:+${TAG}_}$LANE   # e.g. fix_167-… : same worktree, separate log/DONE/window
 ROOT=/data_8T/ping/blowup_density
 WT=$ROOT/.claude/worktrees/$LANE
 [ -d "$WT" ] || { echo "no worktree $WT"; exit 1; }
 [ -f "$BRIEF" ] || { echo "no brief $BRIEF"; exit 1; }
 BRIEF=$(readlink -f "$BRIEF")
 mkdir -p "$ROOT/tmp/codex"
-LOG=$ROOT/tmp/codex/$LANE.log; LAST=$ROOT/tmp/codex/$LANE.last.md; DONE=$ROOT/tmp/codex/$LANE.DONE
-RUN=$ROOT/tmp/codex/run_$LANE.sh
+LOG=$ROOT/tmp/codex/$NAME.log; LAST=$ROOT/tmp/codex/$NAME.last.md; DONE=$ROOT/tmp/codex/$NAME.DONE
+RUN=$ROOT/tmp/codex/run_$NAME.sh
 rm -f "$DONE"
 cat > "$RUN" <<EOS
 #!/usr/bin/env bash
@@ -37,5 +38,5 @@ echo "\$RC" > "$DONE"
 EOS
 chmod +x "$RUN"
 tmux has-session -t bd 2>/dev/null || tmux new-session -d -s bd -n lead
-tmux new-window -d -t bd -n "$LANE" "bash '$RUN'"
-echo "launched $LANE ($MODEL/$EFFORT) in tmux window bd:$LANE; log $LOG"
+tmux new-window -d -t bd -n "$NAME" "bash '$RUN'"
+echo "launched $NAME ($MODEL/$EFFORT) in tmux window bd:$LANE; log $LOG"
