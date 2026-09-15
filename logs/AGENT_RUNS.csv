@@ -605,3 +605,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,168-A01-pressure-p3,lead,merge,PR #177 merged after conflict resolution; gates wave122 OK over 134 modules,merged,177
 2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,codex,worker,DONE rc=0 (see REPORT_170); lead reran gates OK,done,
 2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,codex,reviewer,launched (sol xhigh) with check points bd:rev-170,running,
+2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,codex,reviewer,ACCEPT (no fixes; E7 is strict-interior only, endpoint S=T_max open): REVIEW_170 + 2 probes,accepted,
+2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,lead,merge,PR #178 chain launched,merging,178
