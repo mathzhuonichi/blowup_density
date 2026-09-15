@@ -615,3 +615,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,167-A01-force-bridge,codex,reviewer,second review ACCEPT (consumer direction verified; no fixes),accepted,
 2026-09-15,A01,167-A01-force-bridge,lead,merge,PR #179 chain launched,merging,179
 2026-09-15,A01,167-A01-force-bridge,lead,merge,PR #179 merged; gates wave124 OK over 136 modules,merged,179
+2026-09-15,R41D,174-SPEC-r41d-compare,codex,worker,DONE rc=0: COMPARISON.md + RECONCILIATION.md + Spec.lean (B's breakdownSetIn + A's class parameterization + two-branch R42 witness); 5 upstream gaps; committed 74fdb75,done,
+2026-09-15,R41D,174-SPEC-r41d-compare,codex,reviewer,statement-fidelity review launched (sol xhigh) bd:rev-174,running,
