@@ -619,3 +619,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,R41D,174-SPEC-r41d-compare,codex,reviewer,statement-fidelity review launched (sol xhigh) bd:rev-174,running,
 2026-09-15,A01,173-A01-hinv-invariance,codex,reviewer,REJECT: forced_global_mild_of_boundInv has 4 clauses vs the consumer's 7 (probe rev173_consumer_mismatch); route β sound otherwise; gates pass,rejected,
 2026-09-15,A01,173-A01-hinv-invariance,codex,fix,rework launched (sol xhigh) bd:fix-173,running,
+2026-09-15,A01,173-A01-hinv-invariance,codex,fix,rework DONE rc=0: forced_global_of_boundInv (7 clauses token-identical), core helper renamed, consumer-match probe closes by exact; 5 decls standard; lead reran gates OK; committed 5b4d9ad,done,
+2026-09-15,A01,173-A01-hinv-invariance,codex,reviewer,second review launched (sol xhigh) bd:rev-173,running,
