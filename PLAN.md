@@ -1,7 +1,35 @@
 # PLAN.md — 第 4 节 Lean 证明的总体计划
 
+## Integration snapshot (2026-09-15)
+
+This tree consolidates PRs #162–#170 through their original dependency branches;
+PR #161 delivers the combined result to `main`. It preserves the collaboration
+layout from PR #171 and the A01 implementation plan from PR #170. The earlier
+lane rows and contributor dashboards below are dated records: their pending-PR
+labels and counts do not describe this integrated tree. There are 27 registered
+contracts, including C01 V4. The R43 endpoint estimate retains its absorption
+premise; A01 construction, A05, critical energy and unconditional continuation
+remain open. See [the integration record](logs/MERGE_DEPENDENCIES_20260915.md).
+
+The earlier erenup lane 158 implementation is superseded by the owner changes
+in PR #161. Its independent review artifacts remain potential follow-up work.
+The historical Claude execution settings are retained in
+`logs/PLAN_HISTORY_20260913.md`; the Codex proof lanes recorded their own author
+and compiler assignments in their validation reports.
+
+
 更新 2026-09-15。状态看 [`NEXT_SESSION.md`](NEXT_SESSION.md)，规矩看 [`CLAUDE.md`](CLAUDE.md)，可分发的工作包看 [`collaboration/HANDOFF.md`](collaboration/HANDOFF.md)。
 本文件：§1–§3 计划（只在计划变更时改）；§4 节点状态看板（每个里程碑后改）；§5 并行工作包（分发用摘要）；§6 并发与预算；§7 记录与恢复；§8 进度表（每次合入追加一行，带 UTC）；§9 发现与 DAG 修正记录（只追加）。2026-09-13 的旧 §4/§5 原文在 `logs/PLAN_HISTORY_20260913.md`。
+
+## 当前 A01 方案（2026-09-15，lane 169）
+
+详细执行依据：[H¹ 实施方案](research/A01/IMPLEMENTATION_PLAN_169.md)；独立 [Astra xhigh 审核原文](research/A01/REVIEW_H1_REFACTOR_169.md)。四个工作包为 H1-local、Persistence、Smooth carrier、Assembly；时间 bootstrap 和普通压力桥仍是实际分析义务。
+
+- **立即下一项**：保留 lane 168 的 source/trace，完成实际正则化源对齐、有限 word 差值的 uniform Cauchy 和连续高阶极限，保留同一 T、原 a/f 与真实方程。
+- **并行长期输入**：独立证明 H¹ 局部预算与 H¹→可用高阶范围的持久性桥。固定 q（如 q=6）的时间上升阶是中间成果，不能替代 H¹ 数据球统一时间。
+- **最终依赖**：H¹ budget → 同预算连续全阶塔 → 真实 mild 的全阶时间动力学（含 t=0）→ 联合光滑与径向压力 → 同一 horizon 上完整 API。单独 mild 时间不能完成 `horizon_lower_bound`。
+- 保留 `Horizon` 给定 S 的辅助用途和已证模块，复用现有 tower。A04 优先评估 m=3→H¹ 的真实最大族消费者；m≥3 前件与全阶合同保持。当前 `MemForceR` 已给全时 L¹/L²，无需为尾部预算新增 cutoff。
+- 这次只修订方案；A01、A02 restart、A04 无条件延拓仍未完成。R43 G5 的条件性端点结果见平行 PR #168，其吸收前件和 A05/G7 仍开。
 
 ## 1. 总体：一棵树，两条脊柱，一个根
 
@@ -285,7 +313,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 155-SIMP-d01-c01-dedup | 已合并 | 09-14 1211Z | #158 | — | SIMP/tester 通道：145 F3（coord_smul_deriv_ae 上提到 FiniteOrderConstructor 去重）、145 F2（新增锐等式 ‖raise A‖² = ‖A‖² + Σ‖Cⱼ‖² 与 4^m 构造子，16^m/256 陈述不动）、146 N1（continuous_jetLp_sumField/laplacianField_jetLp_continuous 与 Source/PhysicalBesselSobolev.lean:83,105 去重）、144 分层（isSobolevDatum_zero 下沉到 D01，ZeroSolution 去掉 PressureDrop import）、153 N3（退役 151 被 subsume 的三条）；全部依赖模块重编 + gates |
 | 156-C01-v3-contract | 已合并 | 09-14 0955Z | #157 | — | C01 **V3 合同**：Contracts/V3/EnergyAbsorptionPartial.lean extends V2 + energyDifferentialBound + l2Bound（逐 token 抄 Spec.lean:364-370 / :383-387）+ forcePrimitive/energyBudget 两个 spec-local def；Bindings（V2 回投 rfl；l2Bound 无桥；energyDifferentialBound 用 V2 的 gradientSq 桥，154 审稿 dry run 已通）；Tests；contracts.json 第 26 条；照 research/C01/REVIEW_ENERGY_BOUNDS.md §3 |
 | 157-A01-slice-wiring | 已合并 | 09-14 1214Z | #159 | — | A01 载体桥 **切片接线（S）+ hslice/horizon 匹配（M–L）**：把 149/153 的 Z : SmoothL2Field 与 hfin 接到真实 ClassicalSolutionR 速度切片（D01.exists_smoothL2Field_of_memHInfty + contDiff_slice + w.sobolev），得到对真实解的无条件反向比较；再把 exists_local_shape_of_aprioriBound 的 (u,U) 与 ClassicalSolutionR 的速度切片对齐（hslice : ∀ t, v(t,·) =ᵐ ⇑(U t)，horizon T 匹配）；照 research/A01/REVIEW_L2_DESCENT.md 缺口排序 1–3 |
-| 158-A01-b1-constructor-split | 被 owner PR #161 取代（同路径重写并扩到全阶；我们的审稿记录待 #161 合入后作跟进 PR） | 09-15 1254Z | — | — | A01 **单元 B1/B2（mild ⇒ classical 构造子）拆分 + 首个 S 片**（L 多 lane 的第一条）：目标 CarrierConstructor q ν S（research/A01/REVIEW_SLICE_WIRING.md §3(b) 已 typecheck）；写 research/A01/CONSTRUCTOR_SPLIT.md（c1–c9 字段逐个：来源引理/缺口/大小），证首个 S 片（B2 的字段装配骨架或 c3 velocity_smooth 的 H^m-in-time ⇒ 联合 C^∞ 的最低阶情形）；不碰 A3_SPLIT 之外的既有模块 |
+| 158-A01-b1-constructor-split | 恢复完成；本地检查通过，PR 待审查 | 09-15 0659Z | — | #161 | `ConstructorPieces`：弱导数与候选切片 datum 扩至所有 `m ≤ q+1`，连续 ordinary L² derivative-word 路径；顶阶 datum/path、公理及完整前件消费探针通过。`CarrierConstructorFull` 仍是研究目标；联合光滑性、共同时间区间及初值/外力同定未闭合。 |
 | 159-R43-split | 已合并 | 09-14 1246Z | #160 | — | R43 **命题 4.3 拆分**（research + 首个 S 行）：照 research/R43/COMPARISON.md §4 的 G1–G8 与 Spec.lean RCritical1API 四字段，写 research/R43/R43_SPLIT.md（每个上游缺口现状：A05.gradient_l6、A04 energy_high V2、C01 V3 已注册；G7 eq:Rcritical1 自有 L 步）；证 S 行（G6 ℕ-pow/rpow 拼写钉、G3 非空洞、G8 常数算术）于 Section4/R43/*.lean |
 | 160-A04-restart-beyond | 由 owner PR #161 完成（restartBeyond 以 Restart 为假设；lifespan 以 HigherOrderBound 为假设） | 09-15 1254Z | — | — | A04 **R1 restartBeyond（M）+ C1 lifespanInfiniteOfLocallyFinite（S）**：R43 消费的寿命子句（159 审稿判为三条未证兄弟子句中最便宜）；以 A02 MaximalSolutionAPI.restart（依赖 A01 存在性 ⟪A01:solution⟫）为具名显式假设，证 A04 自有部分：t₀ ↑ S 极限与 δ 与 t₀/S 无关、maximalLifespanR 的 sup 记账（模板 FormalPatched/R3MildContinuation.lean:122）、C1 序论证（Source/SmoothLifespan）；照 research/A04/COMPARISON.md:216-217 |
 | 161-A01-b1-time-ladder | 已合并 | 09-15 1859Z | #172 | — | A01 **B1 时间正则阶梯 rung 1**（HANDOFF P8）：datum 路径的连续 selection（R1）+ 阶梯表 B1_LADDER.md；任务书 collaboration/briefs/161-*.md |
@@ -308,6 +336,16 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 178-A01-b1-ladder-r3 | 进行中（codex sol xhigh） | 09-15 2006Z | — | — | A01 **B1 阶梯 R3**：datum 路径的 C^j 时间正则（残差路径可导、tame 积的 Leibniz、逐阶损失记账；全阶版以供给侧界为具名假设） |
 | 179-A01-gronwall-endpoint | 已合并 | 09-15 2027Z | #184 | — | A01 **行 (iii-b) Grönwall 端点**：把 149 的端点帽喂进 Grönwall 得整个 Ico 0 T 上不退化的显式界 + A04 restartBeyond 输入形状的一致 H¹ 界 |
 | 180-A01-b2-assembly | 进行中（codex sol xhigh） | 09-15 2014Z | — | — | A01 **B2 装配**：用已合入部件（161/162/167/168/169/173 + 153/157）装出有条件的 ClassicalSolutionR 构造子 carrierConstructor_of_localTheory，只留联合光滑性 hc3（B1 R3/R4）与可能的 hcurl 为具名假设；CarrierConstructorFull 形状 + 消费者环探针 |
+| 160-A04-restart-beyond | 恢复完成；本地检查通过，PR 待审查 | 09-15 0659Z | — | #161 | `ForceShift` 证明正时间平移的 L¹Hˢ 范数单调性；`Continuation` 完成最大解场搬运和完整 δ 端点步。R1 保留精确 A02 `Restart`；`extendsBeyond` / C1 另保留精确 G3 `HigherOrderBound`。两项分析输入未在本 lane 证明，不注册为无条件合同。 |
+| 161-A01-datum-path | 本地验收通过；PR 待审查 | 09-15 0731Z | — | #162 | 全阶定量下降控制 datum 差，构造所有 m ≤ q+1 的连续 RealVectorSobolev 路径；模块与顶阶消费者编译通过，七项公理仅标准三条；26条现有合同、13项保护测试、变异测试及base兼容性检查通过。独立 worktree 从 PR #161 的 0b8e5e4 派生。 |
+| 162-C01-enstrophy | 本地验收通过；PR 待审查 | 09-15 0800Z | — | #163 | 装配 E5 梯度能量时导数、E6 压力消失与 E7 分部积分，完成精确 enstrophyIdentity、微分界和积分界（CRH1=2）；两模块及三个原Spec消费者编译通过，八项公理仅标准三条；26条现有合同、13项保护测试、变异及base兼容性检查通过。独立 worktree 从 PR #161 的 0b8e5e4 派生。 |
+| 163-A01-divergence | PR待审 | 09-15 0830Z | — | #164 | 从 PR #162 / a4e18a2 派生；真无散下降及实际代表逐点散度。模块、8公理输出、26合同、政策/兼容与变异检查通过；旧constructor强迫范围已审计，尚非完整构造。 Astra low 编写/交叉审查，Luna high 编译。 |
+| 164-C01-h2 | PR待审 | 09-15 0835Z | — | #165 | 从 PR #163 / 032e5bb 派生；真实datum H2比较CH2=16、时间积分Cassembly=32，含S=T。两模块、6公理输出、26合同、政策/兼容及变异检查通过；尚待完整C01合同注册。 Astra low 编写/交叉审查，Luna high 编译。 |
+| 165-C01-full | PR已开，待云端CI/审查 | 09-15 0910Z | — | #166 | 完整C01 V4继承V3并增加原Spec六字段；双盲稿与独立陈述/绑定审查通过，27合同、负向及变异/Python门禁通过。Astra low 编写，Luna high 编译；尚未合并。 |
+| 166-A01-maxreg | PR已开，待云端CI/审查 | 09-15 0915Z | — | #167 | 从 PR #164 / 65b2afb 派生；实际forced mild方程在原T上得到高一阶TimeLp及真实外力消费者。模块、五项公理、26合同、变异与Python检查通过；Astra low编写，Luna high编译。连续全阶塔仍未构造。 |
+| 167-R43-endpoint | PR已开，待云端CI/审查 | 09-15 0935Z | — | #168 | 从 PR #166 / b436f72 派生；实际最大解族的吸收H2积分界推至有限最大寿命端点；保留原吸收前件，不假设终点经典解。 Astra low编写，Luna high编译。 |
+| 168-A01-persistence | PR已开，待云端CI/审查 | 09-15 0942Z | — | #169 | 实际高阶TimeLp源及其降阶同一性；真实热方程终端梯度能量/耗散界。两个模块、九项公理、26合同、变异及Python检查通过；连续高阶极限仍待构造。Astra low编写，Luna high编译。 |
+| 169-A01-plan | 方案复核 ACCEPT；PR 待审，云端账单阻塞 | 09-15 1015Z | — | #170 | 依据独立 Astra xhigh 审核：分离 H¹ budget、同区间 persistence 与 API；修正旧 H1/T1/X1 依赖；保留 lane 168，下一 lane 170。无 Lean 或合同改动。 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 9. 发现与 DAG 修正记录（历史，只追加；待 owner 的部分见各条）

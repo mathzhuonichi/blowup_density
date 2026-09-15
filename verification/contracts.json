@@ -288,6 +288,17 @@
       "enabled": true
     },
     {
+      "id": "C01.energy_absorption_v4",
+      "parent_task": "C01",
+      "version": 4,
+      "specification": "verification/Contracts/V4/EnergyAbsorption.lean",
+      "binding_module": "Bindings.EnergyAbsorptionV4",
+      "test_module": "Tests.EnergyAbsorptionV4",
+      "declaration": "BlowupDensity.Tests.checkedEnergyAbsorptionV4",
+      "scope": "Complete C01 ordinary-energy and H1-absorption interface for 04-whole-space.tex:106-130, reused at :171. Extends frozen V3 unchanged and adds the six exact fields of research/C01/Spec.lean:487-607: enstrophyIdentity, enstrophyDifferentialBound, enstrophyIntegralBound (including asserted IntervalIntegrable), sobolevTwoFourier for the actual angular Sobolev norm, h2TimeIntegral and h2TimeIntegralZeroDatum. Global positive CRH1/CH2/Cassembly are bound to 2/16/32; inherited C1 is unchanged. Absorption uses C1 times the L3 norm <= nu/4, with no additional regularity hypotheses. Differential statements use 0<t<T; the integrated enstrophy field includes t=0 and requires t<T; H2 assembly covers 0<S<=T, including S=T over (0,S), with nu^-1 and nu^-2 coefficients. Binding reuses uniqueness_toA02, the existing Frobenius gradient bridge and the exact V3 witness, with an rfl parent projection. Six field-shape tests, standard transitive axiom checks and a terminal-horizon finiteness consumer accompany the binding. Critical half-order estimates, bootstrap, Gronwall and continuation are downstream and not asserted here. Independent blind drafts and reconciliation: research/C01/BLIND165_A.lean, BLIND165_B.lean, COMPARISON_165.md and REVIEW_SPEC_165.md.",
+      "enabled": true
+    },
+    {
       "id": "D01.homogeneous_norm",
       "parent_task": "D01",
       "version": 1,
