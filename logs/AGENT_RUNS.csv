@@ -749,3 +749,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A05,191-A05-u4-shifted-data,lead,plan,"lane opened (install then auto-launch sol xhigh): U4 Λv realization + U8 derivative half-order data → ShiftedCriticalData for classical slices (R43 bridge minus Parseval)",planned,
 2026-09-15,A01,187-A01-hfs-force-path,codex,reviewer,"ACCEPT-WITH-NOTES: consumer probe with lane 186 passes; widen-interval mutation fails; notes: stale base (chain rebases), gap sentence",accepted,
 2026-09-15,A01,187-A01-hfs-force-path,lead,merge,"gap sentence updated per review; PR #193 opened; chain launched (wave 20)",running,193
+2026-09-15,A01,187-A01-hfs-force-path,lead,merge,"PR #193 merged via chain (wave 20) gates green; ForcePathSmooth.lean on integration",merged,193
