@@ -769,3 +769,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,codex,worker,"DONE rc=0: JointRepresentative.lean — jointRepresentative, slice identity, ContDiffOn on Icc 0 S ×ˢ univ, exists_joint_smooth_representative(_of_hall); 26 decls standard axioms; commit ab009b6",done,
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,codex,reviewer,"launched (sol xhigh) with 5 check points (canonical CLM evaluation vs choose, boundary handling, slice identity, interfaces with 180/178/192, hygiene) bd:rev-190",running,
 2026-09-15,A01,189-A01-pressure-regularity,lead,plan,"fix brief written (G := joint representative of the Leray-complement path, interior identity via 169; no htime); launch after 190 merges",planned,
+2026-09-15,A01,192-A01-wiring-hsob,codex,fix,"DONE rc=0: combined witness export (unrestricted + Inv), split projections deleted; genuine zero bound via mildUniqueness; route note corrected; 5 decls standard axioms; commit 3eaab5c",done,
+2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"re-review launched (sol high) with 4 check points bd:rev-192",running,
