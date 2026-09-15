@@ -802,3 +802,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,193-A01-a3-m2-bounds,lead,merge,"PR #197 opened; chain launched (wave 24)",running,197
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fourth review REJECT: constructor/pressure discharge correct; F1 committed h189 premise (unscoped ∀ velocity/G) formally disproved (probe rev180_h189_unsat); F2 rows_from_constructor_full's hjoint lacks hpaths so 190's theorem cannot be passed",rejected,190
 2026-09-15,A01,180-A01-b2-assembly,codex,fix5,"launched (sol xhigh): consumer loop with landed supplier shapes (192/190 imported), def PressureSupply scoped to the selected solution as 189's exact obligation",running,190
+2026-09-15,A01,193-A01-a3-m2-bounds,lead,merge,"PR #197 merged via chain (wave 24) gates green",merged,197
