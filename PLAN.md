@@ -1,7 +1,17 @@
 # PLAN.md — 第 4 节 Lean 证明的总体计划
 
-更新 2026-09-13。状态看 [`NEXT_SESSION.md`](NEXT_SESSION.md)，规矩看 [`CLAUDE.md`](CLAUDE.md)。
+更新 2026-09-15（lane 169：依据独立审核修订 A01）。状态看 [`NEXT_SESSION.md`](NEXT_SESSION.md)，规矩看 [`CLAUDE.md`](CLAUDE.md)。
 本文件在每次 PR 合入后更新"进度表"一节，其余部分只在计划变更时改。
+
+## 当前 A01 方案（2026-09-15，lane 169）
+
+详细执行依据：[H¹ 实施方案](research/A01/IMPLEMENTATION_PLAN_169.md)；独立 [Astra xhigh 审核原文](research/A01/REVIEW_H1_REFACTOR_169.md)。四个工作包为 H1-local、Persistence、Smooth carrier、Assembly；时间 bootstrap 和普通压力桥仍是实际分析义务。
+
+- **立即下一项**：保留 lane 168 的 source/trace，完成实际正则化源对齐、有限 word 差值的 uniform Cauchy 和连续高阶极限，保留同一 T、原 a/f 与真实方程。
+- **并行长期输入**：独立证明 H¹ 局部预算与 H¹→可用高阶范围的持久性桥。固定 q（如 q=6）的时间上升阶是中间成果，不能替代 H¹ 数据球统一时间。
+- **最终依赖**：H¹ budget → 同预算连续全阶塔 → 真实 mild 的全阶时间动力学（含 t=0）→ 联合光滑与径向压力 → 同一 horizon 上完整 API。单独 mild 时间不能完成 `horizon_lower_bound`。
+- 保留 `Horizon` 给定 S 的辅助用途和已证模块，复用现有 tower。A04 优先评估 m=3→H¹ 的真实最大族消费者；m≥3 前件与全阶合同保持。当前 `MemForceR` 已给全时 L¹/L²，无需为尾部预算新增 cutoff。
+- 这次只修订方案；A01、A02 restart、A04 无条件延拓仍未完成。R43 G5 的条件性端点结果见平行 PR #168，其吸收前件和 A05/G7 仍开。
 
 ## 1. 总体：一棵树，两条脊柱，一个根
 
@@ -270,6 +280,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 163-A01-divergence | PR待审 | 09-15 0830Z | — | #164 | 从 PR #162 / a4e18a2 派生；真无散下降及实际代表逐点散度。模块、8公理输出、26合同、政策/兼容与变异检查通过；旧constructor强迫范围已审计，尚非完整构造。 Astra low 编写/交叉审查，Luna high 编译。 |
 | 166-A01-maxreg | PR已开，待云端CI/审查 | 09-15 0915Z | — | #167 | 从 PR #164 / 65b2afb 派生；实际forced mild方程在原T上得到高一阶TimeLp及真实外力消费者。模块、五项公理、26合同、变异与Python检查通过；Astra low编写，Luna high编译。连续全阶塔仍未构造。 |
 | 168-A01-persistence | PR已开，待云端CI/审查 | 09-15 0942Z | — | #169 | 实际高阶TimeLp源及其降阶同一性；真实热方程终端梯度能量/耗散界。两个模块、九项公理、26合同、变异及Python检查通过；连续高阶极限仍待构造。Astra low编写，Luna high编译。 |
+| 169-A01-plan | 方案复核 ACCEPT；PR 待审，云端账单阻塞 | 09-15 1015Z | — | #170 | 依据独立 Astra xhigh 审核：分离 H¹ budget、同区间 persistence 与 API；修正旧 H1/T1/X1 依赖；保留 lane 168，下一 lane 170。无 Lean 或合同改动。 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
