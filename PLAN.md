@@ -306,7 +306,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 176-MAINT-simp-codex-batch | 待审（4 模块 +282/−117；lead 复跑 gates OK；不变性审计中） | 09-15 2022Z | — | — | MAINT **SIMP/tester 通道**（HANDOFF P10）：161/162/163/164/166/168/170 七个 codex 模块的简化与测试、156/157 遗留 note（Spec 行号、sqrt_energy_le_primitive' 上提到 Paper1、SliceWiring 别名/泛化）、合同闭包计划 CLOSURE_PLAN.md（A01 V2 / C01 V4 bundle）；被消费陈述逐字节不变 |
 | 177-C01-v4-contract | 待审（第 28 条合同已注册，gates 全绿；codex 合同保真审稿中） | 09-15 2020Z | — | — | C01 **V4 合同**（第 28 条）：extends V3 + enstrophyIdentity（逐 token 抄 Spec.lean:487）；h2TimeIntegral 仍排除（170 只证了严格内部） |
 | 178-A01-b1-ladder-r3 | 进行中（codex sol xhigh） | 09-15 2006Z | — | — | A01 **B1 阶梯 R3**：datum 路径的 C^j 时间正则（残差路径可导、tame 积的 Leibniz、逐阶损失记账；全阶版以供给侧界为具名假设） |
-| 179-A01-gronwall-endpoint | 待审（codex review 中） | 09-15 2015Z | — | — | A01 **行 (iii-b) Grönwall 端点**：把 149 的端点帽喂进 Grönwall 得整个 Ico 0 T 上不退化的显式界 + A04 restartBeyond 输入形状的一致 H¹ 界 |
+| 179-A01-gronwall-endpoint | 合并中（排在 #183 后） | 09-15 2024Z | #184 | — | A01 **行 (iii-b) Grönwall 端点**：把 149 的端点帽喂进 Grönwall 得整个 Ico 0 T 上不退化的显式界 + A04 restartBeyond 输入形状的一致 H¹ 界 |
 | 180-A01-b2-assembly | 进行中（codex sol xhigh） | 09-15 2014Z | — | — | A01 **B2 装配**：用已合入部件（161/162/167/168/169/173 + 153/157）装出有条件的 ClassicalSolutionR 构造子 carrierConstructor_of_localTheory，只留联合光滑性 hc3（B1 R3/R4）与可能的 hcurl 为具名假设；CarrierConstructorFull 形状 + 消费者环探针 |
 | 其余节点 | 未开始 | — | — | — | |
 

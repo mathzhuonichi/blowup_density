@@ -646,3 +646,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,reviewer,invariance audit launched (sol xhigh) bd:rev-176,running,
 2026-09-15,A05,165-A05-critical-l3,codex,reviewer,ACCEPT-WITH-NOTES (astra low after sol capacity failures; rfl with D01 def; MemHInfty matches spec; bump example note supplied by probe),accepted,
 2026-09-15,A05,165-A05-critical-l3,lead,merge,PR #183 chain launched,merging,183
+2026-09-15,A01,179-A01-gronwall-endpoint,codex,reviewer,ACCEPT (no fixes; Ico→Icc mutation fails at the strict endpoint),accepted,
+2026-09-15,A01,179-A01-gronwall-endpoint,lead,merge,PR #184 chain queued after #183,merging,184
