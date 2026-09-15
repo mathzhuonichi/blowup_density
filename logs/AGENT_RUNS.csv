@@ -598,3 +598,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,173-A01-hinv-invariance,codex,worker,DONE rc=0 route β: HasAprioriBoundInv, HasAprioriBound.toInv, forced_global_mild_of_boundInv, localTheory_on_prescribed_horizon_of_boundInv; 4 decls standard; lead reran gates OK; committed 75e3b1c,done,
 2026-09-15,A01,173-A01-hinv-invariance,codex,reviewer,launched (sol xhigh) with check points bd:rev-173,running,
 2026-09-15,R41D,172-SPEC-r41d-draft-b,codex,worker,DONE rc=0: DraftB.lean + COMPARISON_B.md; elaborates,done,
+2026-09-15,R41D,174-SPEC-r41d-compare,codex,worker,launched (sol xhigh) with both drafts imported bd:174-SPEC-r41d-compare,running,

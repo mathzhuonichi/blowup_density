@@ -301,6 +301,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 171-SPEC-r41d-draft-a | 完成（盲稿 A，待与 B 比对） | 09-15 1920Z | — | — | R41D **定理 4.1 密度分支盲稿 A**（HANDOFF P11，规则 2）：只看论文 + Contracts/V1 + R42 已注册合同；产出 research/R41D/DraftA.lean + COMPARISON_A.md |
 | 172-SPEC-r41d-draft-b | 完成（盲稿 B，待比对） | 09-15 1921Z | — | — | R41D **盲稿 B**（与 171 互不可见，同样输入）：DraftB.lean + COMPARISON_B.md；两稿完成后 lead 比对 → COMPARISON.md → Spec.lean |
 | 173-A01-hinv-invariance | 待审（路线 β：HasAprioriBoundInv + 消费者重闭合；codex review 中） | 09-15 1921Z | — | — | A01 **行 (iv) 角不变性 hinv**（HANDOFF P9a）：路线 α 平移等变 + mild 唯一性 ⇒ HasAprioriBound 量化的每个 Duhamel 解自动角不变；路线 β 限制量化并重闭消费者环 |
+| 174-SPEC-r41d-compare | 进行中（codex sol xhigh） | 09-15 1922Z | — | — | R41D **盲稿 A/B 比对与调和**（规则 2 第三人）：COMPARISON.md（逐条 论文↔A↔B）、RECONCILIATION.md、定稿 Spec.lean（可 elaborate）；合并两稿的上游缺口 G 表 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 9. 发现与 DAG 修正记录（历史，只追加；待 owner 的部分见各条）
