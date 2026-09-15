@@ -95,10 +95,18 @@ analogue of A04's `HasSmoothSobolevPath` (`research/A04/Spec.lean:247`) at order
 
 | S1 sub | Lean shape (informal) | supplier | size |
 |---|---|---|---|
-| S1a pairing identities | `⟨∂_t u, Λu⟩ = ½(y²)'`, `ν⟨−Δu,Λu⟩ = νz²`, `⟨∇p,Λu⟩ = 0` (Leray) | R43-own; pressure orthogonality via `A02`/`D01` Leray | M |
+| S1a pairing identities | **DONE, conditional on `hcrit` carrier data** in `Section4/R43/CriticalPairing.lean`: `⟪Δ_{1/2},A_{1/2}⟫ = -‖A_{3/2}‖²`, `⟪P_{1/2},A_{1/2}⟫ = 0`, and `(y²)' = 2⟪A_{1/2},A'_{1/2}⟫`; the first is proved componentwise from the Fourier symbols and the second through `A04.inner_lerayComplement_eq_zero_of_eq_zero` | R43-own; carrier bridge remains in named `CriticalDatumPath` hypothesis | M |
 | S1b trilinear estimate | `|⟨(u·∇)u, Λu⟩| ≤ C₀·y·z²` | R43-own, via A05 `velocityCriticalL3` + `derivativeCriticalL3` (both **draft-only**) | L |
-| S1c force term | `|⟨f, Λu⟩| ≤ b·y` (Cauchy–Schwarz in `Ḣ^{1/2}`) | R43-own | S |
-| S1d differentiability of `y²` | `HasDerivAt (fun s => (y s)^2) (E' s) s` | R43-own smooth critical path (gap) | M |
+| S1c force term | **DONE** in `Section4/R43/CriticalPairing.lean`: `|⟪F_{1/2},A_{1/2}⟫| ≤ ‖F_{1/2}‖‖A_{1/2}‖ = b y`, by real Hilbert-space Cauchy--Schwarz and homogeneous-datum uniqueness | R43-own | S |
+| S1d differentiability of `y²` | **IDENTITY SHAPE DONE, carrier still a gap**: `criticalEnergyPath` defines `t ↦ ‖A_{1/2}(t)‖²`; `criticalEnergyPath_eq` identifies it with `y(t)²`, and `criticalEnergyDerivative_hasDerivAt` derives `HasDerivAt (fun r => criticalNormAt u r ^ 2) (2⟪A,A'⟫) t` from `hcrit.velocityHalf_smooth`; constructing that smooth homogeneous path from `ClassicalSolutionR` remains a later lane | R43-own smooth critical path (named field of `CriticalDatumPath`) | M |
+
+Lane 175 also closes the S1 scalar assembly:
+`rcritical1_of_trilinear` produces
+`E'/2 + (ν - C₀*y)*z^2 ≤ b*y` on `Ioo 0 T`, in the literal `henergy`
+shape consumed by `criticalNormBound_radius`, conditional only on the named
+carrier hypothesis `hcrit : CriticalDatumPath w hf` and the separate S1b
+hypothesis `htri : CriticalTrilinearEstimate (C₀ := C₀) hcrit` (besides the
+ambient force-membership witness `hf`).
 
 The **scalar consequence** of S1 (`E'/2 + (ν−C₀y)z² ≤ by`) is exactly the `henergy`
 hypothesis of the tree's scalar bootstrap (see S2), so once S1 is proved, S2 is free.
