@@ -702,3 +702,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,R43,175-R43-s1-pairing,lead,merge,"PR #185 merged via chain (wave 12): 154 modules green, 28 contracts; integration 826a1f5",merged,185
 2026-09-15,A05,181-A05-v2-contract,codex,worker,"DONE rc=0: Contracts/V2/GradientL6.lean + Bindings/Tests; A05.gradient_l6_v2 registered (29 contracts); gates OK; commit 71898f7",done,
 2026-09-15,A05,181-A05-v2-contract,codex,reviewer,"launched (sol xhigh) with 5 check points (fidelity, hypotheses, constant/vacuity, freeze, gates) bd:rev-181",running,
+2026-09-15,A01,178-A01-b1-ladder-r3,codex,reviewer,"REJECT (range only): datumPath_contDiffOn_one should be m+2 ≤ q+1 (reviewer probe rev178_sharp_c1); hfs bridge and cross-order compatibility confirmed genuinely missing; hall audited as exactly uniqueness + hfs",rejected,
+2026-09-15,A01,178-A01-b1-ladder-r3,codex,fix,"launched (sol high): sharpen C¹ range via reviewer probe; doc the all-j range honestly",running,
