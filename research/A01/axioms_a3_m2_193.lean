@@ -56,7 +56,8 @@ example : ∀ q (hq : 6 ≤ q), HasAprioriBound hq (by norm_num : (0 : ℝ) < 1)
     (fun _ => continuous_const)
     (aprioriRadius (S := 1) SmoothL2Field.zeroField (fun _ => SmoothL2Field.zeroField)
       (fun _ => continuous_const) 0 (fun _ => 1) (fun _ => 1) q) := by
-  apply hb_of_base (by norm_num) (by norm_num) _ _ _ 0 (by simp)
+  apply hb_of_base (by norm_num) (by norm_num) _
+    (by intro x; simp [EulerSmoothLimit.divergence, SmoothL2Field.zeroField]) _ _ 0 (by simp)
     (zero_mild 6 le_rfl (by norm_num) le_rfl) (fun _ => 1) (fun _ => 1)
     (fun _ => by norm_num) (fun _ => by norm_num)
   intro q hq T hT hTS u hu
