@@ -788,3 +788,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A05,191-A05-u4-shifted-data,codex,reviewer,"ACCEPT: 79 axiom checks standard; sign-mutation probe fails as required; nonzero bump audit valid",accepted,
 2026-09-15,A05,191-A05-u4-shifted-data,lead,merge,"PR #195 opened; chain launched (wave 22)",running,195
 2026-09-15,A01,189-A01-pressure-regularity,codex,fix,"PARTIAL rc=0 (astra low): htime/ProjectedMomentumDatumOn/dummy inputs removed; Helmholtz converse kept; complement-representative helpers proved; pressureGradientField_of_carrier unproved; rebased; commit 182f79e",partial,
+2026-09-15,A01,194-A01-complement-path,lead,plan,"lane opened (install then auto-launch astra low): Leray-complement datum paths of the residual + physical path w + per-time complement identity; joint representative via 190",planned,
+2026-09-15,A01,195-A01-interior-momentum,lead,plan,"lane opened (install then auto-launch astra low): temporal derivative of the joint representative = evaluated derivative datum; interior identity G = residual − ∂ₜu on Ioo",planned,
