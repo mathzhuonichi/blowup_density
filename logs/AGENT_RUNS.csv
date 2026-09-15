@@ -722,3 +722,8 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A05,181-A05-v2-contract,lead,merge,"lead re-verified; PR #187 opened; chain launched (wave 14)",running,187
 2026-09-15,A01,188-A01-mild-uniqueness,codex,worker,"DONE rc=0 (astra low): mildUniqueness : MildUniqueness proved unconditionally (volterra_window_bound causal windows, exists_positive_time_budget δ, kernelMass δ·L<1, finite induction incl. S); primed corollaries; 7 decls standard axioms; commit 2687da5",done,
 2026-09-15,A01,188-A01-mild-uniqueness,codex,reviewer,"adversarial review launched (sol xhigh): causal window bound, budget/Lipschitz constants, induction endpoint, token match, hygiene bd:rev-188",running,
+2026-09-15,A05,181-A05-v2-contract,lead,merge,"PR #187 merged via chain (wave 14) gates green; 29 contracts",merged,187
+2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,reviewer,"re-review ACCEPT: owner modules unchanged, signatures identical, 154 modules build, mutations fail as intended, 28 contracts",accepted,
+2026-09-15,MAINT,176-MAINT-simp-codex-batch,lead,merge,"PR #188 opened; chain launched (wave 15)",running,188
+2026-09-15,R43,182-R43-s1b-trilinear,codex,worker,"DONE rc=0: Trilinear.lean — 3-factor L3 Hölder, derivativeCriticalL3 (4·C), criticalTrilinearEstimate_of_hcrit with C₀=16·C³ conditional on CriticalAdvectionLpBridge (physical carriers + Parseval, no inequality); rcritical1_of_hcrit; 10 decls standard axioms; commit a2090a3",done,
+2026-09-15,R43,182-R43-s1b-trilinear,codex,reviewer,"launched (sol xhigh) with 5 check points (bridge audit/vacuity, Hölder constant, factor 4, composition with 175, hygiene) bd:rev-182",running,
