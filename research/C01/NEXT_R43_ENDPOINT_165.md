@@ -1,5 +1,16 @@
 # Next R43 endpoint step after C01 V4 (lane 165)
 
+## Lane 167 result
+
+The proposed endpoint step below is now proved in
+`Section4/R43/MaximalEndpoint.lean`, with an actual frozen V2/V4 consumer in
+`research/R43/axioms_endpoint167.lean`. Module, four axiom audits, full tests
+and mutations pass; see `logs/VALIDATION_167_20260915.md`. The proof reuses the
+already uniform C01 Ioc estimate with budget S and the existing countable-union
+lemma. This closes the absorption-conditional G5 passage only. The historical
+proposal below is retained; its final unproved-status sentence no longer applies
+to that endpoint result.
+
 The existing R43 G5 is now a concrete consumer task. Frozen
 `Contracts/V2/MaximalPartial.lean` defines `IsMaximalSolution` by a positive
 extended-real lifespan and, for every positive r strictly below it, an actual

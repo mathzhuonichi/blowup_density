@@ -1,4 +1,21 @@
 # R43 — Proposition 4.3 proof-route split (`prop:Rcritical1`)
+
+## Lane 167 update: G5 endpoint passage proved locally
+
+`Section4/R43/MaximalEndpoint.lean` now transfers the C01 absorption/H2 estimate
+through the actual `A02.IsMaximalSolution` family to every real `0<S` with
+`ofReal S ≤ maximalLifespanR`, including the finite maximal endpoint. It supplies
+both the full constant-32 estimate and A04's canonical `squaredHTwoIntegral ≠ ⊤`.
+Only strictly shorter classical horizons are used. The actual frozen V2 family
+and V4 absorption constant are consumed in `research/R43/axioms_endpoint167.lean`.
+
+The module, four standard-axiom audits, 27 registered contracts, mutations and
+administrative checks passed; see `logs/VALIDATION_167_20260915.md`. This closes
+G5 conditional on the genuine absorption bound. It does not derive that bound
+from initial/forcing smallness or close critical energy G7, A05's remaining
+critical embeddings, or unconditional A04 continuation. The historical rows
+below describing G5 as missing are superseded only in this stated scope.
+
 ## Lane 165 update (2026-09-15; supersedes the historical C01 registration status below)
 
 This branch now registers `C01.energy_absorption_v4` in

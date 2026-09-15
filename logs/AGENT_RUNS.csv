@@ -553,3 +553,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,C01,165-binding,gpt-6-astra low,writer,"V4 six-field assembly plus frozen parent projection; code compiled",#166,"Independent draft A continued after reconciliation and spec review"
 2026-09-15,C01,165-review,gpt-6-astra low,reviewer,"Independent spec and binding ACCEPT; source simplifier review required no edits",#166,"Also reviewed lane 166 source independently"
 2026-09-15,C01,165-validation,gpt-5.6-luna high,verifier,"Two blind drafts; V4 contract/tests; 27 contracts; missing-smallness negative and mutations passed",#166,"All Lean compilation by assigned Luna high"
+2026-09-15,R43,167-R43-endpoint,gpt-6-astra low,writer,"实际最大解族的吸收H2积分界推至有限最大寿命端点；保留原吸收前件，不假设终点经典解。",pending,"Based on PR #166 / b436f72; independent worktree"
+2026-09-15,R43,167-review,gpt-6-astra low,reviewer,"Independent maximal-family endpoint and frozen-consumer source ACCEPT",pending,"Same fields and smallness; no terminal classical solution"
+2026-09-15,R43,167-validation,gpt-5.6-luna high,verifier,"Module r2; 4 standard axiom outputs; 27 contracts and mutations passed",pending,"Python checks separately passed by lead"

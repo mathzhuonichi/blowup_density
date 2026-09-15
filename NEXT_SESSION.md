@@ -1,5 +1,14 @@
 # NEXT_SESSION.md — 当前状态与下一步
 
+## 167-R43-endpoint（2026-09-15 0935Z）
+
+- G5实际最大族端点界及A04平方积分有限性已通过，包含S=T_max，原吸收前件不变。模块、四项标准公理、27合同（29checked）、变异和Python检查全部通过；见logs/VALIDATION_167_20260915.md。
+- 下一R43关键义务仍为A05临界嵌入与G7临界能量及bootstrap；A04无条件延拓仍依赖A01构造/持续性。全第4节尚未完成。
+
+- 从 PR #166 / b436f72 派生；实际最大解族的吸收H2积分界推至有限最大寿命端点；保留原吸收前件，不假设终点经典解。
+- 独立worktree和proof缓存，固定依赖；所有Lean编译交Luna high，代码交Astra low。原稿第4节和冻结合同仍为目标。
+
+
 ## 165-C01-full（2026-09-15 0910Z）
 
 - 已推送 [PR #166](https://github.com/mathzhuonichi/blowup_density/pull/166)，base为PR #165分支。proof head为0fce54c；architecture检查104321156138因账户账单/额度未启动，lean-contracts跳过。PR保持未合并。
