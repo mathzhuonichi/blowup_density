@@ -51,6 +51,48 @@
 - 全阶定量下降控制 datum 差，构造所有 m ≤ q+1 的连续 RealVectorSobolev 路径；Luna 模块与顶阶消费者检查 exit 0，七项仅标准三公理；五项仓库 Python 检查、26条现有合同及变异检查全部通过。编写使用 Astra low，所有 Lean 编译使用 Luna high；独立 proof build 缓存，共享固定依赖。
 - GitHub CI 的已知阻塞为账户账单/额度，不能据此声称云端验证通过。完整第 4 节形式化尚未完成。
 
+## 167-R43-endpoint（2026-09-15 0935Z）
+
+- 已推送 [PR #168](https://github.com/mathzhuonichi/blowup_density/pull/168)，base为PR #166分支。proof head为e2d05ad；architecture检查104329375348因账户账单/额度未启动，lean-contracts跳过；PR未合并。
+
+- G5实际最大族端点界及A04平方积分有限性已通过，包含S=T_max，原吸收前件不变。模块、四项标准公理、27合同（29checked）、变异和Python检查全部通过；见logs/VALIDATION_167_20260915.md。
+- 下一R43关键义务仍为A05临界嵌入与G7临界能量及bootstrap；A04无条件延拓仍依赖A01构造/持续性。全第4节尚未完成。
+
+- 从 PR #166 / b436f72 派生；实际最大解族的吸收H2积分界推至有限最大寿命端点；保留原吸收前件，不假设终点经典解。
+- 独立worktree和proof缓存，固定依赖；所有Lean编译交Luna high，代码交Astra low。原稿第4节和冻结合同仍为目标。
+
+
+## 165-C01-full（2026-09-15 0910Z）
+
+- 已推送 [PR #166](https://github.com/mathzhuonichi/blowup_density/pull/166)，base为PR #165分支。proof head为0fce54c；architecture检查104321156138因账户账单/额度未启动，lean-contracts跳过。PR保持未合并。
+
+- V4完整C01合同、绑定、六字段形状与S=T消费者已通过；27合同、负向hsmall检查、变异测试和五项Python门禁通过。C01工作卡为assembly/in-review，旧合同和测试不变。
+- 双盲稿、逐字段协调、独立spec/binding review及全部验证见research/C01与logs/VALIDATION_165_20260915.md。
+- 下一步优先R43 G5：以实际IsMaximalSolution的短区间经典解统一估计，推到有限T_max；见research/C01/NEXT_R43_ENDPOINT_165.md。A01连续全阶正则性与A04无条件延拓仍未完成。
+
+- 从 PR #165 / 31621e5 派生；完整C01新版本合同：双独立论文盲稿、陈述比对、绑定和注册验证。
+- 代码由Astra low编写，所有Lean编译交给Luna high；独立worktree与proof缓存，继续堆叠PR。
+- 原稿第4节和冻结合同仍是目标；C01两份草稿在只读原论文/合同词汇后独立形成，先比对再注册。
+
+
+## Lane 164（2026-09-15 0835Z）
+
+- 已推送 [PR #165](https://github.com/mathzhuonichi/blowup_density/pull/165)，base为PR #163分支。云端architecture检查104311372421因账户账单/额度未启动，lean-contracts被跳过；PR未合并。
+
+- 已完成真实Sobolev datum H²比较（CH2=16）及一般/零初值时间积分（同一个Cassembly=32），保留S≤T，终点S=T消费者得到有限积分。
+- 两模块、6项标准公理输出、26合同、13政策测试、计划/合同/队列/base兼容及变异检查通过，见 `logs/VALIDATION_164_20260915.md`。
+- C01下一步是完整合同新版本：按CLAUDE要求由两名互不可见代理从原论文和规范词汇起草、比对，再注册绑定和测试，保持冻结V1/V2/V3不动。本lane仅证明层与原Spec消费者；完整第4节仍未完成。
+
+- 从 PR #163 / 032e5bb 派生；用真实弱导数/范数桥推进 sobolevTwoFourier 与包含 S=T 的 H2 时间积分，保持原Spec前件。
+- 本 lane 独立 worktree：164-c01；代码由 Astra low 编写，所有 Lean 编译由 Luna high 执行。既有三个 PR 均未合并，按父分支继续堆叠 PR。
+- 正式数学目标仍是原版第 4 节与冻结合同；主目录新增 revision 文稿明确不是形式化依赖。
+
+## Lane 162（2026-09-15 0710Z）
+
+- 分支 `codex/162-c01-enstrophy`；基线 `0b8e5e4`（PR #161，尚未合并）。已提交 [PR #163](https://github.com/mathzhuonichi/blowup_density/pull/163)，以该 PR 分支为 base；尚未合并。
+- 装配 E5 梯度能量时导数、E6 压力消失与 E7 分部积分，完成精确 enstrophyIdentity、微分界和积分界（CRH1=2）；两模块及三个原Spec消费者编译通过，八项公理仅标准三条；五项Python检查、26条现有合同及变异检查全部通过。编写使用 Astra low，所有 Lean 编译使用 Luna high；独立 proof build 缓存，共享固定依赖。
+- GitHub CI 的已知阻塞为账户账单/额度，不能据此声称云端验证通过。完整第 4 节形式化尚未完成。后续：C01 新版本合同注册、H2/Fourier 比较与 H2 时间积分；A01 连续 datum 路径已由平行 PR #162 验收，下一步 c6 无散下降。
+
 ## Codex 本地恢复（2026-09-15；当前状态优先于下面的历史记录）
 
 - 云端 PR #15 已于 2026-09-15 0248Z 合入 `main`；本地预编译基线为 `da640be`，与云端一致。旧文中的「PR #15 待 owner review」已失效。
