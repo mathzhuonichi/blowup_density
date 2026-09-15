@@ -313,3 +313,5 @@ order-≤2 Schwartz pairing, M — it unblocks A3-L1·k and hence the whole A3 c
 | 新分项 | 状态 | 交付与范围 |
 |---|---|---|
 | P4a complement path | 已证（lane 194） | `ComplementPath.lean`：固定物理余项路径，所有 j/m 的闭区间 datum 光滑性，每时刻零阶余项恒等式，任意光滑速度代表元的物理残差 a.e. 桥，以及 190 联合代表元；输入仅 192 cylinder-pair 供给、标准外力和正性。见 `REPORT_194.md`。 |
+| Lane 195 row | Status | Export / remaining obligation |
+| P4b interior identity | Generic evaluation and subtraction DONE; cylinder identity CONDITIONAL | `InteriorMomentum.jointRepresentative_temporalDerivative`, `vectorRepresentative_sub`, and `interior_momentum_identity` (namespace `NSFormalization.Section4.A01`). The final theorem still takes `hprojected`: lowered ordinary projected residual datum equals `A - Leray.lerayComplement 0 A` on `Ioo 0 S`. Lane 169 supplies the derivative at order `2 ≤ m ≤ q-1`, but its `projectedResidualPath_eq` is a cylinder formula, not this Fourier projector bridge. Exact signatures, missing lane-194 `hres` interface, gates: `REPORT_195.md`, `ATTEMPTS_INTERIOR_MOMENTUM.md`. No ambient derivative claim at `t = 0`. |
