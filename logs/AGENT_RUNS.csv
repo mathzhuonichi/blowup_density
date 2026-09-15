@@ -803,3 +803,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fourth review REJECT: constructor/pressure discharge correct; F1 committed h189 premise (unscoped ∀ velocity/G) formally disproved (probe rev180_h189_unsat); F2 rows_from_constructor_full's hjoint lacks hpaths so 190's theorem cannot be passed",rejected,190
 2026-09-15,A01,180-A01-b2-assembly,codex,fix5,"launched (sol xhigh): consumer loop with landed supplier shapes (192/190 imported), def PressureSupply scoped to the selected solution as 189's exact obligation",running,190
 2026-09-15,A01,193-A01-a3-m2-bounds,lead,merge,"PR #197 merged via chain (wave 24) gates green",merged,197
+2026-09-15,A01,195-A01-interior-momentum,codex,worker,"DONE rc=0 (astra low): jointRepresentative_temporalDerivative, vectorRepresentative_sub, _of_cylinder via 169; interior identity conditional on hprojected (cylinder leray vs datum lerayComplement 0 bridge); 8 decls standard axioms; commit d611ccf",done,
+2026-09-15,A01,195-A01-interior-momentum,codex,reviewer,"launched (sol xhigh) with 5 check points incl. hprojected honesty and hres vs 194 shape bd:rev-195",running,
