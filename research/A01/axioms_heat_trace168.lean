@@ -1,0 +1,4 @@
+import NSFormalization.Section4.A01.HeatGradientTrace
+
+#print axioms NSFormalization.Section4.A01.HeatGradientTrace.heat_gradient_trace_dissipation
+#print axioms NSFormalization.Section4.A01.HeatGradientTrace.heat_gradient_trace_bound
