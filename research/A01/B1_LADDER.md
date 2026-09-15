@@ -114,6 +114,7 @@ datum。最后取 `k=max 6 m` 并降阶到 `m`，得到 `datumPath_contDiffOn` �
 `νΔuₜ + P(fₜ-B(uₜ,u)-B(u,uₜ))`；`residualPath_hasDerivAt` 证明任意连续残差 datum
 选择的导数就是该路径的 datum。只使用 Horizon 的 `hF : ∀n, Continuous ...` 时，
 `datumPath_contDiffOn_one` 无条件在精确范围 `m+2 ≤ q+1` 闭合 `C¹`；第二次及以上时间微分确实需要外力的时间导数。
+Lane 186: `compatible_carriers_of_bounds`（namespace `NSFormalization.Section4.A01`）及 `compatible_carriers_of_boundsInv` 固定 canonical datum/force，构造同一 `U`；`compatible_carriers_hall` 输出 lane 178 的原样 `hall`。因此 `hall` 的供给现在归约为所有阶的先验界、具名外力时间光滑输入 `hfs`，以及一个显式 `MildUniqueness`（阶六、整个 `[0,S]` 上任意两个 mild 解的唯一性）。降阶交换已证；此唯一性尚未证明，不能称共同载体无条件完成。详见 `ATTEMPTS_A3_COMMON_HORIZON.md` / `REPORT_186.md`。
 
 R3 的共同 `U` 必须在同一个 `Icc 0 S` 上被任意高阶柱面解实现；需要跨阶唯一性与供给侧先验界。
 单独的 `F : I → SmoothL2Field Space` 加 `∀ n, Continuous (fun t => (F t).jetLp n)`
