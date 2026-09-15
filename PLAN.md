@@ -280,7 +280,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 163-A01-divergence | PR待审 | 09-15 0830Z | — | #164 | 从 PR #162 / a4e18a2 派生；真无散下降及实际代表逐点散度。模块、8公理输出、26合同、政策/兼容与变异检查通过；旧constructor强迫范围已审计，尚非完整构造。 Astra low 编写/交叉审查，Luna high 编译。 |
 | 166-A01-maxreg | PR已开，待云端CI/审查 | 09-15 0915Z | — | #167 | 从 PR #164 / 65b2afb 派生；实际forced mild方程在原T上得到高一阶TimeLp及真实外力消费者。模块、五项公理、26合同、变异与Python检查通过；Astra low编写，Luna high编译。连续全阶塔仍未构造。 |
 | 168-A01-persistence | PR已开，待云端CI/审查 | 09-15 0942Z | — | #169 | 实际高阶TimeLp源及其降阶同一性；真实热方程终端梯度能量/耗散界。两个模块、九项公理、26合同、变异及Python检查通过；连续高阶极限仍待构造。Astra low编写，Luna high编译。 |
-| 169-A01-plan | 方案复核 ACCEPT；本地检查通过 | 09-15 | — | 待创建 | 依据独立 Astra xhigh 审核：分离 H¹ budget、同区间 persistence 与 API；修正旧 H1/T1/X1 依赖；保留 lane 168，下一 lane 170。无 Lean 或合同改动。 |
+| 169-A01-plan | 方案复核 ACCEPT；PR 待审，云端账单阻塞 | 09-15 1015Z | — | #170 | 依据独立 Astra xhigh 审核：分离 H¹ budget、同区间 persistence 与 API；修正旧 H1/T1/X1 依赖；保留 lane 168，下一 lane 170。无 Lean 或合同改动。 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
