@@ -713,3 +713,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,180-A01-b2-assembly,codex,fix,"DONE rc=0: carrierConstructor_of_localTheory + carrierConstructorFull_of_hyps under hsob/hc3/hpg; divergence direct; zero-carrier instance; 9 decls standard axioms; commit 8282010",done,
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"re-review launched (sol xhigh) with 5 check points (inputs exact, hsob vs 178 j=0, hpg minimality → lane 189, zero instance, gates) bd:rev-180",running,
 2026-09-15,A01,188-A01-mild-uniqueness,codex,worker,"launched (astra low) after install; target theorem mildUniqueness : MildUniqueness",running,
+2026-09-15,A05,181-A05-v2-contract,codex,reviewer,"ACCEPT-WITH-NOTES: fidelity/non-vacuity probes pass, L4 mutation fails as required; notes: V2-specific mutation cases, describe as MemHInfty specialization of Lemma B.1",accepted,
+2026-09-15,A05,181-A05-v2-contract,codex,fix,"launched (sol high): V2 mutation cases + wording + commit review artifacts",running,
