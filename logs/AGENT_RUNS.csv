@@ -805,3 +805,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,193-A01-a3-m2-bounds,lead,merge,"PR #197 merged via chain (wave 24) gates green",merged,197
 2026-09-15,A01,195-A01-interior-momentum,codex,worker,"DONE rc=0 (astra low): jointRepresentative_temporalDerivative, vectorRepresentative_sub, _of_cylinder via 169; interior identity conditional on hprojected (cylinder leray vs datum lerayComplement 0 bridge); 8 decls standard axioms; commit d611ccf",done,
 2026-09-15,A01,195-A01-interior-momentum,codex,reviewer,"launched (sol xhigh) with 5 check points incl. hprojected honesty and hres vs 194 shape bd:rev-195",running,
+2026-09-15,A01,197-A01-leray-bridge,lead,plan,"lane opened (install then auto-launch astra low): prove hprojected (cylinder leray vs datum lerayComplement 0) + physicalResidual_datum_eq",planned,
