@@ -634,3 +634,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,173-A01-hinv-invariance,lead,merge,PR #182 chain launched,merging,182
 2026-09-15,C01,177-C01-v4-contract,codex,worker,FAILED rc=1: askcloud 'Selected model is at capacity' after writing most files (uncommitted); relaunch from worktree state,queued,
 2026-09-15,A01,173-A01-hinv-invariance,lead,merge,PR #182 merged; gates wave127 OK over 138 modules,merged,182
+2026-09-15,A05,165-A05-critical-l3,codex,reviewer,first review stuck reconnecting to upstream (3/5) for ~70 min; killed and relaunched (sol xhigh),running,
