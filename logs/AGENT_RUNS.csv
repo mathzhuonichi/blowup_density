@@ -627,3 +627,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,R41D,174-SPEC-r41d-compare,lead,merge,PR #181 chain queued after #180,merging,181
 2026-09-15,A01,169-A01-b1-ladder-r2,lead,merge,PR #180 merged; gates wave125 OK over 137 modules,merged,180
 2026-09-15,R41D,174-SPEC-r41d-compare,lead,merge,PR #181 merged (chain root-merge raced a records commit; merge commit 2461e36, nothing lost),merged,181
+2026-09-15,C01,177-C01-v4-contract,codex,worker,launched bd:177-C01-v4-contract (brief collaboration/briefs/177-C01-v4-contract.md),running,
+2026-09-15,A01,178-A01-b1-ladder-r3,codex,worker,launched bd:178-A01-b1-ladder-r3 (brief collaboration/briefs/178-A01-b1-ladder-r3.md),running,
+2026-09-15,A01,179-A01-gronwall-endpoint,codex,worker,launched bd:179-A01-gronwall-endpoint (brief collaboration/briefs/179-A01-gronwall-endpoint.md),running,
