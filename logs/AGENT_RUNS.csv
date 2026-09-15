@@ -746,3 +746,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,R43,182-R43-s1b-trilinear,lead,merge,"wording note applied by lead (docstring + 2 md), module re-elaborated; PR #192 opened; chain launched (wave 19)",running,192
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,codex,worker,"auto-launched (sol xhigh) after install",running,
 2026-09-15,R43,182-R43-s1b-trilinear,lead,merge,"PR #192 merged via chain (wave 19) gates green; Trilinear.lean on integration",merged,192
+2026-09-15,A05,191-A05-u4-shifted-data,lead,plan,"lane opened (install then auto-launch sol xhigh): U4 Λv realization + U8 derivative half-order data → ShiftedCriticalData for classical slices (R43 bridge minus Parseval)",planned,
