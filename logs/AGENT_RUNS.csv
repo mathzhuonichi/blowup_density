@@ -577,3 +577,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,168-A01-pressure-p3,codex,reviewer,launched (sol xhigh) with lead check points bd:rev-168,running,
 2026-09-15,R44,166-R44-split,codex,reviewer,ACCEPT-WITH-NOTES (4 record fixes: integrable E'; global continuity of Y; :170→:171; A04 V3 status): REVIEW_166 + probes,accepted,
 2026-09-15,R44,166-R44-split,codex,fix,launched (sol high) bd:fix-166,running,
+2026-09-15,A01,167-A01-force-bridge,codex,reviewer,REJECT: ForcePathSmoothness (forcePath f) provably false for nonzero f (endpoint probe); row (v) must be consumer direction F := forcePath hf with f' := f (probe shows it compiles); dead hF; divergence via lane 162: REVIEW_167 + probes,rejected,
+2026-09-15,A01,167-A01-force-bridge,codex,fix,rework launched (sol xhigh) bd:fix-167,running,
