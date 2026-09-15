@@ -1,5 +1,56 @@
 # NEXT_SESSION.md — 当前状态与下一步
 
+## 169-A01-plan（2026-09-15，当前执行方案）
+
+- 依据独立 Astra xhigh 审核完成 [H¹ 实施方案](research/A01/IMPLEMENTATION_PLAN_169.md)，并修正旧 split 的 horizon、时间动力学与构造依赖。审核原文归档在 [REVIEW_H1_REFACTOR_169.md](research/A01/REVIEW_H1_REFACTOR_169.md)，保留审查时的证据路径。
+- 本 lane 从 PR #169 的 `75bfb4e` 派生，worktree `169-a01-plan`，分支 `codex/169-a01-plan`。仅文档变化；独立 Astra xhigh 复核 ACCEPT，make check 的四个 Python 子命令通过，详见 [验证记录](logs/VALIDATION_169_20260915.md)。已推送 [PR #170](https://github.com/mathzhuonichi/blowup_density/pull/170)，base 为 PR #169 分支；未合并。首个方案 head `9e55927` 的 architecture 检查 `104341112912` 因账单/额度未启动，lean-contracts `104341129148` 跳过。
+- **下一全局 lane 170**：先完成 lane 168 实际正则化源对齐 → 有限 word 差值 uniform Cauchy → 连续高阶极限 → 初值/降阶/方程同定。保持同一 witness 与 T，不调用依赖经典解的能量来构造经典解。
+- 可并行推进真正 H¹-local 及低阶 persistence 供给。当前 q≥6 升阶不能直接接 H¹；固定基准阶时间上的全阶载体与 H¹ 球统一时间分别验收。
+- 后续顺序：低阶预算上同解全阶塔 → 真实 mild 全阶时间 bootstrap（含单侧 t=0）→ 普通压力与经典解 → 同 horizon 完整 API → A02 restart / A04 端点延拓。保留现有 tower、Horizon 辅助接口与冻结高阶合同。
+- 代码仍交 Astra low，全部 Lean 编译交 Luna high。平行 PR #168 的 R43 G5 仍有 `hsmall`，不代表无条件延拓或 A05/G7 完成。此前云端 CI 因账单/额度未启动，不记为 Lean 验证通过。
+
+## 168-A01-persistence（2026-09-15 0942Z）
+
+- 已推送 [PR #169](https://github.com/mathzhuonichi/blowup_density/pull/169)，base为PR #167分支。proof head为05b0ca0；architecture检查104331776975因账户账单/额度未启动，lean-contracts跳过；PR未合并。
+
+- 实际高阶sourceTime及同原源a.e.降阶已通过；从166同一local witness构造，保留原T、数据、force和方程。另已证明真实regularized heat终端gradient energy加耗散界及pointbound。
+- 两模块、九项标准公理输出、26条现有合同、变异及Python检查全部通过，独立review ACCEPT。见logs/VALIDATION_168_20260915.md；下一步为实际正则化源对齐、有限word差值的uniform Cauchy估计与连续高阶极限，不把time-L2当continuous。
+- 平行R43已交付 [PR #168](https://github.com/mathzhuonichi/blowup_density/pull/168)：真实最大族G5端点H2积分界，含S=T_max，仍保留吸收前件。该PR在另一堆叠分支，本tree不含其证明；R43 G7/A05和A04无条件延拓仍开。全局下一lane号169。
+
+- 从 PR #167 / d64704f 派生；同T时间L2升阶之后的连续高阶持续性；源审计并证明关键跨阶桥，禁止循环调用经典解能量。
+- 独立worktree和proof缓存，固定依赖；所有Lean编译交Luna high，代码交Astra low。原稿第4节和冻结合同仍为目标。
+
+
+## 166-A01-maxreg（2026-09-15 0915Z）
+
+- 已推送 [PR #167](https://github.com/mathzhuonichi/blowup_density/pull/167)，base为PR #164分支。proof head为7faf625；architecture检查104323252207因账户账单/额度未启动，lean-contracts跳过；PR未合并。
+
+- 实际 forced mild 方程的同T最大正则性已通过：保留真实外力与原数据，构造高一阶 TimeLp 路径、a.e.降阶和ordinary载体兼容性及平方范数可积性。固定q的T不缩短；不声称T与q无关或高路径连续。
+- 模块、五项标准公理输出、26条既有合同、变异和五项Python检查通过；见logs/VALIDATION_166_20260915.md。下一分析缺口仍是低阶寿命上的连续高阶持续性，再构造共同全阶塔与时间光滑性。
+
+- 从 PR #164 / 65b2afb 派生；实际forced mild方程的同horizon TimeLp升阶及真实外力消费者。
+- 代码由Astra low编写，所有Lean编译交给Luna high；独立worktree与proof缓存，继续堆叠PR。
+- 原稿第4节和冻结合同仍是目标；本lane不注册新合同，也未使用ClassicalSolutionR作为构造前件。
+
+
+## Lane 163（2026-09-15 0830Z）
+
+- 已推送 [PR #164](https://github.com/mathzhuonichi/blowup_density/pull/164)，base为PR #162分支。云端architecture检查104309961813因账户账单/额度未启动，lean-contracts被跳过；PR未合并。
+
+- 本地模块、8项标准公理输出、26条既有合同、13政策测试、计划/合同/队列/base兼容和变异检查已通过，详见 `logs/VALIDATION_163_20260915.md`。
+- `CONSTRUCTOR_SPLIT.md` 已更新c6与有限阶datum进展；旧constructor研究目标缺时间光滑强迫，须保留原版 `MemForceR f` 和实际输入同定。反例路线未Lean形式化。
+- 下一真实步骤见 `research/A01/NEXT_CONSTRUCTOR_ROUTE_163.md`：实际forced mild → 同horizon的TimeLp高一阶；共同连续全阶tower与时间bootstrap仍未完成。
+
+- 从 PR #162 / a4e18a2 派生；证明柱面无散约束到 ordinary L2 无散子空间的反向桥，再给实际光滑代表元的逐点散度结论。
+- 本 lane 独立 worktree：163-a01；代码由 Astra low 编写，所有 Lean 编译由 Luna high 执行。既有三个 PR 均未合并，按父分支继续堆叠 PR。
+- 正式数学目标仍是原版第 4 节与冻结合同；主目录新增 revision 文稿明确不是形式化依赖。
+
+## Lane 161（2026-09-15 0710Z）
+
+- 分支 `codex/161-a01-datum-path`；基线 `0b8e5e4`（PR #161，尚未合并）。已提交 [PR #162](https://github.com/mathzhuonichi/blowup_density/pull/162)，以该 PR 分支为 base；尚未合并。
+- 全阶定量下降控制 datum 差，构造所有 m ≤ q+1 的连续 RealVectorSobolev 路径；Luna 模块与顶阶消费者检查 exit 0，七项仅标准三公理；五项仓库 Python 检查、26条现有合同及变异检查全部通过。编写使用 Astra low，所有 Lean 编译使用 Luna high；独立 proof build 缓存，共享固定依赖。
+- GitHub CI 的已知阻塞为账户账单/额度，不能据此声称云端验证通过。完整第 4 节形式化尚未完成。
+
 ## 167-R43-endpoint（2026-09-15 0935Z）
 
 - 已推送 [PR #168](https://github.com/mathzhuonichi/blowup_density/pull/168)，base为PR #166分支。proof head为e2d05ad；architecture检查104329375348因账户账单/额度未启动，lean-contracts跳过；PR未合并。
