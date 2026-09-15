@@ -777,3 +777,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A05,191-A05-u4-shifted-data,codex,reviewer,"launched (sol xhigh) with 5 check points (realization canonical, symbol identities, sign convention, classical-slice MemHInfty, non-vacuity/hygiene) bd:rev-191",running,
 2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"re-review REJECT: combined exports drop angle invariance + Duhamel and expose only j=0 (reproducer rev192_combined_full_fail); gates otherwise pass",rejected,
 2026-09-15,A01,192-A01-wiring-hsob,codex,fix2,"launched (sol high): add angle invariance, Duhamel, all-j family to the combined exports; strengthen positive probe",running,
+2026-09-15,A01,190-A01-b1-r4-joint-smooth,codex,reviewer,"ACCEPT-WITH-NOTES: faithful, both slab endpoints handled, interface probes vs 178/180/192 pass, widen mutation fails; notes: two stale B1_LADDER sentences",accepted,
+2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,merge,"notes applied; PR #194 opened; chain launched (wave 21)",running,194
