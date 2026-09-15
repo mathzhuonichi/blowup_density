@@ -821,3 +821,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fifth review launched (sol xhigh): PressureSupply exactness + match vs 194/195/197 outputs, consumer loop by import, probes, hygiene bd:rev-180",running,190
 2026-09-15,A01,196-A01-mild-gronwall,codex,fix,"DONE rc=0: ha threaded through AprioriFamily.MildGronwall/hb_of_base(_inv) and MildGronwall.lean; 193 probes/audits updated; wrapper note; full build + lake test; commit 2f86a2f",done,
 2026-09-15,A01,196-A01-mild-gronwall,lead,merge,"PR #198 opened; chain launched (wave 25)",running,198
+2026-09-15,A01,197-A01-leray-bridge,codex,reviewer,"REJECT: hsol/hgrad (cylinder Helmholtz decomposition) assumed not derived; lane 194 supplies more of the residual bridge than reported; export with 192 canonical force/datum",rejected,
+2026-09-15,A01,197-A01-leray-bridge,codex,fix,"launched (astra low): prove hsol/hgrad from the leray projection, connect 194's residualDatum to 195's A via 190's representative (merge 194 branch), export with PressureSupply binders",running,
