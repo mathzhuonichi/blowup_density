@@ -588,3 +588,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,R41D,172-SPEC-r41d-draft-b,codex,worker,launched blind draft B (sol high),running,
 2026-09-15,D01,164-D01-g1-homogeneous-norm,codex,reviewer,REJECT on layout only (judged the superseded brief: wanted V2 file); all math/axiom/gate/mutation checks pass; lead overrules with REVIEW_164_LEAD_NOTE (new component v1 → /V1/),accepted-by-lead,
 2026-09-15,D01,164-D01-g1-homogeneous-norm,lead,merge,PR #176 chain launched (27th contract),merging,176
+2026-09-15,D01,164-D01-g1-homogeneous-norm,lead,merge,PR #176 merged; gates wave121 OK over 133 modules; 27 contracts,merged,176
