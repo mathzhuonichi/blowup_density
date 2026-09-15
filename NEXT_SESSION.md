@@ -2,6 +2,8 @@
 
 ## 166-A01-maxreg（2026-09-15 0915Z）
 
+- 已推送 [PR #167](https://github.com/mathzhuonichi/blowup_density/pull/167)，base为PR #164分支。proof head为7faf625；architecture检查104323252207因账户账单/额度未启动，lean-contracts跳过；PR未合并。
+
 - 实际 forced mild 方程的同T最大正则性已通过：保留真实外力与原数据，构造高一阶 TimeLp 路径、a.e.降阶和ordinary载体兼容性及平方范数可积性。固定q的T不缩短；不声称T与q无关或高路径连续。
 - 模块、五项标准公理输出、26条既有合同、变异和五项Python检查通过；见logs/VALIDATION_166_20260915.md。下一分析缺口仍是低阶寿命上的连续高阶持续性，再构造共同全阶塔与时间光滑性。
 
