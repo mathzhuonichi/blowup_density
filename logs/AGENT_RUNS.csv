@@ -709,3 +709,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,187-A01-hfs-force-path,lead,plan,"lane opened: discharge hfs (cylinder force path C^∞ in time) for 178/186; 进行中（codex sol xhigh）",planned,
 2026-09-15,A01,186-A01-a3-common-horizon,codex,worker,"DONE rc=0 (astra low): lowering/commutation proved; compatible_carriers_of_bounds/_Inv + compatible_carriers_hall under one named input MildUniqueness (order-6 mild uniqueness on [0,S]); 11 decls standard axioms; commit 6af395e",done,
 2026-09-15,A01,186-A01-a3-common-horizon,codex,reviewer,"launched (sol xhigh) with 5 check points (MildUniqueness minimality/truth, commutation proved, hall token match vs 178, route assessment for 188, hygiene) bd:rev-186",running,
+2026-09-15,A01,188-A01-mild-uniqueness,lead,plan,"lane opened on 186 branch: prove MildUniqueness (window contraction + restart/first-divergence iteration); install then auto-launch astra low",planned,
