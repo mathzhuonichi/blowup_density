@@ -1,5 +1,20 @@
 # Next constructor route: same-horizon all-order tower (lane 163 audit)
 
+## Lane 166 update
+
+The recommended first step below is now proved in
+`formalization/NSFormalization/Section4/A01/ForcedMaximalRegularity.lean`.
+The actual nonlinear mild equation supplies a compatible higher TimeLp path
+on the same fixed-q horizon. The real MemForceR consumer preserves the input
+force slices and ordinary initial datum. Module, five axiom audits, 26 existing
+contracts and mutations passed; see `logs/VALIDATION_166_20260915.md`.
+
+The remaining analytic gap described below is unchanged: continuous higher-order
+persistence on a common low-order horizon, then a compatible all-order tower
+and the time-smoothness bootstrap. A.e. time-L2 regularity supplies neither
+endpoint values nor a continuous higher-order path. The historical audit below
+records the source review before lane 166 and is retained for context.
+
 ## Conclusion
 
 The inspected spine does not yet construct a compatible all-order tower from a

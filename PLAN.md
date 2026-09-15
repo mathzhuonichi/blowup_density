@@ -268,6 +268,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 160-A04-restart-beyond | 恢复完成；本地检查通过，PR 待审查 | 09-15 0659Z | — | #161 | `ForceShift` 证明正时间平移的 L¹Hˢ 范数单调性；`Continuation` 完成最大解场搬运和完整 δ 端点步。R1 保留精确 A02 `Restart`；`extendsBeyond` / C1 另保留精确 G3 `HigherOrderBound`。两项分析输入未在本 lane 证明，不注册为无条件合同。 |
 | 161-A01-datum-path | 本地验收通过；PR 待审查 | 09-15 0731Z | — | #162 | 全阶定量下降控制 datum 差，构造所有 m ≤ q+1 的连续 RealVectorSobolev 路径；模块与顶阶消费者编译通过，七项公理仅标准三条；26条现有合同、13项保护测试、变异测试及base兼容性检查通过。独立 worktree 从 PR #161 的 0b8e5e4 派生。 |
 | 163-A01-divergence | PR待审 | 09-15 0830Z | — | #164 | 从 PR #162 / a4e18a2 派生；真无散下降及实际代表逐点散度。模块、8公理输出、26合同、政策/兼容与变异检查通过；旧constructor强迫范围已审计，尚非完整构造。 Astra low 编写/交叉审查，Luna high 编译。 |
+| 166-A01-maxreg | 本地验证通过 | 09-15 0915Z | — | 待建 | 从 PR #164 / 65b2afb 派生；实际forced mild方程在原T上得到高一阶TimeLp及真实外力消费者。模块、五项公理、26合同、变异与Python检查通过；Astra low编写，Luna high编译。连续全阶塔仍未构造。 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
