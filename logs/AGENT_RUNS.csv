@@ -568,3 +568,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,C01,163-C01-e5-enstrophy,lead,merge,PR #173 chain queued after #172,merging,173
 2026-09-15,A01,161-A01-b1-time-ladder,lead,merge,PR #172 merged; gates wave117 OK,merged,172
 2026-09-15,C01,163-C01-e5-enstrophy,lead,merge,PR #173 merged; gates wave118 OK over 130 modules,merged,173
+2026-09-15,A01,162-A01-c6-divergence,codex,reviewer,ACCEPT (no fixes),accepted,
+2026-09-15,A01,162-A01-c6-divergence,lead,merge,PR #174 chain launched,merging,174
