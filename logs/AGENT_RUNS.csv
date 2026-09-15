@@ -552,3 +552,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,161-A01-b1-time-ladder,codex,worker,DONE rc=0: exists_continuous_datumPath for all m ≤ q+1 (‖A−B‖² ≤ 4^m‖u−v‖²) + B1_LADDER.md; 5 decls standard; lead reran gates OK; committed 425dfc5,done,
 2026-09-15,A01,161-A01-b1-time-ladder,codex,reviewer,launched scripts/codex_review.sh (sol xhigh) in tmux bd:rev-161,running,
 2026-09-15,D01,164-D01-g1-homogeneous-norm,codex,worker,DONE rc=0: dotHomogeneousENorm + 4 lemmas + registry entry 27; lead reran gates OK (27 contracts) but registration used a declaration-free V1 shim (misread freeze rule) → codex fix launched (real V1 file); committed 0c7b2b0,fixing,
+2026-09-15,C01,163-C01-e5-enstrophy,codex,worker,DONE rc=0: E5 closed (wordEnergy_one; enstrophyDerivative_hasDerivAt; = −2⟪Δu,∂ₜu⟫; unconditional at every interior t); 6 decls standard; lead reran gates OK; committed e528a69,done,
+2026-09-15,C01,163-C01-e5-enstrophy,codex,reviewer,launched scripts/codex_review.sh (sol xhigh) in tmux bd:rev-163,running,
