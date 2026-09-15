@@ -617,3 +617,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,167-A01-force-bridge,lead,merge,PR #179 merged; gates wave124 OK over 136 modules,merged,179
 2026-09-15,R41D,174-SPEC-r41d-compare,codex,worker,DONE rc=0: COMPARISON.md + RECONCILIATION.md + Spec.lean (B's breakdownSetIn + A's class parameterization + two-branch R42 witness); 5 upstream gaps; committed 74fdb75,done,
 2026-09-15,R41D,174-SPEC-r41d-compare,codex,reviewer,statement-fidelity review launched (sol xhigh) bd:rev-174,running,
+2026-09-15,A01,173-A01-hinv-invariance,codex,reviewer,REJECT: forced_global_mild_of_boundInv has 4 clauses vs the consumer's 7 (probe rev173_consumer_mismatch); route β sound otherwise; gates pass,rejected,
+2026-09-15,A01,173-A01-hinv-invariance,codex,fix,rework launched (sol xhigh) bd:fix-173,running,
