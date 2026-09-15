@@ -783,3 +783,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,189-A01-pressure-regularity,codex,fix,"launched (astra low) after 190 landed: G := joint representative of the Leray-complement path, interior identity via 169, target = 180 fix4's hG_int/hG",running,
 2026-09-15,A01,180-A01-b2-assembly,codex,fix4,"DONE rc=0: pressure leg parameterized by G/hG_int/hG; pressurePotential G; raw gradient only on Ioo; satisfiability + |t|e₀ probes; pipeline probe; rebased; commit 1166649",done,190
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fourth review launched (sol xhigh): both legs' satisfiability, field discharges with G, slab potential lemma proof, pipeline probe with real 190 import, hygiene bd:rev-180",running,190
+2026-09-15,A01,192-A01-wiring-hsob,codex,fix2,"DONE rc=0: combined exports retain angle invariance, Duhamel, j=0 and all-j family on the same U,u; probe consumes all via 190 interface; commit 9ca0a45",done,
+2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"third review launched (sol high) bd:rev-192",running,
