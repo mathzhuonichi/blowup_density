@@ -1,4 +1,5 @@
 # NEXT_SESSION.md — 当前状态与下一步
+- **2026-09-15 文档整理**：`PLAN.md` 重排（§4 节点状态看板、§5 并行工作包、§6 并发与预算；旧 §4/§5 原文在 `logs/PLAN_HISTORY_20260913.md`；进度表现在是 §8，`tmp/plan_row.py` 不受影响）；新增 `collaboration/HANDOFF.md`（11 个可分发工作包 P1–P11，串行骨干 + 并行链，外部协作者 lane 号 200–299）。`collaboration/TASKS.md`/`tasks/*.md` 仍是 `tasks.py render` 生成物，`DESIGN.md` 是工程设计依据，二者不动。
 
 更新：2026-09-14 0122Z（erenup 侧）。规矩看 [`CLAUDE.md`](CLAUDE.md)，全貌和顺序看 [`PLAN.md`](PLAN.md)。
 

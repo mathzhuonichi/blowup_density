@@ -1,7 +1,7 @@
 # PLAN.md — 第 4 节 Lean 证明的总体计划
 
-更新 2026-09-13。状态看 [`NEXT_SESSION.md`](NEXT_SESSION.md)，规矩看 [`CLAUDE.md`](CLAUDE.md)。
-本文件在每次 PR 合入后更新"进度表"一节，其余部分只在计划变更时改。
+更新 2026-09-15。状态看 [`NEXT_SESSION.md`](NEXT_SESSION.md)，规矩看 [`CLAUDE.md`](CLAUDE.md)，可分发的工作包看 [`collaboration/HANDOFF.md`](collaboration/HANDOFF.md)。
+本文件：§1–§3 计划（只在计划变更时改）；§4 节点状态看板（每个里程碑后改）；§5 并行工作包（分发用摘要）；§6 并发与预算；§7 记录与恢复；§8 进度表（每次合入追加一行，带 UTC）；§9 发现与 DAG 修正记录（只追加）。2026-09-13 的旧 §4/§5 原文在 `logs/PLAN_HISTORY_20260913.md`。
 
 ## 1. 总体：一棵树，两条脊柱，一个根
 
@@ -63,34 +63,58 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
   然后 PR 等 owner review（分支保护）。
 - **记账**：`work_items.json` 状态、`PLAN.md` 进度表、`NEXT_SESSION.md`。
 
-## 4. 并发安排（5 条 lane）
+## 4. 节点状态看板（2026-09-15，集成分支 `erenup/integration`）
 
-| 波次 | lane 编号 | 节点 | 说明 |
-|---|---|---|---|
-| 1（进行中） | 002 / 003 | D01 定义草案 A / B | 两个互不可见的 agent，lead 比对后定稿 |
-| 1 | 004 | U05 工具链探针 | HeliCorgi 模块在 4.34.0-rc2 下试编 |
-| 1 | 005 | I01 packet 能量 spec | 只依赖 OpenAI 包 |
-| 1 | 006 | SPEC 第 4 节陈述台账 | R41→R47 自顶向下 BFS，产出 D01 需求清单 |
-| 2 | 007+ | A01（2 条：存在性、正则性）、A05、I02、B01、B02 | D01 定稿后 |
-| 3 | | A02、A03、I03、G01、C01 | |
-| 4 | | A04、R42、R41D | |
-| 收尾 | | R43、R44、R46、R41、R45、R47 | |
+26 条已注册合同、128 个 `Section4` 模块、160 条 lane。合同全名前缀 `<节点>.`；拆分表在 `research/<节点>/`。「剩余」按论文证明还欠什么写，不按行政状态写。
 
-编号规则见 `CLAUDE.md`；每条 lane 的 PR 以 `erenup/integration` 为 base，lead 合入；攒一批后从 `erenup/integration` 向 `main` 提 PR。
+| 节点 | 已完成（合同 / 关键模块） | 进行中 | 剩余（欠论文的什么） | 拆分表 |
+|---|---|---|---|---|
+| **D01** 数据、外力、范数、压力 | `datum_lemmas` v1/v2/v3（含 P2 压力喷流）；有限阶构造子定性（132）+ 定量 `‖A‖² ≤ 16^m·M`（145，锐 `4^m` 155）；Leray 投影、零解、25 个模块 | — | **G1** 齐次 `Ḣ^s` 范数的 datum 形定义 `dotHomogeneousENorm`（R43/R44 陈述依赖，S）；**G3** 半整数阶外力 datum 路径与非空洞（M–L）；D2 低阶下推（`A03.lowerDatum` CLM，M） | `FINITE_ORDER_SPLIT`、`P2_SPLIT`、`SL8_SPLIT` |
+| **A01** 带外力 R³ 局部理论（关键链最大缺口） | `regularity_partial` v1；载体桥 C1a/C1b 全阶（140/151/153）；A2b 无条件续接（134）、力积分帽（137）、`horizon := S`（139）、Grönwall 实例（142）；A3-L1·k 算术 `Kbnd := 256R²T₀`（147）；`Icc` 加宽 + 反向范数比较（149）；切片接线、两条先验行打包（157）；18 个模块 | 158 构造子拆分（审稿 ACCEPT-WITH-NOTES，待并入探针证明后合入） | **B1** `velocity_smooth`（联合时空 `C^∞`，时间正则只能来自 Duhamel bootstrap T1/A2/A2b/A3，L）；**B2** 装配：c6 散度 a.e.（M）、c9/压力 P3（M）、行 (v) `F ↔ f` 数据/外力桥（M–L）；(iv) 角不变性 `hinv`（A2b，L）；`t = T` Grönwall 端点（L）；A3-Tm、H1、`Kbnd = Kbnd(R)` 的环 → 最终 `HasAprioriBound` 与 `LocalTheoryAPI.solution` | `A01_SPLIT`、`A3_SPLIT`、`C1B_SPLIT`、`CONSTRUCTOR_SPLIT`（158） |
+| **A02** 唯一性与最大寿命 | `uniqueness`、`maximal_partial` v1/v2（`exists_maximal` 以 A01 存在性为显式假设）；8 个模块 | — | `restart` / `restart_datum` / `restart_force`（依赖 A01 存在性）→ A02 V3 | `research/R42/MAXIMAL_SPLIT` |
+| **A03** tame 积与有界代表元 | `bounded_representative`、`tame_products` | — | `lowerDatum` CLM（服务 D2/C01 低阶） | — |
+| **A04** 平方 H² continuation | `energy_high_partial` v1/v2（eq:Rhigh、G2/G2b `eq:highcontinuation`）；零解见证；21 个模块 | 160 `restartBeyond` + `lifespanInfiniteOfLocallyFinite`（被限流中断，工作树干净，待重启） | **R1** `restartBeyond`（以 A02 `restart` 为具名假设，M）；**C1** `lifespanInfiniteOfLocallyFinite`（S）→ **A04 V3**（R43 消费）；G1-SL1 `∂ₜu` 的 datum（需 A01 `C^∞`） | `G1_SPLIT`、`SL5_SPLIT`、`COMPARISON.md:216-217` |
+| **A05** 临界嵌入 | `gradient_l6` v1（`‖∇u‖₆`） | — | `velocityCriticalL3`（`‖u‖₃ ≤ C·‖u‖_{Ḣ^{1/2}}`；Riesz 路线在 `Paper1/SchwartzCriticalEmbedding.lean`，载体翻译 U1–U7，M–L）→ **A05 V2**（R43/R44 消费） | `research/A05/COMPARISON.md:205-216` |
+| **C01** 能量吸收 | v1（H¹ 吸收五字段）、**v2 能量恒等式无条件**（150/152）、**v3 eq:RL2**（154/156）；12 个模块 | — | **E5–E7** enstrophy 恒等式 → `enstrophyIntegralBound`（eq:RH1）、`sobolevTwoFourier`、`h2TimeIntegral` → **C01 V4**（R43/R44 消费）；G4 齐次切片可积、G5 `S = T_max` 端点 | `ENERGY_SPLIT` |
+| **B01/B02** Bochner 逼近、齐次 | `bochner_partial`；`homogeneous_partial` v1/v2 | — | 各自 `REMAINING_SPLIT`/`U2_SPLIT`/`U7_SPLIT` 的剩余行 | `research/B01/U7_SPLIT`、`research/B02/REMAINING_SPLIT` |
+| **I01/I02/I03** 插入脊柱 | `packet`、`correction` v1/v2、`scaling` | — | 各拆分表剩余行 | `research/I02/`、`research/I03/` |
+| **R42** 定理 4.2 | `insertion_family`、`insertion_lifespan` v1/v2 | — | `LIFESPAN_SPLIT`/`MAXIMAL_SPLIT` 剩余（含 `sobolev` 字段非紧支路径） | `research/R42/` |
+| **R43** 命题 4.3 | spec（037/038 盲比对）；拆分 S1–S6 + `Pieces.lean`（G6 幂拼写、G8 半径/吸收门、S2 复用 `Paper1.critical_norm_bound`）（159） | — | **上游三条未证子句**：A04 V3、C01 V4、A05 V2；**G1**（阻塞陈述）；自有 **G7/S1** eq:Rcritical1（三线性估计 + 配对恒等式，L）；G2/G3/G4/G5 | `R43_SPLIT`、`COMPARISON.md §4` |
+| **R44** 命题 4.4 | spec（046/047 盲比对） | — | 与 R43 同型拆分（`RCritical2API` 9 字段；G1 J 权重恒等式、eq:Rcritical2、`H^{-1/2}` 力切片）；同一批上游 | `research/R44/COMPARISON.md` |
+| **R41** 定理 4.1 | `threshold_arithmetic` v1 | — | 装配：等 R42、R43、R44、R41D | — |
+| **R41D / R45 / R46 / R47 / G01** | — | — | 尚未 spec（needs-specification；按规则 2 双盲陈述） | — |
 
-A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCorgi 的 R³ 算子）和
-全阶正则性 / 场同定 是两块可分的工作。
+**关键链现状**：D01 ✅ → A01（B1 是全项目最大阻塞，其余先验行已闭合到「一条具名构造子」）→ A02（`restart` 等 A01）→ A04（R1/C1 可先以假设形式做）→ C01（E5–E7）→ R43/R44（三条上游 + G1 + 自有 G7）→ R41。
 
-## 5. 模型与预算
+## 5. 并行工作包（可分发；详细简报见 `collaboration/HANDOFF.md`）
 
-- lead：本会话（Fable 5.1）。只做拆任务、比对、归并、记账，不亲自写长证明。
-- worker：`prover` agent（`.claude/agents/prover.md`，钉 `claude-opus-4-8`，本地未提交，`.git/info/exclude` 排除）。
-  用户指定 Opus 4.8。项目级 agent 定义在会话启动时加载，本会话起不了，**下次启动先起一个 `prover` 自报型号**；
-  若 4.8 不可用，退回 `general-purpose` + `model: opus`（已验证解析为 Opus 5, 1M context）。
-- reviewer / spec 第二人：同上，但 prompt 里禁止看另一个 agent 的输出。
-- 每个 subagent 任务限定在一个引理或一个陈述，避免长上下文漂移。
+规则：每个工作包一条 lane、一个 worktree、一个 PR 到 `erenup/integration`，reviewer 跑通后合入；**外部协作者用 lane 号 200–299**（每人一段 20 个，在 `HANDOFF.md` 登记），避免与 lead 的 1xx 撞号。串行链内部按箭头顺序做，不同链之间完全并行。
 
-## 6. 记录与恢复（防 context 压缩）
+| 包 | 节点 | 内容 | 大小 | 依赖 | 并行性 |
+|---|---|---|---|---|---|
+| **P1** | A04 | R1 `restartBeyond`（以 A02 `restart` 为具名假设）→ C1 `lifespanInfiniteOfLocallyFinite` → A04 V3 合同 | M + S + S | 无（A02 `restart` 作显式假设） | 独立链 |
+| **P2** | C01 | E5 enstrophy 导数 → E6 → E7 → `enstrophyIntegralBound`/`sobolevTwoFourier`/`h2TimeIntegral` → C01 V4 合同 | M + M + S + M | 无（E1–E4b 机器已在树里） | 独立链 |
+| **P3** | A05 | `velocityCriticalL3` 的载体翻译 U1 → … → U7 → A05 V2 合同 | M–L | 无（Riesz 路线已在树里） | 独立链 |
+| **P4** | D01 | G1 `dotHomogeneousENorm` 定义 + `Data` 侧注册；G3 半整数阶外力 datum 路径/非空洞 | S + M–L | 无 | 独立；**阻塞 R43/R44 陈述** |
+| **P5** | R43 | 自有 G7/S1：eq:Rcritical1（配对恒等式、三线性估计 `|⟨(u·∇)u,Λu⟩| ≤ C₀ y z²`、力项） | L | 陈述定稿需 P4；装配需 P1/P2/P3 | 可先做引理层 |
+| **P6** | R44 | 命题 4.4 拆分（同 159 的做法）+ S 行 | S + S | 无 | 独立 |
+| **P7** | A01 | B2 行：c6 散度 a.e.（M）；行 (v) `F ↔ f` 桥（M–L）；c9/P3 压力（M） | M / M–L / M | 无（各自独立） | 三条互相并行 |
+| **P8** | A01 | B1 时间正则阶梯：词路径连续 S 阶梯已有（158 审稿探针）→ Duhamel 方程给 datum 路径的时间连续/可导 → 联合 `C^∞` | L | 无起步依赖 | 独立；最长杆 |
+| **P9** | A01 | (iv) `hinv`（A2b：`HasAprioriBound` 量化的 `u` 的角不变性）；`t = T` Grönwall 端点 | L / L | 无 | 两条互相并行 |
+| **P10** | MAINT | SIMP/tester 通道：`Spec.lean` 引用行号、`sqrt_energy_le_primitive'` 与 Paper1 去重、`SliceWiring` 别名泛化；把 A01 新模块打进一个合同闭包（A01 V2 bundle） | S–M | 无 | 独立 |
+| **P11** | SPEC | R41D / R45 / R46 / R47 / G01 的双盲陈述（规则 2） | S–M 各 | 无 | 独立 |
+
+**串行骨干**（不能并行的部分）：P8 → B2 装配（P7 各行汇合）→ `CarrierConstructorFull` → `HasAprioriBound` → `exists_local` → A02 `restart`（去掉 P1 的假设）→ R43/R44 装配（P1+P2+P3+P4+P5 汇合）→ R41。
+
+## 6. 并发与预算（2026-09-14 起）
+
+- lead：本会话（Fable 5.1）。只做拆任务、比对、归并、记账、跑门禁；不亲自写长证明（docstring/记录级修正可以）。
+- worker：`prover` agent（Opus 4.8）；reviewer：`general-purpose` + `model: opus`（Opus 5）。每个 subagent 任务限定在一个引理或一个陈述。
+- **并发上限 2–3 个 subagent（含 reviewer）**（API 限额，2026-09-14 用户指示），关键链优先；router 429 窗口时退避 10 → 30 → 60 分钟，重启前先用 1 秒探针试上游，被 kill 的 agent 用 SendMessage resume（工作树改动都在）。
+- **CI 无额度 → 本地替代**：每条合并链跑 `scripts/gates.sh` + 全部 `Section4` 模块编译 + `check_contracts --base-ref origin/main`；并定期整跑 CI 三步对 `main`（`check_contracts` / `build_changed_lean` / `test_contract_mutations --skip-build`，日志 `tmp/ci_equiv_main.log`）。
+- 外部协作者：lane 号 200–299，流程与门禁同 `collaboration/HANDOFF.md`；他们的 PR 由 lead 跑 reviewer + 门禁后合入。
+
+## 7. 记录与恢复（防 context 压缩）
 
 - `PLAN.md`：全貌 + 进度表（每次合入更新）。
 - `NEXT_SESSION.md`：每次收工必更新，新 session 第一件事读它。
@@ -99,7 +123,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 - 本地会话原始记录在 `~/.claude/projects/-data-8T-ping-blowup-density/*.jsonl`。
   细节丢失时派一个 subagent 用 grep 在里面找（关键词：任务 ID、引理名、文件名），不要整文件读进主上下文。
 
-## 7. 进度表
+## 8. 进度表
 
 | 节点 | 状态 | UTC | 合同 | PR | 备注 |
 |---|---|---|---|---|---|
@@ -263,10 +287,10 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 157-A01-slice-wiring | 已合并 | 09-14 1214Z | #159 | — | A01 载体桥 **切片接线（S）+ hslice/horizon 匹配（M–L）**：把 149/153 的 Z : SmoothL2Field 与 hfin 接到真实 ClassicalSolutionR 速度切片（D01.exists_smoothL2Field_of_memHInfty + contDiff_slice + w.sobolev），得到对真实解的无条件反向比较；再把 exists_local_shape_of_aprioriBound 的 (u,U) 与 ClassicalSolutionR 的速度切片对齐（hslice : ∀ t, v(t,·) =ᵐ ⇑(U t)，horizon T 匹配）；照 research/A01/REVIEW_L2_DESCENT.md 缺口排序 1–3 |
 | 158-A01-b1-constructor-split | 审稿中 | 09-14 1232Z | — | — | A01 **单元 B1/B2（mild ⇒ classical 构造子）拆分 + 首个 S 片**（L 多 lane 的第一条）：目标 CarrierConstructor q ν S（research/A01/REVIEW_SLICE_WIRING.md §3(b) 已 typecheck）；写 research/A01/CONSTRUCTOR_SPLIT.md（c1–c9 字段逐个：来源引理/缺口/大小），证首个 S 片（B2 的字段装配骨架或 c3 velocity_smooth 的 H^m-in-time ⇒ 联合 C^∞ 的最低阶情形）；不碰 A3_SPLIT 之外的既有模块 |
 | 159-R43-split | 已合并 | 09-14 1246Z | #160 | — | R43 **命题 4.3 拆分**（research + 首个 S 行）：照 research/R43/COMPARISON.md §4 的 G1–G8 与 Spec.lean RCritical1API 四字段，写 research/R43/R43_SPLIT.md（每个上游缺口现状：A05.gradient_l6、A04 energy_high V2、C01 V3 已注册；G7 eq:Rcritical1 自有 L 步）；证 S 行（G6 ℕ-pow/rpow 拼写钉、G3 非空洞、G8 常数算术）于 Section4/R43/*.lean |
-| 160-A04-restart-beyond | 进行中 | 09-14 1246Z | — | — | A04 **R1 restartBeyond（M）+ C1 lifespanInfiniteOfLocallyFinite（S）**：R43 消费的寿命子句（159 审稿判为三条未证兄弟子句中最便宜）；以 A02 MaximalSolutionAPI.restart（依赖 A01 存在性 ⟪A01:solution⟫）为具名显式假设，证 A04 自有部分：t₀ ↑ S 极限与 δ 与 t₀/S 无关、maximalLifespanR 的 sup 记账（模板 FormalPatched/R3MildContinuation.lean:122）、C1 序论证（Source/SmoothLifespan）；照 research/A04/COMPARISON.md:216-217 |
+| 160-A04-restart-beyond | 待重启（限流） | 09-15 1242Z | — | — | A04 **R1 restartBeyond（M）+ C1 lifespanInfiniteOfLocallyFinite（S）**：R43 消费的寿命子句（159 审稿判为三条未证兄弟子句中最便宜）；以 A02 MaximalSolutionAPI.restart（依赖 A01 存在性 ⟪A01:solution⟫）为具名显式假设，证 A04 自有部分：t₀ ↑ S 极限与 δ 与 t₀/S 无关、maximalLifespanR 的 sup 记账（模板 FormalPatched/R3MildContinuation.lean:122）、C1 序论证（Source/SmoothLifespan）；照 research/A04/COMPARISON.md:216-217 |
 | 其余节点 | 未开始 | — | — | — | |
 
-## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
+## 9. 发现与 DAG 修正记录（历史，只追加；待 owner 的部分见各条）
 
 - 加边 A03 → R42：定理 4.2 的"寿命 ≤ T"一步用了引理 A.1 的 H² → L^∞。
 - 加边 A03 → A02：唯一性证明的 Grönwall 系数 ‖∇u₂‖_∞ 只靠 H² → L^∞ 才有限（appendix-a:120-123）；A03 的祖先闭包 {D01, U04, A05, U03} 无环。
