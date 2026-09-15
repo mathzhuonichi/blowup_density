@@ -1,5 +1,15 @@
 # NEXT_SESSION.md — 当前状态与下一步
 
+## Lane 164（2026-09-15 0835Z）
+
+- 已完成真实Sobolev datum H²比较（CH2=16）及一般/零初值时间积分（同一个Cassembly=32），保留S≤T，终点S=T消费者得到有限积分。
+- 两模块、6项标准公理输出、26合同、13政策测试、计划/合同/队列/base兼容及变异检查通过，见 `logs/VALIDATION_164_20260915.md`。
+- C01下一步是完整合同新版本：按CLAUDE要求由两名互不可见代理从原论文和规范词汇起草、比对，再注册绑定和测试，保持冻结V1/V2/V3不动。本lane仅证明层与原Spec消费者；完整第4节仍未完成。
+
+- 从 PR #163 / 032e5bb 派生；用真实弱导数/范数桥推进 sobolevTwoFourier 与包含 S=T 的 H2 时间积分，保持原Spec前件。
+- 本 lane 独立 worktree：164-c01；代码由 Astra low 编写，所有 Lean 编译由 Luna high 执行。既有三个 PR 均未合并，按父分支继续堆叠 PR。
+- 正式数学目标仍是原版第 4 节与冻结合同；主目录新增 revision 文稿明确不是形式化依赖。
+
 ## Lane 162（2026-09-15 0710Z）
 
 - 分支 `codex/162-c01-enstrophy`；基线 `0b8e5e4`（PR #161，尚未合并）。已提交 [PR #163](https://github.com/mathzhuonichi/blowup_density/pull/163)，以该 PR 分支为 base；尚未合并。
