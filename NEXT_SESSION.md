@@ -2,9 +2,9 @@
 
 ## Lane 162（2026-09-15 0710Z）
 
-- 分支 `codex/162-c01-enstrophy`；基线 `0b8e5e4`（PR #161，尚未合并）。本 lane 将以该 PR 分支为 base 单独提交。
-- 装配 E5 梯度能量时导数、E6 压力消失与 E7 分部积分，完成精确 enstrophyIdentity、微分界和积分界（CRH1=2）；两模块及三个原Spec消费者编译通过，八项公理仅标准三条；五项Python检查通过，总体验收中。编写使用 Astra low，所有 Lean 编译使用 Luna high；独立 proof build 缓存，共享固定依赖。
-- GitHub CI 的已知阻塞为账户账单/额度，不能据此声称云端验证通过。完整第 4 节形式化尚未完成。
+- 分支 `codex/162-c01-enstrophy`；基线 `0b8e5e4`（PR #161，尚未合并）。已提交 [PR #163](https://github.com/mathzhuonichi/blowup_density/pull/163)，以该 PR 分支为 base；尚未合并。
+- 装配 E5 梯度能量时导数、E6 压力消失与 E7 分部积分，完成精确 enstrophyIdentity、微分界和积分界（CRH1=2）；两模块及三个原Spec消费者编译通过，八项公理仅标准三条；五项Python检查、26条现有合同及变异检查全部通过。编写使用 Astra low，所有 Lean 编译使用 Luna high；独立 proof build 缓存，共享固定依赖。
+- GitHub CI 的已知阻塞为账户账单/额度，不能据此声称云端验证通过。完整第 4 节形式化尚未完成。后续：C01 新版本合同注册、H2/Fourier 比较与 H2 时间积分；A01 连续 datum 路径已由平行 PR #162 验收，下一步 c6 无散下降。
 
 ## Codex 本地恢复（2026-09-15；当前状态优先于下面的历史记录）
 

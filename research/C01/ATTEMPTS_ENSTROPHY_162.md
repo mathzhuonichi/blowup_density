@@ -78,3 +78,16 @@ The independent source review's compilation condition is now satisfied; see
 `REVIEW_ENSTROPHY_162.md`. These checks establish the three new original-field
 proofs, not registration of a new contract or completion of the remaining H2
 and Section 4 obligations. No Lean command was run by the proof author.
+
+## Aggregate local validation and PR
+
+PR #163 is stacked on #161 and independent of A01 PR #162. Luna ran lake test
+(all 26 existing contracts; exit 0) and test_contract_mutations.py --skip-build
+(exit 0: implementation refactor accepted; admitted proof, extra axiom and
+weakened hypothesis rejected). Logs: tmp/lake_test_final_162_20260915.log and
+tmp/test_contract_mutations_final_162_20260915.log.
+
+The lead ran the five original Python checks (plan, current/base contracts,
+13 policy tests, work queue), all exit 0. The temporary policy repositories
+used process-local core.autocrlf=false. No original assertion was weakened.
+These are local validation results; no GitHub CI success or merge is claimed.
