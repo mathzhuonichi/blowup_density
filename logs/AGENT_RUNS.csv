@@ -759,3 +759,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"launched (sol high) with 4 check points (same U throughout, interface probe vs 180 fix2, hb circularity assessment, hygiene) bd:rev-192",running,
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"third review REJECT: hc3 stated for the raw Lp coercion constructedVelocity (unsatisfiable; lane 190 gives an existential smooth representative); branch 113 commits stale",rejected,190
 2026-09-15,A01,180-A01-b2-assembly,codex,fix3,"launched (sol xhigh): parameterize by velocity+hslice, hc3/hpg for that field, interface probes vs 190/192/189 shapes, rebase allowed",running,190
+2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"REJECT: named exports open separate existentials (Uhsob ≠ Upair, probe rev192_named_exports_fail); non-vacuity assumed hb; Grönwall note circular — reviewer gives base-order-radius route",rejected,
+2026-09-15,A01,192-A01-wiring-hsob,codex,fix,"launched (sol high): combined witness export, genuine zero bound, route note",running,
+2026-09-15,A01,193-A01-a3-m2-bounds,lead,plan,"lane opened (install then auto-launch astra low): hb family via base-order radius route (local horizon S6, lowering+uniqueness, H2 cap, mild Grönwall)",planned,
