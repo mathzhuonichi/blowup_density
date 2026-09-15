@@ -9,7 +9,7 @@
 | P1 C01 能量/涡量 | **关闭**（owner V4 `C01.energy_absorption_v4` + 我们的 eq:RL2 V3） | 待一条 SIMP 去重 `Enstrophy`/`EnstrophyIdentityRaw` |
 | P2 D01 齐次范数 | **关闭**（`D01.homogeneous_norm`，164） | — |
 | P3 A05 临界嵌入 | **关闭**（165 + V2 合同 `A05.gradient_l6_v2`，181） | U4/U8（Λv 实现、∂_j v 半阶数据）lane 191 在做 |
-| P5 R43 临界配对 | 175 S1a/c/d + 182 S1b 已合入：eq:Rcritical1 条件于 `CriticalDatumPath`（G3/G4 半阶载体）和 `CriticalAdvectionLpBridge`（191 的 shifted + **分数阶 Parseval，可外包**） | **可领：R43 Parseval 配对恒等式**（`Trilinear.lean` 的 `pairing_identity` 字段，精确陈述已在结构体里） |
+| P5 R43 临界配对 | 175 S1a/c/d + 182 S1b + 191 U4/U8 已合入（#185/#192/#195）：eq:Rcritical1 条件于 `CriticalDatumPath`（G3/G4 半阶载体）和 `CriticalAdvectionLpBridge`，后者只剩 `pairing_identity` | **可领：R43 分数阶 Parseval**——证 `∀ t ∈ Ioo 0 T, ⟪hcrit.advectionHalf t, hcrit.velocityHalf t⟫ = ∫ ⟨(u·∇)u(t,x), (shifted t).lambda x⟩ dx`（`Section4/R43/Trilinear.lean` 结构体 `CriticalAdvectionLpBridge` 的字段原文；`lambda` = 191 的 `rieszLambda`，即 `Ḣ^{1/2}` 内积 `⟪Λ^{1/2}a,Λ^{1/2}b⟫ = ⟨a,Λb⟩` 的物理实现；入口 `Section4/A05/RieszShift.lean`、`D01/HalfOrder.lean`、`Source/FractionalRealization.lean`） |
 | P6 R44 | 166 拆分已合入 | **可领**：`research/R44/` 拆分表的各行 |
 | P7 A01 A3 | 173（不变量界）、179（Grönwall 端点）、186+188（**公共视界无条件**：`compatible_carriers_hall'`）已合入 | 还缺 **A3-M2 全阶先验界** `∀q, HasAprioriBound`（预计=唯一性+构造器+Grönwall 的接线，等 P8/P9 闭合） |
 | P8 A01 B1 | 161 R1、169 R2、178 R3、187（hfs，审稿中）已落 | 190 R4 联合光滑代表元在做 |
