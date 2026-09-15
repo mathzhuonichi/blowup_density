@@ -594,3 +594,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,168-A01-pressure-p3,codex,fix,launched (sol high) bd:fix-168,running,
 2026-09-15,A01,167-A01-force-bridge,codex,fix,rework DONE rc=0: consumer direction (forceOfPath_forcePath_eq_on_horizon; forcePath_of_memForceR; initialClassR_of_smoothL2 via lane 162 hypotheses); ForcePathSmoothness removed; 5 decls standard; lead reran gates OK; committed c78a39c,done,
 2026-09-15,A01,167-A01-force-bridge,codex,reviewer,second review launched (sol xhigh) with new check points bd:rev-167,running,
+2026-09-15,R41D,171-SPEC-r41d-draft-a,codex,worker,DONE rc=0: DraftA.lean (RDensityAPI parameterized by F_R/F_c/F_rd; L¹H^s s<1/2 and L²H^s s<−1/2; ∀a ∀g ∀radius ∃f; split at T_max(a,g) ≤ T) + COMPARISON_A.md, 5 upstream gaps; elaborates 0 errors; committed fb11e6b,done,
