@@ -118,8 +118,20 @@ Lane 186: `compatible_carriers_of_bounds`（namespace `NSFormalization.Section4.
 
 R3 的共同 `U` 必须在同一个 `Icc 0 S` 上被任意高阶柱面解实现；需要跨阶唯一性与供给侧先验界。
 单独的 `F : I → SmoothL2Field Space` 加 `∀ n, Continuous (fun t => (F t).jetLp n)`
-只给 **时间连续** 外力，不足以证明任意 `j` 的时间光滑性。
-重复时间微分前必须从 manuscript 的力类取得各阶时间导数及其 Sobolev 控制；R1 完全不需要该假设。
+只给 **时间连续** 外力，不足以证明任意 `j` 的时间光滑性；但 canonical
+`F := C01.forcePath hf` 的供给侧缺口现已由 lane 187 关闭。具体地，
+`A01.forcePath_sobolevPath_contDiffOn` 对每个 `q`（无需 `6 ≤ q`）给出
+
+```lean
+ContDiffOn ℝ ∞
+  (extendPath S hS.le
+    (sobolevPath (C01.forcePath hf) (C01.forcePath_jetLp_continuous hf) q))
+  (Icc (0 : ℝ) S).
+```
+
+证明把 `MemForceR` 的 order-`q` `C∞` datum 路径通过固定 CLM `datumSobolevCLM q` 重构为
+柱面路径，并在 `Icc` 上消去 `projIcc`。因此 R3/R4 的正则外力输入 `hfs` 已 discharged；
+重复时间微分不再缺 force-side 时间导数及 Sobolev 控制。R1 仍不需要该假设。
 R3 的一致性由同一物理切片的 datum 唯一性保证，而跨柱面阶的 `U` 相同仍需另证。
 
 R4 表中的假设是 R3 全部 `j,m`（或等价的每阶 `ContDiffOn ℝ ∞` datum 路径），
