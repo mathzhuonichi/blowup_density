@@ -294,7 +294,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 164-D01-g1-homogeneous-norm | 已合并（第 27 条合同） | 09-15 1913Z | #176 | — | D01 **G1 dotHomogeneousENorm**（HANDOFF P4）：datum 形齐次 Ḣ^s 范数定义 + 基本引理 + Contracts/V2 重述与 rfl 桥 + 注册（第 27 条） |
 | 165-A05-critical-l3 | 待审（codex review 中；lead 附注：与 164 定义逐 token 比对、MemHInfty 假设、⊤ 空洞性、常数） | 09-15 1907Z | — | — | A05 **velocityCriticalL3**（HANDOFF P3）：Riesz 路线（Paper1/SchwartzCriticalEmbedding）到 spec 词汇的载体翻译 U1–U7；不注册（等 164） |
 | 166-R44-split | 已合并 | 09-15 1908Z | #175 | — | R44 **命题 4.4 拆分**（HANDOFF P6）：R44_SPLIT.md + Pieces.lean（拼写钉/常数算术/bootstrap 复用），注册审计 |
-| 167-A01-force-bridge | 返工中（审稿 REJECT：行 (v) 方向反了，零延拓在 t=S 不光滑；codex 返工） | 09-15 1905Z | — | — | A01 **行 (v) 数据/外力桥**（HANDOFF P7b）：forceOfPath F ↦ f' 与 MemForceR/MemL1Hm，a.field ∈ initialClassR，与 C01.forcePath 的往返 |
+| 167-A01-force-bridge | 返工完成，复审中（消费者方向：forcePath_of_memForceR、initialClassR_of_smoothL2） | 09-15 1918Z | — | — | A01 **行 (v) 数据/外力桥**（HANDOFF P7b）：forceOfPath F ↦ f' 与 MemForceR/MemL1Hm，a.field ∈ initialClassR，与 C01.forcePath 的往返 |
 | 168-A01-pressure-p3 | 修订中（审稿 3 条 notes，codex fix） | 09-15 1917Z | — | — | A01 **c4/c9 压力 P3**（HANDOFF P7c）：pressureOfVelocity（Leray 余投影的势 + 规范）、pressure_gradient MemLp、pressure_smooth（时间侧以 B1 为具名假设）、momentum 经 navierStokesResidual_eq_iff_projected |
 | 169-A01-b1-ladder-r2 | 进行中（codex sol xhigh） | 09-15 1901Z | — | — | A01 **B1 阶梯 R2**（HANDOFF P8）：datum 路径对时间可导，导数 = 动量残差的 datum（Duhamel 方程微分；路线 α vendor Duhamel 导数 + L2Descent 下降，或 β 光滑代表元切片）；任务书 collaboration/briefs/169-*.md |
 | 170-C01-e6-e7-enstrophy-identity | 进行中（codex sol xhigh） | 09-15 1901Z | — | — | C01 **E6/E7**（HANDOFF P2 后续）：enstrophyIdentity（代入动量方程、压力配对消去）与 h2TimeIntegral（H¹ 吸收门 ⇒ ∫₀ˢ‖u‖²_{H²} < ∞）；不注册（C01 V4 另开） |

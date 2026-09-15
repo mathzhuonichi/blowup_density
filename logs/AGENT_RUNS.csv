@@ -592,3 +592,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,173-A01-hinv-invariance,codex,worker,launched (astra low) bd:173-A01-hinv-invariance,running,
 2026-09-15,A01,168-A01-pressure-p3,codex,reviewer,ACCEPT-WITH-NOTES (not circular; HasSymmetricJacobian open obligation recorded; gauge compatible with A02; N1 redundant hprojected; N2 hjoint wording; N3 closure): REVIEW_168 + 2 probes,accepted,
 2026-09-15,A01,168-A01-pressure-p3,codex,fix,launched (sol high) bd:fix-168,running,
+2026-09-15,A01,167-A01-force-bridge,codex,fix,rework DONE rc=0: consumer direction (forceOfPath_forcePath_eq_on_horizon; forcePath_of_memForceR; initialClassR_of_smoothL2 via lane 162 hypotheses); ForcePathSmoothness removed; 5 decls standard; lead reran gates OK; committed c78a39c,done,
+2026-09-15,A01,167-A01-force-bridge,codex,reviewer,second review launched (sol xhigh) with new check points bd:rev-167,running,
