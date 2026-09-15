@@ -564,3 +564,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,167-A01-force-bridge,codex,reviewer,launched (sol xhigh) with lead check points bd:rev-167,running,
 2026-09-15,A01,161-A01-b1-time-ladder,codex,reviewer,ACCEPT (no fixes): REVIEW_161 + 2 probes,accepted,
 2026-09-15,A01,161-A01-b1-time-ladder,lead,merge,gz logs dropped; PR #172 chain launched,merging,172
+2026-09-15,C01,163-C01-e5-enstrophy,codex,reviewer,ACCEPT (no fixes): REVIEW_163 + probe,accepted,
+2026-09-15,C01,163-C01-e5-enstrophy,lead,merge,PR #173 chain queued after #172,merging,173
