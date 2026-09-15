@@ -797,3 +797,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"third review ACCEPT-WITH-NOTES (probe should import JointRepresentative directly; all gates pass)",accepted,
 2026-09-15,A01,192-A01-wiring-hsob,lead,merge,"PR #196 opened; chain launched (wave 23)",running,196
 2026-09-15,A01,193-A01-a3-m2-bounds,codex,fix,"first fix run died at start: gpt-5.6-sol at capacity (router); relaunched on gpt-6-astra low",running,
+2026-09-15,A01,192-A01-wiring-hsob,lead,merge,"PR #196 merged via chain (wave 23) gates green",merged,196
