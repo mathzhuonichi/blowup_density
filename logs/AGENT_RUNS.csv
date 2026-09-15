@@ -562,3 +562,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,D01,164-D01-g1-homogeneous-norm,codex,reviewer,launched (sol xhigh) bd:rev-164,running,
 2026-09-15,A01,167-A01-force-bridge,codex,worker,DONE rc=0: forceOfPath (zero extension) with MemForceR/MemL1Hm under named ForcePathSmoothness; forcePath round trip; initialClassR_of_smoothL2; 11 decls standard; lead reran gates OK; concern: zero extension not C^∞ at t=S → review check points; committed 989e9ab,done,
 2026-09-15,A01,167-A01-force-bridge,codex,reviewer,launched (sol xhigh) with lead check points bd:rev-167,running,
+2026-09-15,A01,161-A01-b1-time-ladder,codex,reviewer,ACCEPT (no fixes): REVIEW_161 + 2 probes,accepted,
+2026-09-15,A01,161-A01-b1-time-ladder,lead,merge,gz logs dropped; PR #172 chain launched,merging,172
