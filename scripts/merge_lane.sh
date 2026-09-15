@@ -19,6 +19,22 @@ if ! GIT_EDITOR=true git rebase origin/erenup/integration >/dev/null 2>&1; then
   for f in PLAN.md NEXT_SESSION.md CLAUDE.md logs/AGENT_RUNS.csv logs/LESSONS.md; do
     if git ls-files -u -- "$f" | grep -q .; then git checkout --ours -- "$f"; git add "$f"; fi
   done
+  # Research records (split tables, attempts) conflict only because several lanes append notes at the
+  # same spot: keep both sides (integration's first, then the lane's lines not already present).
+  for f in $(git ls-files -u | cut -f2 | sort -u | grep '^research/.*\.md$'); do
+    python3 - "$f" <<'PY'
+import sys
+p=sys.argv[1]; L=open(p,encoding='utf-8').read().split('\n'); out=[]; st=0; ours=[]; theirs=[]
+for l in L:
+    if l.startswith('<<<<<<<'): st=1; ours=[]; theirs=[]; continue
+    if l.startswith('=======') and st==1: st=2; continue
+    if l.startswith('>>>>>>>') and st==2:
+        out.extend(ours); out.extend([x for x in theirs if x not in ours]); st=0; continue
+    (ours if st==1 else theirs if st==2 else out).append(l)
+open(p,'w',encoding='utf-8').write('\n'.join(out))
+PY
+    git add "$f"
+  done
   git checkout --ours -- collaboration/TASKS.md collaboration/tasks 2>/dev/null || true
   python3 experiments/tasks.py render >/dev/null; git add collaboration
   GIT_EDITOR=true git -c core.editor=true rebase --continue >/dev/null
