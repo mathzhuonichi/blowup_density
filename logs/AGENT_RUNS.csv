@@ -583,3 +583,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A05,165-A05-critical-l3,codex,reviewer,launched (sol xhigh) with lead check points bd:rev-165,running,
 2026-09-15,R44,166-R44-split,codex,fix,DONE rc=0: four record notes applied (75ee8d5),done,
 2026-09-15,R44,166-R44-split,lead,merge,PR #175 chain launched,merging,175
+2026-09-15,R44,166-R44-split,lead,merge,PR #175 merged; gates wave120 OK over 132 modules,merged,175
