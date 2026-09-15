@@ -1,5 +1,40 @@
 # R43 — Proposition 4.3 proof-route split (`prop:Rcritical1`)
 
+## Lane 167 update: G5 endpoint passage proved locally
+
+`Section4/R43/MaximalEndpoint.lean` now transfers the C01 absorption/H2 estimate
+through the actual `A02.IsMaximalSolution` family to every real `0<S` with
+`ofReal S ≤ maximalLifespanR`, including the finite maximal endpoint. It supplies
+both the full constant-32 estimate and A04's canonical `squaredHTwoIntegral ≠ ⊤`.
+Only strictly shorter classical horizons are used. The actual frozen V2 family
+and V4 absorption constant are consumed in `research/R43/axioms_endpoint167.lean`.
+
+The module, four standard-axiom audits, 27 registered contracts, mutations and
+administrative checks passed; see `logs/VALIDATION_167_20260915.md`. This closes
+G5 conditional on the genuine absorption bound. It does not derive that bound
+from initial/forcing smallness or close critical energy G7, A05's remaining
+critical embeddings, or unconditional A04 continuation. The historical rows
+below describing G5 as missing are superseded only in this stated scope.
+
+## Lane 165 update (2026-09-15; supersedes the historical C01 registration status below)
+
+This branch now registers `C01.energy_absorption_v4` in
+`Contracts/V4/EnergyAbsorption.lean`, with the actual binding and
+`Tests/EnergyAbsorptionV4.lean`. It extends frozen V3 and supplies the six original
+remaining C01 fields, including enstrophy absorption, the genuine angular H²
+comparison, and the H² time integral for **0<S≤T, including S=T**. The test module
+and its exact parent projection and terminal-finiteness consumer compile with
+standard logical axioms only. Independent paper-first statement drafts and the
+comparison/review are in `research/C01/BLIND165_{A,B}.*`, `COMPARISON_165.md`, and
+`REVIEW_SPEC_165.md`.
+
+Consequently, the historical rows below saying C01 V4 / `h2TimeIntegral` /
+`enstrophyIntegralBound` / `sobolevTwoFourier` are unproved or unregistered no
+longer apply on this branch. C01's fixed-horizon endpoint is proved. Passing
+from a compatible maximal family to S=T_max (G5), critical energy (G7), and
+the other A05/A04 or force-path obligations are not closed by this registration.
+This is a local stacked-PR result; it does not assert merged or successful cloud CI.
+
 Statement `paper/sections/04-whole-space.tex:82-89`; proof `:90-133`.
 Contract `research/R43/Spec.lean` (`BlowupDensity.R43.Draft.RCritical1API`, 4 fields);
 gap ledger `research/R43/COMPARISON.md` §4 (G1–G8); reconciliation `research/R43/RECONCILIATION.md`.
