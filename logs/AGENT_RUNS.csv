@@ -609,3 +609,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,lead,merge,PR #178 chain launched,merging,178
 2026-09-15,A01,169-A01-b1-ladder-r2,codex,worker,DONE rc=0: exists_differentiable_datumPath (HasDerivAt of the datum path, derivative = projected residual datum νΔu + P(F − (u·∇)u)) for m ≤ q−1; 23 decls standard; one maxHeartbeats 400000; lead reran gates OK; committed d6e0182,done,
 2026-09-15,A01,169-A01-b1-ladder-r2,codex,reviewer,launched (sol xhigh) with check points bd:rev-169,running,
+2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,lead,merge,PR #178 merged; gates wave123 OK over 135 modules,merged,178
+2026-09-15,R43,175-R43-s1-pairing,codex,worker,launched (sol xhigh) bd:175-R43-s1-pairing,running,
+2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,worker,launched (sol high) bd:176-MAINT-simp-codex-batch,running,
