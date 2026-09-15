@@ -816,3 +816,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,195-A01-interior-momentum,codex,fix,"launched (sol high): honest split/documentation of hprojected, adapter from 194's export, keep negative probe",running,
 2026-09-15,A01,196-A01-mild-gronwall,codex,reviewer,"ACCEPT-WITH-NOTES: proved parts genuine; 256→255 mutation fails with kernel counterexample; notes: add ha to MildGronwall/FiniteMildEnergy (thread through 5 theorems), wrapper N=q−5 note, rebase",accepted,
 2026-09-15,A01,196-A01-mild-gronwall,codex,fix,"launched (sol high): solenoidal re-cut of both predicates (edit to merged AprioriFamily.lean allowed for this), rebase, gates",running,
+2026-09-15,A01,198-A01-energy-premises,lead,plan,"lane armed (auto after fix_196: worktree from 196 branch, install, astra low): vendor mild energy theorem premises for the cylinder NS solution + application; defs ForcingFamilyBound/EnvelopeConversion for lane 199",planned,
