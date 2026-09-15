@@ -751,3 +751,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,187-A01-hfs-force-path,lead,merge,"gap sentence updated per review; PR #193 opened; chain launched (wave 20)",running,193
 2026-09-15,A01,187-A01-hfs-force-path,lead,merge,"PR #193 merged via chain (wave 20) gates green; ForcePathSmooth.lean on integration",merged,193
 2026-09-15,A01,192-A01-wiring-hsob,lead,plan,"lane opened (install then auto-launch sol high): compose 186+188+187+178 → hsob/hU/hdiv from the all-order bound family only",planned,
+2026-09-15,A01,180-A01-b2-assembly,codex,fix2,"DONE rc=0: constructor returns ClassicalSolutionR ν a' f S; hc3/hpg on Ico 0 S only; pressurePotential_contDiffOn_slab; CarrierConstructorFullClamped kept; endpoint rows via continuity; satisfiability probe; commit 84e2f3a",done,190
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"third review launched (sol xhigh): satisfiability, slab potential lemma, T:=S consumer loop, interface match with 178/189/190, hygiene bd:rev-180",running,190
