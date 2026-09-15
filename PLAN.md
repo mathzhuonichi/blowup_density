@@ -289,13 +289,15 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 159-R43-split | 已合并 | 09-14 1246Z | #160 | — | R43 **命题 4.3 拆分**（research + 首个 S 行）：照 research/R43/COMPARISON.md §4 的 G1–G8 与 Spec.lean RCritical1API 四字段，写 research/R43/R43_SPLIT.md（每个上游缺口现状：A05.gradient_l6、A04 energy_high V2、C01 V3 已注册；G7 eq:Rcritical1 自有 L 步）；证 S 行（G6 ℕ-pow/rpow 拼写钉、G3 非空洞、G8 常数算术）于 Section4/R43/*.lean |
 | 160-A04-restart-beyond | 由 owner PR #161 完成（restartBeyond 以 Restart 为假设；lifespan 以 HigherOrderBound 为假设） | 09-15 1254Z | — | — | A04 **R1 restartBeyond（M）+ C1 lifespanInfiniteOfLocallyFinite（S）**：R43 消费的寿命子句（159 审稿判为三条未证兄弟子句中最便宜）；以 A02 MaximalSolutionAPI.restart（依赖 A01 存在性 ⟪A01:solution⟫）为具名显式假设，证 A04 自有部分：t₀ ↑ S 极限与 δ 与 t₀/S 无关、maximalLifespanR 的 sup 记账（模板 FormalPatched/R3MildContinuation.lean:122）、C1 序论证（Source/SmoothLifespan）；照 research/A04/COMPARISON.md:216-217 |
 | 161-A01-b1-time-ladder | 已合并 | 09-15 1859Z | #172 | — | A01 **B1 时间正则阶梯 rung 1**（HANDOFF P8）：datum 路径的连续 selection（R1）+ 阶梯表 B1_LADDER.md；任务书 collaboration/briefs/161-*.md |
-| 162-A01-c6-divergence | 合并中 | 09-15 1900Z | #174 | — | A01 **c6 散度 a.e.**（HANDOFF P7a）：从柱面对的 divergenceFreeSpace 子句下降到光滑代表元的 Σ∂ᵢuᵢ = 0 a.e.，逐点升级以 c3 为具名假设 |
+| 162-A01-c6-divergence | 已合并 | 09-15 1901Z | #174 | — | A01 **c6 散度 a.e.**（HANDOFF P7a）：从柱面对的 divergenceFreeSpace 子句下降到光滑代表元的 Σ∂ᵢuᵢ = 0 a.e.，逐点升级以 c3 为具名假设 |
 | 163-C01-e5-enstrophy | 已合并 | 09-15 1859Z | #173 | — | C01 **E5 enstrophy 导数**（HANDOFF P2 首环）：vendor wordEnergy_hasDerivWithinAt 在 s=1 减 s=0，分部积分得 −2⟪Δu,∂ₜu⟫，镜像 EnergyDerivative.lean |
 | 164-D01-g1-homogeneous-norm | 待审（codex review 中；V1 已改为真合同文件） | 09-15 1852Z | — | — | D01 **G1 dotHomogeneousENorm**（HANDOFF P4）：datum 形齐次 Ḣ^s 范数定义 + 基本引理 + Contracts/V2 重述与 rfl 桥 + 注册（第 27 条） |
 | 165-A05-critical-l3 | 进行中（codex sol xhigh） | 09-15 1834Z | — | — | A05 **velocityCriticalL3**（HANDOFF P3）：Riesz 路线（Paper1/SchwartzCriticalEmbedding）到 spec 词汇的载体翻译 U1–U7；不注册（等 164） |
 | 166-R44-split | 待审（codex review 中） | 09-15 1850Z | — | — | R44 **命题 4.4 拆分**（HANDOFF P6）：R44_SPLIT.md + Pieces.lean（拼写钉/常数算术/bootstrap 复用），注册审计 |
 | 167-A01-force-bridge | 待审（codex review 中；lead 附注：ForcePathSmoothness 零延拓可满足性、行 (v) 方向） | 09-15 1852Z | — | — | A01 **行 (v) 数据/外力桥**（HANDOFF P7b）：forceOfPath F ↦ f' 与 MemForceR/MemL1Hm，a.field ∈ initialClassR，与 C01.forcePath 的往返 |
 | 168-A01-pressure-p3 | 进行中（codex sol xhigh） | 09-15 1834Z | — | — | A01 **c4/c9 压力 P3**（HANDOFF P7c）：pressureOfVelocity（Leray 余投影的势 + 规范）、pressure_gradient MemLp、pressure_smooth（时间侧以 B1 为具名假设）、momentum 经 navierStokesResidual_eq_iff_projected |
+| 169-A01-b1-ladder-r2 | 进行中（codex sol xhigh） | 09-15 1901Z | — | — | A01 **B1 阶梯 R2**（HANDOFF P8）：datum 路径对时间可导，导数 = 动量残差的 datum（Duhamel 方程微分；路线 α vendor Duhamel 导数 + L2Descent 下降，或 β 光滑代表元切片）；任务书 collaboration/briefs/169-*.md |
+| 170-C01-e6-e7-enstrophy-identity | 进行中（codex sol xhigh） | 09-15 1901Z | — | — | C01 **E6/E7**（HANDOFF P2 后续）：enstrophyIdentity（代入动量方程、压力配对消去）与 h2TimeIntegral（H¹ 吸收门 ⇒ ∫₀ˢ‖u‖²_{H²} < ∞）；不注册（C01 V4 另开） |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 9. 发现与 DAG 修正记录（历史，只追加；待 owner 的部分见各条）

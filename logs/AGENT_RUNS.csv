@@ -570,3 +570,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,C01,163-C01-e5-enstrophy,lead,merge,PR #173 merged; gates wave118 OK over 130 modules,merged,173
 2026-09-15,A01,162-A01-c6-divergence,codex,reviewer,ACCEPT (no fixes),accepted,
 2026-09-15,A01,162-A01-c6-divergence,lead,merge,PR #174 chain launched,merging,174
+2026-09-15,A01,162-A01-c6-divergence,lead,merge,PR #174 merged; gates wave119 OK over 131 modules,merged,174
+2026-09-15,A01,169-A01-b1-ladder-r2,codex,worker,launched (sol xhigh) bd:169-A01-b1-ladder-r2,running,
+2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,codex,worker,launched (sol xhigh) bd:170-C01-e6-e7-enstrophy-identity,running,

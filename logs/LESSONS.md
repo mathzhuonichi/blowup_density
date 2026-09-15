@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- （09-15 1901Z）`git worktree add` 不能并行跑（`.git/config` 锁：`could not lock config file`，分支建了但 worktree 没建）：多条 lane 的 worktree 串行创建，只有 `lean-install.sh` 可以并行。
 - （09-14 1232Z，159）开一个消费兄弟节点结果的 lane（R43/R44/R41）之前先审计 `verification/contracts.json` 的 scope：`research/*/Spec.lean` 里的字段不等于已注册合同，R43 引用的 A05 `velocityCriticalL3`、C01 `h2TimeIntegral`、A04 `lifespanInfiniteOfLocallyFinite` 三条都只是草稿。
 - （09-14 1046Z）router 429 窗口可能同时罩住 Opus 4.8 与 Opus 5 两个上游且持续 >45 分钟：被 kill 的 agent 上下文可用 SendMessage resume（工作树改动都在），但 resume 前先用一个只跑 `date` 的 1 秒探针试上游，别把 worker 的首轮读文件浪费在 429 上；退避阶梯 10 → 30 → 60 分钟。
 - （09-14 0839Z，151）弱导数唯一性（复 Schwartz 测试函数配对 ⇒ a.e. 相等）树里有：`A03.ae_eq_of_schwartz_pairing`（`ScalarTameProduct.lean:136`），经典侧配对是 `D01.smoothField_weakDeriv_pairing`（`FiniteOrderConstructor.lean:306`）。worker 只 grep 了 Mathlib 就宣称「树里没有、需要实紧支转换」——「不在树里」的结论必须先 `grep -rn` 全部 `Section4/{D01,A03,A04,C01}` 命名空间（第三次踩这个坑）。
