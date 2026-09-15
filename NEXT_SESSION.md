@@ -2,6 +2,8 @@
 
 ## Lane 164（2026-09-15 0835Z）
 
+- 已推送 [PR #165](https://github.com/mathzhuonichi/blowup_density/pull/165)，base为PR #163分支。云端architecture检查104311372421因账户账单/额度未启动，lean-contracts被跳过；PR未合并。
+
 - 已完成真实Sobolev datum H²比较（CH2=16）及一般/零初值时间积分（同一个Cassembly=32），保留S≤T，终点S=T消费者得到有限积分。
 - 两模块、6项标准公理输出、26合同、13政策测试、计划/合同/队列/base兼容及变异检查通过，见 `logs/VALIDATION_164_20260915.md`。
 - C01下一步是完整合同新版本：按CLAUDE要求由两名互不可见代理从原论文和规范词汇起草、比对，再注册绑定和测试，保持冻结V1/V2/V3不动。本lane仅证明层与原Spec消费者；完整第4节仍未完成。
