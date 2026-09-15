@@ -1,6 +1,8 @@
 # NEXT_SESSION.md — 当前状态与下一步
 
-## 165-C01-full（2026-09-15 0900Z）
+## 165-C01-full（2026-09-15 0910Z）
+
+- 已推送 [PR #166](https://github.com/mathzhuonichi/blowup_density/pull/166)，base为PR #165分支。proof head为0fce54c；architecture检查104321156138因账户账单/额度未启动，lean-contracts跳过。PR保持未合并。
 
 - V4完整C01合同、绑定、六字段形状与S=T消费者已通过；27合同、负向hsmall检查、变异测试和五项Python门禁通过。C01工作卡为assembly/in-review，旧合同和测试不变。
 - 双盲稿、逐字段协调、独立spec/binding review及全部验证见research/C01与logs/VALIDATION_165_20260915.md。

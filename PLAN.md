@@ -268,7 +268,7 @@ A01 单独占 2 条 lane：存在性（复用 OpenAI 的 forced Duhamel + HeliCo
 | 160-A04-restart-beyond | 恢复完成；本地检查通过，PR 待审查 | 09-15 0659Z | — | #161 | `ForceShift` 证明正时间平移的 L¹Hˢ 范数单调性；`Continuation` 完成最大解场搬运和完整 δ 端点步。R1 保留精确 A02 `Restart`；`extendsBeyond` / C1 另保留精确 G3 `HigherOrderBound`。两项分析输入未在本 lane 证明，不注册为无条件合同。 |
 | 162-C01-enstrophy | 本地验收通过；PR 待审查 | 09-15 0800Z | — | #163 | 装配 E5 梯度能量时导数、E6 压力消失与 E7 分部积分，完成精确 enstrophyIdentity、微分界和积分界（CRH1=2）；两模块及三个原Spec消费者编译通过，八项公理仅标准三条；26条现有合同、13项保护测试、变异及base兼容性检查通过。独立 worktree 从 PR #161 的 0b8e5e4 派生。 |
 | 164-C01-h2 | PR待审 | 09-15 0835Z | — | #165 | 从 PR #163 / 032e5bb 派生；真实datum H2比较CH2=16、时间积分Cassembly=32，含S=T。两模块、6公理输出、26合同、政策/兼容及变异检查通过；尚待完整C01合同注册。 Astra low 编写/交叉审查，Luna high 编译。 |
-| 165-C01-full | 本地验证通过 | 09-15 0900Z | — | 待建 | 完整C01 V4继承V3并增加原Spec六字段；双盲稿与独立陈述/绑定审查通过，27合同、负向及变异/Python门禁通过。Astra low 编写，Luna high 编译；尚未合并。 |
+| 165-C01-full | PR已开，待云端CI/审查 | 09-15 0910Z | — | #166 | 完整C01 V4继承V3并增加原Spec六字段；双盲稿与独立陈述/绑定审查通过，27合同、负向及变异/Python门禁通过。Astra low 编写，Luna high 编译；尚未合并。 |
 | 其余节点 | 未开始 | — | — | — | |
 
 ## 8. 已发现的 DAG 修正建议（待 owner，来自 006 及其 review）
