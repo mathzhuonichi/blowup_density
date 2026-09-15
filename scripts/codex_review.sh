@@ -54,6 +54,8 @@ Verdict on the first line of your report: \`ACCEPT\` / \`ACCEPT-WITH-NOTES\` (ex
 \`REJECT\` (with the reproducing error). Then four parts: what the lane claims / what is in Lean /
 gaps / commands and results. End your final message with the verdict line and the list of fixes.
 
+$( [ -f "$ROOT/tmp/codex/briefs/review_notes_$LANE.md" ] && { echo "---- lead's specific check points (address each explicitly) ----"; cat "$ROOT/tmp/codex/briefs/review_notes_$LANE.md"; } )
+
 ---- lane brief ----
 $(cat "$BRIEF")
 EOF

@@ -558,3 +558,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,R44,166-R44-split,codex,reviewer,launched (sol xhigh) bd:rev-166,running,
 2026-09-15,A01,162-A01-c6-divergence,codex,worker,DONE rc=0 (see REPORT_162); lead reran gates OK,done,
 2026-09-15,A01,162-A01-c6-divergence,codex,reviewer,launched (sol xhigh) bd:rev-162,running,
+2026-09-15,D01,164-D01-g1-homogeneous-norm,codex,fix,DONE rc=0: definition moved into a real Contracts/V1/HomogeneousNorm.lean, V2 file removed; lead reran gates + check_contracts (27) OK; committed 5fb7a02,done,
+2026-09-15,D01,164-D01-g1-homogeneous-norm,codex,reviewer,launched (sol xhigh) bd:rev-164,running,
+2026-09-15,A01,167-A01-force-bridge,codex,worker,DONE rc=0: forceOfPath (zero extension) with MemForceR/MemL1Hm under named ForcePathSmoothness; forcePath round trip; initialClassR_of_smoothL2; 11 decls standard; lead reran gates OK; concern: zero extension not C^∞ at t=S → review check points; committed 989e9ab,done,
+2026-09-15,A01,167-A01-force-bridge,codex,reviewer,launched (sol xhigh) with lead check points bd:rev-167,running,
