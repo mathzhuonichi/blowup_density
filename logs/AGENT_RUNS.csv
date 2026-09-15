@@ -731,3 +731,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,186-A01-a3-common-horizon,lead,merge,"PR #189 opened; chain queued after lane 176's chain (wave 16)",running,189
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"re-review ACCEPT: three-input interface faithful; 9 decls standard axioms; zero + consumer instances close; sign mutation fails",accepted,
 2026-09-15,A01,180-A01-b2-assembly,lead,merge,"PR #190 opened; chain queued after 186's (wave 17)",running,190
+2026-09-15,A01,180-A01-b2-assembly,lead,hold,"design flaw: clamped carrier (projIcc, T:=S+1) makes hc3 unsatisfiable off stationary solutions; PR #190 → draft, queued chain killed; lesson recorded",held,190
+2026-09-15,A01,180-A01-b2-assembly,codex,fix2,"launched (sol xhigh): re-cut to T:=S (inputs only on Ico 0 S), consumer loop via lane-149 endpoint continuity, satisfiability probe",running,190
+2026-09-15,A01,189-A01-pressure-regularity,codex,worker,"launched (sol xhigh): slab-smooth pressure gradient, per-time L² via Leray complement, symmetric Jacobian (converse curl-free), packaged as hpg",running,
