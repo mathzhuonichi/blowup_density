@@ -798,3 +798,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,192-A01-wiring-hsob,lead,merge,"PR #196 opened; chain launched (wave 23)",running,196
 2026-09-15,A01,193-A01-a3-m2-bounds,codex,fix,"first fix run died at start: gpt-5.6-sol at capacity (router); relaunched on gpt-6-astra low",running,
 2026-09-15,A01,192-A01-wiring-hsob,lead,merge,"PR #196 merged via chain (wave 23) gates green",merged,196
+2026-09-15,A01,193-A01-a3-m2-bounds,codex,fix,"DONE rc=0 (astra low): probe vs constructorInputs_of_bounds; lane-196 route recorded; review artifacts committed; commit d67c257",done,
+2026-09-15,A01,193-A01-a3-m2-bounds,lead,merge,"PR #197 opened; chain launched (wave 24)",running,197
