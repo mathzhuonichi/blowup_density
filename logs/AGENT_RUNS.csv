@@ -819,3 +819,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,198-A01-energy-premises,lead,plan,"lane armed (auto after fix_196: worktree from 196 branch, install, astra low): vendor mild energy theorem premises for the cylinder NS solution + application; defs ForcingFamilyBound/EnvelopeConversion for lane 199",planned,
 2026-09-15,A01,180-A01-b2-assembly,codex,fix5,"DONE rc=0: def PressureSupply scoped to the selected solution; consumer loop invokes 192/190 landed theorems; real pipeline + zero probes; negatives retained; 0 behind/7 ahead; commit cb1e875",done,190
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fifth review launched (sol xhigh): PressureSupply exactness + match vs 194/195/197 outputs, consumer loop by import, probes, hygiene bd:rev-180",running,190
+2026-09-15,A01,196-A01-mild-gronwall,codex,fix,"DONE rc=0: ha threaded through AprioriFamily.MildGronwall/hb_of_base(_inv) and MildGronwall.lean; 193 probes/audits updated; wrapper note; full build + lake test; commit 2f86a2f",done,
+2026-09-15,A01,196-A01-mild-gronwall,lead,merge,"PR #198 opened; chain launched (wave 25)",running,198
