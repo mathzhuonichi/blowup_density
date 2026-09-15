@@ -540,3 +540,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-14,A01,158-A01-b1-constructor-split,opus,reviewer,FAILED at report-writing: router 429 (both upstreams); resume after back-off,queued,
 2026-09-14,A04,160-A04-restart-beyond,prover,worker,FAILED at start: router 429; resume after back-off,queued,
 2026-09-14,MAINT,pause,lead,pause,paused by user (API quota exhausted); resume after 5h: probe → resume 158 (fold rev158 probes; notes) → relaunch 160 → R43-order lanes,paused,
+2026-09-15,MAINT,coordination,lead,note,owner merged #15 (main == integration) and opened PR #161 (codex branch → main) redoing lanes 158/160 on the same paths with extensions; our 158 branch + review artifacts superseded, to be re-contributed after #161 lands; docs PR to main opened,noted,

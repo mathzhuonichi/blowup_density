@@ -30,7 +30,7 @@
 
 | 包 | 节点 | 一句话 | 大小 | 起步依赖 |
 |---|---|---|---|---|
-| P1 | A04 | `restartBeyond` → `lifespanInfiniteOfLocallyFinite` → A04 V3（R43/R44 消费） | M+S+S | 无 |
+| P1 | A04 | `restartBeyond` → `lifespanInfiniteOfLocallyFinite` → A04 V3（R43/R44 消费） | M+S+S | 无 | **owner 团队已做（PR #161，以 `Restart`/`HigherOrderBound` 为具名假设）；剩 V3 注册** |
 | P2 | C01 | enstrophy 恒等式 E5→E6→E7 → `h2TimeIntegral` → C01 V4（R43/R44 消费） | M+M+S+M | 无 |
 | P3 | A05 | `‖u‖₃ ≤ C‖u‖_{Ḣ^{1/2}}` 的载体翻译 U1→…→U7 → A05 V2（R43/R44 消费） | M–L | 无 |
 | P4 | D01 | G1 `dotHomogeneousENorm`（阻塞 R43/R44 陈述）；G3 半整数阶外力 datum 路径 | S；M–L | 无 |
@@ -41,6 +41,8 @@
 | P9 | A01 | (iv) 角不变性 `hinv`；`t = T` Grönwall 端点 | L / L | 无；两条互相并行 |
 | P10 | MAINT | SIMP/tester：引用行号、去重、别名泛化、A01 新模块进合同闭包 | S–M | 无 |
 | P11 | SPEC | R41D / R45 / R46 / R47 / G01 双盲陈述 | S–M 各 | 无 |
+
+**协调说明（2026-09-15）**：owner 团队走 `codex/*` 分支直接 PR 到 `main`（PR #161 已覆盖 P1 与 158 的顶阶扩展）；外部协作者与我们走 `erenup/integration`。开新 lane 前先 `git fetch origin main` 看 owner 侧有没有同路径的 PR。
 
 **串行骨干**：P8 → B2 装配（P7 汇合）→ `CarrierConstructorFull` → `HasAprioriBound` → `exists_local` → A02 `restart`（去掉 P1 的具名假设）→ R43/R44 装配（P1+P2+P3+P4+P5 汇合）→ R41。
 
