@@ -727,3 +727,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,MAINT,176-MAINT-simp-codex-batch,lead,merge,"PR #188 opened; chain launched (wave 15)",running,188
 2026-09-15,R43,182-R43-s1b-trilinear,codex,worker,"DONE rc=0: Trilinear.lean — 3-factor L3 Hölder, derivativeCriticalL3 (4·C), criticalTrilinearEstimate_of_hcrit with C₀=16·C³ conditional on CriticalAdvectionLpBridge (physical carriers + Parseval, no inequality); rcritical1_of_hcrit; 10 decls standard axioms; commit a2090a3",done,
 2026-09-15,R43,182-R43-s1b-trilinear,codex,reviewer,"launched (sol xhigh) with 5 check points (bridge audit/vacuity, Hölder constant, factor 4, composition with 175, hygiene) bd:rev-182",running,
+2026-09-15,A01,186-A01-a3-common-horizon,codex,reviewer,"ACCEPT: MildUniqueness minimal/satisfiable, commutation proved, hall token-match probe, negative mutation fails",accepted,
+2026-09-15,A01,186-A01-a3-common-horizon,lead,merge,"PR #189 opened; chain queued after lane 176's chain (wave 16)",running,189
