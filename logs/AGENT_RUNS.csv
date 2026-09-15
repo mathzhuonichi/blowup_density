@@ -584,3 +584,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,R44,166-R44-split,codex,fix,DONE rc=0: four record notes applied (75ee8d5),done,
 2026-09-15,R44,166-R44-split,lead,merge,PR #175 chain launched,merging,175
 2026-09-15,R44,166-R44-split,lead,merge,PR #175 merged; gates wave120 OK over 132 modules,merged,175
+2026-09-15,R41D,171-SPEC-r41d-draft-a,codex,worker,launched blind draft A (sol high),running,
+2026-09-15,R41D,172-SPEC-r41d-draft-b,codex,worker,launched blind draft B (sol high),running,
