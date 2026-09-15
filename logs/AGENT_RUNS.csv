@@ -779,3 +779,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,192-A01-wiring-hsob,codex,fix2,"launched (sol high): add angle invariance, Duhamel, all-j family to the combined exports; strengthen positive probe",running,
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,codex,reviewer,"ACCEPT-WITH-NOTES: faithful, both slab endpoints handled, interface probes vs 178/180/192 pass, widen mutation fails; notes: two stale B1_LADDER sentences",accepted,
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,merge,"notes applied; PR #194 opened; chain launched (wave 21)",running,194
+2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,merge,"PR #194 merged via chain (wave 21) gates green",merged,194
+2026-09-15,A01,189-A01-pressure-regularity,codex,fix,"launched (astra low) after 190 landed: G := joint representative of the Leray-complement path, interior identity via 169, target = 180 fix4's hG_int/hG",running,
