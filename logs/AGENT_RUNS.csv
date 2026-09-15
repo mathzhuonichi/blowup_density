@@ -741,3 +741,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,187-A01-hfs-force-path,codex,worker,"DONE rc=0: datumSobolevCLM (CLM reconstruction, = ordinarySobolev on data), forcePath_sobolevPath_contDiffOn ∀q, forcePath_of_memForceR_smooth (167 package + hfs clause); 17 decls standard axioms; commit 046e2ba",done,
 2026-09-15,A01,187-A01-hfs-force-path,codex,reviewer,"launched (sol xhigh) with 5 check points (CLM well-defined/bounded, pointwise agreement, composition, 186 hfs probe, hygiene) bd:rev-187",running,
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,plan,"lane opened (install then auto-launch sol xhigh): joint smooth representative from 178 datum paths → hc3 for 180",planned,
+2026-09-15,A01,188-A01-mild-uniqueness,lead,merge,"PR #191 merged via chain (wave 18) gates green; MildUniqueness.lean on integration",merged,191
