@@ -360,7 +360,7 @@ structure EnergyAbsorptionAPI where
   or from its own differentiability proof; derivatives are unique, so this is
   the same statement.  It is the inequality whose regularized division by
   `(‖u‖₂² + ζ²)^{1/2}`, `ζ ↓ 0` (`:100`) yields the next clause, including at
-  times where `‖u(t)‖₂ = 0` (`:103`). -/
+  times where `‖u(t)‖₂ = 0` (`:104`). -/
   energyDifferentialBound :
     ∀ (ν : ℝ), 0 < ν → ∀ a : SpatialField, a ∈ initialClassR →
       ∀ f : SpaceTimeField, MemForceR f →
@@ -528,7 +528,7 @@ structure EnergyAbsorptionAPI where
   term is `‖∇a‖₂²` because `ClassicalSolutionR.initial` gives
   `u(0,·) = a`.  The absorption hypothesis is required on the whole of `[0,t]`,
   as in the manuscript, where it holds throughout the lifespan by the
-  continuity bootstrap of `:103` — that bootstrap is R43's, not C01's. -/
+  continuity bootstrap of `:104` — that bootstrap is R43's, not C01's. -/
   enstrophyIntegralBound :
     ∀ (ν : ℝ), 0 < ν → ∀ a : SpatialField, a ∈ initialClassR →
       ∀ f : SpaceTimeField, MemForceR f →

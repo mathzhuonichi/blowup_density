@@ -1,4 +1,4 @@
-import NSFormalization.Section4.A01.ConstructorDivergence
+import NSFormalization.Section4.A01.ConstructorDivergenceSlice
 import Euler.LpSmoothFieldAlgebra
 
 noncomputable section
