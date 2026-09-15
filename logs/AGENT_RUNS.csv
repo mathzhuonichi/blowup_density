@@ -826,3 +826,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,196-A01-mild-gronwall,lead,merge,"PR #198 merged via chain (wave 25) gates green; MildGronwall.lean + solenoidal AprioriFamily on integration",merged,198
 2026-09-15,A01,194-A01-complement-path,codex,reviewer,"ACCEPT: 192/195 probes compile; interval-widening mutation fails",accepted,
 2026-09-15,A01,194-A01-complement-path,lead,merge,"PR #199 opened; chain launched (wave 26)",running,199
+2026-09-15,A01,194-A01-complement-path,lead,merge,"PR #199 merged via chain (wave 26) gates green",merged,199
