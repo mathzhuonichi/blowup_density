@@ -91,3 +91,16 @@ representative handoff; there is no need to reprove its a.e.-to-pointwise step.
 `CylinderClassicalSolenoidal.mem_of_classical` and
 `MeanCylinderSolenoidal.embedding_mem` only give the opposite direction.
 No c6 Lean declaration was added in this lane continuation.
+
+## Aggregate local validation and PR
+
+PR #162 is stacked on #161. Luna also ran lake test (all 26 existing contracts,
+exit 0) and test_contract_mutations.py --skip-build with the loaded elan environment
+(exit 0: implementation refactor accepted; admitted proof, extra axiom and weakened
+hypothesis rejected). Evidence: tmp/lake_test_wave2_161_20260915.log and
+tmp/test_contract_mutations_wave2_161_20260915.log.
+
+The lead ran the original Python plan, contract, work-queue, 13 policy tests and
+origin/main compatibility checks, all exit 0. The policy tests use only a
+process-local core.autocrlf=false override for their temporary repositories.
+GitHub CI remains distinct from these local results; no CI success or merge is claimed.

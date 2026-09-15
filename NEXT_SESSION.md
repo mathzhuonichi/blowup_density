@@ -2,8 +2,8 @@
 
 ## Lane 161（2026-09-15 0710Z）
 
-- 分支 `codex/161-a01-datum-path`；基线 `0b8e5e4`（PR #161，尚未合并）。本 lane 将以该 PR 分支为 base 单独提交。
-- 全阶定量下降控制 datum 差，构造所有 m ≤ q+1 的连续 RealVectorSobolev 路径；Luna 模块与顶阶消费者检查 exit 0，七项仅标准三公理；五项仓库 Python 检查通过，lake test 与变异检查待验收。编写使用 Astra low，所有 Lean 编译使用 Luna high；独立 proof build 缓存，共享固定依赖。
+- 分支 `codex/161-a01-datum-path`；基线 `0b8e5e4`（PR #161，尚未合并）。已提交 [PR #162](https://github.com/mathzhuonichi/blowup_density/pull/162)，以该 PR 分支为 base；尚未合并。
+- 全阶定量下降控制 datum 差，构造所有 m ≤ q+1 的连续 RealVectorSobolev 路径；Luna 模块与顶阶消费者检查 exit 0，七项仅标准三公理；五项仓库 Python 检查、26条现有合同及变异检查全部通过。编写使用 Astra low，所有 Lean 编译使用 Luna high；独立 proof build 缓存，共享固定依赖。
 - GitHub CI 的已知阻塞为账户账单/额度，不能据此声称云端验证通过。完整第 4 节形式化尚未完成。
 
 ## Codex 本地恢复（2026-09-15；当前状态优先于下面的历史记录）
