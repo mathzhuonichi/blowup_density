@@ -1,0 +1,3 @@
+1. E6 fidelity: compare `enstrophyIdentity_classical`'s value with `research/C01/Spec.lean:487` (`2·advectionWork − 2ν·laplacianSq − 2·pairing(f, Δu)`), sign by sign; confirm the pressure pairing `⟪Δu, ∇p⟫ = 0` is proved from divergence-freeness (which lemma) and not assumed.
+2. E7 / `h2TimeIntegral`: state exactly which absorption gate hypothesis is taken (must be the registered C01 V1 field shape, `Contracts/V1/EnergyAbsorptionPartial.lean`) and whether the conclusion is `squaredHTwoIntegral S u ≠ ⊤` for every `S < T` (A04's spelling) or only a bound on a compact subwindow; any `⊤`/`toReal` vacuity.
+3. If a scalar Grönwall lemma was written, check it against `Paper1/ScalarEnergy.lean` and `C01/EnergyBounds.lean` for duplication.

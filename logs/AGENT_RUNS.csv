@@ -603,3 +603,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,168-A01-pressure-p3,lead,merge,PR #177 chain launched,merging,177
 2026-09-15,A01,168-A01-pressure-p3,lead,merge,chain hit a rebase conflict in research/A01/A3_SPLIT.md (appended lane notes); resolved keeping both notes; chain relaunched,merging,177
 2026-09-15,A01,168-A01-pressure-p3,lead,merge,PR #177 merged after conflict resolution; gates wave122 OK over 134 modules,merged,177
+2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,codex,worker,DONE rc=0 (see REPORT_170); lead reran gates OK,done,
+2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,codex,reviewer,launched (sol xhigh) with check points bd:rev-170,running,

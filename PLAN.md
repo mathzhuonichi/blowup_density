@@ -297,7 +297,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 167-A01-force-bridge | 返工完成，复审中（消费者方向：forcePath_of_memForceR、initialClassR_of_smoothL2） | 09-15 1918Z | — | — | A01 **行 (v) 数据/外力桥**（HANDOFF P7b）：forceOfPath F ↦ f' 与 MemForceR/MemL1Hm，a.field ∈ initialClassR，与 C01.forcePath 的往返 |
 | 168-A01-pressure-p3 | 已合并 | 09-15 1926Z | #177 | — | A01 **c4/c9 压力 P3**（HANDOFF P7c）：pressureOfVelocity（Leray 余投影的势 + 规范）、pressure_gradient MemLp、pressure_smooth（时间侧以 B1 为具名假设）、momentum 经 navierStokesResidual_eq_iff_projected |
 | 169-A01-b1-ladder-r2 | 进行中（codex sol xhigh） | 09-15 1901Z | — | — | A01 **B1 阶梯 R2**（HANDOFF P8）：datum 路径对时间可导，导数 = 动量残差的 datum（Duhamel 方程微分；路线 α vendor Duhamel 导数 + L2Descent 下降，或 β 光滑代表元切片）；任务书 collaboration/briefs/169-*.md |
-| 170-C01-e6-e7-enstrophy-identity | 进行中（codex sol xhigh） | 09-15 1901Z | — | — | C01 **E6/E7**（HANDOFF P2 后续）：enstrophyIdentity（代入动量方程、压力配对消去）与 h2TimeIntegral（H¹ 吸收门 ⇒ ∫₀ˢ‖u‖²_{H²} < ∞）；不注册（C01 V4 另开） |
+| 170-C01-e6-e7-enstrophy-identity | 待审（codex review 中） | 09-15 1927Z | — | — | C01 **E6/E7**（HANDOFF P2 后续）：enstrophyIdentity（代入动量方程、压力配对消去）与 h2TimeIntegral（H¹ 吸收门 ⇒ ∫₀ˢ‖u‖²_{H²} < ∞）；不注册（C01 V4 另开） |
 | 171-SPEC-r41d-draft-a | 完成（盲稿 A，待与 B 比对） | 09-15 1920Z | — | — | R41D **定理 4.1 密度分支盲稿 A**（HANDOFF P11，规则 2）：只看论文 + Contracts/V1 + R42 已注册合同；产出 research/R41D/DraftA.lean + COMPARISON_A.md |
 | 172-SPEC-r41d-draft-b | 完成（盲稿 B，待比对） | 09-15 1921Z | — | — | R41D **盲稿 B**（与 171 互不可见，同样输入）：DraftB.lean + COMPARISON_B.md；两稿完成后 lead 比对 → COMPARISON.md → Spec.lean |
 | 173-A01-hinv-invariance | 待审（路线 β：HasAprioriBoundInv + 消费者重闭合；codex review 中） | 09-15 1921Z | — | — | A01 **行 (iv) 角不变性 hinv**（HANDOFF P9a）：路线 α 平移等变 + mild 唯一性 ⇒ HasAprioriBound 量化的每个 Duhamel 解自动角不变；路线 β 限制量化并重闭消费者环 |
