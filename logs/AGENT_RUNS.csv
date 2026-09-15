@@ -715,3 +715,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,188-A01-mild-uniqueness,codex,worker,"launched (astra low) after install; target theorem mildUniqueness : MildUniqueness",running,
 2026-09-15,A05,181-A05-v2-contract,codex,reviewer,"ACCEPT-WITH-NOTES: fidelity/non-vacuity probes pass, L4 mutation fails as required; notes: V2-specific mutation cases, describe as MemHInfty specialization of Lemma B.1",accepted,
 2026-09-15,A05,181-A05-v2-contract,codex,fix,"launched (sol high): V2 mutation cases + wording + commit review artifacts",running,
+2026-09-15,A01,178-A01-b1-ladder-r3,codex,fix,"DONE rc=0: datumPath_contDiffOn_one sharpened to m+2 ≤ q+1 via reviewer proof; all-j range documented as implementation range; 18 decls standard axioms; commit 87b65ec",done,
+2026-09-15,A01,178-A01-b1-ladder-r3,lead,merge,"lead re-verified (build, axioms, diff); PR #186 opened; chain launched (wave 13)",running,186
