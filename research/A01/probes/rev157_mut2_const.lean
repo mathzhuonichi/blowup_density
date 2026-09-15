@@ -38,7 +38,7 @@ theorem mutant_const_one {q : ℕ} {ν : ℝ} {a : SpatialField}
     (fun t => sobolevENorm_slice_ne_top w ⟨t.2.1, lt_of_le_of_lt t.2.2 hST⟩)
     (fun t n hn wrd => ?_)
   exact hword_jet_full (u t) (fun θ => hu θ t) (U t) (hU t)
-    (velocitySliceSmoothL2 w t hST) (hslice t).symm n hn wrd
+    (C01.velocityField w hST t) (hslice t).symm n hn wrd
 
 /-- MUTANT (forward row) — `16` replaced by `1` in the order-2 cap.  Expected to FAIL. -/
 theorem mutant_sixteen {q : ℕ} {ν : ℝ} {a : SpatialField}

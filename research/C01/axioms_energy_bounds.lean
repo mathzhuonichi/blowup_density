@@ -36,6 +36,7 @@ namespace NSFormalization.Section4.C01
 #print axioms velocityL2Sq_continuousOn
 
 -- generalized scalar regularized-division lemma
+#print axioms NSFormalization.Paper1.sqrt_energy_le_primitive_general
 #print axioms sqrt_energy_le_primitive'
 
 -- row l2Bound = eq:RL2

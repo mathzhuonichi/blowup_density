@@ -31,7 +31,7 @@ theorem carrier_is_velocityField {ν : ℝ} {a : NSFormalization.Section4.A02.Sp
     {f : NSFormalization.Section4.A02.SpaceTimeField} {S T : ℝ}
     (w : NSFormalization.Section4.A02.ClassicalSolutionR ν a f T) (t : Icc (0 : ℝ) S)
     (hST : S < T) :
-    NSFormalization.Section4.A01.velocitySliceSmoothL2 w t hST
+    NSFormalization.Section4.C01.velocityField w hST t
       = NSFormalization.Section4.C01.velocityField w hST t := rfl
 
 /-- #1 — the `_field` normal form, restated and closed by `rfl` in this environment too. -/
@@ -39,7 +39,7 @@ theorem carrier_field {ν : ℝ} {a : NSFormalization.Section4.A02.SpatialField}
     {f : NSFormalization.Section4.A02.SpaceTimeField} {S T : ℝ}
     (w : NSFormalization.Section4.A02.ClassicalSolutionR ν a f T) (t : Icc (0 : ℝ) S)
     (hST : S < T) :
-    (NSFormalization.Section4.A01.velocitySliceSmoothL2 w t hST).field
+    (NSFormalization.Section4.C01.velocityField w hST t).field
       = fun x : Space => w.velocity (↑t, x) := rfl
 
 /-- #2 — slice finiteness, verbatim restatement. -/

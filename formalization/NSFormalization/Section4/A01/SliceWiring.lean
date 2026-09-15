@@ -15,11 +15,9 @@ producing the packaged reduction for row #3.
 
 ## What is proved
 
-* **`velocitySliceSmoothL2`** (#1, S) — the order-`(q+1)` jet carrier `Z` at a time `t ∈ [0,S]`
-  (`S < T`).  It **reuses `C01.velocityField`** (`Evolution.lean:115`), whose underlying field is
-  already `fun x => w.velocity (↑t, x)`; nothing is rebuilt, and `velocitySliceSmoothL2_field` is
-  `rfl` (no duplicate `smooth`/`integrable` proofs — LESSONS 09-14, "grep before declaring a bridge
-  missing / do not duplicate").
+* The former `velocitySliceSmoothL2` name was a pure alias for `C01.velocityField`; its only
+  term-level use is in the row-(ii) wiring below, which now takes `C01.velocityField` directly.
+  The compatibility theorem `velocitySliceSmoothL2_field` remains as a direct `rfl` lemma.
 * **`sobolevENorm_slice_ne_top`** (#2, S) — the slice finiteness `hfin`: the order-`(q+1)` energy
   norm of a velocity slice of a classical solution is finite, straight from
   `ClassicalSolutionR.sobolev`'s datum (`sobolevENorm_le_of_isSobolevDatum`, a datum has finite
@@ -31,7 +29,7 @@ producing the packaged reduction for row #3.
   `‖u t‖ ≤ jetSobolevConst (q+1) · sobolevNormAt (q+1) w.velocity ↑t` at every `t`.  This is
   `AprioriRows.sobolevSpace_norm_le_sobolevNormAt` with **all three** of its remaining hypotheses
   discharged from the solution: `hz` by `D01.contDiff_slice`, `hfin` by `sobolevENorm_slice_ne_top`,
-  and `hword_jet` by `L2Descent.hword_jet_full` fed the carrier `velocitySliceSmoothL2 w t hST`.
+  and `hword_jet` by `L2Descent.hword_jet_full` fed the carrier `C01.velocityField w hST t`.
   **No named hypothesis is left except the carrier hand-off `hslice`.**
 * **`isSobolevDatum_ordinary_of_hslice`** (#3, the datum transport) — `hslice` carries the physical
   slice's order-`m` datum onto the abstract carrier `⇑(U t)` at every order (`IsSobolevDatum.congr_field`,
@@ -96,14 +94,10 @@ local instance : Fact (0 < (1 : ℝ)) := ⟨by norm_num⟩
 already the velocity slice `fun x => w.velocity (↑t, x)` and whose `smooth`/`integrable` proofs come
 from unit U1 (`velocity_slice_smoothL2`).  Reused verbatim so the smoothness and all-order `L²` jet
 finiteness are not reproved (LESSONS: do not duplicate an existing `SmoothL2Field` construction). -/
-def velocitySliceSmoothL2 {ν : ℝ} {a : SpatialField} {f : SpaceTimeField} {S T : ℝ}
-    (w : ClassicalSolutionR ν a f T) (t : Icc (0 : ℝ) S) (hST : S < T) : SmoothL2Field Space :=
-  C01.velocityField w hST t
-
-/-- The carrier's underlying field is literally the velocity slice `w(t,·)` (`rfl`). -/
+/- The former alias is retired; the carrier is `C01.velocityField w hST t`. -/
 @[simp] theorem velocitySliceSmoothL2_field {ν : ℝ} {a : SpatialField} {f : SpaceTimeField}
     {S T : ℝ} (w : ClassicalSolutionR ν a f T) (t : Icc (0 : ℝ) S) (hST : S < T) :
-    (velocitySliceSmoothL2 w t hST).field = fun x : Space => w.velocity (↑t, x) := rfl
+    (C01.velocityField w hST t).field = fun x : Space => w.velocity (↑t, x) := rfl
 
 /-! ## 2. Slice finiteness and the row-(ii) converse on the real solution (residual row #2) -/
 
@@ -112,11 +106,17 @@ solution is finite at every interior time `t ∈ [0,T)`.  Direct from `Classical
 its order-`(q+1)` datum `G t` realizes the slice, and a datum has finite enorm, so the datum
 infimum `sobolevENorm` is `≤ ‖G t‖ₑ ≠ ⊤`.  (Same move as `OrderTwoCap.sobolevENorm_two_ne_top`; no
 `⊤`-vacuity — LESSONS 09-14 0707Z/149.) -/
+theorem sobolevENorm_slice_ne_top_order {m : ℕ} {ν : ℝ} {a : SpatialField} {f : SpaceTimeField} {T : ℝ}
+    (w : ClassicalSolutionR ν a f T) {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) :
+    sobolevENorm (m : ℝ) (fun x : Space => w.velocity (t, x)) ≠ ⊤ := by
+  obtain ⟨G, _, hGd⟩ := w.sobolev m
+  exact ne_top_of_le_ne_top (by simp) (sobolevENorm_le_of_isSobolevDatum (hGd t ht))
+
+/-- The order-`q+1` spelling retained for existing consumers. -/
 theorem sobolevENorm_slice_ne_top {q : ℕ} {ν : ℝ} {a : SpatialField} {f : SpaceTimeField} {T : ℝ}
     (w : ClassicalSolutionR ν a f T) {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) :
-    sobolevENorm ((q + 1 : ℕ) : ℝ) (fun x : Space => w.velocity (t, x)) ≠ ⊤ := by
-  obtain ⟨G, _, hGd⟩ := w.sobolev (q + 1)
-  exact ne_top_of_le_ne_top (by simp) (sobolevENorm_le_of_isSobolevDatum (hGd t ht))
+    sobolevENorm ((q + 1 : ℕ) : ℝ) (fun x : Space => w.velocity (t, x)) ≠ ⊤ :=
+  sobolevENorm_slice_ne_top_order (m := q + 1) w ht
 
 /-- **#2 — the row-(ii) converse on a genuine `ClassicalSolutionR`.**  For a classical solution `w`
 on `[0,T)`, a cylinder pair `(u, U)` over the compact slab `[0,S] ⊂ [0,T)` (`S < T`) with angle
@@ -129,7 +129,7 @@ time by the order-`(q+1)` energy norm with the explicit `t`-free constant `jetSo
 This is `AprioriRows.sobolevSpace_norm_le_sobolevNormAt` with its three remaining hypotheses all
 discharged from the solution: `hz` by `D01.contDiff_slice w.velocity_smooth` (each `t ≤ S < T` lies
 in the smoothness slab `[0,T)`), `hfin` by `sobolevENorm_slice_ne_top`, and `hword_jet` (for **all**
-`n ≤ q+1`) by `L2Descent.hword_jet_full` fed the carrier `velocitySliceSmoothL2 w t hST` and the a.e.
+`n ≤ q+1`) by `L2Descent.hword_jet_full` fed the carrier `C01.velocityField w hST t` and the a.e.
 identity `(hslice t).symm`.  **The only named hypothesis left is the carrier hand-off `hslice`.** -/
 theorem sobolevSpace_norm_le_sobolevNormAt_of_solution {q : ℕ} {ν : ℝ} {a : SpatialField}
     {f : SpaceTimeField} {S T : ℝ} (hST : S < T) (w : ClassicalSolutionR ν a f T)
@@ -145,7 +145,7 @@ theorem sobolevSpace_norm_le_sobolevNormAt_of_solution {q : ℕ} {ν : ℝ} {a :
     (fun t => sobolevENorm_slice_ne_top w ⟨t.2.1, lt_of_le_of_lt t.2.2 hST⟩)
     (fun t n hn wrd => ?_)
   exact hword_jet_full (u t) (fun θ => hu θ t) (U t) (hU t)
-    (velocitySliceSmoothL2 w t hST) (hslice t).symm n hn wrd
+    (C01.velocityField w hST t) (hslice t).symm n hn wrd
 
 /-! ## 3. The packaged reduction of both a-priori rows to `hslice` (residual row #3) -/
 

@@ -20,8 +20,8 @@ open EulerMeanOrdinaryLift EulerCylinderSobolevSpace EulerLiftedGradientSpace
   EulerCylinderSobolev EulerPressureSpatialRegularity EulerLpTranslation
 open scoped ENNReal ContDiff
 
-#print axioms velocitySliceSmoothL2
 #print axioms velocitySliceSmoothL2_field
+#print axioms sobolevENorm_slice_ne_top_order
 #print axioms sobolevENorm_slice_ne_top
 #print axioms sobolevSpace_norm_le_sobolevNormAt_of_solution
 #print axioms isSobolevDatum_ordinary_of_hslice
