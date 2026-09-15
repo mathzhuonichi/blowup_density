@@ -781,3 +781,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,merge,"notes applied; PR #194 opened; chain launched (wave 21)",running,194
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,merge,"PR #194 merged via chain (wave 21) gates green",merged,194
 2026-09-15,A01,189-A01-pressure-regularity,codex,fix,"launched (astra low) after 190 landed: G := joint representative of the Leray-complement path, interior identity via 169, target = 180 fix4's hG_int/hG",running,
+2026-09-15,A01,180-A01-b2-assembly,codex,fix4,"DONE rc=0: pressure leg parameterized by G/hG_int/hG; pressurePotential G; raw gradient only on Ioo; satisfiability + |t|e₀ probes; pipeline probe; rebased; commit 1166649",done,190
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fourth review launched (sol xhigh): both legs' satisfiability, field discharges with G, slab potential lemma proof, pipeline probe with real 190 import, hygiene bd:rev-180",running,190
