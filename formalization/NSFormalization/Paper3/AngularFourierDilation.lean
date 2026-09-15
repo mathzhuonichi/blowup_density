@@ -6,7 +6,8 @@ noncomputable section
 namespace NSFormalization.Paper3
 open MeasureTheory FourierTransform NavierStokes.ProblemStatement
 open NSFormalization.Source
-open scoped ENNReal SchwartzMap
+open NSFormalization.Source.RealSobolev (FourierData fourier_conjugate)
+open scoped ENNReal SchwartzMap ComplexConjugate
 
 def angularFrequencyScale : Space ≃L[ℝ] Space :=
   { LinearEquiv.smulOfNeZero ℝ Space frequencyUnit frequencyUnit_pos.ne' with
@@ -232,5 +233,113 @@ theorem norm_angularDatum (s : ℝ) (φ : SchwartzMap Space ℂ) :
 @[simp] theorem angularRealization_datum (s : ℝ) (φ : SchwartzMap Space ℂ) :
     angularRealization s (angularDatum s φ) = (φ : 𝓢'(Space, ℂ)) := by
   rw [angularDatum, angularRealization_preserves_coordinate, angularCoordinateRealization_datum]
+
+/-! ## Angular-frequency dilation coefficient and cycles→angular transverse transport
+
+Both facts below were promoted here in lane 109 from `Section4/D01`
+(`Transverse.lean` and `OrderZeroSymbol.lean` respectively); `NSFormalization.Section4.D01`
+aliases are kept at the old locations for downstream. -/
+
+/-- **Coefficient of the normalized `L²` frequency dilation.**  `angularFrequencyDilation`
+is the normalized dilation `f ↦ c^{-3/2} f(c⁻¹·)`, `c = frequencyUnit`; it is defined as an
+isometric extension, so this pointwise identity is proved by exhibiting the same operator as a
+`Lp.compMeasurePreserving` change of variables (`map_addHaar_smul` supplies the Jacobian) and
+matching their tempered-distribution actions. -/
+theorem angularFrequencyDilation_coeFn (h : Lp ℂ 2 (volume : Measure Space)) :
+    (angularFrequencyDilation h : Space → ℂ) =ᵐ[volume]
+      fun ξ => (frequencyUnit ^ (-3/2 : ℝ) : ℝ) • h (frequencyUnit⁻¹ • ξ) := by
+  have hc0 : (0:ℝ) < frequencyUnit := frequencyUnit_pos
+  set κ : ℝ≥0∞ := ENNReal.ofReal (|(frequencyUnit⁻¹ ^ (Module.finrank ℝ Space))⁻¹|) with hκ
+  have hMP : MeasurePreserving (fun ξ : Space => frequencyUnit⁻¹ • ξ) volume (κ • volume) :=
+    ⟨(continuous_const_smul _).measurable, Measure.map_addHaar_smul volume (inv_ne_zero hc0.ne')⟩
+  have hGmem : MemLp (h : Space → ℂ) 2 (κ • volume) :=
+    (Lp.memLp h).smul_measure (by rw [hκ]; exact ENNReal.ofReal_ne_top)
+  set Dfwd : Lp ℂ 2 (volume : Measure Space) :=
+    ((frequencyUnit ^ (-3/2 : ℝ) : ℝ)) •
+      Lp.compMeasurePreserving (fun ξ : Space => frequencyUnit⁻¹ • ξ) hMP (hGmem.toLp _) with hDfwd
+  have hDcoe : (Dfwd : Space → ℂ) =ᵐ[volume]
+      fun ξ => (frequencyUnit ^ (-3/2:ℝ) : ℝ) • h (frequencyUnit⁻¹ • ξ) := by
+    filter_upwards [Lp.coeFn_smul ((frequencyUnit ^ (-3/2:ℝ):ℝ) : ℝ)
+        (Lp.compMeasurePreserving (fun ξ : Space => frequencyUnit⁻¹ • ξ) hMP (hGmem.toLp _)),
+      Lp.coeFn_compMeasurePreserving (hGmem.toLp _) hMP,
+      hMP.quasiMeasurePreserving.ae hGmem.coeFn_toLp] with ξ hs hcmp hgh
+    rw [hDfwd, hs]
+    simp only [Pi.smul_apply, hcmp, Function.comp_apply, hgh]
+  have hfr3 : Module.finrank ℝ Space = 3 := by simp [Space]
+  have hdist : (Dfwd : 𝓢'(Space, ℂ)) = (angularFrequencyDilation h : 𝓢'(Space, ℂ)) := by
+    rw [angularFrequencyDilation_toDistribution]
+    ext ψ
+    rw [Lp.toTemperedDistribution_apply, angularDistributionDilation_apply,
+      Lp.toTemperedDistribution_apply]
+    rw [integral_congr_ae (hDcoe.mono (fun ξ hξ => by rw [hξ]))]
+    have hcv := Measure.integral_comp_inv_smul (volume : Measure Space)
+      (fun ξ => ψ (frequencyUnit • ξ) • ((frequencyUnit ^ (-3/2:ℝ) : ℝ) • h ξ)) frequencyUnit
+    rw [hfr3] at hcv
+    simp only [smul_inv_smul₀ hc0.ne'] at hcv
+    rw [abs_of_nonneg (by positivity : (0:ℝ) ≤ frequencyUnit ^ 3)] at hcv
+    rw [hcv]
+    rw [show (fun x : Space => ψ (frequencyUnit • x) • (frequencyUnit ^ (-3/2:ℝ) : ℝ) • (h x : ℂ))
+          = (fun x : Space => (frequencyUnit ^ (-3/2:ℝ) : ℝ) • (ψ (frequencyUnit • x) • (h x : ℂ)))
+          from by funext x; rw [smul_comm]]
+    rw [integral_smul, ← mul_smul]
+    congr 1
+    · rw [← Real.rpow_natCast frequencyUnit 3, ← Real.rpow_add hc0]; norm_num
+  have hi : Function.Injective (Lp.toTemperedDistributionCLM ℂ (volume : Measure Space) 2) :=
+    LinearMap.ker_eq_bot.mp Lp.ker_toTemperedDistributionCLM_eq_bot
+  have hEq : Dfwd = angularFrequencyDilation h := hi hdist
+  rw [← hEq]; exact hDcoe
+
+/-- **Shared cycles→angular dilation transport.**  Given any family `g : Fin 3 → FourierData`
+whose pre-dilation data are transverse a.e., the post-dilation (angular) data are transverse a.e.
+The normalized `L²` frequency dilation `angularFrequencyDilation` has a.e. coefficient
+`c^{-3/2} f(c⁻¹·)` (`angularFrequencyDilation_coeFn`); transporting the hypothesis by
+`ξ ↦ c⁻¹ξ` and cancelling the nonzero prefactors gives the conclusion. -/
+theorem transverse_of_transverse_symm {g : Fin 3 → FourierData}
+    (hstar : ∀ᵐ ξ : Space ∂volume,
+      ∑ j : Fin 3, ((ξ j : ℝ) : ℂ) * (angularFrequencyDilation.symm (g j)) ξ = 0) :
+    ∀ᵐ ξ : Space ∂volume, ∑ j : Fin 3, ((ξ j : ℝ) : ℂ) * ((g j) ξ) = 0 := by
+  have hc0 : (0 : ℝ) < frequencyUnit := frequencyUnit_pos
+  set κ : ℝ≥0∞ := ENNReal.ofReal (|(frequencyUnit⁻¹ ^ (Module.finrank ℝ Space))⁻¹|) with hκ
+  have hMP : MeasurePreserving (fun ξ : Space => frequencyUnit⁻¹ • ξ) volume (κ • volume) :=
+    ⟨(continuous_const_smul _).measurable, Measure.map_addHaar_smul volume (inv_ne_zero hc0.ne')⟩
+  have htrans : ∀ᵐ ξ : Space ∂volume,
+      (∑ j : Fin 3, (((frequencyUnit⁻¹ • ξ) j : ℝ) : ℂ) *
+        (angularFrequencyDilation.symm (g j)) (frequencyUnit⁻¹ • ξ)) = 0 :=
+    hMP.quasiMeasurePreserving.ae (Measure.ae_smul_measure hstar κ)
+  have hfwd : ∀ j : Fin 3, ∀ᵐ ξ : Space ∂volume,
+      ((g j) ξ) = (frequencyUnit ^ (-3/2:ℝ) : ℝ) •
+        (angularFrequencyDilation.symm (g j)) (frequencyUnit⁻¹ • ξ) := by
+    intro j
+    have h1 := angularFrequencyDilation_coeFn (angularFrequencyDilation.symm (g j))
+    rw [LinearIsometryEquiv.apply_symm_apply] at h1
+    exact h1
+  filter_upwards [htrans, hfwd 0, hfwd 1, hfwd 2] with ξ ht h0 h1 h2
+  have hsmul : ∀ j : Fin 3, ((frequencyUnit⁻¹ • ξ) j : ℝ) = frequencyUnit⁻¹ * ξ j := fun j => rfl
+  rw [Fin.sum_univ_three, h0, h1, h2]
+  rw [Fin.sum_univ_three] at ht
+  simp only [hsmul, Complex.ofReal_mul, Complex.real_smul] at ht ⊢
+  have hcinv : ((frequencyUnit⁻¹ : ℝ) : ℂ) ≠ 0 := by
+    rw [Complex.ofReal_ne_zero]; exact inv_ne_zero hc0.ne'
+  have hgs : ((ξ 0 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 0)) (frequencyUnit⁻¹ • ξ)
+      + ((ξ 1 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 1)) (frequencyUnit⁻¹ • ξ)
+      + ((ξ 2 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 2)) (frequencyUnit⁻¹ • ξ) = 0 := by
+    have : ((frequencyUnit⁻¹ : ℝ) : ℂ) * (((ξ 0 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 0)) (frequencyUnit⁻¹ • ξ)
+        + ((ξ 1 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 1)) (frequencyUnit⁻¹ • ξ)
+        + ((ξ 2 : ℝ) : ℂ) * (angularFrequencyDilation.symm (g 2)) (frequencyUnit⁻¹ • ξ)) = 0 := by
+      linear_combination ht
+    exact (mul_eq_zero.mp this).resolve_left hcinv
+  linear_combination ((frequencyUnit ^ (-3/2:ℝ) : ℝ) : ℂ) * hgs
+
+/-- The angular Fourier transform intertwines physical conjugation with conjugate
+reflection: `angularFourier (conj f) ξ = conj (angularFourier f (-ξ))`.  This is
+`fourier_conjugate` plus the real dilation amplitude passing through `conj`.
+
+Promoted here from `Section4/B02/AnnularReal.lean` in lane 109; a
+`NSFormalization.Section4.B02` alias is kept there for downstream. -/
+theorem angularFourier_conj (f : Space → ℂ) (ξ : Space) :
+    angularFourier (fun x => conj (f x)) ξ = conj (angularFourier f (-ξ)) := by
+  unfold angularFourier
+  rw [fourier_conjugate, smul_neg, Complex.real_smul, Complex.real_smul, map_mul,
+    Complex.conj_ofReal]
 
 end NSFormalization.Paper3

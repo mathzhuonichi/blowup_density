@@ -1,0 +1,69 @@
+# LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- （09-14 1232Z，159）开一个消费兄弟节点结果的 lane（R43/R44/R41）之前先审计 `verification/contracts.json` 的 scope：`research/*/Spec.lean` 里的字段不等于已注册合同，R43 引用的 A05 `velocityCriticalL3`、C01 `h2TimeIntegral`、A04 `lifespanInfiniteOfLocallyFinite` 三条都只是草稿。
+- （09-14 1046Z）router 429 窗口可能同时罩住 Opus 4.8 与 Opus 5 两个上游且持续 >45 分钟：被 kill 的 agent 上下文可用 SendMessage resume（工作树改动都在），但 resume 前先用一个只跑 `date` 的 1 秒探针试上游，别把 worker 的首轮读文件浪费在 429 上；退避阶梯 10 → 30 → 60 分钟。
+- （09-14 0839Z，151）弱导数唯一性（复 Schwartz 测试函数配对 ⇒ a.e. 相等）树里有：`A03.ae_eq_of_schwartz_pairing`（`ScalarTameProduct.lean:136`），经典侧配对是 `D01.smoothField_weakDeriv_pairing`（`FiniteOrderConstructor.lean:306`）。worker 只 grep 了 Mathlib 就宣称「树里没有、需要实紧支转换」——「不在树里」的结论必须先 `grep -rn` 全部 `Section4/{D01,A03,A04,C01}` 命名空间（第三次踩这个坑）。
+- （09-14 0839Z，152）选择性 `open X (a b)` 下裸类型名可能解析到 vendor 的同名类型（`SpatialField` 解析成非函数类型，报 `Function expected`，下游再变成 `EulerSmoothLimit.Space` vs `Space` 的假错配）：新 `def` 的参数类型写全限定名（`A02.SpatialField`），`rfl` 桥不受影响。
+- （09-14 0707Z，149）柱面 → 能量的反向范数比较（阶 q+1）不能经 `⇑U` 的下降 datum（`n + 3 ≤ q + 1`，顶三阶不下降；`DatumToJets` 反向界要 `ContDiff ℝ ∞`），要走 `ClassicalSolutionR` 的光滑速度切片，并把「词下降 = 经典喷流」孤立成具名假设留给载体桥。
+- （09-14 0707Z，149）`sobolevENorm`（ENNReal）的 `.toReal` 反向界在右边为 `⊤` 时假（`⊤.toReal = 0`）：任何 `(… ).toReal ≤ C · (sobolevENorm s z).toReal` 形式的陈述都要带 `≠ ⊤` 或 order-s datum 假设，否则空洞/不可证。
+- （09-14 0641Z，148）任意阶的 datum 相减用 `D01.isSobolevDatum_sub`（`OrderZeroAlgebra.lean:51`，只要 `SchwartzPairable`，`SmoothL2Field` 经 `schwartzPairable_of_memLp` 任意阶都有），不要用 `A03.isSobolevDatum_sub`（带 `2 ≤ s`）；146 审稿据后者判定的「一阶空洞」并不存在。审稿判「树里没有」之前先 grep 同名引理的所有命名空间。
+- （09-14 0541Z）lead 写 brief 时引用的文件名要先 `ls` 核实：145 的 brief 写了不存在的 `research/A01/REVIEW_EULER_PAIRING.md`（实为 `REVIEW_C1B_C8.md`），worker 只能按拆分表重建形状。另：python f-string 里含 `{…}` 的 Lean 记法会被当表达式，记录脚本用 `.replace` 拼。
+- （09-14 0508Z）zsh 里 `echo ====` 会报 `=== not found`：`=word` 是 zsh 的命令路径展开（`=ls` → `/bin/ls`）。分隔符用 `----` 或加引号 `'===='`。
+- **router 429（上游限流窗口）会直接杀死 subagent**，已完成的 worktree 文件还在但对话丢失：重启时让新 worker 先 `git status` 看已有文件、从中续做；限流期间并发降到 2，不要同时起两个新 agent。（2026-09-14 0420Z，144 reviewer / 145 worker）
+- **PLAN.md 表格单元格里不能有 `|`**（如 `Σ_{|α|≤m}`，连 `\|` 也不行——`tmp/plan_row.py` 按 `|` 切 6 列）：描述里改写成不含竖线的写法。（2026-09-14）
+- **`autoImplicit` 会把忘了 `open` 的类型名当自由变量**：`(0 : SpatialField)` 报 `OfNat` 合成失败，真因是 `SpatialField` 没 `open`，被绑成自由变量（报错第二行两侧类型不同是证据）；把名字加进 `open` 列表即好。见到「找不到实例」先看名字是否解析到了预期常量（142 审稿）。（2026-09-14）
+- **改 `contracts.json` 必须 `json.dump(..., ensure_ascii=False, indent=2)`**：默认 `ensure_ascii=True` 会把冻结 scope 里的 `ν`/`R³` 转义成 `\uXXXX`，diff 里出现对 V1 条目的假删改（141）。写完后 `git diff --stat verification/contracts.json` 必须只有增行。（2026-09-14）
+- **`ContDiffBump.contDiff` 的阶参数是 `ℕ∞`**：写 `(n := ∞)` 会解析成 `ℕ∞ω` 报错，要写 `(n := (⊤ : ℕ∞))`（137 审稿造非零 `MemForceR` 见证时踩到）。（2026-09-14）
+- **`simpa using h` 会把假设里的 `•` 归一成 `*`，造出假的 unification 失败**：132 记录的「`MemLp.const_smul` 函数/lambda 不匹配」其实裸 `exact` 三种写法都过，只有 `simpa` 那条路失败。先试 `exact`，再考虑 `memLp_congr_ae` 垫片；把 `simpa` 的报错当作「定理不适用」之前先看一眼。（2026-09-14）
+- **合同文件可以 `open` 传递 import 到的命名空间**（如 `open NSFormalization.Paper3 (RealVectorSobolev)`），`check_contracts.py` 只扫 `import` 行；这不违反 import 政策，但 scope/docstring 要写明该名字来自哪里（133）。（2026-09-14）
+- **rebase 与 push/开链必须分两步**：126 的 rebase 在第二个 commit 又冲突，同一条命令里的 `push -f` 与合并链照常跑了（zsh 下 `set -e` 没拦住 `rebase --continue | tail` 的失败），链在半 rebase 的 worktree 上跑出 UNRESOLVED。规则：`rebase --continue` 后先 `git status --short | grep -q '^UU' && exit 1`、`git rev-parse --abbrev-ref HEAD` 必须是分支名，再在下一条命令里 push/开链。（2026-09-14）
+- **报「资源阻塞」前先看第一个报错是不是 `rfl`**：126 把角不变性判成「需要 800k heartbeats + 全局唯一性」，实际第一个 unsolved goal 是定义展开（`freeHeatPath` 就是 `heatOperator`），补一个 `rfl` 后 300k 就过；而「全局唯一性」也不需要——vendor 续接的每个窗口都在 `kernelMass δ·L<1` 的唯一性区间里。规则：(a) 单个声明的 `set_option maxHeartbeats N in`（N ≤ 400000，注明原因）是允许的，简报里的「不加 maxHeartbeats」是不许追心跳、不是禁令；(b) 声称 L 级阻塞前，先看阻塞是否被现有构造的内部结构（窗口/归纳）绕开。（2026-09-14）
+- **`IsSobolevDatum ((0:ℕ):ℝ)` ↔ `IsSobolevDatum 0` 的搬运用 `rw [show ((0:ℕ):ℝ) = 0 from Nat.cast_zero]`**，`simp only [Nat.cast_zero]` 报 `simp made no progress`（类型依赖于 cast）。装 `ClassicalSolutionR.sobolev` 的 `∀ m` 实例时会踩（124 审稿）。（2026-09-14）
+- **「树里没有 X」不能靠关键词 grep 下结论**：122 用 `extend|continuation|blowup|maximal` grep 声称 OpenAI 层无续接判据，漏掉了 `Euler/BoundedMildContinuation.lean:39 exists_global_mild_of_bound`（文件名命中、定理名不命中）。否定性结论要 (a) 按文件名 + 定理名 + docstring 三路 grep，(b) 对最像的候选 `#check` 并试着组合，才能写进表里当 blocker。（2026-09-14）
+- **搬模块的 MAINT lane 合入后，所有在跑的 lane 里引用旧路径的 import 会在合入时炸门禁**（123 搬 `RealPairing` 后，121 的 `PressureDrop.lean` 带着 `import …A04.RealPairing` 经 rebase 无冲突直接合入，integration 门禁红）。rebase 不冲突不等于能编译：搬家 lane 合入后立刻 `grep -rl 旧路径 .claude/worktrees/*/formalization`，并让 merge 前先 `lake build` 该 lane 改动的模块。（2026-09-14）
+- **`git mv` 不删旧编译产物**：搬模块后旧路径的 `.olean` 还在，漏改的 `import 旧路径` 本地照样编过、门禁全绿，只有 CI 干净检出才炸。搬完必须 `grep -rn '旧模块名' formalization research verification` 证明零残留（123 审稿）。另：`lake env lean … | tee log | head` 会 SIGPIPE 把 lean 中途打死，先重定向到文件再过滤。（2026-09-14）
+- **论文行号引用会代代相传**：117 审稿把 eq:Rpressure 抄成 `02-preliminaries.tex:76-81`（实为 `:89-94`），120 合同照抄进冻结的 scope 字符串，共 9 处。合同/绑定/记录里引论文行号前，用 `grep -n 'label{eq:…}' paper/sections/*.tex` 现查一次，别从上一份 review 抄。（2026-09-14）
+- **`set -e` 不会在 `a && b && c` 链中途失败时退出**：118 的 `git rebase` 冲突后脚本继续往下跑，`PR=` 为空又生成空链（第二次）。现在 `tmp/mkchain.sh` 拒绝非数字 PR；取 PR 号后必须 `[ -n "$PR" ] || exit 1` 再往下。另：`pkill -f`/`pgrep -f` 的模式若出现在自己命令行里会把自己杀掉（exit 144），用 `pgrep -f 'pattern\.sh$'` 这类锚定或 `grep '[m]erge'` 技巧。（2026-09-14）
+- **zsh 不对未加引号的 `$VAR` 做分词**：`FILES="a b c"; sed -i … $FILES` 会把整串当一个文件名（No such file），后面靠它的 `git add` / PR 全空，`PR=` 为空又生成了 `merge__then_gates.sh`。多文件一律用数组 `FILES=(a b c)` + `"${FILES[@]}"`，并在用 `$PR` 前 `[ -n "$PR" ]`。给 python 传值用环境变量 + 引号 heredoc，别用未引号 heredoc（反引号会被执行）。（2026-09-14）
+- **负向检查不能只用「省略参数再 apply 原定理」**：那只证明签名里有这个参数，不证明假设必要（113 审稿：`pressure_potential_of_pointwise` 的 `hsym` 这样「通过」了，实际可由 `hsm`+`hdp` 推出，陈述已冻结只能记 V2 备注）。有效做法：(a) 删掉假设后重述 + `set_option autoImplicit false in` + 独立尝试证明失败/成功都记；或 (b) 给反例证明弱化陈述为假。（2026-09-14）
+- **`open` 多个命名空间时，导出的谓词可能不是你以为的那个**：111 的 `MomentumSlice` 导出的是 `D01.MemForceR` 而非 `open` 暗示的 `A02.MemForceR`（两者 `rfl` 相等，`Pressure.lean` 一直如此，无害）。写合同/绑定前用 `#check @thm` 看全名，别看 `open`。（2026-09-14）
+- **本 Mathlib pin 里 `add_le_add_right (h : a ≤ b) c : c + a ≤ c + b` 是左加**。把它怼到右加目标上时，若两边是 `eLpNorm`/`∫⁻`/`essSup` 这类大项，`isDefEq` 会去展开积分体找交换律，`(deterministic) timeout at isDefEq`（110 审稿复现：400000 heartbeats 13 s 烧光；纯变量则是秒级 type mismatch）。用 `add_le_add h le_rfl` 或 `gcongr`。（2026-09-14）
+- **上提 + 老位置留 `alias` 之后，新模块别在顶层同时 `open` 新旧两个命名空间**（自己又不在其中任何一个里）：裸名会 `Ambiguous term`（109 审稿用探针复现：`angularFourier_conj` 在 `Paper3` 与 `Section4.B02` 各一份）。`#print axioms` 对歧义名会把两个解释都打印，所以 axioms 探针不会报错，别把它当证据。（2026-09-14）
+- **合并链脚本别用 sed 从上一条 lane 的脚本派生**：094/103/105/106/108 五个 squash commit 的标题都错成了「Simplifier and tester pass over the four merged C01 modules」（模板里的标题被上一次 sed 漏改，之后代代相传）。PR 标题和 `Merge pull request #N` 提交是对的，历史可以还原，但以后一律用 `tmp/mkchain.sh <lane> <PR> <wave> "<title>"` 显式传标题生成，生成后 `grep merge_lane` 肉眼核对再跑。（2026-09-14）
+- 2026-09-14 ATTEMPTS/REVIEW 里引用 `/tmp/...` 探针文件是易失的（106 的审稿人发现 101 引的 `/tmp/a01p1rev/slice.lean` 已不在）；负例要把报错原文抄进 md，探针若值得留就放 `research/<ID>/probes/`。
+- 2026-09-14 worker 的 worktree 比 integration 旧时，它会去根目录改不在自己 worktree 里的记录文件（101 改了根目录的 `research/A01/A01_SPLIT.md`）。简报里要写死"只改本 worktree；文件不存在就在报告里说明，由 lead 处理"；lead 收到后单独 commit 根目录改动。
+- 2026-09-14 仅 `MemLp 2` + 光滑（导数不可积）的场，对 Schwartz 测试函数逐项分部积分是假的（094 给了反例）：必须先乘紧支截断 `χ(·/R)`（`ContDiffBump`）再让 `R→∞`（边界项 `‖∇χ_R‖ ≤ C/R` + DCT）。Mathlib 没有"C_c^∞ 在 Schwartz 中稠密"/"对测试函数消失的分布为零"引理，`ae_eq_zero_of_integral_contDiff_smul_eq_zero` 是可用的基本引理。
+- 2026-09-14 conformance 文件会漂移：068 改了 `spatialApproxHomogeneous_of` 的假设后，`research/B02/axioms_u8.lean` 在 HEAD 上其实已经编不过，直到 090 才发现。改任何已合陈述的假设时，必须重跑该节点全部 `axioms_*.lean`（SIMP/tester 车道的固定检查项）。
+- 2026-09-14 复制 helper 前先量真实 import 代价：闭包大小取决于本模块已 import 什么（087 已经过 `CorrectionPath → D01.ForceClass`，再 import `D01.DatumToJets` 只多 2 个模块，而不是给 `PressureGradient` 量出的 +548）；用 `lake build` 的 job 数差做判断。
+- 2026-09-14 Mathlib 里 `@[to_dual]`/`to_additive` 生成的名字（如 `Set.Ico_subset_Ico_right`）在源码里 grep 不到，"不存在"只能用 `#check` 判定，不能用 grep（087 记了一条假负例）。
+- 2026-09-14 重述前的查重必须扫 `formalization/NSFormalization/{Source,Paper3,Paper1,Section4}` 全部（`grep -rn 'def <Name>' formalization/NSFormalization`），不能只扫 `Section4/`：080 重述了 `Source/PacketScaling.lean:22` 已有的 `SpeedUnboundedAt`，且同 namespace 的 `open` 会静默遮蔽、桥只抓一份。
+- 2026-09-14 Lean v4.34.0-rc2：`if_pos`/`if_neg` 已弃用（用 `split_ifs`，或 `ite_eq_left/right`）；`split_ifs` 会消耗上下文里已有的同名符号假设、分支数变少，先看有没有 `h0 : 0 ≤ t` 之类在 context 里（075）。
+- 2026-09-14 `set x := … with hx` 之后 `dsimp only [hx]` 可能无进展，`simp only [hx]` 才展开+beta+对字面 pair 做投影约简；`image_eq_zero_of_notMem_tsupport` 在目标带类型标注时会把函数参数推错，先 destructure 再 `exact`（075）。
+- 2026-09-14 shell：往 python heredoc 里写含反引号的 markdown 时 heredoc 必须加引号（`<<'PYEOF'`），否则反引号被 shell 当命令替换、内容被吃掉（本条就是这样出错后补的）。
+- 2026-09-14 负向检查的坑：`formalization/` 包开着 `autoImplicit`，把出现在陈述类型里的假设删掉会被静默重绑成隐式参数、证明照常通过（假阴性）。只有仅在证明体里用到的假设才能这样测；否则先 `set_option autoImplicit false in` 再删（077）。
+- 2026-09-14 zsh：`--include=*.lean` 不加引号会被 glob 展开报 `no matches found`；`grep -n … $(grep -rl …)` 内层为空时外层 grep 读 stdin 挂死（表现为 120 s 超时）。写成 `--include='*.lean'`，并先把文件名存变量、判空再用。
+- 2026-09-14 worker 报的"heartbeat 爆炸、10⁶ 也卡"（073 `FiniteHilbertBochner.assemble`）是假堵点：reviewer 只 import 该模块、默认预算下 18 行证出 `coordinates_assemble`，真正的错误是 `insert` 与 `Insert.insert` 重名歧义。规矩：worker 声称的编译级堵点必须由 reviewer 用 /tmp 探针复现后才能进计划；lead 不要把它直接写成 lesson（本条替换了一条错误 lesson）。
+- 2026-09-14 「总化积分」陷阱（与 ⊤ 陷阱同类）：用 Bochner 积分定义的「分布」谓词（`IsSliceDistribution`）对不可积的野场**空洞成立**（两边都是 junk 0），于是零 datum 满足一切，像 `homogeneousDatumSub` 这种无可积性假设的字段就是假的（068 reviewer 反例）。spec 审查要问：这个谓词对不可积输入是不是 vacuous？必要时加 `Integrable (ψ·z)` 或用 `LocIntField`。
+- 2026-09-13 **lead 自己动 Lean 文件必须先 build 再 commit**：063 的 docstring 按行号替换吞掉了 `-/`，而检查命令用了 `lake build … | grep`（管道吃掉了退出码，`set -e` 不生效），提交并合入了坏文件（#67），靠 070 热修。规则：改 `.lean` 只用 Edit/精确字符串替换；`set -o pipefail`；门禁绿了才 commit。
+- 2026-09-13 新建 worktree **必须先 `bash scripts/lean-install.sh`** 再碰 lake，否则 `verification/.lake/packages` 不存在，lake 会从头 clone Mathlib（070 热修时又犯了一次，3.9G 才发现）。
+- 2026-09-13 `pkill -f`/`pgrep -f <字面串>` 会匹配到自己 shell 的命令行并把自己杀掉（exit 144）；用 `pgrep -f "merge_6[7]_then"` 这种带字符类的模式避免自匹配。
+- 2026-09-13 CI 突然全部秒失败且作业没有 steps：先看 check-run annotations（`gh api repos/.../check-runs/<jid>/annotations`），这次是 owner 账户的 Actions 账单/额度问题，不是代码。
+- 2026-09-13 integration 上**不要 `pull --rebase`**（会改写本地记账提交的 SHA；之前从本地 integration 开出的车道就带着旧提交，rebase 时在 PLAN/CSV 冲突）。规则：开车道前先 push 本地 integration；本地落后时用 `git pull --ff-only`，实在分叉就 `git merge origin/erenup/integration`。合并脚本现已自动让记账文件取 integration 版。
+- 2026-09-13 盲稿有价值的前提是"只看论文"：037 的 R43 草稿在 A04/C01 未合入的 worktree 里写出来，反而给出了上游"必须导出的确切形状"清单；比对阶段再对实际 spec。但另一份盲稿要拿到最新 spec，否则两份都在猜。
+
+- 2026-09-13 续用原 worker 改 review 意见（SendMessage 回同一个 agent）：9 分钟、17 次工具调用；新开一个要 30–45 分钟。review 后先想"能不能续用"。
+- 2026-09-13 同一 worktree 里并发两个 lake 会弄坏 `vendor/.lake/build`（缺 olean、瞬时竞态）；lake 的锁挡不住。一个 worktree 一次一个 lake；安装脚本的 `lake test` 没跑完别自己起 build。
+- 2026-09-13 每条新 lane 的固定成本曾是约一小时（重编 formalization + vendor 闭包）；`lean-install.sh` 现在从根复制编译产物，lake 只重编改动的。开小任务前先看固定成本。
+- 2026-09-13 `structure` 型的合同定义（`ClassicalSolutionR`）本地重述是另一个类型，`rfl` 桥不可能；逐字段转换双向可 typecheck（reviewer 验证）；本地重述只留一份，其它模块 import。
+- 2026-09-13 同一节点两条车道并行（032/033）会各自重述同一块定义 → 合入时要去重。同一时间一个节点只开一条改代码的车道；spec 车道可并行。
+- 2026-09-13 在 `formalization/` 下跑 lake = 重新 clone + 从源码编 Mathlib（worker 一次、lead 一次）。hook `guard.py` 已拦；软链防护已加。
+- 2026-09-13 `pkill -f <模式>` 会匹配到自己的 shell 命令行（exit 144）。用 `pgrep -f '^/exact/path'` 再 kill。
+- 2026-09-13 任务卡上的"证据"两次都不是对的定理（A04 的 `ScalarEnergyContinuation` 是 36 行转发；A02 卡片没提最合适的 `classical_uniqueness_on_Icc`）。spec 车道必须自己 grep 三个源码库。
+- 2026-09-13 Mathlib 没有连续变系数 Grönwall（只有常系数与离散版）；A04 G3 要自建。
+- 2026-09-13 树里全部 8 个全空间能量定理都假设紧支（对 X_R 不成立）；C01 要在 `SmoothL2Field` 层重建，不能复用。
+- 2026-09-13 CI：2 核 runner 冷 `lake test` 78 分钟；120 分钟上限被掐；缓存只在成功时保存 → restore/save 拆开、`if: always()`、180 分钟。合并一批 PR 后只有最后一轮 CI 有意义（cancel-in-progress），记账 push 攒到 CI 结束。
+- 2026-09-13 `gh pr merge` 在 force-push 后 10–30 秒内报 "not mergeable"；轮询 `mergeable` 到 `MERGEABLE` 再合。
+- 2026-09-13 `tasks.py render` 整文件覆盖任务卡；Attempts 只放 `research/<ID>/ATTEMPTS*.md`（hook 已拦手改）。
+- 2026-09-13 spec 里"能被错误实现满足"的字段形态：常数在数据之后选、量词顺序、缺 `0 < lifespan`、S 超出寿命范围、`Ioo` vs `Ico`、`ℝ≥0∞` vs `ℝ`、区间积分的 junk value。reviewer 清单里逐条问。
+- 2026-09-13 D01 草稿 A 的 F_R 漏 C^∞ 让定理 4.1(ii) 变假：两份盲稿比对抓到。合同 spec 一律两份盲稿。
+- 2026-09-13 合同不能 import `NavierStokes.*`：先内联 20 个定义 + rfl 桥，再把政策放宽为 7 模块白名单（政策变更单独交 owner）。
+- 2026-09-12 `lake build -j` 在此版 Lake 无效，用 `LEAN_NUM_THREADS`；5 条车道各 6 线程。

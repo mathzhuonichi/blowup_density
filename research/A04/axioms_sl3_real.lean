@@ -1,0 +1,15 @@
+import NSFormalization.Section4.D01.RealPairing
+
+open NSFormalization.Paper3
+
+#print axioms real_inner_eq_re_complex
+#print axioms realSobolev_inner_eq_ambient
+#print axioms real_inner_angularDirectionalDerivative
+#print axioms real_inner_angularDirectionalDerivativeReal
+#print axioms lowering_mid_symbol_eq
+#print axioms lowering_mid_symbol_order_indep
+#print axioms angularOrderLoweringMid_self
+#print axioms angularOrderLowering_self
+#print axioms inner_loweringMid_pairing
+#print axioms inner_lowering_pairing_complex
+#print axioms real_inner_lowering_pairing
