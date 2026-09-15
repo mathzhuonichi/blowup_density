@@ -830,3 +830,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,195-A01-interior-momentum,codex,fix,"DONE rc=0: honest split hprojected/hresidualAgreement, interior_momentum_identity_of_complement_paths adapter, canonical 192 probe; 10 decls standard axioms; commit 96ff85f",done,
 2026-09-15,A01,195-A01-interior-momentum,lead,merge,"lead re-verified (module, axioms); PR #200 opened; chain launched (wave 27)",running,200
 2026-09-15,A01,195-A01-interior-momentum,lead,merge,"PR #200 merged via chain (wave 27) gates green",merged,200
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fifth review REJECT: PressureSupply keeps one order-q solution without hinv; landed 194 needs same-carrier all-order hpairs family (probe rev180_pressure_supply_hpairs_mismatch); forward canonical solenoidality/force premises",rejected,190
+2026-09-15,A01,180-A01-b2-assembly,codex,fix6,"launched (sol xhigh): PressureSupply with 194-shaped hpairs + ha + canonical force; consumer loop via 192's family-returning theorem; real 194→195→197 pipeline probe",running,190
