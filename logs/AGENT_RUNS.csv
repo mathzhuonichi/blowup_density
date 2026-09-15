@@ -590,3 +590,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,D01,164-D01-g1-homogeneous-norm,lead,merge,PR #176 chain launched (27th contract),merging,176
 2026-09-15,D01,164-D01-g1-homogeneous-norm,lead,merge,PR #176 merged; gates wave121 OK over 133 modules; 27 contracts,merged,176
 2026-09-15,A01,173-A01-hinv-invariance,codex,worker,launched (astra low) bd:173-A01-hinv-invariance,running,
+2026-09-15,A01,168-A01-pressure-p3,codex,reviewer,ACCEPT-WITH-NOTES (not circular; HasSymmetricJacobian open obligation recorded; gauge compatible with A02; N1 redundant hprojected; N2 hjoint wording; N3 closure): REVIEW_168 + 2 probes,accepted,
+2026-09-15,A01,168-A01-pressure-p3,codex,fix,launched (sol high) bd:fix-168,running,
