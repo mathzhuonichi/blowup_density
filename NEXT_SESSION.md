@@ -1,5 +1,15 @@
 # NEXT_SESSION.md — 当前状态与下一步
 
+## 168-A01-persistence（2026-09-15 0942Z）
+
+- 实际高阶sourceTime及同原源a.e.降阶已通过；从166同一local witness构造，保留原T、数据、force和方程。另已证明真实regularized heat终端gradient energy加耗散界及pointbound。
+- 两模块、九项标准公理输出、26条现有合同、变异及Python检查全部通过，独立review ACCEPT。见logs/VALIDATION_168_20260915.md；下一步为实际正则化源对齐、有限word差值的uniform Cauchy估计与连续高阶极限，不把time-L2当continuous。
+- 平行R43已交付 [PR #168](https://github.com/mathzhuonichi/blowup_density/pull/168)：真实最大族G5端点H2积分界，含S=T_max，仍保留吸收前件。该PR在另一堆叠分支，本tree不含其证明；R43 G7/A05和A04无条件延拓仍开。全局下一lane号169。
+
+- 从 PR #167 / d64704f 派生；同T时间L2升阶之后的连续高阶持续性；源审计并证明关键跨阶桥，禁止循环调用经典解能量。
+- 独立worktree和proof缓存，固定依赖；所有Lean编译交Luna high，代码交Astra low。原稿第4节和冻结合同仍为目标。
+
+
 ## 166-A01-maxreg（2026-09-15 0915Z）
 
 - 已推送 [PR #167](https://github.com/mathzhuonichi/blowup_density/pull/167)，base为PR #164分支。proof head为7faf625；architecture检查104323252207因账户账单/额度未启动，lean-contracts跳过；PR未合并。
