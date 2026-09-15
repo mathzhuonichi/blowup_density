@@ -9,8 +9,13 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'verification'
 IMPORTS = '''import Contracts.V1.Thresholds
 import Bindings.Thresholds
+import Tests.GradientL6V2
 import TestSupport.Axioms
 open BlowupDensity
+open MeasureTheory
+open BlowupDensity.Contracts.V1.Data
+open BlowupDensity.Contracts.V1.HomogeneousNorm (dotHomogeneousENorm)
+open scoped ENNReal
 noncomputable section
 '''
 CASES = {
@@ -25,17 +30,24 @@ def missing : Contracts.V1.ThresholdAPI := by sorry
 run_cmd TestSupport.checkAxioms ``missing
 '''),
     'extra_axiom': (False, '''
-axiom fabricated : Contracts.V1.ThresholdAPI
-def apparentlyImplemented : Contracts.V1.ThresholdAPI := fabricated
+axiom fabricatedCriticalL3 :
+    ∀ v : SpatialField, MemHInfty v →
+      eLpNorm v 3 volume ≤
+        ENNReal.ofReal (Bindings.gradientL6V2Constant (1 / 2)) *
+          dotHomogeneousENorm (1 / 2) v
+def apparentlyImplemented :
+    Contracts.V2.GradientL6V2API Bindings.gradientL6V2Constant :=
+  { Tests.checkedGradientL6V2 with
+    velocityCriticalL3 := fabricatedCriticalL3 }
 run_cmd TestSupport.checkAxioms ``apparentlyImplemented
 '''),
     'weakened_hypothesis': (False, '''
-def weaker : ∀ s : ℝ, s < -2 →
-    ∃ r : ℝ, -3 / 2 < r ∧ r < -1 / 2 ∧ s < r := by
-  intro s hs
-  exact Bindings.thresholds.negativeIndex s (lt_trans hs (by norm_num))
-def exactNegative : ∀ s : ℝ, s < -1 / 2 →
-    ∃ r : ℝ, -3 / 2 < r ∧ r < -1 / 2 ∧ s < r := weaker
+def criticalL3WithoutMemHInfty :
+    ∀ v : SpatialField,
+      eLpNorm v 3 volume ≤
+        ENNReal.ofReal (Bindings.gradientL6V2Constant (1 / 2)) *
+          dotHomogeneousENorm (1 / 2) v :=
+  Tests.checkedGradientL6V2.velocityCriticalL3
 '''),
 }
 

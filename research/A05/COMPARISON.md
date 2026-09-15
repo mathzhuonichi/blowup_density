@@ -234,6 +234,16 @@ discharges site 3 of §0 and is the natural first PR.
 > compact-bump audit is `axioms_critical_l3.lean`.  No V2 contract is registered
 > pending D01's canonical norm definition.
 
+> **Lane 181 registration note (2026-09-15).**  D01's canonical norm is now
+> registered as `D01.homogeneous_norm`, so the lane-165 theorem is registered as
+> `A05.gradient_l6_v2`.  `Contracts/V2/GradientL6.lean` extends the frozen V1
+> interface with `velocityCriticalL3`; its `C : ℝ → ℝ` parameter is bound to
+> the constant family with value `criticalL3Const`.  The adapter records both
+> definitional correspondences explicitly: the implementation's A02
+> `MemHInfty` is the frozen Data predicate by `rfl`, and the local A05
+> `dotHomogeneousENorm` reaches the registered definition through D01's existing
+> bridge by `rfl`.  The broader residuals listed above remain unregistered.
+
 ---
 
 ## 4. Does `Λ` have to be an operator here?
