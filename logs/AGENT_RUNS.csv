@@ -575,3 +575,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,C01,170-C01-e6-e7-enstrophy-identity,codex,worker,launched (sol xhigh) bd:170-C01-e6-e7-enstrophy-identity,running,
 2026-09-15,A01,168-A01-pressure-p3,codex,worker,DONE rc=0: pressureOfVelocity (radial potential of R − ∂ₜu, basepoint gauge), c9 MemLp, c4 smoothness under joint ContDiff of G, momentum_of_projected, Leray-complement identification at all orders; 14 decls standard; lead reran gates OK; committed b8f644f,done,
 2026-09-15,A01,168-A01-pressure-p3,codex,reviewer,launched (sol xhigh) with lead check points bd:rev-168,running,
+2026-09-15,R44,166-R44-split,codex,reviewer,ACCEPT-WITH-NOTES (4 record fixes: integrable E'; global continuity of Y; :170→:171; A04 V3 status): REVIEW_166 + probes,accepted,
+2026-09-15,R44,166-R44-split,codex,fix,launched (sol high) bd:fix-166,running,
