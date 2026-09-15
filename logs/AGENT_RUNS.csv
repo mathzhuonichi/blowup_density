@@ -729,3 +729,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,R43,182-R43-s1b-trilinear,codex,reviewer,"launched (sol xhigh) with 5 check points (bridge audit/vacuity, Hölder constant, factor 4, composition with 175, hygiene) bd:rev-182",running,
 2026-09-15,A01,186-A01-a3-common-horizon,codex,reviewer,"ACCEPT: MildUniqueness minimal/satisfiable, commutation proved, hall token-match probe, negative mutation fails",accepted,
 2026-09-15,A01,186-A01-a3-common-horizon,lead,merge,"PR #189 opened; chain queued after lane 176's chain (wave 16)",running,189
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"re-review ACCEPT: three-input interface faithful; 9 decls standard axioms; zero + consumer instances close; sign mutation fails",accepted,
+2026-09-15,A01,180-A01-b2-assembly,lead,merge,"PR #190 opened; chain queued after 186's (wave 17)",running,190
