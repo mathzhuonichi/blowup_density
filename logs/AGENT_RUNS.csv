@@ -823,3 +823,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,196-A01-mild-gronwall,lead,merge,"PR #198 opened; chain launched (wave 25)",running,198
 2026-09-15,A01,197-A01-leray-bridge,codex,reviewer,"REJECT: hsol/hgrad (cylinder Helmholtz decomposition) assumed not derived; lane 194 supplies more of the residual bridge than reported; export with 192 canonical force/datum",rejected,
 2026-09-15,A01,197-A01-leray-bridge,codex,fix,"launched (astra low): prove hsol/hgrad from the leray projection, connect 194's residualDatum to 195's A via 190's representative (merge 194 branch), export with PressureSupply binders",running,
+2026-09-15,A01,196-A01-mild-gronwall,lead,merge,"PR #198 merged via chain (wave 25) gates green; MildGronwall.lean + solenoidal AprioriFamily on integration",merged,198
+2026-09-15,A01,194-A01-complement-path,codex,reviewer,"ACCEPT: 192/195 probes compile; interval-widening mutation fails",accepted,
+2026-09-15,A01,194-A01-complement-path,lead,merge,"PR #199 opened; chain launched (wave 26)",running,199
