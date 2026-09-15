@@ -30,7 +30,7 @@
 
 | 包 | 节点 | 一句话 | 大小 | 起步依赖 |
 |---|---|---|---|---|
-| P1 | A04 | `restartBeyond` → `lifespanInfiniteOfLocallyFinite` → A04 V3（R43/R44 消费） | M+S+S | 无 | **owner 团队已做（PR #161，以 `Restart`/`HigherOrderBound` 为具名假设）；剩 V3 注册** |
+| P1 | A04 | `restartBeyond` → `lifespanInfiniteOfLocallyFinite` → A04 V3（R43/R44 消费）——**owner 团队已做（PR #161，以 `Restart`/`HigherOrderBound` 为具名假设），剩 V3 注册** | M+S+S → S | 等 #161 合入 |
 | P2 | C01 | enstrophy 恒等式 E5→E6→E7 → `h2TimeIntegral` → C01 V4（R43/R44 消费） | M+M+S+M | 无 |
 | P3 | A05 | `‖u‖₃ ≤ C‖u‖_{Ḣ^{1/2}}` 的载体翻译 U1→…→U7 → A05 V2（R43/R44 消费） | M–L | 无 |
 | P4 | D01 | G1 `dotHomogeneousENorm`（阻塞 R43/R44 陈述）；G3 半整数阶外力 datum 路径 | S；M–L | 无 |
