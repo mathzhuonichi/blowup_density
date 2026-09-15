@@ -1,4 +1,6 @@
-# HANDOFF.md — 可分发的并行工作包（2026-09-15）
+# HANDOFF.md — 可分发的并行工作包（快照：2026-09-15 12:55Z）
+
+> **本文件是一次性快照，不是活状态。** 截至：集成分支 `erenup/integration` 提交 `cefa150`；已合入集成分支的最后一条 lane PR 是 **#160**（lane 001–160 全部处理完）；`main` 含 #15（= 集成分支到 b7895f1）；owner 侧 **PR #161**（`codex/*` → `main`，覆盖 lane 158/160）尚未合入；本文件随 **PR #171** 进 `main`。26 条已注册合同、128 个 `Section4` 模块。之后的变化以 [`NEXT_SESSION.md`](../NEXT_SESSION.md) 和 `PLAN.md` §8 进度表为准；若某个包已被别人领走或做完，那里会写。
 
 给愿意并行帮忙的人看的一页纸。总规划和状态看板在 [`PLAN.md`](../PLAN.md) §4–§5；规矩全文在 [`CLAUDE.md`](../CLAUDE.md)；活状态在 [`NEXT_SESSION.md`](../NEXT_SESSION.md)。本文件每个工作包都自成一体：目标、精确的 Lean 目标陈述、先读什么、树里已有什么、交付物、门禁、大小、依赖。
 
