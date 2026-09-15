@@ -1,4 +1,4 @@
-import NSFormalization.Section4.A01.ConstructorDivergence
+import NSFormalization.Section4.A01.ConstructorDivergenceSlice
 import NSFormalization.Section4.A04.Forcing
 import NSFormalization.Section4.C01.JetPaths
 
