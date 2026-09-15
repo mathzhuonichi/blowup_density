@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- （09-15 1912Z，164）codex reviewer 只按拿到的任务书判：lane 经 fix 改了布局后，review 必须附上 fix 任务书，否则会因「与原任务书不符」误判 REJECT（`scripts/codex_review.sh` 现在自动附带 `fix_<lane>.md`）。另：新组件版本 1 的合同文件放 `Contracts/V1/`（冻结只针对已有 V1 文件），不要造空壳 shim。
 - （09-15 1905Z，167）**brief 写错方向，worker 会照着证出一条假设不可满足的定理**：A01 行 (v) 我让 worker 从柱面路径 `F` 造物理力 `f'`，零延拓在 `t = S` 处不 `C^∞`，`ForcePathSmoothness (forcePath f)` 对非零 `f` 可证伪；正确方向是消费者方向（论文的全局 `f` 给定，`F := C01.forcePath hf`，`f' := f`）。写 brief 前先问「谁消费这条定理、它手里有什么」，再定方向；审稿附注（`review_notes_<lane>.md`）抓住了它。
 - （09-15 1901Z）`git worktree add` 不能并行跑（`.git/config` 锁：`could not lock config file`，分支建了但 worktree 没建）：多条 lane 的 worktree 串行创建，只有 `lean-install.sh` 可以并行。
 - （09-14 1232Z，159）开一个消费兄弟节点结果的 lane（R43/R44/R41）之前先审计 `verification/contracts.json` 的 scope：`research/*/Spec.lean` 里的字段不等于已注册合同，R43 引用的 A05 `velocityCriticalL3`、C01 `h2TimeIntegral`、A04 `lifespanInfiniteOfLocallyFinite` 三条都只是草稿。

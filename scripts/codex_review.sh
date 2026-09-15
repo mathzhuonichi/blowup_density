@@ -58,6 +58,7 @@ $( [ -f "$ROOT/tmp/codex/briefs/review_notes_$LANE.md" ] && { echo "---- lead's 
 
 ---- lane brief ----
 $(cat "$BRIEF")
+$( [ -f "$ROOT/tmp/codex/briefs/fix_$LANE.md" ] && { echo; echo "---- LATER FIX BRIEF (supersedes the lane brief where they conflict; judge the lane against THIS) ----"; cat "$ROOT/tmp/codex/briefs/fix_$LANE.md"; } )
 EOF
 LOG=$ROOT/tmp/codex/review_$LANE.log; LAST=$ROOT/tmp/codex/review_$LANE.last.md; DONE=$ROOT/tmp/codex/review_$LANE.DONE
 RUN=$ROOT/tmp/codex/run_review_$LANE.sh

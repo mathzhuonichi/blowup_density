@@ -291,7 +291,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 161-A01-b1-time-ladder | 已合并 | 09-15 1859Z | #172 | — | A01 **B1 时间正则阶梯 rung 1**（HANDOFF P8）：datum 路径的连续 selection（R1）+ 阶梯表 B1_LADDER.md；任务书 collaboration/briefs/161-*.md |
 | 162-A01-c6-divergence | 已合并 | 09-15 1901Z | #174 | — | A01 **c6 散度 a.e.**（HANDOFF P7a）：从柱面对的 divergenceFreeSpace 子句下降到光滑代表元的 Σ∂ᵢuᵢ = 0 a.e.，逐点升级以 c3 为具名假设 |
 | 163-C01-e5-enstrophy | 已合并 | 09-15 1859Z | #173 | — | C01 **E5 enstrophy 导数**（HANDOFF P2 首环）：vendor wordEnergy_hasDerivWithinAt 在 s=1 减 s=0，分部积分得 −2⟪Δu,∂ₜu⟫，镜像 EnergyDerivative.lean |
-| 164-D01-g1-homogeneous-norm | 待审（codex review 中；V1 已改为真合同文件） | 09-15 1852Z | — | — | D01 **G1 dotHomogeneousENorm**（HANDOFF P4）：datum 形齐次 Ḣ^s 范数定义 + 基本引理 + Contracts/V2 重述与 rfl 桥 + 注册（第 27 条） |
+| 164-D01-g1-homogeneous-norm | 合并中 | 09-15 1912Z | #176 | — | D01 **G1 dotHomogeneousENorm**（HANDOFF P4）：datum 形齐次 Ḣ^s 范数定义 + 基本引理 + Contracts/V2 重述与 rfl 桥 + 注册（第 27 条） |
 | 165-A05-critical-l3 | 待审（codex review 中；lead 附注：与 164 定义逐 token 比对、MemHInfty 假设、⊤ 空洞性、常数） | 09-15 1907Z | — | — | A05 **velocityCriticalL3**（HANDOFF P3）：Riesz 路线（Paper1/SchwartzCriticalEmbedding）到 spec 词汇的载体翻译 U1–U7；不注册（等 164） |
 | 166-R44-split | 已合并 | 09-15 1908Z | #175 | — | R44 **命题 4.4 拆分**（HANDOFF P6）：R44_SPLIT.md + Pieces.lean（拼写钉/常数算术/bootstrap 复用），注册审计 |
 | 167-A01-force-bridge | 返工中（审稿 REJECT：行 (v) 方向反了，零延拓在 t=S 不光滑；codex 返工） | 09-15 1905Z | — | — | A01 **行 (v) 数据/外力桥**（HANDOFF P7b）：forceOfPath F ↦ f' 与 MemForceR/MemL1Hm，a.field ∈ initialClassR，与 C01.forcePath 的往返 |
