@@ -408,3 +408,4 @@ The pressure and gauge fields hold for every classical solution with admissible
 force; only Sobolev time smoothness consumes the all-order carrier paths. Lane
 208 may instantiate the theorem using its chosen solution's carrier and slice
 identity. This does not discharge the separate H¹-uniform horizon bound.
+| 210 · horizon uniformity | `HorizonUniform.lean` | **PARTIAL: H⁷ cylinder / CₜH⁶ force uniform mild existence proved; requested H⁷/L¹ and H¹ fields OPEN** | Both Picard budgets and radius monotonicity proved; actual zero-data instance checked. L¹ force does not bound the vendor sup-force budget; arbitrary chosen horizon needs a selection guarantee. No V2 change authorized or made. See `ATTEMPTS_HORIZON_UNIFORM.md`, `REPORT_210.md`. |
