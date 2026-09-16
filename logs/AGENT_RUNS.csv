@@ -1060,3 +1060,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R44,227-R44-endpoint,codex,reviewer,"astra/sol retry review launched",running,
 2026-09-16,R44,228-R44-s1d-absorption,codex,worker,"gpt-5.6-sol xhigh (14 min): S1d absorption proved (own constants theta=(4C0)^-1, C2=3/2, C3=3; one integrable E-prime); duplicates 227 names -> absorbed into lane 229 instead of a PR",done-absorbed,
 2026-09-16,R44,229-R44-prop44,lead,plan,"lane opened on 227 branch (install then astra low, retry): adapt 228 onto 227, Prop. 4.4 unconditional, R41 q=2 non-density",planned,
+2026-09-16,R43,226-R43-contract-v1,lead,merge,"PR #230 merged into erenup/integration; wave 58 gates OK; 30 contracts",merged,230
