@@ -1070,3 +1070,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R41,232-R41-nondensity-both,lead,plan,"lane opened on 229 branch (install then sol xhigh, retry): RMainAPI.nonDensityZero for q in {1,2} from 224/229",planned,
 2026-09-16,R42,233-R42-family-from-data,lead,plan,"lane opened (install then astra low, retry): R41D G1 — build the registered R42 insertion record from raw data with T < T_max",planned,
 2026-09-16,R41D,234-R41D-small-gaps,lead,plan,"lane opened (install then sol xhigh, retry): R41D gaps G2-G5 class/norm facts",planned,
+2026-09-16,R44,229-R44-prop44,codex,reviewer,"gpt-6-astra: ACCEPT-WITH-NOTES (R44_SPLIT status line, applied by lead; probe rev229_radius)",accepted,232
+2026-09-16,R44,229-R44-prop44,lead,merge,"PR #232 opened; chain launched (wave 60)",running,232
