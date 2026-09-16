@@ -1159,3 +1159,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R45,254-R45-compact-rider,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
 2026-09-16,R47,253-R47-flux-cancellation,codex,worker,"gpt-6-astra low (10 min): flux cancellation closed unconditionally; force observation equalities on [0,T) (12 theorems)",done,
 2026-09-16,R47,253-R47-flux-cancellation,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
+2026-09-16,R45,252-R45-compact-class,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes",accepted,245
+2026-09-16,R45,252-R45-compact-class,lead,merge,"PR #245 opened after merging integration; chain queued after #244 (wave 73)",running,245
