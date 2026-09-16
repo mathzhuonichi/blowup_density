@@ -1,6 +1,6 @@
 # HANDOFF.md — 可分发的并行工作包（快照：2026-09-15 12:55Z）
 
-## 快照更新（2026-09-15 22:30Z，lead）
+## 快照更新（2026-09-15 22:30Z，lead；表格于 2026-09-16 01:00Z 刷新：A01 构造器已落地）
 
 截至集成分支 `2c3df18`；最后合入的 lane PR 是 **#192**（lane 182）；**29 个合同**；owner 的 `main`（PR #161–#171）已并入集成分支（lane 184；同名模块改名为 `C01/EnstrophyIdentityRaw`、`A01/ConstructorDivergenceSlice`）。lead 现用 codex 工作流（`scripts/codex_lane.sh` / `codex_review.sh`）跑 lane 175–191，下面的 P 表状态以此为准：
 
@@ -11,9 +11,9 @@
 | P3 A05 临界嵌入 | **关闭**（165 + V2 合同 `A05.gradient_l6_v2`，181） | U4/U8（Λv 实现、∂_j v 半阶数据）lane 191 在做 |
 | P5 R43 临界配对 | 175 S1a/c/d + 182 S1b + 191 U4/U8 已合入（#185/#192/#195）：eq:Rcritical1 条件于 `CriticalDatumPath`（G3/G4 半阶载体）和 `CriticalAdvectionLpBridge`，后者只剩 `pairing_identity` | **可领：R43 分数阶 Parseval**——证 `∀ t ∈ Ioo 0 T, ⟪hcrit.advectionHalf t, hcrit.velocityHalf t⟫ = ∫ ⟨(u·∇)u(t,x), (shifted t).lambda x⟩ dx`（`Section4/R43/Trilinear.lean` 结构体 `CriticalAdvectionLpBridge` 的字段原文；`lambda` = 191 的 `rieszLambda`，即 `Ḣ^{1/2}` 内积 `⟪Λ^{1/2}a,Λ^{1/2}b⟫ = ⟨a,Λb⟩` 的物理实现；入口 `Section4/A05/RieszShift.lean`、`D01/HalfOrder.lean`、`Source/FractionalRealization.lean`） |
 | P6 R44 | 166 拆分已合入 | **可领**：`research/R44/` 拆分表的各行 |
-| P7 A01 A3 | 173（不变量界）、179（Grönwall 端点）、186+188（**公共视界无条件**：`compatible_carriers_hall'`）已合入 | 还缺 **A3-M2 全阶先验界** `∀q, HasAprioriBound`（预计=唯一性+构造器+Grönwall 的接线，等 P8/P9 闭合） |
-| P8 A01 B1 | 161 R1、169 R2、178 R3、187（hfs，审稿中）已落 | 190 R4 联合光滑代表元在做 |
-| P9 A01 B2/P4 | 180 构造器（三个命名输入 hsob/hc3/hpg；视界改 `T:=S` 的 fix2 在跑，PR #190 草稿） | 189 压力梯度正则性 `hpg` 在做；之后一条接线 lane 把 178+186'+187+189+190 合成经典解构造器 |
+| P7 A01 A3 | 173、179、186+188（公共视界无条件）、192（接线）、193（#197 先验界族）、196（#198 mild Grönwall 归约）、198（#202 能量前提）已合入 | 只剩 **`FiniteMildEnergy`**（199：带号正则化能量恒等式保留耗散 + 比较 ODE 包络 + 换位子族范数界） |
+| P8 A01 B1 | **闭合**：161 R1、169 R2、178 R3、187 hfs（#193）、190 R4 联合光滑代表元（#194）全部合入 | — |
+| P9 A01 B2/P4 | **闭合（条件于 hb）**：180（#190）构造器 + 189（#203）压力供给（194/195/197 三块 + Helmholtz 逆向）；探针 `a01_constructor_pipeline`：仅由 `hb` 得到 `ClassicalSolutionR` | — |
 | P10/P11 R41D、SPEC | 174 已合入 | **可领**：R41D 拆分表 |
 
 外部协作者请优先领 **P5 Parseval**、**P6**、**P10**（互不依赖、不碰 A01）；lane 号仍用 200–299。
