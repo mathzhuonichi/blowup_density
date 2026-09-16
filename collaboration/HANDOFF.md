@@ -15,7 +15,7 @@
 | P8 A01 B1 | **闭合**：161 R1、169 R2、178 R3、187 hfs（#193）、190 R4 联合光滑代表元（#194）全部合入 | — |
 | P9 A01 B2/P4 | **闭合（条件于 hb）**：180（#190）构造器 + 189（#203）压力供给（194/195/197 三块 + Helmholtz 逆向）；探针 `a01_constructor_pipeline`：仅由 `hb` 得到 `ClassicalSolutionR` | — |
 | P9b A04 延拓 | **闭合（固定力 + H⁷ 形状）**：213（#218）、215（#219）、217（#220）全部合入；延拓定理对 MemForceR 力无具名输入 | — （owner 的 `Restart` H¹/跨力措辞待 V2 决定） |
-| P10/P11 R41、R41D、SPEC | 174 已合入；224（#227）thm:Rmain (ii) q=1 非稠密子句已合入；q=2 由 229 在做 | **可领**：R41D 稠密分支（Theorem 4.2 插入 → densityFixedInitial/densityZero 的两情形拆分） |
+| P10/P11 R41、R41D、SPEC | **Theorem 4.1（Y = F_R）全部子句已证**：224（#227）q=1、229（#232）q=2 非稠密；232 装配 `nonDensityZero`（审稿中）；233（G1，合并链中）+ 235（thm:Rmain (i) 稠密 + (ii) if 半，审稿中）；234 G2–G5 在跑 | **可领**：R41 `RMainAPI` 装配 + V1 合同注册（等 232/235 合入）；cor:Rclasses（F_c/F_rd 版本，需 234） |
 
 外部协作者请优先领 **P5 Parseval**、**P6**、**P10**（互不依赖、不碰 A01）；lane 号仍用 200–299。
 
