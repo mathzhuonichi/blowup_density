@@ -10,6 +10,7 @@ PACKAGE = ROOT / 'verification'
 IMPORTS = '''import Contracts.V1.Thresholds
 import Bindings.Thresholds
 import Tests.GradientL6V2
+import Tests.LocalTheoryV2
 import TestSupport.Axioms
 open BlowupDensity
 open MeasureTheory
@@ -30,24 +31,21 @@ def missing : Contracts.V1.ThresholdAPI := by sorry
 run_cmd TestSupport.checkAxioms ``missing
 '''),
     'extra_axiom': (False, '''
-axiom fabricatedCriticalL3 :
-    ∀ v : SpatialField, MemHInfty v →
-      eLpNorm v 3 volume ≤
-        ENNReal.ofReal (Bindings.gradientL6V2Constant (1 / 2)) *
-          dotHomogeneousENorm (1 / 2) v
-def apparentlyImplemented :
-    Contracts.V2.GradientL6V2API Bindings.gradientL6V2Constant :=
-  { Tests.checkedGradientL6V2 with
-    velocityCriticalL3 := fabricatedCriticalL3 }
+axiom fabricatedH7LowerBound :
+    ∀ ν, 0 < ν → ∀ f, MemForceR f → ∀ K : ℝ≥0∞, K ≠ ⊤ →
+      ∃ δ > 0, ∀ a, a ∈ initialClassR → sobolevENorm 7 a ≤ K →
+        δ ≤ Tests.checkedLocalTheoryV2.horizon ν a f
+def apparentlyImplemented : Contracts.V2.LocalTheory.LocalTheoryAPI :=
+  { Tests.checkedLocalTheoryV2 with
+    horizon_lower_bound := fabricatedH7LowerBound }
 run_cmd TestSupport.checkAxioms ``apparentlyImplemented
 '''),
     'weakened_hypothesis': (False, '''
-def criticalL3WithoutMemHInfty :
-    ∀ v : SpatialField,
-      eLpNorm v 3 volume ≤
-        ENNReal.ofReal (Bindings.gradientL6V2Constant (1 / 2)) *
-          dotHomogeneousENorm (1 / 2) v :=
-  Tests.checkedGradientL6V2.velocityCriticalL3
+def h7WithoutForceMembership :
+    ∀ ν, 0 < ν → ∀ f, ∀ K : ℝ≥0∞, K ≠ ⊤ →
+      ∃ δ > 0, ∀ a, a ∈ initialClassR → sobolevENorm 7 a ≤ K →
+        δ ≤ Tests.checkedLocalTheoryV2.horizon ν a f :=
+  Tests.checkedLocalTheoryV2.horizon_lower_bound
 '''),
 }
 

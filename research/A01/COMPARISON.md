@@ -337,3 +337,20 @@ Ordered by when to test, not by likelihood.
    `R3LerayPointwiseProjectionIdentification.lean:97`). This pulls a multiplier
    construction into the critical path regardless of route, and the HeliCorgi
    route becomes strictly better.
+
+## Paper vs V2
+
+The registered V2 deliberately separates the local solution/regularity theorem
+from the stronger quantitative restart sentence.  In particular, the frozen
+V1 contract `A01.regularity_partial` has no horizon field at all; the H¹ clause
+below was a field of the unregistered draft `research/A01/Spec.lean`, not a
+proved V1 field.
+
+| paper sentence | V1 field (H¹) | V2 field (H⁷, fixed force) | why V2 suffices downstream | what the H¹ version would need |
+|---|---|---|---|---|
+| Appendix A:147–150 invokes the cited H¹ local-existence bounds after Grönwall: the restart data have bounded H¹ norm and the fixed force is bounded into H¹ on `[0,S+1]`, giving one positive restart duration.  The draft formalization strengthened this to one `δ` chosen uniformly over an H¹ datum/`L¹_tH¹_x` force ball, with both `a` and `f` quantified after `∃ δ`. | **No such registered V1 field.** `A01.regularity_partial` contains only `projected` and `pressure_potential`.  The H¹/cross-force statement was the draft `Spec.lean:338-343` field and is not proved by V1. | For each `ν>0` and each **fixed** `f : MemForceR`, then for every finite `K : ℝ≥0∞`, there is a genuine `δ>0` below `horizon ν a f` for every `a∈initialClassR` with `sobolevENorm 7 a≤K`.  Thus the force is quantified before `∃δ`, the datum bound is H⁷ rather than H¹, and no cross-force uniformity is asserted.  The exact H¹ statement remains only the unregistered open definition `ManuscriptHorizonLowerBoundH1`. | A04 restarts the **same underlying force** with Grönwall-bounded H⁷ data.  `research/A04/REPORT_215.md` §3 proves separately, from a compact-time bound on that force, one window uniform over all `t₀∈[0,S]` and their shifted forces; `REPORT_217.md` supplies the gluing consumed by `restartBeyond` / `extendsBeyond` / `lifespanInfiniteOfLocallyFinite`.  Cross-force uniformity is never used.  A02's `exists_maximal'` (`research/A02/REPORT_213.md`) only consumes per-datum local existence for the same force, not a uniform force ball. | A forced quantitative H¹ local theory on the mild stack, including an H¹/`L¹_tH¹_x` lifespan estimate, persistence to the smooth solution on that same interval, and a horizon selection preserving the uniform lower bound.  The existing H⁷ Picard budget and high-order Grönwall propagation do not imply this. |
+
+Consequently V2 registers exactly the implemented consumer-facing theorem and
+does **not** claim that the Appendix A:147–150 H¹/cross-force sentence has been
+formalized.  Uniformity in the restart time is also not smuggled into the V2
+field: it is the separate fixed-force theorem proved in lane 215.
