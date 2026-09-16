@@ -388,3 +388,15 @@ the cylinder norm and closed-interval datum norm
 (`apriori_rows_of_hslice_same_horizon`), without asking for classical
 smoothness at `S`. The historical strictly-longer-horizon proposition remains
 only as `CarrierConstructorFullClamped` for negative documentation.
+
+## Contract registration
+
+| Lane | Obligation | Status / handoff |
+|---|---|---|
+| 208 | Identify the actual datum; bridge initialClassR to the smooth solenoidal carrier; total horizon and solution data | DONE: `A01/LocalSolution.lean`, `localHorizon`, `localSolution`; canonical structure conversion checked in `axioms_local_solution.lean` |
+| 209 | ManuscriptLocalRegularity, including pressure recovery at zero and gauge, for the same selected solution | Pending; consume lane 208's definitions rather than independently choosing a solution |
+| 210 | H¹-uniform horizon_lower_bound | Pending; the chosen H⁷-based existential horizon has no proved H¹-uniform bound; any replacement must coordinate horizon, solution, and regularity |
+| 211 | Canonical contract, bindings, tests and registry | Pending 209/210; reuse the existing field-by-field A02-to-contract conversion |
+
+Lane 208 adds no analytic premise and does not claim an inhabitant of the complete
+`LocalTheoryAPI`. See `ATTEMPTS_LOCAL_SOLUTION.md` and `REPORT_208.md`.
