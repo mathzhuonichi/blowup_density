@@ -1147,3 +1147,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R45,252-R45-compact-class,codex,worker,"gpt-5.6-sol xhigh (10 min): cor:Rclasses density and zero-datum iff for Y = F_c (4 declarations)",done,
 2026-09-16,R45,252-R45-compact-class,codex,reviewer,"sol/astra retry review launched",running,
 2026-09-16,R45,254-R45-compact-rider,lead,plan,"lane opened on 252 branch (install then sol xhigh, retry): cor:Rclasses regular-reference rider for Y = F_c",planned,
+2026-09-16,I03,250-I03-homogeneous-scaling,codex,worker,"gpt-6-astra low (25 min): homogeneous scaling identities + I03 negative-order fields conditional on one named input CompactHomogeneousRealization (path measurability); 36 declarations",done,
+2026-09-16,I03,250-I03-homogeneous-scaling,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,I03,255-I03-path-measurability,lead,plan,"lane opened on 250 branch (install then sol xhigh, retry): close CompactHomogeneousRealization (path measurability)",planned,
