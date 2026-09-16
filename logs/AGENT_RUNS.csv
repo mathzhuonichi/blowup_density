@@ -895,3 +895,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"sol reviewer died at start (model at capacity); relaunched on gpt-6-astra low",running,
 2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"astra reviewer also died (capacity); armed tmp/retry_review.sh (alternating sol/astra, 5-min backoff)",pending,
 2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"sol reviewer died mid-run (capacity); armed retry_review.sh (astra/sol alternating, 7-min initial backoff)",pending,
+2026-09-16,A01,203-A01-signed-limit,lead,merge,"rebased onto integration (skipped replayed 201 picks); lead verified; PR #207 opened; chain launched (wave 35); review relaunched on astra",running,207
+2026-09-16,A01,202-A01-commutator-bound,lead,merge,"rebased; lead verified; PR #208 opened; chain queued after 203 (wave 36); review relaunched on astra",running,208
+2026-09-16,A01,204-A01-signed-passage,lead,plan,"lane opened (install then auto-launch astra low) from the 203 branch: prove CylinderSignedEnergyPassage",planned,
+2026-09-16,A01,205-A01-coordinate-tame,lead,plan,"lane opened (install then auto-launch astra low) from the 202 branch: prove CylinderCoordinateTame (existential C first; angular-invariant re-cut allowed)",planned,
