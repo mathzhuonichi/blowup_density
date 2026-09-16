@@ -70,6 +70,7 @@ with `0 < theta`, `0 ≤ C₂`, `0 < C₃`, all universal.  Its analytic subrows
 | S1a | define `J=(I-Δ)^(1/2)` on the datum carrier and prove `‖u‖²_{H^(3/2)} = Y² + Z²`, i.e. the exact weight identity, plus `abs ⟪f,Ju⟫ ≤ B * sqrt (Y²+Z²)` | **closed in lane 218**, `Section4/R44/JWeight.lean`; one satisfiable `JWeightDatum` restriction | no longer a proof blocker; registration remains |
 | S1b | differentiate `Y²`, identify the `J`-weighted momentum pairing, remove pressure, and evaluate dissipation | **closed in lane 222**, `Section4/R44/EnergyIdentity.lean`; `energy_identity` for every classical solution, no extra analytic hypothesis | no longer a proof blocker; registration remains |
 | S1c | `abs ⟪(u·∇)u,Ju⟫ ≤ C₀ * Y * (Y²+Z²)` | **R44-own G2**, L; depends on **A05 V2** (`velocityCriticalL3`, derivative/J critical embeddings) and G1 | blocks proving |
+| S1c status | **closed (lane 220, `Section4/R44/TrilinearJ.lean`)**: `advection_pairing_le : abs (advectionJPairing h ha) ≤ trilinearConstJ * Y * (Y² + Z²)`, `trilinearConstJ = 3·criticalL3Const³`; carrier package `AdvectionJDatum` | R44 | — |
 | S1d | Young/absorption under `Y ≤ theta*ν`, producing the displayed target | **R44-own G2**, S once S1a–c exist | blocks proving |
 
 To feed S2 this must be assembled as one `E' : ℝ → ℝ` with
