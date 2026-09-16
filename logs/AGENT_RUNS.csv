@@ -1121,3 +1121,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R47,247-R47-grid-lemmas,lead,plan,"lane opened (install then sol xhigh, retry): ball-in-common-cell and gridObservation locality lemmas for thm:Rgrid",planned,
 2026-09-16,SPEC,245-SPEC-r46-spec,lead,merge,"PR #237 merged into erenup/integration; wave 65 gates OK",merged,237
 2026-09-16,SPEC,244-SPEC-r45-spec,lead,merge,"PR #238 merged into erenup/integration; wave 66 gates OK",merged,238
+2026-09-16,R47,247-R47-grid-lemmas,codex,worker,"gpt-5.6-sol xhigh (9 min): ball-in-common-cell and gridObservation locality lemmas (Bindings/GridLemmas.lean); force-difference zero cell integral left to the assembly (eq:gridforce)",done,
+2026-09-16,R47,247-R47-grid-lemmas,codex,reviewer,"sol/astra retry review launched",running,
