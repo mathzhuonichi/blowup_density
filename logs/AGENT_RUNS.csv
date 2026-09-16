@@ -1021,3 +1021,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,221-R43-force-path,codex,reviewer,"astra/sol retry review launched",running,
 2026-09-16,R43,223-R43-endpoint,lead,plan,"lane opened on 221 branch (install then astra low, retry): R43 endpoint theorem inhomogeneousAtZero (S4/S5/S6, G5)",planned,
 2026-09-16,R43,223-R43-endpoint,lead,relaunch,"relaunched 8 s after the statement clarification was appended (first launch read the old brief)",running,
+2026-09-16,R43,221-R43-force-path,codex,reviewer,"gpt-6-astra: ACCEPT-WITH-NOTES (docstring-only fix, applied by lead; probes rev221_mutation, rev221_nonvacuity)",accepted,224
+2026-09-16,R43,221-R43-force-path,lead,merge,"PR #224 opened; chain launched (wave 52)",running,224
