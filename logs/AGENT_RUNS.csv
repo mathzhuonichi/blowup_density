@@ -945,3 +945,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,210-A01-horizon-uniform,codex,reviewer,"review armed (astra first, retry): uniform theorem correctness, obstacles' honesty, fixed-force H7 re-cut assessment, horizon-selection fix bd:rev-210",running,
 2026-09-16,A01,208-A01-datum-horizon,codex,reviewer,"ACCEPT (astra): identification/bridge/horizon/solution field exact; sign mutation fails",accepted,
 2026-09-16,A01,208-A01-datum-horizon,lead,merge,"PR #213 opened; chain launched (wave 41)",running,213
+2026-09-16,A01,209-A01-manuscript-regularity,codex,worker,"DONE rc=0 (astra low): ManuscriptRegularity.lean — manuscriptLocalRegularity_of_pipeline (four fields, pressure recovery incl. t=0) for any constructor output with hslice/hpaths; 11 audits standard axioms; commit f0dd0ac",done,
+2026-09-16,A01,209-A01-manuscript-regularity,codex,reviewer,"review armed (astra first, retry): field-by-field fidelity, t=0 pressure recovery mechanism, interface with 208, hygiene + mutation bd:rev-209",running,
