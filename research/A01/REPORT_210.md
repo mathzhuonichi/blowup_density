@@ -105,3 +105,11 @@ from `verification/` with `LEAN_NUM_THREADS=6`.
 
 No push, merge or rebase; only this worktree changed. The partial-delivery
 commit contains the module, audit, attempts, split row and report.
+
+## Post-merge review corrections (2026-09-16, lead)
+
+The post-merge codex review (`REVIEW_210-A01-horizon-uniform.md`, REJECT on the lane's own claims) is answered as follows:
+- `LocalSolution.lean` / `localHorizon` were not absent: lane 208 (PR #213) had landed; this report's "no such module" remark was a stale-checkout observation.
+- The physical `horizon_lower_bound_H7` against the chosen horizon was **not** proved in this lane; it was proved in lane 211 (PR #216, `horizon_lower_bound_H7_fixedForce`) after redefining the horizon by an explicit antitone uniform selection (`localHorizon'`, `uniformHorizon_antitone`) built on this lane's `exists_uniform_H7_sup_force_horizon`.
+- The radius-monotonicity lemmas of this module are not used by its own existence proof; they are used by lane 211's antitonicity.
+- The fixed-force re-cut must be **uniform over compact restart times and the shifted forces** (one `δ` for all `t₀ ∈ [0,S]`); the vendor's `forced_uniform_restart_time` chooses one window length uniformly over restart points for one force bundle — this is the route for A04's `Restart` (lane 215), pending the owner's decision on the V2 wording (`NEXT_SESSION.md`).
