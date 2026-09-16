@@ -909,3 +909,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,205-A01-coordinate-tame,codex,worker,"launched directly (astra low) after the user restored codex capacity",running,
 2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"post-merge review launched (sol xhigh)",running,208
 2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"post-merge review launched (sol xhigh)",running,207
+2026-09-16,A01,205-A01-coordinate-tame,codex,worker,"PARTIAL rc=0 (astra low): CoordinateTame.lean — smooth Leibniz expansion, smooth→finite transfer (mollifier, restriction-compatible, no constant loss), conditional recut; residual SmoothCylinderCoordinateTame; 18 audits standard axioms; commit 09ecf46",partial,
+2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,"launched (sol xhigh): transfer soundness, Leibniz exactness, angular-invariant descent to R³/A03 question, hygiene bd:rev-205",running,
