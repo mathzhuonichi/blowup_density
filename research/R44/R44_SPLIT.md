@@ -16,7 +16,12 @@ Lean delivered in this lane is
 theorems.  The identical `ℝ≥0∞` power pin and C01 gate discharge are reused from
 `R43.Pieces`, not copied.
 
-## 0. Registration audit at this branch
+## 0. Historical registration audit (lane 166 baseline)
+
+The table below records the original split baseline. Lane 227 consumes the now
+present A05 V2, C01 V4, A02 `exists_maximal'`, and A04
+`extendsBeyond_of_memForceR'`; their old absence claims are historical.
+The current proof status is in rows S2–S6 and the gap summary below.
 
 `verification/contracts.json` has 26 entries.  The relevant scopes are:
 
@@ -74,177 +79,123 @@ with `0 < theta`, `0 ≤ C₂`, `0 < C₃`, all universal.  Its analytic subrows
 | S1d | Young/absorption under `Y ≤ theta*ν`, producing the displayed target | **R44-own G2**, S once S1a–c exist | blocks proving |
 
 To feed S2 this must be assembled as one `E' : ℝ → ℝ` with
-`IntervalIntegrable E' volume 0 T`; the pointwise existential alone does not
+`IntervalIntegrable E' volume 0 S` on each `0 ≤ S < T`; the pointwise existential alone does not
 discharge `Pieces.lean:162-163`.
 
 No registered field supplies S1.  The unregistered implementation now supplies
 S1a and S1b, while S1c--S1d remain open on this baseline.  `C01.energy_absorption_partial` V1 concerns
 the `-Δu` test used by eq:RH1, not the `Ju` test.
 
-### S2 — Grönwall, radius scaling, and first-exit bootstrap (closed conditionally, S–M)
+### S2 — Grönwall, explicit radius, first exit (closed conditional only on S1)
 
-Paper `:165-169`.  Once S1 and the force-square prefix bound are supplied, the
-exact scalar input now accepted by Lean is
-`criticalSquaredNormBound_radius` (`Pieces.lean:153`):
+Lane 227: `Section4/R44/Endpoint.lean`, `Y_bound_of_differential`.
+The only named input is `RCritical2Differential w hf`: one `E' : ℝ → ℝ`,
+`IntervalIntegrable E' volume 0 b` for every `0 ≤ b < T`, and precisely the
+S1 derivative/conditional inequality on `Ioo 0 T`. Integrability is required on
+closed **presingular** windows, not at a potentially singular classical endpoint.
 
-```lean
-hsmall : C₃ * ν⁻¹ * R * exp (C₂ * ν * T) < (theta * ν)^2 / 4
-henergy : ∀ t ∈ Ioo 0 T, Y t ≤ theta * ν →
-  E' t + ν * Z t ^ 2 ≤ C₂ * ν * Y t ^ 2 + C₃ * ν⁻¹ * B t ^ 2
-⊢ ∀ t ∈ Icc 0 T, Y t ≤ theta * ν / 2
+The fixed universal constants are
+
+```
+theta = min R43.criticalConst (1 / (100 * (A05.criticalL3Const + 1)^3))
+C₂ = 2, C₃ = 4
+c = theta / (4 * (C₃ + 1)) = theta / 20
+C = C₂ + 1 = 3
+radius ν S = c * ν^(3/2 : ℝ) * exp (-(C*ν*S)).
 ```
 
-It uses the tree lemma `A04.gronwall_deriv` and reuses
-`Paper1.continuous_bootstrap`; the first possible crossing of `theta*ν` is
-therefore closed without dividing by `Y`.
-Instantiation also owes either global `Continuous Y` or a continuous extension
-of the PDE norm path from `Icc 0 T`, because `Pieces.lean:158` inherits global
-continuity from `Paper1.continuous_bootstrap`.
-Unlike R43, no regularized square-root division is mathematically needed here:
-eq:Rcritical2 is already a linear differential inequality for `Y²`.  The
-shared part of the requested “regularized division / bootstrap” row is the
-same `continuous_bootstrap`; importing `critical_norm_bound` would impose the
-wrong `b*Y` energy shape.
+All positivity and radius arithmetic are proved. S1d must supply the displayed
+inequality at these fixed constants; this lane does not claim that derivation.
+For `0 ≤ b < T`, `b ≤ S`, and the exact global inhomogeneous L² smallness
+hypothesis, the result is `∀ t ∈ Icc 0 b, Y(slice w.velocity t) ≤ theta*ν/2`.
 
-Two further new theorems close the universal arithmetic:
+G3 is discharged here: `forceB_continuousOn`, `force_norm_eq_path`, and
+`forceB_prefix_le`. The order-two force path supplied by `MemForceR` lowers to
+order `-1/2`; datum uniqueness identifies its eLpNorm with the path infimum.
+`eLpNorm_two_sq` and restriction monotonicity bound every `∫₀ᵇ B²` by the
+square of the exact global force norm. No replacement force norm is assumed.
+The velocity norm is continuous by `energyVelocity_smooth`; composition with
+`projIcc` gives the global continuous extension required by `Pieces`.
+`radius_forces_gronwall_small` and `criticalSquaredNormBound_radius` then close
+first exit without any further analytic input.
 
-* `exists_rcritical2_constants` chooses one `theta`, radius coefficient `c`,
-  and exponent `C=C₂+1`, before all `ν,S`, satisfying both nonlinear shrinkings,
-  the C01 gate shrinking, and `C₃*c² < theta²/4`.
-* `radius_forces_gronwall_small` proves that
-  `F < c*ν^(3/2)*exp (-(C₂+1)*ν*S)` implies the `hsmall` inequality above.
-  Its proof pins the exponent as real `rpow`, obtains `ν³` after squaring, and
-  leaves a nonpositive exponential.
+### S3 — critical embedding and C01 absorption (closed from S2)
 
-Remaining input **G3** is not scalar arithmetic: identify `R` with the square of
-`forceSobolevENormL2 (-1/2) f`.  Owner C01/D01, M; see S0/G3 below.  It blocks
-proving R44, not stating it.
+`velocity_dot_le_sobolev` proves the homogeneous-to-inhomogeneous comparison
+on classical slices using the contractive Bessel-to-homogeneous map.
+`absorption_of_differential` combines it with `A05.velocityCriticalL3` and
+`R43.criticalL3_gate_enorm`. The fixed `theta ≤ R43.criticalConst` supplies
+`C₁*Cemb*theta ≤ 1/4`, independently of viscosity. Thus the exact C01 gate is
 
-### S3 — critical embedding and C01 absorption gate (A05 V2; arithmetic closed)
-
-Paper `:148-160,171`.  Needed slice estimate:
-
-```lean
-criticalL3 (slice u t) ≤ ENNReal.ofReal (Cemb * Y t)
+```
+ENNReal.ofReal A05.gradientL6Const * C01.criticalL3 (C01.slice w.velocity t)
+  ≤ ENNReal.ofReal (ν / 4).
 ```
 
-This is `research/A05/Spec.lean:366` in its inhomogeneous consequence, but the
-registry has only `A05.gradient_l6` V1.  **A05 V2**, size M–L, must register and
-prove the critical embedding carrier translation.  It blocks proving.
+### S4 — finite H² budget and maximal endpoint gluing (closed from S3)
 
-Given that estimate, S2's `Y t ≤ theta*ν` and the universal shrinking
-`C₁*Cemb*theta ≤ 1/4`, C01's exact gate
+`maximal_absorption_of_differential` transfers the gate through A02's maximal
+family. For every `0 < L ≤ S` with `ofReal L ≤ maximalLifespanR ν 0 f`,
+`maximal_h2TimeIntegral_of_differential` gives the explicit C01 V4 budget
 
-```lean
-ENNReal.ofReal C₁ * criticalL3 (slice u t) ≤ ENNReal.ofReal (ν / 4)
+```
+∫⁻ t in Ioo 0 L, sobolevENorm 2 (slice u t) ^ (2 : ℝ)
+  ≤ ofReal (32*L*(forcePrimitive f L)^2
+      + 32*(ν⁻¹)^2*∫ t in 0..L, l2Sq (slice f t)).
 ```
 
-is already `R43.criticalL3_gate_enorm`.  `R44.Pieces` imports and reuses it;
-there is deliberately no duplicate R44 declaration.  The target vocabulary
-`C₁`/`criticalL3` is registered by `C01.energy_absorption_partial` V1.
+The unscaled force quantities are finite because `MemForceR f`; they are not
+assumed small. `R43.MaximalEndpoint.maximal_h2TimeIntegral` (declaration in
+namespace `R43`) reuses C01's uniform bound on shorter Ioc intervals and passes
+to their union. No terminal value `u(L)` is assigned. G4 is closed by this
+reuse, including the hypothetical finite maximal endpoint.
 
-### S4 — finite `H²` time integral at zero datum (C01 V4 + endpoint glue, M)
+`maximal_squaredHTwoIntegral_of_differential` uses the existing G5 identity
+`R43.enorm_npow_two_eq_rpow_two` and proves A04's integral is not top.
 
-Paper `:171`, referring to `:113-130`.  Proposed C01 field, exact draft shape:
+### S5 — exclude lifespan at or before S (closed from S4)
 
-```lean
-h2TimeIntegralZeroDatum :
-  ∀ ν, 0 < ν → ∀ f, MemForceR f →
-  ∀ T (w : ClassicalSolutionR ν (fun _ => 0) f T) S, 0 < S → S ≤ T →
-    (∀ t ∈ Ico 0 S,
-      ENNReal.ofReal C₁ * criticalL3 (slice w.velocity t) ≤
-        ENNReal.ofReal (ν / 4)) →
-    ∫⁻ t in Ioo 0 S,
-      sobolevENorm 2 (slice w.velocity t) ^ (2 : ℝ) ≤ ENNReal.ofReal (...)
+`rcritical2_endpoint_of_differential` uses unconditional A02
+`exists_maximal'`. If the lifespan were at most `ofReal S`, it would be finite
+and positive. Put `L = lifespan.toReal`; the maximal family supplies
+`SolvesBelow` at L. S4 supplies its finite H² integral; unconditional A04
+`extendsBeyond_of_memForceR'` gives `ofReal L < lifespan`, contradicting
+`ofReal L = lifespan`. No restart/local-existence hypothesis is retained.
+
+### S6 — exact a = 0 API and non-density (closed conditional only on S1)
+
+The final conclusion is exactly
+
 ```
-
-Supply is **not registered**.  Owner **C01 V4**, M after its E5–E7 chain:
-`enstrophyIntegralBound` (eq:RH1), `sobolevTwoFourier`, then this assembly.
-The ordinary low-frequency input `l2Bound` is registered in
-`C01.energy_absorption_partial_v3` V3.  `MemForceR` supplies finite unscaled
-`L¹_tL²_x` and `L²_tL²_x` quantities; their smallness is not used.
-
-Two wiring items remain:
-
-* The integrand expected by A04 is `sobolevENorm 2 ... ^ (2:ℕ)`, whereas C01
-  uses `^ (2:ℝ)`.  This is **closed** by the imported
-  `R43.enorm_npow_two_eq_rpow_two`; no duplicate is introduced.
-* At a hypothetical finite maximal lifespan `L ≤ S`, A02 gives solutions only
-  on every `b < L`, while C01's field is stated for a fixed horizon.  Passing
-  `b ↑ L` to get finiteness at `L` is **R44-own G4**, M (or a C01 endpoint
-  corollary).  It depends on C01 V4, A02 V2, monotone convergence, and the force
-  finiteness bounds.  It blocks proving.
-
-### S5 — exclude lifespan at or before `S` (A04 V3, S wiring after S4)
-
-Paper `:171`.  The exact continuation target is the draft field
-
-```lean
-extendsBeyond :
-  ... → SolvesBelow ν (fun _ => 0) f L u p →
-  squaredHTwoIntegral L u ≠ ⊤ →
-  ENNReal.ofReal L < maximalLifespanR ν (fun _ => 0) f
-```
-
-It is neither proved nor registered on this branch: **A04 V3** is required.
-The owner's PR #161 to `main` proves a conditional version, but it is not on
-`origin/erenup/integration`.  A04 V2 explicitly stops before the criterion.
-`A04.zero_mem_initialClassR`
-(`Section4/A04/ZeroSolution.lean:80`) and `A04.memL1Hm_of_memForceR` are tree
-lemmas supplying the zero datum and `MemL1Hm` side conditions; they are not new
-R44 mathematics.
-
-The contradiction assumes `L = maximalLifespanR ... ≤ ofReal S`, uses the
-registered-but-A01-conditional maximal family `A02.maximal_partial_v2` V2,
-feeds S4 at `L`, then contradicts `ofReal L < L`.  Besides A04 V3 it depends on
-R44-own G4 and on discharge of A02 V2's explicit local-solution hypothesis by
-the future A01 contract.  These block proving, not stating.
-
-### S6 — exact `a = 0` API and non-density consequence (reduction S once S5 closes)
-
-The R44 conclusion is not a general-datum result:
-
-```lean
 ENNReal.ofReal S < maximalLifespanR ν (fun _ => 0) f
 ```
 
-The spelling `(fun _ => 0)` is definitionally the one in
-`breakdownSetRZero`.  From `main` at `S := T`, field `nonDensityBallZero` is the
-two-line contradiction
+under `MemForceR f` and
+`forceSobolevENormL2 (-1 / 2) f < ENNReal.ofReal (radius ν S)`.
+`rcritical2_endpoint` is an **instantiation skeleton**: it takes the universal
+S1 provider and then has `RCritical2API.main`'s remaining binders. It is not an
+unconditional proof, and no complete API witness is claimed.
 
-```lean
-intro hfBreakdown
-exact (not_le_of_gt hLife) hfBreakdown.2
-```
+`research/R44/axioms_endpoint.lean` proves `EndpointConformance.main` and
+`EndpointConformance.nonDensityBallZero` in exact `Contracts.V1.Data`
+vocabulary. The second is the specified contradiction with breakdown-set
+membership. The same file proves zero force meets the actual strict radius
+hypothesis, checks `A04.zeroSol` with `E' = 0`, and applies the new endpoint
+at zero force after proving S1 for every zero-force solution by uniqueness.
 
-because membership unfolds by `Iff.rfl` to
-`MemForceR f ∧ maximalLifespanR ... ≤ ENNReal.ofReal T`.  This reduction is
-R44-own, S, and has no analytic dependency beyond S5.  It is not separately
-declared in `Pieces.lean`, because importing frozen `Contracts.V1.Data` into a
-formalization implementation solely for a two-line packaging lemma would cross
-the repository's contract/implementation boundary; it belongs in the eventual
-R44 binding.
+## 2. Current gap summary (lane 227)
 
-The smallness ball is nonempty/non-vacuous: `D01.datum_lemmas_v2` V2 supplies
-`forceSobolevENorm_ne_top` at `m=0,s=-1/2,q=2`, the radius is positive by
-`exists_rcritical2_constants` and the formula, and the zero force is the
-concrete witness.
+| id | current status | remaining obligation |
+|---|---|---|
+| G1 | closed locally by 218 | registration only |
+| G2 | S1b closed by 222; S1 is the sole named input to 227 | S1c/S1d derivation and locally integrable derivative assembly |
+| G3 | closed by 227 | none for endpoint proof |
+| G4 | closed by reuse of R43 maximal-endpoint gluing and A02 family | none |
+| G5 | closed by R43 natural-square/rpow pin | none |
+| A05 V2 | present, consumed | no added hypothesis |
+| C01 V4 | present, consumed | no added hypothesis |
+| A02/A04 | unconditional implementation consumed | no local-solution or continuation input |
+| S2–S6 | assembled, conditional only on `RCritical2Differential` | S1 provider, then final contract registration |
 
-## 2. Gap summary
-
-| id | owner | size | depends on | blocks |
-|---|---|---:|---|---|
-| G1 | D01/R44 datum layer: `J`, exact weight identity, duality | **closed in implementation** | `Section4/R44/JWeight.lean`; contract/binding registration owed | no remaining S1a proof blocker |
-| G2 | R44-own: eq:Rcritical2 PDE derivation; S1b energy identity closed by lane 222 | L | S1c trilinear estimate and S1d absorption/assembly; pressure and critical-path differentiation are proved | proof (remaining S1c/S1d) |
-| G3 | C01/D01: `H^{-1/2}` force slice, continuity/integrability, prefix integral = time-norm square | **partly closed, still M** | lane 218 confirms `RealVectorSobolev (-1/2)` and supplies the slicewise `B`/duality carrier. A named continuous order-`-1/2` force-datum path in the R44 consumer shape, and its prefix-integral/time-norm-square identity, remain to be packaged. | proof/S2 application |
-| G4 | R44-own: maximal-endpoint gluing and `SolvesBelow` assembly | M | A02 V2, C01 V4, A04 V3, A01 local solution | proof/S4→S5 |
-| G5 | A04↔C01 `ℕ`-pow/rpow pin | S | none | **closed**, reused from R43 |
-| A05 V2 | critical `L³` embeddings | M–L | A05 carrier translation | proof/S1,S3 |
-| C01 V4 | eq:RH1 + Fourier inequality + zero-datum `H²` assembly | M+M | existing C01 V3 | proof/S4 |
-| A04 V3 | `extendsBeyond` finite-horizon criterion | M+S proof and registration (no `extendsBeyond` theorem on this branch) | A04/A02 restart/continuation work | proof/S5 |
-| R44 scalar | constants, radius algebra, Grönwall + first exit | S–M | only existing tree scalar lemmas | **closed this lane** |
-
-Bottom line: **nothing blocks stating the nine-field R44 API**.  A clean
-PDE-level proof of its main estimate still waits on S1b--S1d and G3's pathwise
-facts; proving and binding the API waits on G2--G4 plus A05 V2, C01 V4, A04 V3, and the transitive
-A01 discharge in A02 V2.
+The unconditional Proposition 4.4 remains pending S1. The endpoint assembly
+and its force-path, norm, gluing, and continuation obligations are proved.
