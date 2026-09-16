@@ -999,3 +999,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R44,218-R44-s1a-jweight,codex,worker,"gpt-5.6-sol xhigh: R44 S1a closed at datum level (Jmul, weight identity, force duality with H^{-1/2} carrier) under datum bundle JWeightDatum",done,
 2026-09-16,R44,218-R44-s1a-jweight,codex,reviewer,"sol/astra retry review launched",running,
 2026-09-16,R44,220-R44-s1c-trilinear,lead,plan,"lane opened on 218 branch (install then sol xhigh, retry): R44 row S1c J-weighted trilinear estimate at datum level",planned,
+2026-09-16,R43,216-R43-critical-datum-path,lead,merge,"PR #221 merged into erenup/integration; wave 49 gates OK",merged,221
