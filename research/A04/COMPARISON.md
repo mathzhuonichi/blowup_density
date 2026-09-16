@@ -332,3 +332,28 @@ This does not prove the old all-force/H¹ R1 statement or change a contract.
 See [ATTEMPTS_SHIFTED_EXTENSION.md](ATTEMPTS_SHIFTED_EXTENSION.md) for the
 construction, exact uniqueness API, and pressure-gauge treatment, and
 [REPORT_217.md](REPORT_217.md) for validation.
+
+## Paper vs V2
+
+The owner-approved V2 registration deliberately exposes the continuation chain
+that the tree proves without relabelling it as the paper's stronger restart.
+The paper's H¹ sentence remains named by
+`Contracts.V2.Continuation.ManuscriptHorizonLowerBoundH1`, but that definition
+is not a field, theorem or axiom and remains open.
+
+| paper sentence | V1 field (H¹) | V2 field (H⁷, fixed force) | why V2 suffices downstream | what the H¹ version would need |
+|---|---|---|---|---|
+| `appendix-a-local-theory.tex:147-152`: “The H¹ local existence bounds … give a common positive existence duration when restarting at t₀↑S”; the Spec/V1 quantifiers choose `δ` from viscosity and a common H¹ datum/force bound before choosing the force | `Restart`: `δ` is uniform over every admissible force and restart time, with an H¹ datum bound and an `L¹_tH¹_x` force bound. It remains open and is not included as a proved V2 field. | `ContinuationV2API.restart`: for each fixed `f ∈ F_R` and compact horizon `S`, both placed before `∃ δ`, one `δ > 0` works for every `t₀ ∈ [0,S]` and every `a' ∈ X_R` in a finite H⁷ ball. This is exactly the owner-approved `RestartFixedForce` recut. | `research/A04/REPORT_215.md` §3 identifies that all consumers keep the same force. `restartBeyond`, `extendsBeyond`, and `lifespanInfiniteOfLocallyFinite` (closed unconditionally in lane 217), and A02's `exists_maximal` construction (lane 213), restart that same force at data whose H⁷ norms are bounded by `higherOrderBound`. Cross-force uniformity is never used. | A forced quantitative H¹ local theory on the mild stack: a horizon lower bound depending only on the H¹ datum and force bounds, valid uniformly across the whole force class. The proved H⁷ ball cannot be enlarged to an H¹ ball, and compactness of one force's shifted path cannot supply cross-force uniformity. |
+
+Thus V2 is sufficient for the formalized downstream continuation argument, but
+it does **not** prove the manuscript's H¹ local-existence sentence. In
+particular, neither stronger-to-weaker Sobolev embedding nor the fixed-force
+compactness argument reverses the two missing implications: controlling an H⁷
+ball does not control every H¹-bounded datum, and a duration for one fixed force
+does not become uniform over all forces.
+
+## Lead corrections (review 230, 2026-09-17)
+
+1. "uninhabited" → "unproved" wherever the H¹ sentence is described (it is an open proposition, not a claim of falsity).
+2. A02's `exists_maximal'` (lane 213) does **not** depend on lane 179's Grönwall bound; it uses lane 211's `localHorizon'`/`localCarrier` only. The Grönwall bound enters the A04 continuation consumers (215/217), not maximal existence.
+3. The contract's restated `timeShift` is **definitionally equal** to lane 160's (bridged by `rfl`), not a token-for-token copy.
