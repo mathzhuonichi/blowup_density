@@ -1128,3 +1128,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,SPEC,248-SPEC-r41-spec,codex,worker,"gpt-5.6-sol xhigh (9 min): reconciled R41 Spec.lean (elaborates) + COMPARISON with binding plan",done,240
 2026-09-16,SPEC,248-SPEC-r41-spec,lead,merge,"lead-verified elaboration; PR #240 opened; chain queued after #239 (wave 68)",running,240
 2026-09-16,R41,249-R41-contract-v1,lead,plan,"lane opened on 248 branch (install then astra low, retry): register R41.main_thresholds V1 (32nd contract) from lanes 232/233/235",planned,
+2026-09-16,SPEC,246-SPEC-r47-spec,lead,merge,"PR #239 merged into erenup/integration; wave 67 gates OK",merged,239
