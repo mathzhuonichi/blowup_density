@@ -14,7 +14,7 @@
 | P7 A01 A3 | **闭合**：…202（#208）、203（#207）、204（#209）、205（#210）、206（#211）、207（#212）全部合入；`hb_of_base''` 无分析输入；`a01_constructor_unconditional` 探针在集成分支 | 剩合同注册（208/209/210，lead 在做）；**spec 问题**：`horizon_lower_bound` 的 H¹ 子句 vs 树支持的 H⁷（见 210 报告后 `NEXT_SESSION`） |
 | P8 A01 B1 | **闭合**：161 R1、169 R2、178 R3、187 hfs（#193）、190 R4 联合光滑代表元（#194）全部合入 | — |
 | P9 A01 B2/P4 | **闭合（条件于 hb）**：180（#190）构造器 + 189（#203）压力供给（194/195/197 三块 + Helmholtz 逆向）；探针 `a01_constructor_pipeline`：仅由 `hb` 得到 `ClassicalSolutionR` | — |
-| P9b A04 延拓 | 213（#218）A02 `exists_maximal` 无条件；215（#219）固定力重启窗口 + Grönwall→`HigherOrderBound`；217（`ShiftedLocalExtension` 无条件，审稿中）| — （owner 的 `Restart` H¹/跨力措辞待 V2 决定） |
+| P9b A04 延拓 | **闭合（固定力 + H⁷ 形状）**：213（#218）、215（#219）、217（#220）全部合入；延拓定理对 MemForceR 力无具名输入 | — （owner 的 `Restart` H¹/跨力措辞待 V2 决定） |
 | P10/P11 R41D、SPEC | 174 已合入 | **可领**：R41D 拆分表 |
 
 外部协作者请优先领 **P5 Parseval**、**P6**、**P10**（互不依赖、不碰 A01）；lane 号仍用 200–299。

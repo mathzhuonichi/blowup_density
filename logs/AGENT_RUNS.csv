@@ -989,3 +989,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A04,215-A04-restart-fixed-force,lead,merge,"PR #219 merged into erenup/integration; wave 47 gates OK",merged,219
 2026-09-16,A04,217-A04-shifted-extension,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probes rev217_nonvacuity, rev217_plus_one_mutation)",accepted,220
 2026-09-16,A04,217-A04-shifted-extension,lead,merge,"PR #220 opened; chain launched (wave 48)",running,220
+2026-09-16,A04,217-A04-shifted-extension,lead,merge,"PR #220 merged into erenup/integration; wave 48 gates OK",merged,220
