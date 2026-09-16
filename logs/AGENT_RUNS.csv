@@ -870,3 +870,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,199-A01-envelope,codex,fix,"DONE rc=0: scalar ODE uniqueness (integrating factor); records; review artifacts; rebased; 22 decls standard axioms; commit ddaa7f2",done,
 2026-09-16,A01,199-A01-envelope,lead,merge,"lead re-verified; PR #204 opened; chain launched (wave 32); NOTE 200/201 branches predate this fix — rebase taking integration's MildEnergyEnvelope.lean before their chains",running,204
 2026-09-16,A01,199-A01-envelope,lead,merge,"PR #204 merged via chain (wave 32) gates green",merged,204
+2026-09-16,A01,201-A01-root-comparison,codex,worker,"DONE rc=0 (astra low): RootComparison.lean — scalar root comparison + assembly; residual named input CylinderSignedRootLimit (signed integrated limit) and mildNormConstant q ≤ E; 13 audits standard axioms",done,
+2026-09-16,A01,201-A01-root-comparison,codex,reviewer,"launched (astra low): honesty of CylinderSignedRootLimit + limit-lemma route, comparison shape, composition with 198/199 defs, rebase drift, hygiene bd:rev-201",running,
