@@ -1210,3 +1210,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R45,257-R45-rapid-class,lead,merge,"PR #253 merged into erenup/integration; wave 81 gates OK",merged,253
 2026-09-17,R46,261-R46-contract-v1,codex,worker,"gpt-5.6-sol xhigh (9 min): R46.completed_density V1 registered (three fields bound; realization instantiated)",done,
 2026-09-17,R46,261-R46-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-17,R47,260-R47-contract-v1,codex,worker,"gpt-5.6-sol xhigh (10 min): R47.grid_observations V1 registered (assembly instantiated with the realization)",done,
+2026-09-17,R47,260-R47-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
