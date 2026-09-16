@@ -354,6 +354,17 @@
       "enabled": true
     },
     {
+      "id": "R45.force_classes",
+      "parent_task": "R45",
+      "version": 1,
+      "specification": "verification/Contracts/V1/ForceClasses.lean",
+      "binding_module": "Bindings.ForceClasses",
+      "test_module": "Tests.ForceClasses",
+      "declaration": "BlowupDensity.Tests.checkedForceClasses",
+      "scope": "Corollary 4.5 (cor:Rclasses), paper/sections/04-whole-space.tex:194-199: all four fields of research/R45/Spec.lean's RClassesAPI verbatim under the name ForceClassesAPI. The guarded density and zero-data iff conclusions hold only when Y is exactly forceClassCompact or forceClassRapid, for q : ENNReal restricted to 1 or 2 and threshold criticalOrder q.toReal; the rapid class additionally has the stated Schwartz-datum density specialization. The regular-reference rider keeps the initial datum, produces an approximating force in the selected Y with exact maximal lifespan T and a ClassicalSolutionR on T, satisfies independent strict force and energy error bounds, and agrees pointwise with the named reference velocity through every prescribed cutoff 0 ≤ τ < T. Density and zeroIff use lane 257's guarded assembly from lanes 252/257; schwartzDensity uses lane 257; regularReference is the lane-262 guarded case split between lane 254's compact rider and lane 257's rapid rider. No arbitrary force subclass, completed-space density, terminal unbounded-speed clause, extra Schwartz rider, or additional analytic hypothesis is asserted.",
+      "enabled": true
+    },
+    {
       "id": "A01.local_theory_v2",
       "parent_task": "A01",
       "version": 2,
