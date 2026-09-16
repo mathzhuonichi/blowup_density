@@ -1125,3 +1125,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R47,247-R47-grid-lemmas,codex,reviewer,"sol/astra retry review launched",running,
 2026-09-16,SPEC,236-SPEC-r41-draft-a,codex,worker,"gpt-5.6-sol xhigh (80 min): R41 contract statement draft A (4 fields; rider as a Type-valued record)",done,
 2026-09-16,SPEC,248-SPEC-r41-spec,lead,plan,"lane opened (install then sol xhigh): reconciled R41 Spec.lean + merged COMPARISON with binding plan",planned,
+2026-09-16,SPEC,248-SPEC-r41-spec,codex,worker,"gpt-5.6-sol xhigh (9 min): reconciled R41 Spec.lean (elaborates) + COMPARISON with binding plan",done,240
+2026-09-16,SPEC,248-SPEC-r41-spec,lead,merge,"lead-verified elaboration; PR #240 opened; chain queued after #239 (wave 68)",running,240
+2026-09-16,R41,249-R41-contract-v1,lead,plan,"lane opened on 248 branch (install then astra low, retry): register R41.main_thresholds V1 (32nd contract) from lanes 232/233/235",planned,
