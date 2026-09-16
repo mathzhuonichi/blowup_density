@@ -846,3 +846,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,197-A01-leray-bridge,lead,merge,"PR #201 merged via chain (wave 28) gates green",merged,201
 2026-09-15,A01,189-A01-pressure-regularity,codex,fix2,"auto-launched (astra low) after 197 landed: assembly of PressureSupply from 194/195/197 + Helmholtz converse",running,
 2026-09-16,A01,198-A01-energy-premises,codex,reviewer,"sol reviewer stuck Reconnecting 2/5 for >10 min; killed and relaunched on gpt-6-astra low",running,
+2026-09-16,A01,189-A01-pressure-regularity,codex,fix2,"DONE rc=0 (astra low): pressureSupply_of_pieces proves 180 fix6's PressureSupply verbatim from 194/195/197 + Helmholtz converse, no extra hypotheses; pipeline probe with hb as sole analytic premise; zero pair; rebased; commit 31aa4ca",done,
+2026-09-16,A01,189-A01-pressure-regularity,codex,reviewer,"launched (astra low) with 5 check points (verbatim contract, arbitrary-representative transfer, t=0 symmetry, pipeline probe, hygiene) bd:rev-189",running,
