@@ -38,3 +38,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 270-SPEC-t12-draft-b | worktree 安装中→自动启动（codex astra low，带重试） | 09-16 2115Z | — | — | T12 双盲草案 B |
 | 271-SPEC-t16-draft-a | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 2115Z | — | — | T16 **lem:potential 局部无散截断**双盲草案 A（径向向量势、Urysohn 截断、w_ε、eq:bgzero；对应第 4 节 I02） |
 | 272-SPEC-t16-draft-b | 草案 B 完成（astra）：见 research/T16/DraftB.lean + COMPARISON_B；等草案 A | 09-16 2121Z | — | — | T16 双盲草案 B |
+| 273-SPEC-t14-draft-a | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 2136Z | — | — | T14 **包导入 + 能量**（thm:packet 接口、lem:packetenergy；复用 I01.packet）双盲草案 A |
+| 274-SPEC-t14-draft-b | worktree 安装中→自动启动（codex astra low，带重试） | 09-16 2136Z | — | — | T14 双盲草案 B |
+| 275-SPEC-t22-draft-a | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 2136Z | — | — | T22 **有界区域范数层**（eq:restriction-norm、eq:zero-extension；常数与 ε 无关）双盲草案 A |
+| 276-SPEC-t22-draft-b | worktree 安装中→自动启动（codex astra low，带重试） | 09-16 2136Z | — | — | T22 双盲草案 B |
