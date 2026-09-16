@@ -877,3 +877,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,201-A01-root-comparison,codex,reviewer,"REJECT: rebase/name collision with 199's uniqueness theorem; CylinderSignedRootLimit lacks solenoidality and is a substantive absorbed integrated bound (not a generic limit lemma); route for lane 203 given",rejected,
 2026-09-16,A01,201-A01-root-comparison,codex,fix,"launched (sol high): rebase taking integration's envelope, rename uniqueness theorem, add ha to CylinderSignedRootLimit, docstring",running,
 2026-09-16,A01,203-A01-signed-limit,lead,plan,"lane armed (auto after fix_201: worktree from 201 branch, install, astra low): signed passage to the maximal-approximation limit retaining dissipation, per reviewer 201 route",planned,
+2026-09-16,A01,201-A01-root-comparison,codex,fix,"DONE rc=0: rebased; energyComparison_unique_on_Icc; ha through CylinderSignedRootLimit and assembly; docstring; 13 decls standard axioms; commit 7ebcdc2",done,
+2026-09-16,A01,201-A01-root-comparison,lead,merge,"lead re-verified; PR #205 opened; chain launched (wave 33)",running,205
+2026-09-16,A01,203-A01-signed-limit,codex,worker,"auto-launched (astra low) after fix_201",running,
