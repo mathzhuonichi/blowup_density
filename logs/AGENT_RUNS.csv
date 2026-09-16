@@ -861,3 +861,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,189-A01-pressure-regularity,codex,fix3,"DONE rc=0: imports 180's PressureSupply, local copy removed; a01_constructor_pipeline probes: classical constructor from hb alone; lake test 10573 jobs; commit 6e96fdb",done,
 2026-09-16,A01,189-A01-pressure-regularity,lead,merge,"review file trimmed (28k-line make-check dump); PR #203 opened; chain launched (wave 31)",running,203
 2026-09-16,A01,189-A01-pressure-regularity,lead,merge,"PR #203 merged via chain (wave 31) gates green; A01 milestone: classical constructor from hb alone on integration",merged,203
+2026-09-16,A01,199-A01-envelope,codex,worker,"PARTIAL rc=0 (astra low): signed regularized energy identity with dissipation; explicit ODE envelope x=y², g=A(16·low)y/(2ν); finite-energy chain conditional on CylinderRootComparison; ForcingFamilyBound unproved; 21 decls standard axioms; commit 376a7b1",partial,
+2026-09-16,A01,199-A01-envelope,codex,reviewer,"launched (astra low): signed identity genuine, ODE envelope algebra, CylinderRootComparison/ForcingFamilyBound classification + routes for lanes 200/201, hygiene bd:rev-199",running,
