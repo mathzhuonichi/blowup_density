@@ -916,3 +916,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,204-A01-signed-passage,codex,reviewer,"ACCEPT (astra low, adversarial): signed passage unconditional; doubled-dissipation mutation fails",accepted,
 2026-09-16,A01,204-A01-signed-passage,lead,merge,"rebased (took integration's SignedLimit.lean); lead verified; PR #209 opened; chain launched (wave 37)",running,209
 2026-09-16,A01,204-A01-signed-passage,lead,merge,"PR #209 merged via chain (wave 37) gates green",merged,209
+2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"sol reviewer stalled (Reconnecting) >12 min; killed; relaunch armed after a 30–40 min rest (astra first)",pending,
+2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"sol reviewer stalled (Reconnecting) >12 min; killed; relaunch armed after a 30–40 min rest (astra first)",pending,
+2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,"sol reviewer stalled (Reconnecting) >12 min; killed; relaunch armed after a 30–40 min rest (astra first)",pending,
+2026-09-16,A01,206-A01-smooth-tame,lead,plan,"lane opened from 205 branch (install then astra low with capacity retry): SmoothCylinderCoordinateTame via angular-invariant descent to R³ + A03 tame products; unconditional A01 probe if it closes",planned,
