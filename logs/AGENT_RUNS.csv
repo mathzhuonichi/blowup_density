@@ -904,3 +904,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,205-A01-coordinate-tame,codex,worker,"died at start (astra at capacity); retry_lane.sh armed (30-min rest, alternating)",pending,
 2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"astra reviewer died again (capacity); retry armed with 30-min rest",pending,
 2026-09-16,A01,203-A01-signed-limit,lead,merge,"PR #207 merged via chain (wave 35) gates green; review to follow after the capacity rest",merged,207
+2026-09-16,A01,202-A01-commutator-bound,lead,merge,"PR #208 merged via chain (wave 36) gates green; review to follow after the capacity rest",merged,208
