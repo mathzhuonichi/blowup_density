@@ -1038,3 +1038,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,"continuation #2 gpt-5.6-sol xhigh: R44 S1c closed (advection_pairing_le, trilinearConstJ explicit; no extra hypothesis)",done,
 2026-09-16,R44,220-R44-s1c-trilinear,codex,reviewer,"sol/astra retry review launched",running,
 2026-09-16,R43,223-R43-endpoint,lead,merge,"PR #225 merged (second attempt after aligning the stacked ForcePath.lean copy with integration); wave 53 gates OK",merged,225
+2026-09-16,R41,224-R41-nondensity-q1,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (threshold mutation probe)",accepted,227
+2026-09-16,R41,224-R41-nondensity-q1,lead,merge,"PR #227 opened after merging integration into the branch; chain launched (wave 55)",running,227
