@@ -1245,3 +1245,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,MAINT,267-MAINT-archive-section4,lead,plan,"archive Section 4 working docs into archive/section4/ and refocus live docs on Section 3 (astra, docs only)",planned,
 2026-09-17,MAINT,267-MAINT-archive-section4,codex,worker,"gpt-6-astra low (4 min): Section 4 docs archived (122 files byte-identical), live docs rewritten for Section 3; ledger unchanged (tasks.py has no state/add commands)",done,260
 2026-09-17,MAINT,267-MAINT-archive-section4,lead,merge,"PR #260 opened to erenup/integration-section3; chain launched (wave 87)",running,260
+2026-09-17,MAINT,267-MAINT-archive-section4,lead,merge,"PR #260 merged manually (cherry-pick onto the current Section 3 branch; merge_lane.sh rebase conflicted with the doc rewrite); make check OK",merged,260
