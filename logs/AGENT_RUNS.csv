@@ -1183,3 +1183,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R46,259-R46-closure,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
 2026-09-16,R45,257-R45-rapid-class,codex,worker,"gpt-5.6-sol xhigh (13 min): cor:Rclasses rapid-class instances + schwartzDensity + guarded density/zeroIff (6 declarations)",done,
 2026-09-16,R45,257-R45-rapid-class,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-16,R47,258-R47-assembly,codex,worker,"gpt-6-astra low (12 min): thm:Rgrid assembled verbatim conditional only on CompactHomogeneousRealization (7 declarations)",done,
+2026-09-16,R47,258-R47-assembly,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
