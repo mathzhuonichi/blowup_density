@@ -1114,3 +1114,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,SPEC,246-SPEC-r47-spec,lead,plan,"lane opened (install then sol xhigh): reconciled R47 Spec.lean + merged COMPARISON",planned,
 2026-09-16,SPEC,245-SPEC-r46-spec,codex,worker,"gpt-5.6-sol xhigh (10 min): reconciled R46 Spec.lean (elaborates; rfl checks) + merged COMPARISON",done,237
 2026-09-16,SPEC,245-SPEC-r46-spec,lead,merge,"lead-verified elaboration; PR #237 opened; chain launched (wave 65)",running,237
+2026-09-16,SPEC,244-SPEC-r45-spec,codex,worker,"gpt-5.6-sol xhigh (11 min): reconciled R45 Spec.lean (elaborates) + merged COMPARISON",done,238
+2026-09-16,SPEC,244-SPEC-r45-spec,lead,merge,"lead-verified elaboration; PR #238 opened; chain queued after #237 (wave 66)",running,238
