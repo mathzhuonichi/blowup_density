@@ -1029,3 +1029,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R41,224-R41-nondensity-q1,lead,plan,"lane opened on 223 branch (install then astra low, retry): thm:Rmain (ii) non-density at q=1 from the R43 endpoint",planned,
 2026-09-16,R43,223-R43-endpoint,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev223_widened)",accepted,225
 2026-09-16,R43,223-R43-endpoint,lead,merge,"PR #225 opened; chain launched (wave 53)",running,225
+2026-09-16,R44,222-R44-s1b-energy-identity,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (only a post-220 naming bridge, deferred to S1d; probe rev222_flip_dissipation)",accepted,226
+2026-09-16,R44,222-R44-s1b-energy-identity,lead,merge,"PR #226 opened; chain queued after #225 (wave 54)",running,226
