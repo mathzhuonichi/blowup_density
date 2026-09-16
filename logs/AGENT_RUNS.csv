@@ -1196,3 +1196,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R46,256-R46-sobolev-density,lead,merge,"PR #250 opened; chain queued after #249 (wave 78)",running,250
 2026-09-16,R46,259-R46-closure,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes",accepted,251
 2026-09-16,R46,259-R46-closure,lead,merge,"PR #251 opened; chain queued after #250 (wave 79)",running,251
+2026-09-16,I03,255-I03-path-measurability,lead,merge,"PR #249 merged into erenup/integration; wave 77 gates OK",merged,249
