@@ -1107,3 +1107,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,SPEC,243-SPEC-r46-draft-b,lead,plan,"lane opened (install then astra low): double-blind R46 contract statement draft B",planned,
 2026-09-16,SPEC,238-SPEC-r45-draft-a,codex,worker,"gpt-5.6-sol xhigh (9 min): R45 contract statement draft A (7 fields, per-class)",done,
 2026-09-16,SPEC,243-SPEC-r46-draft-b,codex,worker,"gpt-6-astra low: R46 contract statement draft B",done,
+2026-09-16,SPEC,242-SPEC-r46-draft-a,codex,worker,"gpt-5.6-sol xhigh: R46 contract statement draft A",done,
