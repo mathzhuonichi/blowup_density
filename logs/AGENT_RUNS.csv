@@ -1249,3 +1249,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,MAINT,268-MAINT-ledger-t10-t24,lead,plan,"add T10-T24 to the blueprint DAG and the work-item ledger (sol, ledger only)",planned,
 2026-09-17,MAINT,268-MAINT-ledger-t10-t24,codex,worker,"gpt-5.6-sol xhigh (9 min): T10-T24 added to the DAG and ledger (45 nodes); make check OK",done,261
 2026-09-17,MAINT,268-MAINT-ledger-t10-t24,lead,merge,"PR #261 merged directly into erenup/integration-section3",merged,261
+2026-09-17,T12,269-SPEC-t12-draft-a,lead,plan,"Section 3 S3-1 leaf: double-blind T12 statement draft A (sol)",planned,
+2026-09-17,T12,270-SPEC-t12-draft-b,lead,plan,"double-blind T12 statement draft B (astra)",planned,
+2026-09-17,T16,271-SPEC-t16-draft-a,lead,plan,"Section 3 S3-1 leaf: double-blind T16 statement draft A (sol)",planned,
+2026-09-17,T16,272-SPEC-t16-draft-b,lead,plan,"double-blind T16 statement draft B (astra)",planned,
