@@ -117,3 +117,26 @@ Draft A's four asks resolve as: item 1 → **satisfied and improved** (A04 ships
 better shape, G5 notwithstanding); item 2 → **partly satisfied**, becomes G5;
 item 3 → **not satisfied**, becomes G5; item 4 → **satisfied**, becomes G8.
 Draft B's GAP-1…GAP-5 map to G1, G4, G7, G5, G6. G2 and G3 are new here.
+
+
+## Lane 223 endpoint update (2026-09-16)
+
+`Section4/R43/Endpoint.lean` proves `RCritical1API.inhomogeneousAtZero`
+(`Spec.lean:243–247`) with the explicit positive constant
+`min (1/(8*trilinearConst)) (1/(4*(A05.gradientL6Const*A05.criticalL3Const)))`.
+The force norm is exactly `forceSobolevENormL1 (1/2)`; homogeneous smallness is
+proved as a stronger intermediate, then lane 221's G2 comparison is applied.
+There is no extra analytic input and no change to the force class or threshold.
+
+S4/G5 reuse the existing `maximal_h2TimeIntegral`: all shorter intervals have
+the same finite terminal-S budget, so the directed-union argument includes
+`S = T_max` without evaluating the terminal velocity. The explicit zero-datum
+budget and A04's natural-square finiteness are exported. S5 uses lane 217's
+unconditional fixed-force continuation theorem and A02's `exists_maximal'`.
+The missing local A04 dependency files were copied unchanged from lane 217
+commit `d6f9cfd605041cb015a2119d351b6d77578c6b18`; no branch operation was used.
+
+This closes the zero-datum consequence that R41 consumes. The general-`a`
+`universal` field is not proved by this lane, so no full `RCritical1API` witness
+or new registered contract is claimed. See `REPORT_223.md` and
+`ATTEMPTS_ENDPOINT.md` for validation and dependency provenance.
