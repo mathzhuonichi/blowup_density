@@ -1080,3 +1080,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R44,231-R44-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
 2026-09-16,R41,232-R41-nondensity-both,codex,worker,"gpt-5.6-sol xhigh (11 min): RMainAPI.nonDensityZero for q in {1,2} assembled (NonDensity.lean, RMainNonDensity record; 14 declarations audited)",done,
 2026-09-16,R41,232-R41-nondensity-both,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-16,R42,233-R42-family-from-data,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes",accepted,233
+2026-09-16,R42,233-R42-family-from-data,lead,merge,"PR #233 opened after merging integration; chain launched (wave 61)",running,233
+2026-09-16,R41D,235-R41D-density,codex,worker,"gpt-6-astra low (4 min): Theorem 4.1 (i) density for Y = F_R proved (breakdownDenseR_of_subcritical) + zero-datum instance; Bindings/DensityFromInsertion.lean",done,
+2026-09-16,R41D,235-R41D-density,codex,reviewer,"astra/sol retry review launched",running,
