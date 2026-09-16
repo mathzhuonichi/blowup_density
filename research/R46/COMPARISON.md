@@ -86,3 +86,34 @@ statement change.
    time while the completed Bochner carrier is a.e.-quotiented.  The present
    statement deliberately inherits this convention; does the owner want a
    later vocabulary revision, independently of R46 registration?
+
+## Lane 259 proof update
+
+`Bindings.CompletedClosure` now proves `completedHomogeneousDensity_of_realization`
+and `strongTrajectoryClosure_of_realization`. Both conclusions are byte-identical
+to the corresponding field bodies in `Spec.lean`. Their only named input is
+`NSFormalization.Section4.I03.CompactHomogeneousRealization`; no other analytic
+supplier is assumed. The earlier dependency list above is historical: V2 B02
+already supplies compact homogeneous completed approximation, and lane 250
+supplies the conditional homogeneous scaling estimates.
+
+The homogeneous density proof uses compact-class relative approximation from
+scaling of the inserted difference, followed by homogeneous path addition and
+the Bochner triangle inequality. There is no missing compactness premise on the
+background approximant: `homogeneousPartialV2.approxCompactHomogeneous` supplies
+it. Integrability of Schwartz pairings is proved explicitly for the compact
+fields before using homogeneous path algebra.
+
+Strong closure constructs the family from the caller's reference directly,
+retaining the full velocity and pressure fields. Lane 233's chosen reference
+would only support velocity identification on a common slab, insufficient for
+the Spec's global v/π pins. The existing lifespan and full-horizon solution
+exports apply directly to this family. All three force distances and the energy
+distance converge for this same family.
+
+The reconciliation addendum's literal `mixedLebesgueENorm 1 2` spelling has not
+replaced `forceSobolevENorm 1 0` in Spec. This lane preserves Spec verbatim and
+does not claim a definitional equality between those distinct carriers. A bridge
+for the alternative spelling remains separate from these two proved fields.
+See `ATTEMPTS_CLOSURE.md`, `axioms_closure.lean`, and `REPORT_259.md` for the
+construction choices, concrete zero examples, and validation results.
