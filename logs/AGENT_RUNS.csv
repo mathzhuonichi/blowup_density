@@ -1076,3 +1076,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R42,233-R42-family-from-data,codex,worker,"gpt-6-astra low (5 min): R41D G1 closed — registered R42 insertion record built from raw data (Bindings/InsertionFromData.lean, 4 declarations + 2 instances)",done,
 2026-09-16,R42,233-R42-family-from-data,codex,reviewer,"astra/sol retry review launched",running,
 2026-09-16,R41D,235-R41D-density,lead,plan,"lane opened on 233 branch (install then astra low, retry): Theorem 4.1 density branch for Y = F_R from the R42 record",planned,
+2026-09-16,R44,231-R44-contract-v1,codex,worker,"gpt-5.6-sol xhigh (10 min): R44.critical_finite_horizon V1 registered (31st contract; RCritical2API token match)",done,
+2026-09-16,R44,231-R44-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
