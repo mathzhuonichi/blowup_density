@@ -953,3 +953,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,209-A01-manuscript-regularity,codex,reviewer,"ACCEPT-WITH-NOTES (astra): endpoint pressure recovery checked; note on carrier witnesses for localSolution (lane 211)",accepted,
 2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,"note applied; PR #214 opened; chain launched (wave 42)",running,214
 2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,"PR #214 merged via chain (wave 42) gates green",merged,214
+2026-09-16,A01,211-A01-local-theory-bundle,lead,plan,"lane opened on 210 branch + integration (install then astra low with retry): carrier bundle, uniformly selected horizon, regularity instance, two horizon-uniformity variants, API-shape probe; no contract files",planned,
