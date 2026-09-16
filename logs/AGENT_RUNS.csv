@@ -978,3 +978,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A04,215-A04-restart-fixed-force,lead,plan,"lane opened on 213 branch (install then astra low, retry): RestartFixedForce uniform over restart times, Gronwall→HigherOrderBound bridge, fixed-force copies of A04 continuation theorems instantiated",planned,
 2026-09-16,A02,213-A02-A04-wiring,lead,merge,"PR #218 merged into erenup/integration; wave 46 gates OK (make check/test/mutations; 2 new modules A02/MaximalWiring, A04/RestartWiring)",merged,218
 2026-09-16,R43,216-R43-critical-datum-path,lead,plan,"lane opened (install then sol xhigh, retry): construct CriticalDatumPath for classical solutions (G3/G4), peel momentum identity if needed; makes eq:Rcritical1 unconditional",planned,
+2026-09-16,A04,215-A04-restart-fixed-force,codex,worker,"gpt-6-astra low: RestartFixedForce + HigherOrderBound bridge unconditional; fixed-force continuation copies; one named input ShiftedLocalExtension left",done,
+2026-09-16,A04,215-A04-restart-fixed-force,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,A04,217-A04-shifted-extension,lead,plan,"lane opened on 215 branch (install then astra low, retry): prove ShiftedLocalExtension (time-shift gluing with blended pressure); unconditional A04 continuation for MemForceR forces",planned,
