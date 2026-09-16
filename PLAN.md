@@ -37,4 +37,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 269-SPEC-t12-draft-a | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 2115Z | — | — | T12 **均值零 Sobolev 微积分与临界嵌入**双盲草案 A（eq:Rproduct、‖v‖_∞≤C‖v‖_{H²}、‖v‖₃≤C‖v‖_{Ḣ^{1/2}}；对应第 4 节 A03/A05） |
 | 270-SPEC-t12-draft-b | worktree 安装中→自动启动（codex astra low，带重试） | 09-16 2115Z | — | — | T12 双盲草案 B |
 | 271-SPEC-t16-draft-a | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 2115Z | — | — | T16 **lem:potential 局部无散截断**双盲草案 A（径向向量势、Urysohn 截断、w_ε、eq:bgzero；对应第 4 节 I02） |
-| 272-SPEC-t16-draft-b | worktree 安装中→自动启动（codex astra low，带重试） | 09-16 2115Z | — | — | T16 双盲草案 B |
+| 272-SPEC-t16-draft-b | 草案 B 完成（astra）：见 research/T16/DraftB.lean + COMPARISON_B；等草案 A | 09-16 2121Z | — | — | T16 双盲草案 B |

@@ -1253,3 +1253,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,T12,270-SPEC-t12-draft-b,lead,plan,"double-blind T12 statement draft B (astra)",planned,
 2026-09-17,T16,271-SPEC-t16-draft-a,lead,plan,"Section 3 S3-1 leaf: double-blind T16 statement draft A (sol)",planned,
 2026-09-17,T16,272-SPEC-t16-draft-b,lead,plan,"double-blind T16 statement draft B (astra)",planned,
+2026-09-17,T16,272-SPEC-t16-draft-b,codex,worker,"gpt-6-astra low: T16 statement draft B",done,
