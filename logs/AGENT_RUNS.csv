@@ -1224,3 +1224,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,R46,261-R46-contract-v1,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (3 probes)",accepted,254
 2026-09-17,R46,261-R46-contract-v1,lead,merge,"PR #254 opened; chain launched (wave 82)",running,254
 2026-09-17,R47,260-R47-contract-v1,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (COMPARISON sentence applied by lead; probe rev260_widen_interval); PR after #254 lands",accepted,
+2026-09-17,R46,261-R46-contract-v1,lead,merge,"PR #254 merged into erenup/integration; wave 82 gates OK; 33 contracts",merged,254
+2026-09-17,R47,260-R47-contract-v1,lead,merge,"registry union with #254; PR #255 opened; chain launched (wave 83)",running,255
