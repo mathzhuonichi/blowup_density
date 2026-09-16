@@ -1,5 +1,7 @@
 # PLAN.md — 第 4 节 Lean 证明的总体计划
 
+> **第 3 节（环面）的独立规划**：[`collaboration/SECTION3_PLAN.md`](collaboration/SECTION3_PLAN.md)（2026-09-16 快照：表示层决策、复用映射、T10–T24 DAG、并行/串行安排；先做完第 4 节再启动）。
+
 ## Integration snapshot (2026-09-15)
 
 This tree consolidates PRs #162–#170 through their original dependency branches;

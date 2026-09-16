@@ -1,7 +1,7 @@
 # CLAUDE.md — blowup_density（用 Lean 证第 4 节）
 
 > 每次会话自动载入。新 session 先读本文件，再读 [`NEXT_SESSION.md`](NEXT_SESSION.md)（当前状态、下一步），
-> 全貌和顺序看 [`PLAN.md`](PLAN.md)（§4 节点状态看板、§5 并行工作包）；可分发给外部协作者的工作包简报在 [`collaboration/HANDOFF.md`](collaboration/HANDOFF.md)（外部 lane 号 200–299）。台账 = `collaboration/work_items.json`（`make tasks` 看 ready 队列）；
+> 全貌和顺序看 [`PLAN.md`](PLAN.md)（§4 节点状态看板、§5 并行工作包）；可分发给外部协作者的工作包简报在 [`collaboration/HANDOFF.md`](collaboration/HANDOFF.md)（外部 lane 号 200–299）；第 3 节（环面）的独立规划在 [`collaboration/SECTION3_PLAN.md`](collaboration/SECTION3_PLAN.md)（第 4 节完成后启动，节点 T10–T24）。台账 = `collaboration/work_items.json`（`make tasks` 看 ready 队列）；
 > 记录 = `logs/`，每次 subagent 运行记一行 `logs/AGENT_RUNS.csv`。最近更新 2026-09-13。
 > 细节丢失时：派 subagent 用 grep 搜本地会话记录 `~/.claude/projects/-data-8T-ping-blowup-density/*.jsonl`，不要整文件读进主上下文。
 
