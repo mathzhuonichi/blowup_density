@@ -108,19 +108,21 @@ carrier hypothesis `hcrit : CriticalDatumPath w hf` and the separate S1b
 hypothesis `htri : CriticalTrilinearEstimate (C₀ := C₀) hcrit` (besides the
 ambient force-membership witness `hf`).
 | S1a pairing identities | `⟨∂_t u, Λu⟩ = ½(y²)'`, `ν⟨−Δu,Λu⟩ = νz²`, `⟨∇p,Λu⟩ = 0` (Leray) | R43-own; pressure orthogonality via `A02`/`D01` Leray | M |
-| S1b trilinear estimate | `|⟨(u·∇)u, Λu⟩| ≤ C₀·y·z²` | **Lane 182 conditional estimate + lane 191 shifted carrier complete:** `R43.criticalAdvectionLpBridge_shifted hcrit` now supplies the physical `Λu`, its `MemHInfty` closure, and the three exact half-order derivative data at every interior time. The sole remaining field of `CriticalAdvectionLpBridge hcrit` is `pairing_identity`, the fractional Parseval/duality identity equating the datum pairing with the physical integral. | L → one Parseval lemma |
+| S1b trilinear estimate | `|⟨(u·∇)u, Λu⟩| ≤ C₀·y·z²` | **CLOSED relative to `hcrit` (lanes 182, 191, 214):** `Parseval.lean` proves `pairing_identity_of_hcrit` for lane 191's exact shifted field and constructs `criticalAdvectionLpBridge_of_hcrit`. `criticalTrilinearEstimate_of_hcrit'` and `rcritical1_of_hcrit'` require only `CriticalDatumPath w hf`, with no extra bridge hypothesis. | DONE |
 | S1c force term | `|⟨f, Λu⟩| ≤ b·y` (Cauchy–Schwarz in `Ḣ^{1/2}`) | R43-own | S |
 | S1d differentiability of `y²` | `HasDerivAt (fun s => (y s)^2) (E' s) s` | R43-own smooth critical path (gap) | M |
 
 The **scalar consequence** of S1 (`E'/2 + (ν−C₀y)z² ≤ by`) is exactly the `henergy`
 hypothesis of the tree's scalar bootstrap (see S2), so once S1 is proved, S2 is free.
 
-Lane 182's `criticalTrilinearEstimate_of_hcrit` and `rcritical1_of_hcrit` are
-conditional on `CriticalAdvectionLpBridge hcrit`. Lane 191 constructs its
-entire `shifted` field in `Section4/R43/ShiftedData.lean`; the only remaining
-field is the separate fractional Parseval statement `pairing_identity`.
-That hypothesis contains no `L³` or trilinear bound. See `ATTEMPTS_S1B.md` and
-`../A05/ATTEMPTS_U4_U8.md` for the exact boundary.
+Lane 214 closes the bridge left by lanes 182 and 191. The general
+`half_order_parseval` theorem proves the real homogeneous half-order pairing
+equals the physical pairing with `A05.rieszLambda`; its classical-slice
+specialization fills `pairing_identity` with the exact lane 191 `shifted` field.
+The primed trilinear and differential-inequality corollaries now consume only
+`hcrit` (and ambient `hf`). Constructing `CriticalDatumPath` itself remains a
+separate task; this does not claim unconditional R43. See
+`ATTEMPTS_PARSEVAL.md`, `ATTEMPTS_S1B.md`, and `../A05/ATTEMPTS_U4_U8.md`.
 
 ### S2 — regularized division + continuity bootstrap (M; **a=0 closed by reuse**)
 
