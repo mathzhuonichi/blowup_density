@@ -341,6 +341,17 @@
       "declaration": "BlowupDensity.Tests.checkedCriticalFiniteHorizon",
       "scope": "Proposition 4.4 (prop:Rcritical2), paper/sections/04-whole-space.tex:136-144, in the exact nine-field shape of research/R44/Spec.lean's RCritical2API: viscosity- and horizon-independent positive real constants c and C; a named radius r(nu,S) pinned to c * nu^(3/2) * exp(-(C*nu*S)) and positive for nu,S > 0; and, for every f in MemForceR with strict inhomogeneous forceSobolevENormL2 (-1/2) smallness below ofReal(r(nu,S)), the zero-datum conclusion ofReal(S) < maximalLifespanR nu 0 f. The same named radius also supplies the stated exclusion from breakdownSetRZero at horizon T. The binding chooses c = R44.theta/20 and C = 3, uses R44.radius, and binds R44.main and R44.nonDensityBallZero. Force class and norm vocabulary are rfl bridges; maximal lifespan and the derived breakdown-set membership use the existing A02/Data ClassicalSolutionR bridge. Scope is only zero-datum regularity through a prescribed finite horizon with this explicit radius: no global lifespan conclusion, nonzero datum, homogeneous force norm, weakened smallness, or extra analytic hypothesis is asserted.",
       "enabled": true
+    },
+    {
+      "id": "R41.main_thresholds",
+      "parent_task": "R41",
+      "version": 1,
+      "specification": "verification/Contracts/V1/MainThresholds.lean",
+      "binding_module": "Bindings.MainThresholds",
+      "test_module": "Tests.MainThresholds",
+      "declaration": "BlowupDensity.Tests.checkedMainThresholds",
+      "scope": "Theorem 4.1 (thm:Rmain), paper/sections/04-whole-space.tex:7-14, for Y = F_R: all four fields of research/R41/Spec.lean RMainAPI verbatim under the name MainThresholdsAPI. Fixed-initial density for every admissible a below criticalOrder q.toReal; zero-initial density iff strictly subcritical (including non-density at equality); thresholds 1/2 and -1/2; and regular-reference approximation by one shared force/velocity family with MemForceR, exact lifespan T, a ClassicalSolutionR with unchanged datum, history on [0,T-2ε²], force-norm convergence and energyENorm convergence. Exponent q : ENNReal is restricted to 1 or 2. Density uses lane 235; non-density uses lane 232 with real-q case splitting and the A02/Data lifespan bridge. The rider uses one lane-233 R42 V2 record per reference, registered velocity uniqueness, and the registered energyRate bound via squeezing. No partial-field omission, extra analytic hypothesis, completed-space density, or F_c/F_rd claim.",
+      "enabled": true
     }
   ]
 }

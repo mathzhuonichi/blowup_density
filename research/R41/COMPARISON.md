@@ -87,3 +87,7 @@ interpretation, and every kept/dropped conjunct.  Lane 249 still has routine
 binding work—most visibly the real-`q` case split for lane 232 and deriving the
 qualitative energy limit from R42's rate—but those require no new mathematical
 or specification decision from the owner.
+
+## Registration (lane 249, 2026-09-17)
+
+Registered as the 32nd contract `R41.main_thresholds` V1: `verification/Contracts/V1/MainThresholds.lean` (`MainThresholdsAPI` = this `RMainAPI`, byte-identical body), `Bindings/MainThresholds.lean` (witness `mainThresholds` following the binding plan above: lane 235 density, lane 232 non-density by cases on `q`, lane 233 record called once for the rider with the energy limit squeezed from R42's registered rate), `Tests/MainThresholds.lean` (`checkedMainThresholds`). See `REPORT_249.md`.
