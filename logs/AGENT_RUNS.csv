@@ -881,3 +881,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,201-A01-root-comparison,lead,merge,"lead re-verified; PR #205 opened; chain launched (wave 33)",running,205
 2026-09-16,A01,203-A01-signed-limit,codex,worker,"auto-launched (astra low) after fix_201",running,
 2026-09-16,A01,201-A01-root-comparison,lead,merge,"PR #205 merged via chain (wave 33) gates green",merged,205
+2026-09-16,A01,200-A01-forcing-bound,codex,reviewer,"ACCEPT-WITH-NOTES (astra low): conditional result correct; CylinderCommutatorBound = compatible self-transport specialization of Kato–Ponce/Moser; concrete route for lane 202; notes: scope no-ha claim, rebase preserving 199 fix",accepted,
+2026-09-16,A01,200-A01-forcing-bound,codex,fix,"launched (sol high): rebase (take integration's MildEnergyEnvelope), records, gates",running,
