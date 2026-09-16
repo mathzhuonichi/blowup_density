@@ -352,6 +352,17 @@
       "declaration": "BlowupDensity.Tests.checkedMainThresholds",
       "scope": "Theorem 4.1 (thm:Rmain), paper/sections/04-whole-space.tex:7-14, for Y = F_R: all four fields of research/R41/Spec.lean RMainAPI verbatim under the name MainThresholdsAPI. Fixed-initial density for every admissible a below criticalOrder q.toReal; zero-initial density iff strictly subcritical (including non-density at equality); thresholds 1/2 and -1/2; and regular-reference approximation by one shared force/velocity family with MemForceR, exact lifespan T, a ClassicalSolutionR with unchanged datum, history on [0,T-2ε²], force-norm convergence and energyENorm convergence. Exponent q : ENNReal is restricted to 1 or 2. Density uses lane 235; non-density uses lane 232 with real-q case splitting and the A02/Data lifespan bridge. The rider uses one lane-233 R42 V2 record per reference, registered velocity uniqueness, and the registered energyRate bound via squeezing. No partial-field omission, extra analytic hypothesis, completed-space density, or F_c/F_rd claim.",
       "enabled": true
+    },
+    {
+      "id": "R46.completed_density",
+      "parent_task": "R46",
+      "version": 1,
+      "specification": "verification/Contracts/V1/CompletedDensity.lean",
+      "binding_module": "Bindings.CompletedDensity",
+      "test_module": "Tests.CompletedDensity",
+      "declaration": "BlowupDensity.Tests.checkedCompletedDensity",
+      "scope": "Proposition 4.6 (prop:Renergy), paper/sections/04-whole-space.tex:218-229, in the exact three-field shape of research/R46/Spec.lean's REnergyAPI under the name CompletedDensityAPI. It asserts completed inhomogeneous density for q in {1,2} and s below criticalOrder q.toReal, completed homogeneous L²_t Hdot⁻¹ density, and simultaneous strong trajectory closure for every regular reference. The one returned insertion family is pinned to the reference datum, horizon, force, velocity and pressure; every positive admissible scale has MemForceR, exact maximal lifespan T and a full ClassicalSolutionR, while the energy norm and the single sum of forceSobolevENorm 1 0, forceSobolevENorm 2 (-1), and forceHomogeneousENorm 2 (-1) converge to zero. The homogeneous summand applies only to the compact force difference. The binding assembles lane 256's completedSobolevDensity with lane 259's two conditional theorems, discharging their sole CompactHomogeneousRealization input using lane 255's compactHomogeneousRealization. No weaker topology, split-family approximation, extra analytic premise, mixedLebesgueENorm substitution, or omitted field is asserted.",
+      "enabled": true
     }
   ]
 }

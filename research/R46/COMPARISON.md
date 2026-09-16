@@ -86,6 +86,12 @@ statement change.
    time while the completed Bochner carrier is a.e.-quotiented.  The present
    statement deliberately inherits this convention; does the owner want a
    later vocabulary revision, independently of R46 registration?
+4. **Owner question retained at registration:** R46's reconciled Spec spells
+   the first force-distance summand `forceSobolevENorm 1 0`, whereas R47's
+   reconciled Spec spells the corresponding term `mixedLebesgueENorm 1 2`.
+   An `rfl` probe fails because these quantify over different registered path
+   carriers.  Should a later vocabulary lane prove a mathematical bridge or
+   align one of the specifications?  R46 V1 preserves its own Spec verbatim.
 
 ## Lane 259 proof update
 
@@ -117,3 +123,15 @@ does not claim a definitional equality between those distinct carriers. A bridge
 for the alternative spelling remains separate from these two proved fields.
 See `ATTEMPTS_CLOSURE.md`, `axioms_closure.lean`, and `REPORT_259.md` for the
 construction choices, concrete zero examples, and validation results.
+
+## Registration (lane 261)
+
+Registered the complete API as `R46.completed_density` version 1.
+`verification/Contracts/V1/CompletedDensity.lean` is byte-identical to the
+`REnergyAPI` block after replacing only the structure name with
+`CompletedDensityAPI`.  `Bindings.completedDensity` assembles lane 256's first
+field with lane 259's remaining fields and instantiates both conditional lane
+259 theorems using lane 255's unconditional
+`compactHomogeneousRealization`.  `Tests.checkedCompletedDensity` checks the
+public type, each exact field body, and the transitive axiom set.  No additional
+premise, bridge, or statement change is introduced.
