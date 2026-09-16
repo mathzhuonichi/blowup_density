@@ -936,3 +936,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,208-A01-datum-horizon,lead,plan,"armed (auto after PR #212 lands; astra low, retry): datum identification + initialClassR bridge + total localHorizon + solution field",planned,
 2026-09-16,A01,209-A01-manuscript-regularity,lead,plan,"armed (auto after PR #212 lands): ManuscriptLocalRegularity four fields for the constructed solution",planned,
 2026-09-16,A01,210-A01-horizon-uniform,lead,plan,"armed (auto after PR #212 lands): H7-uniform horizon lower bound + honest H1-clause assessment (spec question for lead/owner)",planned,
+2026-09-16,A01,205-A01-coordinate-tame,lead,merge,"PR #210 merged via chain (wave 38) gates green",merged,210
+2026-09-16,A01,206-A01-smooth-tame,lead,merge,"PR #211 merged via chain (wave 39) gates green",merged,211
