@@ -104,3 +104,7 @@ The threshold agrees with `ThresholdAPI.l2`: exponent 2 s = -1/2 - s.
 No substitute density predicate or duplicate local definition is introduced.
 This closes both non-density instances; it does not claim the subcritical
 density clauses or registration of the full RMainAPI.
+
+## Gaps G2–G5 (lane 234, 2026-09-17)
+
+**All closed** in `Section4/R41/ClassFacts.lean` (audit `research/R41D/axioms_class_facts.lean`, contract-vocabulary `rfl` bridges): G2 `memForceR_of_memForceRapid` / `forceClassRapid_subset_forceClassR` (rapid slices packaged as Schwartz maps → smooth all-jet `L²` fields; dominated convergence for continuous jet paths; rapid decay split into an `L²_x` majorant and a scalar time majorant in `L¹ ∩ L²`); G3 `memForceRapid_of_compact_difference`; G4 `initialClassSchwartz_subset_initialClassR`; G5 `forceSobolevENorm_zero` (every `q`), `forceSobolevENorm_zero_of_one_or_two`, `sub_self_force`. See `REPORT_234.md`.
