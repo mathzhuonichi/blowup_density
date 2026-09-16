@@ -1,5 +1,18 @@
 # NEXT_SESSION.md — 当前状态与下一步
 
+## 2026-09-17 212-A01-contract-v2（owner 已选择 option 1）
+
+- A01 V2 已按固定外力、H⁷ 初值球的 owner-approved 形状注册为
+  `A01.local_theory_v2`：命名视界、经典解、同一视界上的四项完整 manuscript
+  regularity，以及 `horizon_lower_bound_H7_fixedForce`。V2 结构扩展冻结的
+  `A01.regularity_partial`，绑定经 A02/Data 的逐字段 `ClassicalSolutionR`
+  转换并有双向 round-trip。
+- Appendix A:147–150 / draft Spec 的 H¹、跨外力一致命题**没有证明**；只保留为
+  未注册、未 inhabit 的 `ManuscriptHorizonLowerBoundH1` 定义。A04 所需的同一
+  外力、`t₀∈[0,S]` 平移族一致窗口由 lanes 215/217 单独完成。
+- 基线已有 32 条注册合同，故 additions-only 后实际总数是 33，不应为迎合旧简报
+  的 `30` 删除后续合同。完整验证与提交见 `research/A01/REPORT_212.md`。
+
 ## 2026-09-15 2110Z 状态（lead 快照；codex 工作流）
 
 - **main 已并入集成分支**（lane 184，merge commit `c0f4439`，153 个 Section4 模块门禁绿，28 合同，vs `origin/main` 兼容）。owner 的模块占原路径，我们的同名模块改名：`C01/EnstrophyIdentityRaw.lean`、`A01/ConstructorDivergenceSlice.lean`（`ForceBridge` 已改 import）。我们的 177/183 取消（被 owner 的 C01 V4 / H2TimeIntegral + R43/MaximalEndpoint 取代）。
