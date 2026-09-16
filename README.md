@@ -3,17 +3,20 @@
 This is one shared repository for the entire project: both contributors can
 work on the manuscript, all formalization code, references, research notes,
 tests and project infrastructure. The default integration branch is `main`;
-use task branches and pull requests for changes. Section 4 is the current
-research priority, not a restriction on collaboration or repository access.
+use task branches and pull requests for changes. Section 3 (the torus) is the current formalization priority, on
+`erenup/integration-section3`. Start with the [live plan](PLAN.md),
+[current state](NEXT_SESSION.md), and [work packages](collaboration/HANDOFF.md).
 
 For two-person development, start with [CONTRIBUTING.md](CONTRIBUTING.md),
 the [owned work queue](collaboration/TASKS.md), and the
 [versioned Lean acceptance interfaces](verification/README.md).
 Use `make check`, `make test`, and `make test-mutations` before a proof PR.
-The current active contract covers threshold arithmetic only; it does not
-certify the Section 4 main theorem.
+Section 4 has 37 registered contracts and is preserved on the frozen branch
+`erenup/integration`, with PR #259 to `main` pending owner review. Its working
+documents and remaining owner decisions are in the [Section 4 archive](archive/section4/README.md).
 
-The active formalization priority is **Section 4 (the former Paper 3)**.
+The active Section 3 DAG and stages are in [SECTION3_PLAN.md](collaboration/SECTION3_PLAN.md).
+The completed Section 4 work (the former Paper 3) remains available below.
 The [proof task tree](formalization/blueprint/README.md) reuses the existing
 OpenAI and HeliCorgi whole-space libraries and isolates the remaining
 manuscript adapters. The [source-only package](formalization/README.md)

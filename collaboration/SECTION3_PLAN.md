@@ -1,7 +1,9 @@
 # SECTION3_PLAN.md — 第 3 节（环面 T³）形式化规划（快照：2026-09-16 02:50Z，lead）
 
-> 与 `PLAN.md`（第 4 节）平行、**独立**的规划。原则：**先做完第 4 节，再做第 3 节**；两边任务台账分开（节点用 `T10–T24`，挂在既有的 `T01–T04` 桶下），能复用/统一的尽量复用。
-> 依据：两份只读调研（论文侧 `paper/sections/03-torus.tex` 逐命题依赖图；Lean 侧本地/vendor/Mathlib 资产盘点），以及用户提供的 HeliCorgi 仓库核对。本文件是一次性快照，活状态看 `NEXT_SESSION.md`。
+> 本文件保留表示层与 DAG 的规划快照；第 4 节已完成，当前 **S3-0**，核心分支 **`erenup/integration-section3`**。
+> 实时入口：[PLAN](../PLAN.md)、[NEXT_SESSION](../NEXT_SESSION.md)、[HANDOFF](HANDOFF.md)；第 4 节历史见 [归档](../archive/section4/README.md)。
+> 节点 T10–T24 挂在既有 T01–T04 桶下；台账工具当前无新增/完成命令，限制及 lead 待办见 [REPORT_267](../archive/section4/REPORT_267.md)。
+> 依据：论文侧与 Lean 侧两份只读调研及 HeliCorgi 核对。以下为设计快照，活状态以上述入口为准。
 
 ## 0. 三条结论（先看这个）
 
