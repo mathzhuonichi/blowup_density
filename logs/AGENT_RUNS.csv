@@ -1043,3 +1043,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,225-R43-universal,codex,worker,"gpt-6-astra low (6 min): RCritical1API.universal proved in the spec's exact shape with the same criticalConst (9 theorems + Data-vocabulary conformance); Prop. 4.3 both clauses done",done,
 2026-09-16,R43,225-R43-universal,codex,reviewer,"astra/sol retry review launched (branch aligned with integration first)",running,
 2026-09-16,R43,226-R43-contract-v1,lead,plan,"lane opened on 225 branch (install then sol xhigh, retry): register R43.critical_regularity V1 (30th contract)",planned,
+2026-09-16,R41,224-R41-nondensity-q1,lead,merge,"PR #227 merged into erenup/integration; wave 55 gates OK",merged,227
