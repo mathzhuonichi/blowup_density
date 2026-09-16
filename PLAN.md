@@ -392,7 +392,7 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 236-SPEC-r41-draft-a | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 1440Z | — | — | SPEC **R41 双盲草案 A**：只读论文 + Data/Thresholds 词汇，写 Theorem 4.1 的 Lean 合同陈述（(i)、(ii) iff、rider），不看 STATEMENTS/R41D/R41 现有文件；输出 Draft_A.lean（可 elaborate）+ COMPARISON_A |
 | 237-SPEC-r41-draft-b | 草案 B 完成（astra，3 分钟）：RMainAPI{fixedInitialDensity, zeroInitialDensityIff, thresholdValues, regularReferenceApproximation}，COMPARISON_B；等草案 A 后由 lead 比对 | 09-16 1444Z | — | — | SPEC **R41 双盲草案 B**：同上，独立模型；lead 随后比对 A/B 与 STATEMENTS 骨架，定稿后开注册 lane |
 | 238-SPEC-r45-draft-a | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 1445Z | — | — | SPEC **R45 双盲草案 A**（cor:Rclasses：F_c/F_rd 上的 Theorem 4.1）：只读论文 + Data 词汇写 RClassesAPI 陈述 + COMPARISON_A |
-| 239-SPEC-r45-draft-b | worktree 安装中→自动启动（codex astra low，带重试） | 09-16 1445Z | — | — | SPEC **R45 双盲草案 B**：同上，独立模型 |
+| 239-SPEC-r45-draft-b | 草案 B 完成（astra）：见 research/R45/DraftB.lean + COMPARISON_B；等草案 A 后比对 | 09-16 1449Z | — | — | SPEC **R45 双盲草案 B**：同上，独立模型 |
 | 240-SPEC-r47-draft-a | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 1445Z | — | — | SPEC **R47 双盲草案 A**（thm:Rgrid 相同网格观测）：只读论文 + Data/InsertionFamily 词汇写 RGridAPI 陈述 + COMPARISON_A |
 | 241-SPEC-r47-draft-b | worktree 安装中→自动启动（codex astra low，带重试） | 09-16 1445Z | — | — | SPEC **R47 双盲草案 B**：同上，独立模型 |
 | 160-A04-restart-beyond | 恢复完成；本地检查通过，PR 待审查 | 09-15 0659Z | — | #161 | `ForceShift` 证明正时间平移的 L¹Hˢ 范数单调性；`Continuation` 完成最大解场搬运和完整 δ 端点步。R1 保留精确 A02 `Restart`；`extendsBeyond` / C1 另保留精确 G3 `HigherOrderBound`。两项分析输入未在本 lane 证明，不注册为无条件合同。 |
