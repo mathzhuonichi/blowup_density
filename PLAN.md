@@ -397,6 +397,8 @@ claim PR ──► spec ──► split ──► prove ──► bind+test ─�
 | 241-SPEC-r47-draft-b | 草案 B 完成（astra）：见 research/R47/DraftB.lean + COMPARISON_B；等草案 A 后比对 | 09-16 1450Z | — | — | SPEC **R47 双盲草案 B**：同上，独立模型 |
 | 242-SPEC-r46-draft-a | 草案 A 完成（sol）：见 research/R46/DraftA.lean + COMPARISON_A；与 243 比对待做（R41 定稿后） | 09-16 1457Z | — | — | SPEC **R46 双盲草案 A**（prop:Renergy：完备力空间中的稠密 + 轨道强闭包）：只读论文 + Data/Bochner 词汇写 REnergyAPI 陈述 + COMPARISON_A |
 | 243-SPEC-r46-draft-b | 草案 B 完成（astra）：见 research/R46/DraftB.lean + COMPARISON_B；等草案 A 后比对 | 09-16 1454Z | — | — | SPEC **R46 双盲草案 B**：同上，独立模型 |
+| 244-SPEC-r45-spec | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 1500Z | — | — | SPEC **R45 定稿**：按 lead 的 research/R45/RECONCILIATION.md 合并草案 A/B → Spec.lean（可 elaborate）+ COMPARISON.md；复制两份草案与报告留档 |
+| 245-SPEC-r46-spec | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 1500Z | — | — | SPEC **R46 定稿**：按 research/R46/RECONCILIATION.md 合并草案 A/B → Spec.lean + COMPARISON.md（含 CompletedDense 缩写的 rfl 核对） |
 | 160-A04-restart-beyond | 恢复完成；本地检查通过，PR 待审查 | 09-15 0659Z | — | #161 | `ForceShift` 证明正时间平移的 L¹Hˢ 范数单调性；`Continuation` 完成最大解场搬运和完整 δ 端点步。R1 保留精确 A02 `Restart`；`extendsBeyond` / C1 另保留精确 G3 `HigherOrderBound`。两项分析输入未在本 lane 证明，不注册为无条件合同。 |
 | 161-A01-datum-path | 本地验收通过；PR 待审查 | 09-15 0731Z | — | #162 | 全阶定量下降控制 datum 差，构造所有 m ≤ q+1 的连续 RealVectorSobolev 路径；模块与顶阶消费者编译通过，七项公理仅标准三条；26条现有合同、13项保护测试、变异测试及base兼容性检查通过。独立 worktree 从 PR #161 的 0b8e5e4 派生。 |
 | 162-C01-enstrophy | 本地验收通过；PR 待审查 | 09-15 0800Z | — | #163 | 装配 E5 梯度能量时导数、E6 压力消失与 E7 分部积分，完成精确 enstrophyIdentity、微分界和积分界（CRH1=2）；两模块及三个原Spec消费者编译通过，八项公理仅标准三条；26条现有合同、13项保护测试、变异及base兼容性检查通过。独立 worktree 从 PR #161 的 0b8e5e4 派生。 |
