@@ -959,3 +959,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,210-A01-horizon-uniform,lead,merge,"lead verified (module, audits); PR #215 opened; chain launched (wave 43); review continues post-hoc",running,215
 2026-09-16,A01,211-A01-local-theory-bundle,codex,reviewer,"ACCEPT (astra): witnesses preserved, uniform antitone horizon, H7 fixed-force bound, H1 def not assumed, API-shape probe; mutation fails",accepted,
 2026-09-16,A01,211-A01-local-theory-bundle,lead,merge,"PR #216 opened; chain queued after 210 (wave 44)",running,216
+2026-09-16,A01,210-A01-horizon-uniform,lead,merge,"PR #215 merged via chain (wave 43) gates green",merged,215
