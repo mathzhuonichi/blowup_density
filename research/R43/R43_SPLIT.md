@@ -85,35 +85,31 @@ homogeneous norm on a physical field. So the local `def dotHomogeneousENorm` in
 `y = ‖Λ^{1/2}u‖₂ = ‖u‖_{Ḣ^{1/2}}`, `z = ‖Λ^{3/2}u‖₂ = ‖u‖_{Ḣ^{3/2}}`,
 `b = ‖f‖_{Ḣ^{1/2}}`, `C₀` R43-own, `C₁` C01's, `Cemb = C(1/2)` A05's.
 
-### S1 — eq:Rcritical1: the critical energy inequality (G7, R43-owned, L)
+### S1 — eq:Rcritical1: the critical energy inequality (G7, CLOSED by lane 219)
 
-`04-whole-space.tex:97-99`. Testing the projected equation against `Λu`:
-`½(y²)' + (ν − C₀y)z² ≤ by`. **Blocks proving.** No sibling owns it (C01 declares
-it out of scope). Needs a differentiable critical path — a `HasSmoothCriticalPath`
-analogue of A04's `HasSmoothSobolevPath` (`research/A04/Spec.lean:247`) at orders
-`1/2`, `3/2`; no lane exports one. Sub-split (all R43-owned):
+`04-whole-space.tex:97-99`. Testing the projected equation against `Λu` gives
+`½(y²)' + (ν − C₀y)z² ≤ by`.
 
-| S1 sub | Lean shape (informal) | supplier | size |
-|---|---|---|---|
-| S1a pairing identities | **DONE, conditional on `hcrit` carrier data** in `Section4/R43/CriticalPairing.lean`: `⟪Δ_{1/2},A_{1/2}⟫ = -‖A_{3/2}‖²`, `⟪P_{1/2},A_{1/2}⟫ = 0`, and `(y²)' = 2⟪A_{1/2},A'_{1/2}⟫`; the first is proved componentwise from the Fourier symbols and the second through `A04.inner_lerayComplement_eq_zero_of_eq_zero` | R43-own; carrier bridge remains in named `CriticalDatumPath` hypothesis | M |
-| S1b trilinear estimate | `|⟨(u·∇)u, Λu⟩| ≤ C₀·y·z²` | R43-own, via A05 `velocityCriticalL3` + `derivativeCriticalL3` (both **draft-only**) | L |
-| S1c force term | **DONE** in `Section4/R43/CriticalPairing.lean`: `|⟪F_{1/2},A_{1/2}⟫| ≤ ‖F_{1/2}‖‖A_{1/2}‖ = b y`, by real Hilbert-space Cauchy--Schwarz and homogeneous-datum uniqueness | R43-own | S |
-| S1d differentiability of `y²` | **IDENTITY SHAPE DONE, carrier still a gap**: `criticalEnergyPath` defines `t ↦ ‖A_{1/2}(t)‖²`; `criticalEnergyPath_eq` identifies it with `y(t)²`, and `criticalEnergyDerivative_hasDerivAt` derives `HasDerivAt (fun r => criticalNormAt u r ^ 2) (2⟪A,A'⟫) t` from `hcrit.velocityHalf_smooth`; constructing that smooth homogeneous path from `ClassicalSolutionR` remains a later lane | R43-own smooth critical path (named field of `CriticalDatumPath`) | M |
+**CLOSED for every classical solution with positive viscosity and `MemForceR f`.**
+Lane 219's `Section4/R43/CriticalMomentum.lean` proves
+`criticalDatumInputs_of_classical`, `exists_criticalDatumPath'`, and
+`rcritical1_of_classical'`, with no `CriticalDatumInputs`, `hcrit`, or momentum
+hypothesis. The last theorem includes the genuine `HasDerivAt` statement for
+the squared critical norm and lane 214's exact inequality.
 
-Lane 175 also closes the S1 scalar assembly:
-`rcritical1_of_trilinear` produces
-`E'/2 + (ν - C₀*y)*z^2 ≤ b*y` on `Ioo 0 T`, in the literal `henergy`
-shape consumed by `criticalNormBound_radius`, conditional only on the named
-carrier hypothesis `hcrit : CriticalDatumPath w hf` and the separate S1b
-hypothesis `htri : CriticalTrilinearEstimate (C₀ := C₀) hcrit` (besides the
-ambient force-membership witness `hf`).
-| S1a pairing identities | `⟨∂_t u, Λu⟩ = ½(y²)'`, `ν⟨−Δu,Λu⟩ = νz²`, `⟨∇p,Λu⟩ = 0` (Leray) | R43-own; pressure orthogonality via `A02`/`D01` Leray | M |
-| S1b trilinear estimate | `|⟨(u·∇)u, Λu⟩| ≤ C₀·y·z²` | **CLOSED relative to `hcrit` (lanes 182, 191, 214):** `Parseval.lean` proves `pairing_identity_of_hcrit` for lane 191's exact shifted field and constructs `criticalAdvectionLpBridge_of_hcrit`. `criticalTrilinearEstimate_of_hcrit'` and `rcritical1_of_hcrit'` require only `CriticalDatumPath w hf`, with no extra bridge hypothesis. | DONE |
-| S1c force term | `|⟨f, Λu⟩| ≤ b·y` (Cauchy–Schwarz in `Ḣ^{1/2}`) | R43-own | S |
-| S1d differentiability of `y²` | `HasDerivAt (fun s => (y s)^2) (E' s) s` | R43-own smooth critical path (gap) | M |
+| S1 sub | result | supplier |
+|---|---|---|
+| S1a pairing identities | DONE: Laplacian symbol, pressure orthogonality, derivative pairing | lanes 175, 216; unconditional carrier from 219 |
+| S1b trilinear estimate | DONE: physical fractional Parseval and the exact shifted-field bridge | lanes 182, 191, 214 |
+| S1c force term | DONE: half-order Hilbert Cauchy–Schwarz | lane 175; slice data from 216 |
+| S1d differentiability | DONE: chosen half-order trajectory is smooth; its derivative is the momentum datum | lane 219 |
 
-The **scalar consequence** of S1 (`E'/2 + (ν−C₀y)z² ≤ by`) is exactly the `henergy`
-hypothesis of the tree's scalar bootstrap (see S2), so once S1 is proved, S2 is free.
+The time bridge uses lane 215's local-carrier covering/uniqueness argument,
+reproduced in a separate namespace because its module is absent from this
+baseline. At order two, `A04.momentum_datum` identifies the derivative with
+the physical residual. The bounded Bessel-to-homogeneous map composed with
+order lowering transports both smoothness and momentum to the chosen
+half-order trajectory, using D01 homogeneous uniqueness.
 
 Lane 214 closes the bridge left by lanes 182 and 191. The general
 `half_order_parseval` theorem proves the real homogeneous half-order pairing
@@ -126,6 +122,9 @@ The primed trilinear and differential-inequality corollaries consume only
 and its datum-level momentum identity. The spatial carrier and symbol bridge
 are closed, but unconditional R43 still needs that time-path bridge. See
 `ATTEMPTS_PARSEVAL.md`, `ATTEMPTS_S1B.md`, and `../A05/ATTEMPTS_U4_U8.md`.
+This closes S1/G7, not the time-integrated force obligations of G2/G3/G4.
+Lane 216's G3 slicewise note below remains unchanged. See
+`ATTEMPTS_CRITICAL_MOMENTUM.md` and `REPORT_219.md`.
 
 ### S2 — regularized division + continuity bootstrap (M; **a=0 closed by reuse**)
 
@@ -243,7 +242,7 @@ by G2/G3 and the S6 reduction.
 | **G4** | C01 | proving S2 | partial — homogeneous critical force slices exist; time-path measurability/FTC regularity open | M |
 | **G5** | C01 / R43 | proving S4→S5 | open — `S = T_max` endpoint gluing (monotone convergence) | M |
 | **G6** | A04↔C01 | proving S4 | **CLOSED** — `enorm_npow_two_eq_rpow_two` | S (done) |
-| **G7** | R43 | proving S1 | open — eq:Rcritical1 + differentiable critical path; largest R43 unit | L |
+| **G7** | R43 | proving S1 | **CLOSED (219)** — unconditional eq:Rcritical1 and smooth critical path for positive-viscosity classical solutions | DONE |
 | **G8** | A05↔C01 | nothing | **CLOSED** — `exists_critical_radius`, `criticalL3_gate_real`, `criticalL3_gate_enorm` | S (done) |
 
 Plus the **three registration prerequisites** (not "gaps" in COMPARISON's sense but
@@ -264,5 +263,5 @@ eq:RH1 + `sobolevTwoFourier`), A04 V3 (`lifespanInfiniteOfLocallyFinite`).
 | `criticalL3_gate_enorm` | G8 (S3) | ℝ≥0∞ gate `ofReal C₁ · L3 ≤ ofReal (ν/4)`, exact C01 shape |
 | `criticalNormBound_radius` | S2 (a=0) | eq:Rcritical1 ⟹ `y(t) ≤ cν` on `[0,T]`, via `Paper1.critical_norm_bound` |
 
-Blocked rows (need external registration or an R43-owned L unit): S1 (G7), S2 general-a
+Historical blocked rows, with S1/G7 now closed by lane 219: S2 general-a
 (G4), S3 embedding (A05 V2), S4 (C01 V4 + G5), S5 (A04 V3), S6 (G2 + G3).
