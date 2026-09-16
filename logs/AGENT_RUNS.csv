@@ -1236,3 +1236,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,A01,212-A01-contract-v2,lead,merge,"PR #257 merged into erenup/integration; wave 85 gates OK; 36 contracts",merged,257
 2026-09-17,R45,262-R45-contract-v1,lead,merge,"registry union after #257 (37 contracts); PR #258 opened; chain launched (wave 86)",running,258
 2026-09-17,R45,262-R45-contract-v1,lead,merge,"PR #258 merged into erenup/integration; wave 86 gates OK; 37 contracts — Section 4 fully registered",merged,258
+2026-09-17,T10,263-SPEC-t10-draft-a,codex,worker,"gpt-5.6-sol xhigh (63 min): T10 periodic data layer statement draft A (elaborates)",done,
