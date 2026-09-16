@@ -43,3 +43,10 @@ If a piece (likely G5 or the C01 V4 constant's shape) resists, ship the rest and
 
 ## Report
 Commit on your branch; end with four parts. Also write it to `research/R43/REPORT_223.md`.
+
+## Clarification (statement)
+The spec field is (`research/R43/Spec.lean:243-247`, token for token):
+`inhomogeneousAtZero : ∀ ν : ℝ, 0 < ν → ∀ f : SpaceTimeField, MemForceR f → forceSobolevENormL1 (1 / 2) f < ENNReal.ofReal (c * ν) → maximalLifespanR ν (fun _ => 0) f = ⊤`
+— the smallness is in the **inhomogeneous** `forceSobolevENormL1 (1/2)`. Prove exactly this shape (with your explicit `c`); the homogeneous-smallness version is a strictly stronger
+intermediate (`forceHomogeneousENorm 1 (1/2) f ≤ forceSobolevENormL1 (1/2) f` is lane 221's G2), so prove the homogeneous one first and derive the spec's. Name the final theorem
+`inhomogeneousAtZero_of_memForceR` and state `c` (`criticalConst`) as a `def` with a positivity lemma.
