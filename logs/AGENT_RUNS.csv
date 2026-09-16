@@ -1235,3 +1235,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,R45,262-R45-contract-v1,codex,reviewer,"gpt-5.6-sol: REJECT for baseline sync only (ordinal wording); lead to union-merge after #257",accepted-after-sync,
 2026-09-17,A01,212-A01-contract-v2,lead,merge,"PR #257 merged into erenup/integration; wave 85 gates OK; 36 contracts",merged,257
 2026-09-17,R45,262-R45-contract-v1,lead,merge,"registry union after #257 (37 contracts); PR #258 opened; chain launched (wave 86)",running,258
+2026-09-17,R45,262-R45-contract-v1,lead,merge,"PR #258 merged into erenup/integration; wave 86 gates OK; 37 contracts — Section 4 fully registered",merged,258
