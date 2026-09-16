@@ -1198,3 +1198,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R46,259-R46-closure,lead,merge,"PR #251 opened; chain queued after #250 (wave 79)",running,251
 2026-09-16,I03,255-I03-path-measurability,lead,merge,"PR #249 merged into erenup/integration; wave 77 gates OK",merged,249
 2026-09-16,R46,256-R46-sobolev-density,lead,merge,"PR #250 merged into erenup/integration; wave 78 gates OK",merged,250
+2026-09-16,R47,258-R47-assembly,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev258_lifespan)",accepted,252
+2026-09-16,R47,258-R47-assembly,lead,merge,"PR #252 opened; chain queued after #251 (wave 80)",running,252
+2026-09-17,R47,260-R47-contract-v1,lead,plan,"lane opened on 258 branch + integration (install then sol xhigh): register R47.grid_observations V1 (35th contract)",planned,
+2026-09-17,R46,261-R46-contract-v1,lead,plan,"lane opened on 259 branch + integration (install then sol xhigh): register R46.completed_density V1 (34th contract)",planned,
