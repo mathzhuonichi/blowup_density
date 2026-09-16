@@ -1216,3 +1216,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,R45,262-R45-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
 2026-09-17,A01,212-A01-contract-v2,codex,worker,"gpt-5.6-sol xhigh (21 min): A01.local_theory_v2 registered per option 1 with the anti-reward-hacking requirements (H1 sentence explicitly open; nonzero non-vacuity; Paper-vs-V2 table)",done,
 2026-09-17,A01,212-A01-contract-v2,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
+2026-09-17,A04,230-A04-v2-restart-fixed-force,codex,worker,"gpt-5.6-sol xhigh (23 min): A04.continuation_v2 registered per option 1 with the anti-reward-hacking requirements (H1 sentence explicitly open; nonzero non-vacuity; Paper-vs-V2 table)",done,
+2026-09-17,A04,230-A04-v2-restart-fixed-force,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
+2026-09-17,A01,212-A01-contract-v2,lead,fix,"review script needs collaboration/briefs/<lane>.md; the option-1 brief was named differently — copied under the lane name; retry picks it up",running,
