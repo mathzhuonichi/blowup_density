@@ -70,22 +70,44 @@ The requested registered-vocabulary checks nevertheless appear in `Spec.lean`:
 These checks confirm the registered abbreviations without adding either
 density conjunct to R47.
 
-## Proof dependencies
+## Assembly proved (lane 258)
 
-Lane 233's record + R42 fields (`history`, `velocityDifference_support`, `pressureDifference_support`, `forceDifference_ball`, `forceDifference_compact`, `energyRate`, `forceConvergence`) +
-the grid-avoidance choice of the insertion ball (I02's `x₀, r` free parameters: choose the ball inside a common cell of finitely many grids — a new small lemma) + `gridObservation` locality
-(observations of a field supported in a cell agree — needs `Data.gridObservation`'s definition; check `Data.lean` §"grid" for an existing locality lemma) + the `L²Ḣ⁻¹` convergence (open, I03).
+`verification/Bindings/GridAssembly.lean` now supplies `rGridFamily_of_data`
+and `rGrid_choose_of_realization`. The two structures are copied byte-for-byte
+from `Spec.lean`, and the theorem's conclusion copies `RGridAPI.choose` token
+for token. Every field belongs to the same witness, with a common ball chosen
+by lane 247 before the correction is constructed.
 
-## Open questions for the owner
+Lane 233 fixes its own ball, so the assembly reuses its packet and reconstructs
+its correction/scaling/insertion chain with the chosen center and radius and
+the supplied reference itself. Lane 251/253 supplies both grid observations on
+`[0,T)`. The R42 support/history/compactness fields, full-horizon solution and
+exact lifespan suppliers close the remaining geometric and solution fields;
+lane 249 supplies the energy limit. The pressure gauge is identically zero.
+Forces and solutions at inadmissible scales use the fixed admissible scale
+`ε₀`; this total extension preserves every admissible-scale clause and limit.
 
-1. The lead's addendum asks whether
-   `mixedLebesgueENorm 1 2 f = forceSobolevENorm 1 0 f`.  An explicit
-   `example … := rfl` probe fails: the two definitions quantify over different
-   registered path carriers (`Lp Space 2` versus `RealVectorSobolev 0`).  No
-   bridge theorem is currently registered.  `Spec.lean` therefore follows the
-   addendum's manuscript-literal spelling `mixedLebesgueENorm 1 2`; the owner
-   should decide whether to register and prove the order-zero isometry bridge or
-   standardize future statements on one spelling.
+`Bindings/GridAssemblyNorms.lean` proves the literal mixed-norm limit directly
+from the registered correction bound and packet mixed-norm convergence, joined
+by the measurable-slice-path triangle inequality. No `H⁰ = L²` bridge or norm
+renaming is assumed. R42 supplies the inhomogeneous `(2,-1)` limit. Lane 250's
+homogeneous estimates and a proved compact-path triangle inequality supply the
+third limit. The packet and correction powers are `1/2` and `3/2`.
 
-No other statement-shape question remains after applying the binding
-reconciliation.
+The **single remaining input** is lane 250's exact
+`NSFormalization.Section4.I03.CompactHomogeneousRealization`: time strong
+measurability of the explicit D01 compact homogeneous path. It occurs only in
+the homogeneous force convergence chain. **Lane 255** is assigned to close
+this input. This assembly does not assert its unconditional proof.
+
+## Order-zero bridge status
+
+The general identity `mixedLebesgueENorm 1 2 f = forceSobolevENorm 1 0 f`
+is still not supplied by this lane. The earlier failed `rfl` probe correctly
+identified distinct path carriers. This is no longer an R47 assembly blocker:
+the manuscript-literal mixed norm in the unchanged spec is proved to converge
+directly. No owner ruling or additional named assumption is needed for R47.
+
+Axiom audits and zero-data examples for both empty and nonempty grid families
+are in `axioms_assembly.lean`; proof decisions and failed routes are recorded
+in `ATTEMPTS_ASSEMBLY.md`.
