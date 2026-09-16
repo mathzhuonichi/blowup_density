@@ -929,3 +929,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,207-A01-tame-assembly,lead,plan,"lane opened from 206 branch (install, then retry_lane after 20-min rest): finish SmoothCylinderCoordinateTame (route A) and export the unconditional A01 constructor probe",planned,
 2026-09-16,A01,207-A01-tame-assembly,codex,worker,"DONE rc=0 (astra low): TameAssembly.lean — smoothCylinderCoordinateTame with explicit constant, both orientations, Leibniz identification, 2^n leaf count; cylinderCoordinateTame_unconditional; forcing/finiteMildEnergy'/hb_of_base'' unconditional; a01_constructor_unconditional (existential positive horizon) + constructor_of_base; 56 audits standard axioms; commit f8d9d93",done,
 2026-09-16,A01,207-A01-tame-assembly,codex,reviewer,"adversarial review armed (astra first, retry): constant derivation, orientation/identification, unconditional chain vs landed lemmas, milestone probe hypotheses/horizon, mutations, hygiene bd:rev-207",running,
+2026-09-16,A01,205-A01-coordinate-tame,lead,merge,"rebased; lead verified; PR #210 opened; chain launched (wave 38)",running,210
+2026-09-16,A01,206-A01-smooth-tame,lead,merge,"rebased; lead verified; PR #211 opened; chain queued after 205 (wave 39)",running,211
+2026-09-16,A01,207-A01-tame-assembly,codex,reviewer,"ACCEPT-WITH-NOTES (astra, adversarial): 56 audits; halved-constant and flipped-sign mutations fail; notes documentation-only, applied by lead",accepted,
+2026-09-16,A01,207-A01-tame-assembly,lead,merge,"rebased; lead verified; PR #212 opened; chain queued after 206 (wave 40)",running,212
