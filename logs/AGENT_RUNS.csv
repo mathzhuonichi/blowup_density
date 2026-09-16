@@ -1010,3 +1010,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R44,222-R44-s1b-energy-identity,lead,plan,"lane opened (install then astra low, retry): R44 row S1b energy identity along classical solutions",planned,
 2026-09-16,R43,219-R43-critical-momentum,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev219_sign_mutation)",accepted,223
 2026-09-16,R43,219-R43-critical-momentum,lead,merge,"PR #223 opened; chain launched (wave 51)",running,223
+2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,"gpt-5.6-sol xhigh cut off by model-at-capacity after drafting TrilinearJ.lean (uncommitted); continuation launched on astra (fix tag)",relaunched,
