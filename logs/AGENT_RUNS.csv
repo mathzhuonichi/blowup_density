@@ -1063,3 +1063,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,226-R43-contract-v1,lead,merge,"PR #230 merged into erenup/integration; wave 58 gates OK; 30 contracts",merged,230
 2026-09-16,R44,227-R44-endpoint,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev227_negative)",accepted,231
 2026-09-16,R44,227-R44-endpoint,lead,merge,"PR #231 opened after merging integration into the branch; chain launched (wave 59)",running,231
+2026-09-16,R44,227-R44-endpoint,lead,merge,"PR #231 merged into erenup/integration; wave 59 gates OK",merged,231
