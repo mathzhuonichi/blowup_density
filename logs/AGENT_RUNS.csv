@@ -949,3 +949,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,209-A01-manuscript-regularity,codex,reviewer,"review armed (astra first, retry): field-by-field fidelity, t=0 pressure recovery mechanism, interface with 208, hygiene + mutation bd:rev-209",running,
 2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,"post-merge review stalled 3 times (sol Reconnecting); abandoned — superseded by lane 207's adversarial review of the completed chain",superseded,
 2026-09-16,A01,206-A01-smooth-tame,codex,reviewer,"post-merge review stalled 3 times (sol Reconnecting); abandoned — superseded by lane 207's adversarial review of the completed chain",superseded,
+2026-09-16,A01,208-A01-datum-horizon,lead,merge,"PR #213 merged via chain (wave 41) gates green",merged,213
