@@ -1035,3 +1035,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R41,224-R41-nondensity-q1,codex,reviewer,"astra/sol retry review launched",running,
 2026-09-16,R43,225-R43-universal,lead,plan,"lane opened on 223 branch (install then astra low, retry): RCritical1API.universal (general datum) in the spec exact shape",planned,
 2026-09-16,R44,222-R44-s1b-energy-identity,lead,merge,"PR #226 merged into erenup/integration; wave 54 gates OK",merged,226
+2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,"continuation #2 gpt-5.6-sol xhigh: R44 S1c closed (advection_pairing_le, trilinearConstJ explicit; no extra hypothesis)",done,
+2026-09-16,R44,220-R44-s1c-trilinear,codex,reviewer,"sol/astra retry review launched",running,
