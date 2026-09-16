@@ -85,3 +85,22 @@ membership.  It retains exactly one R42 V2 family instead of copying any of its
 fields into the R41D structure.  This makes the extensional density statement
 available immediately while preserving the stronger evidence required by the
 task card and by the compact/rapid consumers.
+
+
+## Lane 229 — both nonDensityZero instances proved
+
+Lane 224 proves the q = 1 obstruction for every s ≥ 1/2 with radius
+`R43.criticalConst * ν`. Lane 229 proves the q = 2 obstruction for every
+s ≥ -1/2 with radius `R44.radius ν T = (theta/20)*ν^(3/2)*exp(-3*ν*T)`.
+Both hold for ν,T > 0 in the original smooth force class and at zero datum.
+
+`R41.nonDensityZero_L2` obtains the lower bound by applying unconditional
+Proposition 4.4 at S = T and then lane 224's general
+`forceSobolevENorm_mono_order`. `not_breakdownDenseR_zero_L2` excludes the
+relative ball centred at the admissible zero force, using the imported
+Data restatements. `axioms_nondensity_l2.lean` proves conformance to
+`Data.BreakdownDenseR ν (fun _ => 0) T 2 s` and the breakdown-set lower bound.
+The threshold agrees with `ThresholdAPI.l2`: exponent 2 s = -1/2 - s.
+No substitute density predicate or duplicate local definition is introduced.
+This closes both non-density instances; it does not claim the subcritical
+density clauses or registration of the full RMainAPI.
