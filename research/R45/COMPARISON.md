@@ -82,6 +82,23 @@ Proposition 4.6 (`04-whole-space.tex:218-228`).
 (a),(b): Theorem 4.1's arguments with `Y` replaced: the density branch needs the inserted forces to stay in `F_c`/`F_rd` (G3 rapid-class closure, lane 234; `F_c` closure from
 `forceDifference_compact`), the non-density branch is inherited from `F_R` via `Y ⊆ F_R` (G2, lane 234) and `breakdownSetIn Y ⊆ breakdownSetR`. (c): G4 + (a). (d): lane 233's record + R42 fields.
 
+## Proof status after lane 252
+
+`verification/Bindings/CompactClassDensity.lean` proves the following two
+instances, with the binder order copied from `Spec.lean` after specializing
+`Y = forceClassCompact`:
+
+- `density_compact`: the compact instance of `density`;
+- `zeroIff_compact`: both directions of the compact instance of `zeroIff`.
+
+It also proves the two compact-class adapters used by those instances:
+`memForceCompact_add_memForceCompact` and
+`memForceR_of_memForceCompact`.  The latter discharges `F_c ⊆ F_R` from the
+already registered D01 result, so no lane-234 supplier hypothesis is needed
+for the compact class.  The rapid instances of `density` and `zeroIff`, plus
+`schwartzDensity` and both instances of `regularReference`, remain outside
+this lane.
+
 ## Open questions for the owner
 
 No statement-level question remains: the binding reconciliation fixes all four
