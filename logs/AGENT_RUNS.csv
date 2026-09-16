@@ -1020,3 +1020,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,221-R43-force-path,codex,worker,"continuation gpt-6-astra low (4 min): G2/G3/G4 force path closed exactly; critical_bootstrap_zero_datum unconditional (25 declarations)",done,
 2026-09-16,R43,221-R43-force-path,codex,reviewer,"astra/sol retry review launched",running,
 2026-09-16,R43,223-R43-endpoint,lead,plan,"lane opened on 221 branch (install then astra low, retry): R43 endpoint theorem inhomogeneousAtZero (S4/S5/S6, G5)",planned,
+2026-09-16,R43,223-R43-endpoint,lead,relaunch,"relaunched 8 s after the statement clarification was appended (first launch read the old brief)",running,
