@@ -1008,3 +1008,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R44,218-R44-s1a-jweight,lead,merge,"PR #222 opened; chain launched (wave 50)",running,222
 2026-09-16,R44,218-R44-s1a-jweight,lead,merge,"PR #222 merged into erenup/integration; wave 50 gates OK",merged,222
 2026-09-16,R44,222-R44-s1b-energy-identity,lead,plan,"lane opened (install then astra low, retry): R44 row S1b energy identity along classical solutions",planned,
+2026-09-16,R43,219-R43-critical-momentum,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev219_sign_mutation)",accepted,223
+2026-09-16,R43,219-R43-critical-momentum,lead,merge,"PR #223 opened; chain launched (wave 51)",running,223
