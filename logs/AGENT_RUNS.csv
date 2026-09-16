@@ -884,3 +884,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,200-A01-forcing-bound,codex,reviewer,"ACCEPT-WITH-NOTES (astra low): conditional result correct; CylinderCommutatorBound = compatible self-transport specialization of Kato–Ponce/Moser; concrete route for lane 202; notes: scope no-ha claim, rebase preserving 199 fix",accepted,
 2026-09-16,A01,200-A01-forcing-bound,codex,fix,"launched (sol high): rebase (take integration's MildEnergyEnvelope), records, gates",running,
 2026-09-16,A01,202-A01-commutator-bound,lead,plan,"lane armed (auto after fix_200: worktree from 200 branch, install, astra low): cylinder word-commutator estimate per reviewer 200 route; existential C first",planned,
+2026-09-16,A01,200-A01-forcing-bound,codex,fix,"DONE rc=0: rebased onto 79b3677 keeping integration's MildEnergyEnvelope; revision-scoped docs; review artifacts; commit dffb44e",done,
+2026-09-16,A01,200-A01-forcing-bound,lead,merge,"lead re-verified; PR #206 opened; chain launched (wave 34)",running,206
