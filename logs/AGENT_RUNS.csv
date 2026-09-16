@@ -1017,3 +1017,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,"continuation #1 gpt-6-astra low gave up after 2.5 min (draft committed 3ea0ce5; two elaboration failures); continuation #2 launched on sol xhigh (fix2)",relaunched,
 2026-09-16,R44,222-R44-s1b-energy-identity,codex,worker,"continuation gpt-6-astra low (12 min): R44 S1b energy identity unconditional along classical solutions (20 declarations); adapter to 220's advectionJPairing pending",done,
 2026-09-16,R44,222-R44-s1b-energy-identity,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R43,221-R43-force-path,codex,worker,"continuation gpt-6-astra low (4 min): G2/G3/G4 force path closed exactly; critical_bootstrap_zero_datum unconditional (25 declarations)",done,
+2026-09-16,R43,221-R43-force-path,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R43,223-R43-endpoint,lead,plan,"lane opened on 221 branch (install then astra low, retry): R43 endpoint theorem inhomogeneousAtZero (S4/S5/S6, G5)",planned,
