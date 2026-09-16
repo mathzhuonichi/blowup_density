@@ -900,3 +900,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,204-A01-signed-passage,lead,plan,"lane opened (install then auto-launch astra low) from the 203 branch: prove CylinderSignedEnergyPassage",planned,
 2026-09-16,A01,205-A01-coordinate-tame,lead,plan,"lane opened (install then auto-launch astra low) from the 202 branch: prove CylinderCoordinateTame (existential C first; angular-invariant re-cut allowed)",planned,
 2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"astra reviewer died at start (capacity) while 3 other astra runs continue; retry armed with 30-min rest per user guidance",pending,
+2026-09-16,A01,204-A01-signed-passage,codex,worker,"died at start (astra at capacity); retry_lane.sh armed (30-min rest, alternating)",pending,
+2026-09-16,A01,205-A01-coordinate-tame,codex,worker,"died at start (astra at capacity); retry_lane.sh armed (30-min rest, alternating)",pending,
+2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"astra reviewer died again (capacity); retry armed with 30-min rest",pending,
