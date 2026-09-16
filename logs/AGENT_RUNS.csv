@@ -950,3 +950,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,"post-merge review stalled 3 times (sol Reconnecting); abandoned — superseded by lane 207's adversarial review of the completed chain",superseded,
 2026-09-16,A01,206-A01-smooth-tame,codex,reviewer,"post-merge review stalled 3 times (sol Reconnecting); abandoned — superseded by lane 207's adversarial review of the completed chain",superseded,
 2026-09-16,A01,208-A01-datum-horizon,lead,merge,"PR #213 merged via chain (wave 41) gates green",merged,213
+2026-09-16,A01,209-A01-manuscript-regularity,codex,reviewer,"ACCEPT-WITH-NOTES (astra): endpoint pressure recovery checked; note on carrier witnesses for localSolution (lane 211)",accepted,
+2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,"note applied; PR #214 opened; chain launched (wave 42)",running,214
