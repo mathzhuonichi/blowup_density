@@ -865,3 +865,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,199-A01-envelope,codex,reviewer,"launched (astra low): signed identity genuine, ODE envelope algebra, CylinderRootComparison/ForcingFamilyBound classification + routes for lanes 200/201, hygiene bd:rev-199",running,
 2026-09-16,A01,199-A01-envelope,codex,reviewer,"REJECT (scope): neither general-data target closed; partial results sound; ForcingFamilyBound not a premise of the new chain; scalar ODE uniqueness missing; routes for lanes 200/201 given",rejected,
 2026-09-16,A01,199-A01-envelope,codex,fix,"launched (sol high): land the sound partial as a conditional module — ODE uniqueness, records, review artifacts",running,
+2026-09-16,A01,200-A01-forcing-bound,lead,plan,"lane opened on 199 branch (install then auto-launch astra low): ForcingFamilyBound with explicit E(q),A(q) via vendor commutator + A03/A04 tame chain",planned,
+2026-09-16,A01,201-A01-root-comparison,lead,plan,"lane opened on 199 branch (install then auto-launch astra low): CylinderRootComparison from the signed identity + ForcingFamilyBound (hypothesis) + signed integrated limit + scalar Grönwall comparison",planned,
