@@ -23,6 +23,7 @@
 - **2026-09-16 0255Z Section 3 规划**：`collaboration/SECTION3_PLAN.md` 落地（两份只读调研合成）。要点：本地 146 个 `Paper1/Periodic*` 模块都是 R³+周期谓词表示，真 T³ 只有 `TorusCube.lean` 一座桥；OpenAI 包与 HeliCorgi（= 用户给的 ns-mns2-flowmap-bridge）均为 R³；决定保留物理场的周期表示、分析全放系数侧 `ℓ²(Z³)`（照抄 D01 数据形式架构）；HeliCorgi 抽象 mild/延拓层可在 T³ 载体实例化；`lem:localization`（T13）是最高杠杆的新节点；两条独立脊柱（构造 vs 障碍）可并行。第 4 节做完后再启动。
 - **2026-09-16 0300Z 包络侧闭合**：204（astra）无条件证出 `CylinderSignedEnergyPassage`（带号极限通道，保留完整耗散），组合后 `CylinderSignedRootLimit`/`FiniteMildEnergy` 只剩 forcing 侧输入 `ForcingFamilyBound`（⇐ 202 的 `CylinderCommutatorBound` ⇐ 205 的 `CylinderCoordinateTame` ⇐ `SmoothCylinderCoordinateTame`：光滑 H^∞ 场的逐坐标混合积插值）。205 审稿在问：竞争者角不变时能否下降到 R³ 用 A03 tame 积直接证——若能，A01 无条件就只剩接线。
 - **2026-09-16 0330Z**：204（#209 带号通道，无条件）合入，177 模块。206（astra）把柱面 word 插值（常数 1）和左向混合积估计证出，但 `SmoothCylinderCoordinateTame` 还差反向估计、Leibniz word 识别、组合求和；它判定角不变下降路线受阻（`ForcingFamilyBound` 无不变性 binder、最大逼近点处不变性不可得）。206 审稿（astra）要给出决定：(A) 继续柱面装配（纯记账）还是 (B) 把 forcing 链 re-cut 到 173 的 `HasAprioriBoundInv` 不变类后下降到 R³ 用 A03。202/203/205 的补审在休息后依次重启（03:35–03:45Z）。
+- **2026-09-16 0405Z**：202/203 补审 ACCEPT（产物入记录）。astra 也进入重连/容量波：205、206 审稿被杀并挂休息后重启（sol 优先）。207（tame 装配，路线 A：反向混合积 + Leibniz 识别 + 组合求和 ⇒ `SmoothCylinderCoordinateTame` ⇒ … ⇒ `hb` 无条件 ⇒ A01 无条件构造器探针）已建树，安装后休息 20 分钟自动以 astra/sol 交替启动。若 206 审稿推荐不变类 re-cut（路线 B），用 fix 简报改向。
 - 坑：新 worktree 必须先 `LEAN_SEED_DIR=<root> bash scripts/lean-install.sh`（否则 lake 私 clone Mathlib 从源码编译数小时）；`pkill -f` 会杀自己。
 
 ## Integration handoff (2026-09-15)
