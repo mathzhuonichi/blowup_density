@@ -1190,3 +1190,9 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,A01,212-A01-contract-v2,lead,plan,"user decided option 1 (fixed-force H7 V2 wording; H1 sentence kept as an explicitly open named definition); lane launched (install then sol xhigh) with anti-reward-hacking requirements",planned,
 2026-09-17,A04,230-A04-v2-restart-fixed-force,lead,plan,"A04 V2 registration lane launched (install then sol xhigh) per the same decision",planned,
 2026-09-16,R41D,234-R41D-small-gaps,lead,merge,"PR #248 merged into erenup/integration; wave 76 gates OK",merged,248
+2026-09-16,I03,255-I03-path-measurability,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (COMPARISON rows applied by lead)",accepted,249
+2026-09-16,I03,255-I03-path-measurability,lead,merge,"PR #249 opened; chain launched (wave 77)",running,249
+2026-09-16,R46,256-R46-sobolev-density,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes",accepted,250
+2026-09-16,R46,256-R46-sobolev-density,lead,merge,"PR #250 opened; chain queued after #249 (wave 78)",running,250
+2026-09-16,R46,259-R46-closure,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes",accepted,251
+2026-09-16,R46,259-R46-closure,lead,merge,"PR #251 opened; chain queued after #250 (wave 79)",running,251
