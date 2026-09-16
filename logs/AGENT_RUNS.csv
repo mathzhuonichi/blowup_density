@@ -889,3 +889,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,200-A01-forcing-bound,lead,merge,"PR #206 merged via chain (wave 34) gates green",merged,206
 2026-09-16,A01,203-A01-signed-limit,codex,worker,"DONE rc=0 (astra low): SignedLimit.lean — derivative-word square-integral convergence, signed quotient absorption, cylinderSignedRootLimit_of_forcingBound conditional on CylinderSignedEnergyPassage (unabsorbed signed regularized integral estimate, ε-root form); 12 audits standard axioms; commit fd7e18a",done,
 2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"launched (astra low): proved pieces, honesty of CylinderSignedEnergyPassage, obstruction, route for lane 204, hygiene bd:rev-203",running,
+2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"astra reviewer died at start (model at capacity); relaunched on gpt-5.6-sol xhigh",running,
