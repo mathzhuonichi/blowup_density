@@ -1097,3 +1097,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R44,231-R44-contract-v1,lead,merge,"PR #236 opened after merging integration; chain launched (wave 64)",running,236
 2026-09-16,R44,231-R44-contract-v1,lead,merge,"PR #236 merged into erenup/integration; wave 64 gates OK; 31 contracts",merged,236
 2026-09-16,SPEC,237-SPEC-r41-draft-b,codex,worker,"gpt-6-astra low (3 min): R41 contract statement draft B (RMainAPI with 4 fields; COMPARISON_B)",done,
+2026-09-16,SPEC,238-SPEC-r45-draft-a,lead,plan,"lane opened (install then sol xhigh): double-blind R45 (cor:Rclasses) contract statement draft A",planned,
+2026-09-16,SPEC,239-SPEC-r45-draft-b,lead,plan,"lane opened (install then astra low): double-blind R45 contract statement draft B",planned,
