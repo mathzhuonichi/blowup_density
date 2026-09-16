@@ -1152,3 +1152,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,I03,255-I03-path-measurability,lead,plan,"lane opened on 250 branch (install then sol xhigh, retry): close CompactHomogeneousRealization (path measurability)",planned,
 2026-09-16,R47,251-R47-force-cell-integral,codex,reviewer,"gpt-6-astra: REJECT for baseline sync only (stale compatibility check); lead merged integration and reran gates",accepted-after-sync,243
 2026-09-16,R47,251-R47-force-cell-integral,lead,merge,"PR #243 opened after baseline sync; chain launched (wave 71)",running,243
+2026-09-16,R47,251-R47-force-cell-integral,lead,merge,"PR #243 merged into erenup/integration; wave 71 gates OK",merged,243
