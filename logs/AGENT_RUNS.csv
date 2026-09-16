@@ -1024,3 +1024,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,221-R43-force-path,codex,reviewer,"gpt-6-astra: ACCEPT-WITH-NOTES (docstring-only fix, applied by lead; probes rev221_mutation, rev221_nonvacuity)",accepted,224
 2026-09-16,R43,221-R43-force-path,lead,merge,"PR #224 opened; chain launched (wave 52)",running,224
 2026-09-16,R43,221-R43-force-path,lead,merge,"PR #224 merged into erenup/integration; wave 52 gates OK",merged,224
+2026-09-16,R43,223-R43-endpoint,codex,worker,"gpt-6-astra low (8 min): inhomogeneousAtZero_of_memForceR proved unconditionally in the spec's exact shape (criticalConst explicit; 12 declarations)",done,
+2026-09-16,R43,223-R43-endpoint,codex,reviewer,"astra/sol retry review launched",running,
