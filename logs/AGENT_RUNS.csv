@@ -913,3 +913,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,"launched (sol xhigh): transfer soundness, Leibniz exactness, angular-invariant descent to R³/A03 question, hygiene bd:rev-205",running,
 2026-09-16,A01,204-A01-signed-passage,codex,worker,"DONE rc=0 (astra low): SignedPassage.lean — cylinderSignedEnergyPassage proved with no extra hypothesis (full dissipation retained); cylinderSignedRootLimit_of_forcingBound' removes hpass; 31 audits standard axioms; commit cf38e9a",done,
 2026-09-16,A01,204-A01-signed-passage,codex,reviewer,"adversarial review launched (astra low): level-n inequality, limit passage incl. dissipation direction, DCT domination, endpoints, compositions, hygiene + mutation bd:rev-204",running,
+2026-09-16,A01,204-A01-signed-passage,codex,reviewer,"ACCEPT (astra low, adversarial): signed passage unconditional; doubled-dissipation mutation fails",accepted,
+2026-09-16,A01,204-A01-signed-passage,lead,merge,"rebased (took integration's SignedLimit.lean); lead verified; PR #209 opened; chain launched (wave 37)",running,209
