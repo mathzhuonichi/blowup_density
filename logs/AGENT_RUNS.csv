@@ -855,3 +855,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,180-A01-b2-assembly,codex,reviewer,"sixth review: production interface correct; REJECT limited to the research-side cross-lane pipeline probe (stale 197 export copy, hresidualAgreement assumed)",accepted-by-lead,190
 2026-09-16,A01,180-A01-b2-assembly,lead,merge,"lead decision: probe marked historical (real pipeline = lane 189's pressureSupply_of_pieces); PR #190 ready; chain queued after 198's (wave 30)",running,190
 2026-09-16,A01,189-A01-pressure-regularity,lead,plan,"fix3 armed (auto after 180 lands, sol high): import 180's PressureSupply, delete copy, A01 constructor pipeline probe",planned,
+2026-09-16,A01,198-A01-energy-premises,lead,merge,"PR #202 merged via chain (wave 29) gates green",merged,202
