@@ -1238,3 +1238,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,R45,262-R45-contract-v1,lead,merge,"PR #258 merged into erenup/integration; wave 86 gates OK; 37 contracts — Section 4 fully registered",merged,258
 2026-09-17,T10,263-SPEC-t10-draft-a,codex,worker,"gpt-5.6-sol xhigh (63 min): T10 periodic data layer statement draft A (elaborates)",done,
 2026-09-17,T10,264-SPEC-t10-draft-b,codex,worker,"gpt-6-astra died after 81 min (router reconnect 5/5, no draft written); relaunched immediately",relaunched,
+2026-09-17,T13,265-SPEC-t13-draft-a,lead,plan,"Section 3: double-blind T13 (lem:localization) statement draft A (install then sol xhigh)",planned,
+2026-09-17,T13,266-SPEC-t13-draft-b,lead,plan,"Section 3: double-blind T13 statement draft B (install then astra low)",planned,
