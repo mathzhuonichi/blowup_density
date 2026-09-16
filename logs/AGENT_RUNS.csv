@@ -887,3 +887,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,200-A01-forcing-bound,codex,fix,"DONE rc=0: rebased onto 79b3677 keeping integration's MildEnergyEnvelope; revision-scoped docs; review artifacts; commit dffb44e",done,
 2026-09-16,A01,200-A01-forcing-bound,lead,merge,"lead re-verified; PR #206 opened; chain launched (wave 34)",running,206
 2026-09-16,A01,200-A01-forcing-bound,lead,merge,"PR #206 merged via chain (wave 34) gates green",merged,206
+2026-09-16,A01,203-A01-signed-limit,codex,worker,"DONE rc=0 (astra low): SignedLimit.lean — derivative-word square-integral convergence, signed quotient absorption, cylinderSignedRootLimit_of_forcingBound conditional on CylinderSignedEnergyPassage (unabsorbed signed regularized integral estimate, ε-root form); 12 audits standard axioms; commit fd7e18a",done,
+2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"launched (astra low): proved pieces, honesty of CylinderSignedEnergyPassage, obstruction, route for lane 204, hygiene bd:rev-203",running,
