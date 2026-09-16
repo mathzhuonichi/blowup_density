@@ -1099,3 +1099,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,SPEC,237-SPEC-r41-draft-b,codex,worker,"gpt-6-astra low (3 min): R41 contract statement draft B (RMainAPI with 4 fields; COMPARISON_B)",done,
 2026-09-16,SPEC,238-SPEC-r45-draft-a,lead,plan,"lane opened (install then sol xhigh): double-blind R45 (cor:Rclasses) contract statement draft A",planned,
 2026-09-16,SPEC,239-SPEC-r45-draft-b,lead,plan,"lane opened (install then astra low): double-blind R45 contract statement draft B",planned,
+2026-09-16,SPEC,240-SPEC-r47-draft-a,lead,plan,"lane opened (install then sol xhigh): double-blind R47 (thm:Rgrid) contract statement draft A",planned,
+2026-09-16,SPEC,241-SPEC-r47-draft-b,lead,plan,"lane opened (install then astra low): double-blind R47 contract statement draft B",planned,
