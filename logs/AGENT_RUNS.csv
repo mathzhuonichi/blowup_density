@@ -990,3 +990,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A04,217-A04-shifted-extension,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probes rev217_nonvacuity, rev217_plus_one_mutation)",accepted,220
 2026-09-16,A04,217-A04-shifted-extension,lead,merge,"PR #220 opened; chain launched (wave 48)",running,220
 2026-09-16,A04,217-A04-shifted-extension,lead,merge,"PR #220 merged into erenup/integration; wave 48 gates OK",merged,220
+2026-09-16,R43,216-R43-critical-datum-path,codex,worker,"gpt-5.6-sol xhigh: six half-order datum paths + symbol/transverse/longitudinal fields unconditional; assembly conditional on CriticalDatumInputs (time smoothness + datum momentum identity)",done,
+2026-09-16,R43,216-R43-critical-datum-path,codex,reviewer,"sol/astra retry review launched",running,
