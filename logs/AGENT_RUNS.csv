@@ -1023,3 +1023,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,223-R43-endpoint,lead,relaunch,"relaunched 8 s after the statement clarification was appended (first launch read the old brief)",running,
 2026-09-16,R43,221-R43-force-path,codex,reviewer,"gpt-6-astra: ACCEPT-WITH-NOTES (docstring-only fix, applied by lead; probes rev221_mutation, rev221_nonvacuity)",accepted,224
 2026-09-16,R43,221-R43-force-path,lead,merge,"PR #224 opened; chain launched (wave 52)",running,224
+2026-09-16,R43,221-R43-force-path,lead,merge,"PR #224 merged into erenup/integration; wave 52 gates OK",merged,224
