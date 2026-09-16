@@ -954,3 +954,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,"note applied; PR #214 opened; chain launched (wave 42)",running,214
 2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,"PR #214 merged via chain (wave 42) gates green",merged,214
 2026-09-16,A01,211-A01-local-theory-bundle,lead,plan,"lane opened on 210 branch + integration (install then astra low with retry): carrier bundle, uniformly selected horizon, regularity instance, two horizon-uniformity variants, API-shape probe; no contract files",planned,
+2026-09-16,A01,211-A01-local-theory-bundle,codex,worker,"DONE rc=0 (astra low): LocalTheoryBundle.lean — LocalCarrier/localCarrier, localHorizon' (antitone uniform selection), manuscriptLocalRegularity_localCarrier, horizon_lower_bound_H7_fixedForce, ManuscriptHorizonLowerBoundH1 (def only), API-shape probe; 34 audits standard axioms; commit 08b71c5",done,
+2026-09-16,A01,211-A01-local-theory-bundle,codex,reviewer,"review armed (astra first, retry): witnesses same as used, uniform antitone horizon, H7 fixed-force bound, H1 def not assumed, API-shape probe, hygiene + mutation bd:rev-211",running,
