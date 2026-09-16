@@ -1247,3 +1247,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,MAINT,267-MAINT-archive-section4,lead,merge,"PR #260 opened to erenup/integration-section3; chain launched (wave 87)",running,260
 2026-09-17,MAINT,267-MAINT-archive-section4,lead,merge,"PR #260 merged manually (cherry-pick onto the current Section 3 branch; merge_lane.sh rebase conflicted with the doc rewrite); make check OK",merged,260
 2026-09-17,MAINT,268-MAINT-ledger-t10-t24,lead,plan,"add T10-T24 to the blueprint DAG and the work-item ledger (sol, ledger only)",planned,
+2026-09-17,MAINT,268-MAINT-ledger-t10-t24,codex,worker,"gpt-5.6-sol xhigh (9 min): T10-T24 added to the DAG and ledger (45 nodes); make check OK",done,261
+2026-09-17,MAINT,268-MAINT-ledger-t10-t24,lead,merge,"PR #261 merged directly into erenup/integration-section3",merged,261
