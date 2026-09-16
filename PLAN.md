@@ -32,4 +32,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 264-SPEC-t10-draft-b | 首轮（astra）81 分钟后被路由 Reconnecting 5/5 切断且未写出任何文件；已立即重启（astra 优先，失败换 sol） | 09-16 1901Z | — | — | T10 双盲陈述草案 B：同上，独立模型 |
 | 265-SPEC-t13-draft-a | 草案 A 完成（sol，10 分钟）：LocalizationAPI 四字段（固定基本立方体、IsSpatialPeriodization 关系）；草案 B（任意平移立方体、periodize 函数、含尾和引理字段）；lead 已写 research/T13/RECONCILIATION.md（取固定立方体 + periodize + B 的字段名，尾和引理不作字段；范数词汇用 T10 定稿） | 09-16 1913Z | — | — | T13 **lem:localization 双盲草案 A**（第 3 节真正的新分析；从一开始可并行的叶子）：Gagliardo 双积分 I_R/I_T、核 K_s 与格点尾和、常数 c_s、eq:localization 的一致常数——LocalizationAPI 陈述 + COMPARISON_A |
 | 266-SPEC-t13-draft-b | 草案 B 完成（astra）：见 research/T13/DraftB.lean + COMPARISON_B；等草案 A | 09-16 1909Z | — | — | T13 双盲草案 B：同上，独立模型 |
-| 267-MAINT-archive-section4 | 文档归档完成（本地提交，未合入） | 09-17（归档标记） | — | — | Section 4 工作文档归档；实时入口转向 Section 3；台账工具限制见 REPORT_267；下一 lane = 268 |
+| 267-MAINT-archive-section4 | 已合入 #260（lead 手动合并；make check OK）；第 4 节文档归档到 archive/section4/，PLAN/NEXT_SESSION/HANDOFF 重写为第 3 节 | 09-16 2104Z | #260 | — | Section 4 工作文档归档；实时入口转向 Section 3；台账工具限制见 REPORT_267；下一 lane = 268 |
