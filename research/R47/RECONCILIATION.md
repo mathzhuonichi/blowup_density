@@ -31,3 +31,6 @@ the grid-avoidance choice of the insertion ball (I02's `x₀, r` free parameters
 
 ## 5. Next
 Registration-shaped `research/R47/Spec.lean` + merged `COMPARISON.md` (lane 246); proofs after R46's strong closure lands.
+
+## Addendum (lead, 23:45Z)
+`Data.lean:251` registers `mixedLebesgueENorm (q p) f` (the literal `L^q_t L^p_x` norm). For the `L¹_tL²_x` term of the three-norm sum, the registration lane should spell `mixedLebesgueENorm 1 2` (literal manuscript fidelity) and add `example : mixedLebesgueENorm 1 2 f = forceSobolevENorm 1 0 f` (or a lemma) if it holds definitionally/provably; otherwise keep both spellings documented and let the owner choose. Lanes 245/246 running with the earlier wording should note this in their COMPARISON "open questions".

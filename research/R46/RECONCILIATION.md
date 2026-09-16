@@ -24,3 +24,6 @@ Lead: erenup, 2026-09-16 (UTC 23:10). Drafts: `.claude/worktrees/242-SPEC-r46-dr
 
 ## 4. Next
 Registration lane (SPEC → `Contracts/V1/CompletedDensity.lean` as `REnergyAPI` with the three fields above, docstrings from both drafts, `research/R46/Spec.lean` = the reconciled statement, `COMPARISON.md` merged from A/B) after R41's registration (shared conventions).
+
+## Addendum (lead, 23:45Z)
+`Data.lean:251` registers `mixedLebesgueENorm (q p) f` (the literal `L^q_t L^p_x` norm). For the `L¹_tL²_x` term of the three-norm sum, the registration lane should spell `mixedLebesgueENorm 1 2` (literal manuscript fidelity) and add `example : mixedLebesgueENorm 1 2 f = forceSobolevENorm 1 0 f` (or a lemma) if it holds definitionally/provably; otherwise keep both spellings documented and let the owner choose. Lanes 245/246 running with the earlier wording should note this in their COMPARISON "open questions".
