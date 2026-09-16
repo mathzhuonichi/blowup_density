@@ -162,3 +162,7 @@ obligations or establish a successful cloud CI run.
 1. 派 opus reviewer（读 `.claude/skills/lane-review`）：陈述是否仍是论文那条、公理审计、非空洞、至少一个实质变异反例（不是删参数）。
 2. 跑合并链：squash + rebase 到 `erenup/integration` → 合入 → 根目录全部 `Section4` 模块门禁 + `check_contracts --base-ref origin/main`。
 3. 记 `logs/AGENT_RUNS.csv`、`PLAN.md` §8 进度表（UTC）、`NEXT_SESSION.md`；坑记 `logs/LESSONS.md`。
+
+## Section 3 (2026-09-17)
+
+Section 3 work lives on **`erenup/integration-section3`** (lanes 263+; PRs target it). `erenup/integration` is frozen as the Section 4 deliverable (PR #259 → `main`). Plan: `collaboration/SECTION3_PLAN.md`.

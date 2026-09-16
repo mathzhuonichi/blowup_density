@@ -16,6 +16,7 @@
 - 本机 gh 登录 = `erenup`（协作者，仓库级写权限，无 admin）。owner = `mathzhuonichi`。
 - 主干 `main`（2026-09-13 从 `codex/section4-blueprint` 改名，见 `logs/MAIN_BRANCH_20260913.md`）。`codex/*` 都是已合入的死分支。
 - 分支保护：PR 需 1 个 review，作者不能自审，CI 必须绿。
+- **2026-09-17 起分节分支**：第 4 节完成（37 个合同，PR #259 → `main` 待 owner），`erenup/integration` **冻结**（只做 owner 对 #259 的修改）。第 3 节（环面）用新核心分支 **`erenup/integration-section3`**（从 integration 分出；根目录已切换到它）：Section 3 的 lane 从它开 worktree、PR 以它为 base、lead 在根目录合入；`tmp/mkchain.sh`/`scripts/codex_review.sh` 通过 `INTEGRATION_BRANCH`（默认 `erenup/integration-section3`）选分支；规划见 `collaboration/SECTION3_PLAN.md`，lane 号全局递增（263 起）。
 - **集成分支 `erenup/integration`**：我们自己能合。每条 lane 的 PR 以它为 base，reviewer 跑通后由 lead 合入；
   攒一批再从它向 `main` 提 PR 给 owner review（PR #15）。**根目录 `/data_8T/ping/blowup_density` 检出的就是 `erenup/integration`**（2026-09-13 下午起；`main` 暂无其他进展），lead 在根目录做记账、合并、跑门禁；改代码仍然只在 lane worktree 里。
 - **编号规则**：lane 序号 `NNN` 三位、全局递增，唯一分配点是 `PLAN.md` 进度表。

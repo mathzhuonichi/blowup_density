@@ -4,7 +4,7 @@
 #   scripts/codex_lane.sh <lane> <model> <effort> <brief.md> [tag]   (tag=fix → names fix_<lane>)
 #
 #   lane    = NNN-<node>-<slug>; the worktree .claude/worktrees/<lane> must already exist
-#             (create it with `git worktree add … origin/erenup/integration` + scripts/lean-install.sh)
+#             (create it with `git worktree add … origin/erenup/integration-section3 (Section 3) / origin/erenup/integration (Section 4, frozen)` + scripts/lean-install.sh)
 #   model   = gpt-5.6-sol | gpt-6-astra | …      effort = low | medium | high | xhigh
 #   brief   = markdown file with the full task (fed to codex on stdin)
 #

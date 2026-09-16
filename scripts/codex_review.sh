@@ -44,10 +44,10 @@ Check, citing \`file:line\` for each:
 2. **Build**: rerun every gate the brief lists (\`lake build\` of the module — silent for this module,
    \`lake env lean\` on the module — 0 output, the axioms file — every \`#print axioms\` exactly
    \`[propext, Classical.choice, Quot.sound]\`, \`make check\`, plus \`scripts/gates.sh\` and
-   \`check_contracts.py --base-ref origin/erenup/integration\` if \`verification/\` was touched).
+   \`check_contracts.py --base-ref origin/${INTEGRATION_BRANCH:-erenup/integration-section3}\` if \`verification/\` was touched).
    Paste exact outputs.
 3. **Hygiene**: no \`sorry/admit/axiom/native_decide\`; \`maxHeartbeats\` only per declaration ≤ 400000
-   with a comment; no existing module modified (\`git diff --name-only origin/erenup/integration...HEAD\`);
+   with a comment; no existing module modified (\`git diff --name-only origin/${INTEGRATION_BRANCH:-erenup/integration-section3}...HEAD\`);
    citations correct.
 4. **Negative check**: at least one substantive mutation of a main statement in a scratch probe
    (change a constant, flip a sign, widen an interval) and confirm the proof breaks with the expected
