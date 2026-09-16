@@ -1212,3 +1212,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,R46,261-R46-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
 2026-09-17,R47,260-R47-contract-v1,codex,worker,"gpt-5.6-sol xhigh (10 min): R47.grid_observations V1 registered (assembly instantiated with the realization)",done,
 2026-09-17,R47,260-R47-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-17,R45,262-R45-contract-v1,codex,worker,"gpt-5.6-sol xhigh (9 min): R45.force_classes V1 registered (four fields bound)",done,
+2026-09-17,R45,262-R45-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
