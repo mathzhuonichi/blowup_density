@@ -1048,3 +1048,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,225-R43-universal,lead,merge,"PR #228 opened; chain launched (wave 56)",running,228
 2026-09-16,R43,225-R43-universal,lead,merge,"PR #228 merged into erenup/integration; wave 56 gates OK",merged,228
 2026-09-16,R44,227-R44-endpoint,lead,plan,"lane opened (install then astra low, retry): R44 S2-S6 assembly conditional only on the S1 differential inequality",planned,
+2026-09-16,R44,220-R44-s1c-trilinear,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev220_flip_sign)",accepted,229
+2026-09-16,R44,220-R44-s1c-trilinear,lead,merge,"PR #229 opened after merging integration into the branch; chain launched (wave 57)",running,229
