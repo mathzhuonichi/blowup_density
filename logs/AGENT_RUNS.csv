@@ -839,3 +839,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,189-A01-pressure-regularity,lead,plan,"assembly fix2 brief written; armed to auto-launch (astra low) once lane 197 chain lands",planned,
 2026-09-15,A01,180-A01-b2-assembly,codex,fix6,"DONE rc=0: PressureSupply carries ha, same-carrier all-order hpairs (194 shape), hpaths, 190 data; rows_from_constructor_full via cylinderPair_of_bounds; real 194→195→197 pipeline probe; zero-family probe; commit cca4af7",done,190
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"sixth review launched (sol xhigh): binders vs 194 shape, consumer loop imports, pipeline probe, hygiene bd:rev-180",running,190
+2026-09-15,A01,197-A01-leray-bridge,codex,reviewer,"re-review REJECT (mechanics): bridge mathematically sound, 25 decls standard axioms; residual_difference_gradient exceeds 400000 heartbeats; 29 behind; fix6 binder export + landed consumer replay missing",rejected,
+2026-09-15,A01,197-A01-leray-bridge,codex,fix2,"launched (astra low): rebase, split proof under heartbeat cap, export with PressureSupply binders, replay landed InteriorMomentum consumer",running,
