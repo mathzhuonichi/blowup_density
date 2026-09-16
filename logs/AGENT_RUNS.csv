@@ -1242,3 +1242,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,T13,266-SPEC-t13-draft-b,lead,plan,"Section 3: double-blind T13 statement draft B (install then astra low)",planned,
 2026-09-17,T13,266-SPEC-t13-draft-b,codex,worker,"gpt-6-astra low: T13 statement draft B",done,
 2026-09-17,T13,265-SPEC-t13-draft-a,codex,worker,"gpt-5.6-sol xhigh (10 min): T13 statement draft A",done,
+2026-09-17,MAINT,267-MAINT-archive-section4,lead,plan,"archive Section 4 working docs into archive/section4/ and refocus live docs on Section 3 (astra, docs only)",planned,
