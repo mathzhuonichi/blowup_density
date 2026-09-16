@@ -976,3 +976,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,"sol review died after 71 min (router 524 + capacity); relaunch armed after 30-min rest",pending,218
 2026-09-16,A02,213-A02-A04-wiring,lead,merge,"lead verified both modules/audits; PR #218 opened; chain launched (wave 46)",running,218
 2026-09-16,A04,215-A04-restart-fixed-force,lead,plan,"lane opened on 213 branch (install then astra low, retry): RestartFixedForce uniform over restart times, Gronwall→HigherOrderBound bridge, fixed-force copies of A04 continuation theorems instantiated",planned,
+2026-09-16,A02,213-A02-A04-wiring,lead,merge,"PR #218 merged into erenup/integration; wave 46 gates OK (make check/test/mutations; 2 new modules A02/MaximalWiring, A04/RestartWiring)",merged,218
