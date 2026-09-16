@@ -1163,3 +1163,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R45,252-R45-compact-class,lead,merge,"PR #245 opened after merging integration; chain queued after #244 (wave 73)",running,245
 2026-09-16,I03,250-I03-homogeneous-scaling,lead,merge,"PR #244 merged into erenup/integration; wave 72 gates OK",merged,244
 2026-09-16,R45,252-R45-compact-class,lead,merge,"PR #245 merged into erenup/integration; wave 73 gates OK",merged,245
+2026-09-16,R46,256-R46-sobolev-density,lead,plan,"lane opened (install then sol xhigh, retry): prop:Renergy completed Sobolev density of the compact breakdown set",planned,
