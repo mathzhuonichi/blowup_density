@@ -319,6 +319,17 @@
       "declaration": "BlowupDensity.Tests.checkedGradientL6V2",
       "scope": "The Contracts.V1.Data.MemHInfty specialization of Lemma B.1's order-half velocity embedding ||v||_3 <= C(1/2) ||v||_{Hdot^(1/2)}, from research/A05/Spec.lean:366-368 and paper/sections/appendix-b-embeddings.tex:29, as consumed by Propositions 4.3 and 4.4 at 04-whole-space.tex:93,171. GradientL6V2API extends the frozen A05.gradient_l6 version-1 record unchanged and adds exactly velocityCriticalL3, stated for Contracts.V1.Data.MemHInfty and the registered Contracts.V1.HomogeneousNorm.dotHomogeneousENorm. The universal constant family C : R -> R is an interface parameter selected before the field; the checked binding chooses the constant function with value NSFormalization.Section4.A05.criticalL3Const = 3 * scalarCriticalConst (1/2), whose positivity is separately proved by gradientL6V2Constant_pos. The A05 implementation's local homogeneous-norm spelling is definitionally equal first to D01.dotHomogeneousENorm and then to the registered contract definition; the binding records the composed rfl bridge. Its A02.MemHInfty hypothesis is definitionally equal to the frozen Data.MemHInfty, neither stronger nor weaker. Out of scope: the broader embeddingPair (including a=1), C_pos as a contract field, criticalRepresentative, the derivative and Bessel critical-L3 clauses, homogeneousLeSobolev, the Hdot^(3/2) gradient comparison, every torus statement, and all R43/R44 PDE conclusions.",
       "enabled": true
+    },
+    {
+      "id": "R43.critical_regularity",
+      "parent_task": "R43",
+      "version": 1,
+      "specification": "verification/Contracts/V1/CriticalRegularity.lean",
+      "binding_module": "Bindings.CriticalRegularity",
+      "test_module": "Tests.CriticalRegularity",
+      "declaration": "BlowupDensity.Tests.checkedCriticalRegularity",
+      "scope": "Proposition 4.3 (prop:Rcritical1), paper/sections/04-whole-space.tex:82-89, in the exact four-field shape of research/R43/Spec.lean's RCritical1API: one viscosity-independent real constant c with 0 < c, the universal clause for every nu > 0, a in initialClassR and f in MemForceR under strict ENNReal smallness dotHomogeneousENorm (1/2) a + forceHomogeneousENorm 1 (1/2) f < ofReal (c*nu), concluding maximalLifespanR nu a f = top; and the same-c inhomogeneous zero-datum consequence under forceSobolevENormL1 (1/2) f < ofReal (c*nu). The binding chooses c = min (1 / (8 * R43.trilinearConst)) (1 / (4 * (A05.gradientL6Const * A05.criticalL3Const))), with positivity proved by R43.criticalConst_pos. The spatial homogeneous norm is the canonical registered Contracts.V1.HomogeneousNorm.dotHomogeneousENorm, definitionally equal to the implementation spelling. Initial/force classes and force norms are rfl bridges; maximal lifespan uses the existing A02/Data structure bridge. No finite-horizon substitute, added regularity hypothesis, altered force class, weakened norm, or hidden proof constant is asserted.",
+      "enabled": true
     }
   ]
 }

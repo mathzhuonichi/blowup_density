@@ -140,3 +140,28 @@ This closes the zero-datum consequence that R41 consumes. The general-`a`
 `universal` field is not proved by this lane, so no full `RCritical1API` witness
 or new registered contract is claimed. See `REPORT_223.md` and
 `ATTEMPTS_ENDPOINT.md` for validation and dependency provenance.
+
+
+## Lane 226 registration update (2026-09-16)
+
+Lane 225 supplied the remaining general-`a` `universal` field with the same
+`criticalConst` already used by lane 223's `inhomogeneousAtZero`.  The complete
+four-field interface is now registered as version-one contract
+`R43.critical_regularity` in
+`verification/Contracts/V1/CriticalRegularity.lean`.
+
+`CriticalRegularityAPI` is `RCritical1API` token-for-token after renaming the
+structure according to the registry convention and resolving the Spec-local
+`dotHomogeneousENorm` to the registered
+`Contracts.V1.HomogeneousNorm.dotHomogeneousENorm`.  In particular, the
+positivity field remains named `hc`, both clauses share the structure field
+`c`, and neither conclusion is replaced by a finite-horizon bound.
+
+The binding chooses
+`c = min (1/(8*trilinearConst))
+         (1/(4*(A05.gradientL6Const*A05.criticalL3Const)))`.
+Initial and force classes and all norm spellings are definitionally equal; the
+only non-`rfl` transport is the existing A02/Data maximal-lifespan equality for
+the two distinct `ClassicalSolutionR` structures.  Thus all gaps G1-G8 relevant
+to Proposition 4.3 are closed in the implementation, and both manuscript
+clauses at `04-whole-space.tex:82-89` are now checked by one public witness.
