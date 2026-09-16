@@ -1123,3 +1123,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,SPEC,244-SPEC-r45-spec,lead,merge,"PR #238 merged into erenup/integration; wave 66 gates OK",merged,238
 2026-09-16,R47,247-R47-grid-lemmas,codex,worker,"gpt-5.6-sol xhigh (9 min): ball-in-common-cell and gridObservation locality lemmas (Bindings/GridLemmas.lean); force-difference zero cell integral left to the assembly (eq:gridforce)",done,
 2026-09-16,R47,247-R47-grid-lemmas,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,SPEC,236-SPEC-r41-draft-a,codex,worker,"gpt-5.6-sol xhigh (80 min): R41 contract statement draft A (4 fields; rider as a Type-valued record)",done,
+2026-09-16,SPEC,248-SPEC-r41-spec,lead,plan,"lane opened (install then sol xhigh): reconciled R41 Spec.lean + merged COMPARISON with binding plan",planned,
