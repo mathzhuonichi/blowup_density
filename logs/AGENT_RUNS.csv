@@ -1240,3 +1240,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,T10,264-SPEC-t10-draft-b,codex,worker,"gpt-6-astra died after 81 min (router reconnect 5/5, no draft written); relaunched immediately",relaunched,
 2026-09-17,T13,265-SPEC-t13-draft-a,lead,plan,"Section 3: double-blind T13 (lem:localization) statement draft A (install then sol xhigh)",planned,
 2026-09-17,T13,266-SPEC-t13-draft-b,lead,plan,"Section 3: double-blind T13 statement draft B (install then astra low)",planned,
+2026-09-17,T13,266-SPEC-t13-draft-b,codex,worker,"gpt-6-astra low: T13 statement draft B",done,
