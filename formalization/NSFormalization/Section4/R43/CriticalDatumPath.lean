@@ -690,4 +690,23 @@ theorem criticalPressure_longitudinal
     (1 / 2) (criticalPressureHalf w t) hlong
   exact ⟨criticalPressureHalf w t, hfixed.symm⟩
 
+/-! ## 4. The remaining time-path input -/
+
+/-- The precise time-regularity facts still absent for an arbitrary
+`ClassicalSolutionR` in the current tree.  Both clauses are standard
+properties of the homogeneous half-order trajectory of a classical solution:
+smoothness as a Hilbert-valued path and the Navier--Stokes momentum equation
+after applying the half-order Fourier multiplier.  No spatial existence,
+symbol, solenoidality, pressure, or estimate hypothesis is included. -/
+structure CriticalDatumInputs
+    {ν : ℝ} {a : SpatialField} {f : SpaceTimeField} {T : ℝ}
+    (w : ClassicalSolutionR ν a f T)
+    (_hf : NSFormalization.Section4.A02.MemForceR f) : Prop where
+  velocityHalf_smooth :
+    ContDiffOn ℝ ∞ (criticalVelocityHalf w) (Ico (0 : ℝ) T)
+  momentum : ∀ t ∈ Ioo (0 : ℝ) T,
+    deriv (criticalVelocityHalf w) t =
+      ν • criticalLaplacianHalf w t - criticalAdvectionHalf w t -
+        criticalPressureHalf w t + criticalForceHalf (f := f) t
+
 end NSFormalization.Section4.R43
