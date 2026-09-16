@@ -18,3 +18,6 @@ The V2 statement is **weaker** than the paper's sentence in two ways (fixed forc
 
 ## What the paper's sentence would need
 A forced H¹ quantitative local theory on the mild stack (H¹ energy + Picard estimates with force, uniform in the force through its `L¹H¹` norm) — the deferred option 2; estimated at several days of lanes and not needed by Section 4's theorems. Recorded for the owner.
+
+## Correction from review 212 (2026-09-17)
+The **cross-force** `L¹_tH¹` formulation ("one δ for all forces with ‖f‖_{L¹H¹} ≤ K") is the draft specification's transcription (`research/A01/Spec.lean:338-344`), not the manuscript's own words: `appendix-a-local-theory.tex:147-150` states an H¹ bound for **one fixed force** on `[0,S+δ]`. So the genuine remaining gap between the paper and the registered V2 is only the datum order (H¹ vs H⁷); the "uniform in the force" strengthening was an over-transcription in the draft spec and is recorded as an unproved predicate for drift detection, not as a claim.
