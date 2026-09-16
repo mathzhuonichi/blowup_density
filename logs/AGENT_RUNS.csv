@@ -1233,3 +1233,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,A01,212-A01-contract-v2,codex,reviewer,"gpt-6-astra adversarial: REJECT (baseline, H1 rfl bridge, paper-vs-draft attribution, wording) — all applied by lead; H1 mutation probe rejected",accepted-after-fixes,257
 2026-09-17,A01,212-A01-contract-v2,lead,merge,"registry union with #256; PR #257 opened; chain launched (wave 85)",running,257
 2026-09-17,R45,262-R45-contract-v1,codex,reviewer,"gpt-5.6-sol: REJECT for baseline sync only (ordinal wording); lead to union-merge after #257",accepted-after-sync,
+2026-09-17,A01,212-A01-contract-v2,lead,merge,"PR #257 merged into erenup/integration; wave 85 gates OK; 36 contracts",merged,257
+2026-09-17,R45,262-R45-contract-v1,lead,merge,"registry union after #257 (37 contracts); PR #258 opened; chain launched (wave 86)",running,258
