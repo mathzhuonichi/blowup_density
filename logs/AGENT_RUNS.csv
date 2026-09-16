@@ -943,3 +943,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,208-A01-datum-horizon,codex,reviewer,"review armed (astra first, retry): identification continuity, initialClassR bridge, exact solution-field type + structure bridge, hygiene bd:rev-208",running,
 2026-09-16,A01,210-A01-horizon-uniform,codex,worker,"PARTIAL rc=0 (astra low): HorizonUniform.lean — exists_uniform_H7_sup_force_horizon (δ before data; both Picard budgets; monotonicity lemmas), zero instance; contract's H1/L1 field not provable: L1-vs-sup force gap, choose-horizon has no uniform selection, no forced H1 theory in tree; options recorded; 8 audits standard axioms; commit d4febc0",partial,
 2026-09-16,A01,210-A01-horizon-uniform,codex,reviewer,"review armed (astra first, retry): uniform theorem correctness, obstacles' honesty, fixed-force H7 re-cut assessment, horizon-selection fix bd:rev-210",running,
+2026-09-16,A01,208-A01-datum-horizon,codex,reviewer,"ACCEPT (astra): identification/bridge/horizon/solution field exact; sign mutation fails",accepted,
+2026-09-16,A01,208-A01-datum-horizon,lead,merge,"PR #213 opened; chain launched (wave 41)",running,213
