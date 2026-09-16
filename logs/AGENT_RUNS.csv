@@ -1112,3 +1112,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,SPEC,245-SPEC-r46-spec,lead,plan,"lane opened (install then sol xhigh): reconciled R46 Spec.lean + merged COMPARISON from the blind drafts",planned,
 2026-09-16,SPEC,240-SPEC-r47-draft-a,codex,worker,"gpt-5.6-sol xhigh (18 min): R47 contract statement draft A (record-parametric, 12 fields)",done,
 2026-09-16,SPEC,246-SPEC-r47-spec,lead,plan,"lane opened (install then sol xhigh): reconciled R47 Spec.lean + merged COMPARISON",planned,
+2026-09-16,SPEC,245-SPEC-r46-spec,codex,worker,"gpt-5.6-sol xhigh (10 min): reconciled R46 Spec.lean (elaborates; rfl checks) + merged COMPARISON",done,237
+2026-09-16,SPEC,245-SPEC-r46-spec,lead,merge,"lead-verified elaboration; PR #237 opened; chain launched (wave 65)",running,237
