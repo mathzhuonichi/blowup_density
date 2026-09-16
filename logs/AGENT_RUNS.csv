@@ -1137,3 +1137,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R47,247-R47-grid-lemmas,lead,merge,"PR #241 opened after merging integration; chain launched (wave 69)",running,241
 2026-09-16,R47,251-R47-force-cell-integral,lead,plan,"lane opened on 247 branch (install then astra low, retry): eq:gridforce zero cell integrals and the observation-equality fields",planned,
 2026-09-16,R47,247-R47-grid-lemmas,lead,merge,"PR #241 merged into erenup/integration; wave 69 gates OK",merged,241
+2026-09-16,R41,249-R41-contract-v1,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probes rev249_endpoint, rev249_nonvacuity)",accepted,242
+2026-09-16,R41,249-R41-contract-v1,lead,merge,"PR #242 opened after merging integration; chain launched (wave 70)",running,242
