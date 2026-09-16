@@ -952,3 +952,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,208-A01-datum-horizon,lead,merge,"PR #213 merged via chain (wave 41) gates green",merged,213
 2026-09-16,A01,209-A01-manuscript-regularity,codex,reviewer,"ACCEPT-WITH-NOTES (astra): endpoint pressure recovery checked; note on carrier witnesses for localSolution (lane 211)",accepted,
 2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,"note applied; PR #214 opened; chain launched (wave 42)",running,214
+2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,"PR #214 merged via chain (wave 42) gates green",merged,214
