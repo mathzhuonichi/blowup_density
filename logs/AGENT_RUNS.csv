@@ -1157,3 +1157,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,I03,250-I03-homogeneous-scaling,lead,merge,"PR #244 opened after baseline sync; chain launched (wave 72)",running,244
 2026-09-16,R45,254-R45-compact-rider,codex,worker,"gpt-5.6-sol xhigh (7 min): cor:Rclasses regular-reference rider for Y = F_c (+ epsilon-form for F_R)",done,
 2026-09-16,R45,254-R45-compact-rider,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-16,R47,253-R47-flux-cancellation,codex,worker,"gpt-6-astra low (10 min): flux cancellation closed unconditionally; force observation equalities on [0,T) (12 theorems)",done,
+2026-09-16,R47,253-R47-flux-cancellation,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
