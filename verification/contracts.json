@@ -277,6 +277,17 @@
       "enabled": true
     },
     {
+      "id": "A04.continuation_v2",
+      "parent_task": "A04",
+      "version": 2,
+      "specification": "verification/Contracts/V2/Continuation.lean",
+      "binding_module": "Bindings.ContinuationV2",
+      "test_module": "Tests.ContinuationV2",
+      "declaration": "BlowupDensity.Tests.checkedContinuationV2",
+      "scope": "The A04 continuation interface actually proved by lanes 215 and 217, registered as an independent ContinuationV2API rather than as an extension of the draft/V1 A04API. Its five fields are: (1) restart, exactly the owner-approved RestartFixedForce wording: for ν>0, one fixed f∈F_R and S≥0 chosen before ∃δ, and every finite H⁷ bound K, one genuine δ>0 works uniformly for all restart times t₀∈[0,S] and all a'∈X_R with ‖a'‖_{H⁷}≤K; (2) higherOrderBound, copied verbatim from research/A04/Spec.lean, giving every integer-order Sobolev bound from a finite squared H² time integral; and (3–5) restartBeyond, extendsBeyond and lifespanInfiniteOfLocallyFinite in the unconditional MemForceR shapes proved by Section4/A04/ShiftedExtension.lean's lane-217 primed theorems. Exact narrowing from the paper/V1 restart: the force is quantified before ∃δ instead of δ being uniform across forces, and the datum bound is H⁷ instead of H¹; uniformity over all restart times in [0,S] is retained. The paper sentence at appendix-a-local-theory.tex:147-152, 'The H¹ local existence bounds ... give a common positive existence duration ...', is NOT proved. Contracts.V2.Continuation.ManuscriptHorizonLowerBoundH1 records that H¹/cross-force sentence as a named definition only; it is not a structure field, theorem, axiom or implied consequence and remains open. The V1 Restart field likewise remains separately open: fixed-force compactness gives no cross-force uniformity, and a theorem for an H⁷ ball does not cover the larger H¹ ball (research/A04/REPORT_215.md §3). Why the narrowed result suffices downstream: restartBeyond, extendsBeyond and lifespanInfiniteOfLocallyFinite, plus A02's exists_maximal construction, restart the same force with H⁷ data bounded by the registered Grönwall theorem; no consumer uses cross-force uniformity. The contract imports only Contracts.V1.Data and parameterizes the horizon function because NSFormalization.Section4.A01.LocalTheoryBundle is absent from experiments/check_contracts.py's CONTRACT_CANONICAL_MODULES; Bindings.ContinuationV2 instantiates the parameter with A01.localHorizon' and supplies an rfl RestartFixedForce bridge. Definitions for classes and norms have rfl bridges; SolvesBelow and IsMaximalSolution use the established field-by-field ClassicalSolutionR conversions and maximalPartial_maximalLifespanR_eq. The concrete conformance audit exercises restart at a nonzero compact-bump force and a nonzero compactly supported divergence-free curl datum and obtains a positive real δ. Recovering the manuscript H¹ field would require a forced quantitative H¹ local theory on the mild stack, including uniform dependence on the H¹ datum and force bounds; that is outside this contract.",
+      "enabled": true
+    },
+    {
       "id": "C01.energy_absorption_partial_v3",
       "parent_task": "C01",
       "version": 3,
