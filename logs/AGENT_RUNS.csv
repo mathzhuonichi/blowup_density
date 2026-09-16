@@ -905,3 +905,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"astra reviewer died again (capacity); retry armed with 30-min rest",pending,
 2026-09-16,A01,203-A01-signed-limit,lead,merge,"PR #207 merged via chain (wave 35) gates green; review to follow after the capacity rest",merged,207
 2026-09-16,A01,202-A01-commutator-bound,lead,merge,"PR #208 merged via chain (wave 36) gates green; review to follow after the capacity rest",merged,208
+2026-09-16,A01,204-A01-signed-passage,codex,worker,"launched directly (astra low) after the user restored codex capacity; retry scripts cancelled",running,
+2026-09-16,A01,205-A01-coordinate-tame,codex,worker,"launched directly (astra low) after the user restored codex capacity",running,
+2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"post-merge review launched (sol xhigh)",running,208
+2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"post-merge review launched (sol xhigh)",running,207
