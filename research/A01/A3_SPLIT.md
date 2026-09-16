@@ -389,6 +389,7 @@ the cylinder norm and closed-interval datum norm
 smoothness at `S`. The historical strictly-longer-horizon proposition remains
 only as `CarrierConstructorFullClamped` for negative documentation.
 
+| 210 · horizon uniformity | `HorizonUniform.lean` | **PARTIAL: H⁷ cylinder / CₜH⁶ force uniform mild existence proved; requested H⁷/L¹ and H¹ fields OPEN** | Both Picard budgets and radius monotonicity proved; actual zero-data instance checked. L¹ force does not bound the vendor sup-force budget; arbitrary chosen horizon needs a selection guarantee. No V2 change authorized or made. See `ATTEMPTS_HORIZON_UNIFORM.md`, `REPORT_210.md`. |
 ## Contract registration
 
 | Lane | Obligation | Status / handoff |
@@ -409,3 +410,9 @@ force; only Sobolev time smoothness consumes the all-order carrier paths. Lane
 208 may instantiate the theorem using its chosen solution's carrier and slice
 identity. This does not discharge the separate H¹-uniform horizon bound.
 | 210 · horizon uniformity | `HorizonUniform.lean` | **PARTIAL: H⁷ cylinder / CₜH⁶ force uniform mild existence proved; requested H⁷/L¹ and H¹ fields OPEN** | Both Picard budgets and radius monotonicity proved; actual zero-data instance checked. L¹ force does not bound the vendor sup-force budget; arbitrary chosen horizon needs a selection guarantee. No V2 change authorized or made. See `ATTEMPTS_HORIZON_UNIFORM.md`, `REPORT_210.md`. |
+
+## Lane 211 — carrier-bundled local theory (no contract registration)
+
+| Lane | Deliverable | Status | Scope |
+|---|---|---|---|
+| 211 | `LocalTheoryBundle.lean`; `localTheoryData` | Complete | Same-solution carrier witnesses and manuscript regularity; positive antitone budget horizon; fixed-force physical H⁷ uniform lower bound. H¹ wording remains an unasserted definition; V2 wording and registration await owner decision. See `REPORT_211.md` and `ATTEMPTS_LOCAL_THEORY_BUNDLE.md`. |
