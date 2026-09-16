@@ -1204,3 +1204,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,R46,261-R46-contract-v1,lead,plan,"lane opened on 259 branch + integration (install then sol xhigh): register R46.completed_density V1 (34th contract)",planned,
 2026-09-16,R46,259-R46-closure,lead,merge,"PR #251 merged into erenup/integration; wave 79 gates OK",merged,251
 2026-09-16,R47,258-R47-assembly,lead,merge,"PR #252 merged into erenup/integration; wave 80 gates OK",merged,252
+2026-09-16,R45,257-R45-rapid-class,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (record clarifications applied by lead; probe rev257_widen_history)",accepted,253
+2026-09-16,R45,257-R45-rapid-class,lead,merge,"PR #253 opened; chain launched (wave 81)",running,253
+2026-09-17,R45,262-R45-contract-v1,lead,plan,"lane opened on 257 branch (install then sol xhigh): register R45.force_classes V1 (33rd contract)",planned,
