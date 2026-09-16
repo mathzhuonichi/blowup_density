@@ -1255,3 +1255,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,T16,272-SPEC-t16-draft-b,lead,plan,"double-blind T16 statement draft B (astra)",planned,
 2026-09-17,T16,272-SPEC-t16-draft-b,codex,worker,"gpt-6-astra low: T16 statement draft B",done,
 2026-09-17,T10,264-SPEC-t10-draft-b,codex,worker,"gpt-6-astra stalled again (10 reconnects, no draft in 2.4 h); relaunched on gpt-5.6-sol xhigh",relaunched,
+2026-09-17,T12,269-SPEC-t12-draft-a,codex,worker,"gpt-5.6-sol xhigh: T12 statement draft A",done,
