@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-16 启动脚本里 `git merge -q --no-edit` 遇到 `research/*.md` 冲突会静默留下未合并状态（worker 在半合并的树上开工）。要么先在 lead 侧合并好再切树，要么脚本里检查 `MERGE_HEAD` 并用并集脚本解决记录文件冲突后再 commit；失败必须写进日志。
 - 2026-09-16 router 容量波（sol 与 astra 交替 "model at capacity"，一启动就死）：审稿用 `tmp/retry_review.sh <lane> <m1> <m2> [初始等待]`（交替模型、5 分钟退避、最多 8 次）；worker 同理可套。DONE rc=1 且 last.md 为 0B 基本就是容量死。
 - 2026-09-16 审稿文件里贴了 2.8 万行 `make check` 的 JSON 输出（REVIEW_189）：codex_review.sh 的提示词已加"原始输出只贴头尾各 ≤40 行"；合入前 `git diff --numstat` 看单文件行数 >3000 就裁。
 - 2026-09-16 又一次 `grep` 自杀（exit 144）：括号技巧 `premise[s]` 只保护了那一个 token，同一条命令行里别处出现的明文 `…premises.log` 仍被匹配。杀 codex 进程用 `pgrep -f "codex exec"` 后逐个 `ps -o args= -p` 过滤并排除 `$$`，或直接 `tmux kill-window`（会连带杀掉 pane 里的进程树）。
