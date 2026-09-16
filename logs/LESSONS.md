@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-16 叠放车道（基于未合入分支）在基分支被 lead 改过（哪怕只是 docstring）之后会与集成分支冲突（`AA` both-added），PR 显示 CONFLICTING 而合并链静默跳过合并只跑门禁（日志首行 `#NNN OPEN`）。合并前在叠放 worktree 里 `git show origin/erenup/integration:<file> > <file>` 对齐副本、提交、推送，再重跑链。lead 对基分支的修改尽量在叠放车道开出之前做。
 - 2026-09-16 brief 在 `run_install_launch_<n>.sh` 里是启动时一次性读入的；安装完成时间不可预期，启动后再补 addendum 无效（221、223 都因此重启）。规则：写 brief 时先 `grep`/`sed -n` 核对 Spec 的精确字段与名字再启动；启动后要改 brief 只能杀掉重启（`tmux kill-window` + 杀 retry 脚本 + 归档日志）。
 - 2026-09-16 容量波会在 worker 写完草稿后中途切断（rc=1，`model at capacity`/`Reconnecting 5/5`），草稿留在 worktree 未提交。不要重开原 brief（会重来/覆盖）：写 `tmp/codex/briefs/fix_<lane>.md`（"不要重来，读原 brief，补完构建/审计/记录/提交"），用 `tmp/retry_lane.sh <lane> <m1> <m2> <fix-brief> 1800 fix` 休息后续跑；两种模型可能同时不可用，脚本交替 + 30 分钟退避即可，不要手动轮询。
 - 2026-09-16 启动脚本里 `git merge -q --no-edit` 遇到 `research/*.md` 冲突会静默留下未合并状态（worker 在半合并的树上开工）。要么先在 lead 侧合并好再切树，要么脚本里检查 `MERGE_HEAD` 并用并集脚本解决记录文件冲突后再 commit；失败必须写进日志。
