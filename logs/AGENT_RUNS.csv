@@ -880,3 +880,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,201-A01-root-comparison,codex,fix,"DONE rc=0: rebased; energyComparison_unique_on_Icc; ha through CylinderSignedRootLimit and assembly; docstring; 13 decls standard axioms; commit 7ebcdc2",done,
 2026-09-16,A01,201-A01-root-comparison,lead,merge,"lead re-verified; PR #205 opened; chain launched (wave 33)",running,205
 2026-09-16,A01,203-A01-signed-limit,codex,worker,"auto-launched (astra low) after fix_201",running,
+2026-09-16,A01,201-A01-root-comparison,lead,merge,"PR #205 merged via chain (wave 33) gates green",merged,205
