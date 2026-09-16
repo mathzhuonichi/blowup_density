@@ -1141,3 +1141,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R41,249-R41-contract-v1,lead,merge,"PR #242 opened after merging integration; chain launched (wave 70)",running,242
 2026-09-16,R41,249-R41-contract-v1,lead,merge,"PR #242 merged into erenup/integration; wave 70 gates OK; 32 contracts — Theorem 4.1 registered",merged,242
 2026-09-16,R45,252-R45-compact-class,lead,plan,"lane opened (install then sol xhigh, retry): cor:Rclasses density and zero-datum iff for Y = F_c",planned,
+2026-09-16,R47,251-R47-force-cell-integral,codex,worker,"gpt-6-astra low (12 min): velocity cell integrals zero, momentum difference, observation equalities; force case conditional on one named flux-cancellation input hcompactMomentumIntegral",done,
+2026-09-16,R47,251-R47-force-cell-integral,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R47,253-R47-flux-cancellation,lead,plan,"lane opened on 251 branch (install then astra low, retry): close hcompactMomentumIntegral (flux cancellation over the containing cell)",planned,
