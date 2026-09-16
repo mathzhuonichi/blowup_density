@@ -858,3 +858,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,198-A01-energy-premises,lead,merge,"PR #202 merged via chain (wave 29) gates green",merged,202
 2026-09-16,A01,180-A01-b2-assembly,lead,merge,"PR #190 merged via chain (wave 30) gates green; constructor conditional on hb + PressureSupply",merged,190
 2026-09-16,A01,189-A01-pressure-regularity,codex,fix3,"auto-launched (sol high) after 180 landed: import PressureSupply, delete copy, constructor pipeline probe",running,
+2026-09-16,A01,189-A01-pressure-regularity,codex,fix3,"DONE rc=0: imports 180's PressureSupply, local copy removed; a01_constructor_pipeline probes: classical constructor from hb alone; lake test 10573 jobs; commit 6e96fdb",done,
+2026-09-16,A01,189-A01-pressure-regularity,lead,merge,"review file trimmed (28k-line make-check dump); PR #203 opened; chain launched (wave 31)",running,203
