@@ -1131,3 +1131,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,SPEC,246-SPEC-r47-spec,lead,merge,"PR #239 merged into erenup/integration; wave 67 gates OK",merged,239
 2026-09-16,I03,250-I03-homogeneous-scaling,lead,plan,"lane opened (install then astra low, retry): homogeneous negative-order scaling bounds for the rescaled packet/correction forces (I03 gap rows 46/48)",planned,
 2026-09-16,SPEC,248-SPEC-r41-spec,lead,merge,"PR #240 merged into erenup/integration; wave 68 gates OK",merged,240
+2026-09-16,R41,249-R41-contract-v1,codex,worker,"gpt-6-astra low (7 min): R41.main_thresholds V1 registered (32nd contract) — Theorem 4.1 for Y = F_R, all four fields bound",done,
+2026-09-16,R41,249-R41-contract-v1,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
