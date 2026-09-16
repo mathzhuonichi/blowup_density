@@ -964,3 +964,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,211-A01-local-theory-bundle,lead,merge,"PR #216 merged via chain (wave 44) gates green",merged,216
 2026-09-16,A02,213-A02-A04-wiring,lead,plan,"lane opened (install then astra low, retry): exists_maximal via 211's bundle; A04 Restart from bundle + Gronwall uniform H^m + H7 fixed-force horizon bound",planned,
 2026-09-16,R43,214-R43-parseval,lead,plan,"lane opened (install then astra low, retry): fractional Parseval pairing_identity completing CriticalAdvectionLpBridge",planned,
+2026-09-16,R43,214-R43-parseval,codex,worker,"DONE rc=0 (astra low): Parseval.lean — pairing_identity_of_hcrit (angular L2 Plancherel, inverse half-order weights, rieszLambda symbol); criticalAdvectionLpBridge_of_hcrit; rcritical1_of_hcrit' from hcrit alone; standard axioms; commit 7f699a9",done,
+2026-09-16,R43,214-R43-parseval,codex,reviewer,"review armed (astra first, retry): Plancherel chain, weights, symbol, bridge completeness, hygiene + mutation, G3/G4 needs bd:rev-214",running,
