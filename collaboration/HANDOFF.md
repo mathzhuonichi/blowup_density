@@ -10,12 +10,12 @@
 | P2 D01 齐次范数 | **关闭**（`D01.homogeneous_norm`，164） | — |
 | P3 A05 临界嵌入 | **关闭**（165 + V2 合同 `A05.gradient_l6_v2`，181） | U4/U8（Λv 实现、∂_j v 半阶数据）lane 191 在做 |
 | P5 R43 | **Prop. 4.3 证完**：…221（#224）力路径、223（#225）`inhomogeneousAtZero`、225（#228）`universal` 全部合入，同一 `criticalConst`；226 在注册 V1 合同 | — |——为经典解构造 `CriticalDatumPath`（`Section4/R43/CriticalPairing.lean:161`：整数阶数据 ⇒ 半阶齐次数据路径 `velocityHalf`/`velocityThreeHalf`/`laplacianHalf`/`advectionHalf`/`pressureHalf`/`forceHalf` 及其 `IsHomogeneousSliceDatum` 字段；入口 `D01/HalfOrder.lean`、`HomogeneousWitness.lean`、A05 U3 `homogeneousLeSobolev`）；闭合后 eq:Rcritical1 无条件 |
-| P6 R44 | 166 拆分、218（#222，S1a J 权恒等式 + 力对偶）已合入；220（S1c 三线性）、222（S1b 能量恒等式）在做 | **可领**：S1d Young 吸收（等 S1a–c）、S2–S5 各行 |
+| P6 R44 | 166/218（#222）/220（#229）/222（#226）/227（#231）已合入：S1a–S1c 与 S2–S6 装配（仅条件于 S1 微分不等式）；228 的 S1d 由 229 整合中（Prop. 4.4 无条件 + R41 q=2） | — |
 | P7 A01 A3 | **闭合**：…202（#208）、203（#207）、204（#209）、205（#210）、206（#211）、207（#212）全部合入；`hb_of_base''` 无分析输入；`a01_constructor_unconditional` 探针在集成分支 | 剩合同注册（208/209/210，lead 在做）；**spec 问题**：`horizon_lower_bound` 的 H¹ 子句 vs 树支持的 H⁷（见 210 报告后 `NEXT_SESSION`） |
 | P8 A01 B1 | **闭合**：161 R1、169 R2、178 R3、187 hfs（#193）、190 R4 联合光滑代表元（#194）全部合入 | — |
 | P9 A01 B2/P4 | **闭合（条件于 hb）**：180（#190）构造器 + 189（#203）压力供给（194/195/197 三块 + Helmholtz 逆向）；探针 `a01_constructor_pipeline`：仅由 `hb` 得到 `ClassicalSolutionR` | — |
 | P9b A04 延拓 | **闭合（固定力 + H⁷ 形状）**：213（#218）、215（#219）、217（#220）全部合入；延拓定理对 MemForceR 力无具名输入 | — （owner 的 `Restart` H¹/跨力措辞待 V2 决定） |
-| P10/P11 R41D、SPEC | 174 已合入 | **可领**：R41D 拆分表 |
+| P10/P11 R41、R41D、SPEC | 174 已合入；224（#227）thm:Rmain (ii) q=1 非稠密子句已合入；q=2 由 229 在做 | **可领**：R41D 稠密分支（Theorem 4.2 插入 → densityFixedInitial/densityZero 的两情形拆分） |
 
 外部协作者请优先领 **P5 Parseval**、**P6**、**P10**（互不依赖、不碰 A01）；lane 号仍用 200–299。
 
