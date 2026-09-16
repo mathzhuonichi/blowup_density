@@ -1051,3 +1051,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R44,220-R44-s1c-trilinear,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev220_flip_sign)",accepted,229
 2026-09-16,R44,220-R44-s1c-trilinear,lead,merge,"PR #229 opened after merging integration into the branch; chain launched (wave 57)",running,229
 2026-09-16,R44,220-R44-s1c-trilinear,lead,merge,"PR #229 merged into erenup/integration; wave 57 gates OK",merged,229
+2026-09-16,R44,228-R44-s1d-absorption,lead,plan,"lane opened (install then sol xhigh, retry): R44 S1d absorption producing the exact S1 differential inequality (227 input)",planned,
