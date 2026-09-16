@@ -924,3 +924,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,206-A01-smooth-tame,codex,reviewer,"launched (astra low): interpolation/orientation correctness, exact remaining assembly route, Inv re-cut vs cylinder assembly decision, hygiene bd:rev-206",running,
 2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"post-merge review ACCEPT (astra low, after rest): conditional reduction documented; constant mutation fails; artifacts copied to integration",accepted,208
 2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"post-merge review ACCEPT (astra low, after rest): conditional result documented; coefficient mutation fails; artifacts copied to integration",accepted,207
+2026-09-16,A01,206-A01-smooth-tame,codex,reviewer,"astra reviewer stalled (Reconnecting); killed; relaunch armed after a 30–35 min rest (sol first)",pending,
+2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,"astra reviewer stalled (Reconnecting); killed; relaunch armed after a 30–35 min rest (sol first)",pending,
+2026-09-16,A01,207-A01-tame-assembly,lead,plan,"lane opened from 206 branch (install, then retry_lane after 20-min rest): finish SmoothCylinderCoordinateTame (route A) and export the unconditional A01 constructor probe",planned,
