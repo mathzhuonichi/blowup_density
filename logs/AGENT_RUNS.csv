@@ -1221,3 +1221,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,A01,212-A01-contract-v2,lead,fix,"review script needs collaboration/briefs/<lane>.md; the option-1 brief was named differently — copied under the lane name; retry picks it up",running,
 2026-09-17,T10,263-SPEC-t10-draft-a,lead,plan,"Section 3 stage S3-0: double-blind T10 (periodic data layer) statement draft A (install then sol xhigh)",planned,
 2026-09-17,T10,264-SPEC-t10-draft-b,lead,plan,"Section 3 stage S3-0: double-blind T10 statement draft B (install then astra low)",planned,
+2026-09-17,R46,261-R46-contract-v1,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (3 probes)",accepted,254
+2026-09-17,R46,261-R46-contract-v1,lead,merge,"PR #254 opened; chain launched (wave 82)",running,254
