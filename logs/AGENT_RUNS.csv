@@ -971,3 +971,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,214-R43-parseval,codex,reviewer,"ACCEPT (astra): Plancherel chain matches; mutation fails",accepted,
 2026-09-16,R43,214-R43-parseval,lead,merge,"PR #217 opened; chain launched (wave 45)",running,217
 2026-09-16,R43,214-R43-parseval,lead,merge,"PR #217 merged via chain (wave 45) gates green",merged,217
+2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,"astra review died at 60 min (model at capacity); relaunch armed after 30-min rest (sol first)",pending,
