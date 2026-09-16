@@ -1203,3 +1203,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,R47,260-R47-contract-v1,lead,plan,"lane opened on 258 branch + integration (install then sol xhigh): register R47.grid_observations V1 (35th contract)",planned,
 2026-09-17,R46,261-R46-contract-v1,lead,plan,"lane opened on 259 branch + integration (install then sol xhigh): register R46.completed_density V1 (34th contract)",planned,
 2026-09-16,R46,259-R46-closure,lead,merge,"PR #251 merged into erenup/integration; wave 79 gates OK",merged,251
+2026-09-16,R47,258-R47-assembly,lead,merge,"PR #252 merged into erenup/integration; wave 80 gates OK",merged,252
