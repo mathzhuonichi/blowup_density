@@ -99,6 +99,32 @@ for the compact class.  The rapid instances of `density` and `zeroIff`, plus
 `schwartzDensity` and both instances of `regularReference`, remain outside
 this lane.
 
+## Proof status after lane 257
+
+`verification/Bindings/RapidClassDensity.lean` now proves every rapid-class
+specialization, with binder and conjunct order copied from `Spec.lean`:
+
+- `density_rapid`, using G2 to enter `F_R` and G3 to retain the inserted force
+  in `F_rd`;
+- `zeroIff_rapid`, including the critical/supercritical non-density direction;
+- `regularReference_rapid`, with one pair of witnesses satisfying class
+  membership, exact lifespan, both strict norm bounds, and the requested
+  history equality;
+- `schwartzDensity`, directly from G4 and `density_rapid`.
+
+The same module also supplies the complete guarded parametric declarations
+`density` and `zeroIff` by case analysis between lane 252's compact instances
+and lane 257's rapid instances.  Lane 254's `CompactClassRider.lean` is not on
+this lane's base, so the corresponding parametric `regularReference`
+combination is intentionally left to the registration lane as requested.
+
+`research/R45/axioms_rapid_class.lean` reports exactly
+`[propext, Classical.choice, Quot.sound]` for all six declarations and checks
+the rapid density and rider at concrete parameters `ν = T = 1`, `a = g = 0`.
+Thus the remaining R45 proof work on this base is only the compact-rider merge
+and final four-field API registration; no rapid-class mathematical field is
+open.
+
 ## Open questions for the owner
 
 No statement-level question remains: the binding reconciliation fixes all four
@@ -115,3 +141,7 @@ Two bookkeeping questions do not change `Spec.lean`:
    `CompletedDense* = CompletedDenseVia ...` `rfl` checks, or is keeping them in
    this research specification sufficient?  They are definitional checks only
    and are not fields of R45.
+
+## Lead note (review 257, 2026-09-17)
+
+The statements above about lane 254 being absent describe the branch **before** the integration merge `f6e879f`; after it, `Bindings/CompactClassRider.lean` (254, PR #247) is present. Only the final guarded `regularReference` assembly (`Or.elim` of 254/257) and the API registration remain — done in lane 262.
