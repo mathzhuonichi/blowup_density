@@ -962,3 +962,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,210-A01-horizon-uniform,lead,merge,"PR #215 merged via chain (wave 43) gates green",merged,215
 2026-09-16,A01,210-A01-horizon-uniform,codex,reviewer,"post-hoc review silent 8 min (Reconnecting); killed; relaunch armed after 30-min rest",pending,215
 2026-09-16,A01,211-A01-local-theory-bundle,lead,merge,"PR #216 merged via chain (wave 44) gates green",merged,216
+2026-09-16,A02,213-A02-A04-wiring,lead,plan,"lane opened (install then astra low, retry): exists_maximal via 211's bundle; A04 Restart from bundle + Gronwall uniform H^m + H7 fixed-force horizon bound",planned,
+2026-09-16,R43,214-R43-parseval,lead,plan,"lane opened (install then astra low, retry): fractional Parseval pairing_identity completing CriticalAdvectionLpBridge",planned,
