@@ -59,7 +59,8 @@ Verdict on the first line of your report: \`ACCEPT\` / \`ACCEPT-WITH-NOTES\` (ex
 \`REJECT\` (with the reproducing error). Then four parts: what the lane claims / what is in Lean /
 gaps / commands and results. End your final message with the verdict line and the list of fixes.
 
-$( [ -f "$ROOT/tmp/codex/briefs/review_notes_$LANE.md" ] && { echo "---- lead's specific check points (address each explicitly) ----"; cat "$ROOT/tmp/codex/briefs/review_notes_$LANE.md"; } )
+$( [ -f "$ROOT/tmp/codex/briefs/review_notes_$LANE.md" ] && { echo "---- RAW OUTPUT LIMIT: in the review file quote at most the first and last 40 lines of any command output (never paste full build/make-check logs) ----
+---- lead's specific check points (address each explicitly) ----"; cat "$ROOT/tmp/codex/briefs/review_notes_$LANE.md"; } )
 
 ---- lane brief ----
 $(cat "$BRIEF")
