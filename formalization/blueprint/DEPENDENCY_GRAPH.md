@@ -34,6 +34,21 @@ flowchart TD
   T02["T02: Periodic localization and insertion"]
   T03["T03: Periodic density and endpoint classification"]
   T04["T04: Remaining Section 3 consequences"]
+  T10["T10: Periodic data layer: coefficient Sobolev norms, mean, Leray and pressure"]
+  T11["T11: prop:local on T³: maximal periodic local theory and continuation"]
+  T12["T12: Mean-zero Sobolev calculus and lem:critical-embeddings on T³"]
+  T13["T13: lem:localization: uniform localization of fractional norms"]
+  T14["T14: thm:packet import and lem:packetenergy"]
+  T15["T15: prop:scaling: fixed-viscosity periodic packet scaling"]
+  T16["T16: lem:potential: local divergence-free cutoff"]
+  T17["T17: lem:correction: uniform background-correction bounds"]
+  T18["T18: thm:insertion: exact local periodic insertion"]
+  T19["T19: prop:density and the subcritical density package"]
+  T20["T20: prop:critical: global regularity for small critical force"]
+  T21["T21: cor:nondensity and thm:main assembly"]
+  T22["T22: Bounded-domain restriction and zero-extension norms"]
+  T23["T23: cor:boundary: interior no-slip insertion"]
+  T24["T24: prop:affine, prop:multiple and prop:conservative"]
   U01 --> U05
   U04 --> U05
   U04 --> D01
@@ -88,14 +103,41 @@ flowchart TD
   T02 --> T03
   T01 --> T03
   T02 --> T04
+  T10 --> T11
+  T10 --> T12
+  T10 --> T13
+  T10 --> T14
+  T13 --> T15
+  T14 --> T15
+  T10 --> T16
+  T16 --> T17
+  T13 --> T17
+  T11 --> T18
+  T14 --> T18
+  T15 --> T18
+  T16 --> T18
+  T17 --> T18
+  T12 --> T18
+  T18 --> T19
+  T11 --> T19
+  T10 --> T20
+  T11 --> T20
+  T12 --> T20
+  T19 --> T21
+  T20 --> T21
+  T10 --> T22
+  T18 --> T23
+  T22 --> T23
+  T14 --> T24
+  T15 --> T24
   classDef external fill:#dbeafe,stroke:#2563eb;
   classDef adapter fill:#fef3c7,stroke:#b45309;
   classDef assembly fill:#dcfce7,stroke:#15803d;
   classDef deferred fill:#f3f4f6,stroke:#6b7280;
   class U01,U04 external;
   class U02,U03 external;
-  class U05,D01,A01,A02,A03,A04,A05,I01,I02,I03,C01,B01,B02,G01 adapter;
-  class R42,R41D,R43,R44,R41,R45,R46,R47 assembly;
+  class U05,D01,A01,A02,A03,A04,A05,I01,I02,I03,C01,B01,B02,G01,T10,T11,T12,T13,T14,T15,T16,T17,T22 adapter;
+  class R42,R41D,R43,R44,R41,R45,R46,R47,T18,T19,T20,T21,T23,T24 assembly;
   class T01,T02,T03,T04 deferred;
 ```
 
@@ -302,6 +344,94 @@ For q in {1,2}, density for every fixed a when s<2/q-3/2, and iff only at a=0. U
 
 - [formalization/NSFormalization/Paper3/Thresholds.lean](../../formalization/NSFormalization/Paper3/Thresholds.lean)
 
+### T10: Periodic data layer: coefficient Sobolev norms, mean, Leray and pressure
+
+Priority: P1. Status: `open`. Dependencies: none.
+
+Specify the T³ coefficient-side H^s, X_T, F_T, B_{ν,a,T} and E_T data, the mean/mean-zero split, the periodic Leray projector with identity zero mode, the zero-mean pressure gauge, and the bidirectional TorusCube bridge.
+
+- [paper/sections/02-preliminaries.tex](../../paper/sections/02-preliminaries.tex)
+- [collaboration/briefs/263-SPEC-t10-draft-a.md](../../collaboration/briefs/263-SPEC-t10-draft-a.md)
+- [collaboration/briefs/264-SPEC-t10-draft-b.md](../../collaboration/briefs/264-SPEC-t10-draft-b.md)
+- [formalization/NSFormalization/Paper1/PeriodicSobolev.lean](../../formalization/NSFormalization/Paper1/PeriodicSobolev.lean)
+- [formalization/NSFormalization/Paper1/PeriodicForceSpace.lean](../../formalization/NSFormalization/Paper1/PeriodicForceSpace.lean)
+- [formalization/NSFormalization/Paper1/PeriodicMeanZero.lean](../../formalization/NSFormalization/Paper1/PeriodicMeanZero.lean)
+- [formalization/NSFormalization/Paper1/PeriodicLerayCoeffCore.lean](../../formalization/NSFormalization/Paper1/PeriodicLerayCoeffCore.lean)
+- [formalization/NSFormalization/Paper1/PeriodicPressureNormalization.lean](../../formalization/NSFormalization/Paper1/PeriodicPressureNormalization.lean)
+- [formalization/NSFormalization/Paper1/TorusCube.lean](../../formalization/NSFormalization/Paper1/TorusCube.lean)
+
+### T11: prop:local on T³: maximal periodic local theory and continuation
+
+Priority: P1. Status: `open`. Dependencies: T10.
+
+Prove prop:local on T³ as a ClassicalPeriodicLocalTheory giving existence, uniqueness, maximal lifespan and continuation from finite ∫₀^S ‖u‖²_{H²}, including Galilean removal of the evolving mean and viscosity rescaling.
+
+- [paper/sections/02-preliminaries.tex](../../paper/sections/02-preliminaries.tex)
+- [paper/sections/appendix-a-local-theory.tex](../../paper/sections/appendix-a-local-theory.tex)
+- [formalization/NSFormalization/Paper1/PeriodicOrdinaryLocal.lean](../../formalization/NSFormalization/Paper1/PeriodicOrdinaryLocal.lean)
+- [formalization/NSFormalization/Paper1/PeriodicLifespan.lean](../../formalization/NSFormalization/Paper1/PeriodicLifespan.lean)
+- [formalization/NSFormalization/Paper1/PeriodicUniqueness.lean](../../formalization/NSFormalization/Paper1/PeriodicUniqueness.lean)
+- [formalization/NSFormalization/Paper1/PeriodicForcedDuhamel.lean](../../formalization/NSFormalization/Paper1/PeriodicForcedDuhamel.lean)
+- [vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceDuhamel.lean](../../vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceDuhamel.lean)
+- [vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceRestart.lean](../../vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceRestart.lean)
+
+### T13: lem:localization: uniform localization of fractional norms
+
+Priority: P1. Status: `open`. Dependencies: T10.
+
+Prove lem:localization in the reconciled research/T13/RECONCILIATION.md form: the R³ and T³ Gagliardo identities with common c_s, the periodic kernel and lattice-tail control, uniform eq:localization for shrinking support, and the s=0,1 endpoint equalities.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [research/T13/RECONCILIATION.md](../../research/T13/RECONCILIATION.md)
+- [collaboration/briefs/265-SPEC-t13-draft-a.md](../../collaboration/briefs/265-SPEC-t13-draft-a.md)
+- [collaboration/briefs/266-SPEC-t13-draft-b.md](../../collaboration/briefs/266-SPEC-t13-draft-b.md)
+- [vendor/NavierStokesAndEuler/NavierStokes/PeriodicLocalization.lean](../../vendor/NavierStokesAndEuler/NavierStokes/PeriodicLocalization.lean)
+- [formalization/NSFormalization/Paper1/PeriodicBridge.lean](../../formalization/NSFormalization/Paper1/PeriodicBridge.lean)
+- [formalization/NSFormalization/Paper1/TorusCube.lean](../../formalization/NSFormalization/Paper1/TorusCube.lean)
+
+### T18: thm:insertion: exact local periodic insertion
+
+Priority: P1. Status: `open`. Dependencies: T11, T14, T15, T16, T17, T12.
+
+Prove thm:insertion with the exact eq:insertion decomposition, vanishing cross transports, g_ε∈F_T, lifespan exactly T by T11 uniqueness and H²-to-L∞ continuation, and the simultaneous eq:Eclose, eq:Fclose and eq:Hsclose bounds.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [formalization/NSFormalization/Paper1/PeriodicInsertion.lean](../../formalization/NSFormalization/Paper1/PeriodicInsertion.lean)
+- [formalization/NSFormalization/Paper1/PeriodicInsertionEndpointAssembly.lean](../../formalization/NSFormalization/Paper1/PeriodicInsertionEndpointAssembly.lean)
+- [formalization/NSFormalization/Paper1/PeriodicCrossComponentTransport.lean](../../formalization/NSFormalization/Paper1/PeriodicCrossComponentTransport.lean)
+
+### T19: prop:density and the subcritical density package
+
+Priority: P1. Status: `open`. Dependencies: T18, T11.
+
+Derive prop:density by the regular/earlier-breakdown dichotomy and then prove cor:mixed for 3/p+2/q>3, cor:closure in E_T, and prop:projection with quantifier order ∀a∃f.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [formalization/NSFormalization/Paper1/PeriodicDense.lean](../../formalization/NSFormalization/Paper1/PeriodicDense.lean)
+- [formalization/NSFormalization/Paper1/PeriodicDensityDichotomy.lean](../../formalization/NSFormalization/Paper1/PeriodicDensityDichotomy.lean)
+- [formalization/NSFormalization/Paper1/PeriodicDensityFiber.lean](../../formalization/NSFormalization/Paper1/PeriodicDensityFiber.lean)
+
+### T20: prop:critical: global regularity for small critical force
+
+Priority: P1. Status: `open`. Dependencies: T10, T11, T12.
+
+Prove prop:critical as a CriticalRegularityCertificate by removing the evolving mean, establishing eq:meanbound, eq:meanfree, multiplier commutation and skew-adjoint transport, then deriving eq:criticalenergy, eq:bintegral, eq:ybound, eq:H1energy and continuation through eq:criterion.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [formalization/NSFormalization/Paper1/PeriodicCriticalRegularity.lean](../../formalization/NSFormalization/Paper1/PeriodicCriticalRegularity.lean)
+- [formalization/NSFormalization/Paper1/CriticalEnergyCertificate.lean](../../formalization/NSFormalization/Paper1/CriticalEnergyCertificate.lean)
+- [formalization/NSFormalization/Paper1/PeriodicMeanZeroEstimate.lean](../../formalization/NSFormalization/Paper1/PeriodicMeanZeroEstimate.lean)
+
+### T21: cor:nondensity and thm:main assembly
+
+Priority: P1. Status: `open`. Dependencies: T19, T20.
+
+Prove cor:nondensity from the relative open critical-force ball and Sobolev monotonicity, then assemble thm:main(i) and (ii) from T19 and T20 with the stated fixed-data and zero-data quantifiers.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [formalization/NSFormalization/Paper1/PeriodicMain.lean](../../formalization/NSFormalization/Paper1/PeriodicMain.lean)
+- [formalization/NSFormalization/Paper1/ManuscriptTopology.lean](../../formalization/NSFormalization/Paper1/ManuscriptTopology.lean)
+
 ### R45: Corollary 4.5: compact and rapid-decay classes
 
 Priority: P2. Status: `source-present-adaptation-open`. Dependencies: R41.
@@ -352,6 +482,94 @@ Priority: P2. Status: `source-present-adaptation-open`. Dependencies: R42, R46, 
 Use the same insertion and convergence family within one cell of every prescribed grid. Preserve velocity and force averages at every presingular time, while Tmax=T. No claim of equality for point observations or arbitrary refinement.
 
 - [formalization/NSFormalization/Paper3/ActualGridObservations.lean](../../formalization/NSFormalization/Paper3/ActualGridObservations.lean)
+
+### T12: Mean-zero Sobolev calculus and lem:critical-embeddings on T³
+
+Priority: P2. Status: `open`. Dependencies: T10.
+
+Prove eq:Rproduct and the mean-zero T³ bounds ‖v‖∞≤C‖v‖H², ‖v‖₃≤C‖v‖Ḣ¹ᐟ², ‖∇v‖₃+‖Λv‖₃≤C‖v‖Ḣ³ᐟ², ‖∇v‖₆≤C‖Δv‖₂ and ‖v‖H²≤C‖Δv‖₂ together with the spectral gap, without finite-mode constants.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [paper/sections/appendix-a-local-theory.tex](../../paper/sections/appendix-a-local-theory.tex)
+- [paper/sections/appendix-b-embeddings.tex](../../paper/sections/appendix-b-embeddings.tex)
+- [formalization/NSFormalization/Paper1/PeriodicCompactSobolevL6.lean](../../formalization/NSFormalization/Paper1/PeriodicCompactSobolevL6.lean)
+- [formalization/NSFormalization/Paper1/PeriodicH2Embedding.lean](../../formalization/NSFormalization/Paper1/PeriodicH2Embedding.lean)
+- [formalization/NSFormalization/Paper1/PeriodicCriticalBridge.lean](../../formalization/NSFormalization/Paper1/PeriodicCriticalBridge.lean)
+
+### T14: thm:packet import and lem:packetenergy
+
+Priority: P2. Status: `open`. Dependencies: T10.
+
+Instantiate thm:packet and prove lem:packetenergy with finite M and D, the exact energy inequality, initial-interval vanishing, and smooth zero extension of velocity and pressure to negative time.
+
+- [paper/sections/01-introduction.tex](../../paper/sections/01-introduction.tex)
+- [paper/sections/02-preliminaries.tex](../../paper/sections/02-preliminaries.tex)
+- [formalization/NSFormalization/Section4/I01/Energy.lean](../../formalization/NSFormalization/Section4/I01/Energy.lean)
+- [formalization/NSFormalization/Section4/I01/Extension.lean](../../formalization/NSFormalization/Section4/I01/Extension.lean)
+
+### T15: prop:scaling: fixed-viscosity periodic packet scaling
+
+Priority: P2. Status: `open`. Dependencies: T13, T14.
+
+Prove prop:scaling, including eq:packetEscale, eq:packetFscale with α(p,q), eq:packetHs via T13, terminal velocity blowup, pressure normalization and single-copy periodization at fixed viscosity.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [formalization/NSFormalization/Paper1/PeriodicScalingBounds.lean](../../formalization/NSFormalization/Paper1/PeriodicScalingBounds.lean)
+- [formalization/NSFormalization/Paper1/ScalingLimits.lean](../../formalization/NSFormalization/Paper1/ScalingLimits.lean)
+- [formalization/NSFormalization/Paper1/PeriodicPacketEndpointRates.lean](../../formalization/NSFormalization/Paper1/PeriodicPacketEndpointRates.lean)
+
+### T16: lem:potential: local divergence-free cutoff
+
+Priority: P2. Status: `open`. Dependencies: T10.
+
+Prove lem:potential by constructing the radial vector potential ∇×A=v and smooth Urysohn cutoffs so w_ε is smooth, periodic and divergence free and satisfies eq:bgzero near the active packet support.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [formalization/NSFormalization/Paper1/RadialPotential.lean](../../formalization/NSFormalization/Paper1/RadialPotential.lean)
+- [formalization/NSFormalization/Paper1/LocalCutoff.lean](../../formalization/NSFormalization/Paper1/LocalCutoff.lean)
+- [formalization/NSFormalization/Paper1/PeriodicConstantLocal.lean](../../formalization/NSFormalization/Paper1/PeriodicConstantLocal.lean)
+
+### T17: lem:correction: uniform background-correction bounds
+
+Priority: P2. Status: `open`. Dependencies: T16, T13.
+
+Prove lem:correction from a uniformly smooth fixed-cylinder rescaled profile, obtaining eq:derivativebounds, eq:wE and eq:Hmixed and transferring eq:HHs through T13 with constants uniform in ε.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [formalization/NSFormalization/Paper1/CorrectionForceProfile.lean](../../formalization/NSFormalization/Paper1/CorrectionForceProfile.lean)
+- [formalization/NSFormalization/Paper1/CorrectionEnergy.lean](../../formalization/NSFormalization/Paper1/CorrectionEnergy.lean)
+- [formalization/NSFormalization/Paper1/CorrectionMixedNorms.lean](../../formalization/NSFormalization/Paper1/CorrectionMixedNorms.lean)
+- [formalization/NSFormalization/Paper1/PeriodicCorrectionEndpointRates.lean](../../formalization/NSFormalization/Paper1/PeriodicCorrectionEndpointRates.lean)
+
+### T22: Bounded-domain restriction and zero-extension norms
+
+Priority: P2. Status: `open`. Dependencies: T10.
+
+Prove eq:restriction-norm and eq:zero-extension for every real H^s(R³), with a multiplier bound for fields supported in a fixed compact interior set and a constant independent of the shrinking ε-scale.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [formalization/NSFormalization/Paper1/BoundaryAnalyticBridge.lean](../../formalization/NSFormalization/Paper1/BoundaryAnalyticBridge.lean)
+- [formalization/NSFormalization/Paper1/BoundaryReferenceRestriction.lean](../../formalization/NSFormalization/Paper1/BoundaryReferenceRestriction.lean)
+
+### T23: cor:boundary: interior no-slip insertion
+
+Priority: P2. Status: `open`. Dependencies: T18, T22.
+
+Prove cor:boundary by inserting inside a fixed interior ball while preserving the no-slip boundary collar and initial data, comparing domain and zero-extension norms uniformly, and using no-slip uniqueness to obtain singularity exactly at T.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [formalization/NSFormalization/Paper1/BoundaryCorollaryCorrected.lean](../../formalization/NSFormalization/Paper1/BoundaryCorollaryCorrected.lean)
+- [formalization/NSFormalization/Paper1/BoundarySupportComposition.lean](../../formalization/NSFormalization/Paper1/BoundarySupportComposition.lean)
+
+### T24: prop:affine, prop:multiple and prop:conservative
+
+Priority: P2. Status: `open`. Dependencies: T14, T15.
+
+Prove the three independent Section 3 leaves prop:affine, prop:multiple and prop:conservative, preserving their compact-support, finitely-many-region, and periodic-potential/no-slip quantifiers.
+
+- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
+- [formalization/NSFormalization/Paper1/ConservativeForce.lean](../../formalization/NSFormalization/Paper1/ConservativeForce.lean)
+- [formalization/NSFormalization/Paper1/PeriodicNonpositiveForce.lean](../../formalization/NSFormalization/Paper1/PeriodicNonpositiveForce.lean)
 
 ### T01: Periodic analytic adapters
 

@@ -561,6 +561,298 @@
         "prop:multiple",
         "prop:conservative"
       ]
+    },
+    {
+      "id": "T10",
+      "title": "Periodic data layer: coefficient Sobolev norms, mean, Leray and pressure",
+      "dependencies": [],
+      "kind": "adapter",
+      "priority": 1,
+      "status": "open",
+      "contract": "Specify the T³ coefficient-side H^s, X_T, F_T, B_{ν,a,T} and E_T data, the mean/mean-zero split, the periodic Leray projector with identity zero mode, the zero-mean pressure gauge, and the bidirectional TorusCube bridge.",
+      "evidence": [
+        "paper/sections/02-preliminaries.tex",
+        "collaboration/briefs/263-SPEC-t10-draft-a.md",
+        "collaboration/briefs/264-SPEC-t10-draft-b.md",
+        "formalization/NSFormalization/Paper1/PeriodicSobolev.lean",
+        "formalization/NSFormalization/Paper1/PeriodicForceSpace.lean",
+        "formalization/NSFormalization/Paper1/PeriodicMeanZero.lean",
+        "formalization/NSFormalization/Paper1/PeriodicLerayCoeffCore.lean",
+        "formalization/NSFormalization/Paper1/PeriodicPressureNormalization.lean",
+        "formalization/NSFormalization/Paper1/TorusCube.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T11",
+      "title": "prop:local on T³: maximal periodic local theory and continuation",
+      "dependencies": [
+        "T10"
+      ],
+      "kind": "adapter",
+      "priority": 1,
+      "status": "open",
+      "contract": "Prove prop:local on T³ as a ClassicalPeriodicLocalTheory giving existence, uniqueness, maximal lifespan and continuation from finite ∫₀^S ‖u‖²_{H²}, including Galilean removal of the evolving mean and viscosity rescaling.",
+      "evidence": [
+        "paper/sections/02-preliminaries.tex",
+        "paper/sections/appendix-a-local-theory.tex",
+        "formalization/NSFormalization/Paper1/PeriodicOrdinaryLocal.lean",
+        "formalization/NSFormalization/Paper1/PeriodicLifespan.lean",
+        "formalization/NSFormalization/Paper1/PeriodicUniqueness.lean",
+        "formalization/NSFormalization/Paper1/PeriodicForcedDuhamel.lean",
+        "vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceDuhamel.lean",
+        "vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceRestart.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T12",
+      "title": "Mean-zero Sobolev calculus and lem:critical-embeddings on T³",
+      "dependencies": [
+        "T10"
+      ],
+      "kind": "adapter",
+      "priority": 2,
+      "status": "open",
+      "contract": "Prove eq:Rproduct and the mean-zero T³ bounds ‖v‖∞≤C‖v‖H², ‖v‖₃≤C‖v‖Ḣ¹ᐟ², ‖∇v‖₃+‖Λv‖₃≤C‖v‖Ḣ³ᐟ², ‖∇v‖₆≤C‖Δv‖₂ and ‖v‖H²≤C‖Δv‖₂ together with the spectral gap, without finite-mode constants.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "paper/sections/appendix-a-local-theory.tex",
+        "paper/sections/appendix-b-embeddings.tex",
+        "formalization/NSFormalization/Paper1/PeriodicCompactSobolevL6.lean",
+        "formalization/NSFormalization/Paper1/PeriodicH2Embedding.lean",
+        "formalization/NSFormalization/Paper1/PeriodicCriticalBridge.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T13",
+      "title": "lem:localization: uniform localization of fractional norms",
+      "dependencies": [
+        "T10"
+      ],
+      "kind": "adapter",
+      "priority": 1,
+      "status": "open",
+      "contract": "Prove lem:localization in the reconciled research/T13/RECONCILIATION.md form: the R³ and T³ Gagliardo identities with common c_s, the periodic kernel and lattice-tail control, uniform eq:localization for shrinking support, and the s=0,1 endpoint equalities.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "research/T13/RECONCILIATION.md",
+        "collaboration/briefs/265-SPEC-t13-draft-a.md",
+        "collaboration/briefs/266-SPEC-t13-draft-b.md",
+        "vendor/NavierStokesAndEuler/NavierStokes/PeriodicLocalization.lean",
+        "formalization/NSFormalization/Paper1/PeriodicBridge.lean",
+        "formalization/NSFormalization/Paper1/TorusCube.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T14",
+      "title": "thm:packet import and lem:packetenergy",
+      "dependencies": [
+        "T10"
+      ],
+      "kind": "adapter",
+      "priority": 2,
+      "status": "open",
+      "contract": "Instantiate thm:packet and prove lem:packetenergy with finite M and D, the exact energy inequality, initial-interval vanishing, and smooth zero extension of velocity and pressure to negative time.",
+      "evidence": [
+        "paper/sections/01-introduction.tex",
+        "paper/sections/02-preliminaries.tex",
+        "formalization/NSFormalization/Section4/I01/Energy.lean",
+        "formalization/NSFormalization/Section4/I01/Extension.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T15",
+      "title": "prop:scaling: fixed-viscosity periodic packet scaling",
+      "dependencies": [
+        "T13",
+        "T14"
+      ],
+      "kind": "adapter",
+      "priority": 2,
+      "status": "open",
+      "contract": "Prove prop:scaling, including eq:packetEscale, eq:packetFscale with α(p,q), eq:packetHs via T13, terminal velocity blowup, pressure normalization and single-copy periodization at fixed viscosity.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "formalization/NSFormalization/Paper1/PeriodicScalingBounds.lean",
+        "formalization/NSFormalization/Paper1/ScalingLimits.lean",
+        "formalization/NSFormalization/Paper1/PeriodicPacketEndpointRates.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T16",
+      "title": "lem:potential: local divergence-free cutoff",
+      "dependencies": [
+        "T10"
+      ],
+      "kind": "adapter",
+      "priority": 2,
+      "status": "open",
+      "contract": "Prove lem:potential by constructing the radial vector potential ∇×A=v and smooth Urysohn cutoffs so w_ε is smooth, periodic and divergence free and satisfies eq:bgzero near the active packet support.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "formalization/NSFormalization/Paper1/RadialPotential.lean",
+        "formalization/NSFormalization/Paper1/LocalCutoff.lean",
+        "formalization/NSFormalization/Paper1/PeriodicConstantLocal.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T17",
+      "title": "lem:correction: uniform background-correction bounds",
+      "dependencies": [
+        "T16",
+        "T13"
+      ],
+      "kind": "adapter",
+      "priority": 2,
+      "status": "open",
+      "contract": "Prove lem:correction from a uniformly smooth fixed-cylinder rescaled profile, obtaining eq:derivativebounds, eq:wE and eq:Hmixed and transferring eq:HHs through T13 with constants uniform in ε.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "formalization/NSFormalization/Paper1/CorrectionForceProfile.lean",
+        "formalization/NSFormalization/Paper1/CorrectionEnergy.lean",
+        "formalization/NSFormalization/Paper1/CorrectionMixedNorms.lean",
+        "formalization/NSFormalization/Paper1/PeriodicCorrectionEndpointRates.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T18",
+      "title": "thm:insertion: exact local periodic insertion",
+      "dependencies": [
+        "T11",
+        "T14",
+        "T15",
+        "T16",
+        "T17",
+        "T12"
+      ],
+      "kind": "assembly",
+      "priority": 1,
+      "status": "open",
+      "contract": "Prove thm:insertion with the exact eq:insertion decomposition, vanishing cross transports, g_ε∈F_T, lifespan exactly T by T11 uniqueness and H²-to-L∞ continuation, and the simultaneous eq:Eclose, eq:Fclose and eq:Hsclose bounds.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "formalization/NSFormalization/Paper1/PeriodicInsertion.lean",
+        "formalization/NSFormalization/Paper1/PeriodicInsertionEndpointAssembly.lean",
+        "formalization/NSFormalization/Paper1/PeriodicCrossComponentTransport.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T19",
+      "title": "prop:density and the subcritical density package",
+      "dependencies": [
+        "T18",
+        "T11"
+      ],
+      "kind": "assembly",
+      "priority": 1,
+      "status": "open",
+      "contract": "Derive prop:density by the regular/earlier-breakdown dichotomy and then prove cor:mixed for 3/p+2/q>3, cor:closure in E_T, and prop:projection with quantifier order ∀a∃f.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "formalization/NSFormalization/Paper1/PeriodicDense.lean",
+        "formalization/NSFormalization/Paper1/PeriodicDensityDichotomy.lean",
+        "formalization/NSFormalization/Paper1/PeriodicDensityFiber.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T20",
+      "title": "prop:critical: global regularity for small critical force",
+      "dependencies": [
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "kind": "assembly",
+      "priority": 1,
+      "status": "open",
+      "contract": "Prove prop:critical as a CriticalRegularityCertificate by removing the evolving mean, establishing eq:meanbound, eq:meanfree, multiplier commutation and skew-adjoint transport, then deriving eq:criticalenergy, eq:bintegral, eq:ybound, eq:H1energy and continuation through eq:criterion.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "formalization/NSFormalization/Paper1/PeriodicCriticalRegularity.lean",
+        "formalization/NSFormalization/Paper1/CriticalEnergyCertificate.lean",
+        "formalization/NSFormalization/Paper1/PeriodicMeanZeroEstimate.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T21",
+      "title": "cor:nondensity and thm:main assembly",
+      "dependencies": [
+        "T19",
+        "T20"
+      ],
+      "kind": "assembly",
+      "priority": 1,
+      "status": "open",
+      "contract": "Prove cor:nondensity from the relative open critical-force ball and Sobolev monotonicity, then assemble thm:main(i) and (ii) from T19 and T20 with the stated fixed-data and zero-data quantifiers.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "formalization/NSFormalization/Paper1/PeriodicMain.lean",
+        "formalization/NSFormalization/Paper1/ManuscriptTopology.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T22",
+      "title": "Bounded-domain restriction and zero-extension norms",
+      "dependencies": [
+        "T10"
+      ],
+      "kind": "adapter",
+      "priority": 2,
+      "status": "open",
+      "contract": "Prove eq:restriction-norm and eq:zero-extension for every real H^s(R³), with a multiplier bound for fields supported in a fixed compact interior set and a constant independent of the shrinking ε-scale.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "formalization/NSFormalization/Paper1/BoundaryAnalyticBridge.lean",
+        "formalization/NSFormalization/Paper1/BoundaryReferenceRestriction.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T23",
+      "title": "cor:boundary: interior no-slip insertion",
+      "dependencies": [
+        "T18",
+        "T22"
+      ],
+      "kind": "assembly",
+      "priority": 2,
+      "status": "open",
+      "contract": "Prove cor:boundary by inserting inside a fixed interior ball while preserving the no-slip boundary collar and initial data, comparing domain and zero-extension norms uniformly, and using no-slip uniqueness to obtain singularity exactly at T.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "formalization/NSFormalization/Paper1/BoundaryCorollaryCorrected.lean",
+        "formalization/NSFormalization/Paper1/BoundarySupportComposition.lean"
+      ],
+      "manuscript_labels": []
+    },
+    {
+      "id": "T24",
+      "title": "prop:affine, prop:multiple and prop:conservative",
+      "dependencies": [
+        "T14",
+        "T15"
+      ],
+      "kind": "assembly",
+      "priority": 2,
+      "status": "open",
+      "contract": "Prove the three independent Section 3 leaves prop:affine, prop:multiple and prop:conservative, preserving their compact-support, finitely-many-region, and periodic-potential/no-slip quantifiers.",
+      "evidence": [
+        "paper/sections/03-torus.tex",
+        "formalization/NSFormalization/Paper1/ConservativeForce.lean",
+        "formalization/NSFormalization/Paper1/PeriodicNonpositiveForce.lean"
+      ],
+      "manuscript_labels": []
     }
   ]
 }
