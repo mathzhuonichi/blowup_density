@@ -1056,3 +1056,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,226-R43-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
 2026-09-16,R43,226-R43-contract-v1,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probes rev226_mutation, rev226_nonvacuity)",accepted,230
 2026-09-16,R43,226-R43-contract-v1,lead,merge,"PR #230 opened; chain launched (wave 58)",running,230
+2026-09-16,R44,227-R44-endpoint,codex,worker,"gpt-6-astra low (16 min): Prop. 4.4 zero-datum endpoint assembled conditional only on RCritical2Differential (explicit theta/C2/C3/radius; 27 declarations)",done,
+2026-09-16,R44,227-R44-endpoint,codex,reviewer,"astra/sol retry review launched",running,
