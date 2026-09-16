@@ -1027,3 +1027,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,223-R43-endpoint,codex,worker,"gpt-6-astra low (8 min): inhomogeneousAtZero_of_memForceR proved unconditionally in the spec's exact shape (criticalConst explicit; 12 declarations)",done,
 2026-09-16,R43,223-R43-endpoint,codex,reviewer,"astra/sol retry review launched",running,
 2026-09-16,R41,224-R41-nondensity-q1,lead,plan,"lane opened on 223 branch (install then astra low, retry): thm:Rmain (ii) non-density at q=1 from the R43 endpoint",planned,
+2026-09-16,R43,223-R43-endpoint,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev223_widened)",accepted,225
+2026-09-16,R43,223-R43-endpoint,lead,merge,"PR #225 opened; chain launched (wave 53)",running,225
