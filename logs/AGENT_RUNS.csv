@@ -1169,3 +1169,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R41D,234-R41D-small-gaps,codex,worker,"gpt-5.6-sol xhigh (2.5 h): R41D gaps G2-G5 all closed (ClassFacts.lean; 14 audited declarations)",done,
 2026-09-16,R41D,234-R41D-small-gaps,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
 2026-09-16,R45,257-R45-rapid-class,lead,plan,"lane opened on 234 branch (install then sol xhigh, retry): cor:Rclasses rapid-class instances and Schwartz specialization",planned,
+2026-09-16,R47,253-R47-flux-cancellation,lead,merge,"PR #246 merged into erenup/integration; wave 74 gates OK",merged,246
