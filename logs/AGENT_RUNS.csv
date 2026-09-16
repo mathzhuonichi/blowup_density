@@ -1054,3 +1054,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R44,228-R44-s1d-absorption,lead,plan,"lane opened (install then sol xhigh, retry): R44 S1d absorption producing the exact S1 differential inequality (227 input)",planned,
 2026-09-16,R43,226-R43-contract-v1,codex,worker,"gpt-5.6-sol xhigh (9 min): R43.critical_regularity V1 registered (30th contract; both Prop. 4.3 clauses with the explicit constant)",done,
 2026-09-16,R43,226-R43-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-16,R43,226-R43-contract-v1,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probes rev226_mutation, rev226_nonvacuity)",accepted,230
+2026-09-16,R43,226-R43-contract-v1,lead,merge,"PR #230 opened; chain launched (wave 58)",running,230
