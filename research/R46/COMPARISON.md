@@ -57,14 +57,29 @@ statement change.
 
 ## Proof dependencies
 
-- Density fields: Theorem 4.1's relative density in `F_c` (R45, via lane 235's `breakdownDenseR_of_subcritical` with `Y = F_c` — needs R45's class version) + B01's approximation of completed-space targets by smooth compact forces (`Contracts/V1/BochnerPartial.lean`; the homogeneous assembly is explicitly omitted by `HomogeneousPartial` — open).
+- Completed Sobolev density: **proved in lane 256** as
+  `Bindings.completedSobolevDensity`.  The proof composes B01's
+  `bochnerPartial.approxCompact` with lane 252's `density_compact`, extracts the
+  perturbation path from the `forceSobolevENorm` infimum, and closes under path
+  addition and the Bochner triangle inequality.  No additional hypothesis is
+  used.
+- Completed homogeneous density: B02's completed homogeneous approximation
+  is now registered in `HomogeneousPartialV2`; its composition with compact
+  relative density remains a separate R46 binding clause.
 - Strong closure: lane 233's record + `R42.insertion_family` fields `energyRate`, `forceConvergence` at `(1,0)`, `(2,−1)` + a homogeneous convergence at `(2,−1)` (the `L²Ḣ⁻¹` clause — `Scaling` omits the homogeneous scaled estimate; open, I03).
+
+## Binding status (lane 256)
+
+| Reconciled field | Status | Binding |
+|---|---|---|
+| `completedSobolevDensity` | **proved** | `verification/Bindings/CompletedSobolevDensity.lean` |
+| `completedHomogeneousDensity` | not part of lane 256 | pending R46 assembly |
+| `strongTrajectoryClosure` | not part of lane 256 | pending R46 assembly |
 
 ## Open questions for the owner
 
-1. Statement reconciliation is closed.  For proof scheduling, should the full
-   homogeneous completed-space assembly omitted by `HomogeneousPartial` be added
-   to B01, or owned by a dedicated follow-up contract?
+1. **Resolved before lane 256:** the full homogeneous completed-space assembly
+   is registered by `HomogeneousPartialV2`; only the R46 composition remains.
 2. Should the missing same-family `L²_tḢ⁻¹_x` scaling convergence be added as an
    I03 V2 field, or proved privately in the eventual R46 binding?
 3. The registered realization predicates require values at every nonnegative
