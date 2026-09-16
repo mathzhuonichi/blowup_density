@@ -977,3 +977,64 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A02,213-A02-A04-wiring,lead,merge,"lead verified both modules/audits; PR #218 opened; chain launched (wave 46)",running,218
 2026-09-16,A04,215-A04-restart-fixed-force,lead,plan,"lane opened on 213 branch (install then astra low, retry): RestartFixedForce uniform over restart times, Gronwall→HigherOrderBound bridge, fixed-force copies of A04 continuation theorems instantiated",planned,
 2026-09-16,A02,213-A02-A04-wiring,lead,merge,"PR #218 merged into erenup/integration; wave 46 gates OK (make check/test/mutations; 2 new modules A02/MaximalWiring, A04/RestartWiring)",merged,218
+2026-09-16,R43,216-R43-critical-datum-path,lead,plan,"lane opened (install then sol xhigh, retry): construct CriticalDatumPath for classical solutions (G3/G4), peel momentum identity if needed; makes eq:Rcritical1 unconditional",planned,
+2026-09-16,A04,215-A04-restart-fixed-force,codex,worker,"gpt-6-astra low: RestartFixedForce + HigherOrderBound bridge unconditional; fixed-force continuation copies; one named input ShiftedLocalExtension left",done,
+2026-09-16,A04,215-A04-restart-fixed-force,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,A04,217-A04-shifted-extension,lead,plan,"lane opened on 215 branch (install then astra low, retry): prove ShiftedLocalExtension (time-shift gluing with blended pressure); unconditional A04 continuation for MemForceR forces",planned,
+2026-09-16,A04,217-A04-shifted-extension,codex,worker,"gpt-6-astra low: ShiftedLocalExtension proved unconditionally (time-shift gluing, normalized pressures pasted at interior point); A04 continuation corollaries without named inputs",done,
+2026-09-16,A04,217-A04-shifted-extension,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,A04,215-A04-restart-fixed-force,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev215_widen_restart_interval)",accepted,219
+2026-09-16,A04,215-A04-restart-fixed-force,lead,merge,"PR #219 opened; chain launched (wave 47)",running,219
+2026-09-16,R44,218-R44-s1a-jweight,lead,plan,"lane opened (install then sol xhigh, retry): R44 row S1a J-weight identity and force duality at datum level",planned,
+2026-09-16,A04,215-A04-restart-fixed-force,lead,merge,"PR #219 merged into erenup/integration; wave 47 gates OK",merged,219
+2026-09-16,A04,217-A04-shifted-extension,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probes rev217_nonvacuity, rev217_plus_one_mutation)",accepted,220
+2026-09-16,A04,217-A04-shifted-extension,lead,merge,"PR #220 opened; chain launched (wave 48)",running,220
+2026-09-16,A04,217-A04-shifted-extension,lead,merge,"PR #220 merged into erenup/integration; wave 48 gates OK",merged,220
+2026-09-16,R43,216-R43-critical-datum-path,codex,worker,"gpt-5.6-sol xhigh: six half-order datum paths + symbol/transverse/longitudinal fields unconditional; assembly conditional on CriticalDatumInputs (time smoothness + datum momentum identity)",done,
+2026-09-16,R43,216-R43-critical-datum-path,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,"post-hoc gpt-6-astra: A02 and prerequisites pass; REJECT only for the missing unconditional A04 chain (delivered by 215/217); artifacts landed on integration",superseded,218
+2026-09-16,R43,219-R43-critical-momentum,lead,plan,"lane opened on 216 branch (install then astra low, retry): close CriticalDatumInputs (time smoothness + datum momentum identity) for arbitrary classical solutions; eq:Rcritical1 unconditional",planned,
+2026-09-16,R43,216-R43-critical-datum-path,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev216_mutation_fail)",accepted,221
+2026-09-16,R43,216-R43-critical-datum-path,lead,merge,"PR #221 opened; chain launched (wave 49)",running,221
+2026-09-16,R44,218-R44-s1a-jweight,codex,worker,"gpt-5.6-sol xhigh: R44 S1a closed at datum level (Jmul, weight identity, force duality with H^{-1/2} carrier) under datum bundle JWeightDatum",done,
+2026-09-16,R44,218-R44-s1a-jweight,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,R44,220-R44-s1c-trilinear,lead,plan,"lane opened on 218 branch (install then sol xhigh, retry): R44 row S1c J-weighted trilinear estimate at datum level",planned,
+2026-09-16,R43,216-R43-critical-datum-path,lead,merge,"PR #221 merged into erenup/integration; wave 49 gates OK",merged,221
+2026-09-16,R43,219-R43-critical-momentum,codex,worker,"gpt-6-astra low: CriticalDatumInputs closed for arbitrary classical solutions; eq:Rcritical1 (rcritical1_of_classical') unconditional; 215 support reproduced as R43.CarrierWindow",done,
+2026-09-16,R43,219-R43-critical-momentum,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,R43,221-R43-force-path,lead,plan,"lane opened on 219 branch (install then sol xhigh, retry): homogeneous half-order force path continuity/integrability/FTC (G2/G3/G4), S2 wiring probe for a=0 bootstrap",planned,
+2026-09-16,R43,221-R43-force-path,lead,relaunch,"worker relaunched so it reads the G2/G3 addendum (first launch preceded the brief edit by 2 s)",running,
+2026-09-16,R44,218-R44-s1a-jweight,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (doc-only G3 wording fix, applied by lead; probe rev218_weight_identity_plus_one)",accepted,222
+2026-09-16,R44,218-R44-s1a-jweight,lead,merge,"PR #222 opened; chain launched (wave 50)",running,222
+2026-09-16,R44,218-R44-s1a-jweight,lead,merge,"PR #222 merged into erenup/integration; wave 50 gates OK",merged,222
+2026-09-16,R44,222-R44-s1b-energy-identity,lead,plan,"lane opened (install then astra low, retry): R44 row S1b energy identity along classical solutions",planned,
+2026-09-16,R43,219-R43-critical-momentum,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev219_sign_mutation)",accepted,223
+2026-09-16,R43,219-R43-critical-momentum,lead,merge,"PR #223 opened; chain launched (wave 51)",running,223
+2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,"gpt-5.6-sol xhigh cut off by model-at-capacity after drafting TrilinearJ.lean (uncommitted); continuation launched on astra (fix tag)",relaunched,
+2026-09-16,R43,219-R43-critical-momentum,lead,merge,"PR #223 merged into erenup/integration; wave 51 gates OK",merged,223
+2026-09-16,R43,221-R43-force-path,codex,worker,"gpt-5.6-sol cut off by model-at-capacity (09:52Z wave) after drafting ForcePath.lean + audit (uncommitted); continuation armed after 30-min rest",relaunched,
+2026-09-16,R44,222-R44-s1b-energy-identity,codex,worker,"gpt-6-astra cut off by model-at-capacity (09:52Z wave) after drafting EnergyIdentity.lean (uncommitted); continuation armed after 30-min rest",relaunched,
+2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,"continuation #1 gpt-6-astra low gave up after 2.5 min (draft committed 3ea0ce5; two elaboration failures); continuation #2 launched on sol xhigh (fix2)",relaunched,
+2026-09-16,R44,222-R44-s1b-energy-identity,codex,worker,"continuation gpt-6-astra low (12 min): R44 S1b energy identity unconditional along classical solutions (20 declarations); adapter to 220's advectionJPairing pending",done,
+2026-09-16,R44,222-R44-s1b-energy-identity,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R43,221-R43-force-path,codex,worker,"continuation gpt-6-astra low (4 min): G2/G3/G4 force path closed exactly; critical_bootstrap_zero_datum unconditional (25 declarations)",done,
+2026-09-16,R43,221-R43-force-path,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R43,223-R43-endpoint,lead,plan,"lane opened on 221 branch (install then astra low, retry): R43 endpoint theorem inhomogeneousAtZero (S4/S5/S6, G5)",planned,
+2026-09-16,R43,223-R43-endpoint,lead,relaunch,"relaunched 8 s after the statement clarification was appended (first launch read the old brief)",running,
+2026-09-16,R43,221-R43-force-path,codex,reviewer,"gpt-6-astra: ACCEPT-WITH-NOTES (docstring-only fix, applied by lead; probes rev221_mutation, rev221_nonvacuity)",accepted,224
+2026-09-16,R43,221-R43-force-path,lead,merge,"PR #224 opened; chain launched (wave 52)",running,224
+2026-09-16,R43,221-R43-force-path,lead,merge,"PR #224 merged into erenup/integration; wave 52 gates OK",merged,224
+2026-09-16,R43,223-R43-endpoint,codex,worker,"gpt-6-astra low (8 min): inhomogeneousAtZero_of_memForceR proved unconditionally in the spec's exact shape (criticalConst explicit; 12 declarations)",done,
+2026-09-16,R43,223-R43-endpoint,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R41,224-R41-nondensity-q1,lead,plan,"lane opened on 223 branch (install then astra low, retry): thm:Rmain (ii) non-density at q=1 from the R43 endpoint",planned,
+2026-09-16,R43,223-R43-endpoint,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev223_widened)",accepted,225
+2026-09-16,R43,223-R43-endpoint,lead,merge,"PR #225 opened; chain launched (wave 53)",running,225
+2026-09-16,R44,222-R44-s1b-energy-identity,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (only a post-220 naming bridge, deferred to S1d; probe rev222_flip_dissipation)",accepted,226
+2026-09-16,R44,222-R44-s1b-energy-identity,lead,merge,"PR #226 opened; chain queued after #225 (wave 54)",running,226
+2026-09-16,R41,224-R41-nondensity-q1,codex,worker,"gpt-6-astra low (5 min): thm:Rmain (ii) non-density at q=1 proved (forceSobolevENorm_mono_order, not_breakdownDenseR_zero_L1; 13 declarations + Data-vocabulary conformance)",done,
+2026-09-16,R41,224-R41-nondensity-q1,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R43,225-R43-universal,lead,plan,"lane opened on 223 branch (install then astra low, retry): RCritical1API.universal (general datum) in the spec exact shape",planned,
+2026-09-16,R44,222-R44-s1b-energy-identity,lead,merge,"PR #226 merged into erenup/integration; wave 54 gates OK",merged,226
+2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,"continuation #2 gpt-5.6-sol xhigh: R44 S1c closed (advection_pairing_le, trilinearConstJ explicit; no extra hypothesis)",done,
+2026-09-16,R44,220-R44-s1c-trilinear,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,R43,223-R43-endpoint,lead,merge,"PR #225 merged (second attempt after aligning the stacked ForcePath.lean copy with integration); wave 53 gates OK",merged,225

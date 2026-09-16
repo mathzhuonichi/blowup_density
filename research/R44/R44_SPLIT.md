@@ -29,7 +29,7 @@ theorems.  The identical `ℝ≥0∞` power pin and C01 gate discharge are reuse
 | `‖u‖₃ ≤ Cemb‖u‖_{H^{1/2}}`, derivative/J `L³` embeddings | **not registered** | `A05.gradient_l6`, **V1**, contains only `gradientLSix`; the critical clauses in `research/A05/Spec.lean:366,384,406` require **A05 V2** |
 | continuation `extendsBeyond` at finite `S` | **not proved or registered on this branch** | `A04.energy_high_partial_v2`, **V2**, stops at `highContinuationIntegral`; `extendsBeyond` is the proposed **A04 V3** field (`research/A04/Spec.lean:613`) |
 | maximal solution family | **registered, conditional** | `A02.maximal_partial_v2`, **V2**, field `exists_maximal`; its A01 local-solution clause remains an explicit hypothesis |
-| `J`, exact Bessel-weight identity, `H^{-1/2}` duality | **absent** | no D01/C01/A05 registered contract defines the multiplier or states the identity; gap G1 |
+| `J`, exact Bessel-weight identity, `H^{-1/2}` duality | **proved locally; not registered** | lane 218: `Section4/R44/JWeight.lean` defines the weighted-carrier `Jmul`, `Y/Z/B`, proves `weight_identity`, `force_pairing_le`, and `force_pairing_le'`; a later contract/binding lane is still owed |
 | eq:Rcritical2 and first-exit closure | **absent as PDE result** | C01 V1–V3 explicitly exclude eq:Rcritical2; its scalar closure is now in `R44.Pieces`, but the PDE inequality is R44-owned gap G2 |
 
 This corrects one stale statement in the reconciled comparison: registration gap
@@ -67,8 +67,8 @@ with `0 < theta`, `0 ≤ C₂`, `0 < C₃`, all universal.  Its analytic subrows
 
 | subrow | exact need | owner / size / dependencies | blocker |
 |---|---|---|---|
-| S1a | define `J=(I-Δ)^(1/2)` on the datum carrier and prove `‖u‖²_{H^(3/2)} = Y² + Z²`, i.e. the exact weight identity, plus `abs ⟪f,Ju⟫ ≤ B * sqrt (Y²+Z²)` | **D01 G1**, M; depends on D01 datum/Fourier carrier | blocks stating a canonical PDE theorem for S1, but not the final R44 API |
-| S1b | differentiate `Y²` and identify the `J`-weighted momentum pairing; remove pressure by solenoidality | **R44-own G2**, M; depends on G1 and D01 V3 pressure/datum machinery | blocks proving |
+| S1a | define `J=(I-Δ)^(1/2)` on the datum carrier and prove `‖u‖²_{H^(3/2)} = Y² + Z²`, i.e. the exact weight identity, plus `abs ⟪f,Ju⟫ ≤ B * sqrt (Y²+Z²)` | **closed in lane 218**, `Section4/R44/JWeight.lean`; one satisfiable `JWeightDatum` restriction | no longer a proof blocker; registration remains |
+| S1b | differentiate `Y²`, identify the `J`-weighted momentum pairing, remove pressure, and evaluate dissipation | **closed in lane 222**, `Section4/R44/EnergyIdentity.lean`; `energy_identity` for every classical solution, no extra analytic hypothesis | no longer a proof blocker; registration remains |
 | S1c | `abs ⟪(u·∇)u,Ju⟫ ≤ C₀ * Y * (Y²+Z²)` | **R44-own G2**, L; depends on **A05 V2** (`velocityCriticalL3`, derivative/J critical embeddings) and G1 | blocks proving |
 | S1d | Young/absorption under `Y ≤ theta*ν`, producing the displayed target | **R44-own G2**, S once S1a–c exist | blocks proving |
 
@@ -76,7 +76,8 @@ To feed S2 this must be assembled as one `E' : ℝ → ℝ` with
 `IntervalIntegrable E' volume 0 T`; the pointwise existential alone does not
 discharge `Pieces.lean:162-163`.
 
-No registered field supplies S1.  `C01.energy_absorption_partial` V1 concerns
+No registered field supplies S1.  The unregistered implementation now supplies
+S1a and S1b, while S1c--S1d remain open on this baseline.  `C01.energy_absorption_partial` V1 concerns
 the `-Δu` test used by eq:RH1, not the `Ju` test.
 
 ### S2 — Grönwall, radius scaling, and first-exit bootstrap (closed conditionally, S–M)
@@ -232,9 +233,9 @@ concrete witness.
 
 | id | owner | size | depends on | blocks |
 |---|---|---:|---|---|
-| G1 | D01: `J`, exact weight identity, duality | M | D01 Fourier/datum carrier | clean S1 statement + proof; not final API statement |
-| G2 | R44-own: eq:Rcritical2 PDE derivation | L | G1, A05 V2, pressure/critical-path differentiability | proof |
-| G3 | C01/D01: `H^{-1/2}` force slice, continuity/integrability, prefix integral = time-norm square | M | D01 datum lowering V2 and measurable path definitions | proof/S2 application |
+| G1 | D01/R44 datum layer: `J`, exact weight identity, duality | **closed in implementation** | `Section4/R44/JWeight.lean`; contract/binding registration owed | no remaining S1a proof blocker |
+| G2 | R44-own: eq:Rcritical2 PDE derivation; S1b energy identity closed by lane 222 | L | S1c trilinear estimate and S1d absorption/assembly; pressure and critical-path differentiation are proved | proof (remaining S1c/S1d) |
+| G3 | C01/D01: `H^{-1/2}` force slice, continuity/integrability, prefix integral = time-norm square | **partly closed, still M** | lane 218 confirms `RealVectorSobolev (-1/2)` and supplies the slicewise `B`/duality carrier. A named continuous order-`-1/2` force-datum path in the R44 consumer shape, and its prefix-integral/time-norm-square identity, remain to be packaged. | proof/S2 application |
 | G4 | R44-own: maximal-endpoint gluing and `SolvesBelow` assembly | M | A02 V2, C01 V4, A04 V3, A01 local solution | proof/S4→S5 |
 | G5 | A04↔C01 `ℕ`-pow/rpow pin | S | none | **closed**, reused from R43 |
 | A05 V2 | critical `L³` embeddings | M–L | A05 carrier translation | proof/S1,S3 |
@@ -243,6 +244,6 @@ concrete witness.
 | R44 scalar | constants, radius algebra, Grönwall + first exit | S–M | only existing tree scalar lemmas | **closed this lane** |
 
 Bottom line: **nothing blocks stating the nine-field R44 API**.  A clean
-PDE-level statement of its main estimate waits on G1/G3 vocabulary; proving and
-binding the API waits on G1–G4 plus A05 V2, C01 V4, A04 V3, and the transitive
+PDE-level proof of its main estimate still waits on S1b--S1d and G3's pathwise
+facts; proving and binding the API waits on G2--G4 plus A05 V2, C01 V4, A04 V3, and the transitive
 A01 discharge in A02 V2.
