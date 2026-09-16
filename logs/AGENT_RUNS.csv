@@ -856,3 +856,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,180-A01-b2-assembly,lead,merge,"lead decision: probe marked historical (real pipeline = lane 189's pressureSupply_of_pieces); PR #190 ready; chain queued after 198's (wave 30)",running,190
 2026-09-16,A01,189-A01-pressure-regularity,lead,plan,"fix3 armed (auto after 180 lands, sol high): import 180's PressureSupply, delete copy, A01 constructor pipeline probe",planned,
 2026-09-16,A01,198-A01-energy-premises,lead,merge,"PR #202 merged via chain (wave 29) gates green",merged,202
+2026-09-16,A01,180-A01-b2-assembly,lead,merge,"PR #190 merged via chain (wave 30) gates green; constructor conditional on hb + PressureSupply",merged,190
+2026-09-16,A01,189-A01-pressure-regularity,codex,fix3,"auto-launched (sol high) after 180 landed: import PressureSupply, delete copy, constructor pipeline probe",running,
