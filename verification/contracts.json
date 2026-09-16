@@ -354,6 +354,17 @@
       "enabled": true
     },
     {
+      "id": "R47.grid_observations",
+      "parent_task": "R47",
+      "version": 1,
+      "specification": "verification/Contracts/V1/GridObservations.lean",
+      "binding_module": "Bindings.GridObservations",
+      "test_module": "Tests.GridObservations",
+      "declaration": "BlowupDensity.Tests.checkedGridObservations",
+      "scope": "Theorem 4.7 (thm:Rgrid), paper/sections/04-whole-space.tex:297-304, in the exact two-structure shape of research/R47/Spec.lean under the registry names GridFamilyAPI and GridObservationsAPI. For every positive viscosity, admissible initial datum and force, positive T and delta, named ClassicalSolutionR through T+delta, and complete prescribed Fin n grid family, one witness supplies a common positive-radius ball contained in one cell of every grid; one total force/solution family; MemForceR, inherited history, compact force difference, exact velocity and force grid observations on [0,T), exact maximal lifespan T, energy convergence, the literal mixedLebesgueENorm 1 2 plus inhomogeneous and homogeneous negative-order force convergence, and velocity, pressure-modulo-gauge, and global force support in the common ball. The binding instantiates lane 258's rGrid_choose_of_realization with lane 255's compactHomogeneousRealization and transports its nominally distinct but field-identical family record field by field. It asserts no completed-space density clause, point or pressure observations, closure/interior strengthening, arbitrary-grid-refinement uniformity, or mixed-norm/order-zero Sobolev identity.",
+      "enabled": true
+    },
+    {
       "id": "R46.completed_density",
       "parent_task": "R46",
       "version": 1,

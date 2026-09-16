@@ -94,11 +94,7 @@ renaming is assumed. R42 supplies the inhomogeneous `(2,-1)` limit. Lane 250's
 homogeneous estimates and a proved compact-path triangle inequality supply the
 third limit. The packet and correction powers are `1/2` and `3/2`.
 
-The **single remaining input** is lane 250's exact
-`NSFormalization.Section4.I03.CompactHomogeneousRealization`: time strong
-measurability of the explicit D01 compact homogeneous path. It occurs only in
-the homogeneous force convergence chain. **Lane 255** is assigned to close
-this input. This assembly does not assert its unconditional proof.
+The former single remaining input, lane 250's `NSFormalization.Section4.I03.CompactHomogeneousRealization` (time strong measurability of the explicit D01 compact homogeneous path, used only in the homogeneous force convergence), **was closed by lane 255** (`compactHomogeneousPath_continuous`, PR #249). Lane 260 instantiates lane 258's `rGrid_choose_of_realization` with it and registers Theorem 4.7 as `R47.grid_observations` V1; the registered witness is unconditional.
 
 ## Order-zero bridge status
 
