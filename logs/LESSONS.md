@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-17 `tmp/queue_chain.sh` 靠 `tmux capture-pane` 看前一条链窗口里的 `CHAIN DONE`；在后一条链启动前把前一条的窗口 kill 掉会让队列永远等（#239 卡了 40 分钟）。规则：排队链存在时不要 kill 前序 chain 窗口（它们 1 小时后自退），或 kill 后把后续链改成直接运行。
 - 2026-09-16 lead 的 Bash 工具跑在 zsh 下：`for L in "a b c"; do set -- $L` 不分词（zsh 默认无 SH_WORD_SPLIT），`${x,,}` 是 bash 语法（"bad substitution"）。批量开 lane 用带位置参数的 shell 函数 `mk 244 R45 …`，小写用 `tr A-Z a-z`；出错后先清掉带空格的垃圾文件/后台脚本再重发。
 - 2026-09-16 叠放车道（基于未合入分支）在基分支被 lead 改过（哪怕只是 docstring）之后会与集成分支冲突（`AA` both-added），PR 显示 CONFLICTING 而合并链静默跳过合并只跑门禁（日志首行 `#NNN OPEN`）。合并前在叠放 worktree 里 `git show origin/erenup/integration:<file> > <file>` 对齐副本、提交、推送，再重跑链。lead 对基分支的修改尽量在叠放车道开出之前做。
 - 2026-09-16 brief 在 `run_install_launch_<n>.sh` 里是启动时一次性读入的；安装完成时间不可预期，启动后再补 addendum 无效（221、223 都因此重启）。规则：写 brief 时先 `grep`/`sed -n` 核对 Spec 的精确字段与名字再启动；启动后要改 brief 只能杀掉重启（`tmux kill-window` + 杀 retry 脚本 + 归档日志）。
