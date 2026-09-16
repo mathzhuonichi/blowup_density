@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-17 用 python `s.replace(anchor, …)` 往 NEXT_SESSION 插条目时锚点不存在会**静默不写**，连续十几条记录丢失（09-17 的条目全无，事后按行号重建）。规则：插入后 `assert` 新文本在文件里（或按行号插到首条条目之前），提交前 `grep` 核对。
 - 2026-09-17 `scripts/codex_review.sh <lane>` 只读 `collaboration/briefs/<lane>.md`；brief 若用了别名（如 `212-…-option1.md`），审稿会静默失败，`retry_review.sh` 当作容量失败退避 30 分钟。规则：启动 lane 时 brief 文件名 = lane 名；带选项的 brief 定稿后复制一份为 lane 名。
 - 2026-09-17 分支基线早于新注册合同时，`check_contracts.py --base-ref origin/erenup/integration` 会把新合同当作"删除"而失败，审稿据此 REJECT（251）。规则：**送审前先把 origin/erenup/integration 并入车道分支**（记录文件冲突取集成分支版本），尤其在刚合入过合同注册 lane 之后；审稿 REJECT 若只因基线，lead 合并后重跑门禁即可开 PR。
 - 2026-09-17 `tmp/queue_chain.sh` 靠 `tmux capture-pane` 看前一条链窗口里的 `CHAIN DONE`；在后一条链启动前把前一条的窗口 kill 掉会让队列永远等（#239 卡了 40 分钟）。规则：排队链存在时不要 kill 前序 chain 窗口（它们 1 小时后自退），或 kill 后把后续链改成直接运行。
