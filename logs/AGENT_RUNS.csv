@@ -986,3 +986,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A04,215-A04-restart-fixed-force,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev215_widen_restart_interval)",accepted,219
 2026-09-16,A04,215-A04-restart-fixed-force,lead,merge,"PR #219 opened; chain launched (wave 47)",running,219
 2026-09-16,R44,218-R44-s1a-jweight,lead,plan,"lane opened (install then sol xhigh, retry): R44 row S1a J-weight identity and force duality at datum level",planned,
+2026-09-16,A04,215-A04-restart-fixed-force,lead,merge,"PR #219 merged into erenup/integration; wave 47 gates OK",merged,219
