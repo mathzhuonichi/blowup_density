@@ -1,4 +1,5 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-17 `scripts/codex_review.sh <lane>` 只读 `collaboration/briefs/<lane>.md`；brief 若用了别名（如 `212-…-option1.md`），审稿会静默失败，`retry_review.sh` 当作容量失败退避 30 分钟。规则：启动 lane 时 brief 文件名 = lane 名；带选项的 brief 定稿后复制一份为 lane 名。
 - 2026-09-17 分支基线早于新注册合同时，`check_contracts.py --base-ref origin/erenup/integration` 会把新合同当作"删除"而失败，审稿据此 REJECT（251）。规则：**送审前先把 origin/erenup/integration 并入车道分支**（记录文件冲突取集成分支版本），尤其在刚合入过合同注册 lane 之后；审稿 REJECT 若只因基线，lead 合并后重跑门禁即可开 PR。
 - 2026-09-17 `tmp/queue_chain.sh` 靠 `tmux capture-pane` 看前一条链窗口里的 `CHAIN DONE`；在后一条链启动前把前一条的窗口 kill 掉会让队列永远等（#239 卡了 40 分钟）。规则：排队链存在时不要 kill 前序 chain 窗口（它们 1 小时后自退），或 kill 后把后续链改成直接运行。
 - 2026-09-16 lead 的 Bash 工具跑在 zsh 下：`for L in "a b c"; do set -- $L` 不分词（zsh 默认无 SH_WORD_SPLIT），`${x,,}` 是 bash 语法（"bad substitution"）。批量开 lane 用带位置参数的 shell 函数 `mk 244 R45 …`，小写用 `tr A-Z a-z`；出错后先清掉带空格的垃圾文件/后台脚本再重发。
