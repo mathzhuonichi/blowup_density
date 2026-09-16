@@ -20,6 +20,33 @@ has already proved.
 
 ---
 
+## Current implementation update — lane 227 (2026-09-16)
+
+`Section4/R44/Endpoint.lean` now assembles S2–S6 conditional **only** on
+`RCritical2Differential`: the exact S1 inequality with one derivative locally
+interval integrable on every closed presingular window. The fixed constants
+are `C₂ = 2`, `C₃ = 4`,
+`theta = min R43.criticalConst (1/(100*(A05.criticalL3Const+1)^3))`,
+`c = theta/20`, and `C = 3`. The radius is exactly
+`c * ν^(3/2 : ℝ) * exp (-(C*ν*S))`, and the conclusion is the strict finite
+lifespan inequality, with zero datum and the original inhomogeneous norm.
+
+G3's continuity, exact path-infimum norm identification, and squared prefix
+bound are proved in the new module. G4's maximal endpoint gluing and G5's
+power pin are reused from R43; A05 V2, C01 V4, A02 unconditional maximal
+existence, and A04 unconditional fixed-force continuation are present and
+consumed without additional named assumptions. The Data-vocabulary main and
+non-density conformance theorems are in `axioms_endpoint.lean`, together with
+zero-force and zero-solution non-vacuity checks. Every authored declaration
+reports precisely the standard three logical axioms.
+
+Only S1c/S1d and its derivative-integrability provider remain for the
+unconditional theorem. `rcritical2_endpoint` explicitly retains that provider;
+there is no fabricated unconditional theorem or complete API instance.
+The tables below preserve the original statement-comparison audit; their
+claims that sibling implementations are absent describe that older baseline.
+Current statuses supersede them in `R44_SPLIT.md` rows S2–S6 and its gap table.
+
 ## 1. Field-by-field
 
 `✓` = adopted as written; `→` = adopted with the change shown.
