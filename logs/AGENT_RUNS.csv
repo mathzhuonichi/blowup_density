@@ -1227,3 +1227,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,R46,261-R46-contract-v1,lead,merge,"PR #254 merged into erenup/integration; wave 82 gates OK; 33 contracts",merged,254
 2026-09-17,R47,260-R47-contract-v1,lead,merge,"registry union with #254; PR #255 opened; chain launched (wave 83)",running,255
 2026-09-17,R47,260-R47-contract-v1,lead,merge,"PR #255 merged into erenup/integration; wave 83 gates OK; 34 contracts",merged,255
+2026-09-17,A04,230-A04-v2-restart-fixed-force,codex,reviewer,"gpt-6-astra: ACCEPT-WITH-NOTES (three wording fixes applied by lead; H1 mutation probe rejected)",accepted,256
+2026-09-17,A04,230-A04-v2-restart-fixed-force,lead,merge,"registry union with #255; PR #256 opened; chain launched (wave 84)",running,256
