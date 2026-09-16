@@ -199,3 +199,7 @@ at zero force after proving S1 for every zero-force solution by uniqueness.
 
 The unconditional Proposition 4.4 remains pending S1. The endpoint assembly
 and its force-path, norm, gluing, and continuation obligations are proved.
+
+## Status after lane 229 (2026-09-16)
+
+**S1 (a–d), S2–S6, G2, G4, G5 closed in implementation.** `Section4/R44/Absorption.lean` (S1d: lane 228 adapted to lane 227's constants, monotonicity adapter `rCritical2Differential_of_classical`), `Endpoint.lean` (lane 227: S2–S6 conditional on S1), `Prop44.lean` (`rcritical2_endpoint_unconditional`; all nine `RCritical2API` field values with `c = theta/20`, `C = 3`, `radius ν S = theta/20·ν^{3/2}·e^{−3νS}`), `Section4/R41/NonDensityL2.lean` (the `q = 2` non-density clause, `s ≥ -1/2`). Earlier "pending" wording in the tables above is superseded. Registration: lane 231.
