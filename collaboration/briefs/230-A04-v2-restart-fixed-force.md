@@ -38,3 +38,16 @@ the axioms file; `git diff --stat verification/contracts.json`.
 
 ## Report
 Commit on your branch; end with four parts. Also write it to `research/A04/REPORT_230.md`.
+
+## Anti-reward-hacking requirements (lead, 2026-09-17, per the user's decision: "按最专业的来；short path 要避免 reward hacking")
+1. The V2 structure must NOT contain the paper's H¹ sentence as a proved field, and must not contain placeholder `Prop` fields. Instead the contract file adds
+   `def ManuscriptHorizonLowerBoundH1 : Prop := <the paper's H¹ statement verbatim from research/A01/Spec.lean:338-344 (A01) / research/A04/Spec.lean Restart (A04)>` with the docstring
+   "the manuscript's sentence; NOT implied by this API; open", and the registry scope says so. Nothing may suggest the H¹ statement is proved.
+2. Every docstring of a narrowed field states the exact difference from the paper: fixed force (the force is quantified before ∃ δ) vs uniform in the force; H⁷ datum bound vs H¹;
+   uniformity over restart times t₀ ∈ [0,S] (A04).
+3. Non-vacuity: `example`s instantiating the V2 fields at a **nonzero** force (grep the tree for a nonzero `MemForceR` witness, e.g. the compact bump used in `research/R43/axioms_force_path.lean`)
+   and at a nonzero datum, showing the hypotheses are satisfiable and the conclusion is not vacuous (δ is a genuine positive real).
+4. `research/<ID>/COMPARISON.md` gets a section "Paper vs V2": table with columns paper sentence | V1 field (H¹) | V2 field (H⁷, fixed force) | why V2 suffices downstream (cite
+   `research/A04/REPORT_215.md` §3: the consumers restartBeyond/extendsBeyond/lifespanInfiniteOfLocallyFinite (217) and A02's exists_maximal (213) restart the same force with
+   Grönwall-bounded H⁷ data; cross-force uniformity is never used) | what the H¹ version would need (forced H¹ quantitative local theory on the mild stack).
+5. The report's §3 must say plainly which paper sentence is NOT proved. The reviewer will check the V2 statement against the paper adversarially.

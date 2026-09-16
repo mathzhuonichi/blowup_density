@@ -1187,3 +1187,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R47,258-R47-assembly,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
 2026-09-16,R41D,234-R41D-small-gaps,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (record corrections applied by lead; probe rev234_zero_constant)",accepted,248
 2026-09-16,R41D,234-R41D-small-gaps,lead,merge,"PR #248 opened; chain launched (wave 76)",running,248
+2026-09-17,A01,212-A01-contract-v2,lead,plan,"user decided option 1 (fixed-force H7 V2 wording; H1 sentence kept as an explicitly open named definition); lane launched (install then sol xhigh) with anti-reward-hacking requirements",planned,
+2026-09-17,A04,230-A04-v2-restart-fixed-force,lead,plan,"A04 V2 registration lane launched (install then sol xhigh) per the same decision",planned,
+2026-09-16,R41D,234-R41D-small-gaps,lead,merge,"PR #248 merged into erenup/integration; wave 76 gates OK",merged,248
