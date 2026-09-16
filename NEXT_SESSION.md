@@ -18,6 +18,7 @@
 - **2026-09-16 0130Z A3-M2 剩余两块**：199（#204 带号恒等式 + ODE 包络）合入。200（forcing 界）把 `ForcingFamilyBound` 归约到唯一空间估计 `CylinderCommutatorBound`（柱面 word 级 Kato–Ponce 换位子估计，无 PDE/时间）；201（根比较）把 `CylinderRootComparison` 归约到 `CylinderSignedRootLimit`（带号微分不等式沿 198 的最大逼近族取积分极限）+ `mildNormConstant q ≤ E`。两者审稿中（astra）；审稿后各作为条件模块落地，再开 202（换位子估计）、203（带号极限）。这两条闭合 ⇒ `FiniteMildEnergy` ⇒ `hb` ⇒ A01 经典解构造器无条件。
 - **2026-09-16 0140Z**：200（#206 forcing 界，条件于 `CylinderCommutatorBound`）、201（#205 根比较，条件于 `CylinderSignedRootLimit`）合入，174 模块。A3-M2 精确只剩两条分析事实，均在 astra 上证：202 `CylinderCommutatorBound`（柱面 word 换位子 Kato–Ponce 估计，纯空间）、203 `CylinderSignedRootLimit`（带号能量不等式沿最大逼近族的积分极限，需保留耗散的带号通道）。两条闭合 ⇒ `FiniteMildEnergy` ⇒ `hb` ⇒ A01 经典解构造器无条件；之后开 lane 204 注册 A01 合同。
 - **2026-09-16 0150Z A3-M2 剥到最内层**：202 把 `CylinderCommutatorBound` 归约到逐坐标估计 `CylinderCoordinateTame q hq C`（换位子 = 四个坐标换位子之和、空 word 抵消已无条件证出；剩混合积柱面插值本体，Kato–Ponce 核心）；203 把 `CylinderSignedRootLimit` 归约到 `CylinderSignedEnergyPassage`（未吸收的带号正则化积分估计，ε 根形式；导数 word 平方积分收敛与带号商吸收已证）。两者审稿中（sol）；之后各作为条件模块落地，再开 204（带号通道）、205（逐坐标 tame 估计，可能 re-cut 到角不变子空间）。
+- **2026-09-16 0205Z 路由容量波**：sol 与 astra 都返回 "model at capacity"（连 30 秒探针都失败），202/203 的审稿各死了 2–3 次；已用 `tmp/retry_review.sh` 自动交替重试。204（`CylinderSignedEnergyPassage`）、205（`CylinderCoordinateTame`）的简报已写好在 `collaboration/briefs/`，等审稿结果与容量恢复后从 203/202 分支切树启动（astra）。若容量长时间不恢复：下一会话直接按 `tmp/run_wait_launch_*.sh` 的模式起 204/205，审稿可后补。
 - 坑：新 worktree 必须先 `LEAN_SEED_DIR=<root> bash scripts/lean-install.sh`（否则 lake 私 clone Mathlib 从源码编译数小时）；`pkill -f` 会杀自己。
 
 ## Integration handoff (2026-09-15)
