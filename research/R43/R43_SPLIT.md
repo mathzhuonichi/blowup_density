@@ -1,5 +1,17 @@
 # R43 — Proposition 4.3 proof-route split (`prop:Rcritical1`)
 
+## Lane 223 update: zero-datum endpoint proved unconditionally
+
+`Endpoint.lean` closes S4/S5/S6 at zero datum. Its explicit positive
+`criticalConst` gives the exact inhomogeneous force-smallness statement of
+`Spec.lean:243–247`, with no named analytic hypothesis. G5 reuses lane 167's
+existing maximal-family bound; its absorption premise is now discharged from
+force smallness. The lane 217 continuation dependencies are included unchanged.
+See `REPORT_223.md` for provenance, exact scope and all validation results.
+The older registration audit below is historical, not a claim that the
+zero-datum endpoint remains unproved. General initial data remain separate.
+
+
 ## Lane 167 update: G5 endpoint passage proved locally
 
 `Section4/R43/MaximalEndpoint.lean` now transfers the C01 absorption/H2 estimate
@@ -178,37 +190,35 @@ General-`a` bootstrap (`y(0)≠0`) still needs `sqrt_energy_le_primitive'` and
   `criticalL3_gate_enorm` (ℝ≥0∞, exact C01 shape), `criticalL3_gate_real` (ℝ), and
   `exists_critical_radius` (one `c` below both `1/(4C₀)` and the gate threshold).
 
-### S4 — `∫₀ˢ‖u‖²_{H²} < ∞` for every finite `S ≤ T_max` (C01 assembly, **draft-only → C01 V4**)
+### S4 — finite H² integral through the maximal endpoint: **CLOSED (223)**
 
-`04-whole-space.tex:118-131`. C01's `h2TimeIntegral` (`research/C01/Spec.lean:576`)
-gives `∫⁻ Ioo 0 S, sobolevENorm 2 (u t) ^ (2:ℝ) ≤ ENNReal.ofReal (…)` under the gate
-of S3, per `w : ClassicalSolutionR ν a f T`, `0 < S ≤ T`. **NOT registered** (C01 V3
-scope disclosure 5 lists it out of scope). It is a **C01 V4 item**, together with its
-inputs `enstrophyIntegralBound` (eq:RH1) and `sobolevTwoFourier`, all draft-only.
+`maximal_h2TimeIntegral_zero_of_small_force` (namespace R43, module
+`Endpoint`) supplies the explicit zero-datum bound for every `0 < S` with
+`ofReal S ≤ maximalLifespanR ν 0 f`:
 
-Two further gaps:
-* **G5** (owner C01 endpoint, or R43 gluing, M): `h2TimeIntegral` is per fixed-horizon
-  `ClassicalSolutionR` with `S ≤ T`; A04's closing clause instantiates at `S = T_max`,
-  where no such solution exists. R43 can glue by monotone convergence (RHS monotone in
-  `S`, finite at `T_max` since `f ∈ 𝓕_ℝ`), or C01 adds an endpoint corollary.
-* **G6** (power spelling, one line): `squaredHTwoIntegral` (A04, `^(2:ℕ)`) vs
-  `h2TimeIntegral` (C01, `^(2:ℝ)`). **CLOSED this lane**: `enorm_npow_two_eq_rpow_two`
-  (`x ^ (2:ℕ) = x ^ (2:ℝ)` in `ℝ≥0∞`).
+`ofReal (32 * S * C01.forcePrimitive f S ^ 2 +
+32 * (ν⁻¹)^2 * ∫ t in 0..S, C01.l2Sq (C01.slice f t))`.
 
-**Blocks proving.**
+It uses the already present `MaximalEndpoint.maximal_h2TimeIntegral` theorem,
+which applies `C01.h2TimeIntegral_Ioc` with the **same terminal S budget** to
+all strictly shorter intervals and takes their directed union. The endpoint
+value of the velocity is never evaluated. C01 V4 is registered; the previous
+“draft-only” description was obsolete. G6 converts the real square to A04's
+natural square. `maximal_squaredHTwoIntegral_of_small_force` is unconditional
+under positive viscosity, force membership, maximality and homogeneous force
+smallness.
 
-### S5 — `lifespanInfiniteOfLocallyFinite` fed the maximal family ⟹ `T_max = ⊤` (A04, **draft-only → A04 V3**)
+### S5 — continuation: **CLOSED (223, using 217)**
 
-`04-whole-space.tex:132`, "Proposition 2.1 excludes every finite maximal lifespan."
-A04 `lifespanInfiniteOfLocallyFinite` (`research/A04/Spec.lean:657`): from `0 < T_max`,
-the presingular solution family, and `∀ S, 0<S → ofReal S ≤ T_max → squaredHTwoIntegral S u ≠ ⊤`
-(supplied by S4), concludes `maximalLifespanR ν a f = ⊤`. **NOT registered** (registered
-A04 V2 stops at `highContinuationIntegral`). An **A04 V3 item**.
+`A02.exists_maximal'` supplies a maximal family. The exact lane 217 theorem
+`A04.lifespanInfiniteOfLocallyFinite_of_memForceR'` consumes that family and
+`∀ S, 0 < S → ofReal S ≤ maximalLifespanR ν a f → squaredHTwoIntegral S u ≠ ⊤`.
+S4 supplies its last premise, including finite maximal S. No additional
+analytic hypothesis remains. This checkout lacked lanes 215/217's two A04
+files; they are included unchanged from local lane 217 commit
+`d6f9cfd605041cb015a2119d351b6d77578c6b18`, without a merge or rebase.
 
-* The maximal family (`exists_maximal`, `IsMaximalSolution`, `presingularTimes`):
-  **REGISTERED** in `A02.maximal_partial_v2` (V2 `MaximalPartial`). This is the one
-  fully-registered input on the closing path.
-* The `≠ ⊤` hypothesis comes from S4; the power spelling from G6 (done).
+### S6 — `inhomogeneousAtZero`: **CLOSED (223)**
 
 **Blocks proving** (needs A04 V3 registration + wiring S4→S5).
 
@@ -256,6 +266,15 @@ by G2/G3 and the S6 reduction.
 The force-path and zero-field reduction obligations are closed. This does not
 claim the maximal-lifespan conclusion: assembly with the universal estimate,
 S4/S5 continuation, and contract registration remains outside lane 221.
+`inhomogeneousAtZero_of_memForceR` proves the exact `Spec.lean:243–247` shape
+with the explicit positive radius
+`criticalConst = min (1/(8*trilinearConst))
+(1/(4*(A05.gradientL6Const*A05.criticalL3Const)))`.
+The smallness norm is the registered datum-path **inhomogeneous**
+`forceSobolevENormL1 (1/2)`. The stronger
+`homogeneousAtZero_of_memForceR` is proved first; lane 221's exact G2 inequality
+then derives the spec theorem. General nonzero initial data (`universal`) and
+registration of a complete `RCritical1API` remain outside this lane.
 
 ---
 
@@ -271,13 +290,14 @@ S4/S5 continuation, and contract registration remains outside lane 221.
 | **G3** | D01 | **content** (non-vacuity) | **CLOSED (221)** — canonical measurable `L¹_t Ḣ^{1/2}` path and finite homogeneous force norm | DONE |
 | **G4** | C01 | proving S2 | **CLOSED (221)** — critical force continuity, interval integrability, primitive continuity and FTC | DONE |
 | **G5** | C01 / R43 | proving S4→S5 | open — `S = T_max` endpoint gluing (monotone convergence) | M |
+| **G5** | C01 / R43 | proving S4→S5 | **CLOSED (223 wiring)** — existing `MaximalEndpoint` directed-union bound, now with absorption discharged | DONE |
 | **G6** | A04↔C01 | proving S4 | **CLOSED** — `enorm_npow_two_eq_rpow_two` | S (done) |
 | **G7** | R43 | proving S1 | **CLOSED (219)** — unconditional eq:Rcritical1 and smooth critical path for positive-viscosity classical solutions | DONE |
 | **G8** | A05↔C01 | nothing | **CLOSED** — `exists_critical_radius`, `criticalL3_gate_real`, `criticalL3_gate_enorm` | S (done) |
 
-Plus the **three registration prerequisites** (not "gaps" in COMPARISON's sense but
-hard blockers to proving): A05 V2 (`velocityCriticalL3`), C01 V4 (`h2TimeIntegral` +
-eq:RH1 + `sobolevTwoFourier`), A04 V3 (`lifespanInfiniteOfLocallyFinite`).
+Historical registration prerequisites above no longer block the zero-datum proof.
+Lane 223 consumes proved implementation theorems and the registered C01 V4
+implementation; it does not register the complete R43 API.
 
 ---
 

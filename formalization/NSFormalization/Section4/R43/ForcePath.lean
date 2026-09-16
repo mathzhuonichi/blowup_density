@@ -53,9 +53,8 @@ theorem ofSobolevVector_norm_le (s : ℝ) (hs : 0 ≤ s)
     exact (sq_le_sq₀ (norm_nonneg _) (norm_nonneg _)).mpr hi
   nlinarith [norm_nonneg (ofSobolevVectorL s hs A), norm_nonneg A]
 
-/-- Every inhomogeneous datum path of nonnegative order has a homogeneous
-image path for the same physical force (the `IsHomogeneousPath` predicate only;
-measurability of the canonical path is proved separately below). -/
+/-- Every inhomogeneous datum path of nonnegative order has a measurable
+homogeneous image path for the same physical force. -/
 theorem isHomogeneousPath_of_isSobolevPath {s : ℝ} (hs : 0 ≤ s)
     {f : SpaceTimeField} {G : ℝ → RealVectorSobolev s}
     (hG : IsSobolevPath s f G) :
