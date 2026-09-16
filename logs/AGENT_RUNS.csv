@@ -1089,3 +1089,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R41D,235-R41D-density,lead,merge,"PR #234 opened after merging integration; chain launched (wave 62)",running,234
 2026-09-16,R41,232-R41-nondensity-both,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev232_widen_threshold)",accepted,235
 2026-09-16,R41,232-R41-nondensity-both,lead,merge,"PR #235 opened; chain queued after #234 (wave 63)",running,235
+2026-09-16,SPEC,236-SPEC-r41-draft-a,lead,plan,"lane opened (install then sol xhigh): double-blind R41 (Theorem 4.1) contract statement draft A",planned,
+2026-09-16,SPEC,237-SPEC-r41-draft-b,lead,plan,"lane opened (install then astra low): double-blind R41 contract statement draft B",planned,
