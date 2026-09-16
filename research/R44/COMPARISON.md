@@ -20,6 +20,24 @@ has already proved.
 
 ---
 
+## Registered V1 contract — lane 231 (2026-09-16)
+
+`R44.critical_finite_horizon` is now the 31st registered contract.  Its
+`CriticalFiniteHorizonAPI` copies `RCritical2API`'s nine fields verbatim apart
+from the registry-conventional structure name and imports only
+`Contracts.V1.Data`.  In particular, `radius` remains a structure field,
+`radiusPos` remains explicit, `radiusFormula` is the only formula pin, and both
+conclusion fields retain the inhomogeneous `forceSobolevENormL2 (-1 / 2)` norm,
+zero datum, strict threshold, and finite-lifespan conclusion.
+
+The checked binding selects `c = R44.theta / 20`, `C = 3`, and `R44.radius`.
+It binds the unconditional `R44.main` and `R44.nonDensityBallZero` theorems.
+`MemForceR` and `forceSobolevENormL2` are definitional bridges; the conclusion
+and breakdown-set membership use
+`Bindings.maximalPartial_maximalLifespanR_eq`, as required by the two distinct
+`ClassicalSolutionR` structures.  The contract adds no analytic hypothesis and
+does not promote the finite-horizon result to global regularity.
+
 ## Current implementation update — lane 227 (2026-09-16)
 
 `Section4/R44/Endpoint.lean` now assembles S2–S6 conditional **only** on

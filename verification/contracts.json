@@ -330,6 +330,17 @@
       "declaration": "BlowupDensity.Tests.checkedCriticalRegularity",
       "scope": "Proposition 4.3 (prop:Rcritical1), paper/sections/04-whole-space.tex:82-89, in the exact four-field shape of research/R43/Spec.lean's RCritical1API: one viscosity-independent real constant c with 0 < c, the universal clause for every nu > 0, a in initialClassR and f in MemForceR under strict ENNReal smallness dotHomogeneousENorm (1/2) a + forceHomogeneousENorm 1 (1/2) f < ofReal (c*nu), concluding maximalLifespanR nu a f = top; and the same-c inhomogeneous zero-datum consequence under forceSobolevENormL1 (1/2) f < ofReal (c*nu). The binding chooses c = min (1 / (8 * R43.trilinearConst)) (1 / (4 * (A05.gradientL6Const * A05.criticalL3Const))), with positivity proved by R43.criticalConst_pos. The spatial homogeneous norm is the canonical registered Contracts.V1.HomogeneousNorm.dotHomogeneousENorm, definitionally equal to the implementation spelling. Initial/force classes and force norms are rfl bridges; maximal lifespan uses the existing A02/Data structure bridge. No finite-horizon substitute, added regularity hypothesis, altered force class, weakened norm, or hidden proof constant is asserted.",
       "enabled": true
+    },
+    {
+      "id": "R44.critical_finite_horizon",
+      "parent_task": "R44",
+      "version": 1,
+      "specification": "verification/Contracts/V1/CriticalFiniteHorizon.lean",
+      "binding_module": "Bindings.CriticalFiniteHorizon",
+      "test_module": "Tests.CriticalFiniteHorizon",
+      "declaration": "BlowupDensity.Tests.checkedCriticalFiniteHorizon",
+      "scope": "Proposition 4.4 (prop:Rcritical2), paper/sections/04-whole-space.tex:136-144, in the exact nine-field shape of research/R44/Spec.lean's RCritical2API: viscosity- and horizon-independent positive real constants c and C; a named radius r(nu,S) pinned to c * nu^(3/2) * exp(-(C*nu*S)) and positive for nu,S > 0; and, for every f in MemForceR with strict inhomogeneous forceSobolevENormL2 (-1/2) smallness below ofReal(r(nu,S)), the zero-datum conclusion ofReal(S) < maximalLifespanR nu 0 f. The same named radius also supplies the stated exclusion from breakdownSetRZero at horizon T. The binding chooses c = R44.theta/20 and C = 3, uses R44.radius, and binds R44.main and R44.nonDensityBallZero. Force class and norm vocabulary are rfl bridges; maximal lifespan and the derived breakdown-set membership use the existing A02/Data ClassicalSolutionR bridge. Scope is only zero-datum regularity through a prescribed finite horizon with this explicit radius: no global lifespan conclusion, nonzero datum, homogeneous force norm, weakened smallness, or extra analytic hypothesis is asserted.",
+      "enabled": true
     }
   ]
 }
