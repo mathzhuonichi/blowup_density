@@ -975,3 +975,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,210-A01-horizon-uniform,codex,reviewer,"post-merge review (sol) REJECT on the lane claims: physical H7 bound absent (proved by 211), stale-checkout remarks, monotonicity lemmas unused; substantive note: re-cut must be uniform over restart times (vendor forced_uniform_restart_time) → lane 215; corrections appended to REPORT_210",corrected,215
 2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,"sol review died after 71 min (router 524 + capacity); relaunch armed after 30-min rest",pending,218
 2026-09-16,A02,213-A02-A04-wiring,lead,merge,"lead verified both modules/audits; PR #218 opened; chain launched (wave 46)",running,218
+2026-09-16,A04,215-A04-restart-fixed-force,lead,plan,"lane opened on 213 branch (install then astra low, retry): RestartFixedForce uniform over restart times, Gronwall→HigherOrderBound bridge, fixed-force copies of A04 continuation theorems instantiated",planned,
