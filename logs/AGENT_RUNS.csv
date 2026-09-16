@@ -869,3 +869,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A01,201-A01-root-comparison,lead,plan,"lane opened on 199 branch (install then auto-launch astra low): CylinderRootComparison from the signed identity + ForcingFamilyBound (hypothesis) + signed integrated limit + scalar Grönwall comparison",planned,
 2026-09-16,A01,199-A01-envelope,codex,fix,"DONE rc=0: scalar ODE uniqueness (integrating factor); records; review artifacts; rebased; 22 decls standard axioms; commit ddaa7f2",done,
 2026-09-16,A01,199-A01-envelope,lead,merge,"lead re-verified; PR #204 opened; chain launched (wave 32); NOTE 200/201 branches predate this fix — rebase taking integration's MildEnergyEnvelope.lean before their chains",running,204
+2026-09-16,A01,199-A01-envelope,lead,merge,"PR #204 merged via chain (wave 32) gates green",merged,204
