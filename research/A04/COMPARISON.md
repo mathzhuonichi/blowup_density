@@ -309,3 +309,26 @@ V2 wording is still for the owner: the new R1 theorem fixes f and S before δ
 and uses H⁷. It does not prove the old all-force/H¹ R1 statement. No original
 `Restart`, `HigherOrderBound`, or contract was changed. Full statements,
 satisfiability audit and proof route: [ATTEMPTS_RESTART_FIXED_FORCE.md](ATTEMPTS_RESTART_FIXED_FORCE.md).
+
+## Lane 217 update — shifted extension closed (2026-09-16)
+
+The remaining fact in the lane 215 update above is now proved:
+`Section4/A04/ShiftedExtension.lean` supplies
+`shiftedLocalExtension : ShiftedLocalExtension`, with no named input.
+`exists_shifted_glue` constructs the original problem's classical solution
+on `[0,b+L)` when the restarted interval reaches beyond T. A02 classical
+uniqueness identifies velocities; basepoint pressure normalization makes
+pressures literally agree on the overlap. Pasting at `(b+T)/2` avoids extending
+any gauge function across T and proves every classical-solution field.
+
+The new `restartBeyond_of_memForceR'`, `extendsBeyond_of_memForceR'`, and
+`lifespanInfiniteOfLocallyFinite_of_memForceR'` have **no remaining analytic or
+gluing input**. They retain the stated ν>0, datum, `MemForceR`, solution and
+norm/integral hypotheses. Together with lane 215's unconditional fixed-force
+windows and `HigherOrderBound`, this closes the fixed-force/H⁷ continuation
+chain. Existing conditional declarations remain unchanged for compatibility.
+This does not prove the old all-force/H¹ R1 statement or change a contract.
+
+See [ATTEMPTS_SHIFTED_EXTENSION.md](ATTEMPTS_SHIFTED_EXTENSION.md) for the
+construction, exact uniqueness API, and pressure-gauge treatment, and
+[REPORT_217.md](REPORT_217.md) for validation.
