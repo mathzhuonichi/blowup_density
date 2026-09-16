@@ -1207,3 +1207,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R45,257-R45-rapid-class,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (record clarifications applied by lead; probe rev257_widen_history)",accepted,253
 2026-09-16,R45,257-R45-rapid-class,lead,merge,"PR #253 opened; chain launched (wave 81)",running,253
 2026-09-17,R45,262-R45-contract-v1,lead,plan,"lane opened on 257 branch (install then sol xhigh): register R45.force_classes V1 (33rd contract)",planned,
+2026-09-16,R45,257-R45-rapid-class,lead,merge,"PR #253 merged into erenup/integration; wave 81 gates OK",merged,253
