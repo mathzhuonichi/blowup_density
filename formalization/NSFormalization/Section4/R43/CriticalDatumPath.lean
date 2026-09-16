@@ -709,4 +709,61 @@ structure CriticalDatumInputs
       ν • criticalLaplacianHalf w t - criticalAdvectionHalf w t -
         criticalPressureHalf w t + criticalForceHalf (f := f) t
 
+/-! ## 5. Assembly and the classical-solution corollary -/
+
+/-- Assemble the exact carrier consumed by `rcritical1_of_hcrit'`. -/
+def criticalDatumPath
+    {ν : ℝ} {a : SpatialField} {f : SpaceTimeField} {T : ℝ}
+    (w : ClassicalSolutionR ν a f T)
+    (hf : NSFormalization.Section4.A02.MemForceR f)
+    (hinputs : CriticalDatumInputs w hf) : CriticalDatumPath w hf where
+  velocityHalf := criticalVelocityHalf w
+  velocityThreeHalf := criticalVelocityThreeHalf w
+  laplacianHalf := criticalLaplacianHalf w
+  advectionHalf := criticalAdvectionHalf w
+  pressureHalf := criticalPressureHalf w
+  forceHalf := criticalForceHalf (f := f)
+  velocityHalf_isDatum := criticalVelocityHalf_isDatum w
+  velocityThreeHalf_isDatum := criticalVelocityThreeHalf_isDatum w
+  laplacianHalf_isDatum := criticalLaplacianHalf_isDatum w
+  advectionHalf_isDatum := criticalAdvectionHalf_isDatum w
+  pressureHalf_isDatum := criticalPressureHalf_isDatum w hf
+  forceHalf_isDatum := fun t ht => criticalForceHalf_isDatum hf t ht.1.le
+  velocityHalf_smooth := hinputs.velocityHalf_smooth
+  momentum := hinputs.momentum
+  order_shift := criticalVelocity_order_shift w
+  laplacian_symbol := criticalLaplacian_symbol w
+  velocity_transverse := criticalVelocity_transverse w
+  pressure_longitudinal := criticalPressure_longitudinal w hf
+
+/-- Every classical solution satisfying precisely the two time-path facts in
+`CriticalDatumInputs` has a critical datum path.  Positivity of the horizon is
+already a field of `ClassicalSolutionR`; no sign of `ν` is needed for this
+carrier construction. -/
+theorem exists_criticalDatumPath
+    {ν : ℝ} {a : SpatialField} {f : SpaceTimeField} {T : ℝ}
+    (w : ClassicalSolutionR ν a f T)
+    (hf : NSFormalization.Section4.A02.MemForceR f)
+    (hinputs : CriticalDatumInputs w hf) :
+    Nonempty (CriticalDatumPath w hf) :=
+  ⟨criticalDatumPath w hf hinputs⟩
+
+/-- `eq:Rcritical1` for a classical solution, with no `hcrit` binder: the
+carrier is assembled canonically from the classical solution and the exact
+remaining time-path input. -/
+theorem rcritical1_of_classical
+    {ν : ℝ} {a : SpatialField} {f : SpaceTimeField} {T : ℝ}
+    (w : ClassicalSolutionR ν a f T)
+    (hf : NSFormalization.Section4.A02.MemForceR f)
+    (hinputs : CriticalDatumInputs w hf) :
+    (∀ t ∈ Ioo (0 : ℝ) T,
+      HasDerivAt (fun r => criticalNormAt w.velocity r ^ 2)
+        (criticalEnergyDerivative (criticalDatumPath w hf hinputs) t) t) ∧
+      ∀ t ∈ Ioo (0 : ℝ) T,
+        criticalEnergyDerivative (criticalDatumPath w hf hinputs) t / 2 +
+            (ν - trilinearConst * criticalNormAt w.velocity t) *
+              criticalDissipationAt w.velocity t ^ 2
+          ≤ criticalForceAt f t * criticalNormAt w.velocity t :=
+  rcritical1_of_hcrit' hf (criticalDatumPath w hf hinputs)
+
 end NSFormalization.Section4.R43
