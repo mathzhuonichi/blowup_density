@@ -1144,3 +1144,6 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R47,251-R47-force-cell-integral,codex,worker,"gpt-6-astra low (12 min): velocity cell integrals zero, momentum difference, observation equalities; force case conditional on one named flux-cancellation input hcompactMomentumIntegral",done,
 2026-09-16,R47,251-R47-force-cell-integral,codex,reviewer,"astra/sol retry review launched",running,
 2026-09-16,R47,253-R47-flux-cancellation,lead,plan,"lane opened on 251 branch (install then astra low, retry): close hcompactMomentumIntegral (flux cancellation over the containing cell)",planned,
+2026-09-16,R45,252-R45-compact-class,codex,worker,"gpt-5.6-sol xhigh (10 min): cor:Rclasses density and zero-datum iff for Y = F_c (4 declarations)",done,
+2026-09-16,R45,252-R45-compact-class,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,R45,254-R45-compact-rider,lead,plan,"lane opened on 252 branch (install then sol xhigh, retry): cor:Rclasses regular-reference rider for Y = F_c",planned,
