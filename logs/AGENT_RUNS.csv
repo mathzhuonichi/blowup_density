@@ -1170,3 +1170,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R41D,234-R41D-small-gaps,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
 2026-09-16,R45,257-R45-rapid-class,lead,plan,"lane opened on 234 branch (install then sol xhigh, retry): cor:Rclasses rapid-class instances and Schwartz specialization",planned,
 2026-09-16,R47,253-R47-flux-cancellation,lead,merge,"PR #246 merged into erenup/integration; wave 74 gates OK",merged,246
+2026-09-16,R47,258-R47-assembly,lead,plan,"lane opened (install then astra low, retry): thm:Rgrid assembly RGridAPI.choose conditional only on CompactHomogeneousRealization",planned,
+2026-09-16,R46,259-R46-closure,lead,plan,"lane opened (install then astra low, retry): prop:Renergy homogeneous density + strong trajectory closure conditional only on CompactHomogeneousRealization",planned,
