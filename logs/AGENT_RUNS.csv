@@ -836,3 +836,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,198-A01-energy-premises,codex,reviewer,"launched (sol xhigh): premises genuine, EnvelopeConversion satisfiability (dissipation dropped), ForcingFamilyBound identifiability, hygiene, route for 199 bd:rev-198",running,
 2026-09-15,A01,197-A01-leray-bridge,codex,fix,"DONE rc=0 (astra low): hsol/hgrad proved from leray projection; 194 physical datum connected to 195 without agreement hypothesis; canonical bridge exported; consumer closes without hprojected; wrong-sign probe fails; merged 194 branch; commit b8c9e27",done,
 2026-09-15,A01,197-A01-leray-bridge,codex,reviewer,"re-review launched (sol xhigh): decomposition proved, 194→195 connection incl. force term, binders vs PressureSupply, remaining assembly step, hygiene bd:rev-197",running,
+2026-09-15,A01,189-A01-pressure-regularity,lead,plan,"assembly fix2 brief written; armed to auto-launch (astra low) once lane 197 chain lands",planned,
