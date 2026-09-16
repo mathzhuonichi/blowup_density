@@ -9,7 +9,7 @@
 | P1 C01 能量/涡量 | **关闭**（owner V4 `C01.energy_absorption_v4` + 我们的 eq:RL2 V3） | 待一条 SIMP 去重 `Enstrophy`/`EnstrophyIdentityRaw` |
 | P2 D01 齐次范数 | **关闭**（`D01.homogeneous_norm`，164） | — |
 | P3 A05 临界嵌入 | **关闭**（165 + V2 合同 `A05.gradient_l6_v2`，181） | U4/U8（Λv 实现、∂_j v 半阶数据）lane 191 在做 |
-| P5 R43 临界配对 | 175/182/191 已合入；Parseval `pairing_identity` 由 lead 的 lane 214 在做（2026-09-16 08:00Z 起） | **可领：G3/G4 半阶载体**——为经典解构造 `CriticalDatumPath`（`Section4/R43/CriticalPairing.lean:161`：整数阶数据 ⇒ 半阶齐次数据路径 `velocityHalf`/`velocityThreeHalf`/`laplacianHalf`/`advectionHalf`/`pressureHalf`/`forceHalf` 及其 `IsHomogeneousSliceDatum` 字段；入口 `D01/HalfOrder.lean`、`HomogeneousWitness.lean`、A05 U3 `homogeneousLeSobolev`）；闭合后 eq:Rcritical1 无条件 |
+| P5 R43 临界配对 | 175/182/191/214（#217 Parseval）已合入：eq:Rcritical1 仅条件于 `CriticalDatumPath`；G3/G4 半阶载体由 lead 的 lane 216 在做（2026-09-16 09:30Z 起） | **可领：R43 端点定理（S6 inhomogeneousAtZero 的 a=0 子句）**——为经典解构造 `CriticalDatumPath`（`Section4/R43/CriticalPairing.lean:161`：整数阶数据 ⇒ 半阶齐次数据路径 `velocityHalf`/`velocityThreeHalf`/`laplacianHalf`/`advectionHalf`/`pressureHalf`/`forceHalf` 及其 `IsHomogeneousSliceDatum` 字段；入口 `D01/HalfOrder.lean`、`HomogeneousWitness.lean`、A05 U3 `homogeneousLeSobolev`）；闭合后 eq:Rcritical1 无条件 |
 | P6 R44 | 166 拆分已合入 | **可领**：`research/R44/` 拆分表的各行 |
 | P7 A01 A3 | **闭合**：…202（#208）、203（#207）、204（#209）、205（#210）、206（#211）、207（#212）全部合入；`hb_of_base''` 无分析输入；`a01_constructor_unconditional` 探针在集成分支 | 剩合同注册（208/209/210，lead 在做）；**spec 问题**：`horizon_lower_bound` 的 H¹ 子句 vs 树支持的 H⁷（见 210 报告后 `NEXT_SESSION`） |
 | P8 A01 B1 | **闭合**：161 R1、169 R2、178 R3、187 hfs（#193）、190 R4 联合光滑代表元（#194）全部合入 | — |
