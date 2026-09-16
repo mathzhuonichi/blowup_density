@@ -843,3 +843,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,197-A01-leray-bridge,codex,fix2,"launched (astra low): rebase, split proof under heartbeat cap, export with PressureSupply binders, replay landed InteriorMomentum consumer",running,
 2026-09-15,A01,197-A01-leray-bridge,codex,fix2,"DONE rc=0 (astra low): rebased; proofs under heartbeat cap; fix6-binder export; landed consumer replayed; commit abb3c6a",done,
 2026-09-15,A01,197-A01-leray-bridge,lead,merge,"lead re-verified (module, axioms, heartbeat probe); PR #201 opened; chain launched (wave 28)",running,201
+2026-09-15,A01,197-A01-leray-bridge,lead,merge,"PR #201 merged via chain (wave 28) gates green",merged,201
+2026-09-15,A01,189-A01-pressure-regularity,codex,fix2,"auto-launched (astra low) after 197 landed: assembly of PressureSupply from 194/195/197 + Helmholtz converse",running,
