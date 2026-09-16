@@ -68,7 +68,7 @@ with `0 < theta`, `0 ≤ C₂`, `0 < C₃`, all universal.  Its analytic subrows
 | subrow | exact need | owner / size / dependencies | blocker |
 |---|---|---|---|
 | S1a | define `J=(I-Δ)^(1/2)` on the datum carrier and prove `‖u‖²_{H^(3/2)} = Y² + Z²`, i.e. the exact weight identity, plus `abs ⟪f,Ju⟫ ≤ B * sqrt (Y²+Z²)` | **closed in lane 218**, `Section4/R44/JWeight.lean`; one satisfiable `JWeightDatum` restriction | no longer a proof blocker; registration remains |
-| S1b | differentiate `Y²` and identify the `J`-weighted momentum pairing; remove pressure by solenoidality | **R44-own G2**, M; depends on G1 and D01 V3 pressure/datum machinery | blocks proving |
+| S1b | differentiate `Y²`, identify the `J`-weighted momentum pairing, remove pressure, and evaluate dissipation | **closed in lane 222**, `Section4/R44/EnergyIdentity.lean`; `energy_identity` for every classical solution, no extra analytic hypothesis | no longer a proof blocker; registration remains |
 | S1c | `abs ⟪(u·∇)u,Ju⟫ ≤ C₀ * Y * (Y²+Z²)` | **R44-own G2**, L; depends on **A05 V2** (`velocityCriticalL3`, derivative/J critical embeddings) and G1 | blocks proving |
 | S1d | Young/absorption under `Y ≤ theta*ν`, producing the displayed target | **R44-own G2**, S once S1a–c exist | blocks proving |
 
@@ -77,7 +77,7 @@ To feed S2 this must be assembled as one `E' : ℝ → ℝ` with
 discharge `Pieces.lean:162-163`.
 
 No registered field supplies S1.  The unregistered implementation now supplies
-S1a, while S1b--S1d remain open.  `C01.energy_absorption_partial` V1 concerns
+S1a and S1b, while S1c--S1d remain open on this baseline.  `C01.energy_absorption_partial` V1 concerns
 the `-Δu` test used by eq:RH1, not the `Ju` test.
 
 ### S2 — Grönwall, radius scaling, and first-exit bootstrap (closed conditionally, S–M)
@@ -234,7 +234,7 @@ concrete witness.
 | id | owner | size | depends on | blocks |
 |---|---|---:|---|---|
 | G1 | D01/R44 datum layer: `J`, exact weight identity, duality | **closed in implementation** | `Section4/R44/JWeight.lean`; contract/binding registration owed | no remaining S1a proof blocker |
-| G2 | R44-own: eq:Rcritical2 PDE derivation | L | G1, A05 V2, pressure/critical-path differentiability | proof |
+| G2 | R44-own: eq:Rcritical2 PDE derivation; S1b energy identity closed by lane 222 | L | S1c trilinear estimate and S1d absorption/assembly; pressure and critical-path differentiation are proved | proof (remaining S1c/S1d) |
 | G3 | C01/D01: `H^{-1/2}` force slice, continuity/integrability, prefix integral = time-norm square | **partly closed, still M** | lane 218 confirms `RealVectorSobolev (-1/2)` and supplies the slicewise `B`/duality carrier. A named continuous order-`-1/2` force-datum path in the R44 consumer shape, and its prefix-integral/time-norm-square identity, remain to be packaged. | proof/S2 application |
 | G4 | R44-own: maximal-endpoint gluing and `SolvesBelow` assembly | M | A02 V2, C01 V4, A04 V3, A01 local solution | proof/S4→S5 |
 | G5 | A04↔C01 `ℕ`-pow/rpow pin | S | none | **closed**, reused from R43 |
