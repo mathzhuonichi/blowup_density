@@ -400,3 +400,11 @@ only as `CarrierConstructorFullClamped` for negative documentation.
 
 Lane 208 adds no analytic premise and does not claim an inhabitant of the complete
 `LocalTheoryAPI`. See `ATTEMPTS_LOCAL_SOLUTION.md` and `REPORT_208.md`.
+## Lane 209 — manuscript regularity on the constructor horizon
+| Lane | Obligation | Status / export | Evidence |
+|---|---|---|---|
+| 209 | All four `ManuscriptLocalRegularity` fields for the same constructed solution and horizon, including pressure recovery at zero | DONE: `manuscriptLocalRegularity_of_pipeline w hf U hslice hpaths`; no new analytic input | `ATTEMPTS_MANUSCRIPT_REGULARITY.md`, `axioms_manuscript_regularity.lean`, `REPORT_209.md` |
+The pressure and gauge fields hold for every classical solution with admissible
+force; only Sobolev time smoothness consumes the all-order carrier paths. Lane
+208 may instantiate the theorem using its chosen solution's carrier and slice
+identity. This does not discharge the separate H¹-uniform horizon bound.
