@@ -1140,3 +1140,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R41,249-R41-contract-v1,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probes rev249_endpoint, rev249_nonvacuity)",accepted,242
 2026-09-16,R41,249-R41-contract-v1,lead,merge,"PR #242 opened after merging integration; chain launched (wave 70)",running,242
 2026-09-16,R41,249-R41-contract-v1,lead,merge,"PR #242 merged into erenup/integration; wave 70 gates OK; 32 contracts — Theorem 4.1 registered",merged,242
+2026-09-16,R45,252-R45-compact-class,lead,plan,"lane opened (install then sol xhigh, retry): cor:Rclasses density and zero-datum iff for Y = F_c",planned,
