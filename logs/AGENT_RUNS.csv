@@ -1003,3 +1003,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R43,219-R43-critical-momentum,codex,worker,"gpt-6-astra low: CriticalDatumInputs closed for arbitrary classical solutions; eq:Rcritical1 (rcritical1_of_classical') unconditional; 215 support reproduced as R43.CarrierWindow",done,
 2026-09-16,R43,219-R43-critical-momentum,codex,reviewer,"sol/astra retry review launched",running,
 2026-09-16,R43,221-R43-force-path,lead,plan,"lane opened on 219 branch (install then sol xhigh, retry): homogeneous half-order force path continuity/integrability/FTC (G2/G3/G4), S2 wiring probe for a=0 bootstrap",planned,
+2026-09-16,R43,221-R43-force-path,lead,relaunch,"worker relaunched so it reads the G2/G3 addendum (first launch preceded the brief edit by 2 s)",running,
