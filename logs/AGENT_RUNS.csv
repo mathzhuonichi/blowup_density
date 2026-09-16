@@ -1175,3 +1175,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,R45,254-R45-compact-rider,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes",accepted,247
 2026-09-16,R45,254-R45-compact-rider,lead,merge,"PR #247 opened; chain launched (wave 75)",running,247
 2026-09-16,R45,254-R45-compact-rider,lead,merge,"PR #247 merged into erenup/integration; wave 75 gates OK",merged,247
+2026-09-16,I03,255-I03-path-measurability,codex,worker,"gpt-5.6-sol xhigh (18 min): CompactHomogeneousRealization proved (path continuity); I03 homogeneous negative-order fields unconditional",done,
+2026-09-16,I03,255-I03-path-measurability,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
