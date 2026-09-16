@@ -119,9 +119,12 @@ Lane 214 closes the bridge left by lanes 182 and 191. The general
 `half_order_parseval` theorem proves the real homogeneous half-order pairing
 equals the physical pairing with `A05.rieszLambda`; its classical-slice
 specialization fills `pairing_identity` with the exact lane 191 `shifted` field.
-The primed trilinear and differential-inequality corollaries now consume only
-`hcrit` (and ambient `hf`). Constructing `CriticalDatumPath` itself remains a
-separate task; this does not claim unconditional R43. See
+The primed trilinear and differential-inequality corollaries consume only
+`hcrit` (and ambient `hf`). Lane 216 constructs every spatial field of
+`CriticalDatumPath` and assembles it conditional on the single two-field
+`CriticalDatumInputs` proposition: smoothness of the half-order velocity path
+and its datum-level momentum identity. The spatial carrier and symbol bridge
+are closed, but unconditional R43 still needs that time-path bridge. See
 `ATTEMPTS_PARSEVAL.md`, `ATTEMPTS_S1B.md`, and `../A05/ATTEMPTS_U4_U8.md`.
 
 ### S2 — regularized division + continuity bootstrap (M; **a=0 closed by reuse**)
@@ -144,7 +147,11 @@ discharging `C₀·K ≤ ν/2` and `ρ < K` from `0 < c < 1/(2C₀)`. Conclusion
 on `[0,T]`. **Remaining gap G4** (owner C01, M): the forcing primitive `N t = ∫₀ᵗ b`
 must be continuous with FTC derivative `b(t) = ‖f(t)‖_{Ḣ^{1/2}}` — C01's
 `forceTimeRegularity` (`research/C01/Spec.lean:326`) supplies this for the **L²** slice
-only, not the homogeneous critical slice. General-`a` bootstrap (`y(0)≠0`) needs
+only, not the homogeneous critical slice. Lane 216 proves that every
+nonnegative-time force slice has an order-`1/2` homogeneous datum
+(`criticalForceHalf_isDatum`) directly from `MemForceR`; it does not prove
+measurability, `L¹` membership, or FTC regularity of that chosen path, so G4
+remains open precisely at the time-path level. General-`a` bootstrap (`y(0)≠0`) needs
 `sqrt_energy_le_primitive'` + a re-run of `continuous_bootstrap` with `ρ = y(0)+∫b`
 (not yet wrapped; R43-own, S). **Blocks proving** general-a; a=0 closable modulo G4+S1.
 
@@ -197,7 +204,7 @@ A04 V2 stops at `highContinuationIntegral`). An **A04 V3 item**.
 
 **Blocks proving** (needs A04 V3 registration + wiring S4→S5).
 
-### S6 — `inhomogeneousAtZero`: the `a = 0` clause R41 consumes (G2 + G3 + reduction)
+### S6 — `inhomogeneousAtZero`: the `a = 0` clause R41 consumes (partial; G2 + homogeneous path remain)
 
 `04-whole-space.tex:88,132`. `‖f‖_{L¹(0,∞;H^{1/2})} < cν ⟹ T^ν_{max,ℝ}(0,f) = ∞`.
 Reduction from `universal` at `a = 0`:
@@ -210,16 +217,19 @@ Reduction from `universal` at `a = 0`:
   (`research/A05/Spec.lean:268`); both `Data` force norms are infima over datum **paths**,
   so the bridge must carry an `IsHomogeneousPath` from an `IsSobolevPath` with
   `‖G' t‖ ≤ ‖G t‖`. Unregistered, unowned. **Blocks proving** the reduction.
-* **G3** (owner D01, non-vacuity, blocks **content**): `forceSobolevENormL1 (1/2) f ≠ ⊤`
-  and `forceHomogeneousENorm 1 (1/2) f ≠ ⊤` for `f ∈ 𝓕_ℝ`. `MemForceR` gives datum
-  paths at **integer** orders only; both norms are infima over order-`1/2` paths, so
-  both may be `⊤` and both conclusion fields **vacuously true**. `DatumLemmas.lean:160`
-  gives slicewise data at every real order but not the measurable **path**;
-  `compact_exists_homogeneousPath` (`DatumLemmas.lean:483`) covers only compactly
-  supported `f`. Not closable for general `f` on current defs; needs a D01 order-`1/2`
-  path constructor. **Blocks the statement's content** (not its well-formedness).
+* **G3** (owner D01, non-vacuity, blocks **content**), **PARTIALLY CLOSED**:
+  lane 165 proves `forceSobolevENormL1 (1/2) f ≠ ⊤` by lowering the integer-order
+  `MemForceR` path. Lane 216 additionally constructs an order-`1/2` homogeneous datum
+  for every force slice (`criticalForceHalf_isDatum`), with no extra integrability
+  input. What remains is `forceHomogeneousENorm 1 (1/2) f ≠ ⊤`: the definition is an
+  infimum over measurable `L¹` homogeneous datum **paths**, while lane 216's classical
+  choice is only slicewise. A D01 path constructor transporting measurability and
+  `L¹` control is still required. **Blocks the homogeneous statement's content.**
 
-**Blocks proving + content.**
+**Still blocks proving + homogeneous-norm content.** The inhomogeneous
+order-`1/2` force norm is non-vacuous and every homogeneous slice carrier now
+exists; neither fact supplies the measurable `L¹_t` homogeneous path required
+by G2/G3 and the S6 reduction.
 
 ---
 
@@ -229,8 +239,8 @@ Reduction from `universal` at `a = 0`:
 |---|---|---|---|---|
 | **G1** | D01 / A05 | **stating** | open — `Data.dotHomogeneousENorm` absent; `Spec.lean` carries a local `def` | S (promote a `def` to a registered contract) |
 | **G2** | A05 / D01 | proving S6 | open — new; path-level force-norm monotonicity | M |
-| **G3** | D01 | **content** (non-vacuity) | open — order-`1/2` force datum *paths* for general `f` | M–L |
-| **G4** | C01 | proving S2 | open — homogeneous critical-slice force integrability | M |
+| **G3** | D01 | **content** (non-vacuity) | partial — inhomogeneous `H^{1/2}` finiteness and homogeneous slicewise data closed; measurable `L¹_t Ḣ^{1/2}` datum path open | M |
+| **G4** | C01 | proving S2 | partial — homogeneous critical force slices exist; time-path measurability/FTC regularity open | M |
 | **G5** | C01 / R43 | proving S4→S5 | open — `S = T_max` endpoint gluing (monotone convergence) | M |
 | **G6** | A04↔C01 | proving S4 | **CLOSED** — `enorm_npow_two_eq_rpow_two` | S (done) |
 | **G7** | R43 | proving S1 | open — eq:Rcritical1 + differentiable critical path; largest R43 unit | L |
