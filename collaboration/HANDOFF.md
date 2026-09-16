@@ -1,6 +1,6 @@
 # HANDOFF.md — 可分发的并行工作包（快照：2026-09-15 12:55Z）
 
-## 快照更新（2026-09-15 22:30Z，lead；表格于 2026-09-16 01:00Z 刷新：A01 构造器已落地）
+## 快照更新（2026-09-15 22:30Z，lead；表格于 2026-09-16 08:00Z 刷新：A01 局部理论装配完成，待合同措辞）
 
 截至集成分支 `2c3df18`；最后合入的 lane PR 是 **#192**（lane 182）；**29 个合同**；owner 的 `main`（PR #161–#171）已并入集成分支（lane 184；同名模块改名为 `C01/EnstrophyIdentityRaw`、`A01/ConstructorDivergenceSlice`）。lead 现用 codex 工作流（`scripts/codex_lane.sh` / `codex_review.sh`）跑 lane 175–191，下面的 P 表状态以此为准：
 
@@ -9,7 +9,7 @@
 | P1 C01 能量/涡量 | **关闭**（owner V4 `C01.energy_absorption_v4` + 我们的 eq:RL2 V3） | 待一条 SIMP 去重 `Enstrophy`/`EnstrophyIdentityRaw` |
 | P2 D01 齐次范数 | **关闭**（`D01.homogeneous_norm`，164） | — |
 | P3 A05 临界嵌入 | **关闭**（165 + V2 合同 `A05.gradient_l6_v2`，181） | U4/U8（Λv 实现、∂_j v 半阶数据）lane 191 在做 |
-| P5 R43 临界配对 | 175 S1a/c/d + 182 S1b + 191 U4/U8 已合入（#185/#192/#195）：eq:Rcritical1 条件于 `CriticalDatumPath`（G3/G4 半阶载体）和 `CriticalAdvectionLpBridge`，后者只剩 `pairing_identity` | **可领：R43 分数阶 Parseval**——证 `∀ t ∈ Ioo 0 T, ⟪hcrit.advectionHalf t, hcrit.velocityHalf t⟫ = ∫ ⟨(u·∇)u(t,x), (shifted t).lambda x⟩ dx`（`Section4/R43/Trilinear.lean` 结构体 `CriticalAdvectionLpBridge` 的字段原文；`lambda` = 191 的 `rieszLambda`，即 `Ḣ^{1/2}` 内积 `⟪Λ^{1/2}a,Λ^{1/2}b⟫ = ⟨a,Λb⟩` 的物理实现；入口 `Section4/A05/RieszShift.lean`、`D01/HalfOrder.lean`、`Source/FractionalRealization.lean`） |
+| P5 R43 临界配对 | 175/182/191 已合入；Parseval `pairing_identity` 由 lead 的 lane 214 在做（2026-09-16 08:00Z 起） | **可领：G3/G4 半阶载体**——为经典解构造 `CriticalDatumPath`（`Section4/R43/CriticalPairing.lean:161`：整数阶数据 ⇒ 半阶齐次数据路径 `velocityHalf`/`velocityThreeHalf`/`laplacianHalf`/`advectionHalf`/`pressureHalf`/`forceHalf` 及其 `IsHomogeneousSliceDatum` 字段；入口 `D01/HalfOrder.lean`、`HomogeneousWitness.lean`、A05 U3 `homogeneousLeSobolev`）；闭合后 eq:Rcritical1 无条件 |
 | P6 R44 | 166 拆分已合入 | **可领**：`research/R44/` 拆分表的各行 |
 | P7 A01 A3 | **闭合**：…202（#208）、203（#207）、204（#209）、205（#210）、206（#211）、207（#212）全部合入；`hb_of_base''` 无分析输入；`a01_constructor_unconditional` 探针在集成分支 | 剩合同注册（208/209/210，lead 在做）；**spec 问题**：`horizon_lower_bound` 的 H¹ 子句 vs 树支持的 H⁷（见 210 报告后 `NEXT_SESSION`） |
 | P8 A01 B1 | **闭合**：161 R1、169 R2、178 R3、187 hfs（#193）、190 R4 联合光滑代表元（#194）全部合入 | — |
