@@ -981,3 +981,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-16,A04,215-A04-restart-fixed-force,codex,worker,"gpt-6-astra low: RestartFixedForce + HigherOrderBound bridge unconditional; fixed-force continuation copies; one named input ShiftedLocalExtension left",done,
 2026-09-16,A04,215-A04-restart-fixed-force,codex,reviewer,"sol/astra retry review launched",running,
 2026-09-16,A04,217-A04-shifted-extension,lead,plan,"lane opened on 215 branch (install then astra low, retry): prove ShiftedLocalExtension (time-shift gluing with blended pressure); unconditional A04 continuation for MemForceR forces",planned,
+2026-09-16,A04,217-A04-shifted-extension,codex,worker,"gpt-6-astra low: ShiftedLocalExtension proved unconditionally (time-shift gluing, normalized pressures pasted at interior point); A04 continuation corollaries without named inputs",done,
+2026-09-16,A04,217-A04-shifted-extension,codex,reviewer,"sol/astra retry review launched",running,
