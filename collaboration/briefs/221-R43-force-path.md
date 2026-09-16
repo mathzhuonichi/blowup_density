@@ -47,3 +47,11 @@ identification lemma, do not introduce a third spelling):
 
 ## Report
 Commit on your branch; end with four parts. Also write it to `research/R43/REPORT_221.md`.
+
+## Addendum — the exact G2/G3 targets (from `R43_SPLIT.md:214-232`; these are the two theorems S6 needs, state them token for token)
+- **G3 (content):** `forceHomogeneousENorm 1 (1/2) f ≠ ⊤` for `MemForceR f`. The definition is an infimum over **measurable `L¹` homogeneous datum paths** (`IsHomogeneousPath` —
+  grep its definition in `Contracts`/`Section4/D01`), so construct the path `t ↦ criticalForceHalf f t` (or the canonical CLM image of the lowered `H¹` path — the same element by
+  uniqueness) and prove its measurability (continuity suffices), `L¹` membership on the time domain the definition uses, and the `IsHomogeneousPath` clauses.
+- **G2 (monotonicity):** `∀ f, MemForceR f → forceHomogeneousENorm 1 (1/2) f ≤ forceSobolevENormL1 (1/2) f`: from any `IsSobolevPath` `G` at order `1/2` build the `IsHomogeneousPath`
+  `G' := ofSobolevVector ∘ G` with `‖G' t‖ ≤ ‖G t‖` pointwise (the multiplier is bounded by `1`), then compare the infima.
+- Then the S6 reduction pieces the split lists as R43-own S: `dotHomogeneousENorm (1/2) (fun _ => 0) = 0`, `(fun _ => 0) ∈ initialClassR` (grep — probably already in the tree).
