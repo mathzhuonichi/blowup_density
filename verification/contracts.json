@@ -407,6 +407,17 @@
       "declaration": "BlowupDensity.Tests.checkedCompletedDensity",
       "scope": "Proposition 4.6 (prop:Renergy), paper/sections/04-whole-space.tex:218-229, in the exact three-field shape of research/R46/Spec.lean's REnergyAPI under the name CompletedDensityAPI. It asserts completed inhomogeneous density for q in {1,2} and s below criticalOrder q.toReal, completed homogeneous L²_t Hdot⁻¹ density, and simultaneous strong trajectory closure for every regular reference. The one returned insertion family is pinned to the reference datum, horizon, force, velocity and pressure; every positive admissible scale has MemForceR, exact maximal lifespan T and a full ClassicalSolutionR, while the energy norm and the single sum of forceSobolevENorm 1 0, forceSobolevENorm 2 (-1), and forceHomogeneousENorm 2 (-1) converge to zero. The homogeneous summand applies only to the compact force difference. The binding assembles lane 256's completedSobolevDensity with lane 259's two conditional theorems, discharging their sole CompactHomogeneousRealization input using lane 255's compactHomogeneousRealization. No weaker topology, split-family approximation, extra analytic premise, mixedLebesgueENorm substitution, or omitted field is asserted.",
       "enabled": true
+    },
+    {
+      "id": "T01.torus_data",
+      "parent_task": "T01",
+      "version": 1,
+      "specification": "verification/Contracts/V1/TorusData.lean",
+      "binding_module": "Bindings.TorusData",
+      "test_module": "Tests.TorusData",
+      "declaration": "BlowupDensity.Tests.checkedTorusData",
+      "scope": "The first Section 3 contract: the T10 periodic data layer on the unit three-torus, with contract-local restatements through IsPeriodicReweight plus IsPeriodicOn and exactly ten proved TorusDataAPI fields from research/T10/probes/api_on_canonical.lean: datum_unique, datum_real, parseval_forward, parseval_backward, torusLift_injective, torusLift_surjective, mean_decomposition, meanZero_datum, leray_exists_contraction, and leray_projector. Lead amendment 1 is present: IsPeriodicDatum and IsPeriodicHomogeneousDatum require Haar integrability, and parseval_forward additionally requires physical MemLp at exponent 2. Every restated declaration has an rfl binding bridge; PeriodicSobolev is bridged through realPeriodicSubmodule, and polymorphic torus predicates/lift use pointwise rfl statements because bare equalities leave implicit parameters underconstrained. The binding imports the compatible DatumBasics and Leray modules directly; because DatumBasics, Parseval, and PhysicalBridge have colliding generated names for anonymous local torus-measure instances, it repeats the proved Parseval and physical-bridge arguments without changing formalization. Deferred to the T11 registration are IsPeriodicSobolevPath, forceSobolevENormT, initialClassT, MemForceT/forceClassT, pressure normalization/gauge, ClassicalSolutionT and its structure-exception fieldwise conversions, maximal lifespan, breakdown/density, and physical/coefficient energy norms. No solution-class, lifespan, density, threshold, pressure, or energy theorem is asserted here.",
+      "enabled": true
     }
   ]
 }

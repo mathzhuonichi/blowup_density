@@ -5,6 +5,10 @@ under the binding rulings in the lead's `research/T10/RECONCILIATION.md`.
 `Spec.lean` is based on B, with A's more precise citations and proof-obligation
 inventory, plus the reconciled homogeneous datum and consumer-facing API.
 
+Registered: `T01.torus_data` (V1), containing the definitions through
+`IsPeriodicReweight` plus `IsPeriodicOn` and the first ten proved data-layer
+fields.  The solution-class portion of this comparison is deferred to T11.
+
 ## Authoritative definitions of `𝒳_𝕋` and `𝓕_𝕋`
 
 The requested grep finds the definitions in `paper/sections/02-preliminaries.tex`,
