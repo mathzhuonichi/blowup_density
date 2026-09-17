@@ -58,6 +58,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 290-SPEC-t12-spec | 已合入 #268（lead 直接合并：elaborate 0 输出，9 字段对照 reconciliation，rfl 拼写检查） | 09-17 2300Z | #268 | — | SPEC **T12 定稿**：按 research/T12/RECONCILIATION.md（B 为基 + A 的常数名；修正后的 T10 词汇；Type 值 `MeanZeroSobolevCalculusAPI`，9 个字段含新增 `lambda_exists`/`homogeneous_le_sobolev`）→ Spec.lean + COMPARISON.md |
 | 291-SPEC-t15-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2313Z | — | — | SPEC **T15 双盲草案 A**：`prop:scaling`（`eq:scaling` 放置/重标度/单拷贝周期化；`eq:packetEscale/Fscale/Hs`；镜像 `I03.scaling`，复用 T14 包与 T13 localization） |
 | 292-SPEC-t15-draft-b | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2313Z | — | — | SPEC **T15 双盲草案 B**（同上，互不可见） |
-| 293-T01-torus-data-contract | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-17 2328Z | — | — | **注册第 3 节第一个合同 `T01.torus_data`**：`Contracts/V1/TorusData.lean`（数据层定义逐字重述 + 10 字段 `TorusDataAPI`）+ Bindings（rfl 桥 + 由四个证明模块装配）+ Tests；解类部分推迟到 T11 注册 |
+| 293-T01-torus-data-contract | 完成（38 合同、门禁全绿）→ codex 审稿中；发现三模块匿名实例同名不能共同 import，binding 暂含重证 → 296 修 | 09-17 2344Z | — | — | **注册第 3 节第一个合同 `T01.torus_data`**：`Contracts/V1/TorusData.lean`（数据层定义逐字重述 + 10 字段 `TorusDataAPI`）+ Bindings（rfl 桥 + 由四个证明模块装配）+ Tests；解类部分推迟到 T11 注册 |
 | 294-SPEC-t17-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2331Z | — | — | SPEC **T17 双盲草案 A**：`lem:correction`（`eq:H` 修正力、`eq:derivativebounds/wE/Hmixed/HHs`；复用 T16 截断与 T13 localization；镜像 `I02.correction(_v2)`） |
 | 295-SPEC-t17-draft-b | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2336Z | — | — | SPEC **T17 双盲草案 B**（同上，互不可见） |
+| 296-MAINT-t10-instance-dedupe | 排队（待 293 合入；简报已写） | 09-17 2350Z | — | — | MAINT：T10 三个证明模块的匿名 `IsProbabilityMeasure` 实例同名冲突 → 在 `PeriodicData.lean` 命名一次、删重复；`Bindings/TorusData.lean` 改回直接装配十个定理（删 293 的私下重证） |
