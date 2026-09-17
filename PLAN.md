@@ -42,4 +42,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 274-SPEC-t14-draft-b | 草案完成：见 research/T14/（等配对草案/ reconciliation） | 09-17 2054Z | — | — | T14 双盲草案 B |
 | 275-SPEC-t22-draft-a | 草案完成：见 research/T22/（等配对草案/ reconciliation） | 09-17 2054Z | — | — | T22 **有界区域范数层**（eq:restriction-norm、eq:zero-extension；常数与 ε 无关）双盲草案 A |
 | 276-SPEC-t22-draft-b | 草案完成：见 research/T22/（等配对草案/ reconciliation） | 09-17 2054Z | — | — | T22 双盲草案 B |
-| 277-SPEC-t10-spec | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-16 2138Z | — | — | SPEC **T10 定稿**：按 research/T10/RECONCILIATION.md 合并草案 A/B → research/T10/Spec.lean（可 elaborate）+ COMPARISON.md（含 needs-a-lemma 并集 = T10 的证明 lane 清单） |
+| 277-SPEC-t10-spec | 完成（sol，16 分钟）：Spec.lean 51 个定义可 elaborate；COMPARISON 含 17 项 needs-a-lemma；lead 复核后直接合入 #262 | 09-17 2055Z | #262 | — | SPEC **T10 定稿**：按 research/T10/RECONCILIATION.md 合并草案 A/B → research/T10/Spec.lean（可 elaborate）+ COMPARISON.md（含 needs-a-lemma 并集 = T10 的证明 lane 清单） |
+| 278-SPEC-t13-spec | worktree 安装中→自动启动（codex sol xhigh，带重试） | 09-17 2055Z | — | — | SPEC **T13 定稿**：按 research/T13/RECONCILIATION.md 合并草案 A/B，复用 T10 定稿词汇 → research/T13/Spec.lean + COMPARISON.md |
