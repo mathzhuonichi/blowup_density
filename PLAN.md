@@ -52,7 +52,9 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 284-T10-physical-bridge | 已合入 #271（codex 审稿 ACCEPT） | 09-17 2312Z | #271 | — | T10 证明：`torusLift_injective`/`torusLift_surjective`/`mean_decomposition`（物理层桥，ℤ³ 平移引理） |
 | 285-T10-datum-basics | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-17 2300Z | — | — | T10 证明：`datum_unique`/`datum_real`/`meanZero_datum`（系数侧；常数场的 Fourier 系数、可积性合取项） |
 | 286-T10-parseval | 已合入 #269（codex 审稿 ACCEPT，含 L²→L¹ 变异探针） | 09-17 2310Z | #269 | — | T10 证明：`parseval_forward`/`parseval_backward`（Mathlib `mFourierBasis` Hilbert 基，L² ↔ ℓ²） |
-| 287-T10-leray | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-17 2250Z | — | — | T10 证明：`leray_exists_contraction`/`leray_projector`（纯 ℓ² 代数：压缩、实性、solenoidal、幂等） |
+| 287-T10-leray | 完成 → codex 审稿中（rev-287） | 09-17 2312Z | — | — | T10 证明：`leray_exists_contraction`/`leray_projector`（纯 ℓ² 代数：压缩、实性、solenoidal、幂等） |
 | 288-SPEC-t11-draft-a | 路由 5/5 重连后切断（rc=1，无产出）→ 22:30Z 原简报重启（sol，astra 备用） | 09-17 2236Z | — | — | SPEC **T11 双盲草案 A**：`prop:local` on T³（存在/唯一/最大寿命/`eq:criterion` 延拓）+ Appendix A 均值消去与 ν 重标度；镜像 A01/A04 V2 合同形状 |
 | 289-SPEC-t11-draft-b | 完成（草案 B；待 288 后 reconciliation） | 09-17 2215Z | — | — | SPEC **T11 双盲草案 B**（同上，互不可见） |
 | 290-SPEC-t12-spec | 已合入 #268（lead 直接合并：elaborate 0 输出，9 字段对照 reconciliation，rfl 拼写检查） | 09-17 2300Z | #268 | — | SPEC **T12 定稿**：按 research/T12/RECONCILIATION.md（B 为基 + A 的常数名；修正后的 T10 词汇；Type 值 `MeanZeroSobolevCalculusAPI`，9 个字段含新增 `lambda_exists`/`homogeneous_le_sobolev`）→ Spec.lean + COMPARISON.md |
+| 291-SPEC-t15-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2313Z | — | — | SPEC **T15 双盲草案 A**：`prop:scaling`（`eq:scaling` 放置/重标度/单拷贝周期化；`eq:packetEscale/Fscale/Hs`；镜像 `I03.scaling`，复用 T14 包与 T13 localization） |
+| 292-SPEC-t15-draft-b | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2313Z | — | — | SPEC **T15 双盲草案 B**（同上，互不可见） |
