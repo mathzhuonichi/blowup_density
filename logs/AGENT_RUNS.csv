@@ -1271,3 +1271,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,T10,277-SPEC-t10-spec,codex,worker,"gpt-5.6-sol xhigh (16 min): reconciled T10 Spec.lean (51 decls) + COMPARISON with 17-item lemma list",done,262
 2026-09-17,T10,277-SPEC-t10-spec,lead,merge,"PR #262 merged directly into erenup/integration-section3",merged,262
 2026-09-17,T13,278-SPEC-t13-spec,lead,plan,"reconciled T13 spec on the T10 vocabulary (sol)",planned,
+2026-09-17,T16,279-SPEC-t16-spec,lead,plan,"reconciled T16 spec on the T10 vocabulary (sol)",planned,
