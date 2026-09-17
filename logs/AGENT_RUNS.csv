@@ -1275,3 +1275,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,T14,280-SPEC-t14-spec,lead,plan,"reconciled T14 spec (sol)",planned,
 2026-09-17,T22,281-SPEC-t22-spec,lead,plan,"reconciled T22 spec (sol)",planned,
 2026-09-17,S4,S4-full-build,claude-opus,verifier,"full re-elaboration of all 206 Section 4 modules on erenup/integration: 232 s, 0 errors; make check/test/test-mutations OK; 37 contracts audited; report logs/SECTION4_FULL_BUILD_20260917.md folded into PR #259",done,259
+2026-09-17,T13,278-SPEC-t13-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T13 spec (localization): research/T13/Spec.lean + COMPARISON.md; elaborates; merged #263 into erenup/integration-section3",done,263
+2026-09-17,T14,280-SPEC-t14-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T14 spec (packet energy): research/T14/Spec.lean + COMPARISON.md; elaborates; merged #264 into erenup/integration-section3",done,264
+2026-09-17,T22,281-SPEC-t22-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T22 spec (bounded-domain norm): research/T22/Spec.lean + COMPARISON.md; elaborates; merged #265 into erenup/integration-section3",done,265
+2026-09-17,T16,279-SPEC-t16-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T16 spec (local potential): research/T16/Spec.lean + COMPARISON.md; elaborates; merged #266 into erenup/integration-section3",done,266
