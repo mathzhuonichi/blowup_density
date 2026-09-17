@@ -53,6 +53,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 285-T10-datum-basics | 排队（待 283 合入；简报已写） | 09-17 2124Z | — | — | T10 证明：`datum_unique`/`datum_real`/`meanZero_datum`（系数侧；常数场的 Fourier 系数、可积性合取项） |
 | 286-T10-parseval | 排队（待 283 合入；简报已写；astra 优先） | 09-17 2124Z | — | — | T10 证明：`parseval_forward`/`parseval_backward`（Mathlib `mFourierBasis` Hilbert 基，L² ↔ ℓ²） |
 | 287-T10-leray | 排队（待 283 合入；简报已写） | 09-17 2124Z | — | — | T10 证明：`leray_exists_contraction`/`leray_projector`（纯 ℓ² 代数：压缩、实性、solenoidal、幂等） |
-| 288-SPEC-t11-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2124Z | — | — | SPEC **T11 双盲草案 A**：`prop:local` on T³（存在/唯一/最大寿命/`eq:criterion` 延拓）+ Appendix A 均值消去与 ν 重标度；镜像 A01/A04 V2 合同形状 |
+| 288-SPEC-t11-draft-a | 路由 5/5 重连后切断（rc=1，无产出）→ 22:30Z 原简报重启（sol，astra 备用） | 09-17 2236Z | — | — | SPEC **T11 双盲草案 A**：`prop:local` on T³（存在/唯一/最大寿命/`eq:criterion` 延拓）+ Appendix A 均值消去与 ν 重标度；镜像 A01/A04 V2 合同形状 |
 | 289-SPEC-t11-draft-b | 完成（草案 B；待 288 后 reconciliation） | 09-17 2215Z | — | — | SPEC **T11 双盲草案 B**（同上，互不可见） |
 | 290-SPEC-t12-spec | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2126Z | — | — | SPEC **T12 定稿**：按 research/T12/RECONCILIATION.md（B 为基 + A 的常数名；修正后的 T10 词汇；Type 值 `MeanZeroSobolevCalculusAPI`，9 个字段含新增 `lambda_exists`/`homogeneous_le_sobolev`）→ Spec.lean + COMPARISON.md |
