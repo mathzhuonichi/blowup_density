@@ -50,7 +50,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 282-MAINT-s4-full-build-astra | 完成：206 模块 219.6 s 0 错误；三门禁过；37 合同公理精确；报告已并入 erenup/integration 并评论 PR #259；发现 Bindings.Packet/Scaling 同名声明 navierStokesResidual_eq（单独编译无碍，合并导入冲突，待 owner） | 09-17 2118Z | — | — | MAINT 第 4 节交付物**独立完整编译**（基于冻结分支 `erenup/integration`，PR #259）：206 模块真实重 elaborate + 三门禁 + 37 合同公理审计 → `logs/SECTION4_FULL_BUILD_20260917_ASTRA.md`，与 Opus 报告对照 |
 | 283-T10-canonical-module | 已合入 #267（codex 审稿 ACCEPT：保真/公理/非空/负向变异全过） | 09-17 2250Z | #267 | — | T10 规范定义模块 `Section3/T10/PeriodicData.lean`（research/T10/Spec.lean 含 lead 修正 1 的全部定义逐字落成 Lake 模块，复用 Paper1/TorusCube；probe 把 TorusDataAPI 陈述在模块上）→ 证明 lane 的共同基座 |
 | 284-T10-physical-bridge | 已合入 #271（codex 审稿 ACCEPT） | 09-17 2312Z | #271 | — | T10 证明：`torusLift_injective`/`torusLift_surjective`/`mean_decomposition`（物理层桥，ℤ³ 平移引理） |
-| 285-T10-datum-basics | 完成 → codex 审稿中（rev-285） | 09-17 2320Z | — | — | T10 证明：`datum_unique`/`datum_real`/`meanZero_datum`（系数侧；常数场的 Fourier 系数、可积性合取项） |
+| 285-T10-datum-basics | 已合入 #273（codex 审稿 ACCEPT）；TorusDataAPI 十字段全部进树 | 09-17 2328Z | #273 | — | T10 证明：`datum_unique`/`datum_real`/`meanZero_datum`（系数侧；常数场的 Fourier 系数、可积性合取项） |
 | 286-T10-parseval | 已合入 #269（codex 审稿 ACCEPT，含 L²→L¹ 变异探针） | 09-17 2310Z | #269 | — | T10 证明：`parseval_forward`/`parseval_backward`（Mathlib `mFourierBasis` Hilbert 基，L² ↔ ℓ²） |
 | 287-T10-leray | 已合入 #272（codex 审稿 ACCEPT） | 09-17 2320Z | #272 | — | T10 证明：`leray_exists_contraction`/`leray_projector`（纯 ℓ² 代数：压缩、实性、solenoidal、幂等） |
 | 288-SPEC-t11-draft-a | 路由 5/5 重连后切断（rc=1，无产出）→ 22:30Z 原简报重启（sol，astra 备用） | 09-17 2236Z | — | — | SPEC **T11 双盲草案 A**：`prop:local` on T³（存在/唯一/最大寿命/`eq:criterion` 延拓）+ Appendix A 均值消去与 ν 重标度；镜像 A01/A04 V2 合同形状 |
@@ -58,4 +58,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 290-SPEC-t12-spec | 已合入 #268（lead 直接合并：elaborate 0 输出，9 字段对照 reconciliation，rfl 拼写检查） | 09-17 2300Z | #268 | — | SPEC **T12 定稿**：按 research/T12/RECONCILIATION.md（B 为基 + A 的常数名；修正后的 T10 词汇；Type 值 `MeanZeroSobolevCalculusAPI`，9 个字段含新增 `lambda_exists`/`homogeneous_le_sobolev`）→ Spec.lean + COMPARISON.md |
 | 291-SPEC-t15-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2313Z | — | — | SPEC **T15 双盲草案 A**：`prop:scaling`（`eq:scaling` 放置/重标度/单拷贝周期化；`eq:packetEscale/Fscale/Hs`；镜像 `I03.scaling`，复用 T14 包与 T13 localization） |
 | 292-SPEC-t15-draft-b | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2313Z | — | — | SPEC **T15 双盲草案 B**（同上，互不可见） |
-| 293-T01-torus-data-contract | 排队（待 285 合入；简报已写） | 09-17 2323Z | — | — | **注册第 3 节第一个合同 `T01.torus_data`**：`Contracts/V1/TorusData.lean`（数据层定义逐字重述 + 10 字段 `TorusDataAPI`）+ Bindings（rfl 桥 + 由四个证明模块装配）+ Tests；解类部分推迟到 T11 注册 |
+| 293-T01-torus-data-contract | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-17 2328Z | — | — | **注册第 3 节第一个合同 `T01.torus_data`**：`Contracts/V1/TorusData.lean`（数据层定义逐字重述 + 10 字段 `TorusDataAPI`）+ Bindings（rfl 桥 + 由四个证明模块装配）+ Tests；解类部分推迟到 T11 注册 |
