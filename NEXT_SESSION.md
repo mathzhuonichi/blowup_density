@@ -10,6 +10,17 @@
 - T13 双盲草案 A/B（265/266）完成；lead 已写 [research/T13/RECONCILIATION.md](research/T13/RECONCILIATION.md)：固定基本立方体 + periodize + B 字段名，尾和作为引理，范数词汇等 T10 定稿。
 - 267 完成 Section 4 工作文档归档；263+ 简报仍在 [collaboration/briefs/](collaboration/briefs/)。
 
+- T10 定稿 spec（277）已合入 #262：`research/T10/Spec.lean`（51 个定义，实子空间系数载体）+ COMPARISON（17 项 needs-a-lemma = T10 证明 lane 清单）。
+- S3-1 叶子：T13/T16/T14/T22 的双盲草案全部完成，lead 的 reconciliation 已写（`research/T1x/RECONCILIATION.md`），定稿 spec lane 278（T13）/279（T16）/280（T14）/281（T22）在跑；T12 草案 A 完成，草案 B（270）在 sol 上重写（astra 被路由切断）。
+- 第 4 节全量编译通过（2026-09-17 21:30Z，Opus 子代理，冻结分支）：206 模块真实重新 elaborate，232 秒，0 错误，三门禁全过，37 合同审计齐全；报告 `logs/SECTION4_FULL_BUILD_20260917.md` 已并入 PR #259（评论已发）。
+
+## 日志（最新在前）
+
+- **2026-09-17 2130Z**：第 4 节全量编译验证 + 报告并入 #259；T14/T22 reconciliation 与 280/281 启动。
+- **2026-09-17 2105Z**：T16 reconciliation，279 启动；T10 定稿（277）合入 #262；278（T13 定稿）启动。
+- **2026-09-17 2045Z**：T10 reconciliation（以草案 B 为基）；277 启动；T14/T22 草案完成；270 重启（sol）。
+- **2026-09-17 2110Z（本地 17:10）**：267 归档合入 #260（手动）；268 台账合入 #261（T10–T24 进 DAG/台账）。
+
 ## 下一步（按顺序）
 
 1. 等 T10 B 完成，lead 写 T10 reconciliation。
