@@ -62,3 +62,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 294-SPEC-t17-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2331Z | — | — | SPEC **T17 双盲草案 A**：`lem:correction`（`eq:H` 修正力、`eq:derivativebounds/wE/Hmixed/HHs`；复用 T16 截断与 T13 localization；镜像 `I02.correction(_v2)`） |
 | 295-SPEC-t17-draft-b | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2336Z | — | — | SPEC **T17 双盲草案 B**（同上，互不可见） |
 | 296-MAINT-t10-instance-dedupe | 排队（待 293 合入；简报已写） | 09-17 2350Z | — | — | MAINT：T10 三个证明模块的匿名 `IsProbabilityMeasure` 实例同名冲突 → 在 `PeriodicData.lean` 命名一次、删重复；`Bindings/TorusData.lean` 改回直接装配十个定理（删 293 的私下重证） |
+| 297-T12-canonical-module | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-17 2350Z | — | — | T12 规范定义模块 `Section3/T12/MeanZeroCalculus.lean`（research/T12/Spec.lean 的新定义逐字落成 Lake 模块，import T10 模块；probe 把 Type 值 `MeanZeroSobolevCalculusAPI` 陈述在模块上）→ T12 证明 lane 基座 |
