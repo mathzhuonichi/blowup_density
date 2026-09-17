@@ -48,11 +48,11 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 280-SPEC-t14-spec | 已合入 #264（lead 直接合并：elaborate 0 输出，字段对照 reconciliation/论文） | 09-17 2109Z | #264 | — | SPEC **T14 定稿**：按 research/T14/RECONCILIATION.md（B 的 PacketEnergyAPI/PacketImportAPI + A 的族选择器；继承 I01 PacketAPI）→ Spec.lean + COMPARISON.md |
 | 281-SPEC-t22-spec | 已合入 #265（lead 直接合并：elaborate 0 输出，字段对照 reconciliation/论文） | 09-17 2109Z | #265 | — | SPEC **T22 定稿**：按 research/T22/RECONCILIATION.md（B 的 domainSobolevENorm 定义 + 三字段 API）→ Spec.lean + COMPARISON.md |
 | 282-MAINT-s4-full-build-astra | 完成：206 模块 219.6 s 0 错误；三门禁过；37 合同公理精确；报告已并入 erenup/integration 并评论 PR #259；发现 Bindings.Packet/Scaling 同名声明 navierStokesResidual_eq（单独编译无碍，合并导入冲突，待 owner） | 09-17 2118Z | — | — | MAINT 第 4 节交付物**独立完整编译**（基于冻结分支 `erenup/integration`，PR #259）：206 模块真实重 elaborate + 三门禁 + 37 合同公理审计 → `logs/SECTION4_FULL_BUILD_20260917_ASTRA.md`，与 Opus 报告对照 |
-| 283-T10-canonical-module | 完成（模块 350 行、50 个声明；probe 陈述修正后的 TorusDataAPI；lake 自动识别 Section3）→ PR 已开，codex 审稿中 | 09-17 2118Z | — | — | T10 规范定义模块 `Section3/T10/PeriodicData.lean`（research/T10/Spec.lean 含 lead 修正 1 的全部定义逐字落成 Lake 模块，复用 Paper1/TorusCube；probe 把 TorusDataAPI 陈述在模块上）→ 证明 lane 的共同基座 |
-| 284-T10-physical-bridge | 排队（待 283 合入；简报已写） | 09-17 2124Z | — | — | T10 证明：`torusLift_injective`/`torusLift_surjective`/`mean_decomposition`（物理层桥，ℤ³ 平移引理） |
-| 285-T10-datum-basics | 排队（待 283 合入；简报已写） | 09-17 2124Z | — | — | T10 证明：`datum_unique`/`datum_real`/`meanZero_datum`（系数侧；常数场的 Fourier 系数、可积性合取项） |
-| 286-T10-parseval | 排队（待 283 合入；简报已写；astra 优先） | 09-17 2124Z | — | — | T10 证明：`parseval_forward`/`parseval_backward`（Mathlib `mFourierBasis` Hilbert 基，L² ↔ ℓ²） |
-| 287-T10-leray | 排队（待 283 合入；简报已写） | 09-17 2124Z | — | — | T10 证明：`leray_exists_contraction`/`leray_projector`（纯 ℓ² 代数：压缩、实性、solenoidal、幂等） |
+| 283-T10-canonical-module | 已合入 #267（codex 审稿 ACCEPT：保真/公理/非空/负向变异全过） | 09-17 2250Z | #267 | — | T10 规范定义模块 `Section3/T10/PeriodicData.lean`（research/T10/Spec.lean 含 lead 修正 1 的全部定义逐字落成 Lake 模块，复用 Paper1/TorusCube；probe 把 TorusDataAPI 陈述在模块上）→ 证明 lane 的共同基座 |
+| 284-T10-physical-bridge | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-17 2250Z | — | — | T10 证明：`torusLift_injective`/`torusLift_surjective`/`mean_decomposition`（物理层桥，ℤ³ 平移引理） |
+| 285-T10-datum-basics | 排队（并发上限 5；下一个空位启动） | 09-17 2250Z | — | — | T10 证明：`datum_unique`/`datum_real`/`meanZero_datum`（系数侧；常数场的 Fourier 系数、可积性合取项） |
+| 286-T10-parseval | worktree 安装中→自动启动（codex **astra** low，sol 备用） | 09-17 2250Z | — | — | T10 证明：`parseval_forward`/`parseval_backward`（Mathlib `mFourierBasis` Hilbert 基，L² ↔ ℓ²） |
+| 287-T10-leray | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-17 2250Z | — | — | T10 证明：`leray_exists_contraction`/`leray_projector`（纯 ℓ² 代数：压缩、实性、solenoidal、幂等） |
 | 288-SPEC-t11-draft-a | 路由 5/5 重连后切断（rc=1，无产出）→ 22:30Z 原简报重启（sol，astra 备用） | 09-17 2236Z | — | — | SPEC **T11 双盲草案 A**：`prop:local` on T³（存在/唯一/最大寿命/`eq:criterion` 延拓）+ Appendix A 均值消去与 ν 重标度；镜像 A01/A04 V2 合同形状 |
 | 289-SPEC-t11-draft-b | 完成（草案 B；待 288 后 reconciliation） | 09-17 2215Z | — | — | SPEC **T11 双盲草案 B**（同上，互不可见） |
 | 290-SPEC-t12-spec | 路由 5/5 重连后切断（rc=1）→ 22:49Z 原简报重启（sol，astra 备用） | 09-17 2249Z | — | — | SPEC **T12 定稿**：按 research/T12/RECONCILIATION.md（B 为基 + A 的常数名；修正后的 T10 词汇；Type 值 `MeanZeroSobolevCalculusAPI`，9 个字段含新增 `lambda_exists`/`homogeneous_le_sobolev`）→ Spec.lean + COMPARISON.md |
