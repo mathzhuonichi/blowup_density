@@ -21,6 +21,11 @@
 - **2026-09-17 2045Z**：T10 reconciliation（以草案 B 为基）；277 启动；T14/T22 草案完成；270 重启（sol）。
 - **2026-09-17 2110Z（本地 17:10）**：267 归档合入 #260（手动）；268 台账合入 #261（T10–T24 进 DAG/台账）。
 
+## 追踪 PR（用户要求，2026-09-17 23:12Z）
+
+- **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
+- 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
+
 ## 当前在跑 / 待启动
 
 - **T10 lead 修正 1（2026-09-17 21:16Z）**：`IsPeriodicDatum`/`IsPeriodicHomogeneousDatum` 加 `Integrable (torusLift z) periodicTorusMeasure` 合取项，`parseval_forward` 加 `MemLp 2` 假设；原因是 Bochner 积分对不可积场取垃圾值 0，使 `A = 0` 成为合法 datum，`parseval_forward`/`meanZero_datum` 原文为假（反例见 `research/T10/RECONCILIATION.md` §5）。T13 的逐字副本已同步。**所有 T10 证明 lane 与 T12 定稿都用修正后的词汇。**
