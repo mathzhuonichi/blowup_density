@@ -26,14 +26,14 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动
+## 当前在跑 / 待启动（2026-09-17 23:32Z 快照）
 
-- **T10 lead 修正 1（2026-09-17 21:16Z）**：`IsPeriodicDatum`/`IsPeriodicHomogeneousDatum` 加 `Integrable (torusLift z) periodicTorusMeasure` 合取项，`parseval_forward` 加 `MemLp 2` 假设；原因是 Bochner 积分对不可积场取垃圾值 0，使 `A = 0` 成为合法 datum，`parseval_forward`/`meanZero_datum` 原文为假（反例见 `research/T10/RECONCILIATION.md` §5）。T13 的逐字副本已同步。**所有 T10 证明 lane 与 T12 定稿都用修正后的词汇。**
-- **282 完成（2026-09-17 21:28Z）**：astra 独立全编译与 Opus 报告一致（206 模块、219.6 s、0 错误、门禁全过、37 合同公理精确），报告已并入 `erenup/integration` 并评论 PR #259。发现潜在同名声明 `BlowupDensity.Bindings.navierStokesResidual_eq`（`Bindings/Packet.lean` 与 `Bindings/Scaling.lean`）：单独编译与门禁无碍，同时导入会冲突；冻结分支上不动，待 owner。
-- **在跑（2026-09-17 2118Z 起）**：283（sol，T10 规范 Lake 模块 `Section3/T10/PeriodicData.lean` + probe `api_on_canonical.lean`）；Opus 子代理起草 `research/T12/RECONCILIATION.md`。
-- **待 283 合入后启动**（简报已写在 `tmp/codex/briefs/284–287`）：284 物理层桥（torusLift 单/满射、均值分解）、285 datum 基础（唯一性、实性、均值零 datum）、286 Parseval 双向（Mathlib `mFourierBasis`）、287 周期 Leray（压缩、幂等、solenoidal）。合起来就是 `TorusDataAPI` 的 10 个字段 → 注册 `T01.torus_data`。
-- **待 T12 reconciliation 后**：T12 定稿 spec lane（288）。
-- **规矩（用户 2026-09-17）**：lead 不自己跑全量编译、不自己改代码；编译派 Opus 子代理或 astra tmux lane，改代码派 lane；lead 只拆任务、比对、归并、记账。
+- **T10 十字段全部证完并进树**：规范模块 `Section3/T10/PeriodicData.lean`（#267）+ `Parseval.lean`（#269，astra）+ `PhysicalBridge.lean`（#271）+ `Leray.lean`（#272）+ `DatumBasics.lean`（#273）；每条都过 codex 审稿（ACCEPT，含变异探针）。**293 在注册 `T01.torus_data`**（`Contracts/V1/TorusData.lean` + Bindings rfl 桥/装配 + Tests；只注册数据层，解类部分推迟到 T11 注册）。
+- **T10 lead 修正 1（21:16Z）**：`IsPeriodicDatum`/`IsPeriodicHomogeneousDatum` 加 `Integrable (torusLift z)`，`parseval_forward` 加 `MemLp 2`；反例见 `research/T10/RECONCILIATION.md` §5。所有后续 spec/证明都用修正后的词汇。
+- **定稿 spec 已进树**：T10（#262）、T12（#268，Type 值 API 带常数）、T13（#263）、T14（#264）、T16（#266）、T22（#265）。
+- **在跑**：288（T11 草案 A，重启后；B 已完成 289）→ 两份齐后派 Opus 起草 reconciliation；291/292（T15 `prop:scaling` 双盲草案）；294（T17 `lem:correction` 草案 A），295（草案 B）排队等空位。
+- **路由不稳**：22:00–22:50Z 一波重连把 288/290 切断（已重启并完成/在跑）；`retry_lane.sh` 只处理前 4 分钟的 capacity 死亡，中途死亡要手动重启（无产出则原简报重跑；有产出写 `fix_<lane>.md` 续跑）。
+- **规矩（用户 2026-09-17）**：lead 不自己跑全量编译、不自己改代码；编译派 Opus 子代理或 astra tmux lane，改代码派 lane；codex 并发 3–5；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
 
