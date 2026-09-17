@@ -1274,3 +1274,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,T16,279-SPEC-t16-spec,lead,plan,"reconciled T16 spec on the T10 vocabulary (sol)",planned,
 2026-09-17,T14,280-SPEC-t14-spec,lead,plan,"reconciled T14 spec (sol)",planned,
 2026-09-17,T22,281-SPEC-t22-spec,lead,plan,"reconciled T22 spec (sol)",planned,
+2026-09-17,S4,S4-full-build,claude-opus,verifier,"full re-elaboration of all 206 Section 4 modules on erenup/integration: 232 s, 0 errors; make check/test/test-mutations OK; 37 contracts audited; report logs/SECTION4_FULL_BUILD_20260917.md folded into PR #259",done,259
