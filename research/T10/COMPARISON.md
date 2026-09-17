@@ -147,6 +147,14 @@ but no obligation dropped.
     existing periodic local theory and prove the breakdown predicate is
     extensional in the force on nonnegative times.
 
+## Lead amendment 1 (2026-09-17)
+
+`IsPeriodicDatum` and `IsPeriodicHomogeneousDatum` now require
+`Integrable (torusLift z) periodicTorusMeasure`, and `parseval_forward` carries
+`MemLp (torusLift z) 2 periodicTorusMeasure`; see `RECONCILIATION.md` §5 for the
+two counterexamples (junk-value Bochner integrals) that forced this.  Proof
+lanes must use the amended text.
+
 ## Open questions for the owner
 
 1. The paper explicitly says the torus homogeneous norm omits `k=0` and

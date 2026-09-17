@@ -124,9 +124,15 @@ def periodicSobolevDataNorm (s : ℝ) (A : PeriodicSobolev s) : ℝ := ‖A‖
 
 /-- `03-torus.tex:2-4` and `01-introduction.tex:83-103`: `A` is the order-`s` weighted Fourier datum
 of the real physical field `z`.  The exact quantifier order is component first,
-then lattice frequency. -/
+then lattice frequency.
+
+Lead amendment (2026-09-17, `RECONCILIATION.md` §5): the datum requires the
+lifted field to be Haar-integrable.  Without it the Bochner integral defining
+`periodicFourierCoeff` is the junk value `0` for every non-integrable periodic
+`z`, so `A = 0` would be a datum of e.g. the periodization of `x ↦ 1/x₁` and
+`periodicSobolevENorm` would be `0` instead of `⊤` there. -/
 def IsPeriodicDatum (s : ℝ) (z : SpatialField) (A : PeriodicSobolev s) : Prop :=
-  IsPeriodicSpatial z ∧
+  IsPeriodicSpatial z ∧ Integrable (torusLift z) periodicTorusMeasure ∧
     ∀ (i : Fin 3) (k : PeriodicFrequency),
       A.1 i k = (periodicFrequencyWeight k) ^ (s / 2) •
         periodicFourierCoeff (fun x ↦ ((z x i : ℝ) : ℂ)) k
@@ -186,12 +192,15 @@ def homogeneousDatumWeight (s : ℝ) (k : PeriodicFrequency) : ℝ :=
   if k = 0 then 0 else Real.rpow (periodicAngularFrequencySq k) (s / 2)
 
 /-- `01-introduction.tex:105-109`: `A` is the order-`s` homogeneous datum of a
-mean-zero real periodic field.  Exact quantifier order: periodicity, zero mean,
-then `∀ i : Fin 3, ∀ k : PeriodicFrequency`.  The zero-frequency equation forces
+mean-zero real periodic field.  Exact quantifier order: periodicity,
+Haar integrability of the lift (lead amendment, `RECONCILIATION.md` §5: the
+same junk-value reason as `IsPeriodicDatum`; it also makes `IsMeanZeroT` an
+honest Haar-integral statement), zero mean, then
+`∀ i : Fin 3, ∀ k : PeriodicFrequency`.  The zero-frequency equation forces
 `A_i(0)=0`, as the manuscript's homogeneous convention requires. -/
 def IsPeriodicHomogeneousDatum (s : ℝ) (z : SpatialField)
     (A : PeriodicSobolev s) : Prop :=
-  IsPeriodicSpatial z ∧ IsMeanZeroT z ∧
+  IsPeriodicSpatial z ∧ Integrable (torusLift z) periodicTorusMeasure ∧ IsMeanZeroT z ∧
     ∀ (i : Fin 3) (k : PeriodicFrequency),
       A.1 i k = (homogeneousDatumWeight s k : ℂ) •
         periodicFourierCoeff (fun x ↦ ((z x i : ℝ) : ℂ)) k
@@ -456,12 +465,15 @@ structure TorusDataAPI : Prop where
   /-- `01-introduction.tex:83-103`: vector Parseval in the forward direction.
 
   Exact quantifier order: `∀ z, ∀ A`, followed by the order-zero datum
-  hypothesis.
+  hypothesis, then physical `L²` membership of the lift (lead amendment,
+  `RECONCILIATION.md` §5: the datum alone only gives `L¹`, and the identity
+  is the paper's `L²` Parseval).
 
   Non-vacuity: it equates the extended norm of a concrete coefficient datum
   with the physical Haar `L²(T³)` norm, including the normalization constant. -/
   parseval_forward :
     ∀ (z : SpatialField) (A : PeriodicSobolev 0), IsPeriodicDatum 0 z A →
+      MemLp (torusLift z) 2 periodicTorusMeasure →
       ‖A‖ₑ = eLpNorm (torusLift z) 2 periodicTorusMeasure
 
   /-- `01-introduction.tex:83-103`: vector Parseval in the reverse direction.

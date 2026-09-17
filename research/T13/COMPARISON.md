@@ -161,3 +161,10 @@ the numbered “Needs a lemma” list in `research/T10/COMPARISON.md`.
    physical norm uses Haar measure through `torusLift`.  Should both endpoint
    spellings be registered, or only the current cube form plus a binding
    theorem to T10 Haar norms?
+
+## T10 amendment 1 (lead, 2026-09-17)
+
+The verbatim T10 copies in `Spec.lean` (`IsPeriodicDatum`,
+`IsPeriodicHomogeneousDatum`) were re-synchronized with
+`research/T10/RECONCILIATION.md` §5 (Haar-integrability conjunct).  No T13
+field changes meaning: all localization fields quantify over smooth fields.

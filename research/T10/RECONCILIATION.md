@@ -24,3 +24,40 @@ Base the reconciled `research/T10/Spec.lean` on **B**, importing A's more precis
 
 ## 4. Next
 Lane 277: reconciled `research/T10/Spec.lean` + merged `COMPARISON.md` (+ provenance copies); then the T13/T12/T16/T14/T22 spec lanes import it; then T10's proof lanes (the "needs a lemma" list) and registration `T01.torus_data`.
+
+## 5. Lead amendment 1 (2026-09-17, after lanes 278–281 landed)
+
+Two `TorusDataAPI` fields of the lane-277 spec were **false as stated**, for the
+same reason: `periodicFourierCoeff` is a Bochner integral, which is the junk
+value `0` whenever the integrand is not integrable, and `IsPeriodicDatum` did
+not require integrability.
+
+- Counterexample to `parseval_forward`: `z := ` the unit-periodization of
+  `x ↦ (1/x₁, 0, 0)` on `(0,1]³` (measurable, periodic, not integrable).  Every
+  coefficient integral is `0`, so `A = 0` satisfies `IsPeriodicDatum 0 z 0`,
+  while `eLpNorm (torusLift z) 2 = ⊤`; the field claimed `0 = ⊤`.
+- Counterexample to `meanZero_datum`: `z := (1/x₁, 1, 0)` periodized.  The
+  vector lift is not integrable, so `meanT z = 0` (junk) and
+  `meanZeroPartT z = z`; the datum `A = (0, δ₀, 0)` exists, but any `B` with
+  `IsPeriodicDatum s z B` has `B.1 1 0 = 1 ≠ 0`, so no `B ∈ meanZeroPeriodicSobolev s`.
+- Same defect in `periodicSobolevENorm`/`periodicHomogeneousENorm`: they were
+  `0` (not `⊤`) on non-integrable periodic fields.
+
+Fix (applied by the lead to `research/T10/Spec.lean` and to the verbatim copies
+in `research/T13/Spec.lean`; T12's drafts predate it and its reconciliation
+adopts the amended vocabulary):
+
+1. `IsPeriodicDatum s z A := IsPeriodicSpatial z ∧ Integrable (torusLift z) periodicTorusMeasure ∧ ∀ i k, …`
+2. `IsPeriodicHomogeneousDatum s z A := IsPeriodicSpatial z ∧ Integrable (torusLift z) periodicTorusMeasure ∧ IsMeanZeroT z ∧ ∀ i k, …`
+3. `parseval_forward` gains the hypothesis `MemLp (torusLift z) 2 periodicTorusMeasure`
+   (the datum only gives `L¹`; identifying an `L¹` field with `ℓ²` coefficients
+   as `L²` is Riesz–Fischer + uniqueness of Fourier coefficients, which the
+   contract does not need).
+
+Why not mirror D01's "no side condition" choice (`Contracts/V1/Data.lean:154-160`)?
+D01 pairs against Schwartz test functions, where the same junk-value gap exists
+but no registered D01 field asserts an unconditional identity; T10's fields do.
+All consumer statements (T11–T24) quantify over smooth or `MemLp` fields, so the
+amendment changes no downstream meaning; it only makes the norms `⊤` on garbage.
+`parseval_backward` is unchanged: its `MemLp 2` hypothesis implies the new
+integrability conjunct on the probability torus.

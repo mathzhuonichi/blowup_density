@@ -100,7 +100,7 @@ abbrev PeriodicSobolev (_s : ℝ) := realPeriodicSubmodule
 of the real physical field `z`.  The exact quantifier order is component first,
 then lattice frequency. -/
 def IsPeriodicDatum (s : ℝ) (z : SpatialField) (A : PeriodicSobolev s) : Prop :=
-  IsPeriodicSpatial z ∧
+  IsPeriodicSpatial z ∧ Integrable (torusLift z) periodicTorusMeasure ∧
     ∀ (i : Fin 3) (k : PeriodicFrequency),
       A.1 i k = (periodicFrequencyWeight k) ^ (s / 2) •
         periodicFourierCoeff (fun x ↦ ((z x i : ℝ) : ℂ)) k
@@ -140,7 +140,7 @@ then `∀ i : Fin 3, ∀ k : PeriodicFrequency`.  The zero-frequency equation fo
 `A_i(0)=0`, as the manuscript's homogeneous convention requires. -/
 def IsPeriodicHomogeneousDatum (s : ℝ) (z : SpatialField)
     (A : PeriodicSobolev s) : Prop :=
-  IsPeriodicSpatial z ∧ IsMeanZeroT z ∧
+  IsPeriodicSpatial z ∧ Integrable (torusLift z) periodicTorusMeasure ∧ IsMeanZeroT z ∧
     ∀ (i : Fin 3) (k : PeriodicFrequency),
       A.1 i k = (homogeneousDatumWeight s k : ℂ) •
         periodicFourierCoeff (fun x ↦ ((z x i : ℝ) : ℂ)) k
