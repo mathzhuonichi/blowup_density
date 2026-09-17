@@ -1272,3 +1272,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,T10,277-SPEC-t10-spec,lead,merge,"PR #262 merged directly into erenup/integration-section3",merged,262
 2026-09-17,T13,278-SPEC-t13-spec,lead,plan,"reconciled T13 spec on the T10 vocabulary (sol)",planned,
 2026-09-17,T16,279-SPEC-t16-spec,lead,plan,"reconciled T16 spec on the T10 vocabulary (sol)",planned,
+2026-09-17,T14,280-SPEC-t14-spec,lead,plan,"reconciled T14 spec (sol)",planned,
+2026-09-17,T22,281-SPEC-t22-spec,lead,plan,"reconciled T22 spec (sol)",planned,
