@@ -1284,3 +1284,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,T10,283-T10-canonical-module,codex-gpt-5.6-sol-xhigh,worker,"canonical Lake module Section3/T10/PeriodicData.lean (50 decls, reuses Paper1/TorusCube) + probe api_on_canonical.lean (amended TorusDataAPI); codex review ACCEPT; merged #267",done,267
 2026-09-17,T12,290-SPEC-t12-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T12 spec (Type-valued MeanZeroSobolevCalculusAPI, 9 fields, amended T10 vocabulary); elaborates; merged #268",done,268
 2026-09-17,T10,286-T10-parseval,codex-gpt-6-astra-low,prover,"Section3/T10/Parseval.lean: parseval_forward/backward of TorusDataAPI via mFourierBasis, 9 theorems, axioms clean; review ACCEPT; merged #269",done,269
+2026-09-17,T10,284-T10-physical-bridge,codex-gpt-5.6-sol-xhigh,prover,"Section3/T10/PhysicalBridge.lean: torusLift_injective/surjective, mean_decomposition + periodic_shift_int, axioms clean; review ACCEPT; merged #271",done,271
