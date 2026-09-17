@@ -1,8 +1,8 @@
 # T12 (`lem:calculus` + `lem:critical-embeddings`, torus halves; `appendix-a-local-theory.tex:7-27`, `appendix-b-embeddings.tex:8-38,85-110`, `03-torus.tex:467-503`) — reconciliation of drafts A (lane 269) and B (lane 270)
 
-Lead: erenup, 2026-09-17 (UTC 23:40). Drafts: `.claude/worktrees/269-SPEC-t12-draft-a/research/T12/DraftA.lean`, `.claude/worktrees/270-SPEC-t12-draft-b/research/T12/DraftB.lean` (both elaborate). Both predate T10 lead amendment 1 (`research/T10/RECONCILIATION.md` §5).
+Lead: erenup, 2026-09-17 (UTC 21:26). Drafts: `.claude/worktrees/269-SPEC-t12-draft-a/research/T12/DraftA.lean`, `.claude/worktrees/270-SPEC-t12-draft-b/research/T12/DraftB.lean` (both elaborate). Both predate T10 lead amendment 1 (`research/T10/RECONCILIATION.md` §5).
 
-## 0. Lead review (2026-09-17 22:30Z)
+## 0. Lead review (2026-09-17 21:26Z)
 Drafted by an Opus subagent from the two blind drafts; reviewed and **approved** by the lead. House-style answer: Section 3 APIs that carry constants are **Type-valued** structures with the constants as data fields (exactly `TameProductAPI`/`GradientL6API`); `Prop`-valued APIs (T10, T13) are only for constant-free statements. The two added fields are accepted: `homogeneous_le_sobolev` holds with constant `1` under T10's weights (`(4π²|k|²)^{s/2} ≤ (1+4π²|k|²)^{s/2}`, zero mode dropped), and `lambda_exists` is an honest existence obligation for the proof lane, not a placeholder.
 
 ## 1. Agreement

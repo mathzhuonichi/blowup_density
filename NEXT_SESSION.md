@@ -16,16 +16,16 @@
 
 ## 日志（最新在前）
 
-- **2026-09-17 2130Z**：第 4 节全量编译验证 + 报告并入 #259；T14/T22 reconciliation 与 280/281 启动。
+- **2026-09-17 2055Z**：第 4 节全量编译验证 + 报告并入 #259；T14/T22 reconciliation 与 280/281 启动。
 - **2026-09-17 2105Z**：T16 reconciliation，279 启动；T10 定稿（277）合入 #262；278（T13 定稿）启动。
 - **2026-09-17 2045Z**：T10 reconciliation（以草案 B 为基）；277 启动；T14/T22 草案完成；270 重启（sol）。
 - **2026-09-17 2110Z（本地 17:10）**：267 归档合入 #260（手动）；268 台账合入 #261（T10–T24 进 DAG/台账）。
 
 ## 当前在跑 / 待启动
 
-- **T10 lead 修正 1（2026-09-17 21:45Z）**：`IsPeriodicDatum`/`IsPeriodicHomogeneousDatum` 加 `Integrable (torusLift z) periodicTorusMeasure` 合取项，`parseval_forward` 加 `MemLp 2` 假设；原因是 Bochner 积分对不可积场取垃圾值 0，使 `A = 0` 成为合法 datum，`parseval_forward`/`meanZero_datum` 原文为假（反例见 `research/T10/RECONCILIATION.md` §5）。T13 的逐字副本已同步。**所有 T10 证明 lane 与 T12 定稿都用修正后的词汇。**
+- **T10 lead 修正 1（2026-09-17 21:16Z）**：`IsPeriodicDatum`/`IsPeriodicHomogeneousDatum` 加 `Integrable (torusLift z) periodicTorusMeasure` 合取项，`parseval_forward` 加 `MemLp 2` 假设；原因是 Bochner 积分对不可积场取垃圾值 0，使 `A = 0` 成为合法 datum，`parseval_forward`/`meanZero_datum` 原文为假（反例见 `research/T10/RECONCILIATION.md` §5）。T13 的逐字副本已同步。**所有 T10 证明 lane 与 T12 定稿都用修正后的词汇。**
 - **282 完成（2026-09-17 21:28Z）**：astra 独立全编译与 Opus 报告一致（206 模块、219.6 s、0 错误、门禁全过、37 合同公理精确），报告已并入 `erenup/integration` 并评论 PR #259。发现潜在同名声明 `BlowupDensity.Bindings.navierStokesResidual_eq`（`Bindings/Packet.lean` 与 `Bindings/Scaling.lean`）：单独编译与门禁无碍，同时导入会冲突；冻结分支上不动，待 owner。
-- **在跑（2026-09-17 2150Z 起）**：283（sol，T10 规范 Lake 模块 `Section3/T10/PeriodicData.lean` + probe `api_on_canonical.lean`）；Opus 子代理起草 `research/T12/RECONCILIATION.md`。
+- **在跑（2026-09-17 2118Z 起）**：283（sol，T10 规范 Lake 模块 `Section3/T10/PeriodicData.lean` + probe `api_on_canonical.lean`）；Opus 子代理起草 `research/T12/RECONCILIATION.md`。
 - **待 283 合入后启动**（简报已写在 `tmp/codex/briefs/284–287`）：284 物理层桥（torusLift 单/满射、均值分解）、285 datum 基础（唯一性、实性、均值零 datum）、286 Parseval 双向（Mathlib `mFourierBasis`）、287 周期 Leray（压缩、幂等、solenoidal）。合起来就是 `TorusDataAPI` 的 10 个字段 → 注册 `T01.torus_data`。
 - **待 T12 reconciliation 后**：T12 定稿 spec lane（288）。
 - **规矩（用户 2026-09-17）**：lead 不自己跑全量编译、不自己改代码；编译派 Opus 子代理或 astra tmux lane，改代码派 lane；lead 只拆任务、比对、归并、记账。
