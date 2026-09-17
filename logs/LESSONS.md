@@ -1,3 +1,5 @@
+- 2026-09-17: `gh pr merge` right after pushing to the PR branch can fail with "Pull Request is not mergeable" while GitHub is still computing (`mergeable: UNKNOWN`); wait/poll `gh pr view --json mergeable` and **confirm the merge landed before opening dependent lanes** — three T10 proof lanes were opened on a base without the 283 module and had to be torn down.
+- 2026-09-17: `pkill -f <pattern>` matches the lead's own `zsh -c` command line if the pattern appears in it (exit 144 kills the running Bash tool call); use `pgrep -af` + explicit PIDs, or patterns that cannot occur in the command text.
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
 - 2026-09-17 `scripts/merge_lane.sh`（合并链第一步）会把 lane **rebase** 到集成分支并对 PLAN/NEXT_SESSION 等取集成分支版本；对"重写/移动 lead 文档"的 MAINT lane 这会把归档撤销并制造冲突（#260 两次 OPEN）。规则：这类 lane 由 lead 手动合并（cherry-pick 到最新集成分支、冲突取 lane 版本、`gh pr merge` 直接合）；lane 分出后 lead 不要再改它要重写的文件。
 - 2026-09-17 用 python `s.replace(anchor, …)` 往 NEXT_SESSION 插条目时锚点不存在会**静默不写**，连续十几条记录丢失（09-17 的条目全无，事后按行号重建）。规则：插入后 `assert` 新文本在文件里（或按行号插到首条条目之前），提交前 `grep` 核对。
