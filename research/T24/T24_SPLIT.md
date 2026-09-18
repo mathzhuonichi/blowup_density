@@ -99,6 +99,14 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   the six-term expansion `residual ν (U+b) P = (residual ν U P) + ∂ₜb − νΔb + (U·∇)b + (b·∇)U + (b·∇)b` from
   bilinearity of `spatialDerivative`/`advection` and linearity of `temporalDerivative`/`spatialLaplacian`/
   `pressureGradient`; then raw `momentum` (`residual ν U P = F` on `Ioo 0 1`) closes it against `affineForce:988`.
+  **DONE (lane 398, Opus).** `formalization/NSFormalization/Section3/T24/AffineMomentum.lean`:
+  `momentum` (raw-field, hyps = `velocity_smooth` + `navier_stokes` only; no named input, no pressure smoothness)
+  + `navierStokesResidual_affine_expand` (the six-term expansion). Reused vendored `NavierStokes.ResidualCalculus`
+  add-lemmas + interior-smoothness helpers rather than reproving bilinearity. Probe
+  `research/T24/probes/affine_momentum_closes.lean` closes the registered field on `Bindings.packet ν hν`; both
+  module theorems + all probe decls print `[propext, Classical.choice, Quot.sound]`. Restated the T24a affine
+  vocabulary verbatim in-module (lane 392 `AffineBasics.lean` not on base; assembly dedupes). Nonzero-`b`
+  non-vacuity deferred to Ua7 (curl-bump); probe covers `b=0` admissibility + `b=0`⇒packet-PDE reduction.
   **L, Opus** (hard analytic core). No named input. Deps: —.
 - **Ua4 — `force_smooth` + `force_support` (smooth zero-extension across `t=1`, ②).** Targets verbatim
   (`:1025`, `:1032`): `ContDiff ℝ ∞ (affineForce …)` and `CompactPositiveTimeSupport (affineForce …)`. Route:
