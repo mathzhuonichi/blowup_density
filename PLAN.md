@@ -199,3 +199,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 431-T17-U8-force-volume | Opus 完成：force_spatial_volume（常数 (4/3)π θR³，需 0 ≤ θR）+ force_time_length（4ε²）逐字；新环面引理 measure_torusPoint_image_le；25 声明 → 排队审稿 | 09-18 1844Z | — | — | T17 U8：修正力环面支撑体积 O(ε³) 与时长 ≤ 4ε²（force_support + Haar=Lebesgue 单拷贝桥） |
 | 432-T20-U10b-h1-energy | Opus prover 子代理运行中 | 09-18 1832Z | — | — | T20 U10b：hOneEnergy（eq:H1energy：‖∇v‖²₂ 导数 + 耗散 + U10a 经 U9 吸收 + Young 力项；常数 CH1） |
 | 433-T18-U5-U6-cross-transport-momentum | Opus prover 子代理运行中 | 09-18 1837Z | — | — | T18 U5 两个交叉输运项恒零（eq:bgzero）+ U6 插入三元组的精确动量方程 |
+| 434-T17-U9-energy-bound | worktree 安装中 → Opus prover | 09-18 1845Z | — | — | T17 U9：修正场环面能量界 ‖w_ε‖_{E_T} ≤ C ε^{3/2} + 两个 MemLp 诚实切片（HaarBridge 单拷贝桥 + 注册 I02 能量界） |
