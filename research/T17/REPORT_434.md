@@ -97,3 +97,6 @@ All from `.../434-T17-U9-energy-bound/verification` after `. ../scripts/lean-env
 Negative probes (in `/tmp/u9mut`, deliberately not committed), both **failed as required**, printing the delivered statement:
 - `ε ^ ((5:ℝ)/2)` instead of `ε ^ ((3:ℝ)/2)`: `error: Type mismatch … has type … ENNReal.ofReal (energyConst hv x₀ T hθ hη hθc hηc * ε ^ (3 / 2)) but is expected to have type … * ε ^ (5 / 2)`
 - Lebesgue slice instead of the Haar torus lift: `error: Type mismatch … has type … MemLp (torusLift fun x => (correctionData v x₀ T θ η O θR ε₀).correction ε (t, x)) 2 periodicTorusMeasure but is expected to have type … MemLp (fun x => …) 2 volume`
+
+
+> Lead notes after review 434: (1) the "common premise block" sentence is imprecise — `r` and `hεspace` enter only the bound theorem, the two `MemLp` fields take the smaller block (see the exact signatures in `Energy.lean`); (2) this file was transcribed by the lead from the agent message, so the "no report file" sentence describes the agent's own step; (3) the compatibility-gate note was branch drift only (`ConservativeForcing.lean` from #396) — the merge into integration below refreshes the base, and the lane touches no `verification/` file.
