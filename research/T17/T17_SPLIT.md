@@ -96,13 +96,17 @@ in the tree today.
   `correction_profile_identity`), each `[propext, Classical.choice, Quot.sound]`. Bridge
   `rescaledCorrectionProfile_eq_profile` is `rfl` (the display `𝒜_ε` = Paper1 `jointPotential`) + one
   curl-slice fderiv lemma; identity via `LocalPotentialAPI.correction_formula`/`potential_formula` →
-  `physicalCorrection` → `physicalCorrection_rescale`. **Two residuals for U12/spec** (see
-  `research/T17/ATTEMPTS_U3.md`): (G1) the fields need **global** `hv : ContDiff ℝ ∞ v` (Paper1 `profile_*`),
+  `physicalCorrection` → `physicalCorrection_rescale`. **REV after codex REJECT (2026-09-18):** merged
+  `origin/erenup/integration-section3` (brings `Section3/T16/Assembly.lean` #330); probe now builds a real
+  `LocalPotentialAPI` via `localPotential` on a nonzero constant divergence-free periodic reference and
+  **instantiates `correction_profile_identity`** (`nonvacuous_correction_profile_identity`) — periodicity/
+  divergence-freeness proved, not commented. **One residual for U12/spec** (G1, logged in
+  `research/T17/SPEC_ISSUES.md`): the fields need **global** `hv : ContDiff ℝ ∞ v` (Paper1 `profile_*`),
   which `CorrectionAPI` does not expose (`reference_periodic` only, no `reference_smooth`) — the assembly
-  must add that field or truncate v à la T16 `BallPotential`; (G2) the identity's non-vacuity needs the T16
-  `localPotential` assembly (lane 358, not in this worktree). Placement bundling `place : PlacementData P`
-  deferred (bare `x₀ : Space`, `T : ℝ`, like canonical T16; `PacketAPI` is in `verification/`, unreachable
-  from `formalization/`).
+  must add that field or truncate v à la T16 `BallPotential`; the six theorem docstrings mark `hv` as an
+  added premise. G3 (lead ruling): placement bundling stays bare `x₀ : Space`, `T : ℝ` (canonical T16;
+  `PlacementData`/`PacketAPI` live in `verification/`, unreachable from `formalization/`); assembly
+  instantiates `place.x₀`/`place.T`.
 
 - **U4 — force profile fields + identity** (Euclidean reuse). New `Section3/T17/ForceProfile.lean`.
   Targets `force_profile_smooth`, `force_profile_support`, `forceProfileConst`, `forceProfileConst_nonneg`,
