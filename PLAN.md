@@ -180,9 +180,9 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 412-MAINT-t17-forceprofile-merge-repair | 已合入：ForceProfile.lean 修复（integration 版本 + 394 文档；lead 首次恢复会丢 375 rev1 的两条定理，Opus 发现并修正）；T17 闭包/22 探针/门禁全绿；解锁 T18 #377 | 09-18 1715Z | #377 | — | MAINT：#366 union 合并损坏 T17/ForceProfile.lean（重复 import、拆裂 docstring）→ 恢复为 394 已审版本（c4be85b0），全 T17 闭包 + 探针 + 门禁验证 |
 | 413-T20-U7-critical-trilinear | Opus 完成：criticalTrilinear（环面三因子 Hölder + T12 U4/U6；常数 CcriticalHalf·CcriticalThreeHalves² = 16·CcriticalHalf³；U8 桥 rfl）→ 排队 codex 审稿；U8 解锁 | 09-18 1716Z | — | — | T20 U7：均值零临界三线性估计 abs⟪(v·∇)v,Λv⟫ ≤ C₀ y z²（三因子 Hölder + T12 U4/U6），U8 criticalEnergy 的核心 |
 | 414-T24-Ua4-force-smooth-support | Opus 完成：force_smooth（需 0<τ₀、τ₁<1）+ force_support（仅需 0<τ₀）逐字，vendor ResidualRegularity 局部性引理粘合 → 排队 codex 审稿 | 09-18 1716Z | — | — | T24a Ua4：force_smooth + force_support（修正力跨 t=1 的光滑零延拓与紧正时间支撑，②） |
-| 415-T20-U8-critical-energy | worktree 安装中（基于 413 + integration）→ Opus prover | 09-18 1716Z | — | — | T20 U8：criticalEnergy（eq:criticalenergy：y² 导数 + 压力消去 + 常输运反自伴 + 耗散 + U7 三线性 + 力项 ≤ b y） |
+| 415-T20-U8-critical-energy | Opus prover 子代理运行中 | 09-18 1727Z | — | — | T20 U8：criticalEnergy（eq:criticalenergy：y² 导数 + 压力消去 + 常输运反自伴 + 耗散 + U7 三线性 + 力项 ≤ b y） |
 | 416-SPEC-t21-reconcile | Opus prover 子代理运行中（对账 DraftA/DraftB → RECONCILIATION.md + Spec.lean） | 09-18 1726Z | — | — | T21 spec 对账：DraftA（410）vs DraftB（411）→ research/T21/RECONCILIATION.md（lead 审批后定稿 Spec.lean） |
-| 417-T24-Ua7-infinite-dimensional | worktree 安装中 → Opus prover | 09-18 1716Z | — | — | T24a Ua7：infinite_dimensional（可数个不交球上 curl-bump 族 + 线性无关，④） |
+| 417-T24-Ua7-infinite-dimensional | Opus prover 子代理运行中 | 09-18 1727Z | — | — | T24a Ua7：infinite_dimensional（可数个不交球上 curl-bump 族 + 线性无关，④） |
 | 418-T22-UZ1-zero-extension-comparison | worktree 安装中（基于 409 + integration）→ codex sol | 09-18 1716Z | — | — | T22 U-Z1：zeroExtensionComparison 装配（U-A3 常数 + U-B1/B2/B3） |
 | 419-T12-UREG-contract | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T12 合同注册：T01.mean_zero_calculus（MeanZeroSobolevCalculusAPI 9 字段 + 绑定 + 测试，43 合同） |
 | 420-T24-Uc3-conservative-registration | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T24c Uc3：ConservativeForcingAPI 装配 + 注册 T04.conservative_forcing（Uc1+Uc2；真实 ClassicalSolutionT 非空见证） |
