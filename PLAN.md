@@ -86,3 +86,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 318-T11-U9d-physical-recovery | 已合入 #291 作为**部分基础**（审稿 REJECT：未达目标/未剥离；已证内容无误）→ 目标由 319/320 承接 | 09-18 0320Z | #291 | — | T11 U9d：物理恢复 —— 由强迫 mild 系数解在公共 horizon 上构造 `ClassicalSolutionT`（全阶 bootstrap、Fourier 反演得物理速度、Leray 压力、动量方程）+ `PeriodicLocalRegularity`；允许一个具名输入 |
 | 319-T11-U9d1-persistence | worktree 安装中→自动启动（codex astra low，sol 备用） | 09-18 0319Z | — | — | T11 U9d1：H³ 强迫 mild 解在共同 horizon 上保持全阶（半阶步进 bootstrap 或正则性持续 + Grönwall）；允许一个具名输入 |
 | 320-T11-U9d2-classical-assembly | worktree 安装中→自动启动（codex astra low，sol 备用） | 09-18 0320Z | — | — | T11 U9d2：由全阶系数解（单一具名输入 `PersistenceInput` 或 319 的定理）装配物理速度/压力/动量方程 → `ClassicalSolutionT` + `PeriodicLocalRegularity`（U9d 目标） |
+| 321-T11-U10-U11-restart-horizon | 排队（简报已写） | 09-18 0325Z | — | — | T11 U10+U11：`restart`（对着具名输入 `PeriodicQuantitativeLocalInput'`，按阶力界 M m := ‖f‖_{L¹H^m}）与 `horizon`/`solution`/`regularity`（M，sol） |
+| 322-T11-U12-high-order | 排队（astra；简报已写） | 09-18 0325Z | — | — | T11 U12：`higherOrderBound`（周期 eq:Rhigh 的 H^m 能量恒等式 + Grönwall；tame product 作为唯一具名输入）（L，astra） |
+| 323-T11-U15-maximal | 排队（简报已写） | 09-18 0325Z | — | — | T11 U15：`exists_maximal`/`maximal_unique` + `maximalLifespanT = PeriodicLifespan.lifespan`（复用 Paper1 无条件粘合）（M，sol） |
