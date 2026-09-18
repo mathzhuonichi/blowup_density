@@ -79,3 +79,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 309-T11-U2-criterion-bridge | 已合入 #285（codex ACCEPT-WITH-NOTES：仅 markdown 笔误） | 09-18 0200Z | #285 | — | T11 U2：光滑周期场各阶 datum 存在与有限性、`squaredHTwoIntegralT ≠ ⊤ ↔ FiniteH2Energy (toFlow w)` 双向（L，astra） |
 | 312-T10-force-paths | 排队（简报已写） | 09-18 0105Z | — | — | T10 第 11/12 项（305 审稿指出的遗漏）：`MemForceT` 力的各阶系数路径（连续/可测、`L¹_tH^m`/`L²_tH^m` 有限）+ 向量梯度/能量物理-系数恒等式 + 向量场分量推论 |
 | 313-T11-U9b-existence-construction | worktree 安装中→自动启动（codex **astra** low，sol 备用） | 09-18 0139Z | — | — | T11 U9b：按 311 定的 R2 路线，具名输入改为按阶力界的 `PeriodicQuantitativeLocalInput'`（lead 修正 1，`research/T11/LEAD_AMENDMENTS.md`）；证 EXISTENCE_ROUTE 的前两项（投影对流符号的双线性估计、强迫 Picard 不动点与寿命下界） |
+| 314-T11-U4-rescaling | 排队（简报已写） | 09-18 0203Z | — | — | T11 U4：粘性代数 `inverse_identities`/`scaled_classes`（S，sol） |
+| 315-T11-U5-uniqueness | 排队（简报已写） | 09-18 0203Z | — | — | T11 U5：唯一性包 `velocity_unique`/`pressure_unique`/`horizon_le_lifespan`（复用 Paper1 `normalized_flows_agree`）（M，sol） |
+| 316-T11-U7-mean-identity | 排队（简报已写；astra） | 09-18 0203Z | — | — | T11 U7：均值恒等式 `mean_formula`/`mean_derivative`（积分动量方程，Haar 积分下求导）（L，astra） |
