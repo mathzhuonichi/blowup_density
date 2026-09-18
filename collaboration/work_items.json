@@ -301,7 +301,9 @@
       "kind": "specification",
       "state": "in-progress",
       "owner": "erenup",
-      "contracts": [],
+      "contracts": [
+        "T01.torus_data"
+      ],
       "deliverable": "Reconcile research/T10/Spec.lean from the lane 263/264 drafts, review its comparison, and register the accepted versioned contract under parent task T01 with its typed binding and axiom test."
     },
     {
