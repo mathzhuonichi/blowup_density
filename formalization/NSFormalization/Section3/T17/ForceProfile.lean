@@ -41,10 +41,12 @@ built from the abstract T16 correction `D.correction ε` and the T17 force
 operator (with the two middle summands reordered relative to
 `Source.correctionForce`).  This module proves the identity for the **chart
 force** `Source.correctionForce ν v (physicalCorrection …)`
-(`physicalForce_eq_rescaledForceProfile`), which is exactly the honest,
-tree-provable content: it needs `hv, hθ, hη` and `ε ≠ 0` only.  The lift from
-the chart force to the Spec field is U2's `force_eq` (lane 373, not on this
-base); its exact residual statement is recorded in `research/T17/ATTEMPTS_U4.md`.
+(`physicalForce_eq_rescaledForceProfile`), which is exactly the chart-level
+content: it needs `hv, hθ, hη` and `ε ≠ 0` only.  U2's `Transport.force_eq` is
+present on this base and lifts the chart force to the periodized Spec field;
+the composition and its single-copy germ are recorded in
+`research/T17/ATTEMPTS_UCAN.md` ("G1 and the honest U4 residual") and checked by
+`research/T17/probes/force_profile_canonical.lean`.
 
 ## Vocabulary note (placement bundling)
 
@@ -242,9 +244,11 @@ theorem inverseScale_correctionChartPoint (x₀ : Space) (T ε : ℝ) (hε : ε 
   · rw [smul_smul, inv_mul_cancel₀ hε, one_smul]
 
 /-- `03-torus.tex:264-272`: the **chart force** equals `ε⁻²` times the bracket
-`H_ε`.  This is the tree-provable content of `force_profile_identity`; the lift
-to the Spec field's `correctionForce ν v D ε` (over `D.correction`) is U2's
-`force_eq` (lane 373), whose exact residual is recorded in `ATTEMPTS_U4.md`. -/
+`H_ε`.  The lift to the Spec field's `correctionForce ν v D ε` (over
+`D.correction`) uses the present U2 theorem `Transport.force_eq`; the canonical
+composition and single-copy germ are recorded in `research/T17/ATTEMPTS_UCAN.md`
+("G1 and the honest U4 residual") and checked by
+`research/T17/probes/force_profile_canonical.lean`. -/
 theorem physicalForce_eq_rescaledForceProfile (ν : ℝ) {v : SpaceTimeField}
     (hv : ContDiff ℝ ∞ v) (x₀ : Space) (T : ℝ) (D : CutoffData)
     (hθ : ContDiff ℝ ∞ D.θ) (hη : ContDiff ℝ ∞ D.η) :

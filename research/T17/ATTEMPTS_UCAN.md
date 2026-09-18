@@ -95,6 +95,13 @@ assembly must obtain `hv` by chart truncation or state it as an assembly
 hypothesis.
 
 The landed U4 identity is the single-copy chart-force identity.  It does not
-by itself prove the record's periodized `force_profile_identity`; U2's
-`force_eq` plus the local single-copy germ is the remaining assembly bridge.
-No such field proof is added in this statement-only lane.
+by itself prove the record's periodized `force_profile_identity`; U2's present
+`Transport.force_eq` plus the local single-copy germ is the required bridge.
+That bridge is now closed at the concrete `correctionData` by
+`NSFormalization.Section3.T17.force_profile_identity_canonical` in
+`research/T17/probes/force_profile_canonical.lean`.  The proof obtains
+`r < 1/2` from the record's `radius_pos`, `ball_in_chart`, and
+`place.chartBall_in_cube`, collapses the lifted single-copy force on each
+profile-cylinder chart point with `T16.latticeLift_eq_of_ball`, and then applies
+`physicalForce_eq_rescaledForceProfile`.  No premise beyond the record's own
+preceding hypotheses and the documented G1 hypothesis `hv` is used.
