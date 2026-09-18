@@ -77,7 +77,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 310-T11-U3-galilean-classes | 已合入 #287（codex 审稿 ACCEPT） | 09-18 0243Z | #287 | — | T11 U3：`translation_preserves_sobolev`/`transformed_classes`/`transformed_mean_zero`（M，sol） |
 | 311-T11-U9a-existence-probe | 已合入 #283（codex 审稿 ACCEPT）：R2 路线、两空间契约、热半群第一阶 | 09-18 0139Z | #283 | — | T11 U9a：周期局部存在性路线探针（R1 HeliCorgi 端点层 vs R2 A01 柱面路线），具名输入 `PeriodicQuantitativeLocalInput`，至少证一条归约/一阶（L，astra） |
 | 309-T11-U2-criterion-bridge | 已合入 #285（codex ACCEPT-WITH-NOTES：仅 markdown 笔误） | 09-18 0200Z | #285 | — | T11 U2：光滑周期场各阶 datum 存在与有限性、`squaredHTwoIntegralT ≠ ⊤ ↔ FiniteH2Energy (toFlow w)` 双向（L，astra） |
-| 312-T10-force-paths | 完成（astra：力的各阶连续系数路径 + 有限范数 + 梯度/能量恒等式；无命名输入）→ codex 审稿中（rev-312） | 09-18 0331Z | — | — | T10 第 11/12 项（305 审稿指出的遗漏）：`MemForceT` 力的各阶系数路径（连续/可测、`L¹_tH^m`/`L²_tH^m` 有限）+ 向量梯度/能量物理-系数恒等式 + 向量场分量推论 |
+| 312-T10-force-paths | 已合入 #293（codex 审稿 ACCEPT）：T10 第 11/12 项补齐 | 09-18 0350Z | #293 | — | T10 第 11/12 项（305 审稿指出的遗漏）：`MemForceT` 力的各阶系数路径（连续/可测、`L¹_tH^m`/`L²_tH^m` 有限）+ 向量梯度/能量物理-系数恒等式 + 向量场分量推论 |
 | 313-T11-U9b-existence-construction | 已合入 #286（codex 审稿 ACCEPT）：强迫 Picard 不动点；剩一个具名输入 TorusConvolutionInput → 317 | 09-18 0214Z | #286 | — | T11 U9b：按 311 定的 R2 路线，具名输入改为按阶力界的 `PeriodicQuantitativeLocalInput'`（lead 修正 1，`research/T11/LEAD_AMENDMENTS.md`）；证 EXISTENCE_ROUTE 的前两项（投影对流符号的双线性估计、强迫 Picard 不动点与寿命下界） |
 | 314-T11-U4-rescaling | 已合入 #289（codex 审稿 ACCEPT） | 09-18 0259Z | #289 | — | T11 U4：粘性代数 `inverse_identities`/`scaled_classes`（S，sol） |
 | 315-T11-U5-uniqueness | 已合入 #292（codex 审稿 ACCEPT） | 09-18 0321Z | #292 | — | T11 U5：唯一性包 `velocity_unique`/`pressure_unique`/`horizon_le_lifespan`（复用 Paper1 `normalized_flows_agree`）（M，sol） |
@@ -90,6 +90,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 322-T11-U12-high-order | 排队（astra；简报已写） | 09-18 0325Z | — | — | T11 U12：`higherOrderBound`（周期 eq:Rhigh 的 H^m 能量恒等式 + Grönwall；tame product 作为唯一具名输入）（L，astra） |
 | 323-T11-U15-maximal | 排队（简报已写） | 09-18 0325Z | — | — | T11 U15：`exists_maximal`/`maximal_unique` + `maximalLifespanT = PeriodicLifespan.lifespan`（复用 Paper1 无条件粘合）（M，sol） |
 | 324-SPEC-t20-spec | 排队（下一个空位；简报已写） | 09-18 0330Z | — | — | SPEC **T20 定稿**：按 research/T20/RECONCILIATION.md（B 为基 + A 拼写；零初值命题；Type 值 `CriticalRegularityTAPI` 12 常数字段 + 11 定理字段；无 API 索引）→ Spec.lean + COMPARISON.md |
-| 325-T11-U9d1a-half-step | 排队（下一个空位；astra；简报已写） | 09-18 0335Z | — | — | T11 U9d1-analytic：偿还 319 的具名输入 `TorusHalfStepInput`（实阶卷积界 H^r×H^r→H^{r−1}、分数阶热光滑 σ=3/2 核 (νt)^{-3/4}、Duhamel 端点连续）→ 持续性无条件 |
+| 325-T11-U9d1a-half-step | worktree 安装中→自动启动（codex astra low，sol 备用） | 09-18 0350Z | — | — | T11 U9d1-analytic：偿还 319 的具名输入 `TorusHalfStepInput`（实阶卷积界 H^r×H^r→H^{r−1}、分数阶热光滑 σ=3/2 核 (νt)^{-3/4}、Duhamel 端点连续）→ 持续性无条件 |
 | 326-T11-U9d2a-pressure | 排队（astra；简报已写） | 09-18 0340Z | — | — | T11 U9d2a：mild 解的压力（Leray 补的系数构造、物理场、`pressure_gradient/smooth/gauge/periodic/poisson`）在 `PersistenceInput` 下 |
 | 327-T11-U9d2b-momentum | 排队（astra；简报已写） | 09-18 0340Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
