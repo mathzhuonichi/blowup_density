@@ -190,3 +190,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 422-T18-U1-insertion-data | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T18 U1：插入三元组 + 三个 eq:insertion 公式 + 阈值 + 平凡假设字段（Insertion.lean，canonical T15/T17 记录） |
 | 423-T22-UREG-contract | worktree 安装中（基于 418 + integration）→ codex sol | 09-18 1740Z | — | — | T22 U-REG：BoundedDomainNormAPI 装配 + 注册 T04.bounded_domain_norm（合同/绑定/测试/非空） |
 | 424-T24-Ua8-nonisolated | Opus prover 子代理运行中 | 09-18 1746Z | — | — | T24a Ua8：nonisolated（Ũ_{λb}−U = λb、F̃_{λb}−F = λL_U b + λ²(b·∇)b 的 C^m 半范数 → 0，⑤） |
+| 425-T17-U7-force-support | worktree 安装中 → Opus prover | 09-18 1747Z | — | — | T17 U7：周期化修正力的 force_smooth / force_periodic / force_support（force_eq + Paper1 profile 引理 + T16 latticeLift 引理；G1 hv 前提） |
