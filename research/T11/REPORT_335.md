@@ -34,7 +34,10 @@ Section 4 的 `ℓ²` 数据路径路线（那条在本分支上被 `PeriodicQua
 |---|---|
 | `velocityCoeffT` / `velocityDerivCoeffT` | `û ᵢ(t,k)` 与 `(∂ₜuᵢ)^(t,k)` |
 | `hasDerivAt_velocityCoeffT` | **积分号下求导**：开时间域上 `d/dt û ᵢ(t,k) = (∂ₜuᵢ)^(t,k)`，只用 `velocity_smooth`（经 `Paper1.periodicFourierCoeff_eq_cube` + `PeriodicIntegration.hasDerivAt_cubeIntegral_of_contDiffOn`） |
-| `velocityDerivCoeffT_momentum` | 动量方程的系数形式 `d/dt û ᵢ(k) = −ν|2πk|²û ᵢ(k) + (f̂ ᵢ(k) − Q̂ ᵢ(k)) − 2πikᵢp̂(k)`，`Q = (u·∇)u = convectionFieldT u` |
+| `velocityDerivCoeffT_momentum` | 动量方程的系数形式（压力显式，辅助引理）`d/dt û ᵢ(k) = −ν|2πk|²û ᵢ(k) + (f̂ ᵢ(k) − Q̂ ᵢ(k)) − 2πikᵢp̂(k)`，`Q = (u·∇)u = convectionFieldT u` |
+| `velocityDerivCoeffT_momentum_projected` | **任务书要求的投影形式** `d/dt û(t)(k) = −ν·4π²|k|²·û(t)(k) + (P̂(f̂(t) − Q̂(t)))(k)`；`P̂` = `T10.periodicLeray` 在频率 `k` 上的符号（`lerayAt`，`rfl` 桥 `MildMomentum.periodicLeray_eq_lerayAt`，探针中给出） |
+| `solenoidal_velocityDerivCoeffT` | `d/dt û` 也是无散度的（系数散度在 `Ioo 0 T` 上恒为 0，求导得 0） |
+| `lerayAt_of_solenoidal` / `lerayAt_gradient` | `P̂` 固定无散度向量（`T10.Leray.periodicLeray_of_solenoidal` 的裸系数版）、湮灭梯度 `2πikᵢq` |
 | `solenoidal_velocityCoeffT` | 由 `w.divergence` 得系数侧无散度 `∑ⱼ 2πikⱼû ⱼ(k) = 0` |
 | `torusPressureSymbol_drop_raw` | 压力项逐频率归零（322 的 `torusPressureSymbol_drop` 的去权重版） |
 | `hasSum_freqEnergyT` | 向量 Parseval：`‖u(t)‖²_{H^m} = ∑ₖ W(k)^m ∑ᵢ|û ᵢ(t,k)|²` |
@@ -54,13 +57,29 @@ Section 4 的 `ℓ²` 数据路径路线（那条在本分支上被 `PeriodicQua
 
 探针 `research/T11/probes/energy_identity_closes.lean`：
 `hRhigh_closes`（322 binder 原文）与 `higherOrderBound_closes`
-（`api_on_canonical.lean:111-120` 字段原文）都从单条配对假设闭合；非平凡性用
+（`api_on_canonical.lean:111-120` 字段原文）都从单条配对假设闭合；
+`projected_momentum_closes` 把任务书的投影系数方程（`4π²|k|²` 写开）原样闭合，
+并用一条 `example` 给出 `periodicLeray s A i k = lerayAt k (fun j ↦ A.1 j k) i` 的 `rfl` 桥；
+非平凡性用
 空间齐次受力解 `u(t,x) = eᵗc`（`torusHomogeneousSolution`，`c ≠ 0`）：`HasDerivAt.unique`
 把恒等式右端**钉死**在 `2e^{2t}‖K‖² > 0`，即在非零解、非零力上这条恒等式给出的是一个
 严格正的具体数，不是空话。
 
-审计 `research/T11/axioms_energy_identity.lean`：51 条 `#guard_msgs` 卡住的
+审计 `research/T11/axioms_energy_identity.lean`：55 条 `#guard_msgs` 卡住的
 `#print axioms`，每条都恰好是三条标准公理。
+
+负例（reviewer 的符号突变，保留原文）`research/T11/probes/rev335_mutation_sign.lean`：
+只把 `energyIdentity_of_classical` 结论里的耗散号 `-2*ν*…` 改成 `2*ν*…`，必须失败，
+且失败在结论而不是漏前提：
+```
+error: Type mismatch
+  energyIdentity_of_classical w hf m ht hGm hFm hNm
+has type   HasDerivAt … (-2 * ν * torusGradientNormAt (↑m) w.velocity t ^ 2 + …) t
+but is expected to have type
+           HasDerivAt … ( 2 * ν * torusGradientNormAt (↑m) w.velocity t ^ 2 + …) t
+```
+该文件是**预期失败**的检查件（与 `rev330_negative.lean` 同惯例），不进门禁清单；
+正面对照是探针里的 `energyIdentity_positive`（把右端钉死在 `2e^{2t}‖K‖² > 0`）。
 
 ## 3. 缺口是什么（what is missing）
 
@@ -86,6 +105,12 @@ Section 4 的 `ℓ²` 数据路径路线（那条在本分支上被 `PeriodicQua
 
 另外两处口径说明，供 lead 判断：
 
+* 全树 gap search 只找到全空间的近亲，**没有**环面上用 `torusRealPairing` /
+  `torusGradientNormAt` 拼写的那一条：`Section4/A03/OuterTameProduct.lean:172-179`
+  `outerProductTame`（`ℝ³` 外积 tame 估计，是 SL5 的配料不是配对界）、
+  `Section4/A04/HighEnergy.lean:125-146` `inner_energy_Rhigh`（全空间载体上的通用
+  `eq:Rhigh` 内积步）、`Section4/A01/ConvectionDivergence.lean:111-118`（`ℝ³` 的
+  advection/张量散度桥）。残留缺口是真的。
 * 恒等式里的对流项用 `advection`（= `(u·∇)u`，动量方程残差里的那一项），不是
   `convectionDivergenceT`（张量散度）。在无散度下两者相等，但本 lane 不需要那条等式，
   所以没有引入。若 U12b 更方便在张量散度形式上做，桥接引理（`advection = ∇·(u⊗u)`，
@@ -104,10 +129,35 @@ cd verification && LEAN_NUM_THREADS=6 lake env lean ../formalization/NSFormaliza
 cd verification && LEAN_NUM_THREADS=6 lake env lean ../research/T11/probes/energy_identity_closes.lean
   → 无输出
 cd verification && LEAN_NUM_THREADS=6 lake env lean ../research/T11/axioms_energy_identity.lean
-  → 无输出（51 条 #guard_msgs 全部通过）
+  → 无输出（55 条 #guard_msgs 全部通过）
 make check   → RC=0
 make test    → RC=0（已注册合同闭包不受影响）
 ```
 
 无 `sorry` / `admit` / `axiom` / `native_decide`，无 `set_option maxHeartbeats`，
-未改动任何既有模块（只新增三个文件 + 记录）。
+未修改任何既有文件的数学内容。
+
+**精确 diff**（`git diff --name-status origin/erenup/integration-section3...HEAD`，
+合并基取 `2c483236`；注意本车道基线里已本地并入 322 与 327，所以它们的文件在这里
+也显示为新增 `A`，不是本车道的改动）：
+
+```
+A  formalization/NSFormalization/Section3/T11/EnergyIdentity.lean      ← 本车道
+A  formalization/NSFormalization/Section3/T11/HighOrder.lean           ← lane 322（已并入基线）
+A  formalization/NSFormalization/Section3/T11/MildMomentum.lean        ← lane 327（已并入基线）
+A  research/T11/ATTEMPTS_ENERGY_IDENTITY.md                            ← 本车道
+A  research/T11/ATTEMPTS_HIGH_ORDER.md                                 ← lane 322
+A  research/T11/ATTEMPTS_MILD_MOMENTUM.md                              ← lane 327
+M  research/T11/EXISTENCE_ROUTE.md                                     ← lane 327
+A  research/T11/REPORT_322.md / REPORT_327.md                          ← 322 / 327
+A  research/T11/REPORT_335.md                                          ← 本车道
+M  research/T11/T11_SPLIT.md                                           ← 本车道只追加一行（322/327 各自的行已在基线里）
+A  research/T11/axioms_energy_identity.lean                            ← 本车道
+A  research/T11/axioms_high_order.lean / axioms_mild_momentum.lean     ← 322 / 327
+A  research/T11/probes/energy_identity_closes.lean                     ← 本车道
+A  research/T11/probes/high_order_closes.lean / mild_momentum_closes.lean ← 322 / 327
+```
+
+复审后另加：`research/T11/probes/rev335_mutation_sign.lean`（reviewer 的负例，原样保留）
+与 `research/T11/REVIEW_335-T11-U12a-energy-identity.md`。本车道**没有**修改
+`HighOrder.lean` / `MildMomentum.lean` 或任何既有模块。
