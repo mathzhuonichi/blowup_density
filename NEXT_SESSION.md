@@ -16,6 +16,7 @@
 
 ## 日志（最新在前）
 
+- **2026-09-18（lane 355）**：T14 packet import 已注册为 `T01.packet_import`（40 合同）；合同、绑定、测试、axioms 审计与报告落地，`scripts/gates.sh`、base-aware contract check、mutation gate 全绿；claim 与合同分 commit。
 - **2026-09-18 0805Z**：340 交付 `T01.torus_local_theory`（39 合同）；341/342 交付 T12 五字段；346（T14）/347（T16）启动；338 合入 #312。
 - **2026-09-17 2055Z**：第 4 节全量编译验证 + 报告并入 #259；T14/T22 reconciliation 与 280/281 启动。
 - **2026-09-17 2105Z**：T16 reconciliation，279 启动；T10 定稿（277）合入 #262；278（T13 定稿）启动。

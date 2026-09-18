@@ -21,6 +21,31 @@ the primitive square. The canonical probe fills both fields for
 
 All audited declarations use exactly `[propext, Classical.choice, Quot.sound]`.
 
+## Registered (`T01.packet_import`, lane 355)
+
+The T14 packet-import contract is now registered as version 1.  The contract
+surface has five declarations copied from the reconciled specification:
+`accumulatedForce`, the two-field `PacketEnergyAPI`, the extending
+`PacketImportAPI`, `packetImportStatement`, and the data-carrying
+`PacketImportFamily`.  `Contracts.V1.PacketImport` imports only the frozen
+packet contract and keeps the two `eq:packetenergy` factors (`2ν` and `2`) and
+the `Ioo 0 t` set-integral form token-for-token.
+
+The binding and test files are respectively
+`verification/Bindings/PacketImport.lean` and
+`verification/Tests/PacketImport.lean`.  The binding has one definitional
+bridge for `accumulatedForce`, constructs the family from
+`Bindings.packet ν hν`, and transports the canonical T14 theorems through
+`l2Sq_eq` and `dissipation_eq`.  The test checks the existential statement,
+both energy fields, and a velocity non-vacuity equality.  The registry entry is
+`T01.packet_import`; the T14 ledger lists that component after rendering.
+
+There are no new theorem gaps.  The scope deliberately excludes periodization,
+T10 Fourier data, and any torus proxy; it consumes the registered `I01.packet`
+witness and the already proved `Section3.T14.PacketEnergy` theorems.  The
+remaining downstream gap is T15's placement/periodization contract, not a T14
+obligation.
+
 ## Paper clause → Lean field, provenance, and ruling
 
 “Inherited” means a literal field of
