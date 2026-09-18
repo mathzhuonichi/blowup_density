@@ -191,6 +191,31 @@ Answer to reconciliation open question 1 recorded in `SPEC_ISSUES.md` §1: B's
 globally-quantified `potential_formula` is satisfiable definitionally, but the
 *local* smoothness/curl hypotheses block direct I02 reuse.
 
+## Lane 352 (T16 gap 2: lattice lift) — status
+
+The entire periodic-correction block flagged "Open" above is now **closed** in
+`formalization/NSFormalization/Section3/T16/LatticeLift.lean` (all decls print
+`[propext, Classical.choice, Quot.sound]`):
+
+* `latticeLift w = periodize w` by `rfl` (frequency `latticeVector = lattice`
+  agrees definitionally), so OpenAI's `NavierStokes.PeriodicLocalization` is
+  reused verbatim.  The seven `correction_*` fields are transported:
+  `latticeLift_smooth`, `latticeLift_periodic`, `latticeLift_eq_of_ball`
+  (`correction_formula`), `latticeLift_divergence_zero`,
+  `latticeLift_timeSupport` (`correction_support`), `latticeLift_sliceSupport`
+  (`correction_support_ball`), `latticeLift_cancels` (`correction_cancels`).
+* Packaged as `correction_fields_of_chart`: the seven canonical field bodies for
+  `fun ε => latticeLift (W ε)` from chart-level hypotheses.  Probe
+  `probes/lattice_lift_closes.lean` restates each field verbatim + a nonzero bump.
+* The `hWcancel` hypothesis is a **lane-358 assembly obligation, not proved here**:
+  the periodic packet bound `⊆ periodicSet O` (358: `periodicScaledPacket =
+  latticeLift (scaledPacket)` + T14 `delayed_full_support` + `latticeLift_sliceSupport`)
+  and the pointwise cancellation on `O` (358: `theta_one`/`eta_one` via
+  `exists_local_background_removal`).  That chart lemma returns the *eventual*
+  form; this lane adds `cancel_of_eventually` (eventual→pointwise) and
+  `correction_fields_of_chart'` (accepts the eventual form directly).
+* Note: `LocalPotentialAPI` has **seven** `correction_*` fields (the brief's
+  "eight" double-counts `support`/`support_ball`).
 ## Status (lane 351, 2026-09-18) — Gap 1 closed for the potential
 
 Proof lane 351 (Opus) delivered
@@ -221,3 +246,45 @@ potential on the chart ball) for general local `v`:
 
 All 8 new declarations print `[propext, Classical.choice, Quot.sound]`
 (`research/T16/axioms_ball_potential.lean`).
+## Lane 352 (T16 gap 2: lattice lift) — status
+
+The entire periodic-correction block flagged "Open" above is now **closed** in
+`formalization/NSFormalization/Section3/T16/LatticeLift.lean` (all decls print
+`[propext, Classical.choice, Quot.sound]`):
+
+* `latticeLift w = periodize w` by `rfl` (frequency `latticeVector = lattice`
+  agrees definitionally), so OpenAI's `NavierStokes.PeriodicLocalization` is
+  reused verbatim.  The seven `correction_*` fields are transported:
+  `latticeLift_smooth`, `latticeLift_periodic`, `latticeLift_eq_of_ball`
+  (`correction_formula`), `latticeLift_divergence_zero`,
+  `latticeLift_timeSupport` (`correction_support`), `latticeLift_sliceSupport`
+  (`correction_support_ball`), `latticeLift_cancels` (`correction_cancels`).
+* Packaged as `correction_fields_of_chart`: the seven canonical field bodies for
+  `fun ε => latticeLift (W ε)` from transportable chart hypotheses.  Probe
+  `probes/lattice_lift_closes.lean` restates each field verbatim + a nonzero bump.
+* Note: `LocalPotentialAPI` has **seven** `correction_*` fields (the brief's
+  "eight" double-counts `support`/`support_ball`).
+
+## Lane 358 (T16 assembly: `localPotential`) — status
+
+`theorem localPotential : localPotentialStatement` is **closed** in
+`formalization/NSFormalization/Section3/T16/Assembly.lean` — **all 26 fields of the
+reconciled `LocalPotentialAPI` discharged** for general local `v` (no `v = 0`
+restriction), every declaration `[propext, Classical.choice, Quot.sound]`:
+
+* 16 cutoff/threshold fields ← lane 347 (`exists_originCutoff`/`exists_timeCutoff`/
+  `exists_threshold`); 3 potential fields ← lane 351 (`potential := timePotential v x₀`);
+  7 correction fields ← lane 352's fixed `correction_fields_of_chart`, with
+  `correction := fun ε => latticeLift (physicalCorrection v x₀ T θ η ε)`.
+* The chart hypotheses of `correction_fields_of_chart` are discharged by:
+  `hWformula` = `rfl`; `hWcompact` = `physical_compact`; `hWtsupp` = `physical_support`;
+  `hWsmooth`/`hWdiv` = new **local-reference** companions
+  (`physicalCorrection_contDiff`/`physicalCorrection_divergence`, joint spacetime
+  truncation of `(η_ε θ_ε)•A`); `hWcancel` = `physicalCorrection_cancels` on the
+  scaled plateau `x₀+ε•O`, packet bound via the time-truncated packet +
+  `latticeLift_sliceSupport_closed`.
+* Probe `probes/assembly_closes.lean`: `localPotential` closes the canonical
+  statement, the reconciled Spec's copy (through `T16Probe.specStatement_of_module`),
+  and a nonzero constant divergence-free non-vacuity instance.  Axiom audit
+  `axioms_assembly.lean` (11 decls).  Depends on merge of `erenup/352-T16-lattice-lift`
+  (local cancellation interface).
