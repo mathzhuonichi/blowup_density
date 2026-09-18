@@ -201,3 +201,17 @@ lead in `PLAN.md`.
 3. **Nonlinear-term periodization (U8).** Periodization must commute with the convective derivative
    across cell boundaries; rely on `contDiffOn_periodize` + local finite-sum differentiation, not termwise
    `tsum` differentiation.
+
+## U1 status — lane 362 (`362-T15-U1-bridges`)
+
+**Complete.** `formalization/NSFormalization/Section3/T15/Bridges.lean` now
+contains the canonical T15 rescaling definitions and the `rfl` bridges to the
+upstream parabolic rescalings, the normalized-pressure formula, both completed-
+density spellings, and the lane-352 T13/vendor periodizer equality.  The
+contract-side conformance probe is
+`research/T15/probes/api_on_canonical.lean`; its packet-specific definitions
+are token-for-token copies of the Spec definitions and all close by `rfl`.
+The axiom audit is `research/T15/axioms_u1.lean`.
+
+No U2--U15 analytic field is claimed here; those are the remaining gaps listed
+above and in §1.
