@@ -105,3 +105,6 @@ lake env lean ../research/T11/axioms_transport.lean                           �
 make check（worktree 根）  → plan/contracts/policy(13 tests)/work queue 全过
 make test                  → 已注册合同闭包全部 "standard logical axioms only"
 ```
+
+## Review corrections (codex, ACCEPT-WITH-NOTES)
+Per `research/T11/REVIEW_331-T11-U6-transport.md` §3: the "no `C^∞` datum path in the tree" claim is applicable to the torus vocabulary only (Section 4 has `ManuscriptLocalRegularity.sobolev_smooth`/`sobolev_smooth_of_pipeline` on the whole-space carrier); the constructor covers `β = 1` (no spatial dilation), which is all three instances need; `transformed_solution_two_clauses` carries an extra `projected` conjunct beyond the API field; `ClassicalSolutionT` has 13 fields (the report said 14); dependency warnings may print during the build. Lean content unchanged. The regularity residual is lane 339.

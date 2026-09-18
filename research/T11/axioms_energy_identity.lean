@@ -1,7 +1,7 @@
 import NSFormalization.Section3.T11.EnergyIdentity
 
 /-! Exact axiom audit of **every** declaration in
-`Section3/T11/EnergyIdentity.lean`: all 51 print exactly
+`Section3/T11/EnergyIdentity.lean`: all 55 print exactly
 `[propext, Classical.choice, Quot.sound]`.
 
 No `sorry`, no `admit`, no new axiom, no `native_decide`, no
@@ -148,6 +148,22 @@ No `sorry`, no `admit`, no new axiom, no `native_decide`, no
 /-- info: 'NSFormalization.Section3.T11.torusPressureSymbol_drop_raw' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.torusPressureSymbol_drop_raw
+
+/-- info: 'NSFormalization.Section3.T11.lerayAt_of_solenoidal' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.lerayAt_of_solenoidal
+
+/-- info: 'NSFormalization.Section3.T11.lerayAt_gradient' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.lerayAt_gradient
+
+/-- info: 'NSFormalization.Section3.T11.solenoidal_velocityDerivCoeffT' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.solenoidal_velocityDerivCoeffT
+
+/-- info: 'NSFormalization.Section3.T11.velocityDerivCoeffT_momentum_projected' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.velocityDerivCoeffT_momentum_projected
 
 /-- info: 'NSFormalization.Section3.T11.weight_half_sq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

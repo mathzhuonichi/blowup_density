@@ -33,8 +33,18 @@ and re-sums at the end:
    `d/dt û ᵢ(k) = −ν|2πk|² û ᵢ(k) + (f̂ ᵢ(k) − Q̂ ᵢ(k)) − 2πikᵢ p̂(k)`,
    with `Q = (u·∇)u` (`convectionFieldT`).  The Laplacian symbol is lane 327's
    `periodicFourierCoeff_spatialLaplacian`; the gradient symbol is
-   `periodicFourierCoeff_fderiv` of T10's Fourier calculus.  No Leray projector
-   is needed: the gradient term is killed at the next step.
+   `periodicFourierCoeff_fderiv` of T10's Fourier calculus.
+2'. **The projected form** (`velocityDerivCoeffT_momentum_projected`), the
+   manuscript's spelling:
+   `d/dt û(t)(k) = −ν·4π²|k|²·û(t)(k) + (P̂(f̂(t) − Q̂(t)))(k)`,
+   with `P̂` the periodic Leray symbol at `k` — `T10.periodicLeray`, read on raw
+   coefficients through the `rfl` bridge `MildMomentum.periodicLeray_eq_lerayAt`
+   (exhibited in the probe).  It follows from 2 by applying `P̂`: `d/dt û` is
+   solenoidal (`solenoidal_velocityDerivCoeffT`, the time derivative of the
+   identically vanishing coefficient divergence) and so is `û`, so `P̂` fixes
+   both (`lerayAt_of_solenoidal`), while the pressure gradient `2πikᵢ p̂(k)` is
+   annihilated (`lerayAt_gradient`).  The energy identity itself uses only the
+   unprojected form 2, because the gradient term is killed at step 3 anyway.
 3. **The pressure drop** (`solenoidal_velocityCoeffT`,
    `torusPressureSymbol_drop_raw`).  `w.divergence` gives
    `∑ⱼ 2πikⱼ û ⱼ(k) = 0`, hence `∑ᵢ conj(û ᵢ(k)) · 2πikᵢ p̂(k) = 0` at **every**
@@ -646,6 +656,139 @@ theorem torusPressureSymbol_drop_raw {c : Fin 3 → ℂ} {k : PeriodicFrequency}
         rw [Finset.mul_sum]
         exact Finset.sum_congr rfl fun i _ ↦ by ring
     _ = 0 := by rw [hcc, mul_zero]
+
+/-! ### 6a. The projected (Leray) form of the coefficient equation
+
+`lerayAt` (`MildMomentum.lean:346`) is `T10.Leray`'s `periodicLeray` symbol read
+on a bare vector of three coefficients at one frequency; the identification is
+the `rfl` lemma `periodicLeray_eq_lerayAt` (`MildMomentum.lean:350`), exhibited
+in the probe.  The two facts below are its raw-coefficient fixed-point and
+annihilation properties, matching `T10.Leray.periodicLeray_of_solenoidal`. -/
+
+/-- A solenoidal raw coefficient vector is fixed by the periodic Leray symbol.
+Raw-coefficient form of `T10.Leray.periodicLeray_of_solenoidal`. -/
+theorem lerayAt_of_solenoidal {c : Fin 3 → ℂ} {k : PeriodicFrequency}
+    (hc : ∑ j : Fin 3, periodicDerivativeSymbol j k * c j = 0) (i : Fin 3) :
+    lerayAt k c i = c i := by
+  have hconst : (2 * Real.pi * Complex.I : ℂ) ≠ 0 :=
+    mul_ne_zero (mul_ne_zero (by norm_num)
+      (Complex.ofReal_ne_zero.mpr Real.pi_ne_zero)) Complex.I_ne_zero
+  have heq : (∑ j : Fin 3, periodicDerivativeSymbol j k * c j) =
+      (2 * Real.pi * Complex.I : ℂ) * ∑ j : Fin 3, (k j : ℂ) * c j := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun j _ ↦ ?_
+    simp only [periodicDerivativeSymbol]
+    ring
+  rw [heq] at hc
+  have hdot : ∑ j : Fin 3, (k j : ℂ) * c j = 0 := (mul_eq_zero.mp hc).resolve_left hconst
+  unfold lerayAt
+  split_ifs with hk
+  · rfl
+  · rw [hdot, mul_zero, sub_zero]
+
+/-- **The periodic Leray symbol annihilates a gradient.**  A datum with scalar
+symbol `q`, i.e. `2πikᵢ q`, is projected to zero at every frequency. -/
+theorem lerayAt_gradient (k : PeriodicFrequency) (q : ℂ) (i : Fin 3) :
+    lerayAt k (fun j ↦ periodicDerivativeSymbol j k * q) i = 0 := by
+  unfold lerayAt
+  split_ifs with hk
+  · rw [hk]
+    simp [periodicDerivativeSymbol]
+  · have hD : ((∑ j : Fin 3, (k j : ℝ) ^ 2 : ℝ) : ℂ) ≠ 0 := by
+      have h1 : (1 : ℝ) ≤ ∑ j : Fin 3, (k j : ℝ) ^ 2 := mildPressure_one_le_sq_sum hk
+      exact Complex.ofReal_ne_zero.mpr (by linarith)
+    have hsum : (∑ j : Fin 3, (k j : ℂ) * (periodicDerivativeSymbol j k * q)) =
+        ((2 * Real.pi * Complex.I : ℂ) * q) * ((∑ j : Fin 3, (k j : ℝ) ^ 2 : ℝ) : ℂ) := by
+      simp only [periodicDerivativeSymbol]
+      push_cast
+      rw [Finset.mul_sum]
+      exact Finset.sum_congr rfl fun j _ ↦ by ring
+    have hcancel : ((k i : ℂ) / ((∑ j : Fin 3, (k j : ℝ) ^ 2 : ℝ) : ℂ)) *
+        (((2 * Real.pi * Complex.I : ℂ) * q) * ((∑ j : Fin 3, (k j : ℝ) ^ 2 : ℝ) : ℂ)) =
+        periodicDerivativeSymbol i k * q := by
+      simp only [periodicDerivativeSymbol]
+      field_simp
+    rw [hsum, hcancel, sub_self]
+
+/-- **The time derivative of the coefficient path is solenoidal.**  The
+coefficient-side divergence is identically zero on the open lifespan, so its time
+derivative vanishes at every interior time. -/
+theorem solenoidal_velocityDerivCoeffT {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionT ν a f T) {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) (k : PeriodicFrequency) :
+    ∑ j : Fin 3, periodicDerivativeSymbol j k * velocityDerivCoeffT w.velocity j k t = 0 := by
+  have hI : IsOpen (Ioo (0 : ℝ) T) := isOpen_Ioo
+  have hu : ContDiffOn ℝ ∞ w.velocity (Ioo (0 : ℝ) T ×ˢ (univ : Set Space)) :=
+    w.velocity_smooth.mono (Set.prod_mono Ioo_subset_Ico_self Subset.rfl)
+  have hd : HasDerivAt
+      (fun r ↦ ∑ j : Fin 3, periodicDerivativeSymbol j k * velocityCoeffT w.velocity j k r)
+      (∑ j : Fin 3, periodicDerivativeSymbol j k * velocityDerivCoeffT w.velocity j k t) t :=
+    HasDerivAt.fun_sum fun j _ ↦ (hasDerivAt_velocityCoeffT hI hu ht j k).const_mul _
+  have hz : HasDerivAt
+      (fun r ↦ ∑ j : Fin 3, periodicDerivativeSymbol j k * velocityCoeffT w.velocity j k r)
+      0 t := by
+    refine (hasDerivAt_const t (0 : ℂ)).congr_of_eventuallyEq ?_
+    filter_upwards [hI.mem_nhds ht] with r hr
+    have hrI : r ∈ Ico (0 : ℝ) T := ⟨le_of_lt hr.1, hr.2⟩
+    exact solenoidal_velocityCoeffT (classical_velocity_slice_contDiff w hrI)
+      (w.velocity_periodic r hrI) (w.divergence r hrI) k
+  exact hd.unique hz
+
+/-- **The momentum equation in the projected (Leray) form**, as the brief states
+it: `d/dt û(t)(k) = −ν·4π²|k|²·û(t)(k) + (P̂(f̂(t) − Q̂(t)))(k)` with
+`Q = (u·∇)u = convectionFieldT u` and `P̂` the periodic Leray symbol at `k`
+(`T10.periodicLeray`, read on raw coefficients through `periodicLeray_eq_lerayAt`).
+
+The pressure-explicit `velocityDerivCoeffT_momentum` is the auxiliary form.
+Applying `P̂` to it: `d/dt û` is solenoidal (`solenoidal_velocityDerivCoeffT`) so
+`P̂` fixes it, `û` is solenoidal so `P̂` fixes it, and the pressure gradient
+`2πikᵢp̂(k)` is annihilated (`lerayAt_gradient`). -/
+theorem velocityDerivCoeffT_momentum_projected {ν T : ℝ} {a : SpatialField}
+    {f : SpaceTimeField} (w : ClassicalSolutionT ν a f T) (hf : ContDiff ℝ ∞ f)
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) (i : Fin 3) (k : PeriodicFrequency) :
+    velocityDerivCoeffT w.velocity i k t =
+      ((-(ν * periodicAngularFrequencySq k) : ℝ) : ℂ) * velocityCoeffT w.velocity i k t +
+        lerayAt k (fun j ↦ velocityCoeffT f j k t -
+          velocityCoeffT (convectionFieldT w.velocity) j k t) i := by
+  have htI : t ∈ Ico (0 : ℝ) T := ⟨le_of_lt ht.1, ht.2⟩
+  have hsolu : ∑ j : Fin 3, periodicDerivativeSymbol j k * velocityCoeffT w.velocity j k t = 0 :=
+    solenoidal_velocityCoeffT (classical_velocity_slice_contDiff w htI)
+      (w.velocity_periodic t htI) (w.divergence t htI) k
+  have hsold := solenoidal_velocityDerivCoeffT w ht k
+  have hvec : (fun j ↦ velocityDerivCoeffT w.velocity j k t) =
+      fun j ↦ (((-(ν * periodicAngularFrequencySq k) : ℝ) : ℂ) *
+            velocityCoeffT w.velocity j k t) -
+        ((periodicDerivativeSymbol j k * pressureCoeffT w.pressure k t) -
+          (velocityCoeffT f j k t - velocityCoeffT (convectionFieldT w.velocity) j k t)) := by
+    funext j
+    rw [velocityDerivCoeffT_momentum w hf ht j k]
+    ring
+  calc velocityDerivCoeffT w.velocity i k t
+      = lerayAt k (fun j ↦ velocityDerivCoeffT w.velocity j k t) i :=
+        (lerayAt_of_solenoidal hsold i).symm
+    _ = lerayAt k (fun j ↦ (((-(ν * periodicAngularFrequencySq k) : ℝ) : ℂ) *
+              velocityCoeffT w.velocity j k t) -
+            ((periodicDerivativeSymbol j k * pressureCoeffT w.pressure k t) -
+              (velocityCoeffT f j k t -
+                velocityCoeffT (convectionFieldT w.velocity) j k t))) i := by
+        rw [hvec]
+    _ = lerayAt k (fun j ↦ ((-(ν * periodicAngularFrequencySq k) : ℝ) : ℂ) *
+            velocityCoeffT w.velocity j k t) i -
+          lerayAt k (fun j ↦ (periodicDerivativeSymbol j k * pressureCoeffT w.pressure k t) -
+            (velocityCoeffT f j k t -
+              velocityCoeffT (convectionFieldT w.velocity) j k t)) i :=
+        lerayAt_sub k _ _ i
+    _ = ((-(ν * periodicAngularFrequencySq k) : ℝ) : ℂ) *
+            lerayAt k (fun j ↦ velocityCoeffT w.velocity j k t) i -
+          (lerayAt k (fun j ↦ periodicDerivativeSymbol j k * pressureCoeffT w.pressure k t) i -
+            lerayAt k (fun j ↦ velocityCoeffT f j k t -
+              velocityCoeffT (convectionFieldT w.velocity) j k t) i) := by
+        rw [lerayAt_const_mul, lerayAt_sub]
+    _ = ((-(ν * periodicAngularFrequencySq k) : ℝ) : ℂ) * velocityCoeffT w.velocity i k t +
+          lerayAt k (fun j ↦ velocityCoeffT f j k t -
+            velocityCoeffT (convectionFieldT w.velocity) j k t) i := by
+        rw [lerayAt_of_solenoidal hsolu i,
+          lerayAt_gradient k (pressureCoeffT w.pressure k t) i]
+        ring
 
 /-! ## 7. The three sums of the energy identity -/
 

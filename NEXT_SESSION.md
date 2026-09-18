@@ -16,6 +16,7 @@
 
 ## 日志（最新在前）
 
+- **2026-09-18 0805Z**：340 交付 `T01.torus_local_theory`（39 合同）；341/342 交付 T12 五字段；346（T14）/347（T16）启动；338 合入 #312。
 - **2026-09-17 2055Z**：第 4 节全量编译验证 + 报告并入 #259；T14/T22 reconciliation 与 280/281 启动。
 - **2026-09-17 2105Z**：T16 reconciliation，279 启动；T10 定稿（277）合入 #262；278（T13 定稿）启动。
 - **2026-09-17 2045Z**：T10 reconciliation（以草案 B 为基）；277 启动；T14/T22 草案完成；270 重启（sol）。
@@ -26,21 +27,25 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-18 05:35Z 快照）
+## 当前在跑 / 待启动（2026-09-18 08:05Z 快照）
 
-- **定稿 spec 已进树**：T10、T11（#277）、T12、T13、T14、T15（#278）、T16、T20（#296）、T22；T17 reconciliation 已批准（333 定稿 lane 在跑）；T24 双盲草案 306/307 在跑。
-- **T11 证明已进树**（`T11_SPLIT.md` 17 单元）：U1 #284、U2 #285、U3 #287、U4 #289、U5 #292、U7 #290、U10+U11 #299、U15 #300；U9 存在性线：U9a #283、U9b #286（Picard 不动点）、U9c #288、U9d1 #294 + 328 #297 + 329 #298 + **330 #301（`TorusHalfStepInput` 无条件 → 持续性无条件）**、U9d2 速度光滑/无散 #295、**压力 326 #302**（含周期卷积定理）。
-- **在跑**：Opus —— 327（U9d2b：Duhamel 时间微分、动量方程）、322（U12 高阶能量）；codex —— 331（U6 转运）、332（U13 restartBeyond）、333（T17 定稿）、306/307（T24 草案）。
-- **下一步**：327 完成后写 U9d2c 装配 lane（`ClassicalSolutionT` + `PeriodicLocalRegularity`，关闭 U9d 目标）；U9e（`PeriodicQuantitativeLocalInput'`，H¹ 球一致 δ）预计撞第 4 节同一堵墙（Picard 在 H³，δ 依赖 H³ 范数）→ 计划 lead 修正 2：显式 V2 收窄（H³ 球 / 固定力），照 `RestartFixedForce` 的写法，V1 语句保留为具名未证谓词；U14（extendsBeyond）待 U12+U13；U16 待 U14+U15；U17 装配 + 合同注册。
-- **模型策略（今晚定型）**：硬分析单元 → Opus prover 子代理（328/329/330/326 全部完整交付）；codex sol 做结构化单元与 spec/草案；astra 只做备用（多次交桩）。sol 04:00–04:50Z 曾 at capacity。
-- **教训已入 LESSONS**：合并必须 `merge-base --is-ancestor` 验证；追加共享笔记的分支冲突取并集；`pgrep/pkill` 自杀；简报义务写在 Goal；硬分析单元禁止具名输入；`tsum` 切片 `rfl` 引理；先看行数再审。
-- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；codex 并发 3–5；每次合入更新追踪 PR #270。
+- **第 3 节集成分支全量编译检查全绿**（`logs/SECTION3_BUILD_20260918.md`：35 模块 89 s 0 错误、58/58 probe+审计通过、三门禁、38 合同；340 合入后为 39 合同，届时再跑一次全量检查 lane）。
+- **定稿 spec 已进树**：T10、T11、T12、T13、T14、T15、T16、T17（#303）、T20（#296）、T22；T24 reconciliation 已 lead 批准（`research/T24/RECONCILIATION.md`），定稿 lane 343 在 codex 容量重试中。
+- **T11 全部 17 单元完成**：U1–U16 均已合入（最近 338 #312 H³ 存在性输入）；**U17 = 340（Opus）已交付**：`Section3/T11/Assembly.lean` 四个 API（`PeriodicLocalTheoryAPI` 8 字段、`PeriodicContinuationH3API` 5、`PeriodicMeanReductionAPI` 6、`PeriodicViscosityRescalingAPI` 4）+ 合同 **`T01.torus_local_theory`**（`Contracts/V1/TorusLocalTheory.lean`、Bindings 结构体例外转换、Tests；`registered_contracts: 39`，门禁全绿）；唯一残余 = 两个 H¹ 具名手稿谓词 `PeriodicRestartH1`/`PeriodicRestartBeyondH1`（`periodicContinuationAPI_of_h1` 机器验证它们是仅剩残余）。codex 审稿中（rev-340）。339（U6b `ClassicalRegularity`，Opus 交付）审稿在容量重试。
+- **T12**：341（Opus）交付 `boundedRepresentative`/`hTwo_le_laplacian`/`lambda_exists`（`FourierEmbeddings.lean`，无残余）、342（Opus）交付 `tameProduct`（`TameProduct.lean`，常数 `4^{m/2}√S`，附 ℓ²∗ℓ¹ Young + 卷积定理）；两者 codex 审稿中。**剩余 3 字段**：`velocityCriticalL3`、`gradientLambdaCriticalL3`、`gradientLSix`（走 T13 localization + 已注册 A05 临界嵌入；等 T13 落地）。
+- **T13**：344（`constant_pos_finite`/`endpoint_zero`/`endpoint_one`）、345（`torus_identity`）Opus 在跑；剩 `wholeSpace_identity`（R³ Gagliardo 恒等式，Plancherel）与 `localization`（主引理），待 344/345 落地后开 348/349。
+- **T14**：346（codex sol，容量重试包装）证 `lem:packetenergy` 两字段并用 `Bindings.packet` 关闭 `packetImportStatement`；**T16**：347（Opus）证 `localPotentialStatement`（复用 Section4/I02）。两者是 T15/T17 证明的前置。
+- **待核对**：T20 `research/T20/Spec.lean:402,437` 用 H¹ 球（`periodicSobolevENorm 1`），开 T20 lane 时按 `research/T11/H1_GAP.md` 重读；台账 T10 行未登记 `T01.torus_data`（340 备注，MAINT 顺手补）。
+- **lead 修正**：1（按阶力界）、2（H³ 球存在性输入；H¹ 版保留为具名未证谓词，照第 4 节 `ManuscriptHorizonLowerBoundH1` 口径）—— `research/T11/LEAD_AMENDMENTS.md`。
+- **模型策略**：硬分析/构造 → Opus prover；codex sol 做 spec/草案/审稿/复用型证明，astra 备用；审稿包装 `retry_review.sh` 有 30 分钟退避且会在合入后仍重试 —— 出结论就 kill 包装。codex 09-18 04:00–06:30Z、07:30Z 起多次 "at capacity"。
+- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；每次合入更新追踪 PR #270（模板 `tmp/section3_pr_body.md`）。
 
 ## 下一步（按顺序）
 
-1. 等 T10 B 完成，lead 写 T10 reconciliation。
-2. 开 T10 定稿 spec lane，再开 T13 spec lane（沿用 T10 定稿词汇）。
-3. 注册 `T01.torus_data` v1，按 S3-0 要求处理边界 umbrella 的既有 sorry，再推进 S3-1。
+1. rev-340 通过 → 合入 340（合同 39）；合入 339、341、342、343（T24 定稿）；更新 PR #270。
+2. 344/345 落地 → 开 T13 `wholeSpace_identity`、`localization`（Opus）；随后 T12 剩余三个临界嵌入。
+3. 346/347 落地 → 开 T15（`prop:scaling`，复用 I03）与 T17（`lem:correction`，复用 I02 后半）证明 lane；T14/T16 合同注册。
+4. T18/T19/T20/T21 mainline（T20 先核 H¹ 球）；T12/T13/T15/T17/T20/T24 合同注册；合同批次后跑一次全量编译检查 lane。
 
 lane 全局唯一，下一号 **268**；旧快照预指派的 267/268 spec 号作废，重新从 PLAN §8 分配。外部 300–399 预留，实际领号仍经 lead 登记。
 台账状态未更新：工具无完成/新增命令；T10–T24 待 lead 补工具及 DAG/台账字段，见 [REPORT_267](archive/section4/REPORT_267.md)。

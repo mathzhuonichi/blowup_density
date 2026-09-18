@@ -145,6 +145,25 @@ theorem energyIdentity_positive (ν T : ℝ) (hT : 0 < T) {c : Space} (hc : c �
     pow_pos (norm_torusConstantDatum_pos (m : ℝ) hc) 2
   positivity
 
+/-! ## The projected coefficient equation, and the Leray identification -/
+
+/-- `lerayAt` is exactly `T10.Leray`'s `periodicLeray` symbol at each frequency
+(`MildMomentum.periodicLeray_eq_lerayAt`, a `rfl` bridge). -/
+example (s : ℝ) (A : PeriodicSobolev s) (i : Fin 3) (k : PeriodicFrequency) :
+    periodicLeray s A i k = lerayAt k (fun j ↦ A.1 j k) i := rfl
+
+/-- **The brief's projected coefficient equation closes**, verbatim:
+`d/dt û(t)(k) = −ν·4π²|k|²·û(t)(k) + (P̂(f̂(t) − Q̂(t)))(k)`. -/
+theorem projected_momentum_closes {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionT ν a f T) (hf : ContDiff ℝ ∞ f) {t : ℝ}
+    (ht : t ∈ Ioo (0 : ℝ) T) (i : Fin 3) (k : PeriodicFrequency) :
+    velocityDerivCoeffT w.velocity i k t =
+      ((-(ν * (4 * Real.pi ^ 2 * ∑ j : Fin 3, (k j : ℝ) ^ 2)) : ℝ) : ℂ) *
+          velocityCoeffT w.velocity i k t +
+        lerayAt k (fun j ↦ velocityCoeffT f j k t -
+          velocityCoeffT (convectionFieldT w.velocity) j k t) i :=
+  velocityDerivCoeffT_momentum_projected w hf ht i k
+
 /-! ## Definitional checks -/
 
 /-- The convection field is `(u·∇)u` at every point. -/
