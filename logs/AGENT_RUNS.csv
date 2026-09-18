@@ -1443,3 +1443,16 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T12,419-T12-UREG-contract,gpt-6-astra,contract-registration,"Contracts/V1/MeanZeroCalculus.lean scaffold + registry entry; bindings/tests incomplete; found duplicate contDiff_dirDeriv in GradientLSix/GradientLambdaL3 (import clash)",partial,-
 2026-09-18,T18,422-T18-U1-insertion-data,gpt-5.6-sol,proof-worker,"Section3/T18/Insertion.lean: canonical insertion layer U1 (15 decls); codex review ACCEPT-WITH-NOTES",merged,383
 2026-09-18,T20,415-T20-U8-critical-energy,claude-opus,proof-worker,"Section3/T20/CriticalEnergy.lean: criticalEnergy verbatim with C0 = criticalTrilinearConst (Fourier-side route); awaiting codex review",done,-
+2026-09-18,T17,425-T17-U7-force-support,claude-opus,proof-worker,"Section3/T17/ForceSupport.lean: force_smooth/force_periodic/force_support at concrete correctionData (open ball; latticeLift_spaceSupport); awaiting codex review",done,-
+2026-09-18,T24,424-T24-Ua8-nonisolated,claude-opus,proof-worker,"Section3/T24/AffineNonisolated.lean: nonisolated verbatim (C^m seminorm limits) + seminorm algebra lemmas; awaiting codex review",done,-
+2026-09-18,T24,417-T24-Ua7-infinite-dimensional,claude-opus,proof-worker,"Section3/T24/AffineWitness.lean + AffineFamily.lean: infinite_dimensional verbatim; codex review ACCEPT-WITH-NOTES",merged,384
+2026-09-18,T20,415-T20-U8-critical-energy,claude-opus,proof-worker,"Section3/T20/CriticalEnergy.lean: criticalEnergy verbatim; codex review ACCEPT",merged,385
+2026-09-18,T22,423-T22-UREG-contract,gpt-5.6-sol,contract-registration,"Contracts/V1/BoundedDomainNorm.lean + Bindings + Tests + registry T04.bounded_domain_norm (43 contracts); gates green; awaiting codex review",done,-
+2026-09-18,T12,427-T12-UREG-dedupe-register,claude-opus,contract-registration,"T12/DirDeriv.lean dedupe + Contracts/V1/MeanZeroCalculus.lean + Bindings + Tests + registry T01.mean_zero_calculus (43 contracts); gates green; awaiting codex review",done,-
+2026-09-18,T24,424-T24-Ua8-nonisolated,claude-opus,proof-worker,"Section3/T24/AffineNonisolated.lean: nonisolated verbatim + seminorm algebra; review REJECT only for mutation record, then recorded; lead ruling",merged,386
+2026-09-18,T17,425-T17-U7-force-support,claude-opus,proof-worker,"Section3/T17/ForceSupport.lean: force_smooth/force_periodic/force_support; codex review ACCEPT-WITH-NOTES",merged,387
+2026-09-18,T20,429-T20-U10a-h1-trilinear,claude-opus,proof-worker,"Section3/T20/H1Trilinear.lean: H1 trilinear estimate |<(v.grad)v,Lap v>| <= C1 y |Lap v|_2^2; awaiting codex review",done,-
+2026-09-18,T12,427-T12-UREG-dedupe-register,claude-opus,contract-registration,"T12/DirDeriv.lean dedupe + T01.mean_zero_calculus registered (43 contracts); codex review ACCEPT-WITH-NOTES",merged,388
+2026-09-18,T20,428-T20-U9-ybound,claude-opus,proof-worker,"Section3/T20/YBound.lean: yBound verbatim with criticalSmallness = 1/(8 C0); force-path continuity/FTC + clamped scalar bootstrap; awaiting codex review",done,-
+2026-09-18,T18,426-T18-U2-U4-force-class-kinematics-div,gpt-5.6-sol,proof-worker,"Section3/T18/{ForceClass,Kinematics,Divergence}.lean: nine U2-U4 fields under InsertionData projections; awaiting codex review",done,-
+2026-09-18,T20,429-T20-U10a-h1-trilinear,claude-opus,proof-worker,"Section3/T20/H1Trilinear.lean: H1 trilinear estimate; codex review ACCEPT-WITH-NOTES",merged,389

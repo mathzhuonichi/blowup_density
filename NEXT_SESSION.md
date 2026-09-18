@@ -38,14 +38,14 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-18 17:20Z 快照）
+## 当前在跑 / 待启动（2026-09-18 18:22Z 快照）
 
-- **合入批次 #364–#377（14:44–17:15Z）**：376 T15 U2 #364；403 T24 Ua5 #365；394 T17 U-CAN + canonical force_profile_identity #366（union 合并误伤 ForceProfile.lean → 412 修复 #377：恢复 integration 版本 + 394 文档，lead 首次恢复会丢 375 rev1 两条定理，Opus 发现）；402 T24 Ua2 #367；401 T12 U4b 逐字 #368；398 T24 Ua3 + 非零见证 #369；400 T12 U5 #370；405 T12 U6 #371（**T12 九字段全证**）；407 T24 Ua6 #372；408 T22 U-B2 #373；406 T22 `cutoffMultiplier` 逐字闭合 #374（含 397 引擎；审稿两点程序性 REJECT，lead 裁定合入）；410/411 T21 双盲草案 #375/#376。
-- **完成度**：T10/T11/T13/T14/T16 ✅ 合同（42）；T12 九字段全证 → 注册 lane 419；T20 wave 1 ✅ + U7 三线性（413，审稿中）；T22 核心 `cutoffMultiplier` ✅、U-B1/B2 ✅、U-B3（409，审稿中）→ U-Z1（418）→ U-REG；T24 Uc1/Uc2/Ua1/Ua2/Ua3/Ua5/Ua6 ✅、Ua4（414 审稿中）；T19 U1–U6 ✅；T21 两份草案 ✅ → 对账（416）。
-- **Opus（待安装完成即启动）**：415 T20 U8 criticalEnergy（基于 413）、416 T21 对账、417 T24 Ua7。
-- **codex（安装后自动启动，sol→astra）**：418 T22 U-Z1（基于 409）、419 T12 注册 `T01.mean_zero_calculus`、420 T24 Uc3 装配+注册、421 T15 U3、422 T18 U1；审稿 rev-409/413/414 在跑或退避。
-- **故障记录（09-18）**：codex 14:50–15:10Z sol 429 / astra at capacity 交替，包装器已把 429 视为可重试并对中途死亡等 DONE 后重试；Claude 路由 429（15:10–17:05Z）中断 4 条 Opus，全部 SendMessage 续做完成；`codex_review.sh` 需 `collaboration/briefs/<lane>.md`（LESSONS 顶行）；union 合并只允许 md/csv（`tmp/union_merge.py`）。
-- **模型策略**：硬分析/构造/spec 定稿/对账/修复验证 → Opus prover；codex sol 做簿记型证明/合同注册/审稿；astra low 只做构建检查。
+- **合入批次 #378–#388（17:29–18:22Z）**：413 T20 U7 三线性 #378；414 T24 Ua4 #379；416 **T21 定稿 spec** #380（Section 3 全部 15 节点 spec 定稿）；418 T22 U-Z1 + 409 U-B3 #381（T22 三字段全证）；421 T15 U3 #382；422 T18 U1 #383；417 T24 Ua7 #384；415 T20 U8 criticalEnergy #385；424 T24 Ua8 #386（T24a 12 字段全证）；425 T17 U7 #387；427 T12 去重 + **`T01.mean_zero_calculus` 注册 #388（43 合同）**。
+- **完成度**：合同 43（Section 3：T10、T11、T13、T14、T16、T12）；T22 三字段全证 → 注册 lane 423 已完成待审；T24a 12 字段全证 → Ua9 装配+注册（430，Opus）；T20 关键链 U1–U8 ✅ → U9（428 Opus）、U10a（429 完成待审）→ U10b → U11 → U12 → U13；T17 U1–U7 ✅ → U8（431 Opus）；T18 U1 ✅ → U2–U4（426 codex 退避）；T15 U1–U3 + U-CAN ✅ → U4；T19 U1–U6 ✅（U7+ 等 T18 U12）；T21 证明单元 N0–N15 待拆分。
+- **Opus 在跑**：428 T20 U9 yBound、430 T24 Ua9、431 T17 U8。
+- **codex**：rev-423（T22 注册审稿）在跑；rev-429 排队；rev-409（记录性，模块已随 418 合入）、420（T24 Uc3 注册）、426（T18 U2–U4）退避重试中。codex 今日多次 429/at capacity；重要单元一律 Opus。
+- **待清理**：429 因 400/405 同名冲突把 413 的四条辅助引理复制为 `…H1`（427 已修冲突）→ U13 装配时合并；`contracts.json` 由 423/430 同时新增条目，后合入者需重解。
+- **故障记录（09-18）**：codex 容量波 07:30–14:00Z、14:50–15:10Z、17:33–17:55Z；Claude 路由 429 15:10–17:05Z；`ForceProfile.lean` union 合并误伤已由 412 修复（LESSONS 顶行）；8 个 worktree 并行安装触发低内存杀进程（上限 3–4）。
 - **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码（注释/记录类微改除外）；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
