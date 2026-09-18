@@ -148,6 +148,8 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
 
 - **U9d2 status (320, partial):** `ClassicalAssembly` proves exact persistence/reweight and Sobolev paths, spatial C∞, full mild-to-physical divergence on Ico, and projected-from-classical; sole input `PersistenceInput T u`; time regularity, pressure and general classical assembly remain open. See `REPORT_320.md`.
 
+- **U9d2a status (326, partial):** `MildPressure.lean` constructs the pressure as the genuine Leray complement of `F − Q` (derived from T10's `periodicLeray` symbol) plus scalar Fourier inversion, and proves `pressure_periodic`, `pressure_gauge`, `pressure_gradient` (`MemLp`), spatial `C^∞` slices, the `∇p = (I−P)(F−Q)` datum and `PeriodicLocalRegularity.pressure_poisson`; sole input `PersistenceInput T u`, no new named input, nonzero instance included. Residual = exactly `ContDiffOn ℝ ∞ (mildPressure g u) (Ico 0 T ×ˢ univ)`, not derivable from `PersistenceInput` (no time regularity). See `REPORT_326.md`, `ATTEMPTS_MILD_PRESSURE.md`.
+
 ## 2. Waves (≤ 4 concurrent)
 
 | wave | units | sizes / models |
