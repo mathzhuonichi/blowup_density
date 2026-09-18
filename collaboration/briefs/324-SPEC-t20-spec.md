@@ -32,3 +32,10 @@ vocabulary `verification/Contracts/V1/Data.lean` (`criticalOrder` `:259`, `break
   no API indices; the mean-free reduction objects as `def`s; every field with the exact `MemLp`/class/integrability guards the reconciliation prescribes (no junk-value traps), the constant `c`
   fixed before `ν, g`.
 - Report the elaboration of `research/T20/Spec.lean` and the `rfl` checks; do not prove anything.
+
+## Field checklist (added after a rejected first run)
+A previous run delivered a `Spec.lean` that was Draft A with a new header (9 fields, no `rfl` checks). **That is not the reconciled spec and was discarded.** The reconciled
+`CriticalRegularityTAPI` must have **exactly** these fields, in this order, with the constant/shrinking-parameter data fields first as `research/T20/RECONCILIATION.md` §3 prescribes:
+`c` (+ its positivity), `reductionRegular`, `meanBound`, `meanFreeEquation`, `constantTransportSkew`, `constantTransportCommutesLambda`, `criticalEnergy`, `bIntegral`, `yBound`, `hOneEnergy`,
+`continuationBound`, `globalRegularity` — each spelled per the §2 rulings (Draft B's `ClassicalSolutionT`-shaped interval estimates, A's real `∫‖·‖²` spellings, `MemLp` guards, no API indices).
+Your report must include the list of your structure's fields and confirm it equals this list; include the `example … := rfl` checks against the registered spellings the reconciliation names.
