@@ -625,3 +625,62 @@ on the constant-force affine family over an arbitrary `T > 0`; the probe takes
 All 77 declarations pass exact standard-three-axiom guards.  Details:
 `REPORT_334.md`, `ATTEMPTS_MILD_CLASSICAL.md`,
 `probes/mild_classical_closes.lean`, `axioms_mild_classical.lean`.
+
+## U9e status (lane 338) — the `H³`-ball input is proved; the `H¹` ball is the whole residue
+
+`Section3/T11/ExistenceInputH3.lean` closes amendment 2's target outright:
+`periodicQuantitativeLocalInputH3` is `PeriodicQuantitativeLocalInput'` with
+`periodicSobolevENorm 3 a ≤ K` in place of `periodicSobolevENorm 1 a ≤ K` and
+nothing else changed, and it has **no hypothesis**.  The horizon is not an
+anonymous existential: `exists_classical_on_picardHorizon` proves the same
+conclusion with `δ` literally equal to
+
+```lean
+picardHorizon ν K M = torusKernelTime ν (torusPicardThreshold
+    ‖(torusContractOf ν hν).analytic.bilinear‖ (K.toReal + (M 3).toReal))
+```
+
+so the dependence on `ν`, on the datum-norm bound `K` and on the force bounds is
+machine-checked, and the data are supplied to the horizon afterwards.
+
+Two things had to change relative to `exists_classical_of_picard` (334), which
+produced a horizon depending on the force itself.  First, the predicate's force
+hypothesis `forceSobolevENormT 1 (m : ℝ) g ≤ M m` is an **`L¹`-in-time** bound
+(`forceSobolevENormT q s f = ⨅_{datum paths G} eLpNorm G q (volume.restrict (Ioi 0))`),
+and an `L¹` bound never bounds a supremum, so lane 313's
+`torus_forcedLinear_bound` — which consumes `sup_{[0,1]} ‖F t‖` — is replaced by
+`torus_forcedLinear_bound_L1`: the heat evolution of the contract is a
+contraction at order three (`torus_linearEvolution_norm_le`), hence
+`‖e^{νtΔ}A + ∫₀ᵗ e^{ν(t−s)Δ}F(s)ds‖ ≤ ‖A‖ + ∫₀^T ‖F(s)‖ ds`, which is exactly
+what the `TorusPicardConstants` self-map bound needs.  Second, that integral has
+to be estimated for the *specific* datum path used, not for the minimiser:
+`forceSobolevENormT_eq_of_path` shows the infimum is **attained at every
+admissible path**, because two order-`s` datum paths of the same field agree at
+every `t ≥ 0` (`T10/DatumBasics.datum_unique`) and `forceTimeMeasure` lives on
+`Ioi 0`.  With `b := K.toReal + (M 3).toReal` the affine part is dominated
+uniformly over the `H³` ball, `torusPicardConstants_explicit` certifies the
+contraction at radius `b+1`, and `mild_to_classical` finishes.  **Exactly one
+force order is consumed, `M 3`**; all higher orders enter only through lane
+330's unconditional `persistence_unconditional`.
+
+The continuation chain is re-instantiated at the same ball with the named input
+gone: `restartH3` (321), `restartBeyondH3` (332), `extendsBeyondH3` and
+`lifespanInfiniteOfLocallyFiniteH3` (337 — their proofs are unchanged except
+that `hHigh` is used at `m = 3` where 337 used `m = 1`), and
+`periodicMaximalExistenceInput_unconditional` / `exists_maximal_unconditional`
+(323, a field with no ball at all, hence now closed outright).  The only binder
+surviving anywhere is `hHigh`, U12's `higherOrderBound` field (lanes 335/336).
+
+What stays open is the `H¹` ball: `PeriodicQuantitativeLocalInput'` itself and
+the V1 `restart`/`restartBeyond` fields, which need the subcritical Fujita–Kato
+local theory (uniformity over an `H¹` ball) that is in none of the three code
+bases — the same wall Section 4 hit with `ManuscriptHorizonLowerBoundH1`.  The
+exact residual statements and the U17 consumer checklist are in
+`research/T11/H1_GAP.md`; the one item flagged for re-reading is T20, whose copy
+of `PeriodicContinuationAPI` (`research/T20/Spec.lean:402,437`) carries the `H¹`
+ball while its `eq:H1energy` route produces `H²` bounds.
+
+No `set_option maxHeartbeats` was needed anywhere in the lane; all 24
+declarations pass exact standard-three-axiom guards.  Details:
+`REPORT_338.md`, `ATTEMPTS_EXISTENCE_INPUT_H3.md`, `H1_GAP.md`,
+`probes/existence_input_h3_closes.lean`, `axioms_existence_input_h3.lean`.
