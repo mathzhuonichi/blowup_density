@@ -105,4 +105,3 @@ import NSFormalization.Section3.T11.ClassicalAssembly
 /-- info: 'NSFormalization.Section3.T11.classicalAssembly_nonzero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.classicalAssembly_nonzero
-
