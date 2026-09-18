@@ -143,6 +143,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
 
 - **U9c / lane 317 status:** complete — `ConvolutionBound.lean` proves `torusConvolutionInput : TorusConvolutionInput` and `torusTwoSpaceContract_nonempty'` unconditionally by the discrete weighted convolution bound; no residual input; probe, exact three-axiom audit and all gates pass; see `REPORT_317.md`.
 
+- **U9d1 / lane 319 status:** conditional half-order common-horizon induction, real-order descent and nonzero forced mild witness proved; ONE residual `TorusHalfStepInput` → **U9d1-analytic follow-up** (unassigned); raw `.1` equality is a phantom-index statement defect, not regularity; exact input and limitations in `EXISTENCE_ROUTE.md` §U9d1 and `REPORT_319.md`.
 - **U9d / lane 318 status:** partial, not closed — unconditional H³ Fourier inverse, exact datum/path and initial recovery, joint continuity, and full affine-constant forced recovery on arbitrary T; general bootstrap, divergence, pressure and PDE recovery remain open; no new named input; see `REPORT_318.md`.
 
 ## 2. Waves (≤ 4 concurrent)

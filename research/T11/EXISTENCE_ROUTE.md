@@ -273,6 +273,43 @@ The probe, guarded axiom audit, attempts and gate report are respectively
 `probes/existence_u9b.lean`, `axioms_existence_u9b.lean`,
 `ATTEMPTS_EXISTENCE_U9B.md`, and `REPORT_313.md` under `research/T11/`.
 
+## U9d1 status — lane 319
+
+Conditional delivery, **not unconditional persistence**. The checkout lacks
+lane 318's PhysicalRecovery module and its status paragraph, and lacks lane
+312's ForcePaths. `Persistence.lean` proves a common-horizon half-order
+induction and real-order descent from the ONE input below. The next named
+obligation is **U9d1-analytic follow-up: prove TorusHalfStepInput**; no lane
+number is assigned here. The input still includes the endpoint Duhamel argument,
+real-order nonlinear estimates and gain-3/2 heat smoothing. Existing heat
+smoothing is only sigma=1. The forbidden whole-order kernel is (t-s)^(-1);
+the intended half-order route uses (t-s)^(-3/4).
+
+```lean
+def TorusHalfStepInput : Prop :=
+  ∀ (ν : ℝ), 0 < ν → ∀ (C : TorusTwoSpaceContract ν)
+    (a : SpatialField) (g : SpaceTimeField) (T : ℝ),
+    a ∈ initialClassT → ContDiff ℝ ∞ g → IsPeriodicOn univ g → 0 < T →
+    ∀ (A : PeriodicSobolev 3) (F P u : ℝ → PeriodicSobolev 3),
+      IsPeriodicDatum 3 a A → IsPeriodicSobolevPath 3 g F →
+      (∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t)) →
+      TorusForcedMildOn C A P T u →
+      ∀ r : ℝ, 3 ≤ r → ∀ v : ℝ → PeriodicSobolev r,
+        ContinuousOn v (Ico 0 T) →
+        (∀ t ∈ Ico 0 T, IsPeriodicReweight 3 r (u t) (v t)) →
+        ∃ w : ℝ → PeriodicSobolev (r + 1 / 2),
+          ContinuousOn w (Ico 0 T) ∧
+          ∀ t ∈ Ico 0 T, IsPeriodicReweight r (r + 1 / 2) (v t) (w t)
+
+```
+
+The physical result `torusForcedMildOn_persistence` uses canonical
+`IsPeriodicReweight 3 m (u t) (u_m t)`, continuous on Ico 0 T and bounded on
+all compact subsets. The brief's raw weighted-sequence equality erases the
+Sobolev index and is trivial; `persistence_literal_target` records that defect,
+not a physical bootstrap. No existing API statement is replaced. Non-vacuity:
+actual mild solution u(t)=(1+t)e₁, nonzero force e₁, inhabited contract, and
+explicit realizations at all orders. See ATTEMPTS_PERSISTENCE.md and REPORT_319.md.
 
 ## U9d status — lane 318 (partial; target remains open)
 
