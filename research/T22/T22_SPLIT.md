@@ -105,6 +105,13 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   (`2^(|s|/2)`). Route: Peetre's inequality — cases `s≥0` (submultiplicativity of `1+‖·‖²` under `ξ=η+(ξ-η)`)
   and `s<0` (apply the `s≥0` form with roles of `ξ,η` swapped and `-s`); `Real.rpow` monotonicity/`add_pow_le`.
   **M, Opus.** Deps: —.
+  **[DONE — lane 386]** `Section3/T22/WeightRatio.lean`: `weight_ratio_le (s ξ η) : (1+‖ξ‖²)^(s/2) ≤
+  2^(|s|/2) · (1+‖η‖²)^(s/2) · (1+‖ξ-η‖²)^(|s|/2)`, plus `peetreConst`/`peetreConst_pos`, the `peetreConst`
+  form `weight_ratio_le_const`, and the datum-layer spelling `sobolevBesselWeight_norm` /
+  `sobolevBesselWeight_norm_ratio_le` (via `NSFormalization.Paper3.sobolevBesselWeight`). Route as planned
+  (base submultiplicativity → `Real.rpow_le_rpow`/`Real.mul_rpow` for `s≥0`; swap-and-invert for `s<0`). No
+  named input. Axioms `[propext, Classical.choice, Quot.sound]`. `lake build … WeightRatio` green; `make check`
+  green. Probe `research/T22/probes/weight_ratio_closes.lean`, audit `research/T22/axioms_ua1.lean`.
 
 - **U-A2 — cutoff Fourier kernel is weighted-`L¹`** (new analysis). New `Section3/T22/CutoffKernel.lean`. No named input.
   Target (consumed by `cutoffMultiplier`): `integrable_weighted_fourier_cutoff` — for `χ` smooth compact and any
