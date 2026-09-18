@@ -16,6 +16,11 @@
 
 ## 日志（最新在前）
 
+- **2026-09-18 1340Z**：合入 #345–#348（366 T12 全 p 传输、381 T20 canonical + H¹ 核查、383 T22 U-B1、386 T22 Peetre）；T19/T20/T24 证明拆分落地；在跑：Opus 377/376 补全/390/391/393，codex 388/389 + 审稿 375/385/387（384 退避）；392（T24 wave 1）等 codex 空位；T17 U-CAN 等 384 审稿。
+- **2026-09-18（lane 383）**：T22 U-B1 完成：canonical `Domain.lean`、
+  `restrictDatum_eq_restrictField`、`domainSobolevENorm_le_sobolevENorm`、
+  两个 probe 与三公理审计全部通过；报告见 `research/T22/REPORT_383.md`。
+- **2026-09-18 1312Z**：合入 #337–#344（T16 合同、T13 完整证明 + 合同 42、T17 U1/U2、T19/T23 定稿）；T18/T22/T12/T15/T17 拆分推进；codex/路由故障后恢复。
 - **2026-09-18 1225Z**：合入 #328–#336（T18 spec、T16 完成、T13 数学完成待审、T15 wave 1、T12 截断、T17 轮廓）；codex/路由双重故障 10:00–12:07Z；T19 两草案齐、reconciliation 起草中。
 - **2026-09-18 0955Z**：合入 #321–#327（T14 合同 40、T13 三字段、T16 规范+球上势、353 部分、全量检查 c）；358 关闭 T16 `localPotential`；T18 reconciliation 批准、360 启动；T15/T12 拆分 + wave 1（362–366）；T17 拆分规划中。
 - **2026-09-18（lane 355）**：T14 packet import 已注册为 `T01.packet_import`（40 合同）；合同、绑定、测试、axioms 审计与报告落地，`scripts/gates.sh`、base-aware contract check、mutation gate 全绿；claim 与合同分 commit。
@@ -31,27 +36,26 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-18 12:25Z 快照）
+## 当前在跑 / 待启动（2026-09-18 13:12Z 快照）
 
-- **合入批次 #328–#336**：360 T18 定稿 spec #328；352 T16 格点提升 #329；358 **T16 `localPotential` 关闭** #330；363 Parseval-at-0 桥 #331；354 T13 几何常数核比较 #332；364 T15 Haar 桥 #333；365 T12 截断 χ #334；370 T17 轮廓字段（带 hv 前提，部分）#335；362 T15 桥 #336。
-- **完成度**：T10 ✅（合同）、T11 ✅（合同）、T14 ✅（合同）、T16 ✅（合同 371 注册中，审稿 REJECT 仅测试交付项 → fix 简报在 codex）、**T13 ✅ 数学完成**（359：`localization` + `localizationAPI` 六字段，审稿排队/容量重试；随后合同 `T02.localization`）。
-- **T12**：9 字段已证 6；临界嵌入按 `T12_SPLIT.md`：U2 截断 ✅ #334；U1 Haar↔立方体 L^p（366，astra 只交基础，REJECT → 排队 Opus 补全）；U3 核心（反向局部化，Opus）待开；U4/U5/U6 之后。
-- **T15**：`T15_SPLIT.md` 15 单元；wave 1 全部合入（U1 #336、U-TB2 #331、U-TB1 #333）；wave 2 = U2 缩放支撑放置（codex）→ U3；U4/U5（Opus）需 U3 + U-TB1。
-- **T17**：`T17_SPLIT.md` 12 单元；U3 ✅ #335（带 `hv : ContDiff ℝ ∞ v` 前提 → spec 议题 G1，`research/T17/SPEC_ISSUES.md`）；U1（369，Opus 补全一般 ∃k 形式中）、U2（373，Opus）、U4（375，Opus）在跑；U5–U12 之后（U11 需 T13 localization ✅）。
-- **T18**：定稿 spec ✅ #328（三个 owner 问题见 `research/T18/COMPARISON.md`）；证明拆分待规划。
-- **T19**：双盲草案 367（Opus，553 行）/372（Opus，465 行）完成 → reconciliation 起草中（Opus）→ 定稿 lane。
-- **T23**：草案 A 368（codex，2498 行）完成；草案 B 374（Opus）在跑 → reconciliation。
-- **T24**：定稿 spec ✅ #319。**T20**：canonical 模块待开（先核 H¹ 球，`research/T11/H1_GAP.md`）。**T21**：等 T19/T20。**T22**：spec ✅，证明待拆分。
-- **故障记录（09-18）**：codex sol/astra 10:00Z 后长时间交替 "at capacity"（包装 30 分钟退避；`retry_review.sh` 的 grep 误判会重启已合入 lane 的审稿——合入后立即 kill 包装）；Claude 路由 10:35–12:07Z 429（三条 Opus 中断，用 SendMessage 恢复）。
-- **模型策略**：硬分析/构造/spec 定稿/规划/补全 → Opus prover；codex sol 做复用型证明/合同注册/审稿，astra 只做审稿与编译检查（**astra low 不做 spec/草案，做分析单元也常只交基础**）。
+- **合入批次 #337–#344**：371 合同 `T02.local_potential` #337；380 全量检查 d（57 模块 0 错误）#338；373 T17 U2 传输 #339；378 **T19 定稿 spec** #340；359 **T13 完整证明** #341；369 T17 U1 #342；379 合同 `T02.localization` #343（**42 合同**）；382 **T23 定稿 spec** #344。
+- **完成度**：T10 ✅ 合同；T11 ✅ 合同；T13 ✅ 合同；T14 ✅ 合同；T16 ✅ 合同；T24/T18/T19/T23/T20/T22/T15/T17/T12 spec ✅（只剩 **T21** 主装配的 spec 未起草——依赖 T19 ✅ + T20）。
+- **T12**：9 字段已证 6；U2 截断 #334；U1 Haar↔立方体全 p 传输（366，Opus 补全，复审中）；U3 核心（377，Opus 在跑）→ U4 `velocityCriticalL3` / U5 `gradientLSix` / U6 `gradientLambdaCriticalL3`。
+- **T15**：wave 1 ✅（#331/#333/#336）；U2 放置（376，astra 完成，审稿中）；**U-CAN**（384，codex：canonical `PlacementData`/`ScalingAPI` 基于原始包字段 —— T17 U12 与 T18 U1 的前置，因 formalization 不能 import `PacketAPI`）；U3–U15 之后。
+- **T17**：U1 ✅ #342、U2 ✅ #339、U3 ✅ #335（带 hv 前提，议题 G1）、U4（375，审稿容量退避）；U5+U6（385，codex 在跑）；U7–U12 之后（U11 需 T13 ✅）。
+- **T18**：拆分 `research/T18/T18_SPLIT.md`（12 单元；无字段需 H¹ 球）；U1 等 T15 U-CAN + T17 U-CAN（canonical 记录）落地。
+- **T20**：canonical 模块 + H¹ 核查（381，codex 完成，审稿中；结论：只需 H³ 窄化 API）；证明拆分规划中（Opus）。
+- **T22**：拆分 `research/T22/T22_SPLIT.md`（10 单元；核心 `cutoffMultiplier`）；U-B1（383，codex）、U-A1（386，Opus）、U-A4（387，Opus）在跑。
+- **T19**：定稿 ✅ #340 → 证明拆分待规划（消费 T18）。**T23**：定稿 ✅ #344 → 证明依赖 T22 + 域上局部理论（owner 问题）。**T24**：定稿 ✅ #319，证明待拆分。
+- **故障记录（09-18）**：codex sol/astra 10:00Z 起长时间交替 "at capacity"（包装 30 分钟退避）；`retry_review.sh` 的 grep 误判会重启已合入 lane 的审稿——合入后立即 kill 包装；Claude 路由 10:35–12:07Z 429（SendMessage 恢复）；zsh 不按空格分词（脚本生成用显式参数）；PLAN 行描述里不能有 `|`。
+- **模型策略**：硬分析/构造/spec 定稿/规划/补全 → Opus prover；codex sol 做复用型证明/合同注册/审稿/桥；astra 只做审稿与编译检查（做分析单元常只交基础）。
 - **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
 
-1. rev-359 通过 → 合入 359 → T13 合同注册 lane（`T02.localization`）；371 fix → 复审 → 合入（41 合同）；随后全量编译检查 lane。
-2. T19 reconciliation → lead 审定 → 定稿 lane（Opus）；374 落地 → T23 reconciliation → 定稿。
-3. T15 U2（codex）→ U3；T12 U1 补全 + U3（Opus）；T17 U1/U2/U4 落地 → U5/U6/U7 wave；T18 证明拆分规划（Opus）。
-4. T20 canonical 模块 + 证明拆分（先核 H¹ 球）；T21/T22 之后；合同批次后跑全量编译检查 lane。
+1. 审稿出结论 → 合入 376、366、381、375、383、384、385；T20 拆分 → wave 1 lane；T19/T24 拆分规划。
+2. 377 落地 → T12 U4/U5/U6（Opus）→ T12 合同；T15 U-CAN → T17 U-CAN（U12 前半）→ T18 U1–U4（codex）。
+3. T22 wave 2–5；T21 spec 双盲草案（T19 ✅ + T20 canonical ✅）；合同批次后跑全量编译检查 lane。
 
 lane 全局唯一，下一号 **268**；旧快照预指派的 267/268 spec 号作废，重新从 PLAN §8 分配。外部 300–399 预留，实际领号仍经 lead 登记。
 台账状态未更新：工具无完成/新增命令；T10–T24 待 lead 补工具及 DAG/台账字段，见 [REPORT_267](archive/section4/REPORT_267.md)。
