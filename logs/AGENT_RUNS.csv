@@ -1455,3 +1455,15 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T12,427-T12-UREG-dedupe-register,claude-opus,contract-registration,"T12/DirDeriv.lean dedupe + T01.mean_zero_calculus registered (43 contracts); codex review ACCEPT-WITH-NOTES",merged,388
 2026-09-18,T20,428-T20-U9-ybound,claude-opus,proof-worker,"Section3/T20/YBound.lean: yBound verbatim with criticalSmallness = 1/(8 C0); force-path continuity/FTC + clamped scalar bootstrap; awaiting codex review",done,-
 2026-09-18,T18,426-T18-U2-U4-force-class-kinematics-div,gpt-5.6-sol,proof-worker,"Section3/T18/{ForceClass,Kinematics,Divergence}.lean: nine U2-U4 fields under InsertionData projections; awaiting codex review",done,-
+2026-09-18,T20,429-T20-U10a-h1-trilinear,claude-opus,proof-worker,"Section3/T20/H1Trilinear.lean: H1 trilinear estimate; codex review ACCEPT-WITH-NOTES",merged,389
+2026-09-18,T20,428-T20-U9-ybound,claude-opus,proof-worker,"Section3/T20/YBound.lean: yBound verbatim; codex review ACCEPT-WITH-NOTES",merged,390
+2026-09-18,T24,430-T24-Ua9-affine-registration,claude-opus,contract-registration,"Section3/T24/AffineAssembly.lean + Contracts/V1/AffineVariation.lean + Bindings + Tests + registry T04.affine_variation (44 contracts incl. energyENorm derivation from packet clauses); awaiting codex review",done,-
+2026-09-18,T22,423-T22-UREG-contract,gpt-5.6-sol,contract-registration,"T22 Assembly + Contracts/Bindings/Tests BoundedDomainNorm + registry T04.bounded_domain_norm (44 contracts); codex review ACCEPT-WITH-NOTES",merged,391
+2026-09-18,T24,420-T24-Uc3-conservative-registration,gpt-5.6-sol,contract-registration,"Section3/T24/ConservativeAssembly.lean + Contracts/Bindings/Tests ConservativeForcing + registry T04.conservative_forcing; gates green; awaiting codex review",done,-
+2026-09-18,T24,430-T24-Ua9-affine-registration,claude-opus,contract-registration,"AffineAssembly + Contracts/Bindings/Tests AffineVariation + registry T04.affine_variation (45 contracts); codex review ACCEPT-WITH-NOTES",merged,392
+2026-09-18,T17,431-T17-U8-force-volume,claude-opus,proof-worker,"Section3/T17/ForceVolume.lean: force_spatial_volume + force_time_length + measure_torusPoint_image_le; awaiting codex review",done,-
+2026-09-18,T18,433-T18-U5-U6-cross-transport-momentum,claude-opus,proof-worker,"Section3/T18/CrossTransport.lean + Momentum.lean: U5 cross-transport fields + U6 momentum; awaiting codex review",done,-
+2026-09-18,T20,432-T20-U10b-h1-energy,claude-opus,proof-worker,"Section3/T20/H1Energy.lean: hOneEnergy verbatim at CH1 = 2 with criticalSmallnessH1; order-2 Parseval; awaiting codex review",done,-
+2026-09-18,T20,432-T20-U10b-h1-energy,claude-opus,proof-worker,"Section3/T20/H1Energy.lean: hOneEnergy verbatim; codex review ACCEPT-WITH-NOTES",merged,393
+2026-09-18,T17,434-T17-U9-energy-bound,claude-opus,proof-worker,"Section3/T17/Energy.lean: correction energy bound + honest MemLp slices at concrete correctionData; awaiting codex review",done,-
+2026-09-18,T22,409-T22-UB3-cutoff-datum,claude-opus,proof-worker,"Section3/T22/CutoffDatum.lean (merged via #381); codex review ACCEPT, record merged",merged,394
