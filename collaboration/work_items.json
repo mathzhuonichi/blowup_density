@@ -301,7 +301,9 @@
       "kind": "specification",
       "state": "in-progress",
       "owner": "erenup",
-      "contracts": [],
+      "contracts": [
+        "T01.torus_data"
+      ],
       "deliverable": "Reconcile research/T10/Spec.lean from the lane 263/264 drafts, review its comparison, and register the accepted versioned contract under parent task T01 with its typed binding and axiom test."
     },
     {
@@ -333,9 +335,11 @@
     {
       "id": "T14",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T01.packet_import"
+      ],
       "deliverable": "Reconcile research/T14/Spec.lean against thm:packet and lem:packetenergy, then register the accepted versioned contract components under parent tasks T01/T02 as applicable with typed bindings and axiom tests."
     },
     {
