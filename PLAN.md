@@ -136,3 +136,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 368-SPEC-t23-draft-a | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0959Z | — | — | SPEC T23 cor:boundary（03-torus.tex:632-667）双盲草案 A；基于 T22 Spec 有界区域层与 T18 插入结构；BoundaryCorollary.lean:90 的 sorry 不得 import |
 | 369-T17-U1-lattice-deriv | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 1002Z | — | — | T17 U1：格点提升的迭代导数桥（局部单拷贝 ⇒ iteratedFDeriv 相等；供 U5/U6 传输 eq:derivativebounds） |
 | 370-T17-U3-correction-profile | worktree 安装中→Opus prover 子代理 | 09-18 1002Z | — | — | T17 U3：固定柱面修正轮廓六字段（rescaledCorrectionProfile = Paper1 CorrectionProfile.profile 桥；smooth/support/Const/nonneg/uniform/identity） |
+| 371-T16-contract | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 1005Z | — | — | T16 合同注册 `T02.local_potential` v1（Contracts/V1/LocalPotential.lean 逐字重述 Spec；CutoffData/LocalPotentialAPI 结构体例外逐字段转换；Bindings 由 T16.localPotential 传输；Tests；注册 → 41 合同；台账 claim T16） |
