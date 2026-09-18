@@ -65,6 +65,9 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   `*_formula` close by `rfl`. `ε₀ := min place.ε₀ D.ε₀`; `eps_pos` from `place.eps_pos`/`D.eps_pos`; the two
   `≤` by `min_le_left`/`min_le_right`. `delta_pos`/`reference_force_mem`/`initial_mem` are the statement's
   hypotheses `hδ`/`hg`/`ha`. **S, codex-sol.** No named input. Deps: —.
+  **Status (lane 422, 2026-09-18): complete.** Canonical raw-field bundle, all eleven U1 fields, Spec-form
+  conversion probe, and exact three-axiom audit pass; concrete end-to-end non-vacuity remains with the
+  separately scoped T15 U15 and T17 assembly witnesses.
 
 - **U2 — force class memberships.** New `Section3/T18/ForceClass.lean`. Targets `force_mem` (`Spec.lean:1741`),
   `forceDifference_mem` (`:1746`). Route: `g_ε - g = H_ε + F_ε`; `forceClassT` = `MemForceT` (smooth + unit-periodic +
