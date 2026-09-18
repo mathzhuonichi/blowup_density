@@ -42,7 +42,7 @@ coercion identities are `rfl` (`SchwartzMap.fourier_coe`,
 
 ## 2. What exists in Lean now
 
-New file `formalization/NSFormalization/Section3/T22/CutoffKernel.lean` (5 public
+New file `formalization/NSFormalization/Section3/T22/CutoffKernel.lean` (6 public
 declarations above), building on:
 - `NavierStokesR3.CompactSchwartz.ofCompactSupport` (vendor) — smooth compact ⇒ `SchwartzMap`;
 - `NSFormalization.Paper3.schwartzAngularDilation` / `schwartzAngularDilation_fourier_apply`
@@ -78,4 +78,4 @@ None for U-A2 as scoped. Two deliberate points recorded for the U-A3 consumer:
 - `make check` → contract policy tests `Ran 13 tests … OK`; work-queue check
   `45 work items: … consistent`.
 - Forbidden-token scan (`sorry|admit|native_decide|axiom|set_option`) over the
-  module, probe and audit files → none found.
+  module, probe and audit files → no forbidden Lean declarations; the word axiom occurs only in the audit docstring.

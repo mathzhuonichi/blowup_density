@@ -40,7 +40,7 @@ The brief's literal `Integrable (fun ζ => (1+‖ζ‖²)^(|s|/2) * ‖𝓕χ ζ
 `NormedSpace ℂ`, and `ℝ` is not. The honest statement takes the transform of the
 complex coercion `fun x => (χ x : ℂ)`, which is also exactly the multiplier
 `IsCutoffDatum` uses (`SchwartzMap.smulLeftCLM ℂ (fun x => (χ x : ℂ))`,
-`Spec.lean:118-128`). The primary theorem is stated for the datum-layer
+`Spec.lean:99-104`). The primary theorem is stated for the datum-layer
 `angularFourier`; the Mathlib `𝓕` variant is provided alongside.
 
 ## Pin notes (v4.34.0-rc2 + this Mathlib)
