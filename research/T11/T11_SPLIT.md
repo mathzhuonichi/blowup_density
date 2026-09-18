@@ -67,6 +67,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   (from `integral_torusLift`) gives `IsNormalized (toFlow w)` (`PeriodicLocalLifespan.lean:44`); then
   `normalized_flows_agree` (`:229`) verbatim. `horizon_le_lifespan` is `le_iSup_of_le T (le_iSup_of_le ⟨w⟩ le_rfl)`
   on `maximalLifespanT` (`PeriodicData.lean:303`) — no conversion. **M, sol.** Deps: U1.
+  **Status (315): complete — all three exact fields close, the nonzero constant-flow probe and exact three-axiom audit pass, with no named input; see `REPORT_315.md`.**
 - **U6 — solution transport under smooth change of variables.** New `Section3/T11/Transport.lean`. One shared
   constructor: given `w : ClassicalSolutionT ν a f T`, a `C∞` time-dependent translation `X : ℝ → Space` and
   constants `(α,β,γ)`, rebuild a `ClassicalSolutionT` for the transformed data, transporting all 14 fields (chain
