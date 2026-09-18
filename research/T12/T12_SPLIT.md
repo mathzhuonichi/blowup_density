@@ -146,8 +146,16 @@ needs only U1/U2). Lane numbers allocated by the lead in `PLAN.md`.
    `Contracts.V1.HomogeneousNorm.dotHomogeneousENorm`. The `rfl` bridge
    `Bindings/GradientL6V2.lean:44` closes it — use it explicitly in U4, do not assume defeq silently.
 
-### U1 status (lane 366)
-The new HaarCube module contains the definitional periodicLpENorm bridge,
-the scalar/vector support restriction transfer, and a general-p reduction to
-the fundamental-domain norm-density identity. The final measurable density
-lemma is still open.
+### U1 status (lane 366 r1) — COMPLETE
+`Section3/T12/HaarCube.lean` proves the actual all-`p` Haar↔cube transfer
+`eLpNorm_torusLift_eq_restrict` for every `p : ℝ≥0∞` (incl. `p = 0`, `p = ⊤`), via
+the single measure identity `map_torusChart` + `MeasurableEmbedding.eLpNorm_map_measure`
+(no exponent case split, no hypothesised lintegral). Exposed: smooth corollary,
+scalar and gradient-tensor (`WithLp 2 (Fin 3 → Space)`) specializations, the
+`periodicLpENorm` bridges (`periodicLpENorm_eq_eLpNorm_torusLift` rfl,
+`periodicLpENorm_eq_restrict[_gradientTensor]`), and the supported-in-cube transfer
+in both `Function.support` and `tsupport` spellings (scalar + gradient-tensor). All
+11 public declarations audit to `[propext, Classical.choice, Quot.sound]`; module
+`lake env lean` output is empty. U4/U5 can now consume `p = 3` scalar and `p = 6`
+gradient-tensor transfer directly. No named input; the periodicity hypothesis is
+the paper's unit-periodic interface, unused in the proof (holds for every field).
