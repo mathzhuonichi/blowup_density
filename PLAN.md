@@ -198,5 +198,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 430-T24-Ua9-affine-registration | 已合入 #392：T24a 装配 + T04.affine_variation 注册（45 合同；从 packet 子句推出 energyENorm 有限），审稿 ACCEPT-WITH-NOTES；prop:affine 完成 | 09-18 1843Z | #392 | — | T24a Ua9：AffineVariationAPI 装配（13 字段）+ affineVariationStatement + 注册 T04.affine_variation（绑定层从 packet 字段推出 energyENorm 1 U < ⊤） |
 | 431-T17-U8-force-volume | Opus 完成：force_spatial_volume（常数 (4/3)π θR³，需 0 ≤ θR）+ force_time_length（4ε²）逐字；新环面引理 measure_torusPoint_image_le；25 声明 → 排队审稿 | 09-18 1844Z | — | — | T17 U8：修正力环面支撑体积 O(ε³) 与时长 ≤ 4ε²（force_support + Haar=Lebesgue 单拷贝桥） |
 | 432-T20-U10b-h1-energy | Opus prover 子代理运行中 | 09-18 1832Z | — | — | T20 U10b：hOneEnergy（eq:H1energy：‖∇v‖²₂ 导数 + 耗散 + U10a 经 U9 吸收 + Young 力项；常数 CH1） |
-| 433-T18-U5-U6-cross-transport-momentum | Opus prover 子代理运行中 | 09-18 1837Z | — | — | T18 U5 两个交叉输运项恒零（eq:bgzero）+ U6 插入三元组的精确动量方程 |
+| 433-T18-U5-U6-cross-transport-momentum | Opus 完成：U5 两交叉输运项恒零（t_ε 处分情形 + correction_cancels + Source.cross_advection_eq_zero）+ U6 精确动量方程（Source.residual 与 canonical 残差 rfl；压力规范化梯度不变，无需可积性）→ 排队审稿 | 09-18 1852Z | — | — | T18 U5 两个交叉输运项恒零（eq:bgzero）+ U6 插入三元组的精确动量方程 |
 | 434-T17-U9-energy-bound | Opus prover 子代理运行中 | 09-18 1846Z | — | — | T17 U9：修正场环面能量界 ‖w_ε‖_{E_T} ≤ C ε^{3/2} + 两个 MemLp 诚实切片（HaarBridge 单拷贝桥 + 注册 I02 能量界） |
