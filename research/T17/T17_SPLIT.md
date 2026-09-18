@@ -78,6 +78,20 @@ in the tree today.
   (`temporalDerivative`, `spatialLaplacian`, `spatialDerivative`, `advection`) — the T17 spelling reorders the
   two middle summands, matched by `add_comm`. Reuse T16 `LatticeLift.spatialDivergence_translate:176`,
   `isPeriodicOn_sub_latticeVector:327`. **M, Opus.** Deps: — (T16).
+  **Status (lane 373, DONE):** `Section3/T17/Transport.lean` closed with 0 `sorry`/`axiom`, all decls
+  `[propext, Classical.choice, Quot.sound]`. `correctionData := localPotentialData v x₀ T θ η O θR ε₀` (plain
+  `x₀ T` args, no `PlacementData` — lane 362 not yet in tree; the `place` form is a projection corollary once it
+  lands); `correctionData_correction` by `rfl`. `correctionForce` copied verbatim from `Spec.lean:726-733`;
+  `correctionForce_eq_source` bridges to `Source.correctionForce` by `abel` (the two middle summands swap).
+  `force_eq` proved **pointwise, by cases on `x ∈ periodicSet (ball x₀ r)`** (not a finite-sum expansion): the
+  active-copy germ is a *single* translate (via `latticeLift_eq_of_ball` + `latticeLift_periodic`), so the
+  nonlinear advection term never produces cross copies; outside the periodic support both sides vanish
+  (`latticeLift_sliceSupport` + a new `source_correctionForce_support`). New reusable equivariance lemmas
+  `temporalDerivative_translate`/`spatialDerivative_translate`/`spatialLaplacian_translate`/`advection_translate`
+  and germ-congruence `source_correctionForce_congr` (all downstream of U5/U6 will reuse these). Hypotheses are
+  the honest T16 ones (`hv : IsPeriodicOn univ v`, `hvsm : ContDiffOn v cylinder`, θ/η smoothness+support,
+  `ε*θR < r < 1/2`, `2ε² < min T δ`) — no named `Prop` input. `correctionForce_periodic` (part c) via
+  `latticeLift_periodic`.
 
 - **U3 — correction profile fields + identity** (Euclidean reuse). New `Section3/T17/CorrectionProfile.lean`.
   Targets `correction_profile_smooth`, `correction_profile_support`, `correctionProfileConst`,
@@ -117,17 +131,47 @@ in the tree today.
   `Source.correctionForce … p = (ε²)⁻¹ • forceProfile ν … (ε, inverseScale ε (p-(T,x₀)))` — the affine
   `ε⁻²` rescaling of `force_profile_identity` under `correctionChartPoint` (`RECONCILIATION §4 ②`). **L, Opus.**
   Deps: U3.
+  **STATUS 2026-09-18 (lane 375; rev1 after merge closes all six fields incl. Spec-form identity; module builds / axioms clean).**
+  `formalization/NSFormalization/Section3/T17/ForceProfile.lean`: `force_profile_smooth`,
+  `force_profile_support`, `forceProfileConst` (def) + `_nonneg`, `force_profile_uniform` proved **verbatim**
+  (each `[propext, Classical.choice, Quot.sound]`). The `def` bridge `rescaledForceProfile_eq_forceProfile`
+  needed **one chain-rule step** (not `rfl`): the Spec's `ε²•∂ₓv(physical)·W` term vs Paper1's
+  `ε•∂ₓV_ε·W` term, reconciled by `spatialDerivative_rescaledReference` (`∂ₓV_ε = ε•∂ₓv(physical)`) +
+  `smul_add`/`abel` over `forceProfile_eq_operators`. Identity: `force_profile_identity` proved for the
+  **chart force** `Source.correctionForce ν v (physicalCorrection …) (chart) = (ε²)⁻¹ • rescaledForceProfile …`
+  (`physicalForce_eq_rescaledForceProfile`, via `physicalForce_eq_profile:185` +
+  `inverseScale_correctionChartPoint`). **Three residuals** (see `research/T17/ATTEMPTS_U4.md`): (G0) the lift
+  from the chart force to the Spec's `correctionForce ν v D ε` (over `D.correction`) — `force_eq_chart` =
+  operator `add_comm` + field agreement on `univ ×ˢ ball x₀ r`; this is U2/lane 373's `force_eq` restricted to
+  the chart, **not on this base** (no `Transport.lean` yet), left to U12; (G1) global `hv` premise (same as U3,
+  no `reference_smooth` field); (G3) bare `x₀,T` placement.
+  **REV1 2026-09-18 (post-review merge with `origin/erenup/integration-section3`).** G0 **resolved**: with lane
+  373's `Transport.lean` now on the base, `ForceProfile.lean` imports it, drops its own `correctionForce` (name
+  clash), and adds `force_eq_chart` (= `correctionForce_eq_source` reorder + `source_correctionForce_congr`
+  locality + lane 370 `correction_eq_physicalCorrection` on `univ ×ˢ ball x₀ r`) then the **Spec-form**
+  `force_profile_identity` (over `correctionForce ν v D ε`), `[propext, Classical.choice, Quot.sound]`. The
+  chart-force lemma `physicalForce_eq_rescaledForceProfile` is kept. Remaining: Spec-form identity **non-vacuity**
+  needs a concrete `LocalPotentialAPI` inhabitant (T16 `localPotential`), staged for U12; G1/G3 unchanged.
+  `check_contracts --base-ref origin/erenup/integration-section3` now exits 0 (base compatible).
 
 - **U5 — `correction_derivative_bound`** (pure transport). New `Section3/T17/CorrectionDeriv.lean`. Target
   `correction_derivative_bound` (`Spec.lean:878`) verbatim on the concrete correction. Route: U2(a) rewrites
   `D.correction ε` to `latticeLift (physicalCorrection …)`; U1 moves the iterated derivative to the single copy;
   Paper1 `physical_mixed_derivative_bound:291` (`|∂ₜʲ∂ₓᵝ physicalCorrection| ≤ C(ε⁻¹)^{2j+m}` on `Ioc 0 1`)
   closes it; `D.ε₀ ≤ 1` from `eps_le_placement` + `place.eps_le_one`. **M, codex-sol.** Deps: U1, U2.
+  **Status (lane 385, DONE):** `CorrectionDeriv.lean` defines the Paper1-selected
+  `correctionDerivConst`, proves its nonnegativity, and proves the concrete field at every spacetime point via
+  `correctionData_correction` + the general `latticeLift_iteratedFDeriv_eq`.  It carries the necessary global
+  `hv : ContDiff ℝ ∞ v` and the placement premise `ε₀ ≤ 1`; all declarations have exactly the standard three axioms.
 
 - **U6 — `force_derivative_bound`** (pure transport). New `Section3/T17/ForceDeriv.lean`. Target
   `force_derivative_bound` (`Spec.lean:893`). Route: U2(b) `force_eq` + U1 + Paper1
   `physicalForce_spatial_derivative_bound:270` (`|∂ₓᵝ Source.correctionForce| ≤ C(ε⁻¹)^{2+m}`). **M, codex-sol.**
   Deps: U1, U2.
+  **Status (lane 385, DONE):** `ForceDeriv.lean` defines the Paper1-selected `forceDerivConst`, proves
+  nonnegativity, and proves the concrete field through `force_eq` + the general lattice derivative bridge.  The
+  force slice-support input is derived from `correctionForce_support` + `physical_support`; global `hv` supplies
+  both the Paper1 hypothesis and `force_eq`'s local smoothness.  All declarations have exactly the standard three axioms.
 
 - **U7 — `force_smooth` / `force_periodic` / `force_support`** (transport + T16 reuse). New
   `Section3/T17/ForceSupport.lean`. Targets `Spec.lean:840,844,848`. Route: U2(b) `force_eq`; `force_smooth`
@@ -221,3 +265,28 @@ in `PLAN.md`.
    `D.correction ε = latticeLift (physicalCorrection …)`. U2's `correctionData` makes this `rfl`, but every
    quantitative lane must state its lemma about that concrete term and let U12 bundle — do not attempt to prove
    a quantitative field for an arbitrary `LocalPotentialAPI`-satisfying `D` (it is false without the construction).
+
+### U1 status (lane 369 → r1 → r2, DONE after two codex REJECTs)
+`Section3/T17/LatticeDeriv.lean` now carries **both** forms, each
+`[propext, Classical.choice, Quot.sound]`:
+- `latticeLift_iteratedFDeriv_eq` / `latticeLift_iteratedFDeriv_norm_le_iSup` —
+  the `k = 0` fundamental-ball equality and its `ℝ≥0∞`/`⨆` corollary (unchanged
+  from lane 369 r0).
+- **`latticeLift_iteratedFDeriv_eq`** (the U1 target) — the general **arbitrary-`z`**
+  `∃ k` shifted-copy equality
+  `‖iteratedFDeriv ℝ n (latticeLift w) z u‖ = ‖iteratedFDeriv ℝ n w (z - (0, latticeVector k)) u‖`,
+  covering the no-copy/zero case (`k = 0`, both sides `0`).  Route: periodicity
+  (`isPeriodicOn_sub_latticeVector`) + `latticeLift_eq_of_ball` give a
+  single-translate neighbourhood, then `Filter.EventuallyEq.iteratedFDeriv` and
+  `iteratedFDeriv_comp_sub`; the zero case builds an explicit `ball z.2 (r-ρ)` of
+  vanishing terms.  Hypotheses = `latticeLift_eq_of_ball`'s (`hslice`, `r+ρ≤1`)
+  **plus** the strict separation `hlt : ρ < r` (satisfied downstream,
+  `hεspace : ε·θRadius < r`; load-bearing — `research/T17/probes/rev369r1_negative_lt.lean`).
+- **`latticeLift_iteratedFDeriv_norm_le_iSup`** — the all-`z` `ℝ≥0∞`/`⨆`
+  corollary in the norm spelling `CorrectionAPI.correction_derivative_bound`
+  consumes (arbitrary `u : Fin n → SpaceTime` subsumes the `Fin.append` tuple).
+
+U5 (`correction_derivative_bound`) and U6 (`force_derivative_bound`) are now
+**DONE in lane 385**.  They transport the Paper1 Euclidean derivative bounds to
+**every** spacetime point through `latticeLift_iteratedFDeriv_eq`, no longer only
+the fundamental ball; see the unit status notes above and `REPORT_385.md`.

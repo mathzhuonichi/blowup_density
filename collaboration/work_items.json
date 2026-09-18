@@ -327,9 +327,11 @@
     {
       "id": "T13",
       "kind": "specification",
-      "state": "needs-specification",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T02.localization"
+      ],
       "deliverable": "Reconcile research/T13/Spec.lean and its comparison using research/T13/RECONCILIATION.md, then register the accepted versioned lem:localization contract under parent task T02 with its typed binding and axiom test."
     },
     {
@@ -353,9 +355,11 @@
     {
       "id": "T16",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T02.local_potential"
+      ],
       "deliverable": "Reconcile research/T16/Spec.lean against lem:potential and the local-cutoff sources, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
     },
     {
