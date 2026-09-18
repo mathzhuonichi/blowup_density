@@ -1438,3 +1438,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T24,417-T24-Ua7-infinite-dimensional,claude-opus,proof-worker,"Section3/T24/AffineWitness.lean + AffineFamily.lean: infinite_dimensional verbatim (disjoint-ball curl-bump family, linear independence); awaiting codex review",done,-
 2026-09-18,T21,416-SPEC-t21-reconcile,claude-opus,spec-reconcile,"research/T21/RECONCILIATION.md + Spec.lean (644 lines, 0 errors): base B, Prop structures, T20 consumed via Bindings bridge; lead-approved",merged,380
 2026-09-18,T22,418-T22-UZ1-zero-extension-comparison,gpt-5.6-sol,proof-worker,"Section3/T22/ZeroExtensionComparison.lean: zeroExtensionComparison verbatim (+ lane 409 CutoffDatum.lean carried); codex review ACCEPT-WITH-NOTES",merged,381
+2026-09-18,T18,422-T18-U1-insertion-data,gpt-5.6-sol,proof-worker,"Section3/T18/Insertion.lean: canonical InsertionData + inserted triple + eq:insertion formulas + threshold/trivial fields; awaiting codex review",done,-
