@@ -121,6 +121,20 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   `s`, `Integrable (fun ζ => (1+‖ζ‖²)^(|s|/2) * ‖𝓕χ ζ‖)`. Route: `χ` smooth compact ⇒ Schwartz ⇒ `𝓕χ` Schwartz
   (`SchwartzMap.fourierTransformCLM`), so `‖𝓕χ ζ‖ ≤ C_N (1+‖ζ‖)^(-N)` for every `N`; choose `N` past `|s|+3` and
   integrate against the polynomial weight (`integrable_one_add_norm`/`rpow` tails). **M–L, Opus.** Deps: —.
+  **[DONE — lane 391]** `Section3/T22/CutoffKernel.lean`: master lemma `integrable_weighted_schwartz (s ψ) :
+  Integrable (fun ζ => (1+‖ζ‖²)^(|s|/2) · ‖ψ ζ‖)` for any Schwartz `ψ` (`SchwartzMap.one_add_le_sup_seminorm_apply`
+  at `n=0` + `norm_iteratedFDeriv_zero` for `(1+‖ζ‖)^k‖ψ ζ‖ ≤ C_k`; weight comparison `(1+‖ζ‖²)^(|s|/2) ≤
+  (1+‖ζ‖)^|s|`; `integrable_one_add_norm` tail with `finrank ℝ Space = 3 < k - |s|`), then `cutoffSchwartz` (smooth
+  compact `χ` complexified to a `SchwartzMap` via `NavierStokesR3.CompactSchwartz.ofCompactSupport`) and the two
+  field-target spellings: `integrable_weighted_fourier_cutoff` (datum-layer `angularFourier (fun x => (χ x : ℂ))`,
+  routed through the Schwartz `schwartzAngularDilation (𝓕 ·)`) and `integrable_weighted_fourier_cutoff_mathlib`
+  (Mathlib `𝓕`), plus the `ENNReal`/`lintegral` form `lintegral_weighted_fourier_cutoff_ne_top`. No named input,
+  no `maxHeartbeats` bump. Axioms `[propext, Classical.choice, Quot.sound]`. `lake build … CutoffKernel` green;
+  `make check` green. Probe `research/T22/probes/cutoff_kernel_closes.lean` (`ContDiffBump` cutoff, `s = 1/2` and
+  `s = -2`, both spellings + `ENNReal` form), audit `research/T22/axioms_ua2.lean`. **NB for U-A3:** the target
+  cannot be stated for `𝓕χ` with `χ : Space → ℝ` (Mathlib `𝓕` needs a ℂ-module codomain), so the kernel is the
+  transform of the complex coercion `fun x => (χ x : ℂ)` — exactly what `IsCutoffDatum`'s
+  `SchwartzMap.smulLeftCLM ℂ (fun x => (χ x : ℂ))` multiplies by.
 
 - **U-A3 — `cutoffMultiplier` (analytic core)** (new analysis). New `Section3/T22/CutoffMultiplier.lean`. No named input.
   Target: `BoundedDomainNormAPI.cutoffMultiplier` **verbatim** (`Spec.lean:140-144`). Route: put `C := C_s ·
