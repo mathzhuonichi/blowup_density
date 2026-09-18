@@ -101,3 +101,7 @@ owner-facing analysis in `SPEC_ISSUES.md`):
   checks pass).
 * Gap probe (deleted scratch) reproducing the `univ` vs `ball x₀ r` type error —
   text quoted in §3 and `ATTEMPTS.md`.
+
+## Review notes applied (lead, 2026-09-18 09:37Z)
+- codex ACCEPT-WITH-NOTES (`REVIEW_347-T16-local-potential.md`): the `correction_*` field count is 7 (not 8) — the counts above were corrected to 7/7.
+- The premises `_hr2 : r < 1/2` and `_hU` (packet support) of `localPotential_zero` are unused in the `v = 0` instance; they are kept, underscore-marked, so that `localPotential_zero` has exactly the hypothesis list of `localPotentialStatement` and can be instantiated by the same callers as the general theorem (lane 358).
