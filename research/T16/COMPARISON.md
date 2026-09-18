@@ -221,3 +221,21 @@ potential on the chart ball) for general local `v`:
 
 All 8 new declarations print `[propext, Classical.choice, Quot.sound]`
 (`research/T16/axioms_ball_potential.lean`).
+## Lane 352 (T16 gap 2: lattice lift) — status
+
+The entire periodic-correction block flagged "Open" above is now **closed** in
+`formalization/NSFormalization/Section3/T16/LatticeLift.lean` (all decls print
+`[propext, Classical.choice, Quot.sound]`):
+
+* `latticeLift w = periodize w` by `rfl` (frequency `latticeVector = lattice`
+  agrees definitionally), so OpenAI's `NavierStokes.PeriodicLocalization` is
+  reused verbatim.  The seven `correction_*` fields are transported:
+  `latticeLift_smooth`, `latticeLift_periodic`, `latticeLift_eq_of_ball`
+  (`correction_formula`), `latticeLift_divergence_zero`,
+  `latticeLift_timeSupport` (`correction_support`), `latticeLift_sliceSupport`
+  (`correction_support_ball`), `latticeLift_cancels` (`correction_cancels`).
+* Packaged as `correction_fields_of_chart`: the seven canonical field bodies for
+  `fun ε => latticeLift (W ε)` from transportable chart hypotheses.  Probe
+  `probes/lattice_lift_closes.lean` restates each field verbatim + a nonzero bump.
+* Note: `LocalPotentialAPI` has **seven** `correction_*` fields (the brief's
+  "eight" double-counts `support`/`support_ball`).
