@@ -119,8 +119,10 @@ identically zero, and instantiates `tameProduct` at it.
   `tameProductVector` / `scalarSobolevENorm_component_le` /
   `sobolevENorm_le_sum_components` bridges listed as item (11) of
   `research/T12/COMPARISON.md` §"Proof dependencies") is **not** in scope of
-  this lane and is not proved.  The scalar and vector carriers remain unrelated
-  until that component pair lands.
+  this lane and is not proved.  Precisely, the remaining gap is the **T³ periodic
+  carrier/component bridge** (periodic vector carrier ↔ its three scalar
+  components); the R³ A03 analogues already exist in `Section4/A03`.  The scalar
+  and vector carriers remain unrelated until that periodic bridge lands.
 - `periodicFourierCoeff_mul_of_series` is stated for one-sided hypotheses
   (summability + a.e. series on the *first* factor, integrability on the
   *second*).  A symmetric version was not needed and is not proved.
@@ -143,7 +145,7 @@ cd verification && LEAN_NUM_THREADS=6 lake build \
   → Build completed successfully (10000 jobs)
 
 cd verification && LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T12.TameProduct
-  → ✔ Built NSFormalization.Section3.T12.TameProduct (5.9s); 0 errors, 0 warnings
+  → ✔ Built NSFormalization.Section3.T12.TameProduct (5.9s); 0 errors (review note: the dependency replay emitted pre-existing linter warnings from upstream modules; the new module itself adds none)
 
 cd verification && LEAN_NUM_THREADS=6 lake env lean \
   ../formalization/NSFormalization/Section3/T12/TameProduct.lean
