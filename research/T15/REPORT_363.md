@@ -35,3 +35,7 @@ scaling assembly) remain outside this lane.
 - `cd verification && LEAN_NUM_THREADS=6 lake env lean ../formalization/NSFormalization/Section3/T15/ParsevalZero.lean` — passed.
 - `cd verification && LEAN_NUM_THREADS=6 lake env lean ../research/T15/probes/parseval_zero_closes.lean` — passed.
 - `cd verification && LEAN_NUM_THREADS=6 lake env lean ../research/T15/axioms_utb2.lean` — passed; each audited declaration prints exactly `[propext, Classical.choice, Quot.sound]`.
+
+## Review notes applied (lead, 2026-09-18 10:07Z)
+- codex ACCEPT-WITH-NOTES (`REVIEW_363-T15-UTB2-parseval-zero.md`). Negative/hygiene results: the reviewer's mutation probe `research/T15/probes/rev363_negative.lean` (a wrong exponent in the identity) fails to typecheck against the shipped theorems, as required; the module builds without warnings; all declarations print `[propext, Classical.choice, Quot.sound]`.
+- `make check` in this repository has no Lean-target form; the standalone contract check is `python3 experiments/check_contracts.py --base-ref origin/erenup/integration-section3` (no contract files are touched by this lane).
