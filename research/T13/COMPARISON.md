@@ -267,6 +267,35 @@ Records: `research/T13/ATTEMPTS_LOCALIZATION_KERNEL.md`,
 `research/T13/axioms_localization_kernel.lean` (8 declarations),
 probe `research/T13/probes/localization_kernel_closes.lean`,
 report `research/T13/REPORT_353.md`.
+
+## §2 kernel comparison status — lane 354 (2026-09-18)
+
+Module `formalization/NSFormalization/Section3/T13/KernelComparison.lean`
+(namespace `NSFormalization.Section3.T13`) closes the §2 gap left open by lane
+353, proving the four residual items of
+`research/T13/ATTEMPTS_LOCALIZATION_KERNEL.md`.  No named input; every
+declaration prints exactly `[propext, Classical.choice, Quot.sound]`.
+
+| Item | Status | Declarations |
+|---|---|---|
+| 1. Separation `δ>0` of `B̄` from `∂Q` (`:79-80`) | **proved** | `exists_separation` (+ `separationRadius`, `separationRadius_pos`, `ball_coord_bounds`, `closedBall_coord_sep`) |
+| 2. Geometric tail constant `C_{s,d}<∞` (`:81-88`) | **proved** | `tailGeomConst`, `tailGeomConst_lt_top`, `latticeTail_le_tailGeomConst` (+ `geom_norm_lower`, `norm_sub_le_sqrt3`, `latticeTail_neg`) |
+| 3. Singular `n=0` term `≤ I_ℝ` (`:89-90`) | **proved** | `iTorus_singular_le` |
+| 4. Kernel comparison `I_𝕋(periodize f) ≤ I_ℝ(f)+4·C_{s,d}·‖f‖₂²` (`:73-92`) | **proved** | `iTorus_periodize_le` (+ `periodicKernel_split`, `volume_fundamentalCube`, `sq_eLpNorm_two`) |
+
+The lead's brief constant `tailGeomConst s c r` was **verified against the paper
+and adopted** in place of lane 353's insufficient `tailConst s (2r)`.  Concretely
+`tailGeomConst s c r = (ofReal c₀)^(-(3+2s)) · tailSum s` with the single
+separation coefficient `c₀ = min(1/2, δ/(2√3))`, `δ = separationRadius c r`; the
+paper's two regimes `|x-y+n|≥δ` and `|x-y+n|≥|n|/2` are fused into one uniform
+bound `|x-y+n| ≥ c₀|n|` (`geom_norm_lower`), which is what the `ℝ≥0∞` `rpow`
+estimate needs.  The `L²` term uses the registered `eLpNorm f 2 volume`, bridged
+to `∫⁻ ‖f‖²` by `sq_eLpNorm_two`.
+
+Records: `research/T13/ATTEMPTS_KERNEL_COMPARISON.md`,
+`research/T13/axioms_kernel_comparison.lean` (25 declarations),
+probe `research/T13/probes/kernel_comparison_closes.lean`,
+report `research/T13/REPORT_354.md`.
 ## §1 status — Proved by lane 345
 
 - **`torus_identity`**: PROVED (lane 345, no named input).
