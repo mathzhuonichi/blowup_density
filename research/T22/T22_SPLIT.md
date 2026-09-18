@@ -191,6 +191,8 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   Probe `research/T22/probes/orderzero_closes.lean`, audit `research/T22/axioms_ua5.lean`,
   attempts `research/T22/ATTEMPTS_UA5.md`, report `research/T22/REPORT_393.md`.
 
+- **U-B3 status (lane 409): blocked.** No implementation committed: the named cutoff lemmas are unavailable in the pinned Mathlib namespace, and the zero-extension pairing bridge is absent; see `research/T22/ATTEMPTS_UB3.md`.
+
 - **U-Z1 — `zeroExtensionComparison` (assembly of the two-sided bound)** (bookkeeping over the core). New
   `Section3/T22/ZeroExtComparison.lean`. No named input. Target:
   `BoundedDomainNormAPI.zeroExtensionComparison` **verbatim** (`Spec.lean:160-167`). Route: fix `χ` (U-B3a) and set
