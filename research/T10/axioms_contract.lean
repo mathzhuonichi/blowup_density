@@ -14,7 +14,6 @@ open BlowupDensity.Contracts.V1.TorusData
 open BlowupDensity.Bindings
 open scoped ENNReal
 
-#print axioms periodicFrequency_eq
 #print axioms periodicTorus_eq
 #print axioms periodicTorusMeasure_eq
 #print axioms torusLift_eq

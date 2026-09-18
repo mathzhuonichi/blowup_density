@@ -19,10 +19,6 @@ open NavierStokes.PeriodicIntegration (Coords toSpace UnitPeriods)
 open NSFormalization.Section4.A02 (SpatialField)
 open scoped BigOperators
 
-local instance : MeasureSpace UnitAddCircle := ⟨AddCircle.haarAddCircle⟩
-local instance : IsProbabilityMeasure (volume : Measure UnitAddCircle) :=
-  inferInstanceAs (IsProbabilityMeasure AddCircle.haarAddCircle)
-
 /-! ## Integer translates and the quotient realization -/
 
 /-- Unit coordinate periods imply invariance under every integer lattice
