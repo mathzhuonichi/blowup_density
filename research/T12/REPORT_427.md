@@ -54,3 +54,6 @@ All from the worktree root, after `. scripts/lean-env.sh`, `LEAN_NUM_THREADS=6`,
 | `make check` (work queue) | `13 tests ... OK`; `45 work items: ownership, contract registration and task cards consistent.` |
 | `git diff --stat verification/contracts.json` | `verification/contracts.json | 18 ++++++++++++------` (12 insertions, 6 deletions: the new list element in, lane 419's malformed top-level key out) |
 | forbidden-token scan over every changed `.lean` | only prose hits (a pre-existing lane-400 docstring sentence and my audit file's title); no `sorry`/`admit`/`axiom`/`native_decide` in code |
+
+
+> Lead note after review 427: (1) this file was transcribed by the lead from the agent message (report-file guard), so "REPORT_427.md not written" describes the agent's own step; (2) `parent_task: T01` is **resolved** by the lead (precedent `T01.torus_local_theory`, `T02.localization`; the T12 work item names T01).
