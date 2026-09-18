@@ -111,3 +111,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 343-SPEC-t24-spec | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0736Z | — | — | SPEC **T24 定稿**：按 research/T24/RECONCILIATION.md（B 为基；prop:affine 全空间用 I01.packet；修 B 两处假命题；ℝ≥0∞ 上确界；参数化柱体/球族；三结构 Prop/Type/Prop）→ Spec.lean + COMPARISON.md |
 | 344-T13-constant-endpoints | Opus prover 子代理（基座 = integration + 339 本地合并） | 09-18 0738Z | — | — | T13 证明：`constant_pos_finite`（cFrac 正有限）、`endpoint_zero`、`endpoint_one` |
 | 345-T13-torus-identity | Opus prover 子代理（基座 = integration + 339 本地合并） | 09-18 0738Z | — | — | T13 证明：环面 Gagliardo 恒等式 `torus_identity`（Fourier 展开 + 周期化核展开为全空间积分 + 核缩放） |
+| 346-T14-packet-energy | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0800Z | — | — | T14 证明：`lem:packetenergy` 两字段（energy_le_work / work_eq_square）由 vendor CompactEnergy 能量恒等式 + Paper1 sqrt_energy_le_primitive；probe 用 Bindings.packet 关闭 packetImportStatement / PacketImportFamily |
+| 347-T16-local-potential | worktree 安装中→Opus prover 子代理 | 09-18 0800Z | — | — | T16 证明：`lem:potential` localPotentialStatement（Urysohn 截断 θ/η、ε₀、径向向量势 ∇×A=v、修正 w_ε=−∇×(η_εθ_εA) 光滑无散周期、eq:bgzero）；复用 Section4/I02 Reference/Prescribed |
