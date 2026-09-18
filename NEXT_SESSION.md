@@ -26,15 +26,17 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-18 00:32Z 快照）
+## 当前在跑 / 待启动（2026-09-18 02:15Z 快照）
 
-- **T10 完成**：十字段证明（#269/#271/#272/#273）→ 合同 `T01.torus_data` 注册（#275，合同数 38）→ 实例去重与直接装配（#279）。规范模块：T10 `Section3/T10/PeriodicData.lean`、T12 `Section3/T12/MeanZeroCalculus.lean`（#274）、T13 `Section3/T13/Localization.lean`（#276）；每个都带 `research/<T>/probes/api_on_canonical.lean`（证明 lane 的目标陈述）。
-- **定稿 spec 已进树**：T10（#262）、T11（#277，3+8+5+6+4 字段，数据定义的 Galilean 均值、`SolvesBelowT` 延拓）、T12（#268）、T13（#263）、T14（#264）、T15（#278，`ScalingAPI` 21 字段，import `T01.torus_data`）、T16（#266）、T22（#265）。
-- **在跑**：302（T11 规范模块 + Paper1/HeliCorgi 实现候选调查 → T11 证明 lane 拆分依据）；300 审稿中（T12 谱隙：`spectralGap`、`homogeneous_le_sobolev`、`reweightDatum`）；294/295（T17 `lem:correction` 双盲草案）；303（T20 `prop:critical` 草案 A），304（草案 B）排队。
-- **T10 lead 修正 1（09-17 21:16Z）**：datum 谓词加 `Integrable (torusLift z)`，`parseval_forward` 加 `MemLp 2`；反例见 `research/T10/RECONCILIATION.md` §5。
-- **教训（09-17/18）**：匿名 `instance`/`local instance` 跨模块同名冲突 → 一律显式命名、共享实例放规范模块；`gh pr merge` 紧跟 push 会报 not mergeable（先查 `mergeable`），合入确认后再开依赖 lane；`pkill -f` 会杀自己的 shell；shell 双引号里的反引号会被展开（PLAN/PR 文本用单引号或 quoted heredoc）。
-- **路由不稳**：22:00–22:50Z 一波重连切断 288/290（已重启完成）；中途死亡要手动重启（无产出则原简报重跑）。
-- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；codex 并发 3–5；每次合入更新追踪 PR #270（正文模板 `tmp/section3_pr_body.md`）。
+- **T10 完成**：十字段证明 → 合同 `T01.torus_data`（#275，合同数 38）→ 实例去重与直接装配（#279）；基础引理 `Section3/T10/FourierCalculus.lean`（#282，部分交付：导数/Laplacian 符号、衰减、反演；第 11/12 项待 312）。
+- **规范模块**（各带 `research/<T>/probes/api_on_canonical.lean` = 证明 lane 目标）：T10 `PeriodicData`、T11 `LocalTheory`（#281，附实现候选调查）、T12 `MeanZeroCalculus`（#274）、T13 `Localization`（#276）。
+- **定稿 spec 已进树**：T10、T11（#277）、T12（#268）、T13、T14、T15（#278）、T16、T22。
+- **T11 证明（`research/T11/T11_SPLIT.md`，17 单元/5 波）**：第一波已合入 U1 转换（#284）、U2 判据桥（#285）、U9a 路线探针（#283：选 R2，热半群第一阶）、U9b（#286：强迫 Picard 不动点存在唯一，唯一具名输入 `TorusConvolutionInput`）；U3（310）在跑；**lead 修正 1**（`research/T11/LEAD_AMENDMENTS.md`）：存在性具名输入改为按阶力界 `PeriodicQuantitativeLocalInput'`。在跑 317（U9c：偿还 `TorusConvolutionInput`，astra）；排队 314（U4）、315（U5）、316（U7）；后续 U9d（公共 horizon bootstrap + 物理/压力恢复）、U9e（H¹ 一致输入）简报待 317 结果后写。
+- **T12 证明**：谱隙两字段（#280）；其余 7 字段待 312 的力路径/梯度恒等式基础。
+- **在跑 spec 草案**：303/304（T20 `prop:critical`，各掉线重启一次）、294/295（T17 `lem:correction`；295 完成，294 续跑中）；排队 306/307（T24）。
+- **路由不稳**（22:00Z 起持续）：sol 长任务经常 5/5 重连后被切断；中途死亡 → 有产出写 `fix_<lane>.md` 续跑，无产出原简报重跑；astra 短任务稳定且快（8–15 分钟），复杂证明也优先 astra。
+- **审稿口径**：REJECT 若只因简报范围遗漏（非错误）→ 作为部分交付合入并开补齐 lane（305→312）；简报义务一律写在 Goal 下。
+- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；codex 并发 3–5；每次合入更新追踪 PR #270（模板 `tmp/section3_pr_body.md`）。
 
 ## 下一步（按顺序）
 
