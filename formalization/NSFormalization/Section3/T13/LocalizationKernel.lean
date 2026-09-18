@@ -14,12 +14,17 @@ field on its own; lane 354 assembles them with `torus_identity` (lane 345),
 `endpoint_zero`/`constant_pos_finite` (lane 344) and `wholeSpace_identity`
 (lane 348).
 
-* §1 — the uniform lattice-tail bound.  For `0 < s` and `0 < ρ < 1` the
-  nonzero-lattice tail `latticeTail s h` is bounded, uniformly over `‖h‖ ≤ ρ`,
-  by the finite constant `tailConst s ρ`.  The convergence of the lattice
-  series `∑_{n≠0} ‖n‖^{-(3+2s)}` is obtained from `ZLattice.summable_norm_rpow`
-  (exponent `3 + 2s > 3`).  The geometric implication `2r < 1` from the
-  admissible-ball hypothesis is `two_r_lt_one_of_closure_ball_subset`.
+* §1 — an auxiliary uniform lattice-tail bound.  For `0 < s` and `0 < ρ < 1`
+  the nonzero-lattice tail `latticeTail s h` is bounded, uniformly over
+  `‖h‖ ≤ ρ`, by the finite constant `tailConst s ρ`.  This is a pointwise
+  lattice lemma (the convergence of `∑_{n≠0} ‖n‖^{-(3+2s)}` from
+  `ZLattice.summable_norm_rpow`, exponent `3 + 2s > 3`); it is *not* the paper's
+  cube-integral clearance estimate of `03-torus.tex:79-94`, whose constant
+  `C_{s,d}` uses the ball-to-boundary separation `d = dist(closure B, ∂Q)`
+  (that estimate, `iTorus_periodize_le`, is lane 354's, using the geometric
+  constant identified in `research/T13/ATTEMPTS_LOCALIZATION_KERNEL.md`).  The
+  geometric implication `2r < 1` from the admissible-ball hypothesis is
+  `two_r_lt_one_of_closure_ball_subset`.
 * §3 — the inhomogeneous/homogeneous comparison on `T³`.  For `0 < s ≤ 1` and
   a smooth periodic field `g`,
   `periodicSobolevENorm s g ≤ periodicSobolevENorm 0 g +
@@ -230,8 +235,9 @@ theorem periodicSobolevENorm_le_l2_add_homogeneous {s : ℝ} (hs : 0 < s) (hs1 :
         have hz : ∑ i : Fin 3, ((0 : PeriodicFrequency) i : ℝ) ^ 2 = 0 := by simp
         rw [periodicFrequencyWeight, hz]; ring
       rw [homogeneousDatumWeight_zero, add_zero, hpw0, Real.one_rpow]
-    · have hhk : homogeneousDatumWeight s k = periodicAngularFrequencySq k ^ (s / 2) :=
-        if_neg hk
+    · have hhk : homogeneousDatumWeight s k = periodicAngularFrequencySq k ^ (s / 2) := by
+        simp only [homogeneousDatumWeight, hk, ↓reduceIte]
+        rfl
       rw [hpw, hhk]
       have h := Real.rpow_add_le_add_rpow (p := s / 2) (a := 1)
         (b := periodicAngularFrequencySq k) zero_le_one hx (by linarith) (by linarith)

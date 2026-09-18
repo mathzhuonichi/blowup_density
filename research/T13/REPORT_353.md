@@ -12,7 +12,9 @@ is a `LocalizationAPI` field; lane 354 assembles them with `torus_identity`
 (345), `endpoint_zero`/`constant_pos_finite` (344) and `wholeSpace_identity`
 (348).
 
-**(a) Uniform lattice-tail bound** (`:80-89`).
+**(a) Auxiliary uniform lattice-tail bound** (supporting lemma; NOT the paper's
+cube-integral clearance estimate of `03-torus.tex:79-94`, whose constant
+`C_{s,d}` uses `d = dist(closure B, ∂Q)` — that estimate is lane 354's).
 - `summable_latticeVector_rpow {p : ℝ} (hp : (3:ℝ) < p) : Summable (fun n : PeriodicFrequency => ‖latticeVector n‖ ^ (-p))`.
 - `tailSum (s : ℝ) : ℝ≥0∞ := ∑' n : {n // n ≠ 0}, (ENNReal.ofReal ‖latticeVector n.1‖) ^ (-(3 + 2*s))`.
 - `tailConst (s ρ : ℝ) : ℝ≥0∞ := (ENNReal.ofReal (1 - ρ)) ^ (-(3 + 2*s)) * tailSum s`.
@@ -41,16 +43,27 @@ Reused: `ZLattice.summable_norm_rpow` (lattice convergence, exponent `3+2s>3`);
 (`reweightDatum`, `reweightDatum_apply`, `reweightDatum_enorm_le'`);
 `Real.rpow_add_le_add_rpow` (coefficientwise subadditivity `(1+x)^{s/2} ≤ 1 + x^{s/2}`).
 
-Probe `research/T13/probes/localization_kernel_closes.lean` instantiates §1 (on
-`latticeTail (1/2) 0 ≤ tailConst (1/2) (3/4)`, `tailSum`/`tailConst` finite),
-`two_r_lt_one` on the explicit admissible ball `ball probeCenter (3/8)`, and §3
-on the nonconstant smooth periodic mode `probeMode x = cos(2π x₀) e₀`.  A final
-`example` records lane 354's assembly step: §3 followed by `add_le_add hL2 hHom`
-(the `L²` and homogeneous bounds it will supply).
+Probe `research/T13/probes/localization_kernel_closes.lean` uses the lane-344
+`ContDiffBump` witness `probeField` (supported in `ball probeCenter (3/8)`,
+smooth, nonzero): `two_r_lt_one_of_closure_ball_subset` gives `2·(3/8) < 1`, and
+the §1 tail bound is instantiated on every difference `x-y` of two support-ball
+points at radius `2·(3/8)` (the region of lane 354's tail estimate where both
+points are in the ball).  It also witnesses finiteness (`tailSum`/`tailConst`),
+and instantiates §3 on the nonconstant smooth periodic mode
+`probeMode x = cos(2π x₀) e₀` (the bump is not periodic).  A final `example`
+records lane 354/359's assembly step: §3 followed by `add_le_add hL2 hHom` (the
+`L²` and homogeneous bounds they will supply), both hypotheses probe-only.
 
-## 3. Gap
+## 3. Gap (re-scoped by lead after codex review)
 
-**§2 kernel comparison `iTorus_periodize_le` is NOT shipped.**  As stated in the
+**Lead ruling (2026-09-18):** the §2 kernel comparison `iTorus_periodize_le` is
+re-scoped to **lane 354** (running on this branch, using the geometric constant
+`C_{s,d}` identified below); the physical/coefficient `L²` bridge for §3 is
+re-scoped to the **assembly lane 359**.  Lane 353 ships only §1, §3 and the
+`2r<1` helper; the two items below are recorded for those lanes, not attempted
+here.
+
+**§2 kernel comparison `iTorus_periodize_le` (→ lane 354).**  As stated in the
 brief,
 `ITorus s (periodize f) ≤ IReal s f + 4 * tailConst s (2r) * (eLpNorm f 2 volume)^2`,
 the constant is mathematically insufficient: after `periodize f = f` on the cube
@@ -73,17 +86,17 @@ geometric tail constant `tailGeomConst s c r` with the uniform bound
 
 **§3 `L²`-spelling note.**  The `L²` term is the coefficient-side
 `periodicSobolevENorm 0 g` — the brief's `eLpNorm g 2 periodicTorusMeasure` does
-not type-check for `g : Space → Space`.  Lane 354 needs a Parseval-at-0 identity
+not type-check for `g : Space → Space`.  The assembly lane 359 supplies a Parseval-at-0 identity
 to connect `periodicSobolevENorm 0 (periodize f)` to `endpoint_zero`'s
-`eLpNorm f 2 volume` (T10 obligation, COMPARISON item 8).
+`eLpNorm f 2 volume` (T10 obligation, COMPARISON item 8; T10 already has `sobolevENorm_zero_eq` in `Section3/T10/ForcePaths.lean`).
 
 ## 4. Commands and results
 
 ```
 cd verification && LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T13.LocalizationKernel
-  → Build completed successfully; module 0 errors (1 harmless `if_neg` deprecation warning)
+  → Build completed successfully; module 0 errors, 0 warnings
 cd verification && lake env lean ../formalization/NSFormalization/Section3/T13/LocalizationKernel.lean
-  → 0 errors (style linter notes only)
+  → no output (0 errors, 0 warnings)
 cd verification && lake env lean ../research/T13/axioms_localization_kernel.lean
   → 8 declarations, each `[propext, Classical.choice, Quot.sound]`
 cd verification && lake env lean ../research/T13/probes/localization_kernel_closes.lean

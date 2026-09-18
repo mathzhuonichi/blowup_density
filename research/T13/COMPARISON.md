@@ -242,14 +242,16 @@ Quot.sound]`.
 | Uniform lattice-tail bound (`:80-89`) | **proved** | `summable_latticeVector_rpow`, `tailSum`, `tailConst`, `tailSum_lt_top`, `tailConst_lt_top`, `latticeTail_le_tailConst` |
 | `2r < 1` from the admissible ball (`:79-80`) | **proved** | `two_r_lt_one_of_closure_ball_subset` |
 | Inhomogeneous ≤ `L²` + homogeneous on `T³` (`:73-78`) | **proved** | `periodicSobolevENorm_le_l2_add_homogeneous` |
-| Kernel comparison `ITorus ≤ IReal + tail·‖f‖²` (`:73-92`) | **open** | — (see below) |
+| Kernel comparison `ITorus ≤ IReal + tail·‖f‖²` (`:79-94`) | **lane 354** | — (clearance constant `C_{s,d}`) |
 
 The §3 estimate uses the **coefficient-side** `L²` norm `periodicSobolevENorm 0 g`
 (the physical `eLpNorm g 2 periodicTorusMeasure` in the brief does not
-type-check for `g : Space → Space`); lane 354 needs a Parseval-at-0 identity to
-reach `endpoint_zero`'s `eLpNorm f 2 volume` (item 8).
+type-check for `g : Space → Space`); the **assembly lane 359** supplies the
+Parseval-at-0 bridge to reach `endpoint_zero`'s `eLpNorm f 2 volume` (item 8;
+T10 already has `sobolevENorm_zero_eq`).
 
-The §2 kernel comparison is **not** shipped: the brief's constant
+The §2 kernel comparison is **lane 354's** (running on this branch, with the
+geometric constant `C_{s,d}`), not lane 353's: the brief's constant
 `4·tailConst s (2r)·‖f‖₂²` is insufficient because on the full cube×cube tail
 integral one point may be in the ball and the other far (`‖x-y‖ ≰ 2r`); the
 paper uses the geometric separation `d = dist(closure B, ∂Q)` instead.  Exact
