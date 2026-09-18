@@ -431,6 +431,17 @@
       "enabled": true
     },
     {
+      "id": "T04.conservative_forcing",
+      "parent_task": "T04",
+      "version": 1,
+      "specification": "verification/Contracts/V1/ConservativeForcing.lean",
+      "binding_module": "Bindings.ConservativeForcing",
+      "test_module": "Tests.ConservativeForcing",
+      "declaration": "BlowupDensity.Tests.checkedConservativeForcing",
+      "scope": "Proposition prop:conservative (03-torus.tex:723-740), torus branch only: for every smooth unit-periodic scalar potential and every registered classical torus solution from rest forced by its negative pressure gradient, the Haar force-velocity pairing vanishes throughout the lifespan, and at positive viscosity the velocity is identically zero on that lifespan. The contract has exactly these two universal fields, potential_pairing and zero_from_rest, and reuses the registered T10/T11 ClassicalSolutionT through fieldwise conversions. A genuine zero-velocity, zero-pressure rest solution at φ = 0 witnesses non-vacuity. The paper's bounded-domain branch with homogeneous no-slip boundary data is deliberately omitted because V1 has no bounded-domain/no-slip carrier; it is explicitly out of scope, not identified with periodicity.",
+      "enabled": true
+    },
+    {
       "id": "T01.packet_import",
       "parent_task": "T01",
       "version": 1,
