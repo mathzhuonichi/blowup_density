@@ -125,6 +125,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   trajectory bound → U13 gives the concrete `ClassicalSolutionT ν a f (S+δ)` with agreement, which *is*
   `ExtendsBeyondT` (`LocalTheory.lean:68`) — strictly stronger than registered `A04.extendsBeyond`
   (`Contracts/V2/Continuation.lean:175`, conclusion only `ofReal S < maximalLifespanR`). **M, sol.** Deps: U12, U13.
+  **Status (337): complete conditional only on `PeriodicQuantitativeLocalInput'` (through lane 332's `restartBeyond`) and on the `higherOrderBound` field taken as an explicit binder `hHigh` while U12 lands — `Section3/T11/ExtendsBeyond.lean`: `extendsBeyond_of_input` closes the verbatim field, `lifespan_ge_of_extends` is exported, the probe chains lane 322's `higherOrderBound_of_energyInequality` into `hHigh`, all 9 declarations print the three standard axioms.**
 - **U15 — `exists_maximal` + `maximal_unique`.** New `Section3/T11/Maximal.lean`. `0 < maximalLifespanT` from
   U11; gluing is `exists_maximal_periodic_solution_of_lifespan_pos` (`:411`, unconditional) after U1, then
   `ofFlow` back at each horizon (the three extra fields come from U11's solutions via U5). `maximal_unique` at
@@ -135,6 +136,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
 - **U16 — `lifespanInfiniteOfLocallyFinite`.** Same module. Contrapose: if `maximalLifespanT = L ≠ ⊤`, the
   hypothesis at `S = L.toReal` (the `≤` is load-bearing, `RECONCILIATION.md` §2) plus U14 gives a solution on
   `L.toReal + δ`, hence `ofReal (L.toReal + δ) ≤ L`, absurd. **M, sol.** Deps: U14, U15.
+  **Status (337): complete on the same two conditions as U14 — `lifespanInfiniteOfLocallyFinite_of_input` closes the verbatim field; U15's residual `PeriodicMaximalExistenceInput` is *proved* here from the named input (`periodicMaximalExistenceInput_of_input`, `exists_maximal_of_input`), so the continuation chain now rests on one name only; `squaredHTwoIntegralT_ne_top_of_lt` + probe example 6 machine-check that the `≤` is load-bearing (the `<` form of the hypothesis is automatic for a maximal solution). `Uniqueness.horizon_le_lifespan` is unusable pointwise (global `horizon`/`solution` family); `lifespan_ge_of_horizon` replaces it, see `ATTEMPTS_EXTENDS_BEYOND.md` §1.**
 - **U17 — assembly, contract, binding, tests.** Assemble the four API terms (`PeriodicLocalTheoryAPI` is a `def`,
   the other three `theorem`s); write `Contracts/V1/TorusLocalTheory.lean` (or `V2` if §3.1 fires) registering
   `T01.torus_local_theory` with the tier-(b) solution-class restatements deferred by `T01.torus_data`
