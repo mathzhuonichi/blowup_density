@@ -335,8 +335,8 @@
     {
       "id": "T14",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
+      "state": "in-progress",
+      "owner": "erenup",
       "contracts": [],
       "deliverable": "Reconcile research/T14/Spec.lean against thm:packet and lem:packetenergy, then register the accepted versioned contract components under parent tasks T01/T02 as applicable with typed bindings and axiom tests."
     },
