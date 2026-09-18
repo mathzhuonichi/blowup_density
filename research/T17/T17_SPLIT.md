@@ -78,6 +78,20 @@ in the tree today.
   (`temporalDerivative`, `spatialLaplacian`, `spatialDerivative`, `advection`) — the T17 spelling reorders the
   two middle summands, matched by `add_comm`. Reuse T16 `LatticeLift.spatialDivergence_translate:176`,
   `isPeriodicOn_sub_latticeVector:327`. **M, Opus.** Deps: — (T16).
+  **Status (lane 373, DONE):** `Section3/T17/Transport.lean` closed with 0 `sorry`/`axiom`, all decls
+  `[propext, Classical.choice, Quot.sound]`. `correctionData := localPotentialData v x₀ T θ η O θR ε₀` (plain
+  `x₀ T` args, no `PlacementData` — lane 362 not yet in tree; the `place` form is a projection corollary once it
+  lands); `correctionData_correction` by `rfl`. `correctionForce` copied verbatim from `Spec.lean:726-733`;
+  `correctionForce_eq_source` bridges to `Source.correctionForce` by `abel` (the two middle summands swap).
+  `force_eq` proved **pointwise, by cases on `x ∈ periodicSet (ball x₀ r)`** (not a finite-sum expansion): the
+  active-copy germ is a *single* translate (via `latticeLift_eq_of_ball` + `latticeLift_periodic`), so the
+  nonlinear advection term never produces cross copies; outside the periodic support both sides vanish
+  (`latticeLift_sliceSupport` + a new `source_correctionForce_support`). New reusable equivariance lemmas
+  `temporalDerivative_translate`/`spatialDerivative_translate`/`spatialLaplacian_translate`/`advection_translate`
+  and germ-congruence `source_correctionForce_congr` (all downstream of U5/U6 will reuse these). Hypotheses are
+  the honest T16 ones (`hv : IsPeriodicOn univ v`, `hvsm : ContDiffOn v cylinder`, θ/η smoothness+support,
+  `ε*θR < r < 1/2`, `2ε² < min T δ`) — no named `Prop` input. `correctionForce_periodic` (part c) via
+  `latticeLift_periodic`.
 
 - **U3 — correction profile fields + identity** (Euclidean reuse). New `Section3/T17/CorrectionProfile.lean`.
   Targets `correction_profile_smooth`, `correction_profile_support`, `correctionProfileConst`,
@@ -90,6 +104,23 @@ in the tree today.
   `physicalCorrection_eq_profile:223` (identity via `inverseScale`, matching `correctionChartPoint`).
   `fixedProfileCylinder D = Icc(-2,2)×closedBall 0 D.θRadius` contains `tsupport(profile)` by
   T16 `eta_support`/`theta_support`. **L, Opus.** Deps: —.
+  **STATUS 2026-09-18 (lane 370, DONE, module builds / axioms clean).** All six fields proved in
+  `formalization/NSFormalization/Section3/T17/CorrectionProfile.lean` (`correction_profile_smooth`,
+  `correction_profile_support`, `correctionProfileConst` (def) + `_nonneg`, `correction_profile_uniform`,
+  `correction_profile_identity`), each `[propext, Classical.choice, Quot.sound]`. Bridge
+  `rescaledCorrectionProfile_eq_profile` is `rfl` (the display `𝒜_ε` = Paper1 `jointPotential`) + one
+  curl-slice fderiv lemma; identity via `LocalPotentialAPI.correction_formula`/`potential_formula` →
+  `physicalCorrection` → `physicalCorrection_rescale`. **REV after codex REJECT (2026-09-18):** merged
+  `origin/erenup/integration-section3` (brings `Section3/T16/Assembly.lean` #330); probe now builds a real
+  `LocalPotentialAPI` via `localPotential` on a nonzero constant divergence-free periodic reference and
+  **instantiates `correction_profile_identity`** (`nonvacuous_correction_profile_identity`) — periodicity/
+  divergence-freeness proved, not commented. **One residual for U12/spec** (G1, logged in
+  `research/T17/SPEC_ISSUES.md`): the fields need **global** `hv : ContDiff ℝ ∞ v` (Paper1 `profile_*`),
+  which `CorrectionAPI` does not expose (`reference_periodic` only, no `reference_smooth`) — the assembly
+  must add that field or truncate v à la T16 `BallPotential`; the six theorem docstrings mark `hv` as an
+  added premise. G3 (lead ruling): placement bundling stays bare `x₀ : Space`, `T : ℝ` (canonical T16;
+  `PlacementData`/`PacketAPI` live in `verification/`, unreachable from `formalization/`); assembly
+  instantiates `place.x₀`/`place.T`.
 
 - **U4 — force profile fields + identity** (Euclidean reuse). New `Section3/T17/ForceProfile.lean`.
   Targets `force_profile_smooth`, `force_profile_support`, `forceProfileConst`, `forceProfileConst_nonneg`,
