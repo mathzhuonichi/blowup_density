@@ -22,5 +22,7 @@ open NSFormalization.Section3.T16
 #print axioms latticeLift_timeSupport
 #print axioms latticeLift_sliceSupport
 #print axioms isPeriodicOn_sub_latticeVector
+#print axioms cancel_of_eventually
 #print axioms latticeLift_cancels
 #print axioms correction_fields_of_chart
+#print axioms correction_fields_of_chart'

@@ -66,10 +66,20 @@ carrying both the periodic packet-support bound `⊆ periodicSet O` and the char
 cancellation `v + W ε = 0` on `O`) and returns the seven canonical field bodies
 for `fun ε => latticeLift (W ε)`, so lane 358 fills `LocalPotentialAPI.correction`
 by projection.  The two support facts (slice / spacetime) and `r + ε·θRadius ≤ 1`
-are derived once from `hWtsupp` + `hεspace`.  `hWcancel` bundles the plateau, its
-inclusion in the ball, the packet-support bound and the cancellation — exactly the
-tuple `exists_local_background_removal` returns (plus T14's periodic packet
-support), avoiding the earlier over-strong whole-ball cancellation.
+are derived once from `hWtsupp` + `hεspace`.
+
+`hWcancel`'s two substantive components (`tsupport (packet slice) ⊆ periodicSet O`
+and pointwise `v + W ε = 0` on `O`) are **obligations of the assembly lane 358,
+not facts proved here**.  Lane 358's route: the packet bound from
+`periodicScaledPacket = latticeLift (scaledPacket)` + T14 `delayed_full_support`
++ `latticeLift_sliceSupport`; the cancellation from `theta_one`/`eta_one` on the
+scaled plateau via `exists_local_background_removal`.  That chart lemma returns
+the *eventual* form `∀ x ∈ O, ∀ᶠ y in 𝓝 x, v + W ε = 0`, not the pointwise form;
+this lane bridges the gap with `cancel_of_eventually`
+(`Filter.Eventually.self_of_nhds`) and offers `correction_fields_of_chart'`, a
+variant whose `hWcancel` is the eventual form, so 358 feeds the chart output
+directly.  (r1 replaced the earlier over-strong whole-ball cancellation; r2 added
+the eventual→pointwise bridge and corrected the documentation, per Codex review.)
 
 ## Negative notes / dead ends
 
