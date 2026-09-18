@@ -247,4 +247,35 @@ above and in §1.
   `hsupp.trans (subset_closure.trans hball)`.
 
 ### U2 status (lane 376)
-Placement module added with kernel-checked slice support transport API; full derivation from PacketAPI carrier clauses remains an explicit follow-up obligation.
+
+**Complete (r1, 2026-09-18).** `formalization/NSFormalization/Section3/T15/Placement.lean`
+(namespace `NSFormalization.Section3.T15`, builds clean, all 13 decls
+`[propext, Classical.choice, Quot.sound]`).  The r0 goal-aliases were rejected
+(`REVIEW_376-T15-U2-placement.md`) and replaced by genuine transport from the raw
+`PacketAPI` clauses.  Shipped:
+
+- `scaledVelocity_tsupp_subset` / `scaledPressure_tsupp_subset` — for `0 < ε`,
+  `t ∈ Ico 0 T`, slice support `⊆ (fun y ↦ x₀+ε•y) '' Kstar`, from
+  `velocity_support`/`pressure_support` (`Ico 0 1`), `carrier_compact`,
+  `carrier_subset`, via `Source.PacketScaling.delayed_full_support` /
+  `delayed_pressure_support` + `inv_inv` + `Set.image_mono`.  Honest window
+  `Ico 0 T` (paper's `t<T`).
+- `scaledForce_tsupp_subset` — for **every** `t`, slice support `⊆ x₀+ε•Kstar`,
+  from `force_projection_subset` + `Kstar_compact` (`force_support` kept as
+  interface-parity `_hf`).
+- `affineImage_compact`, `affineImage_subset_ball` (`eps_space`),
+  `ball_subset_interior_cube` (`chartBall_in_cube`), and the composed
+  `scaled{Velocity,Pressure,Force}_slice_subset_cube` — the strict
+  `interior fundamentalCube` placement U3 / `HaarBridge.eLpNorm_torusLift_periodize`
+  consume.
+- `scaled{Velocity,Pressure,Force}_slice_hasCompactSupport` — `HasCompactSupport`
+  of each slice.
+
+Non-vacuity: `research/T15/probes/placement_closes.lean` (consumer on
+`Bindings.packet ν hν` at `ε=ε₀/2`, nonempty admissible interval) and
+`research/T15/probes/rev376_nonvacuity.lean` (concrete `ContDiffBump`, nonzero
+slice); mutation guard `research/T15/probes/rev376_negative.lean`; audit
+`research/T15/axioms_u2.lean`.  Building an actual `PlacementData` inhabitant is
+U15 (gated on T13.localization); U2 states/consumes the placement fields.
+Consumers U3, U7 take the `*_slice_subset_cube` / `*_slice_hasCompactSupport`
+lemmas.
