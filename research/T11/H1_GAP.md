@@ -112,3 +112,8 @@ both inside the copied `PeriodicContinuationAPI` structure, not in a T20 proof.
 3. `extendsBeyond`, `lifespanInfiniteOfLocallyFinite`, `exists_maximal`,
    `maximal_unique`: registered as proved (modulo U12's `higherOrderBound` for
    the first two).
+
+
+## §4 T20 consumer check (lane 381, 2026-09-18 13:10Z)
+
+Lane 381 (`research/T20/H1_CHECK.md`) re-read `research/T20/Spec.lean:402,437`: both `periodicSobolevENorm 1` occurrences are the copied T11 `PeriodicContinuationAPI.restart`/`restartBeyond` (vocabulary), not fields of `CriticalRegularityTAPI`; T20's criterion route uses `higherOrderBound` at `m = 3` and the ball-free `extendsBeyond`/`lifespanInfiniteOfLocallyFinite`, so the registered `PeriodicContinuationH3API` suffices and `PeriodicRestartH1` is not a T20 proof obligation.
