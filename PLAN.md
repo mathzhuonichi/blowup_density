@@ -59,7 +59,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 291-SPEC-t15-draft-a | 完成（草案 A；与 292 一起 reconciliation） | 09-17 2357Z | — | — | SPEC **T15 双盲草案 A**：`prop:scaling`（`eq:scaling` 放置/重标度/单拷贝周期化；`eq:packetEscale/Fscale/Hs`；镜像 `I03.scaling`，复用 T14 包与 T13 localization） |
 | 292-SPEC-t15-draft-b | 完成（草案 B；待 291 后 reconciliation） | 09-17 2346Z | — | — | SPEC **T15 双盲草案 B**（同上，互不可见） |
 | 293-T01-torus-data-contract | 已合入 #275（codex ACCEPT-WITH-NOTES，备注并入 296）：T01.torus_data 注册完成，合同数 38 | 09-18 0003Z | #275 | — | **注册第 3 节第一个合同 `T01.torus_data`**：`Contracts/V1/TorusData.lean`（数据层定义逐字重述 + 10 字段 `TorusDataAPI`）+ Bindings（rfl 桥 + 由四个证明模块装配）+ Tests；解类部分推迟到 T11 注册 |
-| 294-SPEC-t17-draft-a | sol at capacity 三次掉线 → 04:15Z 续跑改 astra | 09-18 0415Z | — | — | SPEC **T17 双盲草案 A**：`lem:correction`（`eq:H` 修正力、`eq:derivativebounds/wE/Hmixed/HHs`；复用 T16 截断与 T13 localization；镜像 `I02.correction(_v2)`） |
+| 294-SPEC-t17-draft-a | 完成（草案 A，续跑后；与 295 一起 reconciliation） | 09-18 0515Z | — | — | SPEC **T17 双盲草案 A**：`lem:correction`（`eq:H` 修正力、`eq:derivativebounds/wE/Hmixed/HHs`；复用 T16 截断与 T13 localization；镜像 `I02.correction(_v2)`） |
 | 295-SPEC-t17-draft-b | 完成（草案 B，续跑后；待 294 后 reconciliation） | 09-18 0128Z | — | — | SPEC **T17 双盲草案 B**（同上，互不可见） |
 | 296-MAINT-t10-instance-dedupe | 已合入 #279（codex 审稿 ACCEPT）：单一命名实例，Bindings 直接装配十定理（161 行） | 09-18 0031Z | #279 | — | MAINT：T10 三个证明模块的匿名 `IsProbabilityMeasure` 实例同名冲突 → 在 `PeriodicData.lean` 命名一次、删重复；`Bindings/TorusData.lean` 改回直接装配十个定理（删 293 的私下重证） |
 | 297-T12-canonical-module | 已合入 #274（lead 直接合并：定义类模块，probe 含 rfl 检查） | 09-17 2356Z | #274 | — | T12 规范定义模块 `Section3/T12/MeanZeroCalculus.lean`（research/T12/Spec.lean 的新定义逐字落成 Lake 模块，import T10 模块；probe 把 Type 值 `MeanZeroSobolevCalculusAPI` 陈述在模块上）→ T12 证明 lane 基座 |
@@ -95,4 +95,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 327-T11-U9d2b-momentum | Opus prover 子代理（基座 = integration + 326 本地合并） | 09-18 0449Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
 | 328-T11-U9d1a-real-order-convolution | 已合入 #297（codex 审稿 ACCEPT；Opus 产出） | 09-18 0451Z | #297 | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
 | 329-T11-U9d1b-fractional-smoothing | 已合入 #298（codex ACCEPT-WITH-NOTES：报告措辞；Opus 产出） | 09-18 0459Z | #298 | — | T11 U9d1b：分数阶热光滑 σ=3/2、核 (νt)^{-3/4} 可积、强连续 |
-| 330-T11-U9d1c-duhamel-half-step | Opus prover 子代理（基座 = integration + 328 + 329 本地合并） | 09-18 0442Z | — | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |
+| 330-T11-U9d1c-duhamel-half-step | Opus 完成：torusHalfStepInput 无条件证出 → persistence_unconditional（43 声明；修正了简报的力路线错误：有界 Leray CLM + HeliCorgi 端点安全契约）→ 排队 codex 审稿 | 09-18 0515Z | — | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |
