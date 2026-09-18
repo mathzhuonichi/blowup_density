@@ -100,7 +100,7 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   `zero_initial` from `U(0,·)=0` (raw `zero_initial_velocity`) + `b(0,·)=0` (`tsupport b ⊆ Ioo τ₀ τ₁ ×ˢ ball`,
   `τ₀>0`); `late_agreement` from `b=0` for `t ≥ τ₁`; `distinct` is `add_right_injective` on `affineVelocity`.
   **S, codex-sol.** No named input. Deps: —.
-- **Ua2 — `divergence_free`** (`:1038`): `∀ b admissible, ∀ t ∈ Ico 0 1, ∀ x, spatialDivergence (U+b) t x = 0`.
+- **Ua2 — `divergence_free`** (`:1038`): `∀ b admissible, ∀ t ∈ Ico 0 1, ∀ x, spatialDivergence (U+b) t x = 0`. **Done (lane 402).**
   Route: additivity of `spatialDivergence` (⑦-algebra) from raw `∇·U=0` on `Ico 0 1` and `∇·b=0` (admissible,
   `AffineAdmissible:968`). **S–M, codex-sol.** No named input. Deps: —.
 - **Ua3 — `momentum` (`eq:affine` expansion ①).** Target verbatim (`:1047`): `∀ b admissible, ∀ t ∈ Ioo 0 1,
@@ -108,7 +108,17 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   the six-term expansion `residual ν (U+b) P = (residual ν U P) + ∂ₜb − νΔb + (U·∇)b + (b·∇)U + (b·∇)b` from
   bilinearity of `spatialDerivative`/`advection` and linearity of `temporalDerivative`/`spatialLaplacian`/
   `pressureGradient`; then raw `momentum` (`residual ν U P = F` on `Ioo 0 1`) closes it against `affineForce:988`.
-  **L, Opus** (hard analytic core). No named input. Deps: —.
+  **DONE (lane 398, Opus).** `formalization/NSFormalization/Section3/T24/AffineMomentum.lean`:
+  `momentum` (raw-field, hyps = `velocity_smooth` + `navier_stokes` only; no named input, no pressure smoothness)
+  + `navierStokesResidual_affine_expand` (the six-term expansion). Reused vendored `NavierStokes.ResidualCalculus`
+  add-lemmas + interior-smoothness helpers rather than reproving bilinearity. Probe
+  `research/T24/probes/affine_momentum_closes.lean` closes the registered field on `Bindings.packet ν hν`; both
+  module theorems + all probe decls print `[propext, Classical.choice, Quot.sound]`. Imports the T24a affine
+  vocabulary from lane 392 `AffineBasics.lean` (`import NSFormalization.Section3.T24.AffineBasics`; 392's defs are
+  defeq to `Spec.lean`'s after the `VelocityField`/`SpaceTimeField` alias). Non-vacuity: probe
+  `affine_momentum_nonzero.lean` builds a **nonzero** admissible `b = spatialCurl(θ·φ·e₁)` on `ball 0 1 × (1/4,3/4)`
+  (`bWitness_admissible`, `bWitness_ne_zero`, `nonzero_admissible_momentum`, all standard-3 axioms); `closes.lean`
+  covers `b=0` admissibility + `b=0`⇒packet-PDE reduction. **L, Opus** (hard analytic core). No named input. Deps: —.
 - **Ua4 — `force_smooth` + `force_support` (smooth zero-extension across `t=1`, ②).** Targets verbatim
   (`:1025`, `:1032`): `ContDiff ℝ ∞ (affineForce …)` and `CompactPositiveTimeSupport (affineForce …)`. Route:
   every correction term is supported in `tsupport b`, a compact subset of `Ioo τ₀ τ₁ ×ˢ ball` with `τ₁<1`, on a
@@ -117,7 +127,7 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   smooth with compact positive-time support (raw `force_smooth`/`force_support`). **L, Opus.** No named input. Deps: —.
 - **Ua5 — `speed_unbounded`** (`:1069`): `∀ b admissible, SpeedUnboundedAtOne (affineVelocity U b)`. Route:
   `U+b = U` on `t ≥ τ₁` (Ua1 `late_agreement`, `τ₁<1`), so the packet's `SpeedUnboundedAtOne U` (raw field,
-  `Packet.lean:145`) transfers. **S–M, codex-sol.** No named input. Deps: Ua1.
+  `Packet.lean:145`) transfers. **S–M, codex-sol.** No named input. Deps: Ua1. **Done: lane 403.**
 - **Ua6 — `energy_finite` (finite energy/dissipation + triangle ③).** Target verbatim (`:1076`): `∀ b
   admissible, energyENorm 1 (affineVelocity U b) < ⊤`. Route: `b` compactly supported smooth ⟹ `energyENorm 1 b
   < ⊤` (bounded velocity + gradient on a compact set, finite time interval); raw `energyENorm 1 U < ⊤` (packet
@@ -149,6 +159,10 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   disjoint balls in `ball c r`; in each a smooth compactly supported vector potential with nonzero curl, times a
   fixed nonzero time bump in `Ioo τ₀ τ₁`; the curls are div-free with disjoint spatial supports ⟹ `LinearIndependent`.
   Needs a bump-function library (no local precedent). **L, Opus.** No named input. Deps: —.
+  **Single-bump witness now exists** (lane 398, `research/T24/probes/affine_momentum_nonzero.lean`):
+  `bWitness := spatialCurl(θ·φ·e₁)` with `θ,φ : ContDiffBump`, proved smooth / compactly supported in the cylinder /
+  divergence-free (`spatialDivergence_spatialCurl`) / nonzero (curl `e₂`-component `= ∂₃φ`, forced `≢0` by compact
+  support). Ua7 lifts this to a countable disjoint-ball family + `LinearIndependent`.
 - **Ua8 — `nonisolated` (`C^m` bound ⑤).** Target verbatim (`:1104`): `∀ b admissible, b ≠ 0, ∀ m, Tendsto (fun
   λ ↦ ckSeminormE (tsupport b) m (Ũ_{λb}−U)) (𝓝 0) (𝓝 0) ∧ Tendsto (… F̃_{λb}−F …) (𝓝 0) (𝓝 0)`. Route:
   velocity difference `= λ • b`; force difference `= λ L_U b + λ²(b·∇)b` (reuse Ua3's expansion); on `tsupport b`
@@ -230,7 +244,7 @@ No T18 anywhere: T24b superposes T15 outputs, it does not insert.
 |---|---|---|---|
 | W1 | **Uc1** zero_from_rest · **Uc2** potential_pairing · **Ua1** geometry/kinematics | S–M sol / M Opus / S sol | **Uc1 + Ua1 done (lane 392)**; Uc2 in progress |
 | W2 | **Uc3** conservative assembly+register · **Ua2** divergence · **Ua3** momentum ① | S–M sol / S–M sol / L Opus | unblocked |
-| W3 | **Ua4** force smooth-ext ② · **Ua5** speed_unbounded · **Ua6** energy_finite ③ | L Opus / S–M sol / M–L Opus | unblocked |
+| W3 | **Ua4** force smooth-ext ② · **Ua5** speed_unbounded · **Ua6** energy_finite ③ | L Opus / S–M sol / M–L Opus | **Ua5 done (lane 403)**; Ua4/Ua6 unblocked |
 | W4 | **Ua7** infinite_dim ④ · **Ua8** nonisolated ⑤ | L Opus / L Opus | unblocked |
 | W5 | **Ua9** affine assembly+register · **Ub4** assembled solution ⑦\* · **Ub3** single-copy supports\* | M sol / L Opus / M sol | affine done; T24b conditional lemmas begin |
 | W6 | **Ub1** placement/scaling\* · **Ub2** components\* · **Ub5** region agree/blowup\* · **Ub6** energy/dissip ⑧\* · **Ub7** multiple assembly+register\* | M sol / S–M sol / M sol / L Opus / M sol | **\* gated on T15 (U2/U3/U4/U6/U11/U15)** |
