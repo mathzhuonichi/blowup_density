@@ -92,3 +92,8 @@ make check
 
 git commit → f60efeb2 on erenup/431-T17-U8-force-volume (no push, no merge, no rebase)
 ```
+
+
+## Lead ruling after review 431 (REJECT on the extra premise `hθR : 0 ≤ θR`; merged on lead authority)
+
+The premise is not a named input: `θR` is a raw parameter of `correctionData`, and its positivity is the threaded T16 record's field `LocalPotentialAPI.theta_radius_pos` (exactly as lane 434's `hcube` is the placement's `chartBall_in_cube`). The U12 assembly discharges it from `D.potential`; the alternative spellings (`|θR|³`, `max θR 0`) would distort the manuscript constant. The base-ref note was branch drift (`AffineVariation.lean` from #392), refreshed by the merge below. Lean, axioms and the two negative probes were accepted by the reviewer.
