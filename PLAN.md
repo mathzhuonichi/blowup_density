@@ -67,9 +67,9 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 299-T13-canonical-module | 已合入 #276（lead 直接合并：定义类模块，probe 含 rfl 检查） | 09-18 0007Z | #276 | — | T13 规范定义模块 `Section3/T13/Localization.lean`（research/T13/Spec.lean 新定义逐字落 Lake 模块，import T10；probe 把 `LocalizationAPI` 陈述在模块上）→ T13 证明 lane 基座 |
 | 300-T12-spectral-gap | 已合入 #280（codex 审稿 ACCEPT，含更小常数变异探针） | 09-18 0036Z | #280 | — | T12 证明：`spectralGap`（常数 `(1+1/(4π²))^(s/2)`）+ `homogeneous_le_sobolev`（常数 1）—— 系数侧权重比较与 lp 重加权构造 |
 | 301-SPEC-t15-spec | 已合入 #278（lead 直接合并：elaborate 0 输出，21 字段对照 reconciliation） | 09-18 0025Z | #278 | — | SPEC **T15 定稿**：按 research/T15/RECONCILIATION.md（B 为基；`PlacementData` 参数；Type 值 `ScalingAPI` 含 `sobolevConst` 与 `forceConvergence`；import 已注册的 `T01.torus_data`）→ Spec.lean + COMPARISON.md |
-| 302-T11-canonical-module | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0025Z | — | — | T11 规范定义模块 `Section3/T11/LocalTheory.lean`（新定义逐字落 Lake 模块；probe 把五个 API 陈述在模块上；附 Paper1/HeliCorgi 实现候选调查 → T11 证明 lane 拆分依据） |
+| 302-T11-canonical-module | 已合入 #281（lead 直接合并：定义类模块 + 实现候选调查 → T11 拆分依据） | 09-18 0039Z | #281 | — | T11 规范定义模块 `Section3/T11/LocalTheory.lean`（新定义逐字落 Lake 模块；probe 把五个 API 陈述在模块上；附 Paper1/HeliCorgi 实现候选调查 → T11 证明 lane 拆分依据） |
 | 303-SPEC-t20-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-18 0031Z | — | — | SPEC **T20 双盲草案 A**：`prop:critical`（均值消去、`eq:criticalenergy/bintegral/ybound/H1energy`、经 `eq:criterion` 全局；镜像 R43+C01+A04） |
 | 304-SPEC-t20-draft-b | worktree 安装中→自动启动（codex sol xhigh） | 09-18 0036Z | — | — | SPEC **T20 双盲草案 B**（同上，互不可见） |
-| 305-T10-fourier-calculus | 排队（下一个空位；astra 优先；简报已写） | 09-18 0040Z | — | — | T10 基础引理：光滑周期场的 Fourier 微积分（导数符号 `2πi k_j`、Laplacian 符号、系数快速衰减、可和性与逐点反演、sup 界）→ 解锁 T12 `boundedRepresentative`/`lambda_exists`/`hTwo_le_laplacian` 与 T13 |
+| 305-T10-fourier-calculus | worktree 安装中→自动启动（codex **astra** low，sol 备用） | 09-18 0039Z | — | — | T10 基础引理：光滑周期场的 Fourier 微积分（导数符号 `2πi k_j`、Laplacian 符号、系数快速衰减、可和性与逐点反演、sup 界）→ 解锁 T12 `boundedRepresentative`/`lambda_exists`/`hTwo_le_laplacian` 与 T13 |
 | 306-SPEC-t24-draft-a | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 A**：`prop:affine`/`prop:multiple`/`prop:conservative`（三个独立结构；基于 T14/T15 定稿） |
 | 307-SPEC-t24-draft-b | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 B**（同上，互不可见） |
