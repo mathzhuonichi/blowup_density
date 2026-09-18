@@ -73,3 +73,21 @@ navierStokesResidual ν (affineVelocity U b) (affinePressure P) t x =
 - `cd verification && lake env lean ../research/T24/axioms_ua3.lean`
   → `navierStokesResidual_affine_expand` and `momentum` both = `[propext, Classical.choice, Quot.sound]`
 - `make check` → EXIT 0 (contract architecture + policy + work-queue checks all pass)
+
+## Addendum (follow-up: import AffineBasics from lane 392)
+After lane 392 (PR #357) merged `Section3/T24/AffineBasics.lean` into
+`origin/erenup/integration-section3`, I merged the integration branch into this
+worktree (no conflicts) and replaced the in-module restated affine vocabulary by
+`import NSFormalization.Section3.T24.AffineBasics`, deleting my six duplicate defs.
+**All six spellings in 392 are token-identical to mine** (`affineCylinder`,
+`AffineAdmissible`, `affineVelocity`, `affinePressure`, `crossAdvection`,
+`affineForce` — same namespace `NSFormalization.Section3.T24`, same signatures and
+bodies), so the `momentum` and `navierStokesResidual_affine_expand` proofs are
+unchanged. 392 additionally supplies `affineCkSeminorm` and the Ua1 kinematic
+theorems (`radius_pos`, `window`, `zero_initial`, `late_agreement`, `distinct`),
+none of which collide with this module. Re-ran all gates after the switch:
+- `lake build NSFormalization.Section3.T24.AffineMomentum` → `Build completed successfully (3007 jobs).`
+- `lake env lean` on module / probe / axioms_ua3 → 0 errors; every decl `[propext, Classical.choice, Quot.sound]`
+- `make check` → EXIT 0
+The probe keeps its own `BlowupDensity.T24.Probe` restatement in the registered
+`Contracts.V1` vocabulary (a different namespace, no collision).

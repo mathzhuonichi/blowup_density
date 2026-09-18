@@ -1,3 +1,4 @@
+import NSFormalization.Section3.T24.AffineBasics
 import NavierStokes.ResidualCalculus
 import NavierStokes.R3.ProblemStatement
 
@@ -18,12 +19,10 @@ hypotheses, exactly the pattern of `Section3/T14/PacketEnergy.lean`.  The probe
 `research/T24/probes/affine_momentum_closes.lean` feeds `Bindings.packet ν hν`'s
 fields to discharge the registered `AffineVariationAPI.momentum` obligation.
 
-Reconciliation note (lane 398 / T24_SPLIT.md Ua3, RECONCILIATION.md §3): the
-canonical `Section3/T24/AffineBasics.lean` vocabulary (`affineVelocity`,
-`affineCylinder`, `AffineAdmissible`, `crossAdvection`, `affinePressure`,
-`affineForce`) of lane 392 had not landed on this base, so the definitions this
-unit needs are restated here verbatim from `research/T24/Spec.lean:961-990`
-(namespace `NSFormalization.Section3.T24`); the assembly lane deduplicates.
+The T24a affine vocabulary (`affineCylinder`, `AffineAdmissible`, `crossAdvection`,
+`affineVelocity`, `affinePressure`, `affineForce`) is imported from the canonical
+`Section3/T24/AffineBasics.lean` (lane 392, PR #357), whose spellings are
+token-identical to `research/T24/Spec.lean:961-990`.
 
 The whole-space viscous residual `navierStokesResidual ν` and its component
 operators are the registered ones (`NavierStokes.R3.ProblemStatement:57-63` and
@@ -42,38 +41,6 @@ open Set
 open NavierStokes.ProblemStatement
 open NavierStokes.ResidualCalculus
 open scoped ContDiff
-
-/-! ## T24a raw-field affine vocabulary (verbatim from `research/T24/Spec.lean:961-990`) -/
-
-/-- `03-torus.tex:668-671`: the open spacetime cylinder `Q = B₀ × (τ₀,τ₁)`. -/
-def affineCylinder (c : Space) (r τ₀ τ₁ : ℝ) : Set SpaceTime :=
-  Ioo τ₀ τ₁ ×ˢ Metric.ball c r
-
-/-- `03-torus.tex:672-673`: the admissible perturbation class
-`b ∈ C_c^∞(Q;ℝ³)` with `∇·b = 0`. -/
-def AffineAdmissible (c : Space) (r τ₀ τ₁ : ℝ) (b : VelocityField) : Prop :=
-  ContDiff ℝ ∞ b ∧ HasCompactSupport b ∧
-    tsupport b ⊆ affineCylinder c r τ₀ τ₁ ∧
-    (∀ t : ℝ, ∀ x : Space, spatialDivergence b t x = 0)
-
-/-- The transport term `(v·∇)w` of `eq:affine` (`03-torus.tex:674-676`). -/
-def crossAdvection (v w : VelocityField) (t : ℝ) (x : Space) : Space :=
-  spatialDerivative w t x (v (t, x))
-
-/-- `eq:affine`, `03-torus.tex:674`: `Ũ = U + b`. -/
-def affineVelocity (U b : VelocityField) : VelocityField :=
-  fun z ↦ U z + b z
-
-/-- `eq:affine`, `03-torus.tex:674`: `P̃ = P`. -/
-def affinePressure (P : PressureField) : PressureField := P
-
-/-- `eq:affine`, `03-torus.tex:674-676`: the six-term corrected force
-`F̃ = F + ∂ₜb − νΔb + (U·∇)b + (b·∇)U + (b·∇)b`, transport terms in the
-paper's order. -/
-def affineForce (ν : ℝ) (U F b : VelocityField) : VelocityField :=
-  fun z ↦ F z + temporalDerivative b z.1 z.2 - ν • spatialLaplacian b z.1 z.2 +
-    crossAdvection U b z.1 z.2 + crossAdvection b U z.1 z.2 +
-    crossAdvection b b z.1 z.2
 
 /-! ## The `eq:affine` residual expansion ① -/
 

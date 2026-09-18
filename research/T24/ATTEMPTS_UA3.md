@@ -50,3 +50,8 @@ Result: proved. Notes on route selection and the dead ends.
   supported vector potential and a time bump in `(τ₀,τ₁)`). Constructing it here would duplicate
   Ua7, so it is not done. `momentum` is `∀ b` admissible and fully proved, so it consumes whatever
   witness Ua7 produces; the probe covers `b=0` admissibility and the `b=0`⇒packet-PDE reduction.
+
+## Follow-up (lane 392 AffineBasics landed)
+Switched the module to `import NSFormalization.Section3.T24.AffineBasics` and deleted the six
+in-module defs. 392's spellings are token-identical to the ones restated here, so no proof
+adaptation was needed (nothing to report as a difference). Gates re-run green.
