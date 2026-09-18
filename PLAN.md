@@ -167,6 +167,11 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 399-MAINT-section3-build-e | 已合入 #354：71 模块全编译 0 错误、四门禁、42 合同（logs/SECTION3_BUILD_20260918e.md）；T16/Assembly 3 个弃用 warning（卫生项） | 09-18 1414Z | #354 | — | MAINT：#339–#353 合入批次后 Section 3 全量编译检查（约 75 模块、三门禁、42 合同、probe/公理扫描 → logs/SECTION3_BUILD_20260918e.md）；基座 dbdac830 |
 | 400-T12-U5-gradient-l6 | worktree 安装中 → Opus prover | 09-18 1427Z | — | — | T12 U5：gradientLSix（∇v 的 L⁶ ≤ C₆ Δv 的 L²，路线 c：cutoffMul + 注册 A05.gradient_l6 + Leibniz 换位子 ≤ H² ≤ Δ） |
 | 401-T12-U4b-critical-l3-density | worktree 安装中（基于 396 分支）→ Opus prover | 09-18 1427Z | — | — | T12 U4b：逐字 velocityCriticalL3（仅 MemPeriodicHomogeneous ½）由光滑版经 Fourier 截断/周期磨光 + L³ 下半连续得到 |
-| 402-T24-Ua2-divergence-free | worktree 安装中 → codex sol | 09-18 1427Z | — | — | T24a Ua2：divergence_free（∇·(U+b)=0，原始 packet 散度子句 + AffineAdmissible） |
+| 402-T24-Ua2-divergence-free | codex 完成：divergence_free 逐字（vendor 散度可加性 + 原始子句；probe 在 Bindings.packet 上闭合注册字段）→ 排队审稿 | 09-18 1438Z | — | — | T24a Ua2：divergence_free（∇·(U+b)=0，原始 packet 散度子句 + AffineAdmissible） |
 | 403-T24-Ua5-speed-unbounded | worktree 安装中 → codex sol | 09-18 1427Z | — | — | T24a Ua5：speed_unbounded（U+b=U 于 t≥τ₁，late_agreement 传递 SpeedUnboundedAtOne） |
 | 404-MAINT-t16-deprecations | 已合入 #363：T16/Assembly.lean 三处弃用替换（ite_eq_left/right），门禁 + 42 合同复核绿 | 09-18 1435Z | #363 | — | MAINT 卫生：T16/Assembly.lean 三处 if_pos/if_neg 弃用替换为 ite_eq_left/right，门禁 + 42 合同复核 |
+| 405-T12-U6-gradient-lambda-l3 | worktree 安装中 → Opus prover | 09-18 1438Z | — | — | T12 U6：gradientLambdaCriticalL3（对 ∂ⱼv 与 Λv 用 396 光滑版 U4 + Fourier 阶移，常数 CcriticalThreeHalves） |
+| 406-T22-UA3b-cutoff-multiplier-field | worktree 安装中（基于 397 分支）→ Opus prover | 09-18 1438Z | — | — | T22 U-A3b：在 397 引擎上闭合逐字 cutoffMultiplier（R1 乘积→卷积 datum 级、R2 实子空间、R3 范数辨识、R4 C>0） |
+| 407-T24-Ua6-energy-finite | worktree 安装中 → Opus prover | 09-18 1438Z | — | — | T24a Ua6：energy_finite（紧支光滑 b 的 E₁ 范数有限 + 次可加性 + 原始 energyENorm 1 U < ⊤） |
+| 408-T22-UB2-zero-ext-regularity | worktree 安装中 → codex sol | 09-18 1438Z | — | — | T22 U-B2：零延拓正则性（contDiff/HasCompactSupport/MemLp/datum 存在） |
+| 409-T22-UB3-cutoff-datum | worktree 安装中 → codex sol | 09-18 1438Z | — | — | T22 U-B3：cutoff 存在 + IsCutoffDatum 实现零延拓的 datum |
