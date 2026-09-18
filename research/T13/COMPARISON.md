@@ -228,3 +228,35 @@ explicit nonzero `ContDiffBump`-based field in `ball ((½,½,½)) (3/8)`).
 Axioms: `research/T13/axioms_constant_endpoints.lean` — 35 declarations, all
 `[propext, Classical.choice, Quot.sound]`.
 Notes: `research/T13/ATTEMPTS_CONSTANT_ENDPOINTS.md`, report `research/T13/REPORT_344.md`.
+
+## §2/§3 kernel-estimate status — lane 353 (2026-09-18)
+
+Module `formalization/NSFormalization/Section3/T13/LocalizationKernel.lean`
+(namespace `NSFormalization.Section3.T13`) ships three of the concrete analytic
+estimates behind `eq:localization` (no `LocalizationAPI` field; lane 354
+assembles).  Axioms of all public declarations: `[propext, Classical.choice,
+Quot.sound]`.
+
+| Estimate | Status | Declarations |
+|---|---|---|
+| Uniform lattice-tail bound (`:80-89`) | **proved** | `summable_latticeVector_rpow`, `tailSum`, `tailConst`, `tailSum_lt_top`, `tailConst_lt_top`, `latticeTail_le_tailConst` |
+| `2r < 1` from the admissible ball (`:79-80`) | **proved** | `two_r_lt_one_of_closure_ball_subset` |
+| Inhomogeneous ≤ `L²` + homogeneous on `T³` (`:73-78`) | **proved** | `periodicSobolevENorm_le_l2_add_homogeneous` |
+| Kernel comparison `ITorus ≤ IReal + tail·‖f‖²` (`:73-92`) | **open** | — (see below) |
+
+The §3 estimate uses the **coefficient-side** `L²` norm `periodicSobolevENorm 0 g`
+(the physical `eLpNorm g 2 periodicTorusMeasure` in the brief does not
+type-check for `g : Space → Space`); lane 354 needs a Parseval-at-0 identity to
+reach `endpoint_zero`'s `eLpNorm f 2 volume` (item 8).
+
+The §2 kernel comparison is **not** shipped: the brief's constant
+`4·tailConst s (2r)·‖f‖₂²` is insufficient because on the full cube×cube tail
+integral one point may be in the ball and the other far (`‖x-y‖ ≰ 2r`); the
+paper uses the geometric separation `d = dist(closure B, ∂Q)` instead.  Exact
+residual lemmas in `research/T13/ATTEMPTS_LOCALIZATION_KERNEL.md`
+("NOT shipped — §2").
+
+Records: `research/T13/ATTEMPTS_LOCALIZATION_KERNEL.md`,
+`research/T13/axioms_localization_kernel.lean` (8 declarations),
+probe `research/T13/probes/localization_kernel_closes.lean`,
+report `research/T13/REPORT_353.md`.
