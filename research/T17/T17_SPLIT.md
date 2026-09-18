@@ -217,6 +217,28 @@ in the tree today.
   Torus `MemLp` slices from `I02.correction_slice_memLp`/`correction_gradient_memLp` + `torusLift` single-copy.
   **L, Opus.** Deps: U2; **T15 U-TB1** (lane 363/364).
 
+  **U9 status (lane 434, DONE 2026-09-18).** All five targets closed in the new
+  `Section3/T17/Energy.lean` (namespace `NSFormalization.Section3.T17`), at the concrete
+  `correctionData` of U2: `correction_slice_memLp`, `correction_gradient_memLp`, `energyConst`,
+  `energyConst_nonneg`, `correction_energy_bound` (`≤ ofReal (energyConst · ε^(3/2))`), with
+  `energyConst = √A + √D` — literally the constant the Section 4 binding registers
+  (`Bindings/Correction.lean:349`), `A` from `Paper1.CorrectionEnergy.physicalCorrection_uniform_energy`,
+  `D` from `Paper1.InsertionEnergy.correction_gradientSquare_bound`.  The route is the planned one:
+  each torus slice of `D.correction ε` is **definitionally** T13's `periodize` of the single-copy
+  slice, so T15 U-TB1's `eLpNorm_torusLift_periodize` and
+  `eLpNorm_torusLift_spatialGradient_periodize` identify both summands of `energyENormT` with the
+  whole-space summands bounded by `I02.energyEssSup_le` / `I02.energyGradient_le`.  The two `MemLp`
+  fields do **not** use the bridge (there is no `memLp_torusLift_*` in `HaarBridge.lean`): §1 of the
+  module reproves `Paper1.memLp_torusLift` for an arbitrary normed value type
+  (`memLp_torusLift_of_continuous`), which is what the `Space`- and
+  `WithLp 2 (Fin 3 → Space)`-valued lifts need.  Premises = lane 385's cutoff block + the documented
+  G1 `hv : ContDiff ℝ ∞ v` + one placement clause
+  `hcube : closure (ball x₀ r) ⊆ interior fundamentalCube`, which
+  `research/T17/probes/energy_closes.lean:hcube_of_placement` derives from
+  `PlacementData.chartBall_in_cube` ∘ `CorrectionAPI.ball_in_chart` (so it is not a new assumption).
+  Note for later units: a non-vacuity witness for anything Haar-normed must be placed **inside** the
+  cube — lane 425's `x₀ = 0` does not satisfy `hcube`; this lane uses the cube centre.
+
 - **U10 — mixed bound + honest slices** (new torus wrapping I02 content). New `Section3/T17/Mixed.lean`.
   Targets `force_spatial_memLp` (`Spec.lean:923`), `mixedConst`, `mixedConst_nonneg`, `force_mixed_bound`
   (`Spec.lean:936`). Route: U2(b) `force_eq` + single-copy Haar/Lebesgue mixed bridge (T15 `Mixed.lean`,
