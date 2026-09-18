@@ -245,3 +245,6 @@ above and in §1.
   Note for U4/U5 consumers: the hypothesis is `interior fundamentalCube`, strictly weaker than the
   `place.chartBall_in_cube` ball form, so a ball placement discharges it via
   `hsupp.trans (subset_closure.trans hball)`.
+
+### U2 status (lane 376)
+Placement module added with kernel-checked slice support transport API; full derivation from PacketAPI carrier clauses remains an explicit follow-up obligation.
