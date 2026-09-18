@@ -12,6 +12,17 @@ modules under `Section4/R43/`, `Section4/R44/` (splits `research/R43/R43_SPLIT.m
 Size: **S** ≤ ~100 lines; **M** one self-contained lemma with a known proof; **L** a multi-file campaign.
 Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core.
 
+## Status (lane 390, 2026-09-18)
+
+- **U3 `bIntegral`** — DONE. `Section3/T20/BIntegral.lean`, theorem
+  `NSFormalization.Section3.T20.bIntegral` (verbatim field type). Axioms
+  `[propext, Classical.choice, Quot.sound]`.
+- **U4 `constantTransportSkew`** — DONE. `Section3/T20/ConstantTransport.lean`,
+  theorem `NSFormalization.Section3.T20.constantTransportSkew` (verbatim field type).
+  Axioms `[propext, Classical.choice, Quot.sound]`.
+- Probe `research/T20/probes/bintegral_transport_closes.lean`; axiom audit
+  `research/T20/axioms_u3_u4.lean`; attempts `research/T20/ATTEMPTS_U3_U4.md`.
+
 ## 0. Ground rules
 
 **Peeling rule** (from T11/T15/T17). Every unit ends in a `theorem` whose statement **is** a
