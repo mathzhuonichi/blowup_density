@@ -165,3 +165,28 @@ the result through the quotient torus.
    directly and delete the two copied declarations in the same version, or
    should the replacement wait for the T16 registration lane so its drift
    bridge can be added atomically?
+
+## Status (lane 347, 2026-09-18)
+
+Proof lane 347 (Opus) delivered the canonical module
+`formalization/NSFormalization/Section3/T16/LocalPotential.lean` and the probe
+`research/T16/probes/api_on_canonical.lean`:
+
+* **Reconciliation confirmed faithful.**  The 4 helper `def`s equal the Spec's
+  copies by `rfl`, and `CutoffData`/`LocalPotentialAPI` convert fieldwise both
+  ways, so every `Contracts.V1` operator in the Spec is definitionally the
+  canonical `NavierStokes`/`Paper1`/`Source` notion.  `specStatement_of_module`
+  shows the module's general theorem would close the Spec's statement.
+* **Proved (general):** `exists_originCutoff` (+`[0,1]` range),
+  `exists_timeCutoff`, `exists_threshold`; `potential_formula` is definitional.
+* **Proved (v = 0):** the full `LocalPotentialAPI` (`localPotential_zero`), used
+  as the non-vacuity `v=0,U=0,K={0}` instance.
+* **Open (documented, `ATTEMPTS.md`/`SPEC_ISSUES.md`):** `potential_smooth`,
+  `potential_curl` for general `v` (need a spatial-truncation lemma — the I02
+  lemmas require `v` on `I ×ˢ univ`, not `I ×ˢ ball x₀ r`), and the entire
+  periodic correction block (the lattice lift and its smoothness / periodicity /
+  support / divergence / cancellation).
+
+Answer to reconciliation open question 1 recorded in `SPEC_ISSUES.md` §1: B's
+globally-quantified `potential_formula` is satisfiable definitionally, but the
+*local* smoothness/curl hypotheses block direct I02 reuse.
