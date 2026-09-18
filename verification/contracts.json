@@ -462,6 +462,17 @@
       "declaration": "BlowupDensity.Tests.checkedLocalization",
       "scope": "Lemma lem:localization (03-torus.tex:22-98) for every 0 < s < 1: positivity and finiteness of the explicit constant cFrac; the whole-space and torus Gagliardo identities with that same cFrac, the latter on the explicit mean-zero part; the endpoint L² and Hilbert–Schmidt gradient identities for smooth fields supported in a positive-radius ball whose closure lies in the interior of the fixed unit cube; and the uniform localization estimate, with one positive real constant chosen before the field, from the whole-space L² plus registered homogeneous norm to the periodized T10 inhomogeneous norm. The implementation witnesses that existential constant by (1 + (4 · tailGeomConst s c r / cFrac s) ^ (1/2)).toReal. No tail bound, periodization uniqueness theorem, divergence-free condition, or localization estimate outside 0 < s < 1 is asserted.",
       "enabled": true
+    },
+    {
+      "id": "T04.affine_variation",
+      "parent_task": "T04",
+      "version": 1,
+      "specification": "verification/Contracts/V1/AffineVariation.lean",
+      "binding_module": "Bindings.AffineVariation",
+      "test_module": "Tests.AffineVariation",
+      "declaration": "BlowupDensity.Tests.checkedAffineVariation",
+      "scope": "Proposition prop:affine (03-torus.tex:668-696) on whole space only, for every registered I01.packet record and every cylinder ball c r x (tau0,tau1) with 0 < r and 0 < tau0 < tau1 < 1: the thirteen clauses of the affine family U+b over the admissible class C_c^infty(Q) with div b = 0 - positive radius and interior window, global smoothness and compact positive-time support of the six-term force F + d_t b - nu*Laplacian b + (U.grad)b + (b.grad)U + (b.grad)b, the divergence and momentum equations of U+b with the unchanged pressure, zero initial data, agreement with U past tau1, unbounded speed at t=1, finiteness of the registered energyENorm 1, an R-linearly independent admissible sequence, injectivity of b -> U+b, and the two C^m-seminorm non-isolation limits as lambda -> 0 in the ENNReal-valued ckSeminormE on tsupport b. The record is assembled from the eight canonical T24a proof terms in NSFormalization.Section3.T24 (radius_pos/window/zero_initial/late_agreement/distinct, divergence_free, momentum, force_smooth/force_support, speed_unbounded, energy_finite, infinite_dimensional, nonisolated); the packet clause the registered PacketAPI does not carry, energyENorm 1 velocity < top, is derived in the binding from square_integrable, energy_isLUB, velocity_support with carrier_compact, and dissipation_integrable. No packet existence is asserted (that is I01.packet), and prop:multiple (T24b), prop:conservative (T24c), every torus statement and every density consequence are outside this contract.",
+      "enabled": true
     }
   ]
 }
