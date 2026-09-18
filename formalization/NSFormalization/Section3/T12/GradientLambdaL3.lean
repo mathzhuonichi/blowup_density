@@ -1,6 +1,7 @@
 import NSFormalization.Section3.T12.CriticalL3
 import NSFormalization.Section3.T12.FourierEmbeddings
 import NSFormalization.Section3.T10.ForcePaths
+import NSFormalization.Section3.T12.DirDeriv
 
 /-!
 # T12 U6: the order-`3/2` sum embedding `gradientLambdaCriticalL3`
@@ -207,9 +208,9 @@ theorem derivShift_conj (j : Fin 3) (k : PeriodicFrequency) :
 
 /-! ## §2  The derivative columns: smooth, periodic, mean-zero -/
 
-theorem contDiff_dirDeriv {v : SpatialField} (hs : ContDiff ℝ ∞ v) (j : Fin 3) :
-    ContDiff ℝ ∞ (dirDeriv j v) :=
-  (hs.fderiv_right (by simp)).clm_apply contDiff_const
+-- `contDiff_dirDeriv` (this module's `SpatialField` instance of the lane-400
+-- statement) moved to `NSFormalization.Section3.T12.DirDeriv` (lane 427 dedupe
+-- with `GradientLSix.lean`); it is imported above.
 
 theorem isPeriodicSpatial_dirDeriv {v : SpatialField} (hp : IsPeriodicSpatial v)
     (j : Fin 3) : IsPeriodicSpatial (dirDeriv j v) := by

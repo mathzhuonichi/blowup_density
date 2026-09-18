@@ -256,3 +256,21 @@ in both `Function.support` and `tsupport` spellings (scalar + gradient-tensor). 
 `lake env lean` output is empty. U4/U5 can now consume `p = 3` scalar and `p = 6`
 gradient-tensor transfer directly. No named input; the periodicity hypothesis is
 the paper's unit-periodic interface, unused in the proof (holds for every field).
+
+### Registration status (lanes 419 → 427) — REGISTERED as `T01.mean_zero_calculus`
+
+All nine fields of `MeanZeroSobolevCalculusAPI` and its seven constants are proved and
+registered as the 43rd contract: `verification/Contracts/V1/MeanZeroCalculus.lean`
+(token-for-token the `BlowupDensity.T12.Draft` body of `research/T12/Spec.lean`, plus
+`meanZeroCalculusStatement`), `Bindings/MeanZeroCalculus.lean` (eleven `rfl` drift guards and
+the transported record), `Tests/MeanZeroCalculus.lean`
+(`BlowupDensity.Tests.checkedMeanZeroCalculus`, `TestSupport.checkAxioms`, conformance
+restatements of all sixteen clauses, and five fields instantiated on the nonzero mean-zero
+witness `meanZeroPartT (x ↦ cos(2π x₀)·e₀)`).
+
+Lane 427 also removed the duplicated `contDiff_dirDeriv` of lanes 400 and 405 into the new
+leaf module `Section3/T12/DirDeriv.lean`; without that, no module can import `GradientLSix`
+and `GradientLambdaL3` together.  Records: `research/T12/ATTEMPTS_UREG.md`
+(what 419 left, what was wrong with it, and the dedupe) and `research/T12/axioms_ureg.lean`
+(the audit of the eleven bridges, the record, the statement, the acceptance declaration, the
+witness and the moved helper).
