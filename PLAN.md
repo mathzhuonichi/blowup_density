@@ -196,3 +196,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 428-T20-U9-ybound | Opus prover 子代理运行中 | 09-18 1805Z | — | — | T20 U9：yBound（ρ<cν ⇒ y(t) ≤ ∫₀ᵗ b ≤ ρ；标量 bootstrap critical_norm_bound + U8 + U3 + 连续性/FTC） |
 | 429-T20-U10a-h1-trilinear | Opus prover 子代理运行中 | 09-18 1806Z | — | — | T20 U10a：均值零 H¹ 三线性估计 abs⟪(v·∇)v,Δv⟫ ≤ C₁ y ‖Δv‖²₂（Hölder (3,6,2) + T12 U4/U5） |
 | 430-T24-Ua9-affine-registration | worktree 安装中 → Opus prover | 09-18 1817Z | — | — | T24a Ua9：AffineVariationAPI 装配（13 字段）+ affineVariationStatement + 注册 T04.affine_variation（绑定层从 packet 字段推出 energyENorm 1 U < ⊤） |
+| 431-T17-U8-force-volume | worktree 安装中 → Opus prover | 09-18 1819Z | — | — | T17 U8：修正力环面支撑体积 O(ε³) 与时长 ≤ 4ε²（force_support + Haar=Lebesgue 单拷贝桥） |
