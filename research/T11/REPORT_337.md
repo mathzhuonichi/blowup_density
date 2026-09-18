@@ -89,3 +89,6 @@ lake env lean ../research/T11/probes/extends_beyond_closes.lean     → 0 errors
 lake env lean ../research/T11/axioms_extends_beyond.lean            → 0 errors (9 × #guard_msgs pass)
 make check (worktree root)                                          → OK
 ```
+
+## Review corrections (codex, ACCEPT-WITH-NOTES)
+The probe contains 8 examples (the report said 7); the `hHigh` binder citation is `api_on_canonical.lean:112-120`. Lean content unchanged.
