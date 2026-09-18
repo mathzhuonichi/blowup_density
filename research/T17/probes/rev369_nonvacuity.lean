@@ -40,7 +40,7 @@ example :
         (fun i => Fin.elim0 i)‖ =
       ‖iteratedFDeriv ℝ 0 wBump (0, (0 : Space))
         (fun i => Fin.elim0 i)‖ := by
-  apply latticeLift_iteratedFDeriv_eq (w := wBump) (x₀ := (0 : Space))
+  apply latticeLift_iteratedFDeriv_eq_ballZero (w := wBump) (x₀ := (0 : Space))
     (ρ := 1 / 4) (r := 1 / 4) bump_support
   · norm_num
   · rw [mem_ball, dist_self]

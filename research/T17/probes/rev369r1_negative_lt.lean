@@ -18,6 +18,6 @@ example {w : SpaceTimeField} {x₀ : Space} {ρ r : ℝ}
     ∃ k : NSFormalization.Section3.T10.PeriodicFrequency,
       ‖iteratedFDeriv ℝ n (latticeLift w) z u‖ =
         ‖iteratedFDeriv ℝ n w (z - (0, latticeVector k)) u‖ :=
-  latticeLift_iteratedFDeriv_eq_shift hs hr hle z n u
+  latticeLift_iteratedFDeriv_eq hs hr hle z n u
 
 end NSFormalization.Section3.T17.Rev369r1Negative

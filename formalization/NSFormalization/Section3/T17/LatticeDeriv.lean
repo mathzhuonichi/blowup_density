@@ -6,7 +6,11 @@ open scoped Topology BigOperators ENNReal
 open NSFormalization.Section3.T16
 open NSFormalization.Section4.A02 (SpaceTimeField)
 open NavierStokes.ProblemStatement
- theorem latticeLift_iteratedFDeriv_eq
+/-- The `k = 0` fundamental-ball specialization of `latticeLift_iteratedFDeriv_eq`:
+for `x ∈ ball x₀ r` the lift is the single `k = 0` copy `w`, so the derivatives
+agree unshifted.  The general arbitrary-`z`, `∃ k` form is
+`latticeLift_iteratedFDeriv_eq`. -/
+ theorem latticeLift_iteratedFDeriv_eq_ballZero
     {w : SpaceTimeField} {x₀ : Space} {ρ r : ℝ}
     (hslice : ∀ (t : ℝ) (y : Space), w (t, y) ≠ 0 → y ∈ ball x₀ ρ)
     (hρr : r + ρ ≤ 1) {t : ℝ} {x : Space} (hx : x ∈ ball x₀ r)
@@ -22,14 +26,16 @@ open NavierStokes.ProblemStatement
   have hd := heqw.iteratedFDerivWithin ℝ n
   have hd0 := hd.self_of_nhdsWithin (by simp : (t, x) ∈ (Set.univ : Set SpaceTime))
   simpa only [iteratedFDerivWithin_univ] using congrArg (fun L => ‖L u‖) hd0
- theorem latticeLift_iteratedFDeriv_norm_le_iSup
+/-- The fundamental-ball `ℝ≥0∞`/`⨆` corollary (from `latticeLift_iteratedFDeriv_eq_ballZero`).
+The general arbitrary-`z` form is `latticeLift_iteratedFDeriv_norm_le_iSup`. -/
+ theorem latticeLift_iteratedFDeriv_norm_le_iSup_ballZero
     {w : SpaceTimeField} {x₀ : Space} {ρ r : ℝ}
     (hslice : ∀ (t : ℝ) (y : Space), w (t, y) ≠ 0 → y ∈ ball x₀ ρ)
     (hρr : r + ρ ≤ 1) {t : ℝ} {x : Space} (hx : x ∈ ball x₀ r)
     (n : ℕ) (u : Fin n → SpaceTime) :
     ENNReal.ofReal ‖iteratedFDeriv ℝ n (latticeLift w) (t, x) u‖ ≤
       ⨆ z : SpaceTime, ENNReal.ofReal ‖iteratedFDeriv ℝ n w z u‖ := by
-  rw [latticeLift_iteratedFDeriv_eq hslice hρr hx n u]
+  rw [latticeLift_iteratedFDeriv_eq_ballZero hslice hρr hx n u]
   exact le_iSup (fun z : SpaceTime => ENNReal.ofReal ‖iteratedFDeriv ℝ n w z u‖) (t, x)
 /-- **U1, general form (arbitrary spacetime point).** For *every* `z : SpaceTime`,
 order `n` and direction tuple `u`, the lattice lift's iterated Fréchet derivative
@@ -41,7 +47,7 @@ The witness `k` is existentially quantified.  When a lattice copy sits over `z`
 (`∃ k, z.2 - latticeVector k ∈ ball x₀ r`) it is that copy; when `z` is away from
 every copy both sides vanish and the witness is `k = 0` (the *no-copy / zero* case).
 The `k = 0` fundamental-ball specialization is the earlier
-`latticeLift_iteratedFDeriv_eq`.
+`latticeLift_iteratedFDeriv_eq_ballZero`.
 
 No smoothness is required: eventual agreement of the functions already transports
 the iterated derivative (`Filter.EventuallyEq.iteratedFDeriv`), and translation
@@ -49,7 +55,7 @@ invariance is `iteratedFDeriv_comp_sub`.  The extra `hlt : ρ < r` separates the
 closed support balls (radius `ρ`) from the open copy balls (radius `r`), so the
 no-copy case is a genuine neighbourhood of zeros; downstream `ρ = ε·θRadius < r`
 (`correction_fields_of_chart`, `hεspace`). -/
-theorem latticeLift_iteratedFDeriv_eq_shift
+theorem latticeLift_iteratedFDeriv_eq
     {w : SpaceTimeField} {x₀ : Space} {ρ r : ℝ}
     (hslice : ∀ (t : ℝ) (y : Space), w (t, y) ≠ 0 → y ∈ ball x₀ ρ)
     (hρr : r + ρ ≤ 1) (hlt : ρ < r)
@@ -141,15 +147,15 @@ theorem latticeLift_iteratedFDeriv_eq_shift
 lift, now for *every* spacetime point `z` (not only the fundamental ball): the
 lift's directional iterated-derivative enorm at `z` is dominated by the supremum,
 over all Euclidean points `z'`, of the single-copy derivative enorm.  Follows from
-`latticeLift_iteratedFDeriv_eq_shift` and `le_iSup` at the nearby copy. -/
-theorem latticeLift_iteratedFDeriv_norm_le_iSup'
+`latticeLift_iteratedFDeriv_eq` and `le_iSup` at the nearby copy. -/
+theorem latticeLift_iteratedFDeriv_norm_le_iSup
     {w : SpaceTimeField} {x₀ : Space} {ρ r : ℝ}
     (hslice : ∀ (t : ℝ) (y : Space), w (t, y) ≠ 0 → y ∈ ball x₀ ρ)
     (hρr : r + ρ ≤ 1) (hlt : ρ < r)
     (z : SpaceTime) (n : ℕ) (u : Fin n → SpaceTime) :
     ENNReal.ofReal ‖iteratedFDeriv ℝ n (latticeLift w) z u‖ ≤
       ⨆ z' : SpaceTime, ENNReal.ofReal ‖iteratedFDeriv ℝ n w z' u‖ := by
-  obtain ⟨k, hk⟩ := latticeLift_iteratedFDeriv_eq_shift hslice hρr hlt z n u
+  obtain ⟨k, hk⟩ := latticeLift_iteratedFDeriv_eq hslice hρr hlt z n u
   rw [hk]
   exact le_iSup (fun z' : SpaceTime => ENNReal.ofReal ‖iteratedFDeriv ℝ n w z' u‖)
     (z - (0, latticeVector k))

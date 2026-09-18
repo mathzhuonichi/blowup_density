@@ -10,6 +10,6 @@ example {w : SpaceTimeField} {x₀ : Space} {ρ r : ℝ}
     {t : ℝ} {x : Space} (hx : x ∈ ball x₀ r) (n : ℕ) (u : Fin n → SpaceTime) :
   ‖iteratedFDeriv ℝ n (latticeLift w) (t,x) u‖ =
     ‖iteratedFDeriv ℝ n w (t,x) u‖ := by
-  exact latticeLift_iteratedFDeriv_eq hs hr hx n u
+  exact latticeLift_iteratedFDeriv_eq_ballZero hs hr hx n u
 
 end NSFormalization.Section3.T17.Rev369Negative

@@ -7,14 +7,16 @@ The closed proof uses `latticeLift_eq_of_ball` on the preimage of an open spatia
 Kept the two `k = 0` theorems verbatim (the reviewer probes reference them) and
 **added** the missing general theorems, so nothing existing is renamed/restated:
 
-- `latticeLift_iteratedFDeriv_eq_shift` — arbitrary `z`, `∃ k`, shifted RHS
+- `latticeLift_iteratedFDeriv_eq` (the U1 target) — arbitrary `z`, `∃ k`, shifted RHS
   `z - (0, latticeVector k)`, and the no-copy/zero case (`k = 0`, both sides `0`).
-- `latticeLift_iteratedFDeriv_norm_le_iSup'` — the all-`z` `ℝ≥0∞`/`⨆` corollary.
+- `latticeLift_iteratedFDeriv_norm_le_iSup` — the all-`z` `ℝ≥0∞`/`⨆` corollary.
 
 Design choice: `latticeLift_iteratedFDeriv_eq` already existed with the `k = 0`
 ball statement and is referenced by the reviewer probes; renaming it would violate
 "do not change existing declaration names/statements" and break those probes, so
-the general theorem is a new sibling `…_eq_shift`, and the old one is exactly its
+the general theorem was first added as a sibling and (r2, per lead ruling) now
+**is** `latticeLift_iteratedFDeriv_eq`, while the k = 0 ball forms took the
+`_ballZero` suffix; the old one is exactly its
 `k = 0` fundamental-ball specialization.
 
 ### Key steps that worked
@@ -57,7 +59,18 @@ the general theorem is a new sibling `…_eq_shift`, and the old one is exactly 
 - `research/T17/probes/rev369_negative_widened_ball.lean` (reviewer, r0) → exit 1:
   widening `r + ρ ≤ 1` to `≤ 2` is a type mismatch on `latticeLift_iteratedFDeriv_eq`.
 - `research/T17/probes/rev369r1_negative_lt.lean` (r1) → exit 1: weakening the new
-  `hlt : ρ < r` to `ρ ≤ r` is a type mismatch on `latticeLift_iteratedFDeriv_eq_shift`
+  `hlt : ρ < r` to `ρ ≤ r` is a type mismatch on `latticeLift_iteratedFDeriv_eq`
   (`argument hle has type ρ ≤ r but is expected to have type ρ < r`).
 - `research/T17/probes/rev369_nonvacuity.lean` (reviewer, r0) → exit 0 (still valid,
   references the unchanged `k = 0` theorem).
+
+## r2 (API-name fix)
+Lead ruling: the general existential theorem is the U1 target and must be exported
+as `latticeLift_iteratedFDeriv_eq`; the `k = 0` ball forms are renamed
+`latticeLift_iteratedFDeriv_eq_ballZero` / `latticeLift_iteratedFDeriv_norm_le_iSup_ballZero`.
+Probe references updated: `lattice_deriv_closes.lean`, `rev369_nonvacuity.lean`,
+`rev369_negative_widened_ball.lean` now use `_ballZero`; `rev369r1_negative_lt.lean`
+and the reviewer's `rev369_api_name.lean` use the bare `latticeLift_iteratedFDeriv_eq`.
+Re-run gates all pass (module build exit 0; module + 4 positive probes + axioms exit 0;
+2 negative probes exit 1; `make check` exit 0); four declarations
+`[propext, Classical.choice, Quot.sound]`.

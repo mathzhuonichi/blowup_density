@@ -61,21 +61,21 @@ example (n : ℕ) (u : Fin n → SpaceTime) :
     ∃ k : NSFormalization.Section3.T10.PeriodicFrequency,
       ‖iteratedFDeriv ℝ n (latticeLift wBump) (0, latticeVector k₁) u‖ =
         ‖iteratedFDeriv ℝ n wBump ((0, latticeVector k₁) - (0, latticeVector k)) u‖ :=
-  latticeLift_iteratedFDeriv_eq_shift (r := (1 / 2 : ℝ)) bump_support (by norm_num)
+  latticeLift_iteratedFDeriv_eq (r := (1 / 2 : ℝ)) bump_support (by norm_num)
     (by norm_num) (0, latticeVector k₁) n u
 
 /-- The general `ℝ≥0∞`/`⨆` corollary applies off-cube too. -/
 example (n : ℕ) (u : Fin n → SpaceTime) :
     ENNReal.ofReal ‖iteratedFDeriv ℝ n (latticeLift wBump) (0, latticeVector k₁) u‖ ≤
       ⨆ z' : SpaceTime, ENNReal.ofReal ‖iteratedFDeriv ℝ n wBump z' u‖ :=
-  latticeLift_iteratedFDeriv_norm_le_iSup' (r := (1 / 2 : ℝ)) bump_support (by norm_num)
+  latticeLift_iteratedFDeriv_norm_le_iSup (r := (1 / 2 : ℝ)) bump_support (by norm_num)
     (by norm_num) (0, latticeVector k₁) n u
 
 /-- The `k = 0` fundamental-ball form (earlier theorem) still closes on the bump. -/
 example (n : ℕ) (u : Fin n → SpaceTime) {x : Space} (hx : x ∈ ball (0 : Space) (1 / 2)) :
     ‖iteratedFDeriv ℝ n (latticeLift wBump) (0, x) u‖ =
       ‖iteratedFDeriv ℝ n wBump (0, x) u‖ :=
-  latticeLift_iteratedFDeriv_eq bump_support (by norm_num) hx n u
+  latticeLift_iteratedFDeriv_eq_ballZero bump_support (by norm_num) hx n u
 
 end
 
