@@ -15,6 +15,7 @@
 - 第 4 节全量编译通过（2026-09-17 21:30Z，Opus 子代理，冻结分支）：206 模块真实重新 elaborate，232 秒，0 错误，三门禁全过，37 合同审计齐全；报告 `logs/SECTION4_FULL_BUILD_20260917.md` 已并入 PR #259（评论已发）。
 
 ## 日志（最新在前）
+- **2026-09-18 15:09Z**：合入 #364（T15 U2）、#365（T24 Ua5）、#366（T17 U-CAN + canonical force_profile_identity；union 合并误伤 `ForceProfile.lean` → 修复 lane 412）、#367（T24 Ua2）、#368（T12 U4b 逐字 velocityCriticalL3）、#369（T24 Ua3 + 非零见证）。Opus 交付待审：400（T12 U5，T12 九字段齐）、405（T12 U6）、406（T22 `cutoffMultiplier` 逐字闭合）、407（T24 Ua6）、411（T21 草案 B）；codex 14:50Z 起 sol 429 / astra at capacity 交替，408 交付、409 未交付（改 Opus）、410 草案 A 42 万 token 后 429（续做）、412 改 Opus；审稿全部在退避重试。T13 SPLIT 里的 `domainL2Sq` 措辞已由 406 更正。
 
 - **2026-09-18 1400Z**：合入 #349（T17 U5+U6）、#350（T17 U4，Spec 形式 identity 闭合）；T12 U3 核心（377）与 T22 U-A2（391）交付，U4（396）与 U-A3（397）开跑；T20 U3+U4（390）交付；codex 审稿排队 377/387/376/390。
 - **2026-09-18 1340Z**：合入 #345–#348（366 T12 全 p 传输、381 T20 canonical + H¹ 核查、383 T22 U-B1、386 T22 Peetre）；T19/T20/T24 证明拆分落地；在跑：Opus 377/376 补全/390/391/393，codex 388/389 + 审稿 375/385/387（384 退避）；392（T24 wave 1）等 codex 空位；T17 U-CAN 等 384 审稿。
