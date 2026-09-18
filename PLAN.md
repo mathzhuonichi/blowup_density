@@ -182,7 +182,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 414-T24-Ua4-force-smooth-support | 已合入：T24 Ua4 force_smooth（0<τ₀、τ₁<1）+ force_support（仅 0<τ₀），审稿 ACCEPT-WITH-NOTES #379 | 09-18 1729Z | #379 | — | T24a Ua4：force_smooth + force_support（修正力跨 t=1 的光滑零延拓与紧正时间支撑，②） |
 | 415-T20-U8-critical-energy | Opus prover 子代理运行中 | 09-18 1727Z | — | — | T20 U8：criticalEnergy（eq:criticalenergy：y² 导数 + 压力消去 + 常输运反自伴 + 耗散 + U7 三线性 + 力项 ≤ b y） |
 | 416-SPEC-t21-reconcile | Opus prover 子代理运行中（对账 DraftA/DraftB → RECONCILIATION.md + Spec.lean） | 09-18 1726Z | — | — | T21 spec 对账：DraftA（410）vs DraftB（411）→ research/T21/RECONCILIATION.md（lead 审批后定稿 Spec.lean） |
-| 417-T24-Ua7-infinite-dimensional | Opus prover 子代理运行中 | 09-18 1727Z | — | — | T24a Ua7：infinite_dimensional（可数个不交球上 curl-bump 族 + 线性无关，④） |
+| 417-T24-Ua7-infinite-dimensional | Opus 完成：infinite_dimensional（可数不交球上 curl-bump 族 bFam，线性无关；共享见证库 AffineWitness.lean；仅需 0<r、τ₀<τ₁；42 声明）→ 排队审稿 | 09-18 1742Z | — | — | T24a Ua7：infinite_dimensional（可数个不交球上 curl-bump 族 + 线性无关，④） |
 | 418-T22-UZ1-zero-extension-comparison | codex 完成：zeroExtensionComparison 逐字（U-B1 左侧 + cutoffMultiplier×ENNReal.mul_iInf 右侧；空 datum 情形 ≤ ⊤）→ 排队审稿；T22 三字段全证 → U-REG（423） | 09-18 1740Z | — | — | T22 U-Z1：zeroExtensionComparison 装配（U-A3 常数 + U-B1/B2/B3） |
 | 419-T12-UREG-contract | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T12 合同注册：T01.mean_zero_calculus（MeanZeroSobolevCalculusAPI 9 字段 + 绑定 + 测试，43 合同） |
 | 420-T24-Uc3-conservative-registration | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T24c Uc3：ConservativeForcingAPI 装配 + 注册 T04.conservative_forcing（Uc1+Uc2；真实 ClassicalSolutionT 非空见证） |
