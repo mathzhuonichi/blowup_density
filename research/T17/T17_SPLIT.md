@@ -189,6 +189,12 @@ in the tree today.
   from T16 `latticeLift_periodic:124`; `force_support` from Paper1 `physicalForce_compact:37` (support in
   `Ioo(T±2ε²) × ball x₀ (ε·θRadius)`, **open ball**) + T16 `latticeLift_timeSupport:247` /
   `latticeLift_sliceSupport:271` → `periodicSet (ball x₀ (ε·θRadius))`. **M, codex-sol.** Deps: U2.
+  **Status (lane 425, DONE):** `Section3/T17/ForceSupport.lean` proves all three fields at the concrete
+  `correctionData` under the global `hv : ContDiff ℝ ∞ v` (G1), with the manuscript's **open** ball.
+  `latticeLift_sliceSupport` could not be used: it needs a strictly larger radius and bounds a single
+  spatial slice.  §0 of the module therefore adds `latticeLift_spaceSupport`, the space-time companion of
+  T16's `latticeLift_sliceSupport_closed`, applied to the compact `C = Prod.snd '' tsupport` of the
+  single-copy force.  All declarations have exactly the standard three axioms.
 
 - **U8 — force torus support volume/duration** (new torus wrapping I02 content). New
   `Section3/T17/ForceVolume.lean`. Targets `spatialVolumeConst`, `spatialVolumeConst_nonneg`,
