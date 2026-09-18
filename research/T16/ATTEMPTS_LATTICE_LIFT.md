@@ -44,22 +44,32 @@ module — the correct object for `SpaceTime → Space` chart corrections.)
   translate's tsupport ⊆ `closedBall (x₀ + lattice n) ρ`, disjoint from `x` since
   `ρ < r`), so `x ∉ tsupport`; combine the finitely many translates with
   `eventually_all_finset`.
-* `latticeLift_cancels` (`correction_cancels`): choose `O = periodicSet (ball x₀ r)`
-  (open, a union of ball preimages).  Both `v` and `latticeLift w` are
+* `latticeLift_cancels` (`correction_cancels`): the **local** interface — an open
+  plateau `O ⊆ ball x₀ r` with `v + w = 0` on `O` and the periodic packet-support
+  bound `tsupport (packet slice) ⊆ periodicSet O` (this is exactly what the paper
+  `03-torus.tex:188-193` and the chart lemma `exists_local_background_removal`
+  supply; `v + w = 0` does **not** hold on the whole ball, since `w` vanishes
+  outside its scaled cutoff while `v` does not).  Output `O' = periodicSet O`
+  (open, a union of translates of `O`).  Both `v` and `latticeLift w` are
   unit-periodic, so `isPeriodicOn_sub_latticeVector` (OpenAI's
-  `periodic_integerShift`) reduces any `x ∈ periodicSet (ball x₀ r)` to
-  `x - latticeVector k ∈ ball x₀ r`, where `latticeLift w = w` and the chart
-  cancellation `v + w = 0` holds.
+  `periodic_integerShift`) reduces any `x ∈ periodicSet O` to
+  `x - latticeVector k ∈ O ⊆ ball x₀ r`, where `latticeLift w = w` and the local
+  cancellation holds.
 
 ## Packaging
 
 `correction_fields_of_chart` takes the scale-indexed chart family `W` and its
 transportable per-`ε` chart facts (smooth, compact support, divergence-free, the
-product support bound `Ioo … ×ˢ ball x₀ (ε·θRadius)`, the chart curl formula, the
-chart cancellation on `ball x₀ r`, the T14 packet support bound) and returns the
-seven canonical field bodies for `fun ε => latticeLift (W ε)`, so lane 353 fills
-`LocalPotentialAPI.correction` by projection.  The two support facts (slice /
-spacetime) and `r + ε·θRadius ≤ 1` are derived once from `hWtsupp` + `hεspace`.
+product support bound `Ioo … ×ˢ ball x₀ (ε·θRadius)`, the chart curl formula, and
+the **local cancellation datum** `hWcancel` — an open plateau `O ⊆ ball x₀ r`
+carrying both the periodic packet-support bound `⊆ periodicSet O` and the chart
+cancellation `v + W ε = 0` on `O`) and returns the seven canonical field bodies
+for `fun ε => latticeLift (W ε)`, so lane 358 fills `LocalPotentialAPI.correction`
+by projection.  The two support facts (slice / spacetime) and `r + ε·θRadius ≤ 1`
+are derived once from `hWtsupp` + `hεspace`.  `hWcancel` bundles the plateau, its
+inclusion in the ball, the packet-support bound and the cancellation — exactly the
+tuple `exists_local_background_removal` returns (plus T14's periodic packet
+support), avoiding the earlier over-strong whole-ball cancellation.
 
 ## Negative notes / dead ends
 

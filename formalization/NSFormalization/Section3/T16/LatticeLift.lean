@@ -29,7 +29,8 @@ For each field we prove the transport lemma "property of `w` ⇒ property of
   finite sum and translation invariance of the spatial derivative;
 * `latticeLift_timeSupport` — the compact time support is inherited;
 * `latticeLift_sliceSupport` — each spatial slice is supported in `periodicSet (ball x₀ r)`;
-* `latticeLift_cancels`     — the periodic corrected background vanishes on `periodicSet (ball x₀ r)`.
+* `latticeLift_cancels`     — the periodic corrected background vanishes on `periodicSet O`
+  for an open plateau `O ⊆ ball x₀ r` carrying the local chart cancellation.
 
 The packaged theorem `correction_fields_of_chart` collects the seven canonical
 field statements for a scale-indexed chart family `W`, so lane 353 (assembly)
@@ -253,8 +254,9 @@ theorem latticeLift_timeSupport {w : SpaceTimeField} {a b : ℝ}
     intro z hz
     have hex : ∃ n : Lattice, translate w n z ≠ 0 := by
       by_contra hcon
-      push_neg at hcon
-      exact hz (by simp only [periodize, hcon, tsum_zero])
+      have hall : ∀ n : Lattice, translate w n z = 0 := fun n =>
+        not_not.mp (fun h => hcon ⟨n, h⟩)
+      exact hz (by simp only [periodize, hall, tsum_zero])
     obtain ⟨n, hn⟩ := hex
     refine ⟨⟨(z.1, z.2 - lattice n), subset_tsupport w hn, rfl⟩, mem_univ _⟩
   have hcl : IsClosed ((Prod.fst '' tsupport w) ×ˢ (univ : Set Space)) :=
@@ -334,37 +336,45 @@ theorem isPeriodicOn_sub_latticeVector {E : Type*} {f : SpaceTime → E}
   rw [hshift] at this
   exact this
 
-/-- The corrected background `v + latticeLift w` vanishes on the entire periodic
-lift of `ball x₀ r`, given the chart cancellation on `ball x₀ r` and periodicity
-of `v`.  Packaged as the existential of `correction_cancels`, with the open set
-`periodicSet (ball x₀ r)` and a supplied packet-support bound. -/
+/-- The corrected background `v + latticeLift w` vanishes on `periodicSet O`,
+the periodic lift of an open plateau `O ⊆ ball x₀ r` on which the chart
+cancellation `v + w = 0` holds.  This is the exact local interface of the paper
+(`03-torus.tex:188-193`, `eq:bgzero`) and of the chart lemma
+`NSFormalization.Paper1.exists_local_background_removal` (`Paper1/LocalCutoff.lean`:
+an open `O ⊇ supp Uε` with `v + w = 0` on `O`).  It is packaged as the existential
+of `correction_cancels`, with the open set `periodicSet O` and the supplied
+periodic packet-support bound.  Periodicity of `v` and of the lift extends the
+cancellation from `O` to every integer translate `periodicSet O`. -/
 theorem latticeLift_cancels {v w : SpaceTimeField} {x₀ : Space} {ρ r : ℝ}
     (hv_per : IsPeriodicOn univ v)
     (hslice : ∀ (t : ℝ) (y : Space), w (t, y) ≠ 0 → y ∈ ball x₀ ρ)
     (hρr : r + ρ ≤ 1)
-    {t : ℝ} (hcancel : ∀ x ∈ ball x₀ r, v (t, x) + w (t, x) = 0)
-    {P : Space → Space} (hpacket : tsupport (fun x => P x) ⊆ periodicSet (ball x₀ r)) :
-    ∃ O : Set Space, IsOpen O ∧ tsupport (fun x => P x) ⊆ O ∧
-      ∀ x ∈ O, v (t, x) + latticeLift w (t, x) = 0 := by
-  refine ⟨periodicSet (ball x₀ r), ?_, hpacket, ?_⟩
-  · -- `periodicSet (ball x₀ r)` is a union of open balls, hence open.
-    have hEq : periodicSet (ball x₀ r)
+    {t : ℝ} {O : Set Space} (hO : IsOpen O) (hOsub : O ⊆ ball x₀ r)
+    (hcancel : ∀ x ∈ O, v (t, x) + w (t, x) = 0)
+    {P : Space → Space} (hpacket : tsupport (fun x => P x) ⊆ periodicSet O) :
+    ∃ O' : Set Space, IsOpen O' ∧ tsupport (fun x => P x) ⊆ O' ∧
+      ∀ x ∈ O', v (t, x) + latticeLift w (t, x) = 0 := by
+  refine ⟨periodicSet O, ?_, hpacket, ?_⟩
+  · -- `periodicSet O` is a union of integer translates of the open plateau `O`.
+    have hEq : periodicSet O
         = ⋃ k : NSFormalization.Section3.T10.PeriodicFrequency,
-            (fun x : Space => x - latticeVector k) ⁻¹' ball x₀ r := by
+            (fun x : Space => x - latticeVector k) ⁻¹' O := by
       ext x
-      simp only [periodicSet, mem_setOf_eq, mem_iUnion, mem_preimage]
+      constructor
+      · intro hx; obtain ⟨k, hk⟩ := hx; exact mem_iUnion.mpr ⟨k, hk⟩
+      · intro hx; obtain ⟨k, hk⟩ := mem_iUnion.mp hx; exact ⟨k, hk⟩
     rw [hEq]
-    exact isOpen_iUnion fun k =>
-      (isOpen_ball.preimage (continuous_id.sub continuous_const))
+    exact isOpen_iUnion fun k => hO.preimage (continuous_id.sub continuous_const)
   · intro x hx
     obtain ⟨k, hk⟩ := hx
-    -- reduce both fields to the fundamental copy `x - latticeVector k ∈ ball x₀ r`
+    -- reduce both fields to the fundamental copy `x - latticeVector k ∈ O ⊆ ball x₀ r`
+    have hkball : x - latticeVector k ∈ ball x₀ r := hOsub hk
     have hvx : v (t, x) = v (t, x - latticeVector k) :=
       (isPeriodicOn_sub_latticeVector hv_per t x k).symm
     have hwx : latticeLift w (t, x) = latticeLift w (t, x - latticeVector k) :=
       (isPeriodicOn_sub_latticeVector (latticeLift_periodic w) t x k).symm
     have hwsingle : latticeLift w (t, x - latticeVector k) = w (t, x - latticeVector k) :=
-      latticeLift_eq_of_ball hslice hρr hk
+      latticeLift_eq_of_ball hslice hρr hkball
     rw [hvx, hwx, hwsingle]
     exact hcancel (x - latticeVector k) hk
 
@@ -376,13 +386,16 @@ of a scale-indexed chart-correction family `W`.
 
 Every hypothesis is a transportable chart fact (smoothness, compact support,
 divergence-freeness, the product support bound `Ioo … ×ˢ ball x₀ (ε·θRadius)`,
-the chart curl formula, the chart cancellation on `ball x₀ r`, and the T14 packet
-support bound); the conclusion transports each to the periodic lift.  Lane 353
-fills `LocalPotentialAPI.correction := fun ε => latticeLift (W ε)` by projection. -/
+the chart curl formula, and the local cancellation datum — an open plateau
+`O ⊆ ball x₀ r` carrying the periodic packet-support bound `⊆ periodicSet O` and
+the chart cancellation `v + W ε = 0` on `O`, exactly the shape produced by
+`NSFormalization.Paper1.exists_local_background_removal`); the conclusion
+transports each to the periodic lift.  Lane 353 fills
+`LocalPotentialAPI.correction := fun ε => latticeLift (W ε)` by projection. -/
 theorem correction_fields_of_chart
     (v U : SpaceTimeField) (x₀ : Space) (θ : Space → ℝ) (η : ℝ → ℝ) (A : SpaceTimeField)
     (r T ε₀ θRadius : ℝ) (W : ℝ → SpaceTimeField)
-    (hr2 : r < 1 / 2) (hθR : 0 < θRadius)
+    (hr2 : r < 1 / 2)
     (hv_per : IsPeriodicOn univ v)
     (hεspace : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ε * θRadius < r)
     (hWsmooth : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ContDiff ℝ ∞ (W ε))
@@ -394,9 +407,9 @@ theorem correction_fields_of_chart
       W ε (t, x) = -SpatialCurl.curl (fun y =>
         (temporalCutoff η T ε t * spatialCutoff θ x₀ ε y) • A (t, y)) x)
     (hWcancel : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t ∈ Ico (T - ε ^ 2) T,
-      ∀ x ∈ ball x₀ r, v (t, x) + W ε (t, x) = 0)
-    (hpacket : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t ∈ Ico (T - ε ^ 2) T,
-      tsupport (fun x => periodicScaledPacket U x₀ T ε (t, x)) ⊆ periodicSet (ball x₀ r)) :
+      ∃ O : Set Space, IsOpen O ∧ O ⊆ ball x₀ r ∧
+        tsupport (fun x => periodicScaledPacket U x₀ T ε (t, x)) ⊆ periodicSet O ∧
+        ∀ x ∈ O, v (t, x) + W ε (t, x) = 0) :
     (∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t, ∀ x ∈ ball x₀ r,
         latticeLift (W ε) (t, x) =
           -SpatialCurl.curl (fun y =>
@@ -449,7 +462,7 @@ theorem correction_fields_of_chart
     exact latticeLift_sliceSupport (hslice ε hε) (hεspace ε hε) t
   · -- correction_cancels
     intro ε hε t ht
-    exact latticeLift_cancels hv_per (hslice ε hε) (hsum ε hε)
-      (hWcancel ε hε t ht) (hpacket ε hε t ht)
+    obtain ⟨O, hO, hOsub, hPsub, hcancelO⟩ := hWcancel ε hε t ht
+    exact latticeLift_cancels hv_per (hslice ε hε) (hsum ε hε) hO hOsub hcancelO hPsub
 
 end NSFormalization.Section3.T16
