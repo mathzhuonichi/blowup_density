@@ -81,8 +81,8 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 313-T11-U9b-existence-construction | 已合入 #286（codex 审稿 ACCEPT）：强迫 Picard 不动点；剩一个具名输入 TorusConvolutionInput → 317 | 09-18 0214Z | #286 | — | T11 U9b：按 311 定的 R2 路线，具名输入改为按阶力界的 `PeriodicQuantitativeLocalInput'`（lead 修正 1，`research/T11/LEAD_AMENDMENTS.md`）；证 EXISTENCE_ROUTE 的前两项（投影对流符号的双线性估计、强迫 Picard 不动点与寿命下界） |
 | 314-T11-U4-rescaling | 已合入 #289（codex 审稿 ACCEPT） | 09-18 0259Z | #289 | — | T11 U4：粘性代数 `inverse_identities`/`scaled_classes`（S，sol） |
 | 315-T11-U5-uniqueness | 完成 → codex 审稿中（rev-315） | 09-18 0311Z | — | — | T11 U5：唯一性包 `velocity_unique`/`pressure_unique`/`horizon_le_lifespan`（复用 Paper1 `normalized_flows_agree`）（M，sol） |
-| 316-T11-U7-mean-identity | 完成（astra：mean_formula/mean_derivative 无条件，8 定理）→ codex 审稿中（rev-316） | 09-18 0309Z | — | — | T11 U7：均值恒等式 `mean_formula`/`mean_derivative`（积分动量方程，Haar 积分下求导）（L，astra） |
+| 316-T11-U7-mean-identity | 已合入 #290（codex ACCEPT-WITH-NOTES：一个空行） | 09-18 0319Z | #290 | — | T11 U7：均值恒等式 `mean_formula`/`mean_derivative`（积分动量方程，Haar 积分下求导）（L，astra） |
 | 317-T11-U9c-convolution-bound | 已合入 #288（codex ACCEPT-WITH-NOTES：两处注释措辞）：TorusConvolutionInput 偿还，两空间契约有居民 | 09-18 0245Z | #288 | — | T11 U9c：偿还 313 的唯一具名输入 `TorusConvolutionInput`（投影对流卷积的有界双线性 H³×H³→H² 实现：离散 Sobolev 乘积估计，Peetre 不等式 + Cauchy–Schwarz + 格点可和）→ 两空间契约有居民 |
 | 318-T11-U9d-physical-recovery | 完成但未达目标（astra：34 个无条件基础定理——系数 datum → 物理场：可和、连续、周期、datum 识别、联合连续、重加权 CLM；未剥离单一输入）→ 审稿中；U9d 拆三条子 lane | 09-18 0310Z | — | — | T11 U9d：物理恢复 —— 由强迫 mild 系数解在公共 horizon 上构造 `ClassicalSolutionT`（全阶 bootstrap、Fourier 反演得物理速度、Leray 压力、动量方程）+ `PeriodicLocalRegularity`；允许一个具名输入 |
-| 319-T11-U9d1-persistence | 排队（astra；简报已写；312 先） | 09-18 0315Z | — | — | T11 U9d1：H³ 强迫 mild 解在共同 horizon 上保持全阶（半阶步进 bootstrap 或正则性持续 + Grönwall）；允许一个具名输入 |
+| 319-T11-U9d1-persistence | worktree 安装中→自动启动（codex astra low，sol 备用） | 09-18 0319Z | — | — | T11 U9d1：H³ 强迫 mild 解在共同 horizon 上保持全阶（半阶步进 bootstrap 或正则性持续 + Grönwall）；允许一个具名输入 |
 | 320-T11-U9d2-classical-assembly | 排队（astra；简报已写） | 09-18 0315Z | — | — | T11 U9d2：由全阶系数解（单一具名输入 `PersistenceInput` 或 319 的定理）装配物理速度/压力/动量方程 → `ClassicalSolutionT` + `PeriodicLocalRegularity`（U9d 目标） |
