@@ -157,6 +157,21 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   is datum-model plumbing (angular product↔convolution identity at the `L²`/tempered level, `realSubspace`
   preservation, `smulLeftCLM` graph, `PiLp 2` vector assembly, `C>0` bump), **not** analysis. Exact residual
   statements in `research/T22/ATTEMPTS_UA3.md` (R1–R4). U-Z1 must **not** treat the field as available yet.
+  **[DONE — lane 406, 2026-09-18]** `Section3/T22/CutoffMultiplierField.lean` closes the **verbatim field**
+  `theorem cutoffMultiplier` on top of lane 397's engine; `[propext, Classical.choice, Quot.sound]`,
+  `lake build … CutoffMultiplierField` green, `lake env lean` on the module silent, `make check`/`make test` green.
+  All four residuals closed. The route differs from the ATTEMPTS_UA3 sketch in two respects, both recorded in
+  `research/T22/ATTEMPTS_UA3B.md`: (i) **R1** was closed at the *Schwartz* level only
+  (`fourier_mul_eq_scalarConvolution`, `angularFourier_mul`) and then transported to all `L²` data by
+  `LinearMap.extendOfNorm` along the dense range of `angularDatumL s` — no `L²`-level product↔convolution
+  identity was ever needed, and the graph conjunct needs **no** convolution at all
+  (`angularRealization_datum` + `smulLeftCLM_schwartz`); (ii) the R1 formula in `ATTEMPTS_UA3.md` is off by the
+  angular amplitude: the correct normalization is
+  `angularFourier (u·v) = frequencyUnit^{-3/2} • (angularFourier u ∗ angularFourier v)`, so the field constant is
+  `cutoffFieldConst s χ = frequencyUnit^{-3/2} · cutoffMultiplierConst s χ + 1` (R4). R2 is
+  `cutoffOperator_mem_realSubspace` (via `realSymmetry_angularDatum` and `χ` real), R3 is `PiLp.norm_eq_of_L2`.
+  Probe `research/T22/probes/cutoff_multiplier_field_closes.lean`, audit `research/T22/axioms_ua3b.lean`;
+  the lane report is in the PR description (no `REPORT_406.md` file). **U-Z1 may now consume the field.**
 
 - **U-A4 — order-0 vector Plancherel isometry** (new analysis). New `Section3/T22/OrderZeroIsometry.lean`. No named input.
   Target (consumed by `orderZero`): `norm_orderZeroDatum_eq` — `‖D01.orderZeroDatum hz‖ₑ = eLpNorm z 2 volume`
@@ -188,8 +203,11 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   extension can restrict to `restrictField Ω z`. **L, Opus.** Deps: U-A4, U-B1.
   **STATUS — DONE (2026-09-18, lane 393).** `Section3/T22/OrderZero.lean` proves `orderZero`
   verbatim; `[propext, Classical.choice, Quot.sound]`; `make check` green. The realised route is
-  the **quotient-norm identity in both directions** (not the `LocalizationBoundary` fractional
-  kernel, which is `0<s<1` only): `≤` uses the zero extension's order-0 datum
+  the **quotient-norm identity in both directions** (not the `LocalizationBoundary` route; its
+  *Gagliardo near/far split* lemmas are `0<s<1` only — but note, correcting an earlier wording here, that
+  its `L²` helpers `domainL2Sq_le_whole:64` / `domainL2Sq_eq_whole_of_compl_eq_zero:73` carry **no `s`
+  premise at all**; they are pure `∫‖·‖²` set-integral facts and what they lack for U-A5 is an
+  `∫‖·‖² ↔ eLpNorm` bridge at `p=2`, not a range of `s`): `≤` uses the zero extension's order-0 datum
   (`domainSobolevENorm_le_sobolevENorm` + `sobolevENorm_zero_eq_eLpNorm` + `norm_orderZeroDatum_eq`
   + `eLpNorm_indicator_eq_eLpNorm_restrict`) with the `⊤`-case `le_top`; `≥` needs two genuinely new
   facts proved in-module — **order-0 realization surjectivity** `orderZeroDatum_surjective`

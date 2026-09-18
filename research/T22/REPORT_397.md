@@ -41,6 +41,8 @@ The full `L²`-operator content of the cutoff `H^s` multiplier bound, for **ever
 - **R3** — datum-norm ↔ `eLpNorm` identification and the `PiLp 2` Pythagorean vector assembly `‖B‖ₑ² = ∑ i ‖B i‖ₑ²`.
 - **R4** — `0 < C` for all `χ` (incl. `χ=0`): take `C := cutoffMultiplierConst s χ + 1`.
 
+**Correction (lane 406, 2026-09-18, per the codex review of this lane).** The sentence above ("none of which … has an in-tree proof") overstates the gap for **R3**: the generic `PiLp 2` norm assembly is *not* absent — Mathlib supplies `PiLp.norm_eq_of_L2 : ‖x‖ = √(∑ i, ‖x i‖ ^ 2)` (with `PiLp.norm_sq_eq_of_L2`, `PiLp.nnnorm_eq_of_L2`, and `EuclideanSpace.norm_eq`), and lane 406 closes R3 with exactly `PiLp.norm_eq_of_L2` plus `ofReal_norm`. Lane 406 also closed R1 (at the Schwartz level plus a dense extension, **not** at the `L²` level) and R2, so the field is now closed; see `research/T22/ATTEMPTS_UA3B.md` and the `T22_SPLIT.md` U-A3 status block.
+
 The smooth-datum fallback is **not** a shortcut: its norm conjunct still needs R1 (product→convolution), so it too cannot close without a sorry — hence not delivered as a stub. Rejected route: Mathlib has **no** spatial-multiplier-preserves-`MemSobolev` theorem (only Fourier multipliers and scalar smul); `LocalizationBoundary`+T13 covers only `s∈(0,1)`, a cross-check not a substitute.
 
 ### 4. Commands run and results
