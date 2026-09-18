@@ -215,6 +215,31 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   velocity difference `= λ • b`; force difference `= λ L_U b + λ²(b·∇)b` (reuse Ua3's expansion); on `tsupport b`
   all coefficients/derivatives are bounded, so `ckSeminormE (tsupport b) m ≤ C_m|λ| + C_m'λ²` (an `ℝ≥0∞` `⨆`,
   never the real `sSup` junk `0`), giving `Tendsto … (𝓝 0)`. **L, Opus.** No named input. Deps: Ua3.
+  **DONE (lane 424).** `formalization/NSFormalization/Section3/T24/AffineNonisolated.lean` `nonisolated`
+  (`{ν} {U F : VelocityField} (c r τ₀ τ₁) (hτ₀ : 0 < τ₀) (hτ₁ : τ₁ < 1)
+  (hvelocity_smooth : ContDiffOn ℝ ∞ U preSingularDomain)`), axioms `[propext, Classical.choice, Quot.sound]`.
+  Hypotheses consumed: **only** `velocity_smooth` + the two cylinder bounds — the packet's `force_smooth`
+  is *not* needed (the ambient `F` cancels in the difference), nor `0 < ν`, nor the pressure, nor `b ≠ 0`
+  (carried in the statement, unused in the proof). Route landed **not** with the paper's literal
+  `λ L_U b + λ²(b·∇)b`: `L_U b` is not globally `ContDiff` (`U` is smooth only on `preSingularDomain`),
+  so the difference is regrouped as `λ·(F̃_b − F) + (λ²−λ)·(b·∇)b`, whose two coefficient fields **are**
+  globally smooth — `F̃_b − F = affineForce ν U 0 b` is lane 414's `force_smooth` at the **zero** force,
+  and `(b·∇)b = advection b` is the vendored `contDiffOn_advection` on `univ`. That lets the global
+  `fun_iteratedFDeriv_add_apply` / `iteratedFDeriv_const_smul_apply'` apply unchanged. Three new
+  seminorm lemmas (none were in the tree): `affineCkSeminorm_const_smul` (exact homogeneity, with
+  `ENNReal.mul_iSup` pushed through both binders of `⨆ z ∈ K`), `affineCkSeminorm_add_le`,
+  `affineCkSeminorm_lt_top` (`ContDiff.continuous_iteratedFDeriv` +
+  `IsCompact.exists_bound_of_continuousOn`) — the last is the brief's
+  `ckSeminorm_lt_top_of_contDiff_compact`. Scalar linearity of the operators is the vendored
+  `NavierStokes.ResidualCalculus` (`spatialDerivative_const_smul`, `spatialLaplacian_const_smul`);
+  `(b·∇)U` needs no differentiability of `U` at all (`map_smul`). Probe
+  `research/T24/probes/affine_nonisolated_closes.lean`: six `rfl` bridges (incl.
+  `ckSeminormE ≡ affineCkSeminorm` and `SpaceTimeField ≡ VelocityField`), the field discharged on
+  `Bindings.packet ν hν`, lane 398's nonzero `bWitness` rebuilt (lane 417's shared
+  `Section3/T24/AffineWitness.lean` is not on this base) with both limits instantiated at it, and
+  `nonisolated_nontrivial` — at `λ = 1`, `m = 0` the velocity seminorm of the nonzero witness is
+  **nonzero**, so the limits are not limits of the zero function. Audit `research/T24/axioms_ua8.lean`;
+  attempts/negative record `research/T24/ATTEMPTS_UA8.md`.
 - **Ua9 — assembly + `affineVariationStatement` + registration + probe.** Assemble the 13 fields into
   `AffineVariationAPI`; `affineVariationStatement:1117` `Nonempty` from any `PacketAPI ν` (the registered
   `I01.packet` witness); the raw-field→`PacketAPI` probe (§0). Register `T24.affine_variation` v1; non-vacuity at
