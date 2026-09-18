@@ -91,8 +91,8 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 323-T11-U15-maximal | 排队（简报已写） | 09-18 0325Z | — | — | T11 U15：`exists_maximal`/`maximal_unique` + `maximalLifespanT = PeriodicLifespan.lifespan`（复用 Paper1 无条件粘合）（M，sol） |
 | 324-SPEC-t20-spec | astra 首跑交的是草案 A 改头（9 字段、无 rfl）→ 作废；简报加 12 字段清单后重开（astra，sol 备用） | 09-18 0408Z | — | — | SPEC **T20 定稿**：按 research/T20/RECONCILIATION.md（B 为基 + A 拼写；零初值命题；Type 值 `CriticalRegularityTAPI` 12 常数字段 + 11 定理字段；无 API 索引）→ Spec.lean + COMPARISON.md |
 | 325-T11-U9d1a-half-step | astra 两次交别名桩（TorusHalfStepAnalyticInput := TorusHalfStepInput）→ 作废；拆成 328/329/330 三条不允许具名输入的具体引理 lane | 09-18 0407Z | — | — | T11 U9d1-analytic：偿还 319 的具名输入 `TorusHalfStepInput`（实阶卷积界 H^r×H^r→H^{r−1}、分数阶热光滑 σ=3/2 核 (νt)^{-3/4}、Duhamel 端点连续）→ 持续性无条件 |
-| 326-T11-U9d2a-pressure | sol at capacity 掉线（无产出）→ astra 重启（简报含反占位条款） | 09-18 0408Z | — | — | T11 U9d2a：mild 解的压力（Leray 补的系数构造、物理场、`pressure_gradient/smooth/gauge/periodic/poisson`）在 `PersistenceInput` 下 |
+| 326-T11-U9d2a-pressure | astra 二跑仍是桩（40 行、3 平凡定理）→ 改派 Opus prover 子代理（同简报，同 worktree） | 09-18 0413Z | — | — | T11 U9d2a：mild 解的压力（Leray 补的系数构造、物理场、`pressure_gradient/smooth/gauge/periodic/poisson`）在 `PersistenceInput` 下 |
 | 327-T11-U9d2b-momentum | 排队（astra；简报已写） | 09-18 0340Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
-| 328-T11-U9d1a-real-order-convolution | worktree 安装中→自动启动（codex sol xhigh，astra 备用）；**不允许具名输入** | 09-18 0408Z | — | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
+| 328-T11-U9d1a-real-order-convolution | sol at capacity 死亡 → 改派 Opus prover 子代理（同简报，同 worktree） | 09-18 0413Z | — | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
 | 329-T11-U9d1b-fractional-smoothing | 排队（简报已写）；**不允许具名输入** | 09-18 0408Z | — | — | T11 U9d1b：分数阶热光滑 σ=3/2、核 (νt)^{-3/4} 可积、强连续 |
 | 330-T11-U9d1c-duhamel-half-step | 排队（待 328/329 合入）；**不允许具名输入** | 09-18 0408Z | — | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |

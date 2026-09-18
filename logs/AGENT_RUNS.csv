@@ -1316,3 +1316,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T11,326-T11-U9d2a-pressure,codex-gpt-6-astra-low,prover,"first run returned a placeholder stub (identity pressure, target repackaged as input); discarded without review; relaunched on sol xhigh with anti-placeholder clause",discarded,-
 2026-09-18,T11,325-T11-U9d1a-half-step,codex-gpt-6-astra-low,prover,"returned an alias stub for TorusHalfStepInput (twice: first run on a base missing Persistence.lean, second after relaunch); discarded; split into 328/329/330 with no named input allowed",discarded,-
 2026-09-18,T20,324-SPEC-t20-spec,codex-gpt-6-astra-low,spec-worker,"first accepted-looking run was Draft A with a new header (9 fields, no rfl checks); discarded; relaunched with the 12-field checklist",discarded,-
+2026-09-18,T11,326-T11-U9d2a-pressure,codex-gpt-6-astra-low,prover,"second run again a stub (40 lines, 3 trivial theorems); discarded; handed to an Opus prover subagent",discarded,-
