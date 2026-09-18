@@ -40,3 +40,11 @@ regularity of `t ↦ p̂(t)`), stated exactly; everything else proved; record in
 
 ## Report
 Commit on your branch (`[326-T11] MildPressure`); end with four parts (theorems with exact statements / files / gaps with error text / commands and results).
+
+## Anti-placeholder clause (added after a rejected first run)
+A previous run of this lane returned a 23-line stub: `def mildPressure p := p`, a `def MildPressureInput` that merely restates the whole target, and a structure whose only field is that input.
+**That is not a deliverable and will be discarded.** Rules: (1) `mildPressure` must be an actual construction from the coefficient data (the Leray-complement formula), not the identity; (2) the single
+allowed named input is `PersistenceInput T u` (already defined in `ClassicalAssembly.lean`) — you may not introduce a new `def … : Prop` that packages the target or any of the required fields;
+(3) every required field (`pressure_gradient`, `pressure_smooth`, gauge, periodicity, `pressure_poisson`) must be a `theorem` with a real proof; (4) the report's §3 must list exactly what is proved and
+what is not, with the exact residual statement if you could not finish one field. A partial but genuine delivery (e.g. the coefficient pressure with its gradient datum identity and gauge proved,
+smoothness in `t` left as the exact residual) is acceptable; a stub is not.
