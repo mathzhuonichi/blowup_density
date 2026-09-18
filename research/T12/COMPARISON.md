@@ -53,6 +53,9 @@ Needs a lemma (union of both drafts, deduped): (1) T10 bridges for every copied 
    `T01.torus_data` is registered, replace the temporary T10 copy by the public
    contract import and add the reconciliation's listed `rfl` bridges there.
 
+## Status — lane 341 (2026-09-18)
+
+Lane 341 proved `boundedRepresentative` (`linftyConst`), `hTwo_le_laplacian` (`hTwoConst = 1 + 1/(4π²)`) and `lambda_exists` (`lambdaField`) in `Section3/T12/FourierEmbeddings.lean` (probe `fourier_embeddings_closes.lean`, report `REPORT_341.md`); still open in the T12 API (despite Section 4 analogues): `velocityCriticalL3`, `gradientLambdaCriticalL3`, `gradientLSix` (and `tameProduct`, lane 342).
 ## Lane status (append only)
 
 - **`tameProduct` — proved by lane 342** (2026-09-18).
