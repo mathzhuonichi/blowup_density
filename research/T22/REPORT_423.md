@@ -137,3 +137,6 @@ Base-aware checker 输出节录（base = 42，当前 = 43）：
 ```
 
 本 lane 在 `erenup/423-T22-UREG-contract` 本地提交；未 push、merge 或 rebase。
+
+
+> Lead note after review 423: (1) the four local `defProp` linter warnings in `Section3/T22/Assembly.lean` are recorded here as a hygiene item (a later MAINT lane may turn the `Prop`-valued `def`s into `theorem`s; the contract test module is warning-free); (2) the two structural declarations (the record and the statement alias) legitimately print no axioms — an intentional exception to the "exactly three axioms" audit, as for every other registered structure.
