@@ -95,6 +95,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 327-T11-U9d2b-momentum | Opus prover 子代理（基座 = integration + 326 本地合并） | 09-18 0449Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
 | 328-T11-U9d1a-real-order-convolution | 已合入 #297（codex 审稿 ACCEPT；Opus 产出） | 09-18 0451Z | #297 | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
 | 329-T11-U9d1b-fractional-smoothing | 已合入 #298（codex ACCEPT-WITH-NOTES：报告措辞；Opus 产出） | 09-18 0459Z | #298 | — | T11 U9d1b：分数阶热光滑 σ=3/2、核 (νt)^{-3/4} 可积、强连续 |
-| 330-T11-U9d1c-duhamel-half-step | Opus 完成：torusHalfStepInput 无条件证出 → persistence_unconditional（43 声明；修正了简报的力路线错误：有界 Leray CLM + HeliCorgi 端点安全契约）→ 排队 codex 审稿 | 09-18 0515Z | — | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |
+| 330-T11-U9d1c-duhamel-half-step | 已合入 #301（codex ACCEPT-WITH-NOTES：报告措辞；Opus 产出）：持续性无条件 | 09-18 0526Z | #301 | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |
 | 331-T11-U6-transport | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0526Z | — | — | T11 U6：解在光滑变量替换下的转运构造 → `transformed_solution`/`to_unit`/`from_unit`（L，sol） |
-| 332-T11-U13-restart-beyond | 排队（简报已写） | 09-18 0526Z | — | — | T11 U13：`restartBeyond`（用 321 的 restart 在 H¹ 球取 δ，t₀ 靠近 S 重启并粘合，唯一性给重叠一致；输入 PeriodicQuantitativeLocalInput'）（M–L，sol） |
+| 332-T11-U13-restart-beyond | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0526Z | — | — | T11 U13：`restartBeyond`（用 321 的 restart 在 H¹ 球取 δ，t₀ 靠近 S 重启并粘合，唯一性给重叠一致；输入 PeriodicQuantitativeLocalInput'）（M–L，sol） |
