@@ -78,6 +78,20 @@ in the tree today.
   (`temporalDerivative`, `spatialLaplacian`, `spatialDerivative`, `advection`) — the T17 spelling reorders the
   two middle summands, matched by `add_comm`. Reuse T16 `LatticeLift.spatialDivergence_translate:176`,
   `isPeriodicOn_sub_latticeVector:327`. **M, Opus.** Deps: — (T16).
+  **Status (lane 373, DONE):** `Section3/T17/Transport.lean` closed with 0 `sorry`/`axiom`, all decls
+  `[propext, Classical.choice, Quot.sound]`. `correctionData := localPotentialData v x₀ T θ η O θR ε₀` (plain
+  `x₀ T` args, no `PlacementData` — lane 362 not yet in tree; the `place` form is a projection corollary once it
+  lands); `correctionData_correction` by `rfl`. `correctionForce` copied verbatim from `Spec.lean:726-733`;
+  `correctionForce_eq_source` bridges to `Source.correctionForce` by `abel` (the two middle summands swap).
+  `force_eq` proved **pointwise, by cases on `x ∈ periodicSet (ball x₀ r)`** (not a finite-sum expansion): the
+  active-copy germ is a *single* translate (via `latticeLift_eq_of_ball` + `latticeLift_periodic`), so the
+  nonlinear advection term never produces cross copies; outside the periodic support both sides vanish
+  (`latticeLift_sliceSupport` + a new `source_correctionForce_support`). New reusable equivariance lemmas
+  `temporalDerivative_translate`/`spatialDerivative_translate`/`spatialLaplacian_translate`/`advection_translate`
+  and germ-congruence `source_correctionForce_congr` (all downstream of U5/U6 will reuse these). Hypotheses are
+  the honest T16 ones (`hv : IsPeriodicOn univ v`, `hvsm : ContDiffOn v cylinder`, θ/η smoothness+support,
+  `ε*θR < r < 1/2`, `2ε² < min T δ`) — no named `Prop` input. `correctionForce_periodic` (part c) via
+  `latticeLift_periodic`.
 
 - **U3 — correction profile fields + identity** (Euclidean reuse). New `Section3/T17/CorrectionProfile.lean`.
   Targets `correction_profile_smooth`, `correction_profile_support`, `correctionProfileConst`,
