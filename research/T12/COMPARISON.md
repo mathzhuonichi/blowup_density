@@ -56,3 +56,19 @@ Needs a lemma (union of both drafts, deduped): (1) T10 bridges for every copied 
 ## Status — lane 341 (2026-09-18)
 
 Lane 341 proved `boundedRepresentative` (`linftyConst`), `hTwo_le_laplacian` (`hTwoConst = 1 + 1/(4π²)`) and `lambda_exists` (`lambdaField`) in `Section3/T12/FourierEmbeddings.lean` (probe `fourier_embeddings_closes.lean`, report `REPORT_341.md`); still open in the T12 API (despite Section 4 analogues): `velocityCriticalL3`, `gradientLambdaCriticalL3`, `gradientLSix` (and `tameProduct`, lane 342).
+## Lane status (append only)
+
+- **`tameProduct` — proved by lane 342** (2026-09-18).
+  `formalization/NSFormalization/Section3/T12/TameProduct.lean` discharges the
+  field verbatim with `Cproduct := tameProductConst`,
+  `tameProductConst m = 4^{m/2} (∑ₖ (1+4π²|k|²)^{-2})^{1/2}`, positivity
+  included, **unconditionally** (no named `Prop` input).  This settles item (8)
+  of §"Proof dependencies" — torus Fourier convolution, the weighted
+  convolution/Young estimate, and closure of `H^m(T³)` under products — and,
+  as a by-product, supplies the periodic convolution theorem for `H^m` (not
+  merely smooth) scalars, `periodicFourierCoeff_mul_of_series`, together with
+  a.e. Fourier inversion for absolutely summable coefficients,
+  `torusLift_ae_eq_series`.  Item (2)'s `L¹`-Fourier-uniqueness lemma was *not*
+  needed and is still open; the vector/tensor bridges of item (11) remain open.
+  Probe: `research/T12/probes/tame_product_closes.lean` (both fields verbatim
+  plus a two-mode, genuinely nonzero witness).  Report: `research/T12/REPORT_342.md`.

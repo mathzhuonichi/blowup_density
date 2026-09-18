@@ -307,9 +307,11 @@
     {
       "id": "T11",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T01.torus_local_theory"
+      ],
       "deliverable": "Reconcile research/T11/Spec.lean against prop:local and the periodic local-theory sources, then register the accepted versioned contract under parent task T01 with its typed binding and axiom test."
     },
     {
