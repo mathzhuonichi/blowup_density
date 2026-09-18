@@ -53,19 +53,6 @@ Needs a lemma (union of both drafts, deduped): (1) T10 bridges for every copied 
    `T01.torus_data` is registered, replace the temporary T10 copy by the public
    contract import and add the reconciliation's listed `rfl` bridges there.
 
-## Status — proved by lane 341 (2026-09-18)
+## Status — lane 341 (2026-09-18)
 
-Proved by lane 341 (`formalization/NSFormalization/Section3/T12/FourierEmbeddings.lean`,
-probe `research/T12/probes/fourier_embeddings_closes.lean`, report
-`research/T12/REPORT_341.md`): `boundedRepresentative` with
-`Cinfty := linftyConst = (∑ₖ (1+4π²|k|²)^{-2})^{1/2}` (`L²`-Fourier inversion
-a.e. through the `mFourierBasis` Hilbert basis plus lattice Cauchy–Schwarz);
-`hTwo_le_laplacian` with `CHtwo := hTwoConst = 1 + 1/(4π²)` (coefficientwise
-reweighting of the order-zero datum of `Δv`, zero mode killed by the physical
-mean-zero hypothesis); `lambda_exists` with the explicit witness `lambdaField v`
-(the `2π|k|` multiplier series, smooth and real by all-order weighted
-summability and conjugate reflection).  No named input; all declarations print
-exactly `[propext, Classical.choice, Quot.sound]`.  Still open in §1's table:
-`tameProduct`, `velocityCriticalL3`, `gradientLambdaCriticalL3`, `gradientLSix`
-(`spectralGap` and `homogeneous_le_sobolev` were proved earlier in
-`Section3/T12/SpectralGap.lean`).
+Lane 341 proved `boundedRepresentative` (`linftyConst`), `hTwo_le_laplacian` (`hTwoConst = 1 + 1/(4π²)`) and `lambda_exists` (`lambdaField`) in `Section3/T12/FourierEmbeddings.lean` (probe `fourier_embeddings_closes.lean`, report `REPORT_341.md`); still open in the T12 API (despite Section 4 analogues): `velocityCriticalL3`, `gradientLambdaCriticalL3`, `gradientLSix` (and `tameProduct`, lane 342).
