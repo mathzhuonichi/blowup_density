@@ -1470,3 +1470,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T18,433-T18-U5-U6-cross-transport-momentum,claude-opus,proof-worker,"Section3/T18/CrossTransport.lean + Momentum.lean; codex review ACCEPT-WITH-NOTES",merged,395
 2026-09-18,T24,420-T24-Uc3-conservative-registration,gpt-5.6-sol,contract-registration,"ConservativeAssembly + Contracts/Bindings/Tests ConservativeForcing + registry T04.conservative_forcing (46 contracts); review REJECT procedural, lead-resolved base merge",merged,396
 2026-09-18,T18,426-T18-U2-U4-force-class-kinematics-div,gpt-5.6-sol,proof-worker,"Section3/T18/{ForceClass,Kinematics,Divergence}.lean; codex review ACCEPT-WITH-NOTES",merged,397
+2026-09-18,T17,434-T17-U9-energy-bound,claude-opus,proof-worker,"Section3/T17/Energy.lean; codex review ACCEPT-WITH-NOTES",merged,398
