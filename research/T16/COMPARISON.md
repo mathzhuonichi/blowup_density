@@ -205,7 +205,14 @@ The entire periodic-correction block flagged "Open" above is now **closed** in
   `latticeLift_timeSupport` (`correction_support`), `latticeLift_sliceSupport`
   (`correction_support_ball`), `latticeLift_cancels` (`correction_cancels`).
 * Packaged as `correction_fields_of_chart`: the seven canonical field bodies for
-  `fun ε => latticeLift (W ε)` from transportable chart hypotheses.  Probe
+  `fun ε => latticeLift (W ε)` from chart-level hypotheses.  Probe
   `probes/lattice_lift_closes.lean` restates each field verbatim + a nonzero bump.
+* The `hWcancel` hypothesis is a **lane-358 assembly obligation, not proved here**:
+  the periodic packet bound `⊆ periodicSet O` (358: `periodicScaledPacket =
+  latticeLift (scaledPacket)` + T14 `delayed_full_support` + `latticeLift_sliceSupport`)
+  and the pointwise cancellation on `O` (358: `theta_one`/`eta_one` via
+  `exists_local_background_removal`).  That chart lemma returns the *eventual*
+  form; this lane adds `cancel_of_eventually` (eventual→pointwise) and
+  `correction_fields_of_chart'` (accepts the eventual form directly).
 * Note: `LocalPotentialAPI` has **seven** `correction_*` fields (the brief's
   "eight" double-counts `support`/`support_ball`).

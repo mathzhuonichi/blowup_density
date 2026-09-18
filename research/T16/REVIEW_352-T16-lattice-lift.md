@@ -2,121 +2,137 @@ REJECT
 
 ## What the lane claims
 
-`research/T16/REPORT_352.md:5-24` claims that the lattice lift is the genuine
-sum in the brief, definitionally equal to
-`NavierStokes.PeriodicLocalization.periodize`, and that it transports every
-canonical correction field.  The report correctly says “seven”: the canonical
-`LocalPotentialAPI` has exactly the seven fields `correction_formula` through
-`correction_cancels` at `formalization/NSFormalization/Section3/T16/LocalPotential.lean:140-162`.
-The brief's “eight” is a counting error, not a missing eighth Lean field.
+`research/T16/REPORT_352.md:5-25` claims the genuine lattice `tsum`, its
+definitional identification with `NavierStokes.PeriodicLocalization.periodize`,
+and transport of the canonical correction fields.  The canonical structure has
+seven `correction_*` fields, not eight: `correction_formula` through
+`correction_cancels` are at
+`formalization/NSFormalization/Section3/T16/LocalPotential.lean:140-162`.
+The report is right to call this a seven-field conjunction; the brief's “eight”
+is a counting error.
 
 ## What is in Lean
 
-The lift definition and defeq bridge are exact:
-`latticeLift` is the stated `tsum` at
-`formalization/NSFormalization/Section3/T16/LatticeLift.lean:54-58`, and
-`latticeLift_eq_periodize` is `rfl` at
-`formalization/NSFormalization/Section3/T16/LatticeLift.lean:70-74`.  The
-support-to-cube and ball coordinate lemmas are stated at
-`formalization/NSFormalization/Section3/T16/LatticeLift.lean:78-109`;
-smoothness and periodicity at
-`formalization/NSFormalization/Section3/T16/LatticeLift.lean:113-127`; ball
-locality (`tsum_eq_single 0`) at
-`formalization/NSFormalization/Section3/T16/LatticeLift.lean:129-161`;
-divergence transport and finite-sum lemmas at
-`formalization/NSFormalization/Section3/T16/LatticeLift.lean:165-240`; time
-and slice support at
-`formalization/NSFormalization/Section3/T16/LatticeLift.lean:244-318`; and
-integer-shift/cancellation transport at
-`formalization/NSFormalization/Section3/T16/LatticeLift.lean:322-369`.
+The lift is the requested sum at
+`formalization/NSFormalization/Section3/T16/LatticeLift.lean:57-60`, and the
+definitional bridge is `rfl` at
+`formalization/NSFormalization/Section3/T16/LatticeLift.lean:74-75`.  The support-to-cube, smoothness,
+periodicity, ball-locality, divergence, time-support, and slice-support lemmas
+are present at
+`formalization/NSFormalization/Section3/T16/LatticeLift.lean:81-128,135-162,168-241,247-320`.
+The integer shift and local cancellation transport are at
+`formalization/NSFormalization/Section3/T16/LatticeLift.lean:327-379`.
 
-The conjunction returned by `correction_fields_of_chart` has the seven exact
-canonical bodies at
-`formalization/NSFormalization/Section3/T16/LatticeLift.lean:400-415`, and the probe copies those seven bodies
-verbatim at `research/T16/probes/lattice_lift_closes.lean:25-91`.  The bump
-non-vacuity check is at `research/T16/probes/lattice_lift_closes.lean:94-120`
-and is substantive: it proves the lift is
-nonzero at the origin and periodic.  The axiom file lists all 19 declarations
-at `research/T16/axioms_lattice_lift.lean:7-26`.
+`correction_fields_of_chart` does return seven conjunction components with the
+right canonical output bodies at
+`formalization/NSFormalization/Section3/T16/LatticeLift.lean:395-428`, and the
+probe copies those specialized bodies at
+`research/T16/probes/lattice_lift_closes.lean:38-80`.  The nonzero bump witness
+is substantive: smoothness, periodicity, and nonzero value of the lift are
+checked at `research/T16/probes/lattice_lift_closes.lean:87-120`.
 
 ## Gaps
 
-1. **Blocking statement-fidelity gap (correction_cancels).**
-   `latticeLift_cancels` requires
-   `hcancel : ∀ x ∈ ball x₀ r, v (t,x) + w (t,x) = 0` and chooses
-   `O = periodicSet (ball x₀ r)`
-   (`formalization/NSFormalization/Section3/T16/LatticeLift.lean:341-369`).
-   Consequently the packaged theorem requires the same whole-ball hypothesis
-   `hWcancel`
-   (`formalization/NSFormalization/Section3/T16/LatticeLift.lean:393-399`)
-   and invokes it in
-   `formalization/NSFormalization/Section3/T16/LatticeLift.lean:450-453`.
-   This is stronger than, and not the same as, the canonical field, which only
-   asks for some open neighborhood of the packet support
-   (`formalization/NSFormalization/Section3/T16/LocalPotential.lean:158-162`).
-   The data record carries the plateau facts at
-   `formalization/NSFormalization/Section3/T16/LocalPotential.lean:120-129`,
-   not a whole-ball cancellation hypothesis.
-   It is
-   also not what the cited mathematics says: the paper has cancellation “on an
-   open neighborhood of `supp U_ε(t)`” (`paper/sections/03-torus.tex:188-193`).
-   The existing chart lemma supplies exactly that weaker shape—an open `O`
-   containing `K` and eventual cancellation on `O`
-   (`formalization/NSFormalization/Paper1/LocalCutoff.lean:130-154`), with
-   `localCorrection_eq_neg` requiring the local plateau hypothesis
-   (`formalization/NSFormalization/Paper1/LocalCutoff.lean:77-87`).  For the
-   intended compactly supported physical correction,
-   `W ε` is zero outside its scaled cutoff while a general `v` is not zero on
-   all of `ball x₀ r`, so `hWcancel` is generally unprovable.  Thus the lane
-   does not close `correction_cancels` for the chart situation in the brief;
-   it proves only a vacuous/over-assumed transport statement.
+1. **Blocking cancellation-interface gap.**  The packaged theorem does not
+   derive the concrete chart cancellation needed by the brief.  Its new
+   `hWcancel` assumption is pointwise cancellation plus an additional
+   periodized packet-support bound:
+   `formalization/NSFormalization/Section3/T16/LatticeLift.lean:409-412`.
+   The canonical field, by contrast, asks for the output existential only
+   (`LocalPotential.lean:158-162`), and the paper states cancellation on an open
+   neighborhood (`paper/sections/03-torus.tex:188-193`).
 
-2. **Module gate is not silent.**  The module has three own warnings: deprecated
-   `push_neg` at
-   `formalization/NSFormalization/Section3/T16/LatticeLift.lean:256`, deprecated
-   `Set.mem_setOf_eq` at
-   `formalization/NSFormalization/Section3/T16/LatticeLift.lean:355`, and the
-   unused named input `hθR` at
-   `formalization/NSFormalization/Section3/T16/LatticeLift.lean:385`.  The last is also an
-   explicit unused hypothesis in the packaged theorem, contrary to the
-   brief's no-unused-binders requirement.  These are straightforward cleanup
-   items, but the claimed “0 output” for the module is false.
+   The cited chart theorem does not return the assumed statement.  It returns
+   `K ⊆ O` and *eventual* cancellation in each neighborhood,
+   `∀ᶠ y in 𝓝 x`, at
+   `formalization/NSFormalization/Paper1/LocalCutoff.lean:130-140`; its
+   construction of the plateau is at
+   `formalization/NSFormalization/Paper1/LocalCutoff.lean:14-26`.  The exact mismatch is
+   reproduced by the permitted scratch probe
+   `research/T16/probes/rev352_cancel_interface.lean:10-17`:
 
-3. The report's declared residual (`potential_smooth`/`potential_curl`) is
-   accurately kept out of this lane (`research/T16/REPORT_352.md:39-48`).  A
-   tree search found the relevant existing I02 and Paper1 declarations, in
-   particular `timePotential_contDiffOn` and `spatialCurl_timePotential_on`
-   (`formalization/NSFormalization/Section4/I02/Reference.lean:86-110`) and
-   the chart lemmas cited above; no existing declaration repairs the
-   whole-ball `hWcancel` mismatch.
+   ```text
+   ../research/T16/probes/rev352_cancel_interface.lean:17:2: error: Type mismatch
+     hzero x hx
+   has type
+     ∀ᶠ (y : Space) in 𝓝 x, v (t, y) + w (t, y) = 0
+   but is expected to have type
+     v (t, x) + w (t, x) = 0
+   ```
+
+   In addition, the required packet inclusion is only a hypothesis in
+   `latticeLift_cancels`
+   (`formalization/NSFormalization/Section3/T16/LatticeLift.lean:348-356`) and in `hWcancel`; the tree contains only
+   the totalized packet definition at
+   `formalization/NSFormalization/Section3/T16/LocalPotential.lean:81-84`.
+   `rg -n -i 'periodicScaledPacket|periodic.*packet|packet.*periodic'
+   formalization/NSFormalization` finds no support theorem.  Thus the report's
+   assertion that `exists_local_background_removal` “returns exactly this
+   tuple” and that “T14 supplies the periodic packet support”
+   (`research/T16/REPORT_352.md:48-50`) is not supported by this tree.  The
+   report must either prove these obligations (including the eventual-to-
+   pointwise conversion) or state them as an explicit residual; merely adding
+   `hWcancel` leaves the intended `physicalCorrection` case unclosed.
+
+2. The report says the downstream assembly is lane 358
+   (`research/T16/REPORT_352.md:48`), while this brief assigns assembly to lane 353.  This is
+   a documentation fix, but the cancellation obligation above is substantive,
+   not a one-line naming issue.
+
+3. The report's separate potential gap is correctly kept out of this lane.  The
+   whole `Section4` search found the I02 declarations
+   `formalization/NSFormalization/Section4/I02/Reference.lean:86-110`, but no
+   lattice-lift or periodic-packet-support declaration.  This satisfies the
+   required “not in the tree” check for the claims made here.
 
 ## Commands and results
 
-All commands used `. scripts/lean-env.sh`, ran from `verification/`, and used
-`LEAN_NUM_THREADS=6`.  The exact results were:
+All Lean commands used `. scripts/lean-env.sh`, ran from `verification/`, and
+used `LEAN_NUM_THREADS=6`.
 
 ```text
-$ lake build NSFormalization.Section3.T16.LatticeLift
-... warning: NSFormalization/Section3/T16/LatticeLift.lean:256:6: `push_neg` has been deprecated. Prefer using `push Not` instead.
-... warning: NSFormalization/Section3/T16/LatticeLift.lean:355:30: `Set.mem_setOf_eq` has been deprecated. Use `Set.mem_ofPred_eq` instead.
-... warning: NSFormalization/Section3/T16/LatticeLift.lean:385:23: Variable name `hθR` is not explicitly referenced.
+$ LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T16.LatticeLift
+⚠ [8778/9073] Replayed NSFormalization.Source.FiniteHilbertBochner
+warning: NSFormalization/Source/FiniteHilbertBochner.lean:24:19: try 'simp' instead of 'simpa'
+warning: NSFormalization/Source/FiniteHilbertBochner.lean:23:37: This simp argument is unused:
+  PiLp.single_apply
+warning: NSFormalization/Source/FiniteHilbertBochner.lean:39:23: This simp argument is unused:
+  PiLp.single_apply
+⚠ [9321/9358] Replayed NSFormalization.Source.RealSobolev
+warning: NSFormalization/Source/RealSobolev.lean:90:30: This simp argument is unused:
+  Complex.smul_re
+warning: NSFormalization/Source/RealSobolev.lean:90:47: This simp argument is unused:
+  Complex.smul_im
+warning: NSFormalization/Source/RealSobolev.lean:90:64: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+⚠ [9325/9358] Replayed NSFormalization.Paper3.SpatiallyCompactTime
+warning: NSFormalization/Paper3/SpatiallyCompactTime.lean:88:19: `ContinuousLinearMap.sub_apply` has been deprecated: Use `sub_apply` instead.
+⚠ [9332/9358] Replayed NSFormalization.Paper3.RealPositiveDensity
+warning: NSFormalization/Paper3/RealPositiveDensity.lean:67:59: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+warning: NSFormalization/Paper3/RealPositiveDensity.lean:76:63: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+warning: NSFormalization/Paper3/RealPositiveDensity.lean:88:59: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+warning: NSFormalization/Paper3/RealPositiveDensity.lean:100:59: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+⚠ [9335/9358] Replayed NSFormalization.Paper3.RealVectorPositiveDensity
+warning: NSFormalization/Paper3/RealVectorPositiveDensity.lean:29:5: Variable name `hc` is not explicitly referenced.
+⚠ [9345/9358] Replayed NSFormalization.Source.PacketForceExtension
+warning: NSFormalization/Source/PacketForceExtension.lean:44:25: `if_pos` has been deprecated: Use `ite_eq_left` instead
+⚠ [9348/9358] Replayed NSFormalization.Source.ViscosityPacket
+warning: NSFormalization/Source/ViscosityPacket.lean:34:63: This simp argument is unused:
+  Function.comp_def
 Build completed successfully (9358 jobs).
 ```
 
-```text
-$ lake env lean ../formalization/NSFormalization/Section3/T16/LatticeLift.lean
-.../LatticeLift.lean:256:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
-.../LatticeLift.lean:355:30: warning: `Set.mem_setOf_eq` has been deprecated. Use `Set.mem_ofPred_eq` instead.
-.../LatticeLift.lean:385:23: warning: Variable name `hθR` is not explicitly referenced.
-```
+The module itself is silent:
 
 ```text
+$ lake env lean ../formalization/NSFormalization/Section3/T16/LatticeLift.lean
+(no output; exit 0)
 $ lake env lean ../research/T16/probes/lattice_lift_closes.lean
 (no output; exit 0)
 ```
 
+The axiom audit is clean for all 19 declarations; every line is exactly:
+
 ```text
-$ lake env lean ../research/T16/axioms_lattice_lift.lean
 'NSFormalization.Section3.T16.latticeLift' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NSFormalization.Section3.T16.latticeVector_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NSFormalization.Section3.T16.latticeVector_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -138,47 +154,11 @@ $ lake env lean ../research/T16/axioms_lattice_lift.lean
 'NSFormalization.Section3.T16.correction_fields_of_chart' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
-```text
-$ make check
-exit=0
-.............
-----------------------------------------------------------------------
-Ran 13 tests in 0.043s
-
-OK
-45 work items: ownership, contract registration and task cards consistent.
-```
-
-`verification/` was not touched by the lane-only diff (`git diff --name-only
-1f219211..HEAD` lists only the new module and research records), so the
-conditional `scripts/gates.sh`/`check_contracts.py --base-ref
-origin/erenup/integration-section3` gate does not apply.  The comparison to
-`origin/erenup/integration-section3` includes inherited lane-347 files,
-including `LocalPotential.lean`; this is not a lane-352 edit.
-
-The exact lane-only name output was:
+The required substantive mutation widens `r + ρ ≤ 1` to `r + ρ ≤ 2` in
+`research/T16/probes/rev352_widen_ball.lean:10-17`; it fails as expected:
 
 ```text
-formalization/NSFormalization/Section3/T16/LatticeLift.lean
-research/T16/ATTEMPTS_LATTICE_LIFT.md
-research/T16/COMPARISON.md
-research/T16/REPORT_352.md
-research/T16/axioms_lattice_lift.lean
-research/T16/probes/lattice_lift_closes.lean
-```
-
-The required comparison command against `origin/erenup/integration-section3`
-also shows the inherited lane-347 files (`LocalPotential.lean`,
-`REPORT_347.md`, `SPEC_ISSUES.md`, `axioms_local_potential.lean`, and
-`probes/api_on_canonical.lean`) in addition to the six lane-352 paths above;
-there is no lane-352 edit to those inherited files.
-
-The required substantive negative probe is
-`research/T16/probes/rev352_widen_ball.lean`, changing the load-bearing bound
-from `r + ρ ≤ 1` to `r + ρ ≤ 2`.  Its exact result is:
-
-```text
-.../rev352_widen_ball.lean:17:38: error: Application type mismatch: The argument
+../research/T16/probes/rev352_widen_ball.lean:17:38: error: Application type mismatch: The argument
   hρr
 has type
   r + ρ ≤ 2
@@ -188,57 +168,62 @@ in the application
   @latticeLift_eq_of_ball w x₀ ρ r hslice hρr
 ```
 
-No forbidden proof token occurs in the module or field probe; the only hygiene
-grep hit is the word “Axiom” in the conformance file's comment at
-`research/T16/axioms_lattice_lift.lean:3`.  No `maxHeartbeats` declaration is
-present.  The report's “not this lane” claim was checked with `grep -rn` over
-the complete `formalization/NSFormalization/Section4` tree and the relevant
-Paper1/T10 files before this verdict.
+`make check` exits 0.  Its final checks are exactly:
 
-Fixes required before acceptance:
+```text
+python3 experiments/test_contract_policy.py
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.045s
 
-1. Replace the whole-ball `hWcancel`/`hcancel` interface with the exact open
-   neighborhood/plateau cancellation data needed by `correction_cancels`, and
-   periodize that neighborhood while retaining the packet-support inclusion.
-2. Remove or genuinely use `hθR`; replace deprecated `push_neg` and
-   `Set.mem_setOf_eq` so the module typecheck is silent.
+OK
+python3 experiments/check_work_queue.py
+45 work items: ownership, contract registration and task cards consistent.
+```
+
+The lane-only diff against its lane-347 parent contains the new module and
+records/probes; no `verification/` path is touched.  The requested comparison
+is `git diff --name-status origin/erenup/integration-section3...HEAD`, whose
+only code addition is `formalization/NSFormalization/Section3/T16/LatticeLift.lean`;
+there is no existing-module modification.  Therefore the conditional
+`scripts/gates.sh` and `check_contracts.py --base-ref
+origin/erenup/integration-section3` gate was not applicable.  The hygiene
+search found no forbidden proof token in the module or probes, and no
+`maxHeartbeats` declaration.
 
 ---
 
-## Lane 352 response (revision r1)
+## Lane 352 response (revision r2)
 
-Both blocking items addressed in commit on `erenup/352-T16-lattice-lift`:
+All three points addressed (existing declaration names/statements unchanged —
+lane 358 has merged a6f0e836):
 
-1. **Fidelity (correction_cancels).**  `latticeLift_cancels` no longer assumes
-   whole-ball cancellation.  Its new hypotheses are an open plateau
-   `O` with `hO : IsOpen O`, `hOsub : O ⊆ ball x₀ r`,
-   `hcancel : ∀ x ∈ O, v (t,x) + w (t,x) = 0`, and the periodic packet bound
-   `hpacket : tsupport (fun x => P x) ⊆ periodicSet O`; the output existential
-   returns `O' = periodicSet O` (periodicity extends the cancellation from `O`
-   to every integer translate).  The packaged `correction_fields_of_chart`
-   correspondingly takes the local cancellation datum
+1. **Eventual→pointwise bridge.**  Added
+   `cancel_of_eventually {v w : SpaceTimeField} {O : Set Space} {t : ℝ}
+   (h : ∀ x ∈ O, ∀ᶠ y in 𝓝 x, v (t, y) + w (t, y) = 0) :
+   ∀ x ∈ O, v (t, x) + w (t, x) = 0` (via `Filter.Eventually.self_of_nhds`), and
+   `correction_fields_of_chart'` — identical conclusion to
+   `correction_fields_of_chart`, but its `hWcancel` is the *eventual* form
+   `∀ x ∈ O, ∀ᶠ y in 𝓝 x, v + W ε = 0` that `exists_local_background_removal`
+   actually returns; it converts internally via `cancel_of_eventually`.  The
+   scratch probe `research/T16/probes/rev352_cancel_interface.lean` now compiles
+   (its `exact hzero x hx` type error is resolved by `cancel_of_eventually`), and
+   it also exercises `correction_fields_of_chart'` end-to-end.
 
-   ```
-   hWcancel : ∀ ε ∈ Ioc (0:ℝ) ε₀, ∀ t ∈ Ico (T - ε ^ 2) T,
-     ∃ O : Set Space, IsOpen O ∧ O ⊆ ball x₀ r ∧
-       tsupport (fun x => periodicScaledPacket U x₀ T ε (t, x)) ⊆ periodicSet O ∧
-       ∀ x ∈ O, v (t, x) + W ε (t, x) = 0
-   ```
+2. **Documentation.**  The module docstrings, `REPORT_352.md`, `COMPARISON.md`
+   and `ATTEMPTS_LATTICE_LIFT.md` no longer claim the chart theorem or T14
+   "supplies" `hWcancel`.  They now state that the two components of `hWcancel`
+   (periodic packet support `⊆ periodicSet O`; pointwise cancellation on `O`) are
+   **obligations of assembly lane 358**, with the exact route 358 uses
+   (`periodicScaledPacket = latticeLift (scaledPacket)` + T14 `delayed_full_support`
+   + `latticeLift_sliceSupport` for the packet bound; `theta_one`/`eta_one` via
+   `exists_local_background_removal` + `cancel_of_eventually` for the cancellation).
 
-   which is exactly the tuple `Paper1.exists_local_background_removal` returns
-   (open `O ⊇ supp Uε`, `O ⊆` cutoff ball, `v + w = 0` on `O`) plus T14's
-   periodic packet support.  The whole-ball `hWcancel` is gone.
+3. **Lane number.**  All references now read lane 358 (the assembly lane, per the
+   lead), including the two module docstrings that previously said 353.
 
-2. **Hygiene.**  `push_neg` replaced by a `not_not.mp` term; the `periodicSet`
-   openness now uses an explicit `ext`/`constructor` proof (no
-   `Set.mem_setOf_eq`); the unused `hθR` binder removed from
-   `correction_fields_of_chart`.  `lake env lean` on the module now prints no
-   output (0 warnings, 0 errors); `lake build` shows no `LatticeLift.lean`
-   warnings.
-
-Gates re-run: module build 0 errors/0 warnings; `lake env lean` on module,
-`research/T16/probes/lattice_lift_closes.lean` (updated to the new `hWcancel`),
-and `research/T16/axioms_lattice_lift.lean` all clean (19 decls
-`[propext, Classical.choice, Quot.sound]`); the negative probe
-`rev352_widen_ball.lean` still errors (load-bearing bound intact); `make check`
-passes.
+Gates re-run: module build 0 errors / 0 module warnings; `lake env lean` on the
+module, `lattice_lift_closes.lean`, `rev352_cancel_interface.lean` and
+`axioms_lattice_lift.lean` all clean (21 decls `[propext, Classical.choice,
+Quot.sound]`); `rev352_widen_ball.lean` still errors (bound intact);
+`make check` passes.

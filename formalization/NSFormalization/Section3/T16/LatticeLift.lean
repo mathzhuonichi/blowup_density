@@ -33,8 +33,12 @@ For each field we prove the transport lemma "property of `w` ⇒ property of
   for an open plateau `O ⊆ ball x₀ r` carrying the local chart cancellation.
 
 The packaged theorem `correction_fields_of_chart` collects the seven canonical
-field statements for a scale-indexed chart family `W`, so lane 353 (assembly)
+field statements for a scale-indexed chart family `W`, so the assembly lane 358
 fills `LocalPotentialAPI.correction` with `fun ε => latticeLift (W ε)` by projection.
+Its chart-level hypotheses (in particular the cancellation datum) are assembly
+obligations, not facts this lane proves; `cancel_of_eventually` and
+`correction_fields_of_chart'` bridge the eventual cancellation the chart lemma
+actually returns.
 -/
 
 noncomputable section
@@ -336,6 +340,19 @@ theorem isPeriodicOn_sub_latticeVector {E : Type*} {f : SpaceTime → E}
   rw [hshift] at this
   exact this
 
+/-- Eventual-to-pointwise cancellation.  The chart-removal lemma
+`NSFormalization.Paper1.exists_local_background_removal` delivers the
+cancellation on `O` in the *eventual* form `∀ x ∈ O, ∀ᶠ y in 𝓝 x, v + w = 0`;
+this converts it to the pointwise form `∀ x ∈ O, v + w = 0` consumed by
+`latticeLift_cancels` / `correction_fields_of_chart`, via
+`Filter.Eventually.self_of_nhds`.  (This is the exact bridge the assembly lane
+needs; the reviewer's probe `research/T16/probes/rev352_cancel_interface.lean`
+exercises it.) -/
+theorem cancel_of_eventually {v w : SpaceTimeField} {O : Set Space} {t : ℝ}
+    (h : ∀ x ∈ O, ∀ᶠ y in 𝓝 x, v (t, y) + w (t, y) = 0) :
+    ∀ x ∈ O, v (t, x) + w (t, x) = 0 :=
+  fun x hx => (h x hx).self_of_nhds
+
 /-- The corrected background `v + latticeLift w` vanishes on `periodicSet O`,
 the periodic lift of an open plateau `O ⊆ ball x₀ r` on which the chart
 cancellation `v + w = 0` holds.  This is the exact local interface of the paper
@@ -384,14 +401,25 @@ theorem latticeLift_cancels {v w : SpaceTimeField} {x₀ : Space} {ρ r : ℝ}
 canonical spellings, realized by the lattice lift `fun ε => latticeLift (W ε)`
 of a scale-indexed chart-correction family `W`.
 
-Every hypothesis is a transportable chart fact (smoothness, compact support,
-divergence-freeness, the product support bound `Ioo … ×ˢ ball x₀ (ε·θRadius)`,
-the chart curl formula, and the local cancellation datum — an open plateau
-`O ⊆ ball x₀ r` carrying the periodic packet-support bound `⊆ periodicSet O` and
-the chart cancellation `v + W ε = 0` on `O`, exactly the shape produced by
-`NSFormalization.Paper1.exists_local_background_removal`); the conclusion
-transports each to the periodic lift.  Lane 353 fills
-`LocalPotentialAPI.correction := fun ε => latticeLift (W ε)` by projection. -/
+Every hypothesis is a chart-level fact about `W`, discharged by the assembly
+lane 358, not by this lane: smoothness, compact support, divergence-freeness,
+the product support bound `Ioo … ×ˢ ball x₀ (ε·θRadius)`, the chart curl formula,
+and the local cancellation datum `hWcancel` — an open plateau `O ⊆ ball x₀ r`
+carrying two **obligations of lane 358**:
+
+* the periodic packet-support bound `tsupport (packet slice) ⊆ periodicSet O`,
+  which 358 discharges from `periodicScaledPacket = latticeLift (scaledPacket)`,
+  the packet support fact (T14 `delayed_full_support`) and `latticeLift_sliceSupport`;
+* the pointwise cancellation `∀ x ∈ O, v + W ε = 0`, which 358 obtains on the
+  scaled plateau from `theta_one`/`eta_one` via
+  `NSFormalization.Paper1.exists_local_background_removal` (which returns the
+  *eventual* form `∀ x ∈ O, ∀ᶠ y in 𝓝 x, v + W ε = 0`) together with
+  `cancel_of_eventually`.
+
+The conclusion transports each to the periodic lift; lane 358 fills
+`LocalPotentialAPI.correction := fun ε => latticeLift (W ε)` by projection.  The
+variant `correction_fields_of_chart'` takes the eventual cancellation form so
+358 can feed the chart lemma's output directly. -/
 theorem correction_fields_of_chart
     (v U : SpaceTimeField) (x₀ : Space) (θ : Space → ℝ) (η : ℝ → ℝ) (A : SpaceTimeField)
     (r T ε₀ θRadius : ℝ) (W : ℝ → SpaceTimeField)
@@ -464,5 +492,50 @@ theorem correction_fields_of_chart
     intro ε hε t ht
     obtain ⟨O, hO, hOsub, hPsub, hcancelO⟩ := hWcancel ε hε t ht
     exact latticeLift_cancels hv_per (hslice ε hε) (hsum ε hε) hO hOsub hcancelO hPsub
+
+/-- `correction_fields_of_chart` with the cancellation datum in the *eventual*
+form the chart lemma `NSFormalization.Paper1.exists_local_background_removal`
+actually returns (`∀ x ∈ O, ∀ᶠ y in 𝓝 x, v + W ε = 0`), so the assembly lane 358
+feeds the chart output directly; `cancel_of_eventually` converts it to the
+pointwise hypothesis of `correction_fields_of_chart`. -/
+theorem correction_fields_of_chart'
+    (v U : SpaceTimeField) (x₀ : Space) (θ : Space → ℝ) (η : ℝ → ℝ) (A : SpaceTimeField)
+    (r T ε₀ θRadius : ℝ) (W : ℝ → SpaceTimeField)
+    (hr2 : r < 1 / 2)
+    (hv_per : IsPeriodicOn univ v)
+    (hεspace : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ε * θRadius < r)
+    (hWsmooth : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ContDiff ℝ ∞ (W ε))
+    (hWcompact : ∀ ε ∈ Ioc (0 : ℝ) ε₀, HasCompactSupport (W ε))
+    (hWdiv : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t x, spatialDivergence (W ε) t x = 0)
+    (hWtsupp : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+      tsupport (W ε) ⊆ Ioo (T - 2 * ε ^ 2) (T + 2 * ε ^ 2) ×ˢ ball x₀ (ε * θRadius))
+    (hWformula : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t, ∀ x ∈ ball x₀ r,
+      W ε (t, x) = -SpatialCurl.curl (fun y =>
+        (temporalCutoff η T ε t * spatialCutoff θ x₀ ε y) • A (t, y)) x)
+    (hWcancel : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t ∈ Ico (T - ε ^ 2) T,
+      ∃ O : Set Space, IsOpen O ∧ O ⊆ ball x₀ r ∧
+        tsupport (fun x => periodicScaledPacket U x₀ T ε (t, x)) ⊆ periodicSet O ∧
+        ∀ x ∈ O, ∀ᶠ y in 𝓝 x, v (t, y) + W ε (t, y) = 0) :
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t, ∀ x ∈ ball x₀ r,
+        latticeLift (W ε) (t, x) =
+          -SpatialCurl.curl (fun y =>
+            (temporalCutoff η T ε t * spatialCutoff θ x₀ ε y) • A (t, y)) x) ∧
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, ContDiff ℝ ∞ (latticeLift (W ε))) ∧
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, IsPeriodicOn univ (latticeLift (W ε))) ∧
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t x, spatialDivergence (latticeLift (W ε)) t x = 0) ∧
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀,
+      tsupport (latticeLift (W ε)) ⊆
+        Ioo (T - 2 * ε ^ 2) (T + 2 * ε ^ 2) ×ˢ (univ : Set Space)) ∧
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t,
+      tsupport (fun x => latticeLift (W ε) (t, x)) ⊆ periodicSet (ball x₀ r)) ∧
+    (∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t ∈ Ico (T - ε ^ 2) T,
+      ∃ O : Set Space, IsOpen O ∧
+        tsupport (fun x => periodicScaledPacket U x₀ T ε (t, x)) ⊆ O ∧
+        ∀ x ∈ O, correctedBackground v (fun ε => latticeLift (W ε)) ε (t, x) = 0) := by
+  refine correction_fields_of_chart v U x₀ θ η A r T ε₀ θRadius W hr2 hv_per
+    hεspace hWsmooth hWcompact hWdiv hWtsupp hWformula ?_
+  intro ε hε t ht
+  obtain ⟨O, hO, hOsub, hPsub, hcancelEv⟩ := hWcancel ε hε t ht
+  exact ⟨O, hO, hOsub, hPsub, cancel_of_eventually hcancelEv⟩
 
 end NSFormalization.Section3.T16
