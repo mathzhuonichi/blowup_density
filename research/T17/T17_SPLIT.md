@@ -204,3 +204,6 @@ in `PLAN.md`.
    `D.correction ε = latticeLift (physicalCorrection …)`. U2's `correctionData` makes this `rfl`, but every
    quantitative lane must state its lemma about that concrete term and let U12 bundle — do not attempt to prove
    a quantitative field for an arbitrary `LocalPotentialAPI`-satisfying `D` (it is false without the construction).
+
+### U1 status (lane 369)
+Closed for the `k = 0` fundamental-ball form and its `ℝ≥0∞` supremum corollary in `Section3/T17/LatticeDeriv.lean`. The proof uses local agreement from T16 and `EventuallyEq.iteratedFDerivWithin`; a general existential translated-copy packaging remains future work.

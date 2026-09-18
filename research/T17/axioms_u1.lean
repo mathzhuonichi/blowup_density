@@ -1,0 +1,3 @@
+import NSFormalization.Section3.T17.LatticeDeriv
+#print axioms NSFormalization.Section3.T17.latticeLift_iteratedFDeriv_eq
+#print axioms NSFormalization.Section3.T17.latticeLift_iteratedFDeriv_norm_le_iSup
