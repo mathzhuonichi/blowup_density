@@ -78,6 +78,15 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   integrability of smooth periodic lifts (⑩, shared with T20 §4) and `integral_torusLift` (`Paper1/TorusCube.lean:40`);
   the internal pairing of `zero_of_conservative_residual` (`ConservativeForce.lean:23`) is the scaffold to mine.
   **M, Opus** (hard analytic: torus IBP). No named input. Deps: —.
+  **DONE (lane 395).** `formalization/NSFormalization/Section3/T24/PotentialPairing.lean` `potential_pairing`,
+  axioms `[propext, Classical.choice, Quot.sound]`. Route landed: NO `t=0` split needed — the whole `t ∈ Ico 0 T`
+  is handled uniformly by the vendor torus-IBP lemma `NavierStokes.PeriodicUniqueness.cubeIntegral_pressure_energy_zero`
+  (`vendor/…/PeriodicUniqueness.lean:435`, the mined form of the `zero_of_conservative_residual` scaffold): after
+  `integral_torusLift`, rewrite `⟪-∇φ,u⟫ = -⟪u,∇φ⟫` (`inner_neg_left`+`real_inner_comm`) and discharge
+  `∫_{cube}⟪u,∇φ⟫=0` for div-free periodic `u`. Hypotheses come from `S.velocity_smooth`
+  (`ContDiffOn.comp_contDiff` → spatial `ContDiff` at every slab time, incl. `t=0`), `S.velocity_periodic`,
+  `S.divergence`, and `φ`'s two `PeriodicPotentialT` clauses. **No `0<ν` used** — the statement is pure IBP.
+  `PeriodicPotentialT`/`conservativeForceT` restated verbatim (lane 392 `Conservative.lean` not on base; dedupe in Uc3).
 - **Uc3 — assembly + registration.** Assemble `ConservativeForcingAPI` from Uc1+Uc2; `conservativeForcingStatement`
   is the alias (`:1416`), inhabited by the same two proofs. Register `T24.conservative_forcing` v1 (contract +
   binding + tests), `ClassicalSolutionT` structure exception as in `T01.torus_local_theory`. Non-vacuity: the rest
