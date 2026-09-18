@@ -33,9 +33,10 @@ navierStokesResidual ν (affineVelocity U b) (affinePressure P) t x =
 
 ## 2. What exists in Lean now
 - `formalization/NSFormalization/Section3/T24/AffineMomentum.lean` (namespace
-  `NSFormalization.Section3.T24`): the T24a raw-field affine vocabulary restated verbatim from
-  `research/T24/Spec.lean:961-990` (`affineCylinder`, `AffineAdmissible`, `crossAdvection`,
-  `affineVelocity`, `affinePressure`, `affineForce`), the expansion lemma, and `momentum`.
+  `NSFormalization.Section3.T24`): **imports the T24a affine vocabulary** (`affineCylinder`,
+  `AffineAdmissible`, `crossAdvection`, `affineVelocity`, `affinePressure`, `affineForce`) from the
+  canonical `NSFormalization.Section3.T24.AffineBasics` (lane 392, PR #357), and adds the expansion
+  lemma `navierStokesResidual_affine_expand` and `momentum`.
   Builds with 0 errors; both theorems print exactly `[propext, Classical.choice, Quot.sound]`.
   Reuses the vendored `NavierStokes.ResidualCalculus` operator-algebra lemmas
   (`temporalDerivative_add`, `advection_add`, `spatialLaplacian_add`) and interior-smoothness
@@ -49,19 +50,24 @@ navierStokesResidual ν (affineVelocity U b) (affinePressure P) t x =
   admissible class inhabited), `affineVelocity_zero`/`affineForce_zero` (`b=0` recovers `(U,P,F)`, so
   `momentum` specializes to the packet PDE — non-tautological). All four decls print
   `[propext, Classical.choice, Quot.sound]`.
-- `research/T24/axioms_ua3.lean`: transitive-axiom audit for the two module theorems.
+- `research/T24/probes/affine_momentum_nonzero.lean`: a concrete **nonzero** admissible witness
+  `bWitness := spatialCurl A` for `A(t,x) = θ(t) φ(x) e₁` (`θ`, `φ` `ContDiffBump`s) on the cylinder
+  `ball 0 1 × (1/4, 3/4)`. Proves `bWitness_admissible : AffineAdmissible 0 1 (1/4) (3/4) bWitness`
+  (smooth via `contDiff_spatialCurl`; compact support via `spatialCurl_tsupport_subset`; support in
+  the cylinder; `∇·b = 0` via `spatialDivergence_spatialCurl`), `bWitness_ne_zero` (if `∇×A ≡ 0`
+  then `∂₃φ ≡ 0`, so `φ` is constant along the `e₃`-line through `0`, forcing `φ ≡ 0` against
+  `φ(0)=1`), and `nonzero_admissible_momentum` (the proved `momentum` at this witness on the
+  registered packet). This is the single-bump witness of unit **Ua7**. All three print
+  `[propext, Classical.choice, Quot.sound]`.
+- `research/T24/axioms_ua3.lean`: transitive-axiom audit for the two module theorems, with a note
+  pointing to the nonzero-witness self-audit in the probe.
 
 ## 3. Gap
-- A concrete **nonzero** admissible `b` (smooth, compactly supported in the cylinder,
-  divergence-free, nonzero) is **not** constructed here: it is the curl-bump construction of unit
-  **Ua7** (`NavierStokes.SpatialCurl.spatialDivergence_spatialCurl` for `∇·(∇×A)=0`, a compactly
-  supported vector potential, a time bump in `(τ₀,τ₁)`). Reproducing it in Ua3 would duplicate Ua7,
-  so the probe's non-vacuity covers only `b=0`. Because `momentum` is `∀ b` admissible and fully
-  proved, it consumes any nonzero witness Ua7 delivers — no residual lemma about `momentum` is left
-  open. There is no error text: everything attempted compiles.
-- The canonical `Section3/T24/AffineBasics.lean` (lane 392) had not landed on this base, so the
-  affine vocabulary is restated in-module; the assembly lane must deduplicate against 392's copy
-  (identical definitions, same names/namespace).
+- None blocking `momentum`. The registered field is discharged on the canonical packet, and the
+  admissible class contains an explicit nonzero element. The full `infinite_dimensional` field
+  (Ua7: a countable `ℝ`-linearly independent admissible family from disjoint balls) is a separate
+  T24a unit; this lane delivers the single-bump witness it builds on. No residual lemma about
+  `momentum` is left open, and everything attempted compiles (no error text).
 
 ## 4. Commands and results
 - `cd verification && LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T24.AffineMomentum`
@@ -79,11 +85,13 @@ After lane 392 (PR #357) merged `Section3/T24/AffineBasics.lean` into
 `origin/erenup/integration-section3`, I merged the integration branch into this
 worktree (no conflicts) and replaced the in-module restated affine vocabulary by
 `import NSFormalization.Section3.T24.AffineBasics`, deleting my six duplicate defs.
-**All six spellings in 392 are token-identical to mine** (`affineCylinder`,
-`AffineAdmissible`, `affineVelocity`, `affinePressure`, `crossAdvection`,
-`affineForce` — same namespace `NSFormalization.Section3.T24`, same signatures and
-bodies), so the `momentum` and `navierStokesResidual_affine_expand` proofs are
-unchanged. 392 additionally supplies `affineCkSeminorm` and the Ua1 kinematic
+**All six of 392's definitions are definitionally identical to the ones this lane
+needs after the registered field/scalar aliases** — 392 spells the fields as
+`VelocityField`/`PressureField` while `research/T24/Spec.lean` uses
+`SpaceTimeField`/`SpaceTimeScalar`, which are definitionally equal
+(`Contracts/V1/Data.lean:104-108`) — same namespace `NSFormalization.Section3.T24`,
+same signatures and bodies, so the `momentum` and `navierStokesResidual_affine_expand`
+proofs are unchanged. 392 additionally supplies `affineCkSeminorm` and the Ua1 kinematic
 theorems (`radius_pos`, `window`, `zero_initial`, `late_agreement`, `distinct`),
 none of which collide with this module. Re-ran all gates after the switch:
 - `lake build NSFormalization.Section3.T24.AffineMomentum` → `Build completed successfully (3007 jobs).`

@@ -104,10 +104,12 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   + `navierStokesResidual_affine_expand` (the six-term expansion). Reused vendored `NavierStokes.ResidualCalculus`
   add-lemmas + interior-smoothness helpers rather than reproving bilinearity. Probe
   `research/T24/probes/affine_momentum_closes.lean` closes the registered field on `Bindings.packet ν hν`; both
-  module theorems + all probe decls print `[propext, Classical.choice, Quot.sound]`. Restated the T24a affine
-  vocabulary verbatim in-module (lane 392 `AffineBasics.lean` not on base; assembly dedupes). Nonzero-`b`
-  non-vacuity deferred to Ua7 (curl-bump); probe covers `b=0` admissibility + `b=0`⇒packet-PDE reduction.
-  **L, Opus** (hard analytic core). No named input. Deps: —.
+  module theorems + all probe decls print `[propext, Classical.choice, Quot.sound]`. Imports the T24a affine
+  vocabulary from lane 392 `AffineBasics.lean` (`import NSFormalization.Section3.T24.AffineBasics`; 392's defs are
+  defeq to `Spec.lean`'s after the `VelocityField`/`SpaceTimeField` alias). Non-vacuity: probe
+  `affine_momentum_nonzero.lean` builds a **nonzero** admissible `b = spatialCurl(θ·φ·e₁)` on `ball 0 1 × (1/4,3/4)`
+  (`bWitness_admissible`, `bWitness_ne_zero`, `nonzero_admissible_momentum`, all standard-3 axioms); `closes.lean`
+  covers `b=0` admissibility + `b=0`⇒packet-PDE reduction. **L, Opus** (hard analytic core). No named input. Deps: —.
 - **Ua4 — `force_smooth` + `force_support` (smooth zero-extension across `t=1`, ②).** Targets verbatim
   (`:1025`, `:1032`): `ContDiff ℝ ∞ (affineForce …)` and `CompactPositiveTimeSupport (affineForce …)`. Route:
   every correction term is supported in `tsupport b`, a compact subset of `Ioo τ₀ τ₁ ×ˢ ball` with `τ₁<1`, on a
@@ -127,6 +129,10 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   disjoint balls in `ball c r`; in each a smooth compactly supported vector potential with nonzero curl, times a
   fixed nonzero time bump in `Ioo τ₀ τ₁`; the curls are div-free with disjoint spatial supports ⟹ `LinearIndependent`.
   Needs a bump-function library (no local precedent). **L, Opus.** No named input. Deps: —.
+  **Single-bump witness now exists** (lane 398, `research/T24/probes/affine_momentum_nonzero.lean`):
+  `bWitness := spatialCurl(θ·φ·e₁)` with `θ,φ : ContDiffBump`, proved smooth / compactly supported in the cylinder /
+  divergence-free (`spatialDivergence_spatialCurl`) / nonzero (curl `e₂`-component `= ∂₃φ`, forced `≢0` by compact
+  support). Ua7 lifts this to a countable disjoint-ball family + `LinearIndependent`.
 - **Ua8 — `nonisolated` (`C^m` bound ⑤).** Target verbatim (`:1104`): `∀ b admissible, b ≠ 0, ∀ m, Tendsto (fun
   λ ↦ ckSeminormE (tsupport b) m (Ũ_{λb}−U)) (𝓝 0) (𝓝 0) ∧ Tendsto (… F̃_{λb}−F …) (𝓝 0) (𝓝 0)`. Route:
   velocity difference `= λ • b`; force difference `= λ L_U b + λ²(b·∇)b` (reuse Ua3's expansion); on `tsupport b`

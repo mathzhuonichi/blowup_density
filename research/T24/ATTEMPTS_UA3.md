@@ -43,15 +43,36 @@ Result: proved. Notes on route selection and the dead ends.
    `HasCompactSupport (fun _ => 0)` via `tsupport (fun _ => 0) = ∅` (`simp [tsupport]`) +
    `isCompact_empty`, using `HasCompactSupport f ≡ IsCompact (tsupport f)`.
 
-## Gap (documented, not stubbed)
-- A **nonzero** admissible `b` (smooth, compactly supported inside the cylinder, divergence-free)
-  is the curl-bump construction of unit **Ua7**
-  (`NavierStokes.SpatialCurl.spatialDivergence_spatialCurl` gives `∇·(∇×A)=0`, plus a compactly
-  supported vector potential and a time bump in `(τ₀,τ₁)`). Constructing it here would duplicate
-  Ua7, so it is not done. `momentum` is `∀ b` admissible and fully proved, so it consumes whatever
-  witness Ua7 produces; the probe covers `b=0` admissibility and the `b=0`⇒packet-PDE reduction.
+## Gap
+None blocking `momentum`. The registered field is discharged on the canonical packet and the
+admissible class contains an explicit nonzero element (below). The full `infinite_dimensional`
+field (Ua7) — a countable `ℝ`-linearly independent admissible family — is a separate T24a unit.
 
 ## Follow-up (lane 392 AffineBasics landed)
 Switched the module to `import NSFormalization.Section3.T24.AffineBasics` and deleted the six
-in-module defs. 392's spellings are token-identical to the ones restated here, so no proof
-adaptation was needed (nothing to report as a difference). Gates re-run green.
+in-module defs. 392's spellings are definitionally identical to the ones this lane needs after
+the registered field/scalar aliases (392 spells `VelocityField`/`PressureField`, `Spec.lean` uses
+`SpaceTimeField`/`SpaceTimeScalar`, defeq via `Data.lean:104-108`), so no proof adaptation was
+needed. Gates re-run green.
+
+## Follow-up (nonzero admissible witness, `affine_momentum_nonzero.lean`)
+Built the single-bump witness (the Ua7 core) after review. `A(t,x) = θ(t) φ(x) e₁` with
+`θ φ : ContDiffBump`; `b := spatialCurl A`.
+- **Smooth**: `contDiff_spatialCurl` (loses one derivative; `∞ + 1 ≤ ∞` by `simp`).
+- **Compact support in the cylinder**: `OscillatoryCurl.spatialCurl_tsupport_subset` gives
+  `tsupport b ⊆ tsupport A`; `tsupport A ⊆ closedBall(1/2,1/8) ×ˢ closedBall(0,3/4)` (closed carrier,
+  proved by `closure_minimal`), which sits inside `Ioo(1/4,3/4) ×ˢ ball 0 1` (`Icc_subset_Ioo`,
+  `closedBall_subset_ball`).
+- **Divergence-free**: `SpatialCurl.spatialDivergence_spatialCurl` (curl is solenoidal on a `C²`
+  slice).
+- **Nonzero** (the crux): if `spatialCurl A ≡ 0`, then on the plateau slice `t=1/2` (`θ(1/2)=1`)
+  `curl(φ • e₁) ≡ 0`; its `e₂`-component is `∂₃φ` (`curl_component_one`, via `fderiv_smul_const` +
+  `curlLinear_apply_one`), so `∂₃φ ≡ 0`; then `s ↦ φ(s • e₃)` has zero derivative
+  (`is_const_of_deriv_eq_zero`), hence `φ(e₃) = φ(0) = 1`, but `‖e₃‖ = 1 > 3/4 = rOut` puts `e₃`
+  outside `tsupport φ`, so `φ(e₃) = 0` — contradiction.
+
+Pitfalls: (1) `spaceBump.contDiff` leaves the smoothness order a metavariable, so `.differentiable
+(by simp)` degenerates to `¬?n = 0`; pin it with `have : ContDiff ℝ ∞ ⇑spaceBump := spaceBump.contDiff`.
+(2) `rw [(HasFDerivAt.comp_hasDerivAt …).deriv]` fails to match the `fun s => φ(s•e₃)` head (it is
+`⇑φ ∘ (…)`); rewrite the `deriv` hypothesis and `exact` it up to defeq. (3) `spaceBump.rOut < 1`
+needs `norm_num [spaceBump]` to unfold the projection to `3/4`.
