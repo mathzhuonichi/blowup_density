@@ -131,6 +131,28 @@ in the tree today.
   `Source.correctionForce … p = (ε²)⁻¹ • forceProfile ν … (ε, inverseScale ε (p-(T,x₀)))` — the affine
   `ε⁻²` rescaling of `force_profile_identity` under `correctionChartPoint` (`RECONCILIATION §4 ②`). **L, Opus.**
   Deps: U3.
+  **STATUS 2026-09-18 (lane 375; rev1 after merge closes all six fields incl. Spec-form identity; module builds / axioms clean).**
+  `formalization/NSFormalization/Section3/T17/ForceProfile.lean`: `force_profile_smooth`,
+  `force_profile_support`, `forceProfileConst` (def) + `_nonneg`, `force_profile_uniform` proved **verbatim**
+  (each `[propext, Classical.choice, Quot.sound]`). The `def` bridge `rescaledForceProfile_eq_forceProfile`
+  needed **one chain-rule step** (not `rfl`): the Spec's `ε²•∂ₓv(physical)·W` term vs Paper1's
+  `ε•∂ₓV_ε·W` term, reconciled by `spatialDerivative_rescaledReference` (`∂ₓV_ε = ε•∂ₓv(physical)`) +
+  `smul_add`/`abel` over `forceProfile_eq_operators`. Identity: `force_profile_identity` proved for the
+  **chart force** `Source.correctionForce ν v (physicalCorrection …) (chart) = (ε²)⁻¹ • rescaledForceProfile …`
+  (`physicalForce_eq_rescaledForceProfile`, via `physicalForce_eq_profile:185` +
+  `inverseScale_correctionChartPoint`). **Three residuals** (see `research/T17/ATTEMPTS_U4.md`): (G0) the lift
+  from the chart force to the Spec's `correctionForce ν v D ε` (over `D.correction`) — `force_eq_chart` =
+  operator `add_comm` + field agreement on `univ ×ˢ ball x₀ r`; this is U2/lane 373's `force_eq` restricted to
+  the chart, **not on this base** (no `Transport.lean` yet), left to U12; (G1) global `hv` premise (same as U3,
+  no `reference_smooth` field); (G3) bare `x₀,T` placement.
+  **REV1 2026-09-18 (post-review merge with `origin/erenup/integration-section3`).** G0 **resolved**: with lane
+  373's `Transport.lean` now on the base, `ForceProfile.lean` imports it, drops its own `correctionForce` (name
+  clash), and adds `force_eq_chart` (= `correctionForce_eq_source` reorder + `source_correctionForce_congr`
+  locality + lane 370 `correction_eq_physicalCorrection` on `univ ×ˢ ball x₀ r`) then the **Spec-form**
+  `force_profile_identity` (over `correctionForce ν v D ε`), `[propext, Classical.choice, Quot.sound]`. The
+  chart-force lemma `physicalForce_eq_rescaledForceProfile` is kept. Remaining: Spec-form identity **non-vacuity**
+  needs a concrete `LocalPotentialAPI` inhabitant (T16 `localPotential`), staged for U12; G1/G3 unchanged.
+  `check_contracts --base-ref origin/erenup/integration-section3` now exits 0 (base compatible).
 
 - **U5 — `correction_derivative_bound`** (pure transport). New `Section3/T17/CorrectionDeriv.lean`. Target
   `correction_derivative_bound` (`Spec.lean:878`) verbatim on the concrete correction. Route: U2(a) rewrites

@@ -207,7 +207,7 @@ No T18 anywhere: T24b superposes T15 outputs, it does not insert.
 
 | wave | units | sizes / models | status |
 |---|---|---|---|
-| W1 | **Uc1** zero_from_rest · **Uc2** potential_pairing · **Ua1** geometry/kinematics | S–M sol / M Opus / S sol | unblocked (T11 registered) |
+| W1 | **Uc1** zero_from_rest · **Uc2** potential_pairing · **Ua1** geometry/kinematics | S–M sol / M Opus / S sol | **Uc1 + Ua1 done (lane 392)**; Uc2 in progress |
 | W2 | **Uc3** conservative assembly+register · **Ua2** divergence · **Ua3** momentum ① | S–M sol / S–M sol / L Opus | unblocked |
 | W3 | **Ua4** force smooth-ext ② · **Ua5** speed_unbounded · **Ua6** energy_finite ③ | L Opus / S–M sol / M–L Opus | unblocked |
 | W4 | **Ua7** infinite_dim ④ · **Ua8** nonisolated ⑤ | L Opus / L Opus | unblocked |
