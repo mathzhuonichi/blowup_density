@@ -47,7 +47,7 @@ theorem wholeSpace_identity :
 逐字封口；非平凡性用显式 `ContDiffBump` 场 `probeField = probeBump • coordinateVector 0`
 （`probeField_ne_zero`、`probeField_hasCompactSupport`）在 `s=1/2` 上实例化整条结论。
 
-公理审计 `research/T13/axioms_wholespace_identity.lean`：16 个公开声明全部
+公理审计 `research/T13/axioms_wholespace_identity.lean`：26 个公开声明（审稿补入 10 个辅助声明）全部
 `[propext, Classical.choice, Quot.sound]`。
 
 ## 3. 缺口是什么
@@ -69,7 +69,7 @@ cd verification && lake env lean ../formalization/NSFormalization/Section3/T13/W
 cd verification && lake env lean ../research/T13/probes/wholespace_identity_closes.lean
   → 无输出（0 error 0 warning）
 cd verification && lake env lean ../research/T13/axioms_wholespace_identity.lean
-  → 16 行，全部 [propext, Classical.choice, Quot.sound]
+  → 26 行（审稿后补入 10 个辅助声明），全部 [propext, Classical.choice, Quot.sound]
 make check（worktree 根目录）
   → OK（architecture checks + contract policy 13 tests + work queue consistent）
 ```
