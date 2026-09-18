@@ -93,6 +93,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 325-T11-U9d1a-half-step | astra 两次交别名桩（TorusHalfStepAnalyticInput := TorusHalfStepInput）→ 作废；拆成 328/329/330 三条不允许具名输入的具体引理 lane | 09-18 0407Z | — | — | T11 U9d1-analytic：偿还 319 的具名输入 `TorusHalfStepInput`（实阶卷积界 H^r×H^r→H^{r−1}、分数阶热光滑 σ=3/2 核 (νt)^{-3/4}、Duhamel 端点连续）→ 持续性无条件 |
 | 326-T11-U9d2a-pressure | astra 二跑仍是桩（40 行、3 平凡定理）→ 改派 Opus prover 子代理（同简报，同 worktree） | 09-18 0413Z | — | — | T11 U9d2a：mild 解的压力（Leray 补的系数构造、物理场、`pressure_gradient/smooth/gauge/periodic/poisson`）在 `PersistenceInput` 下 |
 | 327-T11-U9d2b-momentum | 排队（astra；简报已写） | 09-18 0340Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
-| 328-T11-U9d1a-real-order-convolution | sol at capacity 死亡 → 改派 Opus prover 子代理（同简报，同 worktree） | 09-18 0413Z | — | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
+| 328-T11-U9d1a-real-order-convolution | Opus 完成（实阶卷积界无条件，36 声明，r=3 回退到 317）→ 排队 codex 审稿（容量恢复后） | 09-18 0440Z | — | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
 | 329-T11-U9d1b-fractional-smoothing | Opus prover 子代理（codex 两模型 at capacity） | 09-18 0417Z | — | — | T11 U9d1b：分数阶热光滑 σ=3/2、核 (νt)^{-3/4} 可积、强连续 |
 | 330-T11-U9d1c-duhamel-half-step | 排队（待 328/329 合入）；**不允许具名输入** | 09-18 0408Z | — | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |

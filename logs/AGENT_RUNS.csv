@@ -1318,3 +1318,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T20,324-SPEC-t20-spec,codex-gpt-6-astra-low,spec-worker,"first accepted-looking run was Draft A with a new header (9 fields, no rfl checks); discarded; relaunched with the 12-field checklist",discarded,-
 2026-09-18,T11,326-T11-U9d2a-pressure,codex-gpt-6-astra-low,prover,"second run again a stub (40 lines, 3 trivial theorems); discarded; handed to an Opus prover subagent",discarded,-
 2026-09-18,T20,324-SPEC-t20-spec,codex-gpt-6-astra-low,spec-worker,"reconciled T20 spec (CriticalRegularityTAPI: constants + 11 clauses per reconciliation checklist); elaborates; merged #296",done,296
+2026-09-18,T11,328-T11-U9d1a-real-order-convolution,claude-opus,prover,"Section3/T11/ConvolutionBoundReal.lean: bounded bilinear H^r×H^r→H^{r-1} for all real r≥3, coefficient identities, reweighting compatibility, TorusConvolutionInput recovered (36 decls, axioms clean); awaiting codex review",done,-
