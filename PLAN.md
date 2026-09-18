@@ -137,3 +137,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 369-T17-U1-lattice-deriv | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 1002Z | — | — | T17 U1：格点提升的迭代导数桥（局部单拷贝 ⇒ iteratedFDeriv 相等；供 U5/U6 传输 eq:derivativebounds） |
 | 370-T17-U3-correction-profile | Opus prover 子代理运行中 | 09-18 1005Z | — | — | T17 U3：固定柱面修正轮廓六字段（rescaledCorrectionProfile = Paper1 CorrectionProfile.profile 桥；smooth/support/Const/nonneg/uniform/identity） |
 | 371-T16-contract | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 1005Z | — | — | T16 合同注册 `T02.local_potential` v1（Contracts/V1/LocalPotential.lean 逐字重述 Spec；CutoffData/LocalPotentialAPI 结构体例外逐字段转换；Bindings 由 T16.localPotential 传输；Tests；注册 → 41 合同；台账 claim T16） |
+| 372-SPEC-t19-draft-b | worktree 安装中→Opus prover 子代理 | 09-18 1018Z | — | — | SPEC T19 密度包双盲草案 B（与 367 互不可见） |
