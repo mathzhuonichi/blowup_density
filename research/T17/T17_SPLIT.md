@@ -235,3 +235,28 @@ in `PLAN.md`.
    `D.correction ε = latticeLift (physicalCorrection …)`. U2's `correctionData` makes this `rfl`, but every
    quantitative lane must state its lemma about that concrete term and let U12 bundle — do not attempt to prove
    a quantitative field for an arbitrary `LocalPotentialAPI`-satisfying `D` (it is false without the construction).
+
+### U1 status (lane 369 → r1 → r2, DONE after two codex REJECTs)
+`Section3/T17/LatticeDeriv.lean` now carries **both** forms, each
+`[propext, Classical.choice, Quot.sound]`:
+- `latticeLift_iteratedFDeriv_eq` / `latticeLift_iteratedFDeriv_norm_le_iSup` —
+  the `k = 0` fundamental-ball equality and its `ℝ≥0∞`/`⨆` corollary (unchanged
+  from lane 369 r0).
+- **`latticeLift_iteratedFDeriv_eq`** (the U1 target) — the general **arbitrary-`z`**
+  `∃ k` shifted-copy equality
+  `‖iteratedFDeriv ℝ n (latticeLift w) z u‖ = ‖iteratedFDeriv ℝ n w (z - (0, latticeVector k)) u‖`,
+  covering the no-copy/zero case (`k = 0`, both sides `0`).  Route: periodicity
+  (`isPeriodicOn_sub_latticeVector`) + `latticeLift_eq_of_ball` give a
+  single-translate neighbourhood, then `Filter.EventuallyEq.iteratedFDeriv` and
+  `iteratedFDeriv_comp_sub`; the zero case builds an explicit `ball z.2 (r-ρ)` of
+  vanishing terms.  Hypotheses = `latticeLift_eq_of_ball`'s (`hslice`, `r+ρ≤1`)
+  **plus** the strict separation `hlt : ρ < r` (satisfied downstream,
+  `hεspace : ε·θRadius < r`; load-bearing — `research/T17/probes/rev369r1_negative_lt.lean`).
+- **`latticeLift_iteratedFDeriv_norm_le_iSup`** — the all-`z` `ℝ≥0∞`/`⨆`
+  corollary in the norm spelling `CorrectionAPI.correction_derivative_bound`
+  consumes (arbitrary `u : Fin n → SpaceTime` subsumes the `Fin.append` tuple).
+
+U5 (`correction_derivative_bound`) and U6 (`force_derivative_bound`) are **separate
+lanes and not started** in this lane; when opened they will transport the
+registered `I02` Euclidean derivative bounds to **every** spacetime point through
+`latticeLift_iteratedFDeriv_eq`, no longer only the fundamental ball.
