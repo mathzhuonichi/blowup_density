@@ -51,6 +51,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   (d) **both directions** of `squaredHTwoIntegralT S w.velocity ≠ ⊤ ↔ FiniteH2Energy (toFlow w)`
   (= `IntegrableOn (h2SquaredProfile ·) (Ioc 0 S)`, `PeriodicLocalLifespan.lean:60`; land via
   `PeriodicFiniteH2Bridge.lean:25`). **L, astra.** Deps: U1; reuses lane 305's Fourier calculus for (a).
+  **Status (309): complete — all-real-order datum existence/finiteness, exact norm identification, restricted-time measurability, and both criterion directions proved without named input; see `REPORT_309.md`.
 - **U3 — Galilean class and translation algebra.** New `Section3/T11/GalileanClasses.lean`. Targets
   `translation_preserves_sobolev` (datum case: coefficients pick up the unimodular `e^{2πi k·y}`; `⊤` case:
   translate back by `-y`), `transformed_classes`, `transformed_mean_zero`. Supporting: `ContDiff ℝ ∞ (forceMeanT f)`,
