@@ -15,4 +15,20 @@ See `RECONCILIATION.md` §4: torus measurability and MemLp, zero datum and T11 m
 
 ## Open questions for the owner
 
-None specific to T20. The inherited T11 restart H¹-vs-H⁷ question remains tracked in the T11 reconciliation.
+None specific to T20. The inherited T11 restart H¹-vs-H³ narrowing is tracked
+in `research/T11/H1_GAP.md`; the canonical consumer result is recorded below.
+
+## Canonical module status (lane 381)
+
+`NSFormalization.Section3.T20.CriticalRegularity` now restates the reconciled
+T20 namespace over canonical Section3/T10, T11, and T12 vocabulary: 17 helper
+definitions, a 23-field `CriticalRegularityTAPI`, and the existential statement
+definition. `research/T20/probes/api_on_canonical.lean` checks all helper
+definitions and the statement seam and supplies both fieldwise structure
+conversions with `rfl` round trips.
+
+The H¹ review is closed in `research/T20/H1_CHECK.md`: the only two order-one
+occurrences are in the copied T11 manuscript continuation structure, not the
+T20 API. The current T20 consumer route needs only the ball-free criterion
+fields, so the canonical H³ continuation implementation suffices without
+assuming `PeriodicRestartH1`.
