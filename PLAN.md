@@ -190,6 +190,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 422-T18-U1-insertion-data | 已合入：T18 U1 canonical 插入层（InsertionData、三元组、三公式 rfl、阈值与平凡字段；15 声明），审稿 ACCEPT-WITH-NOTES #383 | 09-18 1755Z | #383 | — | T18 U1：插入三元组 + 三个 eq:insertion 公式 + 阈值 + 平凡假设字段（Insertion.lean，canonical T15/T17 记录） |
 | 423-T22-UREG-contract | worktree 安装中（基于 418 + integration）→ codex sol | 09-18 1740Z | — | — | T22 U-REG：BoundedDomainNormAPI 装配 + 注册 T04.bounded_domain_norm（合同/绑定/测试/非空） |
 | 424-T24-Ua8-nonisolated | Opus prover 子代理运行中 | 09-18 1746Z | — | — | T24a Ua8：nonisolated（Ũ_{λb}−U = λb、F̃_{λb}−F = λL_U b + λ²(b·∇)b 的 C^m 半范数 → 0，⑤） |
-| 425-T17-U7-force-support | Opus prover 子代理运行中 | 09-18 1748Z | — | — | T17 U7：周期化修正力的 force_smooth / force_periodic / force_support（force_eq + Paper1 profile 引理 + T16 latticeLift 引理；G1 hv 前提） |
+| 425-T17-U7-force-support | Opus 完成：force_smooth / force_periodic / force_support 逐字（开球；新空时格点提升支撑引理 latticeLift_spaceSupport；hv 仅进 force_eq 与 physicalForce_smooth）→ 排队审稿 | 09-18 1802Z | — | — | T17 U7：周期化修正力的 force_smooth / force_periodic / force_support（force_eq + Paper1 profile 引理 + T16 latticeLift 引理；G1 hv 前提） |
 | 426-T18-U2-U4-force-class-kinematics-div | worktree 安装中（基于 422 + integration）→ codex sol | 09-18 1748Z | — | — | T18 U2+U3+U4：力类归属（ForceClass）、正则/初值/历史/周期（Kinematics）、不可压（Divergence） |
 | 427-T12-UREG-dedupe-register | Opus prover 子代理运行中（安装在 Bindings.MeanZeroCalculus 处按预期失败于同名冲突，其余已编） | 09-18 1755Z | — | — | T12：去重 400/405 的 contDiff_dirDeriv（共享 DirDeriv.lean）+ 完成 T01.mean_zero_calculus 注册（绑定/测试/门禁，43 合同） |
