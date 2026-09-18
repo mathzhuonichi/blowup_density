@@ -174,6 +174,29 @@ The verbatim T10 copies in `Spec.lean` (`IsPeriodicDatum`,
 `research/T10/RECONCILIATION.md` §5 (Haar-integrability conjunct).  No T13
 field changes meaning: all localization fields quantify over smooth fields.
 
+## Registered
+
+Lane 379 registers the reconciled statement as `T02.localization` V1 in
+`verification/Contracts/V1/Localization.lean`.  The temporary T10 copy
+described above is replaced by the registered `Contracts.V1.TorusData`
+vocabulary, and the whole-space side uses the registered
+`Contracts.V1.HomogeneousNorm.dotHomogeneousENorm`.  Ten T13 definitions and
+all six `LocalizationAPI` fields are otherwise copied token-for-token from
+`research/T13/Spec.lean`.  The eleventh definition, `latticeVector`, is reused
+from the already frozen `T02.local_potential` V1 contract because that contract
+owns the same fully qualified root name; a T13-specific `rfl` bridge checks it
+against the canonical T13 spelling, and a co-import probe prevents future
+module collisions.
+
+`verification/Bindings/Localization.lean` supplies whole-function `rfl`
+bridges for every restated definition and transports the proved
+`NSFormalization.Section3.T13.localizationAPI` field by field.  The registered
+declaration is `BlowupDensity.Tests.checkedLocalization`; its test includes one
+independent conformance example per field and instantiates `localization` at
+`s = 1/2` on the explicit nonzero `ContDiffBump` field from the lane-359
+closure probe.  Tail estimates and periodization uniqueness remain proof
+lemmas rather than contract fields.
+
 ## §1 status — Proved by lane 345
 
 - **`torus_identity`**: PROVED (lane 345, no named input).
