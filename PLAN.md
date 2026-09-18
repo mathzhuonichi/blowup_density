@@ -160,3 +160,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 392-T24-Uc1-Ua1 | codex sol 运行中（astra 备用） | 09-18 1340Z | — | — | T24 wave 1（codex）：Uc1 zero_from_rest（prop:conservative，ConservativeForce.lean:91）+ Ua1 五个几何/运动学字段（prop:affine，原始包字段版） |
 | 393-T22-UA5-orderzero | Opus prover 子代理运行中（基座 = 387 分支 + integration-section3） | 09-18 1339Z | — | — | T22 U-A5：orderZero 字段（0 阶域 Sobolev 范数 = L²(Ω) 范数；387 等距 + 383 限制桥 + 商范数恒等式） |
 | 394-T17-UCAN-canonical-correction | codex sol 运行中（astra 备用；基座 = 384 分支 + integration） | 09-18 1343Z | — | — | T17 U-CAN（U12 前半）：canonical CorrectionAPI 逐字重述于 T15 原始字段 PlacementData / T16 / T13 记录之上（G1 不改字段表；G3 用 place.x₀/place.T）+ probe 双向转换与已证单元闭合 |
+| 395-T24-Uc2-potential-pairing | worktree 安装中→Opus prover 子代理 | 09-18 1345Z | — | — | T24 Uc2：potential_pairing（周期梯度与无散周期场的 Haar 配对为零；环面分部积分） |
