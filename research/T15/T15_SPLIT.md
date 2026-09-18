@@ -66,6 +66,14 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   periodize_eq_of_mem_cube`, `:308 eq_zero_of_mem_cube`, `:349 tsupport_subset_cube` — give
   summability and the `n=0` single copy on `Q`. **M, codex-sol.** Deps: U2.
 
+  **Status (lane 421, 2026-09-18): complete.** `Section3/T15/SingleCopy.lean`
+  proves all six canonical fields from the raw packet support clauses and
+  `PlacementData`.  Strict cube support feeds the vendor locally finite
+  translate theorem for summability; a value-generic version of the T13
+  nonzero-translate argument gives the single copy for both vector fields and
+  scalar pressure.  The probe fires all six results on the explicit nonzero
+  bump placement at active time `t=7/8`.
+
 - **U-TB1 — energy Haar/Lebesgue single-copy bridges** (missing T10; ⑩). New `Section3/T15/HaarBridge.lean`.
   `eLpNorm (torusLift (periodize f)) 2 periodicTorusMeasure = eLpNorm f 2 volume` for `f` supported in
   `interior fundamentalCube`, and the `gradientENorm`/`energyGradientT` companion. Route:
