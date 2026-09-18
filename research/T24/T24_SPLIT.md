@@ -100,7 +100,7 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   `zero_initial` from `U(0,·)=0` (raw `zero_initial_velocity`) + `b(0,·)=0` (`tsupport b ⊆ Ioo τ₀ τ₁ ×ˢ ball`,
   `τ₀>0`); `late_agreement` from `b=0` for `t ≥ τ₁`; `distinct` is `add_right_injective` on `affineVelocity`.
   **S, codex-sol.** No named input. Deps: —.
-- **Ua2 — `divergence_free`** (`:1038`): `∀ b admissible, ∀ t ∈ Ico 0 1, ∀ x, spatialDivergence (U+b) t x = 0`.
+- **Ua2 — `divergence_free`** (`:1038`): `∀ b admissible, ∀ t ∈ Ico 0 1, ∀ x, spatialDivergence (U+b) t x = 0`. **Done (lane 402).**
   Route: additivity of `spatialDivergence` (⑦-algebra) from raw `∇·U=0` on `Ico 0 1` and `∇·b=0` (admissible,
   `AffineAdmissible:968`). **S–M, codex-sol.** No named input. Deps: —.
 - **Ua3 — `momentum` (`eq:affine` expansion ①).** Target verbatim (`:1047`): `∀ b admissible, ∀ t ∈ Ioo 0 1,
