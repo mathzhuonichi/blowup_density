@@ -15,7 +15,7 @@ weighted kernel `ζ ↦ (1+‖ζ‖²)^{|s|/2} · ‖𝓕χ ζ‖` is `Integrabl
 
 The datum layer pairs against the **angular** transform of
 `01-introduction.tex:91`, `NSFormalization.Source.angularFourier`, carried by
-`angularRealization` / `IsCutoffDatum` (`Spec.lean:118-128`), which multiply the
+`angularRealization` / `IsCutoffDatum` (`Spec.lean:99-104`), which multiply the
 Schwartz test by `fun x => (χ x : ℂ)`.  The principal statement
 `integrable_weighted_fourier_cutoff` is therefore stated for
 `angularFourier (fun x => (χ x : ℂ))`; the cycles-convention version for
