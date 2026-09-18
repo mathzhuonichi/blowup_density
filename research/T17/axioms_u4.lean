@@ -15,3 +15,5 @@ open NSFormalization.Section3.T17
 #print axioms force_profile_uniform
 #print axioms inverseScale_correctionChartPoint
 #print axioms physicalForce_eq_rescaledForceProfile
+#print axioms force_eq_chart
+#print axioms force_profile_identity

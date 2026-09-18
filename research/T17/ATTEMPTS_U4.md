@@ -59,8 +59,25 @@ every declaration prints exactly `[propext, Classical.choice, Quot.sound]`
 
 ## Residual gaps (honest partial)
 
-**G0 — `force_profile_identity` is proved for the CHART force, not the Spec's
-`correctionForce ν v D ε` (over `D.correction`).**  The Spec field
+**G0 — RESOLVED (post-review merge, lane 375 rev1).**  After
+`git merge origin/erenup/integration-section3` brought lane 373's
+`Section3/T17/Transport.lean`, the Spec-form `force_profile_identity` is closed:
+`ForceProfile.lean` now imports `Transport`, drops its own `correctionForce` def
+(reuses Transport's `NSFormalization.Section3.T17.correctionForce`, the same
+Spec:725 restatement), and adds `force_eq_chart` +
+`force_profile_identity`.  `force_eq_chart` is exactly the residual below,
+discharged in a few lines: `correctionForce_eq_source` (the commutative reorder,
+Transport) rewrites `correctionForce ν v D ε` to
+`Source.correctionForce ν v (D.correction ε)`, then `source_correctionForce_congr`
+(operator locality, Transport) closes the field agreement using lane 370's
+`correction_eq_physicalCorrection` on the open nbhd `univ ×ˢ ball x₀ r`
+(`isOpen_univ.prod Metric.isOpen_ball |>.mem_nhds`, chart point spatial coord in
+`ball x₀ r` by `eps_space`).  Then `force_profile_identity = force_eq_chart ▸
+physicalForce_eq_rescaledForceProfile`.  Both `[propext, Classical.choice,
+Quot.sound]`.  The original residual text is retained below for the record.
+
+**G0 (original, now closed) — `force_profile_identity` for the CHART force.**
+The Spec field
 (`Spec.lean:834-837`) is
 ```
 ∀ ε ∈ Ioc 0 D.ε₀, ∀ z ∈ fixedProfileCylinder D,

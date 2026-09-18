@@ -11,12 +11,11 @@ Spec threads `place : PlacementData P`, here read through its two used fields
 
 The **sixth** field, `force_profile_identity`, is stated in the Spec over
 `correctionForce ν v D ε` (the T17 force operator built from the *abstract*
-`D.correction ε`).  This module proves the tree-provable content — the identity
-for the **chart force** `Source.correctionForce ν v (physicalCorrection …)`
-(`field_force_profile_identity_chartForce` below).  The remaining lift
-(`correctionForce ν v D ε (chart) = Source.correctionForce ν v (physicalCorrection …) (chart)`,
-= U2's `force_eq`, lane 373) is the exact residual recorded in
-`research/T17/ATTEMPTS_U4.md`.
+`D.correction ε`, lane 373's `Transport.lean` spelling).  With that module now on
+the base, it is closed in **Spec form** (`field_force_profile_identity` below,
+from a `LocalPotentialAPI` witness — exactly as lane 370's probe closes
+`correction_profile_identity`).  The chart-force variant
+(`field_force_profile_identity_chartForce`) is also kept.
 
 Part B is a non-vacuity instance: a nonzero smooth reference `v` (a constant
 field) with T16's cutoff data (`exists_originCutoff`/`exists_timeCutoff`),
@@ -30,7 +29,7 @@ namespace NSFormalization.Section3.T17.ForceProbe
 
 open Set MeasureTheory
 open NavierStokes NavierStokes.ProblemStatement
-open NSFormalization.Section3.T16 (CutoffData)
+open NSFormalization.Section3.T16 (CutoffData LocalPotentialAPI)
 open NSFormalization.Section4.A02 (SpaceTimeField)
 open NSFormalization.Paper1.CorrectionProfile (physicalCorrection)
 open scoped ContDiff Topology
@@ -39,7 +38,8 @@ open scoped ContDiff Topology
 
 section Fidelity
 
-variable {ν : ℝ} {v : SpaceTimeField} {x₀ : Space} {T : ℝ} {D : CutoffData}
+variable {ν : ℝ} {v U : SpaceTimeField} {K : Set Space} {x₀ : Space} {r T δ : ℝ}
+  {D : CutoffData}
 
 /-- `Spec.lean:805-808`: `force_profile_smooth`. -/
 theorem field_force_profile_smooth (hv : ContDiff ℝ ∞ v)
@@ -80,10 +80,21 @@ theorem field_force_profile_uniform (hv : ContDiff ℝ ∞ v)
         field_forceProfileConst (ν := ν) (x₀ := x₀) (T := T) hv hθ hη hθc hηc k :=
   force_profile_uniform ν hv x₀ T D hθ hη hθc hηc hε₀
 
-/-- `Spec.lean:834-837`: `force_profile_identity`, **chart-force form**.  The
-Spec field's LHS `correctionForce ν v D ε (chart)` is replaced by the chart
-force `Source.correctionForce ν v (physicalCorrection …) (chart)`; the lift is
-the recorded residual (U2 `force_eq`, lane 373). -/
+/-- `Spec.lean:834-837`: `force_profile_identity`, **Spec form** — the LHS is the
+abstract-correction force `correctionForce ν v D ε (chart)` (lane 373's
+`Transport.correctionForce`).  Closed from a `LocalPotentialAPI` witness the
+`CorrectionAPI` carries as its `potential` field, exactly as lane 370's probe
+closes `correction_profile_identity`. -/
+theorem field_force_profile_identity (hv : ContDiff ℝ ∞ v)
+    (hpot : LocalPotentialAPI v U K x₀ r T δ D) :
+    ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ z ∈ fixedProfileCylinder D,
+      correctionForce ν v D ε (correctionChartPoint x₀ T ε z) =
+        (ε ^ 2)⁻¹ • rescaledForceProfile ν v x₀ T ε D z :=
+  force_profile_identity ν hv hpot
+
+/-- The same identity's **chart-force form**
+`Source.correctionForce ν v (physicalCorrection …) (chart)`, needing only
+`hv, hθ, hη` (no `LocalPotentialAPI`). -/
 theorem field_force_profile_identity_chartForce (hv : ContDiff ℝ ∞ v)
     (hθ : ContDiff ℝ ∞ D.θ) (hη : ContDiff ℝ ∞ D.η) :
     ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ z ∈ fixedProfileCylinder D,
