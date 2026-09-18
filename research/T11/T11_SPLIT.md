@@ -130,6 +130,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   presingular times: from `IsMaximalPeriodicSolution` (`LocalTheory.lean:52`) pick `S` with `t < S` and
   `ofReal S < maximalLifespanT` (`ENNReal` supremum density), then U5. Also prove `maximalLifespanT =
   PeriodicLifespan.lifespan` here (§4 last row). **M, sol.** Deps: U5, U11.
+  **Status (323): complete conditional only on `PeriodicMaximalExistenceInput` pending U11; both exact fields, unconditional lifespan equality, nonzero compact-force probe, and exact axiom audit pass.**
 - **U16 — `lifespanInfiniteOfLocallyFinite`.** Same module. Contrapose: if `maximalLifespanT = L ≠ ⊤`, the
   hypothesis at `S = L.toReal` (the `≤` is load-bearing, `RECONCILIATION.md` §2) plus U14 gives a solution on
   `L.toReal + δ`, hence `ofReal (L.toReal + δ) ≤ L`, absurd. **M, sol.** Deps: U14, U15.
