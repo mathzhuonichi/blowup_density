@@ -178,5 +178,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 410-SPEC-t21-draft-a | sol 跑了 42 万 token 后 429 死亡（research/T21 有未提交草稿）→ 续做简报 7 分钟后重启（sol→astra） | 09-18 1505Z | — | — | T21 spec 双盲草案 A：thm:main (i)+(ii) + cor:nondensity（NonDensityAPI / MainTheoremAPI，消费 T19/T20 canonical） |
 | 411-SPEC-t21-draft-b | Opus 完成：DraftB.lean 1407 行 0 错误（NonDensityAPI 10 字段 / MainTheoremAPI 5 字段，装配签名；注册合同 import、T19/T20 词汇逐字复制；发现 canonical maximalLifespanT 与注册版不 defeq）+ COMPARISON_B.md → 等草案 A 后 lead 对账 | 09-18 1508Z | — | — | T21 spec 双盲草案 B（与 A 互不可见） |
 | 412-MAINT-t17-forceprofile-merge-repair | astra 两次 at capacity → 改由 Opus 子代理验证（T18 关键路径阻塞项） | 09-18 1506Z | — | — | MAINT：#366 union 合并损坏 T17/ForceProfile.lean（重复 import、拆裂 docstring）→ 恢复为 394 已审版本（c4be85b0），全 T17 闭包 + 探针 + 门禁验证 |
-| 413-T20-U7-critical-trilinear | worktree 安装中（基于 405 分支 + integration 含 401）→ Opus prover | 09-18 1508Z | — | — | T20 U7：均值零临界三线性估计 abs⟪(v·∇)v,Λv⟫ ≤ C₀ y z²（三因子 Hölder + T12 U4/U6），U8 criticalEnergy 的核心 |
-| 414-T24-Ua4-force-smooth-support | worktree 安装中 → Opus prover | 09-18 1506Z | — | — | T24a Ua4：force_smooth + force_support（修正力跨 t=1 的光滑零延拓与紧正时间支撑，②） |
+| 413-T20-U7-critical-trilinear | Opus prover 子代理运行中（基于 405 + integration 含 401） | 09-18 1509Z | — | — | T20 U7：均值零临界三线性估计 abs⟪(v·∇)v,Λv⟫ ≤ C₀ y z²（三因子 Hölder + T12 U4/U6），U8 criticalEnergy 的核心 |
+| 414-T24-Ua4-force-smooth-support | Opus prover 子代理运行中 | 09-18 1509Z | — | — | T24a Ua4：force_smooth + force_support（修正力跨 t=1 的光滑零延拓与紧正时间支撑，②） |
