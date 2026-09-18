@@ -137,6 +137,8 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
 
 - **U9a / lane 311 status:** R2 coefficient route selected; canonical real-vector heat contraction/smoothing/semigroup/coherence and nonzero forced classical witness proved; exact `PeriodicQuantitativeLocalInput` remains open; U9→U10 same-K-over-all-orders issue recorded in `EXISTENCE_ROUTE.md`; details and gates in `REPORT_311.md`.
 
+- **U9c / lane 317 status:** complete — `ConvolutionBound.lean` proves `torusConvolutionInput : TorusConvolutionInput` and `torusTwoSpaceContract_nonempty'` unconditionally by the discrete weighted convolution bound; no residual input; probe, exact three-axiom audit and all gates pass; see `REPORT_317.md`.
+
 ## 2. Waves (≤ 4 concurrent)
 
 | wave | units | sizes / models |
