@@ -146,3 +146,6 @@ make check   (from the worktree root)
 grep -n "sorry|admit|native_decide|^axiom|maxHeartbeats" on the module, probe and
 audit → no hits (the only match is the word "axioms" inside the audit's docstring).
 ```
+
+## Review corrections (codex, ACCEPT-WITH-NOTES)
+Two qualifications requested by the reviewer: the "slab-continuity" gap noted in §3 is specific to the T10/torus vocabulary (no `ContDiffOn`-slab force-path lemma in the tree), and the "Fourier-inversion" gap is specific to the torus coefficient carrier; neither is a gap in the proved theorem. See `research/T11/REVIEW_330-T11-U9d1c-duhamel-half-step.md`.
