@@ -174,7 +174,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 406-T22-UA3b-cutoff-multiplier-field | 已合入（lead 裁定）：cutoffMultiplier 逐字闭合（含 397 引擎；审稿两点程序性 REJECT：R1 字面恒等式标记为未证且不需要、397 模块基线例外）；解锁 U-Z1 #374 | 09-18 1712Z | #374 | — | T22 U-A3b：在 397 引擎上闭合逐字 cutoffMultiplier（R1 乘积→卷积 datum 级、R2 实子空间、R3 范数辨识、R4 C>0） |
 | 407-T24-Ua6-energy-finite | 已合入：T24 Ua6 energy_finite 逐字（仅用 energyENorm 1 U < ⊤），审稿 ACCEPT-WITH-NOTES（审计补三条、措辞注记） #372 | 09-18 1711Z | #372 | — | T24a Ua6：energy_finite（紧支光滑 b 的 E₁ 范数有限 + 次可加性 + 原始 energyENorm 1 U < ⊤） |
 | 408-T22-UB2-zero-ext-regularity | 已合入：T22 U-B2 零延拓正则性（光滑/紧支/L²/各阶 jets/任意阶 datum），审稿 ACCEPT #373 | 09-18 1711Z | #373 | — | T22 U-B2：零延拓正则性（contDiff/HasCompactSupport/MemLp/datum 存在） |
-| 409-T22-UB3-cutoff-datum | Opus 完成，模块已随 418 合入 #381；codex 审稿记录仍在退避重试，落地后单独记录 | 09-18 1746Z | — | — | T22 U-B3：cutoff 存在 + IsCutoffDatum 实现零延拓的 datum |
+| 409-T22-UB3-cutoff-datum | 已合入 #381（随 418）；审稿 ACCEPT，记录经 #394 合入 | 09-18 1905Z | #394 | — | T22 U-B3：cutoff 存在 + IsCutoffDatum 实现零延拓的 datum |
 | 410-SPEC-t21-draft-a | 已合入：T21 草案 A（DraftA.lean 1389 行 0 错误 + COMPARISON_A）→ 等对账 #375 | 09-18 1713Z | #375 | — | T21 spec 双盲草案 A：thm:main (i)+(ii) + cor:nondensity（NonDensityAPI / MainTheoremAPI，消费 T19/T20 canonical） |
 | 411-SPEC-t21-draft-b | 已合入：T21 草案 B（DraftB.lean 1407 行 0 错误 + COMPARISON_B）→ 对账 #376 | 09-18 1713Z | #376 | — | T21 spec 双盲草案 B（与 A 互不可见） |
 | 412-MAINT-t17-forceprofile-merge-repair | 已合入：ForceProfile.lean 修复（integration 版本 + 394 文档；lead 首次恢复会丢 375 rev1 的两条定理，Opus 发现并修正）；T17 闭包/22 探针/门禁全绿；解锁 T18 #377 | 09-18 1715Z | #377 | — | MAINT：#366 union 合并损坏 T17/ForceProfile.lean（重复 import、拆裂 docstring）→ 恢复为 394 已审版本（c4be85b0），全 T17 闭包 + 探针 + 门禁验证 |
@@ -203,3 +203,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 435-T18-U7-diff-support | worktree 安装中（433 + integration）→ codex sol | 09-18 1853Z | — | — | T18 U7：速度差的局部化（periodicSet 球，半径 max θR R_K；diffSupport_in_chart） |
 | 436-T18-U8-lifespan | Opus prover 子代理运行中 | 09-18 1857Z | — | — | T18 U8：插入解 solution / blowup / blowup_limsup / lifespan = T / maximal（H³ 窄化续延 API + velocity_unique） |
 | 437-T20-U11-continuation-bound | Opus prover 子代理运行中 | 09-18 1858Z | — | — | T20 U11：continuationBound（常/均值零模正交分解 + hTwo_le_laplacian + 积分 U10b + U2 均值界；Ccriterion） |
+| 438-T17-U11-sobolev | worktree 安装中 → Opus prover | 09-18 1905Z | — | — | T17 U11：eq:HHs 修正力 L¹_tH^s 界（0≤s≤1，注册 T02.localization + Paper1/I02 力 Sobolev 界；sobolevConst） |
+| 439-T15-U4-U5-energy-mixed | worktree 安装中 → Opus prover | 09-18 1905Z | — | — | T15 U4 能量恒等式 + 诚实切片、U5 混合范数放缩 + 诚实路径（单拷贝 + Haar 桥 + I03 放缩恒等式） |
