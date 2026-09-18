@@ -23,6 +23,12 @@ which is the field type on the nose (probe (a) in
 `research/T22/probes/cutoff_multiplier_field_closes.lean` matches it by `exact` in both
 directions). Every declaration prints `[propext, Classical.choice, Quot.sound]`.
 
+The codex review of lane 397 (`research/T22/REVIEW_397-T22-UA3-cutoff-multiplier.md`, merged into this
+branch) rejected 397 solely because the field was absent; its criterion probe
+`research/T22/probes/rev397_field_target.lean` is reproduced verbatim — with the one extra import — in
+`research/T22/probes/rev397_field_target_406.lean` and now closes by `exact`. The original probe is left
+untouched as the record of that review.
+
 ## R1 — product ↔ convolution (the "long pole"): closed at the **Schwartz** level only
 
 `ATTEMPTS_UA3.md` asked for the identity **at the `L²`/tempered level**, for a general datum
