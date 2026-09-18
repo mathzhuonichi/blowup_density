@@ -122,5 +122,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 354-T13-localization-assembly | 待开：等 348（wholeSpace_identity）与 353（核估计）落地 | 09-18 0838Z | — | — | T13 `localization` 第 2 部分（装配）：torus_identity + endpoint_zero + constant_pos_finite + 353 三估计 + 348 全空间恒等式 → `localization` 字段；随后 T13 六字段齐 → LocalizationAPI 装配 + 合同 |
 | 355-T14-packet-contract | 已合入 #321：合同 T01.packet_import v1（40 合同）；codex ACCEPT | 09-18 0905Z | #321 | — | T14 合同注册 `T01.packet_import` v1（Contracts/V1/PacketImport.lean 逐字重述 Spec；Bindings 由 Bindings.packet + 346 定理构造 PacketImportFamily；Tests；注册 → 40 合同；台账 claim T14） |
 | 356-SPEC-t18-draft-a | codex sol 运行中（双盲草案 A；astra 备用） | 09-18 0852Z | — | — | SPEC T18 `thm:insertion` 双盲草案 A（03-torus.tex:287-346；镜像 R42 InsertionFamilyAPI；导入已注册 TorusData/TorusLocalTheory，逐字复制 T17 Spec 词汇块） |
-| 357-SPEC-t18-draft-b | Opus prover 子代理运行中（双盲草案 B） | 09-18 0852Z | — | — | SPEC T18 `thm:insertion` 双盲草案 B（同上，互不可见） |
+| 357-SPEC-t18-draft-b | Opus 完成：DraftB.lean 1406 行（PeriodicInsertionAPI 10 参数 43 字段 + periodicInsertionStatement），elaborate 0 错误，无 stub → 等 356 后 reconciliation | 09-18 0913Z | — | — | SPEC T18 `thm:insertion` 双盲草案 B（同上，互不可见） |
 | 358-T16-assembly | Opus prover 子代理运行中（基座 = 351+352 分支 + integration-section3） | 09-18 0910Z | — | — | T16 装配：`localPotential : localPotentialStatement`（347 截断/阈值 + 351 球上势 + 352 格点提升；卸载 correction_fields_of_chart 的 chart 级假设） |
