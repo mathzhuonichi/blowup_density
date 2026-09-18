@@ -371,3 +371,67 @@ not successful application of the complete single-further-input peeling fallback
 A common-horizon nonzero constant-force trajectory satisfies the input, the genuine
 mild equation and full recovery together. All 26 named declarations pass exact
 standard-three-axiom guards. Details: REPORT_320.md and ATTEMPTS_CLASSICAL_ASSEMBLY.md.
+
+## U9d2a status — lane 326 (pressure; partial, target unchanged)
+
+`Section3/T11/MildPressure.lean` **constructs** the pressure of the mild
+solution and proves every pressure clause of `ClassicalSolutionT` except the
+joint slab smoothness. Sole named input: lane 320's `PersistenceInput T u`; no
+new `def … : Prop` is introduced, and no target statement is weakened.
+
+The coefficient pressure is the genuine Leray complement, derived from
+`Section3/T10/Leray.lean`'s symbol:
+
+```lean
+def lerayPotentialCoeff (S : SpatialField) (k : PeriodicFrequency) : ℂ :=
+  if k = 0 then 0
+  else (∑ j : Fin 3, (k j : ℂ) * sourceComponentCoeff S j k) /
+    ((2 * Real.pi * Complex.I) * ((∑ j : Fin 3, (k j : ℝ) ^ 2 : ℝ) : ℂ))
+```
+
+with `mildPressureCoeff g u t := lerayPotentialCoeff (fun x ↦ mildPressureSource g u (t,x))`,
+`mildPressureSource g u z = g z − convectionDivergenceT (torusPhysicalVelocity u) z.1 z.2`,
+and the physical pressure `mildPressure g u` the scalar Fourier inversion
+`Re ∑' k p̂(t)(k) e^{2πik·x}`. Its defining property is proved against the T10
+symbol at every Sobolev order: for `k ≠ 0` and any `hB : IsPeriodicDatum s S B`,
+
+```lean
+periodicDerivativeSymbol i k * lerayPotentialCoeff S k =
+  torusPhysicalCoeff s B i k - ((periodicFrequencyWeight k ^ (-s/2) : ℝ) : ℂ) * periodicLeray s B i k
+```
+
+Proved fields (bundled as the **conclusion** `MildPressureFields g u T`, built by
+`mildPressure_fields` from `ContDiff ℝ ∞ g`, `IsPeriodicOn univ g` and
+`PersistenceInput T u`): `pressure_periodic`, `pressure_gauge` (the zero mode is
+the gauge), `pressure_gradient` (`MemLp` of the lifted gradient), spatial `C^∞`
+of every slice, the gradient datum `(I − P)(F − Q)`, and
+`PeriodicLocalRegularity.pressure_poisson` in its exact shape
+
+```lean
+scalarSpatialLaplacianT (mildPressure g u) t x =
+  spatialDivergence g t x -
+    spatialDivergence (fun z : SpaceTime ↦ convectionDivergenceT (torusPhysicalVelocity u) z.1 z.2) t x
+```
+
+proved by Fourier uniqueness from `−4π²|k|² p̂(k) = 2πi k·Ŝ(k)`, not by
+term-by-term differentiation. The source is identified with `F − Q` at the level
+of physical Fourier data (`mildPressureSourceCoeff_eq_force_sub_convection`).
+
+**The one residual is exactly**
+
+```lean
+pressure_smooth : ContDiffOn ℝ ∞ (mildPressure g u) (Ico (0 : ℝ) T ×ˢ (univ : Set Space))
+```
+
+and it is *not derivable* from the permitted input: `PersistenceInput` gives only
+`ContinuousOn u_m (Ico 0 T)`, so no time derivative of `t ↦ p̂(t)(k)` exists yet.
+It needs the still-open Duhamel differentiation of `TorusForcedMildOn`. Even
+joint *continuity* on the slab needs the periodic convolution theorem
+`periodicFourierCoeff (f·g) k = ∑' l, f̂(l) ĝ(k−l)`, which is not in the tree
+(see `ATTEMPTS_MILD_PRESSURE.md` §0 and §3).
+
+Non-vacuity: a one-mode smooth periodic force together with the affine-constant
+persistent path gives all the fields **and** a nonzero pressure slice
+(`mildPressure_nonzero_instance`). The general U9d existential target above is
+unchanged. Details: `REPORT_326.md`, probe `probes/mild_pressure_closes.lean`,
+audit `axioms_mild_pressure.lean`.
