@@ -160,7 +160,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 392-T24-Uc1-Ua1 | codex sol 完成：Conservative.lean（zero_from_rest）+ AffineBasics.lean（Ua1 五字段）→ 排队 codex 审稿 | 09-18 1410Z | — | — | T24 wave 1（codex）：Uc1 zero_from_rest（prop:conservative，ConservativeForce.lean:91）+ Ua1 五个几何/运动学字段（prop:affine，原始包字段版） |
 | 393-T22-UA5-orderzero | Opus prover 子代理运行中（基座 = 387 分支 + integration-section3） | 09-18 1339Z | — | — | T22 U-A5：orderZero 字段（0 阶域 Sobolev 范数 = L²(Ω) 范数；387 等距 + 383 限制桥 + 商范数恒等式） |
 | 394-T17-UCAN-canonical-correction | codex sol 运行中（astra 备用；基座 = 384 分支 + integration） | 09-18 1343Z | — | — | T17 U-CAN（U12 前半）：canonical CorrectionAPI 逐字重述于 T15 原始字段 PlacementData / T16 / T13 记录之上（G1 不改字段表；G3 用 place.x₀/place.T）+ probe 双向转换与已证单元闭合 |
-| 395-T24-Uc2-potential-pairing | Opus prover 子代理运行中 | 09-18 1351Z | — | — | T24 Uc2：potential_pairing（周期梯度与无散周期场的 Haar 配对为零；环面分部积分） |
+| 395-T24-Uc2-potential-pairing | Opus 完成：potential_pairing 逐字（复用 cubeIntegral_pressure_energy_zero + integral_torusLift；对所有实 ν 成立，无需 t=0 分支）→ 排队 codex 审稿；Uc3 装配等 392+395 合入 | 09-18 1414Z | — | — | T24 Uc2：potential_pairing（周期梯度与无散周期场的 Haar 配对为零；环面分部积分） |
 | 396-T12-U4-velocity-critical-l3 | Opus prover 子代理运行中（基座 = 377 分支 + integration） | 09-18 1354Z | — | — | T12 U4：velocityCriticalL3（Haar↔cube 传输 + cutoffMul + 已注册 A05 全空间嵌入 + 377 核心 + 谱隙；显式常数 CcriticalHalf） |
 | 397-T22-UA3-cutoff-multiplier | Opus prover 子代理运行中（基座 = 391 分支 + integration） | 09-18 1354Z | — | — | T22 U-A3（分析核心，关键路径）：cutoffMultiplier 字段（Peetre 权比 × 391 核质量 → Young L¹∗L² → ‖B‖ ≤ C‖A‖，IsCutoffDatum 配对恒等式） |
 | 398-T24-Ua3-momentum | Opus prover 子代理运行中 | 09-18 1403Z | — | — | T24 Ua3：momentum（eq:affine ①，U+b 满足带修正力的方程；advection 双线性展开 + 包的 navier_stokes 子句） |
