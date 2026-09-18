@@ -98,7 +98,7 @@ All Lake commands were run from `verification/` after sourcing
 | `lake build NSFormalization.Section3.T18.Insertion` | pass, 0 errors |
 | `lake env lean ../formalization/NSFormalization/Section3/T18/Insertion.lean` | pass, 0 output |
 | `lake env lean ../research/T18/probes/insertion_closes.lean` | pass, 0 output |
-| `lake env lean ../research/T18/axioms_u1.lean` | pass; all 14 declarations print exactly `[propext, Classical.choice, Quot.sound]` |
+| `lake env lean ../research/T18/axioms_u1.lean` | pass; all 15 declarations print exactly `[propext, Classical.choice, Quot.sound]` |
 | `make check` | pass: plan check, contract/import policy tests, and work queue |
 
 `git diff --check` also passes with no output.
