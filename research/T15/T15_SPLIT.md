@@ -79,6 +79,12 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   unique datum `A`) through `periodicSobolevENorm` (`T10/PeriodicData.lean:119`) and `datum_unique`.
   **S, codex-sol.** Deps: —.
 
+  **Status (lane 363, 2026-09-18): complete.** `Section3/T15/ParsevalZero.lean` proves the stronger
+  `IsPeriodicSpatial z ∧ MemLp (torusLift z) 2 periodicTorusMeasure` version via
+  `parseval_backward`, the explicit `iInf` singleton collapse, `datum_unique`, and
+  `parseval_forward`; the smooth theorem and `≠ ⊤` corollary follow. A constant nonzero mode is
+  instantiated in `research/T15/probes/parseval_zero_closes.lean`.
+
 - **U4 — energy identities + honest slices** (transport; ⑩). New `Section3/T15/Energy.lean`. Targets
   `energySlices_memLp` (`Spec.lean:793`), `packetEnergyIdentity` (`:804`), `packetDissipationIdentity`
   (`:815`). Route: U3 collapses each torus slice to the ℝ³ scaled slice on `Q`; `U-TB1` moves the Haar
@@ -201,3 +207,41 @@ lead in `PLAN.md`.
 3. **Nonlinear-term periodization (U8).** Periodization must commute with the convective derivative
    across cell boundaries; rely on `contDiffOn_periodize` + local finite-sum differentiation, not termwise
    `tsum` differentiation.
+
+## U1 status — lane 362 (`362-T15-U1-bridges`)
+
+**Complete.** `formalization/NSFormalization/Section3/T15/Bridges.lean` now
+contains the canonical T15 rescaling definitions and the `rfl` bridges to the
+upstream parabolic rescalings, the normalized-pressure formula, both completed-
+density spellings, and the lane-352 T13/vendor periodizer equality.  The
+contract-side conformance probe is
+`research/T15/probes/api_on_canonical.lean`; its packet-specific definitions
+are token-for-token copies of the Spec definitions and all close by `rfl`.
+The axiom audit is `research/T15/axioms_u1.lean`.
+
+No U2--U15 analytic field is claimed here; those are the remaining gaps listed
+above and in §1.
+## 4. Status log
+
+- **U-TB1 — DONE (lane 364, 2026-09-18).** `formalization/NSFormalization/Section3/T15/HaarBridge.lean`
+  (namespace `NSFormalization.Section3.T15`, builds clean, all decls
+  `[propext, Classical.choice, Quot.sound]`). Shipped:
+  - `eLpNorm_torusLift_restrict g` — the **measure-free** Haar/Lebesgue change of variables
+    `eLpNorm (torusLift g) 2 periodicTorusMeasure = eLpNorm g 2 (volume.restrict fundamentalCube)`
+    for *any* `g : Space → F` (no regularity, no measurability). Core reused by every downstream field.
+  - `eLpNorm_torusLift_periodize f _hf hsupp` (Goal 1) — needs only
+    `tsupport f ⊆ interior fundamentalCube` (smoothness unused, kept for interface parity).
+  - `eLpNorm_torusLift_spatialGradient_periodize f hf t hsupp` (Goal 2) — the gradient companion,
+    identifying `eLpNorm (torusLift (fun x ↦ spatialGradient (fun p ↦ periodize f p.2) t x)) 2 periodicTorusMeasure`
+    with `T13.gradientENorm f volume`. `periodize f`'s regularity is **not** needed (the bridge is
+    measure-free; its gradient is replaced a.e.-on-cube by `f`'s, differing only on the null frontier).
+  - `eLpNorm_torusLift_periodize_slice F t hf hsupp` (Goal 3) — per-slice corollary for `energyEssSupT`.
+  - Helpers `lintegral_enorm_torusLift`, `eLpNorm_gradientVector_eq_gradientENorm` (the
+    `energyGradientT`-vs-`gradientENorm` identity), `gradientENorm_restrict_eq`, and interior-hypothesis
+    single-copy lemmas `periodize_eq_of_mem_interior` / `periodize_eventuallyEq_interior` (generalising
+    the ball-hypothesis `T13.eq_zero_of_mem_cube` / `periodize_eventuallyEq`).
+  Non-vacuity: `research/T15/probes/haar_bridge_closes.lean` instantiates all three at the lane-344
+  `ContDiffBump` packet. Audit: `research/T15/axioms_utb1.lean`.
+  Note for U4/U5 consumers: the hypothesis is `interior fundamentalCube`, strictly weaker than the
+  `place.chartBall_in_cube` ball form, so a ball placement discharges it via
+  `hsupp.trans (subset_closure.trans hball)`.
