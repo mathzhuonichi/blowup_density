@@ -1,5 +1,7 @@
 # Haar/cube attempts
 
+> **Superseded preamble (r0, astra):** the paragraphs below up to the first `## completion` / r1 section describe the rejected r0 foundations-only delivery and are kept for provenance only; the authoritative content is the lane 366 r1 (Opus) section — codex re-review ACCEPT-WITH-NOTES, 2026-09-18 13:20Z.
+
 The API bridge is definitional. The support transfer closes with Mathlib's
 `eLpNorm_restrict_eq_of_support_subset`. The remaining general-p transfer is
 reduced to equality of the `‖·‖ₑ ^ p.toReal` lintegrals; the existing T13

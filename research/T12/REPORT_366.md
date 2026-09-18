@@ -1,5 +1,7 @@
 # Lane 366-T12-U1 report
 
+> **Superseded preamble (r0, astra):** the paragraphs below up to the first `## completion` / r1 section describe the rejected r0 foundations-only delivery and are kept for provenance only; the authoritative content is the lane 366 r1 (Opus) section — codex re-review ACCEPT-WITH-NOTES, 2026-09-18 13:20Z.
+
 The API bridge and the supported-in-cube scalar/vector `L^p` transfer are proved.
 The periodic Haar/cube theorem is reduced for finite nonzero `p` to one explicit
 lintegral identity, matching the fundamental-domain argument in T13.
