@@ -1,5 +1,26 @@
 import Contracts.V1.TorusData
+import Contracts.V1.GradientL6
 import Mathlib.Analysis.Fourier.AddCircleMulti
+
+/-!
+# Contract: the mean-zero periodic Sobolev calculus of T12
+
+This contract registers the reconciled T12 statement
+(`research/T12/Spec.lean:281-478`) of the torus halves of `lem:calculus` and
+`lem:critical-embeddings`
+(`paper/sections/appendix-a-local-theory.tex:7-27`,
+`paper/sections/appendix-b-embeddings.tex:8-38,85-110`) together with the
+mean-zero order-two comparison used at `paper/sections/03-torus.tex:467-503`.
+
+The periodic data layer is the already registered `T01.torus_data` vocabulary
+and is imported rather than copied.  Only the declarations the Spec itself
+writes out are restated here, token-for-token; each one is guarded by a `rfl`
+bridge in `Bindings/MeanZeroCalculus.lean`.  The three derivative spellings are
+in addition checked below to be definitionally the registered `A05.gradient_l6`
+ones, exactly as `research/T12/Spec.lean:534-546` does.
+
+All norms are `ℝ≥0∞`-valued; no inequality passes through `.toReal`.
+-/
 
 noncomputable section
 namespace BlowupDensity.Contracts.V1.MeanZeroCalculus
@@ -60,17 +81,34 @@ def periodicLpENorm {E : Type*} [NormedAddCommGroup E] (p : ℝ≥0∞)
 
 /-! ## Registered derivative spelling and the periodic Lambda graph -/
 
-/-- The time-independent lift, reused from its local Section 4 canonical
-source. -/
+/-- `appendix-b-embeddings.tex:34-37` and `03-torus.tex:467-477`: the
+time-independent lift used to reuse the registered spatial operators.
+Copied token-for-token from `Contracts/V1/GradientL6.lean:78`. -/
 def lift (v : SpatialField) : SpaceTimeField := fun z => v z.2
 
-/-- The physical Frobenius gradient tensor, reused from the local source of
-the registered `GradientL6` spelling. -/
-def gradientTensor (v : SpatialField) : Space → WithLp 2 (Fin 3 → Space) := fun x => spatialGradient (lift v) 0 x
+/-- `appendix-b-embeddings.tex:30-32,97-100`: the physical Frobenius gradient
+tensor.  Copied token-for-token from
+`Contracts/V1/GradientL6.lean:89-90`. -/
+def gradientTensor (v : SpatialField) : Space → WithLp 2 (Fin 3 → Space) :=
+  fun x => spatialGradient (lift v) 0 x
 
-/-- The componentwise spatial Laplacian, reused from the local source of the
-registered `GradientL6` spelling. -/
-def laplacian (v : SpatialField) : SpatialField := fun x => spatialLaplacian (lift v) 0 x
+/-- `appendix-b-embeddings.tex:32,97-100` and `03-torus.tex:467-477`: the
+componentwise spatial Laplacian.  Copied token-for-token from
+`Contracts/V1/GradientL6.lean:94-95`. -/
+def laplacian (v : SpatialField) : SpatialField :=
+  fun x => spatialLaplacian (lift v) 0 x
+
+/-- The local lift is definitionally the registered A05 lift. -/
+example (v : SpatialField) :
+    lift v = BlowupDensity.Contracts.V1.lift v := rfl
+
+/-- The local gradient tensor is definitionally the registered A05 tensor. -/
+example (v : SpatialField) :
+    gradientTensor v = BlowupDensity.Contracts.V1.gradientTensor v := rfl
+
+/-- The local Laplacian is definitionally the registered A05 Laplacian. -/
+example (v : SpatialField) :
+    laplacian v = BlowupDensity.Contracts.V1.laplacian v := rfl
 
 /-- `appendix-b-embeddings.tex:8-9,97`: `Lv` is the chosen smooth periodic
 physical representative of `Λv`, fixed coefficientwise by the unit-torus
@@ -268,6 +306,8 @@ structure MeanZeroSobolevCalculusAPI where
         periodicHomogeneousENorm s v ≤ periodicSobolevENorm s v
 
 
+/-- `research/T12/Spec.lean` statement form: the reconciled T12 API is
+inhabited. -/
 def meanZeroCalculusStatement : Prop := Nonempty MeanZeroSobolevCalculusAPI
 
 end BlowupDensity.Contracts.V1.MeanZeroCalculus
