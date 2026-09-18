@@ -1,0 +1,84 @@
+# Lane 352 report — T16 gap 2: the unit-periodic lattice lift
+
+## 1. What was proved
+
+The seven `correction_*` fields of the canonical `LocalPotentialAPI`
+(`formalization/NSFormalization/Section3/T16/LocalPotential.lean`) as lemmas about
+the unit-periodic lift `latticeLift w z = ∑' k, w (z.1, z.2 − latticeVector k)`
+of a chart correction `w` (smooth on `ℝ×ℝ³`, spatial slice support in `ball x₀ ρ`,
+`ρ < 1/2`).  All in `Section3/T16/LatticeLift.lean`, every declaration
+`[propext, Classical.choice, Quot.sound]`.  Load-bearing statements:
+
+- `latticeLift_eq_periodize (w) : latticeLift w = NavierStokes.PeriodicLocalization.periodize w := rfl`
+- `latticeLift_smooth (hcd : ContDiff ℝ ∞ w) (hsupp : ∀ z, w z ≠ 0 → z.2 ∈ ball x₀ ρ) : ContDiff ℝ ∞ (latticeLift w)`
+- `latticeLift_periodic (w) : IsPeriodicOn univ (latticeLift w)`
+- `latticeLift_eq_of_ball (hslice : ∀ t y, w (t,y) ≠ 0 → y ∈ ball x₀ ρ) (hρr : r + ρ ≤ 1) (hx : x ∈ ball x₀ r) : latticeLift w (t,x) = w (t,x)`
+- `latticeLift_divergence_zero (hcd) (hsupp) (hdivw : ∀ t x, spatialDivergence w t x = 0) (t x) : spatialDivergence (latticeLift w) t x = 0`
+- `latticeLift_timeSupport (hcs : HasCompactSupport w) (htsupp : tsupport w ⊆ Ioo a b ×ˢ univ) : tsupport (latticeLift w) ⊆ Ioo a b ×ˢ univ`
+- `latticeLift_sliceSupport (hslice) (hρr : ρ < r) (t) : tsupport (fun x => latticeLift w (t,x)) ⊆ periodicSet (ball x₀ r)`
+- `latticeLift_cancels (hv_per : IsPeriodicOn univ v) (hslice) (hρr : r+ρ ≤ 1) {O} (hO : IsOpen O) (hOsub : O ⊆ ball x₀ r) (hcancel : ∀ x ∈ O, v (t,x)+w (t,x)=0) (hpacket : tsupport (fun x => P x) ⊆ periodicSet O) : ∃ O', IsOpen O' ∧ tsupport (fun x => P x) ⊆ O' ∧ ∀ x ∈ O', v (t,x)+latticeLift w (t,x)=0` — the **local** neighbourhood interface (cancellation on an open plateau `O ⊆ ball x₀ r`, not the whole ball); output `O' = periodicSet O`.
+- `correction_fields_of_chart (…) : <conjunction of the seven canonical field bodies for `fun ε => latticeLift (W ε)`>` — packaging for lane 358.  The cancellation hypothesis is (exact):
+  `hWcancel : ∀ ε ∈ Ioc (0:ℝ) ε₀, ∀ t ∈ Ico (T - ε ^ 2) T, ∃ O : Set Space, IsOpen O ∧ O ⊆ ball x₀ r ∧ tsupport (fun x => periodicScaledPacket U x₀ T ε (t, x)) ⊆ periodicSet O ∧ ∀ x ∈ O, v (t, x) + W ε (t, x) = 0`.
+- `cancel_of_eventually {v w : SpaceTimeField} {O : Set Space} {t : ℝ} (h : ∀ x ∈ O, ∀ᶠ y in 𝓝 x, v (t, y) + w (t, y) = 0) : ∀ x ∈ O, v (t, x) + w (t, x) = 0` — eventual→pointwise bridge (`Filter.Eventually.self_of_nhds`); the chart lemma `exists_local_background_removal` returns the eventual form.
+- `correction_fields_of_chart' (…)` — same conclusion as `correction_fields_of_chart`, but its cancellation hypothesis is the **eventual** form `… ∀ x ∈ O, ∀ᶠ y in 𝓝 x, v (t, y) + W ε (t, y) = 0`, so lane 358 feeds the chart lemma's output directly (it converts via `cancel_of_eventually`).
+
+`latticeLift_eq_periodize` is the crux: `latticeVector = lattice` by `rfl`, so the
+lift is definitionally OpenAI's `periodize`, and all of
+`NavierStokes.PeriodicLocalization` is reused verbatim.
+
+## 2. What exists in Lean now
+
+- New module `formalization/NSFormalization/Section3/T16/LatticeLift.lean`
+  (namespace `NSFormalization.Section3.T16`), 21 declarations, green (r2 added
+  `cancel_of_eventually` and `correction_fields_of_chart'`).
+- Probe `research/T16/probes/lattice_lift_closes.lean`: the seven canonical field
+  types verbatim (projected from `correction_fields_of_chart`) + a nonzero smooth
+  bump whose lift is nonzero and periodic.  Compiles.
+- Probe `research/T16/probes/rev352_cancel_interface.lean` (reviewer's scratch,
+  fixed): `cancel_of_eventually` closes the eventual→pointwise mismatch, and
+  `correction_fields_of_chart'` accepts the eventual cancellation form directly.
+- `research/T16/axioms_lattice_lift.lean`: `#print axioms` on all 21 decls, all
+  `[propext, Classical.choice, Quot.sound]`.
+- Records: `research/T16/ATTEMPTS_LATTICE_LIFT.md`, `COMPARISON.md` status line.
+
+## 3. Gap
+
+- **Not this lane:** T16 gap 1 (`potential_smooth`/`potential_curl` for general
+  local `v`) is untouched (see `ATTEMPTS.md` §Gap 1).
+- The packaged `correction_fields_of_chart` takes as hypotheses the chart-level
+  facts about the correction family `W` (smoothness, compact support,
+  divergence-freeness, the product support bound, the curl formula, and the
+  **local** cancellation datum — an open plateau `O ⊆ ball x₀ r` carrying the
+  periodic packet-support bound and the cancellation `v + W ε = 0` on `O`).
+  These are **obligations of the assembly lane 358, not facts this lane proves.**
+  The two substantive obligations inside `hWcancel`, and the exact route lane 358
+  uses to discharge them for `W ε = physicalCorrection v x₀ T θ η ε`, are:
+  - `tsupport (fun x => periodicScaledPacket U x₀ T ε (t,·)) ⊆ periodicSet O` —
+    from `periodicScaledPacket = latticeLift (scaledPacket)`, the packet support
+    fact (T14 `delayed_full_support`) and this lane's `latticeLift_sliceSupport`;
+  - `∀ x ∈ O, v + W ε = 0` on the scaled plateau — from `theta_one`/`eta_one`
+    via `Paper1.exists_local_background_removal`, which returns the **eventual**
+    form `∀ x ∈ O, ∀ᶠ y in 𝓝 x, v + W ε = 0`; this lane's `cancel_of_eventually`
+    converts it, and `correction_fields_of_chart'` accepts the eventual form
+    directly so 358 can feed the chart lemma's output without an intermediate step.
+
+  This lane neither proves nor claims to prove those obligations; it supplies the
+  transport and the two bridge declarations.  No stub, no `sorry`, no placeholder
+  `Prop` field.  (History: r1 replaced the earlier over-strong whole-ball
+  cancellation hypothesis; r2 added `cancel_of_eventually`/`correction_fields_of_chart'`
+  and corrected the documentation to state the obligations precisely, per Codex review.)
+- `LocalPotentialAPI` has **seven** `correction_*` fields, not eight (the brief
+  double-counts `support`/`support_ball`).
+
+## 4. Commands run and results
+
+- `. scripts/lean-env.sh` (every shell).
+- `cd verification && LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T16.LatticeLift`
+  → `Build completed successfully (9358 jobs).` (0 errors, 0 module warnings — r1 removed the deprecated `push_neg`/`Set.mem_setOf_eq` and the unused `hθR`).
+- `lake env lean ../formalization/NSFormalization/Section3/T16/LatticeLift.lean` → no output (0 errors, 0 warnings).
+- `lake env lean ../research/T16/probes/lattice_lift_closes.lean` → exit 0, 0 errors.
+- `lake env lean ../research/T16/probes/rev352_cancel_interface.lean` → exit 0, 0 errors.
+- `lake env lean ../research/T16/axioms_lattice_lift.lean` → all 21 decls
+  `depends on axioms: [propext, Classical.choice, Quot.sound]`.
+- `make check` (worktree root) → contract-policy tests OK (13 passed),
+  work-queue consistent.
