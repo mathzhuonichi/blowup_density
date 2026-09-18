@@ -1,6 +1,7 @@
 import NSFormalization.Section3.T12.HaarCube
 import NSFormalization.Section3.T12.FourierEmbeddings
 import NSFormalization.Section3.T12.CutoffGagliardo
+import NSFormalization.Section3.T12.DirDeriv
 
 /-!
 # T12 U5 — `‖∇v‖_{L⁶(T³)} ≤ C₆ ‖Δv‖_{L²(T³)}` for smooth mean-zero periodic fields
@@ -181,9 +182,8 @@ theorem periodicLpENorm_gradientTensor_le_laplacian {v : SpatialField}
 
 variable {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F]
 
-theorem contDiff_dirDeriv {w : Space → F} (hw : ContDiff ℝ ∞ w) (i : Fin 3) :
-    ContDiff ℝ ∞ (dirDeriv i w) :=
-  (hw.fderiv_right (by simp)).clm_apply contDiff_const
+-- `contDiff_dirDeriv` moved verbatim to `NSFormalization.Section3.T12.DirDeriv`
+-- (lane 427 dedupe with `GradientLambdaL3.lean`); it is imported above.
 
 theorem hasCompactSupport_dirDeriv {w : Space → F} (hw : HasCompactSupport w)
     (i : Fin 3) : HasCompactSupport (dirDeriv i w) := by

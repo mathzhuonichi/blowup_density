@@ -319,9 +319,11 @@
     {
       "id": "T12",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T01.mean_zero_calculus"
+      ],
       "deliverable": "Reconcile research/T12/Spec.lean against the mean-zero calculus and critical-embedding targets, then register the accepted versioned contract under parent task T01 with its typed binding and axiom test."
     },
     {
