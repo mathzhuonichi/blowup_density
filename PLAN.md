@@ -174,8 +174,9 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 406-T22-UA3b-cutoff-multiplier-field | Opus 完成：逐字 cutoffMultiplier 闭合（Schwartz 级 𝓕(uv)=c^{-3/2}·(𝓕u∗𝓕v) + 沿 angularDatumL 稠密延拓；R2 实对称、R3 PiLp.norm_eq_of_L2、R4 常数+1；分支已并入 397 审稿记录）→ 排队 codex 审稿；U-Z1 可开 | 09-18 1505Z | — | — | T22 U-A3b：在 397 引擎上闭合逐字 cutoffMultiplier（R1 乘积→卷积 datum 级、R2 实子空间、R3 范数辨识、R4 C>0） |
 | 407-T24-Ua6-energy-finite | worktree 安装中 → Opus prover | 09-18 1438Z | — | — | T24a Ua6：energy_finite（紧支光滑 b 的 E₁ 范数有限 + 次可加性 + 原始 energyENorm 1 U < ⊤） |
 | 408-T22-UB2-zero-ext-regularity | codex 续做完成：零延拓光滑/紧支/L²/各阶导数 L²/任意阶 datum 存在（bee8486f）→ 排队审稿 | 09-18 1505Z | — | — | T22 U-B2：零延拓正则性（contDiff/HasCompactSupport/MemLp/datum 存在） |
-| 409-T22-UB3-cutoff-datum | codex 首轮被 429 打断；续做包装器 12 分钟后重试（astra→sol） | 09-18 1450Z | — | — | T22 U-B3：cutoff 存在 + IsCutoffDatum 实现零延拓的 datum |
+| 409-T22-UB3-cutoff-datum | codex 续做未交付定理（声称 Mathlib 名字未知、未编闭包）→ 改由 Opus prover 在同一 worktree 完成 | 09-18 1508Z | — | — | T22 U-B3：cutoff 存在 + IsCutoffDatum 实现零延拓的 datum |
 | 410-SPEC-t21-draft-a | sol 跑了 42 万 token 后 429 死亡（research/T21 有未提交草稿）→ 续做简报 7 分钟后重启（sol→astra） | 09-18 1505Z | — | — | T21 spec 双盲草案 A：thm:main (i)+(ii) + cor:nondensity（NonDensityAPI / MainTheoremAPI，消费 T19/T20 canonical） |
 | 411-SPEC-t21-draft-b | Opus prover 子代理运行中 | 09-18 1447Z | — | — | T21 spec 双盲草案 B（与 A 互不可见） |
-| 412-MAINT-t17-forceprofile-merge-repair | codex 容量/429 波（14:50Z）：首次启动失败，包装器 10 分钟后重试（sol→astra） | 09-18 1450Z | — | — | MAINT：#366 union 合并损坏 T17/ForceProfile.lean（重复 import、拆裂 docstring）→ 恢复为 394 已审版本（c4be85b0），全 T17 闭包 + 探针 + 门禁验证 |
-| 413-T20-U7-critical-trilinear | 简报就绪，等 401+405 合入后开 worktree → Opus prover | 09-18 1458Z | — | — | T20 U7：均值零临界三线性估计 |⟪(v·∇)v,Λv⟫| ≤ C₀ y z²（三因子 Hölder + T12 U4/U6），U8 criticalEnergy 的核心 |
+| 412-MAINT-t17-forceprofile-merge-repair | astra 两次 at capacity → 改由 Opus 子代理验证（T18 关键路径阻塞项） | 09-18 1506Z | — | — | MAINT：#366 union 合并损坏 T17/ForceProfile.lean（重复 import、拆裂 docstring）→ 恢复为 394 已审版本（c4be85b0），全 T17 闭包 + 探针 + 门禁验证 |
+| 413-T20-U7-critical-trilinear | worktree 安装中（基于 405 分支 + integration 含 401）→ Opus prover | 09-18 1508Z | — | — | T20 U7：均值零临界三线性估计 abs⟪(v·∇)v,Λv⟫ ≤ C₀ y z²（三因子 Hölder + T12 U4/U6），U8 criticalEnergy 的核心 |
+| 414-T24-Ua4-force-smooth-support | worktree 安装中 → Opus prover | 09-18 1506Z | — | — | T24a Ua4：force_smooth + force_support（修正力跨 t=1 的光滑零延拓与紧正时间支撑，②） |
