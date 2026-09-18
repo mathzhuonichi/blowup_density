@@ -97,3 +97,7 @@ Paper1.torusLift g fun i => ↑(y i)` because the goal carried the defeq T10 abb
 (exact, defeq-tolerant). Probe first failed on `probeBump.rOut` not reducing to
 `1/4` for `linarith` (added `have hr : probeBump.rOut = 1/4 := rfl; rw [hr]`) and
 a missing `open ... (spatialGradient)`; both fixed.
+
+## Review notes applied (lead, 2026-09-18 12:10Z)
+- codex ACCEPT-WITH-NOTES (`REVIEW_364-T15-UTB1-haar-bridge.md`; mutation probe `rev364_mutation.lean` rejected as expected). The explicit nonzero-witness lemma the review asked for is the reviewer's own `research/T15/probes/rev364_nonvacuity.lean`, kept in the lane as the non-vacuity certificate; the probe comments in `haar_bridge_closes.lean` are to be read with that file.
+- Omitted command now recorded: `cd verification && lake env lean ../formalization/NSFormalization/Section3/T15/HaarBridge.lean` → no output (0 errors, 0 warnings) — re-run by the lead's merge check only through the build; the reviewer ran it in the review.
