@@ -73,6 +73,9 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
 ## 1. Units
 
 - **U-B1 — restriction bridge** (bookkeeping). New `Section3/T22/RestrictBridge.lean`.
+  **Status (lane 383, 2026-09-18): COMPLETE.** The canonical vocabulary is in
+  `Section3/T22/Domain.lean`; both `restrictDatum_eq_restrictField` and
+  `domainSobolevENorm_le_sobolevENorm` close with the standard three axioms.
   Target (consumed by `orderZero` **and** `zeroExtensionComparison` left conjunct): `restrictDatum_eq_restrictField`
   — if `IsSobolevDatum s (zeroExtension Ω z) A` then `restrictDatum Ω s A = restrictField Ω z`. Route: for a
   `DomainTest ψ` (tsupport ⊆ Ω), `angularRealization s (A i) ψ.1 = ∫ x, ψ.1 x * (E₀z x i)` (`IsSobolevDatum`); split
