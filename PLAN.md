@@ -140,4 +140,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 372-SPEC-t19-draft-b | Opus 完成（429 中断后恢复）：DraftB.lean 465 行（4 个 Prop 结构 11 字段 + 4 陈述），elaborate 0 错误 → Opus 起草 reconciliation 中 | 09-18 1211Z | — | — | SPEC T19 密度包双盲草案 B（与 367 互不可见） |
 | 373-T17-U2-transport | Opus 被路由 429 中断 → 恢复中 | 09-18 1208Z | — | — | T17 U2：具体 correctionData（= T16 localPotentialData，correction ε = latticeLift(physicalCorrection) 由 rfl）+ 力算子传输 force_eq（局部算子与平移可交换 ⇒ correctionForce = latticeLift(Source.correctionForce)）；U5–U11 全部经此改写 |
 | 374-SPEC-t23-draft-b | Opus prover 子代理运行中（双盲草案 B） | 09-18 1209Z | — | — | SPEC T23 cor:boundary 双盲草案 B（与 368 互不可见） |
-| 375-T17-U4-force-profile | worktree 已安装；等 Opus 空位后派发 | 09-18 1209Z | — | — | T17 U4：力轮廓六字段（rescaledForceProfile = Paper1 forceProfile 桥；smooth/support/Const/nonneg/uniform/identity 含 ε⁻² 重标度） |
+| 375-T17-U4-force-profile | Opus prover 子代理运行中（基座 = 370 分支 + integration-section3） | 09-18 1216Z | — | — | T17 U4：力轮廓六字段（rescaledForceProfile = Paper1 forceProfile 桥；smooth/support/Const/nonneg/uniform/identity 含 ε⁻² 重标度） |
