@@ -89,6 +89,11 @@ the numbered “Needs a lemma” list in `research/T10/COMPARISON.md`.
    `BlowupDensity.Contracts.V1.HomogeneousNorm.dotHomogeneousENorm`.
    A short infimum bridge is still required to turn those realization lemmas
    into the registered norm equality.
+   **Status (lane 348, 2026-09-18): discharged.**  Shipped as
+   `NSFormalization.Section3.T13.WholeSpaceIdentity.wholeSpace_identity`; the
+   infimum bridge is `dotHomogeneousENorm_eq_homogeneousFourierENorm`, Plancherel
+   is `lintegral_angularFourier_sq`, the kernel rotation/dilation is
+   `lintegral_kernel_smul`.  Axioms `[propext, Classical.choice, Quot.sound]`.
 
 3. **Cube, Haar, and Fourier bridge.**  Identify the fixed-cube integrals with
    T10's `torusLift` and `periodicFourierCoeff`.  This is exactly T10 “Needs a
