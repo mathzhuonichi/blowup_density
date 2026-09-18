@@ -101,4 +101,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 333-SPEC-t17-spec | 已合入 #303（lead 直接合并：elaborate 0 输出，字段对照 reconciliation §3） | 09-18 0544Z | #303 | — | SPEC **T17 定稿**：按 research/T17/RECONCILIATION.md（B 为基 + A 五处；Type 值 `CorrectionAPI` 带 T15 `PlacementData` 参数；实数常数 + `ENNReal.ofReal`；注册 `alpha`）→ Spec.lean + COMPARISON.md |
 | 334-T11-U9d2c-classical-assembly | Opus prover 子代理（基座 = integration + 327 本地合并） | 09-18 0548Z | — | — | T11 U9d2c：全阶时间光滑（mild 方程各阶 + 归纳）+ 装配 `ClassicalSolutionT`/`PeriodicLocalRegularity` → 关闭 U9d 目标（`mild_to_classical`）与 `exists_classical_of_picard` |
 | 335-T11-U12a-energy-identity | Opus prover 子代理（基座 = integration + 322 + 327 本地合并） | 09-18 0553Z | — | — | T11 U12a：经典解系数路径的时间可导 + datum 形式动量方程 → H^m 能量恒等式（322 的 hRhigh 的 HasDerivAt 部分） |
-| 336-T11-U12b-pairing-bound | 排队（Opus；待 322 合入；简报已写） | 09-18 0550Z | — | — | T11 U12b：配对层 tame 估计 |⟨(u·∇)u,u⟩_{H^m}| ≤ C‖u‖_{H²}‖u‖_{H^m}‖∇u‖_{H^m}（Fourier 侧 Peetre 分裂） |
+| 336-T11-U12b-pairing-bound | Opus prover 子代理（基座 = integration + 322 + 327 本地合并） | 09-18 0554Z | — | — | T11 U12b：配对层 tame 估计 abs⟨(u·∇)u,u⟩_{H^m} ≤ C‖u‖_{H²}‖u‖_{H^m}‖∇u‖_{H^m}（Fourier 侧 Peetre 分裂） |
