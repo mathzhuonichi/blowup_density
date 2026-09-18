@@ -79,6 +79,24 @@ embedding: it reduces by Fourier **order-shift** to `velocityCriticalL3` at `a =
   comparison `periodicKernel` vs `fractionalRadialKernel` on the support gap; divide by `cFrac (1/2) > 0`
   and take square roots. **L, Opus.** Deps: U2.
 
+  **Status (lane 377, 2026-09-18): COMPLETE.** `Section3/T12/CutoffGagliardo.lean` proves the two Gagliardo
+  identities at `s=1/2` (`ireal_cutoffMul_eq`, `itorus_meanZero_eq`),
+  `meanZeroPartT v = v` for mean-zero `v`, the `ℝ≥0∞` divide-by-`cFrac` +
+  square-root step (`enn_sqrt_div_bound`), the difference split
+  `IReal (1/2) (χv) ≤ 2·IA v + 2·IB v` (`ireal_cutoffMul_le_split`, with `IA`,
+  `IB` the two split Gagliardo integrals), and the assembly
+  `dotHomogeneousENorm_cutoffMul_le` reducing the U3 target to
+  `IA v ≤ Ca·ITorus (1/2) v` and `IB v ≤ Cb·‖v‖²_{L²(Q)}` with explicit
+  constant `max (√(2Ca)) (√(2Cb/cFrac (1/2)))`.  All 13 declarations carry the
+  standard 3 axioms; probe `research/T12/probes/cutoff_gagliardo_closes.lean`.
+  The two reverse-localization bounds are proved in the same module:
+  `iA_bound : IA v ≤ 343·ITorus (1/2) v` (lattice tiling of the whole-space
+  `x`-integral back to `fundamentalCube`, count `7³`) and
+  `iB_bound : IB v ≤ cbConst·‖v‖²_{L²(Q)}` (`cbConst = 686·Jval`, Lipschitz
+  cutoff bound + finite kernel integral `Jval_lt_top`), giving the final
+  theorem `cutoff_gagliardo_half`.  The probe instantiates it on a nonzero
+  smooth mean-zero periodic witness — see `research/T12/ATTEMPTS_U3.md`.
+
 - **U4 — `velocityCriticalL3`** (probe `:148-151`). New `Section3/T12/CriticalL3.lean`. Target verbatim:
   `∀ v, MemPeriodicHomogeneous (1/2) v → periodicLpENorm 3 v ≤ ENNReal.ofReal CcriticalHalf ·
   periodicHomogeneousENorm (1/2) v`. Route: `periodicLpENorm 3 v = eLpNorm (torusLift v) 3 Haar`
@@ -145,3 +163,17 @@ needs only U1/U2). Lane numbers allocated by the lead in `PLAN.md`.
 3. **`dotHomogeneousENorm` spelling.** A05's theorem uses `A05.dotHomogeneousENorm`; T13's identities use
    `Contracts.V1.HomogeneousNorm.dotHomogeneousENorm`. The `rfl` bridge
    `Bindings/GradientL6V2.lean:44` closes it — use it explicitly in U4, do not assume defeq silently.
+
+### U1 status (lane 366 r1) — COMPLETE
+`Section3/T12/HaarCube.lean` proves the actual all-`p` Haar↔cube transfer
+`eLpNorm_torusLift_eq_restrict` for every `p : ℝ≥0∞` (incl. `p = 0`, `p = ⊤`), via
+the single measure identity `map_torusChart` + `MeasurableEmbedding.eLpNorm_map_measure`
+(no exponent case split, no hypothesised lintegral). Exposed: smooth corollary,
+scalar and gradient-tensor (`WithLp 2 (Fin 3 → Space)`) specializations, the
+`periodicLpENorm` bridges (`periodicLpENorm_eq_eLpNorm_torusLift` rfl,
+`periodicLpENorm_eq_restrict[_gradientTensor]`), and the supported-in-cube transfer
+in both `Function.support` and `tsupport` spellings (scalar + gradient-tensor). All
+11 public declarations audit to `[propext, Classical.choice, Quot.sound]`; module
+`lake env lean` output is empty. U4/U5 can now consume `p = 3` scalar and `p = 6`
+gradient-tensor transfer directly. No named input; the periodicity hypothesis is
+the paper's unit-periodic interface, unused in the proof (holds for every field).
