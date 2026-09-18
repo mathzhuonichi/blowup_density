@@ -54,3 +54,6 @@ All from the worktree, after `. scripts/lean-env.sh`, `lake` from `verification/
 - `bash scripts/gates.sh NSFormalization.Section3.T24.AffineWitness NSFormalization.Section3.T24.AffineFamily` → `== make test-mutations / extra_axiom: rejected as required / weakened_hypothesis: rejected as required / Mutation suite passed`, `== check_contracts "base_compatibility_checked": true`, `== gates OK`, exit 0.
 - `make check` → exit 0 (`13 tests ... OK`, `45 work items: ownership, contract registration and task cards consistent.`).
 - `git commit` on `erenup/417-T24-Ua7-infinite-dimensional` → `d388c1a4`, 6 files, 886 insertions. No push, no merge, no rebase.
+
+
+> Lead note after review 417: the reviewer's two command-path notes — `make check` is run from the repository/worktree root (the report's `cd verification && make check` wording is corrected to that), and the base-aware contract check is `python3 experiments/check_contracts.py --base-ref origin/erenup/integration-section3`.
