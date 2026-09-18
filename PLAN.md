@@ -94,5 +94,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 326-T11-U9d2a-pressure | Opus 完成（Leray 补压力构造、Poisson/gauge/周期/梯度 datum/空间光滑，80 声明；残余：压力联合时间光滑 → 327）→ 排队 codex 审稿 | 09-18 0449Z | — | — | T11 U9d2a：mild 解的压力（Leray 补的系数构造、物理场、`pressure_gradient/smooth/gauge/periodic/poisson`）在 `PersistenceInput` 下 |
 | 327-T11-U9d2b-momentum | Opus prover 子代理（基座 = integration + 326 本地合并） | 09-18 0449Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
 | 328-T11-U9d1a-real-order-convolution | 已合入 #297（codex 审稿 ACCEPT；Opus 产出） | 09-18 0451Z | #297 | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
-| 329-T11-U9d1b-fractional-smoothing | Opus 完成（σ=3/2 光滑、核可积与积分值、强连续，32 声明无条件）→ 排队 codex 审稿 | 09-18 0442Z | — | — | T11 U9d1b：分数阶热光滑 σ=3/2、核 (νt)^{-3/4} 可积、强连续 |
+| 329-T11-U9d1b-fractional-smoothing | 已合入 #298（codex ACCEPT-WITH-NOTES：报告措辞；Opus 产出） | 09-18 0459Z | #298 | — | T11 U9d1b：分数阶热光滑 σ=3/2、核 (νt)^{-3/4} 可积、强连续 |
 | 330-T11-U9d1c-duhamel-half-step | Opus prover 子代理（基座 = integration + 328 + 329 本地合并） | 09-18 0442Z | — | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |
