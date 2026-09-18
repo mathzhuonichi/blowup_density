@@ -37,6 +37,31 @@ Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core
   Probe `research/T20/probes/critical_trilinear_closes.lean` (nonzero witness
   `probeMZ`, plus the U8 slice shape check); audit `research/T20/axioms_u7.lean`;
   attempts `research/T20/ATTEMPTS_U7.md`.
+- **U10a `H¹` trilinear estimate** — DONE (lane 429).
+  `Section3/T20/H1Trilinear.lean`, theorem
+  `NSFormalization.Section3.T20.h1Trilinear`
+  (`|⟪(v·∇)v,Δv⟫| ≤ C₁·y·laplacianSqT v`, the U10b `hOneEnergy` spelling) with
+  `h1Trilinear_enorm` (`ℝ≥0∞` form, no finiteness hypothesis),
+  `h1Trilinear_toReal` (`‖Δv‖₂²` written out), `h1Trilinear_pairing`
+  (`periodicPairing` spelling) and `h1Trilinear_slice` (the `criticalY` /
+  `laplacianSqT` slice form).  Explicit constant
+  `h1TrilinearConst = CcriticalHalf * Csix`, with `h1TrilinearConst_pos`; this
+  is the `C₁` U10b/U13 install.  Built on T12 U4 `velocityCriticalL3` (lane 401)
+  and T12 U5 `gradientLSix` (lane 400), so **U10a is no longer blocked on T12**
+  and U10b is unblocked on its analytic side.  The article's auxiliary Fourier
+  step `‖∇(∂ⱼv)‖₂ ≤ ‖Δv‖₂` (`:475-477`) turned out to be internal to lane 400's
+  `gradientLSix` and was not needed.  No named input.  Axioms
+  `[propext, Classical.choice, Quot.sound]` for all 16 declarations.
+  Probe `research/T20/probes/h1_trilinear_closes.lean` (nonzero witness
+  `probeMZ`, plus the U10b slice shape check); audit
+  `research/T20/axioms_u10a.lean`; attempts `research/T20/ATTEMPTS_U10A.md`.
+  **Lead item, blocks U10b/U13 assembly:** `Section3/T12/GradientLSix.lean:184`
+  and `Section3/T12/GradientLambdaL3.lean:210` both declare
+  `NSFormalization.Section3.T12.contDiff_dirDeriv`, so no module can import both
+  `GradientLSix` and `CriticalTrilinear` (which needs `GradientLambdaL3`).
+  `H1Trilinear` therefore sits on the `GradientLSix` side and repeats four small
+  lane-413 helpers under `…H1` names; U10b needs both sides, so the duplicate
+  must be deleted upstream (lane-400's general version subsumes lane-405's).
 
 ## 0. Ground rules
 
