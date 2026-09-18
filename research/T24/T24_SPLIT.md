@@ -125,6 +125,31 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   neighborhood of which `U` (raw `velocity_smooth` on `preSingularDomain`) has bounded derivatives of every fixed
   order; so `(U·∇)b`, `(b·∇)U`, `(b·∇)b`, `∂ₜb`, `Δb` extend smoothly by zero across `t=1` and `F` is globally
   smooth with compact positive-time support (raw `force_smooth`/`force_support`). **L, Opus.** No named input. Deps: —.
+  **DONE (lane 414, Opus).** `formalization/NSFormalization/Section3/T24/AffineForce.lean`:
+  `force_smooth` (hyps = raw `velocity_smooth` + raw `force_smooth`, plus the parameter
+  hypotheses `0 < τ₀`, `τ₁ < 1`) and `force_support` (hyp = raw `force_support`, plus `0 < τ₀`
+  **only** — `τ₁ < 1` is genuinely unused there), with the reusable pieces
+  `affineForce_eq_of_notMem_tsupport`, `contDiffOn_affineForce_interior`,
+  `tsupport_affineForce_subset`, `affineCylinder_subset_interior`,
+  `affineCylinder_subset_positiveTimeDomain`.  No named input, no `0 < ν`, no pressure.
+  Route landed: the two-open-set gluing of the brief, with the analytic work taken
+  wholesale from the **vendored** `NavierStokes.ResidualRegularity` (not `ResidualCalculus`):
+  `contDiffOn_{temporalDerivative,spatialDerivative,spatialLaplacian}` on the open slab
+  `Ioo 0 1 ×ˢ univ ⊆ preSingularDomain` (`preSingularDomain` itself is not open, so
+  `0 < τ₀` is needed for *smoothness*, not only for positive time), and the locality
+  lemmas `*_congr` (hypothesis `b =ᶠ[𝓝 z] 0` only) off `tsupport b`;
+  `contDiff_iff_contDiffAt` + `ContDiffAt.congr_of_eventuallyEq` glue.  `force_support`
+  avoids `HasCompactSupport.add` and any new definition: the single inclusion
+  `tsupport (affineForce ν U F b) ⊆ tsupport F ∪ tsupport b` yields both halves.
+  `τ₁ < 1` is carried **explicitly** (as lane 403 did): `AffineAdmissible` is satisfiable
+  with `τ₁ ≥ 1` (take `b = 0`), so it cannot supply it.  Probes:
+  `research/T24/probes/affine_force_closes.lean` discharges both registered fields on
+  `Bindings.packet ν hν` in Contracts vocabulary and gives the `b = 0` reduction to the
+  packet's own `force_smooth`/`force_support`;
+  `research/T24/probes/affine_force_nonzero.lean` rebuilds lane 398's nonzero
+  `bWitness = spatialCurl (θ·φ·e₁)` on `ball 0 1 × (1/4,3/4)` and instantiates both
+  conclusions at it.  All module and probe declarations print
+  `[propext, Classical.choice, Quot.sound]` (`research/T24/axioms_ua4.lean`).
 - **Ua5 — `speed_unbounded`** (`:1069`): `∀ b admissible, SpeedUnboundedAtOne (affineVelocity U b)`. Route:
   `U+b = U` on `t ≥ τ₁` (Ua1 `late_agreement`, `τ₁<1`), so the packet's `SpeedUnboundedAtOne U` (raw field,
   `Packet.lean:145`) transfers. **S–M, codex-sol.** No named input. Deps: Ua1. **Done: lane 403.**
