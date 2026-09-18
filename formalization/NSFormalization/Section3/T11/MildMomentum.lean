@@ -753,14 +753,39 @@ theorem persistence_nonlinear_decay {ν T : ℝ} (C : TorusTwoSpaceContract ν)
 
 /-! ## 10. Rapid decay of the whole Duhamel source -/
 
+/-- **The force side of `PersistenceInput` is a theorem, not a hypothesis.**  For
+a smooth unit-periodic physical force, the order-three datum path automatically
+has continuous realizations at every Sobolev order:
+`Section3/T11/CriterionBridge.lean`'s `exists_periodicDatum_smooth` supplies a
+datum at each time and each order, and `Section3/T10/ForcePaths.lean`'s
+`continuous_datum_path` makes the resulting path continuous. -/
+theorem persistenceInput_force_of_smooth {T : ℝ} {g : SpaceTimeField}
+    {F : ℝ → PeriodicSobolev 3} (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hFg : IsPeriodicSobolevPath 3 g F) : PersistenceInput T F := by
+  intro m
+  have hgt : ∀ t : ℝ, ContDiff ℝ ∞ (fun x : Space ↦ g (t, x)) :=
+    fun t ↦ hg.comp (contDiff_const.prodMk contDiff_id)
+  have hpt : ∀ t : ℝ, IsPeriodicSpatial (fun x : Space ↦ g (t, x)) :=
+    fun t ↦ hgp t (mem_univ t)
+  have hex : ∀ t : ℝ, ∃ G : PeriodicSobolev ((m : ℕ) : ℝ),
+      IsPeriodicDatum ((m : ℕ) : ℝ) (fun x ↦ g (t, x)) G :=
+    fun t ↦ exists_periodicDatum_smooth ((m : ℕ) : ℝ) (hgt t) (hpt t)
+  choose G hG using hex
+  refine ⟨G, (continuous_datum_path m hg G hG).continuousOn, fun t ht i k ↦ ?_⟩
+  rw [torusPhysicalCoeff_eq (hG t) i k, torusPhysicalCoeff_eq (hFg t ht.1) i k]
+
+
 /-- Uniform rapid decay of the projected force coefficients. -/
-theorem persistence_force_decay {T : ℝ} {F P : ℝ → PeriodicSobolev 3}
-    (hF : PersistenceInput T F) (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
+theorem persistence_force_decay {T : ℝ} {g : SpaceTimeField} {F P : ℝ → PeriodicSobolev 3}
+    (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hFg : IsPeriodicSobolevPath 3 g F)
+    (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     (N : ℕ) {a b : ℝ} (hab : Icc a b ⊆ Ico (0 : ℝ) T) :
     ∃ D : ℝ, 0 ≤ D ∧ ∀ t ∈ Icc a b, ∀ (i : Fin 3) (k : PeriodicFrequency),
       periodicFrequencyWeight k ^ N * ‖torusPhysicalCoeff 3 (P t) i k‖ ≤
         D * (periodicFrequencyWeight k ^ 2)⁻¹ := by
-  obtain ⟨M, hM, hbd⟩ := persistence_uniform_decay hF N hab
+  obtain ⟨M, hM, hbd⟩ := persistence_uniform_decay
+    (persistenceInput_force_of_smooth hg hgp hFg) N hab
   refine ⟨6 * M, by linarith, fun t ht i k ↦ ?_⟩
   have hwk : (0 : ℝ) < periodicFrequencyWeight k := mildPressure_weight_pos k
   have ht0 : (0 : ℝ) ≤ t := (hab ht).1
@@ -806,15 +831,16 @@ theorem periodicAngularFrequencySq_le (k : PeriodicFrequency) :
 /-- Uniform rapid decay of the predicted derivative coefficients on a compact
 subinterval of the lifespan. -/
 theorem mildDerivCoeff_decay {ν T : ℝ} (C : TorusTwoSpaceContract ν)
-    {F P u : ℝ → PeriodicSobolev 3}
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
+    (hu : PersistenceInput T u) (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hFg : IsPeriodicSobolevPath 3 g F)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     (N : ℕ) {a b : ℝ} (hab : Icc a b ⊆ Ico (0 : ℝ) T) :
     ∃ D : ℝ, 0 ≤ D ∧ ∀ t ∈ Icc a b, ∀ (i : Fin 3) (k : PeriodicFrequency),
       periodicFrequencyWeight k ^ N * ‖mildDerivCoeff C P u t i k‖ ≤
         D * (periodicFrequencyWeight k ^ 2)⁻¹ := by
   obtain ⟨M₁, hM₁, hb₁⟩ := persistence_uniform_decay hu (N + 1) hab
-  obtain ⟨M₂, hM₂, hb₂⟩ := persistence_force_decay hF hPL N hab
+  obtain ⟨M₂, hM₂, hb₂⟩ := persistence_force_decay hg hgp hFg hPL N hab
   obtain ⟨M₃, hM₃, hb₃⟩ := persistence_nonlinear_decay C hu N hab
   refine ⟨|ν| * M₁ + (M₂ + M₃), by positivity, fun t ht i k ↦ ?_⟩
   have hwk : (0 : ℝ) < periodicFrequencyWeight k := mildPressure_weight_pos k
@@ -895,26 +921,28 @@ def mildTimeDerivative {ν : ℝ} (C : TorusTwoSpaceContract ν) (P u : ℝ → 
     (torusScalarSeries (fun k ↦ mildDerivCoeff C P u t i k) x).re
 
 theorem mildDerivCoeff_summable {ν T : ℝ} (C : TorusTwoSpaceContract ν)
-    {F P u : ℝ → PeriodicSobolev 3}
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
+    (hu : PersistenceInput T u) (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hFg : IsPeriodicSobolevPath 3 g F)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) (i : Fin 3) (N : ℕ) :
     Summable (fun k ↦ periodicFrequencyWeight k ^ N * ‖mildDerivCoeff C P u t i k‖) := by
-  obtain ⟨D, hD, hbd⟩ := mildDerivCoeff_decay C hu hF hPL N
+  obtain ⟨D, hD, hbd⟩ := mildDerivCoeff_decay C hu hg hgp hFg hPL N
     (a := t) (b := t) (by simpa using ht)
   refine Summable.of_nonneg_of_le (fun k ↦ ?_) (fun k ↦ hbd t (by simp) i k)
     (summable_inverse_periodicFrequencyWeight.mul_left D)
   exact mul_nonneg (pow_nonneg (mildPressure_weight_pos k).le N) (norm_nonneg _)
 
 theorem mildTimeDerivative_contDiff {ν T : ℝ} (C : TorusTwoSpaceContract ν)
-    {F P u : ℝ → PeriodicSobolev 3}
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
+    (hu : PersistenceInput T u) (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hFg : IsPeriodicSobolevPath 3 g F)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) :
     ContDiff ℝ ∞ (mildTimeDerivative C P u t) := by
   apply (PiLp.contDiff_toLp (p := 2)).comp
   refine contDiff_pi.mpr fun i ↦ Complex.reCLM.contDiff.comp ?_
-  exact torusScalarSeries_contDiff (fun N ↦ mildDerivCoeff_summable C hu hF hPL ht i N)
+  exact torusScalarSeries_contDiff (fun N ↦ mildDerivCoeff_summable C hu hg hgp hFg hPL ht i N)
 
 theorem mildTimeDerivative_periodic {ν : ℝ} (C : TorusTwoSpaceContract ν)
     (P u : ℝ → PeriodicSobolev 3) (t : ℝ) :
@@ -926,14 +954,15 @@ theorem mildTimeDerivative_periodic {ν : ℝ} (C : TorusTwoSpaceContract ν)
     (torusScalarSeries_periodic (fun k ↦ mildDerivCoeff C P u t i k) x j)
 
 theorem mildTimeDerivative_coeff {ν T : ℝ} (C : TorusTwoSpaceContract ν)
-    {F P u : ℝ → PeriodicSobolev 3}
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
+    (hu : PersistenceInput T u) (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hFg : IsPeriodicSobolevPath 3 g F)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) (i : Fin 3) (k : PeriodicFrequency) :
     periodicFourierCoeff (fun x ↦ ((mildTimeDerivative C P u t x i : ℝ) : ℂ)) k =
       mildDerivCoeff C P u t i k := by
   have hsum : Summable (fun l ↦ ‖mildDerivCoeff C P u t i l‖) := by
-    simpa using mildDerivCoeff_summable C hu hF hPL ht i 0
+    simpa using mildDerivCoeff_summable C hu hg hgp hFg hPL ht i 0
   have hreal : (fun x ↦ ((mildTimeDerivative C P u t x i : ℝ) : ℂ)) =
       torusScalarSeries (fun l ↦ mildDerivCoeff C P u t i l) := by
     funext x
@@ -946,15 +975,16 @@ theorem mildTimeDerivative_coeff {ν T : ℝ} (C : TorusTwoSpaceContract ν)
 in time at every interior time, with the Fourier series of the Duhamel
 derivative as its derivative. -/
 theorem torusPhysicalVelocity_hasDerivAt {ν T : ℝ} {C : TorusTwoSpaceContract ν}
-    {A : PeriodicSobolev 3} {F P u : ℝ → PeriodicSobolev 3}
+    {A : PeriodicSobolev 3} {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
     (hmild : TorusForcedMildOn C A P T u) (hPc : ContinuousOn P (Icc (0 : ℝ) T))
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    (hu : PersistenceInput T u) (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hFg : IsPeriodicSobolevPath 3 g F)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     {a b t : ℝ} (hab : Icc a b ⊆ Ico (0 : ℝ) T) (hlt : a < b) (ht : t ∈ Ioo a b)
     (x : Space) :
     HasDerivAt (fun r : ℝ ↦ torusPhysicalVelocity u (r, x))
       (mildTimeDerivative C P u t x) t := by
-  obtain ⟨D, hD, hbd⟩ := mildDerivCoeff_decay C hu hF hPL 0 hab
+  obtain ⟨D, hD, hbd⟩ := mildDerivCoeff_decay C hu hg hgp hFg hPL 0 hab
   have ha0 : (0 : ℝ) ≤ a := (hab (left_mem_Icc.mpr hlt.le)).1
   have hbT : b < T := (hab (right_mem_Icc.mpr hlt.le)).2
   have hIoo : Ioo a b ⊆ Ioo (0 : ℝ) T := fun r hr ↦
@@ -996,14 +1026,15 @@ theorem torusPhysicalVelocity_hasDerivAt {ν T : ℝ} {C : TorusTwoSpaceContract
 /-- The physical time derivative of the recovered velocity, in the exact
 `temporalDerivative` spelling of the problem statement. -/
 theorem temporalDerivative_torusPhysicalVelocity {ν T : ℝ} {C : TorusTwoSpaceContract ν}
-    {A : PeriodicSobolev 3} {F P u : ℝ → PeriodicSobolev 3}
+    {A : PeriodicSobolev 3} {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
     (hmild : TorusForcedMildOn C A P T u) (hPc : ContinuousOn P (Icc (0 : ℝ) T))
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    (hu : PersistenceInput T u) (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hFg : IsPeriodicSobolevPath 3 g F)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     {a b t : ℝ} (hab : Icc a b ⊆ Ico (0 : ℝ) T) (hlt : a < b) (ht : t ∈ Ioo a b)
     (x : Space) :
     temporalDerivative (torusPhysicalVelocity u) t x = mildTimeDerivative C P u t x := by
-  have h := torusPhysicalVelocity_hasDerivAt hmild hPc hu hF hPL hab hlt ht x
+  have h := torusPhysicalVelocity_hasDerivAt hmild hPc hu hg hgp hFg hPL hab hlt ht x
   show fderiv ℝ (fun r : ℝ ↦ torusPhysicalVelocity u (r, x)) t 1 = _
   rw [h.hasFDerivAt.fderiv]
   simp
@@ -1133,16 +1164,17 @@ theorem periodicFourierCoeff_spatialLaplacian {v : SpaceTimeField} {t : ℝ}
 /-- The physical time derivative on the open lifespan, without an auxiliary
 compact window. -/
 theorem temporalDerivative_torusPhysicalVelocity' {ν T : ℝ} {C : TorusTwoSpaceContract ν}
-    {A : PeriodicSobolev 3} {F P u : ℝ → PeriodicSobolev 3}
+    {A : PeriodicSobolev 3} {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
     (hmild : TorusForcedMildOn C A P T u) (hPc : ContinuousOn P (Icc (0 : ℝ) T))
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    (hu : PersistenceInput T u) (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hFg : IsPeriodicSobolevPath 3 g F)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) (x : Space) :
     temporalDerivative (torusPhysicalVelocity u) t x = mildTimeDerivative C P u t x := by
   have hab : Icc (t / 2) ((t + T) / 2) ⊆ Ico (0 : ℝ) T := by
     intro r hr
     exact ⟨le_trans (by linarith [ht.1]) hr.1, lt_of_le_of_lt hr.2 (by linarith [ht.2])⟩
-  refine temporalDerivative_torusPhysicalVelocity hmild hPc hu hF hPL hab
+  refine temporalDerivative_torusPhysicalVelocity hmild hPc hu hg hgp hFg hPL hab
     (by linarith [ht.1, ht.2]) ⟨by linarith [ht.1], by linarith [ht.2]⟩ x
 
 
@@ -1188,7 +1220,7 @@ theorem momentum_of_pressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
     {Ad : PeriodicSobolev 3} {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
     {p : SpaceTimeScalar}
     (hmild : TorusForcedMildOn C Ad P T u) (hPc : ContinuousOn P (Icc (0 : ℝ) T))
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    (hu : PersistenceInput T u)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
     (hFg : IsPeriodicSobolevPath 3 g F)
@@ -1231,14 +1263,14 @@ theorem momentum_of_pressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
       pressureGradient p t x i
   have htd : ∀ y : Space, temporalDerivative (torusPhysicalVelocity u) t y i =
       mildTimeDerivative C P u t y i := fun y ↦ congrArg (fun w : Space ↦ w i)
-    (temporalDerivative_torusPhysicalVelocity' hmild hPc hu hF hPL ht y)
+    (temporalDerivative_torusPhysicalVelocity' hmild hPc hu hg hgp hFg hPL ht y)
   rw [htd x]
   -- the two smooth periodic scalar fields
   have hLs : ContDiff ℝ ∞ (fun y : Space ↦
       mildTimeDerivative C P u t y i -
         ν * spatialLaplacian (torusPhysicalVelocity u) t y i) :=
     (((EuclideanSpace.proj (𝕜 := ℝ) i).contDiff.comp
-      (mildTimeDerivative_contDiff C hu hF hPL ht'))).sub
+      (mildTimeDerivative_contDiff C hu hg hgp hFg hPL ht'))).sub
       (contDiff_const.mul (spatialLaplacian_component_contDiff hv i))
   have hLp : IsPeriodicSpatial (fun y : Space ↦
       mildTimeDerivative C P u t y i -
@@ -1281,7 +1313,7 @@ theorem momentum_of_pressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
       (fun y l ↦ congrArg (fun r : ℝ ↦ (r : ℂ)) (hfp y l))
   have hcd1 : ContDiff ℝ ∞ (fun y : Space ↦ mildTimeDerivative C P u t y i) :=
     (EuclideanSpace.proj (𝕜 := ℝ) i).contDiff.comp
-      (mildTimeDerivative_contDiff C hu hF hPL ht')
+      (mildTimeDerivative_contDiff C hu hg hgp hFg hPL ht')
   have hpd1 : IsPeriodicSpatial (fun y : Space ↦ mildTimeDerivative C P u t y i) :=
     fun y l ↦ congrArg (fun w : Space ↦ w i) (mildTimeDerivative_periodic C P u t y l)
   have hcd2 : ContDiff ℝ ∞ (fun y : Space ↦
@@ -1350,7 +1382,7 @@ theorem momentum_of_pressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
   rw [hLsplit, hRsplit, periodicFourierCoeff_sub hI1 hI2' k,
     periodicFourierCoeff_sub hI34 hI5 k,
     periodicFourierCoeff_const_mul (ν : ℂ) _ k,
-    mildTimeDerivative_coeff C hu hF hPL ht' i k,
+    mildTimeDerivative_coeff C hu hg hgp hFg hPL ht' i k,
     periodicFourierCoeff_spatialLaplacian hv hvp i k,
     physicalVelocity_coeff u t i k, hpgrad t ht' i k, hsrc,
     mildDerivCoeff_eq_source C hu hFg hPL ht' i k]
@@ -1365,7 +1397,7 @@ theorem projected_of_pressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
     {Ad : PeriodicSobolev 3} {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
     {p : SpaceTimeScalar}
     (hmild : TorusForcedMildOn C Ad P T u) (hPc : ContinuousOn P (Icc (0 : ℝ) T))
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    (hu : PersistenceInput T u)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
     (hFg : IsPeriodicSobolevPath 3 g F)
@@ -1389,7 +1421,7 @@ theorem projected_of_pressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
   exact (NSFormalization.Section4.A01.navierStokesResidual_eq_iff_projected ν
     (torusPhysicalVelocity u) p t x (g (t, x))
     (hv.differentiable (by simp) x) (hdivfree t ht' x)).mp
-    (momentum_of_pressure hmild hPc hu hF hPL hg hgp hFg hps hpp hpgrad hdivfree ht x)
+    (momentum_of_pressure hmild hPc hu hPL hg hgp hFg hps hpp hpgrad hdivfree ht x)
 
 /-! ## 14. Lane 326's pressure instantiates the momentum theorem -/
 
@@ -1423,7 +1455,7 @@ theorem mildPressure_gradient_source_coeff {T : ℝ} {g : SpaceTimeField}
 theorem momentum_of_mildPressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
     {Ad : PeriodicSobolev 3} {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
     (hmild : TorusForcedMildOn C Ad P T u) (hPc : ContinuousOn P (Icc (0 : ℝ) T))
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    (hu : PersistenceInput T u)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
     (hFg : IsPeriodicSobolevPath 3 g F)
@@ -1432,7 +1464,7 @@ theorem momentum_of_mildPressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
     {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) (x : Space) :
     NavierStokesR3.ProblemStatement.navierStokesResidual ν (torusPhysicalVelocity u)
       (mildPressure g u) t x = g (t, x) :=
-  momentum_of_pressure hmild hPc hu hF hPL hg hgp hFg
+  momentum_of_pressure hmild hPc hu hPL hg hgp hFg
     (fun _ hs ↦ mildPressure_spatial_contDiff hg hgp hu hs)
     (mildPressure_periodic g u)
     (fun _ hs i k ↦ mildPressure_gradient_source_coeff hg hgp hu hs i k)
@@ -1443,7 +1475,7 @@ theorem momentum_of_mildPressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
 theorem projected_of_mildPressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
     {Ad : PeriodicSobolev 3} {g : SpaceTimeField} {F P u : ℝ → PeriodicSobolev 3}
     (hmild : TorusForcedMildOn C Ad P T u) (hPc : ContinuousOn P (Icc (0 : ℝ) T))
-    (hu : PersistenceInput T u) (hF : PersistenceInput T F)
+    (hu : PersistenceInput T u)
     (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
     (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
     (hFg : IsPeriodicSobolevPath 3 g F)
@@ -1454,7 +1486,7 @@ theorem projected_of_mildPressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
         ν • spatialLaplacian (torusPhysicalVelocity u) t x =
       (g (t, x) - convectionDivergenceT (torusPhysicalVelocity u) t x) -
         pressureGradient (mildPressure g u) t x :=
-  projected_of_pressure hmild hPc hu hF hPL hg hgp hFg
+  projected_of_pressure hmild hPc hu hPL hg hgp hFg
     (fun _ hs ↦ mildPressure_spatial_contDiff hg hgp hu hs)
     (mildPressure_periodic g u)
     (fun _ hs i k ↦ mildPressure_gradient_source_coeff hg hgp hu hs i k)

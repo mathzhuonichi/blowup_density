@@ -53,19 +53,40 @@ already gives `|φ'ₖ(r)| ≤ 6MD·W(k)^{−2}`, which is summable
 the lane, and it uses vendor's `ResidualRegularity.contDiffOn_temporalDerivative`
 for the joint continuity of `(r,x) ↦ ∂ₜu(r,x)` on the open slab.
 
-### 1.3 Rejected: a Leray-projected statement of the coefficient momentum equation
+### 1.3 Design: the projected form is a corollary of the pressure-explicit one
 
-The brief's spelling is `d/dt û(t)(k) = −ν4π²|k|²û(t)(k) + (P̂(f̂(t) − Q̂(t)))(k)`.
-Proving the `P̂` form needs the extra step "the left-hand side is solenoidal,
-therefore `P̂` acts as the identity on it, therefore the gradient term is the
-Leray complement".  For the **energy identity** that step is dead weight: the
-pressure term `∑ᵢ conj(û ᵢ(k))·2πikᵢp̂(k)` is annihilated at every single
-frequency by coefficient-side solenoidality (lane 322's `torusPressureSymbol_drop`,
-reproved here without the weight as `torusPressureSymbol_drop_raw`).  So the
-module states the momentum equation in the **unprojected** form
-`velocityDerivCoeffT_momentum`, which carries the explicit `2πikᵢ p̂(k)` term, and
-drops it at the pairing step.  Equivalent content, one fewer construction; the
-Leray projector is never invoked.
+The brief's spelling of the coefficient equation is the Leray-projected
+`d/dt û(t)(k) = −ν4π²|k|²û(t)(k) + (P̂(f̂(t) − Q̂(t)))(k)`.  The first submission
+delivered only the pressure-explicit form and argued that the projector is dead
+weight for the energy identity; the codex review rejected that as a fidelity
+defect (`research/T11/REVIEW_335-T11-U12a-energy-identity.md` §3.1), correctly:
+the brief asks for the projected statement, and it is the form every downstream
+consumer of a *mild* solution already uses
+(`MildMomentum.mild_physicalCoeff_hasDerivAt:255-264`).
+
+Both are now in the module, in the honest dependency order:
+
+* `velocityDerivCoeffT_momentum` (auxiliary) — the pressure-explicit form
+  `d/dt û ᵢ(k) = −ν|2πk|²û ᵢ(k) + (f̂ ᵢ(k) − Q̂ ᵢ(k)) − 2πikᵢ p̂(k)`, read straight
+  off `w.momentum`;
+* `velocityDerivCoeffT_momentum_projected` — the brief's statement, obtained by
+  applying `P̂` to it.  Three ingredients:
+  `solenoidal_velocityDerivCoeffT` (the coefficient divergence
+  `∑ⱼ 2πikⱼ û ⱼ(r)` is **identically** `0` on `Ioo 0 T`, so its time derivative
+  vanishes at `t` — `HasDerivAt.unique` against `hasDerivAt_const`),
+  `lerayAt_of_solenoidal` (raw-coefficient form of
+  `T10.Leray.periodicLeray_of_solenoidal`: `P̂` fixes `d/dt û` and `û`), and
+  `lerayAt_gradient` (`P̂` annihilates `2πikᵢ q`).  `lerayAt` is
+  `T10.periodicLeray` read on a bare frequency vector — the `rfl` bridge
+  `MildMomentum.periodicLeray_eq_lerayAt` is exhibited as an `example` in the
+  probe, and `projected_momentum_closes` restates the brief's equation with
+  `4π²|k|²` written out.
+
+The **energy identity** still uses only the unprojected form: the pressure term
+is annihilated pairwise at every frequency by
+`solenoidal_velocityCoeffT` + `torusPressureSymbol_drop_raw`, so routing it
+through `P̂` would add a step without changing the value.  Nothing was weakened
+to avoid the projector; it is now proved and available.
 
 ## 2. Paths tried, and the exact error text
 
@@ -173,6 +194,31 @@ in the **same** (unfolded) vocabulary.
 * `push_neg` is deprecated at this pin (warning only); replaced by an explicit
   `by_contra` + `not_not.mp`.
 
+### 2.8 Negative check (reviewer's sign-flip mutation)
+
+`research/T11/probes/rev335_mutation_sign.lean` (added by the codex reviewer,
+kept verbatim) flips **only** the diffusion sign in the conclusion of
+`energyIdentity_of_classical` — `-2 * ν * …` becomes `2 * ν * …` — and tries to
+close it with the module theorem.  It must fail, and it fails on the conclusion,
+not by a dropped premise:
+
+```
+../research/T11/probes/rev335_mutation_sign.lean:30:2: error: Type mismatch
+  energyIdentity_of_classical w hf m ht hGm hFm hNm
+has type
+  HasDerivAt (fun r => torusSobolevNormAt (↑m) w.velocity r ^ 2)
+    (-2 * ν * torusGradientNormAt (↑m) w.velocity t ^ 2 + 2 * torusRealPairing Gm Fm - 2 * torusRealPairing Gm Nm) t
+but is expected to have type
+  HasDerivAt (fun r => torusSobolevNormAt (↑m) w.velocity r ^ 2)
+    (2 * ν * torusGradientNormAt (↑m) w.velocity t ^ 2 + 2 * torusRealPairing Gm Fm - 2 * torusRealPairing Gm Nm) t
+```
+
+This file is an **expected-failure artifact** (same convention as
+`rev330_negative.lean`): it is not run by any gate.  The positive companion is
+the probe's `energyIdentity_positive`, which pins the right-hand side to
+`2e^{2t}‖K‖² > 0` at the nonzero forced solution `u(t,x) = eᵗc`, so the sign is
+load-bearing in both directions.
+
 ## 3. What is proved, what is not
 
 **Proved unconditionally on a `ClassicalSolutionT`** (no named input, no
@@ -195,10 +241,23 @@ theorem argument**, spelled out in the binder; it is *not* a `def … : Prop`, a
 it is not the target restated (it is a pointwise-in-`t` product estimate, while
 the target is a uniform bound over `[0,S)` for the glued field of `SolvesBelowT`).
 Satisfiability: the data are unique (`T10.datum_unique`), both sides are finite
-real numbers at every classical solution, and the bound is the torus analogue of
-`Section4.A03.outerProductTame` / the `research/A04/SL5_SPLIT.md` campaign;
-lane 328's real-order projected convection CLM `H^r × H^r → H^{r-1}` is the
-natural starting point.  With it, `PeriodicContinuationAPI.higherOrderBound`
+real numbers at every classical solution.
+
+Gap search ("is it already in the tree?").  `grep -rn` over
+`formalization/NSFormalization/Section4`, `Section3/`, `Paper1/Periodic*.lean`
+and `vendor/HeliCorgi/Formal/` finds only whole-space analogues, **none** of
+which has the torus `torusRealPairing` / `torusGradientNormAt` statement:
+
+* `Section4/A03/OuterTameProduct.lean:172-179` `outerProductTame` — the `ℝ³`
+  outer-product tame estimate (the SL5 ingredient, not the pairing bound);
+* `Section4/A04/HighEnergy.lean:125-146` `inner_energy_Rhigh` — the generic
+  whole-space `eq:Rhigh` inner-product step, stated on the `ℝ³` carrier;
+* `Section4/A01/ConvectionDivergence.lean:111-118` — the `ℝ³`
+  advection/tensor-divergence bridge.
+
+So the residual is genuinely open on the torus; lane 328's real-order projected
+convection CLM `H^r × H^r → H^{r-1}` plus T12's `tameProduct` is the natural
+starting point, as the `research/A04/SL5_SPLIT.md` campaign was on `ℝ³`.  With it, `PeriodicContinuationAPI.higherOrderBound`
 closes (`higherOrderBound_of_pairingBound`).
 
 ## 4. Commands
@@ -212,5 +271,7 @@ make check
 make test
 ```
 All clean, no warnings, no `sorry`/`admit`/`axiom`/`native_decide`, no
-`set_option maxHeartbeats`; 51 `#guard_msgs`-checked axiom prints, each exactly
-`[propext, Classical.choice, Quot.sound]`.
+`set_option maxHeartbeats`; 55 `#guard_msgs`-checked axiom prints, each exactly
+`[propext, Classical.choice, Quot.sound]`.  `rev335_mutation_sign.lean` is the
+expected-failure negative check of §2.8 and is deliberately **not** in the gate
+list.
