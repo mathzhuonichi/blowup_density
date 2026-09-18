@@ -105,6 +105,40 @@ Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core
   `H1Trilinear` therefore sits on the `GradientLSix` side and repeats four small
   lane-413 helpers under `…H1` names; U10b needs both sides, so the duplicate
   must be deleted upstream (lane-400's general version subsumes lane-405's).
+  **Resolved** by lane 427 (`Section3/T12/DirDeriv.lean`); lane 432 imports
+  `YBound` and `H1Trilinear` together with no error.
+- **U10b `hOneEnergy`** — DONE (lane 432).
+  `Section3/T20/H1Energy.lean`, theorem
+  `NSFormalization.Section3.T20.hOneEnergy` (verbatim field type) at
+  `CH1 = 2` (`def CH1`, `CH1_pos`) and
+  `c = criticalSmallnessH1 = min criticalSmallness (1/(8·h1TrilinearConst))`
+  (`criticalSmallnessH1_pos`, `criticalSmallnessH1_le_half` so U9's
+  `yBound_of_le` applies verbatim, `criticalSmallnessH1_lt_quarter_C₀` and
+  `criticalSmallnessH1_lt_quarter_C₁` — the structure's two **strict**
+  shrinkings, at `C₀ = criticalTrilinearConst` and `C₁ = h1TrilinearConst`).
+  No named input, no residual.
+  Route: the order-`1` homogeneous frequency energy `h1FreqEnergy` differentiated
+  under the sum by the U8/T11 template (`hasDerivAt_tsum_h1FreqEnergy`, the same
+  order-`1` inhomogeneous majorant since `|2πk|² ≤ 1 + |2πk|²`); the new order-`2`
+  Parseval `periodicLpENorm_two_laplacian_eq_homogeneous`
+  (`‖Δz‖₂ = ‖z − ∫z‖_{Ḣ²}`, the analogue of T10's `gradient_eq_homogeneousENorm`
+  that did not exist); `hasSum_angularPairing`
+  (`∑ₖ|2πk|²Re∑ᵢconj(v̂ᵢ)ẑᵢ = −⟪Δv,z⟫_{L²}`); the force term by
+  `T11.hasSum_datum_pair`/`torusRealPairing_le` pairing the order-`2` homogeneous
+  velocity datum against the order-`0` force datum (possible because
+  `PeriodicSobolev s` has a **phantom** `s`), then Young; the convection term by
+  U10a's `h1Trilinear_slice`, absorbed with U9's `yBound_of_le`.
+  **U10b does not use U6** (nor `torusYoungAbsorb`, nor
+  `HighOrder.lean:312,345,367`): as in U8 the computation is frequency-by-frequency
+  through `rawEnergyDeriv_split` and `re_sum_conj_fderiv_dir_zero`, so the physical
+  mean-free equation is never formed.  Real dependency set: U8 (via `YBound`), U9,
+  U10a.
+  Axioms `[propext, Classical.choice, Quot.sound]` for all 31 declarations.
+  Probe `research/T20/probes/h1_energy_closes.lean` (field-type match against
+  `CriticalRegularityTAPI`, both strict shrinkings, non-vacuity at lanes
+  415/428's zero-force zero-solution instance with the smallness hypothesis
+  satisfied); audit `research/T20/axioms_u10b.lean`; attempts
+  `research/T20/ATTEMPTS_U10B.md`.
 
 ## 0. Ground rules
 
