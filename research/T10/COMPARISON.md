@@ -133,9 +133,21 @@ but no obligation dropped.
     continuous/strongly measurable coefficient paths at every integer order,
     have finite `L¹_tH^m_x` and `L²_tH^m_x` norms, and identify `MemForceT` with
     the existing `PeriodicForceSpace` interface.
+    Registered/proved by lane 312: `ForcePaths.lean` exports `force_coefficient_path`
+    in the T10 namespace, which supplies continuous, strongly measurable compactly supported
+    paths with the amended datum at every time and every integer order;
+    `forceSobolevENormT_ne_top` covers every exponent, including 1 and 2.
+    `memForceT_iff_isTestForce` identifies the Paper1 interface. Smoothness
+    of the coefficient-valued path itself is not asserted.
 12. Prove the physical/coefficient gradient and energy identities and, for
     fixed finite `T`, equivalence of `energyENormT` with the usual sum norm on
     `L∞_tL²_x ∩ L²_tH¹_x`.
+    Registered/proved by lane 312: `gradientTensor_parseval`,
+    `gradient_eq_homogeneousENorm`, and `energyENormT_eq` identify the full
+    Frobenius gradient and the physical/coefficient energy, with exact angular
+    frequency factors. The energy identity assumes smooth periodic slices on
+    `(0,T)` and needs no time regularity. The separate comparison with the
+    inhomogeneous intersection sum norm is not claimed by this lane.
 13. Prove the mean evolution identity `m'(t)=meanT(f(t))`; derive preservation
     of mean zero for zero-mean forcing and the exact general mean-free equation
     after the Galilean translation used by T11/T20.
