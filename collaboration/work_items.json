@@ -407,9 +407,11 @@
     {
       "id": "T22",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T04.bounded_domain_norm"
+      ],
       "deliverable": "Reconcile research/T22/Spec.lean against eq:restriction-norm and eq:zero-extension, then register the accepted versioned contract under parent task T04 with its typed binding and axiom test."
     },
     {
@@ -423,9 +425,11 @@
     {
       "id": "T24",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T04.affine_variation"
+      ],
       "deliverable": "Reconcile research/T24/Spec.lean against prop:affine, prop:multiple and prop:conservative, then register the accepted versioned leaf contracts under parent task T04 with typed bindings and axiom tests."
     }
   ]
