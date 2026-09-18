@@ -173,8 +173,8 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 405-T12-U6-gradient-lambda-l3 | worktree 安装中 → Opus prover | 09-18 1438Z | — | — | T12 U6：gradientLambdaCriticalL3（对 ∂ⱼv 与 Λv 用 396 光滑版 U4 + Fourier 阶移，常数 CcriticalThreeHalves） |
 | 406-T22-UA3b-cutoff-multiplier-field | worktree 安装中（基于 397 分支）→ Opus prover | 09-18 1438Z | — | — | T22 U-A3b：在 397 引擎上闭合逐字 cutoffMultiplier（R1 乘积→卷积 datum 级、R2 实子空间、R3 范数辨识、R4 C>0） |
 | 407-T24-Ua6-energy-finite | worktree 安装中 → Opus prover | 09-18 1438Z | — | — | T24a Ua6：energy_finite（紧支光滑 b 的 E₁ 范数有限 + 次可加性 + 原始 energyENorm 1 U < ⊤） |
-| 408-T22-UB2-zero-ext-regularity | worktree 安装中 → codex sol | 09-18 1438Z | — | — | T22 U-B2：零延拓正则性（contDiff/HasCompactSupport/MemLp/datum 存在） |
-| 409-T22-UB3-cutoff-datum | worktree 安装中 → codex sol | 09-18 1438Z | — | — | T22 U-B3：cutoff 存在 + IsCutoffDatum 实现零延拓的 datum |
+| 408-T22-UB2-zero-ext-regularity | codex 首轮被 429 打断（部分文件已在 worktree）；续做包装器 11 分钟后重试（astra→sol） | 09-18 1450Z | — | — | T22 U-B2：零延拓正则性（contDiff/HasCompactSupport/MemLp/datum 存在） |
+| 409-T22-UB3-cutoff-datum | codex 首轮被 429 打断；续做包装器 12 分钟后重试（astra→sol） | 09-18 1450Z | — | — | T22 U-B3：cutoff 存在 + IsCutoffDatum 实现零延拓的 datum |
 | 410-SPEC-t21-draft-a | codex sol 运行中 | 09-18 1447Z | — | — | T21 spec 双盲草案 A：thm:main (i)+(ii) + cor:nondensity（NonDensityAPI / MainTheoremAPI，消费 T19/T20 canonical） |
 | 411-SPEC-t21-draft-b | Opus prover 子代理运行中 | 09-18 1447Z | — | — | T21 spec 双盲草案 B（与 A 互不可见） |
-| 412-MAINT-t17-forceprofile-merge-repair | worktree 安装中 → codex astra | 09-18 1447Z | — | — | MAINT：#366 union 合并损坏 T17/ForceProfile.lean（重复 import、拆裂 docstring）→ 恢复为 394 已审版本（c4be85b0），全 T17 闭包 + 探针 + 门禁验证 |
+| 412-MAINT-t17-forceprofile-merge-repair | codex 容量/429 波（14:50Z）：首次启动失败，包装器 10 分钟后重试（sol→astra） | 09-18 1450Z | — | — | MAINT：#366 union 合并损坏 T17/ForceProfile.lean（重复 import、拆裂 docstring）→ 恢复为 394 已审版本（c4be85b0），全 T17 闭包 + 探针 + 门禁验证 |
