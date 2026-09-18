@@ -184,3 +184,91 @@ and retain a common low-order time. A higher-order or fixed-force replacement
 requires the separately named V2 decision described in T11_SPLIT §3.1; it is not
 an allowed proof of this target. The U9→U10 force-quantifier issue above also
 requires lead reconciliation, independently of this proof campaign.
+
+## U9b status
+
+Lane 313 implements `Section3/T11/LocalExistence.lean` on route R2. The first
+subsequent-sub-lane target is proved **conditionally on projected convolution
+boundedness**; the second target is proved with exactly its displayed premises.
+The primed input is copied verbatim from amendment 1; its lifespan consequence
+is `quantitative_lifespan_lower_bound'`. No H¹ existence theorem is asserted.
+
+Unconditional analytic work: closedness and completeness of the real vector
+carrier, bounded heat/smoothing CLMs, joint strong heat continuity including zero,
+local integrability of the exact smoothing kernel, and absolute convergence of
+**every** convolution in the symbol on arbitrary coefficient data. In particular,
+no divergent `tsum` is being assigned an intended convection value.
+
+The **one residual analytic input** is exactly:
+
+```lean
+def TorusConvolutionInput : Prop :=
+  ∃ Q : PeriodicSobolev 3 →L[ℝ] PeriodicSobolev 3 →L[ℝ] PeriodicSobolev 2,
+    ∀ A B i k, (Q A B).1 i k = torusProjectedConvectionSymbol A B i k
+```
+
+This packages bounded real bilinearity of the specified symbol, not a solution,
+fixed point, or the two-space contract. `torusTwoSpaceContract_nonempty` proves:
+
+```lean
+(H : TorusConvolutionInput) → (ν : ℝ) → 0 < ν → Nonempty (TorusTwoSpaceContract ν)
+```
+
+`PeriodicQuantitativeLocalInput'` is the mandated eventual target, not another
+assumption of the coefficient construction. Neither it nor the old input is used
+by the contract constructor or the fixed-point proofs.
+
+`torusForcedPicard_exists` proves the exact U9c displayed existence target.
+`torusAffinePicard_exists_unique` constructs the Banach fixed point in the complete
+closed ball. `torusForcedMildOn_unique` proves equality on `[0,T]` for two solutions
+in the certified radius, and `TorusForcedMildOn.restrict` and
+`TorusPicardConstants.restrict` transfer the semantics and certificate to every
+`0 < S ≤ T`. Force integrability, nonlinear integrability and the initial value
+are part of the constructed certificate, not additional hypotheses.
+
+There is also an explicit H³ bound. Put `q = ‖C.analytic.bilinear‖`,
+`b = ‖A‖ + B`, where `B ≥ 0` bounds `‖F(t)‖` on `[0,1]`, and set
+
+```text
+η = min (1/(q*(b+1)^2+1)) (1/(2*(q*(2*(b+1))+1)))
+T = min 1 ((η/(1+2/sqrt(ν)))^2).
+```
+
+`torusForcedPicard_quantitative` constructs the unique ball solution on this
+positive `T`, with radius `b+1`. The mass estimate is
+`C.analytic.kernelPrimitive T ≤ T + 2*(sqrt ν)⁻¹*sqrt T`.
+This is a coefficient H³ theorem with a force supremum bound. It is not the
+amended H¹/all-order-force lower bound, which is only derived conditionally from
+`PeriodicQuantitativeLocalInput'`.
+
+Remaining exact work:
+
+* **U9c:** discharge `TorusConvolutionInput` above, using the now-proved absolute
+  convergence and the weight-specific H³×H³→H² estimate. The original prescribed
+  window fixed-point target, its ball uniqueness, and restriction are delivered
+  in this lane; they need no new named assumption once the contract exists.
+  A nonzero constant datum and force instantiate the coefficient theorem for any
+  exact contract. Constant-mode symbol tests and the primed physical nonzero
+  witness are unconditional. These tests do not claim to prove the global input.
+* **U9d:** the common-horizon bootstrap/physical recovery target stays exactly:
+
+  ```lean
+  ∀ (ν : ℝ), 0 < ν → ∀ (C : TorusTwoSpaceContract ν)
+    (a : SpatialField) (g : SpaceTimeField) (T : ℝ),
+    a ∈ initialClassT → ContDiff ℝ ∞ g → IsPeriodicOn univ g → 0 < T →
+    ∀ (A : PeriodicSobolev 3) (F P u : ℝ → PeriodicSobolev 3),
+      IsPeriodicDatum 3 a A → IsPeriodicSobolevPath 3 g F →
+      (∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t)) →
+      TorusForcedMildOn C A P T u →
+      ∃ w : ClassicalSolutionT ν a g T,
+        PeriodicLocalRegularity ν a g T w ∧
+        IsPeriodicSobolevPathOn 3 (Ico 0 T) w.velocity u
+  ```
+* **U9e:** prove `PeriodicQuantitativeLocalInput'` verbatim in amendment 1,
+  including the H¹ datum ball, order-wise `M`, and one common positive horizon.
+  No conversion from the coefficient force supremum bound to an order-wise
+  `L¹_t H^m`-controlled lifespan is claimed here.
+
+The probe, guarded axiom audit, attempts and gate report are respectively
+`probes/existence_u9b.lean`, `axioms_existence_u9b.lean`,
+`ATTEMPTS_EXISTENCE_U9B.md`, and `REPORT_313.md` under `research/T11/`.
