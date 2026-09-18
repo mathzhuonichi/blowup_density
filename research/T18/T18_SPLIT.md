@@ -115,6 +115,14 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   directional-Fréchet locality of `spatialDerivative`. **M, Opus.** No named input. Deps: U1
   (`correction.potential` = T16, DONE; the periodized-packet-before-start is self-contained).
 
+  **Status (lane 433, 2026-09-18): complete.** Both cross-transport fields proved on `Ico 0 T`, with the
+  case split at exactly `t_ε = T - ε²`: before it the periodized packet *slice* is the constant zero field
+  (`packet_slice_zero`, sharper than lane 426's pointwise `packet_quiet`), from it on
+  `correction.potential.correction_cancels` supplies the open removal set and the Section 4 lemma
+  `Source.cross_advection_eq_zero` closes both terms. The T16 `periodicScaledPacket` and the T15
+  `periodizedScaledVelocity` spellings are `rfl`-equal (`periodicScaledPacket_eq`), so no transport is
+  needed. Canonical theorems, Spec-form conversion probe, and exact three-axiom audit pass.
+
 - **U6 — the exact momentum equation (`eq:insertion` exactness).** New `Section3/T18/Momentum.lean`. Target
   `momentum` (`Spec.lean:1774`, `navierStokesResidual ν (velocity ε) (pressure ε) t x = force ε (t,x)` on
   `Ioo 0 T`). Route (`:315-328`): the corrected background `b_ε=v+w_ε` satisfies
@@ -124,6 +132,13 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   **U5**; pressure via `pressure_formula` (mean-zero normalization is a spatially constant shift, `∇` unchanged).
   Mirror R42 `Section4/R42/Assembly.lean` momentum. **M-L, Opus.** No named input. Deps: U1, U5 (threaded
   `scaling.solution` = T15 U11).
+
+  **Status (lane 433, 2026-09-18): complete.** `momentum` proved on `Ioo 0 T`. `Source.residual ν` is
+  `rfl`-equal to the registered `navierStokesResidual ν`, so `Source.{residual_add, corrected_background}`
+  apply directly; the two cross terms they produce are discharged by U5, the reference equation by
+  `reference.momentum`, the packet equation by `scaling.solution`'s `momentum`, and both mean-zero gauges by
+  one hypothesis-free lemma `pressureGradient_normalizePressureT` (`fderiv_sub_const`). Canonical theorems,
+  Spec-form conversion probe, and exact three-axiom audit pass.
 
 - **U7 — localization of the velocity difference (clause (iii)).** New `Section3/T18/Support.lean`. Targets
   `diffSupportRadius` (`Spec.lean:1863`), `diffSupportRadius_pos` (`:1865`), `velocityDifference_support`

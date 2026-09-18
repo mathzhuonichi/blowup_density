@@ -87,11 +87,16 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   (`ContDiffOn.comp_contDiff` → spatial `ContDiff` at every slab time, incl. `t=0`), `S.velocity_periodic`,
   `S.divergence`, and `φ`'s two `PeriodicPotentialT` clauses. **No `0<ν` used** — the statement is pure IBP.
   `PeriodicPotentialT`/`conservativeForceT` restated verbatim (lane 392 `Conservative.lean` not on base; dedupe in Uc3).
-- **Uc3 — assembly + registration.** Assemble `ConservativeForcingAPI` from Uc1+Uc2; `conservativeForcingStatement`
+- **Uc3 — assembly + registration.** **DONE (lane 420).** Assemble `ConservativeForcingAPI` from Uc1+Uc2; `conservativeForcingStatement`
   is the alias (`:1416`), inhabited by the same two proofs. Register `T24.conservative_forcing` v1 (contract +
   binding + tests), `ClassicalSolutionT` structure exception as in `T01.torus_local_theory`. Non-vacuity: the rest
   solution at `φ=0` (`conservativeForceT 0 = 0`, zero `ClassicalSolutionT`) satisfies the hypotheses. Record the
   bounded-domain/no-slip omission (out of V1 scope) in the contract `scope`. **S–M, codex-sol.** Deps: Uc1, Uc2.
+  Landed as `Section3/T24/ConservativeAssembly.lean`, with the two canonical fields assembled unconditionally and
+  a viscosity-generic zero-velocity/zero-pressure `restSolution`.  Its Sobolev field reuses T11's genuine
+  `constantVelocitySolutionT 0`; the binding uses `TorusLocalTheory.ofContract`/`toContract` fieldwise, and the
+  registered test instantiates the actual contract solution at `φ=0`.  Axiom audit: exactly
+  `[propext, Classical.choice, Quot.sound]`; no named input.
 
 ### T24a — affine variations (`Prop`, 13 fields), whole space / T14 only, unblocked today
 
@@ -188,15 +193,83 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   `bWitness := spatialCurl(θ·φ·e₁)` with `θ,φ : ContDiffBump`, proved smooth / compactly supported in the cylinder /
   divergence-free (`spatialDivergence_spatialCurl`) / nonzero (curl `e₂`-component `= ∂₃φ`, forced `≢0` by compact
   support). Ua7 lifts this to a countable disjoint-ball family + `LinearIndependent`.
+  **DONE (lane 417, Opus).** Two new modules. `formalization/NSFormalization/Section3/T24/AffineWitness.lean` is
+  the promoted, parameterised single-bump library (`AffineWitness.potential θ φ = (θ(t)·φ(x))•e₁`,
+  `curlBump θ φ = spatialCurl (potential θ φ)`, `carrier θ φ = closedBall t₀ θ.rOut ×ˢ closedBall x₀ φ.rOut`)
+  with `curlBump_contDiff` / `_hasCompactSupport` / `tsupport_curlBump_subset` / `_divergence_free` /
+  `_eq_zero_of_notMem` / `curlBump_admissible` / `curlBump_ne_zero`; lane 398's `bWitness` is its instance
+  `t₀=1/2, x₀=0, θ=⟨1/16,1/8⟩, φ=⟨1/2,3/4⟩` (the 398 probe was not edited).
+  `formalization/NSFormalization/Section3/T24/AffineFamily.lean` carries the geometry
+  (`scale n = 2⁻ⁿ`, `centerOffset r n = r·2⁻ⁿ/2`, `ballRadius r n = r·2⁻ⁿ/16`,
+  `center c r n = c + centerOffset r n • e₁`), the two arithmetic facts
+  `closedBall_subset_ball` (`⊆ ball c r`) and `radius_add_lt` (pairwise disjointness), the family
+  `bFam c r τ₀ τ₁ hr hτ n = curlBump (timeBump τ₀ τ₁ hτ) (spaceBump c r hr n)`, and
+  `theorem infinite_dimensional (c : Space) (r τ₀ τ₁ : ℝ) (hr : 0 < r) (hτ : τ₀ < τ₁) :
+  ∃ b : ℕ → VelocityField, (∀ n : ℕ, AffineAdmissible c r τ₀ τ₁ (b n)) ∧ LinearIndependent ℝ b`.
+  Hypotheses are only the two nondegeneracy facts `0 < r`, `τ₀ < τ₁` (`0 < τ₀` and `τ₁ < 1` from
+  `AffineBasics.window` are not used); no named input, no packet clause. Independence is
+  `linearIndependent_iff'` + disjoint supports: `curlBump_ne_zero` gives a point `z` with `b n z ≠ 0`, that `z`
+  lies in `carrier`, so `z.2` is in the `n`-th ball and outside every other one, so all other terms of a vanishing
+  finite combination die at `z`. Probe `research/T24/probes/affine_family_closes.lean` (registered vocabulary,
+  `rfl` bridges, the field in both the `VelocityField` and the `SpaceTimeField` spelling, the packet-level
+  strengthening `Function.Injective (n ↦ U + b n)` on `Bindings.packet ν hν` via `AffineBasics.distinct`,
+  `b 0 ≠ b 1`, and two degeneracy checks showing `0 < r` / `τ₀ < τ₁` are load-bearing); audit
+  `research/T24/axioms_ua7.lean` — all 42 declarations `[propext, Classical.choice, Quot.sound]`.
 - **Ua8 — `nonisolated` (`C^m` bound ⑤).** Target verbatim (`:1104`): `∀ b admissible, b ≠ 0, ∀ m, Tendsto (fun
   λ ↦ ckSeminormE (tsupport b) m (Ũ_{λb}−U)) (𝓝 0) (𝓝 0) ∧ Tendsto (… F̃_{λb}−F …) (𝓝 0) (𝓝 0)`. Route:
   velocity difference `= λ • b`; force difference `= λ L_U b + λ²(b·∇)b` (reuse Ua3's expansion); on `tsupport b`
   all coefficients/derivatives are bounded, so `ckSeminormE (tsupport b) m ≤ C_m|λ| + C_m'λ²` (an `ℝ≥0∞` `⨆`,
   never the real `sSup` junk `0`), giving `Tendsto … (𝓝 0)`. **L, Opus.** No named input. Deps: Ua3.
+  **DONE (lane 424).** `formalization/NSFormalization/Section3/T24/AffineNonisolated.lean` `nonisolated`
+  (`{ν} {U F : VelocityField} (c r τ₀ τ₁) (hτ₀ : 0 < τ₀) (hτ₁ : τ₁ < 1)
+  (hvelocity_smooth : ContDiffOn ℝ ∞ U preSingularDomain)`), axioms `[propext, Classical.choice, Quot.sound]`.
+  Hypotheses consumed: **only** `velocity_smooth` + the two cylinder bounds — the packet's `force_smooth`
+  is *not* needed (the ambient `F` cancels in the difference), nor `0 < ν`, nor the pressure, nor `b ≠ 0`
+  (carried in the statement, unused in the proof). Route landed **not** with the paper's literal
+  `λ L_U b + λ²(b·∇)b`: `L_U b` is not globally `ContDiff` (`U` is smooth only on `preSingularDomain`),
+  so the difference is regrouped as `λ·(F̃_b − F) + (λ²−λ)·(b·∇)b`, whose two coefficient fields **are**
+  globally smooth — `F̃_b − F = affineForce ν U 0 b` is lane 414's `force_smooth` at the **zero** force,
+  and `(b·∇)b = advection b` is the vendored `contDiffOn_advection` on `univ`. That lets the global
+  `fun_iteratedFDeriv_add_apply` / `iteratedFDeriv_const_smul_apply'` apply unchanged. Three new
+  seminorm lemmas (none were in the tree): `affineCkSeminorm_const_smul` (exact homogeneity, with
+  `ENNReal.mul_iSup` pushed through both binders of `⨆ z ∈ K`), `affineCkSeminorm_add_le`,
+  `affineCkSeminorm_lt_top` (`ContDiff.continuous_iteratedFDeriv` +
+  `IsCompact.exists_bound_of_continuousOn`) — the last is the brief's
+  `ckSeminorm_lt_top_of_contDiff_compact`. Scalar linearity of the operators is the vendored
+  `NavierStokes.ResidualCalculus` (`spatialDerivative_const_smul`, `spatialLaplacian_const_smul`);
+  `(b·∇)U` needs no differentiability of `U` at all (`map_smul`). Probe
+  `research/T24/probes/affine_nonisolated_closes.lean`: six `rfl` bridges (incl.
+  `ckSeminormE ≡ affineCkSeminorm` and `SpaceTimeField ≡ VelocityField`), the field discharged on
+  `Bindings.packet ν hν`, lane 398's nonzero `bWitness` rebuilt (lane 417's shared
+  `Section3/T24/AffineWitness.lean` is not on this base) with both limits instantiated at it, and
+  `nonisolated_nontrivial` — at `λ = 1`, `m = 0` the velocity seminorm of the nonzero witness is
+  **nonzero**, so the limits are not limits of the zero function. Audit `research/T24/axioms_ua8.lean`;
+  attempts/negative record `research/T24/ATTEMPTS_UA8.md`.
 - **Ua9 — assembly + `affineVariationStatement` + registration + probe.** Assemble the 13 fields into
   `AffineVariationAPI`; `affineVariationStatement:1117` `Nonempty` from any `PacketAPI ν` (the registered
   `I01.packet` witness); the raw-field→`PacketAPI` probe (§0). Register `T24.affine_variation` v1; non-vacuity at
   `b=0` (admissible) and the full family. **M, codex-sol.** Deps: all Ua.
+  **DONE (lane 430, Opus).** Registered as **`T04.affine_variation`** v1 (parent task `T04`, per the T24 work
+  item — not `T24.*`), 43rd contract. Four files:
+  `formalization/NSFormalization/Section3/T24/AffineAssembly.lean` (canonical: `AffineRawData` = the eight raw
+  packet clauses the units consume, `AffineVariationCanonical` = the 13 Spec fields over raw `U P F`,
+  `affineVariationCanonical` = thirteen one-line field assignments to lanes 392/398/402/403/407/414/417/424);
+  `verification/Contracts/V1/AffineVariation.lean` (`Spec.lean:958-1121` copied token-for-token, only the
+  namespace changed to `BlowupDensity.Contracts.V1`; imports `Contracts.V1.{Data,Packet}` only);
+  `verification/Bindings/AffineVariation.lean` (seven whole-function `rfl` bridges — `affineCylinder`,
+  `AffineAdmissible`, `crossAdvection`, `affineVelocity`, `affinePressure`, `affineForce`,
+  `ckSeminormE ≡ affineCkSeminorm` — plus `packetRawData`, `affineVariation` for **any** `P : PacketAPI ν`,
+  `affineVariationPacket` at `Bindings.packet ν hν`, `affineVariationStatement_holds`);
+  `verification/Tests/AffineVariation.lean` (`checkedAffineVariation`, `checkedAffineVariationStatement`, both
+  `run_cmd TestSupport.checkAxioms`; three field-shape conformance examples; non-vacuity at `b = 0` and at the
+  nonzero `AffineWitness.curlBump` on `ball 0 1 × (1/4,3/4)`).
+  **The Ua6 open gap is closed here**: `Section3.T24.energyENorm_lt_top_of_packet` derives
+  `energyENorm 1 U < ⊤` — which `PacketAPI` does *not* carry — from `square_integrable` + `energy_isLUB`
+  (`I02.eLpNorm_two_eq_ofReal_sqrt`, `essSup_le_of_ae_le`) and from `velocity_smooth` + `carrier_compact` +
+  `velocity_support` + `dissipation_integrable` (`I03.eLpNorm_spatialGradient_sq_slice`,
+  `ofReal_integral_eq_lintegral_ofReal`), exactly the route sketched in `ATTEMPTS_UA6.md`. All declarations
+  print `[propext, Classical.choice, Quot.sound]` (`research/T24/axioms_ua9.lean`); attempts/negative record
+  `research/T24/ATTEMPTS_UA9.md`. **T24a is complete**; T24b and T24c remain.
 
 ### T24b — multiple regions (`Type`, 30 fields), torus, **T15-gated** (no T18)
 
@@ -250,9 +323,9 @@ threaded canonical T15 records (draftable now), whose **instantiation / `Nonempt
 | Ua4 | affine | ② | raw `velocity_smooth`/`force_smooth` | no |
 | Ua5 | affine | — | raw `SpeedUnboundedAtOne` (`:145`) | no |
 | Ua6 | affine | ③ | raw `energyENorm 1 U < ⊤` | no |
-| Ua7 | affine | ④ | bump-function library (new) | no |
+| Ua7 | affine | ④ | bump-function library (new) | no |  <!-- done: lane 417 -->
 | Ua8 | affine | ⑤ | Ua3 expansion | no |
-| Ua9 | affine | — | `I01.packet` (probe) | no |
+| Ua9 | affine | — | `I01.packet` (contract) | no |  <!-- done: lane 430, `T04.affine_variation` -->
 | Ub1 | multiple | — | T15 `PlacementData`/`ScalingAPI` | **T15 U2, U15** |
 | Ub2 | multiple | — | T15 `ScalingAPI.solution` | **T15 U11** |
 | Ub3 | multiple | ⑥ | T15 `*_singleCopy` + `eps_space` | **T15 U3, U2** |

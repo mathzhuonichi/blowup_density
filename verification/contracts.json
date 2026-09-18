@@ -462,6 +462,50 @@
       "declaration": "BlowupDensity.Tests.checkedLocalization",
       "scope": "Lemma lem:localization (03-torus.tex:22-98) for every 0 < s < 1: positivity and finiteness of the explicit constant cFrac; the whole-space and torus Gagliardo identities with that same cFrac, the latter on the explicit mean-zero part; the endpoint L² and Hilbert–Schmidt gradient identities for smooth fields supported in a positive-radius ball whose closure lies in the interior of the fixed unit cube; and the uniform localization estimate, with one positive real constant chosen before the field, from the whole-space L² plus registered homogeneous norm to the periodized T10 inhomogeneous norm. The implementation witnesses that existential constant by (1 + (4 · tailGeomConst s c r / cFrac s) ^ (1/2)).toReal. No tail bound, periodization uniqueness theorem, divergence-free condition, or localization estimate outside 0 < s < 1 is asserted.",
       "enabled": true
+    },
+    {
+      "id": "T01.mean_zero_calculus",
+      "parent_task": "T01",
+      "version": 1,
+      "specification": "verification/Contracts/V1/MeanZeroCalculus.lean",
+      "binding_module": "Bindings.MeanZeroCalculus",
+      "test_module": "Tests.MeanZeroCalculus",
+      "declaration": "BlowupDensity.Tests.checkedMeanZeroCalculus",
+      "scope": "The reconciled T12 API (research/T12/Spec.lean:281-478) on the unit three-torus: the torus halves of lem:calculus and lem:critical-embeddings (appendix-a-local-theory.tex:7-27, appendix-b-embeddings.tex:8-38,85-110) together with the mean-zero order-two comparison used at 03-torus.tex:467-503. Nine proved fields, with seven constants fixed as structure data before every field they control: the scalar tame product on H^m(T³) for 2 ≤ m (eq:Rproduct, scalar factors only, no vector or tensor form); the H²(T³) → L^∞(T³) bound with no mean-zero hypothesis; the critical Ḣ^(1/2)(T³) → L³(T³) bound for every periodic L² field with zero Haar mean and a finite homogeneous datum norm, with no smoothness hypothesis; existence (not uniqueness) of a smooth periodic physical representative Lv of Λv for every smooth periodic v; the single displayed sum ‖∇v‖₃ + ‖Λv‖₃ ≤ C‖v‖_{Ḣ^(3/2)} for smooth periodic v of finite order-3/2 homogeneous norm together with such a representative; ‖∇v‖₆ ≤ C‖Δv‖₂ and ‖v‖_{H²} ≤ C‖Δv‖₂ for smooth periodic mean-zero v; and both directions of the mean-zero norm comparison at every 0 ≤ s, the converse with constant exactly one. The constants are closed terms of the canonical implementation, not numerals: Cproduct m = 4^(m/2)·sqrt(Σ_k (1+4π²|k|²)^(-2)), Cinfty = sqrt(Σ_k ((1+4π²|k|²)^2)⁻¹), CcriticalHalf = criticalL3Const·cutoffGagliardoConst·(Cgap(1/2)+1), CcriticalThreeHalves = 4·CcriticalHalf, Csix = 343·gradientL6Const·leibnizConst·(1+2·CHtwo), CHtwo = 1+1/(4π²) and Cgap s = (1+1/(4π²))^(s/2); no sharpness or optimality of any constant is asserted. Nothing is asserted about the whole-space (R³) halves of the two lemmas, about orders s < 0, about non-mean-zero homogeneous norms, or about uniqueness of the Λ representative.",
+      "enabled": true
+    },
+    {
+      "id": "T04.bounded_domain_norm",
+      "parent_task": "T04",
+      "version": 1,
+      "specification": "verification/Contracts/V1/BoundedDomainNorm.lean",
+      "binding_module": "Bindings.BoundedDomainNorm",
+      "test_module": "Tests.BoundedDomainNorm",
+      "declaration": "BlowupDensity.Tests.checkedBoundedDomainNorm",
+      "scope": "The reconciled T22 bounded-domain norm layer from 03-torus.tex:600-630: the distributional quotient norm domainSobolevENorm and its restriction vocabulary, the order-zero identity with the restricted physical L² norm, the fixed compactly supported smooth-cutoff multiplier bound for every real order, and the two-sided zero-extension comparison for smooth fields supported in a compact K strictly inside an open Ω. The three API fields are assembled from closed canonical proof terms orderZero, cutoffMultiplier, and zeroExtensionComparison; no free implementation constant is exposed. The multiplier witness is the closed term cutoffFieldConst s χ = frequencyUnit^(-3/2) * cutoffMultiplierConst s χ + 1; the comparison chooses a smooth cutoff from Ω and K, then that multiplier constant before z. The canonical proof closure includes Mathlib.Geometry.Manifold.PartitionOfUnity through the smooth compact-cutoff construction. No bounded zero-extension operator for arbitrary domain data, boundary/no-slip statement, or T23 consequence is asserted.",
+      "enabled": true
+    },
+    {
+      "id": "T04.affine_variation",
+      "parent_task": "T04",
+      "version": 1,
+      "specification": "verification/Contracts/V1/AffineVariation.lean",
+      "binding_module": "Bindings.AffineVariation",
+      "test_module": "Tests.AffineVariation",
+      "declaration": "BlowupDensity.Tests.checkedAffineVariation",
+      "scope": "Proposition prop:affine (03-torus.tex:668-696) on whole space only, for every registered I01.packet record and every cylinder ball c r x (tau0,tau1) with 0 < r and 0 < tau0 < tau1 < 1: the thirteen clauses of the affine family U+b over the admissible class C_c^infty(Q) with div b = 0 - positive radius and interior window, global smoothness and compact positive-time support of the six-term force F + d_t b - nu*Laplacian b + (U.grad)b + (b.grad)U + (b.grad)b, the divergence and momentum equations of U+b with the unchanged pressure, zero initial data, agreement with U past tau1, unbounded speed at t=1, finiteness of the registered energyENorm 1, an R-linearly independent admissible sequence, injectivity of b -> U+b, and the two C^m-seminorm non-isolation limits as lambda -> 0 in the ENNReal-valued ckSeminormE on tsupport b. The record is assembled from the eight canonical T24a proof terms in NSFormalization.Section3.T24 (radius_pos/window/zero_initial/late_agreement/distinct, divergence_free, momentum, force_smooth/force_support, speed_unbounded, energy_finite, infinite_dimensional, nonisolated); the packet clause the registered PacketAPI does not carry, energyENorm 1 velocity < top, is derived in the binding from square_integrable, energy_isLUB, velocity_support with carrier_compact, and dissipation_integrable. No packet existence is asserted (that is I01.packet), and prop:multiple (T24b), prop:conservative (T24c), every torus statement and every density consequence are outside this contract.",
+      "enabled": true
+    },
+    {
+      "id": "T04.conservative_forcing",
+      "parent_task": "T04",
+      "version": 1,
+      "specification": "verification/Contracts/V1/ConservativeForcing.lean",
+      "binding_module": "Bindings.ConservativeForcing",
+      "test_module": "Tests.ConservativeForcing",
+      "declaration": "BlowupDensity.Tests.checkedConservativeForcing",
+      "scope": "Proposition prop:conservative (03-torus.tex:723-740), torus branch only: for every smooth unit-periodic scalar potential and every registered classical torus solution from rest forced by its negative pressure gradient, the Haar force-velocity pairing vanishes throughout the lifespan, and at positive viscosity the velocity is identically zero on that lifespan. The contract has exactly these two universal fields, potential_pairing and zero_from_rest, and reuses the registered T10/T11 ClassicalSolutionT through fieldwise conversions. A genuine zero-velocity, zero-pressure rest solution at φ = 0 witnesses non-vacuity. The paper's bounded-domain branch with homogeneous no-slip boundary data is deliberately omitted because V1 has no bounded-domain/no-slip carrier; it is explicitly out of scope, not identified with periodicity.",
+      "enabled": true
     }
   ]
 }
