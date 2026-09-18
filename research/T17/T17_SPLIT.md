@@ -206,6 +206,22 @@ in the tree today.
   (`Contracts/V1/Correction.lean:454`); temporal projection is not periodized, so
   `torusTemporalSupport = Prod.fst '' tsupport` directly ≤ `ofReal(4ε²)` by `I02.force_time_length`
   (`:460`). **M–L, Opus.** Deps: U2, U7; T15 `HaarBridge`.
+  **Status (lane 431, DONE):** `Section3/T17/ForceVolume.lean` proves
+  `spatialVolumeConst θR = π·4/3·θR³`, `spatialVolumeConst_nonneg` (under the
+  `theta_radius_pos` datum `0 ≤ θR`) and both fields at the concrete
+  `correctionData`, inheriting `hv` only through lane 425's `force_support`.
+  The planned route was adjusted in two places.  (i) The measured object is the
+  support of `torusSpaceTimeLift`, which reads the field at the *discontinuous*
+  `(0,1]³` representative, so the torus image of the manuscript's **open** ball
+  is enlarged to the closed ball to obtain a closed — hence `tsupport`-stable —
+  superset; the constant is unaffected.  (ii) The new single-copy set bridge is
+  an **inequality**, `measure_torusPoint_image_le : IsCompact A →
+  periodicTorusMeasure (torusPoint '' A) ≤ volume A`, proved for arbitrary
+  compact `A` from T15's `lintegral_enorm_torusLift` applied to the unit-periodic
+  indicator of `periodicSet A` plus T13's `lintegral_eq_tsum_halfOpenCube`; the
+  registered `I02.force_spatial_volume` is not used, because the Mathlib ball
+  volume `EuclideanSpace.volume_closedBall_fin_three` lands the constant
+  directly.  All declarations have exactly the standard three axioms.
 
 - **U9 — energy bound + honest slices** (new torus wrapping I02 content). New `Section3/T17/Energy.lean`.
   Targets `correction_slice_memLp` (`Spec.lean:902`), `correction_gradient_memLp` (`:906`), `energyConst`,
