@@ -19,6 +19,18 @@ Key registration facts established while reconciling (they drive §1–§2), eac
 
 pending lead approval
 
+### Lead review (2026-09-18 17:47Z) — APPROVED
+
+Decisions confirmed by the lead after reading §1–§4 and `Spec.lean`:
+1. **Base B, both structures `Prop`-valued** — consistent with the T19 ruling; the `Prop`/`Type` registry convention remains an owner question (one ruling for T19/T21/T24), recorded in the owner-pending list.
+2. **Consume the canonical T20 record by import + the propositional bridge `Bindings.TorusLocalTheory.maximalLifespanT_eq`** — correct; this reverses draft B's copy decision and removes the T20/T12 copy blocks. At registration time the bridge moves into `Bindings/` (registration order T19 → T20 → T21).
+3. **Keep `zeroInitialNonDensity`** (paper `:523` states it explicitly; derivable from the biconditional but harmless) and **keep `ballRelativelyOpen`** (paper `:515`/`:519` invoke openness; N6 — the triangle inequality for `forceSobolevENormT 1 s` — is a genuine reusable lemma).
+4. **Drop `reweightContraction` as a field** (proof unit N1) and the `:519` "dense subset cannot miss an open set" clause (definition unfolding, N10) — agreed.
+5. **Draft A's namespace defect** (`structure CriticalRegularityTAPI` declared inside `NSFormalization.Section3.T20`) is recorded; `DraftA.lean` stays as a record only and must never be imported.
+6. Only `PeriodicDensityAPI` is copied from T19 — agreed; a canonical `Section3/T19` record module (like T20's) is the eventual fix and is added to the T19 queue.
+
+`research/T21/Spec.lean` (644 lines, 0 errors) is the **reconciled T21 specification**. Next: proof split `research/T21/T21_SPLIT.md` from §4's units N0–N15 once T19 U7–U14 (blocked on T18) and T20 U8–U13 are far enough along; N1/N3/N4/N6/N12 can start now.
+
 ## 1. Agreement, and the clause-by-clause table
 
 Both drafts are honest, non-vacuous, `sorry`/axiom-free statement APIs, and they agree on the substance: one critical exponent `1/2` at `q = 1`; the relative topology rendered as the registered `RelativelyDenseT` ε-form; the ball of `:513` relative to `𝓕` with `ℝ≥0∞` radius `ENNReal.ofReal (c*ν)`; `ν, T > 0` on every field; every norm `ℝ≥0∞`-valued (no real `sSup`, no `.toReal`); no regular-reference rider in `thm:main` (on the torus that content is `cor:closure` = `T19.StrongClosureAPI`); the `:525` scope remark not formalized; and neither draft consumes T11/T18 directly — `maximalLifespanT` enters only through `globalRegularity`'s `= ⊤` and `breakdownSetT`'s `≤ ofReal T`.
