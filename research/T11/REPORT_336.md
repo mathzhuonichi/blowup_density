@@ -99,3 +99,6 @@ make check   (worktree root)
 Axiom audit: all 33 named declarations print exactly
 `[propext, Classical.choice, Quot.sound]`.  No `sorry`/`admit`/`axiom`/
 `native_decide`; no `set_option maxHeartbeats` anywhere in the module.
+
+## Review corrections (codex, ACCEPT-WITH-NOTES)
+Per `research/T11/REVIEW_336-T11-U12b-pairing-bound.md` §3: the inverse-weight summability "not in tree" claim is qualified (the tree had the `r = 3` case); the private-helper count is 59 (the report said 30); the only missing bridge is the coefficient-carrier identification of the advection and divergence forms (nothing downstream needs it). Lean content unchanged.
