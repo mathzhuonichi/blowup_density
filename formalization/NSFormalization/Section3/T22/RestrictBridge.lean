@@ -54,7 +54,5 @@ theorem domainSobolevENorm_le_sobolevENorm {Ω : Set Space} {s : ℝ}
   exact iInf_le_of_le
     ⟨A.1, restrictDatum_eq_restrictField A.2⟩ le_rfl
 
-#print axioms restrictDatum_eq_restrictField
-#print axioms domainSobolevENorm_le_sobolevENorm
 
 end NSFormalization.Section3.T22
