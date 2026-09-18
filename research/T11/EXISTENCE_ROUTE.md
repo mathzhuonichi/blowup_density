@@ -500,3 +500,44 @@ module builds a genuine
 applies verbatim; continuity on the half-open `Ico 0 T` is obtained from closed
 subwindows. All 45 declarations pass exact standard-three-axiom guards.
 Details: `REPORT_330.md`, `ATTEMPTS_DUHAMEL_HALF_STEP.md`.
+
+## U9d2b status — lane 327 (Duhamel time differentiation and the momentum equation)
+
+`formalization/NSFormalization/Section3/T11/MildMomentum.lean` (74 declarations,
+no named input beyond `PersistenceInput`, no `def … : Prop`).
+
+* **Closed (i):** every Fourier coefficient of a forced mild solution is
+  differentiable at every interior time with
+  `d/dt û(t)(k) = −ν·4π²|k|²·û(t)(k) + (P̂(F − Q(u,u)))^(t)(k)`, in the weighted
+  `H³` coefficients (`mild_coeff_hasDerivAt`) and in the physical ones
+  (`mild_physicalCoeff_hasDerivAt`).  The route is: coefficient functional →
+  scalar Duhamel identity (`mild_coeff_duhamel`) → forced scalar ODE
+  (`heat_duhamel_hasDerivAt`, FTC + the heat-symbol product rule).
+* **Closed (ii), first order:** `torusPhysicalVelocity u` is differentiable in
+  time on `Ioo 0 T ×ˢ univ`, with derivative the Fourier series
+  `mildTimeDerivative C P u t` (`torusPhysicalVelocity_hasDerivAt`,
+  `temporalDerivative_torusPhysicalVelocity'`); that field is `C^∞` and periodic
+  in `x`.  Continuity up to `t = 0` is lane 318's
+  `torusForcedMildOn_physical_continuous`.
+* **Closed (iii):** `momentum_of_pressure` proves the exact
+  `ClassicalSolutionT.momentum` field, and `projected_of_pressure` the exact
+  `PeriodicLocalRegularity.projected` field, for any pressure whose gradient has
+  the Leray-complement data `(I−P)(F−Q)`; `momentum_of_mildPressure` /
+  `projected_of_mildPressure` instantiate them with lane 326's constructed
+  `mildPressure g u`.
+* **New general tools:** the weight submultiplicativity `W(k) ≤ 2W(l)W(k−l)`
+  with the one-power-gain convolution estimate `convolution_norm_bound`, the
+  frequency-local Leray symbol `lerayAt`, and `torusPhysicalCoeff_bilinear`
+  showing the contract's bilinear map is exactly the Leray projection of lane
+  326's canonical `torusConvectionDatum`.  The periodic convolution theorem and
+  the convection identification are reused from the merged lane 326
+  (`periodicFourierCoeff_mul`,
+  `periodicFourierCoeff_convection_eq_torusConvectionDatum`); the dedupe after
+  the merge is recorded in `ATTEMPTS_MILD_MOMENTUM.md` §5.
+* **Still open:** the *joint* `C^∞` fields
+  `ContDiffOn ℝ ∞ (torusPhysicalVelocity u) (Ico 0 T ×ˢ univ)` and
+  `ContDiffOn ℝ ∞ (mildPressure g u) (Ico 0 T ×ˢ univ)`.  Iterating the time
+  derivative needs the mild equation at Sobolev orders `5, 7, …`;
+  `TorusForcedMildOn` is an `H³ × H²` statement and `PersistenceInput` gives only
+  continuity at the higher orders.  See `REPORT_327.md` §3 and
+  `ATTEMPTS_MILD_MOMENTUM.md` §3.1.
