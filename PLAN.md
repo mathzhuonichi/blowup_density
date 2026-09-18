@@ -141,3 +141,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 373-T17-U2-transport | Opus 被路由 429 中断 → 恢复中 | 09-18 1208Z | — | — | T17 U2：具体 correctionData（= T16 localPotentialData，correction ε = latticeLift(physicalCorrection) 由 rfl）+ 力算子传输 force_eq（局部算子与平移可交换 ⇒ correctionForce = latticeLift(Source.correctionForce)）；U5–U11 全部经此改写 |
 | 374-SPEC-t23-draft-b | Opus prover 子代理运行中（双盲草案 B） | 09-18 1209Z | — | — | SPEC T23 cor:boundary 双盲草案 B（与 368 互不可见） |
 | 375-T17-U4-force-profile | Opus prover 子代理运行中（基座 = 370 分支 + integration-section3） | 09-18 1216Z | — | — | T17 U4：力轮廓六字段（rescaledForceProfile = Paper1 forceProfile 桥；smooth/support/Const/nonneg/uniform/identity 含 ε⁻² 重标度） |
+| 376-T15-U2-placement | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 1223Z | — | — | T15 U2：缩放支撑放置（各切片支撑 ⊆ x₀ + ε•K_* ⊆ chart 球 ⊆ interior fundamentalCube；紧支撑）供 U3–U8 |
+| 377-T12-U3-cutoff-gagliardo | worktree 安装中→等 Opus 空位派发 | 09-18 1223Z | — | — | T12 U3（分析核心）：截断–Gagliardo 比较 dotHomogeneousENorm (1/2) (χv) ≤ C(‖v‖_{L²(Q)} + periodicHomogeneousENorm (1/2) v)（反向局部化；两恒等式 + 差分拆分 + Lipschitz 核估计） |
