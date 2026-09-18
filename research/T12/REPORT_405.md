@@ -58,3 +58,6 @@ All from the worktree, after `. scripts/lean-env.sh`, `lake` from `verification/
 - `git commit` → `cb052e90 [405-T12] U6: gradientLambdaCriticalL3 verbatim ...`, 6 files changed, 726 insertions.
 
 Per the brief's fallback, this message is the report in place of `research/T12/REPORT_405.md` (my harness forbids writing report files); the durable substance is in `research/T12/ATTEMPTS_U6.md` and the U6 status block of `research/T12/T12_SPLIT.md`.
+
+
+> Lead note after review 405: the fallback sentence at line 60 about "the general velocityCriticalL3 of lane 401 not being on this base" is stale — lane 401 has since landed (#368); U6 never needed it because `IsPeriodicLambda v Lv` already carries `SmoothPeriodicT Lv`.
