@@ -216,36 +216,114 @@ Writing it inline inside `Eq.trans` *also* timed out at `whnf` in the
   `r := (m:ℝ)+1`) needs no rewriting of `(m:ℝ)+1-1` under a dependent proof
   argument.
 
-## 3. The exact residual
+## 3. The mid-lane course correction (lane 335) and what it changed
 
-**Nothing in this module is conditional**: there is no `sorry`, no axiom, and no
-named `Prop` input. What the lane does *not* deliver, and what `eq:Rhigh` still
-needs on top of it:
+Lane 335 (`Section3/T11/EnergyIdentity.lean`) landed while this lane was running
+and fixed the exact spelling its `hpair` binder consumes:
 
-1. **Fact (a) of lane 322's §3 is untouched** — time differentiability of the
-   coefficient path and the momentum equation in datum form (Section 4's
-   SL1/SL2). `hRhigh` is the conjunction of (a) and (b); this lane closes (b)
-   only. U12a remains open.
-2. **The physical identification of the convection datum at real order.**
-   `torusPairingBound(_enorm, _profile)` bounds the pairing of
-   `torusConvectionDatumReal hr A A` — which *is* the convection by lane 328's
-   construction of the symbol — against the velocity datum. Turning that into a
-   statement about the physical field `(u·∇)u` needs
-   `IsPeriodicDatum (r-1) (fun x ↦ convectionDivergenceT u t x) (torusConvectionDatumReal hr A A)`.
-   The order-3 case exists (`MildPressure.periodicFourierCoeff_convection_eq_torusConvectionDatum`,
-   lane 326, via the periodic convolution theorem), and lane 328's
-   `torusConvolutionCLM_real_reweight` / `_coeff_three` transport the real-order
-   symbol onto reweighted data, so the ingredients are all present; the
-   general-order statement is not proved anywhere and is the natural next small
-   lane. It is **not** needed if the consumer works on the coefficient carrier,
-   which is where `eq:Rhigh`'s pairing naturally lives.
-3. **No optimality.** `C(s) = 15 · 4^{s/2} · (∑ₖ W(k)^{-2})^{1/2}` is explicit but
-   crude: the `4^{s/2}` is Peetre's, the `3` counts components, the `5 = 2+3`
-   counts the two halves of the split with the `√3 ≤ 2` rounding. No lower bound
-   and no sharp-constant claim is made.
-4. The `ℓ¹` step is stated at `H²` because `∑ W^{-2} < ∞`; the same proof gives
-   any order `> 3/2` (`torusInverseWeight_summable` is proved in that generality),
-   but the module only instantiates `2`.
+```
+|torusRealPairing Gm Nm| ≤ Chigh m * torusSobolevNormAt 2 w.velocity t *
+    torusSobolevNormAt (m:ℝ) w.velocity t * torusGradientNormAt (m:ℝ) w.velocity t
+```
+
+with `Nm` the order-`m` datum of the **physical advection** `convectionFieldT u`
+and `torusGradientNormAt s u t = (∑ₖ W(k)^s |2πk|² ∑ᵢ|û ᵢ(k)|²)^{1/2}`.  Two
+things in the first half of this lane did not match, and both were real:
+
+### 3.1 `‖u‖_{H^{m+1}}` is **not** `‖∇u‖_{H^m}` — the region split is required
+
+`W = 1 + |2πk|²`, so `‖u‖²_{H^{m+1}} = ‖u‖²_{H^m} + ‖∇u‖²_{H^m}`: the two differ
+exactly by the zero mode, and a nonzero constant field has `‖∇u‖_{H^m} = 0` with
+`‖u‖_{H^{m+1}} > 0`.  A bound with `‖u‖_{H^{m+1}}` therefore does **not** imply
+the one `eq:Rhigh` needs (whose right-hand side must be absorbable into the
+dissipation `ν‖∇u‖²_{H^m}` by Young).
+
+The reason the first version produced `‖u‖_{H^{m+1}}` is the *additive* Peetre
+step: it charges the derivative symbol `|2πk|` to the output frequency, where it
+combines with the `H^m` weight of the partner into `W(k)^{(m+1)/2}|û(k)|`.  What
+the brief actually prescribed — "splitting the convolution sum by `|l| ≤ |k−l|`
+vs `>`" — charges it instead to the **larger summand** frequency.  Packaged as a
+single pointwise inequality (`torusWeightPeetre_grad`, §8 of the module):
+
+```
+W(k)^a · |2π(k-l)| ≤ 4^a (W(l)^a |2πl| + W(k-l)^a |2π(k-l)|),   a ≥ 0,
+```
+
+proved by the same `max` case split as ordinary Peetre, using that `W` and the
+amplitude `|2π·|` are both monotone in `∑ᵢ kᵢ²` (so the larger weight and the
+larger amplitude occur at the *same* frequency), plus `|2πkⱼ| ≤ |2πk|` and
+`W(k) ≤ 4 max(W(l), W(k-l))`.  With it, the two halves of the split are
+
+* `‖u‖_{H^m}(k) · ‖∇u‖_{H^m}(l) · |û(k-l)|`, and
+* `‖u‖_{H^m}(k) · |û(l)| · ‖∇u‖_{H^m}(k-l)`,
+
+each of the exact shape `X(k)Y(l)β(k-l)` the trilinear lemma of §2 takes, with
+the same `ℓ¹` factor and the same constant.  **Both shapes are kept in the
+module**: the `‖u‖_{H^{m+1}}` one for lane 328's canonical (divergence-form)
+convection datum, the gradient one for the physical advection.
+
+Note that `torusGradientNormAt m u t` is a bare `tsum`, so it is only meaningful
+when the series converges; `torusPairingBound_advection` therefore takes the
+order-`(m+1)` datum `Gm1` of the same slice as a hypothesis (335's
+`hasSum_gradEnergy` needs it too).  A `ClassicalSolutionT` carries one at every
+integer order, so the classical form has no extra hypothesis.
+
+### 3.2 The physical advection datum — proved, not assumed
+
+`Nm` is the datum of `(u·∇)u`, not of a symbol, so the estimate needs
+
+```
+velocityCoeffT (convectionFieldT u) i k t =
+  ∑ⱼ ∑ₗ û ⱼ(l) · (2πi(k-l)ⱼ · û ᵢ(k-l)).
+```
+
+This is proved (`velocityCoeffT_advection`) rather than assumed, from
+`(u·∇)uᵢ = ∑ⱼ uⱼ ∂ⱼuᵢ` (`advection_component`: expand `u(t,x)` in the standard
+basis, push the projection through `fderiv` with
+`(EuclideanSpace.proj i).hasFDerivAt.comp`), `MildPressure.periodicFourierCoeff_mul`
+(the periodic convolution theorem), `EnergyIdentity.periodicFourierCoeff_finsetSum`
+and `Section3/T10/FourierCalculus.periodicFourierCoeff_fderiv`.  Friction:
+
+* `rw [hexp]` (the basis expansion of `u(t,x)`) rewrites **both** occurrences,
+  including the scalar `u(t,x) j` on the right; it has to be applied under
+  `conv_lhs`.
+* `NavierStokes.PeriodicUniqueness.spatial_partial_periodic` is stated for
+  `UnitPeriods`, `T10` uses `IsPeriodicSpatial`; the two are the same definition
+  but do not unify, so the argument needs a `show … from` ascription.
+* `periodicFourierCoeff_finsetSum` must be given its `g` explicitly, otherwise
+  higher-order unification picks `g := (fun x ↦ …) * spatialPartial j …` (pointwise
+  multiplication of functions) and the rewrite fails with
+  ``Did not find an occurrence of the pattern``.
+
+### 3.3 Consequence
+
+With 3.1 and 3.2 in place, `torusPairingBound_classical` is lane 335's `hpair`
+verbatim, and `torusHigherOrderBound = higherOrderBound_of_pairingBound _
+torusPairingBound_classical` is the `higherOrderBound` field of
+`PeriodicContinuationAPI` **unconditionally**.  Both are copied verbatim into the
+probe and discharged there.
+
+## 3b. What is still open
+
+Nothing in this module is conditional: no `sorry`, no axiom, no named `Prop`
+input, no hypothesis that is not either discharged or carried by a
+`ClassicalSolutionT`.  What is *not* delivered:
+
+1. **No optimality.**  `C(s) = 15 · 4^{s/2} · (∑ₖ W(k)^{-2})^{1/2}` is explicit but
+   crude: `4^{s/2}` is Peetre's, `3` counts components, `5 = 2 + 3` counts the two
+   halves of the split with the `√3 ≤ 2` rounding.  No lower bound is claimed.
+2. **The `ℓ¹` step is instantiated only at `H²`.**  `torusInverseWeight_summable`
+   is proved for every `r > 3/2`, so the same argument gives the estimate with any
+   low norm `H^{s}`, `s > 3/2`; only `s = 2` is exported.
+3. **The projected form needs a solenoidal partner.**
+   `torusProjectedPairingBound` assumes `IsSolenoidalPeriodicDatum` of the partner
+   datum; without it the Leray correction does not drop.  (The unprojected and
+   advection forms assume nothing.)
+4. **The advection and divergence forms are proved separately.**  They agree for
+   solenoidal `u` (`∂ⱼ(uⱼuᵢ) = uⱼ∂ⱼuᵢ`), but that identification is not proved
+   here: `torusPairingBound` is about lane 328's symbol and
+   `torusPairingBound_advection` about the physical field, and no lemma connects
+   them.  Nothing downstream needs the connection.
 
 ## 4. Commands
 

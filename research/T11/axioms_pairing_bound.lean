@@ -1,6 +1,6 @@
 import NSFormalization.Section3.T11.PairingBound
 -- Lane 336 conformance: every named declaration of `Section3/T11/PairingBound.lean`
--- (18 public declarations and 2 named local instances; the 30 private helpers are
+-- (31 public declarations and 2 named local instances; the private helpers are
 -- not exported) depends on exactly the three standard logical axioms.
 
 /-- info: 'NSFormalization.Section3.T11.pairingNormedGroup' depends on axioms: [propext, Classical.choice, Quot.sound] -/
@@ -38,6 +38,34 @@ import NSFormalization.Section3.T11.PairingBound
 /-- info: 'NSFormalization.Section3.T11.torusTrilinearConvolution' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.torusTrilinearConvolution
+
+/-- info: 'NSFormalization.Section3.T11.torusFreqAmp' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.torusFreqAmp
+
+/-- info: 'NSFormalization.Section3.T11.torusFreqAmp_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.torusFreqAmp_nonneg
+
+/-- info: 'NSFormalization.Section3.T11.weight_eq_one_add_angular' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.weight_eq_one_add_angular
+
+/-- info: 'NSFormalization.Section3.T11.norm_periodicDerivativeSymbol' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.norm_periodicDerivativeSymbol
+
+/-- info: 'NSFormalization.Section3.T11.twoPi_abs_le_amp' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.twoPi_abs_le_amp
+
+/-- info: 'NSFormalization.Section3.T11.amp_mono' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.amp_mono
+
+/-- info: 'NSFormalization.Section3.T11.torusWeightPeetre_grad' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.torusWeightPeetre_grad
 
 /-- info: 'NSFormalization.Section3.T11.torusPairingConstant' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -82,3 +110,27 @@ import NSFormalization.Section3.T11.PairingBound
 /-- info: 'NSFormalization.Section3.T11.torusProjectedPairingBound' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.torusProjectedPairingBound
+
+/-- info: 'NSFormalization.Section3.T11.torusPairingBound_advection' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.torusPairingBound_advection
+
+/-- info: 'NSFormalization.Section3.T11.advection_component' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.advection_component
+
+/-- info: 'NSFormalization.Section3.T11.velocityCoeffT_advection' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.velocityCoeffT_advection
+
+/-- info: 'NSFormalization.Section3.T11.torusPairingBound_slice' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.torusPairingBound_slice
+
+/-- info: 'NSFormalization.Section3.T11.torusPairingBound_classical' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.torusPairingBound_classical
+
+/-- info: 'NSFormalization.Section3.T11.torusHigherOrderBound' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.torusHigherOrderBound

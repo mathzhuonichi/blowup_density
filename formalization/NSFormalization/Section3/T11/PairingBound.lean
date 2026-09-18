@@ -1,5 +1,5 @@
 import NSFormalization.Section3.T11.ConvolutionBoundReal
-import NSFormalization.Section3.T11.HighOrder
+import NSFormalization.Section3.T11.EnergyIdentity
 
 /-!
 # T11 unit U12b — the tame pairing bound for the periodic convection term
@@ -41,19 +41,52 @@ On the Fourier side, with `c = W^{-(m+1)/2} A` the raw coefficients,
 The divergence-free cancellation `⟪(u·∇)v, v⟫_{L²} = 0` is **not** used: the
 bound holds for every real datum, solenoidal or not.
 
+## Two shapes
+
+The derivative can be charged to either factor, and the two choices give
+genuinely different estimates:
+
+* charging it to the **output** frequency (§1's additive Peetre) gives the third
+  factor `‖u‖_{H^{m+1}}` — this is `torusPairingBound`, stated for lane 328's
+  canonical convection datum `torusConvectionDatumReal`;
+* charging it to the **larger of the two summand** frequencies (§8's `Peetre with
+  one derivative`, i.e. the region split `|l| ≤ |k-l|` versus `>`) gives the third
+  factor `‖∇u‖_{H^m}` — this is `torusPairingBound_advection`, the shape
+  `eq:Rhigh` needs, because the dissipation it must be absorbed into is
+  `ν‖∇u‖²_{H^m}`.
+
+The two are **not** interchangeable: `‖u‖²_{H^{m+1}} = ‖u‖²_{H^m} + ‖∇u‖²_{H^m}`,
+so a nonzero constant field has `‖u‖_{H^{m+1}} > 0 = ‖∇u‖_{H^m}`.  Both are
+proved.
+
 ## What is proved
 
-* `torusPairingBound` — the estimate above at the unprojected convection datum
-  of lane 328, with `torusPairingConstant m = 15 · 4^(m/2) · sqrt (∑ₖ W(k)^{-2})`.
-* `torusPairingBound_of_reweights` — the same with the `H^m` and `H²` data
-  supplied by the consumer through `IsPeriodicReweight` instead of
-  `torusOrderDown`.
-* `torusPairingBound_enorm` / `torusPairingBound_profile` — the bridge to the
-  physical extended norms `periodicSobolevENorm` and to lane 322's real profile
-  `torusSobolevNormAt`, which is the spelling `eq:Rhigh` pairs against.
-* `torusProjectedPairing_eq` / `torusProjectedPairingBound` — the same bound for
-  the Leray-projected convection datum, whenever the partner datum is
-  solenoidal (the projector differs by a gradient, which drops).
+* `torusInverseWeight_summable` — `∑ₖ W(k)^{-r} < ∞` for every real `r > 3/2`
+  (new: the tree only had `r = 3`, which would force an `H³` low factor).
+* `torusTrilinearConvolution` — `∑_{k,l} X(k)Y(l)β(k-l) ≤ ‖X‖₂‖Y‖₂‖β‖₁`.
+* `torusWeightPeetre` / `torusWeightPeetre_grad` — Peetre at a real exponent, and
+  its derivative-carrying form.
+* `torusPairingBound`, `torusPairingBound_nat`, `torusPairingBound_of_reweights`,
+  `torusPairingBound_enorm`, `torusPairingBound_profile` — the `‖u‖_{H^{m+1}}`
+  estimate for lane 328's datum, on the carrier and in the physical norms.
+* `torusProjectedPairing_eq` / `torusProjectedPairingBound` — the same for the
+  Leray-projected convection datum against a solenoidal partner.
+* `velocityCoeffT_advection` — the Fourier coefficient of `(u·∇)u` is the
+  convolution `∑ⱼ ∑ₗ û ⱼ(l) · 2πi(k-l)ⱼ · û ᵢ(k-l)` (periodic convolution theorem
+  plus the derivative rule).
+* `torusPairingBound_advection` / `torusPairingBound_slice` —
+  `|⟪Gm, Nm⟫_{H^m}| ≤ C(m) ‖u‖_{H²} ‖u‖_{H^m} ‖∇u‖_{H^m}` with `Nm` the order-`m`
+  datum of the **physical** advection `convectionFieldT u`.
+* `torusPairingBound_classical` — the `hpair` hypothesis of lane 335's
+  `EnergyIdentity.higherOrderBound_of_pairingBound`, discharged.
+* `torusHigherOrderBound` — hence the `higherOrderBound` field of
+  `PeriodicContinuationAPI`, **unconditionally** (lane 322 reduced it to
+  `eq:Rhigh`, lane 335 reduced `eq:Rhigh` to the pairing bound, this lane proves
+  the pairing bound).
+
+The constant is `torusPairingConstant s = 15 · 4^{s/2} · (∑ₖ W(k)^{-2})^{1/2}` in
+both shapes.  The divergence-free cancellation `⟪(u·∇)v, v⟫_{L²} = 0` is **not**
+used anywhere.
 
 No `sorry`, no axiom, no named `Prop` input: every statement below is
 unconditional.
@@ -64,7 +97,9 @@ noncomputable section
 namespace NSFormalization.Section3.T11
 
 open NSFormalization.Section3.T10
-open scoped BigOperators ENNReal ComplexConjugate
+open NavierStokes.ProblemStatement
+open NavierStokes.PeriodicIntegration (spatialPartial)
+open scoped BigOperators ContDiff ENNReal ComplexConjugate
 
 -- Named, so that the normed structures on the datum carrier never collide with
 -- the ones another module of this namespace installs (`logs/LESSONS.md`, 09-17).
@@ -681,6 +716,88 @@ private lemma symbol_norm_le {r : ℝ} (hr : (2 : ℝ) ≤ r) (A : PeriodicSobol
   rw [← Summable.tsum_finsetSum fun j (_ : j ∈ Finset.univ) ↦ conv_summable' hr A i j k]
   exact tsum_congr fun l ↦ by rw [wTot]; rw [Finset.sum_mul]
 
+/-! ## 8. Peetre with one derivative
+
+The tame estimate of `eq:Rhigh` measures the top factor in `‖∇u‖_{H^m}`, not in
+`‖u‖_{H^{m+1}}` — and the two are *not* interchangeable (a nonzero constant field
+has zero gradient).  The additive Peetre inequality of §1 puts the derivative on
+the output frequency and therefore produces `‖u‖_{H^{m+1}}`; what produces the
+gradient norm is the *region* split `|l| ≤ |k-l|` versus `>`, which the following
+single inequality packages: on each region the larger of the two summand
+frequencies dominates both the weight and the derivative amplitude. -/
+
+/-- `|2πk|`, the amplitude of the gradient symbol at frequency `k`. -/
+def torusFreqAmp (k : PeriodicFrequency) : ℝ := Real.sqrt (periodicAngularFrequencySq k)
+
+theorem torusFreqAmp_nonneg (k : PeriodicFrequency) : 0 ≤ torusFreqAmp k := Real.sqrt_nonneg _
+
+theorem weight_eq_one_add_angular (k : PeriodicFrequency) :
+    periodicFrequencyWeight k = 1 + periodicAngularFrequencySq k := rfl
+
+theorem norm_periodicDerivativeSymbol (j : Fin 3) (k : PeriodicFrequency) :
+    ‖periodicDerivativeSymbol j k‖ = 2 * Real.pi * |(k j : ℝ)| := by
+  simp only [periodicDerivativeSymbol, norm_mul, Complex.norm_ofNat, Complex.norm_real,
+    Real.norm_eq_abs, abs_of_pos Real.pi_pos, Complex.norm_I, mul_one, Complex.norm_intCast]
+
+theorem twoPi_abs_le_amp (j : Fin 3) (k : PeriodicFrequency) :
+    2 * Real.pi * |(k j : ℝ)| ≤ torusFreqAmp k := by
+  have hsq : (2 * Real.pi * |(k j : ℝ)|) ^ 2 ≤ periodicAngularFrequencySq k := by
+    have h := Finset.single_le_sum (f := fun i : Fin 3 ↦ (k i : ℝ) ^ 2)
+      (fun i _ ↦ sq_nonneg _) (Finset.mem_univ j)
+    unfold periodicAngularFrequencySq
+    nlinarith [sq_nonneg Real.pi, sq_abs ((k j : ℝ)), Real.pi_pos]
+  have := Real.sqrt_le_sqrt hsq
+  rwa [Real.sqrt_sq (by positivity)] at this
+
+theorem amp_mono {k l : PeriodicFrequency}
+    (h : periodicFrequencyWeight k ≤ periodicFrequencyWeight l) :
+    torusFreqAmp k ≤ torusFreqAmp l := by
+  apply Real.sqrt_le_sqrt
+  rw [weight_eq_one_add_angular, weight_eq_one_add_angular] at h
+  linarith
+
+/-- **Peetre with one derivative.**  The output weight times the amplitude of the
+gradient symbol at *either* summand frequency is controlled by the gradient
+weight at the larger of the two frequencies. -/
+theorem torusWeightPeetre_grad {a : ℝ} (ha : 0 ≤ a) (k l : PeriodicFrequency) :
+    periodicFrequencyWeight k ^ a * torusFreqAmp (k - l) ≤
+      (4 : ℝ) ^ a * (periodicFrequencyWeight l ^ a * torusFreqAmp l +
+        periodicFrequencyWeight (k - l) ^ a * torusFreqAmp (k - l)) := by
+  have hmax : periodicFrequencyWeight k ≤
+      4 * max (periodicFrequencyWeight l) (periodicFrequencyWeight (k - l)) := by
+    have h := NSFormalization.Paper1.PeriodicWeightShift.weight_add_le l (k - l)
+    rw [add_sub_cancel] at h
+    rw [← torus_weight_eq, ← torus_weight_eq, ← torus_weight_eq] at h
+    have h1 := le_max_left (periodicFrequencyWeight l) (periodicFrequencyWeight (k - l))
+    have h2 := le_max_right (periodicFrequencyWeight l) (periodicFrequencyWeight (k - l))
+    linarith
+  have hMpos : 0 < max (periodicFrequencyWeight l) (periodicFrequencyWeight (k - l)) :=
+    lt_of_lt_of_le (wpos l) (le_max_left _ _)
+  have h1 : periodicFrequencyWeight k ^ a ≤
+      (4 : ℝ) ^ a * (max (periodicFrequencyWeight l) (periodicFrequencyWeight (k - l))) ^ a := by
+    rw [← Real.mul_rpow (by norm_num) hMpos.le]
+    exact Real.rpow_le_rpow (wpos k).le hmax ha
+  have hpow4 : (0 : ℝ) ≤ (4 : ℝ) ^ a := Real.rpow_nonneg (by norm_num) a
+  have hstep : periodicFrequencyWeight k ^ a * torusFreqAmp (k - l) ≤
+      (4 : ℝ) ^ a * ((max (periodicFrequencyWeight l) (periodicFrequencyWeight (k - l))) ^ a *
+        torusFreqAmp (k - l)) := by
+    rw [← mul_assoc]
+    exact mul_le_mul_of_nonneg_right h1 (torusFreqAmp_nonneg _)
+  refine hstep.trans (mul_le_mul_of_nonneg_left ?_ hpow4)
+  rcases max_cases (periodicFrequencyWeight l) (periodicFrequencyWeight (k - l)) with
+    ⟨he, hge⟩ | ⟨he, hlt⟩
+  · rw [he]
+    have hamp : torusFreqAmp (k - l) ≤ torusFreqAmp l := amp_mono hge
+    have hnn : (0 : ℝ) ≤ periodicFrequencyWeight l ^ a := Real.rpow_nonneg (wpos l).le a
+    have h2 : (0 : ℝ) ≤ periodicFrequencyWeight (k - l) ^ a * torusFreqAmp (k - l) :=
+      mul_nonneg (Real.rpow_nonneg (wpos _).le a) (torusFreqAmp_nonneg _)
+    nlinarith
+  · rw [he]
+    have h2 : (0 : ℝ) ≤ periodicFrequencyWeight l ^ a * torusFreqAmp l :=
+      mul_nonneg (Real.rpow_nonneg (wpos l).le a) (torusFreqAmp_nonneg _)
+    linarith
+
+
 /-! ## 5. The pairing bound -/
 
 /-- `|⟪P, G⟫_{H^s}|` is bounded by the componentwise absolute lattice sum. -/
@@ -1089,5 +1206,546 @@ theorem torusProjectedPairingBound {r s : ℝ} (hr : (3 : ℝ) ≤ r) (h2 : (2 :
   subst hrs
   rw [torusProjectedPairing_eq hr A A (torusOrderDown r (r - 1) hs A) hsol]
   exact torusPairingBound hr h2 hs rfl A
+
+/-! ## 9. The advection form, in the spelling `eq:Rhigh` pairs against
+
+Lane 335 (`Section3/T11/EnergyIdentity.lean`) reduces the `higherOrderBound`
+field to exactly one hypothesis, `hpair`:
+
+`|⟪Gm, Nm⟫_{H^m}| ≤ C_m ‖u(t)‖_{H²} ‖u(t)‖_{H^m} ‖∇u(t)‖_{H^m}`
+
+with `Gm` the order-`m` datum of the velocity slice and `Nm` the order-`m` datum
+of `convectionFieldT u = (u·∇)u`.  This section proves it.  Everything is read
+off the raw coefficients `velocityCoeffT`, so §3's `wAbs`/`wTot` are reused at
+`r := m` (where `wAbs m m Gm i k = ‖Gm.1 i k‖` and `wAbs m 0 Gm i k = |û ᵢ(k)|`),
+and the gradient factor is the new `gAbs`. -/
+
+/-- The gradient-weighted absolute coefficient: `|2πk| · |Â ᵢ(k)|`. -/
+private def gAbs {s : ℝ} (A : PeriodicSobolev s) (i : Fin 3) (k : PeriodicFrequency) : ℝ :=
+  torusFreqAmp k * ‖A.1 i k‖
+
+private def gTot {s : ℝ} (A : PeriodicSobolev s) (k : PeriodicFrequency) : ℝ :=
+  ∑ j : Fin 3, gAbs A j k
+
+private lemma gAbs_nonneg {s : ℝ} (A : PeriodicSobolev s) (i : Fin 3) (k : PeriodicFrequency) :
+    0 ≤ gAbs A i k := mul_nonneg (torusFreqAmp_nonneg k) (norm_nonneg _)
+
+private lemma gTot_nonneg {s : ℝ} (A : PeriodicSobolev s) (k : PeriodicFrequency) :
+    0 ≤ gTot A k := Finset.sum_nonneg fun j _ ↦ gAbs_nonneg A j k
+
+private lemma angular_nonneg (k : PeriodicFrequency) : 0 ≤ periodicAngularFrequencySq k := by
+  unfold periodicAngularFrequencySq
+  positivity
+
+/-- The componentwise gradient energy of the order-`m` datum is `‖∇u(t)‖²_{H^m}`. -/
+private lemma gAbs_gradEnergy {u : NSFormalization.Section4.A02.SpaceTimeField} {t : ℝ}
+    {m : ℕ} {Gm : PeriodicSobolev (m : ℝ)} {Gm1 : PeriodicSobolev ((m : ℝ) + 1)}
+    (hGm : IsPeriodicDatum (m : ℝ) (fun x ↦ u (t, x)) Gm)
+    (hGm1 : IsPeriodicDatum ((m : ℝ) + 1) (fun x ↦ u (t, x)) Gm1) :
+    HasSum (fun k ↦ ∑ i : Fin 3, (gAbs Gm i k) ^ 2) (torusGradientEnergyT (m : ℝ) u t) := by
+  have hentry : ∀ k : PeriodicFrequency, (∑ i : Fin 3, (gAbs Gm i k) ^ 2) =
+      periodicFrequencyWeight k ^ (m : ℝ) * periodicAngularFrequencySq k *
+        ∑ i : Fin 3, ‖velocityCoeffT u i k t‖ ^ 2 := by
+    intro k
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun i _ ↦ ?_
+    rw [gAbs, mul_pow, torusFreqAmp, Real.sq_sqrt (angular_nonneg k),
+      datum_norm_sq_entry hGm i k]
+    simp only [velocityCoeffT]
+    ring
+  exact (hasSum_gradEnergy hGm1).congr_fun hentry
+
+private lemma gAbs_energy {u : NSFormalization.Section4.A02.SpaceTimeField} {t : ℝ}
+    {m : ℕ} {Gm : PeriodicSobolev (m : ℝ)} {Gm1 : PeriodicSobolev ((m : ℝ) + 1)}
+    (hGm : IsPeriodicDatum (m : ℝ) (fun x ↦ u (t, x)) Gm)
+    (hGm1 : IsPeriodicDatum ((m : ℝ) + 1) (fun x ↦ u (t, x)) Gm1) (i : Fin 3) :
+    Summable (fun k ↦ (gAbs Gm i k) ^ 2) ∧
+      Real.sqrt (∑' k, (gAbs Gm i k) ^ 2) ≤ torusGradientNormAt (m : ℝ) u t := by
+  have htot := gAbs_gradEnergy hGm hGm1
+  have hle : ∀ k, (gAbs Gm i k) ^ 2 ≤ ∑ j : Fin 3, (gAbs Gm j k) ^ 2 :=
+    fun k ↦ Finset.single_le_sum (fun j _ ↦ sq_nonneg (gAbs Gm j k)) (Finset.mem_univ i)
+  have hs : Summable (fun k ↦ (gAbs Gm i k) ^ 2) :=
+    htot.summable.of_nonneg_of_le (fun k ↦ sq_nonneg _) hle
+  refine ⟨hs, ?_⟩
+  have hb : (∑' k, (gAbs Gm i k) ^ 2) ≤ torusGradientEnergyT (m : ℝ) u t := by
+    rw [← htot.tsum_eq]
+    exact hs.tsum_le_tsum hle htot.summable
+  have hdef : torusGradientNormAt (m : ℝ) u t =
+      Real.sqrt (torusGradientEnergyT (m : ℝ) u t) := rfl
+  rw [hdef]
+  exact Real.sqrt_le_sqrt hb
+
+private lemma gTot_energy {u : NSFormalization.Section4.A02.SpaceTimeField} {t : ℝ}
+    {m : ℕ} {Gm : PeriodicSobolev (m : ℝ)} {Gm1 : PeriodicSobolev ((m : ℝ) + 1)}
+    (hGm : IsPeriodicDatum (m : ℝ) (fun x ↦ u (t, x)) Gm)
+    (hGm1 : IsPeriodicDatum ((m : ℝ) + 1) (fun x ↦ u (t, x)) Gm1) :
+    Summable (fun k ↦ (gTot Gm k) ^ 2) ∧
+      Real.sqrt (∑' k, (gTot Gm k) ^ 2) ≤ 2 * torusGradientNormAt (m : ℝ) u t := by
+  have htot := gAbs_gradEnergy hGm hGm1
+  have hle : ∀ k, (gTot Gm k) ^ 2 ≤ 3 * ∑ i : Fin 3, (gAbs Gm i k) ^ 2 := by
+    intro k
+    rw [gTot, Fin.sum_univ_three, Fin.sum_univ_three]
+    nlinarith [sq_nonneg (gAbs Gm 0 k - gAbs Gm 1 k), sq_nonneg (gAbs Gm 0 k - gAbs Gm 2 k),
+      sq_nonneg (gAbs Gm 1 k - gAbs Gm 2 k)]
+  have hmaj : Summable (fun k ↦ 3 * ∑ i : Fin 3, (gAbs Gm i k) ^ 2) := htot.summable.mul_left 3
+  have hs : Summable (fun k ↦ (gTot Gm k) ^ 2) :=
+    hmaj.of_nonneg_of_le (fun k ↦ sq_nonneg _) hle
+  refine ⟨hs, ?_⟩
+  have hb : (∑' k, (gTot Gm k) ^ 2) ≤ 3 * torusGradientEnergyT (m : ℝ) u t := by
+    refine (hs.tsum_le_tsum hle hmaj).trans (le_of_eq ?_)
+    rw [tsum_mul_left, htot.tsum_eq]
+  have hgn : torusGradientEnergyT (m : ℝ) u t = torusGradientNormAt (m : ℝ) u t ^ 2 :=
+    (torusGradientNormAt_sq (m : ℝ) u t).symm
+  rw [hgn] at hb
+  have hsq : (∑' k, (gTot Gm k) ^ 2) ≤ (2 * torusGradientNormAt (m : ℝ) u t) ^ 2 := by
+    nlinarith [torusGradientNormAt_nonneg (m : ℝ) u t]
+  calc Real.sqrt (∑' k, (gTot Gm k) ^ 2)
+      ≤ Real.sqrt ((2 * torusGradientNormAt (m : ℝ) u t) ^ 2) := Real.sqrt_le_sqrt hsq
+    _ = 2 * torusGradientNormAt (m : ℝ) u t := by
+        refine Real.sqrt_sq ?_
+        have := torusGradientNormAt_nonneg (m : ℝ) u t
+        linarith
+
+/-! ### 9.1 Relating the raw coefficients to the order-`m` datum -/
+
+private lemma wAbs_zero_eq_coeff {u : NSFormalization.Section4.A02.SpaceTimeField} {t : ℝ}
+    {s : ℝ} {A : PeriodicSobolev s} (hA : IsPeriodicDatum s (fun x ↦ u (t, x)) A)
+    (i : Fin 3) (k : PeriodicFrequency) :
+    wAbs s 0 A i k = ‖velocityCoeffT u i k t‖ := by
+  have hentry : ‖A.1 i k‖ =
+      periodicFrequencyWeight k ^ (s / 2) * ‖velocityCoeffT u i k t‖ := by
+    rw [hA.2.2 i k, norm_smul, Real.norm_eq_abs,
+      abs_of_nonneg (Real.rpow_nonneg (wpos k).le _)]
+    rfl
+  rw [wAbs_zero_eq, hentry, ← mul_assoc, ← Real.rpow_add (wpos k),
+    show -s / 2 + s / 2 = (0 : ℝ) by ring, Real.rpow_zero, one_mul]
+
+private lemma gAbs_of_shift {s : ℝ} (A : PeriodicSobolev s) (i : Fin 3) (n : PeriodicFrequency) :
+    periodicFrequencyWeight n ^ (s / 2) * torusFreqAmp n * wAbs s 0 A i n = gAbs A i n := by
+  have h := wAbs_shift s 0 (s / 2) A i n
+  rw [show (0 : ℝ) + 2 * (s / 2) = s by ring] at h
+  calc periodicFrequencyWeight n ^ (s / 2) * torusFreqAmp n * wAbs s 0 A i n
+      = torusFreqAmp n * (periodicFrequencyWeight n ^ (s / 2) * wAbs s 0 A i n) := by ring
+    _ = torusFreqAmp n * wAbs s s A i n := by rw [h]
+    _ = gAbs A i n := by rw [wAbs_self, gAbs]
+
+private lemma gTot_of_shift {s : ℝ} (A : PeriodicSobolev s) (n : PeriodicFrequency) :
+    periodicFrequencyWeight n ^ (s / 2) * torusFreqAmp n * wTot s 0 A n = gTot A n := by
+  rw [wTot, gTot, Finset.mul_sum]
+  exact Finset.sum_congr rfl fun j _ ↦ gAbs_of_shift A j n
+
+/-- The unweighted coefficient of the gradient never exceeds the datum norm. -/
+private lemma amp_wAbs_le {s : ℝ} (hs : (1 : ℝ) ≤ s) (A : PeriodicSobolev s) (i : Fin 3)
+    (n : PeriodicFrequency) : torusFreqAmp n * wAbs s 0 A i n ≤ ‖A‖ := by
+  have hamp : torusFreqAmp n ≤ periodicFrequencyWeight n ^ (s / 2) := by
+    have h1 : torusFreqAmp n ≤ periodicFrequencyWeight n ^ ((1 : ℝ) / 2) := by
+      rw [torusFreqAmp, ← Real.sqrt_eq_rpow]
+      apply Real.sqrt_le_sqrt
+      rw [weight_eq_one_add_angular]
+      linarith [angular_nonneg n]
+    exact h1.trans (Real.rpow_le_rpow_of_exponent_le (one_le_w n) (by linarith))
+  have hentry : periodicFrequencyWeight n ^ (s / 2) * wAbs s 0 A i n = ‖A.1 i n‖ := by
+    have h := wAbs_shift s 0 (s / 2) A i n
+    rw [show (0 : ℝ) + 2 * (s / 2) = s by ring, wAbs_self] at h
+    exact h
+  calc torusFreqAmp n * wAbs s 0 A i n
+      ≤ periodicFrequencyWeight n ^ (s / 2) * wAbs s 0 A i n :=
+        mul_le_mul_of_nonneg_right hamp (wAbs_nonneg s 0 A i n)
+    _ = ‖A.1 i n‖ := hentry
+    _ ≤ ‖A.1 i‖ := lp.norm_apply_le_norm (by norm_num) _ _
+    _ ≤ ‖A‖ := PiLp.norm_apply_le A.1 i
+
+/-! ### 9.2 The convolution bound on the advection coefficient -/
+
+private lemma advection_conv_summable {s : ℝ} (hs1 : (1 : ℝ) ≤ s) (h2 : (2 : ℝ) ≤ s)
+    {A : PeriodicSobolev s}
+    (i : Fin 3) (k : PeriodicFrequency) :
+    Summable (fun l ↦ wTot s 0 A l * (torusFreqAmp (k - l) * wAbs s 0 A i (k - l))) := by
+  obtain ⟨hs, _⟩ := wTot_l1 h2 A
+  refine (hs.mul_right ‖A‖).of_nonneg_of_le
+    (fun l ↦ mul_nonneg (wTot_nonneg s 0 A l)
+      (mul_nonneg (torusFreqAmp_nonneg _) (wAbs_nonneg s 0 A i _))) ?_
+  intro l
+  exact mul_le_mul_of_nonneg_left (amp_wAbs_le hs1 A i (k - l)) (wTot_nonneg s 0 A l)
+
+private lemma advection_coeff_norm_le {u : NSFormalization.Section4.A02.SpaceTimeField} {t : ℝ}
+    {m : ℕ} (hm : 3 ≤ m) {Gm : PeriodicSobolev (m : ℝ)}
+    (hGm : IsPeriodicDatum (m : ℝ) (fun x ↦ u (t, x)) Gm)
+    (hconv : ∀ (i : Fin 3) (k : PeriodicFrequency),
+      velocityCoeffT (convectionFieldT u) i k t =
+        ∑ j : Fin 3, ∑' l : PeriodicFrequency,
+          velocityCoeffT u j l t *
+            (periodicDerivativeSymbol j (k - l) * velocityCoeffT u i (k - l) t))
+    (i : Fin 3) (k : PeriodicFrequency) :
+    ‖velocityCoeffT (convectionFieldT u) i k t‖ ≤
+      ∑' l, wTot (m : ℝ) 0 Gm l * (torusFreqAmp (k - l) * wAbs (m : ℝ) 0 Gm i (k - l)) := by
+  have hm1 : (1 : ℝ) ≤ (m : ℝ) := by exact_mod_cast le_trans (by norm_num) hm
+  have hm2 : (2 : ℝ) ≤ (m : ℝ) := by exact_mod_cast le_trans (by norm_num) hm
+  have hterm : ∀ (j : Fin 3) (l : PeriodicFrequency),
+      ‖velocityCoeffT u j l t *
+          (periodicDerivativeSymbol j (k - l) * velocityCoeffT u i (k - l) t)‖ ≤
+        wAbs (m : ℝ) 0 Gm j l * (torusFreqAmp (k - l) * wAbs (m : ℝ) 0 Gm i (k - l)) := by
+    intro j l
+    rw [norm_mul, norm_mul, wAbs_zero_eq_coeff hGm j l, wAbs_zero_eq_coeff hGm i (k - l)]
+    refine mul_le_mul_of_nonneg_left ?_ (norm_nonneg _)
+    exact mul_le_mul_of_nonneg_right
+      ((norm_periodicDerivativeSymbol j (k - l)) ▸ twoPi_abs_le_amp j (k - l)) (norm_nonneg _)
+  have hjsum : ∀ j : Fin 3, Summable (fun l ↦
+      wAbs (m : ℝ) 0 Gm j l * (torusFreqAmp (k - l) * wAbs (m : ℝ) 0 Gm i (k - l))) := by
+    intro j
+    obtain ⟨hs, _⟩ := wAbs_zero_l1 hm2 Gm j
+    refine (hs.mul_right ‖Gm‖).of_nonneg_of_le
+      (fun l ↦ mul_nonneg (wAbs_nonneg _ _ _ _ _)
+        (mul_nonneg (torusFreqAmp_nonneg _) (wAbs_nonneg _ _ _ _ _))) ?_
+    intro l
+    exact mul_le_mul_of_nonneg_left (amp_wAbs_le hm1 Gm i (k - l)) (wAbs_nonneg _ _ _ _ _)
+  have hjnorm : ∀ j : Fin 3, ‖∑' l : PeriodicFrequency, velocityCoeffT u j l t *
+      (periodicDerivativeSymbol j (k - l) * velocityCoeffT u i (k - l) t)‖ ≤
+      ∑' l, wAbs (m : ℝ) 0 Gm j l * (torusFreqAmp (k - l) * wAbs (m : ℝ) 0 Gm i (k - l)) := by
+    intro j
+    have hns : Summable (fun l : PeriodicFrequency ↦ ‖velocityCoeffT u j l t *
+        (periodicDerivativeSymbol j (k - l) * velocityCoeffT u i (k - l) t)‖) :=
+      (hjsum j).of_nonneg_of_le (fun l ↦ norm_nonneg _) (hterm j)
+    exact (norm_tsum_le_tsum_norm hns).trans (hns.tsum_le_tsum (hterm j) (hjsum j))
+  rw [hconv i k]
+  refine (norm_sum_le _ _).trans ?_
+  refine (Finset.sum_le_sum fun j _ ↦ hjnorm j).trans (le_of_eq ?_)
+  rw [← Summable.tsum_finsetSum fun j (_ : j ∈ Finset.univ) ↦ hjsum j]
+  exact tsum_congr fun l ↦ by rw [wTot, Finset.sum_mul]
+
+/-! ### 9.3 The componentwise estimate and the tame bound -/
+
+private lemma advection_component_bound {u : NSFormalization.Section4.A02.SpaceTimeField} {t : ℝ}
+    {m : ℕ} (hm : 3 ≤ m) {Gm Nm : PeriodicSobolev (m : ℝ)}
+    {Gm1 : PeriodicSobolev ((m : ℝ) + 1)}
+    (hGm : IsPeriodicDatum (m : ℝ) (fun x ↦ u (t, x)) Gm)
+    (hGm1 : IsPeriodicDatum ((m : ℝ) + 1) (fun x ↦ u (t, x)) Gm1)
+    (hNm : IsPeriodicDatum (m : ℝ) (fun x ↦ convectionFieldT u (t, x)) Nm)
+    (hconv : ∀ (i : Fin 3) (k : PeriodicFrequency),
+      velocityCoeffT (convectionFieldT u) i k t =
+        ∑ j : Fin 3, ∑' l : PeriodicFrequency,
+          velocityCoeffT u j l t *
+            (periodicDerivativeSymbol j (k - l) * velocityCoeffT u i (k - l) t))
+    (i : Fin 3) :
+    (∑' k, ‖Gm.1 i k‖ * ‖Nm.1 i k‖) ≤
+      5 * (4 : ℝ) ^ ((m : ℝ) / 2) * Real.sqrt torusInverseWeightSum *
+        torusSobolevNormAt 2 u t * torusSobolevNormAt (m : ℝ) u t *
+        torusGradientNormAt (m : ℝ) u t := by
+  have hm1 : (1 : ℝ) ≤ (m : ℝ) := by exact_mod_cast le_trans (by norm_num) hm
+  have hm2 : (2 : ℝ) ≤ (m : ℝ) := by exact_mod_cast le_trans (by norm_num) hm
+  have ha : (0 : ℝ) ≤ (m : ℝ) / 2 := by linarith
+  -- the three factors in the vocabulary of `u`
+  have hEdat : IsPeriodicDatum 2 (fun x ↦ u (t, x)) (torusOrderDown (m : ℝ) 2 hm2 Gm) :=
+    persistence_datum_of_reweight hGm (torusOrderDown_reweight (m : ℝ) 2 hm2 Gm)
+  have hEnorm : torusSobolevNormAt 2 u t = ‖torusOrderDown (m : ℝ) 2 hm2 Gm‖ :=
+    torusSobolevNormAt_eq hEdat
+  have hGnorm : torusSobolevNormAt (m : ℝ) u t = ‖Gm‖ := torusSobolevNormAt_eq hGm
+  obtain ⟨hXs, hXb⟩ := wAbs_top_energy (m : ℝ) Gm i
+  obtain ⟨hYs, hYb⟩ := gTot_energy hGm hGm1
+  obtain ⟨hZs, hZb⟩ := gAbs_energy hGm hGm1 i
+  obtain ⟨hβs, hβb⟩ := wAbs_zero_l1 hm2 Gm i
+  obtain ⟨hγs, hγb⟩ := wTot_l1 hm2 Gm
+  obtain ⟨hp1, hb1⟩ := torusTrilinearConvolution (X := fun k ↦ wAbs (m : ℝ) (m : ℝ) Gm i k)
+    (Y := fun k ↦ gTot Gm k) (β := fun k ↦ wAbs (m : ℝ) 0 Gm i k)
+    (wAbs_nonneg _ _ _ _) (gTot_nonneg Gm) (wAbs_nonneg _ _ _ _) hXs hYs hβs
+  obtain ⟨hp2, hb2⟩ := torusTrilinearConvolution (X := fun k ↦ wAbs (m : ℝ) (m : ℝ) Gm i k)
+    (Y := fun k ↦ gAbs Gm i k) (β := fun k ↦ wTot (m : ℝ) 0 Gm k)
+    (wAbs_nonneg _ _ _ _) (gAbs_nonneg Gm i) (wTot_nonneg _ _ _) hXs hZs hγs
+  have hmaj : ∀ k : PeriodicFrequency, ‖Gm.1 i k‖ * ‖Nm.1 i k‖ ≤
+      (4 : ℝ) ^ ((m : ℝ) / 2) *
+        ((∑' l, wAbs (m : ℝ) (m : ℝ) Gm i k * gTot Gm l * wAbs (m : ℝ) 0 Gm i (k - l)) +
+          (∑' l, wAbs (m : ℝ) (m : ℝ) Gm i k * gAbs Gm i l * wTot (m : ℝ) 0 Gm (k - l))) := by
+    intro k
+    have hNentry : ‖Nm.1 i k‖ = periodicFrequencyWeight k ^ ((m : ℝ) / 2) *
+        ‖velocityCoeffT (convectionFieldT u) i k t‖ := by
+      rw [hNm.2.2 i k, norm_smul, Real.norm_eq_abs,
+        abs_of_nonneg (Real.rpow_nonneg (wpos k).le _)]
+      rfl
+    have hGentry : ‖Gm.1 i k‖ = wAbs (m : ℝ) (m : ℝ) Gm i k := (wAbs_self (m : ℝ) Gm i k).symm
+    have hconvsum := advection_conv_summable (A := Gm) hm1 hm2 i k
+    have hstep : ‖Gm.1 i k‖ * ‖Nm.1 i k‖ ≤
+        ∑' l, wAbs (m : ℝ) (m : ℝ) Gm i k *
+          (periodicFrequencyWeight k ^ ((m : ℝ) / 2) * torusFreqAmp (k - l)) *
+          (wTot (m : ℝ) 0 Gm l * wAbs (m : ℝ) 0 Gm i (k - l)) := by
+      rw [hGentry, hNentry]
+      have hb := advection_coeff_norm_le hm hGm hconv i k
+      have := mul_le_mul_of_nonneg_left
+        (mul_le_mul_of_nonneg_left hb (Real.rpow_nonneg (wpos k).le ((m : ℝ) / 2)))
+        (wAbs_nonneg (m : ℝ) (m : ℝ) Gm i k)
+      refine this.trans (le_of_eq ?_)
+      rw [← tsum_mul_left, ← tsum_mul_left]
+      exact tsum_congr fun l ↦ by ring
+    refine hstep.trans ?_
+    have hF1 : Summable (fun l ↦
+        wAbs (m : ℝ) (m : ℝ) Gm i k * gTot Gm l * wAbs (m : ℝ) 0 Gm i (k - l)) :=
+      hp1.prod_factor k
+    have hF2' : Summable (fun l ↦
+        wAbs (m : ℝ) (m : ℝ) Gm i k * wTot (m : ℝ) 0 Gm l * gAbs Gm i (k - l)) := by
+      refine ((summable_sub_left (hp2.prod_factor k) k).congr ?_)
+      intro l
+      rw [sub_sub_cancel]
+      ring
+    have hptwise : ∀ l : PeriodicFrequency,
+        wAbs (m : ℝ) (m : ℝ) Gm i k *
+            (periodicFrequencyWeight k ^ ((m : ℝ) / 2) * torusFreqAmp (k - l)) *
+            (wTot (m : ℝ) 0 Gm l * wAbs (m : ℝ) 0 Gm i (k - l)) ≤
+          (4 : ℝ) ^ ((m : ℝ) / 2) *
+            (wAbs (m : ℝ) (m : ℝ) Gm i k * gTot Gm l * wAbs (m : ℝ) 0 Gm i (k - l) +
+              wAbs (m : ℝ) (m : ℝ) Gm i k * wTot (m : ℝ) 0 Gm l * gAbs Gm i (k - l)) := by
+      intro l
+      have hpe := torusWeightPeetre_grad ha k l
+      have hcoef : (0 : ℝ) ≤ wAbs (m : ℝ) (m : ℝ) Gm i k *
+          (wTot (m : ℝ) 0 Gm l * wAbs (m : ℝ) 0 Gm i (k - l)) :=
+        mul_nonneg (wAbs_nonneg _ _ _ _ _)
+          (mul_nonneg (wTot_nonneg _ _ _ _) (wAbs_nonneg _ _ _ _ _))
+      have hmul := mul_le_mul_of_nonneg_right hpe hcoef
+      refine le_of_le_of_eq (le_of_eq_of_le (by ring) hmul) ?_
+      rw [show (4 : ℝ) ^ ((m : ℝ) / 2) *
+            (periodicFrequencyWeight l ^ ((m : ℝ) / 2) * torusFreqAmp l +
+              periodicFrequencyWeight (k - l) ^ ((m : ℝ) / 2) * torusFreqAmp (k - l)) *
+            (wAbs (m : ℝ) (m : ℝ) Gm i k *
+              (wTot (m : ℝ) 0 Gm l * wAbs (m : ℝ) 0 Gm i (k - l))) =
+          (4 : ℝ) ^ ((m : ℝ) / 2) *
+            (wAbs (m : ℝ) (m : ℝ) Gm i k *
+                (periodicFrequencyWeight l ^ ((m : ℝ) / 2) * torusFreqAmp l *
+                  wTot (m : ℝ) 0 Gm l) * wAbs (m : ℝ) 0 Gm i (k - l) +
+              wAbs (m : ℝ) (m : ℝ) Gm i k * wTot (m : ℝ) 0 Gm l *
+                (periodicFrequencyWeight (k - l) ^ ((m : ℝ) / 2) * torusFreqAmp (k - l) *
+                  wAbs (m : ℝ) 0 Gm i (k - l))) by ring,
+        gTot_of_shift Gm l, gAbs_of_shift Gm i (k - l)]
+    calc (∑' l, wAbs (m : ℝ) (m : ℝ) Gm i k *
+            (periodicFrequencyWeight k ^ ((m : ℝ) / 2) * torusFreqAmp (k - l)) *
+            (wTot (m : ℝ) 0 Gm l * wAbs (m : ℝ) 0 Gm i (k - l)))
+        ≤ ∑' l, (4 : ℝ) ^ ((m : ℝ) / 2) *
+            (wAbs (m : ℝ) (m : ℝ) Gm i k * gTot Gm l * wAbs (m : ℝ) 0 Gm i (k - l) +
+              wAbs (m : ℝ) (m : ℝ) Gm i k * wTot (m : ℝ) 0 Gm l * gAbs Gm i (k - l)) := by
+          refine Summable.tsum_le_tsum hptwise ?_ ((hF1.add hF2').mul_left _)
+          exact ((hconvsum.mul_left (wAbs (m : ℝ) (m : ℝ) Gm i k *
+            (periodicFrequencyWeight k ^ ((m : ℝ) / 2)))).congr fun l ↦ by ring)
+      _ = (4 : ℝ) ^ ((m : ℝ) / 2) *
+            ((∑' l, wAbs (m : ℝ) (m : ℝ) Gm i k * gTot Gm l * wAbs (m : ℝ) 0 Gm i (k - l)) +
+              (∑' l, wAbs (m : ℝ) (m : ℝ) Gm i k * wTot (m : ℝ) 0 Gm l *
+                gAbs Gm i (k - l))) := by
+          rw [tsum_mul_left, hF1.tsum_add hF2']
+      _ = (4 : ℝ) ^ ((m : ℝ) / 2) *
+            ((∑' l, wAbs (m : ℝ) (m : ℝ) Gm i k * gTot Gm l * wAbs (m : ℝ) 0 Gm i (k - l)) +
+              (∑' l, wAbs (m : ℝ) (m : ℝ) Gm i k * gAbs Gm i l *
+                wTot (m : ℝ) 0 Gm (k - l))) := by
+          congr 2
+          have hg := (Equiv.subLeft k).tsum_eq
+            (fun l ↦ wAbs (m : ℝ) (m : ℝ) Gm i k * gAbs Gm i l * wTot (m : ℝ) 0 Gm (k - l))
+          refine Eq.trans (tsum_congr fun l ↦ ?_) hg
+          show wAbs (m : ℝ) (m : ℝ) Gm i k * wTot (m : ℝ) 0 Gm l * gAbs Gm i (k - l) =
+            wAbs (m : ℝ) (m : ℝ) Gm i k * gAbs Gm i (k - l) * wTot (m : ℝ) 0 Gm (k - (k - l))
+          rw [sub_sub_cancel]
+          ring
+  have hlhs : Summable (fun k ↦ ‖Gm.1 i k‖ * ‖Nm.1 i k‖) :=
+    (lp.tsum_mul_le_mul_norm
+      (show (2 : ℝ≥0∞).toReal.HolderConjugate (2 : ℝ≥0∞).toReal by
+        simpa using Real.HolderConjugate.two_two) (Gm.1 i) (Nm.1 i)).1
+  have hmajsum : Summable (fun k ↦ (4 : ℝ) ^ ((m : ℝ) / 2) *
+      ((∑' l, wAbs (m : ℝ) (m : ℝ) Gm i k * gTot Gm l * wAbs (m : ℝ) 0 Gm i (k - l)) +
+        (∑' l, wAbs (m : ℝ) (m : ℝ) Gm i k * gAbs Gm i l * wTot (m : ℝ) 0 Gm (k - l)))) :=
+    (hp1.prod.add hp2.prod).mul_left _
+  refine (Summable.tsum_le_tsum hmaj hlhs hmajsum).trans ?_
+  rw [tsum_mul_left, hp1.prod.tsum_add hp2.prod, ← hp1.tsum_prod, ← hp2.tsum_prod]
+  have hb1' : (∑' p : PeriodicFrequency × PeriodicFrequency,
+      wAbs (m : ℝ) (m : ℝ) Gm i p.1 * gTot Gm p.2 * wAbs (m : ℝ) 0 Gm i (p.1 - p.2)) ≤
+      ‖Gm‖ * (2 * torusGradientNormAt (m : ℝ) u t) *
+        (Real.sqrt torusInverseWeightSum * ‖torusOrderDown (m : ℝ) 2 hm2 Gm‖) := by
+    refine hb1.trans ?_
+    exact mul_le_mul (mul_le_mul hXb hYb (Real.sqrt_nonneg _) (norm_nonneg _)) hβb
+      (tsum_nonneg fun k ↦ wAbs_nonneg _ _ _ _ _)
+      (mul_nonneg (norm_nonneg _)
+        (by linarith [torusGradientNormAt_nonneg (m : ℝ) u t]))
+  have hb2' : (∑' p : PeriodicFrequency × PeriodicFrequency,
+      wAbs (m : ℝ) (m : ℝ) Gm i p.1 * gAbs Gm i p.2 * wTot (m : ℝ) 0 Gm (p.1 - p.2)) ≤
+      ‖Gm‖ * torusGradientNormAt (m : ℝ) u t *
+        (3 * Real.sqrt torusInverseWeightSum * ‖torusOrderDown (m : ℝ) 2 hm2 Gm‖) := by
+    refine hb2.trans ?_
+    exact mul_le_mul (mul_le_mul hXb hZb (Real.sqrt_nonneg _) (norm_nonneg _)) hγb
+      (tsum_nonneg fun k ↦ wTot_nonneg _ _ _ _)
+      (mul_nonneg (norm_nonneg _) (torusGradientNormAt_nonneg _ _ _))
+  have hpow : (0 : ℝ) ≤ (4 : ℝ) ^ ((m : ℝ) / 2) := Real.rpow_nonneg (by norm_num) _
+  refine (mul_le_mul_of_nonneg_left (add_le_add hb1' hb2') hpow).trans (le_of_eq ?_)
+  rw [hEnorm, hGnorm]
+  ring
+
+/-- **The tame pairing bound in the spelling `eq:Rhigh` uses** (lane 335's
+`hpair`).  `Gm` is the order-`m` datum of the velocity slice, `Nm` the order-`m`
+datum of the physical advection `(u·∇)u`, and the three factors are `‖u‖_{H²}`,
+`‖u‖_{H^m}` and the dissipation norm `‖∇u‖_{H^m}`.  `Gm1` is the order-`(m+1)`
+datum of the same slice, which is what makes `‖∇u(t)‖_{H^m}` finite; a classical
+periodic solution carries one at every integer order. -/
+theorem torusPairingBound_advection {u : NSFormalization.Section4.A02.SpaceTimeField} {t : ℝ}
+    {m : ℕ} (hm : 3 ≤ m) {Gm Nm : PeriodicSobolev (m : ℝ)}
+    {Gm1 : PeriodicSobolev ((m : ℝ) + 1)}
+    (hGm : IsPeriodicDatum (m : ℝ) (fun x ↦ u (t, x)) Gm)
+    (hGm1 : IsPeriodicDatum ((m : ℝ) + 1) (fun x ↦ u (t, x)) Gm1)
+    (hNm : IsPeriodicDatum (m : ℝ) (fun x ↦ convectionFieldT u (t, x)) Nm)
+    (hconv : ∀ (i : Fin 3) (k : PeriodicFrequency),
+      velocityCoeffT (convectionFieldT u) i k t =
+        ∑ j : Fin 3, ∑' l : PeriodicFrequency,
+          velocityCoeffT u j l t *
+            (periodicDerivativeSymbol j (k - l) * velocityCoeffT u i (k - l) t)) :
+    |torusRealPairing Gm Nm| ≤
+      torusPairingConstant (m : ℝ) * torusSobolevNormAt 2 u t *
+        torusSobolevNormAt (m : ℝ) u t * torusGradientNormAt (m : ℝ) u t := by
+  refine (pairing_le_components Gm Nm).trans ?_
+  calc (∑ i : Fin 3, ∑' k, ‖Gm.1 i k‖ * ‖Nm.1 i k‖)
+      ≤ ∑ _i : Fin 3, 5 * (4 : ℝ) ^ ((m : ℝ) / 2) * Real.sqrt torusInverseWeightSum *
+          torusSobolevNormAt 2 u t * torusSobolevNormAt (m : ℝ) u t *
+          torusGradientNormAt (m : ℝ) u t :=
+        Finset.sum_le_sum fun i _ ↦ advection_component_bound hm hGm hGm1 hNm hconv i
+    _ = torusPairingConstant (m : ℝ) * torusSobolevNormAt 2 u t *
+          torusSobolevNormAt (m : ℝ) u t * torusGradientNormAt (m : ℝ) u t := by
+        rw [Finset.sum_const, Finset.card_univ, Fintype.card_fin, torusPairingConstant]
+        simp only [nsmul_eq_mul, Nat.cast_ofNat]
+        ring
+
+/-! ### 9.4 The advection coefficient is the convolution with the derivative symbol
+
+`(u·∇)uᵢ = ∑ⱼ uⱼ ∂ⱼuᵢ`, so its Fourier coefficient is the convolution of `û ⱼ`
+with `2πi nⱼ û ᵢ(n)` — the periodic convolution theorem of `MildPressure.lean`
+together with the derivative rule of `Section3/T10/FourierCalculus.lean`.  This
+is what removes the last hypothesis from §9.3. -/
+
+/-- The `i`-th component of the advection `(u·∇)u` as a sum of scalar products. -/
+theorem advection_component (hs : ContDiff ℝ ∞ (fun x : Space ↦ u (t, x)))
+    (x : Space) (i : Fin 3) :
+    convectionFieldT u (t, x) i =
+      ∑ j : Fin 3, u (t, x) j * spatialPartial j (fun y : Space ↦ u (t, y) i) x := by
+  have hexp : u (t, x) = ∑ j : Fin 3, (u (t, x) j) • coordinateVector j := by
+    ext n
+    rw [euclidean_sum_apply]
+    simp [coordinateVector, PiLp.single_apply]
+  have hval : (fderiv ℝ (fun y : Space ↦ u (t, y)) x (u (t, x))) i =
+      ∑ j : Fin 3, (u (t, x) j) *
+        ((fderiv ℝ (fun y : Space ↦ u (t, y)) x (coordinateVector j)) i) := by
+    conv_lhs => rw [hexp]
+    rw [map_sum, euclidean_sum_apply]
+    exact Finset.sum_congr rfl fun j _ ↦ by rw [map_smul]; rfl
+  have hpart : ∀ j : Fin 3, spatialPartial j (fun y : Space ↦ u (t, y) i) x =
+      (fderiv ℝ (fun y : Space ↦ u (t, y)) x (coordinateVector j)) i := by
+    intro j
+    have h : HasFDerivAt (fun y : Space ↦ u (t, y) i)
+        ((EuclideanSpace.proj (𝕜 := ℝ) i).comp (fderiv ℝ (fun y : Space ↦ u (t, y)) x)) x :=
+      (EuclideanSpace.proj (𝕜 := ℝ) i).hasFDerivAt.comp x
+        ((hs.differentiable (by simp) x).hasFDerivAt)
+    unfold spatialPartial
+    rw [h.fderiv]
+    rfl
+  show (fderiv ℝ (fun y : Space ↦ u (t, y)) x (u (t, x))) i = _
+  rw [hval]
+  exact Finset.sum_congr rfl fun j _ ↦ by rw [hpart j]
+
+
+/-- **The advection coefficient is the convolution with the derivative symbol.** -/
+theorem velocityCoeffT_advection (hs : ContDiff ℝ ∞ (fun x : Space ↦ u (t, x)))
+    (hp : IsPeriodicSpatial (fun x : Space ↦ u (t, x))) (i : Fin 3) (k : PeriodicFrequency) :
+    velocityCoeffT (convectionFieldT u) i k t =
+      ∑ j : Fin 3, ∑' l : PeriodicFrequency,
+        velocityCoeffT u j l t *
+          (periodicDerivativeSymbol j (k - l) * velocityCoeffT u i (k - l) t) := by
+  have hFs : ∀ j : Fin 3, ContDiff ℝ ∞ (fun x : Space ↦ ((u (t, x) j : ℝ) : ℂ)) :=
+    fun j ↦ sourceComponent_contDiff hs j
+  have hFp : ∀ j : Fin 3, IsPeriodicSpatial (fun x : Space ↦ ((u (t, x) j : ℝ) : ℂ)) :=
+    fun j ↦ sourceComponent_periodic hp j
+  have hDs : ∀ j : Fin 3,
+      ContDiff ℝ ∞ (spatialPartial j (fun x : Space ↦ ((u (t, x) i : ℝ) : ℂ))) := by
+    intro j
+    have h : ContDiff ℝ ∞ (fun x : Space ↦
+        fderiv ℝ (fun y : Space ↦ ((u (t, y) i : ℝ) : ℂ)) x) := (hFs i).fderiv_right (by simp)
+    exact h.clm_apply contDiff_const
+  have hDp : ∀ j : Fin 3,
+      IsPeriodicSpatial (spatialPartial j (fun x : Space ↦ ((u (t, x) i : ℝ) : ℂ))) :=
+    fun j ↦ NavierStokes.PeriodicUniqueness.spatial_partial_periodic
+      (show NavierStokes.PeriodicIntegration.UnitPeriods
+        (fun x : Space ↦ ((u (t, x) i : ℝ) : ℂ)) from hFp i) j
+  have hcx : ∀ (j : Fin 3) (x : Space),
+      spatialPartial j (fun y : Space ↦ ((u (t, y) i : ℝ) : ℂ)) x =
+        ((spatialPartial j (fun y : Space ↦ u (t, y) i) x : ℝ) : ℂ) := by
+    intro j x
+    have hci : ContDiff ℝ 1 (fun y : Space ↦ u (t, y) i) :=
+      ((EuclideanSpace.proj (𝕜 := ℝ) i).contDiff.comp hs).of_le (by simp)
+    exact congrFun (spatialPartial_complexify hci j) x
+  have hdecomp : (fun x : Space ↦ ((convectionFieldT u (t, x) i : ℝ) : ℂ)) =
+      fun x : Space ↦ ∑ j : Fin 3, ((u (t, x) j : ℝ) : ℂ) *
+        spatialPartial j (fun y : Space ↦ ((u (t, y) i : ℝ) : ℂ)) x := by
+    funext x
+    rw [advection_component hs x i, Complex.ofReal_sum]
+    exact Finset.sum_congr rfl fun j _ ↦ by rw [Complex.ofReal_mul, hcx j x]
+  show periodicFourierCoeff (fun x : Space ↦ ((convectionFieldT u (t, x) i : ℝ) : ℂ)) k = _
+  rw [hdecomp, periodicFourierCoeff_finsetSum Finset.univ
+    (fun (j : Fin 3) (x : Space) ↦ ((u (t, x) j : ℝ) : ℂ) *
+      spatialPartial j (fun y : Space ↦ ((u (t, y) i : ℝ) : ℂ)) x)
+    (fun j _ ↦ (hFs j).continuous.mul (hDs j).continuous) k]
+  refine Finset.sum_congr rfl fun j _ ↦ ?_
+  rw [periodicFourierCoeff_mul (hFp j) (hFs j) (hDp j) (hDs j) k]
+  refine tsum_congr fun l ↦ ?_
+  congr 1
+  show periodicFourierCoeff
+    (fun x : Space ↦ fderiv ℝ (fun y : Space ↦ ((u (t, y) i : ℝ) : ℂ)) x (coordinateVector j))
+      (k - l) = _
+  exact periodicFourierCoeff_fderiv (hFp i) ((hFs i).of_le (by simp)) j (k - l)
+
+
+/-- **The tame pairing bound for a smooth periodic velocity slice**, with no
+hypothesis on the convection coefficients: `hconv` is discharged by the
+convolution theorem. -/
+theorem torusPairingBound_slice {u : NSFormalization.Section4.A02.SpaceTimeField} {t : ℝ}
+    {m : ℕ} (hm : 3 ≤ m) {Gm Nm : PeriodicSobolev (m : ℝ)}
+    {Gm1 : PeriodicSobolev ((m : ℝ) + 1)}
+    (hsm : ContDiff ℝ ∞ (fun x : Space ↦ u (t, x)))
+    (hpr : IsPeriodicSpatial (fun x : Space ↦ u (t, x)))
+    (hGm : IsPeriodicDatum (m : ℝ) (fun x ↦ u (t, x)) Gm)
+    (hGm1 : IsPeriodicDatum ((m : ℝ) + 1) (fun x ↦ u (t, x)) Gm1)
+    (hNm : IsPeriodicDatum (m : ℝ) (fun x ↦ convectionFieldT u (t, x)) Nm) :
+    |torusRealPairing Gm Nm| ≤
+      torusPairingConstant (m : ℝ) * torusSobolevNormAt 2 u t *
+        torusSobolevNormAt (m : ℝ) u t * torusGradientNormAt (m : ℝ) u t :=
+  torusPairingBound_advection hm hGm hGm1 hNm (velocityCoeffT_advection hsm hpr)
+
+/-! ## 10. `hpair` of lane 335, and `higherOrderBound` unconditionally -/
+
+/-- **The `hpair` hypothesis of `EnergyIdentity.higherOrderBound_of_pairingBound`,
+proved.**  The constant family is `C_m = torusPairingConstant m`. -/
+theorem torusPairingBound_classical :
+    ∀ (ν : ℝ), 0 < ν → ∀ (a : NSFormalization.Section4.A02.SpatialField), a ∈ initialClassT →
+      ∀ (f : NSFormalization.Section4.A02.SpaceTimeField), f ∈ forceClassT →
+        ∀ (T : ℝ) (w : ClassicalSolutionT ν a f T) (m : ℕ), 3 ≤ m →
+          ∀ t ∈ Set.Ioo (0 : ℝ) T, ∀ Gm Nm : PeriodicSobolev (m : ℝ),
+            IsPeriodicDatum (m : ℝ) (fun x ↦ w.velocity (t, x)) Gm →
+            IsPeriodicDatum (m : ℝ) (fun x ↦ convectionFieldT w.velocity (t, x)) Nm →
+            |torusRealPairing Gm Nm| ≤
+              torusPairingConstant (m : ℝ) * torusSobolevNormAt 2 w.velocity t *
+                torusSobolevNormAt (m : ℝ) w.velocity t *
+                torusGradientNormAt (m : ℝ) w.velocity t := by
+  intro ν _ a _ f _ T w m hm t ht Gm Nm hGm hNm
+  have htI : t ∈ Set.Ico (0 : ℝ) T := ⟨le_of_lt ht.1, ht.2⟩
+  obtain ⟨G1, _, hG1d⟩ := w.sobolev (m + 1)
+  have hcast : (((m + 1 : ℕ) : ℝ)) = (m : ℝ) + 1 := by push_cast; ring
+  have hGm1 : IsPeriodicDatum ((m : ℝ) + 1) (fun x ↦ w.velocity (t, x)) (G1 t) := by
+    have h := hG1d t htI
+    rwa [hcast] at h
+  exact torusPairingBound_slice hm (classical_velocity_slice_contDiff w htI)
+    (w.velocity_periodic t htI) hGm hGm1 hNm
+
+/-- **`higherOrderBound` of `PeriodicContinuationAPI`, unconditionally.**
+Lane 322 reduced the field to `eq:Rhigh`, lane 335 reduced `eq:Rhigh` to the tame
+pairing bound, and this lane proves the pairing bound; nothing is assumed. -/
+theorem torusHigherOrderBound :
+    ∀ (ν : ℝ), 0 < ν →
+      ∀ (a : NSFormalization.Section4.A02.SpatialField), a ∈ initialClassT →
+        ∀ (f : NSFormalization.Section4.A02.SpaceTimeField), f ∈ forceClassT →
+          ∀ (S : ℝ), 0 < S →
+            ∀ (u : NSFormalization.Section4.A02.SpaceTimeField)
+              (p : NSFormalization.Section4.A02.SpaceTimeScalar),
+              SolvesBelowT ν a f S u p → squaredHTwoIntegralT S u ≠ ⊤ →
+                ∀ m : ℕ, ∃ M : ℝ≥0∞, M ≠ ⊤ ∧
+                  ∀ t ∈ Set.Ico (0 : ℝ) S,
+                    periodicSobolevENorm (m : ℝ) (fun x ↦ u (t, x)) ≤ M :=
+  higherOrderBound_of_pairingBound (fun m ↦ torusPairingConstant (m : ℝ))
+    torusPairingBound_classical
 
 end NSFormalization.Section3.T11

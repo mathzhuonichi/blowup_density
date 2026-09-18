@@ -1,17 +1,22 @@
 import NSFormalization.Section3.T11.PairingBound
 
 /-!
-# Lane 336 probe — the tame pairing bound closes the shape lane 322 needs
+# Lane 336 probe — the tame pairing bound closes the shapes it must
 
-Three checks, none of them inside the module:
+Five checks, none of them inside the module:
 
-1. `hRhigh_nonlinear_term_closes` — the nonlinear term of lane 322's `hRhigh`
-   binder (`Section3/T11/HighOrder.lean`, `higherOrderBound_of_energyInequality`),
-   copied in the exact shape `Chigh m * ‖u(t)‖_{H²} * ‖u(t)‖_{H^m} * g` with
-   `g ≥ 0` existentially quantified, is supplied by `torusPairingBound_profile`
-   with `Chigh m := torusPairingConstant m` and `g := ‖u(t)‖_{H^{m+1}}`.
-2. `reweight_form_closes` — the same with consumer-supplied `H^m` and `H²` data.
-3. Non-vacuity at a **nonzero** datum: the shear mode `2 e₂ cos(2πx₀)`
+1. `hpair_closes` — lane 335's `hpair` binder
+   (`EnergyIdentity.higherOrderBound_of_pairingBound`) copied **verbatim** and
+   discharged with `Chigh m := torusPairingConstant m`.
+2. `higherOrderBound_closes` — the `higherOrderBound` field of
+   `PeriodicContinuationAPI` (`research/T11/probes/api_on_canonical.lean:112-121`)
+   copied **verbatim** and discharged, unconditionally.
+3. `hRhigh_nonlinear_term_closes` — the nonlinear term of lane 322's `hRhigh`
+   binder, in the older `‖u‖_{H^{m+1}}` spelling supplied by the coefficient-side
+   `torusPairingBound_profile`.
+4. `reweight_form_closes` — the coefficient-side bound with consumer-supplied
+   `H^m` and `H²` data.
+5. Non-vacuity at a **nonzero** datum: the shear mode `2 e₂ cos(2πx₀)`
    (two conjugate lattice modes `±(1,0,0)`), for which both sides are finite and
    the right-hand side is strictly positive; the datum is solenoidal, so the
    projected form applies to it as well.
@@ -23,7 +28,7 @@ namespace NSFormalization.Section3.T11.PairingBoundProbe
 
 open NSFormalization.Section3.T10
 open NSFormalization.Section3.T11
-open NSFormalization.Section4.A02 (SpatialField SpaceTimeField)
+open NSFormalization.Section4.A02 (SpatialField SpaceTimeField SpaceTimeScalar)
 open scoped BigOperators ENNReal ComplexConjugate
 
 local instance probeNormedGroup (s : ℝ) : NormedAddCommGroup (PeriodicSobolev s) :=
@@ -31,6 +36,37 @@ local instance probeNormedGroup (s : ℝ) : NormedAddCommGroup (PeriodicSobolev 
 
 local instance probeNormedSpace (s : ℝ) : NormedSpace ℝ (PeriodicSobolev s) :=
   realPeriodicSubmodule.normedSpace
+
+/-! ## 0. The two target statements, verbatim -/
+
+/-- **Lane 335's `hpair`, verbatim.** -/
+theorem hpair_closes :
+    ∃ Chigh : ℕ → ℝ,
+      ∀ (ν : ℝ), 0 < ν → ∀ (a : SpatialField), a ∈ initialClassT →
+        ∀ (f : SpaceTimeField), f ∈ forceClassT →
+          ∀ (T : ℝ) (w : ClassicalSolutionT ν a f T) (m : ℕ), 3 ≤ m →
+            ∀ t ∈ Set.Ioo (0 : ℝ) T, ∀ Gm Nm : PeriodicSobolev (m : ℝ),
+              IsPeriodicDatum (m : ℝ) (fun x ↦ w.velocity (t, x)) Gm →
+              IsPeriodicDatum (m : ℝ) (fun x ↦ convectionFieldT w.velocity (t, x)) Nm →
+              |torusRealPairing Gm Nm| ≤
+                Chigh m * torusSobolevNormAt 2 w.velocity t *
+                  torusSobolevNormAt (m : ℝ) w.velocity t *
+                  torusGradientNormAt (m : ℝ) w.velocity t :=
+  ⟨fun m ↦ torusPairingConstant (m : ℝ), torusPairingBound_classical⟩
+
+/-- **The `higherOrderBound` field of `PeriodicContinuationAPI`, verbatim.**
+`research/T11/probes/api_on_canonical.lean:112-121`. -/
+theorem higherOrderBound_closes :
+    ∀ (ν : ℝ), 0 < ν →
+      ∀ (a : SpatialField), a ∈ initialClassT →
+        ∀ (f : SpaceTimeField), f ∈ forceClassT →
+          ∀ (S : ℝ), 0 < S →
+            ∀ (u : SpaceTimeField) (p : SpaceTimeScalar),
+              SolvesBelowT ν a f S u p → squaredHTwoIntegralT S u ≠ ⊤ →
+                ∀ m : ℕ, ∃ M : ℝ≥0∞, M ≠ ⊤ ∧
+                  ∀ t ∈ Set.Ico (0 : ℝ) S,
+                    periodicSobolevENorm (m : ℝ) (fun x ↦ u (t, x)) ≤ M :=
+  torusHigherOrderBound
 
 /-! ## 1. The shape `hRhigh` needs -/
 
