@@ -169,6 +169,48 @@ The verbatim T10 copies in `Spec.lean` (`IsPeriodicDatum`,
 `research/T10/RECONCILIATION.md` §5 (Haar-integrability conjunct).  No T13
 field changes meaning: all localization fields quantify over smooth fields.
 
+## Proved by lane 344 (2026-09-18)
+
+Module `formalization/NSFormalization/Section3/T13/ConstantEndpoints.lean`
+(namespace `NSFormalization.Section3.T13`) proves three of the six
+`LocalizationAPI` fields verbatim, with no named input:
+
+| Field | Status | Where |
+|---|---|---|
+| `constant_pos_finite` | **proved** (`0 < s < 1`) | `cFrac_pos`, `cFrac_lt_top` → `constant_pos_finite` |
+| `wholeSpace_identity` | open (lanes 345/346) | — |
+| `torus_identity` | open (lanes 345/346) | — |
+| `localization` | open (lanes 345/346) | — |
+| `endpoint_zero` | **proved** | `endpoint_zero_eq` → `endpoint_zero` |
+| `endpoint_one` | **proved** | `endpoint_one_eq` → `endpoint_one` |
+
+This settles "Proof dependencies" item 1 (the constant: measurability, the
+near-zero `r^{1-2s}` bound and the far-field `4·r^{-1-2s}` bound, both halves of
+`constant_pos_finite`) and item 9 (the endpoints). It also supplies the
+single-copy half of item 5 as reusable lemmas for the remaining lanes:
+
+* `interior_fundamentalCube : interior fundamentalCube = {x | ∀ i, 0 < x i ∧ x i < 1}`
+  (plus `isClosed_fundamentalCube`, `measurableSet_fundamentalCube`,
+  `convex_fundamentalCube`, `volume_frontier_fundamentalCube`);
+* `eq_zero_of_mem_cube`, `periodize_eq_of_mem_cube` (agreement on the whole
+  closed cube `[0,1]³`) and `periodize_eventuallyEq` (neighbourhood version on
+  the interior, which is what derivatives need);
+* `tsupport_subset_cube`, `fderiv_eq_zero_of_notMem_tsupport`.
+
+Item 5's remaining obligations (local finiteness, smoothness and
+`IsPeriodicSpatial` of `periodize f`, and uniqueness of the periodic extension)
+are **not** in lane 344.
+
+Open question 4 of this file is untouched: the endpoints are registered here
+only in the `volume.restrict fundamentalCube` spelling; no bridge to T10's Haar
+norms is proved.
+
+Probe: `research/T13/probes/constant_endpoints_closes.lean` (copies the record
+verbatim, closes the three fields, and instantiates both endpoints on an
+explicit nonzero `ContDiffBump`-based field in `ball ((½,½,½)) (3/8)`).
+Axioms: `research/T13/axioms_constant_endpoints.lean` — 35 declarations, all
+`[propext, Classical.choice, Quot.sound]`.
+Notes: `research/T13/ATTEMPTS_CONSTANT_ENDPOINTS.md`, report `research/T13/REPORT_344.md`.
 ## §1 status — Proved by lane 345
 
 - **`torus_identity`**: PROVED (lane 345, no named input).
