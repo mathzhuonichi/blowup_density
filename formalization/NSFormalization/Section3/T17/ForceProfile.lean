@@ -1,5 +1,3 @@
-import NSFormalization.Section3.T17.Transport
-import NSFormalization.Section3.T17.CorrectionProfile
 import NSFormalization.Section3.T17.CorrectionProfile
 import NSFormalization.Section3.T17.Transport
 import NSFormalization.Paper1.CorrectionForceProfile
@@ -28,9 +26,6 @@ The Spec's `rescaledForceProfile` is the displayed force bracket
 `rescaledCorrectionProfile` (= `Paper1.CorrectionProfile.profile`, lane 370's
 `rescaledCorrectionProfile_eq_profile`) and the rescaled reference
 `rescaledReference` (= `Paper1.CorrectionForceProfile.slice referenceProfile`).
-It is definitionally the Euclidean `CorrectionForceProfile.forceProfile` after
-one chain-rule identity for the `ε²(∇v·W)` term (`rescaledForceProfile_eq_forceProfile`,
-via `forceProfile_eq_operators`).  Every field is then a transport of a Paper1
 It **equals** the Euclidean `CorrectionForceProfile.forceProfile` — a proved
 pointwise identity, `rescaledForceProfile_eq_forceProfile` (not a `rfl` bridge):
 the `ε²(∇v·W)` display term reconciles with Paper1's `ε(∇V_ε·W)` term only after
@@ -41,19 +36,6 @@ force-profile estimate: `forceProfile_smooth` (`:57`), `forceProfile_support`
 `physicalForce_eq_profile` (`:185`) after cancelling the affine `inverseScale ε`
 of the correction chart.
 
-## The `force_profile_identity` residual (chart force vs `D.correction`)
-
-The Spec's `force_profile_identity` is stated over `correctionForce ν v D ε`,
-built from the abstract T16 correction `D.correction ε` and the T17 force
-operator (with the two middle summands reordered relative to
-`Source.correctionForce`).  This module proves the identity for the **chart
-force** `Source.correctionForce ν v (physicalCorrection …)`
-(`physicalForce_eq_rescaledForceProfile`), which is exactly the chart-level
-content: it needs `hv, hθ, hη` and `ε ≠ 0` only.  U2's `Transport.force_eq` is
-present on this base and lifts the chart force to the periodized Spec field;
-the composition and its single-copy germ are recorded in
-`research/T17/ATTEMPTS_UCAN.md` ("G1 and the honest U4 residual") and checked by
-`research/T17/probes/force_profile_canonical.lean`.
 ## `force_profile_identity`: chart force and Spec form
 
 The Spec's `force_profile_identity` is stated over `correctionForce ν v D ε`
@@ -67,7 +49,10 @@ with lane 373's `Transport.lean` now on the base, the **Spec form**
 reorder of the two middle summands) and `source_correctionForce_congr` (operator
 locality), against a `LocalPotentialAPI` witness whose `D.correction ε` agrees
 with `physicalCorrection …` on the open chart neighbourhood (lane 370
-`correction_eq_physicalCorrection`).
+`correction_eq_physicalCorrection`).  The canonical periodized composition of
+this identity with U2's `Transport.force_eq` and its single-copy germ are
+recorded in `research/T17/ATTEMPTS_UCAN.md` ("G1 and the honest U4 residual")
+and checked by `research/T17/probes/force_profile_canonical.lean`.
 
 ## Vocabulary note (placement bundling)
 
@@ -111,7 +96,6 @@ def rescaledForceProfile (ν : ℝ) (v : SpaceTimeField) (x₀ : Space) (T ε : 
         (T + ε ^ 2 * z.1) (x₀ + ε • z.2) (W z) +
       ε • advection W z.1 z.2
 
-/-! ## 1. The chain rule for the rescaled reference and the `def` bridge -/
 /-! The abstract-correction force operator `correctionForce ν v D ε`
 (`03-torus.tex:219-223`, `Spec.lean:725-732`) is reused verbatim from lane 373's
 `Section3/T17/Transport.lean` (namespace `NSFormalization.Section3.T17`), which
@@ -273,13 +257,10 @@ theorem inverseScale_correctionChartPoint (x₀ : Space) (T ε : ℝ) (hε : ε 
 
 /-- `03-torus.tex:264-272`: the **chart force** equals `ε⁻²` times the bracket
 `H_ε`.  The lift to the Spec field's `correctionForce ν v D ε` (over
-`D.correction`) uses the present U2 theorem `Transport.force_eq`; the canonical
-composition and single-copy germ are recorded in `research/T17/ATTEMPTS_UCAN.md`
-("G1 and the honest U4 residual") and checked by
+`D.correction`) is `force_eq_chart` below; the canonical periodized composition
+with U2's `Transport.force_eq` and its single-copy germ are recorded in
+`research/T17/ATTEMPTS_UCAN.md` ("G1 and the honest U4 residual") and checked by
 `research/T17/probes/force_profile_canonical.lean`. -/
-`H_ε`.  This is the tree-provable content of `force_profile_identity`; the lift
-to the Spec field's `correctionForce ν v D ε` (over `D.correction`) is U2's
-`force_eq` (lane 373), whose exact residual is recorded in `ATTEMPTS_U4.md`. -/
 theorem physicalForce_eq_rescaledForceProfile (ν : ℝ) {v : SpaceTimeField}
     (hv : ContDiff ℝ ∞ v) (x₀ : Space) (T : ℝ) (D : CutoffData)
     (hθ : ContDiff ℝ ∞ D.θ) (hη : ContDiff ℝ ∞ D.η) :

@@ -158,6 +158,27 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   < ⊤` (bounded velocity + gradient on a compact set, finite time interval); raw `energyENorm 1 U < ⊤` (packet
   `U ∈ E_1`); triangle inequality for `energyEssSup + energyGradient` (`Data.lean:475`). **M–L, Opus.** No named
   input. Deps: —.
+  **DONE (lane 407).** `formalization/NSFormalization/Section3/T24/AffineEnergy.lean` `energy_finite`
+  (`{U : VelocityField} (c : Space) (r τ₀ τ₁ : ℝ) (henergy : energyENorm 1 U < ⊤) : ∀ b, AffineAdmissible c r τ₀ τ₁ b
+  → energyENorm 1 (affineVelocity U b) < ⊤`), axioms `[propext, Classical.choice, Quot.sound]`. Route landed
+  **without Minkowski**: `eLpNorm_add_le` needs `AEStronglyMeasurable` slices of `U`, which the raw clause
+  `energyENorm 1 U < ⊤` does not carry, so both halves go through `(x+y)² ≤ 4x²+4y²` in `ℝ≥0∞` plus
+  `lintegral_add_right` (only the *right*, i.e. `b`, summand must be measurable — free, `b` is smooth). Gradient
+  additivity likewise needs no differentiability of `U`: a case split gives `‖∇(U+b)‖ₑ ≤ ‖∇U‖ₑ + ‖∇b‖ₑ`
+  unconditionally, the non-differentiable branch collapsing `∇(U+b)` to the `fderiv` junk value `0`. `b`'s two
+  uniform bounds come from `Continuous.bounded_above_of_compact_support` on `b` and on
+  `fun z ↦ spatialDerivative b z.1 z.2` (continuous by `ContDiff.fderiv`, compactly supported because `fderiv`
+  of a slice vanishes off `tsupport b`), and `setLIntegral_eq_of_support_subset` confines each slice integral to
+  the compact `Prod.snd '' tsupport b`. Constants are crude (`4`, `3Cg²`) — only finiteness is claimed. **The
+  whole-space `E_T` had no local restatement** (`Section3.T10.energyENormT` is the torus norm), so
+  `energyEssSup`/`energyGradient`/`energyENorm` are restated verbatim from `Contracts/V1/Data.lean:444-476` in
+  §1 of the module; `research/T24/probes/affine_energy_closes.lean` checks all four `rfl` bridges (including
+  `spatialGradient`) and discharges the `Spec.lean:1076-1077` field on `Bindings.packet ν hν`.
+  **Open for Ua9:** `Contracts.V1.PacketAPI` has no `energyENorm 1 velocity < ⊤` field — it carries
+  `energy_isLUB` (`Packet.lean:255`) and `dissipation_integrable`/`dissipation_eq` (`:260,266`) instead — so the
+  probe threads the clause as a hypothesis. Assembling `‖U‖_{E_1} < ∞` from those three fields is a separate
+  unit (route: `I02.eLpNorm_two_eq_ofReal_sqrt` + `energy_isLUB` for the `L^∞_tL²_x` half,
+  `I03.eLpNorm_spatialGradient_sq_slice` + `dissipation_integrable` for the other), not Ua6.
 - **Ua7 — `infinite_dimensional` (bump/curl library + independence ④).** Target verbatim (`:1085`): `∃ b : ℕ →
   SpaceTimeField, (∀ n, AffineAdmissible c r τ₀ τ₁ (b n)) ∧ LinearIndependent ℝ b`. Route: countably many
   disjoint balls in `ball c r`; in each a smooth compactly supported vector potential with nonzero curl, times a

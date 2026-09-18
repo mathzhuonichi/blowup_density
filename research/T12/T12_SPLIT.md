@@ -158,6 +158,26 @@ embedding: it reduces by Fourier **order-shift** to `velocityCriticalL3` at `a =
   `hTwo_le_laplacian` (`FourierEmbeddings.lean:165`); `χΔv` on `Q` returns `‖Δv‖_{L²(T³)}` by U1. Set
   `Csix`. **L, Opus.** Deps: U1, U2.
 
+  **Status (lane 400, 2026-09-18): COMPLETE.** `Section3/T12/GradientLSix.lean` proves
+  `gradientLSix` verbatim with
+  `Csix = 343 * A05.gradientL6Const * leibnizConst * (1 + 2 * hTwoConst)` and `Csix_pos`.
+  Route as planned: `HaarCube.periodicLpENorm_eq_restrict_gradientTensor` → `∇(χv) = ∇v`
+  on the cube (`gradTensor_cutoffMul_eqOn`, χ ≡ 1 on `ball 0 (5/2) ⊇ [0,1]³`) →
+  `Measure.restrict_le_self` → registered `A05.eLpNorm_gradTensor_six_le` on `χv`
+  (`smoothL2_cutoffMul`) → Leibniz `lap_cutoffMul_eq` with pointwise majorant
+  `norm_lap_cutoffMul_le` supported in `tsupport χ = closedBall 0 3` → lattice tiling
+  (`T13.lintegral_eq_tsum_halfOpenCube` + lane-377 `lattice_count_le`, `7³ = 343`) →
+  one cube.  The two torus lower-order bounds are new and Fourier-based:
+  `periodicLpENorm_two_le_laplacian` (reweight by `1/(1+4π²|k|²)` + `parseval_forward`)
+  and `periodicLpENorm_gradientTensor_le_laplacian`
+  (`T10.gradient_eq_homogeneousENorm` + `meanZeroPartT_eq_self` + reweight by
+  `|2πk|/(1+4π²|k|²)`), both closed by `FourierEmbeddings.hTwo_le_laplacian`.  All 52
+  declarations audit to `[propext, Classical.choice, Quot.sound]`; module `lake env lean`
+  output empty.  No named input.  Probe
+  `research/T12/probes/gradient_l6_closes.lean`; negatives in
+  `research/T12/ATTEMPTS_U5.md` (the imaginary-multiplier and Caccioppoli routes were
+  rejected there).  `Csix` is closed but not a numeral (see ATTEMPTS §4).
+
 - **U6 — `gradientLambdaCriticalL3`** (probe `:170-175`). New `Section3/T12/GradientLambdaL3.lean`.
   Target verbatim: `∀ v Lv, SmoothPeriodicT v → MemPeriodicHomogeneous (3/2) v → IsPeriodicLambda v Lv →
   periodicLpENorm 3 (gradientTensor v) + periodicLpENorm 3 Lv ≤ ENNReal.ofReal CcriticalThreeHalves ·
@@ -171,6 +191,27 @@ embedding: it reduces by Fourier **order-shift** to `velocityCriticalL3` at `a =
   component `L³` norms into `periodicLpENorm 3 (gradientTensor v)`. Set `CcriticalThreeHalves`.
   **L, Opus.** Deps: U4. **Named input:** none — the `Lv` witness is a field argument and its graph
   `IsPeriodicLambda v Lv` is a hypothesis, so no vacuity guard is needed.
+
+  **Status (lane 405, 2026-09-18): COMPLETE, verbatim, no residual.**
+  `Section3/T12/GradientLambdaL3.lean` proves the API field
+  `gradientLambdaCriticalL3` exactly as stated (`api_on_canonical.lean:170-175`)
+  with `CcriticalThreeHalves = 4 * CcriticalHalf` and
+  `CcriticalThreeHalves_pos`, via the planned route: the `l² ≤ l¹` column bound
+  `periodicLpENorm_gradientTensor_le_sum` (torus copy of
+  `A05.eLpNorm_le_sum_of_norm_le` + `A05.norm_toLp_le_sum`), U4's
+  `velocityCriticalL3_smooth` on each `∂_j v` and on `Lv` (both smooth periodic
+  mean-zero — `IsPeriodicLambda` carries `SmoothPeriodicT Lv`, so lane 401's
+  general `velocityCriticalL3` is **not** needed), and the two order-shift
+  comparisons `homogeneousENorm_half_dirDeriv_le` (multiplier `2πi k_j/(2π|k|)`,
+  modulus `≤ 1`) and `homogeneousENorm_half_lambda_le` (the order-`1/2` datum of
+  `Lv` *is* the order-`3/2` datum of `v`), both resting on the weight identity
+  `homogeneousDatumWeight_three_halves`.  `SpectralGap.reweightDatum` carries only
+  real multipliers, so §0 of the module repeats it for bounded **complex**
+  multipliers (`cxReweight`).  All 24 declarations audit to
+  `[propext, Classical.choice, Quot.sound]`; probe
+  `research/T12/probes/gradient_lambda_l3_closes.lean` (verbatim `exact`, plus the
+  field instantiated at the nonzero witness `probeMZ` with the `Lv` from
+  `lambda_exists`).  Attempts and pitfalls: `research/T12/ATTEMPTS_U6.md`.
 
 ## 2. Waves (≤ 2 concurrent per current lane cap)
 
