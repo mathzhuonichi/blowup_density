@@ -125,6 +125,31 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   neighborhood of which `U` (raw `velocity_smooth` on `preSingularDomain`) has bounded derivatives of every fixed
   order; so `(U·∇)b`, `(b·∇)U`, `(b·∇)b`, `∂ₜb`, `Δb` extend smoothly by zero across `t=1` and `F` is globally
   smooth with compact positive-time support (raw `force_smooth`/`force_support`). **L, Opus.** No named input. Deps: —.
+  **DONE (lane 414, Opus).** `formalization/NSFormalization/Section3/T24/AffineForce.lean`:
+  `force_smooth` (hyps = raw `velocity_smooth` + raw `force_smooth`, plus the parameter
+  hypotheses `0 < τ₀`, `τ₁ < 1`) and `force_support` (hyp = raw `force_support`, plus `0 < τ₀`
+  **only** — `τ₁ < 1` is genuinely unused there), with the reusable pieces
+  `affineForce_eq_of_notMem_tsupport`, `contDiffOn_affineForce_interior`,
+  `tsupport_affineForce_subset`, `affineCylinder_subset_interior`,
+  `affineCylinder_subset_positiveTimeDomain`.  No named input, no `0 < ν`, no pressure.
+  Route landed: the two-open-set gluing of the brief, with the analytic work taken
+  wholesale from the **vendored** `NavierStokes.ResidualRegularity` (not `ResidualCalculus`):
+  `contDiffOn_{temporalDerivative,spatialDerivative,spatialLaplacian}` on the open slab
+  `Ioo 0 1 ×ˢ univ ⊆ preSingularDomain` (`preSingularDomain` itself is not open, so
+  `0 < τ₀` is needed for *smoothness*, not only for positive time), and the locality
+  lemmas `*_congr` (hypothesis `b =ᶠ[𝓝 z] 0` only) off `tsupport b`;
+  `contDiff_iff_contDiffAt` + `ContDiffAt.congr_of_eventuallyEq` glue.  `force_support`
+  avoids `HasCompactSupport.add` and any new definition: the single inclusion
+  `tsupport (affineForce ν U F b) ⊆ tsupport F ∪ tsupport b` yields both halves.
+  `τ₁ < 1` is carried **explicitly** (as lane 403 did): `AffineAdmissible` is satisfiable
+  with `τ₁ ≥ 1` (take `b = 0`), so it cannot supply it.  Probes:
+  `research/T24/probes/affine_force_closes.lean` discharges both registered fields on
+  `Bindings.packet ν hν` in Contracts vocabulary and gives the `b = 0` reduction to the
+  packet's own `force_smooth`/`force_support`;
+  `research/T24/probes/affine_force_nonzero.lean` rebuilds lane 398's nonzero
+  `bWitness = spatialCurl (θ·φ·e₁)` on `ball 0 1 × (1/4,3/4)` and instantiates both
+  conclusions at it.  All module and probe declarations print
+  `[propext, Classical.choice, Quot.sound]` (`research/T24/axioms_ua4.lean`).
 - **Ua5 — `speed_unbounded`** (`:1069`): `∀ b admissible, SpeedUnboundedAtOne (affineVelocity U b)`. Route:
   `U+b = U` on `t ≥ τ₁` (Ua1 `late_agreement`, `τ₁<1`), so the packet's `SpeedUnboundedAtOne U` (raw field,
   `Packet.lean:145`) transfers. **S–M, codex-sol.** No named input. Deps: Ua1. **Done: lane 403.**
@@ -163,6 +188,28 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   `bWitness := spatialCurl(θ·φ·e₁)` with `θ,φ : ContDiffBump`, proved smooth / compactly supported in the cylinder /
   divergence-free (`spatialDivergence_spatialCurl`) / nonzero (curl `e₂`-component `= ∂₃φ`, forced `≢0` by compact
   support). Ua7 lifts this to a countable disjoint-ball family + `LinearIndependent`.
+  **DONE (lane 417, Opus).** Two new modules. `formalization/NSFormalization/Section3/T24/AffineWitness.lean` is
+  the promoted, parameterised single-bump library (`AffineWitness.potential θ φ = (θ(t)·φ(x))•e₁`,
+  `curlBump θ φ = spatialCurl (potential θ φ)`, `carrier θ φ = closedBall t₀ θ.rOut ×ˢ closedBall x₀ φ.rOut`)
+  with `curlBump_contDiff` / `_hasCompactSupport` / `tsupport_curlBump_subset` / `_divergence_free` /
+  `_eq_zero_of_notMem` / `curlBump_admissible` / `curlBump_ne_zero`; lane 398's `bWitness` is its instance
+  `t₀=1/2, x₀=0, θ=⟨1/16,1/8⟩, φ=⟨1/2,3/4⟩` (the 398 probe was not edited).
+  `formalization/NSFormalization/Section3/T24/AffineFamily.lean` carries the geometry
+  (`scale n = 2⁻ⁿ`, `centerOffset r n = r·2⁻ⁿ/2`, `ballRadius r n = r·2⁻ⁿ/16`,
+  `center c r n = c + centerOffset r n • e₁`), the two arithmetic facts
+  `closedBall_subset_ball` (`⊆ ball c r`) and `radius_add_lt` (pairwise disjointness), the family
+  `bFam c r τ₀ τ₁ hr hτ n = curlBump (timeBump τ₀ τ₁ hτ) (spaceBump c r hr n)`, and
+  `theorem infinite_dimensional (c : Space) (r τ₀ τ₁ : ℝ) (hr : 0 < r) (hτ : τ₀ < τ₁) :
+  ∃ b : ℕ → VelocityField, (∀ n : ℕ, AffineAdmissible c r τ₀ τ₁ (b n)) ∧ LinearIndependent ℝ b`.
+  Hypotheses are only the two nondegeneracy facts `0 < r`, `τ₀ < τ₁` (`0 < τ₀` and `τ₁ < 1` from
+  `AffineBasics.window` are not used); no named input, no packet clause. Independence is
+  `linearIndependent_iff'` + disjoint supports: `curlBump_ne_zero` gives a point `z` with `b n z ≠ 0`, that `z`
+  lies in `carrier`, so `z.2` is in the `n`-th ball and outside every other one, so all other terms of a vanishing
+  finite combination die at `z`. Probe `research/T24/probes/affine_family_closes.lean` (registered vocabulary,
+  `rfl` bridges, the field in both the `VelocityField` and the `SpaceTimeField` spelling, the packet-level
+  strengthening `Function.Injective (n ↦ U + b n)` on `Bindings.packet ν hν` via `AffineBasics.distinct`,
+  `b 0 ≠ b 1`, and two degeneracy checks showing `0 < r` / `τ₀ < τ₁` are load-bearing); audit
+  `research/T24/axioms_ua7.lean` — all 42 declarations `[propext, Classical.choice, Quot.sound]`.
 - **Ua8 — `nonisolated` (`C^m` bound ⑤).** Target verbatim (`:1104`): `∀ b admissible, b ≠ 0, ∀ m, Tendsto (fun
   λ ↦ ckSeminormE (tsupport b) m (Ũ_{λb}−U)) (𝓝 0) (𝓝 0) ∧ Tendsto (… F̃_{λb}−F …) (𝓝 0) (𝓝 0)`. Route:
   velocity difference `= λ • b`; force difference `= λ L_U b + λ²(b·∇)b` (reuse Ua3's expansion); on `tsupport b`
@@ -225,7 +272,7 @@ threaded canonical T15 records (draftable now), whose **instantiation / `Nonempt
 | Ua4 | affine | ② | raw `velocity_smooth`/`force_smooth` | no |
 | Ua5 | affine | — | raw `SpeedUnboundedAtOne` (`:145`) | no |
 | Ua6 | affine | ③ | raw `energyENorm 1 U < ⊤` | no |
-| Ua7 | affine | ④ | bump-function library (new) | no |
+| Ua7 | affine | ④ | bump-function library (new) | no |  <!-- done: lane 417 -->
 | Ua8 | affine | ⑤ | Ua3 expansion | no |
 | Ua9 | affine | — | `I01.packet` (probe) | no |
 | Ub1 | multiple | — | T15 `PlacementData`/`ScalingAPI` | **T15 U2, U15** |
