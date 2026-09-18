@@ -109,6 +109,44 @@ embedding: it reduces by Fourier **order-shift** to `velocityCriticalL3` at `a =
   (1/2) v`. Set `CcriticalHalf`. Approximate a general `MemPeriodicHomogeneous` `v` by smooth (U3 needs
   smoothness) or restrict to the smooth core the API supplies. **M, Opus.** Deps: U1, U3.
 
+  **Status (lane 396, 2026-09-18): SMOOTH FORM COMPLETE; general case = density residual.**
+  `Section3/T12/CriticalL3.lean` proves `velocityCriticalL3_smooth (v) (SmoothPeriodicT v)
+  (IsMeanZeroT v) : periodicLpENorm 3 v ≤ ENNReal.ofReal CcriticalHalf ·
+  periodicHomogeneousENorm (1/2) v`, with `CcriticalHalf = criticalL3Const ·
+  cutoffGagliardoConst · (gapConst (1/2) + 1)` and `CcriticalHalf_pos`, via the exact U4 route
+  (HaarCube transfer → `cutoffMul = v` on `Q` → `Measure.restrict_le_self` → registered
+  `A05.velocityCriticalL3` with the rfl norm bridge `a05_dotHomogeneousENorm_eq` →
+  `cutoff_gagliardo_half` → `l2Q_le_homogeneous_half`).  Supporting lemmas
+  `periodicSobolevENorm_zero_le_half` (physical `L²` ≤ inhomogeneous `H^{1/2}` via a bounded
+  `reweightDatum`) and `l2Q_le_homogeneous_half` (ParsevalZero + spectral gap).  All 6
+  declarations audit to `[propext, Classical.choice, Quot.sound]`; probe
+  `research/T12/probes/critical_l3_closes.lean` (nonzero smooth mean-zero witness `probeMZ`).
+  The verbatim API field quantifies over `MemPeriodicHomogeneous (1/2)` (no smoothness) while
+  both analytic inputs need smoothness, so the general case is the torus mollification/Fatou
+  residual recorded in `research/T12/ATTEMPTS_U4.md` — its own S3 lane.  **U6 consumes U4 only
+  on the smooth fields `∂_j v`, `Lv`, so `velocityCriticalL3_smooth` unblocks U6.**
+
+  **Status (lane 401, U4b, 2026-09-18): COMPLETE — the verbatim field is proved.**
+  `Section3/T12/CriticalL3Density.lean` proves `velocityCriticalL3 (v)
+  (MemPeriodicHomogeneous (1/2) v) : periodicLpENorm 3 v ≤ ENNReal.ofReal CcriticalHalf ·
+  periodicHomogeneousENorm (1/2) v` — the API field verbatim, same constant as the smooth
+  form — by route (A) of this unit (symmetric Fourier truncation, not mollification).
+  New: `truncField v S` (componentwise real part of `Paper1.finitePeriodicFourierSum`),
+  `periodicFourierCoeff_truncField` (exact restricted datum, using the conjugate symmetry
+  `T10.periodicFourierCoeff_real_neg` and `S = -S`), `freqBox N` with
+  `tendsto_freqBox` (cofinality), `isMeanZeroT_truncField`,
+  `periodicHomogeneousENorm_truncField_le` (indicator `reweightDatum`, all `s`),
+  `tendsto_eLpNorm_truncField_sub` (`L²(T³)` convergence from Mathlib's
+  `UnitAddTorus.hasSum_mFourier_series_L2`), and `memPeriodicHomogeneous_of_smooth`
+  (smooth mean-zero ⇒ finite homogeneous datum at every order `s ≥ 0`; the tree only had
+  the order-`1` case `T10.smooth_homogeneous_datum_one`).  Closure by
+  `tendstoInMeasure_of_tendsto_eLpNorm` → `exists_seq_tendsto_ae` →
+  `Lp.eLpNorm_lim_le_liminf_eLpNorm` at `p = 3`.  All 23 public declarations audit to
+  `[propext, Classical.choice, Quot.sound]`; probe
+  `research/T12/probes/critical_l3_density_closes.lean` (non-vacuous on the nonzero
+  smooth mean-zero witness `densityProbeMZ`).  Attempts and pin-specific pitfalls:
+  `research/T12/ATTEMPTS_U4B.md`.  **U4 has no residual left.**
+
 - **U5 — `gradientLSix`** (probe `:184-187`), route (c). New `Section3/T12/GradientLSix.lean`. Target
   verbatim: `∀ v, SmoothPeriodicT v → IsMeanZeroT v → periodicLpENorm 6 (gradientTensor v) ≤
   ENNReal.ofReal Csix · periodicLpENorm 2 (laplacian v)`. Route: `periodicLpENorm 6 (gradientTensor v) =
