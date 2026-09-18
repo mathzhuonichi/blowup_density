@@ -4,7 +4,7 @@
 
 Proposition `prop:local` on the unit three-torus
 (`paper/sections/02-preliminaries.tex:28-36,75-120`,
-`appendix-a-local-theory.tex:60-158`) in the four-API form reconciled in
+`paper/sections/appendix-a-local-theory.tex:60-157`) in the four-API form reconciled in
 `research/T11/RECONCILIATION.md` and stated in `research/T11/Spec.lean`:
 
 * **Local theory** (8 fields) — one common horizon `horizon ν a f` for every
