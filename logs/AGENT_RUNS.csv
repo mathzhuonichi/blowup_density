@@ -1427,3 +1427,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T22,406-T22-UA3b-cutoff-multiplier-field,claude-opus,proof-worker,"Section3/T22/CutoffMultiplierField.lean + 397 engine: cutoffMultiplier verbatim closed; review verified gates but REJECTed on two procedural points, lead ruling recorded",merged,374
 2026-09-18,T21,410-SPEC-t21-draft-a,gpt-5.6-sol,spec-draft,"research/T21/DraftA.lean (1389 lines, 0 errors) + COMPARISON_A.md; double-blind draft A",merged,375
 2026-09-18,T21,411-SPEC-t21-draft-b,claude-opus,spec-draft,"research/T21/DraftB.lean (1407 lines) + COMPARISON_B.md; double-blind draft B",merged,376
+2026-09-18,MAINT,412-MAINT-t17-forceprofile-merge-repair,claude-opus,maintenance,"Section3/T17/ForceProfile.lean repaired to integration blob + lane-394 docs (comment-only diff); full T17 closure + 22 probes + gates green",merged,377
+2026-09-18,T22,409-T22-UB3-cutoff-datum,claude-opus,proof-worker,"Section3/T22/CutoffDatum.lean: exists_cutoff (manifold smooth Urysohn), exists_cutoff_isOpen, isCutoffDatum_realizes_zeroExtension; awaiting codex review",done,-
