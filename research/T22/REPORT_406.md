@@ -60,3 +60,9 @@ From the worktree, `. scripts/lean-env.sh`, `lake` from `verification/` with `LE
 - `make check` → `OK` (13 policy tests) + `45 work items: ownership, contract registration and task cards consistent.`
 - `make test` → 44 contracts `checked; standard logical axioms only`.
 - `git fetch origin && git merge --no-edit origin/erenup/397-T22-UA3-cutoff-multiplier` → `Merge made by the 'ort' strategy`, 4 files added, no conflicts; full rebuild after the merge still green.
+
+
+## Lead ruling after review 406 (REJECT on two procedural points; merged on lead authority)
+
+1. **R1 wording.** The brief listed the datum-level identity for `b i` as the *route* the lead expected; the lane deliverable is the verbatim `cutoffMultiplier` field, which is closed, builds, audits to the standard three axioms and survives the reviewer's `C/2` mutation. The literal datum-level identity is **not proved** and, as written in `ATTEMPTS_UA3.md`, is false without the `frequencyUnit^(-3/2)` amplitude; it is marked OPEN-AND-NOT-NEEDED here and in `ATTEMPTS_UA3.md`.
+2. **Base diff.** `Section3/T22/CutoffMultiplier.lean` is lane 397's *new* module, never merged (397 was REJECTED only for the missing field); lane 406 was deliberately branched from 397 and supersedes it, so the "existing module" is new relative to the integration branch. Base exception granted by the lead; the PR carries both modules.

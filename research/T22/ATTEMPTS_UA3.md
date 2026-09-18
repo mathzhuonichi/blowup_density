@@ -83,3 +83,6 @@ the engine bound survives by `ENNReal.ofReal_le_ofReal` monotonicity.
   construction. Not delivered to avoid a sorry.
 - **`LocalizationBoundary` + T13 fractional-kernel `0<s<1` route.** Covers only `s∈(0,1)`;
   the field is all real `s`. Cross-check only, never a substitute (`T22_SPLIT.md`).
+
+
+> Lead note (after review 406): the literal R1 identity `angularRealization s (b i) ψ = angularRealization s (A i) (smulLeftCLM ℂ (χ·) ψ)` with `b i := besselW s • scalarConvolution (angularFourier χ_ℂ) (besselW (-s) • A i)` is OPEN and NOT NEEDED — lane 406 closes the field at the Schwartz level plus dense extension, and the identity as written lacks the `frequencyUnit^(-3/2)` amplitude.
