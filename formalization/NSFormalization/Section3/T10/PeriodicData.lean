@@ -38,6 +38,14 @@ abbrev PeriodicTorus := NSFormalization.Paper1.PeriodicTorus
 
 abbrev periodicTorusMeasure := NSFormalization.Paper1.periodicTorusMeasure
 
+/-- The canonical product Haar measure on the unit three-torus has total mass one. -/
+instance periodicTorusMeasure_isProbabilityMeasure :
+    IsProbabilityMeasure periodicTorusMeasure where
+  measure_univ := by
+    change (Measure.pi fun _ : Fin 3 ↦ AddCircle.haarAddCircle) Set.univ = 1
+    rw [Measure.pi_univ]
+    simp
+
 abbrev torusLift {E : Type*} (f : Space → E) (z : PeriodicTorus) : E :=
   NSFormalization.Paper1.torusLift f z
 

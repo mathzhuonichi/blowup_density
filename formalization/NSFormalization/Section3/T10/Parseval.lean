@@ -7,7 +7,7 @@ The scalar Fourier Hilbert basis supplies each component of the coefficient datu
 Its isometry gives scalar Parseval for arbitrary L² lifts; finite additivity of the
 Bochner integral then gives vector Parseval as a real squared-norm identity.
 `Lp.enorm_toLp` transports that identity to the extended norm in the canonical API.
-The local Haar instances are the same ones used in `Paper1.TorusCube`.
+The normalized product Haar instance is declared once in `PeriodicData`.
 -/
 
 noncomputable section
@@ -17,10 +17,6 @@ open MeasureTheory
 open NavierStokes.ProblemStatement
 open NSFormalization.Section4.A02 (SpatialField)
 open scoped ENNReal BigOperators ComplexConjugate
-
-local instance : MeasureSpace UnitAddCircle := ⟨AddCircle.haarAddCircle⟩
-local instance : IsProbabilityMeasure (volume : Measure UnitAddCircle) :=
-  inferInstanceAs (IsProbabilityMeasure AddCircle.haarAddCircle)
 
 /-- The canonical product Haar measure has total mass one. -/
 theorem periodicTorusMeasure_probability : IsProbabilityMeasure periodicTorusMeasure :=

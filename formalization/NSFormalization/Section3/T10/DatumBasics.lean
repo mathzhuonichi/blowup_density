@@ -18,11 +18,6 @@ open NavierStokes.ProblemStatement
 open NSFormalization.Section4.A02 (SpatialField)
 open scoped ENNReal BigOperators ComplexConjugate
 
-local instance unitAddCircleMeasureSpace : MeasureSpace UnitAddCircle :=
-  ⟨AddCircle.haarAddCircle⟩
-local instance : IsProbabilityMeasure (volume : Measure UnitAddCircle) :=
-  inferInstanceAs (IsProbabilityMeasure AddCircle.haarAddCircle)
-
 /-- Every complexified scalar component of an integrable torus-valued field
 is integrable. -/
 theorem IsPeriodicDatum.integrable_component {s : ℝ} {z : SpatialField}
