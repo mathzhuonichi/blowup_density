@@ -35,3 +35,6 @@ U3/G1 assembly issue, not a residual analytic lemma in this lane.
 - `lake env lean` on both modules, `research/T17/probes/derivative_bounds_closes.lean`, and `research/T17/axioms_u5u6.lean` — success.
 - The six module declarations and three probe declarations each print exactly `[propext, Classical.choice, Quot.sound]`.
 - `make check` — success.
+
+## Review note applied (lead, 2026-09-18 13:40Z)
+- codex ACCEPT-WITH-NOTES (`REVIEW_385-T17-U5U6-derivative-bounds.md`; mutated and negative probes rejected as expected). Declaration counting, clarified: the two modules export exactly two field theorems (`correction_derivative_bound`, `force_derivative_bound`) plus their constant definitions and helper lemmas; the audit file `research/T17/axioms_u5u6.lean` lists every exported declaration and all print `[propext, Classical.choice, Quot.sound]`.
