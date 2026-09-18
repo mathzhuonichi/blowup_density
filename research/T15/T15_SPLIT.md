@@ -219,6 +219,22 @@ contract-side conformance probe is
 are token-for-token copies of the Spec definitions and all close by `rfl`.
 The axiom audit is `research/T15/axioms_u1.lean`.
 
+## U-CAN status — lane 384 (`384-T15-UCAN-canonical-scaling`)
+
+**Complete.** `formalization/NSFormalization/Section3/T15/Scaling.lean`
+restates the reconciled T15 interface over raw packet fields: the 17-field
+`PlacementData`, the complete 21-field `ScalingAPI`, and `scalingStatement`
+with all 26 `PacketAPI` clauses and both `PacketEnergyAPI` clauses explicit.
+It imports no `Contracts.*` module and uses lane 362's canonical rescaling
+definitions together with T13's canonical `LocalizationAPI`.
+
+The structure-exception probe is
+`research/T15/probes/scaling_canonical.lean`: it copies the two Spec
+structures, proves all ten rescaling-definition bridges by `rfl`, and gives
+fieldwise conversions with round trips for both structures.  The raw/contract
+mapping is recorded in `research/T15/ATTEMPTS_UCAN.md`; the axiom audit is
+`research/T15/axioms_ucan.lean`.
+
 No U2--U15 analytic field is claimed here; those are the remaining gaps listed
 above and in §1.
 ## 4. Status log
