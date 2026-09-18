@@ -68,7 +68,7 @@ theorem torusHeatSmoothingCLM_frac_opNorm_le (s : ℝ) {ν t T : ℝ} (hν : 0 <
 ```
 
 with `torusHeatSmoothingCLM_frac_eq` / `_apply` / `_norm_le` tying it to the datum
-construction by `rfl`.
+construction.
 
 **The endpoint kernel.**
 
@@ -143,7 +143,7 @@ No existing module was modified. Imports: only
   and `torusFracKernel_intervalIntegrable` are stated in the shape
   `EndpointSafeTwoSpaceDuhamel.lean:429-438` wants, but no `TorusTwoSpaceContract`
   instance at gain `3/2` is built here.
-* No error text remains: both new Lean files compile with zero errors and zero
+* No error text remains: all three new Lean files compile with zero errors and zero
   warnings. Errors encountered during development, and their fixes, are in
   `ATTEMPTS_FRACTIONAL_SMOOTHING.md` §3.
 
@@ -170,3 +170,6 @@ make check   (from the worktree root)
     check_work_queue: "45 work items: ownership, contract registration and task
     cards consistent."
 ```
+
+## Review corrections (codex, ACCEPT-WITH-NOTES)
+The reviewer corrects four report wordings (declaration count, the dependency-warning description, the `_norm_le` proof method, and the "three new Lean files" count); see `research/T11/REVIEW_329-T11-U9d1b-fractional-smoothing.md` for the exact text. The Lean content is unchanged.
