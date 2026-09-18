@@ -77,6 +77,9 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   `memForceR_insertedForce` / `forceDifference_compact` (`LIFESPAN_SPLIT.md` #3). **S-M, codex-sol.** No named
   input. Deps: U1 (threaded `scaling.force_mem` = T15 U7, `correction.force_*` = T17 U7).
 
+  **Status (lane 426, 2026-09-18): complete.** Both force-class fields proved by compact time-support union; no missing threaded fact.
+  Canonical theorems, Spec-form conversion probe, and exact three-axiom audit pass.
+
 - **U3 — regularity, initial value, history, periodicity.** New `Section3/T18/Kinematics.lean`. Targets
   `velocity_smooth` (`Spec.lean:1753`), `pressure_smooth` (`:1758`), `initial` (`:1763`), `history` (`:1780`),
   `velocity_periodic` (`:1786`). Route: each is a summand fact. Smoothness on `Ico 0 T ×ˢ univ` from
@@ -88,12 +91,18 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   `scaledSourcePoint`/`zeroPastField`), and `T-2ε²<t_ε`. Mirror R42 assembly (`Section4/R42/Assembly.lean`).
   **M, codex-sol.** No named input. Deps: U1.
 
+  **Status (lane 426, 2026-09-18): complete.** All five kinematic fields proved, including normalized pressure smoothness and the closed quiet-history endpoint.
+  Canonical theorems, Spec-form conversion probe, and exact three-axiom audit pass.
+
 - **U4 — incompressibility.** New `Section3/T18/Divergence.lean`. Targets `incompressible` (`Spec.lean:1767`),
   `velocityDifference_divFree` (`:1858`) — the second is `incompressible` minus `v`. Route:
   `div u_ε = div v + div w_ε + div U_ε = 0` on `Ico 0 T`: `div v = 0` from `reference.divergence`; `div w_ε = 0`
   from `correction.correction_divergence_free` (`Spec.lean:1070`, it is a spatial curl); `div U_ε = 0` from
   `scaling.solution`'s `.divergence` (periodized packet). **S-M, codex-sol.** No named input. Deps: U1
   (threaded `scaling.solution` = T15 U11).
+
+  **Status (lane 426, 2026-09-18): complete.** Both divergence fields proved on Ico 0 T, including time zero.
+  Canonical theorems, Spec-form conversion probe, and exact three-axiom audit pass.
 
 - **U5 — the two vanishing cross-transport terms.** New `Section3/T18/CrossTransport.lean`. Targets
   `crossTransport_background_advects_packet` (`Spec.lean:1838`, `(b_ε·∇)U_ε=0`),
