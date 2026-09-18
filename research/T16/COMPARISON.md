@@ -165,3 +165,59 @@ the result through the quotient torus.
    directly and delete the two copied declarations in the same version, or
    should the replacement wait for the T16 registration lane so its drift
    bridge can be added atomically?
+
+## Status (lane 347, 2026-09-18)
+
+Proof lane 347 (Opus) delivered the canonical module
+`formalization/NSFormalization/Section3/T16/LocalPotential.lean` and the probe
+`research/T16/probes/api_on_canonical.lean`:
+
+* **Reconciliation confirmed faithful.**  The 4 helper `def`s equal the Spec's
+  copies by `rfl`, and `CutoffData`/`LocalPotentialAPI` convert fieldwise both
+  ways, so every `Contracts.V1` operator in the Spec is definitionally the
+  canonical `NavierStokes`/`Paper1`/`Source` notion.  `specStatement_of_module`
+  shows the module's general theorem would close the Spec's statement.
+* **Proved (general):** `exists_originCutoff` (+`[0,1]` range),
+  `exists_timeCutoff`, `exists_threshold`; `potential_formula` is definitional.
+* **Proved (v = 0):** the full `LocalPotentialAPI` (`localPotential_zero`), used
+  as the non-vacuity `v=0,U=0,K={0}` instance.
+* **Open (documented, `ATTEMPTS.md`/`SPEC_ISSUES.md`):** `potential_smooth`,
+  `potential_curl` for general `v` (need a spatial-truncation lemma — the I02
+  lemmas require `v` on `I ×ˢ univ`, not `I ×ˢ ball x₀ r`), and the entire
+  periodic correction block (the lattice lift and its smoothness / periodicity /
+  support / divergence / cancellation).
+
+Answer to reconciliation open question 1 recorded in `SPEC_ISSUES.md` §1: B's
+globally-quantified `potential_formula` is satisfiable definitionally, but the
+*local* smoothness/curl hypotheses block direct I02 reuse.
+
+## Status (lane 351, 2026-09-18) — Gap 1 closed for the potential
+
+Proof lane 351 (Opus) delivered
+`formalization/NSFormalization/Section3/T16/BallPotential.lean` and the probe
+`research/T16/probes/ball_potential_closes.lean`, closing **Gap 1** (the radial
+potential on the chart ball) for general local `v`:
+
+* **`potential_smooth` (general `v`): PROVED** —
+  `timePotential_contDiffOn_ball hI hv`. Route: at each `z ∈ I ×ˢ ball x₀ r`,
+  truncate `v` by a `ContDiffBump` cutoff `χ` that is `1` on a plateau ball
+  containing the radial segment and supported in `ball x₀ r`, apply
+  `I02.timePotential_contDiffOn` to the globally-time-smooth `χ·v`, and transfer
+  by the slicewise `timePotential_congr_segment`.
+* **`potential_curl` (general `v`): PROVED** —
+  `spatialCurl_timePotential_on_ball hv hdiv ht hx`. Route (ATTEMPTS §Gap1 option
+  b): `I02.spatialCurl_timePotential_on` is genuinely global (its `hdiv` is
+  universally quantified through `RadialPotential.curl_centeredPotential`), but
+  `curl_potential` only consumes divergence at the segment points `r·x`,
+  `r∈[0,1]`; so the new `curl_potential_of_segment` /
+  `curl_centeredPotential_of_segment` weaken `hdiv` to `Set.Icc 0 1`, and `χ·v`
+  (divergence-free on the plateau ball, `∇χ=0` there) qualifies.
+* **`potential_formula`: definitional** (`centeredPotential_eq_integral`).
+* **Packaged:** `exists_potential_on_ball` gives the three fields verbatim for
+  lane 353 to fill `D.potential := timePotential v x₀` by `exact` (probe
+  `ball_potential_closes.lean` proves this against the canonical field types,
+  plus a nonzero constant-field non-vacuity instance).
+* **Still open (Gap 2):** the periodic correction block, unchanged.
+
+All 8 new declarations print `[propext, Classical.choice, Quot.sound]`
+(`research/T16/axioms_ball_potential.lean`).

@@ -89,6 +89,11 @@ the numbered “Needs a lemma” list in `research/T10/COMPARISON.md`.
    `BlowupDensity.Contracts.V1.HomogeneousNorm.dotHomogeneousENorm`.
    A short infimum bridge is still required to turn those realization lemmas
    into the registered norm equality.
+   **Status (lane 348, 2026-09-18): discharged.**  Shipped as
+   `NSFormalization.Section3.T13.WholeSpaceIdentity.wholeSpace_identity`; the
+   infimum bridge is `dotHomogeneousENorm_eq_homogeneousFourierENorm`, Plancherel
+   is `lintegral_angularFourier_sq`, the kernel rotation/dilation is
+   `lintegral_kernel_smul`.  Axioms `[propext, Classical.choice, Quot.sound]`.
 
 3. **Cube, Haar, and Fourier bridge.**  Identify the fixed-cube integrals with
    T10's `torusLift` and `periodicFourierCoeff`.  This is exactly T10 “Needs a
@@ -262,3 +267,20 @@ Records: `research/T13/ATTEMPTS_LOCALIZATION_KERNEL.md`,
 `research/T13/axioms_localization_kernel.lean` (8 declarations),
 probe `research/T13/probes/localization_kernel_closes.lean`,
 report `research/T13/REPORT_353.md`.
+## §1 status — Proved by lane 345
+
+- **`torus_identity`**: PROVED (lane 345, no named input).
+  `formalization/NSFormalization/Section3/T13/TorusIdentity.lean`,
+  `NSFormalization.Section3.T13.torus_identity`; the API field closes by
+  `example` in `research/T13/probes/torus_identity_closes.lean`.  Proof
+  dependency items 3 (cube/Haar/Fourier bridge, via
+  `lintegral_fundamentalCube_ofReal` and `fundamentalCube_ae_eq_halfOpenCube`)
+  and 4 (periodic homogeneous identity, via `exists_homogeneous_datum`,
+  `homogeneousDatum_unique`, `periodicHomogeneousENorm_sq_smooth`) are
+  discharged locally, so the open question 1 for the owner ("should T10 expose
+  a homogeneous existence/norm theorem?") is answered privately in T13 for now.
+  Item 1 is covered only in its finiteness half (`cFrac_lt_top`); positivity of
+  `c_s` remains with lane 344.  Reusable by-products: `kernelIntegral_eq`
+  (rotation + dilation), `lintegral_eq_tsum_halfOpenCube` (single-copy
+  unfolding), `periodicFourierCoeff_shift` (Fourier translation).
+  Record: `research/T13/REPORT_345.md`, `research/T13/ATTEMPTS_TORUS_IDENTITY.md`.
