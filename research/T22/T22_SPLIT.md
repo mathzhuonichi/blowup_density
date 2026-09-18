@@ -145,6 +145,18 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   (real `χ`) preserves `realSubspace`, so `B : RealVectorSobolev s`; unfold `smulLeftCLM` to close `IsCutoffDatum
   s χ A B`. **L, Opus.** Deps: U-A1, U-A2. *(Independent `0<s<1` cross-check available from `LocalizationBoundary`
   far/near split + T13 `wholeSpace_identity`; not on the critical path.)*
+  **[PARTIAL — lane 397, 2026-09-18]** `Section3/T22/CutoffMultiplier.lean`: the **analytic engine** is
+  complete. `eLpNorm_besselWeight_scalarConvolution_le (s K g)`:
+  `eLpNorm (besselW s • scalarConvolution K g) 2 ≤ ofReal (peetreConst s · ∫ (1+‖ζ‖²)^{|s|/2}‖K ζ‖) · eLpNorm (besselW s • g) 2`
+  (pointwise Peetre-386 domination inside the convolution integral → Young-`L¹∗L²→L²`), plus the cutoff
+  specialization `eLpNorm_cutoff_multiplier_le` (`K = angularFourier χ_ℂ`, kernel mass from lane 391,
+  constant `cutoffMultiplierConst s χ`, `cutoffMultiplierConst_nonneg`). Axioms
+  `[propext, Classical.choice, Quot.sound]`; `lake build … CutoffMultiplier` green, `make check` green.
+  Probe `research/T22/probes/cutoff_multiplier_closes.lean` (ContDiffBump cutoff + nonzero finite-`L²` input,
+  `s=1/2` and `s=-2`), audit `research/T22/axioms_ua3.lean`. **The verbatim field is NOT closed**: the residual
+  is datum-model plumbing (angular product↔convolution identity at the `L²`/tempered level, `realSubspace`
+  preservation, `smulLeftCLM` graph, `PiLp 2` vector assembly, `C>0` bump), **not** analysis. Exact residual
+  statements in `research/T22/ATTEMPTS_UA3.md` (R1–R4). U-Z1 must **not** treat the field as available yet.
 
 - **U-A4 — order-0 vector Plancherel isometry** (new analysis). New `Section3/T22/OrderZeroIsometry.lean`. No named input.
   Target (consumed by `orderZero`): `norm_orderZeroDatum_eq` — `‖D01.orderZeroDatum hz‖ₑ = eLpNorm z 2 volume`
