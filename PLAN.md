@@ -92,7 +92,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 324-SPEC-t20-spec | 已合入 #296（二跑：15 字段含常数与清单一致，2 rfl，elaborate 0 输出） | 09-18 0415Z | #296 | — | SPEC **T20 定稿**：按 research/T20/RECONCILIATION.md（B 为基 + A 拼写；零初值命题；Type 值 `CriticalRegularityTAPI` 12 常数字段 + 11 定理字段；无 API 索引）→ Spec.lean + COMPARISON.md |
 | 325-T11-U9d1a-half-step | astra 两次交别名桩（TorusHalfStepAnalyticInput := TorusHalfStepInput）→ 作废；拆成 328/329/330 三条不允许具名输入的具体引理 lane | 09-18 0407Z | — | — | T11 U9d1-analytic：偿还 319 的具名输入 `TorusHalfStepInput`（实阶卷积界 H^r×H^r→H^{r−1}、分数阶热光滑 σ=3/2 核 (νt)^{-3/4}、Duhamel 端点连续）→ 持续性无条件 |
 | 326-T11-U9d2a-pressure | 已合入 #302（codex 两轮审稿：内容全过，卫生点修正后合入；Opus 产出，95 声明） | 09-18 0532Z | #302 | — | T11 U9d2a：mild 解的压力（Leray 补的系数构造、物理场、`pressure_gradient/smooth/gauge/periodic/poisson`）在 `PersistenceInput` 下 |
-| 327-T11-U9d2b-momentum | codex 审稿 REJECT（多余假设 PersistenceInput T F；联合光滑残余 → 334）→ Opus 偿还力路径持续性后合入 | 09-18 0624Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
+| 327-T11-U9d2b-momentum | 已合入 #304（审稿 REJECT 两点：多余假设已偿还；联合光滑残余 → 334；Opus 产出 67 声明） | 09-18 0630Z | #304 | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
 | 328-T11-U9d1a-real-order-convolution | 已合入 #297（codex 审稿 ACCEPT；Opus 产出） | 09-18 0451Z | #297 | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
 | 329-T11-U9d1b-fractional-smoothing | 已合入 #298（codex ACCEPT-WITH-NOTES：报告措辞；Opus 产出） | 09-18 0459Z | #298 | — | T11 U9d1b：分数阶热光滑 σ=3/2、核 (νt)^{-3/4} 可积、强连续 |
 | 330-T11-U9d1c-duhamel-half-step | 已合入 #301（codex ACCEPT-WITH-NOTES：报告措辞；Opus 产出）：持续性无条件 | 09-18 0526Z | #301 | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |
