@@ -65,3 +65,22 @@ The spec contains elaborating `example … := rfl` checks for:
    three verbatim blocks at once, or retain the current namespace-qualified
    research snapshot for provenance while the contract imports only registered
    modules?
+
+## U1 implementation status (lane 362)
+
+The canonical bridge module is
+`formalization/NSFormalization/Section3/T15/Bridges.lean`.  It imports T10's
+periodic data and T13's periodizer, never `Contracts.*`, and defines the T15
+rescalings over the canonical field types.  The three rescaling theorems are
+`rfl` equalities to `Source.parabolicVelocity`, `Source.parabolicPressure`, and
+`Source.parabolicForce`, which are the upstream objects named by the registered
+bindings.  `alphaT_formula`, `normalizedScaledPressure_formula`,
+`completedDense_eq_via`, `completedDenseHomogeneous_eq_via`, and
+`periodize_eq_vendor` promote the remaining Spec drift checks.
+
+`research/T15/probes/api_on_canonical.lean` copies the packet-specialized
+definitions and proves each equals the canonical module by `rfl`; it also
+proves the contract-side equalities for `scaledPacket`, `scaledPressure`,
+`scaledForce`, and `alpha`.  The alpha bridge is necessarily formula-shaped in
+the canonical module because the contract's `alpha` is a copied contract
+definition with no separate upstream declaration.

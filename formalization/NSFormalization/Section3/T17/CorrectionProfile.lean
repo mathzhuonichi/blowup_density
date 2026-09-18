@@ -31,17 +31,32 @@ a Paper1 profile estimate: `profile_smooth` (`:49`), `profile_support` (`:187`),
 `potential_formula` (which reduce it to `Paper1.physicalCorrection` on the
 chart ball).
 
-## Vocabulary note (placement bundling)
+## Vocabulary note (placement bundling — lead ruling, 2026-09-18)
 
-The reconciled `Spec.lean` threads a T15 `place : PlacementData P`; here we use
-the two placement fields the correction mathematics actually reads, `x₀` and
-`T`, as bare parameters, exactly as the canonical T16
-`LocalPotentialAPI (v U : SpaceTimeField) (K : Set Space) (x₀ : Space)
-(r T δ : ℝ)` does.  The `place`-bundled spelling is deferred to the (not yet
-landed) T15 canonical module: `PlacementData` is parameterized by the
-registered `Contracts.V1.PacketAPI`, which lives in `verification/` and is
-unreachable from `formalization/`.  The T17 assembly instantiates
+The reconciled `Spec.lean` threads a T15 `place : PlacementData P`.  **Lead
+ruling** (rejecting the review's "restore `PlacementData`-based signatures"):
+`PlacementData` is parameterized by the registered `Contracts.V1.PacketAPI`,
+which lives in `verification/` and **cannot be imported into `formalization/`**
+(dependency chain: verification → formalization; no `import Contracts` exists in
+`formalization/`, and no canonical T15 `PlacementData` module has landed).  The
+canonical bare-`(x₀ : Space) (T : ℝ)` spelling therefore **stands**, exactly as
+the canonical T16 `LocalPotentialAPI (v U : SpaceTimeField) (K : Set Space)
+(x₀ : Space) (r T δ : ℝ)` uses bare parameters; the T17 assembly instantiates
 `x₀ := place.x₀`, `T := place.T`.
+
+## Premise note (`hv`, added relative to `CorrectionAPI` — spec issue G1)
+
+Every field below carries `hv : ContDiff ℝ ∞ v`, the **global** smoothness of the
+reference that Paper1's Euclidean `profile_*` lemmas consume.  This is an **added
+premise relative to the reconciled `CorrectionAPI`**, which exposes only
+`reference_periodic : IsPeriodicOn univ v` (`Spec.lean:776-779`) and no
+`reference_smooth`; the `LocalPotentialAPI` witness gives only `potential_smooth`,
+not v-smoothness.  Logged for the assembly lane U12 as spec issue G1
+(`research/T17/SPEC_ISSUES.md`): the assembly must add a `reference_smooth`
+field to `CorrectionAPI`, or re-prove these fields via a chart truncation of `v`
+(the ContDiffBump argument of `Section3/T16/BallPotential.lean`) to weaken the
+premise to local smoothness.  `hv` is satisfiable (a nonzero constant reference,
+`research/T17/probes/correction_profile_closes.lean`).
 -/
 
 noncomputable section
@@ -129,7 +144,7 @@ theorem contDiff_rescaledCorrectionProfile {v : SpaceTimeField} (hv : ContDiff �
 
 /-! ## 2. Field `correction_profile_smooth` (`Spec.lean:784-786`) -/
 
-/-- `03-torus.tex:256-260`: `W_ε` is `C∞` on the fixed cylinder. -/
+/-- `03-torus.tex:256-260`: `W_ε` is `C∞` on the fixed cylinder. Premise `hv : ContDiff ℝ ∞ v` is **added relative to `CorrectionAPI`** (which has `reference_periodic` only); see the module Premise note / spec issue G1. -/
 theorem correction_profile_smooth {v : SpaceTimeField} (hv : ContDiff ℝ ∞ v)
     (x₀ : Space) (T : ℝ) (D : CutoffData)
     (hθ : ContDiff ℝ ∞ D.θ) (hη : ContDiff ℝ ∞ D.η) :
@@ -141,7 +156,7 @@ theorem correction_profile_smooth {v : SpaceTimeField} (hv : ContDiff ℝ ∞ v)
 
 /-! ## 3. Field `correction_profile_support` (`Spec.lean:789-790`) -/
 
-/-- `03-torus.tex:256-260`: `W_ε` is supported in the fixed cylinder. -/
+/-- `03-torus.tex:256-260`: `W_ε` is supported in the fixed cylinder. Premise `hv : ContDiff ℝ ∞ v` is **added relative to `CorrectionAPI`** (which has `reference_periodic` only); see the module Premise note / spec issue G1. -/
 theorem correction_profile_support {v : SpaceTimeField} (hv : ContDiff ℝ ∞ v)
     (x₀ : Space) (T : ℝ) (D : CutoffData)
     (hθ : ContDiff ℝ ∞ D.θ) (hη : ContDiff ℝ ∞ D.η)
@@ -167,7 +182,7 @@ theorem correction_profile_support {v : SpaceTimeField} (hv : ContDiff ℝ ∞ v
 
 /-- `03-torus.tex:254-260`: the `ε`-independent uniform derivative constants,
 selected before `ε`.  Extracted from
-`CorrectionProfile.profile_uniform_global_derivative_bound`. -/
+`CorrectionProfile.profile_uniform_global_derivative_bound`. Premise `hv : ContDiff ℝ ∞ v` is **added relative to `CorrectionAPI`** (which has `reference_periodic` only); see the module Premise note / spec issue G1. -/
 def correctionProfileConst {v : SpaceTimeField} (hv : ContDiff ℝ ∞ v)
     (x₀ : Space) (T : ℝ) {θ : Space → ℝ} {η : ℝ → ℝ}
     (hθ : ContDiff ℝ ∞ θ) (hη : ContDiff ℝ ∞ η)
@@ -175,7 +190,7 @@ def correctionProfileConst {v : SpaceTimeField} (hv : ContDiff ℝ ∞ v)
   fun k => Classical.choose
     (profile_uniform_global_derivative_bound hv x₀ T hθ hη hθc hηc k)
 
-/-- `03-torus.tex:254-260`: the profile constants are nonnegative. -/
+/-- `03-torus.tex:254-260`: the profile constants are nonnegative. Premise `hv : ContDiff ℝ ∞ v` is **added relative to `CorrectionAPI`** (which has `reference_periodic` only); see the module Premise note / spec issue G1. -/
 theorem correctionProfileConst_nonneg {v : SpaceTimeField} (hv : ContDiff ℝ ∞ v)
     (x₀ : Space) (T : ℝ) {θ : Space → ℝ} {η : ℝ → ℝ}
     (hθ : ContDiff ℝ ∞ θ) (hη : ContDiff ℝ ∞ η)
@@ -213,7 +228,7 @@ theorem norm_iteratedFDeriv_slice_le {g : ℝ × SpaceTime → Space} (hg : Cont
   simp [ContinuousLinearMap.inr_apply, Prod.norm_def]
 
 /-- `03-torus.tex:254-260`: every fixed derivative order of `W_ε` is bounded by
-`correctionProfileConst k`, uniformly in `ε ∈ (0,ε₀]` and on the cylinder. -/
+`correctionProfileConst k`, uniformly in `ε ∈ (0,ε₀]` and on the cylinder. Premise `hv : ContDiff ℝ ∞ v` is **added relative to `CorrectionAPI`** (which has `reference_periodic` only); see the module Premise note / spec issue G1. -/
 theorem correction_profile_uniform {v : SpaceTimeField} (hv : ContDiff ℝ ∞ v)
     (x₀ : Space) (T : ℝ) (D : CutoffData)
     (hθ : ContDiff ℝ ∞ D.θ) (hη : ContDiff ℝ ∞ D.η)
@@ -259,7 +274,7 @@ theorem correction_eq_physicalCorrection {v U : SpaceTimeField} {K : Set Space}
   rw [hfun]
   rfl
 
-/-- `03-torus.tex:256-259`: the physical correction equals `W_ε` in the chart. -/
+/-- `03-torus.tex:256-259`: the physical correction equals `W_ε` in the chart. Premise `hv : ContDiff ℝ ∞ v` is **added relative to `CorrectionAPI`** (which has `reference_periodic` only); see the module Premise note / spec issue G1. -/
 theorem correction_profile_identity {v U : SpaceTimeField} {K : Set Space}
     (hv : ContDiff ℝ ∞ v) {x₀ : Space} {r T δ : ℝ} {D : CutoffData}
     (hpot : LocalPotentialAPI v U K x₀ r T δ D) :

@@ -61,6 +61,13 @@ embedding: it reduces by Fourier **order-shift** to `velocityCriticalL3` at `a =
   step functions; `χ·v` is then `ContDiff ℝ ∞` with `HasCompactSupport`, hence `MemHInfty (χ·v)`.
   **M, codex-sol.** Deps: —.
 
+  **Status (lane 365, 2026-09-18): complete.** `Cutoff.lean` uses a fixed
+  `ContDiffBump` with plateau radius `5/2` and support radius 3; the documented
+  `largerCube` is the open radius-4 Euclidean ball. It proves the smoothness,
+  range, support, compact-support product, `MemHInfty` product, derivative
+  bounds, and first/second derivative vanishing clauses. The direct closure
+  probe is `research/T12/probes/cutoff_closes.lean`.
+
 - **U3 — cutoff–Gagliardo comparison at `a = 1/2` (analytic core, no named input).** New
   `Section3/T12/CutoffGagliardo.lean`. For smooth mean-zero periodic `v` and `χ` of U2:
   `dotHomogeneousENorm (1/2) (χ·v) ≤ ENNReal.ofReal C · (eLpNorm v 2 (volume.restrict fundamentalCube)
@@ -138,3 +145,17 @@ needs only U1/U2). Lane numbers allocated by the lead in `PLAN.md`.
 3. **`dotHomogeneousENorm` spelling.** A05's theorem uses `A05.dotHomogeneousENorm`; T13's identities use
    `Contracts.V1.HomogeneousNorm.dotHomogeneousENorm`. The `rfl` bridge
    `Bindings/GradientL6V2.lean:44` closes it — use it explicitly in U4, do not assume defeq silently.
+
+### U1 status (lane 366 r1) — COMPLETE
+`Section3/T12/HaarCube.lean` proves the actual all-`p` Haar↔cube transfer
+`eLpNorm_torusLift_eq_restrict` for every `p : ℝ≥0∞` (incl. `p = 0`, `p = ⊤`), via
+the single measure identity `map_torusChart` + `MeasurableEmbedding.eLpNorm_map_measure`
+(no exponent case split, no hypothesised lintegral). Exposed: smooth corollary,
+scalar and gradient-tensor (`WithLp 2 (Fin 3 → Space)`) specializations, the
+`periodicLpENorm` bridges (`periodicLpENorm_eq_eLpNorm_torusLift` rfl,
+`periodicLpENorm_eq_restrict[_gradientTensor]`), and the supported-in-cube transfer
+in both `Function.support` and `tsupport` spellings (scalar + gradient-tensor). All
+11 public declarations audit to `[propext, Classical.choice, Quot.sound]`; module
+`lake env lean` output is empty. U4/U5 can now consume `p = 3` scalar and `p = 6`
+gradient-tensor transfer directly. No named input; the periodicity hypothesis is
+the paper's unit-periodic interface, unused in the proof (holds for every field).

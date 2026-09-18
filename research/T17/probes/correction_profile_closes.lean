@@ -1,21 +1,24 @@
+import NSFormalization.Section3.T16.Assembly
 import NSFormalization.Section3.T17.CorrectionProfile
 
 /-!
 # Probe: the six `CorrectionAPI` correction-profile fields close on the T17 U3 module
 
 Part A restates each of the six fields of `research/T17/Spec.lean:784-830`
-**token-for-token** (only substitution: the Spec threads `place : PlacementData P`,
-here read through its two used fields `place.x₀ ↦ x₀`, `place.T ↦ T`, exactly as
-canonical T16 uses bare `x₀ : Space`, `T : ℝ`) and closes each by `exact`.
+(substitution ruling of the lead: the Spec threads `place : PlacementData P`;
+`PlacementData` needs `Contracts.V1.PacketAPI`, unreachable from `formalization/`,
+so `place.x₀ ↦ x₀`, `place.T ↦ T`, the canonical bare-`(x₀,T)` T16 spelling, stands
+and the assembly instantiates `place.x₀`/`place.T`) and closes each by `exact`.
 
-Part B is a non-vacuity instance: a nonzero smooth (divergence-free) reference `v`
-(a constant field) with T16's cutoff data (`exists_originCutoff`/`exists_timeCutoff`),
-discharging the hypotheses of the five fields that depend only on the cutoff data.
-The sixth field, `correction_profile_identity`, is over the abstract
-`D.correction ε`; a *concrete* non-vacuity witness for it needs a full
-`LocalPotentialAPI` (T16's `localPotential` assembly, lane 358, not in this
-worktree).  Its field theorem is fully proved here (Part A) from the
-`LocalPotentialAPI` hypothesis the `CorrectionAPI` supplies.
+Part B is a genuine non-vacuity instance at a **nonzero constant divergence-free
+periodic** reference `constRef = fun _ => coordinateVector 0` (periodicity and
+divergence-freeness are proved, not asserted in a comment):
+
+* `nonvacuous_correction_profile_fields` discharges the five cutoff-data-only
+  fields with T16's Urysohn cutoff data (`exists_originCutoff`/`exists_timeCutoff`);
+* `nonvacuous_correction_profile_identity` builds a real `LocalPotentialAPI`
+  witness through T16's `localPotential` assembly (`Section3/T16/Assembly.lean`,
+  #330) and instantiates `correction_profile_identity` on it.
 -/
 
 noncomputable section
@@ -90,8 +93,9 @@ end Fidelity
 section NonVacuity
 
 open NSFormalization.Section3.T16
+open NSFormalization.Section3.T10 (IsPeriodicOn)
 
-/-- A nonzero constant reference velocity; smooth and divergence-free. -/
+/-- A nonzero constant reference velocity. -/
 def constRef : SpaceTimeField := fun _ => coordinateVector 0
 
 theorem constRef_ne_zero : constRef ≠ 0 := by
@@ -102,6 +106,15 @@ theorem constRef_ne_zero : constRef ≠ 0 := by
   simp [coordinateVector] at h0
 
 theorem constRef_smooth : ContDiff ℝ ∞ constRef := contDiff_const
+
+/-- A constant field is unit-periodic (proved, not asserted). -/
+theorem constRef_periodic : IsPeriodicOn univ constRef := fun _ _ _ _ => rfl
+
+/-- A constant field is divergence-free (proved, not asserted). -/
+theorem constRef_divergence_free : ∀ t : ℝ, ∀ x : Space,
+    spatialDivergence constRef t x = 0 := by
+  intro t x
+  simp [spatialDivergence, spatialDerivative, constRef]
 
 /-- Concrete cutoff data built from the T16 Urysohn cutoffs. -/
 theorem nonvacuous_correction_profile_fields :
@@ -129,6 +142,31 @@ theorem nonvacuous_correction_profile_fields :
   · exact ⟨correctionProfileConst constRef_smooth 0 1 hθsm hηsm hθcs hηcs,
       correctionProfileConst_nonneg constRef_smooth 0 1 hθsm hηsm hθcs hηcs,
       correction_profile_uniform constRef_smooth 0 1 _ hθsm hηsm hθcs hηcs (le_refl 1)⟩
+
+/-- Concrete non-vacuity of `correction_profile_identity`: a real
+`LocalPotentialAPI` witness for the nonzero constant divergence-free periodic
+reference, built by T16's `localPotential` assembly, on which the identity field
+is instantiated.  `U := 0`, `K := ∅`, `x₀ := 0`, `r := 1/4`, `T := δ := 1`. -/
+theorem nonvacuous_correction_profile_identity :
+    ∃ (v U : SpaceTimeField) (K : Set Space) (x₀ : Space) (r T δ : ℝ)
+      (D : CutoffData),
+      v ≠ 0 ∧ IsPeriodicOn univ v ∧
+      (∀ t : ℝ, ∀ x : Space, spatialDivergence v t x = 0) ∧
+      LocalPotentialAPI v U K x₀ r T δ D ∧
+      (∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ z ∈ fixedProfileCylinder D,
+        D.correction ε (correctionChartPoint x₀ T ε z) =
+          rescaledCorrectionProfile v x₀ T ε D z) := by
+  have hUsupp : ∀ t ∈ Ioo (0 : ℝ) 1,
+      tsupport (fun x => (0 : SpaceTimeField) (t, x)) ⊆ (∅ : Set Space) := by
+    intro t _; simp [tsupport]
+  obtain ⟨D, hpot⟩ :=
+    localPotential constRef 0 (∅ : Set Space) 0 (1 / 4) 1 1
+      (by norm_num) (by norm_num) (by norm_num) (by norm_num) isCompact_empty
+      constRef_periodic constRef_smooth.contDiffOn
+      (fun t _ x _ => constRef_divergence_free t x) hUsupp
+  exact ⟨constRef, 0, ∅, 0, 1 / 4, 1, 1, D, constRef_ne_zero, constRef_periodic,
+    constRef_divergence_free, hpot,
+    correction_profile_identity constRef_smooth hpot⟩
 
 end NonVacuity
 

@@ -288,3 +288,7 @@ restriction), every declaration `[propext, Classical.choice, Quot.sound]`:
   and a nonzero constant divergence-free non-vacuity instance.  Axiom audit
   `axioms_assembly.lean` (11 decls).  Depends on merge of `erenup/352-T16-lattice-lift`
   (local cancellation interface).
+
+## Registered
+
+Lane 371 registers the reconciled `Spec.lean` statement as `T02.local_potential` V1. `CutoffData` and `LocalPotentialAPI` are restated contract structures with fieldwise bindings; all 26 API fields are transported from the canonical assembly theorem. No correction bound is included.
