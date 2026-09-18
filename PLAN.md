@@ -159,4 +159,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 391-T22-UA2-cutoff-kernel | Opus prover 子代理运行中 | 09-18 1336Z | — | — | T22 U-A2：截断 χ 的 Fourier 变换对任意多项式权 weighted-L¹（Schwartz 衰减 + integrable_one_add_norm）供 cutoffMultiplier |
 | 392-T24-Uc1-Ua1 | codex sol 运行中（astra 备用） | 09-18 1340Z | — | — | T24 wave 1（codex）：Uc1 zero_from_rest（prop:conservative，ConservativeForce.lean:91）+ Ua1 五个几何/运动学字段（prop:affine，原始包字段版） |
 | 393-T22-UA5-orderzero | Opus prover 子代理运行中（基座 = 387 分支 + integration-section3） | 09-18 1339Z | — | — | T22 U-A5：orderZero 字段（0 阶域 Sobolev 范数 = L²(Ω) 范数；387 等距 + 383 限制桥 + 商范数恒等式） |
-| 394-T17-UCAN-canonical-correction | worktree 安装中→等 codex 空位启动（sol；基座 = 384 分支 + integration） | 09-18 1341Z | — | — | T17 U-CAN（U12 前半）：canonical CorrectionAPI 逐字重述于 T15 原始字段 PlacementData / T16 / T13 记录之上（G1 不改字段表；G3 用 place.x₀/place.T）+ probe 双向转换与已证单元闭合 |
+| 394-T17-UCAN-canonical-correction | codex sol 运行中（astra 备用；基座 = 384 分支 + integration） | 09-18 1343Z | — | — | T17 U-CAN（U12 前半）：canonical CorrectionAPI 逐字重述于 T15 原始字段 PlacementData / T16 / T13 记录之上（G1 不改字段表；G3 用 place.x₀/place.T）+ probe 双向转换与已证单元闭合 |
