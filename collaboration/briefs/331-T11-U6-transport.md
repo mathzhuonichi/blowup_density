@@ -37,3 +37,10 @@ expected (if the `PeriodicLocalRegularity` transport needs the `pressure_poisson
 
 ## Report
 Commit on your branch (`[331-T11] Transport`); end with four parts (theorems with exact statements / files / gaps with error text / commands and results).
+
+## No named input (added after a rejected first run)
+A previous run returned a 132-line module whose `def transportInput : Prop` was literally the three target fields plus "every `ClassicalSolutionT` has `PeriodicLocalRegularity`", and four trivial
+theorems. **That is the goal repackaged and was discarded.** This lane must build the transport constructor genuinely (chain rules for the time derivative / Laplacian / gradient / divergence under
+the change of variables, datum-path transport via the translation isometry and reweighting, gauge via `meanT` translation invariance, periodicity, classes) and prove `PeriodicLocalRegularity` for the
+transported solution from that of the original (or from the transported solution's own momentum/divergence equations — `projected` and `pressure_poisson` follow from `momentum` + `divergence`, cf.
+`ClassicalAssembly.classicalSolutionT_projected`). No `def … : Prop` input of any kind; an honest partial delivery with the exact obstacle is acceptable, a stub is not.
