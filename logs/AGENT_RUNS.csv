@@ -1446,3 +1446,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T17,425-T17-U7-force-support,claude-opus,proof-worker,"Section3/T17/ForceSupport.lean: force_smooth/force_periodic/force_support at concrete correctionData (open ball; latticeLift_spaceSupport); awaiting codex review",done,-
 2026-09-18,T24,424-T24-Ua8-nonisolated,claude-opus,proof-worker,"Section3/T24/AffineNonisolated.lean: nonisolated verbatim (C^m seminorm limits) + seminorm algebra lemmas; awaiting codex review",done,-
 2026-09-18,T24,417-T24-Ua7-infinite-dimensional,claude-opus,proof-worker,"Section3/T24/AffineWitness.lean + AffineFamily.lean: infinite_dimensional verbatim; codex review ACCEPT-WITH-NOTES",merged,384
+2026-09-18,T20,415-T20-U8-critical-energy,claude-opus,proof-worker,"Section3/T20/CriticalEnergy.lean: criticalEnergy verbatim; codex review ACCEPT",merged,385
