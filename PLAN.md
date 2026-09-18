@@ -175,3 +175,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 407-T24-Ua6-energy-finite | worktree 安装中 → Opus prover | 09-18 1438Z | — | — | T24a Ua6：energy_finite（紧支光滑 b 的 E₁ 范数有限 + 次可加性 + 原始 energyENorm 1 U < ⊤） |
 | 408-T22-UB2-zero-ext-regularity | worktree 安装中 → codex sol | 09-18 1438Z | — | — | T22 U-B2：零延拓正则性（contDiff/HasCompactSupport/MemLp/datum 存在） |
 | 409-T22-UB3-cutoff-datum | worktree 安装中 → codex sol | 09-18 1438Z | — | — | T22 U-B3：cutoff 存在 + IsCutoffDatum 实现零延拓的 datum |
+| 410-SPEC-t21-draft-a | worktree 安装中 → codex sol | 09-18 1442Z | — | — | T21 spec 双盲草案 A：thm:main (i)+(ii) + cor:nondensity（NonDensityAPI / MainTheoremAPI，消费 T19/T20 canonical） |
+| 411-SPEC-t21-draft-b | worktree 安装中 → Opus prover | 09-18 1442Z | — | — | T21 spec 双盲草案 B（与 A 互不可见） |
