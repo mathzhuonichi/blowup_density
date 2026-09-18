@@ -169,4 +169,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 401-T12-U4b-critical-l3-density | worktree 安装中（基于 396 分支）→ Opus prover | 09-18 1427Z | — | — | T12 U4b：逐字 velocityCriticalL3（仅 MemPeriodicHomogeneous ½）由光滑版经 Fourier 截断/周期磨光 + L³ 下半连续得到 |
 | 402-T24-Ua2-divergence-free | worktree 安装中 → codex sol | 09-18 1427Z | — | — | T24a Ua2：divergence_free（∇·(U+b)=0，原始 packet 散度子句 + AffineAdmissible） |
 | 403-T24-Ua5-speed-unbounded | worktree 安装中 → codex sol | 09-18 1427Z | — | — | T24a Ua5：speed_unbounded（U+b=U 于 t≥τ₁，late_agreement 传递 SpeedUnboundedAtOne） |
-| 404-MAINT-t16-deprecations | worktree 安装中 → codex sol | 09-18 1427Z | — | — | MAINT 卫生：T16/Assembly.lean 三处 if_pos/if_neg 弃用替换为 ite_eq_left/right，门禁 + 42 合同复核 |
+| 404-MAINT-t16-deprecations | 已合入 #363：T16/Assembly.lean 三处弃用替换（ite_eq_left/right），门禁 + 42 合同复核绿 | 09-18 1435Z | #363 | — | MAINT 卫生：T16/Assembly.lean 三处 if_pos/if_neg 弃用替换为 ite_eq_left/right，门禁 + 42 合同复核 |
