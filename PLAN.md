@@ -155,3 +155,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 387-T22-UA4-orderzero-isometry | Opus prover 子代理运行中 | 09-18 1307Z | — | — | T22 U-A4：0 阶向量 Plancherel 等距 norm_orderZeroDatum_eq（D01 明示未证的恒等式）供 orderZero |
 | 388-T19-U1-6-bookkeeping | worktree 安装中→等 codex 空位启动（sol） | 09-18 1319Z | — | — | T19 wave 1：U1–U6 纯簿记（thresholdValue、mixedRegionArithmetic、regionExamples、energyTimeEmbedding、referenceFiniteEnergy、零范数助手） |
 | 389-T20-U1-2-6-mean-reduction | worktree 安装中→等 codex 空位启动（sol；基座需合并 381 分支） | 09-18 1319Z | — | — | T20 wave 1（codex 单元）：U1 reductionRegular、U2 meanBound（eq:meanbound）、U6 meanFreeEquation（eq:meanfree） |
+| 390-T20-U3-U4-bintegral-transport | worktree 安装中→Opus prover 子代理（基座 = integration + 381 分支） | 09-18 1320Z | — | — | T20 wave 1（Opus 单元）：U3 bIntegral（eq:bintegral，去零模收缩）、U4 constantTransportSkew（:411，常系数输运在 L²(T³) 反对称） |
