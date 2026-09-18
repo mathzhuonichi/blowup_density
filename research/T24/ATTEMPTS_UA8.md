@@ -95,6 +95,108 @@ the `Tendsto`, not the constants, so nothing is weakened.
   bridge `SpaceTimeField_eq` (`Contracts/V1/Data.lean:104`).  `open BlowupDensity.Contracts.V1.Data`
   alone is not enough (the namespace is unknown without the import).
 
+## 3b. Negative mutation (required by the codex review of 2026-09-18, `REVIEW_424-T24-Ua8-nonisolated.md`)
+
+Three **substantive** mutations of the main statement / the force identity, each applied to a scratch
+copy of the module under `/tmp` (never committed, the tracked source was never edited), each re-run
+with the **unchanged** proof script.  All three break; exact Lean output below.
+
+### Mutation A — limit target `𝓝 0` → `𝓝 1` (velocity half)
+
+`AffineNonisolated.lean:202`, inside the `nonisolated` statement:
+
+```
+-          (fun z => affineVelocity U (lam • b) z - U z)) (𝓝 0) (𝓝 0) ∧
++          (fun z => affineVelocity U (lam • b) z - U z)) (𝓝 0) (𝓝 1) ∧
+```
+
+`cd verification && lake env lean /tmp/mut424_A.lean`:
+
+```
+/tmp/mut424_A.lean:220:4: error: Type mismatch: After simplification, term
+  ENNReal.Tendsto.mul_const htend0 (Or.inr (LT.lt.ne hCb))
+ has type
+  Tendsto (fun x => ‖x‖ₑ * affineCkSeminorm (tsupport b) m b) (𝓝 0) (𝓝 0)
+but is expected to have type
+  Tendsto (fun lam => ‖lam‖ₑ * affineCkSeminorm (tsupport b) m b) (𝓝 0) (𝓝 1)
+```
+
+(line 220 is `simpa using ENNReal.Tendsto.mul_const htend0 (Or.inr hCb.ne)`.)
+
+### Mutation B — drop the `λ`-scaling: `affineVelocity U (lam • b) z − U z` → `affineVelocity U b z − U z`
+
+`AffineNonisolated.lean:202`:
+
+```
+-          (fun z => affineVelocity U (lam • b) z - U z)) (𝓝 0) (𝓝 0) ∧
++          (fun z => affineVelocity U b z - U z)) (𝓝 0) (𝓝 0) ∧
+```
+
+`cd verification && lake env lean /tmp/mut424_B.lean`:
+
+```
+/tmp/mut424_B.lean:219:4: error: `simp` made no progress
+```
+
+(line 219 is `simp only [hvel]`; the rewrite `hvel` no longer matches, because the mutated integrand is
+constant in `lam`.)
+
+**This mutation is not merely unprovable by this script — it is false.**
+`/tmp/mut424_B_false.lean` derives `False` from it for every nonzero `b`
+(`Mut424BFalse.mutationB_false`, `[propext, Classical.choice, Quot.sound]`): the mutated integrand is
+the constant `affineCkSeminorm (tsupport b) 0 b`, a constant that tends to `0` **is** `0`
+(`tendsto_nhds_unique` against `tendsto_const_nhds`, `𝓝 (0:ℝ)` being `NeBot`), and that contradicts
+`seminorm_zero_ne_zero` for `b ≠ 0`.  So the `λ` in the statement is load-bearing.
+
+### Mutation C — sign of the principal coefficient `λ²−λ` → `λ²+λ` in the force identity
+
+`AffineNonisolated.lean:141`, inside `affineForce_smul_sub` (the review's named example):
+
+```
+-        + (lam ^ 2 - lam) • crossAdvection b b z.1 z.2 := by
++        + (lam ^ 2 + lam) • crossAdvection b b z.1 z.2 := by
+```
+
+`cd verification && lake env lean /tmp/mut424_C.lean`:
+
+```
+/tmp/mut424_C.lean:177:2: error: ring failed, ring expressions not equal
+ν : ℝ
+U F b : VelocityField
+hb : ContDiff ℝ ∞ b
+lam : ℝ
+z : SpaceTime
+hbd : ∀ (t : ℝ) (y : Space), DifferentiableAt ℝ (fun y' => b (t, y')) y
+hb2 : ∀ (t : ℝ), ContDiff ℝ 2 fun y => b (t, y)
+hbt : ∀ (t : ℝ) (x : Space), DifferentiableAt ℝ (fun s => b (s, x)) t
+hsm : lam • b = fun w => lam • b w
+hT : temporalDerivative (fun w => lam • b w) z.1 z.2 = lam • temporalDerivative b z.1 z.2
+hL : spatialLaplacian (fun w => lam • b w) z.1 z.2 = lam • spatialLaplacian b z.1 z.2
+hA1 : crossAdvection U (fun w => lam • b w) z.1 z.2 = lam • crossAdvection U b z.1 z.2
+hA2 : crossAdvection (fun w => lam • b w) U z.1 z.2 = lam • crossAdvection b U z.1 z.2
+hA3 : crossAdvection (fun w => lam • b w) (fun w => lam • b w) z.1 z.2 = (lam * lam) • crossAdvection b b z.1 z.2
+⊢ lam ^ 2 = lam * 2 + lam ^ 2
+/tmp/mut424_C.lean:241:24: error: Type mismatch
+  affineForce_smul_sub ν U F b hb_smooth lam z
+has type
+  affineForce ν U F (lam • b) z - F z =
+    lam • affineForce ν U (fun x => 0) b z + (lam ^ 2 + lam) • crossAdvection b b z.1 z.2
+but is expected to have type
+  affineForce ν U F (lam • b) z - F z =
+    lam • affineForce ν U (fun x => 0) b z + (lam ^ 2 - lam) • crossAdvection b b z.1 z.2
+```
+
+(line 177 is the closing `module`; the residual goal `lam ^ 2 = lam * 2 + lam ^ 2` is exactly the
+`2λ` discrepancy the sign flip introduces, and the downstream failure at 241 shows the constant is
+also load-bearing for `nonisolated` itself.)
+
+### After the mutations
+
+The tracked source was never edited (the mutations are `/tmp` copies).  Gates re-run to confirm:
+`lake build NSFormalization.Section3.T24.AffineNonisolated` → `Build completed successfully (3009 jobs).`;
+`lake env lean` on the module → no output; probe and `axioms_ua8.lean` → 8 + 8 lines, all
+`[propext, Classical.choice, Quot.sound]`; `make check` → EXIT 0.
+
 ## 4. Non-vacuity
 
 `research/T24/probes/affine_nonisolated_closes.lean`:
