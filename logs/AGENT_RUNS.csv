@@ -1433,3 +1433,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T24,414-T24-Ua4-force-smooth-support,claude-opus,proof-worker,"Section3/T24/AffineForce.lean: force_smooth + force_support verbatim over raw packet clauses; awaiting codex review",done,-
 2026-09-18,T20,413-T20-U7-critical-trilinear,claude-opus,proof-worker,"Section3/T20/CriticalTrilinear.lean: critical trilinear estimate on T3; codex review ACCEPT",merged,378
 2026-09-18,T24,414-T24-Ua4-force-smooth-support,claude-opus,proof-worker,"Section3/T24/AffineForce.lean: force_smooth + force_support verbatim; codex review ACCEPT-WITH-NOTES",merged,379
+2026-09-18,T22,418-T22-UZ1-zero-extension-comparison,gpt-5.6-sol,proof-worker,"Section3/T22/ZeroExtensionComparison.lean: zeroExtensionComparison verbatim (U-B1 + cutoffMultiplier over the datum infimum); awaiting codex review",done,-

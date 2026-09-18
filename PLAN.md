@@ -183,8 +183,9 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 415-T20-U8-critical-energy | Opus prover 子代理运行中 | 09-18 1727Z | — | — | T20 U8：criticalEnergy（eq:criticalenergy：y² 导数 + 压力消去 + 常输运反自伴 + 耗散 + U7 三线性 + 力项 ≤ b y） |
 | 416-SPEC-t21-reconcile | Opus prover 子代理运行中（对账 DraftA/DraftB → RECONCILIATION.md + Spec.lean） | 09-18 1726Z | — | — | T21 spec 对账：DraftA（410）vs DraftB（411）→ research/T21/RECONCILIATION.md（lead 审批后定稿 Spec.lean） |
 | 417-T24-Ua7-infinite-dimensional | Opus prover 子代理运行中 | 09-18 1727Z | — | — | T24a Ua7：infinite_dimensional（可数个不交球上 curl-bump 族 + 线性无关，④） |
-| 418-T22-UZ1-zero-extension-comparison | worktree 安装中（基于 409 + integration）→ codex sol | 09-18 1716Z | — | — | T22 U-Z1：zeroExtensionComparison 装配（U-A3 常数 + U-B1/B2/B3） |
+| 418-T22-UZ1-zero-extension-comparison | codex 完成：zeroExtensionComparison 逐字（U-B1 左侧 + cutoffMultiplier×ENNReal.mul_iInf 右侧；空 datum 情形 ≤ ⊤）→ 排队审稿；T22 三字段全证 → U-REG（423） | 09-18 1740Z | — | — | T22 U-Z1：zeroExtensionComparison 装配（U-A3 常数 + U-B1/B2/B3） |
 | 419-T12-UREG-contract | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T12 合同注册：T01.mean_zero_calculus（MeanZeroSobolevCalculusAPI 9 字段 + 绑定 + 测试，43 合同） |
 | 420-T24-Uc3-conservative-registration | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T24c Uc3：ConservativeForcingAPI 装配 + 注册 T04.conservative_forcing（Uc1+Uc2；真实 ClassicalSolutionT 非空见证） |
 | 421-T15-U3-single-copy | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T15 U3：格点可和性 + 单拷贝六字段（SingleCopy.lean，U2 放置 + periodize 引理） |
 | 422-T18-U1-insertion-data | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T18 U1：插入三元组 + 三个 eq:insertion 公式 + 阈值 + 平凡假设字段（Insertion.lean，canonical T15/T17 记录） |
+| 423-T22-UREG-contract | worktree 安装中（基于 418 + integration）→ codex sol | 09-18 1740Z | — | — | T22 U-REG：BoundedDomainNormAPI 装配 + 注册 T04.bounded_domain_norm（合同/绑定/测试/非空） |
