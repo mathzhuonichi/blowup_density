@@ -164,4 +164,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 396-T12-U4-velocity-critical-l3 | Opus prover 子代理运行中（基座 = 377 分支 + integration） | 09-18 1354Z | — | — | T12 U4：velocityCriticalL3（Haar↔cube 传输 + cutoffMul + 已注册 A05 全空间嵌入 + 377 核心 + 谱隙；显式常数 CcriticalHalf） |
 | 397-T22-UA3-cutoff-multiplier | Opus prover 子代理运行中（基座 = 391 分支 + integration） | 09-18 1354Z | — | — | T22 U-A3（分析核心，关键路径）：cutoffMultiplier 字段（Peetre 权比 × 391 核质量 → Young L¹∗L² → ‖B‖ ≤ C‖A‖，IsCutoffDatum 配对恒等式） |
 | 398-T24-Ua3-momentum | Opus prover 子代理运行中 | 09-18 1403Z | — | — | T24 Ua3：momentum（eq:affine ①，U+b 满足带修正力的方程；advection 双线性展开 + 包的 navier_stokes 子句） |
-| 399-MAINT-section3-build-e | worktree 安装中→自动启动（codex astra，sol 备用） | 09-18 1406Z | — | — | MAINT：#339–#353 合入批次后 Section 3 全量编译检查（约 75 模块、三门禁、42 合同、probe/公理扫描 → logs/SECTION3_BUILD_20260918e.md）；基座 dbdac830 |
+| 399-MAINT-section3-build-e | 已合入 #354：71 模块全编译 0 错误、四门禁、42 合同（logs/SECTION3_BUILD_20260918e.md）；T16/Assembly 3 个弃用 warning（卫生项） | 09-18 1414Z | #354 | — | MAINT：#339–#353 合入批次后 Section 3 全量编译检查（约 75 模块、三门禁、42 合同、probe/公理扫描 → logs/SECTION3_BUILD_20260918e.md）；基座 dbdac830 |
