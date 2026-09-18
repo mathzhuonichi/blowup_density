@@ -1,0 +1,4 @@
+import NSFormalization.Section3.T12.HaarCube
+#print axioms NSFormalization.Section3.T12.periodicLpENorm_eq_eLpNorm_torusLift
+#print axioms NSFormalization.Section3.T12.eLpNorm_restrict_eq_of_support
+#print axioms NSFormalization.Section3.T12.eLpNorm_torusLift_eq_restrict_of_lintegral

@@ -138,3 +138,9 @@ needs only U1/U2). Lane numbers allocated by the lead in `PLAN.md`.
 3. **`dotHomogeneousENorm` spelling.** A05's theorem uses `A05.dotHomogeneousENorm`; T13's identities use
    `Contracts.V1.HomogeneousNorm.dotHomogeneousENorm`. The `rfl` bridge
    `Bindings/GradientL6V2.lean:44` closes it — use it explicitly in U4, do not assume defeq silently.
+
+### U1 status (lane 366)
+The new HaarCube module contains the definitional periodicLpENorm bridge,
+the scalar/vector support restriction transfer, and a general-p reduction to
+the fundamental-domain norm-density identity. The final measurable density
+lemma is still open.
