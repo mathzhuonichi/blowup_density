@@ -55,3 +55,6 @@ All from the worktree, after `. scripts/lean-env.sh`, `lake` run from `verificat
 | `git commit` | `323648ba [407-T24] Ua6 energy_finite: ...` on `erenup/407-T24-Ua6-energy-finite`; working tree clean |
 
 Intermediate failures observed before the fixes above: round 1 reported 9 errors (`add_le_add_right` orientation, deprecated `eLpNorm_eq_lintegral_rpow_enorm`, `Function.uncurry` `simpa`, `fderiv_const`, `pow_le_pow_left`, `mul_le_mul_left'`); round 2 reported 2 real errors plus four `(deterministic) timeout at 'whnf'/'tactic execution', maximum number of heartbeats (200000) has been reached` at the `add_le_add_left` site, which the 2000000-heartbeat isolation run re-reported as `Type mismatch: add_le_add_left (mul_le_mul' (le_refl 4) (rpow_two_eLpNorm_gradient_slice_le hCg t)) ?m.498 has type 4 * eLpNorm (fun x => spatialGradient b t x) 2 volume ^ 2 + ?m.498 ≤ ...`.
+
+
+> Lead note after review 407: the hypothesis-count wording at line 20 should read "the only packet clause used is `energyENorm 1 U < ⊤`; the geometric parameters `c r τ₀ τ₁` enter only through `AffineAdmissible`" (the reviewer flagged the count as imprecise). The three local norm definitions are now audited in `axioms_ua6.lean`.

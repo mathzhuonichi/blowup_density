@@ -23,3 +23,6 @@ open NSFormalization.Section3.T24
 #print axioms energyEssSup_affineVelocity_lt_top
 #print axioms energyGradient_affineVelocity_lt_top
 #print axioms energy_finite
+#print axioms energyEssSup
+#print axioms energyGradient
+#print axioms energyENorm
