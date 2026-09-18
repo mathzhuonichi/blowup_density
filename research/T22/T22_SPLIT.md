@@ -273,6 +273,14 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   `restrictDatum`/`domainSobolevENorm`/`restrictField`/`zeroExtension`/`IsCutoffDatum` verbatim in the contract with
   `rfl` bridges to the `Section3/T22` defs; `Tests` audits transitive axioms `[propext, Classical.choice,
   Quot.sound]` and non-vacuity (nonzero bump on a ball `K ⋐ Ω`). **M, codex-sol.** Deps: U-A3, U-A5, U-Z1.
+  **[DONE — lane 423, 2026-09-18]** `Assembly.lean` assembles the three canonical fields and exposes
+  `boundedDomainNormStatement`; the fresh V1 contract restates the bounded-domain vocabulary, with `rfl`
+  bridges for every definition.  The API record itself is transported fieldwise because the contract and
+  canonical structures are distinct inductive types.  `Tests.BoundedDomainNorm` checks the complete API and
+  statement, audits the standard three axioms, and instantiates the comparison on a nonzero `ContDiffBump`
+  supported in `closedBall 0 (1/2) ⊂ ball 0 1`.  The cutoff closure includes
+  `Mathlib.Geometry.Manifold.PartitionOfUnity`.  Audit: `research/T22/axioms_ureg.lean`; attempts:
+  `research/T22/ATTEMPTS_UREG.md`; report: `research/T22/REPORT_423.md`.
 
 ## 2. Waves (≤ 3 concurrent per current lane cap)
 

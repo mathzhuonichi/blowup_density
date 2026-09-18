@@ -473,6 +473,17 @@
       "declaration": "BlowupDensity.Tests.checkedMeanZeroCalculus",
       "scope": "The reconciled T12 API (research/T12/Spec.lean:281-478) on the unit three-torus: the torus halves of lem:calculus and lem:critical-embeddings (appendix-a-local-theory.tex:7-27, appendix-b-embeddings.tex:8-38,85-110) together with the mean-zero order-two comparison used at 03-torus.tex:467-503. Nine proved fields, with seven constants fixed as structure data before every field they control: the scalar tame product on H^m(T³) for 2 ≤ m (eq:Rproduct, scalar factors only, no vector or tensor form); the H²(T³) → L^∞(T³) bound with no mean-zero hypothesis; the critical Ḣ^(1/2)(T³) → L³(T³) bound for every periodic L² field with zero Haar mean and a finite homogeneous datum norm, with no smoothness hypothesis; existence (not uniqueness) of a smooth periodic physical representative Lv of Λv for every smooth periodic v; the single displayed sum ‖∇v‖₃ + ‖Λv‖₃ ≤ C‖v‖_{Ḣ^(3/2)} for smooth periodic v of finite order-3/2 homogeneous norm together with such a representative; ‖∇v‖₆ ≤ C‖Δv‖₂ and ‖v‖_{H²} ≤ C‖Δv‖₂ for smooth periodic mean-zero v; and both directions of the mean-zero norm comparison at every 0 ≤ s, the converse with constant exactly one. The constants are closed terms of the canonical implementation, not numerals: Cproduct m = 4^(m/2)·sqrt(Σ_k (1+4π²|k|²)^(-2)), Cinfty = sqrt(Σ_k ((1+4π²|k|²)^2)⁻¹), CcriticalHalf = criticalL3Const·cutoffGagliardoConst·(Cgap(1/2)+1), CcriticalThreeHalves = 4·CcriticalHalf, Csix = 343·gradientL6Const·leibnizConst·(1+2·CHtwo), CHtwo = 1+1/(4π²) and Cgap s = (1+1/(4π²))^(s/2); no sharpness or optimality of any constant is asserted. Nothing is asserted about the whole-space (R³) halves of the two lemmas, about orders s < 0, about non-mean-zero homogeneous norms, or about uniqueness of the Λ representative.",
       "enabled": true
+    },
+    {
+      "id": "T04.bounded_domain_norm",
+      "parent_task": "T04",
+      "version": 1,
+      "specification": "verification/Contracts/V1/BoundedDomainNorm.lean",
+      "binding_module": "Bindings.BoundedDomainNorm",
+      "test_module": "Tests.BoundedDomainNorm",
+      "declaration": "BlowupDensity.Tests.checkedBoundedDomainNorm",
+      "scope": "The reconciled T22 bounded-domain norm layer from 03-torus.tex:600-630: the distributional quotient norm domainSobolevENorm and its restriction vocabulary, the order-zero identity with the restricted physical L² norm, the fixed compactly supported smooth-cutoff multiplier bound for every real order, and the two-sided zero-extension comparison for smooth fields supported in a compact K strictly inside an open Ω. The three API fields are assembled from closed canonical proof terms orderZero, cutoffMultiplier, and zeroExtensionComparison; no free implementation constant is exposed. The multiplier witness is the closed term cutoffFieldConst s χ = frequencyUnit^(-3/2) * cutoffMultiplierConst s χ + 1; the comparison chooses a smooth cutoff from Ω and K, then that multiplier constant before z. The canonical proof closure includes Mathlib.Geometry.Manifold.PartitionOfUnity through the smooth compact-cutoff construction. No bounded zero-extension operator for arbitrary domain data, boundary/no-slip statement, or T23 consequence is asserted.",
+      "enabled": true
     }
   ]
 }
