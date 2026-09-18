@@ -16,6 +16,7 @@
 
 ## 日志（最新在前）
 
+- **2026-09-18 1400Z**：合入 #349（T17 U5+U6）、#350（T17 U4，Spec 形式 identity 闭合）；T12 U3 核心（377）与 T22 U-A2（391）交付，U4（396）与 U-A3（397）开跑；T20 U3+U4（390）交付；codex 审稿排队 377/387/376/390。
 - **2026-09-18 1340Z**：合入 #345–#348（366 T12 全 p 传输、381 T20 canonical + H¹ 核查、383 T22 U-B1、386 T22 Peetre）；T19/T20/T24 证明拆分落地；在跑：Opus 377/376 补全/390/391/393，codex 388/389 + 审稿 375/385/387（384 退避）；392（T24 wave 1）等 codex 空位；T17 U-CAN 等 384 审稿。
 - **2026-09-18（lane 383）**：T22 U-B1 完成：canonical `Domain.lean`、
   `restrictDatum_eq_restrictField`、`domainSobolevENorm_le_sobolevENorm`、
