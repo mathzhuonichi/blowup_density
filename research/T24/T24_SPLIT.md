@@ -249,6 +249,27 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   `AffineVariationAPI`; `affineVariationStatement:1117` `Nonempty` from any `PacketAPI ν` (the registered
   `I01.packet` witness); the raw-field→`PacketAPI` probe (§0). Register `T24.affine_variation` v1; non-vacuity at
   `b=0` (admissible) and the full family. **M, codex-sol.** Deps: all Ua.
+  **DONE (lane 430, Opus).** Registered as **`T04.affine_variation`** v1 (parent task `T04`, per the T24 work
+  item — not `T24.*`), 43rd contract. Four files:
+  `formalization/NSFormalization/Section3/T24/AffineAssembly.lean` (canonical: `AffineRawData` = the eight raw
+  packet clauses the units consume, `AffineVariationCanonical` = the 13 Spec fields over raw `U P F`,
+  `affineVariationCanonical` = thirteen one-line field assignments to lanes 392/398/402/403/407/414/417/424);
+  `verification/Contracts/V1/AffineVariation.lean` (`Spec.lean:958-1121` copied token-for-token, only the
+  namespace changed to `BlowupDensity.Contracts.V1`; imports `Contracts.V1.{Data,Packet}` only);
+  `verification/Bindings/AffineVariation.lean` (seven whole-function `rfl` bridges — `affineCylinder`,
+  `AffineAdmissible`, `crossAdvection`, `affineVelocity`, `affinePressure`, `affineForce`,
+  `ckSeminormE ≡ affineCkSeminorm` — plus `packetRawData`, `affineVariation` for **any** `P : PacketAPI ν`,
+  `affineVariationPacket` at `Bindings.packet ν hν`, `affineVariationStatement_holds`);
+  `verification/Tests/AffineVariation.lean` (`checkedAffineVariation`, `checkedAffineVariationStatement`, both
+  `run_cmd TestSupport.checkAxioms`; three field-shape conformance examples; non-vacuity at `b = 0` and at the
+  nonzero `AffineWitness.curlBump` on `ball 0 1 × (1/4,3/4)`).
+  **The Ua6 open gap is closed here**: `Section3.T24.energyENorm_lt_top_of_packet` derives
+  `energyENorm 1 U < ⊤` — which `PacketAPI` does *not* carry — from `square_integrable` + `energy_isLUB`
+  (`I02.eLpNorm_two_eq_ofReal_sqrt`, `essSup_le_of_ae_le`) and from `velocity_smooth` + `carrier_compact` +
+  `velocity_support` + `dissipation_integrable` (`I03.eLpNorm_spatialGradient_sq_slice`,
+  `ofReal_integral_eq_lintegral_ofReal`), exactly the route sketched in `ATTEMPTS_UA6.md`. All declarations
+  print `[propext, Classical.choice, Quot.sound]` (`research/T24/axioms_ua9.lean`); attempts/negative record
+  `research/T24/ATTEMPTS_UA9.md`. **T24a is complete**; T24b and T24c remain.
 
 ### T24b — multiple regions (`Type`, 30 fields), torus, **T15-gated** (no T18)
 
@@ -304,7 +325,7 @@ threaded canonical T15 records (draftable now), whose **instantiation / `Nonempt
 | Ua6 | affine | ③ | raw `energyENorm 1 U < ⊤` | no |
 | Ua7 | affine | ④ | bump-function library (new) | no |  <!-- done: lane 417 -->
 | Ua8 | affine | ⑤ | Ua3 expansion | no |
-| Ua9 | affine | — | `I01.packet` (probe) | no |
+| Ua9 | affine | — | `I01.packet` (contract) | no |  <!-- done: lane 430, `T04.affine_variation` -->
 | Ub1 | multiple | — | T15 `PlacementData`/`ScalingAPI` | **T15 U2, U15** |
 | Ub2 | multiple | — | T15 `ScalingAPI.solution` | **T15 U11** |
 | Ub3 | multiple | ⑥ | T15 `*_singleCopy` + `eps_space` | **T15 U3, U2** |

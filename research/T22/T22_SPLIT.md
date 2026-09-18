@@ -226,8 +226,31 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   Probe `research/T22/probes/orderzero_closes.lean`, audit `research/T22/axioms_ua5.lean`,
   attempts `research/T22/ATTEMPTS_UA5.md`, report `research/T22/REPORT_393.md`.
 
+- **[DONE — lane 409]** `Section3/T22/CutoffDatum.lean`. (a) `exists_cutoff (hΩ : IsOpen Ω) (hK : IsCompact K)
+  (hKΩ : K ⊆ Ω) : ∃ χ, ContDiff ℝ ∞ χ ∧ HasCompactSupport χ ∧ tsupport χ ⊆ Ω ∧ (∀ᶠ x in 𝓝ˢ K, χ x = 1)`, with
+  the explicit-open-set repackaging `exists_cutoff_isOpen` (`∃ V, IsOpen V ∧ K ⊆ V ∧ ∀ x ∈ V, χ x = 1`).
+  **The cutoff is Mathlib's smooth Urysohn in model-space form**: `exists_compact_between` gives a compact
+  `L` with `K ⊆ interior L ⊆ L ⊆ Ω`, then `exists_contMDiffMap_one_nhds_of_subset_interior (I := 𝓘(ℝ, Space))`
+  (`Mathlib/Geometry/Manifold/PartitionOfUnity.lean:527`) + `contMDiff_iff_contDiff`. The lane-409 codex claim
+  that `exists_smooth_tsupport_subset` / `exists_contDiff_one_nhds_of_subset` are "unknown identifiers" was a
+  **naming** fact only (the vector-space bump API is now `exists_contDiff_tsupport_subset` /
+  `IsOpen.exists_contDiff_support_eq`, and neither produces `χ = 1` near an arbitrary compact set), not an
+  obstruction. (b) `isCutoffDatum_realizes_zeroExtension (hχs : ContDiff ℝ ∞ χ) (hχc : HasCompactSupport χ)
+  (hχΩ : tsupport χ ⊆ Ω) (hχ1 : ∀ᶠ x in 𝓝ˢ K, χ x = 1) (hcut : IsCutoffDatum s χ A B)
+  (hA : restrictDatum Ω s A = restrictField Ω z) (hsupp : tsupport (zeroExtension Ω z) ⊆ K) :
+  IsSobolevDatum s (zeroExtension Ω z) B`. `SchwartzMap.smulLeftCLM ℂ (χ ·)` **is** pointwise multiplication here
+  (risk 5 discharged): `HasCompactSupport.hasTemperateGrowth` + `SchwartzMap.smulLeftCLM_apply_apply`. The
+  identity `(χψ) x · z x i = ψ x · (E₀z) x i` holds at **every** `x`, so no measurability of `Ω` and **no
+  `IsOpen Ω` / `K ⊆ Ω`** are needed; `χ x = 1 ≠ 0` forces `x ∈ tsupport χ ⊆ Ω`, which is what makes the
+  `tsupport (E₀z)` branch work. **Note for U-Z1:** (b) additionally needs `HasCompactSupport χ` (the brief's
+  signature omitted it) — without it `χ·ψ` need not be a `DomainTest`; (a) supplies it. No named input.
+  Axioms `[propext, Classical.choice, Quot.sound]`. Probe `research/T22/probes/cutoff_datum_closes.lean`
+  (instantiates (a) on `Ω = ball 0 1`, `K = closedBall 0 (1/2)`, composes (a) into (b), and closes the zero
+  instance of (b)), audit `research/T22/axioms_ub3.lean`, attempts `research/T22/ATTEMPTS_UB3.md`, report
+  `research/T22/REPORT_409.md`.
+
 - **U-Z1 — `zeroExtensionComparison` (assembly of the two-sided bound)** (bookkeeping over the core). New
-  `Section3/T22/ZeroExtComparison.lean`. No named input. Target:
+  `Section3/T22/ZeroExtensionComparison.lean`. No named input. Target:
   `BoundedDomainNormAPI.zeroExtensionComparison` **verbatim** (`Spec.lean:160-167`). Route: fix `χ` (U-B3a) and set
   `C` from U-A3.cutoffMultiplier (`∃ C>0` chosen before `z`). **Left** conjunct = U-B1's
   `domainSobolevENorm_le_sobolevENorm` (E₀z has a datum by U-B2, restricts to `restrictField Ω z`). **Right**
@@ -236,6 +259,13 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   `IsSobolevDatum s (E₀z)` witness, so `sobolevENorm s (E₀z) ≤ ‖B‖ₑ ≤ ofReal C * ‖A‖ₑ`
   (`sobolevENorm_le_of_isSobolevDatum`); take `⨅` over `A` → `≤ ofReal C * domainSobolevENorm`. **M–L, codex-sol.**
   Deps: U-A3, U-B1, U-B2, U-B3.
+  **[DONE — lane 418, 2026-09-18]** `Section3/T22/ZeroExtensionComparison.lean` proves the
+  verbatim field.  The right inequality splits on whether the domain-datum subtype is nonempty:
+  `ENNReal.mul_iInf` handles the nonempty case and `iInf_of_empty` makes the empty case trivial.
+  Axioms are `[propext, Classical.choice, Quot.sound]`.  Probe:
+  `research/T22/probes/zero_extension_comparison_closes.lean`; audit:
+  `research/T22/axioms_uz1.lean`; attempts: `research/T22/ATTEMPTS_UZ1.md`; report:
+  `research/T22/REPORT_418.md`.
 
 - **U-REG — assembly + contract/bindings/tests + non-vacuity** (bookkeeping). New `Section3/T22/Assembly.lean`
   + fresh `verification/Contracts/V1/BoundedDomainNorm.lean` (+ `Bindings`, `Tests`). Bundle the inhabitant
@@ -243,6 +273,14 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   `restrictDatum`/`domainSobolevENorm`/`restrictField`/`zeroExtension`/`IsCutoffDatum` verbatim in the contract with
   `rfl` bridges to the `Section3/T22` defs; `Tests` audits transitive axioms `[propext, Classical.choice,
   Quot.sound]` and non-vacuity (nonzero bump on a ball `K ⋐ Ω`). **M, codex-sol.** Deps: U-A3, U-A5, U-Z1.
+  **[DONE — lane 423, 2026-09-18]** `Assembly.lean` assembles the three canonical fields and exposes
+  `boundedDomainNormStatement`; the fresh V1 contract restates the bounded-domain vocabulary, with `rfl`
+  bridges for every definition.  The API record itself is transported fieldwise because the contract and
+  canonical structures are distinct inductive types.  `Tests.BoundedDomainNorm` checks the complete API and
+  statement, audits the standard three axioms, and instantiates the comparison on a nonzero `ContDiffBump`
+  supported in `closedBall 0 (1/2) ⊂ ball 0 1`.  The cutoff closure includes
+  `Mathlib.Geometry.Manifold.PartitionOfUnity`.  Audit: `research/T22/axioms_ureg.lean`; attempts:
+  `research/T22/ATTEMPTS_UREG.md`; report: `research/T22/REPORT_423.md`.
 
 ## 2. Waves (≤ 3 concurrent per current lane cap)
 
