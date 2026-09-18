@@ -440,6 +440,17 @@
       "declaration": "BlowupDensity.Tests.checkedPacketImport",
       "scope": "The whole-space packet is the registered I01.packet witness (Section 4, Bindings.packet), T14 adds exactly the two eq:packetenergy relations with the factors 2ν and 2, accumulatedForce as the Ioo 0 t set integral, both proved from the vendor CompactEnergy energy balance + Paper1/ScalarEnergy.sqrt_energy_le_primitive; periodization is not part of it",
       "enabled": true
+    },
+    {
+      "id": "T02.local_potential",
+      "parent_task": "T02",
+      "version": 1,
+      "specification": "verification/Contracts/V1/LocalPotential.lean",
+      "binding_module": "Bindings.LocalPotential",
+      "test_module": "Tests.LocalPotential",
+      "declaration": "BlowupDensity.Tests.checkedLocalPotential",
+      "scope": "The Urysohn cutoffs, threshold, radial potential timePotential on the chart ball (only local smoothness of v), the unit-periodic lattice lift of physicalCorrection with all seven correction_* clauses including eq:bgzero; the CutoffData/LocalPotentialAPI structure exception is handled fieldwise; no bound on the correction is asserted (that is T17).",
+      "enabled": true
     }
   ]
 }

@@ -355,7 +355,9 @@
       "kind": "specification",
       "state": "in-progress",
       "owner": "erenup",
-      "contracts": [],
+      "contracts": [
+        "T02.local_potential"
+      ],
       "deliverable": "Reconcile research/T16/Spec.lean against lem:potential and the local-cutoff sources, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
     },
     {
