@@ -135,3 +135,69 @@ Chain used (all from Mathlib):
 * **Making `picardHorizon` depend on the whole family `M` through a sum or a
   supremum over orders.**  Unnecessary: only `M 3` is consumed, and a smaller
   dependence is a stronger statement.
+
+## 5. Negative mutations (codex review of 338, and one added by the worker)
+
+Both are checked-in files that are **expected to fail**; the exact errors below
+were reproduced after the rebase on merged 334.
+
+**M1 — the `H³` datum ball is load-bearing** (reviewer's probe,
+`research/T11/probes/rev338_h1_mutation.lean`).  The main statement is copied
+with `periodicSobolevENorm 1 a ≤ K` in place of `periodicSobolevENorm 3 a ≤ K`
+and the same proof is attempted; it must not typecheck through the `H³` Picard
+estimate.
+
+```
+../research/T11/probes/rev338_h1_mutation.lean:26:62: error: Application type mismatch: The argument
+  hKa
+has type
+  periodicSobolevENorm 1 a ≤ K
+but is expected to have type
+  periodicSobolevENorm 3 a ≤ K
+in the application
+  exists_classical_on_picardHorizon ν hν K hK M hM a ha hKa
+```
+
+So the `H¹` ball is genuinely not reachable from this module — `H1_GAP.md` §2 is
+not a stylistic remark, it is what the kernel says.
+
+**M2 — the horizon's dependence on the force bound is load-bearing** (worker's
+probe, `research/T11/probes/rev338_horizon_mutation.lean`).  `picardHorizon ν K M`
+decreases as `M 3` grows (`torusPicardThreshold` is decreasing in `b`,
+`torusKernelTime` increasing in `η`), so the force-free horizon
+`picardHorizon ν K (fun _ ↦ 0)` is in general strictly longer; claiming a
+solution on it must fail.
+
+```
+../research/T11/probes/rev338_horizon_mutation.lean:27:2: error: Type mismatch
+  exists_classical_on_picardHorizon ν hν K hK M hM a ha hKa g hg hgp hMg
+has type
+  ∃ (w : ClassicalSolutionT ν a g (picardHorizon ν K M)), PeriodicLocalRegularity ν a g (picardHorizon ν K M) w
+but is expected to have type
+  ∃ (w : ClassicalSolutionT ν a g (picardHorizon ν K fun x => 0)),
+    PeriodicLocalRegularity ν a g (picardHorizon ν K fun x => 0) w
+```
+
+This is the mutation that matters for the amendment-2 claim: the horizon is a
+genuine function of the force bounds, not a constant dressed up as one, and the
+statement cannot be strengthened for free by forgetting `M`.  (The complementary
+positive fact — that only `M 3` is consumed — is visible in the same error: the
+`M` of the conclusion is the whole family, but the proof reads it only at `3`.)
+
+## 6. Rebase on merged 334 (codex REJECT, hygiene only)
+
+The codex review REJECTed the first commit on the new-files-only rule alone: it
+modified `Section3/T11/MildClassical.lean` (§0 above).  Lane 334's own merge
+(PR #310) has since landed the byte-identical repair on
+`origin/erenup/integration-section3`, so this lane now merges the integration
+branch and carries **no** diff against it in that file:
+
+```
+git diff origin/erenup/integration-section3 -- \
+  formalization/NSFormalization/Section3/T11/MildClassical.lean
+  → (empty)
+```
+
+`research/T11/T11_SPLIT.md` conflicted (both sides append status lines) and was
+resolved by union: the integration side verbatim plus this lane's U9e line, with
+the byte-identical U9d2c line kept once.  `EXISTENCE_ROUTE.md` auto-merged.
