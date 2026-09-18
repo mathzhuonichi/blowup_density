@@ -547,3 +547,81 @@ no named input beyond `PersistenceInput`, no `def … : Prop`).
   `TorusForcedMildOn` is an `H³ × H²` statement and `PersistenceInput` gives only
   continuity at the higher orders.  See `REPORT_327.md` §3 and
   `ATTEMPTS_MILD_MOMENTUM.md` §3.1.
+
+## U9d2c status — lane 334 (the U9d target is closed)
+
+`formalization/NSFormalization/Section3/T11/MildClassical.lean` (1383 lines,
+77 declarations) proves
+
+```lean
+theorem mild_to_classical (ν : ℝ) (hν : 0 < ν) (C : TorusTwoSpaceContract ν)
+    (a : SpatialField) (g : SpaceTimeField) (T : ℝ)
+    (ha : a ∈ initialClassT) (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g) (hT : 0 < T)
+    (A : PeriodicSobolev 3) (F P u : ℝ → PeriodicSobolev 3)
+    (hA : IsPeriodicDatum 3 a A) (hF : IsPeriodicSobolevPath 3 g F)
+    (hPL : ∀ t : ℝ, 0 ≤ t → IsPeriodicLerayDatum (F t) (P t))
+    (hu : TorusForcedMildOn C A P T u) :
+    ∃ w : ClassicalSolutionT ν a g T,
+      PeriodicLocalRegularity ν a g T w ∧
+      IsPeriodicSobolevPathOn 3 (Ico 0 T) w.velocity u
+```
+
+i.e. **the U9d existential target above, verbatim and with no named input**.
+`PersistenceInput T u` (lane 320) is discharged from lane 330's
+`persistence_unconditional`; `PersistenceInput T F` and
+`ContinuousOn P (Icc 0 T)` are discharged from the smoothness of `g`.
+
+The two residuals recorded by lanes 326 and 327 are proved:
+
+```lean
+ContDiffOn ℝ ∞ (torusPhysicalVelocity u) (Ico (0:ℝ) T ×ˢ (univ : Set Space))   -- torusPhysicalVelocity_contDiffOn
+ContDiffOn ℝ ∞ (mildPressure g u)        (Ico (0:ℝ) T ×ˢ (univ : Set Space))   -- mildPressure_contDiffOn
+```
+
+together with `PeriodicLocalRegularity.sobolev_smooth`
+(`ContDiffOn ℝ ∞` of the order-`m` Sobolev datum path), which needs the same
+machinery.
+
+**Route.**  Each time derivative costs two Sobolev orders and lane 330 supplies
+every order, so the induction never runs out.  In `H^m`,
+
+`v_m(b) = v_m(0) + ∫₀ᵇ (νΔ v_{m+2}(s) + P_m(s) − Q_m(s)) ds`,
+
+with `νΔ : H^{m+2} →L H^m` the bounded multiplier `−ν·4π²|k|²·W(k)⁻¹`,
+`P_m = torusLerayCLM m ∘ F_m` and `Q_m` lane 328's real-order projected
+convolution of `v_{m+3}` descended one order.  Coefficientwise this is lane
+327's `mild_physicalCoeff_hasDerivAt` plus the one-sided scalar FTC; as a
+Banach-valued identity it yields `HasDerivWithinAt v_m (…) (Ico 0 T) t` and
+therefore `ContDiffOn ℝ (j+1)` from `ContDiffOn ℝ j`, by induction on `j`
+uniformly in `m` (`mildTower_contDiffOn`).  The order-`m` datum path of the
+smooth force is `C^∞` in time by the same argument, with differentiation under
+the **cube** integral as the scalar input (`datumPath_contDiff`).
+
+Joint smoothness on the half-open slab needs no `contDiffOn_tsum` (there is
+none in Mathlib): the Fourier inversion is packaged as a *functional*-valued
+series `torusEvalSeriesCLM s i x = ∑' k, χ_k(x) • (coefficient functional)`,
+whose terms are bounded by `W(k)^{-s/2}` uniformly in `x`, so `contDiff_tsum`
+gives `ContDiff ℝ n` in `x` as soon as `2n + 6 ≤ s`; the field is then the
+bounded bilinear evaluation of that family against the smooth path `v_s`, and
+`ContDiffOn ℝ ∞ = ∀ n, ContDiffOn ℝ n` lets `s` depend on `n`.
+
+For the pressure the **projected** convolution is useless (the Leray-projected
+convection is divergence free, so the pressure potential annihilates it), so the
+lane builds the unprojected real-order convolution as a genuine bounded bilinear
+map `torusConvUnprojCLM` (lane 328 exports the norm bound but keeps bilinearity
+`private`) and the Leray potential as the bounded operator
+`pressurePotentialCLM` with symbol `−2πik_j/(4π²|k|²)`; `sum_pressureSymbol_eq`
+identifies it with lane 326's `lerayPotentialCoeff`.
+
+**Corollary** `exists_classical_of_picard`: for every `ν > 0`, every
+`a ∈ initialClassT` and every smooth unit-periodic `g` there are `δ > 0` and a
+`ClassicalSolutionT ν a g δ` with all three regularity clauses — unconditional.
+This is **not** `PeriodicQuantitativeLocalInput'`: the horizon depends on `‖A‖`
+and on a force supremum, so `Restart.lean`'s named U9e input is unchanged.
+
+Non-vacuity: `mild_to_classical_affine_constant` instantiates every hypothesis
+on the constant-force affine family over an arbitrary `T > 0`; the probe takes
+`c = coordinateVector 0` and shows the produced classical velocity is nonzero.
+All 77 declarations pass exact standard-three-axiom guards.  Details:
+`REPORT_334.md`, `ATTEMPTS_MILD_CLASSICAL.md`,
+`probes/mild_classical_closes.lean`, `axioms_mild_classical.lean`.
