@@ -193,5 +193,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 425-T17-U7-force-support | Opus 完成：force_smooth / force_periodic / force_support 逐字（开球；新空时格点提升支撑引理 latticeLift_spaceSupport；hv 仅进 force_eq 与 physicalForce_smooth）→ 排队审稿 | 09-18 1802Z | — | — | T17 U7：周期化修正力的 force_smooth / force_periodic / force_support（force_eq + Paper1 profile 引理 + T16 latticeLift 引理；G1 hv 前提） |
 | 426-T18-U2-U4-force-class-kinematics-div | worktree 安装中（基于 422 + integration）→ codex sol | 09-18 1748Z | — | — | T18 U2+U3+U4：力类归属（ForceClass）、正则/初值/历史/周期（Kinematics）、不可压（Divergence） |
 | 427-T12-UREG-dedupe-register | Opus prover 子代理运行中（安装在 Bindings.MeanZeroCalculus 处按预期失败于同名冲突，其余已编） | 09-18 1755Z | — | — | T12：去重 400/405 的 contDiff_dirDeriv（共享 DirDeriv.lean）+ 完成 T01.mean_zero_calculus 注册（绑定/测试/门禁，43 合同） |
-| 428-T20-U9-ybound | worktree 安装中（基于 415 + integration）→ Opus prover | 09-18 1802Z | — | — | T20 U9：yBound（ρ<cν ⇒ y(t) ≤ ∫₀ᵗ b ≤ ρ；标量 bootstrap critical_norm_bound + U8 + U3 + 连续性/FTC） |
+| 428-T20-U9-ybound | Opus prover 子代理运行中 | 09-18 1805Z | — | — | T20 U9：yBound（ρ<cν ⇒ y(t) ≤ ∫₀ᵗ b ≤ ρ；标量 bootstrap critical_norm_bound + U8 + U3 + 连续性/FTC） |
 | 429-T20-U10a-h1-trilinear | worktree 安装中 → Opus prover | 09-18 1803Z | — | — | T20 U10a：均值零 H¹ 三线性估计 abs⟪(v·∇)v,Δv⟫ ≤ C₁ y ‖Δv‖²₂（Hölder (3,6,2) + T12 U4/U5） |
