@@ -28,7 +28,7 @@
 
 ## 当前在跑 / 待启动（2026-09-17 23:32Z 快照）
 
-- **T10 十字段全部证完并进树**：规范模块 `Section3/T10/PeriodicData.lean`（#267）+ `Parseval.lean`（#269，astra）+ `PhysicalBridge.lean`（#271）+ `Leray.lean`（#272）+ `DatumBasics.lean`（#273）；每条都过 codex 审稿（ACCEPT，含变异探针）。**293 在注册 `T01.torus_data`**（`Contracts/V1/TorusData.lean` + Bindings rfl 桥/装配 + Tests；只注册数据层，解类部分推迟到 T11 注册）。
+- **T10 十字段全部证完并进树**：规范模块 `Section3/T10/PeriodicData.lean`（#267）+ `Parseval.lean`（#269，astra）+ `PhysicalBridge.lean`（#271）+ `Leray.lean`（#272）+ `DatumBasics.lean`（#273）；每条都过 codex 审稿（ACCEPT，含变异探针）。**`T01.torus_data` 已注册（293，合同数 38；审稿 ACCEPT-WITH-NOTES）**；296 在做实例去重 + Bindings 直接装配 + 审稿备注（`Contracts/V1/TorusData.lean` + Bindings rfl 桥/装配 + Tests；只注册数据层，解类部分推迟到 T11 注册）。
 - **T10 lead 修正 1（21:16Z）**：`IsPeriodicDatum`/`IsPeriodicHomogeneousDatum` 加 `Integrable (torusLift z)`，`parseval_forward` 加 `MemLp 2`；反例见 `research/T10/RECONCILIATION.md` §5。所有后续 spec/证明都用修正后的词汇。
 - **定稿 spec 已进树**：T10（#262）、T12（#268，Type 值 API 带常数）、T13（#263）、T14（#264）、T16（#266）、T22（#265）。
 - **在跑**：288（T11 草案 A，重启后；B 已完成 289）→ 两份齐后派 Opus 起草 reconciliation；291/292（T15 `prop:scaling` 双盲草案）；294（T17 `lem:correction` 草案 A），295（草案 B）排队等空位。

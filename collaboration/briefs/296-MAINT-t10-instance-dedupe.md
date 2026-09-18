@@ -34,3 +34,8 @@ root (`make check`, `make test`, `make test-mutations`), `python3 experiments/ch
 
 ## Report
 Commit on your branch (`[296-MAINT] name T10 torus-measure instances once; direct four-module binding`); end with four parts (what changed / files / gaps with error text / commands and results).
+
+## Also fold in the review notes of lane 293 (`research/T01/REVIEW_293-T01-torus-data-contract.md` §3)
+- `Bindings/TorusData.lean`: `torusData` is a `Prop`-valued declaration → make it `theorem torusData : … := …` (or keep `def` with `set_option linter.defProp false in` immediately before it and say why); the registry's `declaration` stays `BlowupDensity.Tests.checkedTorusData` (unchanged).
+- `research/T10/axioms_contract.lean`: remove the zero-axiom `#print axioms periodicFrequency_eq` line (or label it as a definitional check), keeping the ten field-level `#print axioms`.
+- Correct the one-line binding docstring the review calls inaccurate (it must describe the direct four-module assembly after your rewrite).
