@@ -1,9 +1,17 @@
 import NSFormalization.Section3.T11.MildPressure
 
-/-! Exact transitive axiom audit of every named declaration of the U9d2a
-pressure module, including the two local instances.  Every entry is a subset of
-the standard three `[propext, Classical.choice, Quot.sound]`; `testFrequency`
-and `testFrequency_ne_neg` happen to need only `propext`. -/
+/-! Exact transitive axiom audit of the U9d2a pressure module, including the two
+local instances.  **Every guarded line below prints exactly**
+`[propext, Classical.choice, Quot.sound]`.
+
+Two declarations are deliberately not audited here because their transitive
+axiom set is the strict subset `[propext]`, which would not match the mandated
+three-element list: the plain lattice datum `testFrequency` and the decidable
+inequality `testFrequency_ne_neg`.  Both are used only by the non-vacuity
+witnesses, and are covered transitively by the audited
+`lerayPotentialCoeff_test_ne_zero`, `lerayPotential_test_ne_zero` and
+`mildPressure_nonzero_instance`; they are re-exhibited as plain `example`s in
+`probes/mild_pressure_closes.lean`. -/
 
 /-- info: 'NSFormalization.Section3.T11.mildPressureNormedGroup' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -249,6 +257,82 @@ and `testFrequency_ne_neg` happen to need only `propext`. -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.mildPressureSourceCoeff_eq_force_sub_convection
 
+/-- info: 'NSFormalization.Section3.T11.eq_torusScalarSeries_of_smooth' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.eq_torusScalarSeries_of_smooth
+
+/-- info: 'NSFormalization.Section3.T11.torusLift_eq_tsum_mFourier' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.torusLift_eq_tsum_mFourier
+
+/-- info: 'NSFormalization.Section3.T11.periodicFourierCoeff_mul' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.periodicFourierCoeff_mul
+
+/-- info: 'NSFormalization.Section3.T11.euclidean_sum_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.euclidean_sum_apply
+
+/-- info: 'NSFormalization.Section3.T11.convectionDivergenceT_component' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.convectionDivergenceT_component
+
+/-- info: 'NSFormalization.Section3.T11.periodicFourierCoeff_sum_spatialPartial' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.periodicFourierCoeff_sum_spatialPartial
+
+/-- info: 'NSFormalization.Section3.T11.torusPhysicalCoeff_torusConvectionDatum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.torusPhysicalCoeff_torusConvectionDatum
+
+/-- info: 'NSFormalization.Section3.T11.periodicFourierCoeff_convection_eq_torusConvectionDatum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.periodicFourierCoeff_convection_eq_torusConvectionDatum
+
+/-- info: 'NSFormalization.Section3.T11.torusConvectionDatum_isPeriodicDatum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.torusConvectionDatum_isPeriodicDatum
+
+/-- info: 'NSFormalization.Section3.T11.mildPressureSourceCoeff_eq_canonical' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.mildPressureSourceCoeff_eq_canonical
+
+/-- info: 'NSFormalization.Section3.T11.mildPressure_gradient_canonical' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.mildPressure_gradient_canonical
+
+/-- info: 'NSFormalization.Section3.T11.mildPressureSource_canonical_datum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.mildPressureSource_canonical_datum
+
+/-- info: 'NSFormalization.Section3.T11.mildPressureSource_exists_canonical_datum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.mildPressureSource_exists_canonical_datum
+
+/-- info: 'NSFormalization.Section3.T11.mildPressure_gradient_leray_canonical' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.mildPressure_gradient_leray_canonical
+
+/-- info: 'NSFormalization.Section3.T11.scalar_datum_of_smooth' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.scalar_datum_of_smooth
+
+/-- info: 'NSFormalization.Section3.T11.memPeriodicHmScalar_of_smooth' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.memPeriodicHmScalar_of_smooth
+
+/-- info: 'NSFormalization.Section3.T11.mildPressure_coeff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.mildPressure_coeff
+
+/-- info: 'NSFormalization.Section3.T11.mildPressure_scalar_datum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.mildPressure_scalar_datum
+
+/-- info: 'NSFormalization.Section3.T11.mildPressure_memPeriodicHm' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.mildPressure_memPeriodicHm
+
 /-- info: 'NSFormalization.Section3.T11.MildPressureFields' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.MildPressureFields
@@ -285,17 +369,9 @@ and `testFrequency_ne_neg` happen to need only `propext`. -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.testPressureSource_coeff
 
-/-- info: 'NSFormalization.Section3.T11.testFrequency' depends on axioms: [propext] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.testFrequency
-
 /-- info: 'NSFormalization.Section3.T11.testFrequency_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.testFrequency_ne_zero
-
-/-- info: 'NSFormalization.Section3.T11.testFrequency_ne_neg' depends on axioms: [propext] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.testFrequency_ne_neg
 
 /-- info: 'NSFormalization.Section3.T11.testFrequency_sq_sum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

@@ -417,6 +417,30 @@ proved by Fourier uniqueness from `−4π²|k|² p̂(k) = 2πi k·Ŝ(k)`, not by
 term-by-term differentiation. The source is identified with `F − Q` at the level
 of physical Fourier data (`mildPressureSourceCoeff_eq_force_sub_convection`).
 
+The **canonical coefficient-side `F − Q`** is proved, not merely the physical
+form: this lane supplies the missing **periodic convolution theorem**
+
+```lean
+theorem periodicFourierCoeff_mul {f g : Space → ℂ}
+    (hpf : IsPeriodicSpatial f) (hsf : ContDiff ℝ ∞ f)
+    (hpg : IsPeriodicSpatial g) (hsg : ContDiff ℝ ∞ g) (k : PeriodicFrequency) :
+    periodicFourierCoeff (fun x ↦ f x * g x) k =
+      ∑' l, periodicFourierCoeff f l * periodicFourierCoeff g (k - l)
+```
+
+and from it `periodicFourierCoeff_convection_eq_torusConvectionDatum`
+(`periodicFourierCoeff ((∇·(u⊗u))_i(t,·)) k = torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) i k`),
+`torusConvectionDatum_isPeriodicDatum`, `mildPressureSourceCoeff_eq_canonical`
+(`Ŝ_j = torusPhysicalCoeff 3 (F t) j k − torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) j k`),
+`mildPressure_gradient_canonical` (`∇p̂_i(k) = (k_i/|k|²)(k·(F̂−Q̂)(k))`) and
+`mildPressure_gradient_leray_canonical` (the T10 `periodicLeray` complement taken
+literally at `G₂ − Q`). Lane 327 can consume `periodicFourierCoeff_mul` directly.
+
+The **coefficient pressure is in every `H^m`**: `mildPressure_scalar_datum`
+exhibits `W(k)^{m/2} p̂(t)(k)` as a `T12.IsPeriodicScalarDatum (m : ℝ)` of the
+slice, whence `mildPressure_memPeriodicHm : T12.MemPeriodicHmScalar m` for every
+`m` and every `t ∈ Ico 0 T`. Both are bundled in `MildPressureFields`.
+
 **The one residual is exactly**
 
 ```lean
@@ -425,13 +449,17 @@ pressure_smooth : ContDiffOn ℝ ∞ (mildPressure g u) (Ico (0 : ℝ) T ×ˢ (u
 
 and it is *not derivable* from the permitted input: `PersistenceInput` gives only
 `ContinuousOn u_m (Ico 0 T)`, so no time derivative of `t ↦ p̂(t)(k)` exists yet.
-It needs the still-open Duhamel differentiation of `TorusForcedMildOn`. Even
-joint *continuity* on the slab needs the periodic convolution theorem
-`periodicFourierCoeff (f·g) k = ∑' l, f̂(l) ĝ(k−l)`, which is not in the tree
-(see `ATTEMPTS_MILD_PRESSURE.md` §0 and §3).
+It needs the still-open Duhamel differentiation of `TorusForcedMildOn`. Joint
+*continuity* on the slab is likewise unproved; with the convolution theorem now
+available its only remaining ingredients are a locally uniform all-order weighted
+convolution bound (needs `W(k)^N ≤ 4^N (W(l)^N + W(k−l)^N)`, the
+`ConvolutionBound.lean` shift being stated only at exponent 3) and continuity in
+`t` of the convolution sums — see `ATTEMPTS_MILD_PRESSURE.md` §3.2.
 
 Non-vacuity: a one-mode smooth periodic force together with the affine-constant
 persistent path gives all the fields **and** a nonzero pressure slice
 (`mildPressure_nonzero_instance`). The general U9d existential target above is
 unchanged. Details: `REPORT_326.md`, probe `probes/mild_pressure_closes.lean`,
-audit `axioms_mild_pressure.lean`.
+audit `axioms_mild_pressure.lean` (every guarded line prints exactly the standard
+three axioms). Review and its resolution: `REVIEW_326-T11-U9d2a-pressure.md`,
+`REPORT_326.md` §1 and `ATTEMPTS_MILD_PRESSURE.md` §0'.

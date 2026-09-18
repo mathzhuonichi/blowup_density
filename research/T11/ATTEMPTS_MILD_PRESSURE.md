@@ -5,6 +5,30 @@ Lane `326-T11-U9d2a-pressure`, module
 Single allowed named input: `PersistenceInput T u` (lane 320's
 `ClassicalAssembly.lean`). **No new `def … : Prop` is introduced.**
 
+## 0'. Revision after the codex REJECT (2026-09-18)
+
+All three review findings were closed by *proving* the missing content.
+
+* **Finding 1 (canonical `F − Q`).** The periodic convolution theorem
+  `periodicFourierCoeff_mul` is now proved (see §5 below), and from it
+  `periodicFourierCoeff_convection_eq_torusConvectionDatum`,
+  `torusConvectionDatum_isPeriodicDatum`, `mildPressureSourceCoeff_eq_canonical`
+  (the reviewer's exact statement), `mildPressure_gradient_canonical` and
+  `mildPressure_gradient_leray_canonical`. The `(I − P)(F − Q)` wording in the
+  report is therefore now literal, not an overclaim. Note this *reverses* the
+  "not in the tree" conclusion of §0/§3.2 below only in the sense that the
+  theorem did not exist and has now been supplied by this lane.
+* **Finding 2 (every `H^m`).** `scalar_datum_of_smooth`, `mildPressure_coeff`,
+  `mildPressure_scalar_datum` and `mildPressure_memPeriodicHm` export the
+  order-`m` weighted coefficient family as the canonical
+  `T12.IsPeriodicScalarDatum`, hence `T12.MemPeriodicHmScalar m` of every
+  pressure slice; they are bundled into `MildPressureFields`.
+* **Finding 3 (axiom audit).** `axioms_mild_pressure.lean` now guards only
+  declarations printing exactly `[propext, Classical.choice, Quot.sound]`;
+  `testFrequency` and `testFrequency_ne_neg` (strict subset `[propext]`) were
+  dropped from it, documented in its header, and re-exhibited as plain
+  `example`s in `probes/mild_pressure_closes.lean`.
+
 ## 0. Design decision that made the unit tractable
 
 The brief describes the coefficient pressure as the Leray complement of
@@ -21,6 +45,12 @@ i.e. a discrete Young/weight-shift argument on top of `ConvolutionBound.lean`'s
 `weight_cube_shift` (which is only stated at the single exponent 3). It is
 provable — `W(k)^N ≤ 4^N (W(l)^N + W(k−l)^N)` plus two Cauchy products — but it
 is a multi-hundred-line detour.
+
+(The convolution route above was later supplied anyway, for the *identification*
+of the physical convection coefficient with `torusConvectionDatum`; what is
+still avoided is the all-order weighted convolution *estimate*, which the
+smoothness proof would have needed and which the physical route makes
+unnecessary.)
 
 The delivered construction takes the **physical** source
 
@@ -76,8 +106,9 @@ against the T10 symbol `periodicLeray` for *any* datum of the source.
   `IsPeriodicDatum.integrable_component` (`T10/DatumBasics.lean`).
 
 Nothing about a **periodic convolution theorem**
-(`periodicFourierCoeff (f·g) k = ∑' l, f̂(l) ĝ(k−l)`) exists in the tree; that is
-the missing ingredient for the coefficient-side route and for time regularity.
+(`periodicFourierCoeff (f·g) k = ∑' l, f̂(l) ĝ(k−l)`) existed in the tree (the
+reviewer independently confirmed this by `grep`). **This lane now supplies it**
+as `periodicFourierCoeff_mul`; see §5.
 
 ## 3. What is NOT proved — exact residual statements
 
@@ -104,28 +135,54 @@ forbidden to introduce. Delivered instead: the spatial half,
 ContinuousOn (mildPressure g u) (Ico (0 : ℝ) T ×ˢ (univ : Set Space))
 ```
 
-**Obstacle.** This one *is* reachable in principle from `PersistenceInput`, but
-needs three pieces that are not in the tree:
+**Obstacle, updated.** The periodic convolution theorem this needed is now
+proved in this lane, so only two ingredients are missing:
 
-1. continuity of `t ↦ periodicFourierCoeff ((mildPressureSource g u (t,·)) j) k`
-   for fixed `k` — dominated convergence against the joint continuity of
-   `(t,x) ↦ torusPhysicalVelocity u (t,x)` (`torusForcedMildOn_physical_continuous`)
-   **and of its first spatial derivatives**, which is not available: lane 318
-   gives joint continuity of the field only;
-2. a bound `sup_{t ∈ K} ‖Ŝ_j(t,k)‖ ≤ M k` with `M` summable, on each compact
-   `K ⊆ Ico 0 T`. For the force half this follows from
-   `norm_periodicFourierCoeff_iterated_le` plus compactness; for the convection
-   half it needs the convolution route of §0 together with the uniform bound
-   `∑_k W(k)^N ‖û(t,k)‖ ≤ ‖torusRecoveryWeight‖ * ‖u_{2N+3} t‖` and continuity
-   of `t ↦ ‖u_{2N+3} t‖`;
-3. the periodic convolution theorem itself.
+1. a locally uniform all-order weighted convolution bound — for each compact
+   `K ⊆ Ico 0 T` and each `N`,
+   `sup_{t ∈ K} ∑_k periodicFrequencyWeight k ^ N * ‖torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) i k‖ < ∞`.
+   This needs `W(k)^N ≤ 4^N (W(l)^N + W(k−l)^N)` (the `ConvolutionBound.lean`
+   weight shift `weight_cube_shift` is stated only at exponent 3) plus two
+   Cauchy products, and the uniform coefficient bound
+   `∑_k W(k)^N ‖û(t,k)‖ ≤ ‖torusRecoveryWeight‖ * ‖u_{2N+3} t‖` with
+   `ContinuousOn u_{2N+3}` giving boundedness on `K`;
+2. continuity of `t ↦ ∑' l, û_j(t,l) * û_i(t,k−l)` at fixed `k` (dominated
+   convergence against the same bound).
 
-Estimated ≥ 300 further lines; deliberately not attempted inside this lane.
+Estimated ≥ 200 further lines; deliberately not attempted inside this lane.
 
 ### 3.3 Not in scope, recorded for the assembly lane
 
 `momentum` / `projected` (needs the time derivative of the mild solution) and
 `velocity_smooth` are not pressure fields and were not attempted here.
+
+## 5. The periodic convolution theorem (new, supplied by this lane)
+
+```lean
+theorem periodicFourierCoeff_mul {f g : Space → ℂ}
+    (hpf : IsPeriodicSpatial f) (hsf : ContDiff ℝ ∞ f)
+    (hpg : IsPeriodicSpatial g) (hsg : ContDiff ℝ ∞ g) (k : PeriodicFrequency) :
+    periodicFourierCoeff (fun x ↦ f x * g x) k =
+      ∑' l, periodicFourierCoeff f l * periodicFourierCoeff g (k - l)
+```
+
+Proof: expand `torusLift f` as its own Fourier series
+(`eq_torusScalarSeries_of_smooth` + `torusScalarSeries_lift` give
+`torusLift_eq_tsum_mFourier`), push the character `mFourier (-k)` and
+`torusLift g` inside the `tsum` (`tsum_mul_right`, `tsum_mul_left`,
+`mFourier_add`), then exchange `∫` and `∑'` by
+`integral_tsum_of_summable_integral_norm`; the norm hypothesis is
+`∑' l ‖f̂(l)‖ * ∫ ‖torusLift g‖ < ∞`, which uses the lane's own
+`summable_weight_pow_mul_coeff … 0`.
+
+Errors hit while writing it: `tsum_mul_right` / `tsum_mul_left` needed the `←`
+direction (the goal has the scalar outside); and
+`integral_tsum_of_summable_integral_norm` is oriented `∑' ∫ = ∫ ∑'`, so the
+rewrite is `rw [← …]`. The component bridge then needed
+`euclidean_sum_apply` (`(∑ j, w j) i = ∑ j, w j i`, via `map_sum` of
+`EuclideanSpace.proj`; `PiLp.sum_apply` does not exist), and a
+`show`-restatement in `torusConvectionDatum_isPeriodicDatum` to clear a beta
+redex that blocked `rw`.
 
 ## 4. Positive record — what the construction does buy
 
@@ -135,6 +192,11 @@ Estimated ≥ 300 further lines; deliberately not attempted inside this lane.
 * `lerayPotentialCoeff_leray_complement` is stated against T10's `periodicLeray`
   at an arbitrary Sobolev order `s`, so the assembly lane can feed it whichever
   datum it has.
+* The canonical convection datum of `ConvolutionBound.lean` is now identified
+  with the physical tensor divergence, so `F − Q` is available on the
+  coefficient side and `∇p` is literally `(I − P)(F − Q)`.
+* Every pressure slice is in every periodic `H^m`, with the explicit datum
+  `W(k)^{m/2} p̂(t)(k)`.
 * The construction is proved **not** to be the zero map:
   `lerayPotential_test_ne_zero` and `mildPressure_nonzero_instance` exhibit a
   one-mode smooth periodic force, a genuine persistent coefficient path, and a

@@ -810,6 +810,366 @@ theorem mildPressureSourceCoeff_eq_force_sub_convection {g : SpaceTimeField}
     periodicFourierCoeff_sub (hdat.integrable_component j) h2 k,
     torusPhysicalCoeff_eq hdat j k]
 
+/-! ## 8b. The periodic convolution theorem and the canonical convection datum -/
+
+/-- A smooth periodic function is its own Fourier series. -/
+theorem eq_torusScalarSeries_of_smooth {f : Space → ℂ}
+    (hp : IsPeriodicSpatial f) (hs : ContDiff ℝ ∞ f) :
+    f = torusScalarSeries (periodicFourierCoeff f) := by
+  funext x
+  rw [periodic_eq_tsum_mFourier hp hs.continuous
+    (summable_periodicFourierCoeff_of_smooth hp hs) x]
+  refine tsum_congr fun l ↦ ?_
+  rw [NSFormalization.Paper1.periodicCharacter, NSFormalization.Paper1.periodicPhase_apply]
+
+theorem torusLift_eq_tsum_mFourier {f : Space → ℂ}
+    (hp : IsPeriodicSpatial f) (hs : ContDiff ℝ ∞ f) (q : PeriodicTorus) :
+    torusLift f q = ∑' l, periodicFourierCoeff f l * UnitAddTorus.mFourier l q := by
+  conv_lhs => rw [eq_torusScalarSeries_of_smooth hp hs]
+  exact torusScalarSeries_lift _ q
+
+/-- **Periodic convolution theorem.** The Fourier coefficients of a pointwise
+product are the convolution of the coefficients. -/
+theorem periodicFourierCoeff_mul {f g : Space → ℂ}
+    (hpf : IsPeriodicSpatial f) (hsf : ContDiff ℝ ∞ f)
+    (hpg : IsPeriodicSpatial g) (hsg : ContDiff ℝ ∞ g) (k : PeriodicFrequency) :
+    periodicFourierCoeff (fun x ↦ f x * g x) k =
+      ∑' l, periodicFourierCoeff f l * periodicFourierCoeff g (k - l) := by
+  have hfabs : Summable (fun l ↦ ‖periodicFourierCoeff f l‖) := by
+    simpa using summable_weight_pow_mul_coeff hpf hsf 0
+  have hgc : Continuous (torusLift g) :=
+    NSFormalization.Paper1.continuous_torusLift hsg.continuous (fun x j ↦ hpg x j)
+  set G : PeriodicFrequency → PeriodicTorus → ℂ := fun l q ↦
+    periodicFourierCoeff f l * (UnitAddTorus.mFourier (l - k) q * torusLift g q) with hGdef
+  have hint (l : PeriodicFrequency) : Integrable (G l) periodicTorusMeasure := by
+    have hc : Continuous (G l) :=
+      continuous_const.mul ((UnitAddTorus.mFourier (l - k)).continuous.mul hgc)
+    simpa using hc.continuousOn.integrableOn_compact
+      (μ := periodicTorusMeasure) isCompact_univ
+  have hnorm (l : PeriodicFrequency) (q : PeriodicTorus) :
+      ‖G l q‖ = ‖periodicFourierCoeff f l‖ * ‖torusLift g q‖ := by
+    simp only [hGdef, norm_mul, torusMFourier_norm, one_mul]
+  have hsum : Summable (fun l ↦ ∫ q, ‖G l q‖ ∂periodicTorusMeasure) := by
+    have he : (fun l ↦ ∫ q, ‖G l q‖ ∂periodicTorusMeasure) =
+        fun l ↦ ‖periodicFourierCoeff f l‖ *
+          ∫ q, ‖torusLift g q‖ ∂periodicTorusMeasure := by
+      funext l
+      simp_rw [hnorm l]
+      exact integral_const_mul _ _
+    rw [he]
+    exact hfabs.mul_right _
+  have hlift (q : PeriodicTorus) :
+      UnitAddTorus.mFourier (-k) q • torusLift (fun x ↦ f x * g x) q = ∑' l, G l q := by
+    have he : torusLift (fun x ↦ f x * g x) q = torusLift f q * torusLift g q := rfl
+    rw [he, torusLift_eq_tsum_mFourier hpf hsf q, smul_eq_mul, ← tsum_mul_right,
+      ← tsum_mul_left]
+    refine tsum_congr fun l ↦ ?_
+    simp only [hGdef, sub_eq_add_neg, UnitAddTorus.mFourier_add]
+    ring
+  change (∫ q, UnitAddTorus.mFourier (-k) q •
+    torusLift (fun x ↦ f x * g x) q ∂periodicTorusMeasure) = _
+  simp_rw [hlift]
+  rw [← integral_tsum_of_summable_integral_norm hint hsum]
+  refine tsum_congr fun l ↦ ?_
+  rw [hGdef, integral_const_mul]
+  congr 1
+  change _ = ∫ q, UnitAddTorus.mFourier (-(k - l)) q • torusLift g q ∂periodicTorusMeasure
+  simp only [neg_sub, smul_eq_mul]
+
+theorem euclidean_sum_apply {ι : Type*} (s : Finset ι) (w : ι → Space) (i : Fin 3) :
+    (∑ j ∈ s, w j) i = ∑ j ∈ s, (w j) i :=
+  map_sum (EuclideanSpace.proj (𝕜 := ℝ) i) w s
+
+/-- The `i`-th component of the tensor divergence, as a sum of scalar
+derivatives of products. -/
+theorem convectionDivergenceT_component {v : SpaceTimeField} {t : ℝ}
+    (hv : ContDiff ℝ ∞ (fun x : Space ↦ v (t, x))) (x : Space) (i : Fin 3) :
+    convectionDivergenceT v t x i =
+      ∑ j : Fin 3, spatialPartial j (fun y : Space ↦ v (t, y) j * v (t, y) i) x := by
+  show (∑ j : Fin 3, fderiv ℝ (fun y : Space ↦ (v (t, y) j) • v (t, y)) x
+    (coordinateVector j)) i = _
+  rw [euclidean_sum_apply]
+  refine Finset.sum_congr rfl fun j _ ↦ ?_
+  have hprod : ContDiff ℝ ∞ (fun y : Space ↦ (v (t, y) j) • v (t, y)) :=
+    ((EuclideanSpace.proj (𝕜 := ℝ) j).contDiff.comp hv).smul hv
+  have h : HasFDerivAt (fun y : Space ↦ (v (t, y) j) * (v (t, y) i))
+      ((EuclideanSpace.proj (𝕜 := ℝ) i).comp
+        (fderiv ℝ (fun y : Space ↦ (v (t, y) j) • v (t, y)) x)) x :=
+    (EuclideanSpace.proj (𝕜 := ℝ) i).hasFDerivAt.comp x
+      ((hprod.differentiable (by simp) x).hasFDerivAt)
+  show (fderiv ℝ (fun y : Space ↦ (v (t, y) j) • v (t, y)) x (coordinateVector j)) i =
+    fderiv ℝ (fun y : Space ↦ v (t, y) j * v (t, y) i) x (coordinateVector j)
+  rw [h.fderiv]
+  rfl
+
+/-- Fourier coefficients of a finite sum of scalar coordinate derivatives. -/
+theorem periodicFourierCoeff_sum_spatialPartial {h : Fin 3 → Space → ℝ}
+    (hs : ∀ j, ContDiff ℝ ∞ (h j)) (hp : ∀ j, IsPeriodicSpatial (h j))
+    (k : PeriodicFrequency) :
+    periodicFourierCoeff (fun x ↦ ((∑ j : Fin 3, spatialPartial j (h j) x : ℝ) : ℂ)) k =
+      ∑ j : Fin 3, periodicDerivativeSymbol j k *
+        periodicFourierCoeff (fun x ↦ ((h j x : ℝ) : ℂ)) k := by
+  have hjc (j : Fin 3) : ContDiff ℝ ∞ (fun x ↦ ((h j x : ℝ) : ℂ)) :=
+    Complex.ofRealCLM.contDiff.comp (hs j)
+  have hjp (j : Fin 3) : IsPeriodicSpatial (fun x ↦ ((h j x : ℝ) : ℂ)) :=
+    fun x l ↦ congrArg (fun r : ℝ ↦ (r : ℂ)) (hp j x l)
+  have hds (j : Fin 3) : ContDiff ℝ ∞ (spatialPartial j (fun x ↦ ((h j x : ℝ) : ℂ))) :=
+    ((hjc j).fderiv_right (by simp)).clm_apply contDiff_const
+  have hcomplex : (fun x ↦ ((∑ j : Fin 3, spatialPartial j (h j) x : ℝ) : ℂ)) =
+      fun x ↦ ∑ j : Fin 3, spatialPartial j (fun y ↦ ((h j y : ℝ) : ℂ)) x := by
+    funext x
+    rw [Complex.ofReal_sum]
+    refine Finset.sum_congr rfl fun j _ ↦ ?_
+    have h1 : ContDiff ℝ 1 (h j) := (hs j).of_le (by simp)
+    rw [spatialPartial_complexify h1 j]
+  rw [hcomplex]
+  have he : periodicFourierCoeff (fun x ↦ ∑ j : Fin 3,
+      spatialPartial j (fun y ↦ ((h j y : ℝ) : ℂ)) x) k =
+        ∑ j : Fin 3, periodicFourierCoeff (spatialPartial j (fun y ↦ ((h j y : ℝ) : ℂ))) k := by
+    simp only [periodicFourierCoeff, NSFormalization.Paper1.periodicFourierCoeff_eq_cube,
+      Finset.mul_sum, NavierStokes.PeriodicIntegration.cubeIntegral]
+    apply integral_finsetSum
+    intro j _
+    exact NavierStokes.PeriodicIntegration.integrable_cube
+      ((NSFormalization.Paper1.periodicCharacter_smooth (-k)).continuous.mul (hds j).continuous)
+  rw [he]
+  exact Finset.sum_congr rfl fun j _ ↦
+    periodicFourierCoeff_fderiv (hjp j) ((hjc j).of_le (by simp)) j k
+
+/-- The canonical unprojected convection datum of `ConvolutionBound.lean`, read
+off in unweighted physical coefficients. -/
+theorem torusPhysicalCoeff_torusConvectionDatum (A B : PeriodicSobolev 3)
+    (i : Fin 3) (k : PeriodicFrequency) :
+    torusPhysicalCoeff 2 (torusConvectionDatum A B) i k =
+      ∑ j : Fin 3, periodicDerivativeSymbol j k *
+        ∑' l, torusPhysicalCoeff 3 A j l * torusPhysicalCoeff 3 B i (k - l) := by
+  have hW : 0 < periodicFrequencyWeight k := mildPressure_weight_pos k
+  have hinv : periodicFrequencyWeight k ^ (-(2 : ℝ) / 2) = (periodicFrequencyWeight k)⁻¹ := by
+    rw [show (-(2 : ℝ) / 2) = -(1 : ℝ) by norm_num, Real.rpow_neg hW.le, Real.rpow_one]
+  have hcancel : ((periodicFrequencyWeight k ^ (-(2 : ℝ) / 2) : ℝ) : ℂ) *
+      (periodicFrequencyWeight k : ℂ) = 1 := by
+    rw [← Complex.ofReal_mul, hinv, inv_mul_cancel₀ hW.ne', Complex.ofReal_one]
+  rw [torusPhysicalCoeff, torusConvectionDatum_coeff, torusConvectionSymbol, ← mul_assoc,
+    hcancel, one_mul]
+  refine Finset.sum_congr rfl fun j _ ↦ ?_
+  congr 1
+  exact tsum_congr fun l ↦ by simp only [torusPhysicalCoeff]; ring
+
+/-- The physical convection coefficient **is** the canonical unprojected
+convection datum of `ConvolutionBound.lean`, via the convolution theorem. -/
+theorem periodicFourierCoeff_convection_eq_torusConvectionDatum
+    {u : ℝ → PeriodicSobolev 3} {T t : ℝ} (hu : PersistenceInput T u)
+    (ht : t ∈ Ico (0 : ℝ) T) (i : Fin 3) (k : PeriodicFrequency) :
+    periodicFourierCoeff
+      (fun x ↦ ((convectionDivergenceT (torusPhysicalVelocity u) t x i : ℝ) : ℂ)) k =
+      torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) i k := by
+  have hv : ContDiff ℝ ∞ (fun x : Space ↦ torusPhysicalVelocity u (t, x)) :=
+    persistence_physical_spatial_smooth hu ht
+  have hvp : IsPeriodicSpatial (fun x : Space ↦ torusPhysicalVelocity u (t, x)) :=
+    fun y q ↦ torusPhysicalVelocity_periodic u t (mem_univ t) y q
+  have hcomp (j : Fin 3) :
+      ContDiff ℝ ∞ (fun x ↦ ((torusPhysicalVelocity u (t, x) j : ℝ) : ℂ)) :=
+    sourceComponent_contDiff hv j
+  have hcompp (j : Fin 3) :
+      IsPeriodicSpatial (fun x ↦ ((torusPhysicalVelocity u (t, x) j : ℝ) : ℂ)) :=
+    sourceComponent_periodic hvp j
+  have hcoeff (j : Fin 3) (l : PeriodicFrequency) :
+      periodicFourierCoeff (fun x ↦ ((torusPhysicalVelocity u (t, x) j : ℝ) : ℂ)) l =
+        torusPhysicalCoeff 3 (u t) j l :=
+    (torusPhysicalCoeff_eq (torusPhysicalField_datum (u t)) j l).symm
+  have hHs : ∀ j : Fin 3, ContDiff ℝ ∞ (fun y : Space ↦
+      torusPhysicalVelocity u (t, y) j * torusPhysicalVelocity u (t, y) i) := fun j ↦
+    ((EuclideanSpace.proj (𝕜 := ℝ) j).contDiff.comp hv).mul
+      ((EuclideanSpace.proj (𝕜 := ℝ) i).contDiff.comp hv)
+  have hHp : ∀ j : Fin 3, IsPeriodicSpatial (fun y : Space ↦
+      torusPhysicalVelocity u (t, y) j * torusPhysicalVelocity u (t, y) i) := fun j y l ↦
+    congrArg (fun w : Space ↦ (w j) * (w i)) (hvp y l)
+  have hfun : (fun x ↦ ((convectionDivergenceT (torusPhysicalVelocity u) t x i : ℝ) : ℂ)) =
+      fun x ↦ ((∑ j : Fin 3, spatialPartial j
+        (fun y : Space ↦ torusPhysicalVelocity u (t, y) j *
+          torusPhysicalVelocity u (t, y) i) x : ℝ) : ℂ) := by
+    funext x
+    rw [convectionDivergenceT_component hv x i]
+  rw [hfun, periodicFourierCoeff_sum_spatialPartial hHs hHp k,
+    torusPhysicalCoeff_torusConvectionDatum]
+  refine Finset.sum_congr rfl fun j _ ↦ ?_
+  congr 1
+  have he : (fun x ↦ ((torusPhysicalVelocity u (t, x) j *
+      torusPhysicalVelocity u (t, x) i : ℝ) : ℂ)) =
+      fun x ↦ ((torusPhysicalVelocity u (t, x) j : ℝ) : ℂ) *
+        ((torusPhysicalVelocity u (t, x) i : ℝ) : ℂ) := by
+    funext x
+    rw [Complex.ofReal_mul]
+  rw [he, periodicFourierCoeff_mul (hcompp j) (hcomp j) (hcompp i) (hcomp i) k]
+  exact tsum_congr fun l ↦ by rw [hcoeff j l, hcoeff i (k - l)]
+
+/-- Hence the canonical convection datum really is the order-two Fourier datum
+of the physical tensor divergence. -/
+theorem torusConvectionDatum_isPeriodicDatum
+    {u : ℝ → PeriodicSobolev 3} {T t : ℝ} (hu : PersistenceInput T u)
+    (ht : t ∈ Ico (0 : ℝ) T) :
+    IsPeriodicDatum 2 (fun x ↦ convectionDivergenceT (torusPhysicalVelocity u) t x)
+      (torusConvectionDatum (u t) (u t)) := by
+  have hv : ContDiff ℝ ∞ (fun x : Space ↦ torusPhysicalVelocity u (t, x)) :=
+    persistence_physical_spatial_smooth hu ht
+  have hvp : IsPeriodicSpatial (fun x : Space ↦ torusPhysicalVelocity u (t, x)) :=
+    fun y q ↦ torusPhysicalVelocity_periodic u t (mem_univ t) y q
+  have hct : ContDiff ℝ ∞ (fun x : Space ↦
+      convectionDivergenceT (torusPhysicalVelocity u) t x) :=
+    convectionDivergenceT_spatial_contDiff hv
+  have hcp : IsPeriodicSpatial (fun x : Space ↦
+      convectionDivergenceT (torusPhysicalVelocity u) t x) :=
+    convectionDivergenceT_spatial_periodic (v := torusPhysicalVelocity u) (t := t) hvp
+  refine ⟨hcp, (memLp_torusLift_vector hct.continuous 1).integrable (by norm_num), ?_⟩
+  intro i k
+  have hW : 0 < periodicFrequencyWeight k := mildPressure_weight_pos k
+  have hbridge := periodicFourierCoeff_convection_eq_torusConvectionDatum hu ht i k
+  simp only [torusPhysicalCoeff] at hbridge
+  show (torusConvectionDatum (u t) (u t)).1 i k =
+    (periodicFrequencyWeight k ^ ((2 : ℝ) / 2)) • periodicFourierCoeff
+      (fun x ↦ ((convectionDivergenceT (torusPhysicalVelocity u) t x i : ℝ) : ℂ)) k
+  rw [hbridge, Complex.real_smul, ← mul_assoc, ← Complex.ofReal_mul,
+    ← Real.rpow_add hW, show (2 : ℝ) / 2 + -(2 : ℝ) / 2 = 0 by norm_num,
+    Real.rpow_zero, Complex.ofReal_one, one_mul]
+
+/-! ## 8c. Canonical `F - Q` coefficients, and every-`H^m` membership -/
+
+/-- The source coefficient is the canonical coefficient-side `F - Q`. -/
+theorem mildPressureSourceCoeff_eq_canonical {g : SpaceTimeField}
+    {u : ℝ → PeriodicSobolev 3} {F : ℝ → PeriodicSobolev 3} {T : ℝ}
+    (hu : PersistenceInput T u) (hF : IsPeriodicSobolevPath 3 g F)
+    {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) (j : Fin 3) (k : PeriodicFrequency) :
+    sourceComponentCoeff (fun x ↦ mildPressureSource g u (t, x)) j k =
+      torusPhysicalCoeff 3 (F t) j k -
+        torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) j k := by
+  rw [mildPressureSourceCoeff_eq_force_sub_convection hu hF ht j k,
+    periodicFourierCoeff_convection_eq_torusConvectionDatum hu ht j k]
+
+/-- `∇p = (I - P)(F - Q)` written out in canonical coefficient data. -/
+theorem mildPressure_gradient_canonical {g : SpaceTimeField}
+    {u : ℝ → PeriodicSobolev 3} {F : ℝ → PeriodicSobolev 3} {T : ℝ}
+    (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g) (hu : PersistenceInput T u)
+    (hF : IsPeriodicSobolevPath 3 g F) {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T)
+    {k : PeriodicFrequency} (hk : k ≠ 0) (i : Fin 3) :
+    periodicFourierCoeff
+      (fun x ↦ ((pressureGradient (mildPressure g u) t x i : ℝ) : ℂ)) k =
+      ((k i : ℂ) / ((∑ j : Fin 3, (k j : ℝ) ^ 2 : ℝ) : ℂ)) *
+        ∑ j : Fin 3, (k j : ℂ) *
+          (torusPhysicalCoeff 3 (F t) j k -
+            torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) j k) := by
+  rw [mildPressure_gradient_coeff hg hgp hu ht i k,
+    show mildPressureCoeff g u t k =
+      lerayPotentialCoeff (fun x ↦ mildPressureSource g u (t, x)) k from rfl,
+    periodicDerivativeSymbol_mul_lerayPotentialCoeff _ hk i]
+  congr 1
+  exact Finset.sum_congr rfl fun j _ ↦ by
+    rw [mildPressureSourceCoeff_eq_canonical hu hF ht j k]
+
+/-- The canonical order-two datum of the source is literally `G₂ - Q`. -/
+theorem mildPressureSource_canonical_datum {g : SpaceTimeField}
+    {u : ℝ → PeriodicSobolev 3} {T : ℝ} (hu : PersistenceInput T u)
+    {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) {G₂ : PeriodicSobolev 2}
+    (hG : IsPeriodicDatum 2 (fun x : Space ↦ g (t, x)) G₂) :
+    IsPeriodicDatum 2 (fun x ↦ mildPressureSource g u (t, x))
+      (G₂ - torusConvectionDatum (u t) (u t)) :=
+  datum_sub hG (torusConvectionDatum_isPeriodicDatum hu ht)
+
+theorem mildPressureSource_exists_canonical_datum {g : SpaceTimeField}
+    {u : ℝ → PeriodicSobolev 3} {T : ℝ} (hg : ContDiff ℝ ∞ g)
+    (hgp : IsPeriodicOn univ g) (hu : PersistenceInput T u)
+    {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) :
+    ∃ G₂ : PeriodicSobolev 2, IsPeriodicDatum 2 (fun x : Space ↦ g (t, x)) G₂ ∧
+      IsPeriodicDatum 2 (fun x ↦ mildPressureSource g u (t, x))
+        (G₂ - torusConvectionDatum (u t) (u t)) := by
+  obtain ⟨G₂, hG⟩ := smooth_periodic_datum 2 (hg.comp (contDiff_const.prodMk contDiff_id))
+    (fun x j ↦ hgp t (mem_univ t) x j)
+  exact ⟨G₂, hG, mildPressureSource_canonical_datum hu ht hG⟩
+
+/-- The gradient datum is the T10 Leray complement of the canonical `F - Q`. -/
+theorem mildPressure_gradient_leray_canonical {g : SpaceTimeField}
+    {u : ℝ → PeriodicSobolev 3} {T : ℝ}
+    (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g) (hu : PersistenceInput T u)
+    {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) {G₂ : PeriodicSobolev 2}
+    (hG : IsPeriodicDatum 2 (fun x : Space ↦ g (t, x)) G₂)
+    {k : PeriodicFrequency} (hk : k ≠ 0) (i : Fin 3) :
+    periodicFourierCoeff
+      (fun x ↦ ((pressureGradient (mildPressure g u) t x i : ℝ) : ℂ)) k =
+      torusPhysicalCoeff 2 (G₂ - torusConvectionDatum (u t) (u t)) i k -
+        ((periodicFrequencyWeight k ^ (-(2 : ℝ) / 2) : ℝ) : ℂ) *
+          periodicLeray 2 (G₂ - torusConvectionDatum (u t) (u t)) i k :=
+  mildPressure_gradient_leray_complement hg hgp hu ht
+    (mildPressureSource_canonical_datum hu ht hG) hk i
+
+/-- The pressure slice has an explicit scalar Sobolev datum at every real order:
+the order-`s` weighted coefficient family. -/
+theorem scalar_datum_of_smooth {z : Space → ℝ} (hs : ContDiff ℝ ∞ z)
+    (hp : IsPeriodicSpatial z) (s : ℝ) :
+    ∃ A : PeriodicScalarData,
+      NSFormalization.Section3.T12.IsPeriodicScalarDatum s z A ∧
+        ∀ k, A k = (periodicFrequencyWeight k ^ (s / 2) : ℝ) •
+          periodicFourierCoeff (fun x ↦ ((z x : ℝ) : ℂ)) k := by
+  have hc : ContDiff ℝ ∞ (fun x ↦ ((z x : ℝ) : ℂ)) := Complex.ofRealCLM.contDiff.comp hs
+  have hpc : NavierStokes.PeriodicIntegration.UnitPeriods (fun x ↦ ((z x : ℝ) : ℂ)) :=
+    fun x j ↦ congrArg (fun r : ℝ ↦ (r : ℂ)) (hp x j)
+  refine ⟨NSFormalization.Paper1.smoothPeriodicWeightedFourierLp s
+    (fun x ↦ ((z x : ℝ) : ℂ)) hc hpc, ⟨hp, ?_, ?_⟩, ?_⟩
+  · exact ((NSFormalization.Paper1.memLp_torusLift hc.continuous 1).re).integrable (by norm_num)
+  · intro k
+    simp only [NSFormalization.Paper1.smoothPeriodicWeightedFourierLp,
+      periodicFrequencyWeight_eq_paper1]
+  · intro k
+    simp only [NSFormalization.Paper1.smoothPeriodicWeightedFourierLp,
+      periodicFrequencyWeight_eq_paper1]
+
+/-- Every smooth periodic scalar lies in every canonical periodic `H^m`. -/
+theorem memPeriodicHmScalar_of_smooth {z : Space → ℝ} (hs : ContDiff ℝ ∞ z)
+    (hp : IsPeriodicSpatial z) (m : ℕ) :
+    NSFormalization.Section3.T12.MemPeriodicHmScalar m z := by
+  obtain ⟨A, hA, _⟩ := scalar_datum_of_smooth hs hp (m : ℝ)
+  have hc : ContDiff ℝ ∞ (fun x ↦ ((z x : ℝ) : ℂ)) := Complex.ofRealCLM.contDiff.comp hs
+  refine ⟨hp, (NSFormalization.Paper1.memLp_torusLift hc.continuous 2).re, ?_⟩
+  exact ne_top_of_le_ne_top (by simp)
+    (iInf_le (fun A : {A : PeriodicScalarData //
+      NSFormalization.Section3.T12.IsPeriodicScalarDatum (m : ℝ) z A} ↦ ‖A.1‖ₑ) ⟨A, hA⟩)
+
+theorem mildPressure_coeff {g : SpaceTimeField} {u : ℝ → PeriodicSobolev 3} {T : ℝ}
+    (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g) (hu : PersistenceInput T u)
+    {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) (k : PeriodicFrequency) :
+    periodicFourierCoeff (fun x ↦ ((mildPressure g u (t, x) : ℝ) : ℂ)) k =
+      mildPressureCoeff g u t k := by
+  have he : (fun x : Space ↦ ((mildPressure g u (t, x) : ℝ) : ℂ)) =
+      fun x : Space ↦
+        ((lerayPotential (fun y ↦ mildPressureSource g u (t, y)) x : ℝ) : ℂ) :=
+    congrArg (fun f : Space → ℝ ↦ fun x : Space ↦ ((f x : ℝ) : ℂ)) (mildPressure_slice g u t)
+  rw [he]
+  exact lerayPotential_coeff (mildPressureSource_contDiff hg hu ht)
+    (mildPressureSource_periodic u hgp t) k
+
+/-- **The coefficient pressure is in every `H^m`**: at each time the order-`m`
+weighted family `W(k)^{m/2} p̂(t)(k)` is the canonical scalar `H^m` datum of the
+pressure slice. -/
+theorem mildPressure_scalar_datum {g : SpaceTimeField} {u : ℝ → PeriodicSobolev 3}
+    {T : ℝ} (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hu : PersistenceInput T u) (m : ℕ) {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) :
+    ∃ A : PeriodicScalarData,
+      NSFormalization.Section3.T12.IsPeriodicScalarDatum (m : ℝ)
+        (fun x : Space ↦ mildPressure g u (t, x)) A ∧
+        ∀ k, A k = (periodicFrequencyWeight k ^ ((m : ℝ) / 2) : ℝ) •
+          mildPressureCoeff g u t k := by
+  obtain ⟨A, hA, hcoeff⟩ := scalar_datum_of_smooth
+    (mildPressure_spatial_contDiff hg hgp hu ht)
+    (fun x j ↦ mildPressure_periodic g u t (mem_univ t) x j) (m : ℝ)
+  exact ⟨A, hA, fun k ↦ by rw [hcoeff k, mildPressure_coeff hg hgp hu ht k]⟩
+
+/-- Consequently every pressure slice lies in every periodic `H^m(T³)`. -/
+theorem mildPressure_memPeriodicHm {g : SpaceTimeField} {u : ℝ → PeriodicSobolev 3}
+    {T : ℝ} (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
+    (hu : PersistenceInput T u) (m : ℕ) :
+    ∀ t ∈ Ico (0 : ℝ) T, NSFormalization.Section3.T12.MemPeriodicHmScalar m
+      (fun x : Space ↦ mildPressure g u (t, x)) := fun t ht ↦
+  memPeriodicHmScalar_of_smooth (mildPressure_spatial_contDiff hg hgp hu ht)
+    (fun x j ↦ mildPressure_periodic g u t (mem_univ t) x j) m
+
 /-! ## 9. The bundled pressure fields -/
 
 /-- Every pressure clause of `ClassicalSolutionT` / `PeriodicLocalRegularity`
@@ -827,6 +1187,18 @@ structure MildPressureFields (g : SpaceTimeField) (u : ℝ → PeriodicSobolev 3
   gradient_coeff : ∀ t ∈ Ico (0 : ℝ) T, ∀ (i : Fin 3) (k : PeriodicFrequency),
     periodicFourierCoeff (fun x ↦ ((pressureGradient (mildPressure g u) t x i : ℝ) : ℂ)) k =
       periodicDerivativeSymbol i k * mildPressureCoeff g u t k
+  coeff : ∀ t ∈ Ico (0 : ℝ) T, ∀ k : PeriodicFrequency,
+    periodicFourierCoeff (fun x ↦ ((mildPressure g u (t, x) : ℝ) : ℂ)) k =
+      mildPressureCoeff g u t k
+  memHm : ∀ m : ℕ, ∀ t ∈ Ico (0 : ℝ) T,
+    NSFormalization.Section3.T12.MemPeriodicHmScalar m
+      (fun x : Space ↦ mildPressure g u (t, x))
+  scalar_datum : ∀ m : ℕ, ∀ t ∈ Ico (0 : ℝ) T,
+    ∃ A : PeriodicScalarData,
+      NSFormalization.Section3.T12.IsPeriodicScalarDatum (m : ℝ)
+        (fun x : Space ↦ mildPressure g u (t, x)) A ∧
+        ∀ k, A k = (periodicFrequencyWeight k ^ ((m : ℝ) / 2) : ℝ) •
+          mildPressureCoeff g u t k
   poisson : ∀ t ∈ Ico (0 : ℝ) T, ∀ x : Space,
     scalarSpatialLaplacianT (mildPressure g u) t x =
       spatialDivergence g t x -
@@ -841,6 +1213,9 @@ theorem mildPressure_fields {g : SpaceTimeField} {u : ℝ → PeriodicSobolev 3}
   gauge := mildPressure_gauge hg hgp hu
   gradient_memLp := mildPressure_gradient_memLp hg hgp hu
   gradient_coeff := fun _ ht i k ↦ mildPressure_gradient_coeff hg hgp hu ht i k
+  coeff := fun _ ht k ↦ mildPressure_coeff hg hgp hu ht k
+  memHm := fun m ↦ mildPressure_memPeriodicHm hg hgp hu m
+  scalar_datum := fun m _ ht ↦ mildPressure_scalar_datum hg hgp hu m ht
   poisson := mildPressure_poisson hg hgp hu
 
 /-! ## 10. Non-vacuity: the construction produces a nonzero pressure -/

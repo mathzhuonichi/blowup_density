@@ -4,6 +4,25 @@ Lane `326-T11-U9d2a-pressure`, branch `erenup/326-T11-U9d2a-pressure`.
 Partial but unconditional-modulo-`PersistenceInput` delivery. No new named
 input; no `sorry`/`admit`/`axiom`/`native_decide`.
 
+**Revision after the codex REJECT** (`REVIEW_326-T11-U9d2a-pressure.md`), all
+three findings addressed by *proving* the missing content, not by weakening
+claims:
+
+1. the **periodic convolution theorem** `periodicFourierCoeff_mul` is now proved,
+   and with it the canonical identification
+   `periodicFourierCoeff ((∇·(u⊗u))_i(t,·)) k = torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) i k`
+   and the reviewer's exact requested statement
+   `mildPressureSourceCoeff_eq_canonical`. The `(I−P)(F−Q)` claim is therefore
+   now backed by a canonical-coefficient theorem, in two forms
+   (`mildPressure_gradient_canonical`, `mildPressure_gradient_leray_canonical`);
+2. the **every-`H^m` coefficient membership** is exported
+   (`mildPressure_scalar_datum`, `mildPressure_memPeriodicHm`) and bundled;
+3. **every guarded line of the axiom audit now prints exactly**
+   `[propext, Classical.choice, Quot.sound]`; the two declarations whose
+   transitive set is the strict subset `[propext]` (`testFrequency`,
+   `testFrequency_ne_neg`) are excluded from the audit, documented there, and
+   re-exhibited as plain `example`s in the probe.
+
 ## 1. 证了哪个定理 / What is proved
 
 **The pressure is constructed, not assumed.** For a smooth unit-periodic
@@ -56,8 +75,42 @@ New module `formalization/NSFormalization/Section3/T11/MildPressure.lean`
 * `mildPressure_gradient_leray_complement` — the same in `(I − P)`-form: `∇p` has
   datum `(I − P)(F − Q)`.
 * `mildPressureSourceCoeff_eq_force_sub_convection` —
-  `Ŝ_j(t,k) = torusPhysicalCoeff 3 (F t) j k − periodicFourierCoeff ((∇·(u⊗u))_j(t,·)) k`,
-  i.e. the source really is `F − Q` in physical Fourier data.
+  `Ŝ_j(t,k) = torusPhysicalCoeff 3 (F t) j k − periodicFourierCoeff ((∇·(u⊗u))_j(t,·)) k`.
+
+### The canonical coefficient-side `F − Q` (review finding 1)
+
+* `periodicFourierCoeff_mul` — **the periodic convolution theorem**: for smooth
+  unit-periodic `f, g`,
+  `periodicFourierCoeff (fun x ↦ f x * g x) k = ∑' l, f̂(l) * ĝ(k − l)`.
+  Proved from `torusLift_eq_tsum_mFourier` and
+  `integral_tsum_of_summable_integral_norm`; it did not exist in the tree.
+* `torusPhysicalCoeff_torusConvectionDatum` — the canonical unprojected datum of
+  `ConvolutionBound.lean` read in unweighted coefficients:
+  `torusPhysicalCoeff 2 (torusConvectionDatum A B) i k = ∑ j, 2πi k_j ∑' l, â_j(l) b̂_i(k−l)`.
+* `periodicFourierCoeff_convection_eq_torusConvectionDatum` —
+  `periodicFourierCoeff ((∇·(u⊗u))_i(t,·)) k = torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) i k`.
+* `torusConvectionDatum_isPeriodicDatum` — hence
+  `IsPeriodicDatum 2 ((∇·(u⊗u))(t,·)) (torusConvectionDatum (u t) (u t))`.
+* `mildPressureSourceCoeff_eq_canonical` — the reviewer's exact statement:
+  `Ŝ_j(t,k) = torusPhysicalCoeff 3 (F t) j k − torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) j k`.
+* `mildPressure_gradient_canonical` —
+  `∇p̂_i(k) = (k_i/|k|²) · (k · (F̂ − Q̂)(k))` in canonical coefficient data.
+* `mildPressureSource_canonical_datum` / `mildPressureSource_exists_canonical_datum`
+  — `G₂ − torusConvectionDatum (u t) (u t)` **is** an order-two datum of the
+  source (`G₂` the order-two force datum, which exists by `smooth_periodic_datum`).
+* `mildPressure_gradient_leray_canonical` — the gradient datum is literally
+  `(I − P)` applied to `G₂ − Q` through T10's `periodicLeray`.
+
+### The coefficient pressure in every `H^m` (review finding 2)
+
+* `scalar_datum_of_smooth` — every smooth periodic real scalar has the explicit
+  order-`s` scalar Sobolev datum `W(k)^{s/2} · ẑ(k)`.
+* `mildPressure_coeff` —
+  `periodicFourierCoeff ((p(t,·)) : ℂ) k = mildPressureCoeff g u t k`.
+* `mildPressure_scalar_datum` — for every `m : ℕ` and `t ∈ Ico 0 T` the family
+  `W(k)^{m/2} · p̂(t)(k)` is a `T12.IsPeriodicScalarDatum (m : ℝ)` of the slice.
+* `memPeriodicHmScalar_of_smooth`, `mildPressure_memPeriodicHm` — hence
+  `T12.MemPeriodicHmScalar m (fun x ↦ mildPressure g u (t, x))` for every `m`.
 
 ### The `ClassicalSolutionT` / `PeriodicLocalRegularity` pressure fields
 
@@ -69,7 +122,9 @@ New module `formalization/NSFormalization/Section3/T11/MildPressure.lean`
 | `pressure_smooth` | `mildPressure_spatial_contDiff` | **spatial slices only** |
 | `PeriodicLocalRegularity.pressure_poisson` | `mildPressure_poisson` | proved |
 
-Bundled as `MildPressureFields g u T`, built by
+Bundled as `MildPressureFields g u T` (fields: `spatial_smooth`, `periodic`,
+`gauge`, `gradient_memLp`, `gradient_coeff`, `coeff`, `memHm`, `scalar_datum`,
+`poisson`), built by
 `mildPressure_fields (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g) (hu : PersistenceInput T u)`.
 `MildPressureFields` is a **conclusion**, not a hypothesis: it is produced from
 the three inputs above and consumed by the assembly lane.
@@ -108,12 +163,17 @@ Fourier coefficient at the mode `e₀`).
    named input, which this lane was forbidden to introduce.
 
 2. **Joint continuity** `ContinuousOn (mildPressure g u) (Ico 0 T ×ˢ univ)` is
-   reachable in principle but needs (a) the periodic convolution theorem
-   `periodicFourierCoeff (f·g) k = ∑' l, f̂(l) ĝ(k−l)`, which is **not** in the
-   tree, (b) locally uniform-in-`t` weighted bounds on the convection
-   coefficients, (c) joint continuity of the first spatial derivatives of
-   `torusPhysicalVelocity u` (lane 318 gives only the field). See
-   `ATTEMPTS_MILD_PRESSURE.md` §3.2.
+   also not proved. The periodic convolution theorem it needs is now available
+   (`periodicFourierCoeff_mul`), so the two remaining obstacles are exactly
+
+   * a locally uniform all-order weighted convolution bound: for each compact
+     `K ⊆ Ico 0 T` and each `N`, `sup_{t ∈ K} ∑_k W(k)^N ‖Q̂(t,k)‖ < ∞`, which
+     needs `W(k)^N ≤ 4^N (W(l)^N + W(k−l)^N)` (the `ConvolutionBound.lean`
+     weight shift is stated only at exponent 3) together with the two Cauchy
+     products; and
+   * continuity in `t` of `t ↦ ∑' l, û_j(t,l) û_i(t,k−l)` at fixed `k`.
+
+   Neither is attempted here.
 
 3. Out of scope and untouched: `momentum` / `projected`, `velocity_smooth`, and
    the final classical assembly. The general U9d existential target in
@@ -132,12 +192,16 @@ cd verification && lake env lean ../formalization/NSFormalization/Section3/T11/M
   → no output (clean)
 
 cd verification && lake env lean ../research/T11/probes/mild_pressure_closes.lean
-  → no output (clean); every delivered field closes at the verbatim statement
+  → no output (clean); every delivered field closes at the verbatim statement,
+    including the reviewer's canonical `F - Q` statement and the `H^m` exports
 
 cd verification && lake env lean ../research/T11/axioms_mild_pressure.lean
-  → no output; all 80 `#guard_msgs` pass.
-    78 declarations: [propext, Classical.choice, Quot.sound];
-    `testFrequency`, `testFrequency_ne_neg`: [propext] (a strict subset).
+  → no output; all 97 `#guard_msgs` pass, every line exactly
+    [propext, Classical.choice, Quot.sound].
+    Excluded and documented in that file: `testFrequency`, `testFrequency_ne_neg`
+    (transitive set [propext], a strict subset), re-exhibited as `example`s in
+    the probe and covered transitively by the audited
+    `lerayPotentialCoeff_test_ne_zero` / `mildPressure_nonzero_instance`.
 
 make check   → architecture checks OK; 13 contract-policy tests OK;
                45 work items consistent.
