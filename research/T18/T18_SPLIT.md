@@ -48,6 +48,8 @@ and the `≥T` half is local existence/uniqueness, which carry no ball. **No T18
 `periodicSobolevENorm 1`** (grep: the only tree hits are `research/T20/Spec.lean:402,437`). So U8 confirms the
 H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay unconsumed.
 
+**Lead note (2026-09-18 13:02Z) — canonical-module prerequisite.** `formalization/` cannot import `Contracts.V1.PacketAPI` (T17 issue G3), so the T18 canonical module cannot take `P : PacketImportAPI ν`, `place : PlacementData P`, `scaling : ScalingAPI P place`, `correction : CorrectionAPI …` in the Spec's spelling. Prerequisites, added as units: **T15 U-CAN** (lane 384): `Section3/T15/Scaling.lean` restating `PlacementData` and `ScalingAPI` over the raw packet fields (`u p f : VelocityField`, `carrier`, the `PacketAPI`/`PacketEnergyAPI` clauses used, as explicit hypotheses/fields) with a probe converting from the Spec's `PacketImportAPI`-based structures (probes may import `Contracts.*`); **T17 U-CAN** (first half of U12): `Section3/T17/Correction.lean` restating `CorrectionAPI` over the canonical T15/T16 records with the bare `(x₀, T)` spelling of lanes 370/373/375. T18 U1 starts after both land; the T18 canonical structure threads the canonical records, and the assembly/contract lane (U12) converts to the Spec's spelling in `verification/`.
+
 ## 1. Units
 
 `v := reference.velocity`, `π := reference.pressure`, `w_ε := D.correction ε`, `H_ε := correctionForce ν v D ε`,

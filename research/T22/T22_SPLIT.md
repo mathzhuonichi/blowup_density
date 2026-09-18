@@ -73,6 +73,9 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
 ## 1. Units
 
 - **U-B1 — restriction bridge** (bookkeeping). New `Section3/T22/RestrictBridge.lean`.
+  **Status (lane 383, 2026-09-18): COMPLETE.** The canonical vocabulary is in
+  `Section3/T22/Domain.lean`; both `restrictDatum_eq_restrictField` and
+  `domainSobolevENorm_le_sobolevENorm` close with the standard three axioms.
   Target (consumed by `orderZero` **and** `zeroExtensionComparison` left conjunct): `restrictDatum_eq_restrictField`
   — if `IsSobolevDatum s (zeroExtension Ω z) A` then `restrictDatum Ω s A = restrictField Ω z`. Route: for a
   `DomainTest ψ` (tsupport ⊆ Ω), `angularRealization s (A i) ψ.1 = ∫ x, ψ.1 x * (E₀z x i)` (`IsSobolevDatum`); split
@@ -105,6 +108,13 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   (`2^(|s|/2)`). Route: Peetre's inequality — cases `s≥0` (submultiplicativity of `1+‖·‖²` under `ξ=η+(ξ-η)`)
   and `s<0` (apply the `s≥0` form with roles of `ξ,η` swapped and `-s`); `Real.rpow` monotonicity/`add_pow_le`.
   **M, Opus.** Deps: —.
+  **[DONE — lane 386]** `Section3/T22/WeightRatio.lean`: `weight_ratio_le (s ξ η) : (1+‖ξ‖²)^(s/2) ≤
+  2^(|s|/2) · (1+‖η‖²)^(s/2) · (1+‖ξ-η‖²)^(|s|/2)`, plus `peetreConst`/`peetreConst_pos`, the `peetreConst`
+  form `weight_ratio_le_const`, and the datum-layer spelling `sobolevBesselWeight_norm` /
+  `sobolevBesselWeight_norm_ratio_le` (via `NSFormalization.Paper3.sobolevBesselWeight`). Route as planned
+  (base submultiplicativity → `Real.rpow_le_rpow`/`Real.mul_rpow` for `s≥0`; swap-and-invert for `s<0`). No
+  named input. Axioms `[propext, Classical.choice, Quot.sound]`. `lake build … WeightRatio` green; `make check`
+  green. Probe `research/T22/probes/weight_ratio_closes.lean`, audit `research/T22/axioms_ua1.lean`.
 
 - **U-A2 — cutoff Fourier kernel is weighted-`L¹`** (new analysis). New `Section3/T22/CutoffKernel.lean`. No named input.
   Target (consumed by `cutoffMultiplier`): `integrable_weighted_fourier_cutoff` — for `χ` smooth compact and any
@@ -129,6 +139,17 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   `cyclesToAngularReal_symm_norm_le`, `Paper3/AngularRealSobolev.lean:84`, exists — build the `WithLp 2` vector
   version), scalar Plancherel `Lp.norm_fourier_eq`, and the Euclidean Pythagorean `L²` identity
   `eLpNorm z 2 volume ^2 = ∑ i, eLpNorm (z·i) 2 volume ^2`. **M–L, Opus.** Deps: —.
+  **STATUS — DONE (2026-09-18, lane 387).** `Section3/T22/OrderZeroIsometry.lean` proves
+  `norm_orderZeroDatum_eq` verbatim. The Pythagoras identity already existed in
+  `Section4/D01/FiniteOrderNorm.lean` (`norm_toLp_component_sq_sum` / `eLpNorm_component_sq_sum`,
+  which also carry the `≤`-half `norm_orderZeroDatum_le`), so the new content is only the *isometry*:
+  the vector isometry is delivered as `cyclesToAngularRealVector_zero_norm` (forward, not `symm`) via
+  the scalar `cyclesToAngularReal_zero_norm`. The direct subspace `symm` overflows even 400000
+  heartbeats, so the isometry is routed through the plain-`Lp` `cyclesToAngular_zero_norm` +
+  two `rfl` coercion bridges (`norm_coe_realSobolev`, `coe_cyclesToAngularReal_zero`); each
+  declaration fits `maxHeartbeats 400000`, all print `[propext, Classical.choice, Quot.sound]`.
+  Probe: `research/T22/probes/orderzero_isometry_closes.lean` (nonzero `ContDiffBump` field,
+  both sides finite and equal). Details: `research/T22/ATTEMPTS_UA4.md`, `research/T22/REPORT_387.md`.
 
 - **U-A5 — `orderZero` (analytic)** (new analysis). New `Section3/T22/OrderZero.lean`. No named input.
   Target: `BoundedDomainNormAPI.orderZero` **verbatim** (`Spec.lean:125-128`). Route: `≤` — any datum `A` in the
