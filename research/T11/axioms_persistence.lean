@@ -69,4 +69,3 @@ import NSFormalization.Section3.T11.Persistence
 /-- info: 'NSFormalization.Section3.T11.torusForcedMildOn_persistence' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.torusForcedMildOn_persistence
-
