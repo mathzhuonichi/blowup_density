@@ -58,6 +58,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   hence of `galileanMeanT`/`galileanShiftT` — the vector analogue of `cubeIntegral_contDiffOn_Ico`
   (`PeriodicPressureNormalization.lean:93`). Compact positive-time support of `galileanForceT a f` is inherited
   from `f` (spatial translation does not move time support). **M, sol.** Deps: —.
+  **Status (310): complete — all three exact fields, global mean/primitive smoothness, inherited support, internal solution-mean evolution, probe, non-vacuity witness, and guarded exact axiom audit pass with no named input.**
 - **U4 — viscosity algebra.** New `Section3/T11/Rescaling.lean`. `inverse_identities` (three `funext` +
   positive-`ν` algebra), `scaled_classes` (time dilation maps a compact subset of `Ioi 0` to one). **S, sol.** Deps: —.
 - **U5 — uniqueness package.** New `Section3/T11/Uniqueness.lean`. `velocity_unique`, `pressure_unique`
