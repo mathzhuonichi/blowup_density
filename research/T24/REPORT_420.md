@@ -125,3 +125,6 @@ git diff --stat verification/contracts.json
 `sorry`, `admit`, `axiom` declaration, `native_decide`, or
 `set_option maxHeartbeats`; the only `axioms` tokens are the required audit
 commands and their expected diagnostic text.
+
+
+> Lead note after review 420 (REJECT, procedural): (1) the base-ref gate failed only because the worktree predates #392 (`AffineVariation.lean`); the lead merged the current integration base below, taking the integration versions of every file outside T24 (the worker's "[base-sync]" copies of lane 427's T12 files are thereby replaced by the merged originals) and appending the registry element JSON-aware; (2) the reviewer's substantive mutation (`Ico → Ioc` in the rest-solution clause) breaks the proof as required — recorded here since the worker cannot be re-run.
