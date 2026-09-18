@@ -189,4 +189,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 421-T15-U3-single-copy | codex 完成：六字段（三 summable + 三 singleCopy）逐字 + 四条通用格点引理（cbad43df）→ 排队审稿 | 09-18 1742Z | — | — | T15 U3：格点可和性 + 单拷贝六字段（SingleCopy.lean，U2 放置 + periodize 引理） |
 | 422-T18-U1-insertion-data | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T18 U1：插入三元组 + 三个 eq:insertion 公式 + 阈值 + 平凡假设字段（Insertion.lean，canonical T15/T17 记录） |
 | 423-T22-UREG-contract | worktree 安装中（基于 418 + integration）→ codex sol | 09-18 1740Z | — | — | T22 U-REG：BoundedDomainNormAPI 装配 + 注册 T04.bounded_domain_norm（合同/绑定/测试/非空） |
-| 424-T24-Ua8-nonisolated | worktree 安装中 → Opus prover | 09-18 1743Z | — | — | T24a Ua8：nonisolated（Ũ_{λb}−U = λb、F̃_{λb}−F = λL_U b + λ²(b·∇)b 的 C^m 半范数 → 0，⑤） |
+| 424-T24-Ua8-nonisolated | Opus prover 子代理运行中 | 09-18 1746Z | — | — | T24a Ua8：nonisolated（Ũ_{λb}−U = λb、F̃_{λb}−F = λL_U b + λ²(b·∇)b 的 C^m 半范数 → 0，⑤） |
