@@ -5,6 +5,47 @@ This file merges the independent comparisons from lanes 273 (Draft A) and 274
 imports the already registered Euclidean packet; the torus placement and
 periodization begin only at `paper/sections/03-torus.tex:101-123`.
 
+## Proof-lane status (346-T14-packet-energy)
+
+The reconciled two-field API is now proved over raw Navier–Stokes packet
+fields in `formalization/NSFormalization/Section3/T14/PacketEnergy.lean`.
+`energy_le_work_of_packet` restricts the registered smoothness/support/PDE
+clauses to each compact slab and reuses
+`NSFormalization.Source.PacketEnergy.packet_energy`; the force's compact
+spacetime support is projected to a fixed compact spatial carrier. The
+interval-integral estimate is converted to the specification's `Ioo` set
+integrals. `work_eq_square_of_packet` proves the remaining FTC identity for
+the primitive square. The canonical probe fills both fields for
+`BlowupDensity.Bindings.packet ν hν`, constructs `packetImportStatement` and
+`PacketImportFamily`, and checks the selected velocity by `rfl`.
+
+All audited declarations use exactly `[propext, Classical.choice, Quot.sound]`.
+
+## Registered (`T01.packet_import`, lane 355)
+
+The T14 packet-import contract is now registered as version 1.  The contract
+surface has five declarations copied from the reconciled specification:
+`accumulatedForce`, the two-field `PacketEnergyAPI`, the extending
+`PacketImportAPI`, `packetImportStatement`, and the data-carrying
+`PacketImportFamily`.  `Contracts.V1.PacketImport` imports only the frozen
+packet contract and keeps the two `eq:packetenergy` factors (`2ν` and `2`) and
+the `Ioo 0 t` set-integral form token-for-token.
+
+The binding and test files are respectively
+`verification/Bindings/PacketImport.lean` and
+`verification/Tests/PacketImport.lean`.  The binding has one definitional
+bridge for `accumulatedForce`, constructs the family from
+`Bindings.packet ν hν`, and transports the canonical T14 theorems through
+`l2Sq_eq` and `dissipation_eq`.  The test checks the existential statement,
+both energy fields, and a velocity non-vacuity equality.  The registry entry is
+`T01.packet_import`; the T14 ledger lists that component after rendering.
+
+There are no new theorem gaps.  The scope deliberately excludes periodization,
+T10 Fourier data, and any torus proxy; it consumes the registered `I01.packet`
+witness and the already proved `Section3.T14.PacketEnergy` theorems.  The
+remaining downstream gap is T15's placement/periodization contract, not a T14
+obligation.
+
 ## Paper clause → Lean field, provenance, and ruling
 
 “Inherited” means a literal field of
