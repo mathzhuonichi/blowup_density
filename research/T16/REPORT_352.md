@@ -16,8 +16,9 @@ of a chart correction `w` (smooth on `ℝ×ℝ³`, spatial slice support in `bal
 - `latticeLift_divergence_zero (hcd) (hsupp) (hdivw : ∀ t x, spatialDivergence w t x = 0) (t x) : spatialDivergence (latticeLift w) t x = 0`
 - `latticeLift_timeSupport (hcs : HasCompactSupport w) (htsupp : tsupport w ⊆ Ioo a b ×ˢ univ) : tsupport (latticeLift w) ⊆ Ioo a b ×ˢ univ`
 - `latticeLift_sliceSupport (hslice) (hρr : ρ < r) (t) : tsupport (fun x => latticeLift w (t,x)) ⊆ periodicSet (ball x₀ r)`
-- `latticeLift_cancels (hv_per : IsPeriodicOn univ v) (hslice) (hρr : r+ρ ≤ 1) (hcancel : ∀ x ∈ ball x₀ r, v (t,x)+w (t,x)=0) (hpacket : tsupport (fun x => P x) ⊆ periodicSet (ball x₀ r)) : ∃ O, IsOpen O ∧ tsupport (fun x => P x) ⊆ O ∧ ∀ x ∈ O, v (t,x)+latticeLift w (t,x)=0`
-- `correction_fields_of_chart (…) : <conjunction of the seven canonical field bodies for `fun ε => latticeLift (W ε)`>` — packaging for lane 353.
+- `latticeLift_cancels (hv_per : IsPeriodicOn univ v) (hslice) (hρr : r+ρ ≤ 1) {O} (hO : IsOpen O) (hOsub : O ⊆ ball x₀ r) (hcancel : ∀ x ∈ O, v (t,x)+w (t,x)=0) (hpacket : tsupport (fun x => P x) ⊆ periodicSet O) : ∃ O', IsOpen O' ∧ tsupport (fun x => P x) ⊆ O' ∧ ∀ x ∈ O', v (t,x)+latticeLift w (t,x)=0` — the **local** neighbourhood interface (cancellation on an open plateau `O ⊆ ball x₀ r`, not the whole ball); output `O' = periodicSet O`.
+- `correction_fields_of_chart (…) : <conjunction of the seven canonical field bodies for `fun ε => latticeLift (W ε)`>` — packaging for lane 358.  The cancellation hypothesis is (revision r1, exact):
+  `hWcancel : ∀ ε ∈ Ioc (0:ℝ) ε₀, ∀ t ∈ Ico (T - ε ^ 2) T, ∃ O : Set Space, IsOpen O ∧ O ⊆ ball x₀ r ∧ tsupport (fun x => periodicScaledPacket U x₀ T ε (t, x)) ⊆ periodicSet O ∧ ∀ x ∈ O, v (t, x) + W ε (t, x) = 0`.
 
 `latticeLift_eq_periodize` is the crux: `latticeVector = lattice` by `rfl`, so the
 lift is definitionally OpenAI's `periodize`, and all of
@@ -40,12 +41,17 @@ lift is definitionally OpenAI's `periodize`, and all of
   local `v`) is untouched (see `ATTEMPTS.md` §Gap 1).
 - The packaged `correction_fields_of_chart` takes as hypotheses the chart-level
   facts about the correction family `W` (smoothness, compact support,
-  divergence-freeness, the product support bound, the curl formula, the ball
-  cancellation) and the T14 packet-support bound.  Discharging those for the
-  concrete `W ε = physicalCorrection v x₀ T θ η ε` is lane 353's assembly job
-  (the chart facts `localCorrection_*` / `exists_local_background_removal` in
-  `Paper1/LocalCutoff.lean` produce exactly this shape).  No stub, no `sorry`,
-  no placeholder `Prop` field was introduced; the transport itself is complete.
+  divergence-freeness, the product support bound, the curl formula, and the
+  **local** cancellation datum — an open plateau `O ⊆ ball x₀ r` carrying the
+  periodic packet-support bound and the cancellation `v + W ε = 0` on `O`).
+  Discharging those for the concrete `W ε = physicalCorrection v x₀ T θ η ε` is
+  lane 358's assembly job: `exists_local_background_removal` in
+  `Paper1/LocalCutoff.lean` returns exactly this tuple (open `O ⊇ supp Uε`,
+  `O ⊆` cutoff ball, `v + w = 0` on `O`), and T14 supplies the periodic packet
+  support.  No stub, no `sorry`, no placeholder `Prop` field; the transport is
+  complete.  (Revision r1: replaced the earlier over-strong whole-ball
+  cancellation hypothesis — unprovable for the concrete chart correction — with
+  this local interface, per Codex review.)
 - `LocalPotentialAPI` has **seven** `correction_*` fields, not eight (the brief
   double-counts `support`/`support_ball`).
 
@@ -53,8 +59,8 @@ lift is definitionally OpenAI's `periodize`, and all of
 
 - `. scripts/lean-env.sh` (every shell).
 - `cd verification && LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T16.LatticeLift`
-  → `Build completed successfully (9358 jobs).` (0 errors)
-- `lake env lean ../formalization/NSFormalization/Section3/T16/LatticeLift.lean` → 0 errors.
+  → `Build completed successfully (9358 jobs).` (0 errors, 0 module warnings — r1 removed the deprecated `push_neg`/`Set.mem_setOf_eq` and the unused `hθR`).
+- `lake env lean ../formalization/NSFormalization/Section3/T16/LatticeLift.lean` → no output (0 errors, 0 warnings).
 - `lake env lean ../research/T16/probes/lattice_lift_closes.lean` → exit 0, 0 errors.
 - `lake env lean ../research/T16/axioms_lattice_lift.lean` → all 19 decls
   `depends on axioms: [propext, Classical.choice, Quot.sound]`.

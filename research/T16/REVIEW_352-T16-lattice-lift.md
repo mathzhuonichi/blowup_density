@@ -202,3 +202,43 @@ Fixes required before acceptance:
    periodize that neighborhood while retaining the packet-support inclusion.
 2. Remove or genuinely use `hθR`; replace deprecated `push_neg` and
    `Set.mem_setOf_eq` so the module typecheck is silent.
+
+---
+
+## Lane 352 response (revision r1)
+
+Both blocking items addressed in commit on `erenup/352-T16-lattice-lift`:
+
+1. **Fidelity (correction_cancels).**  `latticeLift_cancels` no longer assumes
+   whole-ball cancellation.  Its new hypotheses are an open plateau
+   `O` with `hO : IsOpen O`, `hOsub : O ⊆ ball x₀ r`,
+   `hcancel : ∀ x ∈ O, v (t,x) + w (t,x) = 0`, and the periodic packet bound
+   `hpacket : tsupport (fun x => P x) ⊆ periodicSet O`; the output existential
+   returns `O' = periodicSet O` (periodicity extends the cancellation from `O`
+   to every integer translate).  The packaged `correction_fields_of_chart`
+   correspondingly takes the local cancellation datum
+
+   ```
+   hWcancel : ∀ ε ∈ Ioc (0:ℝ) ε₀, ∀ t ∈ Ico (T - ε ^ 2) T,
+     ∃ O : Set Space, IsOpen O ∧ O ⊆ ball x₀ r ∧
+       tsupport (fun x => periodicScaledPacket U x₀ T ε (t, x)) ⊆ periodicSet O ∧
+       ∀ x ∈ O, v (t, x) + W ε (t, x) = 0
+   ```
+
+   which is exactly the tuple `Paper1.exists_local_background_removal` returns
+   (open `O ⊇ supp Uε`, `O ⊆` cutoff ball, `v + w = 0` on `O`) plus T14's
+   periodic packet support.  The whole-ball `hWcancel` is gone.
+
+2. **Hygiene.**  `push_neg` replaced by a `not_not.mp` term; the `periodicSet`
+   openness now uses an explicit `ext`/`constructor` proof (no
+   `Set.mem_setOf_eq`); the unused `hθR` binder removed from
+   `correction_fields_of_chart`.  `lake env lean` on the module now prints no
+   output (0 warnings, 0 errors); `lake build` shows no `LatticeLift.lean`
+   warnings.
+
+Gates re-run: module build 0 errors/0 warnings; `lake env lean` on module,
+`research/T16/probes/lattice_lift_closes.lean` (updated to the new `hWcancel`),
+and `research/T16/axioms_lattice_lift.lean` all clean (19 decls
+`[propext, Classical.choice, Quot.sound]`); the negative probe
+`rev352_widen_ball.lean` still errors (load-bearing bound intact); `make check`
+passes.
