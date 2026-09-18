@@ -24,7 +24,7 @@ supplied by `memLp_indicator_iff_restrict` from `MemLp z 2 (restrict Ω)`; the l
 1. **Order-0 realization surjectivity** `orderZeroDatum_surjective`:
    `∀ A : RealVectorSobolev 0, ∃ w hw, orderZeroDatum hw = A`. Route: `v := (cyclesToAngularRealVector 0).symm A`;
    `g i := 𝓕⁻ (v i)`; the field is `fieldOf g x := WithLp.toLp 2 (fun i => ((g i) x).re)`.
-   The key missing bridge (nothing of this form existed in the tree — confirmed by a full search)
+   The key missing bridge (the general order-zero realization/reality lemmas are new here; `Section4/R44/TrilinearJ.lean:181` already proves the analogous inverse-Fourier reality fact for half-order data)
    is `conjugation_fourierInv_of_mem`: `h ∈ realSubspace 0 → conjugation (𝓕⁻ h) = 𝓕⁻ h`
    (proved by applying `𝓕`, `fourier_conjugation`, `mem_realSubspace_iff`, `𝓕`-injectivity). This
    makes `g i` a.e. real, so `componentLp (memLp_fieldOf g) i = g i`, `𝓕 (componentLp ..) = v i`,

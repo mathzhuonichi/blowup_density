@@ -21,7 +21,7 @@ theorem orderZero (Ω : Set Space) (hΩ : IsOpen Ω) (z : SpatialField)
 Both sides may be `⊤`; no compact-support or `L²` hypothesis. `orderZero`'s type equals the structure field type (probe checks it with `exact BoundedDomainNormAPI.orderZero` / `exact orderZero`).
 
 Supporting theorems proved in the same module (no named inputs, no placeholders, no goal repackaging):
-- `orderZeroDatum_surjective (A : RealVectorSobolev 0) : ∃ (w : Space → Space) (hw : MemLp w 2 volume), orderZeroDatum hw = A` — order-0 realization surjectivity (**not** previously in the tree, confirmed by two independent searches).
+- `orderZeroDatum_surjective (A : RealVectorSobolev 0) : ∃ (w : Space → Space) (hw : MemLp w 2 volume), orderZeroDatum hw = A` — order-0 realization surjectivity (the general order-zero realization/reality lemmas are new here; `Section4/R44/TrilinearJ.lean:181` already proves the analogous inverse-Fourier reality fact for half-order data).
 - `restrictField_eq_ae (hΩ : IsOpen Ω) (hw : MemLp w 2 volume) (hz : ContDiffOn ℝ ∞ z Ω) (heq : restrictField Ω w = restrictField Ω z) : w =ᵐ[volume.restrict Ω] z` — du Bois-Reymond.
 - `conjugation_fourierInv_of_mem {h} (hh : h ∈ realSubspace 0) : conjugation (𝓕⁻ h) = 𝓕⁻ h` (+ a.e.-real form `fourierInv_ofReal_re_ae`) — the missing bridge for surjectivity.
 - `restrictDatum_eq_restrictField_of_datum {Ω s z A} (hA : IsSobolevDatum s z A) : restrictDatum Ω s A = restrictField Ω z` — general datum-restriction bridge.
@@ -44,7 +44,7 @@ No existing module was edited; only new files plus the split-doc status line.
 
 ## 3. Gaps / exact error text
 
-**None for U-A5.** `orderZero` is proved verbatim, standard axioms, no `sorry`/`axiom`/`native_decide`. The realised `≥` route differs from the split doc's guess (it suggested `LocalizationBoundary.domainL2Sq_*`, which is `0<s<1` only and unusable at order 0); I used the quotient-norm identity both directions with the two new in-module facts. Out of this lane's scope: `cutoffMultiplier` (U-A3), `zeroExtensionComparison` (U-Z1), assembly/registration (U-REG).
+**None for U-A5.** `orderZero` is proved verbatim, standard axioms, no `sorry`/`axiom`/`native_decide`. The proof uses restricted-measure eLpNorm lemmas directly; `LocalizationBoundary.domainL2Sq_le_whole` and `domainL2Sq_eq_whole_of_compl_eq_zero` also apply at L² but require an integral-to-eLpNorm bridge; I used the quotient-norm identity both directions with the two new in-module facts. (Corrected after review 393.) Out of this lane's scope: `cutoffMultiplier` (U-A3), `zeroExtensionComparison` (U-Z1), assembly/registration (U-REG).
 
 Load-bearing pitfall for the reviewer: `cyclesToAngularRealVector 0 (e.symm A)` is *definitionally* `A`, so a trailing `rfl` inside `rw`/`conv` closes the goal **nondeterministically** (sometimes `(deterministic) timeout at isDefEq, maximum number of heartbeats (200000)` — the lane-387 heavy unification). The deterministic close is `simp only [hkey, ContinuousLinearEquiv.apply_symm_apply]` inside the commented `set_option maxHeartbeats 400000` on `orderZeroDatum_surjective` (the only raised-heartbeat declaration; all others pass at 200000).
 
