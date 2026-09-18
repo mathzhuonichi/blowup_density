@@ -126,6 +126,27 @@ embedding: it reduces by Fourier **order-shift** to `velocityCriticalL3` at `a =
   residual recorded in `research/T12/ATTEMPTS_U4.md` — its own S3 lane.  **U6 consumes U4 only
   on the smooth fields `∂_j v`, `Lv`, so `velocityCriticalL3_smooth` unblocks U6.**
 
+  **Status (lane 401, U4b, 2026-09-18): COMPLETE — the verbatim field is proved.**
+  `Section3/T12/CriticalL3Density.lean` proves `velocityCriticalL3 (v)
+  (MemPeriodicHomogeneous (1/2) v) : periodicLpENorm 3 v ≤ ENNReal.ofReal CcriticalHalf ·
+  periodicHomogeneousENorm (1/2) v` — the API field verbatim, same constant as the smooth
+  form — by route (A) of this unit (symmetric Fourier truncation, not mollification).
+  New: `truncField v S` (componentwise real part of `Paper1.finitePeriodicFourierSum`),
+  `periodicFourierCoeff_truncField` (exact restricted datum, using the conjugate symmetry
+  `T10.periodicFourierCoeff_real_neg` and `S = -S`), `freqBox N` with
+  `tendsto_freqBox` (cofinality), `isMeanZeroT_truncField`,
+  `periodicHomogeneousENorm_truncField_le` (indicator `reweightDatum`, all `s`),
+  `tendsto_eLpNorm_truncField_sub` (`L²(T³)` convergence from Mathlib's
+  `UnitAddTorus.hasSum_mFourier_series_L2`), and `memPeriodicHomogeneous_of_smooth`
+  (smooth mean-zero ⇒ finite homogeneous datum at every order `s ≥ 0`; the tree only had
+  the order-`1` case `T10.smooth_homogeneous_datum_one`).  Closure by
+  `tendstoInMeasure_of_tendsto_eLpNorm` → `exists_seq_tendsto_ae` →
+  `Lp.eLpNorm_lim_le_liminf_eLpNorm` at `p = 3`.  All 23 public declarations audit to
+  `[propext, Classical.choice, Quot.sound]`; probe
+  `research/T12/probes/critical_l3_density_closes.lean` (non-vacuous on the nonzero
+  smooth mean-zero witness `densityProbeMZ`).  Attempts and pin-specific pitfalls:
+  `research/T12/ATTEMPTS_U4B.md`.  **U4 has no residual left.**
+
 - **U5 — `gradientLSix`** (probe `:184-187`), route (c). New `Section3/T12/GradientLSix.lean`. Target
   verbatim: `∀ v, SmoothPeriodicT v → IsMeanZeroT v → periodicLpENorm 6 (gradientTensor v) ≤
   ENNReal.ofReal Csix · periodicLpENorm 2 (laplacian v)`. Route: `periodicLpENorm 6 (gradientTensor v) =
@@ -136,6 +157,26 @@ embedding: it reduces by Fourier **order-shift** to `velocityCriticalL3` at `a =
   splits off commutators supported in `Q'∖Q`, bounded by `‖v‖_{H²(T³)}` and thence by `‖Δv‖_{L²}` via
   `hTwo_le_laplacian` (`FourierEmbeddings.lean:165`); `χΔv` on `Q` returns `‖Δv‖_{L²(T³)}` by U1. Set
   `Csix`. **L, Opus.** Deps: U1, U2.
+
+  **Status (lane 400, 2026-09-18): COMPLETE.** `Section3/T12/GradientLSix.lean` proves
+  `gradientLSix` verbatim with
+  `Csix = 343 * A05.gradientL6Const * leibnizConst * (1 + 2 * hTwoConst)` and `Csix_pos`.
+  Route as planned: `HaarCube.periodicLpENorm_eq_restrict_gradientTensor` → `∇(χv) = ∇v`
+  on the cube (`gradTensor_cutoffMul_eqOn`, χ ≡ 1 on `ball 0 (5/2) ⊇ [0,1]³`) →
+  `Measure.restrict_le_self` → registered `A05.eLpNorm_gradTensor_six_le` on `χv`
+  (`smoothL2_cutoffMul`) → Leibniz `lap_cutoffMul_eq` with pointwise majorant
+  `norm_lap_cutoffMul_le` supported in `tsupport χ = closedBall 0 3` → lattice tiling
+  (`T13.lintegral_eq_tsum_halfOpenCube` + lane-377 `lattice_count_le`, `7³ = 343`) →
+  one cube.  The two torus lower-order bounds are new and Fourier-based:
+  `periodicLpENorm_two_le_laplacian` (reweight by `1/(1+4π²|k|²)` + `parseval_forward`)
+  and `periodicLpENorm_gradientTensor_le_laplacian`
+  (`T10.gradient_eq_homogeneousENorm` + `meanZeroPartT_eq_self` + reweight by
+  `|2πk|/(1+4π²|k|²)`), both closed by `FourierEmbeddings.hTwo_le_laplacian`.  All 52
+  declarations audit to `[propext, Classical.choice, Quot.sound]`; module `lake env lean`
+  output empty.  No named input.  Probe
+  `research/T12/probes/gradient_l6_closes.lean`; negatives in
+  `research/T12/ATTEMPTS_U5.md` (the imaginary-multiplier and Caccioppoli routes were
+  rejected there).  `Csix` is closed but not a numeral (see ATTEMPTS §4).
 
 - **U6 — `gradientLambdaCriticalL3`** (probe `:170-175`). New `Section3/T12/GradientLambdaL3.lean`.
   Target verbatim: `∀ v Lv, SmoothPeriodicT v → MemPeriodicHomogeneous (3/2) v → IsPeriodicLambda v Lv →
