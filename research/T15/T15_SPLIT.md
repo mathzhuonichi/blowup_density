@@ -101,6 +101,16 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   endpoint-insensitive `Ioo` handled as in I03. `MemLp` slices from `I03/Energy.lean:211 eLpNorm_scaled_slice`.
   **L, Opus.** Deps: U3, U-TB1.
 
+  **Status (lane 439, 2026-09-18): complete.** `Section3/T15/Energy.lean` proves all three
+  canonical fields from the raw packet clauses and `PlacementData`.  The canonical torus chart
+  always yields a representative in the *closed* fundamental cube, so `velocity_singleCopy` makes
+  the Haar lift of the periodization *literally* the Haar lift of the rescaled slice; the velocity
+  `MemLp` guard is then `T10.memLp_torusLift_vector`.  The gradient guard does need `periodize`
+  smooth (the two gradients differ on the cube frontier) — supplied by the vendor
+  `contDiff_periodize` through the lane-352 bridge.  The two identities are U-TB1's Goal 1 / Goal 2
+  slicewise, then `I03.energyEssSup_scaled_eq` / `I03.energyGradient_scaled_eq`.  **No time-interval
+  transport was needed**: both I03 lemmas are already over `Ioo 0 T`, literally T10's interval.
+
 - **U5 — mixed scaling + honest paths** (transport; ⑪). New `Section3/T15/Mixed.lean`. Targets
   `mixed_memLp` (`Spec.lean:828`), `packetMixedScaling` (`:842`). Route: `force_singleCopy` (U3) + the
   `|Q|=1` Haar↔Lebesgue slice identity (U-TB1 style) reduce `mixedLebesgueENormT` to the whole-space
@@ -108,6 +118,15 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   `ε^{alpha p q}‖F‖`; torus/ℝ³ `MemLp` paths from `I03/Mixed.lean:104 mixedNorm_parabolicForce`,
   `:164 eLpNorm_slicePath_eq`. Covers `p=∞`/`q=∞` by `toReal ⊤ = 0` with no endpoint cases. **L, Opus.**
   Deps: U3, U-TB1.
+
+  **Status (lane 439, 2026-09-18): complete.** `Section3/T15/Mixed.lean` proves both canonical
+  fields.  The `|Q|=1` bridge is upgraded to **every** exponent by identifying the pushforward
+  `Measure.map torusChart periodicTorusMeasure = volume.restrict fundamentalCube` and applying
+  `eLpNorm_map_measure`, so `p=∞` needs no separate argument.  Both defining infima are shown
+  *attained*: `mixedLebesgueENorm_eq` (formalization twin of `Bindings/Scaling.lean:296`, which
+  `formalization/` cannot import) and its torus counterpart `mixedLebesgueENormT_eq`, whose
+  admissible path is the Haar slice path — continuous because the torus is a probability space.
+  `I03.positiveMixedNorm_parabolicForce` then supplies `ε^{alphaT p q}` directly.
 
 - **U6 — unbounded speed** (transport; ⑨). New `Section3/T15/Blowup.lean`. Target `unboundedSpeed`
   (`Spec.lean:781`). Route: `Bindings/Scaling.lean:110 scaled_blowup` gives `SpeedUnboundedAt place.T`
@@ -304,3 +323,41 @@ reviewer probes `rev376_honest_nonvacuity.lean` / `rev376_contract_shape.lean` /
 `axioms_u2.lean`.  A `PlacementData` inhabitant for the abstract `Bindings.packet`
 is U15 (gated on T13.localization).  Consumers U3, U7 take the
 `*_slice_subset_cube` / `*_slice_hasCompactSupport` lemmas.
+
+### U4 / U5 status (lane 439)
+
+**Complete (2026-09-18).** `formalization/NSFormalization/Section3/T15/Energy.lean` (8 decls)
+and `formalization/NSFormalization/Section3/T15/Mixed.lean` (21 decls); both build clean and
+every declaration prints `[propext, Classical.choice, Quot.sound]`
+(`research/T15/axioms_u4_u5.lean`).  No `set_option maxHeartbeats` in either module.
+
+Shipped, U4 (`Energy.lean`):
+
+- `energySlices_memLp hext hK hu place`, `packetEnergyIdentity hP hu place`,
+  `packetDissipationIdentity hP hu place` — the three canonical field types verbatim.
+  `hP : NSFormalization.Section4.I03.PacketData u K M D` is the Section 4 bundle of the eight
+  verbatim `scalingStatement` packet clauses (probe Part 1b builds it from them).
+- Helpers: `torusChart_mem_fundamentalCube`, `torusLift_congr_cube` (chart ⊆ closed cube ⇒
+  agreeing-on-cube fields have equal lifts), `contDiff_periodize_of_subset_interior` (vendor
+  `contDiff_periodize` via the lane-352 `rfl` bridge), `memLp_torusLift_gradientVector`
+  (`MemLp.of_eval_piLp` on `WithLp 2 (Fin 3 → Space)`), `scaledVelocity_slice_contDiff`.
+
+Shipped, U5 (`Mixed.lean`):
+
+- `mixed_memLp hf hfc place`, `packetMixedScaling hf hfc place` — the two canonical field types
+  verbatim, for **all** `1 ≤ p, q ≤ ∞`.
+- §1 exponent-generic Haar/Lebesgue: `torusChart`, `measurable_torusChart`, `torusChart_coe`,
+  `lintegral_comp_torusChart`, `map_torusChart`, `eLpNorm_torusLift_eq_restrict`,
+  `eLpNorm_torusLift_eq_volume`.
+- §2 `mixedLebesgueENorm_eq` (whole-space infimum attained at `I03.positiveMixedNorm`).
+- §3 `torusSlicePath`, `enorm_torusSlicePath`, `continuous_torusSlicePath`, `continuous_slice`.
+- §4 `mixedLebesgueENormT_eq` (torus infimum attained).
+- §5 `scaledForce_contDiff`, `scaledForce_hasCompactSupport`, `scaledForce_slice_tsupport_cube`,
+  `torusLift_periodizedScaledForce`, `mixedLebesgueENormT_periodizedScaledForce`.
+
+Non-vacuity: `research/T15/probes/energy_mixed_closes.lean` — Part 1 closes all five canonical
+field types by a bare `exact`; Part 1b rebuilds `I03.PacketData` from `scalingStatement` clauses;
+Part 2 fires all five on the `placement_closes.lean` geometry (cube centre, spatial bump radius
+`1/4`, chart ball `3/8`, `T = 1`, `ε₀ = 1/2`, `ε = 1/2`) with a **nonzero** time-localized packet
+(time bump supported in `[1/4,3/4] ⊆ (0,∞)`), a complete `PlacementData` and a complete
+`I03.PacketData` with `M = √∫‖U₀‖² > 0`.  Dead ends: `research/T15/ATTEMPTS_U4_U5.md`.
