@@ -1,5 +1,5 @@
-import NSFormalization.Section3.T17.Transport
 import NSFormalization.Section3.T17.CorrectionProfile
+import NSFormalization.Section3.T17.Transport
 import NSFormalization.Paper1.CorrectionForceProfile
 import Mathlib.Tactic.Module
 
@@ -26,27 +26,33 @@ The Spec's `rescaledForceProfile` is the displayed force bracket
 `rescaledCorrectionProfile` (= `Paper1.CorrectionProfile.profile`, lane 370's
 `rescaledCorrectionProfile_eq_profile`) and the rescaled reference
 `rescaledReference` (= `Paper1.CorrectionForceProfile.slice referenceProfile`).
-It is definitionally the Euclidean `CorrectionForceProfile.forceProfile` after
-one chain-rule identity for the `ε²(∇v·W)` term (`rescaledForceProfile_eq_forceProfile`,
-via `forceProfile_eq_operators`).  Every field is then a transport of a Paper1
+It **equals** the Euclidean `CorrectionForceProfile.forceProfile` — a proved
+pointwise identity, `rescaledForceProfile_eq_forceProfile` (not a `rfl` bridge):
+the `ε²(∇v·W)` display term reconciles with Paper1's `ε(∇V_ε·W)` term only after
+the chain-rule identity `spatialDerivative_rescaledReference`, matched over
+`forceProfile_eq_operators`.  Every field is then a transport of a Paper1
 force-profile estimate: `forceProfile_smooth` (`:57`), `forceProfile_support`
 (`:75`), `forceProfile_uniform_derivative_bound` (`:204`) and, for the identity,
 `physicalForce_eq_profile` (`:185`) after cancelling the affine `inverseScale ε`
 of the correction chart.
 
-## The `force_profile_identity` residual (chart force vs `D.correction`)
+## `force_profile_identity`: chart force and Spec form
 
-The Spec's `force_profile_identity` is stated over `correctionForce ν v D ε`,
-built from the abstract T16 correction `D.correction ε` and the T17 force
-operator (with the two middle summands reordered relative to
-`Source.correctionForce`).  This module proves the identity for the **chart
-force** `Source.correctionForce ν v (physicalCorrection …)`
-(`physicalForce_eq_rescaledForceProfile`), which is exactly the chart-level
-content: it needs `hv, hθ, hη` and `ε ≠ 0` only.  U2's `Transport.force_eq` is
-present on this base and lifts the chart force to the periodized Spec field;
-the composition and its single-copy germ are recorded in
-`research/T17/ATTEMPTS_UCAN.md` ("G1 and the honest U4 residual") and checked by
-`research/T17/probes/force_profile_canonical.lean`.
+The Spec's `force_profile_identity` is stated over `correctionForce ν v D ε`
+(lane 373's `Transport.lean` spelling), built from the abstract T16 correction
+`D.correction ε`.  This module proves both the **chart-force** form
+`Source.correctionForce ν v (physicalCorrection …) (chart) = (ε²)⁻¹ • H_ε`
+(`physicalForce_eq_rescaledForceProfile`, needing only `hv, hθ, hη, ε ≠ 0`) and,
+with lane 373's `Transport.lean` now on the base, the **Spec form**
+`force_profile_identity` itself: `force_eq_chart` lifts the chart force to
+`correctionForce ν v D ε` using `correctionForce_eq_source` (the commutative
+reorder of the two middle summands) and `source_correctionForce_congr` (operator
+locality), against a `LocalPotentialAPI` witness whose `D.correction ε` agrees
+with `physicalCorrection …` on the open chart neighbourhood (lane 370
+`correction_eq_physicalCorrection`).  The canonical periodized composition of
+this identity with U2's `Transport.force_eq` and its single-copy germ are
+recorded in `research/T17/ATTEMPTS_UCAN.md` ("G1 and the honest U4 residual")
+and checked by `research/T17/probes/force_profile_canonical.lean`.
 
 ## Vocabulary note (placement bundling)
 
@@ -90,7 +96,13 @@ def rescaledForceProfile (ν : ℝ) (v : SpaceTimeField) (x₀ : Space) (T ε : 
         (T + ε ^ 2 * z.1) (x₀ + ε • z.2) (W z) +
       ε • advection W z.1 z.2
 
-/-! ## 1. The chain rule for the rescaled reference and the `def` bridge -/
+/-! The abstract-correction force operator `correctionForce ν v D ε`
+(`03-torus.tex:219-223`, `Spec.lean:725-732`) is reused verbatim from lane 373's
+`Section3/T17/Transport.lean` (namespace `NSFormalization.Section3.T17`), which
+now sits on this base; it is not re-declared here (the two declarations would
+clash).
+
+## 1. The chain rule for the rescaled reference and the `def` bridge -/
 
 /-- The spatial derivative of the rescaled reference `V_ε` picks up exactly one
 factor of `ε` from the inner dilation `y ↦ x₀ + ε•y`: chain rule with
@@ -245,9 +257,9 @@ theorem inverseScale_correctionChartPoint (x₀ : Space) (T ε : ℝ) (hε : ε 
 
 /-- `03-torus.tex:264-272`: the **chart force** equals `ε⁻²` times the bracket
 `H_ε`.  The lift to the Spec field's `correctionForce ν v D ε` (over
-`D.correction`) uses the present U2 theorem `Transport.force_eq`; the canonical
-composition and single-copy germ are recorded in `research/T17/ATTEMPTS_UCAN.md`
-("G1 and the honest U4 residual") and checked by
+`D.correction`) is `force_eq_chart` below; the canonical periodized composition
+with U2's `Transport.force_eq` and its single-copy germ are recorded in
+`research/T17/ATTEMPTS_UCAN.md` ("G1 and the honest U4 residual") and checked by
 `research/T17/probes/force_profile_canonical.lean`. -/
 theorem physicalForce_eq_rescaledForceProfile (ν : ℝ) {v : SpaceTimeField}
     (hv : ContDiff ℝ ∞ v) (x₀ : Space) (T : ℝ) (D : CutoffData)
@@ -260,5 +272,59 @@ theorem physicalForce_eq_rescaledForceProfile (ν : ℝ) {v : SpaceTimeField}
   rw [physicalForce_eq_profile ν hv x₀ T ε hε.1.ne' hθ hη (correctionChartPoint x₀ T ε z),
     inverseScale_correctionChartPoint x₀ T ε hε.1.ne' z,
     rescaledForceProfile_eq_forceProfile ν hv x₀ T ε D hθ hη z]
+
+/-- The lift from the chart force to the abstract-correction force
+`correctionForce ν v D ε` (lane 373's Spec spelling), on the chart point.  With a
+`LocalPotentialAPI` witness, `D.correction ε` and `physicalCorrection …` agree on
+the open chart neighbourhood `univ ×ˢ ball x₀ r` (lane 370
+`correction_eq_physicalCorrection`), so the two force operators agree at the
+chart point by locality (`source_correctionForce_congr`) after the commutative
+reorder of the two middle summands (`correctionForce_eq_source`, both from
+lane 373's `Transport.lean`). -/
+theorem force_eq_chart {v U : SpaceTimeField} {K : Set Space} (ν : ℝ)
+    {x₀ : Space} {r T δ : ℝ} {D : CutoffData}
+    (hpot : LocalPotentialAPI v U K x₀ r T δ D) :
+    ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ z ∈ fixedProfileCylinder D,
+      correctionForce ν v D ε (correctionChartPoint x₀ T ε z) =
+        Source.correctionForce ν v (physicalCorrection v x₀ T D.θ D.η ε)
+          (correctionChartPoint x₀ T ε z) := by
+  intro ε hε z hz
+  obtain ⟨σ, y⟩ := z
+  obtain ⟨_, hy⟩ := hz
+  have hyR : ‖y‖ ≤ D.θRadius := by
+    simpa [Metric.mem_closedBall, dist_eq_norm] using hy
+  have hxmem : x₀ + ε • y ∈ Metric.ball x₀ r := by
+    rw [Metric.mem_ball, dist_eq_norm]
+    have hnorm : ‖x₀ + ε • y - x₀‖ = ε * ‖y‖ := by
+      rw [add_sub_cancel_left, norm_smul, Real.norm_eq_abs, abs_of_pos hε.1]
+    rw [hnorm]
+    calc ε * ‖y‖ ≤ ε * D.θRadius := mul_le_mul_of_nonneg_left hyR hε.1.le
+      _ < r := hpot.eps_space ε hε
+  have hchart : correctionChartPoint x₀ T ε (σ, y) = (T + ε ^ 2 * σ, x₀ + ε • y) := rfl
+  rw [hchart, congrFun (correctionForce_eq_source ν v D ε) (T + ε ^ 2 * σ, x₀ + ε • y)]
+  refine source_correctionForce_congr ?_
+  have hopen : IsOpen ((Set.univ : Set ℝ) ×ˢ Metric.ball x₀ r) :=
+    isOpen_univ.prod Metric.isOpen_ball
+  have hmem : ((T + ε ^ 2 * σ, x₀ + ε • y) : SpaceTime) ∈
+      (Set.univ : Set ℝ) ×ˢ Metric.ball x₀ r :=
+    ⟨Set.mem_univ _, hxmem⟩
+  filter_upwards [hopen.mem_nhds hmem] with p hp
+  obtain ⟨t', x'⟩ := p
+  exact correction_eq_physicalCorrection hpot hε hp.2
+
+/-- `03-torus.tex:264-272`, `Spec.lean:834-837`: **the Spec-form
+`force_profile_identity`** — the abstract-correction force equals `ε⁻²` times the
+bracket at the chart point.  Closed from a `LocalPotentialAPI` witness via
+`force_eq_chart` and `physicalForce_eq_rescaledForceProfile`. -/
+theorem force_profile_identity {v U : SpaceTimeField} {K : Set Space} (ν : ℝ)
+    (hv : ContDiff ℝ ∞ v) {x₀ : Space} {r T δ : ℝ} {D : CutoffData}
+    (hpot : LocalPotentialAPI v U K x₀ r T δ D) :
+    ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ z ∈ fixedProfileCylinder D,
+      correctionForce ν v D ε (correctionChartPoint x₀ T ε z) =
+        (ε ^ 2)⁻¹ • rescaledForceProfile ν v x₀ T ε D z := by
+  intro ε hε z hz
+  rw [force_eq_chart ν hpot ε hε z hz]
+  exact physicalForce_eq_rescaledForceProfile ν hv x₀ T D
+    hpot.theta_smooth hpot.eta_smooth ε hε z hz
 
 end NSFormalization.Section3.T17
