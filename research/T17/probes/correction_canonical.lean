@@ -1214,7 +1214,7 @@ theorem torusSpatialSupport_eq (f : SpaceTimeField) :
 theorem torusTemporalSupport_eq (f : SpaceTimeField) :
     Spec.torusTemporalSupport f = NSFormalization.Section3.T17.torusTemporalSupport f := rfl
 
-/-! ## All forty fields, in both directions -/
+/-! ## All forty-five fields, in both directions -/
 
 def ofSpec {ν : ℝ} {P : PacketAPI ν}
     {place : BlowupDensity.T15.Spec.PlacementData P}

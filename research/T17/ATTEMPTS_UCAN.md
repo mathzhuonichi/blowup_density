@@ -45,7 +45,7 @@ the base and are imported unchanged.
 | 16 | `forceProfileConst_nonneg` | unchanged | U4, exact in probe |
 | 17 | `force_profile_uniform` | bare force-profile helper | U4, exact under `hv`, `D.ε₀≤1` |
 | 18 | `correction_profile_identity` | bare chart/profile helpers | U3, exact under `hv` and `potential` |
-| 19 | `force_profile_identity` | bare chart/profile helpers | U4 chart-force theorem; U2/assembly still supplies the lattice-to-chart germ bridge |
+| 19 | `force_profile_identity` | bare chart/profile helpers | U4 chart-force theorem; U2/assembly still supplies the lattice-to-chart germ bridge | **Update (fix after review 394): CLOSED** — `force_profile_identity_canonical` in `research/T17/probes/force_profile_canonical.lean` proves the literal canonical field type (via `Transport.force_eq`, the `latticeLift_eq_of_ball` single-copy germ and `physicalForce_eq_rescaledForceProfile`); the only extra premise is the documented G1 `hv`.
 | 20 | `force_smooth` | canonical `T17.correctionForce` | later T17 unit |
 | 21 | `force_periodic` | same | U2 supplies periodicity |
 | 22 | `force_support` | canonical `T16.periodicSet`, raw placement | later T17 unit |
