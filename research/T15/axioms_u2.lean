@@ -1,8 +1,11 @@
 import NSFormalization.Section3.T15.Placement
 #print axioms NSFormalization.Section3.T15.scaledActivation_eq
+#print axioms NSFormalization.Section3.T15.tsupport_subset_of_slice_zero
 #print axioms NSFormalization.Section3.T15.affineImage_compact
 #print axioms NSFormalization.Section3.T15.affineImage_subset_ball
 #print axioms NSFormalization.Section3.T15.ball_subset_interior_cube
+#print axioms NSFormalization.Section3.T15.scaledVelocity_slice_eq_zero
+#print axioms NSFormalization.Section3.T15.scaledPressure_slice_eq_zero
 #print axioms NSFormalization.Section3.T15.scaledVelocity_tsupp_subset
 #print axioms NSFormalization.Section3.T15.scaledPressure_tsupp_subset
 #print axioms NSFormalization.Section3.T15.scaledForce_tsupp_subset

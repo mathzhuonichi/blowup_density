@@ -13,7 +13,7 @@ open Set NavierStokes.ProblemStatement
 example {u : VelocityField} {x₀ : Space} {T ε : ℝ} {carrier Kstar : Set Space}
     (hε : 0 < ε) (hcarrier_compact : IsCompact carrier)
     (hvel : ∀ t ∈ Ico (0 : ℝ) 1, tsupport (fun x => u (t, x)) ⊆ carrier)
-    (hcarrier_subset : carrier ⊆ Kstar) {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) :
+    (hcarrier_subset : carrier ⊆ Kstar) {t : ℝ} (ht : t < T) :
     tsupport (fun x => scaledVelocity u x₀ T ε (t, x)) ⊆
       (fun y => x₀ + (2 * ε) • y) '' Kstar :=
   scaledVelocity_tsupp_subset hε hcarrier_compact hvel hcarrier_subset ht

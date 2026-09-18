@@ -61,12 +61,13 @@ example :
   simpa [scaledVelocity, scaledSourcePoint, scaledStartTime, zeroPastField,
     rev376Velocity] using (smul_ne_zero (by norm_num : (2 : ℝ) ≠ 0) hv)
 
-/-- The lane theorem `scaledVelocity_tsupp_subset` fires on this concrete packet
-at a genuine presingular time `t = 1/2 ∈ Ico 0 1` (here `T = 1`), from its raw
-support clauses: the bump slice support is `t`-independent and compact, with
-`Kstar = carrier = closedBall 0 (1/4)`.  (The reviewer's original check evaluated
-at `t = 1`, which is `= T` and outside the honest window `Ico 0 T`; the
-`t`-uniform direct bound `rev376_scaled_support` above still covers that time.) -/
+/-- The lane theorem `scaledVelocity_tsupp_subset` fires for every `t < T` on
+this concrete packet, from its raw support clauses (bump slice support is
+`t`-independent and compact, `Kstar = carrier = closedBall 0 (1/4)`).  This
+instance is the **pre-activation** case `t = 1/2 < t_ε = 1 - (1/2)² = 3/4`: the
+slice is identically zero there, so the (empty) support is trivially contained in
+the image.  The **active nonzero** case at `t = 7/8` is in
+`research/T15/probes/rev376_honest_nonvacuity.lean`. -/
 example :
     tsupport (fun x : Space =>
       scaledVelocity rev376Velocity 0 1 (1 / 2) (1 / 2, x)) ⊆
@@ -77,6 +78,6 @@ example :
     (fun t _ => by
       have he : (fun x : Space => rev376Velocity (t, x)) = rev376Field := rfl
       rw [he]; exact rev376Field_tsupport)
-    Subset.rfl (by norm_num : (1 / 2 : ℝ) ∈ Ico (0 : ℝ) 1)
+    Subset.rfl (by norm_num : (1 / 2 : ℝ) < 1)
 
 end NSFormalization.Section3.T15
