@@ -1,6 +1,16 @@
 # T17 — proof-lane split (`lem:correction`, `paper/sections/03-torus.tex:218-286`)
 
-Lead-facing, 2026-09-18. Target = the reconciled `CorrectionAPI` (Spec.lean:752-960, 40 fields) +
+**U-CAN status (lane 394, DONE 2026-09-18).**
+`Section3/T17/Correction.lean` now restates the full 45-field `CorrectionAPI`
+over T15 U-CAN's raw-field `PlacementData u p f K`, canonical T16/T13 records,
+and the bare `place.x₀`/`place.T` profile spelling required by T18 U1.  The
+contract-side probe supplies fieldwise conversions in both directions through
+lane 384's placement adapter and exact checks against U3/U4/U5/U6.  The Spec
+field list remains unchanged (no `reference_smooth`); G1 is still an assembly
+hypothesis/truncation decision.  Because lane 375 was absent from this base,
+its canonical `ForceProfile.lean` source was restored as a new file here.
+
+Lead-facing, 2026-09-18. Target = the reconciled `CorrectionAPI` (Spec.lean:752-960, 45 fields) +
 `correctionStatement` (`Spec.lean:980`) over T15's `PlacementData`, T16's `CutoffData`/`LocalPotentialAPI`,
 and T13's `LocalizationAPI`. Design = `research/T17/RECONCILIATION.md` §3 + `COMPARISON.md` "Proof
 dependencies" (8 numbered items). House style = `research/T11/T11_SPLIT.md`, `research/T15/T15_SPLIT.md`.
