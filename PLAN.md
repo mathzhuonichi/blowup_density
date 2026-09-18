@@ -178,5 +178,15 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 410-SPEC-t21-draft-a | 已合入：T21 草案 A（DraftA.lean 1389 行 0 错误 + COMPARISON_A）→ 等对账 #375 | 09-18 1713Z | #375 | — | T21 spec 双盲草案 A：thm:main (i)+(ii) + cor:nondensity（NonDensityAPI / MainTheoremAPI，消费 T19/T20 canonical） |
 | 411-SPEC-t21-draft-b | 已合入：T21 草案 B（DraftB.lean 1407 行 0 错误 + COMPARISON_B）→ 对账 #376 | 09-18 1713Z | #376 | — | T21 spec 双盲草案 B（与 A 互不可见） |
 | 412-MAINT-t17-forceprofile-merge-repair | 已合入：ForceProfile.lean 修复（integration 版本 + 394 文档；lead 首次恢复会丢 375 rev1 的两条定理，Opus 发现并修正）；T17 闭包/22 探针/门禁全绿；解锁 T18 #377 | 09-18 1715Z | #377 | — | MAINT：#366 union 合并损坏 T17/ForceProfile.lean（重复 import、拆裂 docstring）→ 恢复为 394 已审版本（c4be85b0），全 T17 闭包 + 探针 + 门禁验证 |
-| 413-T20-U7-critical-trilinear | Opus 完成：criticalTrilinear（环面三因子 Hölder + T12 U4/U6；常数 CcriticalHalf·CcriticalThreeHalves² = 16·CcriticalHalf³；U8 桥 rfl）→ 排队 codex 审稿；U8 解锁 | 09-18 1716Z | — | — | T20 U7：均值零临界三线性估计 abs⟪(v·∇)v,Λv⟫ ≤ C₀ y z²（三因子 Hölder + T12 U4/U6），U8 criticalEnergy 的核心 |
-| 414-T24-Ua4-force-smooth-support | Opus 完成：force_smooth（需 0<τ₀、τ₁<1）+ force_support（仅需 0<τ₀）逐字，vendor ResidualRegularity 局部性引理粘合 → 排队 codex 审稿 | 09-18 1716Z | — | — | T24a Ua4：force_smooth + force_support（修正力跨 t=1 的光滑零延拓与紧正时间支撑，②） |
+| 413-T20-U7-critical-trilinear | 已合入：T20 U7 三线性估计（常数 16·CcriticalHalf³，U8 桥 rfl），审稿 ACCEPT #378 | 09-18 1729Z | #378 | — | T20 U7：均值零临界三线性估计 abs⟪(v·∇)v,Λv⟫ ≤ C₀ y z²（三因子 Hölder + T12 U4/U6），U8 criticalEnergy 的核心 |
+| 414-T24-Ua4-force-smooth-support | 已合入：T24 Ua4 force_smooth（0<τ₀、τ₁<1）+ force_support（仅 0<τ₀），审稿 ACCEPT-WITH-NOTES #379 | 09-18 1729Z | #379 | — | T24a Ua4：force_smooth + force_support（修正力跨 t=1 的光滑零延拓与紧正时间支撑，②） |
+| 415-T20-U8-critical-energy | Opus prover 子代理运行中 | 09-18 1727Z | — | — | T20 U8：criticalEnergy（eq:criticalenergy：y² 导数 + 压力消去 + 常输运反自伴 + 耗散 + U7 三线性 + 力项 ≤ b y） |
+| 416-SPEC-t21-reconcile | Opus prover 子代理运行中（对账 DraftA/DraftB → RECONCILIATION.md + Spec.lean） | 09-18 1726Z | — | — | T21 spec 对账：DraftA（410）vs DraftB（411）→ research/T21/RECONCILIATION.md（lead 审批后定稿 Spec.lean） |
+| 417-T24-Ua7-infinite-dimensional | Opus 完成：infinite_dimensional（可数不交球上 curl-bump 族 bFam，线性无关；共享见证库 AffineWitness.lean；仅需 0<r、τ₀<τ₁；42 声明）→ 排队审稿 | 09-18 1742Z | — | — | T24a Ua7：infinite_dimensional（可数个不交球上 curl-bump 族 + 线性无关，④） |
+| 418-T22-UZ1-zero-extension-comparison | codex 完成：zeroExtensionComparison 逐字（U-B1 左侧 + cutoffMultiplier×ENNReal.mul_iInf 右侧；空 datum 情形 ≤ ⊤）→ 排队审稿；T22 三字段全证 → U-REG（423） | 09-18 1740Z | — | — | T22 U-Z1：zeroExtensionComparison 装配（U-A3 常数 + U-B1/B2/B3） |
+| 419-T12-UREG-contract | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T12 合同注册：T01.mean_zero_calculus（MeanZeroSobolevCalculusAPI 9 字段 + 绑定 + 测试，43 合同） |
+| 420-T24-Uc3-conservative-registration | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T24c Uc3：ConservativeForcingAPI 装配 + 注册 T04.conservative_forcing（Uc1+Uc2；真实 ClassicalSolutionT 非空见证） |
+| 421-T15-U3-single-copy | codex 完成：六字段（三 summable + 三 singleCopy）逐字 + 四条通用格点引理（cbad43df）→ 排队审稿 | 09-18 1742Z | — | — | T15 U3：格点可和性 + 单拷贝六字段（SingleCopy.lean，U2 放置 + periodize 引理） |
+| 422-T18-U1-insertion-data | worktree 安装中 → codex sol | 09-18 1716Z | — | — | T18 U1：插入三元组 + 三个 eq:insertion 公式 + 阈值 + 平凡假设字段（Insertion.lean，canonical T15/T17 记录） |
+| 423-T22-UREG-contract | worktree 安装中（基于 418 + integration）→ codex sol | 09-18 1740Z | — | — | T22 U-REG：BoundedDomainNormAPI 装配 + 注册 T04.bounded_domain_norm（合同/绑定/测试/非空） |
+| 424-T24-Ua8-nonisolated | worktree 安装中 → Opus prover | 09-18 1743Z | — | — | T24a Ua8：nonisolated（Ũ_{λb}−U = λb、F̃_{λb}−F = λL_U b + λ²(b·∇)b 的 C^m 半范数 → 0，⑤） |
