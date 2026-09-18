@@ -70,3 +70,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 302-T11-canonical-module | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0025Z | — | — | T11 规范定义模块 `Section3/T11/LocalTheory.lean`（新定义逐字落 Lake 模块；probe 把五个 API 陈述在模块上；附 Paper1/HeliCorgi 实现候选调查 → T11 证明 lane 拆分依据） |
 | 303-SPEC-t20-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-18 0031Z | — | — | SPEC **T20 双盲草案 A**：`prop:critical`（均值消去、`eq:criticalenergy/bintegral/ybound/H1energy`、经 `eq:criterion` 全局；镜像 R43+C01+A04） |
 | 304-SPEC-t20-draft-b | worktree 安装中→自动启动（codex sol xhigh） | 09-18 0036Z | — | — | SPEC **T20 双盲草案 B**（同上，互不可见） |
+| 305-T10-fourier-calculus | 排队（下一个空位；astra 优先；简报已写） | 09-18 0040Z | — | — | T10 基础引理：光滑周期场的 Fourier 微积分（导数符号 `2πi k_j`、Laplacian 符号、系数快速衰减、可和性与逐点反演、sup 界）→ 解锁 T12 `boundedRepresentative`/`lambda_exists`/`hTwo_le_laplacian` 与 T13 |
+| 306-SPEC-t24-draft-a | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 A**：`prop:affine`/`prop:multiple`/`prop:conservative`（三个独立结构；基于 T14/T15 定稿） |
+| 307-SPEC-t24-draft-b | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 B**（同上，互不可见） |
