@@ -47,7 +47,7 @@ by the final form of lane 326 and are reused from there — see
 ## 2. Lean 里现在有什么 / What is in Lean
 
 New module `formalization/NSFormalization/Section3/T11/MildMomentum.lean`
-(66 named declarations, 2 explicitly named local instances), namespace
+(67 named declarations, 2 explicitly named local instances), namespace
 `NSFormalization.Section3.T11`.
 
 ### The differentiation core
@@ -113,12 +113,15 @@ reused verbatim.  Added here:
 
 `momentum_of_pressure` is conditional only on data hypotheses:
 `TorusForcedMildOn C A P T u`, `ContinuousOn P (Icc 0 T)`,
-`PersistenceInput T u`, `PersistenceInput T F`,
-`∀ t ≥ 0, IsPeriodicLerayDatum (F t) (P t)`, `ContDiff ℝ ∞ g`,
-`IsPeriodicOn univ g`, `IsPeriodicSobolevPath 3 g F`, smoothness/periodicity of
-the pressure slices, the gradient-datum identity, and divergence-freeness (lane
-320's `persistence_mild_physical_divergence`).  `PersistenceInput T F` is the
-*same* predicate as for `u`, applied to the force datum path — not a new name.
+`PersistenceInput T u`, `∀ t ≥ 0, IsPeriodicLerayDatum (F t) (P t)`,
+`ContDiff ℝ ∞ g`, `IsPeriodicOn univ g`, `IsPeriodicSobolevPath 3 g F`,
+smoothness/periodicity of the pressure slices, the gradient-datum identity, and
+divergence-freeness (lane 320's `persistence_mild_physical_divergence`).
+**`PersistenceInput T u` is the only named input**: the force side is now the
+theorem `persistenceInput_force_of_smooth` (smooth periodic `g` + the order-three
+datum path ⟹ continuous datum paths at every order), proved from
+`CriterionBridge.exists_periodicDatum_smooth` and
+`T10/ForcePaths.continuous_datum_path` — see `ATTEMPTS_MILD_MOMENTUM.md` §6.
 
 ### Non-vacuity
 
@@ -170,7 +173,7 @@ cd verification && lake env lean ../research/T11/probes/mild_momentum_closes.lea
   → no output (clean); every delivered target closes at its verbatim statement
 
 cd verification && lake env lean ../research/T11/axioms_mild_momentum.lean
-  → no output; all 66 `#guard_msgs` pass:
+  → no output; all 67 `#guard_msgs` pass:
     every declaration depends on exactly [propext, Classical.choice, Quot.sound]
 
 make check   (from the worktree root)

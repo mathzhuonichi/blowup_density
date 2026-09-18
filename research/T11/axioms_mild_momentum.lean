@@ -165,6 +165,10 @@ Quot.sound]`. -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.persistence_nonlinear_decay
 
+/-- info: 'NSFormalization.Section3.T11.persistenceInput_force_of_smooth' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms NSFormalization.Section3.T11.persistenceInput_force_of_smooth
+
 /-- info: 'NSFormalization.Section3.T11.persistence_force_decay' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.persistence_force_decay
