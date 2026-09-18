@@ -22,17 +22,17 @@ open scoped ContDiff ENNReal BigOperators
 def affineCylinder (c : Space) (r τ₀ τ₁ : ℝ) : Set SpaceTime :=
   Ioo τ₀ τ₁ ×ˢ Metric.ball c r
 
-/-- `03-torus.tex:672-673`: smooth compactly supported solenoidal variations. -/
+/-- `03-torus.tex:671`: smooth compactly supported solenoidal variations. -/
 def AffineAdmissible (c : Space) (r τ₀ τ₁ : ℝ) (b : VelocityField) : Prop :=
   ContDiff ℝ ∞ b ∧ HasCompactSupport b ∧
     tsupport b ⊆ affineCylinder c r τ₀ τ₁ ∧
     (∀ t : ℝ, ∀ x : Space, spatialDivergence b t x = 0)
 
-/-- `eq:affine`, `03-torus.tex:674`: `Ũ = U+b`. -/
+/-- `eq:affine`, `03-torus.tex:673`: `Ũ = U+b`. -/
 def affineVelocity (U b : VelocityField) : VelocityField :=
   fun z ↦ U z + b z
 
-/-- `eq:affine`, `03-torus.tex:674`: `P̃ = P`. -/
+/-- `eq:affine`, `03-torus.tex:673`: `P̃ = P`. -/
 def affinePressure (P : PressureField) : PressureField := P
 
 /-- The transport term `(v·∇)w` in the affine expansion. -/
