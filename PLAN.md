@@ -161,5 +161,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 393-T22-UA5-orderzero | Opus prover 子代理运行中（基座 = 387 分支 + integration-section3） | 09-18 1339Z | — | — | T22 U-A5：orderZero 字段（0 阶域 Sobolev 范数 = L²(Ω) 范数；387 等距 + 383 限制桥 + 商范数恒等式） |
 | 394-T17-UCAN-canonical-correction | codex sol 运行中（astra 备用；基座 = 384 分支 + integration） | 09-18 1343Z | — | — | T17 U-CAN（U12 前半）：canonical CorrectionAPI 逐字重述于 T15 原始字段 PlacementData / T16 / T13 记录之上（G1 不改字段表；G3 用 place.x₀/place.T）+ probe 双向转换与已证单元闭合 |
 | 395-T24-Uc2-potential-pairing | Opus prover 子代理运行中 | 09-18 1351Z | — | — | T24 Uc2：potential_pairing（周期梯度与无散周期场的 Haar 配对为零；环面分部积分） |
-| 396-T12-U4-velocity-critical-l3 | worktree 安装中→Opus prover 子代理（基座 = 377 分支 + integration） | 09-18 1351Z | — | — | T12 U4：velocityCriticalL3（Haar↔cube 传输 + cutoffMul + 已注册 A05 全空间嵌入 + 377 核心 + 谱隙；显式常数 CcriticalHalf） |
-| 397-T22-UA3-cutoff-multiplier | worktree 安装中→Opus prover 子代理（基座 = 391 分支 + integration） | 09-18 1351Z | — | — | T22 U-A3（分析核心，关键路径）：cutoffMultiplier 字段（Peetre 权比 × 391 核质量 → Young L¹∗L² → ‖B‖ ≤ C‖A‖，IsCutoffDatum 配对恒等式） |
+| 396-T12-U4-velocity-critical-l3 | Opus prover 子代理运行中（基座 = 377 分支 + integration） | 09-18 1354Z | — | — | T12 U4：velocityCriticalL3（Haar↔cube 传输 + cutoffMul + 已注册 A05 全空间嵌入 + 377 核心 + 谱隙；显式常数 CcriticalHalf） |
+| 397-T22-UA3-cutoff-multiplier | Opus prover 子代理运行中（基座 = 391 分支 + integration） | 09-18 1354Z | — | — | T22 U-A3（分析核心，关键路径）：cutoffMultiplier 字段（Peetre 权比 × 391 核质量 → Young L¹∗L² → ‖B‖ ≤ C‖A‖，IsCutoffDatum 配对恒等式） |
