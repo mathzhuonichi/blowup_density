@@ -90,6 +90,19 @@ in the tree today.
   `physicalCorrection_eq_profile:223` (identity via `inverseScale`, matching `correctionChartPoint`).
   `fixedProfileCylinder D = Icc(-2,2)×closedBall 0 D.θRadius` contains `tsupport(profile)` by
   T16 `eta_support`/`theta_support`. **L, Opus.** Deps: —.
+  **STATUS 2026-09-18 (lane 370, DONE, module builds / axioms clean).** All six fields proved in
+  `formalization/NSFormalization/Section3/T17/CorrectionProfile.lean` (`correction_profile_smooth`,
+  `correction_profile_support`, `correctionProfileConst` (def) + `_nonneg`, `correction_profile_uniform`,
+  `correction_profile_identity`), each `[propext, Classical.choice, Quot.sound]`. Bridge
+  `rescaledCorrectionProfile_eq_profile` is `rfl` (the display `𝒜_ε` = Paper1 `jointPotential`) + one
+  curl-slice fderiv lemma; identity via `LocalPotentialAPI.correction_formula`/`potential_formula` →
+  `physicalCorrection` → `physicalCorrection_rescale`. **Two residuals for U12/spec** (see
+  `research/T17/ATTEMPTS_U3.md`): (G1) the fields need **global** `hv : ContDiff ℝ ∞ v` (Paper1 `profile_*`),
+  which `CorrectionAPI` does not expose (`reference_periodic` only, no `reference_smooth`) — the assembly
+  must add that field or truncate v à la T16 `BallPotential`; (G2) the identity's non-vacuity needs the T16
+  `localPotential` assembly (lane 358, not in this worktree). Placement bundling `place : PlacementData P`
+  deferred (bare `x₀ : Space`, `T : ℝ`, like canonical T16; `PacketAPI` is in `verification/`, unreachable
+  from `formalization/`).
 
 - **U4 — force profile fields + identity** (Euclidean reuse). New `Section3/T17/ForceProfile.lean`.
   Targets `force_profile_smooth`, `force_profile_support`, `forceProfileConst`, `forceProfileConst_nonneg`,
