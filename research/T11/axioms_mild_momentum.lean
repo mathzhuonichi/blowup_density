@@ -109,34 +109,6 @@ Quot.sound]`. -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.norm_lerayAt_le
 
-/-- info: 'NSFormalization.Section3.T11.eq_torusScalarSeries_of_summable' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.eq_torusScalarSeries_of_summable
-
-/-- info: 'NSFormalization.Section3.T11.periodicFourierCoeff_mul' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.periodicFourierCoeff_mul
-
-/-- info: 'NSFormalization.Section3.T11.periodicFourierCoeff_finsetSum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.periodicFourierCoeff_finsetSum
-
-/-- info: 'NSFormalization.Section3.T11.convectionDivergenceT_component' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.convectionDivergenceT_component
-
-/-- info: 'NSFormalization.Section3.T11.periodicFourierCoeff_convectionDivergenceT' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.periodicFourierCoeff_convectionDivergenceT
-
-/-- info: 'NSFormalization.Section3.T11.torusConvectionCoeff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.torusConvectionCoeff
-
-/-- info: 'NSFormalization.Section3.T11.torusPhysicalCoeff_convectionDatum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.torusPhysicalCoeff_convectionDatum
-
 /-- info: 'NSFormalization.Section3.T11.torusProjectedConvectionSymbol_eq_lerayAt' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.torusProjectedConvectionSymbol_eq_lerayAt
@@ -148,10 +120,6 @@ Quot.sound]`. -/
 /-- info: 'NSFormalization.Section3.T11.physicalVelocity_coeff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.physicalVelocity_coeff
-
-/-- info: 'NSFormalization.Section3.T11.convectionDivergenceT_coeff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.convectionDivergenceT_coeff
 
 /-- info: 'NSFormalization.Section3.T11.one_le_periodicFrequencyWeight'' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -185,9 +153,9 @@ Quot.sound]`. -/
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.torusWeightMass_nonneg
 
-/-- info: 'NSFormalization.Section3.T11.norm_torusConvectionCoeff_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'NSFormalization.Section3.T11.norm_convectionDatum_coeff_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.norm_torusConvectionCoeff_le
+#print axioms NSFormalization.Section3.T11.norm_convectionDatum_coeff_le
 
 /-- info: 'NSFormalization.Section3.T11.norm_torusPhysicalCoeff_bilinear_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

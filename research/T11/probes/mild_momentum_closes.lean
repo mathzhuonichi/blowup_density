@@ -78,14 +78,18 @@ example (hmild : TorusForcedMildOn C Ad P T u) :
     ContinuousOn (torusPhysicalVelocity u) (Icc (0 : ℝ) T ×ˢ (univ : Set Space)) :=
   torusForcedMildOn_physical_continuous hmild
 
-/-! ## The convection identity (the periodic convolution theorem in action) -/
+/-! ## The Leray form of the contract's nonlinearity
 
-example (hu : PersistenceInput T u) {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T)
+(The convection identity itself — the physical tensor divergence is the
+canonical `torusConvectionDatum` — is lane 326's
+`periodicFourierCoeff_convection_eq_torusConvectionDatum`; this lane adds the
+projected form.) -/
+
+example {ν : ℝ} (C : TorusTwoSpaceContract ν) (A B : PeriodicSobolev 3)
     (i : Fin 3) (k : PeriodicFrequency) :
-    periodicFourierCoeff
-      (fun x ↦ ((convectionDivergenceT (torusPhysicalVelocity u) t x i : ℝ) : ℂ)) k =
-      torusConvectionCoeff (u t) (u t) i k :=
-  convectionDivergenceT_coeff hu ht i k
+    torusPhysicalCoeff 2 (C.analytic.bilinear A B) i k =
+      lerayAt k (fun j ↦ torusPhysicalCoeff 2 (torusConvectionDatum A B) j k) i :=
+  torusPhysicalCoeff_bilinear C A B i k
 
 /-! ## `ClassicalSolutionT.momentum`, verbatim, for a qualifying pressure -/
 

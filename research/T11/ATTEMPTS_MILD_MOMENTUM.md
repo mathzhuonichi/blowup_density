@@ -178,3 +178,36 @@ solution, the persistence input and the derivative formula on it).
   what makes `P̂F̂ − P̂Q̂ = P̂(F̂ − Q̂)` a one-line `lerayAt_sub`.
 * `heat_duhamel_hasDerivAt` is the general forced scalar ODE and is independent of
   the torus: any Duhamel coefficient in this tree can be differentiated with it.
+
+## 5. Rebase on the merged lane 326 (dedupe)
+
+Lane 326 landed on `origin/erenup/integration-section3` in a revised form that
+itself proves the periodic convolution theorem and the convection
+identification.  After `git merge origin/erenup/integration-section3` the
+following declarations of this module were **removed** because the merged
+`MildPressure.lean` now contains them (326's versions are used):
+
+| removed from `MildMomentum.lean` | replaced by (in merged `MildPressure.lean`) |
+|---|---|
+| `periodicFourierCoeff_mul` | `periodicFourierCoeff_mul` (326's: smooth-periodic hypotheses, `∑' l, f̂(l) ĝ(k−l)`) |
+| `eq_torusScalarSeries_of_summable` | `eq_torusScalarSeries_of_smooth` |
+| `periodicFourierCoeff_finsetSum` | `periodicFourierCoeff_sum_spatialPartial` |
+| `convectionDivergenceT_component` | `convectionDivergenceT_component` (326's; argument order `(hv) (x) (i)`) |
+| `periodicFourierCoeff_convectionDivergenceT` | subsumed by `periodicFourierCoeff_sum_spatialPartial` + `periodicFourierCoeff_mul` |
+| `def torusConvectionCoeff` | inlined: `torusPhysicalCoeff 2 (torusConvectionDatum A B) i k` |
+| `torusPhysicalCoeff_convectionDatum` | `torusPhysicalCoeff_torusConvectionDatum` |
+| `convectionDivergenceT_coeff` | `periodicFourierCoeff_convection_eq_torusConvectionDatum` |
+| the `periodicFourierCoeff_mul` non-vacuity `example` | 326 carries its own |
+
+**Renamed** (statement reshaped to the canonical datum, not a duplicate):
+`norm_torusConvectionCoeff_le` → `norm_convectionDatum_coeff_le`, now bounding
+`‖torusPhysicalCoeff 2 (torusConvectionDatum A B) i k‖` and starting from 326's
+`torusPhysicalCoeff_torusConvectionDatum`.
+
+**Kept, because they are not in 326**: `torusProjectedConvectionSymbol_eq_lerayAt`,
+`torusPhysicalCoeff_bilinear` (the *Leray-projected* form of the convection
+coefficients, which 326 does not state), `physicalVelocity_coeff`, the whole
+weight/convolution decay chain, and everything in §§1–6 and §§10–15.
+`testFrequency*` was never referenced by this lane, so its removal from 326
+caused no breakage.  Declaration count 74 → 66; the audit file was regenerated
+and all 66 entries still print exactly the standard three axioms.

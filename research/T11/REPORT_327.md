@@ -1,7 +1,8 @@
 # REPORT 327 — T11 U9d2b: Duhamel time differentiation and the momentum equation
 
 Lane `327-T11-U9d2b-momentum`, branch `erenup/327-T11-U9d2b-momentum`
-(based on the integration branch with lane 326 merged).
+(rebased on `origin/erenup/integration-section3` with lane 326 in its final,
+merged form; see `ATTEMPTS_MILD_MOMENTUM.md` §5 for the dedupe).
 Unconditional modulo the data hypotheses listed below; **no new `def … : Prop`**,
 no named peeling input, no `sorry`/`admit`/`axiom`/`native_decide`, no
 `set_option maxHeartbeats`.
@@ -36,14 +37,17 @@ statement, and the exact `PeriodicLocalRegularity.projected` field statement, at
 every interior time.  Lane 326's constructed `mildPressure g u` instantiates
 both.
 
-**Two general tools proved on the way**, both recorded as absent from the tree by
-lane 326: the **periodic convolution theorem** and the **weight
-submultiplicativity + convolution decay estimate**.
+**General tools proved on the way**: the **weight submultiplicativity**
+`W(k) ≤ 2W(l)W(k−l)` with a **convolution decay estimate** that gains one weight
+power, and the **frequency-local Leray symbol** `lerayAt`.  (The periodic
+convolution theorem and the convection identification were proved independently
+by the final form of lane 326 and are reused from there — see
+`ATTEMPTS_MILD_MOMENTUM.md` §5 for the dedupe after the merge.)
 
 ## 2. Lean 里现在有什么 / What is in Lean
 
 New module `formalization/NSFormalization/Section3/T11/MildMomentum.lean`
-(74 named declarations, 2 explicitly named local instances), namespace
+(66 named declarations, 2 explicitly named local instances), namespace
 `NSFormalization.Section3.T11`.
 
 ### The differentiation core
@@ -69,19 +73,22 @@ New module `formalization/NSFormalization/Section3/T11/MildMomentum.lean`
 | `periodicFrequencyWeight_pow_shift_le`, `inv_pow_weight_shift_le` | the `n`-th power form and its inverse |
 | `norm_periodicDerivativeSymbol_le` | `‖2πi k_j‖ ≤ W(k)` |
 | `convolution_norm_bound` | summability **and** `∑'_l ‖c(l)d(k−l)‖ ≤ 2ⁿM²(∑W⁻²)·(W(k)ⁿ)⁻¹` from `‖c‖,‖d‖ ≤ M (W^{n+2})⁻¹` |
-| `norm_torusConvectionCoeff_le`, `norm_torusPhysicalCoeff_bilinear_le` | the same for the (projected) convection symbol |
+| `norm_convectionDatum_coeff_le`, `norm_torusPhysicalCoeff_bilinear_le` | the same for the (projected) convection symbol |
 | `persistence_nonlinear_decay`, `persistence_force_decay`, `mildDerivCoeff_decay` | locally uniform rapid decay of `Q̂`, of `P̂F̂`, and of the whole derivative coefficient |
 
-### The periodic convolution theorem and the convection identity
+### The Leray form of the contract's nonlinearity
+
+The convolution theorem `periodicFourierCoeff_mul`, the component identity
+`convectionDivergenceT_component` and the convection identification
+`periodicFourierCoeff_convection_eq_torusConvectionDatum` /
+`torusPhysicalCoeff_torusConvectionDatum` are lane 326's (merged form) and are
+reused verbatim.  Added here:
 
 | name | statement |
 |---|---|
-| **`periodicFourierCoeff_mul`** | `(f·g)^(k) = ∑'_l ĝ(l) f̂(k−l)` for continuous periodic `f`, `g` with `∑‖ĝ‖ < ∞` |
-| `eq_torusScalarSeries_of_summable` | a continuous periodic function with summable data is its own Fourier series |
-| `convectionDivergenceT_component` | `(∇·(v⊗v))_i = ∑_j ∂_j(v_j v_i)` |
-| `periodicFourierCoeff_convectionDivergenceT` | its Fourier data as `∑_j 2πi k_j ∑'_l v̂_j(l) v̂_i(k−l)` |
-| `torusConvectionCoeff`, `torusPhysicalCoeff_convectionDatum`, `torusPhysicalCoeff_bilinear` | the contract's `bilinear` is `lerayAt k` of exactly that convolution |
-| **`convectionDivergenceT_coeff`** | `(∇·(u⊗u))^_i(t,k) = torusConvectionCoeff (u t) (u t) i k`, i.e. the physical tensor divergence **is** the contract's nonlinearity |
+| `torusProjectedConvectionSymbol_eq_lerayAt` | `rfl`: the projected symbol is `lerayAt k` of the unprojected one |
+| **`torusPhysicalCoeff_bilinear`** | the contract's `bilinear` is `lerayAt k` of the canonical `torusConvectionDatum` coefficients |
+| `physicalVelocity_coeff` | `(v_j(t,·))^(l) = torusPhysicalCoeff 3 (u t) j l` |
 
 ### The Leray symbol on bare coefficient vectors
 
@@ -118,8 +125,7 @@ the pressure slices, the gradient-datum identity, and divergence-freeness (lane
 `mildMomentum_nonzero_instance`: an explicit contract `C`, the nonzero forced
 family `u t = (1+t)•e₀` driven by the constant force `e₀`, the `TorusForcedMildOn`
 witness, the `PersistenceInput`, the derivative formula at every interior time
-and every `(i,k)`, and `u 0 ≠ 0`.  Plus an `example` applying
-`periodicFourierCoeff_mul` to a genuine nonzero smooth periodic pair.
+and every `(i,k)`, and `u 0 ≠ 0`.
 
 ## 3. 缺口是什么 / What is not proved (exact residual statements)
 
@@ -164,7 +170,7 @@ cd verification && lake env lean ../research/T11/probes/mild_momentum_closes.lea
   → no output (clean); every delivered target closes at its verbatim statement
 
 cd verification && lake env lean ../research/T11/axioms_mild_momentum.lean
-  → no output; all 74 `#guard_msgs` pass:
+  → no output; all 66 `#guard_msgs` pass:
     every declaration depends on exactly [propext, Classical.choice, Quot.sound]
 
 make check   (from the worktree root)

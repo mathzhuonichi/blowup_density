@@ -417,6 +417,30 @@ proved by Fourier uniqueness from `−4π²|k|² p̂(k) = 2πi k·Ŝ(k)`, not by
 term-by-term differentiation. The source is identified with `F − Q` at the level
 of physical Fourier data (`mildPressureSourceCoeff_eq_force_sub_convection`).
 
+The **canonical coefficient-side `F − Q`** is proved, not merely the physical
+form: this lane supplies the missing **periodic convolution theorem**
+
+```lean
+theorem periodicFourierCoeff_mul {f g : Space → ℂ}
+    (hpf : IsPeriodicSpatial f) (hsf : ContDiff ℝ ∞ f)
+    (hpg : IsPeriodicSpatial g) (hsg : ContDiff ℝ ∞ g) (k : PeriodicFrequency) :
+    periodicFourierCoeff (fun x ↦ f x * g x) k =
+      ∑' l, periodicFourierCoeff f l * periodicFourierCoeff g (k - l)
+```
+
+and from it `periodicFourierCoeff_convection_eq_torusConvectionDatum`
+(`periodicFourierCoeff ((∇·(u⊗u))_i(t,·)) k = torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) i k`),
+`torusConvectionDatum_isPeriodicDatum`, `mildPressureSourceCoeff_eq_canonical`
+(`Ŝ_j = torusPhysicalCoeff 3 (F t) j k − torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) j k`),
+`mildPressure_gradient_canonical` (`∇p̂_i(k) = (k_i/|k|²)(k·(F̂−Q̂)(k))`) and
+`mildPressure_gradient_leray_canonical` (the T10 `periodicLeray` complement taken
+literally at `G₂ − Q`). Lane 327 can consume `periodicFourierCoeff_mul` directly.
+
+The **coefficient pressure is in every `H^m`**: `mildPressure_scalar_datum`
+exhibits `W(k)^{m/2} p̂(t)(k)` as a `T12.IsPeriodicScalarDatum (m : ℝ)` of the
+slice, whence `mildPressure_memPeriodicHm : T12.MemPeriodicHmScalar m` for every
+`m` and every `t ∈ Ico 0 T`. Both are bundled in `MildPressureFields`.
+
 **The one residual is exactly**
 
 ```lean
@@ -425,16 +449,57 @@ pressure_smooth : ContDiffOn ℝ ∞ (mildPressure g u) (Ico (0 : ℝ) T ×ˢ (u
 
 and it is *not derivable* from the permitted input: `PersistenceInput` gives only
 `ContinuousOn u_m (Ico 0 T)`, so no time derivative of `t ↦ p̂(t)(k)` exists yet.
-It needs the still-open Duhamel differentiation of `TorusForcedMildOn`. Even
-joint *continuity* on the slab needs the periodic convolution theorem
-`periodicFourierCoeff (f·g) k = ∑' l, f̂(l) ĝ(k−l)`, which is not in the tree
-(see `ATTEMPTS_MILD_PRESSURE.md` §0 and §3).
+It needs the still-open Duhamel differentiation of `TorusForcedMildOn`. Joint
+*continuity* on the slab is likewise unproved; with the convolution theorem now
+available its only remaining ingredients are a locally uniform all-order weighted
+convolution bound (needs `W(k)^N ≤ 4^N (W(l)^N + W(k−l)^N)`, the
+`ConvolutionBound.lean` shift being stated only at exponent 3) and continuity in
+`t` of the convolution sums — see `ATTEMPTS_MILD_PRESSURE.md` §3.2.
 
 Non-vacuity: a one-mode smooth periodic force together with the affine-constant
 persistent path gives all the fields **and** a nonzero pressure slice
 (`mildPressure_nonzero_instance`). The general U9d existential target above is
 unchanged. Details: `REPORT_326.md`, probe `probes/mild_pressure_closes.lean`,
-audit `axioms_mild_pressure.lean`.
+audit `axioms_mild_pressure.lean` (all 95 module declarations, every line exactly
+the standard three axioms; the concrete lattice mode used by the non-vacuity
+witness lives in the probe, so no module declaration has a smaller axiom set). Review and its resolution: `REVIEW_326-T11-U9d2a-pressure.md`,
+`REPORT_326.md` §1 and `ATTEMPTS_MILD_PRESSURE.md` §0'.
+## U9d1c status (lane 330)
+
+`TorusHalfStepInput` is **proved**: `Section3/T11/DuhamelHalfStep.lean` contains
+`theorem torusHalfStepInput : TorusHalfStepInput`, and with it
+`persistence_halfOrder_ladder_unconditional` and `persistence_unconditional` —
+lane 319's conditional persistence with its one named input discharged, on the
+original horizon and with no shrinkage. The U9d1 residual recorded above is
+therefore closed; the general U9d existential target (physical field, time
+regularity, pressure, momentum) is unchanged and still open.
+
+Route, with `σ = r + 1/2`:
+`w(t) = e^{νtΔ}A′ + ∫₀ᵗ e^{ν(t−τ)Δ}P_σ(τ)dτ − ∫₀ᵗ S_frac(ν(t−τ))Q_r(v τ, v τ)dτ`.
+`A′` is the order-`σ` datum of the smooth initial field; `Q_r` is lane 328's
+real-order projected convolution `H^r × H^r → H^{r−1}`; `S_frac` is lane 329's
+gain-`3/2` smoothing with the integrable endpoint kernel `(ν(t−τ))^{-3/4}`; the
+exponents match exactly, `W^{3/4}W^{(r−3)/2} = W^{(σ−3)/2}W^{1/2}`.
+
+Two things the brief's version of the route did not have. (i) The **force must
+be used at the top order**: gaining `σ` derivatives from the order-three force
+costs the kernel `(t−τ)^{-σ/2}`, integrable only for `σ < 2`, whereas `r ≥ 3` is
+arbitrary. Hence `exists_continuous_lerayForcePath σ`, which builds a
+*continuous* order-`σ` Leray force path from `ContDiff ℝ ∞ g` by taking the
+integer-order continuous datum path of `Section3/T10/ForcePaths.lean` at
+`m = ⌈σ⌉₊`, descending with the bounded `persistenceDown`, and projecting with
+(ii) the new **bounded Leray operator at every real order**,
+`torusLerayCLM (s : ℝ) : PeriodicSobolev s →L[ℝ] PeriodicSobolev s`
+(`Section3/T10/Leray.lean` only had an existential), which commutes with order
+transport and is unique, so the hypothesis' `P t` is literally `torusLerayCLM 3 (F t)`.
+
+Integrability and continuity of the singular Duhamel term are not re-proved: the
+module builds a genuine
+`MNS2.EndpointSafeTwoSpaceDuhamelContract ℝ (PeriodicSobolev (r+1/2)) (PeriodicSobolev (r-1))`
+(`torusFracContract`) out of lanes 328/329, so HeliCorgi's endpoint-safe theory
+applies verbatim; continuity on the half-open `Ico 0 T` is obtained from closed
+subwindows. All 45 declarations pass exact standard-three-axiom guards.
+Details: `REPORT_330.md`, `ATTEMPTS_DUHAMEL_HALF_STEP.md`.
 
 ## U9d2b status — lane 327 (Duhamel time differentiation and the momentum equation)
 
@@ -460,12 +525,15 @@ no named input beyond `PersistenceInput`, no `def … : Prop`).
   the Leray-complement data `(I−P)(F−Q)`; `momentum_of_mildPressure` /
   `projected_of_mildPressure` instantiate them with lane 326's constructed
   `mildPressure g u`.
-* **New general tools:** the periodic convolution theorem
-  `periodicFourierCoeff_mul`, the weight submultiplicativity `W(k) ≤ 2W(l)W(k−l)`
+* **New general tools:** the weight submultiplicativity `W(k) ≤ 2W(l)W(k−l)`
   with the one-power-gain convolution estimate `convolution_norm_bound`, the
-  frequency-local Leray symbol `lerayAt`, and the identity
-  `convectionDivergenceT_coeff` showing the contract's bilinear map is exactly
-  the Leray projection of the physical tensor divergence.
+  frequency-local Leray symbol `lerayAt`, and `torusPhysicalCoeff_bilinear`
+  showing the contract's bilinear map is exactly the Leray projection of lane
+  326's canonical `torusConvectionDatum`.  The periodic convolution theorem and
+  the convection identification are reused from the merged lane 326
+  (`periodicFourierCoeff_mul`,
+  `periodicFourierCoeff_convection_eq_torusConvectionDatum`); the dedupe after
+  the merge is recorded in `ATTEMPTS_MILD_MOMENTUM.md` §5.
 * **Still open:** the *joint* `C^∞` fields
   `ContDiffOn ℝ ∞ (torusPhysicalVelocity u) (Ico 0 T ×ˢ univ)` and
   `ContDiffOn ℝ ∞ (mildPressure g u) (Ico 0 T ×ˢ univ)`.  Iterating the time

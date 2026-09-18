@@ -59,7 +59,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 291-SPEC-t15-draft-a | 完成（草案 A；与 292 一起 reconciliation） | 09-17 2357Z | — | — | SPEC **T15 双盲草案 A**：`prop:scaling`（`eq:scaling` 放置/重标度/单拷贝周期化；`eq:packetEscale/Fscale/Hs`；镜像 `I03.scaling`，复用 T14 包与 T13 localization） |
 | 292-SPEC-t15-draft-b | 完成（草案 B；待 291 后 reconciliation） | 09-17 2346Z | — | — | SPEC **T15 双盲草案 B**（同上，互不可见） |
 | 293-T01-torus-data-contract | 已合入 #275（codex ACCEPT-WITH-NOTES，备注并入 296）：T01.torus_data 注册完成，合同数 38 | 09-18 0003Z | #275 | — | **注册第 3 节第一个合同 `T01.torus_data`**：`Contracts/V1/TorusData.lean`（数据层定义逐字重述 + 10 字段 `TorusDataAPI`）+ Bindings（rfl 桥 + 由四个证明模块装配）+ Tests；解类部分推迟到 T11 注册 |
-| 294-SPEC-t17-draft-a | sol at capacity 三次掉线 → 04:15Z 续跑改 astra | 09-18 0415Z | — | — | SPEC **T17 双盲草案 A**：`lem:correction`（`eq:H` 修正力、`eq:derivativebounds/wE/Hmixed/HHs`；复用 T16 截断与 T13 localization；镜像 `I02.correction(_v2)`） |
+| 294-SPEC-t17-draft-a | 完成（草案 A，续跑后；与 295 一起 reconciliation） | 09-18 0515Z | — | — | SPEC **T17 双盲草案 A**：`lem:correction`（`eq:H` 修正力、`eq:derivativebounds/wE/Hmixed/HHs`；复用 T16 截断与 T13 localization；镜像 `I02.correction(_v2)`） |
 | 295-SPEC-t17-draft-b | 完成（草案 B，续跑后；待 294 后 reconciliation） | 09-18 0128Z | — | — | SPEC **T17 双盲草案 B**（同上，互不可见） |
 | 296-MAINT-t10-instance-dedupe | 已合入 #279（codex 审稿 ACCEPT）：单一命名实例，Bindings 直接装配十定理（161 行） | 09-18 0031Z | #279 | — | MAINT：T10 三个证明模块的匿名 `IsProbabilityMeasure` 实例同名冲突 → 在 `PeriodicData.lean` 命名一次、删重复；`Bindings/TorusData.lean` 改回直接装配十个定理（删 293 的私下重证） |
 | 297-T12-canonical-module | 已合入 #274（lead 直接合并：定义类模块，probe 含 rfl 检查） | 09-17 2356Z | #274 | — | T12 规范定义模块 `Section3/T12/MeanZeroCalculus.lean`（research/T12/Spec.lean 的新定义逐字落成 Lake 模块，import T10 模块；probe 把 Type 值 `MeanZeroSobolevCalculusAPI` 陈述在模块上）→ T12 证明 lane 基座 |
@@ -71,7 +71,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 303-SPEC-t20-draft-a | 完成（草案 A；待 304 后 reconciliation） | 09-18 0303Z | — | — | SPEC **T20 双盲草案 A**：`prop:critical`（均值消去、`eq:criticalenergy/bintegral/ybound/H1energy`、经 `eq:criterion` 全局；镜像 R43+C01+A04） |
 | 304-SPEC-t20-draft-b | 完成（草案 B；与 303 一起 reconciliation） | 09-18 0315Z | — | — | SPEC **T20 双盲草案 B**（同上，互不可见） |
 | 305-T10-fourier-calculus | 已合入 #282 作为**部分交付**（审稿 REJECT 仅因范围遗漏 T10 第 11/12 项，已证内容审计/公理/变异全过）→ 312 补齐 | 09-18 0101Z | #282 | — | T10 基础引理：光滑周期场的 Fourier 微积分（导数符号 `2πi k_j`、Laplacian 符号、系数快速衰减、可和性与逐点反演、sup 界）→ 解锁 T12 `boundedRepresentative`/`lambda_exists`/`hTwo_le_laplacian` 与 T13 |
-| 306-SPEC-t24-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-18 0321Z | — | — | SPEC **T24 双盲草案 A**：`prop:affine`/`prop:multiple`/`prop:conservative`（三个独立结构；基于 T14/T15 定稿） |
+| 306-SPEC-t24-draft-a | astra 重跑 2 分钟交 104 行浅桩 → 作废；加质量条款后 sol 主跑重开 | 09-18 0505Z | — | — | SPEC **T24 双盲草案 A**：`prop:affine`/`prop:multiple`/`prop:conservative`（三个独立结构；基于 T14/T15 定稿） |
 | 307-SPEC-t24-draft-b | astra at capacity 立刻死亡 → 重试脚本 30 分钟后换模型重试 | 09-18 0417Z | — | — | SPEC **T24 双盲草案 B**（同上，互不可见） |
 | 308-T11-U1-flow-conversion | 已合入 #284（codex 审稿 ACCEPT） | 09-18 0144Z | #284 | — | T11 U1：`ClassicalSolutionT ↔ Paper1.PeriodicLifespan.Flow` 逐字段转换 + 往返 + 两条拼写引理（S–M，sol） |
 | 310-T11-U3-galilean-classes | 已合入 #287（codex 审稿 ACCEPT） | 09-18 0243Z | #287 | — | T11 U3：`translation_preserves_sobolev`/`transformed_classes`/`transformed_mean_zero`（M，sol） |
@@ -86,13 +86,16 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 318-T11-U9d-physical-recovery | 已合入 #291 作为**部分基础**（审稿 REJECT：未达目标/未剥离；已证内容无误）→ 目标由 319/320 承接 | 09-18 0320Z | #291 | — | T11 U9d：物理恢复 —— 由强迫 mild 系数解在公共 horizon 上构造 `ClassicalSolutionT`（全阶 bootstrap、Fourier 反演得物理速度、Leray 压力、动量方程）+ `PeriodicLocalRegularity`；允许一个具名输入 |
 | 319-T11-U9d1-persistence | 已合入 #294（codex ACCEPT-WITH-NOTES）：半阶梯子 + 持续性（输入 TorusHalfStepInput → 325）；合并时与 318 的追加笔记冲突，取并集 | 09-18 0356Z | #294 | — | T11 U9d1：H³ 强迫 mild 解在共同 horizon 上保持全阶（半阶步进 bootstrap 或正则性持续 + Grönwall）；允许一个具名输入 |
 | 320-T11-U9d2-classical-assembly | 已合入 #295 作为**部分**（审稿 REJECT：范围；已证无误）：PersistenceInput + 速度空间光滑/无散 → 326/327 承接 | 09-18 0359Z | #295 | — | T11 U9d2：由全阶系数解（单一具名输入 `PersistenceInput` 或 319 的定理）装配物理速度/压力/动量方程 → `ClassicalSolutionT` + `PeriodicLocalRegularity`（U9d 目标） |
-| 321-T11-U10-U11-restart-horizon | astra at capacity 立刻死亡 → 重试脚本 30 分钟后换模型重试 | 09-18 0417Z | — | — | T11 U10+U11：`restart`（对着具名输入 `PeriodicQuantitativeLocalInput'`，按阶力界 M m := ‖f‖_{L¹H^m}）与 `horizon`/`solution`/`regularity`（M，sol） |
-| 322-T11-U12-high-order | 排队（astra；简报已写） | 09-18 0325Z | — | — | T11 U12：`higherOrderBound`（周期 eq:Rhigh 的 H^m 能量恒等式 + Grönwall；tame product 作为唯一具名输入）（L，astra） |
-| 323-T11-U15-maximal | astra at capacity 立刻死亡 → 重试脚本 30 分钟后换模型重试 | 09-18 0417Z | — | — | T11 U15：`exists_maximal`/`maximal_unique` + `maximalLifespanT = PeriodicLifespan.lifespan`（复用 Paper1 无条件粘合）（M，sol） |
+| 321-T11-U10-U11-restart-horizon | 已合入 #299（codex 审稿 ACCEPT） | 09-18 0514Z | #299 | — | T11 U10+U11：`restart`（对着具名输入 `PeriodicQuantitativeLocalInput'`，按阶力界 M m := ‖f‖_{L¹H^m}）与 `horizon`/`solution`/`regularity`（M，sol） |
+| 322-T11-U12-high-order | Opus prover 子代理（硬分析单元不再交 codex） | 09-18 0515Z | — | — | T11 U12：`higherOrderBound`（周期 eq:Rhigh 的 H^m 能量恒等式 + Grönwall；tame product 作为唯一具名输入）（L，astra） |
+| 323-T11-U15-maximal | 已合入 #300（codex 审稿 ACCEPT） | 09-18 0524Z | #300 | — | T11 U15：`exists_maximal`/`maximal_unique` + `maximalLifespanT = PeriodicLifespan.lifespan`（复用 Paper1 无条件粘合）（M，sol） |
 | 324-SPEC-t20-spec | 已合入 #296（二跑：15 字段含常数与清单一致，2 rfl，elaborate 0 输出） | 09-18 0415Z | #296 | — | SPEC **T20 定稿**：按 research/T20/RECONCILIATION.md（B 为基 + A 拼写；零初值命题；Type 值 `CriticalRegularityTAPI` 12 常数字段 + 11 定理字段；无 API 索引）→ Spec.lean + COMPARISON.md |
 | 325-T11-U9d1a-half-step | astra 两次交别名桩（TorusHalfStepAnalyticInput := TorusHalfStepInput）→ 作废；拆成 328/329/330 三条不允许具名输入的具体引理 lane | 09-18 0407Z | — | — | T11 U9d1-analytic：偿还 319 的具名输入 `TorusHalfStepInput`（实阶卷积界 H^r×H^r→H^{r−1}、分数阶热光滑 σ=3/2 核 (νt)^{-3/4}、Duhamel 端点连续）→ 持续性无条件 |
-| 326-T11-U9d2a-pressure | astra 二跑仍是桩（40 行、3 平凡定理）→ 改派 Opus prover 子代理（同简报，同 worktree） | 09-18 0413Z | — | — | T11 U9d2a：mild 解的压力（Leray 补的系数构造、物理场、`pressure_gradient/smooth/gauge/periodic/poisson`）在 `PersistenceInput` 下 |
-| 327-T11-U9d2b-momentum | 排队（astra；简报已写） | 09-18 0340Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
-| 328-T11-U9d1a-real-order-convolution | Opus 完成（实阶卷积界无条件，36 声明，r=3 回退到 317）→ 排队 codex 审稿（容量恢复后） | 09-18 0440Z | — | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
-| 329-T11-U9d1b-fractional-smoothing | Opus 完成（σ=3/2 光滑、核可积与积分值、强连续，32 声明无条件）→ 排队 codex 审稿 | 09-18 0442Z | — | — | T11 U9d1b：分数阶热光滑 σ=3/2、核 (νt)^{-3/4} 可积、强连续 |
-| 330-T11-U9d1c-duhamel-half-step | Opus prover 子代理（基座 = integration + 328 + 329 本地合并） | 09-18 0442Z | — | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |
+| 326-T11-U9d2a-pressure | 已合入 #302（codex 两轮审稿：内容全过，卫生点修正后合入；Opus 产出，95 声明） | 09-18 0532Z | #302 | — | T11 U9d2a：mild 解的压力（Leray 补的系数构造、物理场、`pressure_gradient/smooth/gauge/periodic/poisson`）在 `PersistenceInput` 下 |
+| 327-T11-U9d2b-momentum | Opus prover 子代理（基座 = integration + 326 本地合并） | 09-18 0449Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
+| 328-T11-U9d1a-real-order-convolution | 已合入 #297（codex 审稿 ACCEPT；Opus 产出） | 09-18 0451Z | #297 | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
+| 329-T11-U9d1b-fractional-smoothing | 已合入 #298（codex ACCEPT-WITH-NOTES：报告措辞；Opus 产出） | 09-18 0459Z | #298 | — | T11 U9d1b：分数阶热光滑 σ=3/2、核 (νt)^{-3/4} 可积、强连续 |
+| 330-T11-U9d1c-duhamel-half-step | 已合入 #301（codex ACCEPT-WITH-NOTES：报告措辞；Opus 产出）：持续性无条件 | 09-18 0526Z | #301 | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |
+| 331-T11-U6-transport | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0526Z | — | — | T11 U6：解在光滑变量替换下的转运构造 → `transformed_solution`/`to_unit`/`from_unit`（L，sol） |
+| 332-T11-U13-restart-beyond | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0526Z | — | — | T11 U13：`restartBeyond`（用 321 的 restart 在 H¹ 球取 δ，t₀ 靠近 S 重启并粘合，唯一性给重叠一致；输入 PeriodicQuantitativeLocalInput'）（M–L，sol） |
+| 333-SPEC-t17-spec | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0528Z | — | — | SPEC **T17 定稿**：按 research/T17/RECONCILIATION.md（B 为基 + A 五处；Type 值 `CorrectionAPI` 带 T15 `PlacementData` 参数；实数常数 + `ENNReal.ofReal`；注册 `alpha`）→ Spec.lean + COMPARISON.md |

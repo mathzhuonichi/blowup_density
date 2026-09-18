@@ -432,212 +432,31 @@ theorem norm_lerayAt_le (k : PeriodicFrequency) (w : Fin 3 → ℂ) (i : Fin 3) 
       _ = 2 * ∑ j : Fin 3, ‖w j‖ := by ring
 
 
-/-! ## 7. The periodic convolution theorem -/
+/-! ## 7. The Leray form of the contract's nonlinearity
 
-/-- A continuous periodic function with summable Fourier data is its own
-Fourier series. -/
-theorem eq_torusScalarSeries_of_summable {g : Space → ℂ} (hgc : Continuous g)
-    (hpg : IsPeriodicSpatial g) (hgs : Summable (periodicFourierCoeff g)) :
-    g = torusScalarSeries (periodicFourierCoeff g) := by
-  funext x
-  rw [periodic_eq_tsum_mFourier hpg hgc hgs x]
-  unfold torusScalarSeries NSFormalization.Paper1.periodicCharacter
-  exact tsum_congr fun l ↦ by rw [NSFormalization.Paper1.periodicPhase_apply]
-
-/-- **The periodic convolution theorem.**  The Fourier coefficients of a product
-of two continuous periodic functions, one of them with absolutely summable data,
-are the discrete convolution of the two coefficient families. -/
-theorem periodicFourierCoeff_mul {f g : Space → ℂ}
-    (hf : Continuous f) (hpf : IsPeriodicSpatial f)
-    (hgc : Continuous g) (hpg : IsPeriodicSpatial g)
-    (hgs : Summable (fun l ↦ ‖periodicFourierCoeff g l‖))
-    (k : PeriodicFrequency) :
-    periodicFourierCoeff (fun x ↦ f x * g x) k =
-      ∑' l : PeriodicFrequency,
-        periodicFourierCoeff g l * periodicFourierCoeff f (k - l) := by
-  classical
-  have hlf : Continuous (torusLift f) :=
-    NSFormalization.Paper1.continuous_torusLift hf (fun x j ↦ hpf x j)
-  let F : PeriodicFrequency → PeriodicTorus → ℂ := fun l q ↦
-    periodicFourierCoeff g l * (UnitAddTorus.mFourier (l - k) q * torusLift f q)
-  have hFi : ∀ l, Integrable (F l) periodicTorusMeasure := by
-    intro l
-    have hc : Continuous (F l) :=
-      continuous_const.mul ((UnitAddTorus.mFourier (l - k)).continuous.mul hlf)
-    simpa only [integrableOn_univ] using hc.continuousOn.integrableOn_compact
-      (μ := periodicTorusMeasure) isCompact_univ
-  have hFn : ∀ (l : PeriodicFrequency) (q : PeriodicTorus),
-      ‖F l q‖ = ‖periodicFourierCoeff g l‖ * ‖torusLift f q‖ := by
-    intro l q
-    simp only [F, norm_mul, torusMFourier_norm, one_mul]
-  have hFs : Summable (fun l ↦ ∫ q, ‖F l q‖ ∂periodicTorusMeasure) := by
-    simp only [hFn, integral_const_mul]
-    exact hgs.mul_right _
-  have hgfun : g = torusScalarSeries (periodicFourierCoeff g) :=
-    eq_torusScalarSeries_of_summable hgc hpg hgs.of_norm
-  have hpoint : ∀ q : PeriodicTorus,
-      UnitAddTorus.mFourier (-k) q • torusLift (fun x ↦ f x * g x) q = ∑' l, F l q := by
-    intro q
-    have h1 : torusLift (fun x ↦ f x * g x) q = torusLift f q * torusLift g q := rfl
-    rw [smul_eq_mul, h1, hgfun, torusScalarSeries_lift, ← tsum_mul_left, ← tsum_mul_left]
-    refine tsum_congr fun l ↦ ?_
-    simp only [F, sub_eq_add_neg, UnitAddTorus.mFourier_add]
-    ring
-  change (∫ q, UnitAddTorus.mFourier (-k) q •
-    torusLift (fun x ↦ f x * g x) q ∂periodicTorusMeasure) = _
-  simp_rw [hpoint]
-  rw [← integral_tsum_of_summable_integral_norm hFi hFs]
-  refine tsum_congr fun l ↦ ?_
-  rw [show (∫ q, F l q ∂periodicTorusMeasure) = periodicFourierCoeff g l *
-      ∫ q, UnitAddTorus.mFourier (l - k) q * torusLift f q ∂periodicTorusMeasure from
-    integral_const_mul _ _]
-  congr 1
-  change _ = ∫ q, UnitAddTorus.mFourier (-(k - l)) q • torusLift f q ∂periodicTorusMeasure
-  simp only [neg_sub, smul_eq_mul]
-
-
-
-/-! ## 8. The convection coefficient is the physical tensor divergence -/
-
-theorem periodicFourierCoeff_finsetSum {ι : Type*} (s : Finset ι) (f : ι → Space → ℂ)
-    (hf : ∀ j ∈ s, Continuous (f j)) (k : PeriodicFrequency) :
-    periodicFourierCoeff (fun x ↦ ∑ j ∈ s, f j x) k =
-      ∑ j ∈ s, periodicFourierCoeff (f j) k := by
-  simp only [periodicFourierCoeff, NSFormalization.Paper1.periodicFourierCoeff_eq_cube,
-    Finset.mul_sum, NavierStokes.PeriodicIntegration.cubeIntegral]
-  apply integral_finsetSum
-  intro j hj
-  exact NavierStokes.PeriodicIntegration.integrable_cube
-    ((NSFormalization.Paper1.periodicCharacter_smooth (-k)).continuous.mul (hf j hj))
-
-/-- One component of the tensor divergence is the coordinate expression
-`∑_j ∂_j (v_j v_i)`. -/
-theorem convectionDivergenceT_component {v : SpaceTimeField} {t : ℝ}
-    (hv : ContDiff ℝ ∞ (fun x : Space ↦ v (t, x))) (i : Fin 3) (x : Space) :
-    convectionDivergenceT v t x i =
-      ∑ j : Fin 3, spatialPartial j (fun y : Space ↦ v (t, y) j * v (t, y) i) x := by
-  have hproj : convectionDivergenceT v t x i =
-      ∑ j : Fin 3,
-        (fderiv ℝ (fun y : Space ↦ (v (t, y) j) • v (t, y)) x (coordinateVector j)) i :=
-    map_sum (EuclideanSpace.proj (𝕜 := ℝ) i)
-      (fun j : Fin 3 ↦ fderiv ℝ (fun y : Space ↦ (v (t, y) j) • v (t, y)) x
-        (coordinateVector j)) Finset.univ
-  rw [hproj]
-  refine Finset.sum_congr rfl fun j _ ↦ ?_
-  have hdj : ContDiff ℝ ∞ (fun y : Space ↦ (v (t, y) j) • v (t, y)) :=
-    ((EuclideanSpace.proj (𝕜 := ℝ) j).contDiff.comp hv).smul hv
-  have h : HasFDerivAt (fun y : Space ↦ v (t, y) j * v (t, y) i)
-      ((EuclideanSpace.proj (𝕜 := ℝ) i).comp
-        (fderiv ℝ (fun y : Space ↦ (v (t, y) j) • v (t, y)) x)) x :=
-    (EuclideanSpace.proj (𝕜 := ℝ) i).hasFDerivAt.comp x
-      ((hdj.differentiable (by simp) x).hasFDerivAt)
-  show (fderiv ℝ (fun y : Space ↦ (v (t, y) j) • v (t, y)) x (coordinateVector j)) i =
-    fderiv ℝ (fun y : Space ↦ v (t, y) j * v (t, y) i) x (coordinateVector j)
-  rw [h.fderiv]
-  rfl
-
-/-- The Fourier coefficients of the tensor divergence of a smooth periodic
-velocity slice are the derivative symbol times the convolution of the component
-coefficients. -/
-theorem periodicFourierCoeff_convectionDivergenceT {v : SpaceTimeField} {t : ℝ}
-    (hv : ContDiff ℝ ∞ (fun x : Space ↦ v (t, x)))
-    (hp : IsPeriodicSpatial (fun x : Space ↦ v (t, x)))
-    (hs : ∀ j : Fin 3,
-      Summable (fun l ↦ ‖periodicFourierCoeff (fun y : Space ↦ ((v (t, y) j : ℝ) : ℂ)) l‖))
-    (i : Fin 3) (k : PeriodicFrequency) :
-    periodicFourierCoeff (fun x ↦ ((convectionDivergenceT v t x i : ℝ) : ℂ)) k =
-      ∑ j : Fin 3, periodicDerivativeSymbol j k *
-        ∑' l : PeriodicFrequency,
-          periodicFourierCoeff (fun y : Space ↦ ((v (t, y) j : ℝ) : ℂ)) l *
-            periodicFourierCoeff (fun y : Space ↦ ((v (t, y) i : ℝ) : ℂ)) (k - l) := by
-  have hcomp : ∀ j : Fin 3, ContDiff ℝ ∞ (fun y : Space ↦ ((v (t, y) j : ℝ) : ℂ)) := fun j ↦
-    Complex.ofRealCLM.contDiff.comp ((EuclideanSpace.proj (𝕜 := ℝ) j).contDiff.comp hv)
-  have hcompp : ∀ j : Fin 3, IsPeriodicSpatial (fun y : Space ↦ ((v (t, y) j : ℝ) : ℂ)) :=
-    fun j x l ↦ congrArg (fun w : Space ↦ ((w j : ℝ) : ℂ)) (hp x l)
-  have hprod : ∀ j : Fin 3, ContDiff ℝ ∞ (fun y : Space ↦ v (t, y) j * v (t, y) i) :=
-    fun j ↦ ((EuclideanSpace.proj (𝕜 := ℝ) j).contDiff.comp hv).mul
-      ((EuclideanSpace.proj (𝕜 := ℝ) i).contDiff.comp hv)
-  have hcplx : ∀ j : Fin 3,
-      (fun x : Space ↦ ((spatialPartial j (fun y : Space ↦ v (t, y) j * v (t, y) i) x : ℝ) : ℂ)) =
-        spatialPartial j (fun y : Space ↦ ((v (t, y) j : ℝ) : ℂ) * ((v (t, y) i : ℝ) : ℂ)) := by
-    intro j
-    have he : (fun y : Space ↦ ((v (t, y) j * v (t, y) i : ℝ) : ℂ)) =
-        fun y : Space ↦ ((v (t, y) j : ℝ) : ℂ) * ((v (t, y) i : ℝ) : ℂ) := by
-      funext y; rw [Complex.ofReal_mul]
-    rw [← he, spatialPartial_complexify ((hprod j).of_le (by simp)) j]
-  have hstep : (fun x : Space ↦ ((convectionDivergenceT v t x i : ℝ) : ℂ)) =
-      fun x : Space ↦ ∑ j : Fin 3,
-        spatialPartial j (fun y : Space ↦ ((v (t, y) j : ℝ) : ℂ) * ((v (t, y) i : ℝ) : ℂ)) x := by
-    funext x
-    rw [convectionDivergenceT_component hv i x, Complex.ofReal_sum]
-    exact Finset.sum_congr rfl fun j _ ↦ congrFun (hcplx j) x
-  rw [hstep]
-  rw [periodicFourierCoeff_finsetSum Finset.univ _ (fun j _ ↦ ?_) k]
-  · refine Finset.sum_congr rfl fun j _ ↦ ?_
-    have hd : ContDiff ℝ 1 (fun y : Space ↦
-        ((v (t, y) j : ℝ) : ℂ) * ((v (t, y) i : ℝ) : ℂ)) :=
-      ((hcomp j).mul (hcomp i)).of_le (by simp)
-    have hpp : IsPeriodicSpatial (fun y : Space ↦
-        ((v (t, y) j : ℝ) : ℂ) * ((v (t, y) i : ℝ) : ℂ)) :=
-      fun x l ↦ congrArg (fun w : Space ↦ ((w j : ℝ) : ℂ) * ((w i : ℝ) : ℂ)) (hp x l)
-    show periodicFourierCoeff (fun x : Space ↦
-      fderiv ℝ (fun y : Space ↦ ((v (t, y) j : ℝ) : ℂ) * ((v (t, y) i : ℝ) : ℂ)) x
-        (coordinateVector j)) k = _
-    rw [periodicFourierCoeff_fderiv hpp hd j k]
-    congr 1
-    rw [show (fun y : Space ↦ ((v (t, y) j : ℝ) : ℂ) * ((v (t, y) i : ℝ) : ℂ)) =
-        fun y : Space ↦ ((v (t, y) i : ℝ) : ℂ) * ((v (t, y) j : ℝ) : ℂ) by
-      funext y; ring]
-    exact periodicFourierCoeff_mul (hcomp i).continuous (hcompp i)
-      (hcomp j).continuous (hcompp j) (hs j) k
-  · have hd : ContDiff ℝ ∞ (fun y : Space ↦
-        ((v (t, y) j : ℝ) : ℂ) * ((v (t, y) i : ℝ) : ℂ)) := (hcomp j).mul (hcomp i)
-    have hds : ContDiff ℝ ∞ (spatialPartial j (fun y : Space ↦
-        ((v (t, y) j : ℝ) : ℂ) * ((v (t, y) i : ℝ) : ℂ))) :=
-      (hd.fderiv_right (by simp)).clm_apply contDiff_const
-    exact hds.continuous
-
-
-
-/-- The physical Fourier coefficient of the unprojected tensor divergence
-`∇·(A ⊗ B)`, as a discrete convolution of physical coefficients. -/
-def torusConvectionCoeff (A B : PeriodicSobolev 3) (i : Fin 3) (k : PeriodicFrequency) : ℂ :=
-  ∑ j : Fin 3, periodicDerivativeSymbol j k *
-    ∑' l : PeriodicFrequency, torusPhysicalCoeff 3 A j l * torusPhysicalCoeff 3 B i (k - l)
-
-theorem torusPhysicalCoeff_convectionDatum (A B : PeriodicSobolev 3) (i : Fin 3)
-    (k : PeriodicFrequency) :
-    torusPhysicalCoeff 2 (torusConvectionDatum A B) i k = torusConvectionCoeff A B i k := by
-  have hw : 0 < periodicFrequencyWeight k := mildPressure_weight_pos k
-  have hW : ((periodicFrequencyWeight k ^ (-(2 : ℝ) / 2) : ℝ) : ℂ) *
-      ((periodicFrequencyWeight k : ℝ) : ℂ) = 1 := by
-    rw [← Complex.ofReal_mul,
-      show (-(2 : ℝ) / 2) = (-1 : ℝ) by norm_num, Real.rpow_neg_one,
-      inv_mul_cancel₀ hw.ne', Complex.ofReal_one]
-  rw [torusPhysicalCoeff, torusConvectionDatum_coeff, torusConvectionSymbol,
-    torusConvectionCoeff, ← mul_assoc, hW, one_mul]
-  refine Finset.sum_congr rfl fun j _ ↦ ?_
-  congr 1
-  refine tsum_congr fun l ↦ ?_
-  unfold torusPhysicalCoeff
-  ring
+Lane 326's `MildPressure.lean` supplies the periodic convolution theorem
+`periodicFourierCoeff_mul`, the component identity
+`convectionDivergenceT_component`, `torusPhysicalCoeff_torusConvectionDatum` and
+`periodicFourierCoeff_convection_eq_torusConvectionDatum` (the physical tensor
+divergence *is* the canonical unprojected convection datum); they are reused here
+verbatim.  What is added is the Leray-projected form. -/
 
 theorem torusProjectedConvectionSymbol_eq_lerayAt (A B : PeriodicSobolev 3) (i : Fin 3)
     (k : PeriodicFrequency) :
     torusProjectedConvectionSymbol A B i k =
       lerayAt k (fun j ↦ torusConvectionSymbol A B j k) i := rfl
 
-/-- The contract's bilinear map has exactly the Leray projection of the physical
-convection coefficients. -/
+/-- The contract's bilinear map has exactly the Leray projection of the canonical
+unprojected convection coefficients. -/
 theorem torusPhysicalCoeff_bilinear {ν : ℝ} (C : TorusTwoSpaceContract ν)
     (A B : PeriodicSobolev 3) (i : Fin 3) (k : PeriodicFrequency) :
     torusPhysicalCoeff 2 (C.analytic.bilinear A B) i k =
-      lerayAt k (fun j ↦ torusConvectionCoeff A B j k) i := by
+      lerayAt k (fun j ↦ torusPhysicalCoeff 2 (torusConvectionDatum A B) j k) i := by
   rw [torusPhysicalCoeff, C.bilinear_symbol, torusProjectedConvectionSymbol_eq_lerayAt,
     ← lerayAt_const_mul]
   congr 1
   funext j
-  rw [← torusPhysicalCoeff_convectionDatum, torusPhysicalCoeff, torusConvectionDatum_coeff]
+  rw [torusPhysicalCoeff, torusConvectionDatum_coeff]
 
 /-- Physical Fourier data of the recovered velocity is the physical coefficient
 of the coefficient path. -/
@@ -647,31 +466,7 @@ theorem physicalVelocity_coeff (u : ℝ → PeriodicSobolev 3) (t : ℝ) (j : Fi
       torusPhysicalCoeff 3 (u t) j l :=
   (torusPhysicalCoeff_eq (torusPhysicalField_datum (u t)) j l).symm
 
-/-- **The convection identity.**  The tensor divergence of the recovered
-physical velocity has exactly the contract's convection coefficients. -/
-theorem convectionDivergenceT_coeff {T : ℝ} {u : ℝ → PeriodicSobolev 3}
-    (h : PersistenceInput T u) {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T)
-    (i : Fin 3) (k : PeriodicFrequency) :
-    periodicFourierCoeff
-      (fun x ↦ ((convectionDivergenceT (torusPhysicalVelocity u) t x i : ℝ) : ℂ)) k =
-      torusConvectionCoeff (u t) (u t) i k := by
-  have hv : ContDiff ℝ ∞ (fun x : Space ↦ torusPhysicalVelocity u (t, x)) :=
-    persistence_physical_spatial_smooth h ht
-  have hp : IsPeriodicSpatial (fun x : Space ↦ torusPhysicalVelocity u (t, x)) :=
-    fun x l ↦ torusPhysicalVelocity_periodic u t (mem_univ t) x l
-  have hs : ∀ j : Fin 3, Summable (fun l ↦
-      ‖periodicFourierCoeff
-        (fun y : Space ↦ ((torusPhysicalVelocity u (t, y) j : ℝ) : ℂ)) l‖) := by
-    intro j
-    simpa only [physicalVelocity_coeff] using torusPhysicalCoeff_summable (u t) j
-  rw [periodicFourierCoeff_convectionDivergenceT hv hp hs i k, torusConvectionCoeff]
-  refine Finset.sum_congr rfl fun j _ ↦ ?_
-  congr 1
-  exact tsum_congr fun l ↦ by rw [physicalVelocity_coeff, physicalVelocity_coeff]
-
-
-
-/-! ## 9. Weight submultiplicativity and the convolution estimate -/
+/-! ## 8. Weight submultiplicativity and the convolution estimate -/
 
 theorem one_le_periodicFrequencyWeight' (k : PeriodicFrequency) :
     1 ≤ periodicFrequencyWeight k := by
@@ -830,7 +625,7 @@ theorem convolution_norm_bound {c d : PeriodicFrequency → ℂ} {M : ℝ} (hM :
 
 
 
-/-! ## 10. Rapid decay of the projected convection coefficients -/
+/-! ## 9. Rapid decay of the projected convection coefficients -/
 
 /-- The convolution constant used throughout: the total inverse square weight. -/
 def torusWeightMass : ℝ := ∑' l : PeriodicFrequency, (periodicFrequencyWeight l ^ 2)⁻¹
@@ -838,14 +633,15 @@ def torusWeightMass : ℝ := ∑' l : PeriodicFrequency, (periodicFrequencyWeigh
 theorem torusWeightMass_nonneg : 0 ≤ torusWeightMass :=
   tsum_nonneg fun l ↦ inv_nonneg.mpr (pow_nonneg (mildPressure_weight_pos l).le 2)
 
-theorem norm_torusConvectionCoeff_le {A B : PeriodicSobolev 3} {M : ℝ} (hM : 0 ≤ M) (n : ℕ)
+theorem norm_convectionDatum_coeff_le {A B : PeriodicSobolev 3} {M : ℝ} (hM : 0 ≤ M) (n : ℕ)
     (hA : ∀ (j : Fin 3) (l : PeriodicFrequency),
       ‖torusPhysicalCoeff 3 A j l‖ ≤ M * (periodicFrequencyWeight l ^ (n + 3))⁻¹)
     (hB : ∀ (j : Fin 3) (l : PeriodicFrequency),
       ‖torusPhysicalCoeff 3 B j l‖ ≤ M * (periodicFrequencyWeight l ^ (n + 3))⁻¹)
     (i : Fin 3) (k : PeriodicFrequency) :
-    ‖torusConvectionCoeff A B i k‖ ≤
+    ‖torusPhysicalCoeff 2 (torusConvectionDatum A B) i k‖ ≤
       (3 * (2 ^ (n + 1) * M ^ 2 * torusWeightMass)) * (periodicFrequencyWeight k ^ n)⁻¹ := by
+  rw [torusPhysicalCoeff_torusConvectionDatum]
   have hwk : (0 : ℝ) < periodicFrequencyWeight k := mildPressure_weight_pos k
   have hcst : (0 : ℝ) ≤ 2 ^ (n + 1) * M ^ 2 * torusWeightMass :=
     mul_nonneg (mul_nonneg (by positivity) (sq_nonneg M)) torusWeightMass_nonneg
@@ -877,7 +673,9 @@ theorem norm_torusConvectionCoeff_le {A B : PeriodicSobolev 3} {M : ℝ} (hM : 0
       _ = (2 ^ (n + 1) * M ^ 2 * torusWeightMass) *
             (periodicFrequencyWeight k * (periodicFrequencyWeight k ^ (n + 1))⁻¹) := by ring
       _ = _ := by rw [hinv]
-  calc ‖torusConvectionCoeff A B i k‖
+  calc ‖∑ j : Fin 3, periodicDerivativeSymbol j k *
+        ∑' l : PeriodicFrequency, torusPhysicalCoeff 3 A j l *
+          torusPhysicalCoeff 3 B i (k - l)‖
       ≤ ∑ j : Fin 3, ‖periodicDerivativeSymbol j k *
           ∑' l : PeriodicFrequency, torusPhysicalCoeff 3 A j l *
             torusPhysicalCoeff 3 B i (k - l)‖ := norm_sum_le _ _
@@ -897,12 +695,13 @@ theorem norm_torusPhysicalCoeff_bilinear_le {ν : ℝ} (C : TorusTwoSpaceContrac
       (6 * (3 * (2 ^ (n + 1) * M ^ 2 * torusWeightMass))) *
         (periodicFrequencyWeight k ^ n)⁻¹ := by
   rw [torusPhysicalCoeff_bilinear]
-  refine (norm_lerayAt_le k (fun j ↦ torusConvectionCoeff A B j k) i).trans ?_
-  calc 2 * ∑ j : Fin 3, ‖torusConvectionCoeff A B j k‖
+  refine (norm_lerayAt_le k
+    (fun j ↦ torusPhysicalCoeff 2 (torusConvectionDatum A B) j k) i).trans ?_
+  calc 2 * ∑ j : Fin 3, ‖torusPhysicalCoeff 2 (torusConvectionDatum A B) j k‖
       ≤ 2 * ∑ _j : Fin 3, (3 * (2 ^ (n + 1) * M ^ 2 * torusWeightMass)) *
           (periodicFrequencyWeight k ^ n)⁻¹ := by
         refine mul_le_mul_of_nonneg_left (Finset.sum_le_sum fun j _ ↦
-          norm_torusConvectionCoeff_le hM n hA hB j k) (by norm_num)
+          norm_convectionDatum_coeff_le hM n hA hB j k) (by norm_num)
     _ = _ := by simp; ring
 
 /-- Uniform rapid decay of the coefficient nonlinearity on a compact subinterval. -/
@@ -952,7 +751,7 @@ theorem persistence_nonlinear_decay {ν T : ℝ} (C : TorusTwoSpaceContract ν)
 
 
 
-/-! ## 11. Rapid decay of the whole Duhamel source -/
+/-! ## 10. Rapid decay of the whole Duhamel source -/
 
 /-- Uniform rapid decay of the projected force coefficients. -/
 theorem persistence_force_decay {T : ℝ} {F P : ℝ → PeriodicSobolev 3}
@@ -1087,7 +886,7 @@ theorem mildDerivCoeff_decay {ν T : ℝ} (C : TorusTwoSpaceContract ν)
 
 
 
-/-! ## 12. The time derivative of the recovered physical velocity -/
+/-! ## 11. The time derivative of the recovered physical velocity -/
 
 /-- The physical field predicted for `∂_t u` by the Duhamel formula. -/
 def mildTimeDerivative {ν : ℝ} (C : TorusTwoSpaceContract ν) (P u : ℝ → PeriodicSobolev 3)
@@ -1211,7 +1010,7 @@ theorem temporalDerivative_torusPhysicalVelocity {ν T : ℝ} {C : TorusTwoSpace
 
 
 
-/-! ## 13. Physical calculus for the momentum equation -/
+/-! ## 12. Physical calculus for the momentum equation -/
 
 theorem periodicFourierCoeff_const_mul (c : ℂ) (f : Space → ℂ) (k : PeriodicFrequency) :
     periodicFourierCoeff (fun x ↦ c * f x) k = c * periodicFourierCoeff f k := by
@@ -1348,7 +1147,7 @@ theorem temporalDerivative_torusPhysicalVelocity' {ν T : ℝ} {C : TorusTwoSpac
 
 
 
-/-! ## 14. The momentum equation -/
+/-! ## 13. The momentum equation -/
 
 /-- The physical source coefficient is the force datum minus the convection
 coefficient. -/
@@ -1356,9 +1155,10 @@ theorem mildSourceCoeff_eq {T : ℝ} {g : SpaceTimeField} {u F : ℝ → Periodi
     (hu : PersistenceInput T u) (hFg : IsPeriodicSobolevPath 3 g F)
     {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) (j : Fin 3) (k : PeriodicFrequency) :
     sourceComponentCoeff (fun x ↦ mildPressureSource g u (t, x)) j k =
-      torusPhysicalCoeff 3 (F t) j k - torusConvectionCoeff (u t) (u t) j k := by
+      torusPhysicalCoeff 3 (F t) j k -
+        torusPhysicalCoeff 2 (torusConvectionDatum (u t) (u t)) j k := by
   rw [mildPressureSourceCoeff_eq_force_sub_convection hu hFg ht j k,
-    convectionDivergenceT_coeff hu ht j k]
+    periodicFourierCoeff_convection_eq_torusConvectionDatum hu ht j k]
 
 /-- The Duhamel derivative coefficient is the viscous term plus the Leray
 projection of the physical source. -/
@@ -1591,7 +1391,7 @@ theorem projected_of_pressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
     (hv.differentiable (by simp) x) (hdivfree t ht' x)).mp
     (momentum_of_pressure hmild hPc hu hF hPL hg hgp hFg hps hpp hpgrad hdivfree ht x)
 
-/-! ## 15. Lane 326's pressure instantiates the momentum theorem -/
+/-! ## 14. Lane 326's pressure instantiates the momentum theorem -/
 
 /-- The constructed pressure of `MildPressure.lean` has exactly the
 Leray-complement gradient data required by `momentum_of_pressure`. -/
@@ -1660,24 +1460,7 @@ theorem projected_of_mildPressure {ν T : ℝ} {C : TorusTwoSpaceContract ν}
     (fun _ hs i k ↦ mildPressure_gradient_source_coeff hg hgp hu hs i k)
     hdivfree ht x
 
-/-! ## 16. Non-vacuity -/
-
-/-- The convolution theorem applies to a genuine nonzero smooth periodic pair. -/
-example (m k : PeriodicFrequency) :
-    periodicFourierCoeff (fun x ↦ NSFormalization.Paper1.periodicCharacter m x *
-        NSFormalization.Paper1.periodicCharacter m x) k =
-      ∑' l : PeriodicFrequency,
-        periodicFourierCoeff (NSFormalization.Paper1.periodicCharacter m) l *
-          periodicFourierCoeff (NSFormalization.Paper1.periodicCharacter m) (k - l) :=
-  periodicFourierCoeff_mul
-    (NSFormalization.Paper1.periodicCharacter_smooth m).continuous
-    (NSFormalization.Paper1.periodicCharacter_periodic m)
-    (NSFormalization.Paper1.periodicCharacter_smooth m).continuous
-    (NSFormalization.Paper1.periodicCharacter_periodic m)
-    (by
-      simpa using summable_weight_pow_mul_coeff
-        (NSFormalization.Paper1.periodicCharacter_periodic m)
-        (NSFormalization.Paper1.periodicCharacter_smooth m) 0) k
+/-! ## 15. Non-vacuity -/
 
 /-- Non-vacuity of the Duhamel differentiation: a genuinely nonconstant forced
 mild solution on a nonzero constant mode, with the exact derivative formula. -/
