@@ -4,11 +4,7 @@ namespace NSFormalization.Section3.T15
 
 open Set NavierStokes.ProblemStatement
 
-/- Reviewer shape check: the PacketAPI field is the full
-   CompactPositiveTimeSupport clause, not merely HasCompactSupport.  Passing it
-   verbatim to the shipped force theorem should therefore fail at its third
-   argument; the consumer currently has to project `.1` (as in placement_closes).
--/
+/- Reviewer shape check: the theorem accepts CompactPositiveTimeSupport f verbatim; this application must typecheck without projecting .1. -/
 example {f : VelocityField} {x₀ : Space} {T ε : ℝ} {Kstar : Set Space}
     (hε : 0 < ε) (hKstar_compact : IsCompact Kstar)
     (hf : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f)

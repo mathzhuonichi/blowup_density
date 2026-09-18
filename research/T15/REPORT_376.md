@@ -60,8 +60,8 @@ time `< 1` directly.
   (permitted fallback): nonzero `ContDiffBump` velocity/pressure with spatial
   support `closedBall 0 (1/4) = Kstar = carrier`, centre `x₀ = chartCenter =
   (1/2,1/2,1/2)`, chart radius `3/8`, `ε₀ = 1`, `T = 1`. It proves the geometry
-  (`pc_chartBall_in_cube`, `pc_eps_space`), fires the velocity/pressure
-  cube+compact-support lemmas at the **active** time `t = 7/8` (`t_ε = 3/4 <
+  (`pc_chartBall_in_cube`, `pc_eps_space`), fires the velocity cube and compact-support
+  lemmas and the pressure cube lemma at the **active** time `t = 7/8` (`t_ε = 3/4 <
   7/8`), and exhibits a genuinely nonzero velocity slice there.
 - `research/T15/probes/rev376_contract_shape.lean` (reviewer) — passes the
   verbatim `CompactPositiveTimeSupport f` clause to `scaledForce_tsupp_subset`;

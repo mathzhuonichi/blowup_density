@@ -7,8 +7,11 @@ import Mathlib.Analysis.Calculus.BumpFunction.InnerProduct
 
 The r1 version took arbitrary containment hypotheses with unused fields.  This
 rewrite is the permitted fallback: an **explicit geometric instance** with
-concrete numbers (`research/T15/T15_SPLIT.md` U2), whose geometry realises every
-`PlacementData` field of `research/T15/Spec.lean:560-643`:
+concrete numbers (`research/T15/T15_SPLIT.md` U2). This permitted raw-data fallback
+realizes the U2-relevant geometric hypotheses with concrete numbers; it is not a full
+`PlacementData` witness (with `T = ε₀ = 1` the `eps_time` field would fail at `ε = 1`;
+that field is neither used nor claimed here). Fields referenced from
+`research/T15/Spec.lean:560-643`:
 
 * the packet velocity/pressure are nonzero `ContDiffBump`s with spatial support
   `closedBall 0 (1/4) = Kstar = carrier`;

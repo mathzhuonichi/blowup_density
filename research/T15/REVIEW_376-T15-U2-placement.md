@@ -1,184 +1,113 @@
-REJECT
+ACCEPT-WITH-NOTES
 
 ## 1. What the lane claims
 
-The r1 completion says that `Placement.lean` proves thirteen declarations from
-the raw packet clauses: velocity/pressure support on `Ico 0 T`, force support at
-every time, affine-image/ball/cube containment, and compact support of all three
-kinds of slice (`research/T15/REPORT_376.md:15-48`). It also says that the
-worker probe is a `PlacementData` consumer at `ε = ε₀/2`, and that its concrete
-bump probe supplies a nonzero slice while firing the main theorem at the honest
-time `t = 1/2` (`research/T15/REPORT_376.md:50-66`).
+The final r2 report claims 16 declarations proving the U2 placement chain for
+the canonical rescaled velocity, pressure, and force: slice support in
+`(fun y => x₀ + ε • y) '' Kstar`, its containment in the chart ball and then
+`interior fundamentalCube`, and compact support of every relevant slice
+(`research/T15/REPORT_376.md:3-55`). It claims the exact consumer domains
+`t < T` for velocity/pressure and every `t : ℝ` for force
+(`research/T15/REPORT_376.md:23-47`).
 
-The old r0 summary was not removed: it still says that the module has only
-three theorems under assumed transported-support hypotheses and leaves raw
-transport as a gap (`research/T15/REPORT_376.md:3-13`). Those statements are
-false of r1 and directly contradict the appended completion
-(`research/T15/REPORT_376.md:17-22,68-78`).
-
-The mathematical target is the paper's fixed compact `K_*`, the containment
-`x₀ + εK_* ⊆ B`, and the three rescalings
-(`paper/sections/03-torus.tex:101-118`), followed by the single supported copy
-statement, with velocity/pressure used for `t<T`
-(`paper/sections/03-torus.tex:120`). The reconciled placement data have the
-exact fixed `Kstar`, compactness, packet-carrier, force-projection, scale, and
-ball/cube fields (`research/T15/Spec.lean:560-643`). The immediate U3 consumer
-quantifies velocity and pressure over **every** real `t<T`, not merely
-`t∈Ico 0 T` (`research/T15/Spec.lean:665-685,698-718`).
+That is the requested mathematics. The paper chooses one compact `K_*`
+covering the packet carrier and the spatial projection of the force support,
+requires `x₀ + εK_* ⊆ B`, defines the three inverse-scale rescalings, and then
+states that the torus sees one supported copy
+(`paper/sections/03-torus.tex:101-120`). The reconciled raw data are exactly
+`Kstar_compact`, `carrier_subset`, `force_projection_subset`, and `eps_space`,
+with `chartBall_in_cube` providing the strict cube containment
+(`research/T15/Spec.lean:560-643`). The immediate consumers quantify over all
+`t < T` for velocity/pressure and all real `t` for force
+(`research/T15/Spec.lean:704-729`).
 
 ## 2. What is in Lean
 
-### Declaration audit
+### Statement-fidelity audit
 
-All thirteen reported names exist. Their actual statements are:
+All 16 reported declarations exist. Their source statements agree with the
+final report:
 
-- `scaledActivation_eq` is the expected window equality
-  (`formalization/NSFormalization/Section3/T15/Placement.lean:51-56`).
-- `affineImage_compact`, `affineImage_subset_ball`, and
-  `ball_subset_interior_cube` have the advertised image/ball/cube statements
-  (`formalization/NSFormalization/Section3/T15/Placement.lean:60-83`).
-- `scaledVelocity_tsupp_subset` and `scaledPressure_tsupp_subset` take the raw
-  `Ico 0 1` slice-support clause, carrier compactness and `carrier ⊆ Kstar`, but
-  conclude only for `t∈Ico 0 T`
-  (`formalization/NSFormalization/Section3/T15/Placement.lean:100-136`). Their
-  proofs correctly reuse `delayed_full_support` and
-  `delayed_pressure_support`, whose exact source statements are at
-  `formalization/NSFormalization/Source/PacketScaling.lean:335-352,409-426`.
-- `scaledForce_tsupp_subset` concludes the advertised affine-image inclusion at
-  every real time (`formalization/NSFormalization/Section3/T15/Placement.lean:150-166`).
-- The three `*_slice_hasCompactSupport` declarations have exactly
-  `HasCompactSupport` conclusions (`formalization/NSFormalization/Section3/T15/Placement.lean:172-203`).
-  This is compactness of the corresponding `tsupport`; the proofs correctly use
-  a closed subset of the compact affine image.
-- The three `*_slice_subset_cube` declarations compose support, `eps_space`,
-  and `chartBall_in_cube` as claimed
-  (`formalization/NSFormalization/Section3/T15/Placement.lean:212-264`).
+- `scaledActivation_eq`, the zero-slice helper, and the three affine/cube
+  geometry declarations are at
+  `formalization/NSFormalization/Section3/T15/Placement.lean:52-92`.
+- The pre-activation velocity and pressure slices are identically zero at
+  `formalization/NSFormalization/Section3/T15/Placement.lean:96-111`.
+- `scaledVelocity_tsupp_subset` takes `0 < ε`, compact `carrier`, the verbatim
+  `Ico 0 1` velocity-support clause, `carrier ⊆ Kstar`, and `t < T`, and has the
+  claimed affine-image conclusion
+  (`formalization/NSFormalization/Section3/T15/Placement.lean:128-157`).
+- `scaledPressure_tsupp_subset` has the same exact shape for pressure
+  (`formalization/NSFormalization/Section3/T15/Placement.lean:165-195`).
+- `scaledForce_tsupp_subset` takes the verbatim
+  `CompactPositiveTimeSupport f`, compact `Kstar`, and the raw spatial
+  projection clause, for every `t : ℝ`
+  (`formalization/NSFormalization/Section3/T15/Placement.lean:207-227`). The
+  hypothesis is used through `parabolicForce_support hf.1` at line 222; it is
+  not a dead named premise. The packet contract spells the same force,
+  compact-carrier, velocity-support, and pressure-support clauses at
+  `verification/Contracts/V1/Packet.lean:206-225`.
+- The three `HasCompactSupport` declarations are exactly at
+  `formalization/NSFormalization/Section3/T15/Placement.lean:231-264`; this is
+  precisely compactness of the corresponding `tsupport`.
+- The three strict-cube inclusions have the reported `eps_space` and
+  `chartBall_in_cube` hypotheses and the correct time domains at
+  `formalization/NSFormalization/Section3/T15/Placement.lean:271-325`.
 
-The rescaling used in these statements is faithful: `scaledVelocity`,
-`scaledPressure`, and `scaledForce` have the paper's inverse spatial scale and
-the powers `ε⁻¹`, `ε⁻²`, `ε⁻³`
-(`formalization/NSFormalization/Section3/T15/Bridges.lean:56-76`), and the rfl
-bridges to the upstream parabolic definitions are at
-`formalization/NSFormalization/Section3/T15/Bridges.lean:106-125`. The cited
-Section 4 precedent really does prove the velocity slice result on `Ico 0 T`
-(`formalization/NSFormalization/Section4/I03/Energy.lean:195-204`).
+The definitions being transported are also faithful to the paper: the source
+point uses `ε⁻¹` in space and `(ε⁻¹)^2` in time, while the three amplitudes are
+`ε⁻¹`, `ε⁻²`, and `ε⁻³`
+(`formalization/NSFormalization/Section3/T15/Bridges.lean:57-76`). Their `rfl`
+bridges to `parabolicVelocity`, `parabolicPressure`, and `parabolicForce` are at
+`formalization/NSFormalization/Section3/T15/Bridges.lean:108-125`.
 
-### Blocking fidelity findings
+The proof route is genuine rather than a repackaged goal. The active branches
+use the existing `parabolic_support` and scalar `dilate_support`
+(`formalization/NSFormalization/Source/PacketScaling.lean:186-206,393-405`),
+and the force branch uses the spacetime support transport
+(`formalization/NSFormalization/Source/PacketScaling.lean:525-548`). The cited
+Section 4 precedent really supplies the analogous velocity compact-slice
+result (`formalization/NSFormalization/Section4/I03/Energy.lean:178-204`).
+The U3 tree lemmas do consume chart-ball support in the advertised manner
+(`formalization/NSFormalization/Section3/T13/ConstantEndpoints.lean:306-352`),
+while HaarBridge accepts the stronger direct interior support form
+(`formalization/NSFormalization/Section3/T15/HaarBridge.lean:149-158`).
 
-1. **The velocity/pressure placement API is too narrow for the stated U2
-   consumer.** Every velocity/pressure support, compact-support, and cube
-   theorem requires `t∈Ico 0 T`
-   (`formalization/NSFormalization/Section3/T15/Placement.lean:105,127,178,190,222,241`).
-   The report calls this “exactly the paper's `t<T`”
-   (`research/T15/REPORT_376.md:33-35`), but it silently adds `0≤t`. U3's exact
-   fields quantify over every real `t<T`
-   (`research/T15/Spec.lean:671-685,704-718`), so the shipped U2 theorem cannot
-   directly discharge its negative-time cases. `PlacementData.eps_time`
-   supplies the missing positivity of `T-ε²`
-   (`research/T15/Spec.lean:631-636`); before activation the existing tree lemma
-   makes the velocity slice empty
-   (`formalization/NSFormalization/Section4/I02/Support.lean:67-78`), and the
-   generic scalar version is available through `zeroPast_dilate_early`
-   (`formalization/NSFormalization/Source/PacketScaling.lean:300-305`). Thus
-   this is missing composition in this lane, not a missing analytic lemma.
+No `⊤.toReal = 0`, totalized norm, or empty-interval shortcut occurs here.
+The explicit bump probe uses `ε = ε₀/2 = 1/2`, active time `t = 7/8`, proves
+the geometric containments, and proves the scaled velocity is nonzero at the
+center (`research/T15/probes/placement_closes.lean:74-98,103-134`). The
+reviewer non-vacuity probe independently applies the main support theorem to
+that active nonzero slice
+(`research/T15/probes/rev376_honest_nonvacuity.lean:36-59`).
 
-2. **The force support clause is not verbatim and is unused.**
-   `PacketAPI.force_support` is
-   `CompactPositiveTimeSupport force`
-   (`verification/Contracts/V1/Packet.lean:210-214`), defined as both
-   `HasCompactSupport f` and positive-time support
-   (`verification/Contracts/V1/Packet.lean:132-135`). The lane theorem instead
-   accepts only `_hf : HasCompactSupport f` and never uses it
-   (`formalization/NSFormalization/Section3/T15/Placement.lean:150-166`). The
-   report incorrectly identifies the packet field itself with
-   `HasCompactSupport f` (`research/T15/REPORT_376.md:36-41`). Passing the raw
-   packet clause verbatim reproduces this error in
-   `research/T15/probes/rev376_contract_shape.lean:12-19`:
+### Negative check and hygiene
 
-   ```text
-   ../research/T15/probes/rev376_contract_shape.lean:19:51: error: Application type mismatch: The argument
-     hf
-   has type
-     NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f
-   but is expected to have type
-     HasCompactSupport ?m.38
-   in the application
-     scaledForce_tsupp_subset hε hKstar_compact hf
-   ```
-
-   The worker probe hides the mismatch by projecting `.1`
-   (`research/T15/probes/placement_closes.lean:80-85`). This violates the
-   brief's verbatim raw-clause requirement and the review requirement against
-   unused mathematical binders.
-
-3. **The claimed non-vacuity application is actually a zero slice.** For
-   `T=1`, `ε=1/2`, activation is `t₀=3/4`. The worker proves a nonzero value at
-   `t=1` (`research/T15/probes/rev376_nonvacuity.lean:55-62`), which is outside
-   the main theorem's `Ico 0 1` window, then invokes the main theorem at
-   `t=1/2` (`research/T15/probes/rev376_nonvacuity.lean:64-80`), before
-   activation. The reviewer probe checks that the latter slice is zero
-   (`research/T15/probes/rev376_honest_nonvacuity.lean:31-34`). It also supplies
-   the correct non-vacuity check: the same bump is nonzero at `t=7/8` and the
-   lane theorem applies to that exact slice
-   (`research/T15/probes/rev376_honest_nonvacuity.lean:36-59`). This confirms
-   the theorem itself is satisfiable, but the report's description of the
-   shipped probe is false.
-
-4. **`placement_closes` is not an instantiation from a `PlacementData P`, nor
-   an explicit raw placement witness.** It takes arbitrary
-   `chartCenter`, `x₀`, `chartRadius`, `ε₀`, `T`, `Kstar` and all needed
-   containments as separate hypotheses
-   (`research/T15/probes/placement_closes.lean:40-52`); two purported placement
-   fields are deliberately unused (`_hchartRadius_pos`, `_hε₀_le`, lines 43 and
-   50). Its derived conclusions are valid, but it establishes neither an
-   actual `PlacementData` consumer nor the deliverable's fallback “raw data with
-   explicit numbers.”
-
-### Negative mutation and hygiene
-
-The substantive mutation doubles the spatial scale in the main velocity
-conclusion (`research/T15/probes/rev376_negative.lean:7-19`). It fails for the
-expected `ε` versus `2ε` image mismatch:
+The substantive mutation changes the main velocity conclusion from scale
+`ε` to `2 * ε` (`research/T15/probes/rev376_negative.lean:7-19`). It fails at
+exactly that changed constant:
 
 ```text
 ../research/T15/probes/rev376_negative.lean:19:2: error: Type mismatch
   scaledVelocity_tsupp_subset hε hcarrier_compact hvel hcarrier_subset ht
 has type
-  (tsupport fun x => scaledVelocity u ?m.62 T ε (t, x)) ⊆ (fun y => ?m.62 + ε • y) '' Kstar
+  (tsupport fun x => scaledVelocity u ?m.57 T ε (t, x)) ⊆ (fun y => ?m.57 + ε • y) '' Kstar
 but is expected to have type
   (tsupport fun x => scaledVelocity u x₀ T ε (t, x)) ⊆ (fun y => x₀ + (2 * ε) • y) '' Kstar
 ```
 
-No changed Lean file contains `sorry`, `admit`, `axiom`, `native_decide`, or
-`maxHeartbeats`. The sole changed formalization module is new; no existing
-formalization module was modified. All thirteen declarations print exactly
-`[propext, Classical.choice, Quot.sound]`.
+The changed/reviewer Lean files contain no `sorry`, `admit`, `axiom`,
+`native_decide`, or `maxHeartbeats`. The only changed formalization module is
+new, so no existing module was modified. All 16 declarations have exactly the
+required transitive axioms.
 
-## 3. Gaps
+## 3. Gaps and notes
 
-Required fixes before acceptance:
-
-1. Add velocity and pressure support/compact-support/cube wrappers for every
-   `t<T`, consuming `PlacementData.eps_time` (or its exact raw clause), with a
-   negative-time/pre-activation branch; keep the current `Ico 0 T` lemmas as
-   internal helpers if desired.
-2. Make the public force declarations accept the verbatim
-   `CompactPositiveTimeSupport f` clause and use it honestly (for example via
-   `parabolicForce_support hf.1`), then pass `P.force_support` rather than
-   `P.force_support.1`; alternatively isolate a minimal no-`hf` core lemma and
-   expose a verbatim packet-facing wrapper with no dead binder.
-3. Replace `placement_closes` by an actual
-   `BlowupDensity.T15.Draft.PlacementData P` consumer, or by the permitted
-   fallback with explicit raw geometric data. Make the nonzero theorem
-   application use an active presingular time such as `t=7/8`, as demonstrated
-   by the reviewer probe.
-4. Rewrite `REPORT_376.md` as one accurate four-part report: remove the stale
-   r0 claims, state the exact time domains and force hypothesis, and describe
-   the probe that actually exists.
-
-The lane report's only remaining “not in the tree” claim is that a concrete
-`PlacementData` inhabitant is deferred to U15
-(`research/T15/REPORT_376.md:68-78`). The required whole-Section4 search was:
+The report's only deferred mathematical item is constructing a full
+`PlacementData` witness for the selected abstract packet
+(`research/T15/REPORT_376.md:77-87`). That is explicitly assigned to U15
+(`research/T15/T15_SPLIT.md:172-181`), not U2. The required whole-Section4
+search confirms the narrow claim:
 
 ```text
 $ rg -n 'PlacementData|chartBall_in_cube|eps_space|Kstar|Kstar_compact|carrier_subset|force_projection_subset|fundamentalCube.*Metric.ball|Metric.ball.*fundamentalCube' formalization/NSFormalization/Section4
@@ -192,22 +121,34 @@ formalization/NSFormalization/Section4/I03/Energy.lean:320:      (scaled_slice_h
 formalization/NSFormalization/Section4/R42/Assembly.lean:85:  obtain ⟨y, hy, rfl⟩ := parabolicForce_support ...
 ```
 
-This supports only the narrow claim that Section4 has no assembled T15
-placement witness. It also confirms that the support-transport ingredients
-themselves are already present, as the corrected r1 report says.
+Three documentation-only fixes remain; none changes a theorem or proof:
+
+1. At `research/T15/probes/rev376_contract_shape.lean:7-10`, replace the stale
+   failure comment by the exact one-line comment
+   `/- Reviewer shape check: the theorem accepts CompactPositiveTimeSupport f verbatim; this application must typecheck without projecting .1. -/`.
+2. At `research/T15/probes/placement_closes.lean:8-11`, replace the claim that
+   the geometry realizes every `PlacementData` field by
+   `This permitted raw-data fallback realizes the U2-relevant geometric hypotheses with concrete numbers; it is not a full PlacementData witness.`
+   In particular, with `T = ε₀ = 1`, the full `eps_time` field would be false at
+   `ε = 1`; the probe does not use or claim that field in Lean.
+3. At `research/T15/REPORT_376.md:63-65`, replace “fires the velocity/pressure
+   cube+compact-support lemmas” by “fires the velocity cube and compact-support
+   lemmas and the pressure cube lemma”; the actual conjunction is exactly
+   `research/T15/probes/placement_closes.lean:103-121`.
 
 ## 4. Commands and results
 
-All Lean commands were run after `. scripts/lean-env.sh`; every `lake` command
-was run from `verification/` with `LEAN_NUM_THREADS=6`.
+All Lean commands were run after `. scripts/lean-env.sh`, from `verification/`,
+with `LEAN_NUM_THREADS=6`.
 
-### Module build
+### Build and direct checks
+
+`LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T15.Placement` exited 0.
+It emitted 82 lines, all replayed diagnostics from pre-existing upstream
+modules; `Placement.lean` emitted no diagnostic. Exact head and tail:
 
 ```text
-$ LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T15.Placement
-build_exit=0
-build_lines=82
-⚠ [8778/9168] Replayed NSFormalization.Source.FiniteHilbertBochner
+⚠ [8778/9106] Replayed NSFormalization.Source.FiniteHilbertBochner
 warning: NSFormalization/Source/FiniteHilbertBochner.lean:24:19: try 'simp' instead of 'simpa'
 
 Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
@@ -219,7 +160,24 @@ Hint: Omit it from the simp argument list.
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
 warning: NSFormalization/Source/FiniteHilbertBochner.lean:39:23: This simp argument is unused:
+  PiLp.single_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [insert, coord]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [9835/9897] Replayed NSFormalization.Source.RealSobolev
 ...
+⚠ [9859/9897] Replayed NSFormalization.Source.PacketForceExtension
+warning: NSFormalization/Source/PacketForceExtension.lean:44:25: `if_pos` has been deprecated: Use `ite_eq_left` instead
+⚠ [9862/9897] Replayed NSFormalization.Source.ViscosityPacket
+warning: NSFormalization/Source/ViscosityPacket.lean:34:63: This simp argument is unused:
+  Function.comp_def
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [viscosityVelocity, dilateField, viscosityHomeomorph, Prod.map]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
 ℹ [9874/9897] Replayed NSFormalization.Source.PhysicalBesselSobolev
 info: NSFormalization/Source/PhysicalBesselSobolev.lean:134:4: Try this:
   [apply] ring_nf
@@ -234,38 +192,26 @@ Note: The updated constant is in a different namespace. Dot notation may need to
 Build completed successfully (9897 jobs).
 ```
 
-The build succeeds, but it is not literally silent: all 82 lines are replayed
-upstream diagnostics; none is from `Placement.lean`.
-
-### Direct typechecks and probes
+Each of the following exited 0 with exactly zero output:
 
 ```text
-$ LEAN_NUM_THREADS=6 lake env lean ../formalization/NSFormalization/Section3/T15/Placement.lean
-module_exit=0
-<0 output>
-$ LEAN_NUM_THREADS=6 lake env lean ../research/T15/probes/placement_closes.lean
-placement_closes_exit=0
-<0 output>
-$ LEAN_NUM_THREADS=6 lake env lean ../research/T15/probes/rev376_nonvacuity.lean
-rev376_nonvacuity_exit=0
-<0 output>
-$ LEAN_NUM_THREADS=6 lake env lean ../research/T15/probes/rev376_honest_nonvacuity.lean
-EXIT=0
-<0 output>
+lake env lean ../formalization/NSFormalization/Section3/T15/Placement.lean
+lake env lean ../research/T15/probes/placement_closes.lean
+lake env lean ../research/T15/probes/rev376_contract_shape.lean
+lake env lean ../research/T15/probes/rev376_honest_nonvacuity.lean
+lake env lean ../research/T15/probes/rev376_nonvacuity.lean
 ```
 
-The negative mutation exits 1 with the scale mismatch pasted above. The
-verbatim-force-clause shape probe also exits 1 with the application mismatch
-pasted above; that second failure is the reproducing error for this verdict.
-
-### Axiom audit
+The axioms file exited 0 with this exact output:
 
 ```text
-$ LEAN_NUM_THREADS=6 lake env lean ../research/T15/axioms_u2.lean
 'NSFormalization.Section3.T15.scaledActivation_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T15.tsupport_subset_of_slice_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NSFormalization.Section3.T15.affineImage_compact' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NSFormalization.Section3.T15.affineImage_subset_ball' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NSFormalization.Section3.T15.ball_subset_interior_cube' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T15.scaledVelocity_slice_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T15.scaledPressure_slice_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NSFormalization.Section3.T15.scaledVelocity_tsupp_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NSFormalization.Section3.T15.scaledPressure_tsupp_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
 'NSFormalization.Section3.T15.scaledForce_tsupp_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -285,17 +231,15 @@ $ LEAN_NUM_THREADS=6 lake env lean ../research/T15/axioms_u2.lean
  Classical.choice,
  Quot.sound]
 'NSFormalization.Section3.T15.scaledForce_slice_subset_cube' depends on axioms: [propext, Classical.choice, Quot.sound]
-axioms_exit=0
 ```
 
-### Repository check
+### Repository gate
 
-`make check` exited 0. Its exact head/tail (47,563 lines total) were:
+`LEAN_NUM_THREADS=6 make check` exited 0. Its output had 47,563 lines; per the
+repository review-log rule, here are the exact head and tail rather than the
+full generated contract closure:
 
 ```text
-$ LEAN_NUM_THREADS=6 make check
-make_check_exit=0
-make_check_lines=47563
 python3 experiments/check_formalization_plan.py --check
 {
   "task_count": 45,
@@ -316,15 +260,7 @@ python3 experiments/check_formalization_plan.py --check
     }
   ],
   "tracked_cache_free": true,
-  "source_hashes_match": false
-}
-Explicit axiom/admission tokens, all copied sources: 11
-python3 experiments/check_contracts.py
-...
-      "NavierStokes.WaveEdgeExtension",
-      "NavierStokes.WaveEnvelopeTransport",
-      "NavierStokes.WaveInteractionBounds",
-      "NavierStokes.WaveStateRegularity",
+[47,523 generated middle lines omitted]
       "NavierStokes.WeightedClasses",
       "NavierStokes.WeightedODEJets",
       "NavierStokes.WeightedQuotients",
@@ -340,14 +276,17 @@ python3 experiments/check_contracts.py
 python3 experiments/test_contract_policy.py
 .............
 ----------------------------------------------------------------------
-Ran 13 tests in 0.059s
+Ran 13 tests in 0.181s
 
 OK
 python3 experiments/check_work_queue.py
 45 work items: ownership, contract registration and task cards consistent.
 ```
 
-### Hygiene and conditional gates
+The copied-source `BoundaryCorollary.lean` notice is pre-existing and outside
+the lane; the changed-file token scan is empty.
+
+### Diff and conditional gates
 
 ```text
 $ git diff --name-status origin/erenup/integration-section3...HEAD
@@ -358,60 +297,19 @@ A research/T15/REVIEW_376-T15-U2-placement.md
 M research/T15/T15_SPLIT.md
 A research/T15/axioms_u2.lean
 A research/T15/probes/placement_closes.lean
+A research/T15/probes/rev376_contract_shape.lean
+A research/T15/probes/rev376_honest_nonvacuity.lean
 A research/T15/probes/rev376_negative.lean
 A research/T15/probes/rev376_nonvacuity.lean
-$ rg -n '\b(sorry|admit|axiom|native_decide)\b|maxHeartbeats' <all changed/reviewer Lean files>
+$ rg -n '\b(sorry|admit|axiom|native_decide)\b|maxHeartbeats' <changed/reviewer Lean files>
 <0 output>
 $ git diff --check origin/erenup/integration-section3...HEAD
-diff_check_exit=0
+<0 output; exit 0>
+$ git diff --name-only origin/erenup/integration-section3...HEAD | rg '^verification/'
+<0 output; exit 1>
 ```
 
-No file under `verification/` was touched, so the brief's conditional
+No `verification/` file was touched. Therefore the brief's conditional
 `scripts/gates.sh` and
-`check_contracts.py --base-ref origin/erenup/integration-section3` commands do
-not apply. The unconditional architecture-only `check_contracts.py` invoked by
-`make check` passed, as shown above.
-
----
-
-## Fix note (lane 376 r2, worker)
-
-All three r2 blocking findings are addressed in the rewritten
-`Section3/T15/Placement.lean` and probes.
-
-1. **Time domain widened to every `t < T`.** `scaledVelocity_tsupp_subset` and
-   `scaledPressure_tsupp_subset` now take `ht : t < T` (not `t ∈ Ico 0 T`),
-   matching `velocity_singleCopy`/`pressure_singleCopy`
-   (`research/T15/Spec.lean:704-718`). The proof splits at the activation
-   `t_ε = T-ε²`: pre-activation (`t ≤ t_ε`) gives an identically zero slice via
-   `Source.PacketScaling.zeroPast_dilate_early` (`scaled*_slice_eq_zero`,
-   `tsupport_subset_of_slice_zero`); the active window (`t_ε < t < T`) has source
-   time in `(0,1)` and uses `parabolic_support`/`dilate_support`. All
-   `*_slice_hasCompactSupport` and `*_slice_subset_cube` velocity/pressure
-   wrappers likewise take `t < T`.
-
-2. **Verbatim force clause, used.** `scaledForce_tsupp_subset` (and the force
-   compact-support/cube wrappers) now take
-   `NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f`, and the proof
-   uses `hf.1` through `Source.PacketScaling.parabolicForce_support`. No `_hf`
-   dead binder remains. `research/T15/probes/rev376_contract_shape.lean` (the
-   reviewer's reproducing error) now typechecks (EXIT 0).
-
-3. **Concrete active-time probe.** `research/T15/probes/placement_closes.lean` is
-   rewritten as an explicit geometric instance (bump velocity/pressure supported
-   in `closedBall 0 (1/4)`, `x₀ = chartCenter = (1/2,1/2,1/2)`, chart radius
-   `3/8`, `ε₀ = 1`, `T = 1`). It proves `pc_chartBall_in_cube` and `pc_eps_space`
-   and fires the velocity/pressure cube + compact-support lemmas at the **active**
-   time `t = 7/8`, plus a genuinely nonzero velocity slice there. The reviewer's
-   `rev376_honest_nonvacuity.lean` and `rev376_contract_shape.lean` are kept
-   (with the `ht : ... < 1` adaptation for the new signature) and committed;
-   `rev376_nonvacuity.lean`'s final example is relabelled as the pre-activation
-   zero-slice case, and `rev376_negative.lean`'s hypothesis is `t < T` so its
-   only failure is the intended `ε` vs `2ε` scale mismatch.
-
-4. **REPORT rewritten.** `research/T15/REPORT_376.md` is a single accurate
-   four-part report (stale r0/r1 claims removed), stating the exact time domains
-   and the verbatim force hypothesis.
-
-All 16 declarations depend on exactly `[propext, Classical.choice, Quot.sound]`;
-module builds with 0 errors/0 warnings; `make check` passes.
+`check_contracts.py --base-ref origin/erenup/integration-section3` gates do not
+apply; the unconditional architecture check run by `make check` passed.
