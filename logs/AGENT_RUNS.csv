@@ -1431,3 +1431,9 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T22,409-T22-UB3-cutoff-datum,claude-opus,proof-worker,"Section3/T22/CutoffDatum.lean: exists_cutoff (manifold smooth Urysohn), exists_cutoff_isOpen, isCutoffDatum_realizes_zeroExtension; awaiting codex review",done,-
 2026-09-18,T20,413-T20-U7-critical-trilinear,claude-opus,proof-worker,"Section3/T20/CriticalTrilinear.lean: |<(v.grad)v,Lv>| <= C0 y z^2 on T3 via three-factor Holder + T12 U4/U6; C0 = 16*CcriticalHalf^3; awaiting codex review",done,-
 2026-09-18,T24,414-T24-Ua4-force-smooth-support,claude-opus,proof-worker,"Section3/T24/AffineForce.lean: force_smooth + force_support verbatim over raw packet clauses; awaiting codex review",done,-
+2026-09-18,T20,413-T20-U7-critical-trilinear,claude-opus,proof-worker,"Section3/T20/CriticalTrilinear.lean: critical trilinear estimate on T3; codex review ACCEPT",merged,378
+2026-09-18,T24,414-T24-Ua4-force-smooth-support,claude-opus,proof-worker,"Section3/T24/AffineForce.lean: force_smooth + force_support verbatim; codex review ACCEPT-WITH-NOTES",merged,379
+2026-09-18,T22,418-T22-UZ1-zero-extension-comparison,gpt-5.6-sol,proof-worker,"Section3/T22/ZeroExtensionComparison.lean: zeroExtensionComparison verbatim (U-B1 + cutoffMultiplier over the datum infimum); awaiting codex review",done,-
+2026-09-18,T15,421-T15-U3-single-copy,gpt-5.6-sol,proof-worker,"Section3/T15/SingleCopy.lean: velocity/pressure/force summable + singleCopy verbatim over raw PlacementData; awaiting codex review",done,-
+2026-09-18,T24,417-T24-Ua7-infinite-dimensional,claude-opus,proof-worker,"Section3/T24/AffineWitness.lean + AffineFamily.lean: infinite_dimensional verbatim (disjoint-ball curl-bump family, linear independence); awaiting codex review",done,-
+2026-09-18,T21,416-SPEC-t21-reconcile,claude-opus,spec-reconcile,"research/T21/RECONCILIATION.md + Spec.lean (644 lines, 0 errors): base B, Prop structures, T20 consumed via Bindings bridge; lead-approved",merged,380
