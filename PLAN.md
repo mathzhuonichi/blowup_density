@@ -194,6 +194,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 426-T18-U2-U4-force-class-kinematics-div | worktree 安装中（基于 422 + integration）→ codex sol | 09-18 1748Z | — | — | T18 U2+U3+U4：力类归属（ForceClass）、正则/初值/历史/周期（Kinematics）、不可压（Divergence） |
 | 427-T12-UREG-dedupe-register | Opus 完成：contDiff_dirDeriv 去重到 T12/DirDeriv.lean（仅此一处重名）；T01.mean_zero_calculus 注册（合同逐字、11 个 rfl 桥、9 字段 + 7 常数实例、测试非空；parent_task=T01）；门禁全过、43 合同 → 排队审稿；与 423 同改 contracts.json，后合入者重解 | 09-18 1813Z | — | — | T12：去重 400/405 的 contDiff_dirDeriv（共享 DirDeriv.lean）+ 完成 T01.mean_zero_calculus 注册（绑定/测试/门禁，43 合同） |
 | 428-T20-U9-ybound | Opus prover 子代理运行中 | 09-18 1805Z | — | — | T20 U9：yBound（ρ<cν ⇒ y(t) ≤ ∫₀ᵗ b ≤ ρ；标量 bootstrap critical_norm_bound + U8 + U3 + 连续性/FTC） |
-| 429-T20-U10a-h1-trilinear | Opus prover 子代理运行中 | 09-18 1806Z | — | — | T20 U10a：均值零 H¹ 三线性估计 abs⟪(v·∇)v,Δv⟫ ≤ C₁ y ‖Δv‖²₂（Hölder (3,6,2) + T12 U4/U5） |
+| 429-T20-U10a-h1-trilinear | Opus 完成：h1Trilinear（(3,6,2) 环面 Hölder + T12 U4/U5；C₁ = CcriticalHalf·Csix；U10b 切片形式）；因 400/405 同名冲突置于 GradientLSix 侧并复制 413 四条辅助引理为 …H1（427 修复后可清理）→ 排队审稿 | 09-18 1820Z | — | — | T20 U10a：均值零 H¹ 三线性估计 abs⟪(v·∇)v,Δv⟫ ≤ C₁ y ‖Δv‖²₂（Hölder (3,6,2) + T12 U4/U5） |
 | 430-T24-Ua9-affine-registration | Opus prover 子代理运行中 | 09-18 1819Z | — | — | T24a Ua9：AffineVariationAPI 装配（13 字段）+ affineVariationStatement + 注册 T04.affine_variation（绑定层从 packet 字段推出 energyENorm 1 U < ⊤） |
 | 431-T17-U8-force-volume | worktree 安装中 → Opus prover | 09-18 1819Z | — | — | T17 U8：修正力环面支撑体积 O(ε³) 与时长 ≤ 4ε²（force_support + Haar=Lebesgue 单拷贝桥） |
