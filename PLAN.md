@@ -74,8 +74,8 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 306-SPEC-t24-draft-a | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 A**：`prop:affine`/`prop:multiple`/`prop:conservative`（三个独立结构；基于 T14/T15 定稿） |
 | 307-SPEC-t24-draft-b | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 B**（同上，互不可见） |
 | 308-T11-U1-flow-conversion | 已合入 #284（codex 审稿 ACCEPT） | 09-18 0144Z | #284 | — | T11 U1：`ClassicalSolutionT ↔ Paper1.PeriodicLifespan.Flow` 逐字段转换 + 往返 + 两条拼写引理（S–M，sol） |
-| 310-T11-U3-galilean-classes | 排队（简报已写） | 09-18 0058Z | — | — | T11 U3：`translation_preserves_sobolev`/`transformed_classes`/`transformed_mean_zero`（M，sol） |
+| 310-T11-U3-galilean-classes | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0200Z | — | — | T11 U3：`translation_preserves_sobolev`/`transformed_classes`/`transformed_mean_zero`（M，sol） |
 | 311-T11-U9a-existence-probe | 已合入 #283（codex 审稿 ACCEPT）：R2 路线、两空间契约、热半群第一阶 | 09-18 0139Z | #283 | — | T11 U9a：周期局部存在性路线探针（R1 HeliCorgi 端点层 vs R2 A01 柱面路线），具名输入 `PeriodicQuantitativeLocalInput`，至少证一条归约/一阶（L，astra） |
-| 309-T11-U2-criterion-bridge | 完成（astra：10 定理，无命名输入）→ codex 审稿中（rev-309） | 09-18 0152Z | — | — | T11 U2：光滑周期场各阶 datum 存在与有限性、`squaredHTwoIntegralT ≠ ⊤ ↔ FiniteH2Energy (toFlow w)` 双向（L，astra） |
+| 309-T11-U2-criterion-bridge | 已合入 #285（codex ACCEPT-WITH-NOTES：仅 markdown 笔误） | 09-18 0200Z | #285 | — | T11 U2：光滑周期场各阶 datum 存在与有限性、`squaredHTwoIntegralT ≠ ⊤ ↔ FiniteH2Energy (toFlow w)` 双向（L，astra） |
 | 312-T10-force-paths | 排队（简报已写） | 09-18 0105Z | — | — | T10 第 11/12 项（305 审稿指出的遗漏）：`MemForceT` 力的各阶系数路径（连续/可测、`L¹_tH^m`/`L²_tH^m` 有限）+ 向量梯度/能量物理-系数恒等式 + 向量场分量推论 |
 | 313-T11-U9b-existence-construction | worktree 安装中→自动启动（codex **astra** low，sol 备用） | 09-18 0139Z | — | — | T11 U9b：按 311 定的 R2 路线，具名输入改为按阶力界的 `PeriodicQuantitativeLocalInput'`（lead 修正 1，`research/T11/LEAD_AMENDMENTS.md`）；证 EXISTENCE_ROUTE 的前两项（投影对流符号的双线性估计、强迫 Picard 不动点与寿命下界） |
