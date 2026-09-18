@@ -60,7 +60,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 292-SPEC-t15-draft-b | 完成（草案 B；待 291 后 reconciliation） | 09-17 2346Z | — | — | SPEC **T15 双盲草案 B**（同上，互不可见） |
 | 293-T01-torus-data-contract | 已合入 #275（codex ACCEPT-WITH-NOTES，备注并入 296）：T01.torus_data 注册完成，合同数 38 | 09-18 0003Z | #275 | — | **注册第 3 节第一个合同 `T01.torus_data`**：`Contracts/V1/TorusData.lean`（数据层定义逐字重述 + 10 字段 `TorusDataAPI`）+ Bindings（rfl 桥 + 由四个证明模块装配）+ Tests；解类部分推迟到 T11 注册 |
 | 294-SPEC-t17-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-17 2331Z | — | — | SPEC **T17 双盲草案 A**：`lem:correction`（`eq:H` 修正力、`eq:derivativebounds/wE/Hmixed/HHs`；复用 T16 截断与 T13 localization；镜像 `I02.correction(_v2)`） |
-| 295-SPEC-t17-draft-b | 路由 5/5 重连后切断（有部分产出）→ 00:48Z 续跑简报重启（sol） | 09-18 0048Z | — | — | SPEC **T17 双盲草案 B**（同上，互不可见） |
+| 295-SPEC-t17-draft-b | 完成（草案 B，续跑后；待 294 后 reconciliation） | 09-18 0128Z | — | — | SPEC **T17 双盲草案 B**（同上，互不可见） |
 | 296-MAINT-t10-instance-dedupe | 已合入 #279（codex 审稿 ACCEPT）：单一命名实例，Bindings 直接装配十定理（161 行） | 09-18 0031Z | #279 | — | MAINT：T10 三个证明模块的匿名 `IsProbabilityMeasure` 实例同名冲突 → 在 `PeriodicData.lean` 命名一次、删重复；`Bindings/TorusData.lean` 改回直接装配十个定理（删 293 的私下重证） |
 | 297-T12-canonical-module | 已合入 #274（lead 直接合并：定义类模块，probe 含 rfl 检查） | 09-17 2356Z | #274 | — | T12 规范定义模块 `Section3/T12/MeanZeroCalculus.lean`（research/T12/Spec.lean 的新定义逐字落成 Lake 模块，import T10 模块；probe 把 Type 值 `MeanZeroSobolevCalculusAPI` 陈述在模块上）→ T12 证明 lane 基座 |
 | 298-SPEC-t11-spec | 已合入 #277（lead 直接合并：elaborate 0 输出，3+8+5+6+4 字段对照 reconciliation） | 09-18 0012Z | #277 | — | SPEC **T11 定稿**：按 research/T11/RECONCILIATION.md（`SolvesBelowT` 延拓假设、数据定义的 Galilean 均值、Poisson 压力、四个 API 结构 3+8+5+6+4 字段）→ Spec.lean + COMPARISON.md |
@@ -73,7 +73,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 305-T10-fourier-calculus | 已合入 #282 作为**部分交付**（审稿 REJECT 仅因范围遗漏 T10 第 11/12 项，已证内容审计/公理/变异全过）→ 312 补齐 | 09-18 0101Z | #282 | — | T10 基础引理：光滑周期场的 Fourier 微积分（导数符号 `2πi k_j`、Laplacian 符号、系数快速衰减、可和性与逐点反演、sup 界）→ 解锁 T12 `boundedRepresentative`/`lambda_exists`/`hTwo_le_laplacian` 与 T13 |
 | 306-SPEC-t24-draft-a | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 A**：`prop:affine`/`prop:multiple`/`prop:conservative`（三个独立结构；基于 T14/T15 定稿） |
 | 307-SPEC-t24-draft-b | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 B**（同上，互不可见） |
-| 308-T11-U1-flow-conversion | 排队（下一个空位；简报已写） | 09-18 0058Z | — | — | T11 U1：`ClassicalSolutionT ↔ Paper1.PeriodicLifespan.Flow` 逐字段转换 + 往返 + 两条拼写引理（S–M，sol） |
+| 308-T11-U1-flow-conversion | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0128Z | — | — | T11 U1：`ClassicalSolutionT ↔ Paper1.PeriodicLifespan.Flow` 逐字段转换 + 往返 + 两条拼写引理（S–M，sol） |
 | 310-T11-U3-galilean-classes | 排队（简报已写） | 09-18 0058Z | — | — | T11 U3：`translation_preserves_sobolev`/`transformed_classes`/`transformed_mean_zero`（M，sol） |
 | 311-T11-U9a-existence-probe | 完成（astra：选 R2；两空间契约陈述；热半群第一阶 17 定理无条件；指出具名输入量词问题）→ codex 审稿中（rev-311） | 09-18 0127Z | — | — | T11 U9a：周期局部存在性路线探针（R1 HeliCorgi 端点层 vs R2 A01 柱面路线），具名输入 `PeriodicQuantitativeLocalInput`，至少证一条归约/一阶（L，astra） |
 | 309-T11-U2-criterion-bridge | 排队（待 308 合入；astra） | 09-18 0058Z | — | — | T11 U2：光滑周期场各阶 datum 存在与有限性、`squaredHTwoIntegralT ≠ ⊤ ↔ FiniteH2Energy (toFlow w)` 双向（L，astra） |
