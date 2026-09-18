@@ -121,5 +121,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 353-T13-localization-kernel | Opus prover 子代理运行中（基座 = 345+344 分支 + integration-section3） | 09-18 0836Z | — | — | T13 `localization` 第 1 部分（核估计）：格点尾和一致界 tailConst、`ITorus s (periodize f) ≤ IReal s f + 4·tailConst·‖f‖₂²`、T³ 上 periodicSobolevENorm ≤ L² + 齐次；装配（需 348）留给 354 |
 | 354-T13-localization-assembly | 待开：等 348（wholeSpace_identity）与 353（核估计）落地 | 09-18 0838Z | — | — | T13 `localization` 第 2 部分（装配）：torus_identity + endpoint_zero + constant_pos_finite + 353 三估计 + 348 全空间恒等式 → `localization` 字段；随后 T13 六字段齐 → LocalizationAPI 装配 + 合同 |
 | 355-T14-packet-contract | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0839Z | — | — | T14 合同注册 `T01.packet_import` v1（Contracts/V1/PacketImport.lean 逐字重述 Spec；Bindings 由 Bindings.packet + 346 定理构造 PacketImportFamily；Tests；注册 → 40 合同；台账 claim T14） |
-| 356-SPEC-t18-draft-a | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0849Z | — | — | SPEC T18 `thm:insertion` 双盲草案 A（03-torus.tex:287-346；镜像 R42 InsertionFamilyAPI；导入已注册 TorusData/TorusLocalTheory，逐字复制 T17 Spec 词汇块） |
-| 357-SPEC-t18-draft-b | worktree 安装中→Opus prover 子代理 | 09-18 0849Z | — | — | SPEC T18 `thm:insertion` 双盲草案 B（同上，互不可见） |
+| 356-SPEC-t18-draft-a | codex sol 运行中（双盲草案 A；astra 备用） | 09-18 0852Z | — | — | SPEC T18 `thm:insertion` 双盲草案 A（03-torus.tex:287-346；镜像 R42 InsertionFamilyAPI；导入已注册 TorusData/TorusLocalTheory，逐字复制 T17 Spec 词汇块） |
+| 357-SPEC-t18-draft-b | Opus prover 子代理运行中（双盲草案 B） | 09-18 0852Z | — | — | SPEC T18 `thm:insertion` 双盲草案 B（同上，互不可见） |
