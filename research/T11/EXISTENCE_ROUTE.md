@@ -550,7 +550,7 @@ no named input beyond `PersistenceInput`, no `def … : Prop`).
 
 ## U9d2c status — lane 334 (the U9d target is closed)
 
-`formalization/NSFormalization/Section3/T11/MildClassical.lean` (1354 lines,
+`formalization/NSFormalization/Section3/T11/MildClassical.lean` (1383 lines,
 77 declarations) proves
 
 ```lean

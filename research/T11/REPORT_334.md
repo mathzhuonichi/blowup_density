@@ -71,7 +71,9 @@ runs through the same evaluation, with datum path
 ## 2. Lean 里现在有什么 / What is in Lean
 
 New module `formalization/NSFormalization/Section3/T11/MildClassical.lean`
-(1354 lines, 77 named declarations including three explicitly named local
+(1383 lines — 1384 as reviewed, one line shorter after the rebase onto the
+merged lane 327 removed the now-implicit `hFI` binder; 77 named declarations
+including three explicitly named local
 instances).  No existing module was modified.
 
 | section | content |
@@ -111,9 +113,15 @@ the origin, together with the genuine `TorusForcedMildOn` witness.
    over an `H¹` ball with order-wise `L¹_t H^m` force bounds), so
    `Section3/T11/Restart.lean` still consumes its named input unchanged.
 2. **Smoothness of `g` is global.**  Like lane 330, the force smoothness
-   hypothesis is `ContDiff ℝ ∞ g` on all of space-time; there is no
-   `ContDiffOn`-on-a-slab variant of `continuous_datum_path` in the tree, and
-   `datumPath_contDiff` inherits that.
+   hypothesis is `ContDiff ℝ ∞ g` on all of space-time: no **torus-specific**
+   slab variant of `Section3/T10/ForcePaths.lean:82-105`
+   (`continuous_datum_path`) is available, and `datumPath_contDiff` inherits
+   that global hypothesis.  `Section4/A01/DatumPathSmooth.lean:715-729`
+   (`datumPath_contDiffOn_all_orders`, used at
+   `Section4/A01/JointRepresentative.lean:590`) is an R3/Euler-cylinder result
+   with different carriers and a strong `hall` hypothesis, so it does not
+   supply the torus upgrade; the gap is real for this route but the claim is
+   about the torus vocabulary, not about the whole tree.
 3. **Uniqueness of the classical solution** is untouched here; only the
    coefficient-side uniqueness of lanes 313/315 exists.
 4. No sharpness, no blow-up criterion, no continuation: those are U10/U11/U15.

@@ -98,22 +98,32 @@ bound — T18 and T20 both will need them), `torus_forcedLinear_bound_L1`, and
 `picardHorizon` as the canonical explicit horizon.
 
 Files: the module; `research/T11/probes/existence_input_h3_closes.lean`;
+the two negative mutations `research/T11/probes/rev338_h1_mutation.lean`
+(reviewer) and `research/T11/probes/rev338_horizon_mutation.lean` (worker), both
+expected to fail and recorded in `ATTEMPTS_EXISTENCE_INPUT_H3.md` §5;
 `research/T11/axioms_existence_input_h3.lean`;
 `research/T11/ATTEMPTS_EXISTENCE_INPUT_H3.md`; `research/T11/H1_GAP.md`; this
 report; one line in `research/T11/T11_SPLIT.md` and one appended paragraph in
 `research/T11/EXISTENCE_ROUTE.md`.
 
-**One edit to an existing module, forced by a broken base.**  The lane base did
-not compile: lane 334's `MildClassical.lean` was written against a pre-`2572e51b`
+**No edit to any existing module (after the rebase on merged 334).**  The lane
+base originally did not compile: lane 334's `MildClassical.lean` was written against a pre-`2572e51b`
 `MildMomentum.lean` in which `momentum_of_mildPressure` /
 `projected_of_mildPressure` still took an explicit `(hF : PersistenceInput T F)`;
 lane 327 later proved that argument and removed it, and the lead's merge of 334
 into the 338 base combined the two incompatible files without a git conflict.
-Three lines of `MildClassical.lean` are repaired (delete the `have hFI …` and
-drop `hFI` from the two applications); no statement changes.  Details and the
-exact error text in `ATTEMPTS_EXISTENCE_INPUT_H3.md` §0.  **This needs a
-`logs/LESSONS.md` line from the lead** (the brief forbids editing that file from
-a lane).
+Three lines of `MildClassical.lean` needed repairing (delete the `have hFI …`
+and drop `hFI` from the two applications); no statement changes.  The codex
+review REJECTed the first commit for that edit on the new-files-only rule, and
+the byte-identical repair has since landed on
+`origin/erenup/integration-section3` through lane 334's own merge (PR #310), so
+this lane is now rebased on it and
+`git diff origin/erenup/integration-section3 -- …/MildClassical.lean` is
+**empty**.  Details and the exact error text in
+`ATTEMPTS_EXISTENCE_INPUT_H3.md` §0 and §6.  **This still needs a
+`logs/LESSONS.md` line from the lead** (a lane may not edit that file): a merge
+of two files that git cannot conflict can still break the build semantically,
+so a lane base must be built before briefs are written against it.
 
 ## 3. 缺口是什么 / What is not proved
 
@@ -170,4 +180,24 @@ make check   (from the worktree root)
 
 grep -nE "sorry|admit|native_decide|^axiom|maxHeartbeats" on module, probe and
 audit → no hits.
+
+--- negative mutations (both expected to fail; see ATTEMPTS §5) ---
+
+cd verification && lake env lean ../research/T11/probes/rev338_h1_mutation.lean
+  → error at :26:62 "Application type mismatch: the argument hKa has type
+    periodicSobolevENorm 1 a ≤ K but is expected to have type
+    periodicSobolevENorm 3 a ≤ K"   (the H³ ball is load-bearing)
+
+cd verification && lake env lean ../research/T11/probes/rev338_horizon_mutation.lean
+  → error at :27:2 "Type mismatch … has type ∃ w : ClassicalSolutionT ν a g
+    (picardHorizon ν K M) … but is expected to have type … (picardHorizon ν K
+    fun x => 0)"   (the horizon really depends on the force bounds)
+
+--- after the rebase on merged 334 (PR #310) ---
+
+git diff origin/erenup/integration-section3 -- \
+  formalization/NSFormalization/Section3/T11/MildClassical.lean
+  → empty: the three-line repair recorded in §2 landed on the integration
+    branch through lane 334's own merge, so this lane no longer modifies any
+    existing module.
 ```
