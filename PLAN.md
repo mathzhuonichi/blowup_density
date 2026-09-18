@@ -91,8 +91,8 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 323-T11-U15-maximal | astra at capacity 立刻死亡 → 重试脚本 30 分钟后换模型重试 | 09-18 0417Z | — | — | T11 U15：`exists_maximal`/`maximal_unique` + `maximalLifespanT = PeriodicLifespan.lifespan`（复用 Paper1 无条件粘合）（M，sol） |
 | 324-SPEC-t20-spec | 已合入 #296（二跑：15 字段含常数与清单一致，2 rfl，elaborate 0 输出） | 09-18 0415Z | #296 | — | SPEC **T20 定稿**：按 research/T20/RECONCILIATION.md（B 为基 + A 拼写；零初值命题；Type 值 `CriticalRegularityTAPI` 12 常数字段 + 11 定理字段；无 API 索引）→ Spec.lean + COMPARISON.md |
 | 325-T11-U9d1a-half-step | astra 两次交别名桩（TorusHalfStepAnalyticInput := TorusHalfStepInput）→ 作废；拆成 328/329/330 三条不允许具名输入的具体引理 lane | 09-18 0407Z | — | — | T11 U9d1-analytic：偿还 319 的具名输入 `TorusHalfStepInput`（实阶卷积界 H^r×H^r→H^{r−1}、分数阶热光滑 σ=3/2 核 (νt)^{-3/4}、Duhamel 端点连续）→ 持续性无条件 |
-| 326-T11-U9d2a-pressure | astra 二跑仍是桩（40 行、3 平凡定理）→ 改派 Opus prover 子代理（同简报，同 worktree） | 09-18 0413Z | — | — | T11 U9d2a：mild 解的压力（Leray 补的系数构造、物理场、`pressure_gradient/smooth/gauge/periodic/poisson`）在 `PersistenceInput` 下 |
-| 327-T11-U9d2b-momentum | 排队（astra；简报已写） | 09-18 0340Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
+| 326-T11-U9d2a-pressure | Opus 完成（Leray 补压力构造、Poisson/gauge/周期/梯度 datum/空间光滑，80 声明；残余：压力联合时间光滑 → 327）→ 排队 codex 审稿 | 09-18 0449Z | — | — | T11 U9d2a：mild 解的压力（Leray 补的系数构造、物理场、`pressure_gradient/smooth/gauge/periodic/poisson`）在 `PersistenceInput` 下 |
+| 327-T11-U9d2b-momentum | Opus prover 子代理（基座 = integration + 326 本地合并） | 09-18 0449Z | — | — | T11 U9d2b：Duhamel 时间微分 → 系数路径时间可导、物理速度时间光滑、动量方程（对任意梯度 datum 为 (I−P)(F−Q) 的压力） |
 | 328-T11-U9d1a-real-order-convolution | Opus 完成（实阶卷积界无条件，36 声明，r=3 回退到 317）→ 排队 codex 审稿（容量恢复后） | 09-18 0440Z | — | — | T11 U9d1a：实阶卷积界 `Q : H^r×H^r→H^{r−1}`（r ≥ 3 实数），317 的证明推广（Peetre 实指数） |
 | 329-T11-U9d1b-fractional-smoothing | Opus 完成（σ=3/2 光滑、核可积与积分值、强连续，32 声明无条件）→ 排队 codex 审稿 | 09-18 0442Z | — | — | T11 U9d1b：分数阶热光滑 σ=3/2、核 (νt)^{-3/4} 可积、强连续 |
 | 330-T11-U9d1c-duhamel-half-step | Opus prover 子代理（基座 = integration + 328 + 329 本地合并） | 09-18 0442Z | — | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |
