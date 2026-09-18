@@ -74,16 +74,19 @@ re-target every conclusion to the registered vocabulary.
 - **U1 — `thresholdValue`.** Target (verbatim, `Spec.lean:221`): `criticalOrder 1 = (1:ℝ)/2`. Route: exactly
   R41 `Bindings/MainThresholds.lean:96` `thresholdValues := by norm_num [criticalOrder]` (`criticalOrder 1
   = 2/1 − 3/2 = 1/2`). **S, codex-sol.** No named input. Deps: —.
+  **Status: complete (lane 388).** `NSFormalization.Section3.T19.thresholdValue`.
 
 - **U2 — `mixedRegionArithmetic`.** Target (`Spec.lean:301`): `∀ p q, 3 < 3/p.toReal + 2/q.toReal →
   0 < alpha p q ∧ 0 < alpha p q + 1`. Route: unfold registered `Contracts.V1.alpha p q =
   −3 + 3/p.toReal + 2/q.toReal` (`Correction.lean:160`); first conjunct `linarith` from the hypothesis,
   second `linarith` from the first. **S, codex-sol.** No named input. Deps: —.
+  **Status: complete (lane 388).** `NSFormalization.Section3.T19.mixedRegionArithmetic`.
 
 - **U3 — `regionExamples`.** Target (`Spec.lean:318`): `0 < alpha 2 1 ∧ 0 < alpha (4/3) 2`. Route: unfold
   `alpha`, reduce `(2:ℝ≥0∞).toReal`, `(1:ℝ≥0∞).toReal`, `((4/3):ℝ≥0∞).toReal`, `(2:ℝ≥0∞).toReal` (finite
   numerals, `ENNReal.toReal_ofNat`/`toReal_div`), `norm_num` (`α(2,1)=1/2`, `α(4/3,2)=1/4`). **S, codex-sol.**
   No named input. Deps: U2 (reuse the `alpha`-unfold lemma).
+  **Status: complete (lane 388).** `NSFormalization.Section3.T19.regionExamples`.
 
 - **U4 — `energyTimeEmbedding`.** Target (`Spec.lean:352`): `spaceTimeL2L2ENormT T z ≤
   ENNReal.ofReal (Real.sqrt T) * energyEssSupT T z`. Route (pure Mathlib, hard analytic): with
@@ -95,6 +98,7 @@ re-target every conclusion to the registered vocabulary.
   (`ENNReal.ofReal_rpow`/`Real.sqrt_eq_rpow`), and `energyEssSupT T z = essSup h …` by unfolding
   `TorusLocalTheory.lean`. `RECONCILIATION.md` "False clauses" #1 verifies the identity. **M, codex-sol**
   (Opus if the `essSup·measure` + `rpow` bookkeeping stalls). **No named input.** Deps: —.
+  **Status: complete (lane 388).** `NSFormalization.Section3.T19.energyTimeEmbedding`.
 
 - **U5 — `referenceFiniteEnergy`.** Target (`Spec.lean:428`): `∀ … ∀ reference : ClassicalSolutionT ν a g
   (T+δ), energyENormT T reference.velocity < ⊤`. Route: `reference.velocity` is smooth on
@@ -102,6 +106,7 @@ re-target every conclusion to the registered vocabulary.
   velocity and gradient are bounded there ⟹ `energyEssSupT T`, `energyGradientT T` finite ⟹ `energyENormT T
   reference.velocity < ⊤` (`energyENormT` is their `ℝ≥0∞` sum, `TorusLocalTheory.lean:246`). Mirror of the
   R46 implicit "reference finite `E_T`" step. **M, codex-sol.** No named input. Deps: —.
+  **Status: complete (lane 388).** `NSFormalization.Section3.T19.referenceFiniteEnergy`.
 
 - **U6 — zero-difference norm helpers** (lemmas directly consumed by the already-singular branch). Targets:
   `torusForceSobolevENorm_zero : ∀ q s, forceSobolevENormT q s 0 = 0` (exact torus copy of
@@ -109,6 +114,8 @@ re-target every conclusion to the registered vocabulary.
   ∀ q p, mixedLebesgueENormT q p 0 = 0` (mirror `I03.forceHomogeneousENorm_zero`, used in
   `Bindings/CompletedClosure.lean:186`). Route: the `⨅` over datum/slice paths is `≤` the zero representative,
   whose `eLpNorm`/`bochnerDatumENorm` is `0`. **S, codex-sol.** No named input. Deps: —.
+  **Status: complete (lane 388).** Both zero-representative theorems are in
+  `NSFormalization.Section3.T19.Bookkeeping`.
 
 ### Wave 2 — the density engine + its two siblings, **blocked on T18 U12** (Opus)
 

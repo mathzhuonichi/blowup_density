@@ -14,3 +14,8 @@ None for U3 (constants honest, not sharp). Feeds U4 `velocityCriticalL3` (`dotHo
 
 ## 4. Commands and results
 `lake build NSFormalization.Section3.T12.CutoffGagliardo` → success (9998 jobs), 0 errors/0 warnings; module / probe / axioms `lake env lean` → clean, 21 × standard; `make check` → OK. Pitfalls (ATTEMPTS): `rw [lintegral_add_left …]` on `gA` times out (the `ContDiffBump` cutoff unfolds under `whnf`) — abstract linearity lemma `lintegral_two_add_two`; `ℝ≥0∞` `a² ≤ b² → a ≤ b` via `ENNReal.rpow_le_rpow_iff` after `rpow_two`; pin renames (`mul_le_mul_right/left` swapped, `measurable_prodMk_left`, `Convex.norm_image_sub_le_of_norm_fderiv_le`, `Set.indicator_of_notMem`, `PiLp.single_apply`, `contDiff_piLp_apply`).
+
+## Review notes applied (lead, 2026-09-18 14:03Z)
+- codex ACCEPT-WITH-NOTES (`REVIEW_377-T12-U3-cutoff-gagliardo.md`; the reviewer's full-axiom audit `rev377_axioms_all.lean` passes and the constant-mutation probe `rev377_negative_constant.lean` fails as required).
+- Build-output claim corrected: `lake build` of the module reports 0 errors and 0 warnings **from this module**; the replayed dependency closure emits pre-existing linter/deprecation warnings from upstream modules (not from `CutoffGagliardo.lean`).
+- Source of the reverse estimate: the route is exactly `research/T12/T12_SPLIT.md:71-80` (unit U3: the difference split, the Lipschitz bound on `χ`, and the kernel comparison on the support gap), specialised at `a = 1/2` with the two Gagliardo identities of T13.
