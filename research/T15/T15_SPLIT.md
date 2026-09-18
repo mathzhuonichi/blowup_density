@@ -79,6 +79,12 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   unique datum `A`) through `periodicSobolevENorm` (`T10/PeriodicData.lean:119`) and `datum_unique`.
   **S, codex-sol.** Deps: —.
 
+  **Status (lane 363, 2026-09-18): complete.** `Section3/T15/ParsevalZero.lean` proves the stronger
+  `IsPeriodicSpatial z ∧ MemLp (torusLift z) 2 periodicTorusMeasure` version via
+  `parseval_backward`, the explicit `iInf` singleton collapse, `datum_unique`, and
+  `parseval_forward`; the smooth theorem and `≠ ⊤` corollary follow. A constant nonzero mode is
+  instantiated in `research/T15/probes/parseval_zero_closes.lean`.
+
 - **U4 — energy identities + honest slices** (transport; ⑩). New `Section3/T15/Energy.lean`. Targets
   `energySlices_memLp` (`Spec.lean:793`), `packetEnergyIdentity` (`:804`), `packetDissipationIdentity`
   (`:815`). Route: U3 collapses each torus slice to the ℝ³ scaled slice on `Q`; `U-TB1` moves the Haar
