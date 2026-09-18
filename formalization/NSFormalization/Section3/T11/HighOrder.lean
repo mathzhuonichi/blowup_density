@@ -35,9 +35,11 @@ carrier settles outright, and states the exact residual.
   solenoidality" (`appendix-a-local-theory.tex:141`).  On the torus this is an
   exact coefficient computation, not an integration by parts: conjugating
   `∑ⱼ 2πi kⱼ ûⱼ(k) = 0` kills every frequency of `⟪u, ∇p⟫_{H^m}`.
-  `torusPressureDrop_nonvacuous` exhibits it at a **nonzero** velocity datum and
-  a **nonzero** pressure-gradient datum (the shear mode `2 e₁ cos(2π x₀)` and
-  the gradient of the companion scalar mode).
+  `research/T11/probes/high_order_closes.lean` exhibits it at a **nonzero**
+  velocity datum and a **nonzero** pressure-gradient datum (the shear mode
+  `2 e₁ cos(2π x₀)` and the gradient of the companion scalar mode); the witness
+  lives in the probe because its frequency arithmetic prints a strict subset of
+  the three standard axioms.
 * `torusLaplacianPairing` / `torusLaplacianPairing_nonpos` — the dissipation
   term has the right sign at every frequency, with the exact value
   `−|2πk|² ∑ᵢ |û ᵢ(k)|²`.
@@ -577,134 +579,5 @@ example {T₀ : ℝ} (hT : 0 < T₀) :
     rw [this]
     ring_nf
     linarith [Real.exp_pos r]
-
-/-! ## 9. A nonzero witness for the pressure drop -/
-
-/-- The lattice frequency `(1,0,0)`. -/
-def shearFreq : PeriodicFrequency := fun j ↦ if j = 0 then 1 else 0
-
-theorem shearFreq_ne_neg : shearFreq ≠ -shearFreq := by
-  intro h
-  have h0 := congrFun h 0
-  simp [shearFreq] at h0
-
-theorem shearFreq_component_one : shearFreq 1 = 0 := by simp [shearFreq]
-
-/-- A genuinely nonzero solenoidal velocity datum: the shear flow
-`u(x) = 2 e₁ cos(2π x₀)`, carried by the conjugate mode pair `±(1,0,0)` in the
-`e₁` component.  Its frequency is orthogonal to its amplitude, so it is
-divergence free. -/
-def torusShearDatum (s : ℝ) : PeriodicSobolev s := by
-  refine ⟨WithLp.toLp 2 (fun i ↦ if i = 1 then
-      lp.single 2 shearFreq (1 : ℂ) + lp.single 2 (-shearFreq) (1 : ℂ) else 0), ?_⟩
-  intro i k
-  by_cases hi : i = 1
-  · subst hi
-    change ((lp.single 2 shearFreq (1 : ℂ) +
-        lp.single 2 (-shearFreq) (1 : ℂ) : PeriodicScalarData)) (-k) =
-      star ((lp.single 2 shearFreq (1 : ℂ) +
-        lp.single 2 (-shearFreq) (1 : ℂ) : PeriodicScalarData) k)
-    by_cases h1 : k = shearFreq
-    · subst h1
-      simp [lp.single_apply, shearFreq_ne_neg, (shearFreq_ne_neg).symm]
-    · by_cases h2 : k = -shearFreq
-      · subst h2
-        simp [lp.single_apply, shearFreq_ne_neg, (shearFreq_ne_neg).symm, neg_neg]
-      · have h3 : -k ≠ shearFreq := fun h ↦ h2 (by rw [← h, neg_neg])
-        have h4 : -k ≠ -shearFreq := fun h ↦ h1 (neg_injective h)
-        simp [lp.single_apply, h1, h2, h3, h4]
-  · simp [hi]
-
-theorem torusShearDatum_apply (s : ℝ) (i : Fin 3) (k : PeriodicFrequency) :
-    (torusShearDatum s).1 i k =
-      if i = 1 then
-        (if k = shearFreq then (1 : ℂ) else 0) + (if k = -shearFreq then (1 : ℂ) else 0)
-      else 0 := by
-  by_cases hi : i = 1
-  · subst hi
-    change ((lp.single 2 shearFreq (1 : ℂ) +
-      lp.single 2 (-shearFreq) (1 : ℂ) : PeriodicScalarData)) k = _
-    simp [lp.single_apply, Pi.single_apply]
-  · simp [torusShearDatum, hi]
-
-theorem torusShearDatum_ne_zero (s : ℝ) : torusShearDatum s ≠ 0 := by
-  intro h
-  have hv := congrArg (fun A : PeriodicSobolev s ↦ A.1 1 shearFreq) h
-  rw [torusShearDatum_apply] at hv
-  simp [shearFreq_ne_neg] at hv
-
-theorem torusShearDatum_solenoidal (s : ℝ) :
-    IsSolenoidalPeriodicDatum (torusShearDatum s) := by
-  intro k
-  refine Finset.sum_eq_zero fun j _ ↦ ?_
-  rw [torusShearDatum_apply]
-  by_cases hj : j = 1
-  · subst hj
-    by_cases h1 : k = shearFreq
-    · subst h1
-      simp [periodicDerivativeSymbol, shearFreq_component_one]
-    · by_cases h2 : k = -shearFreq
-      · subst h2
-        simp [periodicDerivativeSymbol, shearFreq_component_one]
-      · simp [h1, h2]
-  · simp [hj]
-
-/-- The scalar symbol of the companion pressure: the same conjugate mode pair. -/
-def shearPressureSymbol (k : PeriodicFrequency) : ℂ :=
-  if k = shearFreq then 1 else if k = -shearFreq then 1 else 0
-
-/-- The gradient datum of that pressure — genuinely nonzero. -/
-def torusShearPressureDatum (s : ℝ) : PeriodicSobolev s := by
-  refine ⟨WithLp.toLp 2 (fun i ↦
-      lp.single 2 shearFreq (periodicDerivativeSymbol i shearFreq) +
-        lp.single 2 (-shearFreq) (periodicDerivativeSymbol i (-shearFreq))), ?_⟩
-  intro i k
-  change ((lp.single 2 shearFreq (periodicDerivativeSymbol i shearFreq) +
-      lp.single 2 (-shearFreq) (periodicDerivativeSymbol i (-shearFreq)) :
-        PeriodicScalarData)) (-k) =
-    star ((lp.single 2 shearFreq (periodicDerivativeSymbol i shearFreq) +
-      lp.single 2 (-shearFreq) (periodicDerivativeSymbol i (-shearFreq)) :
-        PeriodicScalarData) k)
-  by_cases h1 : k = shearFreq
-  · subst h1
-    simp [lp.single_apply, shearFreq_ne_neg, (shearFreq_ne_neg).symm,
-      periodicDerivativeSymbol_conj, periodicDerivativeSymbol_neg]
-  · by_cases h2 : k = -shearFreq
-    · subst h2
-      simp [lp.single_apply, shearFreq_ne_neg, (shearFreq_ne_neg).symm,
-        periodicDerivativeSymbol_conj, periodicDerivativeSymbol_neg, neg_neg]
-    · have h3 : -k ≠ shearFreq := fun h ↦ h2 (by rw [← h, neg_neg])
-      have h4 : -k ≠ -shearFreq := fun h ↦ h1 (neg_injective h)
-      simp [lp.single_apply, h1, h2, h3, h4]
-
-theorem torusShearPressureDatum_apply (s : ℝ) (i : Fin 3) (k : PeriodicFrequency) :
-    (torusShearPressureDatum s).1 i k =
-      periodicDerivativeSymbol i k * shearPressureSymbol k := by
-  change ((lp.single 2 shearFreq (periodicDerivativeSymbol i shearFreq) +
-      lp.single 2 (-shearFreq) (periodicDerivativeSymbol i (-shearFreq)) :
-        PeriodicScalarData)) k = _
-  by_cases h1 : k = shearFreq
-  · subst h1
-    simp [lp.single_apply, shearPressureSymbol, shearFreq_ne_neg]
-  · by_cases h2 : k = -shearFreq
-    · subst h2
-      simp [lp.single_apply, shearPressureSymbol, (shearFreq_ne_neg).symm]
-    · simp [lp.single_apply, shearPressureSymbol, h1, h2]
-
-theorem torusShearPressureDatum_ne_zero (s : ℝ) : torusShearPressureDatum s ≠ 0 := by
-  intro h
-  have hv := congrArg (fun A : PeriodicSobolev s ↦ A.1 0 shearFreq) h
-  rw [torusShearPressureDatum_apply] at hv
-  simp [shearPressureSymbol, periodicDerivativeSymbol, shearFreq, Complex.ext_iff,
-    Real.pi_ne_zero] at hv
-
-/-- **The pressure drop is not vacuous.**  Both the velocity datum and the
-pressure-gradient datum are nonzero, and the `H^s` pairing still vanishes. -/
-theorem torusPressureDrop_nonvacuous (s : ℝ) :
-    torusShearDatum s ≠ 0 ∧ torusShearPressureDatum s ≠ 0 ∧
-      torusRealPairing (torusShearDatum s) (torusShearPressureDatum s) = 0 :=
-  ⟨torusShearDatum_ne_zero s, torusShearPressureDatum_ne_zero s,
-    torusPressureDrop (torusShearDatum_solenoidal s) shearPressureSymbol
-      (torusShearPressureDatum_apply s)⟩
 
 end NSFormalization.Section3.T11

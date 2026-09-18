@@ -1,12 +1,14 @@
 import NSFormalization.Section3.T11.HighOrder
 import NSFormalization.Section3.T11.LocalExistenceProbe
 
-/-! Exact axiom audit of every declaration in `Section3/T11/HighOrder.lean`.
+/-! Exact axiom audit of **every** declaration in
+`Section3/T11/HighOrder.lean`: all 24 print exactly
+`[propext, Classical.choice, Quot.sound]`.
 
-Every declaration depends only on a **subset** of the three standard axioms
-`propext`, `Classical.choice`, `Quot.sound`; three purely arithmetic facts about
-the witness frequency need even less.  No `sorry`, no new axiom, no
-`native_decide`. -/
+No `sorry`, no new axiom, no `native_decide`, no `set_option maxHeartbeats`.
+The nonzero shear-mode witness for `torusPressureDrop` lives in
+`research/T11/probes/high_order_closes.lean` instead of the module, because its
+frequency arithmetic prints a strict subset of these three axioms. -/
 
 /-- info: 'NSFormalization.Section3.T11.highOrderNormedGroup' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -104,54 +106,6 @@ the witness frequency need even less.  No `sorry`, no new axiom, no
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.higherOrderBound_of_energyInequality
 
-/-- info: 'NSFormalization.Section3.T11.shearFreq' depends on axioms: [propext] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.shearFreq
-
-/-- info: 'NSFormalization.Section3.T11.shearFreq_ne_neg' depends on axioms: [propext] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.shearFreq_ne_neg
-
-/-- info: 'NSFormalization.Section3.T11.shearFreq_component_one' depends on axioms: [propext, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.shearFreq_component_one
-
-/-- info: 'NSFormalization.Section3.T11.torusShearDatum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.torusShearDatum
-
-/-- info: 'NSFormalization.Section3.T11.torusShearDatum_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.torusShearDatum_apply
-
-/-- info: 'NSFormalization.Section3.T11.torusShearDatum_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.torusShearDatum_ne_zero
-
-/-- info: 'NSFormalization.Section3.T11.torusShearDatum_solenoidal' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.torusShearDatum_solenoidal
-
-/-- info: 'NSFormalization.Section3.T11.shearPressureSymbol' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.shearPressureSymbol
-
-/-- info: 'NSFormalization.Section3.T11.torusShearPressureDatum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.torusShearPressureDatum
-
-/-- info: 'NSFormalization.Section3.T11.torusShearPressureDatum_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.torusShearPressureDatum_apply
-
-/-- info: 'NSFormalization.Section3.T11.torusShearPressureDatum_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.torusShearPressureDatum_ne_zero
-
-/-- info: 'NSFormalization.Section3.T11.torusPressureDrop_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.torusPressureDrop_nonvacuous
-
 noncomputable section
 
 namespace NSFormalization.Section3.T11.HighOrderAudit
@@ -180,15 +134,9 @@ example :
   ⟨torusConstantDatum_isDatum 3 (coordinateVector 0),
     periodicSobolevENorm_mono_order (by norm_num) _⟩
 
-/-- The pressure drop holds at a genuinely nonzero velocity datum *and* a
-genuinely nonzero pressure-gradient datum. -/
-example :
-    torusShearDatum 3 ≠ 0 ∧ torusShearPressureDatum 3 ≠ 0 ∧
-      torusRealPairing (torusShearDatum 3) (torusShearPressureDatum 3) = 0 :=
-  torusPressureDrop_nonvacuous 3
-
-/-- The nonzero constant datum is solenoidal too, so the hypothesis of
-`torusPressureDrop` is satisfiable by more than one family. -/
+/-- The nonzero constant datum is solenoidal, so the hypothesis of
+`torusPressureDrop` is satisfiable; the nonzero shear-mode witness (nonzero on
+*both* sides of the pairing) is in `research/T11/probes/high_order_closes.lean`. -/
 example (c : Space) : IsSolenoidalPeriodicDatum (torusConstantDatum 3 c) := by
   intro k
   by_cases hk : k = 0

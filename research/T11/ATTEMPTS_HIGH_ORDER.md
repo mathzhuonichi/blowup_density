@@ -197,7 +197,7 @@ binder carrying eq:Rhigh, not a named `Input` predicate — see `logs/LESSONS.md
   and the gradient datum is `2πi kᵢ q̂(k)`, so every frequency of the pairing
   vanishes (`torusPressureSymbol_drop`, `torusPressureDrop`).  Exhibited at a
   nonzero velocity datum *and* a nonzero pressure-gradient datum
-  (`torusPressureDrop_nonvacuous`, the shear mode `2 e₁ cos 2πx₀`).
+  (the shear mode `2 e₁ cos 2πx₀`, in the probe — see §6).
 * **Order descent** is constant-free on the torus (`periodicSobolevENorm_mono_order`,
   constant `1`), because `1 + 4π²|k|² ≥ 1`; the whole-space version carries the
   operator `D01.lowerVectorL` and its norm.
@@ -213,4 +213,16 @@ cd verification && LEAN_NUM_THREADS=6 lake env lean ../research/T11/probes/high_
 cd verification && LEAN_NUM_THREADS=6 lake env lean ../research/T11/axioms_high_order.lean
 make check
 ```
-All clean, no warnings; 36 `#guard_msgs`-checked axiom prints.
+All clean, no warnings; 24 `#guard_msgs`-checked axiom prints, each exactly
+`[propext, Classical.choice, Quot.sound]`.
+
+## 6. Audit hygiene (post-review-request fix)
+
+`shearFreq` / `shearFreq_ne_neg` print `[propext]` and `shearFreq_component_one`
+prints `[propext, Quot.sound]` — strict subsets of the three standard axioms, but
+the codex reviewer enforces "every **module** declaration prints exactly the
+three" (lane 326 was rejected for this). The whole shear-mode witness block
+(12 declarations) therefore moved verbatim from `HighOrder.lean` into
+`research/T11/probes/high_order_closes.lean`, where it is local defs plus a
+closing `example`. Nothing in the module referred to the witness, so no theorem
+needed generalizing to a parametric mode.

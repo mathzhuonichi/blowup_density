@@ -29,7 +29,7 @@ Young's absorption produces `C_{m,ν} = C_m²/(4ν)`, the same value as Section 
 | `periodicSobolevENorm_mono_order` | `r ≤ s → ‖z‖_{H^r} ≤ ‖z‖_{H^s}`, constant `1` (the torus weight is `≥ 1`); this is what covers the target's `m < 3` |
 | `running_hTwo_integral_le` | the `ℝ≥0∞` criterion `squaredHTwoIntegralT S u ≠ ⊤` caps **every** running real integral `∫₀ᵗ‖u‖²_{H²}` by one constant, uniformly in the horizon of the local solution carrying `u` |
 | `force_hm_profile_cap` | `f ∈ F_T` ⟹ `s ↦ ‖f(s)‖_{H^m}` continuous on `ℝ` and `∫₀ᵗ‖f‖_{H^m} ≤ B` for one `B` |
-| `torusPressureDrop` (+ `_nonvacuous`) | **the pressure term of `eq:Rhigh` vanishes** for a solenoidal velocity datum — pure symbol algebra on the lattice, exhibited at a nonzero velocity datum and a nonzero pressure-gradient datum |
+| `torusPressureDrop` | **the pressure term of `eq:Rhigh` vanishes** for a solenoidal velocity datum — pure symbol algebra on the lattice, exhibited in the probe at a nonzero velocity datum and a nonzero pressure-gradient datum |
 | `torusLaplacianSymbol_pairing` / `_nonpos` | dissipation pairing `= −|2πk|²∑ᵢ|ûᵢ(k)|²` at each frequency, hence `≤ 0` |
 | `torusRealPairing_le` | force term by Cauchy–Schwarz |
 | `torusYoungAbsorb` | Young's absorption, fixing `C_{m,ν} = C_m²/(4ν)` |
@@ -44,7 +44,7 @@ would not close (1) — see §3.
 ## 2. Lean 里现在有什么 (what is in Lean now)
 
 * `formalization/NSFormalization/Section3/T11/HighOrder.lean` — 710 lines,
-  36 declarations, namespace `NSFormalization.Section3.T11`, two **named** local
+  24 declarations, namespace `NSFormalization.Section3.T11`, two **named** local
   normed instances (`highOrderNormedGroup/Space`, per `logs/LESSONS.md` 09-17).
   New imports beyond T11: `Section4.A01.Propagation` and `Section4.A04.Regularized`
   — both Mathlib-only modules of pure real analysis (`gronwall_bddAbove_Ico`,
@@ -54,9 +54,12 @@ would not close (1) — see §3.
   arithmetic, with the docstring saying so).
 * `research/T11/probes/high_order_closes.lean` — the target field copied verbatim
   from `api_on_canonical.lean` and discharged; definitional checks; a sharpness
-  check that the running `H²` cap does not depend on the local horizon.
+  check that the running `H²` cap does not depend on the local horizon; and the
+  nonzero shear-mode witness for the pressure drop (kept out of the module so
+  that every module declaration prints exactly the three standard axioms).
 * `research/T11/axioms_high_order.lean` — `#guard_msgs`-checked `#print axioms`
-  for all 36 declarations, plus three non-vacuity examples.
+  for all 24 module declarations, each exactly
+  `[propext, Classical.choice, Quot.sound]`, plus two non-vacuity examples.
 * `research/T11/ATTEMPTS_HIGH_ORDER.md` — every failed path with its exact error
   text, the reuse audit, and the residual in full.
 
@@ -116,7 +119,9 @@ make check   (worktree root)
     check_work_queue: 45 work items consistent
 ```
 
-Axiom audit: 33 declarations print exactly `[propext, Classical.choice, Quot.sound]`;
-`shearFreq` and `shearFreq_ne_neg` print `[propext]` and `shearFreq_component_one`
-prints `[propext, Quot.sound]` — strict subsets, i.e. no extra axiom anywhere.
-No `sorry`/`admit`/`axiom`/`native_decide`; no `set_option maxHeartbeats`.
+Axiom audit: all 24 module declarations print exactly
+`[propext, Classical.choice, Quot.sound]`. The shear-mode witness moved to the
+probe, where `shearFreq`/`shearFreq_ne_neg` print `[propext]` and
+`shearFreq_component_one` prints `[propext, Quot.sound]` — strict subsets, i.e.
+no extra axiom anywhere. No `sorry`/`admit`/`axiom`/`native_decide`; no
+`set_option maxHeartbeats`.
