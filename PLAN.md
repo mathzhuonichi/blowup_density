@@ -84,3 +84,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 316-T11-U7-mean-identity | 完成（astra：mean_formula/mean_derivative 无条件，8 定理）→ codex 审稿中（rev-316） | 09-18 0309Z | — | — | T11 U7：均值恒等式 `mean_formula`/`mean_derivative`（积分动量方程，Haar 积分下求导）（L，astra） |
 | 317-T11-U9c-convolution-bound | 已合入 #288（codex ACCEPT-WITH-NOTES：两处注释措辞）：TorusConvolutionInput 偿还，两空间契约有居民 | 09-18 0245Z | #288 | — | T11 U9c：偿还 313 的唯一具名输入 `TorusConvolutionInput`（投影对流卷积的有界双线性 H³×H³→H² 实现：离散 Sobolev 乘积估计，Peetre 不等式 + Cauchy–Schwarz + 格点可和）→ 两空间契约有居民 |
 | 318-T11-U9d-physical-recovery | 完成但未达目标（astra：34 个无条件基础定理——系数 datum → 物理场：可和、连续、周期、datum 识别、联合连续、重加权 CLM；未剥离单一输入）→ 审稿中；U9d 拆三条子 lane | 09-18 0310Z | — | — | T11 U9d：物理恢复 —— 由强迫 mild 系数解在公共 horizon 上构造 `ClassicalSolutionT`（全阶 bootstrap、Fourier 反演得物理速度、Leray 压力、动量方程）+ `PeriodicLocalRegularity`；允许一个具名输入 |
+| 319-T11-U9d1-persistence | 排队（astra；简报已写；312 先） | 09-18 0315Z | — | — | T11 U9d1：H³ 强迫 mild 解在共同 horizon 上保持全阶（半阶步进 bootstrap 或正则性持续 + Grönwall）；允许一个具名输入 |
+| 320-T11-U9d2-classical-assembly | 排队（astra；简报已写） | 09-18 0315Z | — | — | T11 U9d2：由全阶系数解（单一具名输入 `PersistenceInput` 或 319 的定理）装配物理速度/压力/动量方程 → `ClassicalSolutionT` + `PeriodicLocalRegularity`（U9d 目标） |
