@@ -61,6 +61,13 @@ embedding: it reduces by Fourier **order-shift** to `velocityCriticalL3` at `a =
   step functions; `χ·v` is then `ContDiff ℝ ∞` with `HasCompactSupport`, hence `MemHInfty (χ·v)`.
   **M, codex-sol.** Deps: —.
 
+  **Status (lane 365, 2026-09-18): complete.** `Cutoff.lean` uses a fixed
+  `ContDiffBump` with plateau radius `5/2` and support radius 3; the documented
+  `largerCube` is the open radius-4 Euclidean ball. It proves the smoothness,
+  range, support, compact-support product, `MemHInfty` product, derivative
+  bounds, and first/second derivative vanishing clauses. The direct closure
+  probe is `research/T12/probes/cutoff_closes.lean`.
+
 - **U3 — cutoff–Gagliardo comparison at `a = 1/2` (analytic core, no named input).** New
   `Section3/T12/CutoffGagliardo.lean`. For smooth mean-zero periodic `v` and `χ` of U2:
   `dotHomogeneousENorm (1/2) (χ·v) ≤ ENNReal.ofReal C · (eLpNorm v 2 (volume.restrict fundamentalCube)
