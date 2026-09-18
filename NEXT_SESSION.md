@@ -26,16 +26,14 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-18 02:15Z 快照）
+## 当前在跑 / 待启动（2026-09-18 04:20Z 快照）
 
-- **T10 完成**：十字段证明 → 合同 `T01.torus_data`（#275，合同数 38）→ 实例去重与直接装配（#279）；基础引理 `Section3/T10/FourierCalculus.lean`（#282，部分交付：导数/Laplacian 符号、衰减、反演；第 11/12 项待 312）。
-- **规范模块**（各带 `research/<T>/probes/api_on_canonical.lean` = 证明 lane 目标）：T10 `PeriodicData`、T11 `LocalTheory`（#281，附实现候选调查）、T12 `MeanZeroCalculus`（#274）、T13 `Localization`（#276）。
-- **定稿 spec 已进树**：T10、T11（#277）、T12（#268）、T13、T14、T15（#278）、T16、T22。
-- **T11 证明（`research/T11/T11_SPLIT.md`，17 单元/5 波）**：第一波已合入 U1 转换（#284）、U2 判据桥（#285）、U9a 路线探针（#283：选 R2，热半群第一阶）、U9b（#286：强迫 Picard 不动点存在唯一，唯一具名输入 `TorusConvolutionInput`）；U3（310）在跑；**lead 修正 1**（`research/T11/LEAD_AMENDMENTS.md`）：存在性具名输入改为按阶力界 `PeriodicQuantitativeLocalInput'`。在跑 317（U9c：偿还 `TorusConvolutionInput`，astra）；排队 314（U4）、315（U5）、316（U7）；后续 U9d（公共 horizon bootstrap + 物理/压力恢复）、U9e（H¹ 一致输入）简报待 317 结果后写。
-- **T12 证明**：谱隙两字段（#280）；其余 7 字段待 312 的力路径/梯度恒等式基础。
-- **在跑 spec 草案**：303/304（T20 `prop:critical`，各掉线重启一次）、294/295（T17 `lem:correction`；295 完成，294 续跑中）；排队 306/307（T24）。
-- **路由不稳**（22:00Z 起持续）：sol 长任务经常 5/5 重连后被切断；中途死亡 → 有产出写 `fix_<lane>.md` 续跑，无产出原简报重跑；astra 短任务稳定且快（8–15 分钟），复杂证明也优先 astra。
-- **审稿口径**：REJECT 若只因简报范围遗漏（非错误）→ 作为部分交付合入并开补齐 lane（305→312）；简报义务一律写在 Goal 下。
+- **T10 完成**：合同 `T01.torus_data`（#275）；基础 `FourierCalculus`（#282）+ `ForcePaths`（#293，第 11/12 项）。规范模块：T10/T11（#281）/T12（#274）/T13（#276）。
+- **定稿 spec 已进树**：T10、T11（#277）、T12、T13、T14、T15（#278）、T16、T20（#296，`CriticalRegularityTAPI`）、T22。
+- **T11 证明（`T11_SPLIT.md` + `LEAD_AMENDMENTS.md`）已进树**：U1 #284、U2 #285、U3 #287、U4 #289、U5 #292、U7 #290、U9a #283、U9b #286（Picard 不动点）、U9c #288（`TorusConvolutionInput` 偿还）、U9d1 #294（持续性，单一输入 `TorusHalfStepInput`）、U9d2 部分 #295（速度光滑/无散，`PersistenceInput`）；305/318/320 是"部分交付"（审稿 REJECT 仅因范围）。
+- **在跑**：codex —— 294（T17 草案 A 续跑，astra）、306/307（T24 双盲草案）、321（U10+U11 restart/horizon，对着 `PeriodicQuantitativeLocalInput'`）、323（U15 maximal）；**Opus prover 子代理** —— 326（U9d2a 压力）、328（U9d1a 实阶卷积界）。
+- **排队**：329（分数阶热光滑）、330（Duhamel 半阶 → `torusHalfStepInput`）、327（U9d2b 动量）、322（U12 高阶能量）—— 硬分析单元，等 sol 恢复或派 Opus；T17/T24 reconciliation 待草案齐。
+- **今晚教训（已入 LESSONS）**：astra low 在硬分析单元交别名桩/占位桩（325×2、326×2、324 一次交草案改头）→ 硬分析单元**不允许具名输入**、简报加反占位条款/字段清单、产出先看行数与报告长度再审；sol 04:00Z 起 at capacity（324/325/326/328/294 掉线）→ astra 主跑 + Opus 备用；合并后必须 `merge-base --is-ancestor` 验证（#294 冲突事故）；追加共享笔记的 lane 合并冲突取并集。
 - **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；codex 并发 3–5；每次合入更新追踪 PR #270（模板 `tmp/section3_pr_body.md`）。
 
 ## 下一步（按顺序）
