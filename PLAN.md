@@ -68,7 +68,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 300-T12-spectral-gap | 已合入 #280（codex 审稿 ACCEPT，含更小常数变异探针） | 09-18 0036Z | #280 | — | T12 证明：`spectralGap`（常数 `(1+1/(4π²))^(s/2)`）+ `homogeneous_le_sobolev`（常数 1）—— 系数侧权重比较与 lp 重加权构造 |
 | 301-SPEC-t15-spec | 已合入 #278（lead 直接合并：elaborate 0 输出，21 字段对照 reconciliation） | 09-18 0025Z | #278 | — | SPEC **T15 定稿**：按 research/T15/RECONCILIATION.md（B 为基；`PlacementData` 参数；Type 值 `ScalingAPI` 含 `sobolevConst` 与 `forceConvergence`；import 已注册的 `T01.torus_data`）→ Spec.lean + COMPARISON.md |
 | 302-T11-canonical-module | 已合入 #281（lead 直接合并：定义类模块 + 实现候选调查 → T11 拆分依据） | 09-18 0039Z | #281 | — | T11 规范定义模块 `Section3/T11/LocalTheory.lean`（新定义逐字落 Lake 模块；probe 把五个 API 陈述在模块上；附 Paper1/HeliCorgi 实现候选调查 → T11 证明 lane 拆分依据） |
-| 303-SPEC-t20-draft-a | 路由 5/5 重连后切断（无产出）→ 01:39Z 原简报重启（sol） | 09-18 0139Z | — | — | SPEC **T20 双盲草案 A**：`prop:critical`（均值消去、`eq:criticalenergy/bintegral/ybound/H1energy`、经 `eq:criterion` 全局；镜像 R43+C01+A04） |
+| 303-SPEC-t20-draft-a | 完成（草案 A；待 304 后 reconciliation） | 09-18 0303Z | — | — | SPEC **T20 双盲草案 A**：`prop:critical`（均值消去、`eq:criticalenergy/bintegral/ybound/H1energy`、经 `eq:criterion` 全局；镜像 R43+C01+A04） |
 | 304-SPEC-t20-draft-b | 路由切断 → 01:44Z 重启（sol；原简报） | 09-18 0144Z | — | — | SPEC **T20 双盲草案 B**（同上，互不可见） |
 | 305-T10-fourier-calculus | 已合入 #282 作为**部分交付**（审稿 REJECT 仅因范围遗漏 T10 第 11/12 项，已证内容审计/公理/变异全过）→ 312 补齐 | 09-18 0101Z | #282 | — | T10 基础引理：光滑周期场的 Fourier 微积分（导数符号 `2πi k_j`、Laplacian 符号、系数快速衰减、可和性与逐点反演、sup 界）→ 解锁 T12 `boundedRepresentative`/`lambda_exists`/`hTwo_le_laplacian` 与 T13 |
 | 306-SPEC-t24-draft-a | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 A**：`prop:affine`/`prop:multiple`/`prop:conservative`（三个独立结构；基于 T14/T15 定稿） |
@@ -81,6 +81,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 313-T11-U9b-existence-construction | 已合入 #286（codex 审稿 ACCEPT）：强迫 Picard 不动点；剩一个具名输入 TorusConvolutionInput → 317 | 09-18 0214Z | #286 | — | T11 U9b：按 311 定的 R2 路线，具名输入改为按阶力界的 `PeriodicQuantitativeLocalInput'`（lead 修正 1，`research/T11/LEAD_AMENDMENTS.md`）；证 EXISTENCE_ROUTE 的前两项（投影对流符号的双线性估计、强迫 Picard 不动点与寿命下界） |
 | 314-T11-U4-rescaling | 已合入 #289（codex 审稿 ACCEPT） | 09-18 0259Z | #289 | — | T11 U4：粘性代数 `inverse_identities`/`scaled_classes`（S，sol） |
 | 315-T11-U5-uniqueness | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0259Z | — | — | T11 U5：唯一性包 `velocity_unique`/`pressure_unique`/`horizon_le_lifespan`（复用 Paper1 `normalized_flows_agree`）（M，sol） |
-| 316-T11-U7-mean-identity | 排队（简报已写；astra） | 09-18 0203Z | — | — | T11 U7：均值恒等式 `mean_formula`/`mean_derivative`（积分动量方程，Haar 积分下求导）（L，astra） |
+| 316-T11-U7-mean-identity | worktree 安装中→自动启动（codex astra low，sol 备用） | 09-18 0303Z | — | — | T11 U7：均值恒等式 `mean_formula`/`mean_derivative`（积分动量方程，Haar 积分下求导）（L，astra） |
 | 317-T11-U9c-convolution-bound | 已合入 #288（codex ACCEPT-WITH-NOTES：两处注释措辞）：TorusConvolutionInput 偿还，两空间契约有居民 | 09-18 0245Z | #288 | — | T11 U9c：偿还 313 的唯一具名输入 `TorusConvolutionInput`（投影对流卷积的有界双线性 H³×H³→H² 实现：离散 Sobolev 乘积估计，Peetre 不等式 + Cauchy–Schwarz + 格点可和）→ 两空间契约有居民 |
 | 318-T11-U9d-physical-recovery | worktree 安装中→自动启动（codex **astra** low，sol 备用） | 09-18 0245Z | — | — | T11 U9d：物理恢复 —— 由强迫 mild 系数解在公共 horizon 上构造 `ClassicalSolutionT`（全阶 bootstrap、Fourier 反演得物理速度、Leray 压力、动量方程）+ `PeriodicLocalRegularity`；允许一个具名输入 |
