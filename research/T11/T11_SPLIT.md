@@ -1,0 +1,193 @@
+# T11 — proof-lane split (证明拆分表)
+
+Lead-facing, 2026-09-17. Targets = the five reconciled structures exactly as stated on the canonical
+module in `research/T11/probes/api_on_canonical.lean` (vocabulary `Section3/T11/LocalTheory.lean` +
+`Section3/T10/PeriodicData.lean`; design `research/T11/RECONCILIATION.md` §0–§3; candidates
+`research/T11/IMPLEMENTATION_CANDIDATES.md`). 26 fields: `PeriodicLocalRegularity` 3 (a predicate, never
+a standalone target), `PeriodicLocalTheoryAPI` 8, `PeriodicContinuationAPI` 5, `PeriodicMeanReductionAPI` 6,
+`PeriodicViscosityRescalingAPI` 4. Size: **S** ≤ ~100 lines; **M** one self-contained lemma with a known
+proof; **L** a multi-file campaign. Model: `sol` = conversions/algebra/bookkeeping, `astra` = analytic core.
+
+## Lead review (2026-09-18 00:55Z)
+Drafted by an Opus subagent from the survey; **approved** by the lead as the T11 proof plan. Lane numbers: W1 = 308 (U1), 309 (U2, after 308 lands), 310 (U3), 311 (U9a). The `H¹` restart risk is handled exactly as Section 4 did: manuscript statement kept in V1 as a named unproved predicate if it cannot be proved, explicit `H⁷` fixed-force V2 registered, consumers checked; no silent weakening.
+
+## 0. Ground rules
+
+**Peeling rule.** A unit that cannot close its target with what is in the tree names **exactly one**
+input hypothesis, as a `def … : Prop` in `Section3/T11/`, written out here, and proves the target
+conditionally on that one name. The name must be (i) non-tautological — never the target field restated;
+(ii) satisfiable at a nonzero solution and a nonzero force (`logs/LESSONS.md` 09-15 1901/1905: two
+Section 4 lanes proved theorems whose named input was unsatisfiable); (iii) discharged by a named later
+unit here. Silent weakening of a V1 field is forbidden; an honest narrowing is a new **named predicate**
++ a V2 contract, as `Contracts/V2/Continuation.lean:88` `RestartFixedForce` / `:105`
+`ManuscriptHorizonLowerBoundH1` did for A04.
+
+**Key finding.** `ClassicalPeriodicLocalTheory` (`Paper1/PeriodicLocalLifespan.lean:73`) is **never
+instantiated**: every occurrence in `formalization/` and `vendor/` is a hypothesis binder
+`(H : ClassicalPeriodicLocalTheory)`; its two fields (`local_flow`, `finite_h2_extension`) carry the entire
+unproved analytic content. **But** these Paper 1 theorems are *unconditional*, hence free:
+`flow_velocity_agree_on_common_interval` (`:175`), `normalized_flows_agree` (`:229`), `maximal_solutions_agree`
+(`:515`), `exists_maximal_periodic_solution_of_lifespan_pos` (`:411` — gluing needs only `0 < lifespan`),
+`Flow.restrict`/`nonempty_restrict` (`PeriodicFlowRestriction.lean:20,48`), `normalizedFlow`
+(`PeriodicPressureNormalization.lean:237`), `integral_torusLift` (`Paper1/TorusCube.lean:40`). So uniqueness,
+maximality and gluing are reachable today; **existence is the only genuine hole**, as A01 was on `ℝ³`.
+
+## 1. Units
+
+- **U1 — `ClassicalSolutionT ↔ Flow` conversion** (structure exception). New `Section3/T11/FlowConversion.lean`.
+  `toFlow (w : ClassicalSolutionT ν a f T) : Flow ν a f T` (11 of 14 fields transfer, §4);
+  `ofFlow (U : Flow ν a f T) (hs hg hn) : ClassicalSolutionT ν a f T` with `hn : PressureGaugeT (Ico 0 T) U.pressure`;
+  round-trips by `rfl` on data fields. Two spelling lemmas needed: `Source.residual ν u p t x =
+  NavierStokesR3.ProblemStatement.navierStokesResidual ν u p t x` (`Source/Insertion.lean:21` vs
+  `vendor/…/R3/ProblemStatement.lean:57`, identical bodies → `rfl`) and `IsPeriodicOn I z ↔ UnitSpatialPeriodsOn I z`
+  (`PeriodicData.lean:62` vs `vendor/…/ProblemStatement.lean:49` → `Iff.rfl`). **S–M, sol.** Deps: —.
+- **U2 — datum existence, finiteness, criterion bridge.** New `Section3/T11/CriterionBridge.lean`.
+  (a) a smooth periodic `z` has an order-`s` datum at every real `s`, hence `periodicSobolevENorm s z ≠ ⊤`
+  (componentwise `smoothPeriodicWeightedFourierLp`, `PeriodicSmoothSobolev.lean:45`, + `realPeriodicSubmodule`
+  membership + Haar integrability); (b) `periodicSobolevENorm s z = ENNReal.ofReal (periodicVectorSobolevNorm s …)`
+  via registered `T01.torus_data`.`datum_unique` and `:53` `norm_smoothPeriodicWeightedFourierLp`;
+  (c) measurability of `t ↦ periodicSobolevENorm 2 (u t ·)` from `ClassicalSolutionT.sobolev`'s `ContinuousOn G`;
+  (d) **both directions** of `squaredHTwoIntegralT S w.velocity ≠ ⊤ ↔ FiniteH2Energy (toFlow w)`
+  (= `IntegrableOn (h2SquaredProfile ·) (Ioc 0 S)`, `PeriodicLocalLifespan.lean:60`; land via
+  `PeriodicFiniteH2Bridge.lean:25`). **L, astra.** Deps: U1; reuses lane 305's Fourier calculus for (a).
+- **U3 — Galilean class and translation algebra.** New `Section3/T11/GalileanClasses.lean`. Targets
+  `translation_preserves_sobolev` (datum case: coefficients pick up the unimodular `e^{2πi k·y}`; `⊤` case:
+  translate back by `-y`), `transformed_classes`, `transformed_mean_zero`. Supporting: `ContDiff ℝ ∞ (forceMeanT f)`,
+  hence of `galileanMeanT`/`galileanShiftT` — the vector analogue of `cubeIntegral_contDiffOn_Ico`
+  (`PeriodicPressureNormalization.lean:93`). Compact positive-time support of `galileanForceT a f` is inherited
+  from `f` (spatial translation does not move time support). **M, sol.** Deps: —.
+- **U4 — viscosity algebra.** New `Section3/T11/Rescaling.lean`. `inverse_identities` (three `funext` +
+  positive-`ν` algebra), `scaled_classes` (time dilation maps a compact subset of `Ioi 0` to one). **S, sol.** Deps: —.
+- **U5 — uniqueness package.** New `Section3/T11/Uniqueness.lean`. `velocity_unique`, `pressure_unique`
+  (pointwise on `Ico 0 (min T₁ T₂)`): `toFlow` both sides; `w.pressure_gauge` + `pressureMeanT = cubeIntegral`
+  (from `integral_torusLift`) gives `IsNormalized (toFlow w)` (`PeriodicLocalLifespan.lean:44`); then
+  `normalized_flows_agree` (`:229`) verbatim. `horizon_le_lifespan` is `le_iSup_of_le T (le_iSup_of_le ⟨w⟩ le_rfl)`
+  on `maximalLifespanT` (`PeriodicData.lean:303`) — no conversion. **M, sol.** Deps: U1.
+- **U6 — solution transport under smooth change of variables.** New `Section3/T11/Transport.lean`. One shared
+  constructor: given `w : ClassicalSolutionT ν a f T`, a `C∞` time-dependent translation `X : ℝ → Space` and
+  constants `(α,β,γ)`, rebuild a `ClassicalSolutionT` for the transformed data, transporting all 14 fields (chain
+  rules for `temporalDerivative`/`spatialLaplacian`/`pressureGradient`/`spatialDivergence`; datum path via U3's
+  translation isometry; gauge via translation-invariance of `meanT`). `transformed_solution`, `to_unit`,
+  `from_unit` are instances. **L, astra.** Deps: U2, U3, U4.
+- **U7 — mean identity.** New `Section3/T11/MeanIdentity.lean`. `mean_formula`
+  (`velocityMeanT w.velocity t = galileanMeanT a f t` on `Ico 0 T`) and `mean_derivative`
+  (`HasDerivAt (velocityMeanT w.velocity) (forceMeanT f t) t` on `Ioo 0 T`). Route: integrate `w.momentum`
+  over `T³`; `meanT (Δu) = meanT (∇p) = meanT (convectionDivergenceT u) = 0` (each a periodic derivative, mean
+  zero by `integral_torusLift` + periodicity); differentiate under the Haar integral as in
+  `pressureMean_hasDerivAt_interior` (`PeriodicPressureNormalization.lean:149`); FTC for `galileanMeanT`;
+  `t = 0` via `w.initial`. **L, astra.** Deps: U3.
+- **U8 — transformed / rescaled solutions.** `transformed_solution`, `to_unit`, `from_unit` as instances of U6
+  (`from_unit` inverts via U4; horizon `T ↦ ν·T`), each carrying `PeriodicLocalRegularity`. **M, sol.** Deps: U6, U7.
+- **U9 — quantitative periodic local existence (the long pole).** New `Section3/T11/LocalExistence.lean`.
+  Discharges the one named input of U10:
+  ```
+  def PeriodicQuantitativeLocalInput : Prop :=
+    ∀ ν : ℝ, 0 < ν → ∀ K : ℝ≥0∞, K ≠ ⊤ → ∃ δ : ℝ, 0 < δ ∧
+      ∀ a : SpatialField, a ∈ initialClassT → periodicSobolevENorm 1 a ≤ K →
+        ∀ g : SpaceTimeField, ContDiff ℝ ∞ g → IsPeriodicOn univ g →
+          (∀ m : ℕ, forceSobolevENormT 1 (m : ℝ) g ≤ K) →
+            ∃ w : ClassicalSolutionT ν a g δ, PeriodicLocalRegularity ν a g δ w
+  ```
+  Not `restart` restated: the force here is an arbitrary smooth periodic field with finite `L¹_tH^m` norms,
+  *not* an `F_T` member — a positive time shift of an `F_T` force need not vanish at its new time zero, so
+  `timeShiftT t₀ f ∉ forceClassT` (`RECONCILIATION.md` §1(vi), "needs a lemma" ⑨). Routes, in order:
+  **(R1)** instantiate HeliCorgi's abstract endpoint layer `FlowMapUniformRestartPackage`
+  (`vendor/HeliCorgi/Formal/UniformRestartContinuation.lean:29`) on the torus carrier — that layer supplies
+  only endpoint bookkeeping (`:59`), and its `restart_past_terminal` field *is* the PDE obligation, so R1
+  buys the `t₀↑S` argument, not existence. **(R2)** `SECTION3_PLAN.md` §7's fallback: copy A01's cylinder
+  route to the coefficient level (Horizon / a-priori bound family / causal-window uniqueness), already
+  validated once here. **L+ (expect 3–5 sub-lanes), astra.** Deps: U1, U2.
+- **U10 — `restart`.** New `Section3/T11/Restart.lean`. From U9's input: for fixed `f ∈ forceClassT` and `S ≥ 0`,
+  `{timeShiftT t₀ f : t₀ ∈ Icc 0 S}` has `forceSobolevENormT 1 m` uniformly bounded (compact time support in
+  `Ioi 0` + smoothness), so one `K'` covers the window and one `δ` results. Mirror of A04 lane 215. **M, sol.**
+  Deps: U9 (as named input while U9 runs), U2.
+- **U11 — `horizon` / `solution` / `regularity`.** Same module. `restart` at `S = 0`, `t₀ = 0`,
+  `K := periodicSobolevENorm 1 a` (finite by U2(a)), plus `timeShiftT 0 f = f` (`funext`, `add_zero`), gives
+  existence; `horizon` is extracted by `Classical.choice`, defaulting to `1` off the class. **S–M, sol.** Deps: U10, U2.
+- **U12 — `higherOrderBound`.** New `Section3/T11/HighOrder.lean`. Periodic `eq:Rhigh` (`appendix-a:127-147`) +
+  Grönwall; mirror of A04's `energyIdentityHigh → higherOrderBound` chain (`research/A04/G1_SPLIT.md` SL0–SL8;
+  `Contracts/V2/Continuation.lean:140`): pair the momentum equation against `u` in `H^m` on the T10 coefficient
+  carrier — Laplacian identity, pressure drop (Leray self-adjointness), nonlinear IBP + tame product, force
+  Cauchy–Schwarz, assembly, Grönwall. Torus tame product and `H²↪L^∞` come from T12 (`Section3/T12/SpectralGap.lean`,
+  registered). **L (3–4 sub-lanes), astra.** Deps: U2; T12.
+- **U13 — `restartBeyond`.** Same module as U10. Take `δ` from U10 at the `H¹` bound `K`; patch the
+  `SolvesBelowT` pair with the restart solution at `t₀` near `S` into one `ClassicalSolutionT ν a f (S+δ)` with
+  **exact** normalized-pressure agreement on `[0,S)` ("needs a lemma" ⑩; overlap bookkeeping =
+  `extension_agrees_on_common_interval`, `:564`). **M–L, sol.** Deps: U10, U5.
+- **U14 — `extendsBeyond`.** Same module. `squaredHTwoIntegralT S u ≠ ⊤` → U12 at `m = 1` → the `H¹`
+  trajectory bound → U13 gives the concrete `ClassicalSolutionT ν a f (S+δ)` with agreement, which *is*
+  `ExtendsBeyondT` (`LocalTheory.lean:68`) — strictly stronger than registered `A04.extendsBeyond`
+  (`Contracts/V2/Continuation.lean:175`, conclusion only `ofReal S < maximalLifespanR`). **M, sol.** Deps: U12, U13.
+- **U15 — `exists_maximal` + `maximal_unique`.** New `Section3/T11/Maximal.lean`. `0 < maximalLifespanT` from
+  U11; gluing is `exists_maximal_periodic_solution_of_lifespan_pos` (`:411`, unconditional) after U1, then
+  `ofFlow` back at each horizon (the three extra fields come from U11's solutions via U5). `maximal_unique` at
+  presingular times: from `IsMaximalPeriodicSolution` (`LocalTheory.lean:52`) pick `S` with `t < S` and
+  `ofReal S < maximalLifespanT` (`ENNReal` supremum density), then U5. Also prove `maximalLifespanT =
+  PeriodicLifespan.lifespan` here (§4 last row). **M, sol.** Deps: U5, U11.
+- **U16 — `lifespanInfiniteOfLocallyFinite`.** Same module. Contrapose: if `maximalLifespanT = L ≠ ⊤`, the
+  hypothesis at `S = L.toReal` (the `≤` is load-bearing, `RECONCILIATION.md` §2) plus U14 gives a solution on
+  `L.toReal + δ`, hence `ofReal (L.toReal + δ) ≤ L`, absurd. **M, sol.** Deps: U14, U15.
+- **U17 — assembly, contract, binding, tests.** Assemble the four API terms (`PeriodicLocalTheoryAPI` is a `def`,
+  the other three `theorem`s); write `Contracts/V1/TorusLocalTheory.lean` (or `V2` if §3.1 fires) registering
+  `T01.torus_local_theory` with the tier-(b) solution-class restatements deferred by `T01.torus_data`
+  (`ClassicalSolutionT` via the structure exception: fieldwise conversions + round-trips, **not** `rfl`), plus
+  bindings, tests and non-vacuity at a nonzero force/datum. **M, sol.** Deps: all.
+
+## 2. Waves (≤ 4 concurrent)
+
+| wave | units | sizes / models |
+|---|---|---|
+| W1 | **U1** conversion · **U2** criterion bridge · **U3** Galilean algebra · **U9a** existence route probe (R1 vs R2; the `T³` two-space contract) | S–M sol / L astra / M sol / L astra |
+| W2 | **U4** viscosity algebra · **U5** uniqueness · **U7** mean identity · **U9b** existence construction | S sol / M sol / L astra / L+ astra |
+| W3 | **U6** transport · **U12** high-order energy (3–4 sub-lanes) · **U10** restart · **U11** horizon/solution | L astra / L astra / M sol / S–M sol |
+| W4 | **U8** transformed+rescaled · **U13** restartBeyond · **U15** maximal · (spill: U12 sub-lanes) | M sol / M–L sol / M sol |
+| W5 | **U14** extendsBeyond · **U16** lifespan infinite · **U17** assembly | M sol / M sol / M sol |
+
+U9 is the critical path and starts in W1 even though U1/U2 are unfinished — it runs against its own named
+input until it lands. Lane numbers are allocated by the lead in `PLAN.md` (next free: 308).
+
+## 3. Risks
+
+1. **`restart`'s `H¹` ball (highest).** Section 4 could not prove the manuscript's `H¹` restart and narrowed to
+   fixed-force `H⁷` (`Contracts/V2/Continuation.lean:88`, owner-approved; `research/A01/V2_DECISION.md`); the
+   torus proof runs the same Picard estimates, so the same wall is expected. **Honest V2 route:** keep the `H¹`
+   sentence as a named, unproved predicate `PeriodicRestartH1`, docstringed as not implied (shape of
+   `ManuscriptHorizonLowerBoundH1`, `:105`); register `PeriodicRestartFixedForceH7` as the proved field; verify
+   every T11 consumer (T18/T19/T20) restarts *the same* force with data bounded by U12's Grönwall bound, as
+   A04's consumers did. Never silently change `1` to `7` inside the V1 statement.
+2. **One common horizon for all Sobolev orders.** `horizon ν a f` occurs in both `solution` and the `∀ m`
+   `regularity` record. If the construction yields an order-dependent horizon, the honest narrowing is a
+   named `PeriodicCommonHorizon` predicate, not a per-order API.
+3. **`pressure_poisson` vs the Leray form.** The reconciliation chose the Poisson prescription
+   (`02-preliminaries.tex:84-88`); the nearest declaration (`Paper1/PeriodicPressureSymbolOperator.lean:37`) is
+   coefficient-level under a zero-mode premise, so physical reconstruction + uniqueness + gauge identification
+   is new work ("needs a lemma" ④). Falling back to the order-0 Leray form is a *contract* change → owner.
+4. **`transformed_classes` smoothness.** `galileanForceT a f ∈ forceClassT` demands global `ContDiff ℝ ∞`, hence
+   `forceMeanT f` smooth — differentiation under the Haar integral at every order. Provable (scalar analogue
+   `PeriodicPressureNormalization.lean:93`), but it is the clause that made draft B's original wording *false*;
+   no lane may weaken it to `ContDiffOn`.
+5. **`squaredHTwoIntegralT ≠ ⊤` vs `FiniteH2Energy`** are different finiteness notions (`lintegral` of an
+   `ℝ≥0∞` `⨅` vs `IntegrableOn` of a real profile); U2(d) must prove both directions incl. measurability.
+6. **HeliCorgi route R1 may not close.** `SECTION3_PLAN.md` §7 flags that `EndpointSafeTwoSpace*` needs a
+   `T³` Stokes smoothing `H²→H³`. Cap the probe (U9a) at one lane, then switch to R2.
+
+## 4. Conversions — `ClassicalSolutionT ν a f T` ↔ `Paper1.PeriodicLifespan.Flow ν a f T`
+
+Structure exception (`CLAUDE.md`): no `rfl` bridge exists; fieldwise conversion functions with defeq field
+types + round-trip lemmas. `SpatialField`/`SpaceTimeField`/`SpaceTimeScalar` (`Contracts/V1/Data.lean:99,104,108`)
+are `abbrev`s of vendor `Space → Space`/`VelocityField`/`PressureField`, so carriers are already defeq.
+
+| `ClassicalSolutionT` (`PeriodicData.lean:265`) | `Flow` (`PeriodicLifespan.lean:12`) | status |
+|---|---|---|
+| `velocity`, `pressure`, `horizon_pos` | same names | **match**, `rfl` |
+| `velocity_smooth`, `pressure_smooth` (`ContDiffOn ℝ ∞ · (Ico 0 T ×ˢ univ)`) | same | **match**, `rfl` |
+| `initial`, `divergence` | same | **match**, `rfl` |
+| `momentum`: `navierStokesResidual ν u p t x = f (t,x)` on `Ioo 0 T` | `equation`: `Source.residual ν u p t x = f (t,x)` | **name mismatch only**: `Source/Insertion.lean:21` and `vendor/…/R3/ProblemStatement.lean:57` have identical bodies → `rfl` |
+| `velocity_periodic`, `pressure_periodic`: `IsPeriodicOn (Ico 0 T)` | `UnitSpatialPeriodsOn (Ico 0 T)` | **name mismatch only**: `PeriodicData.lean:62` vs `vendor/…/ProblemStatement.lean:49`, identical bodies → `Iff.rfl` |
+| `sobolev`: `∀ m, ∃ G, ContinuousOn G (Ico 0 T) ∧ ∀ t ∈ Ico 0 T, IsPeriodicDatum m (u t ·) (G t)` | **absent** | **extra**: argument of `ofFlow`; supplied by U2(a) on a smooth periodic slab |
+| `pressure_gradient`: `MemLp (torusLift (∇p t ·)) 2` | **absent** | **extra**: argument of `ofFlow`; automatic for a continuous field on a probability torus |
+| `pressure_gauge`: `PressureGaugeT (Ico 0 T) p` = `∫_{T³} p(t) ∂Haar = 0` | **absent**; analogue is `IsNormalized U` (`PeriodicLocalLifespan.lean:44`), `cubeIntegral (p (t,·)) = 0` | **gauge-convention mismatch, closed by** `integral_torusLift` (`Paper1/TorusCube.lean:40`): `∫ z, torusLift g z ∂periodicTorusMeasure = cubeIntegral g`, hence `pressureMeanT p t = PeriodicPressureNormalization.pressureMean p t` and `PressureGaugeT I p ↔ IsNormalized`. `normalizedFlow` (`:237`) supplies the gauge for any `Flow` |
+| force class `f ∈ forceClassT` = `MemForceT` (`:239`: global `ContDiff ℝ ∞`, `IsPeriodicOn univ`, `tsupport f ⊆ K ×ˢ univ`, `K` compact `⊆ Ioi 0`) | `IsSmoothPeriodicForce` (`PeriodicLocalLifespan.lean:31`: `ContDiffOn` on each `Icc 0 S ×ˢ univ`, `UnitSpatialPeriodsOn (Ici 0)`) | **one-directional**: `MemForceT f → IsSmoothPeriodicForce f` is easy; the converse is false (no support clause). Every use goes T11 → Paper 1 |
+| initial class `a ∈ initialClassT` (`:234`: `ContDiff ℝ ∞ a ∧ IsPeriodicSpatial a ∧ IsSolenoidal a`) | `IsAdmissibleInitialData` (`Paper1/PeriodicInitialData.lean:21`: `smooth`, `UnitPeriods`, `∀ x, ∑ i (fderiv ℝ a x eᵢ) i = 0`) | **match**: `IsPeriodicSpatial = UnitPeriods` (`PeriodicIntegration.lean:40`), `IsSolenoidal` (`Section4/A02/SolutionClass.lean:93`) unfolds to the same sum → `Iff.rfl` / one `simp` |
+| time intervals: `Ico 0 T` (smoothness/periodicity/divergence), `Ioo 0 T` (equation) | identical | **match** |
+| `maximalLifespanT` (`:303`, `⨆` over `ClassicalSolutionT`) | `lifespan` (`PeriodicLifespan.lean:27`, `⨆` over `Flow`) | **not equal a priori**: `≤` from `toFlow`; the reverse needs the three extra fields at every horizon (U2(a) + U1). Prove the equality once, in U15 |
