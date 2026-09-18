@@ -327,9 +327,11 @@
     {
       "id": "T13",
       "kind": "specification",
-      "state": "needs-specification",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T02.localization"
+      ],
       "deliverable": "Reconcile research/T13/Spec.lean and its comparison using research/T13/RECONCILIATION.md, then register the accepted versioned lem:localization contract under parent task T02 with its typed binding and axiom test."
     },
     {
