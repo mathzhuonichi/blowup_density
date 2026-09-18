@@ -170,7 +170,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 402-T24-Ua2-divergence-free | 已合入：T24 Ua2 divergence_free 逐字（vendor 散度可加性），审稿 ACCEPT（审稿文件内嵌日志已裁剪） #367 | 09-18 1448Z | #367 | — | T24a Ua2：divergence_free（∇·(U+b)=0，原始 packet 散度子句 + AffineAdmissible） |
 | 403-T24-Ua5-speed-unbounded | 已合入：T24 Ua5 speed_unbounded 逐字（显式 τ₁<1；late_agreement 传递），审稿 ACCEPT #365 | 09-18 1445Z | #365 | — | T24a Ua5：speed_unbounded（U+b=U 于 t≥τ₁，late_agreement 传递 SpeedUnboundedAtOne） |
 | 404-MAINT-t16-deprecations | 已合入 #363：T16/Assembly.lean 三处弃用替换（ite_eq_left/right），门禁 + 42 合同复核绿 | 09-18 1435Z | #363 | — | MAINT 卫生：T16/Assembly.lean 三处 if_pos/if_neg 弃用替换为 ite_eq_left/right，门禁 + 42 合同复核 |
-| 405-T12-U6-gradient-lambda-l3 | worktree 安装中 → Opus prover | 09-18 1438Z | — | — | T12 U6：gradientLambdaCriticalL3（对 ∂ⱼv 与 Λv 用 396 光滑版 U4 + Fourier 阶移，常数 CcriticalThreeHalves） |
+| 405-T12-U6-gradient-lambda-l3 | Opus 完成：gradientLambdaCriticalL3 逐字（IsPeriodicLambda 已含 SmoothPeriodicT Lv；复 Fourier 乘子 cxReweight 做两次阶移，常数 4·CcriticalHalf；24 声明）→ 排队 codex 审稿 | 09-18 1457Z | — | — | T12 U6：gradientLambdaCriticalL3（对 ∂ⱼv 与 Λv 用 396 光滑版 U4 + Fourier 阶移，常数 CcriticalThreeHalves） |
 | 406-T22-UA3b-cutoff-multiplier-field | worktree 安装中（基于 397 分支）→ Opus prover | 09-18 1438Z | — | — | T22 U-A3b：在 397 引擎上闭合逐字 cutoffMultiplier（R1 乘积→卷积 datum 级、R2 实子空间、R3 范数辨识、R4 C>0） |
 | 407-T24-Ua6-energy-finite | worktree 安装中 → Opus prover | 09-18 1438Z | — | — | T24a Ua6：energy_finite（紧支光滑 b 的 E₁ 范数有限 + 次可加性 + 原始 energyENorm 1 U < ⊤） |
 | 408-T22-UB2-zero-ext-regularity | codex 首轮被 429 打断（部分文件已在 worktree）；续做包装器 11 分钟后重试（astra→sol） | 09-18 1450Z | — | — | T22 U-B2：零延拓正则性（contDiff/HasCompactSupport/MemLp/datum 存在） |
