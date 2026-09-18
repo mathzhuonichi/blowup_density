@@ -144,3 +144,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 376-T15-U2-placement | codex sol 运行中（astra 备用） | 09-18 1226Z | — | — | T15 U2：缩放支撑放置（各切片支撑 ⊆ x₀ + ε•K_* ⊆ chart 球 ⊆ interior fundamentalCube；紧支撑）供 U3–U8 |
 | 377-T12-U3-cutoff-gagliardo | Opus prover 子代理运行中 | 09-18 1226Z | — | — | T12 U3（分析核心）：截断–Gagliardo 比较 dotHomogeneousENorm (1/2) (χv) ≤ C(‖v‖_{L²(Q)} + periodicHomogeneousENorm (1/2) v)（反向局部化；两恒等式 + 差分拆分 + Lipschitz 核估计） |
 | 378-SPEC-t19-spec | worktree 已安装；等 Opus 空位派发 | 09-18 1226Z | — | — | SPEC **T19 定稿**：按 research/T19/RECONCILIATION.md（四 Prop 结构 3/3/4/3；T18 结论重述不作参数；RelativelyDenseT；注册 alpha；无守卫；引用行号更新） |
+| 379-T13-contract | worktree 安装中→自动启动（codex sol xhigh，astra 备用；基座 = 359 分支 + integration-section3） | 09-18 1235Z | — | — | T13 合同注册 `T02.localization` v1（Contracts/V1/Localization.lean 逐字重述 Spec；Bindings 由 T13.localizationAPI 传输；Tests；注册 → 42 合同；台账 claim T13） |
+| 380-MAINT-section3-build-d | worktree 安装中→自动启动（codex astra，sol 备用） | 09-18 1235Z | — | — | MAINT：#328–#337 合入批次后 Section 3 全量编译检查（约 60 模块、三门禁、41 合同、probe/公理扫描 → logs/SECTION3_BUILD_20260918d.md） |
