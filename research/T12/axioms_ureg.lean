@@ -1,0 +1,3 @@
+import Bindings.MeanZeroCalculus
+import TestSupport
+run_cmd TestSupport.checkAxioms

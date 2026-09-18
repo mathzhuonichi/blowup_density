@@ -463,5 +463,10 @@
       "scope": "Lemma lem:localization (03-torus.tex:22-98) for every 0 < s < 1: positivity and finiteness of the explicit constant cFrac; the whole-space and torus Gagliardo identities with that same cFrac, the latter on the explicit mean-zero part; the endpoint L² and Hilbert–Schmidt gradient identities for smooth fields supported in a positive-radius ball whose closure lies in the interior of the fixed unit cube; and the uniform localization estimate, with one positive real constant chosen before the field, from the whole-space L² plus registered homogeneous norm to the periodized T10 inhomogeneous norm. The implementation witnesses that existential constant by (1 + (4 · tailGeomConst s c r / cFrac s) ^ (1/2)).toReal. No tail bound, periodization uniqueness theorem, divergence-free condition, or localization estimate outside 0 < s < 1 is asserted.",
       "enabled": true
     }
-  ]
+  ],
+  "T01.mean_zero_calculus": {
+    "version": 1,
+    "parent_task": "T12",
+    "scope": "Mean-zero periodic Sobolev calculus API with nine proved fields; constants are closed terms from the canonical implementation, not numerals."
+  }
 }

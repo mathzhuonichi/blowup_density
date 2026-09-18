@@ -1,0 +1,8 @@
+import Bindings.MeanZeroCalculus
+import TestSupport
+open BlowupDensity.Contracts.V1.MeanZeroCalculus
+open BlowupDensity.Bindings.MeanZeroCalculus
+noncomputable section
+#check meanZeroCalculusStatement_holds
+example : meanZeroCalculusStatement := meanZeroCalculusStatement_holds
+run_cmd TestSupport.checkAxioms
