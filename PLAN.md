@@ -89,3 +89,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 321-T11-U10-U11-restart-horizon | 排队（简报已写） | 09-18 0325Z | — | — | T11 U10+U11：`restart`（对着具名输入 `PeriodicQuantitativeLocalInput'`，按阶力界 M m := ‖f‖_{L¹H^m}）与 `horizon`/`solution`/`regularity`（M，sol） |
 | 322-T11-U12-high-order | 排队（astra；简报已写） | 09-18 0325Z | — | — | T11 U12：`higherOrderBound`（周期 eq:Rhigh 的 H^m 能量恒等式 + Grönwall；tame product 作为唯一具名输入）（L，astra） |
 | 323-T11-U15-maximal | 排队（简报已写） | 09-18 0325Z | — | — | T11 U15：`exists_maximal`/`maximal_unique` + `maximalLifespanT = PeriodicLifespan.lifespan`（复用 Paper1 无条件粘合）（M，sol） |
+| 324-SPEC-t20-spec | 排队（下一个空位；简报已写） | 09-18 0330Z | — | — | SPEC **T20 定稿**：按 research/T20/RECONCILIATION.md（B 为基 + A 拼写；零初值命题；Type 值 `CriticalRegularityTAPI` 12 常数字段 + 11 定理字段；无 API 索引）→ Spec.lean + COMPARISON.md |
