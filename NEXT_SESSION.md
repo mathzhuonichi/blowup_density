@@ -26,15 +26,15 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-18 05:35Z 快照）
+## 当前在跑 / 待启动（2026-09-18 06:50Z 快照）
 
-- **定稿 spec 已进树**：T10、T11（#277）、T12、T13、T14、T15（#278）、T16、T20（#296）、T22；T17 reconciliation 已批准（333 定稿 lane 在跑）；T24 双盲草案 306/307 在跑。
-- **T11 证明已进树**（`T11_SPLIT.md` 17 单元）：U1 #284、U2 #285、U3 #287、U4 #289、U5 #292、U7 #290、U10+U11 #299、U15 #300；U9 存在性线：U9a #283、U9b #286（Picard 不动点）、U9c #288、U9d1 #294 + 328 #297 + 329 #298 + **330 #301（`TorusHalfStepInput` 无条件 → 持续性无条件）**、U9d2 速度光滑/无散 #295、**压力 326 #302**（含周期卷积定理）。
-- **在跑**：Opus —— 327（U9d2b：Duhamel 时间微分、动量方程）、322（U12 高阶能量）；codex —— 331（U6 转运）、332（U13 restartBeyond）、333（T17 定稿）、306/307（T24 草案）。
-- **下一步**：327 完成后写 U9d2c 装配 lane（`ClassicalSolutionT` + `PeriodicLocalRegularity`，关闭 U9d 目标）；U9e（`PeriodicQuantitativeLocalInput'`，H¹ 球一致 δ）预计撞第 4 节同一堵墙（Picard 在 H³，δ 依赖 H³ 范数）→ 计划 lead 修正 2：显式 V2 收窄（H³ 球 / 固定力），照 `RestartFixedForce` 的写法，V1 语句保留为具名未证谓词；U14（extendsBeyond）待 U12+U13；U16 待 U14+U15；U17 装配 + 合同注册。
-- **模型策略（今晚定型）**：硬分析单元 → Opus prover 子代理（328/329/330/326 全部完整交付）；codex sol 做结构化单元与 spec/草案；astra 只做备用（多次交桩）。sol 04:00–04:50Z 曾 at capacity。
-- **教训已入 LESSONS**：合并必须 `merge-base --is-ancestor` 验证；追加共享笔记的分支冲突取并集；`pgrep/pkill` 自杀；简报义务写在 Goal；硬分析单元禁止具名输入；`tsum` 切片 `rfl` 引理；先看行数再审。
-- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；codex 并发 3–5；每次合入更新追踪 PR #270。
+- **定稿 spec 已进树**：T10、T11（#277）、T12、T13、T14、T15（#278）、T16、T17（#303）、T20（#296）、T22；T24 草案 A 完成（偏薄），B（307）续跑中 → reconciliation。
+- **T11 证明进树**（`T11_SPLIT.md` 17 单元 + 子单元）：U1–U5、U7、U10+U11（#299）、U15（#300）、U13（#306）、U14+U16（#307）；U9 存在性线全部进树：U9a/b/c、U9d1 + 328/329/**330（#301，持续性无条件）**、U9d2 = 320 #295 + **326 压力 #302** + **327 动量 #304**；U12 = 322 #305（部分：Grönwall 链）。**334（Opus）已无条件关闭 U9d 目标**（`mild_to_classical`、`exists_classical_of_picard`），审稿中。
+- **在跑（Opus）**：335（U12a 能量恒等式，补 Leray 投影形式后合入）、336（U12b 配对界 → `higherOrderBound` 闭合）、338（U9e：H³ 球存在性输入 `PeriodicQuantitativeLocalInputH3` —— lead 修正 2；重实例化 restart/extendsBeyond/lifespan 的 H³ 版；写 `H1_GAP.md`）、339（U6b：任意经典解自动有 `PeriodicLocalRegularity` → 331/321 无条件化）；审稿中：331（U6 转运，72 声明）、334。
+- **T11 收尾 = U17**：装配四个 API + 合同 `T01.torus_local_theory`（结构体例外：`ClassicalSolutionT` 逐字段转换）+ Bindings/Tests/注册；H¹ 球的 `restart`/`restartBeyond` 保留为手稿具名未证谓词（`PeriodicRestartH1`），注册的是 H³ 球版本（V2 口径，照第 4 节 `RestartFixedForce`），并核对 T18/T19/T20 消费者用的球（`H1_GAP.md`）。
+- **模型策略**：硬分析/构造单元 → Opus prover（本轮 328/329/330/326/327/332/334/335/337/331 全部实质交付，codex 审稿全部通过或仅措辞/范围备注）；codex sol 做 spec/草案与审稿；astra 只做备用。sol 容量 04:00–06:30Z 反复 at capacity（审稿靠 `retry_review.sh` 30 分钟退避）。
+- **审稿口径**：REJECT 若只因范围/既定残余 → 部分交付合入并开后续 lane（305/318/320/322）；保真/多余假设 → 让同一 Opus 子代理补证后合入（326/327/335）。
+- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
 
