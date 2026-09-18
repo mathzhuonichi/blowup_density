@@ -38,19 +38,14 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-18 14:41Z 快照）
+## 当前在跑 / 待启动（2026-09-18 17:20Z 快照）
 
-- **合入批次 #354–#363（14:14–14:35Z）**：399 全量检查 e（71 模块 0 错误、42 合同）#354；390 T20 U3+U4 #355；389 T20 U1/U2/U6 #356（**T20 wave 1 完成**）；392 T24 Uc1+Ua1 #357；388 T19 U1–U6 #358；396 T12 U4 光滑版 #359；395 T24 Uc2 #360；391 T22 U-A2 #361；393 T22 U-A5 #362；404 T16 弃用卫生 #363。
-- **完成度**：T10/T11/T13/T14/T16 ✅ 合同（42）；spec 全部定稿只剩 **T21**；T20 wave 1 ✅（U1–U4、U6）；T19 U1–U6 ✅；T12 已证 7/9 + U4 光滑版（逐字 U4b 在跑）。
-- **T12**：U4b 稠密化（401，Opus，基于 396）、U5 `gradientLSix`（400，Opus）、U6 `gradientLambdaCriticalL3`（405，Opus）在跑 → 之后 T20 U7（需 U4/U6）与 T12 合同注册。
-- **T15**：U2 放置（376，Opus r2 完成：所有 t<T、逐字力子句、具体探针）r3 审稿中；U-CAN ✅ #353；U3 等 376 落地。
-- **T17**：U1–U6 ✅；U-CAN（394）：审稿 REJECT 后 fix 已闭合 canonical `force_profile_identity`（Transport.force_eq + 单拷贝 germ，仅 G1 hv），r2 审稿中 → 合入后开 **T18 U1–U4**（codex）。
-- **T22**：U-B1/U-A1/U-A4/U-A2/U-A5 ✅；U-A3 引擎（397）审稿 REJECT（字段缺失）→ **406 U-A3b**（Opus，基于 397：R1 乘积→卷积、R2–R4）接续，PR 由 406 承载；U-B2（408）、U-B3（409）codex 在跑；之后 U-Z1 → U-REG。
-- **T24**：Uc1/Ua1/Uc2 ✅；Ua3 momentum（398，Opus）审稿 REJECT（缺非零 admissible 见证）→ Opus 续做 curl-bump 见证；Ua2（402）、Ua5（403）codex 完成审稿中；Ua6（407，Opus）在跑；余 Ua4（Opus）、Ua7–Ua9、Uc3、T24b（等 T15）。
-- **T18/T19/T23**：T18 U1 等 394 合入；T19 U7+ 等 T18 U12；T23 等 T22 + 域上局部理论。
-- **T21**：spec 双盲草案待开（T19 ✅ + T20 canonical ✅）——下一个 codex 空档开两条 SPEC lane（sol + Opus）。
-- **故障记录（09-18 14:40Z）**：`codex_review.sh` 需要 `collaboration/briefs/<lane>.md`，新 brief 未复制导致 402/403 审稿静默失败（已复制、重启；见 LESSONS 顶行）。早前 codex 容量波（07:30–14:00Z）已过。
-- **模型策略**：硬分析/构造/spec 定稿/规划/补全 → Opus prover（当前 5 条：400/401/405/406/407，398 续做）；codex sol/astra 做簿记型证明/合同注册/审稿（当前 408/409 + 审稿 376 r3/394 r2/402/403）。
+- **合入批次 #364–#377（14:44–17:15Z）**：376 T15 U2 #364；403 T24 Ua5 #365；394 T17 U-CAN + canonical force_profile_identity #366（union 合并误伤 ForceProfile.lean → 412 修复 #377：恢复 integration 版本 + 394 文档，lead 首次恢复会丢 375 rev1 两条定理，Opus 发现）；402 T24 Ua2 #367；401 T12 U4b 逐字 #368；398 T24 Ua3 + 非零见证 #369；400 T12 U5 #370；405 T12 U6 #371（**T12 九字段全证**）；407 T24 Ua6 #372；408 T22 U-B2 #373；406 T22 `cutoffMultiplier` 逐字闭合 #374（含 397 引擎；审稿两点程序性 REJECT，lead 裁定合入）；410/411 T21 双盲草案 #375/#376。
+- **完成度**：T10/T11/T13/T14/T16 ✅ 合同（42）；T12 九字段全证 → 注册 lane 419；T20 wave 1 ✅ + U7 三线性（413，审稿中）；T22 核心 `cutoffMultiplier` ✅、U-B1/B2 ✅、U-B3（409，审稿中）→ U-Z1（418）→ U-REG；T24 Uc1/Uc2/Ua1/Ua2/Ua3/Ua5/Ua6 ✅、Ua4（414 审稿中）；T19 U1–U6 ✅；T21 两份草案 ✅ → 对账（416）。
+- **Opus（待安装完成即启动）**：415 T20 U8 criticalEnergy（基于 413）、416 T21 对账、417 T24 Ua7。
+- **codex（安装后自动启动，sol→astra）**：418 T22 U-Z1（基于 409）、419 T12 注册 `T01.mean_zero_calculus`、420 T24 Uc3 装配+注册、421 T15 U3、422 T18 U1；审稿 rev-409/413/414 在跑或退避。
+- **故障记录（09-18）**：codex 14:50–15:10Z sol 429 / astra at capacity 交替，包装器已把 429 视为可重试并对中途死亡等 DONE 后重试；Claude 路由 429（15:10–17:05Z）中断 4 条 Opus，全部 SendMessage 续做完成；`codex_review.sh` 需 `collaboration/briefs/<lane>.md`（LESSONS 顶行）；union 合并只允许 md/csv（`tmp/union_merge.py`）。
+- **模型策略**：硬分析/构造/spec 定稿/对账/修复验证 → Opus prover；codex sol 做簿记型证明/合同注册/审稿；astra low 只做构建检查。
 - **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码（注释/记录类微改除外）；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
