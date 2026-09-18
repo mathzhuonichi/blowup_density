@@ -16,6 +16,9 @@
 
 ## 日志（最新在前）
 
+- **2026-09-18（lane 383）**：T22 U-B1 完成：canonical `Domain.lean`、
+  `restrictDatum_eq_restrictField`、`domainSobolevENorm_le_sobolevENorm`、
+  两个 probe 与三公理审计全部通过；报告见 `research/T22/REPORT_383.md`。
 - **2026-09-18 1312Z**：合入 #337–#344（T16 合同、T13 完整证明 + 合同 42、T17 U1/U2、T19/T23 定稿）；T18/T22/T12/T15/T17 拆分推进；codex/路由故障后恢复。
 - **2026-09-18 1225Z**：合入 #328–#336（T18 spec、T16 完成、T13 数学完成待审、T15 wave 1、T12 截断、T17 轮廓）；codex/路由双重故障 10:00–12:07Z；T19 两草案齐、reconciliation 起草中。
 - **2026-09-18 0955Z**：合入 #321–#327（T14 合同 40、T13 三字段、T16 规范+球上势、353 部分、全量检查 c）；358 关闭 T16 `localPotential`；T18 reconciliation 批准、360 启动；T15/T12 拆分 + wave 1（362–366）；T17 拆分规划中。
