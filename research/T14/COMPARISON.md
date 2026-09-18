@@ -5,6 +5,22 @@ This file merges the independent comparisons from lanes 273 (Draft A) and 274
 imports the already registered Euclidean packet; the torus placement and
 periodization begin only at `paper/sections/03-torus.tex:101-123`.
 
+## Proof-lane status (346-T14-packet-energy)
+
+The reconciled two-field API is now proved over raw Navier–Stokes packet
+fields in `formalization/NSFormalization/Section3/T14/PacketEnergy.lean`.
+`energy_le_work_of_packet` restricts the registered smoothness/support/PDE
+clauses to each compact slab and reuses
+`NSFormalization.Source.PacketEnergy.packet_energy`; the force's compact
+spacetime support is projected to a fixed compact spatial carrier. The
+interval-integral estimate is converted to the specification's `Ioo` set
+integrals. `work_eq_square_of_packet` proves the remaining FTC identity for
+the primitive square. The canonical probe fills both fields for
+`BlowupDensity.Bindings.packet ν hν`, constructs `packetImportStatement` and
+`PacketImportFamily`, and checks the selected velocity by `rfl`.
+
+All audited declarations use exactly `[propext, Classical.choice, Quot.sound]`.
+
 ## Paper clause → Lean field, provenance, and ruling
 
 “Inherited” means a literal field of
