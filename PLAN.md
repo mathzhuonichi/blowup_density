@@ -99,3 +99,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 331-T11-U6-transport | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0526Z | — | — | T11 U6：解在光滑变量替换下的转运构造 → `transformed_solution`/`to_unit`/`from_unit`（L，sol） |
 | 332-T11-U13-restart-beyond | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0526Z | — | — | T11 U13：`restartBeyond`（用 321 的 restart 在 H¹ 球取 δ，t₀ 靠近 S 重启并粘合，唯一性给重叠一致；输入 PeriodicQuantitativeLocalInput'）（M–L，sol） |
 | 333-SPEC-t17-spec | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0528Z | — | — | SPEC **T17 定稿**：按 research/T17/RECONCILIATION.md（B 为基 + A 五处；Type 值 `CorrectionAPI` 带 T15 `PlacementData` 参数；实数常数 + `ENNReal.ofReal`；注册 `alpha`）→ Spec.lean + COMPARISON.md |
+| 334-T11-U9d2c-classical-assembly | 排队（待 327 合入；Opus；简报已写） | 09-18 0545Z | — | — | T11 U9d2c：全阶时间光滑（mild 方程各阶 + 归纳）+ 装配 `ClassicalSolutionT`/`PeriodicLocalRegularity` → 关闭 U9d 目标（`mild_to_classical`）与 `exists_classical_of_picard` |
