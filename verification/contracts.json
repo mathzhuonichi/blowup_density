@@ -462,6 +462,17 @@
       "declaration": "BlowupDensity.Tests.checkedLocalization",
       "scope": "Lemma lem:localization (03-torus.tex:22-98) for every 0 < s < 1: positivity and finiteness of the explicit constant cFrac; the whole-space and torus Gagliardo identities with that same cFrac, the latter on the explicit mean-zero part; the endpoint L² and Hilbert–Schmidt gradient identities for smooth fields supported in a positive-radius ball whose closure lies in the interior of the fixed unit cube; and the uniform localization estimate, with one positive real constant chosen before the field, from the whole-space L² plus registered homogeneous norm to the periodized T10 inhomogeneous norm. The implementation witnesses that existential constant by (1 + (4 · tailGeomConst s c r / cFrac s) ^ (1/2)).toReal. No tail bound, periodization uniqueness theorem, divergence-free condition, or localization estimate outside 0 < s < 1 is asserted.",
       "enabled": true
+    },
+    {
+      "id": "T01.mean_zero_calculus",
+      "parent_task": "T01",
+      "version": 1,
+      "specification": "verification/Contracts/V1/MeanZeroCalculus.lean",
+      "binding_module": "Bindings.MeanZeroCalculus",
+      "test_module": "Tests.MeanZeroCalculus",
+      "declaration": "BlowupDensity.Tests.checkedMeanZeroCalculus",
+      "scope": "The reconciled T12 API (research/T12/Spec.lean:281-478) on the unit three-torus: the torus halves of lem:calculus and lem:critical-embeddings (appendix-a-local-theory.tex:7-27, appendix-b-embeddings.tex:8-38,85-110) together with the mean-zero order-two comparison used at 03-torus.tex:467-503. Nine proved fields, with seven constants fixed as structure data before every field they control: the scalar tame product on H^m(T³) for 2 ≤ m (eq:Rproduct, scalar factors only, no vector or tensor form); the H²(T³) → L^∞(T³) bound with no mean-zero hypothesis; the critical Ḣ^(1/2)(T³) → L³(T³) bound for every periodic L² field with zero Haar mean and a finite homogeneous datum norm, with no smoothness hypothesis; existence (not uniqueness) of a smooth periodic physical representative Lv of Λv for every smooth periodic v; the single displayed sum ‖∇v‖₃ + ‖Λv‖₃ ≤ C‖v‖_{Ḣ^(3/2)} for smooth periodic v of finite order-3/2 homogeneous norm together with such a representative; ‖∇v‖₆ ≤ C‖Δv‖₂ and ‖v‖_{H²} ≤ C‖Δv‖₂ for smooth periodic mean-zero v; and both directions of the mean-zero norm comparison at every 0 ≤ s, the converse with constant exactly one. The constants are closed terms of the canonical implementation, not numerals: Cproduct m = 4^(m/2)·sqrt(Σ_k (1+4π²|k|²)^(-2)), Cinfty = sqrt(Σ_k ((1+4π²|k|²)^2)⁻¹), CcriticalHalf = criticalL3Const·cutoffGagliardoConst·(Cgap(1/2)+1), CcriticalThreeHalves = 4·CcriticalHalf, Csix = 343·gradientL6Const·leibnizConst·(1+2·CHtwo), CHtwo = 1+1/(4π²) and Cgap s = (1+1/(4π²))^(s/2); no sharpness or optimality of any constant is asserted. Nothing is asserted about the whole-space (R³) halves of the two lemmas, about orders s < 0, about non-mean-zero homogeneous norms, or about uniqueness of the Λ representative.",
+      "enabled": true
     }
   ]
 }
