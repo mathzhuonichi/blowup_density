@@ -108,3 +108,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 340-T11-U17-assembly-contract | Opus prover 子代理（基座 = integration + 338 + 339 本地合并） | 09-18 0729Z | — | — | T11 U17：装配四个 API（H³ 收窄的延拓 API + 两个 H¹ 具名手稿谓词）+ 合同 `T01.torus_local_theory`（结构体例外转换）+ Bindings/Tests/注册（合同数 39） |
 | 341-T12-h2-linfty-laplacian-lambda | Opus prover 子代理（基座 = integration + 339 本地合并） | 09-18 0733Z | — | — | T12 证明：`boundedRepresentative`（H²↪L^∞，Cauchy–Schwarz + ∑W^{-2}）、`hTwo_le_laplacian`（系数权重比较）、`lambda_exists`（乘子 abs(2πk) 构造）——Fourier 侧三字段 |
 | 342-T12-tame-product | Opus prover 子代理（基座 = integration + 339 本地合并） | 09-18 0733Z | — | — | T12 证明：标量 tame 乘积 `tameProduct`（卷积系数 + Peetre 分裂 + ℓ¹*ℓ²，336 的机制） |
+| 343-SPEC-t24-spec | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0736Z | — | — | SPEC **T24 定稿**：按 research/T24/RECONCILIATION.md（B 为基；prop:affine 全空间用 I01.packet；修 B 两处假命题；ℝ≥0∞ 上确界；参数化柱体/球族；三结构 Prop/Type/Prop）→ Spec.lean + COMPARISON.md |
