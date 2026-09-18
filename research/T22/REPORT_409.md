@@ -22,3 +22,6 @@ current T22 imports. No prohibited placeholder was introduced.
 `#check` probes were run with `cd verification && lake env lean`; both named cutoff
 lemmas failed with `unknown identifier`. The basic probe and axioms audit remain to
 be run after a replacement cutoff API is identified.
+
+The probe gate also stops before elaboration because the dependent `Domain.olean` has not
+been built in this worktree (`object file .../Section3/T22/Domain.olean does not exist`).
