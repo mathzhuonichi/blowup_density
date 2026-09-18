@@ -120,6 +120,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   `SolvesBelowT` pair with the restart solution at `t₀` near `S` into one `ClassicalSolutionT ν a f (S+δ)` with
   **exact** normalized-pressure agreement on `[0,S)` ("needs a lemma" ⑩; overlap bookkeeping =
   `extension_agrees_on_common_interval`, `:564`). **M–L, sol.** Deps: U10, U5.
+  **Status (332): complete conditional only on `PeriodicQuantitativeLocalInput'` (through lane 321's `restart`) — `restartBeyond` closes the verbatim field, `glueClassicalSolutionT` is exported with agreement on all of `[0,T)`, pressure agreement is exact via the `pressure_gauge` field (no basepoint normalization), all 12 declarations print the three standard axioms.**
 - **U14 — `extendsBeyond`.** Same module. `squaredHTwoIntegralT S u ≠ ⊤` → U12 at `m = 1` → the `H¹`
   trajectory bound → U13 gives the concrete `ClassicalSolutionT ν a f (S+δ)` with agreement, which *is*
   `ExtendsBeyondT` (`LocalTheory.lean:68`) — strictly stronger than registered `A04.extendsBeyond`
