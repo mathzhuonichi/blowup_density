@@ -1289,7 +1289,6 @@ theorem mild_to_classical (ν : ℝ) (hν : 0 < ν) (C : TorusTwoSpaceContract �
       IsPeriodicSobolevPathOn 3 (Ico 0 T) w.velocity u := by
   have hPc : ContinuousOn P (Icc (0 : ℝ) T) := forcedLeray_continuousOn hg hgp hF hPL T
   have hPI : PersistenceInput T u := persistenceInput_of_mild hν C ha hg hgp hT hA hF hPL hu
-  have hFI : PersistenceInput T F := forcePersistenceInput hg hgp hF T
   have hdiv : ∀ t ∈ Ico (0 : ℝ) T, ∀ x : Space,
       spatialDivergence (torusPhysicalVelocity u) t x = 0 :=
     persistence_mild_physical_divergence ha hA hPL hu hPI
@@ -1302,7 +1301,7 @@ theorem mild_to_classical (ν : ℝ) (hν : 0 < ν) (C : TorusTwoSpaceContract �
             initial := fun x ↦ torusPhysicalVelocity_initial ha hA hu x
             divergence := hdiv
             momentum := fun t ht x ↦
-              momentum_of_mildPressure hu hPc hPI hFI hPL hg hgp hF hdiv ht x
+              momentum_of_mildPressure hu hPc hPI hPL hg hgp hF hdiv ht x
             sobolev := persistence_physical_sobolev hPI
             pressure_gradient := mildPressure_gradient_memLp hg hgp hPI
             velocity_periodic := fun t _ ↦ torusPhysicalVelocity_periodic u t (mem_univ t)
@@ -1316,7 +1315,7 @@ theorem mild_to_classical (ν : ℝ) (hν : 0 < ν) (C : TorusTwoSpaceContract �
       mildTower_contDiffOn hν C ha hg hgp hT hA hF hPL hu hPc m v hvre⟩
   · exact mildPressure_poisson hg hgp hPI
   · intro t ht x
-    exact projected_of_mildPressure hu hPc hPI hFI hPL hg hgp hF hdiv ht x
+    exact projected_of_mildPressure hu hPc hPI hPL hg hgp hF hdiv ht x
 
 /-- The Picard horizon of a smooth periodic datum and force carries a genuine
 classical solution.  No named input is used anywhere in the chain. -/

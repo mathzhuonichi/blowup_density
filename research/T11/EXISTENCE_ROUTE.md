@@ -534,6 +534,12 @@ no named input beyond `PersistenceInput`, no `def … : Prop`).
   (`periodicFourierCoeff_mul`,
   `periodicFourierCoeff_convection_eq_torusConvectionDatum`); the dedupe after
   the merge is recorded in `ATTEMPTS_MILD_MOMENTUM.md` §5.
+* **Force-side persistence is discharged, not assumed:**
+  `persistenceInput_force_of_smooth` derives `PersistenceInput T F` from
+  `ContDiff ℝ ∞ g`, `IsPeriodicOn univ g` and `IsPeriodicSobolevPath 3 g F`
+  (`CriterionBridge.exists_periodicDatum_smooth` +
+  `T10/ForcePaths.continuous_datum_path`), so `PersistenceInput T u` is the only
+  named input of the lane.
 * **Still open:** the *joint* `C^∞` fields
   `ContDiffOn ℝ ∞ (torusPhysicalVelocity u) (Ico 0 T ×ˢ univ)` and
   `ContDiffOn ℝ ∞ (mildPressure g u) (Ico 0 T ×ˢ univ)`.  Iterating the time
@@ -544,7 +550,7 @@ no named input beyond `PersistenceInput`, no `def … : Prop`).
 
 ## U9d2c status — lane 334 (the U9d target is closed)
 
-`formalization/NSFormalization/Section3/T11/MildClassical.lean` (1354 lines,
+`formalization/NSFormalization/Section3/T11/MildClassical.lean` (1383 lines,
 77 declarations) proves
 
 ```lean

@@ -1,6 +1,24 @@
 import NSFormalization.Section3.T11.MildMomentum
 
-/-! # U9d2b probe: which momentum/time-regularity targets close
+/-! # U9d2b NEGATIVE control (codex review of lane 327) — this file MUST FAIL
+
+This is `mild_momentum_closes.lean` with **one deliberate mutation**: the sign of
+the diffusion term in the first example is flipped from
+`-(ν * periodicAngularFrequencySq k)` to `ν * periodicAngularFrequencySq k`.
+`lake env lean` on this file is expected to report exactly one error, at that
+example, of the form
+
+```
+Type mismatch … ↑(-(ν * periodicAngularFrequencySq k)) … but is expected …
+                ↑(ν * periodicAngularFrequencySq k)
+```
+
+Everything else is verbatim the positive probe.  A clean run of this file would
+mean the statements are not pinned down; do **not** "fix" it.
+
+The original docstring of the positive probe follows.
+
+# U9d2b probe: which momentum/time-regularity targets close
 
 Every `example` below copies a target statement verbatim — either a field of
 `Section3/T10/PeriodicData.lean`'s `ClassicalSolutionT`, a field of
@@ -43,7 +61,7 @@ variable {ν T : ℝ} {C : TorusTwoSpaceContract ν} {Ad : PeriodicSobolev 3}
 example (hmild : TorusForcedMildOn C Ad P T u) (hPc : ContinuousOn P (Icc (0 : ℝ) T))
     {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) (i : Fin 3) (k : PeriodicFrequency) :
     HasDerivAt (fun r : ℝ ↦ (u r).1 i k)
-      ((-(ν * periodicAngularFrequencySq k) : ℝ) * (u t).1 i k +
+      (((ν * periodicAngularFrequencySq k) : ℝ) * (u t).1 i k +
         ((P t).1 i k -
           (Real.sqrt (periodicFrequencyWeight k) : ℂ) *
             (mildNonlinearDatum C u t).1 i k)) t :=
@@ -72,12 +90,6 @@ example (hmild : TorusForcedMildOn C Ad P T u) (hPc : ContinuousOn P (Icc (0 : �
     ⟨le_trans (by linarith [ht.1]) hr.1, lt_of_le_of_lt hr.2 (by linarith [ht.2])⟩
   exact torusPhysicalVelocity_hasDerivAt hmild hPc hu hg hgp hFg hPL hab
     (by linarith [ht.1, ht.2]) ⟨by linarith [ht.1], by linarith [ht.2]⟩ x
-
-/-! ## The force side of `PersistenceInput` is discharged, not assumed -/
-
-example (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g)
-    (hFg : IsPeriodicSobolevPath 3 g F) : PersistenceInput T F :=
-  persistenceInput_force_of_smooth hg hgp hFg
 
 /-! ## (ii) Continuity of the physical velocity up to `t = 0` -/
 
