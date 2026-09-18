@@ -66,3 +66,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 298-SPEC-t11-spec | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-17 2356Z | — | — | SPEC **T11 定稿**：按 research/T11/RECONCILIATION.md（`SolvesBelowT` 延拓假设、数据定义的 Galilean 均值、Poisson 压力、四个 API 结构 3+8+5+6+4 字段）→ Spec.lean + COMPARISON.md |
 | 299-T13-canonical-module | 已合入 #276（lead 直接合并：定义类模块，probe 含 rfl 检查） | 09-18 0007Z | #276 | — | T13 规范定义模块 `Section3/T13/Localization.lean`（research/T13/Spec.lean 新定义逐字落 Lake 模块，import T10；probe 把 `LocalizationAPI` 陈述在模块上）→ T13 证明 lane 基座 |
 | 300-T12-spectral-gap | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0010Z | — | — | T12 证明：`spectralGap`（常数 `(1+1/(4π²))^(s/2)`）+ `homogeneous_le_sobolev`（常数 1）—— 系数侧权重比较与 lp 重加权构造 |
+| 301-SPEC-t15-spec | 排队（并发上限 5；下一个空位启动；简报已写） | 09-18 0015Z | — | — | SPEC **T15 定稿**：按 research/T15/RECONCILIATION.md（B 为基；`PlacementData` 参数；Type 值 `ScalingAPI` 含 `sobolevConst` 与 `forceConvergence`；import 已注册的 `T01.torus_data`）→ Spec.lean + COMPARISON.md |
