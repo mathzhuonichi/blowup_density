@@ -26,14 +26,15 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-17 23:32Z 快照）
+## 当前在跑 / 待启动（2026-09-18 00:32Z 快照）
 
-- **T10 十字段全部证完并进树**：规范模块 `Section3/T10/PeriodicData.lean`（#267）+ `Parseval.lean`（#269，astra）+ `PhysicalBridge.lean`（#271）+ `Leray.lean`（#272）+ `DatumBasics.lean`（#273）；每条都过 codex 审稿（ACCEPT，含变异探针）。**`T01.torus_data` 已注册（293，合同数 38；审稿 ACCEPT-WITH-NOTES）**；296 在做实例去重 + Bindings 直接装配 + 审稿备注（`Contracts/V1/TorusData.lean` + Bindings rfl 桥/装配 + Tests；只注册数据层，解类部分推迟到 T11 注册）。
-- **T10 lead 修正 1（21:16Z）**：`IsPeriodicDatum`/`IsPeriodicHomogeneousDatum` 加 `Integrable (torusLift z)`，`parseval_forward` 加 `MemLp 2`；反例见 `research/T10/RECONCILIATION.md` §5。所有后续 spec/证明都用修正后的词汇。
-- **定稿 spec 已进树**：T10（#262）、T12（#268，Type 值 API 带常数）、T13（#263）、T14（#264）、T16（#266）、T22（#265）。
-- **在跑**：288（T11 草案 A，重启后；B 已完成 289）→ 两份齐后派 Opus 起草 reconciliation；291/292（T15 `prop:scaling` 双盲草案）；294（T17 `lem:correction` 草案 A），295（草案 B）排队等空位。
-- **路由不稳**：22:00–22:50Z 一波重连把 288/290 切断（已重启并完成/在跑）；`retry_lane.sh` 只处理前 4 分钟的 capacity 死亡，中途死亡要手动重启（无产出则原简报重跑；有产出写 `fix_<lane>.md` 续跑）。
-- **规矩（用户 2026-09-17）**：lead 不自己跑全量编译、不自己改代码；编译派 Opus 子代理或 astra tmux lane，改代码派 lane；codex 并发 3–5；每次合入更新追踪 PR #270。
+- **T10 完成**：十字段证明（#269/#271/#272/#273）→ 合同 `T01.torus_data` 注册（#275，合同数 38）→ 实例去重与直接装配（#279）。规范模块：T10 `Section3/T10/PeriodicData.lean`、T12 `Section3/T12/MeanZeroCalculus.lean`（#274）、T13 `Section3/T13/Localization.lean`（#276）；每个都带 `research/<T>/probes/api_on_canonical.lean`（证明 lane 的目标陈述）。
+- **定稿 spec 已进树**：T10（#262）、T11（#277，3+8+5+6+4 字段，数据定义的 Galilean 均值、`SolvesBelowT` 延拓）、T12（#268）、T13（#263）、T14（#264）、T15（#278，`ScalingAPI` 21 字段，import `T01.torus_data`）、T16（#266）、T22（#265）。
+- **在跑**：302（T11 规范模块 + Paper1/HeliCorgi 实现候选调查 → T11 证明 lane 拆分依据）；300 审稿中（T12 谱隙：`spectralGap`、`homogeneous_le_sobolev`、`reweightDatum`）；294/295（T17 `lem:correction` 双盲草案）；303（T20 `prop:critical` 草案 A），304（草案 B）排队。
+- **T10 lead 修正 1（09-17 21:16Z）**：datum 谓词加 `Integrable (torusLift z)`，`parseval_forward` 加 `MemLp 2`；反例见 `research/T10/RECONCILIATION.md` §5。
+- **教训（09-17/18）**：匿名 `instance`/`local instance` 跨模块同名冲突 → 一律显式命名、共享实例放规范模块；`gh pr merge` 紧跟 push 会报 not mergeable（先查 `mergeable`），合入确认后再开依赖 lane；`pkill -f` 会杀自己的 shell；shell 双引号里的反引号会被展开（PLAN/PR 文本用单引号或 quoted heredoc）。
+- **路由不稳**：22:00–22:50Z 一波重连切断 288/290（已重启完成）；中途死亡要手动重启（无产出则原简报重跑）。
+- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；codex 并发 3–5；每次合入更新追踪 PR #270（正文模板 `tmp/section3_pr_body.md`）。
 
 ## 下一步（按顺序）
 
