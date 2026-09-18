@@ -41,4 +41,3 @@ open NSFormalization.Section3.T11
 /-- info: 'NSFormalization.Section3.T11.mean_derivative' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs in
 #print axioms mean_derivative
-
