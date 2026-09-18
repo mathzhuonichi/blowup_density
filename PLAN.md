@@ -82,5 +82,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 314-T11-U4-rescaling | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0243Z | — | — | T11 U4：粘性代数 `inverse_identities`/`scaled_classes`（S，sol） |
 | 315-T11-U5-uniqueness | 排队（简报已写） | 09-18 0203Z | — | — | T11 U5：唯一性包 `velocity_unique`/`pressure_unique`/`horizon_le_lifespan`（复用 Paper1 `normalized_flows_agree`）（M，sol） |
 | 316-T11-U7-mean-identity | 排队（简报已写；astra） | 09-18 0203Z | — | — | T11 U7：均值恒等式 `mean_formula`/`mean_derivative`（积分动量方程，Haar 积分下求导）（L，astra） |
-| 317-T11-U9c-convolution-bound | 完成（astra：TorusConvolutionInput 完全偿还，契约有居民；11 定理）→ codex 审稿中（rev-317） | 09-18 0235Z | — | — | T11 U9c：偿还 313 的唯一具名输入 `TorusConvolutionInput`（投影对流卷积的有界双线性 H³×H³→H² 实现：离散 Sobolev 乘积估计，Peetre 不等式 + Cauchy–Schwarz + 格点可和）→ 两空间契约有居民 |
-| 318-T11-U9d-physical-recovery | 排队（待 317 合入；astra；简报已写） | 09-18 0236Z | — | — | T11 U9d：物理恢复 —— 由强迫 mild 系数解在公共 horizon 上构造 `ClassicalSolutionT`（全阶 bootstrap、Fourier 反演得物理速度、Leray 压力、动量方程）+ `PeriodicLocalRegularity`；允许一个具名输入 |
+| 317-T11-U9c-convolution-bound | 已合入 #288（codex ACCEPT-WITH-NOTES：两处注释措辞）：TorusConvolutionInput 偿还，两空间契约有居民 | 09-18 0245Z | #288 | — | T11 U9c：偿还 313 的唯一具名输入 `TorusConvolutionInput`（投影对流卷积的有界双线性 H³×H³→H² 实现：离散 Sobolev 乘积估计，Peetre 不等式 + Cauchy–Schwarz + 格点可和）→ 两空间契约有居民 |
+| 318-T11-U9d-physical-recovery | worktree 安装中→自动启动（codex **astra** low，sol 备用） | 09-18 0245Z | — | — | T11 U9d：物理恢复 —— 由强迫 mild 系数解在公共 horizon 上构造 `ClassicalSolutionT`（全阶 bootstrap、Fourier 反演得物理速度、Leray 压力、动量方程）+ `PeriodicLocalRegularity`；允许一个具名输入 |
