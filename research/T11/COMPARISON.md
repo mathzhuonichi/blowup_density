@@ -97,3 +97,41 @@ The following text is copied from the binding reconciliation.
    while the reconciliation prose and proof-dependency text sometimes call
    the same formula `prescribedMeanT`. The spec follows the lane instruction;
    should registration retain an alias for the older draft name?
+
+## Registered (lane 340, U17)
+
+`T01.torus_local_theory` v1 — `verification/Contracts/V1/TorusLocalTheory.lean`,
+`Bindings.TorusLocalTheory`, `Tests.TorusLocalTheory`, declaration
+`BlowupDensity.Tests.checkedTorusLocalTheory`.  Details in `REPORT_340.md`;
+obstacles and dead ends in `ATTEMPTS_ASSEMBLY.md`.
+
+| specification object | registered as | status |
+|---|---|---|
+| deferred T10 solution-class tier (`IsPeriodicSobolevPath` … `breakdownSetT`, plus `RelativelyDenseT` and the physical/coefficient energy norms) | same names, `rfl` bridges; `ClassicalSolutionT` by the structure exception | registered |
+| `PeriodicLocalRegularity` (3 fields) | same | registered |
+| `PeriodicLocalTheoryAPI` (8 fields) | same | **proved, registered** |
+| `PeriodicContinuationAPI` (5 fields) | stated verbatim in the contract, **not** registered | 3 fields proved, 2 open |
+| — `higherOrderBound`, `extendsBeyond`, `lifespanInfiniteOfLocallyFinite` | `PeriodicContinuationH3API`, verbatim (no ball) | **proved, registered** |
+| — `restart`, `restartBeyond` with the `H¹` ball | `PeriodicContinuationH3API` at the **`H³`** ball | **proved, registered as a narrowing** |
+| — the `H¹` wording itself | `PeriodicRestartH1`, `PeriodicRestartBeyondH1` | **named, documented, unproved** |
+| `PeriodicMeanReductionAPI` (6 fields) | same | **proved, registered** |
+| `PeriodicViscosityRescalingAPI` (4 fields) | same | **proved, registered** |
+
+Answers to the three owner questions above, as resolved by the lead and this
+lane:
+
+1. **Yes, an explicit narrowing was needed, and it is `H³`, not `H⁷`.**  Lead
+   amendment 2 (2026-09-18, `LEAD_AMENDMENTS.md`) fixed the route: prove the
+   `H³`-ball input outright (lane 338) and keep the manuscript's `H¹` sentences
+   as named predicates.  The narrowing is *smaller* than Section 4's: only the
+   Sobolev order of the two data balls changes (`1 → 3`), and the narrowed API
+   stays uniform in the restart time `t₀ ∈ [0,S]` and chooses `δ` before the
+   datum, both of which Section 4's `RestartFixedForce` also had to keep.  It
+   is registered in `Contracts/V1` rather than a `V2` file because nothing on
+   this page was ever registered at the `H¹` ball, so there is no earlier
+   version to supersede.
+2. Resolved in practice: the tier-(a) copies are gone from the contract, which
+   imports `Contracts.V1.TorusData`; only the deferred solution-class tier is
+   restated here, and it is now registered too.
+3. `galileanMeanT` is the registered name; no alias for `prescribedMeanT` was
+   introduced.

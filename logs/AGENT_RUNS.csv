@@ -659,153 +659,153 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,launched (sol xhigh) with residual-audit check points incl. owner's main modules bd:rev-180,running,
 2026-09-15,R43,175-R43-s1-pairing,codex,reviewer,ACCEPT (hcrit fields audited as genuine obligations; not vacuous),accepted,
 2026-09-15,R43,175-R43-s1-pairing,lead,merge,PR #185 opened; chain held until lane 184 (main merge) lands,pending,185
-2026-09-15,A01,158-resume,gpt-6-astra low,writer+reviewer,"Full-order datum and continuous word paths; probes pass; independent A04 source review",#161,"Codex Windows; full constructor remains open"
-2026-09-15,A04,160-resume,gpt-6-astra low,writer,"Force shift and exact R1/C1 adapters compiled; 9 standard-axiom checks and 4 examples pass",#161,"Restart and HigherOrderBound remain explicit analytic inputs"
-2026-09-15,MAINT,158-160-validation,gpt-5.6-luna high,verifier,"3 modules and 4 probe files pass; 26 contracts; 13 policy tests; base compatibility and mutations pass",#161,"Windows process-only autocrlf=false for temporary test repos; see FORMALIZATION_RESUME_20260915.md"
-2026-09-15,A01,161-datum-path,gpt-6-astra low,writer+reviewer,"Continuous datum paths compiled; 7 standard-axiom checks; independent C01 enstrophy source review",#162,"Worktree based on 0b8e5e4; full local validation passed"
-2026-09-15,A01,161-validation,gpt-5.6-luna high,verifier,"Module and 7 axiom outputs; 26 contracts; mutation suite pass",#162,"Python plan/contracts/policy/work-queue/base checks separately run by lead; all pass"
-2026-09-15,A01,163-divergence,gpt-6-astra low,writer,"Reverse cylinder-to-ordinary solenoidal bridge and actual smooth representative divergence",#164,"Based on PR 162; full local validation passed"
-2026-09-15,A01,163-review,gpt-6-astra low,reviewer,"Independent source review and final standard-axiom log inspection: ACCEPT",#164,"c6 only; full constructor not claimed"
-2026-09-15,A01,163-validation,gpt-5.6-luna high,verifier,"Module and 8 axioms outputs; 26 contracts; mutation suite passed",#164,"Python administrative checks separately passed by lead"
-2026-09-15,A01,166-maxreg,gpt-6-astra low,writer,"Actual forced mild same-horizon maximal regularity",#167,"Based on PR 164; no classical-solution premise"
-2026-09-15,A01,166-review,gpt-6-astra low,reviewer,"Independent source and final log review ACCEPT",#167,"Fixed-q same-T TimeLp gain; no continuous tower claimed"
-2026-09-15,A01,166-validation,gpt-5.6-luna high,verifier,"r4 module; 5 standard axiom outputs; 26 contracts and mutations passed",#167,"Python administrative checks separately passed by lead"
-2026-09-15,A01,168-A01-persistence,gpt-6-astra low,writer,"同T时间L2升阶之后的连续高阶持续性；源审计并证明关键跨阶桥，禁止循环调用经典解能量。",#169,"Based on PR #167 / d64704f; independent worktree"
-2026-09-15,A01,168-review,gpt-6-astra low,reviewer,"Independent source upgrade and terminal heat estimate review; final logs ACCEPT",#169,"Nine standard-axiom declarations; continuous persistence remains open"
-2026-09-15,A01,168-validation,gpt-5.6-luna high,verifier,"Two modules; 9 standard axiom outputs; 26 contracts and mutations passed",#169,"Source r1/r2 elaboration errors fixed in r3; trace first build passed"
-2026-09-15,A01,169-independent-audit,gpt-6-astra xhigh,reviewer,"H1 refactor proposal accepted with revisions; source and local literature audit",#170,"Original report archived unchanged; no Lean run"
-2026-09-15,A01,169-plan-review,gpt-6-astra xhigh,reviewer,"Revised implementation plan and linked split diff ACCEPT",#170,"Read-only follow-up; no substantive dependency errors or overclaims found"
-2026-09-15,C01,162-enstrophy,gpt-6-astra low,writer+reviewer,"Identity plus differential and integral bounds compiled; 8 standard-axiom checks; independent A01 review",#163,"Worktree based on 0b8e5e4; full local validation passed"
-2026-09-15,C01,162-validation,gpt-5.6-luna high,verifier,"2 modules and 8 axiom checks; 26 contracts; mutation suite pass",#163,"Python plan/contracts/policy/work-queue/base checks separately run by lead; all pass"
-2026-09-15,C01,164-h2,gpt-6-astra low,writer,"Genuine datum H2 comparison and endpoint-inclusive time integral",#165,"Based on PR 163; full local validation passed"
-2026-09-15,C01,164-review,gpt-6-astra low,reviewer,"Independent norm and terminal exhaustion source review; build and axiom conditions satisfied",#165,"Original Spec hypotheses and S=T preserved"
-2026-09-15,C01,164-validation,gpt-5.6-luna high,verifier,"Two modules and 6 axiom outputs; 26 contracts; mutation suite passed",#165,"Python administrative checks separately passed by lead"
-2026-09-15,C01,165-blind-a,gpt-6-astra low,specification,"Independent manuscript and frozen-vocabulary draft A",#166,"No implementation or sibling draft access"
-2026-09-15,C01,165-blind-b,gpt-6-astra low,specification,"Independent manuscript and frozen-vocabulary draft B",#166,"No implementation or sibling draft access"
-2026-09-15,C01,165-binding,gpt-6-astra low,writer,"V4 six-field assembly plus frozen parent projection; code compiled",#166,"Independent draft A continued after reconciliation and spec review"
-2026-09-15,C01,165-review,gpt-6-astra low,reviewer,"Independent spec and binding ACCEPT; source simplifier review required no edits",#166,"Also reviewed lane 166 source independently"
-2026-09-15,C01,165-validation,gpt-5.6-luna high,verifier,"Two blind drafts; V4 contract/tests; 27 contracts; missing-smallness negative and mutations passed",#166,"All Lean compilation by assigned Luna high"
-2026-09-15,R43,167-R43-endpoint,gpt-6-astra low,writer,"实际最大解族的吸收H2积分界推至有限最大寿命端点；保留原吸收前件，不假设终点经典解。",#168,"Based on PR #166 / b436f72; independent worktree"
-2026-09-15,R43,167-review,gpt-6-astra low,reviewer,"Independent maximal-family endpoint and frozen-consumer source ACCEPT",#168,"Same fields and smallness; no terminal classical solution"
-2026-09-15,R43,167-validation,gpt-5.6-luna high,verifier,"Module r2; 4 standard axiom outputs; 27 contracts and mutations passed",#168,"Python checks separately passed by lead"
+2026-09-15,A01,158-resume,gpt-6-astra low,writer+reviewer,Full-order datum and continuous word paths; probes pass; independent A04 source review,#161,Codex Windows; full constructor remains open
+2026-09-15,A04,160-resume,gpt-6-astra low,writer,Force shift and exact R1/C1 adapters compiled; 9 standard-axiom checks and 4 examples pass,#161,Restart and HigherOrderBound remain explicit analytic inputs
+2026-09-15,MAINT,158-160-validation,gpt-5.6-luna high,verifier,3 modules and 4 probe files pass; 26 contracts; 13 policy tests; base compatibility and mutations pass,#161,Windows process-only autocrlf=false for temporary test repos; see FORMALIZATION_RESUME_20260915.md
+2026-09-15,A01,161-datum-path,gpt-6-astra low,writer+reviewer,Continuous datum paths compiled; 7 standard-axiom checks; independent C01 enstrophy source review,#162,Worktree based on 0b8e5e4; full local validation passed
+2026-09-15,A01,161-validation,gpt-5.6-luna high,verifier,Module and 7 axiom outputs; 26 contracts; mutation suite pass,#162,Python plan/contracts/policy/work-queue/base checks separately run by lead; all pass
+2026-09-15,A01,163-divergence,gpt-6-astra low,writer,Reverse cylinder-to-ordinary solenoidal bridge and actual smooth representative divergence,#164,Based on PR 162; full local validation passed
+2026-09-15,A01,163-review,gpt-6-astra low,reviewer,Independent source review and final standard-axiom log inspection: ACCEPT,#164,c6 only; full constructor not claimed
+2026-09-15,A01,163-validation,gpt-5.6-luna high,verifier,Module and 8 axioms outputs; 26 contracts; mutation suite passed,#164,Python administrative checks separately passed by lead
+2026-09-15,A01,166-maxreg,gpt-6-astra low,writer,Actual forced mild same-horizon maximal regularity,#167,Based on PR 164; no classical-solution premise
+2026-09-15,A01,166-review,gpt-6-astra low,reviewer,Independent source and final log review ACCEPT,#167,Fixed-q same-T TimeLp gain; no continuous tower claimed
+2026-09-15,A01,166-validation,gpt-5.6-luna high,verifier,r4 module; 5 standard axiom outputs; 26 contracts and mutations passed,#167,Python administrative checks separately passed by lead
+2026-09-15,A01,168-A01-persistence,gpt-6-astra low,writer,同T时间L2升阶之后的连续高阶持续性；源审计并证明关键跨阶桥，禁止循环调用经典解能量。,#169,Based on PR #167 / d64704f; independent worktree
+2026-09-15,A01,168-review,gpt-6-astra low,reviewer,Independent source upgrade and terminal heat estimate review; final logs ACCEPT,#169,Nine standard-axiom declarations; continuous persistence remains open
+2026-09-15,A01,168-validation,gpt-5.6-luna high,verifier,Two modules; 9 standard axiom outputs; 26 contracts and mutations passed,#169,Source r1/r2 elaboration errors fixed in r3; trace first build passed
+2026-09-15,A01,169-independent-audit,gpt-6-astra xhigh,reviewer,H1 refactor proposal accepted with revisions; source and local literature audit,#170,Original report archived unchanged; no Lean run
+2026-09-15,A01,169-plan-review,gpt-6-astra xhigh,reviewer,Revised implementation plan and linked split diff ACCEPT,#170,Read-only follow-up; no substantive dependency errors or overclaims found
+2026-09-15,C01,162-enstrophy,gpt-6-astra low,writer+reviewer,Identity plus differential and integral bounds compiled; 8 standard-axiom checks; independent A01 review,#163,Worktree based on 0b8e5e4; full local validation passed
+2026-09-15,C01,162-validation,gpt-5.6-luna high,verifier,2 modules and 8 axiom checks; 26 contracts; mutation suite pass,#163,Python plan/contracts/policy/work-queue/base checks separately run by lead; all pass
+2026-09-15,C01,164-h2,gpt-6-astra low,writer,Genuine datum H2 comparison and endpoint-inclusive time integral,#165,Based on PR 163; full local validation passed
+2026-09-15,C01,164-review,gpt-6-astra low,reviewer,Independent norm and terminal exhaustion source review; build and axiom conditions satisfied,#165,Original Spec hypotheses and S=T preserved
+2026-09-15,C01,164-validation,gpt-5.6-luna high,verifier,Two modules and 6 axiom outputs; 26 contracts; mutation suite passed,#165,Python administrative checks separately passed by lead
+2026-09-15,C01,165-blind-a,gpt-6-astra low,specification,Independent manuscript and frozen-vocabulary draft A,#166,No implementation or sibling draft access
+2026-09-15,C01,165-blind-b,gpt-6-astra low,specification,Independent manuscript and frozen-vocabulary draft B,#166,No implementation or sibling draft access
+2026-09-15,C01,165-binding,gpt-6-astra low,writer,V4 six-field assembly plus frozen parent projection; code compiled,#166,Independent draft A continued after reconciliation and spec review
+2026-09-15,C01,165-review,gpt-6-astra low,reviewer,Independent spec and binding ACCEPT; source simplifier review required no edits,#166,Also reviewed lane 166 source independently
+2026-09-15,C01,165-validation,gpt-5.6-luna high,verifier,Two blind drafts; V4 contract/tests; 27 contracts; missing-smallness negative and mutations passed,#166,All Lean compilation by assigned Luna high
+2026-09-15,R43,167-R43-endpoint,gpt-6-astra low,writer,实际最大解族的吸收H2积分界推至有限最大寿命端点；保留原吸收前件，不假设终点经典解。,#168,Based on PR #166 / b436f72; independent worktree
+2026-09-15,R43,167-review,gpt-6-astra low,reviewer,Independent maximal-family endpoint and frozen-consumer source ACCEPT,#168,Same fields and smallness; no terminal classical solution
+2026-09-15,R43,167-validation,gpt-5.6-luna high,verifier,Module r2; 4 standard axiom outputs; 27 contracts and mutations passed,#168,Python checks separately passed by lead
 2026-09-15,MAINT,184-MAINT-merge-main,lead,merge,"gates green after fixing ForceBridge import (ConstructorDivergence→ConstructorDivergenceSlice); worktree had a private Mathlib clone (no lean-install) — deleted, relinked; merged --no-ff into integration c0f4439 and pushed",merged,
 2026-09-15,A01,178-A01-b1-ladder-r3,codex,worker,"DONE rc=0: datumPath_contDiffOn (max 6 m+2j ≤ q+1, needs hfs), _one unconditional, _all_orders under hall, residualPath_hasDerivAt",done,
 2026-09-15,A01,178-A01-b1-ladder-r3,codex,reviewer,"launched (sol xhigh) with 5 check points (range, hfs, hall audit, derivative formula, non-vacuity) bd:rev-178",running,
-2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"REJECT: constructor theorems absent (F1); sobolev ∀m needs all-order path (F2); divergence residual false — direct route closes it (F3)",rejected,
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,REJECT: constructor theorems absent (F1); sobolev ∀m needs all-order path (F2); divergence residual false — direct route closes it (F3),rejected,
 2026-09-15,A01,180-A01-b2-assembly,codex,fix,"launched (sol xhigh): implement both constructor theorems under exactly hsob (178 shape, j=0)/hc3/hpg; divergence via reviewer probe; zero-pair instance",running,
 2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,reviewer,"ACCEPT-WITH-NOTES (hu warning, stale descriptions, numstat, CLOSURE_PLAN vs owner's C01 V4)",accepted,
-2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,fix,"launched (sol high): rebase onto merged baseline (ConstructorDivergence conflict → re-target to ConstructorDivergenceSlice) + notes",running,
-2026-09-15,R43,175-R43-s1-pairing,lead,merge,"chain launched for PR #185 (wave 12) after 184 landed",running,185
-2026-09-15,A05,181-A05-v2-contract,codex,worker,"launched (sol high) on 184 base: register velocityCriticalL3 as A05.gradient_l6_v2 (29th contract)",running,
+2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,fix,launched (sol high): rebase onto merged baseline (ConstructorDivergence conflict → re-target to ConstructorDivergenceSlice) + notes,running,
+2026-09-15,R43,175-R43-s1-pairing,lead,merge,chain launched for PR #185 (wave 12) after 184 landed,running,185
+2026-09-15,A05,181-A05-v2-contract,codex,worker,launched (sol high) on 184 base: register velocityCriticalL3 as A05.gradient_l6_v2 (29th contract),running,
 2026-09-15,R43,182-R43-s1b-trilinear,codex,worker,"launched (sol xhigh) on 184 base: trilinear estimate = Hölder ×3 + critical embeddings, target CriticalTrilinearEstimate",running,
-2026-09-15,A01,186-A01-a3-common-horizon,codex,worker,"launched (astra low): supply 178's hall from ∀q HasAprioriBound via cross-order uniqueness (A3-U common horizon)",running,
+2026-09-15,A01,186-A01-a3-common-horizon,codex,worker,launched (astra low): supply 178's hall from ∀q HasAprioriBound via cross-order uniqueness (A3-U common horizon),running,
 2026-09-15,R43,175-R43-s1-pairing,lead,merge,"PR #185 merged via chain (wave 12): 154 modules green, 28 contracts; integration 826a1f5",merged,185
-2026-09-15,A05,181-A05-v2-contract,codex,worker,"DONE rc=0: Contracts/V2/GradientL6.lean + Bindings/Tests; A05.gradient_l6_v2 registered (29 contracts); gates OK; commit 71898f7",done,
+2026-09-15,A05,181-A05-v2-contract,codex,worker,DONE rc=0: Contracts/V2/GradientL6.lean + Bindings/Tests; A05.gradient_l6_v2 registered (29 contracts); gates OK; commit 71898f7,done,
 2026-09-15,A05,181-A05-v2-contract,codex,reviewer,"launched (sol xhigh) with 5 check points (fidelity, hypotheses, constant/vacuity, freeze, gates) bd:rev-181",running,
-2026-09-15,A01,178-A01-b1-ladder-r3,codex,reviewer,"REJECT (range only): datumPath_contDiffOn_one should be m+2 ≤ q+1 (reviewer probe rev178_sharp_c1); hfs bridge and cross-order compatibility confirmed genuinely missing; hall audited as exactly uniqueness + hfs",rejected,
-2026-09-15,A01,178-A01-b1-ladder-r3,codex,fix,"launched (sol high): sharpen C¹ range via reviewer probe; doc the all-j range honestly",running,
-2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,fix,"DONE rc=0: rebased onto 9825a35; simplification re-targeted to ConstructorDivergenceSlice; owner modules untouched; 10360 jobs built; gates OK; 28 contracts; commit d087f07",done,
-2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,reviewer,"re-review launched (sol high) with 4 check points bd:rev-176",running,
-2026-09-15,A01,187-A01-hfs-force-path,lead,plan,"lane opened: discharge hfs (cylinder force path C^∞ in time) for 178/186; 进行中（codex sol xhigh）",planned,
+2026-09-15,A01,178-A01-b1-ladder-r3,codex,reviewer,REJECT (range only): datumPath_contDiffOn_one should be m+2 ≤ q+1 (reviewer probe rev178_sharp_c1); hfs bridge and cross-order compatibility confirmed genuinely missing; hall audited as exactly uniqueness + hfs,rejected,
+2026-09-15,A01,178-A01-b1-ladder-r3,codex,fix,launched (sol high): sharpen C¹ range via reviewer probe; doc the all-j range honestly,running,
+2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,fix,DONE rc=0: rebased onto 9825a35; simplification re-targeted to ConstructorDivergenceSlice; owner modules untouched; 10360 jobs built; gates OK; 28 contracts; commit d087f07,done,
+2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,reviewer,re-review launched (sol high) with 4 check points bd:rev-176,running,
+2026-09-15,A01,187-A01-hfs-force-path,lead,plan,lane opened: discharge hfs (cylinder force path C^∞ in time) for 178/186; 进行中（codex sol xhigh）,planned,
 2026-09-15,A01,186-A01-a3-common-horizon,codex,worker,"DONE rc=0 (astra low): lowering/commutation proved; compatible_carriers_of_bounds/_Inv + compatible_carriers_hall under one named input MildUniqueness (order-6 mild uniqueness on [0,S]); 11 decls standard axioms; commit 6af395e",done,
 2026-09-15,A01,186-A01-a3-common-horizon,codex,reviewer,"launched (sol xhigh) with 5 check points (MildUniqueness minimality/truth, commutation proved, hall token match vs 178, route assessment for 188, hygiene) bd:rev-186",running,
-2026-09-15,A01,188-A01-mild-uniqueness,lead,plan,"lane opened on 186 branch: prove MildUniqueness (window contraction + restart/first-divergence iteration); install then auto-launch astra low",planned,
-2026-09-15,A01,180-A01-b2-assembly,codex,fix,"DONE rc=0: carrierConstructor_of_localTheory + carrierConstructorFull_of_hyps under hsob/hc3/hpg; divergence direct; zero-carrier instance; 9 decls standard axioms; commit 8282010",done,
+2026-09-15,A01,188-A01-mild-uniqueness,lead,plan,lane opened on 186 branch: prove MildUniqueness (window contraction + restart/first-divergence iteration); install then auto-launch astra low,planned,
+2026-09-15,A01,180-A01-b2-assembly,codex,fix,DONE rc=0: carrierConstructor_of_localTheory + carrierConstructorFull_of_hyps under hsob/hc3/hpg; divergence direct; zero-carrier instance; 9 decls standard axioms; commit 8282010,done,
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"re-review launched (sol xhigh) with 5 check points (inputs exact, hsob vs 178 j=0, hpg minimality → lane 189, zero instance, gates) bd:rev-180",running,
-2026-09-15,A01,188-A01-mild-uniqueness,codex,worker,"launched (astra low) after install; target theorem mildUniqueness : MildUniqueness",running,
+2026-09-15,A01,188-A01-mild-uniqueness,codex,worker,launched (astra low) after install; target theorem mildUniqueness : MildUniqueness,running,
 2026-09-15,A05,181-A05-v2-contract,codex,reviewer,"ACCEPT-WITH-NOTES: fidelity/non-vacuity probes pass, L4 mutation fails as required; notes: V2-specific mutation cases, describe as MemHInfty specialization of Lemma B.1",accepted,
-2026-09-15,A05,181-A05-v2-contract,codex,fix,"launched (sol high): V2 mutation cases + wording + commit review artifacts",running,
-2026-09-15,A01,178-A01-b1-ladder-r3,codex,fix,"DONE rc=0: datumPath_contDiffOn_one sharpened to m+2 ≤ q+1 via reviewer proof; all-j range documented as implementation range; 18 decls standard axioms; commit 87b65ec",done,
+2026-09-15,A05,181-A05-v2-contract,codex,fix,launched (sol high): V2 mutation cases + wording + commit review artifacts,running,
+2026-09-15,A01,178-A01-b1-ladder-r3,codex,fix,DONE rc=0: datumPath_contDiffOn_one sharpened to m+2 ≤ q+1 via reviewer proof; all-j range documented as implementation range; 18 decls standard axioms; commit 87b65ec,done,
 2026-09-15,A01,178-A01-b1-ladder-r3,lead,merge,"lead re-verified (build, axioms, diff); PR #186 opened; chain launched (wave 13)",running,186
-2026-09-15,A01,178-A01-b1-ladder-r3,lead,merge,"PR #186 merged via chain (wave 13) gates green",merged,186
-2026-09-15,A05,181-A05-v2-contract,codex,fix,"DONE rc=0: V2 mutation cases rejected as required; wording MemHInfty specialization of Lemma B.1; review artifacts committed; 29 contracts; commit 5eda560",done,
-2026-09-15,A05,181-A05-v2-contract,lead,merge,"lead re-verified; PR #187 opened; chain launched (wave 14)",running,187
+2026-09-15,A01,178-A01-b1-ladder-r3,lead,merge,PR #186 merged via chain (wave 13) gates green,merged,186
+2026-09-15,A05,181-A05-v2-contract,codex,fix,DONE rc=0: V2 mutation cases rejected as required; wording MemHInfty specialization of Lemma B.1; review artifacts committed; 29 contracts; commit 5eda560,done,
+2026-09-15,A05,181-A05-v2-contract,lead,merge,lead re-verified; PR #187 opened; chain launched (wave 14),running,187
 2026-09-15,A01,188-A01-mild-uniqueness,codex,worker,"DONE rc=0 (astra low): mildUniqueness : MildUniqueness proved unconditionally (volterra_window_bound causal windows, exists_positive_time_budget δ, kernelMass δ·L<1, finite induction incl. S); primed corollaries; 7 decls standard axioms; commit 2687da5",done,
 2026-09-15,A01,188-A01-mild-uniqueness,codex,reviewer,"adversarial review launched (sol xhigh): causal window bound, budget/Lipschitz constants, induction endpoint, token match, hygiene bd:rev-188",running,
-2026-09-15,A05,181-A05-v2-contract,lead,merge,"PR #187 merged via chain (wave 14) gates green; 29 contracts",merged,187
+2026-09-15,A05,181-A05-v2-contract,lead,merge,PR #187 merged via chain (wave 14) gates green; 29 contracts,merged,187
 2026-09-15,MAINT,176-MAINT-simp-codex-batch,codex,reviewer,"re-review ACCEPT: owner modules unchanged, signatures identical, 154 modules build, mutations fail as intended, 28 contracts",accepted,
-2026-09-15,MAINT,176-MAINT-simp-codex-batch,lead,merge,"PR #188 opened; chain launched (wave 15)",running,188
+2026-09-15,MAINT,176-MAINT-simp-codex-batch,lead,merge,PR #188 opened; chain launched (wave 15),running,188
 2026-09-15,R43,182-R43-s1b-trilinear,codex,worker,"DONE rc=0: Trilinear.lean — 3-factor L3 Hölder, derivativeCriticalL3 (4·C), criticalTrilinearEstimate_of_hcrit with C₀=16·C³ conditional on CriticalAdvectionLpBridge (physical carriers + Parseval, no inequality); rcritical1_of_hcrit; 10 decls standard axioms; commit a2090a3",done,
 2026-09-15,R43,182-R43-s1b-trilinear,codex,reviewer,"launched (sol xhigh) with 5 check points (bridge audit/vacuity, Hölder constant, factor 4, composition with 175, hygiene) bd:rev-182",running,
 2026-09-15,A01,186-A01-a3-common-horizon,codex,reviewer,"ACCEPT: MildUniqueness minimal/satisfiable, commutation proved, hall token-match probe, negative mutation fails",accepted,
-2026-09-15,A01,186-A01-a3-common-horizon,lead,merge,"PR #189 opened; chain queued after lane 176's chain (wave 16)",running,189
-2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"re-review ACCEPT: three-input interface faithful; 9 decls standard axioms; zero + consumer instances close; sign mutation fails",accepted,
-2026-09-15,A01,180-A01-b2-assembly,lead,merge,"PR #190 opened; chain queued after 186's (wave 17)",running,190
+2026-09-15,A01,186-A01-a3-common-horizon,lead,merge,PR #189 opened; chain queued after lane 176's chain (wave 16),running,189
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,re-review ACCEPT: three-input interface faithful; 9 decls standard axioms; zero + consumer instances close; sign mutation fails,accepted,
+2026-09-15,A01,180-A01-b2-assembly,lead,merge,PR #190 opened; chain queued after 186's (wave 17),running,190
 2026-09-15,A01,180-A01-b2-assembly,lead,hold,"design flaw: clamped carrier (projIcc, T:=S+1) makes hc3 unsatisfiable off stationary solutions; PR #190 → draft, queued chain killed; lesson recorded",held,190
 2026-09-15,A01,180-A01-b2-assembly,codex,fix2,"launched (sol xhigh): re-cut to T:=S (inputs only on Ico 0 S), consumer loop via lane-149 endpoint continuity, satisfiability probe",running,190
 2026-09-15,A01,189-A01-pressure-regularity,codex,worker,"launched (sol xhigh): slab-smooth pressure gradient, per-time L² via Leray complement, symmetric Jacobian (converse curl-free), packaged as hpg",running,
-2026-09-15,MAINT,176-MAINT-simp-codex-batch,lead,merge,"PR #188 merged via chain (wave 15) gates green",merged,188
-2026-09-15,A01,186-A01-a3-common-horizon,lead,merge,"PR #189 merged via queued chain (wave 16) gates green; CommonHorizon.lean on integration",merged,189
-2026-09-15,A01,188-A01-mild-uniqueness,codex,reviewer,"ACCEPT (adversarial): causal-window proof sound; halved-mass mutation fails; tiny-window probe passes",accepted,
+2026-09-15,MAINT,176-MAINT-simp-codex-batch,lead,merge,PR #188 merged via chain (wave 15) gates green,merged,188
+2026-09-15,A01,186-A01-a3-common-horizon,lead,merge,PR #189 merged via queued chain (wave 16) gates green; CommonHorizon.lean on integration,merged,189
+2026-09-15,A01,188-A01-mild-uniqueness,codex,reviewer,ACCEPT (adversarial): causal-window proof sound; halved-mass mutation fails; tiny-window probe passes,accepted,
 2026-09-15,A01,188-A01-mild-uniqueness,lead,merge,"PR #191 opened; chain launched (wave 18, logged to chain_lane188.log)",running,191
 2026-09-15,A01,187-A01-hfs-force-path,codex,worker,"DONE rc=0: datumSobolevCLM (CLM reconstruction, = ordinarySobolev on data), forcePath_sobolevPath_contDiffOn ∀q, forcePath_of_memForceR_smooth (167 package + hfs clause); 17 decls standard axioms; commit 046e2ba",done,
 2026-09-15,A01,187-A01-hfs-force-path,codex,reviewer,"launched (sol xhigh) with 5 check points (CLM well-defined/bounded, pointwise agreement, composition, 186 hfs probe, hygiene) bd:rev-187",running,
-2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,plan,"lane opened (install then auto-launch sol xhigh): joint smooth representative from 178 datum paths → hc3 for 180",planned,
-2026-09-15,A01,188-A01-mild-uniqueness,lead,merge,"PR #191 merged via chain (wave 18) gates green; MildUniqueness.lean on integration",merged,191
+2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,plan,lane opened (install then auto-launch sol xhigh): joint smooth representative from 178 datum paths → hc3 for 180,planned,
+2026-09-15,A01,188-A01-mild-uniqueness,lead,merge,PR #191 merged via chain (wave 18) gates green; MildUniqueness.lean on integration,merged,191
 2026-09-15,R43,182-R43-s1b-trilinear,codex,reviewer,"ACCEPT-WITH-NOTES: bridge honest/satisfiable, conditional proof nontrivial, constant mutation fails; note: attribution wording (U4/U8 carriers vs Parseval)",accepted,
 2026-09-15,R43,182-R43-s1b-trilinear,lead,merge,"wording note applied by lead (docstring + 2 md), module re-elaborated; PR #192 opened; chain launched (wave 19)",running,192
-2026-09-15,A01,190-A01-b1-r4-joint-smooth,codex,worker,"auto-launched (sol xhigh) after install",running,
-2026-09-15,R43,182-R43-s1b-trilinear,lead,merge,"PR #192 merged via chain (wave 19) gates green; Trilinear.lean on integration",merged,192
-2026-09-15,A05,191-A05-u4-shifted-data,lead,plan,"lane opened (install then auto-launch sol xhigh): U4 Λv realization + U8 derivative half-order data → ShiftedCriticalData for classical slices (R43 bridge minus Parseval)",planned,
+2026-09-15,A01,190-A01-b1-r4-joint-smooth,codex,worker,auto-launched (sol xhigh) after install,running,
+2026-09-15,R43,182-R43-s1b-trilinear,lead,merge,PR #192 merged via chain (wave 19) gates green; Trilinear.lean on integration,merged,192
+2026-09-15,A05,191-A05-u4-shifted-data,lead,plan,lane opened (install then auto-launch sol xhigh): U4 Λv realization + U8 derivative half-order data → ShiftedCriticalData for classical slices (R43 bridge minus Parseval),planned,
 2026-09-15,A01,187-A01-hfs-force-path,codex,reviewer,"ACCEPT-WITH-NOTES: consumer probe with lane 186 passes; widen-interval mutation fails; notes: stale base (chain rebases), gap sentence",accepted,
-2026-09-15,A01,187-A01-hfs-force-path,lead,merge,"gap sentence updated per review; PR #193 opened; chain launched (wave 20)",running,193
-2026-09-15,A01,187-A01-hfs-force-path,lead,merge,"PR #193 merged via chain (wave 20) gates green; ForcePathSmooth.lean on integration",merged,193
-2026-09-15,A01,192-A01-wiring-hsob,lead,plan,"lane opened (install then auto-launch sol high): compose 186+188+187+178 → hsob/hU/hdiv from the all-order bound family only",planned,
-2026-09-15,A01,180-A01-b2-assembly,codex,fix2,"DONE rc=0: constructor returns ClassicalSolutionR ν a' f S; hc3/hpg on Ico 0 S only; pressurePotential_contDiffOn_slab; CarrierConstructorFullClamped kept; endpoint rows via continuity; satisfiability probe; commit 84e2f3a",done,190
+2026-09-15,A01,187-A01-hfs-force-path,lead,merge,gap sentence updated per review; PR #193 opened; chain launched (wave 20),running,193
+2026-09-15,A01,187-A01-hfs-force-path,lead,merge,PR #193 merged via chain (wave 20) gates green; ForcePathSmooth.lean on integration,merged,193
+2026-09-15,A01,192-A01-wiring-hsob,lead,plan,lane opened (install then auto-launch sol high): compose 186+188+187+178 → hsob/hU/hdiv from the all-order bound family only,planned,
+2026-09-15,A01,180-A01-b2-assembly,codex,fix2,DONE rc=0: constructor returns ClassicalSolutionR ν a' f S; hc3/hpg on Ico 0 S only; pressurePotential_contDiffOn_slab; CarrierConstructorFullClamped kept; endpoint rows via continuity; satisfiability probe; commit 84e2f3a,done,190
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"third review launched (sol xhigh): satisfiability, slab potential lemma, T:=S consumer loop, interface match with 178/189/190, hygiene bd:rev-180",running,190
 2026-09-15,A01,189-A01-pressure-regularity,codex,worker,"DONE rc=0: hasSymmetricJacobian_of_lerayComplement_orderZeroDatum (Helmholtz converse), hpg_of_slab under hc3/hsob/hdiv/htime/hmom (ProjectedMomentumDatumOn); 12 decls standard axioms; commit 1234573",done,
 2026-09-15,A01,189-A01-pressure-regularity,codex,reviewer,"launched (sol xhigh) with 5 check points (htime satisfiability/derivability at t=0, Helmholtz converse proof, hmom vs 169, interface match with 180 fix2, hygiene) bd:rev-189",running,
 2026-09-15,A01,192-A01-wiring-hsob,codex,worker,"DONE rc=0: CylinderWiring.lean — cylinderPair_of_bounds(/Inv), hsob_of_bounds, hsobContinuous_of_bounds, hU_hdiv_of_bounds (+Inv); only input hb; 8 decls standard axioms; commit c8ebc2e",done,
 2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"launched (sol high) with 4 check points (same U throughout, interface probe vs 180 fix2, hb circularity assessment, hygiene) bd:rev-192",running,
-2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"third review REJECT: hc3 stated for the raw Lp coercion constructedVelocity (unsatisfiable; lane 190 gives an existential smooth representative); branch 113 commits stale",rejected,190
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,third review REJECT: hc3 stated for the raw Lp coercion constructedVelocity (unsatisfiable; lane 190 gives an existential smooth representative); branch 113 commits stale,rejected,190
 2026-09-15,A01,180-A01-b2-assembly,codex,fix3,"launched (sol xhigh): parameterize by velocity+hslice, hc3/hpg for that field, interface probes vs 190/192/189 shapes, rebase allowed",running,190
 2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"REJECT: named exports open separate existentials (Uhsob ≠ Upair, probe rev192_named_exports_fail); non-vacuity assumed hb; Grönwall note circular — reviewer gives base-order-radius route",rejected,
 2026-09-15,A01,192-A01-wiring-hsob,codex,fix,"launched (sol high): combined witness export, genuine zero bound, route note",running,
 2026-09-15,A01,193-A01-a3-m2-bounds,lead,plan,"lane opened (install then auto-launch astra low): hb family via base-order radius route (local horizon S6, lowering+uniqueness, H2 cap, mild Grönwall)",planned,
-2026-09-15,A01,189-A01-pressure-regularity,codex,reviewer,"REJECT: htime generically false at t=0 (ambient two-sided fderiv; probe rev189_endpoint_htime proves ¬htime for |t|e₀-type slab-smooth field); hmom stronger than 169's export and demands t=0 datum; hν/hS/hsob/hdiv unused; Helmholtz converse itself valid",rejected,
+2026-09-15,A01,189-A01-pressure-regularity,codex,reviewer,REJECT: htime generically false at t=0 (ambient two-sided fderiv; probe rev189_endpoint_htime proves ¬htime for |t|e₀-type slab-smooth field); hmom stronger than 169's export and demands t=0 datum; hν/hS/hsob/hdiv unused; Helmholtz converse itself valid,rejected,
 2026-09-15,A01,189-A01-pressure-regularity,lead,plan,"fix deferred until lane 190 lands: define the pressure gradient as the joint smooth representative (190) of the Leray-complement datum path of the residual (178/169), interior identity with residual − ∂ₜu; no htime; hmom derived from 169",planned,
-2026-09-15,A01,180-A01-b2-assembly,codex,fix3,"DONE rc=0: constructor parameterized by velocity/hslice/hc3 (lane 190 shape); divergence/sobolev transfer via a.e. slice equality; pipeline probe; rebased; commit de17bca",done,190
-2026-09-15,A01,180-A01-b2-assembly,codex,fix4,"launched (sol xhigh) without a review round: pressure leg parameterized by supplier field G with interior identity hG_int and slab regularity hG (189's finding applies to hpg.1 at t=0)",running,190
+2026-09-15,A01,180-A01-b2-assembly,codex,fix3,DONE rc=0: constructor parameterized by velocity/hslice/hc3 (lane 190 shape); divergence/sobolev transfer via a.e. slice equality; pipeline probe; rebased; commit de17bca,done,190
+2026-09-15,A01,180-A01-b2-assembly,codex,fix4,launched (sol xhigh) without a review round: pressure leg parameterized by supplier field G with interior identity hG_int and slab regularity hG (189's finding applies to hpg.1 at t=0),running,190
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,codex,worker,"DONE rc=0: JointRepresentative.lean — jointRepresentative, slice identity, ContDiffOn on Icc 0 S ×ˢ univ, exists_joint_smooth_representative(_of_hall); 26 decls standard axioms; commit ab009b6",done,
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,codex,reviewer,"launched (sol xhigh) with 5 check points (canonical CLM evaluation vs choose, boundary handling, slice identity, interfaces with 180/178/192, hygiene) bd:rev-190",running,
 2026-09-15,A01,189-A01-pressure-regularity,lead,plan,"fix brief written (G := joint representative of the Leray-complement path, interior identity via 169; no htime); launch after 190 merges",planned,
 2026-09-15,A01,192-A01-wiring-hsob,codex,fix,"DONE rc=0: combined witness export (unrestricted + Inv), split projections deleted; genuine zero bound via mildUniqueness; route note corrected; 5 decls standard axioms; commit 3eaab5c",done,
-2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"re-review launched (sol high) with 4 check points bd:rev-192",running,
+2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,re-review launched (sol high) with 4 check points bd:rev-192,running,
 2026-09-15,A01,193-A01-a3-m2-bounds,codex,worker,"DONE rc=0 (astra low): AprioriFamily.lean — hasAprioriBound_base, quadratic_mild_prefix/unique_window, H2-cap transfer, hb_of_base(/Inv) conditional on MildGronwall (finite-order mild energy inequality with majorant y), aprioriRadius explicit; 14 decls standard axioms; commit d7c66a8",done,
 2026-09-15,A01,193-A01-a3-m2-bounds,codex,reviewer,"launched (sol xhigh) with 5 check points (MildGronwall honesty, base bound via vendor+188, radius exactness, composition with 192, route assessment for lane 194) bd:rev-193",running,
 2026-09-15,A05,191-A05-u4-shifted-data,codex,worker,"DONE rc=0: A05/RieszShift.lean (rieszLambda, memHInfty, halfDatum; derivativeHalfDatum + symbol; shiftedCriticalData_of_memHInfty) + R43/ShiftedData.lean (criticalAdvectionLpBridge_shifted); bridge now lacks only pairing_identity; standard axioms; commit 01f0337",done,
 2026-09-15,A05,191-A05-u4-shifted-data,codex,reviewer,"launched (sol xhigh) with 5 check points (realization canonical, symbol identities, sign convention, classical-slice MemHInfty, non-vacuity/hygiene) bd:rev-191",running,
-2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"re-review REJECT: combined exports drop angle invariance + Duhamel and expose only j=0 (reproducer rev192_combined_full_fail); gates otherwise pass",rejected,
+2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,re-review REJECT: combined exports drop angle invariance + Duhamel and expose only j=0 (reproducer rev192_combined_full_fail); gates otherwise pass,rejected,
 2026-09-15,A01,192-A01-wiring-hsob,codex,fix2,"launched (sol high): add angle invariance, Duhamel, all-j family to the combined exports; strengthen positive probe",running,
 2026-09-15,A01,190-A01-b1-r4-joint-smooth,codex,reviewer,"ACCEPT-WITH-NOTES: faithful, both slab endpoints handled, interface probes vs 178/180/192 pass, widen mutation fails; notes: two stale B1_LADDER sentences",accepted,
-2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,merge,"notes applied; PR #194 opened; chain launched (wave 21)",running,194
-2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,merge,"PR #194 merged via chain (wave 21) gates green",merged,194
+2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,merge,notes applied; PR #194 opened; chain launched (wave 21),running,194
+2026-09-15,A01,190-A01-b1-r4-joint-smooth,lead,merge,PR #194 merged via chain (wave 21) gates green,merged,194
 2026-09-15,A01,189-A01-pressure-regularity,codex,fix,"launched (astra low) after 190 landed: G := joint representative of the Leray-complement path, interior identity via 169, target = 180 fix4's hG_int/hG",running,
-2026-09-15,A01,180-A01-b2-assembly,codex,fix4,"DONE rc=0: pressure leg parameterized by G/hG_int/hG; pressurePotential G; raw gradient only on Ioo; satisfiability + |t|e₀ probes; pipeline probe; rebased; commit 1166649",done,190
+2026-09-15,A01,180-A01-b2-assembly,codex,fix4,DONE rc=0: pressure leg parameterized by G/hG_int/hG; pressurePotential G; raw gradient only on Ioo; satisfiability + |t|e₀ probes; pipeline probe; rebased; commit 1166649,done,190
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fourth review launched (sol xhigh): both legs' satisfiability, field discharges with G, slab potential lemma proof, pipeline probe with real 190 import, hygiene bd:rev-180",running,190
 2026-09-15,A01,192-A01-wiring-hsob,codex,fix2,"DONE rc=0: combined exports retain angle invariance, Duhamel, j=0 and all-j family on the same U,u; probe consumes all via 190 interface; commit 9ca0a45",done,
-2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"third review launched (sol high) bd:rev-192",running,
-2026-09-15,A05,191-A05-u4-shifted-data,codex,reviewer,"ACCEPT: 79 axiom checks standard; sign-mutation probe fails as required; nonzero bump audit valid",accepted,
-2026-09-15,A05,191-A05-u4-shifted-data,lead,merge,"PR #195 opened; chain launched (wave 22)",running,195
-2026-09-15,A01,189-A01-pressure-regularity,codex,fix,"PARTIAL rc=0 (astra low): htime/ProjectedMomentumDatumOn/dummy inputs removed; Helmholtz converse kept; complement-representative helpers proved; pressureGradientField_of_carrier unproved; rebased; commit 182f79e",partial,
-2026-09-15,A01,194-A01-complement-path,lead,plan,"lane opened (install then auto-launch astra low): Leray-complement datum paths of the residual + physical path w + per-time complement identity; joint representative via 190",planned,
-2026-09-15,A01,195-A01-interior-momentum,lead,plan,"lane opened (install then auto-launch astra low): temporal derivative of the joint representative = evaluated derivative datum; interior identity G = residual − ∂ₜu on Ioo",planned,
-2026-09-15,A05,191-A05-u4-shifted-data,lead,merge,"PR #195 merged via chain (wave 22) gates green; RieszShift.lean + R43/ShiftedData.lean on integration",merged,195
+2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,third review launched (sol high) bd:rev-192,running,
+2026-09-15,A05,191-A05-u4-shifted-data,codex,reviewer,ACCEPT: 79 axiom checks standard; sign-mutation probe fails as required; nonzero bump audit valid,accepted,
+2026-09-15,A05,191-A05-u4-shifted-data,lead,merge,PR #195 opened; chain launched (wave 22),running,195
+2026-09-15,A01,189-A01-pressure-regularity,codex,fix,PARTIAL rc=0 (astra low): htime/ProjectedMomentumDatumOn/dummy inputs removed; Helmholtz converse kept; complement-representative helpers proved; pressureGradientField_of_carrier unproved; rebased; commit 182f79e,partial,
+2026-09-15,A01,194-A01-complement-path,lead,plan,lane opened (install then auto-launch astra low): Leray-complement datum paths of the residual + physical path w + per-time complement identity; joint representative via 190,planned,
+2026-09-15,A01,195-A01-interior-momentum,lead,plan,lane opened (install then auto-launch astra low): temporal derivative of the joint representative = evaluated derivative datum; interior identity G = residual − ∂ₜu on Ioo,planned,
+2026-09-15,A05,191-A05-u4-shifted-data,lead,merge,PR #195 merged via chain (wave 22) gates green; RieszShift.lean + R43/ShiftedData.lean on integration,merged,195
 2026-09-15,A01,193-A01-a3-m2-bounds,codex,reviewer,"ACCEPT-WITH-NOTES: MildGronwall honest (restriction of the H^{q+1} energy inequality), base bound/radius exact, 256→255 mutation fails; notes: composition probe vs 192 final export, record vendor regularized mild-energy route",accepted,
-2026-09-15,A01,193-A01-a3-m2-bounds,codex,fix,"launched (sol high): records + composition probe vs constructorInputs_of_bounds; review artifacts",running,
-2026-09-15,A01,196-A01-mild-gronwall,lead,plan,"lane opened on 193 branch (install then auto-launch astra low): prove MildGronwall via vendor regularized mild-energy chain + A03/A04 tame top term",planned,
-2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,"third review ACCEPT-WITH-NOTES (probe should import JointRepresentative directly; all gates pass)",accepted,
-2026-09-15,A01,192-A01-wiring-hsob,lead,merge,"PR #196 opened; chain launched (wave 23)",running,196
-2026-09-15,A01,193-A01-a3-m2-bounds,codex,fix,"first fix run died at start: gpt-5.6-sol at capacity (router); relaunched on gpt-6-astra low",running,
-2026-09-15,A01,192-A01-wiring-hsob,lead,merge,"PR #196 merged via chain (wave 23) gates green",merged,196
-2026-09-15,A01,193-A01-a3-m2-bounds,codex,fix,"DONE rc=0 (astra low): probe vs constructorInputs_of_bounds; lane-196 route recorded; review artifacts committed; commit d67c257",done,
-2026-09-15,A01,193-A01-a3-m2-bounds,lead,merge,"PR #197 opened; chain launched (wave 24)",running,197
-2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fourth review REJECT: constructor/pressure discharge correct; F1 committed h189 premise (unscoped ∀ velocity/G) formally disproved (probe rev180_h189_unsat); F2 rows_from_constructor_full's hjoint lacks hpaths so 190's theorem cannot be passed",rejected,190
+2026-09-15,A01,193-A01-a3-m2-bounds,codex,fix,launched (sol high): records + composition probe vs constructorInputs_of_bounds; review artifacts,running,
+2026-09-15,A01,196-A01-mild-gronwall,lead,plan,lane opened on 193 branch (install then auto-launch astra low): prove MildGronwall via vendor regularized mild-energy chain + A03/A04 tame top term,planned,
+2026-09-15,A01,192-A01-wiring-hsob,codex,reviewer,third review ACCEPT-WITH-NOTES (probe should import JointRepresentative directly; all gates pass),accepted,
+2026-09-15,A01,192-A01-wiring-hsob,lead,merge,PR #196 opened; chain launched (wave 23),running,196
+2026-09-15,A01,193-A01-a3-m2-bounds,codex,fix,first fix run died at start: gpt-5.6-sol at capacity (router); relaunched on gpt-6-astra low,running,
+2026-09-15,A01,192-A01-wiring-hsob,lead,merge,PR #196 merged via chain (wave 23) gates green,merged,196
+2026-09-15,A01,193-A01-a3-m2-bounds,codex,fix,DONE rc=0 (astra low): probe vs constructorInputs_of_bounds; lane-196 route recorded; review artifacts committed; commit d67c257,done,
+2026-09-15,A01,193-A01-a3-m2-bounds,lead,merge,PR #197 opened; chain launched (wave 24),running,197
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,fourth review REJECT: constructor/pressure discharge correct; F1 committed h189 premise (unscoped ∀ velocity/G) formally disproved (probe rev180_h189_unsat); F2 rows_from_constructor_full's hjoint lacks hpaths so 190's theorem cannot be passed,rejected,190
 2026-09-15,A01,180-A01-b2-assembly,codex,fix5,"launched (sol xhigh): consumer loop with landed supplier shapes (192/190 imported), def PressureSupply scoped to the selected solution as 189's exact obligation",running,190
-2026-09-15,A01,193-A01-a3-m2-bounds,lead,merge,"PR #197 merged via chain (wave 24) gates green",merged,197
+2026-09-15,A01,193-A01-a3-m2-bounds,lead,merge,PR #197 merged via chain (wave 24) gates green,merged,197
 2026-09-15,A01,195-A01-interior-momentum,codex,worker,"DONE rc=0 (astra low): jointRepresentative_temporalDerivative, vectorRepresentative_sub, _of_cylinder via 169; interior identity conditional on hprojected (cylinder leray vs datum lerayComplement 0 bridge); 8 decls standard axioms; commit d611ccf",done,
-2026-09-15,A01,195-A01-interior-momentum,codex,reviewer,"launched (sol xhigh) with 5 check points incl. hprojected honesty and hres vs 194 shape bd:rev-195",running,
-2026-09-15,A01,197-A01-leray-bridge,lead,plan,"lane opened (install then auto-launch astra low): prove hprojected (cylinder leray vs datum lerayComplement 0) + physicalResidual_datum_eq",planned,
+2026-09-15,A01,195-A01-interior-momentum,codex,reviewer,launched (sol xhigh) with 5 check points incl. hprojected honesty and hres vs 194 shape bd:rev-195,running,
+2026-09-15,A01,197-A01-leray-bridge,lead,plan,lane opened (install then auto-launch astra low): prove hprojected (cylinder leray vs datum lerayComplement 0) + physicalResidual_datum_eq,planned,
 2026-09-15,A01,196-A01-mild-gronwall,codex,worker,"DONE rc=0 (astra low): MildGronwall.lean — word norm comparisons, regularized word PDE + metric limit, tame/Young absorption C=A²/(4ν), conditional mildGronwall + family corollaries under FiniteMildEnergy; solenoidality interface mismatch noted; 19 decls standard axioms; commit b537807",done,
 2026-09-15,A01,196-A01-mild-gronwall,codex,reviewer,"launched (sol xhigh) with 5 check points (FiniteMildEnergy honesty + absorption algebra, proved parts genuine, solenoidal re-cut, route for the envelope lane, hygiene) bd:rev-196",running,
 2026-09-15,A01,194-A01-complement-path,codex,worker,"DONE rc=0 (astra low): ComplementPath.lean — residualCarrier (k=6 from q=7), residualDatum via orderZeroDatumCLM, physicalComplement, exists_complement_paths, exists_complement_joint_representative; inputs hf/hν/hS/a/U/hpairs (192 shape); 40 audits standard axioms; commit 368771f",done,
@@ -817,469 +817,469 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-15,A01,196-A01-mild-gronwall,codex,reviewer,"ACCEPT-WITH-NOTES: proved parts genuine; 256→255 mutation fails with kernel counterexample; notes: add ha to MildGronwall/FiniteMildEnergy (thread through 5 theorems), wrapper N=q−5 note, rebase",accepted,
 2026-09-15,A01,196-A01-mild-gronwall,codex,fix,"launched (sol high): solenoidal re-cut of both predicates (edit to merged AprioriFamily.lean allowed for this), rebase, gates",running,
 2026-09-15,A01,198-A01-energy-premises,lead,plan,"lane armed (auto after fix_196: worktree from 196 branch, install, astra low): vendor mild energy theorem premises for the cylinder NS solution + application; defs ForcingFamilyBound/EnvelopeConversion for lane 199",planned,
-2026-09-15,A01,180-A01-b2-assembly,codex,fix5,"DONE rc=0: def PressureSupply scoped to the selected solution; consumer loop invokes 192/190 landed theorems; real pipeline + zero probes; negatives retained; 0 behind/7 ahead; commit cb1e875",done,190
+2026-09-15,A01,180-A01-b2-assembly,codex,fix5,DONE rc=0: def PressureSupply scoped to the selected solution; consumer loop invokes 192/190 landed theorems; real pipeline + zero probes; negatives retained; 0 behind/7 ahead; commit cb1e875,done,190
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fifth review launched (sol xhigh): PressureSupply exactness + match vs 194/195/197 outputs, consumer loop by import, probes, hygiene bd:rev-180",running,190
-2026-09-15,A01,196-A01-mild-gronwall,codex,fix,"DONE rc=0: ha threaded through AprioriFamily.MildGronwall/hb_of_base(_inv) and MildGronwall.lean; 193 probes/audits updated; wrapper note; full build + lake test; commit 2f86a2f",done,
-2026-09-15,A01,196-A01-mild-gronwall,lead,merge,"PR #198 opened; chain launched (wave 25)",running,198
-2026-09-15,A01,197-A01-leray-bridge,codex,reviewer,"REJECT: hsol/hgrad (cylinder Helmholtz decomposition) assumed not derived; lane 194 supplies more of the residual bridge than reported; export with 192 canonical force/datum",rejected,
+2026-09-15,A01,196-A01-mild-gronwall,codex,fix,DONE rc=0: ha threaded through AprioriFamily.MildGronwall/hb_of_base(_inv) and MildGronwall.lean; 193 probes/audits updated; wrapper note; full build + lake test; commit 2f86a2f,done,
+2026-09-15,A01,196-A01-mild-gronwall,lead,merge,PR #198 opened; chain launched (wave 25),running,198
+2026-09-15,A01,197-A01-leray-bridge,codex,reviewer,REJECT: hsol/hgrad (cylinder Helmholtz decomposition) assumed not derived; lane 194 supplies more of the residual bridge than reported; export with 192 canonical force/datum,rejected,
 2026-09-15,A01,197-A01-leray-bridge,codex,fix,"launched (astra low): prove hsol/hgrad from the leray projection, connect 194's residualDatum to 195's A via 190's representative (merge 194 branch), export with PressureSupply binders",running,
-2026-09-15,A01,196-A01-mild-gronwall,lead,merge,"PR #198 merged via chain (wave 25) gates green; MildGronwall.lean + solenoidal AprioriFamily on integration",merged,198
-2026-09-15,A01,194-A01-complement-path,codex,reviewer,"ACCEPT: 192/195 probes compile; interval-widening mutation fails",accepted,
-2026-09-15,A01,194-A01-complement-path,lead,merge,"PR #199 opened; chain launched (wave 26)",running,199
-2026-09-15,A01,194-A01-complement-path,lead,merge,"PR #199 merged via chain (wave 26) gates green",merged,199
+2026-09-15,A01,196-A01-mild-gronwall,lead,merge,PR #198 merged via chain (wave 25) gates green; MildGronwall.lean + solenoidal AprioriFamily on integration,merged,198
+2026-09-15,A01,194-A01-complement-path,codex,reviewer,ACCEPT: 192/195 probes compile; interval-widening mutation fails,accepted,
+2026-09-15,A01,194-A01-complement-path,lead,merge,PR #199 opened; chain launched (wave 26),running,199
+2026-09-15,A01,194-A01-complement-path,lead,merge,PR #199 merged via chain (wave 26) gates green,merged,199
 2026-09-15,A01,195-A01-interior-momentum,codex,fix,"DONE rc=0: honest split hprojected/hresidualAgreement, interior_momentum_identity_of_complement_paths adapter, canonical 192 probe; 10 decls standard axioms; commit 96ff85f",done,
 2026-09-15,A01,195-A01-interior-momentum,lead,merge,"lead re-verified (module, axioms); PR #200 opened; chain launched (wave 27)",running,200
-2026-09-15,A01,195-A01-interior-momentum,lead,merge,"PR #200 merged via chain (wave 27) gates green",merged,200
-2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"fifth review REJECT: PressureSupply keeps one order-q solution without hinv; landed 194 needs same-carrier all-order hpairs family (probe rev180_pressure_supply_hpairs_mismatch); forward canonical solenoidality/force premises",rejected,190
-2026-09-15,A01,180-A01-b2-assembly,codex,fix6,"launched (sol xhigh): PressureSupply with 194-shaped hpairs + ha + canonical force; consumer loop via 192's family-returning theorem; real 194→195→197 pipeline probe",running,190
+2026-09-15,A01,195-A01-interior-momentum,lead,merge,PR #200 merged via chain (wave 27) gates green,merged,200
+2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,fifth review REJECT: PressureSupply keeps one order-q solution without hinv; landed 194 needs same-carrier all-order hpairs family (probe rev180_pressure_supply_hpairs_mismatch); forward canonical solenoidality/force premises,rejected,190
+2026-09-15,A01,180-A01-b2-assembly,codex,fix6,launched (sol xhigh): PressureSupply with 194-shaped hpairs + ha + canonical force; consumer loop via 192's family-returning theorem; real 194→195→197 pipeline probe,running,190
 2026-09-15,A01,198-A01-energy-premises,codex,worker,"DONE rc=0 (astra low): MildEnergyPremises.lean — vendor premises built (identity metric, full word family, restriction identities, divergence preservation, maximal-regularity state), mild_energy_estimate_of_cylinder (Z explicit, dissipation dropped), finiteMildEnergy_of_estimate under ForcingFamilyBound + EnvelopeConversion; negative scalar example; 27 decls standard axioms; commit 608e9ad",done,
 2026-09-15,A01,198-A01-energy-premises,codex,reviewer,"launched (sol xhigh): premises genuine, EnvelopeConversion satisfiability (dissipation dropped), ForcingFamilyBound identifiability, hygiene, route for 199 bd:rev-198",running,
-2026-09-15,A01,197-A01-leray-bridge,codex,fix,"DONE rc=0 (astra low): hsol/hgrad proved from leray projection; 194 physical datum connected to 195 without agreement hypothesis; canonical bridge exported; consumer closes without hprojected; wrong-sign probe fails; merged 194 branch; commit b8c9e27",done,
+2026-09-15,A01,197-A01-leray-bridge,codex,fix,DONE rc=0 (astra low): hsol/hgrad proved from leray projection; 194 physical datum connected to 195 without agreement hypothesis; canonical bridge exported; consumer closes without hprojected; wrong-sign probe fails; merged 194 branch; commit b8c9e27,done,
 2026-09-15,A01,197-A01-leray-bridge,codex,reviewer,"re-review launched (sol xhigh): decomposition proved, 194→195 connection incl. force term, binders vs PressureSupply, remaining assembly step, hygiene bd:rev-197",running,
-2026-09-15,A01,189-A01-pressure-regularity,lead,plan,"assembly fix2 brief written; armed to auto-launch (astra low) once lane 197 chain lands",planned,
+2026-09-15,A01,189-A01-pressure-regularity,lead,plan,assembly fix2 brief written; armed to auto-launch (astra low) once lane 197 chain lands,planned,
 2026-09-15,A01,180-A01-b2-assembly,codex,fix6,"DONE rc=0: PressureSupply carries ha, same-carrier all-order hpairs (194 shape), hpaths, 190 data; rows_from_constructor_full via cylinderPair_of_bounds; real 194→195→197 pipeline probe; zero-family probe; commit cca4af7",done,190
 2026-09-15,A01,180-A01-b2-assembly,codex,reviewer,"sixth review launched (sol xhigh): binders vs 194 shape, consumer loop imports, pipeline probe, hygiene bd:rev-180",running,190
 2026-09-15,A01,197-A01-leray-bridge,codex,reviewer,"re-review REJECT (mechanics): bridge mathematically sound, 25 decls standard axioms; residual_difference_gradient exceeds 400000 heartbeats; 29 behind; fix6 binder export + landed consumer replay missing",rejected,
 2026-09-15,A01,197-A01-leray-bridge,codex,fix2,"launched (astra low): rebase, split proof under heartbeat cap, export with PressureSupply binders, replay landed InteriorMomentum consumer",running,
-2026-09-15,A01,197-A01-leray-bridge,codex,fix2,"DONE rc=0 (astra low): rebased; proofs under heartbeat cap; fix6-binder export; landed consumer replayed; commit abb3c6a",done,
+2026-09-15,A01,197-A01-leray-bridge,codex,fix2,DONE rc=0 (astra low): rebased; proofs under heartbeat cap; fix6-binder export; landed consumer replayed; commit abb3c6a,done,
 2026-09-15,A01,197-A01-leray-bridge,lead,merge,"lead re-verified (module, axioms, heartbeat probe); PR #201 opened; chain launched (wave 28)",running,201
-2026-09-15,A01,197-A01-leray-bridge,lead,merge,"PR #201 merged via chain (wave 28) gates green",merged,201
-2026-09-15,A01,189-A01-pressure-regularity,codex,fix2,"auto-launched (astra low) after 197 landed: assembly of PressureSupply from 194/195/197 + Helmholtz converse",running,
-2026-09-16,A01,198-A01-energy-premises,codex,reviewer,"sol reviewer stuck Reconnecting 2/5 for >10 min; killed and relaunched on gpt-6-astra low",running,
+2026-09-15,A01,197-A01-leray-bridge,lead,merge,PR #201 merged via chain (wave 28) gates green,merged,201
+2026-09-15,A01,189-A01-pressure-regularity,codex,fix2,auto-launched (astra low) after 197 landed: assembly of PressureSupply from 194/195/197 + Helmholtz converse,running,
+2026-09-16,A01,198-A01-energy-premises,codex,reviewer,sol reviewer stuck Reconnecting 2/5 for >10 min; killed and relaunched on gpt-6-astra low,running,
 2026-09-16,A01,189-A01-pressure-regularity,codex,fix2,"DONE rc=0 (astra low): pressureSupply_of_pieces proves 180 fix6's PressureSupply verbatim from 194/195/197 + Helmholtz converse, no extra hypotheses; pipeline probe with hb as sole analytic premise; zero pair; rebased; commit 31aa4ca",done,
 2026-09-16,A01,189-A01-pressure-regularity,codex,reviewer,"launched (astra low) with 5 check points (verbatim contract, arbitrary-representative transfer, t=0 symmetry, pipeline probe, hygiene) bd:rev-189",running,
-2026-09-16,A01,198-A01-energy-premises,codex,reviewer,"ACCEPT-WITH-NOTES (astra low): premises/estimate genuine; EnvelopeConversion classified (b) (dissipative differential route via regularized_word_hasDerivAt_clamped + family_energy_hasDerivAt + metric_second_derivative_identity); ForcingFamilyBound needs a forcing/commutator family-norm bridge; 3 wording notes",accepted,
-2026-09-16,A01,198-A01-energy-premises,lead,merge,"wording notes applied by lead; PR #202 opened; chain launched (wave 29)",running,202
+2026-09-16,A01,198-A01-energy-premises,codex,reviewer,ACCEPT-WITH-NOTES (astra low): premises/estimate genuine; EnvelopeConversion classified (b) (dissipative differential route via regularized_word_hasDerivAt_clamped + family_energy_hasDerivAt + metric_second_derivative_identity); ForcingFamilyBound needs a forcing/commutator family-norm bridge; 3 wording notes,accepted,
+2026-09-16,A01,198-A01-energy-premises,lead,merge,wording notes applied by lead; PR #202 opened; chain launched (wave 29),running,202
 2026-09-16,A01,189-A01-pressure-regularity,codex,reviewer,"ACCEPT-WITH-NOTES (astra low): assembly/endpoint/pipeline/axioms/non-vacuity pass; notes: maxHeartbeats 800000→400000 (lead applied, module re-elaborated), import 180's def once landed",accepted,
 2026-09-16,A01,199-A01-envelope,lead,plan,"lane armed (auto after 198 lands: worktree from integration, install, astra low): ForcingFamilyBound + EnvelopeConversion via signed regularized identities and the comparison ODE",planned,
 2026-09-16,A01,180-A01-b2-assembly,codex,reviewer,"sixth review: production interface correct; REJECT limited to the research-side cross-lane pipeline probe (stale 197 export copy, hresidualAgreement assumed)",accepted-by-lead,190
-2026-09-16,A01,180-A01-b2-assembly,lead,merge,"lead decision: probe marked historical (real pipeline = lane 189's pressureSupply_of_pieces); PR #190 ready; chain queued after 198's (wave 30)",running,190
+2026-09-16,A01,180-A01-b2-assembly,lead,merge,lead decision: probe marked historical (real pipeline = lane 189's pressureSupply_of_pieces); PR #190 ready; chain queued after 198's (wave 30),running,190
 2026-09-16,A01,189-A01-pressure-regularity,lead,plan,"fix3 armed (auto after 180 lands, sol high): import 180's PressureSupply, delete copy, A01 constructor pipeline probe",planned,
-2026-09-16,A01,198-A01-energy-premises,lead,merge,"PR #202 merged via chain (wave 29) gates green",merged,202
-2026-09-16,A01,180-A01-b2-assembly,lead,merge,"PR #190 merged via chain (wave 30) gates green; constructor conditional on hb + PressureSupply",merged,190
+2026-09-16,A01,198-A01-energy-premises,lead,merge,PR #202 merged via chain (wave 29) gates green,merged,202
+2026-09-16,A01,180-A01-b2-assembly,lead,merge,PR #190 merged via chain (wave 30) gates green; constructor conditional on hb + PressureSupply,merged,190
 2026-09-16,A01,189-A01-pressure-regularity,codex,fix3,"auto-launched (sol high) after 180 landed: import PressureSupply, delete copy, constructor pipeline probe",running,
 2026-09-16,A01,189-A01-pressure-regularity,codex,fix3,"DONE rc=0: imports 180's PressureSupply, local copy removed; a01_constructor_pipeline probes: classical constructor from hb alone; lake test 10573 jobs; commit 6e96fdb",done,
-2026-09-16,A01,189-A01-pressure-regularity,lead,merge,"review file trimmed (28k-line make-check dump); PR #203 opened; chain launched (wave 31)",running,203
-2026-09-16,A01,189-A01-pressure-regularity,lead,merge,"PR #203 merged via chain (wave 31) gates green; A01 milestone: classical constructor from hb alone on integration",merged,203
+2026-09-16,A01,189-A01-pressure-regularity,lead,merge,review file trimmed (28k-line make-check dump); PR #203 opened; chain launched (wave 31),running,203
+2026-09-16,A01,189-A01-pressure-regularity,lead,merge,PR #203 merged via chain (wave 31) gates green; A01 milestone: classical constructor from hb alone on integration,merged,203
 2026-09-16,A01,199-A01-envelope,codex,worker,"PARTIAL rc=0 (astra low): signed regularized energy identity with dissipation; explicit ODE envelope x=y², g=A(16·low)y/(2ν); finite-energy chain conditional on CylinderRootComparison; ForcingFamilyBound unproved; 21 decls standard axioms; commit 376a7b1",partial,
 2026-09-16,A01,199-A01-envelope,codex,reviewer,"launched (astra low): signed identity genuine, ODE envelope algebra, CylinderRootComparison/ForcingFamilyBound classification + routes for lanes 200/201, hygiene bd:rev-199",running,
-2026-09-16,A01,199-A01-envelope,codex,reviewer,"REJECT (scope): neither general-data target closed; partial results sound; ForcingFamilyBound not a premise of the new chain; scalar ODE uniqueness missing; routes for lanes 200/201 given",rejected,
+2026-09-16,A01,199-A01-envelope,codex,reviewer,REJECT (scope): neither general-data target closed; partial results sound; ForcingFamilyBound not a premise of the new chain; scalar ODE uniqueness missing; routes for lanes 200/201 given,rejected,
 2026-09-16,A01,199-A01-envelope,codex,fix,"launched (sol high): land the sound partial as a conditional module — ODE uniqueness, records, review artifacts",running,
 2026-09-16,A01,200-A01-forcing-bound,lead,plan,"lane opened on 199 branch (install then auto-launch astra low): ForcingFamilyBound with explicit E(q),A(q) via vendor commutator + A03/A04 tame chain",planned,
-2026-09-16,A01,201-A01-root-comparison,lead,plan,"lane opened on 199 branch (install then auto-launch astra low): CylinderRootComparison from the signed identity + ForcingFamilyBound (hypothesis) + signed integrated limit + scalar Grönwall comparison",planned,
-2026-09-16,A01,199-A01-envelope,codex,fix,"DONE rc=0: scalar ODE uniqueness (integrating factor); records; review artifacts; rebased; 22 decls standard axioms; commit ddaa7f2",done,
-2026-09-16,A01,199-A01-envelope,lead,merge,"lead re-verified; PR #204 opened; chain launched (wave 32); NOTE 200/201 branches predate this fix — rebase taking integration's MildEnergyEnvelope.lean before their chains",running,204
-2026-09-16,A01,199-A01-envelope,lead,merge,"PR #204 merged via chain (wave 32) gates green",merged,204
-2026-09-16,A01,201-A01-root-comparison,codex,worker,"DONE rc=0 (astra low): RootComparison.lean — scalar root comparison + assembly; residual named input CylinderSignedRootLimit (signed integrated limit) and mildNormConstant q ≤ E; 13 audits standard axioms",done,
+2026-09-16,A01,201-A01-root-comparison,lead,plan,lane opened on 199 branch (install then auto-launch astra low): CylinderRootComparison from the signed identity + ForcingFamilyBound (hypothesis) + signed integrated limit + scalar Grönwall comparison,planned,
+2026-09-16,A01,199-A01-envelope,codex,fix,DONE rc=0: scalar ODE uniqueness (integrating factor); records; review artifacts; rebased; 22 decls standard axioms; commit ddaa7f2,done,
+2026-09-16,A01,199-A01-envelope,lead,merge,lead re-verified; PR #204 opened; chain launched (wave 32); NOTE 200/201 branches predate this fix — rebase taking integration's MildEnergyEnvelope.lean before their chains,running,204
+2026-09-16,A01,199-A01-envelope,lead,merge,PR #204 merged via chain (wave 32) gates green,merged,204
+2026-09-16,A01,201-A01-root-comparison,codex,worker,DONE rc=0 (astra low): RootComparison.lean — scalar root comparison + assembly; residual named input CylinderSignedRootLimit (signed integrated limit) and mildNormConstant q ≤ E; 13 audits standard axioms,done,
 2026-09-16,A01,201-A01-root-comparison,codex,reviewer,"launched (astra low): honesty of CylinderSignedRootLimit + limit-lemma route, comparison shape, composition with 198/199 defs, rebase drift, hygiene bd:rev-201",running,
 2026-09-16,A01,200-A01-forcing-bound,codex,worker,"DONE rc=0 (astra low): ForcingFamilyBound.lean — Z identification, source-pressure cancellation, source bound; forcingFamilyBound_of_cylinder under CylinderCommutatorBound (spatial Kato–Ponce-type commutator estimate); E q = mildNormConstant q, A q = E q(1+outerTameConst); 18 audits standard axioms; commit 494e1d4",done,
 2026-09-16,A01,200-A01-forcing-bound,codex,reviewer,"launched (astra low): Z identification, CylinderCommutatorBound honesty + route for lane 202, composition with 198 def (ha), hygiene bd:rev-200",running,
-2026-09-16,A01,201-A01-root-comparison,codex,reviewer,"REJECT: rebase/name collision with 199's uniqueness theorem; CylinderSignedRootLimit lacks solenoidality and is a substantive absorbed integrated bound (not a generic limit lemma); route for lane 203 given",rejected,
+2026-09-16,A01,201-A01-root-comparison,codex,reviewer,REJECT: rebase/name collision with 199's uniqueness theorem; CylinderSignedRootLimit lacks solenoidality and is a substantive absorbed integrated bound (not a generic limit lemma); route for lane 203 given,rejected,
 2026-09-16,A01,201-A01-root-comparison,codex,fix,"launched (sol high): rebase taking integration's envelope, rename uniqueness theorem, add ha to CylinderSignedRootLimit, docstring",running,
 2026-09-16,A01,203-A01-signed-limit,lead,plan,"lane armed (auto after fix_201: worktree from 201 branch, install, astra low): signed passage to the maximal-approximation limit retaining dissipation, per reviewer 201 route",planned,
-2026-09-16,A01,201-A01-root-comparison,codex,fix,"DONE rc=0: rebased; energyComparison_unique_on_Icc; ha through CylinderSignedRootLimit and assembly; docstring; 13 decls standard axioms; commit 7ebcdc2",done,
-2026-09-16,A01,201-A01-root-comparison,lead,merge,"lead re-verified; PR #205 opened; chain launched (wave 33)",running,205
-2026-09-16,A01,203-A01-signed-limit,codex,worker,"auto-launched (astra low) after fix_201",running,
-2026-09-16,A01,201-A01-root-comparison,lead,merge,"PR #205 merged via chain (wave 33) gates green",merged,205
+2026-09-16,A01,201-A01-root-comparison,codex,fix,DONE rc=0: rebased; energyComparison_unique_on_Icc; ha through CylinderSignedRootLimit and assembly; docstring; 13 decls standard axioms; commit 7ebcdc2,done,
+2026-09-16,A01,201-A01-root-comparison,lead,merge,lead re-verified; PR #205 opened; chain launched (wave 33),running,205
+2026-09-16,A01,203-A01-signed-limit,codex,worker,auto-launched (astra low) after fix_201,running,
+2026-09-16,A01,201-A01-root-comparison,lead,merge,PR #205 merged via chain (wave 33) gates green,merged,205
 2026-09-16,A01,200-A01-forcing-bound,codex,reviewer,"ACCEPT-WITH-NOTES (astra low): conditional result correct; CylinderCommutatorBound = compatible self-transport specialization of Kato–Ponce/Moser; concrete route for lane 202; notes: scope no-ha claim, rebase preserving 199 fix",accepted,
 2026-09-16,A01,200-A01-forcing-bound,codex,fix,"launched (sol high): rebase (take integration's MildEnergyEnvelope), records, gates",running,
 2026-09-16,A01,202-A01-commutator-bound,lead,plan,"lane armed (auto after fix_200: worktree from 200 branch, install, astra low): cylinder word-commutator estimate per reviewer 200 route; existential C first",planned,
-2026-09-16,A01,200-A01-forcing-bound,codex,fix,"DONE rc=0: rebased onto 79b3677 keeping integration's MildEnergyEnvelope; revision-scoped docs; review artifacts; commit dffb44e",done,
-2026-09-16,A01,200-A01-forcing-bound,lead,merge,"lead re-verified; PR #206 opened; chain launched (wave 34)",running,206
-2026-09-16,A01,200-A01-forcing-bound,lead,merge,"PR #206 merged via chain (wave 34) gates green",merged,206
+2026-09-16,A01,200-A01-forcing-bound,codex,fix,DONE rc=0: rebased onto 79b3677 keeping integration's MildEnergyEnvelope; revision-scoped docs; review artifacts; commit dffb44e,done,
+2026-09-16,A01,200-A01-forcing-bound,lead,merge,lead re-verified; PR #206 opened; chain launched (wave 34),running,206
+2026-09-16,A01,200-A01-forcing-bound,lead,merge,PR #206 merged via chain (wave 34) gates green,merged,206
 2026-09-16,A01,203-A01-signed-limit,codex,worker,"DONE rc=0 (astra low): SignedLimit.lean — derivative-word square-integral convergence, signed quotient absorption, cylinderSignedRootLimit_of_forcingBound conditional on CylinderSignedEnergyPassage (unabsorbed signed regularized integral estimate, ε-root form); 12 audits standard axioms; commit fd7e18a",done,
 2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"launched (astra low): proved pieces, honesty of CylinderSignedEnergyPassage, obstruction, route for lane 204, hygiene bd:rev-203",running,
-2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"astra reviewer died at start (model at capacity); relaunched on gpt-5.6-sol xhigh",running,
-2026-09-16,A01,202-A01-commutator-bound,codex,worker,"PARTIAL rc=0 (astra low): CommutatorBound.lean — coordinate decomposition + empty-word cancellation unconditional; cylinderCommutator_le/cylinderCommutatorBound_exists conditional on CylinderCoordinateTame (per-coordinate Kato–Ponce); 10 decls standard axioms; commit e1d84b4",partial,
+2026-09-16,A01,203-A01-signed-limit,codex,reviewer,astra reviewer died at start (model at capacity); relaunched on gpt-5.6-sol xhigh,running,
+2026-09-16,A01,202-A01-commutator-bound,codex,worker,PARTIAL rc=0 (astra low): CommutatorBound.lean — coordinate decomposition + empty-word cancellation unconditional; cylinderCommutator_le/cylinderCommutatorBound_exists conditional on CylinderCoordinateTame (per-coordinate Kato–Ponce); 10 decls standard axioms; commit e1d84b4,partial,
 2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"launched (sol xhigh; astra at capacity): decomposition exactness, CylinderCoordinateTame honesty + angular-invariant re-cut question, route for lane 205, hygiene bd:rev-202",running,
-2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"sol reviewer died at start (model at capacity); relaunched on gpt-6-astra low",running,
+2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,sol reviewer died at start (model at capacity); relaunched on gpt-6-astra low,running,
 2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"astra reviewer also died (capacity); armed tmp/retry_review.sh (alternating sol/astra, 5-min backoff)",pending,
 2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"sol reviewer died mid-run (capacity); armed retry_review.sh (astra/sol alternating, 7-min initial backoff)",pending,
-2026-09-16,A01,203-A01-signed-limit,lead,merge,"rebased onto integration (skipped replayed 201 picks); lead verified; PR #207 opened; chain launched (wave 35); review relaunched on astra",running,207
-2026-09-16,A01,202-A01-commutator-bound,lead,merge,"rebased; lead verified; PR #208 opened; chain queued after 203 (wave 36); review relaunched on astra",running,208
-2026-09-16,A01,204-A01-signed-passage,lead,plan,"lane opened (install then auto-launch astra low) from the 203 branch: prove CylinderSignedEnergyPassage",planned,
-2026-09-16,A01,205-A01-coordinate-tame,lead,plan,"lane opened (install then auto-launch astra low) from the 202 branch: prove CylinderCoordinateTame (existential C first; angular-invariant re-cut allowed)",planned,
-2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"astra reviewer died at start (capacity) while 3 other astra runs continue; retry armed with 30-min rest per user guidance",pending,
+2026-09-16,A01,203-A01-signed-limit,lead,merge,rebased onto integration (skipped replayed 201 picks); lead verified; PR #207 opened; chain launched (wave 35); review relaunched on astra,running,207
+2026-09-16,A01,202-A01-commutator-bound,lead,merge,rebased; lead verified; PR #208 opened; chain queued after 203 (wave 36); review relaunched on astra,running,208
+2026-09-16,A01,204-A01-signed-passage,lead,plan,lane opened (install then auto-launch astra low) from the 203 branch: prove CylinderSignedEnergyPassage,planned,
+2026-09-16,A01,205-A01-coordinate-tame,lead,plan,lane opened (install then auto-launch astra low) from the 202 branch: prove CylinderCoordinateTame (existential C first; angular-invariant re-cut allowed),planned,
+2026-09-16,A01,203-A01-signed-limit,codex,reviewer,astra reviewer died at start (capacity) while 3 other astra runs continue; retry armed with 30-min rest per user guidance,pending,
 2026-09-16,A01,204-A01-signed-passage,codex,worker,"died at start (astra at capacity); retry_lane.sh armed (30-min rest, alternating)",pending,
 2026-09-16,A01,205-A01-coordinate-tame,codex,worker,"died at start (astra at capacity); retry_lane.sh armed (30-min rest, alternating)",pending,
-2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"astra reviewer died again (capacity); retry armed with 30-min rest",pending,
-2026-09-16,A01,203-A01-signed-limit,lead,merge,"PR #207 merged via chain (wave 35) gates green; review to follow after the capacity rest",merged,207
-2026-09-16,A01,202-A01-commutator-bound,lead,merge,"PR #208 merged via chain (wave 36) gates green; review to follow after the capacity rest",merged,208
-2026-09-16,A01,204-A01-signed-passage,codex,worker,"launched directly (astra low) after the user restored codex capacity; retry scripts cancelled",running,
-2026-09-16,A01,205-A01-coordinate-tame,codex,worker,"launched directly (astra low) after the user restored codex capacity",running,
-2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"post-merge review launched (sol xhigh)",running,208
-2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"post-merge review launched (sol xhigh)",running,207
+2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,astra reviewer died again (capacity); retry armed with 30-min rest,pending,
+2026-09-16,A01,203-A01-signed-limit,lead,merge,PR #207 merged via chain (wave 35) gates green; review to follow after the capacity rest,merged,207
+2026-09-16,A01,202-A01-commutator-bound,lead,merge,PR #208 merged via chain (wave 36) gates green; review to follow after the capacity rest,merged,208
+2026-09-16,A01,204-A01-signed-passage,codex,worker,launched directly (astra low) after the user restored codex capacity; retry scripts cancelled,running,
+2026-09-16,A01,205-A01-coordinate-tame,codex,worker,launched directly (astra low) after the user restored codex capacity,running,
+2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,post-merge review launched (sol xhigh),running,208
+2026-09-16,A01,203-A01-signed-limit,codex,reviewer,post-merge review launched (sol xhigh),running,207
 2026-09-16,A01,205-A01-coordinate-tame,codex,worker,"PARTIAL rc=0 (astra low): CoordinateTame.lean — smooth Leibniz expansion, smooth→finite transfer (mollifier, restriction-compatible, no constant loss), conditional recut; residual SmoothCylinderCoordinateTame; 18 audits standard axioms; commit 09ecf46",partial,
 2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,"launched (sol xhigh): transfer soundness, Leibniz exactness, angular-invariant descent to R³/A03 question, hygiene bd:rev-205",running,
-2026-09-16,A01,204-A01-signed-passage,codex,worker,"DONE rc=0 (astra low): SignedPassage.lean — cylinderSignedEnergyPassage proved with no extra hypothesis (full dissipation retained); cylinderSignedRootLimit_of_forcingBound' removes hpass; 31 audits standard axioms; commit cf38e9a",done,
+2026-09-16,A01,204-A01-signed-passage,codex,worker,DONE rc=0 (astra low): SignedPassage.lean — cylinderSignedEnergyPassage proved with no extra hypothesis (full dissipation retained); cylinderSignedRootLimit_of_forcingBound' removes hpass; 31 audits standard axioms; commit cf38e9a,done,
 2026-09-16,A01,204-A01-signed-passage,codex,reviewer,"adversarial review launched (astra low): level-n inequality, limit passage incl. dissipation direction, DCT domination, endpoints, compositions, hygiene + mutation bd:rev-204",running,
 2026-09-16,A01,204-A01-signed-passage,codex,reviewer,"ACCEPT (astra low, adversarial): signed passage unconditional; doubled-dissipation mutation fails",accepted,
-2026-09-16,A01,204-A01-signed-passage,lead,merge,"rebased (took integration's SignedLimit.lean); lead verified; PR #209 opened; chain launched (wave 37)",running,209
-2026-09-16,A01,204-A01-signed-passage,lead,merge,"PR #209 merged via chain (wave 37) gates green",merged,209
-2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"sol reviewer stalled (Reconnecting) >12 min; killed; relaunch armed after a 30–40 min rest (astra first)",pending,
-2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"sol reviewer stalled (Reconnecting) >12 min; killed; relaunch armed after a 30–40 min rest (astra first)",pending,
-2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,"sol reviewer stalled (Reconnecting) >12 min; killed; relaunch armed after a 30–40 min rest (astra first)",pending,
-2026-09-16,A01,206-A01-smooth-tame,lead,plan,"lane opened from 205 branch (install then astra low with capacity retry): SmoothCylinderCoordinateTame via angular-invariant descent to R³ + A03 tame products; unconditional A01 probe if it closes",planned,
+2026-09-16,A01,204-A01-signed-passage,lead,merge,rebased (took integration's SignedLimit.lean); lead verified; PR #209 opened; chain launched (wave 37),running,209
+2026-09-16,A01,204-A01-signed-passage,lead,merge,PR #209 merged via chain (wave 37) gates green,merged,209
+2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,sol reviewer stalled (Reconnecting) >12 min; killed; relaunch armed after a 30–40 min rest (astra first),pending,
+2026-09-16,A01,203-A01-signed-limit,codex,reviewer,sol reviewer stalled (Reconnecting) >12 min; killed; relaunch armed after a 30–40 min rest (astra first),pending,
+2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,sol reviewer stalled (Reconnecting) >12 min; killed; relaunch armed after a 30–40 min rest (astra first),pending,
+2026-09-16,A01,206-A01-smooth-tame,lead,plan,lane opened from 205 branch (install then astra low with capacity retry): SmoothCylinderCoordinateTame via angular-invariant descent to R³ + A03 tame products; unconditional A01 probe if it closes,planned,
 2026-09-16,A01,206-A01-smooth-tame,codex,worker,"PARTIAL rc=0 (astra low): SmoothTame.lean — cylinderWordMaximum_logconvex, cylinderWordMaximum_product_le_gradient (constant 1), cylinderMixedProduct_left (‖L‖·sobolevEmbeddingConstant 1 3); remaining: opposite orientation, Leibniz identification, summation; descent route judged blocked; 13 decls standard axioms; commit 3635841",partial,
 2026-09-16,A01,206-A01-smooth-tame,codex,reviewer,"launched (astra low): interpolation/orientation correctness, exact remaining assembly route, Inv re-cut vs cylinder assembly decision, hygiene bd:rev-206",running,
 2026-09-16,A01,202-A01-commutator-bound,codex,reviewer,"post-merge review ACCEPT (astra low, after rest): conditional reduction documented; constant mutation fails; artifacts copied to integration",accepted,208
 2026-09-16,A01,203-A01-signed-limit,codex,reviewer,"post-merge review ACCEPT (astra low, after rest): conditional result documented; coefficient mutation fails; artifacts copied to integration",accepted,207
-2026-09-16,A01,206-A01-smooth-tame,codex,reviewer,"astra reviewer stalled (Reconnecting); killed; relaunch armed after a 30–35 min rest (sol first)",pending,
-2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,"astra reviewer stalled (Reconnecting); killed; relaunch armed after a 30–35 min rest (sol first)",pending,
+2026-09-16,A01,206-A01-smooth-tame,codex,reviewer,astra reviewer stalled (Reconnecting); killed; relaunch armed after a 30–35 min rest (sol first),pending,
+2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,astra reviewer stalled (Reconnecting); killed; relaunch armed after a 30–35 min rest (sol first),pending,
 2026-09-16,A01,207-A01-tame-assembly,lead,plan,"lane opened from 206 branch (install, then retry_lane after 20-min rest): finish SmoothCylinderCoordinateTame (route A) and export the unconditional A01 constructor probe",planned,
 2026-09-16,A01,207-A01-tame-assembly,codex,worker,"DONE rc=0 (astra low): TameAssembly.lean — smoothCylinderCoordinateTame with explicit constant, both orientations, Leibniz identification, 2^n leaf count; cylinderCoordinateTame_unconditional; forcing/finiteMildEnergy'/hb_of_base'' unconditional; a01_constructor_unconditional (existential positive horizon) + constructor_of_base; 56 audits standard axioms; commit f8d9d93",done,
 2026-09-16,A01,207-A01-tame-assembly,codex,reviewer,"adversarial review armed (astra first, retry): constant derivation, orientation/identification, unconditional chain vs landed lemmas, milestone probe hypotheses/horizon, mutations, hygiene bd:rev-207",running,
-2026-09-16,A01,205-A01-coordinate-tame,lead,merge,"rebased; lead verified; PR #210 opened; chain launched (wave 38)",running,210
-2026-09-16,A01,206-A01-smooth-tame,lead,merge,"rebased; lead verified; PR #211 opened; chain queued after 205 (wave 39)",running,211
+2026-09-16,A01,205-A01-coordinate-tame,lead,merge,rebased; lead verified; PR #210 opened; chain launched (wave 38),running,210
+2026-09-16,A01,206-A01-smooth-tame,lead,merge,rebased; lead verified; PR #211 opened; chain queued after 205 (wave 39),running,211
 2026-09-16,A01,207-A01-tame-assembly,codex,reviewer,"ACCEPT-WITH-NOTES (astra, adversarial): 56 audits; halved-constant and flipped-sign mutations fail; notes documentation-only, applied by lead",accepted,
-2026-09-16,A01,207-A01-tame-assembly,lead,merge,"rebased; lead verified; PR #212 opened; chain queued after 206 (wave 40)",running,212
+2026-09-16,A01,207-A01-tame-assembly,lead,merge,rebased; lead verified; PR #212 opened; chain queued after 206 (wave 40),running,212
 2026-09-16,A01,208-A01-datum-horizon,lead,plan,"armed (auto after PR #212 lands; astra low, retry): datum identification + initialClassR bridge + total localHorizon + solution field",planned,
-2026-09-16,A01,209-A01-manuscript-regularity,lead,plan,"armed (auto after PR #212 lands): ManuscriptLocalRegularity four fields for the constructed solution",planned,
-2026-09-16,A01,210-A01-horizon-uniform,lead,plan,"armed (auto after PR #212 lands): H7-uniform horizon lower bound + honest H1-clause assessment (spec question for lead/owner)",planned,
-2026-09-16,A01,205-A01-coordinate-tame,lead,merge,"PR #210 merged via chain (wave 38) gates green",merged,210
-2026-09-16,A01,206-A01-smooth-tame,lead,merge,"PR #211 merged via chain (wave 39) gates green",merged,211
-2026-09-16,A01,207-A01-tame-assembly,lead,merge,"PR #212 merged via chain (wave 40) gates green; A3-M2 closed; a01_constructor_unconditional on integration",merged,212
+2026-09-16,A01,209-A01-manuscript-regularity,lead,plan,armed (auto after PR #212 lands): ManuscriptLocalRegularity four fields for the constructed solution,planned,
+2026-09-16,A01,210-A01-horizon-uniform,lead,plan,armed (auto after PR #212 lands): H7-uniform horizon lower bound + honest H1-clause assessment (spec question for lead/owner),planned,
+2026-09-16,A01,205-A01-coordinate-tame,lead,merge,PR #210 merged via chain (wave 38) gates green,merged,210
+2026-09-16,A01,206-A01-smooth-tame,lead,merge,PR #211 merged via chain (wave 39) gates green,merged,211
+2026-09-16,A01,207-A01-tame-assembly,lead,merge,PR #212 merged via chain (wave 40) gates green; A3-M2 closed; a01_constructor_unconditional on integration,merged,212
 2026-09-16,A01,208-A01-datum-horizon,codex,worker,"DONE rc=0 (astra low): LocalSolution.lean — solution_of_base (pointwise datum identification), smoothL2_of_initialClassR, localHorizon (total) + localHorizon_pos, localSolution (contract solution-field shape); 9 decls standard axioms; commit 76a2355",done,
 2026-09-16,A01,208-A01-datum-horizon,codex,reviewer,"review armed (astra first, retry): identification continuity, initialClassR bridge, exact solution-field type + structure bridge, hygiene bd:rev-208",running,
 2026-09-16,A01,210-A01-horizon-uniform,codex,worker,"PARTIAL rc=0 (astra low): HorizonUniform.lean — exists_uniform_H7_sup_force_horizon (δ before data; both Picard budgets; monotonicity lemmas), zero instance; contract's H1/L1 field not provable: L1-vs-sup force gap, choose-horizon has no uniform selection, no forced H1 theory in tree; options recorded; 8 audits standard axioms; commit d4febc0",partial,
 2026-09-16,A01,210-A01-horizon-uniform,codex,reviewer,"review armed (astra first, retry): uniform theorem correctness, obstacles' honesty, fixed-force H7 re-cut assessment, horizon-selection fix bd:rev-210",running,
-2026-09-16,A01,208-A01-datum-horizon,codex,reviewer,"ACCEPT (astra): identification/bridge/horizon/solution field exact; sign mutation fails",accepted,
-2026-09-16,A01,208-A01-datum-horizon,lead,merge,"PR #213 opened; chain launched (wave 41)",running,213
+2026-09-16,A01,208-A01-datum-horizon,codex,reviewer,ACCEPT (astra): identification/bridge/horizon/solution field exact; sign mutation fails,accepted,
+2026-09-16,A01,208-A01-datum-horizon,lead,merge,PR #213 opened; chain launched (wave 41),running,213
 2026-09-16,A01,209-A01-manuscript-regularity,codex,worker,"DONE rc=0 (astra low): ManuscriptRegularity.lean — manuscriptLocalRegularity_of_pipeline (four fields, pressure recovery incl. t=0) for any constructor output with hslice/hpaths; 11 audits standard axioms; commit f0dd0ac",done,
 2026-09-16,A01,209-A01-manuscript-regularity,codex,reviewer,"review armed (astra first, retry): field-by-field fidelity, t=0 pressure recovery mechanism, interface with 208, hygiene + mutation bd:rev-209",running,
-2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,"post-merge review stalled 3 times (sol Reconnecting); abandoned — superseded by lane 207's adversarial review of the completed chain",superseded,
-2026-09-16,A01,206-A01-smooth-tame,codex,reviewer,"post-merge review stalled 3 times (sol Reconnecting); abandoned — superseded by lane 207's adversarial review of the completed chain",superseded,
-2026-09-16,A01,208-A01-datum-horizon,lead,merge,"PR #213 merged via chain (wave 41) gates green",merged,213
-2026-09-16,A01,209-A01-manuscript-regularity,codex,reviewer,"ACCEPT-WITH-NOTES (astra): endpoint pressure recovery checked; note on carrier witnesses for localSolution (lane 211)",accepted,
-2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,"note applied; PR #214 opened; chain launched (wave 42)",running,214
-2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,"PR #214 merged via chain (wave 42) gates green",merged,214
+2026-09-16,A01,205-A01-coordinate-tame,codex,reviewer,post-merge review stalled 3 times (sol Reconnecting); abandoned — superseded by lane 207's adversarial review of the completed chain,superseded,
+2026-09-16,A01,206-A01-smooth-tame,codex,reviewer,post-merge review stalled 3 times (sol Reconnecting); abandoned — superseded by lane 207's adversarial review of the completed chain,superseded,
+2026-09-16,A01,208-A01-datum-horizon,lead,merge,PR #213 merged via chain (wave 41) gates green,merged,213
+2026-09-16,A01,209-A01-manuscript-regularity,codex,reviewer,ACCEPT-WITH-NOTES (astra): endpoint pressure recovery checked; note on carrier witnesses for localSolution (lane 211),accepted,
+2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,note applied; PR #214 opened; chain launched (wave 42),running,214
+2026-09-16,A01,209-A01-manuscript-regularity,lead,merge,PR #214 merged via chain (wave 42) gates green,merged,214
 2026-09-16,A01,211-A01-local-theory-bundle,lead,plan,"lane opened on 210 branch + integration (install then astra low with retry): carrier bundle, uniformly selected horizon, regularity instance, two horizon-uniformity variants, API-shape probe; no contract files",planned,
 2026-09-16,A01,211-A01-local-theory-bundle,codex,worker,"DONE rc=0 (astra low): LocalTheoryBundle.lean — LocalCarrier/localCarrier, localHorizon' (antitone uniform selection), manuscriptLocalRegularity_localCarrier, horizon_lower_bound_H7_fixedForce, ManuscriptHorizonLowerBoundH1 (def only), API-shape probe; 34 audits standard axioms; commit 08b71c5",done,
 2026-09-16,A01,211-A01-local-theory-bundle,codex,reviewer,"review armed (astra first, retry): witnesses same as used, uniform antitone horizon, H7 fixed-force bound, H1 def not assumed, API-shape probe, hygiene + mutation bd:rev-211",running,
 2026-09-16,A01,210-A01-horizon-uniform,lead,merge,"lead verified (module, audits); PR #215 opened; chain launched (wave 43); review continues post-hoc",running,215
 2026-09-16,A01,211-A01-local-theory-bundle,codex,reviewer,"ACCEPT (astra): witnesses preserved, uniform antitone horizon, H7 fixed-force bound, H1 def not assumed, API-shape probe; mutation fails",accepted,
-2026-09-16,A01,211-A01-local-theory-bundle,lead,merge,"PR #216 opened; chain queued after 210 (wave 44)",running,216
-2026-09-16,A01,210-A01-horizon-uniform,lead,merge,"PR #215 merged via chain (wave 43) gates green",merged,215
-2026-09-16,A01,210-A01-horizon-uniform,codex,reviewer,"post-hoc review silent 8 min (Reconnecting); killed; relaunch armed after 30-min rest",pending,215
-2026-09-16,A01,211-A01-local-theory-bundle,lead,merge,"PR #216 merged via chain (wave 44) gates green",merged,216
+2026-09-16,A01,211-A01-local-theory-bundle,lead,merge,PR #216 opened; chain queued after 210 (wave 44),running,216
+2026-09-16,A01,210-A01-horizon-uniform,lead,merge,PR #215 merged via chain (wave 43) gates green,merged,215
+2026-09-16,A01,210-A01-horizon-uniform,codex,reviewer,post-hoc review silent 8 min (Reconnecting); killed; relaunch armed after 30-min rest,pending,215
+2026-09-16,A01,211-A01-local-theory-bundle,lead,merge,PR #216 merged via chain (wave 44) gates green,merged,216
 2026-09-16,A02,213-A02-A04-wiring,lead,plan,"lane opened (install then astra low, retry): exists_maximal via 211's bundle; A04 Restart from bundle + Gronwall uniform H^m + H7 fixed-force horizon bound",planned,
 2026-09-16,R43,214-R43-parseval,lead,plan,"lane opened (install then astra low, retry): fractional Parseval pairing_identity completing CriticalAdvectionLpBridge",planned,
 2026-09-16,R43,214-R43-parseval,codex,worker,"DONE rc=0 (astra low): Parseval.lean — pairing_identity_of_hcrit (angular L2 Plancherel, inverse half-order weights, rieszLambda symbol); criticalAdvectionLpBridge_of_hcrit; rcritical1_of_hcrit' from hcrit alone; standard axioms; commit 7f699a9",done,
 2026-09-16,R43,214-R43-parseval,codex,reviewer,"review armed (astra first, retry): Plancherel chain, weights, symbol, bridge completeness, hygiene + mutation, G3/G4 needs bd:rev-214",running,
 2026-09-16,A02,213-A02-A04-wiring,codex,worker,"PARTIAL rc=0 (astra low): A02 exists_maximal' unconditional; restart-slice initialClassR, force-shift qualification, per-time local restart, fixed-shifted-force H7 uniform existence; A04 Restart (cross-force H1 uniform Prop) not inhabited — same spec issue as A01 horizon_lower_bound; HigherOrderBound/patching open; standard axioms; commit f595a3a",partial,
 2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,"review armed (astra first, retry): exists_maximal' exactness, restart prerequisites, Restart fixed-force re-cut assessment + HigherOrderBound↔179 bridge, hygiene bd:rev-213",running,
-2026-09-16,R43,214-R43-parseval,codex,reviewer,"ACCEPT (astra): Plancherel chain matches; mutation fails",accepted,
-2026-09-16,R43,214-R43-parseval,lead,merge,"PR #217 opened; chain launched (wave 45)",running,217
-2026-09-16,R43,214-R43-parseval,lead,merge,"PR #217 merged via chain (wave 45) gates green",merged,217
-2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,"astra review died at 60 min (model at capacity); relaunch armed after 30-min rest (sol first)",pending,
+2026-09-16,R43,214-R43-parseval,codex,reviewer,ACCEPT (astra): Plancherel chain matches; mutation fails,accepted,
+2026-09-16,R43,214-R43-parseval,lead,merge,PR #217 opened; chain launched (wave 45),running,217
+2026-09-16,R43,214-R43-parseval,lead,merge,PR #217 merged via chain (wave 45) gates green,merged,217
+2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,astra review died at 60 min (model at capacity); relaunch armed after 30-min rest (sol first),pending,
 2026-09-16,A01,210-A01-horizon-uniform,codex,reviewer,"post-merge review (sol) REJECT on the lane claims: physical H7 bound absent (proved by 211), stale-checkout remarks, monotonicity lemmas unused; substantive note: re-cut must be uniform over restart times (vendor forced_uniform_restart_time) → lane 215; corrections appended to REPORT_210",corrected,215
-2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,"sol review died after 71 min (router 524 + capacity); relaunch armed after 30-min rest",pending,218
-2026-09-16,A02,213-A02-A04-wiring,lead,merge,"lead verified both modules/audits; PR #218 opened; chain launched (wave 46)",running,218
+2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,sol review died after 71 min (router 524 + capacity); relaunch armed after 30-min rest,pending,218
+2026-09-16,A02,213-A02-A04-wiring,lead,merge,lead verified both modules/audits; PR #218 opened; chain launched (wave 46),running,218
 2026-09-16,A04,215-A04-restart-fixed-force,lead,plan,"lane opened on 213 branch (install then astra low, retry): RestartFixedForce uniform over restart times, Gronwall→HigherOrderBound bridge, fixed-force copies of A04 continuation theorems instantiated",planned,
 2026-09-16,A02,213-A02-A04-wiring,lead,merge,"PR #218 merged into erenup/integration; wave 46 gates OK (make check/test/mutations; 2 new modules A02/MaximalWiring, A04/RestartWiring)",merged,218
 2026-09-16,R43,216-R43-critical-datum-path,lead,plan,"lane opened (install then sol xhigh, retry): construct CriticalDatumPath for classical solutions (G3/G4), peel momentum identity if needed; makes eq:Rcritical1 unconditional",planned,
-2026-09-16,A04,215-A04-restart-fixed-force,codex,worker,"gpt-6-astra low: RestartFixedForce + HigherOrderBound bridge unconditional; fixed-force continuation copies; one named input ShiftedLocalExtension left",done,
-2026-09-16,A04,215-A04-restart-fixed-force,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,A04,215-A04-restart-fixed-force,codex,worker,gpt-6-astra low: RestartFixedForce + HigherOrderBound bridge unconditional; fixed-force continuation copies; one named input ShiftedLocalExtension left,done,
+2026-09-16,A04,215-A04-restart-fixed-force,codex,reviewer,sol/astra retry review launched,running,
 2026-09-16,A04,217-A04-shifted-extension,lead,plan,"lane opened on 215 branch (install then astra low, retry): prove ShiftedLocalExtension (time-shift gluing with blended pressure); unconditional A04 continuation for MemForceR forces",planned,
 2026-09-16,A04,217-A04-shifted-extension,codex,worker,"gpt-6-astra low: ShiftedLocalExtension proved unconditionally (time-shift gluing, normalized pressures pasted at interior point); A04 continuation corollaries without named inputs",done,
-2026-09-16,A04,217-A04-shifted-extension,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,A04,217-A04-shifted-extension,codex,reviewer,sol/astra retry review launched,running,
 2026-09-16,A04,215-A04-restart-fixed-force,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev215_widen_restart_interval)",accepted,219
-2026-09-16,A04,215-A04-restart-fixed-force,lead,merge,"PR #219 opened; chain launched (wave 47)",running,219
+2026-09-16,A04,215-A04-restart-fixed-force,lead,merge,PR #219 opened; chain launched (wave 47),running,219
 2026-09-16,R44,218-R44-s1a-jweight,lead,plan,"lane opened (install then sol xhigh, retry): R44 row S1a J-weight identity and force duality at datum level",planned,
-2026-09-16,A04,215-A04-restart-fixed-force,lead,merge,"PR #219 merged into erenup/integration; wave 47 gates OK",merged,219
+2026-09-16,A04,215-A04-restart-fixed-force,lead,merge,PR #219 merged into erenup/integration; wave 47 gates OK,merged,219
 2026-09-16,A04,217-A04-shifted-extension,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probes rev217_nonvacuity, rev217_plus_one_mutation)",accepted,220
-2026-09-16,A04,217-A04-shifted-extension,lead,merge,"PR #220 opened; chain launched (wave 48)",running,220
-2026-09-16,A04,217-A04-shifted-extension,lead,merge,"PR #220 merged into erenup/integration; wave 48 gates OK",merged,220
-2026-09-16,R43,216-R43-critical-datum-path,codex,worker,"gpt-5.6-sol xhigh: six half-order datum paths + symbol/transverse/longitudinal fields unconditional; assembly conditional on CriticalDatumInputs (time smoothness + datum momentum identity)",done,
-2026-09-16,R43,216-R43-critical-datum-path,codex,reviewer,"sol/astra retry review launched",running,
-2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,"post-hoc gpt-6-astra: A02 and prerequisites pass; REJECT only for the missing unconditional A04 chain (delivered by 215/217); artifacts landed on integration",superseded,218
+2026-09-16,A04,217-A04-shifted-extension,lead,merge,PR #220 opened; chain launched (wave 48),running,220
+2026-09-16,A04,217-A04-shifted-extension,lead,merge,PR #220 merged into erenup/integration; wave 48 gates OK,merged,220
+2026-09-16,R43,216-R43-critical-datum-path,codex,worker,gpt-5.6-sol xhigh: six half-order datum paths + symbol/transverse/longitudinal fields unconditional; assembly conditional on CriticalDatumInputs (time smoothness + datum momentum identity),done,
+2026-09-16,R43,216-R43-critical-datum-path,codex,reviewer,sol/astra retry review launched,running,
+2026-09-16,A02,213-A02-A04-wiring,codex,reviewer,post-hoc gpt-6-astra: A02 and prerequisites pass; REJECT only for the missing unconditional A04 chain (delivered by 215/217); artifacts landed on integration,superseded,218
 2026-09-16,R43,219-R43-critical-momentum,lead,plan,"lane opened on 216 branch (install then astra low, retry): close CriticalDatumInputs (time smoothness + datum momentum identity) for arbitrary classical solutions; eq:Rcritical1 unconditional",planned,
 2026-09-16,R43,216-R43-critical-datum-path,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev216_mutation_fail)",accepted,221
-2026-09-16,R43,216-R43-critical-datum-path,lead,merge,"PR #221 opened; chain launched (wave 49)",running,221
+2026-09-16,R43,216-R43-critical-datum-path,lead,merge,PR #221 opened; chain launched (wave 49),running,221
 2026-09-16,R44,218-R44-s1a-jweight,codex,worker,"gpt-5.6-sol xhigh: R44 S1a closed at datum level (Jmul, weight identity, force duality with H^{-1/2} carrier) under datum bundle JWeightDatum",done,
-2026-09-16,R44,218-R44-s1a-jweight,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,R44,218-R44-s1a-jweight,codex,reviewer,sol/astra retry review launched,running,
 2026-09-16,R44,220-R44-s1c-trilinear,lead,plan,"lane opened on 218 branch (install then sol xhigh, retry): R44 row S1c J-weighted trilinear estimate at datum level",planned,
-2026-09-16,R43,216-R43-critical-datum-path,lead,merge,"PR #221 merged into erenup/integration; wave 49 gates OK",merged,221
-2026-09-16,R43,219-R43-critical-momentum,codex,worker,"gpt-6-astra low: CriticalDatumInputs closed for arbitrary classical solutions; eq:Rcritical1 (rcritical1_of_classical') unconditional; 215 support reproduced as R43.CarrierWindow",done,
-2026-09-16,R43,219-R43-critical-momentum,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,R43,216-R43-critical-datum-path,lead,merge,PR #221 merged into erenup/integration; wave 49 gates OK,merged,221
+2026-09-16,R43,219-R43-critical-momentum,codex,worker,gpt-6-astra low: CriticalDatumInputs closed for arbitrary classical solutions; eq:Rcritical1 (rcritical1_of_classical') unconditional; 215 support reproduced as R43.CarrierWindow,done,
+2026-09-16,R43,219-R43-critical-momentum,codex,reviewer,sol/astra retry review launched,running,
 2026-09-16,R43,221-R43-force-path,lead,plan,"lane opened on 219 branch (install then sol xhigh, retry): homogeneous half-order force path continuity/integrability/FTC (G2/G3/G4), S2 wiring probe for a=0 bootstrap",planned,
-2026-09-16,R43,221-R43-force-path,lead,relaunch,"worker relaunched so it reads the G2/G3 addendum (first launch preceded the brief edit by 2 s)",running,
+2026-09-16,R43,221-R43-force-path,lead,relaunch,worker relaunched so it reads the G2/G3 addendum (first launch preceded the brief edit by 2 s),running,
 2026-09-16,R44,218-R44-s1a-jweight,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (doc-only G3 wording fix, applied by lead; probe rev218_weight_identity_plus_one)",accepted,222
-2026-09-16,R44,218-R44-s1a-jweight,lead,merge,"PR #222 opened; chain launched (wave 50)",running,222
-2026-09-16,R44,218-R44-s1a-jweight,lead,merge,"PR #222 merged into erenup/integration; wave 50 gates OK",merged,222
+2026-09-16,R44,218-R44-s1a-jweight,lead,merge,PR #222 opened; chain launched (wave 50),running,222
+2026-09-16,R44,218-R44-s1a-jweight,lead,merge,PR #222 merged into erenup/integration; wave 50 gates OK,merged,222
 2026-09-16,R44,222-R44-s1b-energy-identity,lead,plan,"lane opened (install then astra low, retry): R44 row S1b energy identity along classical solutions",planned,
 2026-09-16,R43,219-R43-critical-momentum,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev219_sign_mutation)",accepted,223
-2026-09-16,R43,219-R43-critical-momentum,lead,merge,"PR #223 opened; chain launched (wave 51)",running,223
-2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,"gpt-5.6-sol xhigh cut off by model-at-capacity after drafting TrilinearJ.lean (uncommitted); continuation launched on astra (fix tag)",relaunched,
-2026-09-16,R43,219-R43-critical-momentum,lead,merge,"PR #223 merged into erenup/integration; wave 51 gates OK",merged,223
-2026-09-16,R43,221-R43-force-path,codex,worker,"gpt-5.6-sol cut off by model-at-capacity (09:52Z wave) after drafting ForcePath.lean + audit (uncommitted); continuation armed after 30-min rest",relaunched,
-2026-09-16,R44,222-R44-s1b-energy-identity,codex,worker,"gpt-6-astra cut off by model-at-capacity (09:52Z wave) after drafting EnergyIdentity.lean (uncommitted); continuation armed after 30-min rest",relaunched,
-2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,"continuation #1 gpt-6-astra low gave up after 2.5 min (draft committed 3ea0ce5; two elaboration failures); continuation #2 launched on sol xhigh (fix2)",relaunched,
-2026-09-16,R44,222-R44-s1b-energy-identity,codex,worker,"continuation gpt-6-astra low (12 min): R44 S1b energy identity unconditional along classical solutions (20 declarations); adapter to 220's advectionJPairing pending",done,
-2026-09-16,R44,222-R44-s1b-energy-identity,codex,reviewer,"astra/sol retry review launched",running,
-2026-09-16,R43,221-R43-force-path,codex,worker,"continuation gpt-6-astra low (4 min): G2/G3/G4 force path closed exactly; critical_bootstrap_zero_datum unconditional (25 declarations)",done,
-2026-09-16,R43,221-R43-force-path,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R43,219-R43-critical-momentum,lead,merge,PR #223 opened; chain launched (wave 51),running,223
+2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,gpt-5.6-sol xhigh cut off by model-at-capacity after drafting TrilinearJ.lean (uncommitted); continuation launched on astra (fix tag),relaunched,
+2026-09-16,R43,219-R43-critical-momentum,lead,merge,PR #223 merged into erenup/integration; wave 51 gates OK,merged,223
+2026-09-16,R43,221-R43-force-path,codex,worker,gpt-5.6-sol cut off by model-at-capacity (09:52Z wave) after drafting ForcePath.lean + audit (uncommitted); continuation armed after 30-min rest,relaunched,
+2026-09-16,R44,222-R44-s1b-energy-identity,codex,worker,gpt-6-astra cut off by model-at-capacity (09:52Z wave) after drafting EnergyIdentity.lean (uncommitted); continuation armed after 30-min rest,relaunched,
+2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,continuation #1 gpt-6-astra low gave up after 2.5 min (draft committed 3ea0ce5; two elaboration failures); continuation #2 launched on sol xhigh (fix2),relaunched,
+2026-09-16,R44,222-R44-s1b-energy-identity,codex,worker,continuation gpt-6-astra low (12 min): R44 S1b energy identity unconditional along classical solutions (20 declarations); adapter to 220's advectionJPairing pending,done,
+2026-09-16,R44,222-R44-s1b-energy-identity,codex,reviewer,astra/sol retry review launched,running,
+2026-09-16,R43,221-R43-force-path,codex,worker,continuation gpt-6-astra low (4 min): G2/G3/G4 force path closed exactly; critical_bootstrap_zero_datum unconditional (25 declarations),done,
+2026-09-16,R43,221-R43-force-path,codex,reviewer,astra/sol retry review launched,running,
 2026-09-16,R43,223-R43-endpoint,lead,plan,"lane opened on 221 branch (install then astra low, retry): R43 endpoint theorem inhomogeneousAtZero (S4/S5/S6, G5)",planned,
-2026-09-16,R43,223-R43-endpoint,lead,relaunch,"relaunched 8 s after the statement clarification was appended (first launch read the old brief)",running,
+2026-09-16,R43,223-R43-endpoint,lead,relaunch,relaunched 8 s after the statement clarification was appended (first launch read the old brief),running,
 2026-09-16,R43,221-R43-force-path,codex,reviewer,"gpt-6-astra: ACCEPT-WITH-NOTES (docstring-only fix, applied by lead; probes rev221_mutation, rev221_nonvacuity)",accepted,224
-2026-09-16,R43,221-R43-force-path,lead,merge,"PR #224 opened; chain launched (wave 52)",running,224
-2026-09-16,R43,221-R43-force-path,lead,merge,"PR #224 merged into erenup/integration; wave 52 gates OK",merged,224
-2026-09-16,R43,223-R43-endpoint,codex,worker,"gpt-6-astra low (8 min): inhomogeneousAtZero_of_memForceR proved unconditionally in the spec's exact shape (criticalConst explicit; 12 declarations)",done,
-2026-09-16,R43,223-R43-endpoint,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R43,221-R43-force-path,lead,merge,PR #224 opened; chain launched (wave 52),running,224
+2026-09-16,R43,221-R43-force-path,lead,merge,PR #224 merged into erenup/integration; wave 52 gates OK,merged,224
+2026-09-16,R43,223-R43-endpoint,codex,worker,gpt-6-astra low (8 min): inhomogeneousAtZero_of_memForceR proved unconditionally in the spec's exact shape (criticalConst explicit; 12 declarations),done,
+2026-09-16,R43,223-R43-endpoint,codex,reviewer,astra/sol retry review launched,running,
 2026-09-16,R41,224-R41-nondensity-q1,lead,plan,"lane opened on 223 branch (install then astra low, retry): thm:Rmain (ii) non-density at q=1 from the R43 endpoint",planned,
 2026-09-16,R43,223-R43-endpoint,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev223_widened)",accepted,225
-2026-09-16,R43,223-R43-endpoint,lead,merge,"PR #225 opened; chain launched (wave 53)",running,225
+2026-09-16,R43,223-R43-endpoint,lead,merge,PR #225 opened; chain launched (wave 53),running,225
 2026-09-16,R44,222-R44-s1b-energy-identity,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (only a post-220 naming bridge, deferred to S1d; probe rev222_flip_dissipation)",accepted,226
-2026-09-16,R44,222-R44-s1b-energy-identity,lead,merge,"PR #226 opened; chain queued after #225 (wave 54)",running,226
+2026-09-16,R44,222-R44-s1b-energy-identity,lead,merge,PR #226 opened; chain queued after #225 (wave 54),running,226
 2026-09-16,R41,224-R41-nondensity-q1,codex,worker,"gpt-6-astra low (5 min): thm:Rmain (ii) non-density at q=1 proved (forceSobolevENorm_mono_order, not_breakdownDenseR_zero_L1; 13 declarations + Data-vocabulary conformance)",done,
-2026-09-16,R41,224-R41-nondensity-q1,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R41,224-R41-nondensity-q1,codex,reviewer,astra/sol retry review launched,running,
 2026-09-16,R43,225-R43-universal,lead,plan,"lane opened on 223 branch (install then astra low, retry): RCritical1API.universal (general datum) in the spec exact shape",planned,
-2026-09-16,R44,222-R44-s1b-energy-identity,lead,merge,"PR #226 merged into erenup/integration; wave 54 gates OK",merged,226
+2026-09-16,R44,222-R44-s1b-energy-identity,lead,merge,PR #226 merged into erenup/integration; wave 54 gates OK,merged,226
 2026-09-16,R44,220-R44-s1c-trilinear,codex,worker,"continuation #2 gpt-5.6-sol xhigh: R44 S1c closed (advection_pairing_le, trilinearConstJ explicit; no extra hypothesis)",done,
-2026-09-16,R44,220-R44-s1c-trilinear,codex,reviewer,"sol/astra retry review launched",running,
-2026-09-16,R43,223-R43-endpoint,lead,merge,"PR #225 merged (second attempt after aligning the stacked ForcePath.lean copy with integration); wave 53 gates OK",merged,225
+2026-09-16,R44,220-R44-s1c-trilinear,codex,reviewer,sol/astra retry review launched,running,
+2026-09-16,R43,223-R43-endpoint,lead,merge,PR #225 merged (second attempt after aligning the stacked ForcePath.lean copy with integration); wave 53 gates OK,merged,225
 2026-09-16,R41,224-R41-nondensity-q1,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (threshold mutation probe)",accepted,227
-2026-09-16,R41,224-R41-nondensity-q1,lead,merge,"PR #227 opened after merging integration into the branch; chain launched (wave 55)",running,227
-2026-09-16,R43,225-R43-universal,codex,worker,"gpt-6-astra low (6 min): RCritical1API.universal proved in the spec's exact shape with the same criticalConst (9 theorems + Data-vocabulary conformance); Prop. 4.3 both clauses done",done,
-2026-09-16,R43,225-R43-universal,codex,reviewer,"astra/sol retry review launched (branch aligned with integration first)",running,
+2026-09-16,R41,224-R41-nondensity-q1,lead,merge,PR #227 opened after merging integration into the branch; chain launched (wave 55),running,227
+2026-09-16,R43,225-R43-universal,codex,worker,gpt-6-astra low (6 min): RCritical1API.universal proved in the spec's exact shape with the same criticalConst (9 theorems + Data-vocabulary conformance); Prop. 4.3 both clauses done,done,
+2026-09-16,R43,225-R43-universal,codex,reviewer,astra/sol retry review launched (branch aligned with integration first),running,
 2026-09-16,R43,226-R43-contract-v1,lead,plan,"lane opened on 225 branch (install then sol xhigh, retry): register R43.critical_regularity V1 (30th contract)",planned,
-2026-09-16,R41,224-R41-nondensity-q1,lead,merge,"PR #227 merged into erenup/integration; wave 55 gates OK",merged,227
+2026-09-16,R41,224-R41-nondensity-q1,lead,merge,PR #227 merged into erenup/integration; wave 55 gates OK,merged,227
 2026-09-16,R43,225-R43-universal,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev225_widened)",accepted,228
-2026-09-16,R43,225-R43-universal,lead,merge,"PR #228 opened; chain launched (wave 56)",running,228
-2026-09-16,R43,225-R43-universal,lead,merge,"PR #228 merged into erenup/integration; wave 56 gates OK",merged,228
+2026-09-16,R43,225-R43-universal,lead,merge,PR #228 opened; chain launched (wave 56),running,228
+2026-09-16,R43,225-R43-universal,lead,merge,PR #228 merged into erenup/integration; wave 56 gates OK,merged,228
 2026-09-16,R44,227-R44-endpoint,lead,plan,"lane opened (install then astra low, retry): R44 S2-S6 assembly conditional only on the S1 differential inequality",planned,
 2026-09-16,R44,220-R44-s1c-trilinear,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev220_flip_sign)",accepted,229
-2026-09-16,R44,220-R44-s1c-trilinear,lead,merge,"PR #229 opened after merging integration into the branch; chain launched (wave 57)",running,229
-2026-09-16,R44,220-R44-s1c-trilinear,lead,merge,"PR #229 merged into erenup/integration; wave 57 gates OK",merged,229
+2026-09-16,R44,220-R44-s1c-trilinear,lead,merge,PR #229 opened after merging integration into the branch; chain launched (wave 57),running,229
+2026-09-16,R44,220-R44-s1c-trilinear,lead,merge,PR #229 merged into erenup/integration; wave 57 gates OK,merged,229
 2026-09-16,R44,228-R44-s1d-absorption,lead,plan,"lane opened (install then sol xhigh, retry): R44 S1d absorption producing the exact S1 differential inequality (227 input)",planned,
-2026-09-16,R43,226-R43-contract-v1,codex,worker,"gpt-5.6-sol xhigh (9 min): R43.critical_regularity V1 registered (30th contract; both Prop. 4.3 clauses with the explicit constant)",done,
-2026-09-16,R43,226-R43-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-16,R43,226-R43-contract-v1,codex,worker,gpt-5.6-sol xhigh (9 min): R43.critical_regularity V1 registered (30th contract; both Prop. 4.3 clauses with the explicit constant),done,
+2026-09-16,R43,226-R43-contract-v1,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
 2026-09-16,R43,226-R43-contract-v1,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probes rev226_mutation, rev226_nonvacuity)",accepted,230
-2026-09-16,R43,226-R43-contract-v1,lead,merge,"PR #230 opened; chain launched (wave 58)",running,230
-2026-09-16,R44,227-R44-endpoint,codex,worker,"gpt-6-astra low (16 min): Prop. 4.4 zero-datum endpoint assembled conditional only on RCritical2Differential (explicit theta/C2/C3/radius; 27 declarations)",done,
-2026-09-16,R44,227-R44-endpoint,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R43,226-R43-contract-v1,lead,merge,PR #230 opened; chain launched (wave 58),running,230
+2026-09-16,R44,227-R44-endpoint,codex,worker,gpt-6-astra low (16 min): Prop. 4.4 zero-datum endpoint assembled conditional only on RCritical2Differential (explicit theta/C2/C3/radius; 27 declarations),done,
+2026-09-16,R44,227-R44-endpoint,codex,reviewer,astra/sol retry review launched,running,
 2026-09-16,R44,228-R44-s1d-absorption,codex,worker,"gpt-5.6-sol xhigh (14 min): S1d absorption proved (own constants theta=(4C0)^-1, C2=3/2, C3=3; one integrable E-prime); duplicates 227 names -> absorbed into lane 229 instead of a PR",done-absorbed,
 2026-09-16,R44,229-R44-prop44,lead,plan,"lane opened on 227 branch (install then astra low, retry): adapt 228 onto 227, Prop. 4.4 unconditional, R41 q=2 non-density",planned,
-2026-09-16,R43,226-R43-contract-v1,lead,merge,"PR #230 merged into erenup/integration; wave 58 gates OK; 30 contracts",merged,230
+2026-09-16,R43,226-R43-contract-v1,lead,merge,PR #230 merged into erenup/integration; wave 58 gates OK; 30 contracts,merged,230
 2026-09-16,R44,227-R44-endpoint,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev227_negative)",accepted,231
-2026-09-16,R44,227-R44-endpoint,lead,merge,"PR #231 opened after merging integration into the branch; chain launched (wave 59)",running,231
-2026-09-16,R44,227-R44-endpoint,lead,merge,"PR #231 merged into erenup/integration; wave 59 gates OK",merged,231
+2026-09-16,R44,227-R44-endpoint,lead,merge,PR #231 opened after merging integration into the branch; chain launched (wave 59),running,231
+2026-09-16,R44,227-R44-endpoint,lead,merge,PR #231 merged into erenup/integration; wave 59 gates OK,merged,231
 2026-09-16,R44,229-R44-prop44,codex,worker,"gpt-6-astra low (7 min): Prop. 4.4 unconditional at a=0 (Absorption adapted from 228 + Prop44), R41 q=2 non-density (NonDensityL2); 32 declarations",done,
-2026-09-16,R44,229-R44-prop44,codex,reviewer,"astra/sol retry review launched (branch aligned with integration first)",running,
+2026-09-16,R44,229-R44-prop44,codex,reviewer,astra/sol retry review launched (branch aligned with integration first),running,
 2026-09-16,R44,231-R44-contract-v1,lead,plan,"lane opened on 229 branch (install then sol xhigh, retry): register R44.critical_finite_horizon V1 (31st contract)",planned,
 2026-09-16,R41,232-R41-nondensity-both,lead,plan,"lane opened on 229 branch (install then sol xhigh, retry): RMainAPI.nonDensityZero for q in {1,2} from 224/229",planned,
 2026-09-16,R42,233-R42-family-from-data,lead,plan,"lane opened (install then astra low, retry): R41D G1 — build the registered R42 insertion record from raw data with T < T_max",planned,
 2026-09-16,R41D,234-R41D-small-gaps,lead,plan,"lane opened (install then sol xhigh, retry): R41D gaps G2-G5 class/norm facts",planned,
 2026-09-16,R44,229-R44-prop44,codex,reviewer,"gpt-6-astra: ACCEPT-WITH-NOTES (R44_SPLIT status line, applied by lead; probe rev229_radius)",accepted,232
-2026-09-16,R44,229-R44-prop44,lead,merge,"PR #232 opened; chain launched (wave 60)",running,232
-2026-09-16,R44,229-R44-prop44,lead,merge,"PR #232 merged into erenup/integration; wave 60 gates OK",merged,232
+2026-09-16,R44,229-R44-prop44,lead,merge,PR #232 opened; chain launched (wave 60),running,232
+2026-09-16,R44,229-R44-prop44,lead,merge,PR #232 merged into erenup/integration; wave 60 gates OK,merged,232
 2026-09-16,R42,233-R42-family-from-data,codex,worker,"gpt-6-astra low (5 min): R41D G1 closed — registered R42 insertion record built from raw data (Bindings/InsertionFromData.lean, 4 declarations + 2 instances)",done,
-2026-09-16,R42,233-R42-family-from-data,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R42,233-R42-family-from-data,codex,reviewer,astra/sol retry review launched,running,
 2026-09-16,R41D,235-R41D-density,lead,plan,"lane opened on 233 branch (install then astra low, retry): Theorem 4.1 density branch for Y = F_R from the R42 record",planned,
-2026-09-16,R44,231-R44-contract-v1,codex,worker,"gpt-5.6-sol xhigh (10 min): R44.critical_finite_horizon V1 registered (31st contract; RCritical2API token match)",done,
-2026-09-16,R44,231-R44-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-16,R44,231-R44-contract-v1,codex,worker,gpt-5.6-sol xhigh (10 min): R44.critical_finite_horizon V1 registered (31st contract; RCritical2API token match),done,
+2026-09-16,R44,231-R44-contract-v1,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
 2026-09-16,R41,232-R41-nondensity-both,codex,worker,"gpt-5.6-sol xhigh (11 min): RMainAPI.nonDensityZero for q in {1,2} assembled (NonDensity.lean, RMainNonDensity record; 14 declarations audited)",done,
-2026-09-16,R41,232-R41-nondensity-both,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-16,R41,232-R41-nondensity-both,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
 2026-09-16,R42,233-R42-family-from-data,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes",accepted,233
-2026-09-16,R42,233-R42-family-from-data,lead,merge,"PR #233 opened after merging integration; chain launched (wave 61)",running,233
-2026-09-16,R41D,235-R41D-density,codex,worker,"gpt-6-astra low (4 min): Theorem 4.1 (i) density for Y = F_R proved (breakdownDenseR_of_subcritical) + zero-datum instance; Bindings/DensityFromInsertion.lean",done,
-2026-09-16,R41D,235-R41D-density,codex,reviewer,"astra/sol retry review launched",running,
-2026-09-16,R42,233-R42-family-from-data,lead,merge,"PR #233 merged into erenup/integration; wave 61 gates OK",merged,233
+2026-09-16,R42,233-R42-family-from-data,lead,merge,PR #233 opened after merging integration; chain launched (wave 61),running,233
+2026-09-16,R41D,235-R41D-density,codex,worker,gpt-6-astra low (4 min): Theorem 4.1 (i) density for Y = F_R proved (breakdownDenseR_of_subcritical) + zero-datum instance; Bindings/DensityFromInsertion.lean,done,
+2026-09-16,R41D,235-R41D-density,codex,reviewer,astra/sol retry review launched,running,
+2026-09-16,R42,233-R42-family-from-data,lead,merge,PR #233 merged into erenup/integration; wave 61 gates OK,merged,233
 2026-09-16,R41D,235-R41D-density,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev235_threshold)",accepted,234
-2026-09-16,R41D,235-R41D-density,lead,merge,"PR #234 opened after merging integration; chain launched (wave 62)",running,234
+2026-09-16,R41D,235-R41D-density,lead,merge,PR #234 opened after merging integration; chain launched (wave 62),running,234
 2026-09-16,R41,232-R41-nondensity-both,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probe rev232_widen_threshold)",accepted,235
-2026-09-16,R41,232-R41-nondensity-both,lead,merge,"PR #235 opened; chain queued after #234 (wave 63)",running,235
-2026-09-16,SPEC,236-SPEC-r41-draft-a,lead,plan,"lane opened (install then sol xhigh): double-blind R41 (Theorem 4.1) contract statement draft A",planned,
-2026-09-16,SPEC,237-SPEC-r41-draft-b,lead,plan,"lane opened (install then astra low): double-blind R41 contract statement draft B",planned,
-2026-09-16,R41D,235-R41D-density,lead,merge,"PR #234 merged into erenup/integration; wave 62 gates OK",merged,234
-2026-09-16,R41,232-R41-nondensity-both,lead,merge,"PR #235 merged into erenup/integration; wave 63 gates OK",merged,235
+2026-09-16,R41,232-R41-nondensity-both,lead,merge,PR #235 opened; chain queued after #234 (wave 63),running,235
+2026-09-16,SPEC,236-SPEC-r41-draft-a,lead,plan,lane opened (install then sol xhigh): double-blind R41 (Theorem 4.1) contract statement draft A,planned,
+2026-09-16,SPEC,237-SPEC-r41-draft-b,lead,plan,lane opened (install then astra low): double-blind R41 contract statement draft B,planned,
+2026-09-16,R41D,235-R41D-density,lead,merge,PR #234 merged into erenup/integration; wave 62 gates OK,merged,234
+2026-09-16,R41,232-R41-nondensity-both,lead,merge,PR #235 merged into erenup/integration; wave 63 gates OK,merged,235
 2026-09-16,R44,231-R44-contract-v1,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (probes rev231_mutation, rev231_nonvacuity)",accepted,236
-2026-09-16,R44,231-R44-contract-v1,lead,merge,"PR #236 opened after merging integration; chain launched (wave 64)",running,236
-2026-09-16,R44,231-R44-contract-v1,lead,merge,"PR #236 merged into erenup/integration; wave 64 gates OK; 31 contracts",merged,236
-2026-09-16,SPEC,237-SPEC-r41-draft-b,codex,worker,"gpt-6-astra low (3 min): R41 contract statement draft B (RMainAPI with 4 fields; COMPARISON_B)",done,
-2026-09-16,SPEC,238-SPEC-r45-draft-a,lead,plan,"lane opened (install then sol xhigh): double-blind R45 (cor:Rclasses) contract statement draft A",planned,
-2026-09-16,SPEC,239-SPEC-r45-draft-b,lead,plan,"lane opened (install then astra low): double-blind R45 contract statement draft B",planned,
-2026-09-16,SPEC,240-SPEC-r47-draft-a,lead,plan,"lane opened (install then sol xhigh): double-blind R47 (thm:Rgrid) contract statement draft A",planned,
-2026-09-16,SPEC,241-SPEC-r47-draft-b,lead,plan,"lane opened (install then astra low): double-blind R47 contract statement draft B",planned,
-2026-09-16,SPEC,239-SPEC-r45-draft-b,codex,worker,"gpt-6-astra low: R45 contract statement draft B",done,
-2026-09-16,SPEC,241-SPEC-r47-draft-b,codex,worker,"gpt-6-astra low: R47 contract statement draft B",done,
-2026-09-16,SPEC,242-SPEC-r46-draft-a,lead,plan,"lane opened (install then sol xhigh): double-blind R46 (prop:Renergy) contract statement draft A",planned,
-2026-09-16,SPEC,243-SPEC-r46-draft-b,lead,plan,"lane opened (install then astra low): double-blind R46 contract statement draft B",planned,
+2026-09-16,R44,231-R44-contract-v1,lead,merge,PR #236 opened after merging integration; chain launched (wave 64),running,236
+2026-09-16,R44,231-R44-contract-v1,lead,merge,PR #236 merged into erenup/integration; wave 64 gates OK; 31 contracts,merged,236
+2026-09-16,SPEC,237-SPEC-r41-draft-b,codex,worker,gpt-6-astra low (3 min): R41 contract statement draft B (RMainAPI with 4 fields; COMPARISON_B),done,
+2026-09-16,SPEC,238-SPEC-r45-draft-a,lead,plan,lane opened (install then sol xhigh): double-blind R45 (cor:Rclasses) contract statement draft A,planned,
+2026-09-16,SPEC,239-SPEC-r45-draft-b,lead,plan,lane opened (install then astra low): double-blind R45 contract statement draft B,planned,
+2026-09-16,SPEC,240-SPEC-r47-draft-a,lead,plan,lane opened (install then sol xhigh): double-blind R47 (thm:Rgrid) contract statement draft A,planned,
+2026-09-16,SPEC,241-SPEC-r47-draft-b,lead,plan,lane opened (install then astra low): double-blind R47 contract statement draft B,planned,
+2026-09-16,SPEC,239-SPEC-r45-draft-b,codex,worker,gpt-6-astra low: R45 contract statement draft B,done,
+2026-09-16,SPEC,241-SPEC-r47-draft-b,codex,worker,gpt-6-astra low: R47 contract statement draft B,done,
+2026-09-16,SPEC,242-SPEC-r46-draft-a,lead,plan,lane opened (install then sol xhigh): double-blind R46 (prop:Renergy) contract statement draft A,planned,
+2026-09-16,SPEC,243-SPEC-r46-draft-b,lead,plan,lane opened (install then astra low): double-blind R46 contract statement draft B,planned,
 2026-09-16,SPEC,238-SPEC-r45-draft-a,codex,worker,"gpt-5.6-sol xhigh (9 min): R45 contract statement draft A (7 fields, per-class)",done,
-2026-09-16,SPEC,243-SPEC-r46-draft-b,codex,worker,"gpt-6-astra low: R46 contract statement draft B",done,
-2026-09-16,SPEC,242-SPEC-r46-draft-a,codex,worker,"gpt-5.6-sol xhigh: R46 contract statement draft A",done,
-2026-09-16,SPEC,244-SPEC-r45-spec,lead,plan,"lane opened (install then sol xhigh): reconciled R45 Spec.lean + merged COMPARISON from the blind drafts",planned,
-2026-09-16,SPEC,245-SPEC-r46-spec,lead,plan,"lane opened (install then sol xhigh): reconciled R46 Spec.lean + merged COMPARISON from the blind drafts",planned,
+2026-09-16,SPEC,243-SPEC-r46-draft-b,codex,worker,gpt-6-astra low: R46 contract statement draft B,done,
+2026-09-16,SPEC,242-SPEC-r46-draft-a,codex,worker,gpt-5.6-sol xhigh: R46 contract statement draft A,done,
+2026-09-16,SPEC,244-SPEC-r45-spec,lead,plan,lane opened (install then sol xhigh): reconciled R45 Spec.lean + merged COMPARISON from the blind drafts,planned,
+2026-09-16,SPEC,245-SPEC-r46-spec,lead,plan,lane opened (install then sol xhigh): reconciled R46 Spec.lean + merged COMPARISON from the blind drafts,planned,
 2026-09-16,SPEC,240-SPEC-r47-draft-a,codex,worker,"gpt-5.6-sol xhigh (18 min): R47 contract statement draft A (record-parametric, 12 fields)",done,
-2026-09-16,SPEC,246-SPEC-r47-spec,lead,plan,"lane opened (install then sol xhigh): reconciled R47 Spec.lean + merged COMPARISON",planned,
-2026-09-16,SPEC,245-SPEC-r46-spec,codex,worker,"gpt-5.6-sol xhigh (10 min): reconciled R46 Spec.lean (elaborates; rfl checks) + merged COMPARISON",done,237
-2026-09-16,SPEC,245-SPEC-r46-spec,lead,merge,"lead-verified elaboration; PR #237 opened; chain launched (wave 65)",running,237
-2026-09-16,SPEC,244-SPEC-r45-spec,codex,worker,"gpt-5.6-sol xhigh (11 min): reconciled R45 Spec.lean (elaborates) + merged COMPARISON",done,238
-2026-09-16,SPEC,244-SPEC-r45-spec,lead,merge,"lead-verified elaboration; PR #238 opened; chain queued after #237 (wave 66)",running,238
-2026-09-16,SPEC,246-SPEC-r47-spec,codex,worker,"gpt-5.6-sol xhigh (8 min): reconciled R47 Spec.lean (elaborates) + merged COMPARISON; mixed-norm bridge not definitional (owner question)",done,239
-2026-09-16,SPEC,246-SPEC-r47-spec,lead,merge,"lead-verified elaboration; PR #239 opened; chain queued after #238 (wave 67)",running,239
+2026-09-16,SPEC,246-SPEC-r47-spec,lead,plan,lane opened (install then sol xhigh): reconciled R47 Spec.lean + merged COMPARISON,planned,
+2026-09-16,SPEC,245-SPEC-r46-spec,codex,worker,gpt-5.6-sol xhigh (10 min): reconciled R46 Spec.lean (elaborates; rfl checks) + merged COMPARISON,done,237
+2026-09-16,SPEC,245-SPEC-r46-spec,lead,merge,lead-verified elaboration; PR #237 opened; chain launched (wave 65),running,237
+2026-09-16,SPEC,244-SPEC-r45-spec,codex,worker,gpt-5.6-sol xhigh (11 min): reconciled R45 Spec.lean (elaborates) + merged COMPARISON,done,238
+2026-09-16,SPEC,244-SPEC-r45-spec,lead,merge,lead-verified elaboration; PR #238 opened; chain queued after #237 (wave 66),running,238
+2026-09-16,SPEC,246-SPEC-r47-spec,codex,worker,gpt-5.6-sol xhigh (8 min): reconciled R47 Spec.lean (elaborates) + merged COMPARISON; mixed-norm bridge not definitional (owner question),done,239
+2026-09-16,SPEC,246-SPEC-r47-spec,lead,merge,lead-verified elaboration; PR #239 opened; chain queued after #238 (wave 67),running,239
 2026-09-16,R47,247-R47-grid-lemmas,lead,plan,"lane opened (install then sol xhigh, retry): ball-in-common-cell and gridObservation locality lemmas for thm:Rgrid",planned,
-2026-09-16,SPEC,245-SPEC-r46-spec,lead,merge,"PR #237 merged into erenup/integration; wave 65 gates OK",merged,237
-2026-09-16,SPEC,244-SPEC-r45-spec,lead,merge,"PR #238 merged into erenup/integration; wave 66 gates OK",merged,238
-2026-09-16,R47,247-R47-grid-lemmas,codex,worker,"gpt-5.6-sol xhigh (9 min): ball-in-common-cell and gridObservation locality lemmas (Bindings/GridLemmas.lean); force-difference zero cell integral left to the assembly (eq:gridforce)",done,
-2026-09-16,R47,247-R47-grid-lemmas,codex,reviewer,"sol/astra retry review launched",running,
-2026-09-16,SPEC,236-SPEC-r41-draft-a,codex,worker,"gpt-5.6-sol xhigh (80 min): R41 contract statement draft A (4 fields; rider as a Type-valued record)",done,
-2026-09-16,SPEC,248-SPEC-r41-spec,lead,plan,"lane opened (install then sol xhigh): reconciled R41 Spec.lean + merged COMPARISON with binding plan",planned,
-2026-09-16,SPEC,248-SPEC-r41-spec,codex,worker,"gpt-5.6-sol xhigh (9 min): reconciled R41 Spec.lean (elaborates) + COMPARISON with binding plan",done,240
-2026-09-16,SPEC,248-SPEC-r41-spec,lead,merge,"lead-verified elaboration; PR #240 opened; chain queued after #239 (wave 68)",running,240
+2026-09-16,SPEC,245-SPEC-r46-spec,lead,merge,PR #237 merged into erenup/integration; wave 65 gates OK,merged,237
+2026-09-16,SPEC,244-SPEC-r45-spec,lead,merge,PR #238 merged into erenup/integration; wave 66 gates OK,merged,238
+2026-09-16,R47,247-R47-grid-lemmas,codex,worker,gpt-5.6-sol xhigh (9 min): ball-in-common-cell and gridObservation locality lemmas (Bindings/GridLemmas.lean); force-difference zero cell integral left to the assembly (eq:gridforce),done,
+2026-09-16,R47,247-R47-grid-lemmas,codex,reviewer,sol/astra retry review launched,running,
+2026-09-16,SPEC,236-SPEC-r41-draft-a,codex,worker,gpt-5.6-sol xhigh (80 min): R41 contract statement draft A (4 fields; rider as a Type-valued record),done,
+2026-09-16,SPEC,248-SPEC-r41-spec,lead,plan,lane opened (install then sol xhigh): reconciled R41 Spec.lean + merged COMPARISON with binding plan,planned,
+2026-09-16,SPEC,248-SPEC-r41-spec,codex,worker,gpt-5.6-sol xhigh (9 min): reconciled R41 Spec.lean (elaborates) + COMPARISON with binding plan,done,240
+2026-09-16,SPEC,248-SPEC-r41-spec,lead,merge,lead-verified elaboration; PR #240 opened; chain queued after #239 (wave 68),running,240
 2026-09-16,R41,249-R41-contract-v1,lead,plan,"lane opened on 248 branch (install then astra low, retry): register R41.main_thresholds V1 (32nd contract) from lanes 232/233/235",planned,
-2026-09-16,SPEC,246-SPEC-r47-spec,lead,merge,"PR #239 merged into erenup/integration; wave 67 gates OK",merged,239
+2026-09-16,SPEC,246-SPEC-r47-spec,lead,merge,PR #239 merged into erenup/integration; wave 67 gates OK,merged,239
 2026-09-16,I03,250-I03-homogeneous-scaling,lead,plan,"lane opened (install then astra low, retry): homogeneous negative-order scaling bounds for the rescaled packet/correction forces (I03 gap rows 46/48)",planned,
-2026-09-16,SPEC,248-SPEC-r41-spec,lead,merge,"PR #240 merged into erenup/integration; wave 68 gates OK",merged,240
+2026-09-16,SPEC,248-SPEC-r41-spec,lead,merge,PR #240 merged into erenup/integration; wave 68 gates OK,merged,240
 2026-09-16,R41,249-R41-contract-v1,codex,worker,"gpt-6-astra low (7 min): R41.main_thresholds V1 registered (32nd contract) — Theorem 4.1 for Y = F_R, all four fields bound",done,
-2026-09-16,R41,249-R41-contract-v1,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
+2026-09-16,R41,249-R41-contract-v1,codex,reviewer,astra/sol retry review launched (branch merged with integration first),running,
 2026-09-16,R47,247-R47-grid-lemmas,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes",accepted,241
-2026-09-16,R47,247-R47-grid-lemmas,lead,merge,"PR #241 opened after merging integration; chain launched (wave 69)",running,241
+2026-09-16,R47,247-R47-grid-lemmas,lead,merge,PR #241 opened after merging integration; chain launched (wave 69),running,241
 2026-09-16,R47,251-R47-force-cell-integral,lead,plan,"lane opened on 247 branch (install then astra low, retry): eq:gridforce zero cell integrals and the observation-equality fields",planned,
-2026-09-16,R47,247-R47-grid-lemmas,lead,merge,"PR #241 merged into erenup/integration; wave 69 gates OK",merged,241
+2026-09-16,R47,247-R47-grid-lemmas,lead,merge,PR #241 merged into erenup/integration; wave 69 gates OK,merged,241
 2026-09-16,R41,249-R41-contract-v1,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probes rev249_endpoint, rev249_nonvacuity)",accepted,242
-2026-09-16,R41,249-R41-contract-v1,lead,merge,"PR #242 opened after merging integration; chain launched (wave 70)",running,242
-2026-09-16,R41,249-R41-contract-v1,lead,merge,"PR #242 merged into erenup/integration; wave 70 gates OK; 32 contracts — Theorem 4.1 registered",merged,242
+2026-09-16,R41,249-R41-contract-v1,lead,merge,PR #242 opened after merging integration; chain launched (wave 70),running,242
+2026-09-16,R41,249-R41-contract-v1,lead,merge,PR #242 merged into erenup/integration; wave 70 gates OK; 32 contracts — Theorem 4.1 registered,merged,242
 2026-09-16,R45,252-R45-compact-class,lead,plan,"lane opened (install then sol xhigh, retry): cor:Rclasses density and zero-datum iff for Y = F_c",planned,
 2026-09-16,R47,251-R47-force-cell-integral,codex,worker,"gpt-6-astra low (12 min): velocity cell integrals zero, momentum difference, observation equalities; force case conditional on one named flux-cancellation input hcompactMomentumIntegral",done,
-2026-09-16,R47,251-R47-force-cell-integral,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,R47,251-R47-force-cell-integral,codex,reviewer,astra/sol retry review launched,running,
 2026-09-16,R47,253-R47-flux-cancellation,lead,plan,"lane opened on 251 branch (install then astra low, retry): close hcompactMomentumIntegral (flux cancellation over the containing cell)",planned,
-2026-09-16,R45,252-R45-compact-class,codex,worker,"gpt-5.6-sol xhigh (10 min): cor:Rclasses density and zero-datum iff for Y = F_c (4 declarations)",done,
-2026-09-16,R45,252-R45-compact-class,codex,reviewer,"sol/astra retry review launched",running,
+2026-09-16,R45,252-R45-compact-class,codex,worker,gpt-5.6-sol xhigh (10 min): cor:Rclasses density and zero-datum iff for Y = F_c (4 declarations),done,
+2026-09-16,R45,252-R45-compact-class,codex,reviewer,sol/astra retry review launched,running,
 2026-09-16,R45,254-R45-compact-rider,lead,plan,"lane opened on 252 branch (install then sol xhigh, retry): cor:Rclasses regular-reference rider for Y = F_c",planned,
-2026-09-16,I03,250-I03-homogeneous-scaling,codex,worker,"gpt-6-astra low (25 min): homogeneous scaling identities + I03 negative-order fields conditional on one named input CompactHomogeneousRealization (path measurability); 36 declarations",done,
-2026-09-16,I03,250-I03-homogeneous-scaling,codex,reviewer,"astra/sol retry review launched",running,
+2026-09-16,I03,250-I03-homogeneous-scaling,codex,worker,gpt-6-astra low (25 min): homogeneous scaling identities + I03 negative-order fields conditional on one named input CompactHomogeneousRealization (path measurability); 36 declarations,done,
+2026-09-16,I03,250-I03-homogeneous-scaling,codex,reviewer,astra/sol retry review launched,running,
 2026-09-16,I03,255-I03-path-measurability,lead,plan,"lane opened on 250 branch (install then sol xhigh, retry): close CompactHomogeneousRealization (path measurability)",planned,
-2026-09-16,R47,251-R47-force-cell-integral,codex,reviewer,"gpt-6-astra: REJECT for baseline sync only (stale compatibility check); lead merged integration and reran gates",accepted-after-sync,243
-2026-09-16,R47,251-R47-force-cell-integral,lead,merge,"PR #243 opened after baseline sync; chain launched (wave 71)",running,243
-2026-09-16,R47,251-R47-force-cell-integral,lead,merge,"PR #243 merged into erenup/integration; wave 71 gates OK",merged,243
-2026-09-16,I03,250-I03-homogeneous-scaling,codex,reviewer,"gpt-6-astra: REJECT for baseline sync only; lead merged integration and reran gates",accepted-after-sync,244
-2026-09-16,I03,250-I03-homogeneous-scaling,lead,merge,"PR #244 opened after baseline sync; chain launched (wave 72)",running,244
-2026-09-16,R45,254-R45-compact-rider,codex,worker,"gpt-5.6-sol xhigh (7 min): cor:Rclasses regular-reference rider for Y = F_c (+ epsilon-form for F_R)",done,
-2026-09-16,R45,254-R45-compact-rider,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-16,R47,251-R47-force-cell-integral,codex,reviewer,gpt-6-astra: REJECT for baseline sync only (stale compatibility check); lead merged integration and reran gates,accepted-after-sync,243
+2026-09-16,R47,251-R47-force-cell-integral,lead,merge,PR #243 opened after baseline sync; chain launched (wave 71),running,243
+2026-09-16,R47,251-R47-force-cell-integral,lead,merge,PR #243 merged into erenup/integration; wave 71 gates OK,merged,243
+2026-09-16,I03,250-I03-homogeneous-scaling,codex,reviewer,gpt-6-astra: REJECT for baseline sync only; lead merged integration and reran gates,accepted-after-sync,244
+2026-09-16,I03,250-I03-homogeneous-scaling,lead,merge,PR #244 opened after baseline sync; chain launched (wave 72),running,244
+2026-09-16,R45,254-R45-compact-rider,codex,worker,gpt-5.6-sol xhigh (7 min): cor:Rclasses regular-reference rider for Y = F_c (+ epsilon-form for F_R),done,
+2026-09-16,R45,254-R45-compact-rider,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
 2026-09-16,R47,253-R47-flux-cancellation,codex,worker,"gpt-6-astra low (10 min): flux cancellation closed unconditionally; force observation equalities on [0,T) (12 theorems)",done,
-2026-09-16,R47,253-R47-flux-cancellation,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
+2026-09-16,R47,253-R47-flux-cancellation,codex,reviewer,astra/sol retry review launched (branch merged with integration first),running,
 2026-09-16,R45,252-R45-compact-class,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes",accepted,245
-2026-09-16,R45,252-R45-compact-class,lead,merge,"PR #245 opened after merging integration; chain queued after #244 (wave 73)",running,245
-2026-09-16,I03,250-I03-homogeneous-scaling,lead,merge,"PR #244 merged into erenup/integration; wave 72 gates OK",merged,244
-2026-09-16,R45,252-R45-compact-class,lead,merge,"PR #245 merged into erenup/integration; wave 73 gates OK",merged,245
+2026-09-16,R45,252-R45-compact-class,lead,merge,PR #245 opened after merging integration; chain queued after #244 (wave 73),running,245
+2026-09-16,I03,250-I03-homogeneous-scaling,lead,merge,PR #244 merged into erenup/integration; wave 72 gates OK,merged,244
+2026-09-16,R45,252-R45-compact-class,lead,merge,PR #245 merged into erenup/integration; wave 73 gates OK,merged,245
 2026-09-16,R46,256-R46-sobolev-density,lead,plan,"lane opened (install then sol xhigh, retry): prop:Renergy completed Sobolev density of the compact breakdown set",planned,
 2026-09-16,R47,253-R47-flux-cancellation,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev253_wrong_force_mean)",accepted,246
-2026-09-16,R47,253-R47-flux-cancellation,lead,merge,"PR #246 opened; chain launched (wave 74)",running,246
-2026-09-16,R41D,234-R41D-small-gaps,codex,worker,"gpt-5.6-sol xhigh (2.5 h): R41D gaps G2-G5 all closed (ClassFacts.lean; 14 audited declarations)",done,
-2026-09-16,R41D,234-R41D-small-gaps,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-16,R47,253-R47-flux-cancellation,lead,merge,PR #246 opened; chain launched (wave 74),running,246
+2026-09-16,R41D,234-R41D-small-gaps,codex,worker,gpt-5.6-sol xhigh (2.5 h): R41D gaps G2-G5 all closed (ClassFacts.lean; 14 audited declarations),done,
+2026-09-16,R41D,234-R41D-small-gaps,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
 2026-09-16,R45,257-R45-rapid-class,lead,plan,"lane opened on 234 branch (install then sol xhigh, retry): cor:Rclasses rapid-class instances and Schwartz specialization",planned,
-2026-09-16,R47,253-R47-flux-cancellation,lead,merge,"PR #246 merged into erenup/integration; wave 74 gates OK",merged,246
+2026-09-16,R47,253-R47-flux-cancellation,lead,merge,PR #246 merged into erenup/integration; wave 74 gates OK,merged,246
 2026-09-16,R47,258-R47-assembly,lead,plan,"lane opened (install then astra low, retry): thm:Rgrid assembly RGridAPI.choose conditional only on CompactHomogeneousRealization",planned,
 2026-09-16,R46,259-R46-closure,lead,plan,"lane opened (install then astra low, retry): prop:Renergy homogeneous density + strong trajectory closure conditional only on CompactHomogeneousRealization",planned,
 2026-09-16,R45,254-R45-compact-rider,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes",accepted,247
-2026-09-16,R45,254-R45-compact-rider,lead,merge,"PR #247 opened; chain launched (wave 75)",running,247
-2026-09-16,R45,254-R45-compact-rider,lead,merge,"PR #247 merged into erenup/integration; wave 75 gates OK",merged,247
-2026-09-16,I03,255-I03-path-measurability,codex,worker,"gpt-5.6-sol xhigh (18 min): CompactHomogeneousRealization proved (path continuity); I03 homogeneous negative-order fields unconditional",done,
-2026-09-16,I03,255-I03-path-measurability,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
-2026-09-16,R46,256-R46-sobolev-density,codex,worker,"gpt-5.6-sol xhigh (10 min): prop:Renergy completedSobolevDensity proved verbatim",done,
-2026-09-16,R46,256-R46-sobolev-density,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
+2026-09-16,R45,254-R45-compact-rider,lead,merge,PR #247 opened; chain launched (wave 75),running,247
+2026-09-16,R45,254-R45-compact-rider,lead,merge,PR #247 merged into erenup/integration; wave 75 gates OK,merged,247
+2026-09-16,I03,255-I03-path-measurability,codex,worker,gpt-5.6-sol xhigh (18 min): CompactHomogeneousRealization proved (path continuity); I03 homogeneous negative-order fields unconditional,done,
+2026-09-16,I03,255-I03-path-measurability,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
+2026-09-16,R46,256-R46-sobolev-density,codex,worker,gpt-5.6-sol xhigh (10 min): prop:Renergy completedSobolevDensity proved verbatim,done,
+2026-09-16,R46,256-R46-sobolev-density,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
 2026-09-16,R46,259-R46-closure,codex,worker,"gpt-6-astra low (9 min): prop:Renergy homogeneous density + strong trajectory closure verbatim, conditional only on CompactHomogeneousRealization (9 declarations)",done,
-2026-09-16,R46,259-R46-closure,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
-2026-09-16,R45,257-R45-rapid-class,codex,worker,"gpt-5.6-sol xhigh (13 min): cor:Rclasses rapid-class instances + schwartzDensity + guarded density/zeroIff (6 declarations)",done,
-2026-09-16,R45,257-R45-rapid-class,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
-2026-09-16,R47,258-R47-assembly,codex,worker,"gpt-6-astra low (12 min): thm:Rgrid assembled verbatim conditional only on CompactHomogeneousRealization (7 declarations)",done,
-2026-09-16,R47,258-R47-assembly,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
-2026-09-16,R41D,234-R41D-small-gaps,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (record corrections applied by lead; probe rev234_zero_constant)",accepted,248
-2026-09-16,R41D,234-R41D-small-gaps,lead,merge,"PR #248 opened; chain launched (wave 76)",running,248
-2026-09-17,A01,212-A01-contract-v2,lead,plan,"user decided option 1 (fixed-force H7 V2 wording; H1 sentence kept as an explicitly open named definition); lane launched (install then sol xhigh) with anti-reward-hacking requirements",planned,
-2026-09-17,A04,230-A04-v2-restart-fixed-force,lead,plan,"A04 V2 registration lane launched (install then sol xhigh) per the same decision",planned,
-2026-09-16,R41D,234-R41D-small-gaps,lead,merge,"PR #248 merged into erenup/integration; wave 76 gates OK",merged,248
-2026-09-16,I03,255-I03-path-measurability,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (COMPARISON rows applied by lead)",accepted,249
-2026-09-16,I03,255-I03-path-measurability,lead,merge,"PR #249 opened; chain launched (wave 77)",running,249
+2026-09-16,R46,259-R46-closure,codex,reviewer,astra/sol retry review launched (branch merged with integration first),running,
+2026-09-16,R45,257-R45-rapid-class,codex,worker,gpt-5.6-sol xhigh (13 min): cor:Rclasses rapid-class instances + schwartzDensity + guarded density/zeroIff (6 declarations),done,
+2026-09-16,R45,257-R45-rapid-class,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
+2026-09-16,R47,258-R47-assembly,codex,worker,gpt-6-astra low (12 min): thm:Rgrid assembled verbatim conditional only on CompactHomogeneousRealization (7 declarations),done,
+2026-09-16,R47,258-R47-assembly,codex,reviewer,astra/sol retry review launched (branch merged with integration first),running,
+2026-09-16,R41D,234-R41D-small-gaps,codex,reviewer,gpt-5.6-sol: ACCEPT-WITH-NOTES (record corrections applied by lead; probe rev234_zero_constant),accepted,248
+2026-09-16,R41D,234-R41D-small-gaps,lead,merge,PR #248 opened; chain launched (wave 76),running,248
+2026-09-17,A01,212-A01-contract-v2,lead,plan,user decided option 1 (fixed-force H7 V2 wording; H1 sentence kept as an explicitly open named definition); lane launched (install then sol xhigh) with anti-reward-hacking requirements,planned,
+2026-09-17,A04,230-A04-v2-restart-fixed-force,lead,plan,A04 V2 registration lane launched (install then sol xhigh) per the same decision,planned,
+2026-09-16,R41D,234-R41D-small-gaps,lead,merge,PR #248 merged into erenup/integration; wave 76 gates OK,merged,248
+2026-09-16,I03,255-I03-path-measurability,codex,reviewer,gpt-5.6-sol: ACCEPT-WITH-NOTES (COMPARISON rows applied by lead),accepted,249
+2026-09-16,I03,255-I03-path-measurability,lead,merge,PR #249 opened; chain launched (wave 77),running,249
 2026-09-16,R46,256-R46-sobolev-density,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes",accepted,250
-2026-09-16,R46,256-R46-sobolev-density,lead,merge,"PR #250 opened; chain queued after #249 (wave 78)",running,250
+2026-09-16,R46,256-R46-sobolev-density,lead,merge,PR #250 opened; chain queued after #249 (wave 78),running,250
 2026-09-16,R46,259-R46-closure,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes",accepted,251
-2026-09-16,R46,259-R46-closure,lead,merge,"PR #251 opened; chain queued after #250 (wave 79)",running,251
-2026-09-16,I03,255-I03-path-measurability,lead,merge,"PR #249 merged into erenup/integration; wave 77 gates OK",merged,249
-2026-09-16,R46,256-R46-sobolev-density,lead,merge,"PR #250 merged into erenup/integration; wave 78 gates OK",merged,250
+2026-09-16,R46,259-R46-closure,lead,merge,PR #251 opened; chain queued after #250 (wave 79),running,251
+2026-09-16,I03,255-I03-path-measurability,lead,merge,PR #249 merged into erenup/integration; wave 77 gates OK,merged,249
+2026-09-16,R46,256-R46-sobolev-density,lead,merge,PR #250 merged into erenup/integration; wave 78 gates OK,merged,250
 2026-09-16,R47,258-R47-assembly,codex,reviewer,"gpt-6-astra: ACCEPT, no fixes (probe rev258_lifespan)",accepted,252
-2026-09-16,R47,258-R47-assembly,lead,merge,"PR #252 opened; chain queued after #251 (wave 80)",running,252
-2026-09-17,R47,260-R47-contract-v1,lead,plan,"lane opened on 258 branch + integration (install then sol xhigh): register R47.grid_observations V1 (35th contract)",planned,
-2026-09-17,R46,261-R46-contract-v1,lead,plan,"lane opened on 259 branch + integration (install then sol xhigh): register R46.completed_density V1 (34th contract)",planned,
-2026-09-16,R46,259-R46-closure,lead,merge,"PR #251 merged into erenup/integration; wave 79 gates OK",merged,251
-2026-09-16,R47,258-R47-assembly,lead,merge,"PR #252 merged into erenup/integration; wave 80 gates OK",merged,252
-2026-09-16,R45,257-R45-rapid-class,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (record clarifications applied by lead; probe rev257_widen_history)",accepted,253
-2026-09-16,R45,257-R45-rapid-class,lead,merge,"PR #253 opened; chain launched (wave 81)",running,253
-2026-09-17,R45,262-R45-contract-v1,lead,plan,"lane opened on 257 branch (install then sol xhigh): register R45.force_classes V1 (33rd contract)",planned,
-2026-09-16,R45,257-R45-rapid-class,lead,merge,"PR #253 merged into erenup/integration; wave 81 gates OK",merged,253
-2026-09-17,R46,261-R46-contract-v1,codex,worker,"gpt-5.6-sol xhigh (9 min): R46.completed_density V1 registered (three fields bound; realization instantiated)",done,
-2026-09-17,R46,261-R46-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
-2026-09-17,R47,260-R47-contract-v1,codex,worker,"gpt-5.6-sol xhigh (10 min): R47.grid_observations V1 registered (assembly instantiated with the realization)",done,
-2026-09-17,R47,260-R47-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
-2026-09-17,R45,262-R45-contract-v1,codex,worker,"gpt-5.6-sol xhigh (9 min): R45.force_classes V1 registered (four fields bound)",done,
-2026-09-17,R45,262-R45-contract-v1,codex,reviewer,"sol/astra retry review launched (branch merged with integration first)",running,
-2026-09-17,A01,212-A01-contract-v2,codex,worker,"gpt-5.6-sol xhigh (21 min): A01.local_theory_v2 registered per option 1 with the anti-reward-hacking requirements (H1 sentence explicitly open; nonzero non-vacuity; Paper-vs-V2 table)",done,
-2026-09-17,A01,212-A01-contract-v2,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
-2026-09-17,A04,230-A04-v2-restart-fixed-force,codex,worker,"gpt-5.6-sol xhigh (23 min): A04.continuation_v2 registered per option 1 with the anti-reward-hacking requirements (H1 sentence explicitly open; nonzero non-vacuity; Paper-vs-V2 table)",done,
-2026-09-17,A04,230-A04-v2-restart-fixed-force,codex,reviewer,"astra/sol retry review launched (branch merged with integration first)",running,
-2026-09-17,A01,212-A01-contract-v2,lead,fix,"review script needs collaboration/briefs/<lane>.md; the option-1 brief was named differently — copied under the lane name; retry picks it up",running,
-2026-09-17,T10,263-SPEC-t10-draft-a,lead,plan,"Section 3 stage S3-0: double-blind T10 (periodic data layer) statement draft A (install then sol xhigh)",planned,
-2026-09-17,T10,264-SPEC-t10-draft-b,lead,plan,"Section 3 stage S3-0: double-blind T10 statement draft B (install then astra low)",planned,
+2026-09-16,R47,258-R47-assembly,lead,merge,PR #252 opened; chain queued after #251 (wave 80),running,252
+2026-09-17,R47,260-R47-contract-v1,lead,plan,lane opened on 258 branch + integration (install then sol xhigh): register R47.grid_observations V1 (35th contract),planned,
+2026-09-17,R46,261-R46-contract-v1,lead,plan,lane opened on 259 branch + integration (install then sol xhigh): register R46.completed_density V1 (34th contract),planned,
+2026-09-16,R46,259-R46-closure,lead,merge,PR #251 merged into erenup/integration; wave 79 gates OK,merged,251
+2026-09-16,R47,258-R47-assembly,lead,merge,PR #252 merged into erenup/integration; wave 80 gates OK,merged,252
+2026-09-16,R45,257-R45-rapid-class,codex,reviewer,gpt-5.6-sol: ACCEPT-WITH-NOTES (record clarifications applied by lead; probe rev257_widen_history),accepted,253
+2026-09-16,R45,257-R45-rapid-class,lead,merge,PR #253 opened; chain launched (wave 81),running,253
+2026-09-17,R45,262-R45-contract-v1,lead,plan,lane opened on 257 branch (install then sol xhigh): register R45.force_classes V1 (33rd contract),planned,
+2026-09-16,R45,257-R45-rapid-class,lead,merge,PR #253 merged into erenup/integration; wave 81 gates OK,merged,253
+2026-09-17,R46,261-R46-contract-v1,codex,worker,gpt-5.6-sol xhigh (9 min): R46.completed_density V1 registered (three fields bound; realization instantiated),done,
+2026-09-17,R46,261-R46-contract-v1,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
+2026-09-17,R47,260-R47-contract-v1,codex,worker,gpt-5.6-sol xhigh (10 min): R47.grid_observations V1 registered (assembly instantiated with the realization),done,
+2026-09-17,R47,260-R47-contract-v1,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
+2026-09-17,R45,262-R45-contract-v1,codex,worker,gpt-5.6-sol xhigh (9 min): R45.force_classes V1 registered (four fields bound),done,
+2026-09-17,R45,262-R45-contract-v1,codex,reviewer,sol/astra retry review launched (branch merged with integration first),running,
+2026-09-17,A01,212-A01-contract-v2,codex,worker,gpt-5.6-sol xhigh (21 min): A01.local_theory_v2 registered per option 1 with the anti-reward-hacking requirements (H1 sentence explicitly open; nonzero non-vacuity; Paper-vs-V2 table),done,
+2026-09-17,A01,212-A01-contract-v2,codex,reviewer,astra/sol retry review launched (branch merged with integration first),running,
+2026-09-17,A04,230-A04-v2-restart-fixed-force,codex,worker,gpt-5.6-sol xhigh (23 min): A04.continuation_v2 registered per option 1 with the anti-reward-hacking requirements (H1 sentence explicitly open; nonzero non-vacuity; Paper-vs-V2 table),done,
+2026-09-17,A04,230-A04-v2-restart-fixed-force,codex,reviewer,astra/sol retry review launched (branch merged with integration first),running,
+2026-09-17,A01,212-A01-contract-v2,lead,fix,review script needs collaboration/briefs/<lane>.md; the option-1 brief was named differently — copied under the lane name; retry picks it up,running,
+2026-09-17,T10,263-SPEC-t10-draft-a,lead,plan,Section 3 stage S3-0: double-blind T10 (periodic data layer) statement draft A (install then sol xhigh),planned,
+2026-09-17,T10,264-SPEC-t10-draft-b,lead,plan,Section 3 stage S3-0: double-blind T10 statement draft B (install then astra low),planned,
 2026-09-17,R46,261-R46-contract-v1,codex,reviewer,"gpt-5.6-sol: ACCEPT, no fixes (3 probes)",accepted,254
-2026-09-17,R46,261-R46-contract-v1,lead,merge,"PR #254 opened; chain launched (wave 82)",running,254
-2026-09-17,R47,260-R47-contract-v1,codex,reviewer,"gpt-5.6-sol: ACCEPT-WITH-NOTES (COMPARISON sentence applied by lead; probe rev260_widen_interval); PR after #254 lands",accepted,
-2026-09-17,R46,261-R46-contract-v1,lead,merge,"PR #254 merged into erenup/integration; wave 82 gates OK; 33 contracts",merged,254
-2026-09-17,R47,260-R47-contract-v1,lead,merge,"registry union with #254; PR #255 opened; chain launched (wave 83)",running,255
-2026-09-17,R47,260-R47-contract-v1,lead,merge,"PR #255 merged into erenup/integration; wave 83 gates OK; 34 contracts",merged,255
-2026-09-17,A04,230-A04-v2-restart-fixed-force,codex,reviewer,"gpt-6-astra: ACCEPT-WITH-NOTES (three wording fixes applied by lead; H1 mutation probe rejected)",accepted,256
-2026-09-17,A04,230-A04-v2-restart-fixed-force,lead,merge,"registry union with #255; PR #256 opened; chain launched (wave 84)",running,256
-2026-09-17,A04,230-A04-v2-restart-fixed-force,lead,merge,"PR #256 merged into erenup/integration; wave 84 gates OK; 35 contracts",merged,256
+2026-09-17,R46,261-R46-contract-v1,lead,merge,PR #254 opened; chain launched (wave 82),running,254
+2026-09-17,R47,260-R47-contract-v1,codex,reviewer,gpt-5.6-sol: ACCEPT-WITH-NOTES (COMPARISON sentence applied by lead; probe rev260_widen_interval); PR after #254 lands,accepted,
+2026-09-17,R46,261-R46-contract-v1,lead,merge,PR #254 merged into erenup/integration; wave 82 gates OK; 33 contracts,merged,254
+2026-09-17,R47,260-R47-contract-v1,lead,merge,registry union with #254; PR #255 opened; chain launched (wave 83),running,255
+2026-09-17,R47,260-R47-contract-v1,lead,merge,PR #255 merged into erenup/integration; wave 83 gates OK; 34 contracts,merged,255
+2026-09-17,A04,230-A04-v2-restart-fixed-force,codex,reviewer,gpt-6-astra: ACCEPT-WITH-NOTES (three wording fixes applied by lead; H1 mutation probe rejected),accepted,256
+2026-09-17,A04,230-A04-v2-restart-fixed-force,lead,merge,registry union with #255; PR #256 opened; chain launched (wave 84),running,256
+2026-09-17,A04,230-A04-v2-restart-fixed-force,lead,merge,PR #256 merged into erenup/integration; wave 84 gates OK; 35 contracts,merged,256
 2026-09-17,A01,212-A01-contract-v2,codex,reviewer,"gpt-6-astra adversarial: REJECT (baseline, H1 rfl bridge, paper-vs-draft attribution, wording) — all applied by lead; H1 mutation probe rejected",accepted-after-fixes,257
-2026-09-17,A01,212-A01-contract-v2,lead,merge,"registry union with #256; PR #257 opened; chain launched (wave 85)",running,257
-2026-09-17,R45,262-R45-contract-v1,codex,reviewer,"gpt-5.6-sol: REJECT for baseline sync only (ordinal wording); lead to union-merge after #257",accepted-after-sync,
-2026-09-17,A01,212-A01-contract-v2,lead,merge,"PR #257 merged into erenup/integration; wave 85 gates OK; 36 contracts",merged,257
-2026-09-17,R45,262-R45-contract-v1,lead,merge,"registry union after #257 (37 contracts); PR #258 opened; chain launched (wave 86)",running,258
-2026-09-17,R45,262-R45-contract-v1,lead,merge,"PR #258 merged into erenup/integration; wave 86 gates OK; 37 contracts — Section 4 fully registered",merged,258
-2026-09-17,T10,263-SPEC-t10-draft-a,codex,worker,"gpt-5.6-sol xhigh (63 min): T10 periodic data layer statement draft A (elaborates)",done,
+2026-09-17,A01,212-A01-contract-v2,lead,merge,registry union with #256; PR #257 opened; chain launched (wave 85),running,257
+2026-09-17,R45,262-R45-contract-v1,codex,reviewer,gpt-5.6-sol: REJECT for baseline sync only (ordinal wording); lead to union-merge after #257,accepted-after-sync,
+2026-09-17,A01,212-A01-contract-v2,lead,merge,PR #257 merged into erenup/integration; wave 85 gates OK; 36 contracts,merged,257
+2026-09-17,R45,262-R45-contract-v1,lead,merge,registry union after #257 (37 contracts); PR #258 opened; chain launched (wave 86),running,258
+2026-09-17,R45,262-R45-contract-v1,lead,merge,PR #258 merged into erenup/integration; wave 86 gates OK; 37 contracts — Section 4 fully registered,merged,258
+2026-09-17,T10,263-SPEC-t10-draft-a,codex,worker,gpt-5.6-sol xhigh (63 min): T10 periodic data layer statement draft A (elaborates),done,
 2026-09-17,T10,264-SPEC-t10-draft-b,codex,worker,"gpt-6-astra died after 81 min (router reconnect 5/5, no draft written); relaunched immediately",relaunched,
-2026-09-17,T13,265-SPEC-t13-draft-a,lead,plan,"Section 3: double-blind T13 (lem:localization) statement draft A (install then sol xhigh)",planned,
-2026-09-17,T13,266-SPEC-t13-draft-b,lead,plan,"Section 3: double-blind T13 statement draft B (install then astra low)",planned,
-2026-09-17,T13,266-SPEC-t13-draft-b,codex,worker,"gpt-6-astra low: T13 statement draft B",done,
-2026-09-17,T13,265-SPEC-t13-draft-a,codex,worker,"gpt-5.6-sol xhigh (10 min): T13 statement draft A",done,
+2026-09-17,T13,265-SPEC-t13-draft-a,lead,plan,Section 3: double-blind T13 (lem:localization) statement draft A (install then sol xhigh),planned,
+2026-09-17,T13,266-SPEC-t13-draft-b,lead,plan,Section 3: double-blind T13 statement draft B (install then astra low),planned,
+2026-09-17,T13,266-SPEC-t13-draft-b,codex,worker,gpt-6-astra low: T13 statement draft B,done,
+2026-09-17,T13,265-SPEC-t13-draft-a,codex,worker,gpt-5.6-sol xhigh (10 min): T13 statement draft A,done,
 2026-09-17,MAINT,267-MAINT-archive-section4,lead,plan,"archive Section 4 working docs into archive/section4/ and refocus live docs on Section 3 (astra, docs only)",planned,
 2026-09-17,MAINT,267-MAINT-archive-section4,codex,worker,"gpt-6-astra low (4 min): Section 4 docs archived (122 files byte-identical), live docs rewritten for Section 3; ledger unchanged (tasks.py has no state/add commands)",done,260
-2026-09-17,MAINT,267-MAINT-archive-section4,lead,merge,"PR #260 opened to erenup/integration-section3; chain launched (wave 87)",running,260
-2026-09-17,MAINT,267-MAINT-archive-section4,lead,merge,"PR #260 merged manually (cherry-pick onto the current Section 3 branch; merge_lane.sh rebase conflicted with the doc rewrite); make check OK",merged,260
+2026-09-17,MAINT,267-MAINT-archive-section4,lead,merge,PR #260 opened to erenup/integration-section3; chain launched (wave 87),running,260
+2026-09-17,MAINT,267-MAINT-archive-section4,lead,merge,PR #260 merged manually (cherry-pick onto the current Section 3 branch; merge_lane.sh rebase conflicted with the doc rewrite); make check OK,merged,260
 2026-09-17,MAINT,268-MAINT-ledger-t10-t24,lead,plan,"add T10-T24 to the blueprint DAG and the work-item ledger (sol, ledger only)",planned,
-2026-09-17,MAINT,268-MAINT-ledger-t10-t24,codex,worker,"gpt-5.6-sol xhigh (9 min): T10-T24 added to the DAG and ledger (45 nodes); make check OK",done,261
-2026-09-17,MAINT,268-MAINT-ledger-t10-t24,lead,merge,"PR #261 merged directly into erenup/integration-section3",merged,261
-2026-09-17,T12,269-SPEC-t12-draft-a,lead,plan,"Section 3 S3-1 leaf: double-blind T12 statement draft A (sol)",planned,
-2026-09-17,T12,270-SPEC-t12-draft-b,lead,plan,"double-blind T12 statement draft B (astra)",planned,
-2026-09-17,T16,271-SPEC-t16-draft-a,lead,plan,"Section 3 S3-1 leaf: double-blind T16 statement draft A (sol)",planned,
-2026-09-17,T16,272-SPEC-t16-draft-b,lead,plan,"double-blind T16 statement draft B (astra)",planned,
-2026-09-17,T16,272-SPEC-t16-draft-b,codex,worker,"gpt-6-astra low: T16 statement draft B",done,
+2026-09-17,MAINT,268-MAINT-ledger-t10-t24,codex,worker,gpt-5.6-sol xhigh (9 min): T10-T24 added to the DAG and ledger (45 nodes); make check OK,done,261
+2026-09-17,MAINT,268-MAINT-ledger-t10-t24,lead,merge,PR #261 merged directly into erenup/integration-section3,merged,261
+2026-09-17,T12,269-SPEC-t12-draft-a,lead,plan,Section 3 S3-1 leaf: double-blind T12 statement draft A (sol),planned,
+2026-09-17,T12,270-SPEC-t12-draft-b,lead,plan,double-blind T12 statement draft B (astra),planned,
+2026-09-17,T16,271-SPEC-t16-draft-a,lead,plan,Section 3 S3-1 leaf: double-blind T16 statement draft A (sol),planned,
+2026-09-17,T16,272-SPEC-t16-draft-b,lead,plan,double-blind T16 statement draft B (astra),planned,
+2026-09-17,T16,272-SPEC-t16-draft-b,codex,worker,gpt-6-astra low: T16 statement draft B,done,
 2026-09-17,T10,264-SPEC-t10-draft-b,codex,worker,"gpt-6-astra stalled again (10 reconnects, no draft in 2.4 h); relaunched on gpt-5.6-sol xhigh",relaunched,
-2026-09-17,T12,269-SPEC-t12-draft-a,codex,worker,"gpt-5.6-sol xhigh: T12 statement draft A",done,
-2026-09-17,T14,273-SPEC-t14-draft-a,lead,plan,"S3-1 leaf: double-blind T14 statement draft A (sol)",planned,
-2026-09-17,T14,274-SPEC-t14-draft-b,lead,plan,"double-blind T14 statement draft B (astra)",planned,
-2026-09-17,T22,275-SPEC-t22-draft-a,lead,plan,"S3-1 leaf: double-blind T22 statement draft A (sol)",planned,
-2026-09-17,T22,276-SPEC-t22-draft-b,lead,plan,"double-blind T22 statement draft B (astra)",planned,
-2026-09-17,T10,264-SPEC-t10-draft-b,codex,worker,"gpt-5.6-sol xhigh (15 min): T10 statement draft B (real-submodule carrier); elaborates",done,
-2026-09-17,T10,277-SPEC-t10-spec,lead,plan,"lane opened (install then sol xhigh): reconciled T10 Spec.lean + merged COMPARISON per the lead reconciliation",planned,
-2026-09-17,T16,271-SPEC-t16-draft-a,codex,worker,"statement draft done",done,
-2026-09-17,T14,273-SPEC-t14-draft-a,codex,worker,"statement draft done",done,
-2026-09-17,T14,274-SPEC-t14-draft-b,codex,worker,"statement draft done",done,
-2026-09-17,T22,275-SPEC-t22-draft-a,codex,worker,"statement draft done",done,
-2026-09-17,T22,276-SPEC-t22-draft-b,codex,worker,"statement draft done",done,
-2026-09-17,T12,270-SPEC-t12-draft-b,codex,worker,"astra died (router); relaunched on sol",relaunched,
-2026-09-17,T10,277-SPEC-t10-spec,codex,worker,"gpt-5.6-sol xhigh (16 min): reconciled T10 Spec.lean (51 decls) + COMPARISON with 17-item lemma list",done,262
-2026-09-17,T10,277-SPEC-t10-spec,lead,merge,"PR #262 merged directly into erenup/integration-section3",merged,262
-2026-09-17,T13,278-SPEC-t13-spec,lead,plan,"reconciled T13 spec on the T10 vocabulary (sol)",planned,
-2026-09-17,T16,279-SPEC-t16-spec,lead,plan,"reconciled T16 spec on the T10 vocabulary (sol)",planned,
-2026-09-17,T14,280-SPEC-t14-spec,lead,plan,"reconciled T14 spec (sol)",planned,
-2026-09-17,T22,281-SPEC-t22-spec,lead,plan,"reconciled T22 spec (sol)",planned,
+2026-09-17,T12,269-SPEC-t12-draft-a,codex,worker,gpt-5.6-sol xhigh: T12 statement draft A,done,
+2026-09-17,T14,273-SPEC-t14-draft-a,lead,plan,S3-1 leaf: double-blind T14 statement draft A (sol),planned,
+2026-09-17,T14,274-SPEC-t14-draft-b,lead,plan,double-blind T14 statement draft B (astra),planned,
+2026-09-17,T22,275-SPEC-t22-draft-a,lead,plan,S3-1 leaf: double-blind T22 statement draft A (sol),planned,
+2026-09-17,T22,276-SPEC-t22-draft-b,lead,plan,double-blind T22 statement draft B (astra),planned,
+2026-09-17,T10,264-SPEC-t10-draft-b,codex,worker,gpt-5.6-sol xhigh (15 min): T10 statement draft B (real-submodule carrier); elaborates,done,
+2026-09-17,T10,277-SPEC-t10-spec,lead,plan,lane opened (install then sol xhigh): reconciled T10 Spec.lean + merged COMPARISON per the lead reconciliation,planned,
+2026-09-17,T16,271-SPEC-t16-draft-a,codex,worker,statement draft done,done,
+2026-09-17,T14,273-SPEC-t14-draft-a,codex,worker,statement draft done,done,
+2026-09-17,T14,274-SPEC-t14-draft-b,codex,worker,statement draft done,done,
+2026-09-17,T22,275-SPEC-t22-draft-a,codex,worker,statement draft done,done,
+2026-09-17,T22,276-SPEC-t22-draft-b,codex,worker,statement draft done,done,
+2026-09-17,T12,270-SPEC-t12-draft-b,codex,worker,astra died (router); relaunched on sol,relaunched,
+2026-09-17,T10,277-SPEC-t10-spec,codex,worker,gpt-5.6-sol xhigh (16 min): reconciled T10 Spec.lean (51 decls) + COMPARISON with 17-item lemma list,done,262
+2026-09-17,T10,277-SPEC-t10-spec,lead,merge,PR #262 merged directly into erenup/integration-section3,merged,262
+2026-09-17,T13,278-SPEC-t13-spec,lead,plan,reconciled T13 spec on the T10 vocabulary (sol),planned,
+2026-09-17,T16,279-SPEC-t16-spec,lead,plan,reconciled T16 spec on the T10 vocabulary (sol),planned,
+2026-09-17,T14,280-SPEC-t14-spec,lead,plan,reconciled T14 spec (sol),planned,
+2026-09-17,T22,281-SPEC-t22-spec,lead,plan,reconciled T22 spec (sol),planned,
 2026-09-17,S4,S4-full-build,claude-opus,verifier,"full re-elaboration of all 206 Section 4 modules on erenup/integration: 232 s, 0 errors; make check/test/test-mutations OK; 37 contracts audited; report logs/SECTION4_FULL_BUILD_20260917.md folded into PR #259",done,259
-2026-09-17,T13,278-SPEC-t13-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T13 spec (localization): research/T13/Spec.lean + COMPARISON.md; elaborates; merged #263 into erenup/integration-section3",done,263
-2026-09-17,T14,280-SPEC-t14-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T14 spec (packet energy): research/T14/Spec.lean + COMPARISON.md; elaborates; merged #264 into erenup/integration-section3",done,264
-2026-09-17,T22,281-SPEC-t22-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T22 spec (bounded-domain norm): research/T22/Spec.lean + COMPARISON.md; elaborates; merged #265 into erenup/integration-section3",done,265
-2026-09-17,T16,279-SPEC-t16-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T16 spec (local potential): research/T16/Spec.lean + COMPARISON.md; elaborates; merged #266 into erenup/integration-section3",done,266
-2026-09-17,T12,opus-subagent-t12-reconciliation,claude-opus,reconciler,"drafted research/T12/RECONCILIATION.md from blind drafts 269/270; lead reviewed and approved (Type-valued API house style)",done,-
+2026-09-17,T13,278-SPEC-t13-spec,codex-gpt-5.6-sol-xhigh,spec-worker,reconciled T13 spec (localization): research/T13/Spec.lean + COMPARISON.md; elaborates; merged #263 into erenup/integration-section3,done,263
+2026-09-17,T14,280-SPEC-t14-spec,codex-gpt-5.6-sol-xhigh,spec-worker,reconciled T14 spec (packet energy): research/T14/Spec.lean + COMPARISON.md; elaborates; merged #264 into erenup/integration-section3,done,264
+2026-09-17,T22,281-SPEC-t22-spec,codex-gpt-5.6-sol-xhigh,spec-worker,reconciled T22 spec (bounded-domain norm): research/T22/Spec.lean + COMPARISON.md; elaborates; merged #265 into erenup/integration-section3,done,265
+2026-09-17,T16,279-SPEC-t16-spec,codex-gpt-5.6-sol-xhigh,spec-worker,reconciled T16 spec (local potential): research/T16/Spec.lean + COMPARISON.md; elaborates; merged #266 into erenup/integration-section3,done,266
+2026-09-17,T12,opus-subagent-t12-reconciliation,claude-opus,reconciler,drafted research/T12/RECONCILIATION.md from blind drafts 269/270; lead reviewed and approved (Type-valued API house style),done,-
 2026-09-17,S4,282-MAINT-s4-full-build-astra,codex-gpt-6-astra-low,verifier,"independent full re-elaboration of 206 Section 4 modules (219.6 s, 0 errors), gates + 37-contract axiom audit; report logs/SECTION4_FULL_BUILD_20260917_ASTRA.md folded into PR #259; latent duplicate decl Bindings.Packet/Scaling navierStokesResidual_eq noted",done,259
 2026-09-17,T10,283-T10-canonical-module,codex-gpt-5.6-sol-xhigh,worker,"canonical Lake module Section3/T10/PeriodicData.lean (50 decls, reuses Paper1/TorusCube) + probe api_on_canonical.lean (amended TorusDataAPI); codex review ACCEPT; merged #267",done,267
 2026-09-17,T12,290-SPEC-t12-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T12 spec (Type-valued MeanZeroSobolevCalculusAPI, 9 fields, amended T10 vocabulary); elaborates; merged #268",done,268
@@ -1288,15 +1288,15 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-17,T10,287-T10-leray,codex-gpt-5.6-sol-xhigh,prover,"Section3/T10/Leray.lean: leray_exists_contraction/leray_projector + periodicLeray_of_solenoidal, axioms clean; review ACCEPT; merged #272",done,272
 2026-09-17,T10,285-T10-datum-basics,codex-gpt-5.6-sol-xhigh,prover,"Section3/T10/DatumBasics.lean: datum_unique/datum_real/meanZero_datum + Fourier-coefficient lemmas, axioms clean; review ACCEPT; merged #273 — all 10 TorusDataAPI fields proved",done,273
 2026-09-17,T11,opus-subagent-t11-reconciliation,claude-opus,reconciler,"drafted research/T11/RECONCILIATION.md from blind drafts 288/289; lead reviewed and approved (SolvesBelowT, data-defined Galilean mean, Poisson pressure); found B transformed_classes false as written",done,-
-2026-09-17,T12,297-T12-canonical-module,codex-gpt-5.6-sol-xhigh,worker,"Section3/T12/MeanZeroCalculus.lean (new T12 defs on top of T10 module; lift/gradientTensor/laplacian reuse A05/C01 with rfl checks) + probe api_on_canonical.lean; merged #274",done,274
-2026-09-18,T01,293-T01-torus-data-contract,codex-gpt-5.6-sol-xhigh,contract-worker,"registered T01.torus_data (Contracts/V1/TorusData.lean + Bindings + Tests; 38 contracts; gates green); review ACCEPT-WITH-NOTES; merged #275",done,275
-2026-09-18,T13,299-T13-canonical-module,codex-gpt-5.6-sol-xhigh,worker,"Section3/T13/Localization.lean (new T13 defs on top of T10 module; reuses D01 dotHomogeneousENorm with rfl checks) + probe api_on_canonical.lean; merged #276",done,276
+2026-09-17,T12,297-T12-canonical-module,codex-gpt-5.6-sol-xhigh,worker,Section3/T12/MeanZeroCalculus.lean (new T12 defs on top of T10 module; lift/gradientTensor/laplacian reuse A05/C01 with rfl checks) + probe api_on_canonical.lean; merged #274,done,274
+2026-09-18,T01,293-T01-torus-data-contract,codex-gpt-5.6-sol-xhigh,contract-worker,registered T01.torus_data (Contracts/V1/TorusData.lean + Bindings + Tests; 38 contracts; gates green); review ACCEPT-WITH-NOTES; merged #275,done,275
+2026-09-18,T13,299-T13-canonical-module,codex-gpt-5.6-sol-xhigh,worker,Section3/T13/Localization.lean (new T13 defs on top of T10 module; reuses D01 dotHomogeneousENorm with rfl checks) + probe api_on_canonical.lean; merged #276,done,276
 2026-09-18,T15,opus-subagent-t15-reconciliation,claude-opus,reconciler,"drafted research/T15/RECONCILIATION.md from blind drafts 291/292; lead reviewed and approved (PlacementData parameter, ClassicalSolutionT PDE clause, forceConvergence field; dropped rfl-true / junk-dischargeable clauses)",done,-
 2026-09-18,T11,298-SPEC-t11-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T11 spec (5 structures, 26 fields, data-defined Galilean mean, SolvesBelowT continuation); elaborates; merged #277",done,277
 2026-09-18,T15,301-SPEC-t15-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T15 spec (Type-valued ScalingAPI over PlacementData, 21 fields, imports T01.torus_data); elaborates; merged #278",done,278
 2026-09-18,T10,296-MAINT-t10-instance-dedupe,codex-gpt-5.6-sol-xhigh,maint,"named the torus-measure instance once in PeriodicData.lean, removed the three anonymous duplicates; Bindings/TorusData.lean assembles torusData directly from the four proof modules; gates green, 38 contracts; review ACCEPT; merged #279",done,279
 2026-09-18,T12,300-T12-spectral-gap,codex-gpt-5.6-sol-xhigh,prover,"Section3/T12/SpectralGap.lean: spectralGap (gapConst=(1+1/(4π²))^(s/2)) + homogeneous_le_sobolev + reweightDatum, axioms clean; review ACCEPT; merged #280",done,280
-2026-09-18,T11,302-T11-canonical-module,codex-gpt-5.6-sol-xhigh,worker,"Section3/T11/LocalTheory.lean (new T11 defs; rfl checks vs A01/A04 sources and Contracts/V2) + probe + IMPLEMENTATION_CANDIDATES.md survey; merged #281",done,281
+2026-09-18,T11,302-T11-canonical-module,codex-gpt-5.6-sol-xhigh,worker,Section3/T11/LocalTheory.lean (new T11 defs; rfl checks vs A01/A04 sources and Contracts/V2) + probe + IMPLEMENTATION_CANDIDATES.md survey; merged #281,done,281
 2026-09-18,T11,opus-subagent-t11-split,claude-opus,planner,"wrote research/T11/T11_SPLIT.md (17 units, 5 waves, conversions table, risks); lead approved; wave 1 = lanes 308/309/310/311",done,-
 2026-09-18,T10,305-T10-fourier-calculus,codex-gpt-6-astra-low,prover,"Section3/T10/FourierCalculus.lean: derivative/Laplacian symbols, rapid decay, summability, pointwise inversion, sup bound (12 theorems, axioms clean); review REJECT for missing scope (items 11/12) not errors; lead merged as partial #282, scope → lane 312",done-partial,282
 2026-09-18,T11,311-T11-U9a-existence-probe,codex-gpt-6-astra-low,prover,"Section3/T11/LocalExistenceProbe.lean: route R2 decided (EXISTENCE_ROUTE.md), T³ two-space contract, heat-semigroup rung (17 theorems, axioms clean); found quantifier defect in the named input → lead amendment 1; review ACCEPT; merged #283",done,283
@@ -1317,19 +1317,19 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T11,325-T11-U9d1a-half-step,codex-gpt-6-astra-low,prover,"returned an alias stub for TorusHalfStepInput (twice: first run on a base missing Persistence.lean, second after relaunch); discarded; split into 328/329/330 with no named input allowed",discarded,-
 2026-09-18,T20,324-SPEC-t20-spec,codex-gpt-6-astra-low,spec-worker,"first accepted-looking run was Draft A with a new header (9 fields, no rfl checks); discarded; relaunched with the 12-field checklist",discarded,-
 2026-09-18,T11,326-T11-U9d2a-pressure,codex-gpt-6-astra-low,prover,"second run again a stub (40 lines, 3 trivial theorems); discarded; handed to an Opus prover subagent",discarded,-
-2026-09-18,T20,324-SPEC-t20-spec,codex-gpt-6-astra-low,spec-worker,"reconciled T20 spec (CriticalRegularityTAPI: constants + 11 clauses per reconciliation checklist); elaborates; merged #296",done,296
+2026-09-18,T20,324-SPEC-t20-spec,codex-gpt-6-astra-low,spec-worker,reconciled T20 spec (CriticalRegularityTAPI: constants + 11 clauses per reconciliation checklist); elaborates; merged #296,done,296
 2026-09-18,T11,328-T11-U9d1a-real-order-convolution,claude-opus,prover,"Section3/T11/ConvolutionBoundReal.lean: bounded bilinear H^r×H^r→H^{r-1} for all real r≥3, coefficient identities, reweighting compatibility, TorusConvolutionInput recovered (36 decls, axioms clean); review ACCEPT; merged #297",done,297
 2026-09-18,T11,329-T11-U9d1b-fractional-smoothing,claude-opus,prover,"Section3/T11/FractionalSmoothing.lean: sigma=3/2 heat smoothing CLM with explicit constant, kernel integrability and value, strong continuity, solenoidality (32 decls, axioms clean); review ACCEPT-WITH-NOTES; merged #298",done,298
 2026-09-18,T11,326-T11-U9d2a-pressure,claude-opus,prover,"Section3/T11/MildPressure.lean: Leray-complement pressure, Poisson, gauge, periodicity, gradient datum, spatial smoothness from PersistenceInput (80 decls, axioms clean); residual joint time smoothness → 327; two review passes, fixes proved, merged #302",done,302
-2026-09-18,T24,306-SPEC-t24-draft-a,codex-gpt-6-astra-low,spec-worker,"104-line shallow draft with self-made T15 stubs; discarded; relaunched on sol with quality clause",discarded,-
+2026-09-18,T24,306-SPEC-t24-draft-a,codex-gpt-6-astra-low,spec-worker,104-line shallow draft with self-made T15 stubs; discarded; relaunched on sol with quality clause,discarded,-
 2026-09-18,T11,321-T11-U10-U11-restart-horizon,codex-gpt-5.6-sol-xhigh,prover,"Section3/T11/Restart.lean: restart from PeriodicQuantitativeLocalInput', time-shift lemmas, horizon/solution/regularity package (8 theorems, axioms clean); review ACCEPT; merged #299",done,299
 2026-09-18,T11,330-T11-U9d1c-duhamel-half-step,claude-opus,prover,"Section3/T11/DuhamelHalfStep.lean: theorem torusHalfStepInput proved outright; persistence_unconditional; bounded torusLerayCLM at every real order; continuous Leray force paths; HeliCorgi endpoint-safe contract instance (43 decls, axioms clean); review ACCEPT-WITH-NOTES; merged #301",done,301
 2026-09-18,T11,323-T11-U15-maximal,codex-gpt-5.6-sol-xhigh,prover,"Section3/T11/Maximal.lean: maximal_unique (unconditional), exists_maximal from PeriodicMaximalExistenceInput (U11's output), maximalLifespanT_eq_lifespan (12 theorems, axioms clean); review ACCEPT; merged #300",done,300
-2026-09-18,T17,opus-subagent-t17-reconciliation,claude-opus,reconciler,"drafted research/T17/RECONCILIATION.md from blind drafts 294/295; lead approved (PlacementData parameter yes; mixedLebesgueENormT stays local)",done,-
+2026-09-18,T17,opus-subagent-t17-reconciliation,claude-opus,reconciler,drafted research/T17/RECONCILIATION.md from blind drafts 294/295; lead approved (PlacementData parameter yes; mixedLebesgueENormT stays local),done,-
 2026-09-18,T11,327-T11-U9d2b-momentum,claude-opus,prover,"Section3/T11/MildMomentum.lean: Duhamel time differentiation (first derivative), momentum/projected equations for any pressure with gradient datum (I-P)(F-Q), instantiated with mildPressure (74 decls, axioms clean); residual full time smoothness; force persistence discharged; merged #304",done,304
 2026-09-18,T17,333-SPEC-t17-spec,codex-gpt-5.6-sol-xhigh,spec-worker,"reconciled T17 spec (CorrectionAPI over PlacementData, 987 lines); elaborates; merged #303",done,303
 2026-09-18,T11,322-T11-U12-high-order,claude-opus,prover,"Section3/T11/HighOrder.lean: higherOrderBound from the eq:Rhigh energy inequality hRhigh; pressure drop, Laplacian pairing, force term, Young, Gronwall chain proved (36 decls); residual hRhigh = coefficient-path time differentiability + pairing-level tame product (U12a/U12b); review REJECT for scope; merged as partial #305",done-partial,305
-2026-09-18,T11,331-T11-U6-transport,codex-gpt-5.6-sol-xhigh,prover,"returned a goal-repackaging stub (transportInput); discarded; handed to an Opus prover with a no-named-input clause",discarded,-
+2026-09-18,T11,331-T11-U6-transport,codex-gpt-5.6-sol-xhigh,prover,returned a goal-repackaging stub (transportInput); discarded; handed to an Opus prover with a no-named-input clause,discarded,-
 2026-09-18,T11,332-T11-U13-restart-beyond,claude-opus,prover,"Section3/T11/RestartBeyond.lean: restartBeyond verbatim from PeriodicQuantitativeLocalInput via restart; glueClassicalSolutionT with agreement on [0,T) (12 decls, axioms clean); review ACCEPT-WITH-NOTES; merged #306",done,306
 2026-09-18,T11,337-T11-U14-U16-extends-lifespan,claude-opus,prover,"Section3/T11/ExtendsBeyond.lean: extendsBeyond and lifespanInfiniteOfLocallyFinite from the existence input + higherOrderBound binder; exists_maximal bridge; (9 decls, axioms clean); review ACCEPT-WITH-NOTES; merged #307",done,307
 2026-09-18,T11,335-T11-U12a-energy-identity,claude-opus,prover,"Section3/T11/EnergyIdentity.lean: coefficient differentiation under the integral, momentum in coefficient form, pressure drop at every frequency, H^m energy identity, hRhigh/higherOrderBound from the pairing bound (51 decls, axioms clean); projected form added after review; merged #308",done,308
@@ -1338,7 +1338,18 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T11,336-T11-U12b-pairing-bound,claude-opus,prover,"Section3/T11/PairingBound.lean: pairing-level tame bound with explicit constant, lattice summability for r>3/2, gradient Peetre; torusHigherOrderBound unconditional (33 decls, axioms clean); review ACCEPT-WITH-NOTES; merged #311",done,311
 2026-09-18,T11,338-T11-U9e-existence-input-h3,claude-opus,prover,"Section3/T11/ExistenceInputH3.lean: PeriodicQuantitativeLocalInputH3 proved outright (explicit picardHorizon ν K (M 3)), H3 re-instantiations of restart/restartBeyond/extendsBeyond/lifespan/maximal, H1_GAP.md (24 decls, axioms clean); repaired 334 vs deduped 327; process-only REJECT resolved by rebase; merged #312",done,312
 2026-09-18,S3,S3-full-build-2,claude-opus,verifier,"full re-elaboration of all 35 Section 3 modules on erenup/integration-section3 @2488ed41: 89 s, 0 errors; gates green; 58/58 probes+audits pass; 38 contracts; report logs/SECTION3_BUILD_20260918.md",done,-
-2026-09-18,T11,339-T11-U6b-regularity-of-classical,claude-opus,prover,"Section3/T11/ClassicalRegularity.lean: every ClassicalSolutionT has PeriodicLocalRegularity (smooth lp datum paths up to t=0 via Bernstein bounds + Tannery, Poisson from momentum+divergence), unconditional API corollaries (82 decls, axioms clean); awaiting codex review",done,-
-2026-09-18,T24,opus-subagent-t24-reconciliation,claude-opus,reconciler,"drafted research/T24/RECONCILIATION.md from blind drafts 306/307; lead approved (whole-space prop:affine on I01.packet; two false clauses in B fixed; vacuity/non-paper hypothesis removed)",done,-
-2026-09-18,T11,340-T11-U17-assembly-contract,claude-opus,contract-worker,"Section3/T11/Assembly.lean + Contracts/V1/TorusLocalTheory.lean + Bindings + Tests: T01.torus_local_theory registered (39 contracts; PeriodicLocalTheoryAPI 8, PeriodicContinuationH3API 5, MeanReduction 6, ViscosityRescaling 4; H1 predicates named and machine-checked as the only residue); awaiting codex review",done,-
-2026-09-18,T12,341-T12-h2-linfty-laplacian-lambda,claude-opus,proof-worker,"Section3/T12/FourierEmbeddings.lean: boundedRepresentative (Cinfty=linftyConst), hTwo_le_laplacian (1+1/(4π²)), lambda_exists (lambdaField); a.e. L2 Fourier inversion ae_eq_torusScalarSeries; awaiting codex review",done,-
+2026-09-18,T11,339-T11-U6b-regularity-of-classical,claude-opus,prover,"Section3/T11/ClassicalRegularity.lean: every ClassicalSolutionT has PeriodicLocalRegularity (smooth lp datum paths up to t=0 via Bernstein bounds + Tannery, Poisson from momentum+divergence), unconditional API corollaries (82 decls, axioms clean); awaiting codex review",merged,314
+2026-09-18,T24,opus-subagent-t24-reconciliation,claude-opus,reconciler,drafted research/T24/RECONCILIATION.md from blind drafts 306/307; lead approved (whole-space prop:affine on I01.packet; two false clauses in B fixed; vacuity/non-paper hypothesis removed),done,-
+2026-09-18,T11,340-T11-U17-assembly-contract,claude-opus,contract-worker,"Section3/T11/Assembly.lean + Contracts/V1/TorusLocalTheory.lean + Bindings + Tests: T01.torus_local_theory registered (39 contracts; PeriodicLocalTheoryAPI 8, PeriodicContinuationH3API 5, MeanReduction 6, ViscosityRescaling 4; H1 predicates named and machine-checked as the only residue); awaiting codex review",merged,313
+2026-09-18,T12,341-T12-h2-linfty-laplacian-lambda,claude-opus,proof-worker,"Section3/T12/FourierEmbeddings.lean: boundedRepresentative (Cinfty=linftyConst), hTwo_le_laplacian (1+1/(4π²)), lambda_exists (lambdaField); a.e. L2 Fourier inversion ae_eq_torusScalarSeries; awaiting codex review",merged,316
+2026-09-18,T12,342-T12-tame-product,claude-opus,proof-worker,"Section3/T12/TameProduct.lean: tameProduct unconditional (tameProductConst m = 4^(m/2)·√S), torusYoungConvolution (ℓ²∗ℓ¹ on Z³), torusLift_ae_eq_series, periodicFourierCoeff_mul_of_series; residual: vector corollary/A03 bridges out of scope; awaiting codex review",merged,315
+2026-09-18,T13,344-T13-constant-endpoints,claude-opus,proof-worker,"Section3/T13/ConstantEndpoints.lean: constant_pos_finite (radial majorant cFracRadial), endpoint_zero/endpoint_one (single-copy periodize_eq_of_mem_cube, null frontier); byproducts interior_fundamentalCube etc.; awaiting codex review",done,-
+2026-09-18,T24,343-SPEC-t24-spec,gpt-6-astra(low),spec-worker,DISCARDED: 84-line Spec.lean with True fields / ck := 0 / tautological distinct clause; worktree base (33102210) predated the reconciliation commit 84490fdc so RECONCILIATION.md was missing; redone as lane 350 (Opus),discarded,-
+2026-09-18,T14,346-T14-packet-energy,gpt-5.6-sol,proof-worker,Section3/T14/PacketEnergy.lean: energy_le_work_of_packet + work_eq_square_of_packet over raw PacketAPI clauses; probe api_on_canonical.lean closes packetImportStatement and PacketImportFamily via Bindings.packet; awaiting codex review,merged,318
+2026-09-18,T16,347-T16-local-potential,claude-opus,proof-worker,Section3/T16/LocalPotential.lean: canonical restatement + exists_originCutoff/exists_timeCutoff/exists_threshold + localPotential_zero (full API for v=0); gaps: ball radial potential (I02 lemmas need univ) and lattice lift of the periodic correction; awaiting codex review,done-partial,-
+2026-09-18,MAINT,349-MAINT-section3-build,gpt-6-astra,build-check,logs/SECTION3_BUILD_20260918b.md: 42 Section 3 modules rebuilt rc 0 78 s 0 errors 0 S3 warnings; gates green; 76/76 probes; ledger T10 contracts += T01.torus_data,merged,317
+2026-09-18,T13,345-T13-torus-identity,claude-opus,proof-worker,"Section3/T13/TorusIdentity.lean: torus_identity unconditional (ITorus s f = cFrac s · periodicHomogeneousENorm s (meanZeroPartT f)^2, finiteness); by-products cFrac_lt_top, periodicFourierCoeff_shift, kernelIntegral_eq, halfOpenCube tiling; awaiting codex review",merged,320
+2026-09-18,T24,350-SPEC-t24-spec,claude-opus,spec-worker,"research/T24/Spec.lean: AffineVariationAPI (13, whole space) / MultipleRegionsAPI (30, torus) / ConservativeForcingAPI (2) + existence statements; elaborates 0 errors; replaces discarded 343",merged,319
+2026-09-18,T14,355-T14-packet-contract,gpt-5.6-sol,contract-worker,"Contracts/V1/PacketImport.lean + Bindings/PacketImport.lean + Tests/PacketImport.lean: T01.packet_import v1 registered (40 contracts), ledger T14 claimed; gates green; awaiting codex review",merged,321
+2026-09-18,T16,351-T16-ball-potential,claude-opus,proof-worker,"Section3/T16/BallPotential.lean: timePotential_contDiffOn_ball, spatialCurl_timePotential_on_ball (segment-local curl), exists_potential_on_ball = potential_smooth/formula/curl fields; awaiting codex review (stacked on 347)",done,-
+2026-09-18,T13,348-T13-wholespace-identity,claude-opus,proof-worker,"Section3/T13/WholeSpaceIdentity.lean: wholeSpace_identity unconditional (IReal s f = cFrac s · dotHomogeneousENorm s f^2, finiteness); dotHomogeneousENorm_eq_homogeneousFourierENorm, lintegral_angularFourier_sq, lintegral_kernel_smul; awaiting codex review (stacked on 344)",done,-
