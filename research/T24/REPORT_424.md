@@ -64,3 +64,8 @@ All from the worktree, after `. scripts/lean-env.sh`, `lake` from `verification/
 - `make check` → `Ran 13 tests ... OK`, `45 work items: ownership, contract registration and task cards consistent.`, **EXIT 0**
 - `grep` for `sorry|admit|native_decide|axiom` over the three new files → no hits (only the `#print axioms` lines)
 - `LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T24.AffineForce` (base sanity, before starting) → `Build completed successfully (3008 jobs).`
+
+
+## Lead ruling after review 424 (REJECT only for the missing mutation record; merged on lead authority)
+
+The reviewer accepted the theorem, builds, gates and axioms and asked for a genuine substantive negative mutation. The worker recorded three (`ATTEMPTS_UA8.md` §3b): the limit target `𝓝 0 → 𝓝 1` (type mismatch at the `ENNReal.Tendsto.mul_const` step), dropping the `λ`-scaling (proof breaks and the mutated statement is *refuted* — `False` derived for every nonzero `b`), and the sign of the `λ²−λ` coefficient (`ring` residual `lam^2 = lam*2 + lam^2`, and the `nonisolated` proof no longer typechecks). This satisfies the review requirement.
