@@ -174,6 +174,23 @@ The verbatim T10 copies in `Spec.lean` (`IsPeriodicDatum`,
 `research/T10/RECONCILIATION.md` §5 (Haar-integrability conjunct).  No T13
 field changes meaning: all localization fields quantify over smooth fields.
 
+## §1 status — Proved by lane 345
+
+- **`torus_identity`**: PROVED (lane 345, no named input).
+  `formalization/NSFormalization/Section3/T13/TorusIdentity.lean`,
+  `NSFormalization.Section3.T13.torus_identity`; the API field closes by
+  `example` in `research/T13/probes/torus_identity_closes.lean`.  Proof
+  dependency items 3 (cube/Haar/Fourier bridge, via
+  `lintegral_fundamentalCube_ofReal` and `fundamentalCube_ae_eq_halfOpenCube`)
+  and 4 (periodic homogeneous identity, via `exists_homogeneous_datum`,
+  `homogeneousDatum_unique`, `periodicHomogeneousENorm_sq_smooth`) are
+  discharged locally, so the open question 1 for the owner ("should T10 expose
+  a homogeneous existence/norm theorem?") is answered privately in T13 for now.
+  Item 1 is covered only in its finiteness half (`cFrac_lt_top`); positivity of
+  `c_s` remains with lane 344.  Reusable by-products: `kernelIntegral_eq`
+  (rotation + dilation), `lintegral_eq_tsum_halfOpenCube` (single-copy
+  unfolding), `periodicFourierCoeff_shift` (Fourier translation).
+  Record: `research/T13/REPORT_345.md`, `research/T13/ATTEMPTS_TORUS_IDENTITY.md`.
 ## Proved by lane 344 (2026-09-18)
 
 Module `formalization/NSFormalization/Section3/T13/ConstantEndpoints.lean`
@@ -216,6 +233,40 @@ explicit nonzero `ContDiffBump`-based field in `ball ((½,½,½)) (3/8)`).
 Axioms: `research/T13/axioms_constant_endpoints.lean` — 35 declarations, all
 `[propext, Classical.choice, Quot.sound]`.
 Notes: `research/T13/ATTEMPTS_CONSTANT_ENDPOINTS.md`, report `research/T13/REPORT_344.md`.
+
+## §2/§3 kernel-estimate status — lane 353 (2026-09-18)
+
+Module `formalization/NSFormalization/Section3/T13/LocalizationKernel.lean`
+(namespace `NSFormalization.Section3.T13`) ships three of the concrete analytic
+estimates behind `eq:localization` (no `LocalizationAPI` field; lane 354
+assembles).  Axioms of all public declarations: `[propext, Classical.choice,
+Quot.sound]`.
+
+| Estimate | Status | Declarations |
+|---|---|---|
+| Uniform lattice-tail bound (`:80-89`) | **proved** | `summable_latticeVector_rpow`, `tailSum`, `tailConst`, `tailSum_lt_top`, `tailConst_lt_top`, `latticeTail_le_tailConst` |
+| `2r < 1` from the admissible ball (`:79-80`) | **proved** | `two_r_lt_one_of_closure_ball_subset` |
+| Inhomogeneous ≤ `L²` + homogeneous on `T³` (`:73-78`) | **proved** | `periodicSobolevENorm_le_l2_add_homogeneous` |
+| Kernel comparison `ITorus ≤ IReal + tail·‖f‖²` (`:79-94`) | **lane 354** | — (clearance constant `C_{s,d}`) |
+
+The §3 estimate uses the **coefficient-side** `L²` norm `periodicSobolevENorm 0 g`
+(the physical `eLpNorm g 2 periodicTorusMeasure` in the brief does not
+type-check for `g : Space → Space`); the **assembly lane 359** supplies the
+Parseval-at-0 bridge to reach `endpoint_zero`'s `eLpNorm f 2 volume` (item 8;
+T10 already has `sobolevENorm_zero_eq`).
+
+The §2 kernel comparison is **lane 354's** (running on this branch, with the
+geometric constant `C_{s,d}`), not lane 353's: the brief's constant
+`4·tailConst s (2r)·‖f‖₂²` is insufficient because on the full cube×cube tail
+integral one point may be in the ball and the other far (`‖x-y‖ ≰ 2r`); the
+paper uses the geometric separation `d = dist(closure B, ∂Q)` instead.  Exact
+residual lemmas in `research/T13/ATTEMPTS_LOCALIZATION_KERNEL.md`
+("NOT shipped — §2").
+
+Records: `research/T13/ATTEMPTS_LOCALIZATION_KERNEL.md`,
+`research/T13/axioms_localization_kernel.lean` (8 declarations),
+probe `research/T13/probes/localization_kernel_closes.lean`,
+report `research/T13/REPORT_353.md`.
 ## §1 status — Proved by lane 345
 
 - **`torus_identity`**: PROVED (lane 345, no named input).
