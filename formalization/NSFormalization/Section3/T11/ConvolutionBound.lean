@@ -428,7 +428,7 @@ theorem torusTwoSpaceContract_nonempty' (ν : ℝ) (hν : 0 < ν) :
     Nonempty (TorusTwoSpaceContract ν) :=
   torusTwoSpaceContract_nonempty torusConvolutionInput ν hν
 
-/-- A nonzero datum and nonzero forcing mode test the actual convolution map. -/
+/-- Two nonzero constant-mode data test the actual convolution map. -/
 theorem torusConvolutionCLM_constants
     (c d : NavierStokes.ProblemStatement.Space) :
     torusConvolutionCLM (torusConstantDatum 3 c) (torusConstantDatum 3 d) = 0 := by

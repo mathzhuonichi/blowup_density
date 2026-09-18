@@ -30,7 +30,7 @@ example (A B : PeriodicSobolev 3) (i : Fin 3) (k : PeriodicFrequency) :
 
 example : ‖torusConvolutionCLM‖ ≤ torusConvolutionConstant := torusConvolutionCLM_norm_le
 
--- Nonzero datum and force modes, without any residual input hypothesis.
+-- Two nonzero constant-mode data, without any residual input hypothesis.
 example : ∃ A B : PeriodicSobolev 3,
     A ≠ 0 ∧ B ≠ 0 ∧ torusConvolutionCLM A B = 0 := by
   let c : NavierStokes.ProblemStatement.Space := WithLp.toLp 2 (fun _ ↦ 1)
