@@ -85,7 +85,7 @@ all 12 declarations), `research/T11/ATTEMPTS_RESTART_BEYOND.md`, one appended st
 
 | command | result |
 |---|---|
-| `cd verification && LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T11.RestartBeyond` | `Build completed successfully (10562 jobs)`, 0 errors, 0 warnings from this module |
+| `cd verification && LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T11.RestartBeyond` | `Build completed successfully (10562 jobs)`, 0 errors, no warnings from this module; dependency warnings may print from this module |
 | `cd verification && lake env lean ../formalization/NSFormalization/Section3/T11/RestartBeyond.lean` | no output, exit 0 |
 | `cd verification && lake env lean ../research/T11/probes/restart_beyond_closes.lean` | no output, exit 0 |
 | `cd verification && lake env lean ../research/T11/axioms_restart_beyond.lean` | no output, exit 0 — all 12 declarations print exactly `[propext, Classical.choice, Quot.sound]` |
