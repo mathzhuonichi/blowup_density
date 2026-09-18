@@ -1,4 +1,4 @@
-import NSFormalization.Section3.T10.PeriodicData
+import NSFormalization.Section3.T24.Conservative
 import NavierStokes.PeriodicUniqueness
 
 /-!
@@ -26,11 +26,11 @@ symmetry), and discharge `∫_{cube} ⟪u, ∇φ⟫ = 0` for the divergence-free
 ## Lane note (deduplication)
 
 `PeriodicPotentialT` and `conservativeForceT` are the T24c vocabulary
-(`research/T24/Spec.lean:1367-1372`).  Their canonical module
-`Section3/T24/Conservative.lean` (lane 392) had not landed on this lane's base,
-so both are restated here **verbatim** under the intended
-`NSFormalization.Section3.T24` namespace.  The assembly lane (Uc3) should dedupe
-against lane 392's copy.
+(`research/T24/Spec.lean:1367-1372`,
+`paper/sections/03-torus.tex:723-726`): `PeriodicPotentialT φ` is the smooth
+unit-periodic potential class, `conservativeForceT φ = -∇φ` the conservative
+force in the pressure-gradient token.  Both are now imported from lane 392's
+canonical `Section3/T24/Conservative.lean` rather than restated here.
 -/
 
 noncomputable section
@@ -43,17 +43,6 @@ open NavierStokes.PeriodicIntegration (cubeIntegral cubeIntegral_neg UnitPeriods
 open NSFormalization.Section4.A02 (SpatialField SpaceTimeField SpaceTimeScalar)
 open NSFormalization.Section3.T10
 open scoped ContDiff ENNReal BigOperators RealInnerProductSpace
-
-/-- `03-torus.tex:723-726` (`research/T24/Spec.lean:1367-1369`, verbatim): the
-conservative potential class — a globally defined smooth scalar `φ` on
-spacetime, unit-periodic in every spatial coordinate. -/
-def PeriodicPotentialT (φ : SpaceTimeScalar) : Prop :=
-  ContDiff ℝ ∞ φ ∧ IsPeriodicOn univ φ
-
-/-- `03-torus.tex:723-726` (`research/T24/Spec.lean:1371-1372`, verbatim): the
-conservative force `f = -∇φ`, in the registered pressure-gradient token. -/
-def conservativeForceT (φ : SpaceTimeScalar) : SpaceTimeField :=
-  fun z ↦ -pressureGradient φ z.1 z.2
 
 /-- `03-torus.tex:729-731` (`research/T24/Spec.lean:1391-1406`): the displayed
 pairing `∫_{T³} f·u = -∫∇φ·u = 0` at every time of the classical lifespan, for

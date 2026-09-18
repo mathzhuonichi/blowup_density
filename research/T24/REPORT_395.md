@@ -90,3 +90,18 @@ cd verification && lake env lean ../research/T24/axioms_uc2.lean
 make check
   → contract_policy 13 tests OK; check_work_queue 45 items consistent; architecture checks pass.
 ```
+
+## Addendum (post-review dedup)
+
+Codex review: ACCEPT-WITH-NOTES. Lane 392's canonical
+`Section3/T24/Conservative.lean` (PR #357) landed on
+`origin/erenup/integration-section3` declaring `PeriodicPotentialT` /
+`conservativeForceT` in the same namespace with token-identical code (docstrings
+differ). Merged that branch (`git merge --no-edit`, no conflicts) and changed
+`PotentialPairing.lean` to `import NSFormalization.Section3.T24.Conservative` and
+**delete** its two duplicate defs (paper citations kept as a module comment);
+`Conservative.lean` untouched. The theorem, probe, axioms and `make check` all
+still pass unchanged — `conservativeForceT φ (t,x) = -pressureGradient φ t x`
+remains `rfl` against the imported def, and axioms stay
+`[propext, Classical.choice, Quot.sound]`. Rebuild: `Build completed
+successfully (9927 jobs)`.
