@@ -371,3 +371,40 @@ not successful application of the complete single-further-input peeling fallback
 A common-horizon nonzero constant-force trajectory satisfies the input, the genuine
 mild equation and full recovery together. All 26 named declarations pass exact
 standard-three-axiom guards. Details: REPORT_320.md and ATTEMPTS_CLASSICAL_ASSEMBLY.md.
+
+## U9d1c status (lane 330)
+
+`TorusHalfStepInput` is **proved**: `Section3/T11/DuhamelHalfStep.lean` contains
+`theorem torusHalfStepInput : TorusHalfStepInput`, and with it
+`persistence_halfOrder_ladder_unconditional` and `persistence_unconditional` —
+lane 319's conditional persistence with its one named input discharged, on the
+original horizon and with no shrinkage. The U9d1 residual recorded above is
+therefore closed; the general U9d existential target (physical field, time
+regularity, pressure, momentum) is unchanged and still open.
+
+Route, with `σ = r + 1/2`:
+`w(t) = e^{νtΔ}A′ + ∫₀ᵗ e^{ν(t−τ)Δ}P_σ(τ)dτ − ∫₀ᵗ S_frac(ν(t−τ))Q_r(v τ, v τ)dτ`.
+`A′` is the order-`σ` datum of the smooth initial field; `Q_r` is lane 328's
+real-order projected convolution `H^r × H^r → H^{r−1}`; `S_frac` is lane 329's
+gain-`3/2` smoothing with the integrable endpoint kernel `(ν(t−τ))^{-3/4}`; the
+exponents match exactly, `W^{3/4}W^{(r−3)/2} = W^{(σ−3)/2}W^{1/2}`.
+
+Two things the brief's version of the route did not have. (i) The **force must
+be used at the top order**: gaining `σ` derivatives from the order-three force
+costs the kernel `(t−τ)^{-σ/2}`, integrable only for `σ < 2`, whereas `r ≥ 3` is
+arbitrary. Hence `exists_continuous_lerayForcePath σ`, which builds a
+*continuous* order-`σ` Leray force path from `ContDiff ℝ ∞ g` by taking the
+integer-order continuous datum path of `Section3/T10/ForcePaths.lean` at
+`m = ⌈σ⌉₊`, descending with the bounded `persistenceDown`, and projecting with
+(ii) the new **bounded Leray operator at every real order**,
+`torusLerayCLM (s : ℝ) : PeriodicSobolev s →L[ℝ] PeriodicSobolev s`
+(`Section3/T10/Leray.lean` only had an existential), which commutes with order
+transport and is unique, so the hypothesis' `P t` is literally `torusLerayCLM 3 (F t)`.
+
+Integrability and continuity of the singular Duhamel term are not re-proved: the
+module builds a genuine
+`MNS2.EndpointSafeTwoSpaceDuhamelContract ℝ (PeriodicSobolev (r+1/2)) (PeriodicSobolev (r-1))`
+(`torusFracContract`) out of lanes 328/329, so HeliCorgi's endpoint-safe theory
+applies verbatim; continuity on the half-open `Ico 0 T` is obtained from closed
+subwindows. All 45 declarations pass exact standard-three-axiom guards.
+Details: `REPORT_330.md`, `ATTEMPTS_DUHAMEL_HALF_STEP.md`.
