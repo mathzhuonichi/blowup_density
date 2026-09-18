@@ -98,3 +98,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 330-T11-U9d1c-duhamel-half-step | 已合入 #301（codex ACCEPT-WITH-NOTES：报告措辞；Opus 产出）：持续性无条件 | 09-18 0526Z | #301 | — | T11 U9d1c：Duhamel 端点连续 + `theorem torusHalfStepInput : TorusHalfStepInput` → 持续性无条件 |
 | 331-T11-U6-transport | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0526Z | — | — | T11 U6：解在光滑变量替换下的转运构造 → `transformed_solution`/`to_unit`/`from_unit`（L，sol） |
 | 332-T11-U13-restart-beyond | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0526Z | — | — | T11 U13：`restartBeyond`（用 321 的 restart 在 H¹ 球取 δ，t₀ 靠近 S 重启并粘合，唯一性给重叠一致；输入 PeriodicQuantitativeLocalInput'）（M–L，sol） |
+| 333-SPEC-t17-spec | 排队（下一个 codex 空位；简报已写） | 09-18 0530Z | — | — | SPEC **T17 定稿**：按 research/T17/RECONCILIATION.md（B 为基 + A 五处；Type 值 `CorrectionAPI` 带 T15 `PlacementData` 参数；实数常数 + `ENNReal.ofReal`；注册 `alpha`）→ Spec.lean + COMPARISON.md |
