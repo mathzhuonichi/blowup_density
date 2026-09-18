@@ -153,6 +153,17 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   `cyclesToAngularReal_symm_norm_le`, `Paper3/AngularRealSobolev.lean:84`, exists — build the `WithLp 2` vector
   version), scalar Plancherel `Lp.norm_fourier_eq`, and the Euclidean Pythagorean `L²` identity
   `eLpNorm z 2 volume ^2 = ∑ i, eLpNorm (z·i) 2 volume ^2`. **M–L, Opus.** Deps: —.
+  **STATUS — DONE (2026-09-18, lane 387).** `Section3/T22/OrderZeroIsometry.lean` proves
+  `norm_orderZeroDatum_eq` verbatim. The Pythagoras identity already existed in
+  `Section4/D01/FiniteOrderNorm.lean` (`norm_toLp_component_sq_sum` / `eLpNorm_component_sq_sum`,
+  which also carry the `≤`-half `norm_orderZeroDatum_le`), so the new content is only the *isometry*:
+  the vector isometry is delivered as `cyclesToAngularRealVector_zero_norm` (forward, not `symm`) via
+  the scalar `cyclesToAngularReal_zero_norm`. The direct subspace `symm` overflows even 400000
+  heartbeats, so the isometry is routed through the plain-`Lp` `cyclesToAngular_zero_norm` +
+  two `rfl` coercion bridges (`norm_coe_realSobolev`, `coe_cyclesToAngularReal_zero`); each
+  declaration fits `maxHeartbeats 400000`, all print `[propext, Classical.choice, Quot.sound]`.
+  Probe: `research/T22/probes/orderzero_isometry_closes.lean` (nonzero `ContDiffBump` field,
+  both sides finite and equal). Details: `research/T22/ATTEMPTS_UA4.md`, `research/T22/REPORT_387.md`.
 
 - **U-A5 — `orderZero` (analytic)** (new analysis). New `Section3/T22/OrderZero.lean`. No named input.
   Target: `BoundedDomainNormAPI.orderZero` **verbatim** (`Spec.lean:125-128`). Route: `≤` — any datum `A` in the
