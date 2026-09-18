@@ -174,6 +174,22 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   (`orderZeroDatum` on the `MemLp` extension, `congr_field` for the a.e. field match) and is an **isometry** for
   the restricted measure (`domainL2Sq_eq_whole_of_compl_eq_zero:73`). `⊤=⊤` when `z ∉ L²(Ω)`: no finite-norm
   extension can restrict to `restrictField Ω z`. **L, Opus.** Deps: U-A4, U-B1.
+  **STATUS — DONE (2026-09-18, lane 393).** `Section3/T22/OrderZero.lean` proves `orderZero`
+  verbatim; `[propext, Classical.choice, Quot.sound]`; `make check` green. The realised route is
+  the **quotient-norm identity in both directions** (not the `LocalizationBoundary` fractional
+  kernel, which is `0<s<1` only): `≤` uses the zero extension's order-0 datum
+  (`domainSobolevENorm_le_sobolevENorm` + `sobolevENorm_zero_eq_eLpNorm` + `norm_orderZeroDatum_eq`
+  + `eLpNorm_indicator_eq_eLpNorm_restrict`) with the `⊤`-case `le_top`; `≥` needs two genuinely new
+  facts proved in-module — **order-0 realization surjectivity** `orderZeroDatum_surjective`
+  (every `A : RealVectorSobolev 0` is `orderZeroDatum` of an `L²` field; the missing bridge is
+  `conjugation_fourierInv_of_mem`: `realSubspace 0` datum ⟹ a.e.-real inverse Fourier) and the
+  **du Bois-Reymond bridge** `restrictField_eq_ae` (via Mathlib
+  `IsOpen.ae_eq_zero_of_integral_contDiff_smul_eq_zero` per component, with the general
+  datum-restriction bridge `restrictDatum_eq_restrictField_of_datum`). The `⊤ = ⊤` edge is uniform:
+  `‖A‖ₑ < ⊤` always, so the constraint family is empty exactly off `L²(Ω)`. `orderZeroDatum_surjective`
+  carries a commented `maxHeartbeats 400000` (the lane-387 `cyclesToAngularRealVector` unification).
+  Probe `research/T22/probes/orderzero_closes.lean`, audit `research/T22/axioms_ua5.lean`,
+  attempts `research/T22/ATTEMPTS_UA5.md`, report `research/T22/REPORT_393.md`.
 
 - **U-Z1 — `zeroExtensionComparison` (assembly of the two-sided bound)** (bookkeeping over the core). New
   `Section3/T22/ZeroExtComparison.lean`. No named input. Target:
