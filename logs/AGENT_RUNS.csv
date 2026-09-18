@@ -1448,3 +1448,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T24,417-T24-Ua7-infinite-dimensional,claude-opus,proof-worker,"Section3/T24/AffineWitness.lean + AffineFamily.lean: infinite_dimensional verbatim; codex review ACCEPT-WITH-NOTES",merged,384
 2026-09-18,T20,415-T20-U8-critical-energy,claude-opus,proof-worker,"Section3/T20/CriticalEnergy.lean: criticalEnergy verbatim; codex review ACCEPT",merged,385
 2026-09-18,T22,423-T22-UREG-contract,gpt-5.6-sol,contract-registration,"Contracts/V1/BoundedDomainNorm.lean + Bindings + Tests + registry T04.bounded_domain_norm (43 contracts); gates green; awaiting codex review",done,-
+2026-09-18,T12,427-T12-UREG-dedupe-register,claude-opus,contract-registration,"T12/DirDeriv.lean dedupe + Contracts/V1/MeanZeroCalculus.lean + Bindings + Tests + registry T01.mean_zero_calculus (43 contracts); gates green; awaiting codex review",done,-
