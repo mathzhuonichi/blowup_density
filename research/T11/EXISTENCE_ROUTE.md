@@ -272,3 +272,35 @@ Remaining exact work:
 The probe, guarded axiom audit, attempts and gate report are respectively
 `probes/existence_u9b.lean`, `axioms_existence_u9b.lean`,
 `ATTEMPTS_EXISTENCE_U9B.md`, and `REPORT_313.md` under `research/T11/`.
+
+
+## U9d status — lane 318 (partial; target remains open)
+
+`Section3/T11/PhysicalRecovery.lean` constructs the actual inverse Fourier
+series of every H³ datum, proves absolute convergence, reality, periodicity,
+spatial continuity and both datum/field inverse identities. The physical
+velocity of the supplied mild coefficient solution is jointly continuous on
+`Icc 0 T ×ˢ univ`, recovers a at zero, and has **exactly** u as its H³ datum
+path on `Ico 0 T` (indeed on every time set). Reweight transport is explicit;
+no phantom order cast is used. Nonzero datum AND force instantiate the genuine
+coefficient solver. The affine constant family additionally satisfies both the
+mild equation and the full classical/regularity conclusion on arbitrary T>0.
+
+**This does not close U9d or the requested complete (ii)+(iii) fallback.** No
+new named input is assumed: the general all-order bootstrap, divergence,
+physical pressure recovery and Duhamel differentiation are still unproved
+obligations. Their exact combined target remains the U9d statement above,
+unchanged; it is reproduced in `REPORT_318.md`. No whole-target restatement is
+introduced as a peeling hypothesis, and no global classical local-theory
+assumption is imported to manufacture existence.
+
+One analytical caution for resuming: H^m convection lives in H^(m-1), so a
+direct full-order heat gain to H^(m+1) has the nonintegrable naive kernel
+(t-s)^(-1). The existing integrable one-derivative smoothing estimate alone
+does not prove that step. Fractional bootstrap or additional persistence/time
+regularity estimates are needed. This is not a counterexample to U9d.
+
+The new probe checks only the delivered sub-results and the homogeneous full
+recovery case; its name `physical_recovery_closes.lean` is the requested artifact
+name, **not evidence that the general target closes**. Details, actual compiler
+errors and the missing work are in `ATTEMPTS_PHYSICAL_RECOVERY.md`.
