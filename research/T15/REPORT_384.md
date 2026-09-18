@@ -60,3 +60,6 @@ from `verification/`:
 | `lake env lean ../research/T15/probes/scaling_canonical.lean` | pass, 0 output |
 | `lake env lean ../research/T15/axioms_ucan.lean` | pass; every line reports exactly `[propext, Classical.choice, Quot.sound]` |
 | `make check` | pass: plan check, contract/import policy, 13 policy tests, and 45-item work queue |
+
+## Review note applied (lead, 2026-09-18 14:06Z)
+- codex ACCEPT-WITH-NOTES (`REVIEW_384-T15-UCAN-canonical-scaling.md`; negative probe `rev384_negative.lean` fails as required). Obstruction to a concrete non-vacuity instance, documented: a full `ScalingAPI` inhabitant is exactly the T15 assembly (`research/T15/T15_SPLIT.md` U15 — `PlacementData` non-vacuity + `scalingStatement`, gated on T13.localization for `packetSobolevBound`); this unit is the statement restatement, and its probe checks the Spec ↔ canonical conversions fieldwise (the same non-vacuity policy as the T16/T17 canonical-module lanes 347/394). The inhabitant lands with U15.
