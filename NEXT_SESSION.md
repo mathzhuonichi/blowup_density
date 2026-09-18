@@ -15,6 +15,7 @@
 - 第 4 节全量编译通过（2026-09-17 21:30Z，Opus 子代理，冻结分支）：206 模块真实重新 elaborate，232 秒，0 错误，三门禁全过，37 合同审计齐全；报告 `logs/SECTION4_FULL_BUILD_20260917.md` 已并入 PR #259（评论已发）。
 
 ## 日志（最新在前）
+- **2026-09-18 19:17Z**：Claude 路由 429（"reserving weekly capacity"）于 19:13Z 起拒绝 Opus 子代理（436/437/438/439 全部中断，续做亦被拒）；已设 19:45Z 一次性 cron 统一重试；codex 侧（rev-434、440 全量检查、rev-431/435 退避）继续。合入 #396（T24 conservative 注册，46 合同）、#397（T18 U2–U4）。
 - **2026-09-18 15:09Z**：合入 #364（T15 U2）、#365（T24 Ua5）、#366（T17 U-CAN + canonical force_profile_identity；union 合并误伤 `ForceProfile.lean` → 修复 lane 412）、#367（T24 Ua2）、#368（T12 U4b 逐字 velocityCriticalL3）、#369（T24 Ua3 + 非零见证）。Opus 交付待审：400（T12 U5，T12 九字段齐）、405（T12 U6）、406（T22 `cutoffMultiplier` 逐字闭合）、407（T24 Ua6）、411（T21 草案 B）；codex 14:50Z 起 sol 429 / astra at capacity 交替，408 交付、409 未交付（改 Opus）、410 草案 A 42 万 token 后 429（续做）、412 改 Opus；审稿全部在退避重试。T13 SPLIT 里的 `domainL2Sq` 措辞已由 406 更正。
 
 - **2026-09-18 1400Z**：合入 #349（T17 U5+U6）、#350（T17 U4，Spec 形式 identity 闭合）；T12 U3 核心（377）与 T22 U-A2（391）交付，U4（396）与 U-A3（397）开跑；T20 U3+U4（390）交付；codex 审稿排队 377/387/376/390。
