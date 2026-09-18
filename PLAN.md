@@ -151,5 +151,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 383-T22-UB1-restrict-bridge | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 1258Z | — | — | T22 U-B1：T22 canonical 词汇模块 Domain.lean + 限制桥 restrictDatum_eq_restrictField + 左侧不等式 domainSobolevENorm_le_sobolevENorm（zeroExtensionComparison 左分支） |
 | 384-T15-UCAN-canonical-scaling | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 1301Z | — | — | T15 U-CAN：canonical PlacementData/ScalingAPI 基于原始包字段（formalization 不能 import PacketAPI）+ probe 双向转换；T17 U12 与 T18 U1 的前置 |
 | 385-T17-U5U6-derivative-bounds | codex sol 运行中（astra 备用） | 09-18 1306Z | — | — | T17 U5+U6（纯传输）：correction_derivative_bound / force_derivative_bound（correctionData_correction + latticeLift_iteratedFDeriv_eq + Paper1 混合导数界） |
-| 386-T22-UA1-weight-ratio | worktree 安装中→Opus prover 子代理 | 09-18 1304Z | — | — | T22 U-A1：Peetre 权比不等式 weight_ratio_le（常数 2^{|s|/2}，D01 权拼写）供 cutoffMultiplier |
+| 386-T22-UA1-weight-ratio | Opus prover 子代理运行中 | 09-18 1307Z | — | — | T22 U-A1：Peetre 权比不等式 weight_ratio_le（常数 2^(abs s/2)，D01 权拼写）供 cutoffMultiplier |
 | 387-T22-UA4-orderzero-isometry | Opus prover 子代理运行中 | 09-18 1307Z | — | — | T22 U-A4：0 阶向量 Plancherel 等距 norm_orderZeroDatum_eq（D01 明示未证的恒等式）供 orderZero |
