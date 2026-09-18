@@ -163,4 +163,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 395-T24-Uc2-potential-pairing | Opus prover 子代理运行中 | 09-18 1351Z | — | — | T24 Uc2：potential_pairing（周期梯度与无散周期场的 Haar 配对为零；环面分部积分） |
 | 396-T12-U4-velocity-critical-l3 | Opus prover 子代理运行中（基座 = 377 分支 + integration） | 09-18 1354Z | — | — | T12 U4：velocityCriticalL3（Haar↔cube 传输 + cutoffMul + 已注册 A05 全空间嵌入 + 377 核心 + 谱隙；显式常数 CcriticalHalf） |
 | 397-T22-UA3-cutoff-multiplier | Opus prover 子代理运行中（基座 = 391 分支 + integration） | 09-18 1354Z | — | — | T22 U-A3（分析核心，关键路径）：cutoffMultiplier 字段（Peetre 权比 × 391 核质量 → Young L¹∗L² → ‖B‖ ≤ C‖A‖，IsCutoffDatum 配对恒等式） |
-| 398-T24-Ua3-momentum | worktree 安装中→Opus prover 子代理 | 09-18 1400Z | — | — | T24 Ua3：momentum（eq:affine ①，U+b 满足带修正力的方程；advection 双线性展开 + 包的 navier_stokes 子句） |
+| 398-T24-Ua3-momentum | Opus prover 子代理运行中 | 09-18 1403Z | — | — | T24 Ua3：momentum（eq:affine ①，U+b 满足带修正力的方程；advection 双线性展开 + 包的 navier_stokes 子句） |
