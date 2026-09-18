@@ -80,9 +80,10 @@ attempted here):
   convergence (Fatou) to get `periodicLpENorm 3 v ≤ liminf periodicLpENorm 3 v_ε`;
 - apply `velocityCriticalL3_smooth` to each `v_ε` and pass to the `liminf`.
 
-None of the four ingredients is in Mathlib for the unit torus, and the L³ lower
-semicontinuity of the LHS (whose finiteness is itself the conclusion) is the crux — hence a
-separate lane, not a silent weakening of the field.
+Mathlib's `MeasureTheory.Lp.eLpNorm_lim_le_liminf_eLpNorm` supplies lower semicontinuity for
+arbitrary measures, including torus Haar; the remaining work is the smooth periodic mean-zero
+approximation, its homogeneous norm control, and convergence — hence a separate lane (U4b), not a
+silent weakening of the field. (Corrected after review 396.)
 
 ## Failed approaches / pitfalls (pin renames, private lemmas)
 
