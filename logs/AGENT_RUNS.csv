@@ -1408,3 +1408,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,MAINT,404-MAINT-t16-deprecations,gpt-5.6-sol,maintenance,"Section3/T16/Assembly.lean: three deprecated if_pos/if_neg uses replaced by ite_eq_left/ite_eq_right; gates + 42 contracts green",merged,363
 2026-09-18,T24,402-T24-Ua2-divergence-free,gpt-5.6-sol,proof-worker,"Section3/T24/AffineDivergence.lean: divergence_free verbatim over raw packet clauses; probe closes registered field on Bindings.packet; awaiting codex review",done,-
 2026-09-18,T24,403-T24-Ua5-speed-unbounded,gpt-5.6-sol,proof-worker,"Section3/T24/AffineSpeed.lean: speed_unbounded verbatim (explicit tau1<1 premise; late_agreement transfers SpeedUnboundedAtOne); awaiting codex review",done,-
+2026-09-18,T15,376-T15-U2-placement,claude-opus,proof-worker,"Section3/T15/Placement.lean: scaled-support placement for every t<T with verbatim CompactPositiveTimeSupport force clause (16 decls); three review rounds, r3 ACCEPT-WITH-NOTES",merged,364
