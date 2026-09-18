@@ -130,6 +130,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   presingular times: from `IsMaximalPeriodicSolution` (`LocalTheory.lean:52`) pick `S` with `t < S` and
   `ofReal S < maximalLifespanT` (`ENNReal` supremum density), then U5. Also prove `maximalLifespanT =
   PeriodicLifespan.lifespan` here (§4 last row). **M, sol.** Deps: U5, U11.
+  **Status (323): complete conditional only on `PeriodicMaximalExistenceInput` pending U11; both exact fields, unconditional lifespan equality, nonzero compact-force probe, and exact axiom audit pass.**
 - **U16 — `lifespanInfiniteOfLocallyFinite`.** Same module. Contrapose: if `maximalLifespanT = L ≠ ⊤`, the
   hypothesis at `S = L.toReal` (the `≤` is load-bearing, `RECONCILIATION.md` §2) plus U14 gives a solution on
   `L.toReal + δ`, hence `ofReal (L.toReal + δ) ≤ L`, absurd. **M, sol.** Deps: U14, U15.
@@ -211,3 +212,5 @@ are `abbrev`s of vendor `Space → Space`/`VelocityField`/`PressureField`, so ca
 | initial class `a ∈ initialClassT` (`:234`: `ContDiff ℝ ∞ a ∧ IsPeriodicSpatial a ∧ IsSolenoidal a`) | `IsAdmissibleInitialData` (`Paper1/PeriodicInitialData.lean:21`: `smooth`, `UnitPeriods`, `∀ x, ∑ i (fderiv ℝ a x eᵢ) i = 0`) | **match**: `IsPeriodicSpatial = UnitPeriods` (`PeriodicIntegration.lean:40`), `IsSolenoidal` (`Section4/A02/SolutionClass.lean:93`) unfolds to the same sum → `Iff.rfl` / one `simp` |
 | time intervals: `Ico 0 T` (smoothness/periodicity/divergence), `Ioo 0 T` (equation) | identical | **match** |
 | `maximalLifespanT` (`:303`, `⨆` over `ClassicalSolutionT`) | `lifespan` (`PeriodicLifespan.lean:27`, `⨆` over `Flow`) | **not equal a priori**: `≤` from `toFlow`; the reverse needs the three extra fields at every horizon (U2(a) + U1). Prove the equality once, in U15 |
+
+- **U10/U11 / lane 321 status:** complete — exact conditional `restart`, order-wise shifted-force bounds via landed `ForcePaths`, and the selected `horizon`/`solution`/`regularity` partial API all close from the sole allowed `PeriodicQuantitativeLocalInput'`; probe, non-vacuity, and exact three-axiom audit pass.
