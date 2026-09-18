@@ -1,6 +1,16 @@
 # T17 — proof-lane split (`lem:correction`, `paper/sections/03-torus.tex:218-286`)
 
-Lead-facing, 2026-09-18. Target = the reconciled `CorrectionAPI` (Spec.lean:752-960, 40 fields) +
+**U-CAN status (lane 394, DONE 2026-09-18).**
+`Section3/T17/Correction.lean` now restates the full 45-field `CorrectionAPI`
+over T15 U-CAN's raw-field `PlacementData u p f K`, canonical T16/T13 records,
+and the bare `place.x₀`/`place.T` profile spelling required by T18 U1.  The
+contract-side probe supplies fieldwise conversions in both directions through
+lane 384's placement adapter and exact checks against U3/U4/U5/U6.  The Spec
+field list remains unchanged (no `reference_smooth`); G1 is still an assembly
+hypothesis/truncation decision.  Because lane 375 was absent from this base,
+its canonical `ForceProfile.lean` source was restored as a new file here.
+
+Lead-facing, 2026-09-18. Target = the reconciled `CorrectionAPI` (Spec.lean:752-960, 45 fields) +
 `correctionStatement` (`Spec.lean:980`) over T15's `PlacementData`, T16's `CutoffData`/`LocalPotentialAPI`,
 and T13's `LocalizationAPI`. Design = `research/T17/RECONCILIATION.md` §3 + `COMPARISON.md` "Proof
 dependencies" (8 numbered items). House style = `research/T11/T11_SPLIT.md`, `research/T15/T15_SPLIT.md`.
@@ -175,10 +185,16 @@ in the tree today.
 
 - **U7 — `force_smooth` / `force_periodic` / `force_support`** (transport + T16 reuse). New
   `Section3/T17/ForceSupport.lean`. Targets `Spec.lean:840,844,848`. Route: U2(b) `force_eq`; `force_smooth`
-  from Paper1 `CorrectionVectorNorms.physicalForce_smooth:22` + T16 `latticeLift_smooth:116`; `force_periodic`
-  from T16 `latticeLift_periodic:124`; `force_support` from Paper1 `physicalForce_compact:37` (support in
-  `Ioo(T±2ε²) × ball x₀ (ε·θRadius)`, **open ball**) + T16 `latticeLift_timeSupport:247` /
-  `latticeLift_sliceSupport:271` → `periodicSet (ball x₀ (ε·θRadius))`. **M, codex-sol.** Deps: U2.
+  from Paper1 `CorrectionVectorNorms.physicalForce_smooth:22` + T16 `latticeLift_smooth:120`; `force_periodic`
+  from T16 `latticeLift_periodic:128`; `force_support` from Paper1 `physicalForce_compact:37` (support in
+  `Ioo(T±2ε²) × ball x₀ (ε·θRadius)`, **open ball**) + T16 `latticeLift_timeSupport:251` /
+  `latticeLift_sliceSupport:275` → `periodicSet (ball x₀ (ε·θRadius))`. **M, codex-sol.** Deps: U2.
+  **Status (lane 425, DONE):** `Section3/T17/ForceSupport.lean` proves all three fields at the concrete
+  `correctionData` under the global `hv : ContDiff ℝ ∞ v` (G1), with the manuscript's **open** ball.
+  `latticeLift_sliceSupport` could not be used: it needs a strictly larger radius and bounds a single
+  spatial slice.  §0 of the module therefore adds `latticeLift_spaceSupport`, the space-time companion of
+  T16's `latticeLift_sliceSupport_closed`, applied to the compact `C = Prod.snd '' tsupport` of the
+  single-copy force.  All declarations have exactly the standard three axioms.
 
 - **U8 — force torus support volume/duration** (new torus wrapping I02 content). New
   `Section3/T17/ForceVolume.lean`. Targets `spatialVolumeConst`, `spatialVolumeConst_nonneg`,
