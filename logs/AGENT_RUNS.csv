@@ -1443,3 +1443,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T12,419-T12-UREG-contract,gpt-6-astra,contract-registration,"Contracts/V1/MeanZeroCalculus.lean scaffold + registry entry; bindings/tests incomplete; found duplicate contDiff_dirDeriv in GradientLSix/GradientLambdaL3 (import clash)",partial,-
 2026-09-18,T18,422-T18-U1-insertion-data,gpt-5.6-sol,proof-worker,"Section3/T18/Insertion.lean: canonical insertion layer U1 (15 decls); codex review ACCEPT-WITH-NOTES",merged,383
 2026-09-18,T20,415-T20-U8-critical-energy,claude-opus,proof-worker,"Section3/T20/CriticalEnergy.lean: criticalEnergy verbatim with C0 = criticalTrilinearConst (Fourier-side route); awaiting codex review",done,-
+2026-09-18,T17,425-T17-U7-force-support,claude-opus,proof-worker,"Section3/T17/ForceSupport.lean: force_smooth/force_periodic/force_support at concrete correctionData (open ball; latticeLift_spaceSupport); awaiting codex review",done,-
