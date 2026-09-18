@@ -73,7 +73,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 305-T10-fourier-calculus | 已合入 #282 作为**部分交付**（审稿 REJECT 仅因范围遗漏 T10 第 11/12 项，已证内容审计/公理/变异全过）→ 312 补齐 | 09-18 0101Z | #282 | — | T10 基础引理：光滑周期场的 Fourier 微积分（导数符号 `2πi k_j`、Laplacian 符号、系数快速衰减、可和性与逐点反演、sup 界）→ 解锁 T12 `boundedRepresentative`/`lambda_exists`/`hTwo_le_laplacian` 与 T13 |
 | 306-SPEC-t24-draft-a | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 A**：`prop:affine`/`prop:multiple`/`prop:conservative`（三个独立结构；基于 T14/T15 定稿） |
 | 307-SPEC-t24-draft-b | 排队（简报已写） | 09-18 0040Z | — | — | SPEC **T24 双盲草案 B**（同上，互不可见） |
-| 308-T11-U1-flow-conversion | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0128Z | — | — | T11 U1：`ClassicalSolutionT ↔ Paper1.PeriodicLifespan.Flow` 逐字段转换 + 往返 + 两条拼写引理（S–M，sol） |
+| 308-T11-U1-flow-conversion | 完成（toFlow/ofFlow + 两条拼写引理 + 力类单向转运）→ codex 审稿中（rev-308） | 09-18 0136Z | — | — | T11 U1：`ClassicalSolutionT ↔ Paper1.PeriodicLifespan.Flow` 逐字段转换 + 往返 + 两条拼写引理（S–M，sol） |
 | 310-T11-U3-galilean-classes | 排队（简报已写） | 09-18 0058Z | — | — | T11 U3：`translation_preserves_sobolev`/`transformed_classes`/`transformed_mean_zero`（M，sol） |
 | 311-T11-U9a-existence-probe | 完成（astra：选 R2；两空间契约陈述；热半群第一阶 17 定理无条件；指出具名输入量词问题）→ codex 审稿中（rev-311） | 09-18 0127Z | — | — | T11 U9a：周期局部存在性路线探针（R1 HeliCorgi 端点层 vs R2 A01 柱面路线），具名输入 `PeriodicQuantitativeLocalInput`，至少证一条归约/一阶（L，astra） |
 | 309-T11-U2-criterion-bridge | 排队（待 308 合入；astra） | 09-18 0058Z | — | — | T11 U2：光滑周期场各阶 datum 存在与有限性、`squaredHTwoIntegralT ≠ ⊤ ↔ FiniteH2Energy (toFlow w)` 双向（L，astra） |
