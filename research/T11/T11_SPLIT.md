@@ -41,6 +41,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   NavierStokesR3.ProblemStatement.navierStokesResidual ν u p t x` (`Source/Insertion.lean:21` vs
   `vendor/…/R3/ProblemStatement.lean:57`, identical bodies → `rfl`) and `IsPeriodicOn I z ↔ UnitSpatialPeriodsOn I z`
   (`PeriodicData.lean:62` vs `vendor/…/ProblemStatement.lean:49` → `Iff.rfl`). **S–M, sol.** Deps: —.
+  **Status (308): complete — both spelling bridges, fieldwise conversions, full round trips, force transport, probe, non-vacuity example, and exact axiom audit pass with no named input.**
 - **U2 — datum existence, finiteness, criterion bridge.** New `Section3/T11/CriterionBridge.lean`.
   (a) a smooth periodic `z` has an order-`s` datum at every real `s`, hence `periodicSobolevENorm s z ≠ ⊤`
   (componentwise `smoothPeriodicWeightedFourierLp`, `PeriodicSmoothSobolev.lean:45`, + `realPeriodicSubmodule`
