@@ -80,6 +80,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   zero by `integral_torusLift` + periodicity); differentiate under the Haar integral as in
   `pressureMean_hasDerivAt_interior` (`PeriodicPressureNormalization.lean:149`); FTC for `galileanMeanT`;
   `t = 0` via `w.initial`. **L, astra.** Deps: U3.
+  **Status (316): complete — exact `mean_formula` and `mean_derivative`, via U3 cancellation + Haar invariance + FTC; no named input; non-vacuity and exact axiom audit; see `REPORT_316.md`.**
 - **U8 — transformed / rescaled solutions.** `transformed_solution`, `to_unit`, `from_unit` as instances of U6
   (`from_unit` inverts via U4; horizon `T ↦ ν·T`), each carrying `PeriodicLocalRegularity`. **M, sol.** Deps: U6, U7.
 - **U9 — quantitative periodic local existence (the long pole).** New `Section3/T11/LocalExistence.lean`.
