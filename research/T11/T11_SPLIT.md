@@ -67,6 +67,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   (from `integral_torusLift`) gives `IsNormalized (toFlow w)` (`PeriodicLocalLifespan.lean:44`); then
   `normalized_flows_agree` (`:229`) verbatim. `horizon_le_lifespan` is `le_iSup_of_le T (le_iSup_of_le ⟨w⟩ le_rfl)`
   on `maximalLifespanT` (`PeriodicData.lean:303`) — no conversion. **M, sol.** Deps: U1.
+  **Status (315): complete — all three exact fields close, the nonzero constant-flow probe and exact three-axiom audit pass, with no named input; see `REPORT_315.md`.**
 - **U6 — solution transport under smooth change of variables.** New `Section3/T11/Transport.lean`. One shared
   constructor: given `w : ClassicalSolutionT ν a f T`, a `C∞` time-dependent translation `X : ℝ → Space` and
   constants `(α,β,γ)`, rebuild a `ClassicalSolutionT` for the transformed data, transporting all 14 fields (chain
@@ -143,6 +144,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
 - **U9c / lane 317 status:** complete — `ConvolutionBound.lean` proves `torusConvolutionInput : TorusConvolutionInput` and `torusTwoSpaceContract_nonempty'` unconditionally by the discrete weighted convolution bound; no residual input; probe, exact three-axiom audit and all gates pass; see `REPORT_317.md`.
 
 - **U9d1 / lane 319 status:** conditional half-order common-horizon induction, real-order descent and nonzero forced mild witness proved; ONE residual `TorusHalfStepInput` → **U9d1-analytic follow-up** (unassigned); raw `.1` equality is a phantom-index statement defect, not regularity; exact input and limitations in `EXISTENCE_ROUTE.md` §U9d1 and `REPORT_319.md`.
+- **U9d / lane 318 status:** partial, not closed — unconditional H³ Fourier inverse, exact datum/path and initial recovery, joint continuity, and full affine-constant forced recovery on arbitrary T; general bootstrap, divergence, pressure and PDE recovery remain open; no new named input; see `REPORT_318.md`.
 
 ## 2. Waves (≤ 4 concurrent)
 
