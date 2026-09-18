@@ -123,4 +123,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 355-T14-packet-contract | 已合入 #321：合同 T01.packet_import v1（40 合同）；codex ACCEPT | 09-18 0905Z | #321 | — | T14 合同注册 `T01.packet_import` v1（Contracts/V1/PacketImport.lean 逐字重述 Spec；Bindings 由 Bindings.packet + 346 定理构造 PacketImportFamily；Tests；注册 → 40 合同；台账 claim T14） |
 | 356-SPEC-t18-draft-a | codex sol 运行中（双盲草案 A；astra 备用） | 09-18 0852Z | — | — | SPEC T18 `thm:insertion` 双盲草案 A（03-torus.tex:287-346；镜像 R42 InsertionFamilyAPI；导入已注册 TorusData/TorusLocalTheory，逐字复制 T17 Spec 词汇块） |
 | 357-SPEC-t18-draft-b | Opus prover 子代理运行中（双盲草案 B） | 09-18 0852Z | — | — | SPEC T18 `thm:insertion` 双盲草案 B（同上，互不可见） |
-| 358-T16-assembly | worktree 安装中→Opus prover 子代理（基座 = 351+352 分支 + integration-section3） | 09-18 0908Z | — | — | T16 装配：`localPotential : localPotentialStatement`（347 截断/阈值 + 351 球上势 + 352 格点提升；卸载 correction_fields_of_chart 的 chart 级假设） |
+| 358-T16-assembly | Opus prover 子代理运行中（基座 = 351+352 分支 + integration-section3） | 09-18 0910Z | — | — | T16 装配：`localPotential : localPotentialStatement`（347 截断/阈值 + 351 球上势 + 352 格点提升；卸载 correction_fields_of_chart 的 chart 级假设） |
