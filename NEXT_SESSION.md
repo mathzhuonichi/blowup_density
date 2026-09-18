@@ -38,14 +38,13 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-18 18:22Z 快照）
+## 当前在跑 / 待启动（2026-09-18 19:10Z 快照）
 
-- **合入批次 #378–#388（17:29–18:22Z）**：413 T20 U7 三线性 #378；414 T24 Ua4 #379；416 **T21 定稿 spec** #380（Section 3 全部 15 节点 spec 定稿）；418 T22 U-Z1 + 409 U-B3 #381（T22 三字段全证）；421 T15 U3 #382；422 T18 U1 #383；417 T24 Ua7 #384；415 T20 U8 criticalEnergy #385；424 T24 Ua8 #386（T24a 12 字段全证）；425 T17 U7 #387；427 T12 去重 + **`T01.mean_zero_calculus` 注册 #388（43 合同）**。
-- **完成度**：合同 43（Section 3：T10、T11、T13、T14、T16、T12）；T22 三字段全证 → 注册 lane 423 已完成待审；T24a 12 字段全证 → Ua9 装配+注册（430，Opus）；T20 关键链 U1–U8 ✅ → U9（428 Opus）、U10a（429 完成待审）→ U10b → U11 → U12 → U13；T17 U1–U7 ✅ → U8（431 Opus）；T18 U1 ✅ → U2–U4（426 codex 退避）；T15 U1–U3 + U-CAN ✅ → U4；T19 U1–U6 ✅（U7+ 等 T18 U12）；T21 证明单元 N0–N15 待拆分。
-- **Opus 在跑**：428 T20 U9 yBound、430 T24 Ua9、431 T17 U8。
-- **codex**：rev-423（T22 注册审稿）在跑；rev-429 排队；rev-409（记录性，模块已随 418 合入）、420（T24 Uc3 注册）、426（T18 U2–U4）退避重试中。codex 今日多次 429/at capacity；重要单元一律 Opus。
-- **待清理**：429 因 400/405 同名冲突把 413 的四条辅助引理复制为 `…H1`（427 已修冲突）→ U13 装配时合并；`contracts.json` 由 423/430 同时新增条目，后合入者需重解。
-- **故障记录（09-18）**：codex 容量波 07:30–14:00Z、14:50–15:10Z、17:33–17:55Z；Claude 路由 429 15:10–17:05Z；`ForceProfile.lean` union 合并误伤已由 412 修复（LESSONS 顶行）；8 个 worktree 并行安装触发低内存杀进程（上限 3–4）。
+- **合入批次 #389–#396（18:37–19:10Z）**：429 T20 U10a #389；428 T20 U9 #390；423 **T22 注册 `T04.bounded_domain_norm`** #391（T22 全部完成）；430 **T24 `T04.affine_variation`** #392（prop:affine 完成）；432 T20 U10b #393；409 审稿记录 #394；433 T18 U5+U6 #395；420 **T24 `T04.conservative_forcing`** #396。**合同 46**（Section 3：T10、T11、T13、T14、T16、T12、T22、T24a、T24c）。
+- **完成度**：T20 关键链 U1–U10b ✅ → U11（437 Opus）→ U12 → U13 注册；T17 U1–U9 ✅（U8 431 / U9 434 待审）→ U10（等 T15 U5）、U11（438 Opus）、U12 装配；T18 U1–U6 ✅ → U7（435 codex 退避）、U8（436 Opus）→ U9–U12；T15 U1–U3 + U-CAN ✅ → U4+U5（439 Opus）→ U6–U15；T19 U7+ 等 T18 U12；T21 单元 N0–N15 待拆分；T23 等 T18/T22；T24b（prop:multiple）等 T15。
+- **Opus 在跑**：436 T18 U8 寿命、437 T20 U11、438 T17 U11、439 T15 U4+U5。
+- **codex**：rev-434（T17 U9）、rev-431（T17 U8）在跑；rev-426（T18 U2–U4）与 435（T18 U7）退避重试。codex 今日多次 429/at capacity；重要单元一律 Opus。
+- **待清理**：429 复制的 413 四条 `…H1` 辅助引理（U13 装配时合并）；423 装配模块四个 `defProp` 警告；`contracts.json` 并行新增条目用 JSON 感知解冲突（lead 脚本已固化在 merge 流程）。
 - **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码（注释/记录类微改除外）；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
