@@ -178,5 +178,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 410-SPEC-t21-draft-a | 已合入：T21 草案 A（DraftA.lean 1389 行 0 错误 + COMPARISON_A）→ 等对账 #375 | 09-18 1713Z | #375 | — | T21 spec 双盲草案 A：thm:main (i)+(ii) + cor:nondensity（NonDensityAPI / MainTheoremAPI，消费 T19/T20 canonical） |
 | 411-SPEC-t21-draft-b | 已合入：T21 草案 B（DraftB.lean 1407 行 0 错误 + COMPARISON_B）→ 对账 #376 | 09-18 1713Z | #376 | — | T21 spec 双盲草案 B（与 A 互不可见） |
 | 412-MAINT-t17-forceprofile-merge-repair | 已合入：ForceProfile.lean 修复（integration 版本 + 394 文档；lead 首次恢复会丢 375 rev1 的两条定理，Opus 发现并修正）；T17 闭包/22 探针/门禁全绿；解锁 T18 #377 | 09-18 1715Z | #377 | — | MAINT：#366 union 合并损坏 T17/ForceProfile.lean（重复 import、拆裂 docstring）→ 恢复为 394 已审版本（c4be85b0），全 T17 闭包 + 探针 + 门禁验证 |
-| 413-T20-U7-critical-trilinear | Opus prover 子代理运行中（基于 405 + integration 含 401） | 09-18 1509Z | — | — | T20 U7：均值零临界三线性估计 abs⟪(v·∇)v,Λv⟫ ≤ C₀ y z²（三因子 Hölder + T12 U4/U6），U8 criticalEnergy 的核心 |
-| 414-T24-Ua4-force-smooth-support | Opus prover 子代理运行中 | 09-18 1509Z | — | — | T24a Ua4：force_smooth + force_support（修正力跨 t=1 的光滑零延拓与紧正时间支撑，②） |
+| 413-T20-U7-critical-trilinear | Opus 完成：criticalTrilinear（环面三因子 Hölder + T12 U4/U6；常数 CcriticalHalf·CcriticalThreeHalves² = 16·CcriticalHalf³；U8 桥 rfl）→ 排队 codex 审稿；U8 解锁 | 09-18 1716Z | — | — | T20 U7：均值零临界三线性估计 abs⟪(v·∇)v,Λv⟫ ≤ C₀ y z²（三因子 Hölder + T12 U4/U6），U8 criticalEnergy 的核心 |
+| 414-T24-Ua4-force-smooth-support | Opus 完成：force_smooth（需 0<τ₀、τ₁<1）+ force_support（仅需 0<τ₀）逐字，vendor ResidualRegularity 局部性引理粘合 → 排队 codex 审稿 | 09-18 1716Z | — | — | T24a Ua4：force_smooth + force_support（修正力跨 t=1 的光滑零延拓与紧正时间支撑，②） |
