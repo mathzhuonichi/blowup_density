@@ -61,6 +61,7 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
   **Status (310): complete — all three exact fields, global mean/primitive smoothness, inherited support, internal solution-mean evolution, probe, non-vacuity witness, and guarded exact axiom audit pass with no named input.**
 - **U4 — viscosity algebra.** New `Section3/T11/Rescaling.lean`. `inverse_identities` (three `funext` +
   positive-`ν` algebra), `scaled_classes` (time dilation maps a compact subset of `Ioi 0` to one). **S, sol.** Deps: —.
+  **Status (314): complete — both exact fields, compact positive-time support transport, probe, non-vacuity example, and guarded exact axiom audit pass with no named input.**
 - **U5 — uniqueness package.** New `Section3/T11/Uniqueness.lean`. `velocity_unique`, `pressure_unique`
   (pointwise on `Ico 0 (min T₁ T₂)`): `toFlow` both sides; `w.pressure_gauge` + `pressureMeanT = cubeIntegral`
   (from `integral_torusLift`) gives `IsNormalized (toFlow w)` (`PeriodicLocalLifespan.lean:44`); then
