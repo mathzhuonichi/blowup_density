@@ -26,3 +26,10 @@ Section 4's `R45.force_classes` / `R47.grid_observations` may share shapes — r
    **no junk-value traps** (integrability/class hypotheses on every norm; `ν > 0`; forces in `forceClassT`).
 2. `research/T24/COMPARISON_A.md`: paper-clause → Lean field table (with Section 4 counterpart fields where they exist); choices; ambiguities; "needs a lemma" list; implementation candidates.
 3. Commit on your branch (never push/merge/rebase). Report in four parts; write it to `research/T24/REPORT_306.md`.
+
+## Quality clause (added after a rejected shallow run)
+A previous run returned a 104-line draft with self-made stubs for `PlacementData`/`ScalingAPI` and three structures of two or three fields each. **That is not a draft and was discarded.**
+Requirements: copy the T15 vocabulary verbatim from `research/T15/Spec.lean` (its `PlacementData`, rescaled fields, `ScalingAPI`) and the T10/T14 declarations you use — never re-invent them;
+each of the three propositions must be rendered clause by clause from the paper text (`03-torus.tex:667-740`: read every sentence of the statements *and* the proofs, and give each
+hypothesis and each conclusion its own field with the paper line); a draft is expected to be several hundred lines with a paper-clause → field table in `COMPARISON_A.md` covering every
+clause. Spend the time; do not stop early.
