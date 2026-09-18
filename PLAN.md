@@ -67,3 +67,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 299-T13-canonical-module | 已合入 #276（lead 直接合并：定义类模块，probe 含 rfl 检查） | 09-18 0007Z | #276 | — | T13 规范定义模块 `Section3/T13/Localization.lean`（research/T13/Spec.lean 新定义逐字落 Lake 模块，import T10；probe 把 `LocalizationAPI` 陈述在模块上）→ T13 证明 lane 基座 |
 | 300-T12-spectral-gap | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0010Z | — | — | T12 证明：`spectralGap`（常数 `(1+1/(4π²))^(s/2)`）+ `homogeneous_le_sobolev`（常数 1）—— 系数侧权重比较与 lp 重加权构造 |
 | 301-SPEC-t15-spec | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0012Z | — | — | SPEC **T15 定稿**：按 research/T15/RECONCILIATION.md（B 为基；`PlacementData` 参数；Type 值 `ScalingAPI` 含 `sobolevConst` 与 `forceConvergence`；import 已注册的 `T01.torus_data`）→ Spec.lean + COMPARISON.md |
+| 302-T11-canonical-module | 排队（下一个空位；简报已写） | 09-18 0018Z | — | — | T11 规范定义模块 `Section3/T11/LocalTheory.lean`（新定义逐字落 Lake 模块；probe 把五个 API 陈述在模块上；附 Paper1/HeliCorgi 实现候选调查 → T11 证明 lane 拆分依据） |
+| 303-SPEC-t20-draft-a | 排队（简报已写） | 09-18 0018Z | — | — | SPEC **T20 双盲草案 A**：`prop:critical`（均值消去、`eq:criticalenergy/bintegral/ybound/H1energy`、经 `eq:criterion` 全局；镜像 R43+C01+A04） |
+| 304-SPEC-t20-draft-b | 排队（简报已写） | 09-18 0018Z | — | — | SPEC **T20 双盲草案 B**（同上，互不可见） |
