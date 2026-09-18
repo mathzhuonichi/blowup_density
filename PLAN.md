@@ -192,4 +192,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 424-T24-Ua8-nonisolated | Opus prover 子代理运行中 | 09-18 1746Z | — | — | T24a Ua8：nonisolated（Ũ_{λb}−U = λb、F̃_{λb}−F = λL_U b + λ²(b·∇)b 的 C^m 半范数 → 0，⑤） |
 | 425-T17-U7-force-support | Opus prover 子代理运行中 | 09-18 1748Z | — | — | T17 U7：周期化修正力的 force_smooth / force_periodic / force_support（force_eq + Paper1 profile 引理 + T16 latticeLift 引理；G1 hv 前提） |
 | 426-T18-U2-U4-force-class-kinematics-div | worktree 安装中（基于 422 + integration）→ codex sol | 09-18 1748Z | — | — | T18 U2+U3+U4：力类归属（ForceClass）、正则/初值/历史/周期（Kinematics）、不可压（Divergence） |
-| 427-T12-UREG-dedupe-register | worktree 安装中（基于 419 + integration）→ Opus prover | 09-18 1752Z | — | — | T12：去重 400/405 的 contDiff_dirDeriv（共享 DirDeriv.lean）+ 完成 T01.mean_zero_calculus 注册（绑定/测试/门禁，43 合同） |
+| 427-T12-UREG-dedupe-register | Opus prover 子代理运行中（安装在 Bindings.MeanZeroCalculus 处按预期失败于同名冲突，其余已编） | 09-18 1755Z | — | — | T12：去重 400/405 的 contDiff_dirDeriv（共享 DirDeriv.lean）+ 完成 T01.mean_zero_calculus 注册（绑定/测试/门禁，43 合同） |
