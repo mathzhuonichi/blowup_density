@@ -151,6 +151,27 @@ embedding: it reduces by Fourier **order-shift** to `velocityCriticalL3` at `a =
   **L, Opus.** Deps: U4. **Named input:** none — the `Lv` witness is a field argument and its graph
   `IsPeriodicLambda v Lv` is a hypothesis, so no vacuity guard is needed.
 
+  **Status (lane 405, 2026-09-18): COMPLETE, verbatim, no residual.**
+  `Section3/T12/GradientLambdaL3.lean` proves the API field
+  `gradientLambdaCriticalL3` exactly as stated (`api_on_canonical.lean:170-175`)
+  with `CcriticalThreeHalves = 4 * CcriticalHalf` and
+  `CcriticalThreeHalves_pos`, via the planned route: the `l² ≤ l¹` column bound
+  `periodicLpENorm_gradientTensor_le_sum` (torus copy of
+  `A05.eLpNorm_le_sum_of_norm_le` + `A05.norm_toLp_le_sum`), U4's
+  `velocityCriticalL3_smooth` on each `∂_j v` and on `Lv` (both smooth periodic
+  mean-zero — `IsPeriodicLambda` carries `SmoothPeriodicT Lv`, so lane 401's
+  general `velocityCriticalL3` is **not** needed), and the two order-shift
+  comparisons `homogeneousENorm_half_dirDeriv_le` (multiplier `2πi k_j/(2π|k|)`,
+  modulus `≤ 1`) and `homogeneousENorm_half_lambda_le` (the order-`1/2` datum of
+  `Lv` *is* the order-`3/2` datum of `v`), both resting on the weight identity
+  `homogeneousDatumWeight_three_halves`.  `SpectralGap.reweightDatum` carries only
+  real multipliers, so §0 of the module repeats it for bounded **complex**
+  multipliers (`cxReweight`).  All 24 declarations audit to
+  `[propext, Classical.choice, Quot.sound]`; probe
+  `research/T12/probes/gradient_lambda_l3_closes.lean` (verbatim `exact`, plus the
+  field instantiated at the nonzero witness `probeMZ` with the `Lv` from
+  `lambda_exists`).  Attempts and pitfalls: `research/T12/ATTEMPTS_U6.md`.
+
 ## 2. Waves (≤ 2 concurrent per current lane cap)
 
 | wave | units | sizes / models |
