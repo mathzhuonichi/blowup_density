@@ -23,11 +23,16 @@ All three review findings were closed by *proving* the missing content.
   order-`m` weighted coefficient family as the canonical
   `T12.IsPeriodicScalarDatum`, hence `T12.MemPeriodicHmScalar m` of every
   pressure slice; they are bundled into `MildPressureFields`.
-* **Finding 3 (axiom audit).** `axioms_mild_pressure.lean` now guards only
-  declarations printing exactly `[propext, Classical.choice, Quot.sound]`;
-  `testFrequency` and `testFrequency_ne_neg` (strict subset `[propext]`) were
-  dropped from it, documented in its header, and re-exhibited as plain
-  `example`s in `probes/mild_pressure_closes.lean`.
+* **Finding 3 (axiom audit).** First pass: dropped the two `[propext]`-only
+  declarations from the audit. The second review rejected that reading of the
+  rule — the gate is *every declaration of the module* — so `testFrequency` and
+  `testFrequency_ne_neg` were **moved out of the module** into
+  `probes/mild_pressure_closes.lean`, and the non-vacuity theorems
+  (`lerayPotentialCoeff_testPressureSource_ne_zero`,
+  `lerayPotential_testPressureSource_ne_zero`, `mildPressure_nonzero_instance`)
+  were generalized to an arbitrary lattice mode `m` with the hypotheses
+  `m ≠ 0`, `¬ m = -m`, `m 0 ≠ 0`. The audit file now covers all 95 module
+  declarations and every line prints exactly the standard three axioms.
 
 ## 0. Design decision that made the unit tractable
 

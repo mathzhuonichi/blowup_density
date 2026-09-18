@@ -1289,50 +1289,37 @@ theorem testPressureSource_coeff (m : PeriodicFrequency) (j : Fin 3) (k : Period
     rw [sourceComponentCoeff, he, periodicFourierCoeff_const]
     simp [hj]
 
-/-- The first coordinate mode of the lattice. -/
-def testFrequency : PeriodicFrequency := fun i ↦ if i = 0 then 1 else 0
-
-theorem testFrequency_ne_zero : testFrequency ≠ 0 := by
-  intro h
-  have hc := congrFun h 0
-  simp [testFrequency] at hc
-
-theorem testFrequency_ne_neg : ¬ testFrequency = -testFrequency := by
-  intro h
-  have hc := congrFun h 0
-  simp [testFrequency] at hc
-
-theorem testFrequency_sq_sum : (∑ j : Fin 3, (testFrequency j : ℝ) ^ 2) = 1 := by
-  simp [testFrequency]
-
-/-- The pressure coefficient of the one-mode source is nonzero at that mode. -/
-theorem lerayPotentialCoeff_test_ne_zero :
-    lerayPotentialCoeff (testPressureSource testFrequency) testFrequency ≠ 0 := by
+/-- The pressure coefficient of the one-mode source is nonzero at that mode.
+The concrete lattice mode is supplied by the caller, so that every declaration
+of this module has the standard three transitive axioms. -/
+theorem lerayPotentialCoeff_testPressureSource_ne_zero {m : PeriodicFrequency}
+    (hm : m ≠ 0) (hneg : ¬ m = -m) (hm0 : m 0 ≠ 0) :
+    lerayPotentialCoeff (testPressureSource m) m ≠ 0 := by
   have hpi : (Real.pi : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr Real.pi_ne_zero
-  have hnum : (∑ j : Fin 3, (testFrequency j : ℂ) *
-      sourceComponentCoeff (testPressureSource testFrequency) j testFrequency) = 1 := by
-    simp only [testPressureSource_coeff, testPressureSourceCoeff, ↓reduceIte,
-      testFrequency_ne_neg]
-    simp [testFrequency]
-  have hE : (2 * Real.pi * Complex.I) *
-      ((∑ j : Fin 3, (testFrequency j : ℝ) ^ 2 : ℝ) : ℂ) ≠ 0 := by
-    rw [testFrequency_sq_sum]
-    simp only [Complex.ofReal_one, mul_one]
-    exact mul_ne_zero (mul_ne_zero two_ne_zero hpi) Complex.I_ne_zero
-  simp only [lerayPotentialCoeff, testFrequency_ne_zero, ↓reduceIte, hnum]
-  exact div_ne_zero one_ne_zero hE
+  have hDpos : 0 < ∑ j : Fin 3, (m j : ℝ) ^ 2 :=
+    lt_of_lt_of_le one_pos (mildPressure_one_le_sq_sum hm)
+  have hnum : (∑ j : Fin 3, (m j : ℂ) *
+      sourceComponentCoeff (testPressureSource m) j m) = (m 0 : ℂ) := by
+    simp only [testPressureSource_coeff, testPressureSourceCoeff, ↓reduceIte, hneg]
+    simp
+  have hE : (2 * Real.pi * Complex.I) * ((∑ j : Fin 3, (m j : ℝ) ^ 2 : ℝ) : ℂ) ≠ 0 :=
+    mul_ne_zero (mul_ne_zero (mul_ne_zero two_ne_zero hpi) Complex.I_ne_zero)
+      (Complex.ofReal_ne_zero.mpr hDpos.ne')
+  simp only [lerayPotentialCoeff, hm, ↓reduceIte, hnum]
+  exact div_ne_zero (Int.cast_ne_zero.mpr hm0) hE
 
 /-- The constructed physical potential of that source is not the zero field. -/
-theorem lerayPotential_test_ne_zero :
-    lerayPotential (testPressureSource testFrequency) ≠ 0 := by
+theorem lerayPotential_testPressureSource_ne_zero {m : PeriodicFrequency}
+    (hm : m ≠ 0) (hneg : ¬ m = -m) (hm0 : m 0 ≠ 0) :
+    lerayPotential (testPressureSource m) ≠ 0 := by
   intro h
-  apply lerayPotentialCoeff_test_ne_zero
-  rw [← lerayPotential_coeff (testPressureSource_contDiff testFrequency)
-    (testPressureSource_periodic testFrequency) testFrequency]
-  have he : (fun x ↦ ((lerayPotential (testPressureSource testFrequency) x : ℝ) : ℂ)) =
+  apply lerayPotentialCoeff_testPressureSource_ne_zero hm hneg hm0
+  rw [← lerayPotential_coeff (testPressureSource_contDiff m)
+    (testPressureSource_periodic m) m]
+  have he : (fun x ↦ ((lerayPotential (testPressureSource m) x : ℝ) : ℂ)) =
       fun _ ↦ (0 : ℂ) := by
     funext x
-    have hx : lerayPotential (testPressureSource testFrequency) x = 0 := congrFun h x
+    have hx : lerayPotential (testPressureSource m) x = 0 := congrFun h x
     rw [hx, Complex.ofReal_zero]
   rw [he, periodicFourierCoeff_const]
   simp
@@ -1368,21 +1355,19 @@ theorem mildPressure_constant_velocity (g : SpaceTimeField) (c : Space) (t : ℝ
 
 /-- All delivered pressure fields hold for a genuine persistent coefficient path
 driven by a nonconstant smooth periodic force, and the resulting pressure is not
-the zero field. -/
-theorem mildPressure_nonzero_instance :
-    MildPressureFields (fun z : SpaceTime ↦ testPressureSource testFrequency z.2)
-        (fun t : ℝ ↦ (1 + t) • torusConstantDatum 3 (coordinateVector 0)) 1 ∧
-      (fun x : Space ↦ mildPressure (fun z : SpaceTime ↦ testPressureSource testFrequency z.2)
-        (fun t : ℝ ↦ (1 + t) • torusConstantDatum 3 (coordinateVector 0)) (0, x)) ≠ 0 := by
+the zero field.  The concrete lattice mode is a parameter; a witness for the
+three hypotheses is exhibited in `probes/mild_pressure_closes.lean`. -/
+theorem mildPressure_nonzero_instance {m : PeriodicFrequency}
+    (hm : m ≠ 0) (hneg : ¬ m = -m) (hm0 : m 0 ≠ 0) (c : Space) :
+    MildPressureFields (fun z : SpaceTime ↦ testPressureSource m z.2)
+        (fun t : ℝ ↦ (1 + t) • torusConstantDatum 3 c) 1 ∧
+      (fun x : Space ↦ mildPressure (fun z : SpaceTime ↦ testPressureSource m z.2)
+        (fun t : ℝ ↦ (1 + t) • torusConstantDatum 3 c) (0, x)) ≠ 0 := by
   refine ⟨mildPressure_fields
-    ((testPressureSource_contDiff testFrequency).comp contDiff_snd)
-    (fun t _ x j ↦ testPressureSource_periodic testFrequency x j)
-    (persistence_affine_constant 1 (coordinateVector 0)), ?_⟩
+    ((testPressureSource_contDiff m).comp contDiff_snd)
+    (fun t _ x j ↦ testPressureSource_periodic m x j)
+    (persistence_affine_constant 1 c), ?_⟩
   rw [mildPressure_constant_velocity]
-  exact lerayPotential_test_ne_zero
-
-example : MildPressureFields (fun z : SpaceTime ↦ testPressureSource testFrequency z.2)
-    (fun t : ℝ ↦ (1 + t) • torusConstantDatum 3 (coordinateVector 0)) 1 :=
-  mildPressure_nonzero_instance.1
+  exact lerayPotential_testPressureSource_ne_zero hm hneg hm0
 
 end NSFormalization.Section3.T11

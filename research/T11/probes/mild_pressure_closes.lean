@@ -103,15 +103,41 @@ example (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g) (hu : PersistenceI
     MildPressureFields g u T :=
   mildPressure_fields hg hgp hu
 
+/-- The concrete lattice mode used by the non-vacuity witnesses.  It lives here
+rather than in the module so that every module declaration's transitive axiom
+set is exactly `[propext, Classical.choice, Quot.sound]`; this plain datum and
+the decidable inequality below need only `propext`. -/
+def testFrequency : PeriodicFrequency := fun i ↦ if i = 0 then 1 else 0
+
+theorem testFrequency_ne_zero : testFrequency ≠ 0 := by
+  intro h
+  have hc := congrFun h 0
+  simp [testFrequency] at hc
+
+theorem testFrequency_ne_neg : ¬ testFrequency = -testFrequency := by
+  intro h
+  have hc := congrFun h 0
+  simp [testFrequency] at hc
+
+theorem testFrequency_zero_ne_zero : testFrequency 0 ≠ 0 := by
+  simp [testFrequency]
+
 example : lerayPotential (testPressureSource testFrequency) ≠ 0 :=
-  lerayPotential_test_ne_zero
+  lerayPotential_testPressureSource_ne_zero testFrequency_ne_zero testFrequency_ne_neg
+    testFrequency_zero_ne_zero
 
 example :
     MildPressureFields (fun z : SpaceTime ↦ testPressureSource testFrequency z.2)
         (fun t : ℝ ↦ (1 + t) • torusConstantDatum 3 (coordinateVector 0)) 1 ∧
       (fun x : Space ↦ mildPressure (fun z : SpaceTime ↦ testPressureSource testFrequency z.2)
         (fun t : ℝ ↦ (1 + t) • torusConstantDatum 3 (coordinateVector 0)) (0, x)) ≠ 0 :=
-  mildPressure_nonzero_instance
+  mildPressure_nonzero_instance testFrequency_ne_zero testFrequency_ne_neg
+    testFrequency_zero_ne_zero (coordinateVector 0)
+
+example : MildPressureFields (fun z : SpaceTime ↦ testPressureSource testFrequency z.2)
+    (fun t : ℝ ↦ (1 + t) • torusConstantDatum 3 (coordinateVector 0)) 1 :=
+  (mildPressure_nonzero_instance testFrequency_ne_zero testFrequency_ne_neg
+    testFrequency_zero_ne_zero (coordinateVector 0)).1
 
 /-! ## Canonical coefficient-side `F - Q` (review finding 1) -/
 
@@ -188,8 +214,3 @@ example (hg : ContDiff ℝ ∞ g) (hgp : IsPeriodicOn univ g) (hu : PersistenceI
           mildPressureCoeff g u t k :=
   mildPressure_scalar_datum hg hgp hu m ht
 
-/-! ## The two declarations excluded from the axiom audit (review finding 3) -/
-
-example : PeriodicFrequency := testFrequency
-
-example : ¬ testFrequency = -testFrequency := testFrequency_ne_neg

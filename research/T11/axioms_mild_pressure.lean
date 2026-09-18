@@ -1,17 +1,14 @@
 import NSFormalization.Section3.T11.MildPressure
 
-/-! Exact transitive axiom audit of the U9d2a pressure module, including the two
-local instances.  **Every guarded line below prints exactly**
-`[propext, Classical.choice, Quot.sound]`.
+/-! Exact transitive axiom audit of the U9d2a pressure module.
 
-Two declarations are deliberately not audited here because their transitive
-axiom set is the strict subset `[propext]`, which would not match the mandated
-three-element list: the plain lattice datum `testFrequency` and the decidable
-inequality `testFrequency_ne_neg`.  Both are used only by the non-vacuity
-witnesses, and are covered transitively by the audited
-`lerayPotentialCoeff_test_ne_zero`, `lerayPotential_test_ne_zero` and
-`mildPressure_nonzero_instance`; they are re-exhibited as plain `example`s in
-`probes/mild_pressure_closes.lean`. -/
+**Every** top-level declaration of
+`formalization/NSFormalization/Section3/T11/MildPressure.lean` is audited here,
+including the two explicitly named local instances, and every guarded line
+prints exactly `[propext, Classical.choice, Quot.sound]`.  Nothing is omitted:
+the concrete lattice mode `testFrequency` and its decidable inequality, whose
+transitive set is only `[propext]`, now live in
+`research/T11/probes/mild_pressure_closes.lean` instead of in the module. -/
 
 /-- info: 'NSFormalization.Section3.T11.mildPressureNormedGroup' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -369,21 +366,13 @@ witnesses, and are covered transitively by the audited
 #guard_msgs (whitespace := lax) in
 #print axioms NSFormalization.Section3.T11.testPressureSource_coeff
 
-/-- info: 'NSFormalization.Section3.T11.testFrequency_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'NSFormalization.Section3.T11.lerayPotentialCoeff_testPressureSource_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.testFrequency_ne_zero
+#print axioms NSFormalization.Section3.T11.lerayPotentialCoeff_testPressureSource_ne_zero
 
-/-- info: 'NSFormalization.Section3.T11.testFrequency_sq_sum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'NSFormalization.Section3.T11.lerayPotential_testPressureSource_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.testFrequency_sq_sum
-
-/-- info: 'NSFormalization.Section3.T11.lerayPotentialCoeff_test_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.lerayPotentialCoeff_test_ne_zero
-
-/-- info: 'NSFormalization.Section3.T11.lerayPotential_test_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms NSFormalization.Section3.T11.lerayPotential_test_ne_zero
+#print axioms NSFormalization.Section3.T11.lerayPotential_testPressureSource_ne_zero
 
 /-- info: 'NSFormalization.Section3.T11.convectionDivergenceT_of_constant_slice' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

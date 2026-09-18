@@ -17,11 +17,13 @@ claims:
    (`mildPressure_gradient_canonical`, `mildPressure_gradient_leray_canonical`);
 2. the **every-`H^m` coefficient membership** is exported
    (`mildPressure_scalar_datum`, `mildPressure_memPeriodicHm`) and bundled;
-3. **every guarded line of the axiom audit now prints exactly**
-   `[propext, Classical.choice, Quot.sound]`; the two declarations whose
-   transitive set is the strict subset `[propext]` (`testFrequency`,
-   `testFrequency_ne_neg`) are excluded from the audit, documented there, and
-   re-exhibited as plain `example`s in the probe.
+3. **every declaration of the module prints exactly**
+   `[propext, Classical.choice, Quot.sound]`, and the audit file covers all 95
+   of them. After the second review the concrete lattice mode `testFrequency`
+   and its decidable inequality (transitive set `[propext]` only) were moved out
+   of the module into `probes/mild_pressure_closes.lean`; the non-vacuity
+   theorems are now stated for an arbitrary mode `m` with hypotheses
+   `m ≠ 0`, `¬ m = -m`, `m 0 ≠ 0`, and the probe supplies the witness.
 
 ## 1. 证了哪个定理 / What is proved
 
@@ -141,12 +143,14 @@ are equal), `periodicFourierCoeff_divergence`, `lerayPotentialCoeff_laplace_symb
 
 ### Non-vacuity
 
-`mildPressure_nonzero_instance`: with the one-mode smooth periodic force
-`testPressureSource testFrequency` and the genuine persistent path
-`u t = (1+t) • torusConstantDatum 3 e₀` (`persistence_affine_constant`), all
-fields of `MildPressureFields` hold **and** the constructed pressure slice at
-`t = 0` is not the zero function (`lerayPotential_test_ne_zero`, via a nonzero
-Fourier coefficient at the mode `e₀`).
+`mildPressure_nonzero_instance {m} (hm : m ≠ 0) (hneg : ¬ m = -m) (hm0 : m 0 ≠ 0) (c)`:
+with the one-mode smooth periodic force `testPressureSource m` and the genuine
+persistent path `u t = (1+t) • torusConstantDatum 3 c`
+(`persistence_affine_constant`), all fields of `MildPressureFields` hold **and**
+the constructed pressure slice at `t = 0` is not the zero function
+(`lerayPotential_testPressureSource_ne_zero`, via a nonzero Fourier coefficient
+at the mode `m`). The concrete witness `m = (1,0,0)` is discharged in
+`probes/mild_pressure_closes.lean`.
 
 ## 3. 缺口是什么 / What is not proved (exact residual statements)
 
@@ -196,12 +200,9 @@ cd verification && lake env lean ../research/T11/probes/mild_pressure_closes.lea
     including the reviewer's canonical `F - Q` statement and the `H^m` exports
 
 cd verification && lake env lean ../research/T11/axioms_mild_pressure.lean
-  → no output; all 97 `#guard_msgs` pass, every line exactly
+  → no output; all 95 `#guard_msgs` pass — i.e. EVERY top-level declaration of
+    the module, with nothing omitted, prints exactly
     [propext, Classical.choice, Quot.sound].
-    Excluded and documented in that file: `testFrequency`, `testFrequency_ne_neg`
-    (transitive set [propext], a strict subset), re-exhibited as `example`s in
-    the probe and covered transitively by the audited
-    `lerayPotentialCoeff_test_ne_zero` / `mildPressure_nonzero_instance`.
 
 make check   → architecture checks OK; 13 contract-policy tests OK;
                45 work items consistent.

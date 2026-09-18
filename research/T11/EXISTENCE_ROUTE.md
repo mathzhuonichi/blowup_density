@@ -460,6 +460,7 @@ Non-vacuity: a one-mode smooth periodic force together with the affine-constant
 persistent path gives all the fields **and** a nonzero pressure slice
 (`mildPressure_nonzero_instance`). The general U9d existential target above is
 unchanged. Details: `REPORT_326.md`, probe `probes/mild_pressure_closes.lean`,
-audit `axioms_mild_pressure.lean` (every guarded line prints exactly the standard
-three axioms). Review and its resolution: `REVIEW_326-T11-U9d2a-pressure.md`,
+audit `axioms_mild_pressure.lean` (all 95 module declarations, every line exactly
+the standard three axioms; the concrete lattice mode used by the non-vacuity
+witness lives in the probe, so no module declaration has a smaller axiom set). Review and its resolution: `REVIEW_326-T11-U9d2a-pressure.md`,
 `REPORT_326.md` §1 and `ATTEMPTS_MILD_PRESSURE.md` §0'.
