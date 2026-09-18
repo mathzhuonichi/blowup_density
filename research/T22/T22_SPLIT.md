@@ -250,7 +250,7 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   `research/T22/REPORT_409.md`.
 
 - **U-Z1 — `zeroExtensionComparison` (assembly of the two-sided bound)** (bookkeeping over the core). New
-  `Section3/T22/ZeroExtComparison.lean`. No named input. Target:
+  `Section3/T22/ZeroExtensionComparison.lean`. No named input. Target:
   `BoundedDomainNormAPI.zeroExtensionComparison` **verbatim** (`Spec.lean:160-167`). Route: fix `χ` (U-B3a) and set
   `C` from U-A3.cutoffMultiplier (`∃ C>0` chosen before `z`). **Left** conjunct = U-B1's
   `domainSobolevENorm_le_sobolevENorm` (E₀z has a datum by U-B2, restricts to `restrictField Ω z`). **Right**
@@ -259,6 +259,13 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   `IsSobolevDatum s (E₀z)` witness, so `sobolevENorm s (E₀z) ≤ ‖B‖ₑ ≤ ofReal C * ‖A‖ₑ`
   (`sobolevENorm_le_of_isSobolevDatum`); take `⨅` over `A` → `≤ ofReal C * domainSobolevENorm`. **M–L, codex-sol.**
   Deps: U-A3, U-B1, U-B2, U-B3.
+  **[DONE — lane 418, 2026-09-18]** `Section3/T22/ZeroExtensionComparison.lean` proves the
+  verbatim field.  The right inequality splits on whether the domain-datum subtype is nonempty:
+  `ENNReal.mul_iInf` handles the nonempty case and `iInf_of_empty` makes the empty case trivial.
+  Axioms are `[propext, Classical.choice, Quot.sound]`.  Probe:
+  `research/T22/probes/zero_extension_comparison_closes.lean`; audit:
+  `research/T22/axioms_uz1.lean`; attempts: `research/T22/ATTEMPTS_UZ1.md`; report:
+  `research/T22/REPORT_418.md`.
 
 - **U-REG — assembly + contract/bindings/tests + non-vacuity** (bookkeeping). New `Section3/T22/Assembly.lean`
   + fresh `verification/Contracts/V1/BoundedDomainNorm.lean` (+ `Bindings`, `Tests`). Bundle the inhabitant
