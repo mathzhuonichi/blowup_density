@@ -222,5 +222,25 @@ in `PLAN.md`.
    quantitative lane must state its lemma about that concrete term and let U12 bundle — do not attempt to prove
    a quantitative field for an arbitrary `LocalPotentialAPI`-satisfying `D` (it is false without the construction).
 
-### U1 status (lane 369)
-Closed for the `k = 0` fundamental-ball form and its `ℝ≥0∞` supremum corollary in `Section3/T17/LatticeDeriv.lean`. The proof uses local agreement from T16 and `EventuallyEq.iteratedFDerivWithin`; a general existential translated-copy packaging remains future work.
+### U1 status (lane 369 → r1, DONE after codex REJECT)
+`Section3/T17/LatticeDeriv.lean` now carries **both** forms, each
+`[propext, Classical.choice, Quot.sound]`:
+- `latticeLift_iteratedFDeriv_eq` / `latticeLift_iteratedFDeriv_norm_le_iSup` —
+  the `k = 0` fundamental-ball equality and its `ℝ≥0∞`/`⨆` corollary (unchanged
+  from lane 369 r0).
+- **`latticeLift_iteratedFDeriv_eq_shift`** (r1) — the general **arbitrary-`z`**
+  `∃ k` shifted-copy equality
+  `‖iteratedFDeriv ℝ n (latticeLift w) z u‖ = ‖iteratedFDeriv ℝ n w (z - (0, latticeVector k)) u‖`,
+  covering the no-copy/zero case (`k = 0`, both sides `0`).  Route: periodicity
+  (`isPeriodicOn_sub_latticeVector`) + `latticeLift_eq_of_ball` give a
+  single-translate neighbourhood, then `Filter.EventuallyEq.iteratedFDeriv` and
+  `iteratedFDeriv_comp_sub`; the zero case builds an explicit `ball z.2 (r-ρ)` of
+  vanishing terms.  Hypotheses = `latticeLift_eq_of_ball`'s (`hslice`, `r+ρ≤1`)
+  **plus** the strict separation `hlt : ρ < r` (satisfied downstream,
+  `hεspace : ε·θRadius < r`; load-bearing — `research/T17/probes/rev369r1_negative_lt.lean`).
+- **`latticeLift_iteratedFDeriv_norm_le_iSup'`** (r1) — the all-`z` `ℝ≥0∞`/`⨆`
+  corollary in the norm spelling `CorrectionAPI.correction_derivative_bound`
+  consumes (arbitrary `u : Fin n → SpaceTime` subsumes the `Fin.append` tuple).
+
+U5/U6 now transport the registered `I02` Euclidean derivative bounds to **every**
+spacetime point through `_eq_shift`, no longer only the fundamental ball.
