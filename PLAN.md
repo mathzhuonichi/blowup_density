@@ -130,7 +130,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 362-T15-U1-bridges | codex 完成（容量重试后）→ 排队/等待 codex 审稿 | 09-18 1208Z | — | — | T15 U1：规范模块 Section3/T15/Bridges.lean（重标度定义）+ 到 I03.scaling 上游拼写的 rfl 桥 + 352 的 periodize 桥；probe api_on_canonical |
 | 363-T15-UTB2-parseval-zero | 已合入 #331：Parseval-at-0 桥（ParsevalZero.lean）；codex ACCEPT-WITH-NOTES | 09-18 1006Z | #331 | — | T15 U-TB2：Parseval-at-0 桥 periodicSobolevENorm 0 z = eLpNorm (torusLift z) 2 Haar（parseval_forward + datum_unique）；359 也需要 |
 | 364-T15-UTB1-haar-bridge | 已合入 #333：Haar↔Lebesgue 单拷贝能量/梯度/切片桥；codex ACCEPT-WITH-NOTES | 09-18 1208Z | #333 | — | T15 U-TB1：Haar/Lebesgue 单拷贝能量桥 eLpNorm (torusLift (periodize f)) 2 Haar = eLpNorm f 2 volume + 梯度伴随 + 时间切片形式 |
-| 365-T12-U2-cutoff | codex 完成（容量重试后）→ 排队/等待 codex 审稿 | 09-18 1208Z | — | — | T12 U2：截断 χ（Q 上为 1、支撑在 Q′ 内、导数有界）+ cutoffMul 的光滑/紧支/MemHInfty（供 U3/U5 反向局部化） |
+| 365-T12-U2-cutoff | 已合入 #334：截断 χ + cutoffMul（23 声明）；codex ACCEPT | 09-18 1217Z | #334 | — | T12 U2：截断 χ（Q 上为 1、支撑在 Q′ 内、导数有界）+ cutoffMul 的光滑/紧支/MemHInfty（供 U3/U5 反向局部化） |
 | 366-T12-U1-haar-cube | codex 完成（容量重试后）→ 排队/等待 codex 审稿 | 09-18 1208Z | — | — | T12 U1：Haar ↔ 立方体 ↔ 全空间的 L^p 传输（周期场；支撑在 Q 内的场；标量/向量；periodicLpENorm 桥） |
 | 367-SPEC-t19-draft-a | Opus 完成：DraftA.lean 553 行（4 个 Prop 结构 13 字段 + 4 陈述），elaborate 0 错误，无 stub → 等 372 后 reconciliation | 09-18 1024Z | — | — | SPEC T19 密度包（prop:density / cor:mixed / cor:closure / prop:projection，03-torus.tex:349-382,528-631）双盲草案 A；镜像 R46/R41 合同；导入已注册合同，逐字复制 T18/T20 Spec 词汇 |
 | 368-SPEC-t23-draft-a | codex 完成（容量重试后）→ 等 374 草案 B 后 reconciliation | 09-18 1208Z | — | — | SPEC T23 cor:boundary（03-torus.tex:632-667）双盲草案 A；基于 T22 Spec 有界区域层与 T18 插入结构；BoundaryCorollary.lean:90 的 sorry 不得 import |
