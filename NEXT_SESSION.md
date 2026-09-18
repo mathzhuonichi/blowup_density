@@ -16,6 +16,7 @@
 
 ## 日志（最新在前）
 
+- **2026-09-18 0955Z**：合入 #321–#327（T14 合同 40、T13 三字段、T16 规范+球上势、353 部分、全量检查 c）；358 关闭 T16 `localPotential`；T18 reconciliation 批准、360 启动；T15/T12 拆分 + wave 1（362–366）；T17 拆分规划中。
 - **2026-09-18（lane 355）**：T14 packet import 已注册为 `T01.packet_import`（40 合同）；合同、绑定、测试、axioms 审计与报告落地，`scripts/gates.sh`、base-aware contract check、mutation gate 全绿；claim 与合同分 commit。
 - **2026-09-18 0852Z**：合入 #313–#320（T11 合同、T12 四字段、T13 torus_identity、T14 证完、T24 spec、全量检查 b）；343 作废；346/347/348/351/352/353/355/356/357 启动。
 - **2026-09-18 0805Z**：340 交付 `T01.torus_local_theory`（39 合同）；341/342 交付 T12 五字段；346（T14）/347（T16）启动；338 合入 #312。
@@ -29,27 +30,27 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-18 08:52Z 快照）
+## 当前在跑 / 待启动（2026-09-18 09:55Z 快照）
 
-- **合入批次 #313–#320**：340 U17 装配 + 合同 `T01.torus_local_theory`（39 合同）#313；339 U6b #314；342 tameProduct #315；341 T12 Fourier 侧三字段 #316；349 全量编译检查 b（42 模块 0 错误、76/76 probe）+ 台账 T10 补 `T01.torus_data` #317；346 T14 `lem:packetenergy` + `packetImportStatement` #318；350 T24 定稿 spec #319；345 T13 `torus_identity` #320。
-- **T11 全部完成**（17 单元 + 合同）；唯一残余 = 两个 H¹ 具名手稿谓词（`research/T11/H1_GAP.md`）。
-- **T12**：9 字段已证 6（剩 `velocityCriticalL3`/`gradientLambdaCriticalL3`/`gradientLSix`，等 T13 localization）。
-- **T13**：`torus_identity` 已合入；344（`constant_pos_finite`/`endpoint_zero`/`endpoint_one`，Opus 交付）审稿在 sol/astra 容量退避重试；348（`wholeSpace_identity`，Opus）与 353（localization 核估计，Opus，基座 344+345）在跑；354 = localization 装配（待 348+353）；之后 LocalizationAPI 装配 + 合同。
-- **T14**：证完（#318）；355（合同 `T01.packet_import` v1 → 40 合同，codex sol）在跑。
-- **T16**：347（Opus）部分交付（规范模块 + 截断/阈值 + v=0 全 API），审稿 rev-347（sol）在跑；缺口 lane 351（球上径向势）、352（周期修正格点提升）Opus 在跑；随后 353-style 装配 lane。
-- **T18**：spec 双盲草案 356（codex sol）/357（Opus）启动中 → reconciliation → 定稿。
-- **T24**：定稿 spec 已合入 #319（三个 owner 问题见 `research/T24/COMPARISON.md`）；343 的 astra stub 已作废（教训入 LESSONS）。
+- **合入批次 #321–#327**：355 合同 `T01.packet_import`（40 合同）#321；344 T13 常数/端点 #322；348 T13 `wholeSpace_identity` #323；347 T16 规范模块（部分）#324；351 T16 球上势 #325；353 T13 尾和界/范数比较（部分）#326；361 全量编译检查 c（48 模块 0 错误、89/89 probe）#327。
+- **T11 完成**（合同 `T01.torus_local_theory`）；**T14 完成 + 合同**（`T01.packet_import`）；**T16 数学上完成**：358（Opus）关闭 `localPotential`（26 字段，一般局部参考场），叠在 351+352 上，审稿 rev-358（astra）中；352 第二次 REJECT 是接口文档/平凡引理项，Opus 修复中 → 合入顺序 352 → 358 → T16 合同注册 lane。
+- **T13**：六字段已进树 5（`torus_identity` #320、常数/端点 #322、`wholeSpace_identity` #323）；`localization`：353 部分（#326）+ 354（几何常数版核比较，Opus 在跑）→ 359 装配（需 U-TB2 Parseval-at-0 桥 = lane 363）→ LocalizationAPI 装配 + 合同。
+- **T12**：9 字段已证 6；剩三个临界嵌入按 `research/T12/T12_SPLIT.md`（反向局部化 + 已注册 A05）：wave 1 = 365（U2 截断 χ，codex，sol 容量退避中）、366（U1 Haar↔立方体 L^p，codex sol 在跑）；随后 U3（核心，Opus）→ U4/U6，U5 独立。
+- **T15**：拆分 `research/T15/T15_SPLIT.md`（15 单元/5 波）；wave 1 = 362（U1 rfl 桥，codex，sol 容量退避中）、363（U-TB2 Parseval-at-0，codex sol 在跑）、364（U-TB1 Haar 能量桥，Opus 在跑）。
+- **T17**：拆分规划（Opus）进行中 → 依赖 T16（已完成）与 T13 localization（`eq:HHs`）。
+- **T18**：双盲草案 356（codex，2160 行）/357（Opus，43 字段）完成；reconciliation 已 lead 批准（`research/T18/RECONCILIATION.md`：B 为基，参数化 PacketImportAPI/PlacementData/ScalingAPI/reference/CorrectionAPI；三个 owner 问题）；定稿 lane 360（Opus）在跑。
+- **T24**：定稿 spec 已合入 #319。
 - **待核对**：T20 `research/T20/Spec.lean:402,437` 用 H¹ 球，开 T20 lane 时按 `H1_GAP.md` 重读。
-- **lead 修正**：1（按阶力界）、2（H³ 球存在性输入）—— `research/T11/LEAD_AMENDMENTS.md`。
-- **模型策略**：硬分析/构造/spec 定稿 → Opus prover；codex sol 做复用型证明/合同注册/审稿，astra 只做审稿与编译检查备用（**astra low 不做 spec/草案**）；审稿包装 `retry_review.sh` 只在启动后 4 分钟内重试，中途死于容量要手动重启（`tmp/retry_review.sh <lane> gpt-6-astra gpt-5.6-sol 0`）。codex 09-18 07:30Z–08:45Z 多次 "at capacity"。
-- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；每次合入更新追踪 PR #270（模板 `tmp/section3_pr_body.md`，用带引号的 heredoc，避免反引号被 shell 展开）。
+- **模型策略**：硬分析/构造/spec 定稿/规划 → Opus prover；codex sol 做复用型证明/合同注册/审稿/桥引理，astra 只做审稿与编译检查（**astra low 不做 spec/草案**）；`retry_review.sh`/`retry_lane.sh` 只在启动后 4 分钟内自动重试，中途死于容量要手动重启。codex 09-18 07:30Z–09:52Z 多次 "at capacity"（sol/astra 交替）。
+- **教训（今日）**：worktree 必须在 reconciliation/简报提交之后再开（343）；lead 简报里手写的常数可能错，worker 拒交假定理是期望行为（353）；shell heredoc 一律用带引号的 `<<'EOF'`，`sed` 不用 `#` 作分隔符（361 简报）。
+- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；每次合入更新追踪 PR #270（模板 `tmp/section3_pr_body.md`）。
 
 ## 下一步（按顺序）
 
-1. rev-344 / rev-347 / 355 出结论 → 合入；派 357（T18 草案 B，Opus）；356/357 完成 → lead 写 T18 reconciliation → 定稿 lane。
-2. 348 / 353 落地 → 354（localization 装配）→ T13 六字段齐 → LocalizationAPI 装配 + 合同（T02.localization）；随后 T12 剩余三个临界嵌入。
-3. 351 / 352 落地 → T16 装配 lane（`localPotential` 全体）→ T16 合同；T15（`prop:scaling`，复用 I03）与 T17（`lem:correction`）证明 lane。
-4. T19/T21/T23 spec 草案（T19/T21 依赖 T18 定稿）；T20 canonical 模块（先核 H¹ 球）；合同批次后跑全量编译检查 lane。
+1. 352 修复 → 合入 352；rev-358 通过 → 合入 358 → 开 T16 合同注册 lane（`T02.local_potential`？按桶 T02）。
+2. 354 落地 → 359（`localization` 装配，需 363 的 Parseval-at-0 桥）→ T13 LocalizationAPI 装配 + 合同。
+3. 360 定稿 → 合入；T17 拆分 → wave 1 lane；T15/T12 后续波次按拆分推进。
+4. T19/T21/T23 spec 草案（依赖 T18 定稿）；T20 canonical 模块（先核 H¹ 球）；合同批次后跑全量编译检查 lane。
 
 lane 全局唯一，下一号 **268**；旧快照预指派的 267/268 spec 号作废，重新从 PLAN §8 分配。外部 300–399 预留，实际领号仍经 lead 登记。
 台账状态未更新：工具无完成/新增命令；T10–T24 待 lead 补工具及 DAG/台账字段，见 [REPORT_267](archive/section4/REPORT_267.md)。
