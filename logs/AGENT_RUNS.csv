@@ -1456,3 +1456,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T20,428-T20-U9-ybound,claude-opus,proof-worker,"Section3/T20/YBound.lean: yBound verbatim with criticalSmallness = 1/(8 C0); force-path continuity/FTC + clamped scalar bootstrap; awaiting codex review",done,-
 2026-09-18,T18,426-T18-U2-U4-force-class-kinematics-div,gpt-5.6-sol,proof-worker,"Section3/T18/{ForceClass,Kinematics,Divergence}.lean: nine U2-U4 fields under InsertionData projections; awaiting codex review",done,-
 2026-09-18,T20,429-T20-U10a-h1-trilinear,claude-opus,proof-worker,"Section3/T20/H1Trilinear.lean: H1 trilinear estimate; codex review ACCEPT-WITH-NOTES",merged,389
+2026-09-18,T20,428-T20-U9-ybound,claude-opus,proof-worker,"Section3/T20/YBound.lean: yBound verbatim; codex review ACCEPT-WITH-NOTES",merged,390
