@@ -440,6 +440,28 @@
       "declaration": "BlowupDensity.Tests.checkedPacketImport",
       "scope": "The whole-space packet is the registered I01.packet witness (Section 4, Bindings.packet), T14 adds exactly the two eq:packetenergy relations with the factors 2ν and 2, accumulatedForce as the Ioo 0 t set integral, both proved from the vendor CompactEnergy energy balance + Paper1/ScalarEnergy.sqrt_energy_le_primitive; periodization is not part of it",
       "enabled": true
+    },
+    {
+      "id": "T02.local_potential",
+      "parent_task": "T02",
+      "version": 1,
+      "specification": "verification/Contracts/V1/LocalPotential.lean",
+      "binding_module": "Bindings.LocalPotential",
+      "test_module": "Tests.LocalPotential",
+      "declaration": "BlowupDensity.Tests.checkedLocalPotential",
+      "scope": "The Urysohn cutoffs, threshold, radial potential timePotential on the chart ball (only local smoothness of v), the unit-periodic lattice lift of physicalCorrection with all seven correction_* clauses including eq:bgzero; the CutoffData/LocalPotentialAPI structure exception is handled fieldwise; no bound on the correction is asserted (that is T17).",
+      "enabled": true
+    },
+    {
+      "id": "T02.localization",
+      "parent_task": "T02",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Localization.lean",
+      "binding_module": "Bindings.Localization",
+      "test_module": "Tests.Localization",
+      "declaration": "BlowupDensity.Tests.checkedLocalization",
+      "scope": "Lemma lem:localization (03-torus.tex:22-98) for every 0 < s < 1: positivity and finiteness of the explicit constant cFrac; the whole-space and torus Gagliardo identities with that same cFrac, the latter on the explicit mean-zero part; the endpoint L² and Hilbert–Schmidt gradient identities for smooth fields supported in a positive-radius ball whose closure lies in the interior of the fixed unit cube; and the uniform localization estimate, with one positive real constant chosen before the field, from the whole-space L² plus registered homogeneous norm to the periodized T10 inhomogeneous norm. The implementation witnesses that existential constant by (1 + (4 · tailGeomConst s c r / cFrac s) ^ (1/2)).toReal. No tail bound, periodization uniqueness theorem, divergence-free condition, or localization estimate outside 0 < s < 1 is asserted.",
+      "enabled": true
     }
   ]
 }

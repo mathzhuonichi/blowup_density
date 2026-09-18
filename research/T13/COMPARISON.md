@@ -174,6 +174,29 @@ The verbatim T10 copies in `Spec.lean` (`IsPeriodicDatum`,
 `research/T10/RECONCILIATION.md` §5 (Haar-integrability conjunct).  No T13
 field changes meaning: all localization fields quantify over smooth fields.
 
+## Registered
+
+Lane 379 registers the reconciled statement as `T02.localization` V1 in
+`verification/Contracts/V1/Localization.lean`.  The temporary T10 copy
+described above is replaced by the registered `Contracts.V1.TorusData`
+vocabulary, and the whole-space side uses the registered
+`Contracts.V1.HomogeneousNorm.dotHomogeneousENorm`.  Ten T13 definitions and
+all six `LocalizationAPI` fields are otherwise copied token-for-token from
+`research/T13/Spec.lean`.  The eleventh definition, `latticeVector`, is reused
+from the already frozen `T02.local_potential` V1 contract because that contract
+owns the same fully qualified root name; a T13-specific `rfl` bridge checks it
+against the canonical T13 spelling, and a co-import probe prevents future
+module collisions.
+
+`verification/Bindings/Localization.lean` supplies whole-function `rfl`
+bridges for every restated definition and transports the proved
+`NSFormalization.Section3.T13.localizationAPI` field by field.  The registered
+declaration is `BlowupDensity.Tests.checkedLocalization`; its test includes one
+independent conformance example per field and instantiates `localization` at
+`s = 1/2` on the explicit nonzero `ContDiffBump` field from the lane-359
+closure probe.  Tail estimates and periodization uniqueness remain proof
+lemmas rather than contract fields.
+
 ## §1 status — Proved by lane 345
 
 - **`torus_identity`**: PROVED (lane 345, no named input).
@@ -313,3 +336,78 @@ report `research/T13/REPORT_354.md`.
   (rotation + dilation), `lintegral_eq_tsum_halfOpenCube` (single-copy
   unfolding), `periodicFourierCoeff_shift` (Fourier translation).
   Record: `research/T13/REPORT_345.md`, `research/T13/ATTEMPTS_TORUS_IDENTITY.md`.
+
+## Assembly status — lane 359 (2026-09-18): all six fields closed
+
+Module `formalization/NSFormalization/Section3/T13/Assembly.lean` (namespace
+`NSFormalization.Section3.T13`) assembles the `localization` field
+(`eq:localization`) from the six proved pieces and registers the full
+`LocalizationAPI` record.  No named input, no `maxHeartbeats` override; every
+declaration prints exactly `[propext, Classical.choice, Quot.sound]`.
+
+| `LocalizationAPI` field | Status | Source |
+|---|---|---|
+| `constant_pos_finite` | **proved** | lane 344 `constant_pos_finite` |
+| `wholeSpace_identity` | **proved** | lanes 345/348 `wholeSpace_identity` |
+| `torus_identity` | **proved** | lane 345 `torus_identity` |
+| `localization` | **proved (lane 359)** | `localization` (this module) |
+| `endpoint_zero` | **proved** | lane 344 `endpoint_zero` |
+| `endpoint_one` | **proved** | lane 344 `endpoint_one` |
+
+`theorem localizationAPI : LocalizationAPI` inhabits the reconciled record;
+the probe `research/T13/probes/assembly_closes.lean` closes it by
+`exact localizationAPI` and instantiates the `localization` field at `s = 1/2`
+on the genuine nonzero lane-344 `ContDiffBump` field (non-vacuity).
+
+**The `localization` route (all pieces `ℝ≥0∞`, no `toReal` in the square root).**
+For `0 < s < 1` and an admissible ball, with `f` smooth supported in it:
+
+1. `periodicSobolevENorm_le_l2_add_homogeneous` (lane 353) on `periodize f`
+   (smooth + periodic, see below):
+   `‖periodize f‖_{H^s} ≤ ‖periodize f‖_{H^0}
+      + ‖(periodize f)₀‖_{Ḣ^s}`.
+2. `L²` term: `periodicSobolevENorm 0 (periodize f)
+   = eLpNorm (torusLift (periodize f)) 2 periodicTorusMeasure` (lane 363
+   Parseval-at-0) `= eLpNorm (periodize f) 2 (volume.restrict fundamentalCube)`
+   (item 8 bridge `torus_cube_L2`, below) `= eLpNorm f 2 volume`
+   (lane 344 `endpoint_zero_eq`).
+3. Homogeneous term (`homogeneous_bound`): from
+   `torus_identity` (`ITorus = c_s·x²`), `iTorus_periodize_le` (lane 354,
+   `ITorus(periodize f) ≤ IReal f + 4·tailGeomConst·‖f‖₂²`) and
+   `wholeSpace_identity` (`IReal = c_s·a²`), one gets
+   `c_s·x² ≤ c_s·a² + 4·tailGeomConst·‖f‖₂²`.  Set
+   `sK := (4·tailGeomConst/c_s)^{1/2}` (finite: `tailGeomConst < ⊤`, `c_s > 0`).
+   Then `c_s·(a + sK·b)² = c_s·a² + 4·tailGeomConst·b² + 2·c_s·a·sK·b
+     ≥ c_s·x²`, cancel `c_s` (`0 < c_s < ⊤`), take the monotone `ℝ≥0∞` square
+   root (`enn_le_of_sq_le`, no finiteness needed):
+   `x ≤ a + sK·b`, i.e.
+   `‖(periodize f)₀‖_{Ḣ^s} ≤ dotHomogeneousENorm s f + sK·‖f‖₂`.
+4. Collect: `‖periodize f‖_{H^s} ≤ ‖f‖₂ + (a + sK·‖f‖₂)
+   ≤ (1+sK)·(‖f‖₂ + a)`, with the explicit positive constant
+   `C := (1 + sK).toReal` (and `ENNReal.ofReal C = 1 + sK` since `sK < ⊤`).
+
+**Item 8 (physical `L²` torus/cube bridge), proved here as `torus_cube_L2`.**
+`eLpNorm (torusLift v) 2 periodicTorusMeasure = eLpNorm v 2 (volume.restrict
+fundamentalCube)` for continuous `v`.  Via `eLpNorm_two_sq` (squared order-2
+seminorm as `∫⁻ ‖·‖²`, measure-agnostic) it reduces to
+`∫⁻ ‖torusLift v‖² dHaar = ∫⁻_{[0,1]³} ‖v‖² dx`
+(`lintegral_torusLift_normSq`), which is
+`ofReal (∫ ‖torusLift v‖² dHaar) = ofReal (cubeIntegral ‖v‖²)` through
+`NSFormalization.Paper1.integral_torusLift` (the upstream Haar/cube bridge) and
+`lintegral_fundamentalCube_ofReal` (lane 345).  Answers COMPARISON open
+question 4 (the endpoint Haar bridge) for the order-zero physical norm.
+
+**`periodize f` smoothness/periodicity.**  T13's spatial `periodize f`
+= `∑' n, f (x - latticeVector n)` equals the time slice
+`NavierStokes.PeriodicLocalization.periodize (fun z ↦ f z.2) (0, x)` of the
+upstream spacetime periodization (`periodize_eq_vendor`, `latticeVector` =
+upstream `lattice`).  Smoothness (`contDiff_periodize_supported`) is the
+upstream locally finite `contDiff_periodize` applied with the origin-centred
+`SupportedInCube 1` bound from `tsupport f ⊆ [0,1]³`; unit-periodicity
+(`isPeriodicSpatial_periodize`) is the upstream lattice reindexing
+`unitSpatialPeriodsOn_periodize`, holding unconditionally.
+
+Records: `research/T13/ATTEMPTS_ASSEMBLY.md`,
+`research/T13/axioms_assembly.lean` (11 declarations),
+probe `research/T13/probes/assembly_closes.lean`,
+report `research/T13/REPORT_359.md`.

@@ -78,6 +78,20 @@ in the tree today.
   (`temporalDerivative`, `spatialLaplacian`, `spatialDerivative`, `advection`) — the T17 spelling reorders the
   two middle summands, matched by `add_comm`. Reuse T16 `LatticeLift.spatialDivergence_translate:176`,
   `isPeriodicOn_sub_latticeVector:327`. **M, Opus.** Deps: — (T16).
+  **Status (lane 373, DONE):** `Section3/T17/Transport.lean` closed with 0 `sorry`/`axiom`, all decls
+  `[propext, Classical.choice, Quot.sound]`. `correctionData := localPotentialData v x₀ T θ η O θR ε₀` (plain
+  `x₀ T` args, no `PlacementData` — lane 362 not yet in tree; the `place` form is a projection corollary once it
+  lands); `correctionData_correction` by `rfl`. `correctionForce` copied verbatim from `Spec.lean:726-733`;
+  `correctionForce_eq_source` bridges to `Source.correctionForce` by `abel` (the two middle summands swap).
+  `force_eq` proved **pointwise, by cases on `x ∈ periodicSet (ball x₀ r)`** (not a finite-sum expansion): the
+  active-copy germ is a *single* translate (via `latticeLift_eq_of_ball` + `latticeLift_periodic`), so the
+  nonlinear advection term never produces cross copies; outside the periodic support both sides vanish
+  (`latticeLift_sliceSupport` + a new `source_correctionForce_support`). New reusable equivariance lemmas
+  `temporalDerivative_translate`/`spatialDerivative_translate`/`spatialLaplacian_translate`/`advection_translate`
+  and germ-congruence `source_correctionForce_congr` (all downstream of U5/U6 will reuse these). Hypotheses are
+  the honest T16 ones (`hv : IsPeriodicOn univ v`, `hvsm : ContDiffOn v cylinder`, θ/η smoothness+support,
+  `ε*θR < r < 1/2`, `2ε² < min T δ`) — no named `Prop` input. `correctionForce_periodic` (part c) via
+  `latticeLift_periodic`.
 
 - **U3 — correction profile fields + identity** (Euclidean reuse). New `Section3/T17/CorrectionProfile.lean`.
   Targets `correction_profile_smooth`, `correction_profile_support`, `correctionProfileConst`,
@@ -221,3 +235,28 @@ in `PLAN.md`.
    `D.correction ε = latticeLift (physicalCorrection …)`. U2's `correctionData` makes this `rfl`, but every
    quantitative lane must state its lemma about that concrete term and let U12 bundle — do not attempt to prove
    a quantitative field for an arbitrary `LocalPotentialAPI`-satisfying `D` (it is false without the construction).
+
+### U1 status (lane 369 → r1 → r2, DONE after two codex REJECTs)
+`Section3/T17/LatticeDeriv.lean` now carries **both** forms, each
+`[propext, Classical.choice, Quot.sound]`:
+- `latticeLift_iteratedFDeriv_eq` / `latticeLift_iteratedFDeriv_norm_le_iSup` —
+  the `k = 0` fundamental-ball equality and its `ℝ≥0∞`/`⨆` corollary (unchanged
+  from lane 369 r0).
+- **`latticeLift_iteratedFDeriv_eq`** (the U1 target) — the general **arbitrary-`z`**
+  `∃ k` shifted-copy equality
+  `‖iteratedFDeriv ℝ n (latticeLift w) z u‖ = ‖iteratedFDeriv ℝ n w (z - (0, latticeVector k)) u‖`,
+  covering the no-copy/zero case (`k = 0`, both sides `0`).  Route: periodicity
+  (`isPeriodicOn_sub_latticeVector`) + `latticeLift_eq_of_ball` give a
+  single-translate neighbourhood, then `Filter.EventuallyEq.iteratedFDeriv` and
+  `iteratedFDeriv_comp_sub`; the zero case builds an explicit `ball z.2 (r-ρ)` of
+  vanishing terms.  Hypotheses = `latticeLift_eq_of_ball`'s (`hslice`, `r+ρ≤1`)
+  **plus** the strict separation `hlt : ρ < r` (satisfied downstream,
+  `hεspace : ε·θRadius < r`; load-bearing — `research/T17/probes/rev369r1_negative_lt.lean`).
+- **`latticeLift_iteratedFDeriv_norm_le_iSup`** — the all-`z` `ℝ≥0∞`/`⨆`
+  corollary in the norm spelling `CorrectionAPI.correction_derivative_bound`
+  consumes (arbitrary `u : Fin n → SpaceTime` subsumes the `Fin.append` tuple).
+
+U5 (`correction_derivative_bound`) and U6 (`force_derivative_bound`) are **separate
+lanes and not started** in this lane; when opened they will transport the
+registered `I02` Euclidean derivative bounds to **every** spacetime point through
+`latticeLift_iteratedFDeriv_eq`, no longer only the fundamental ball.
