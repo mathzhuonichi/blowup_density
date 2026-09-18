@@ -304,3 +304,33 @@ The new probe checks only the delivered sub-results and the homogeneous full
 recovery case; its name `physical_recovery_closes.lean` is the requested artifact
 name, **not evidence that the general target closes**. Details, actual compiler
 errors and the missing work are in `ATTEMPTS_PHYSICAL_RECOVERY.md`.
+
+
+## U9d2 status — lane 320 (partial; target remains open)
+
+`ClassicalAssembly.lean` defines U9d1's exact local conclusion as follows:
+
+```lean
+def PersistenceInput (T : ℝ) (u : ℝ → PeriodicSobolev 3) : Prop :=
+  ∀ m : ℕ, ∃ u_m : ℝ → PeriodicSobolev (m : ℝ),
+    ContinuousOn u_m (Ico 0 T) ∧
+      ∀ t ∈ Ico 0 T, ∀ i k,
+        torusPhysicalCoeff (m : ℝ) (u_m t) i k = torusPhysicalCoeff 3 (u t) i k
+```
+
+The physical coefficient equality is proved equivalent to `IsPeriodicReweight`.
+From it: the exact continuous all-order Sobolev field and C∞ spatial slices of
+`torusPhysicalVelocity u`. From the exact mild equation and the original Leray
+force graph: coefficient solenoidality, then physical divergence zero on Ico,
+including zero. No smoothing estimate with a nonintegrable kernel is used.
+The projected equation is proved for an existing ClassicalSolutionT via the
+canonical convection identity; this does not supply the missing momentum equation.
+
+The general U9d existential target above is unchanged and remains unproved even
+with PersistenceInput. Time regularity (including initial-boundary joint smoothness),
+physical pressure and its identities, momentum and final assembly remain open.
+No further named input is introduced: this is explicitly a partial delivery,
+not successful application of the complete single-further-input peeling fallback.
+A common-horizon nonzero constant-force trajectory satisfies the input, the genuine
+mild equation and full recovery together. All 26 named declarations pass exact
+standard-three-axiom guards. Details: REPORT_320.md and ATTEMPTS_CLASSICAL_ASSEMBLY.md.

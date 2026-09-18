@@ -144,6 +144,8 @@ maximality and gluing are reachable today; **existence is the only genuine hole*
 
 - **U9d / lane 318 status:** partial, not closed — unconditional H³ Fourier inverse, exact datum/path and initial recovery, joint continuity, and full affine-constant forced recovery on arbitrary T; general bootstrap, divergence, pressure and PDE recovery remain open; no new named input; see `REPORT_318.md`.
 
+- **U9d2 status (320, partial):** `ClassicalAssembly` proves exact persistence/reweight and Sobolev paths, spatial C∞, full mild-to-physical divergence on Ico, and projected-from-classical; sole input `PersistenceInput T u`; time regularity, pressure and general classical assembly remain open. See `REPORT_320.md`.
+
 ## 2. Waves (≤ 4 concurrent)
 
 | wave | units | sizes / models |
