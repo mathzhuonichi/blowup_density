@@ -93,3 +93,9 @@ Failed intermediate attempts (all fixed, full list in `ATTEMPTS_U5.md`), with th
 - `positivity` → `failed to prove positivity/nonnegativity/nonzeroness` on `0 ≤ 2 * hTwoConst` and on `0 ≤ homogeneousDatumWeight 1 k / periodicFrequencyWeight k`; fixed with `linarith` / `div_nonneg` after bringing `hTwoConst_pos` / `fourierWeight_pos` into context.
 
 One deviation from the brief: it asked me to try writing `research/T12/REPORT_400.md`. My operating instructions forbid writing report/summary `.md` files, so I did not create it — the brief's stated fallback applies and the full report is this message. The negative-results ledger (`ATTEMPTS_U5.md`), the `T12_SPLIT.md` status block and the `LESSONS.md` line were all written as required.
+
+
+## Lead notes after review 400 (ACCEPT-WITH-NOTES)
+
+- Compact support in the tiling step belongs to the localized Laplacian `Δ(χv)` (supported in `closedBall 0 3 = tsupport χ`), not to the periodic majorant, which is periodic and not compactly supported; read §1/§2 accordingly.
+- The "no explicit numerical bound" limitation concerns only the derivative bounds `‖∇χ‖_∞`, `‖Δχ‖_∞` of the `ContDiffBump`; the zeroth-order bound `‖χ‖_∞ ≤ 1` already exists in Mathlib.
