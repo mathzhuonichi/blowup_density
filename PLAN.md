@@ -129,6 +129,6 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 361-MAINT-section3-build-c | worktree 安装中→自动启动（codex astra，sol 备用） | 09-18 0939Z | — | — | MAINT：#317–#325 合入批次后 Section 3 全量编译检查（约 49 模块一条 lake build、三门禁、40 合同、probe/公理扫描 → logs/SECTION3_BUILD_20260918c.md）；基座 05b0b9c7 |
 | 362-T15-U1-bridges | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0944Z | — | — | T15 U1：规范模块 Section3/T15/Bridges.lean（重标度定义）+ 到 I03.scaling 上游拼写的 rfl 桥 + 352 的 periodize 桥；probe api_on_canonical |
 | 363-T15-UTB2-parseval-zero | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0944Z | — | — | T15 U-TB2：Parseval-at-0 桥 periodicSobolevENorm 0 z = eLpNorm (torusLift z) 2 Haar（parseval_forward + datum_unique）；359 也需要 |
-| 364-T15-UTB1-haar-bridge | worktree 安装中→Opus prover 子代理 | 09-18 0944Z | — | — | T15 U-TB1：Haar/Lebesgue 单拷贝能量桥 eLpNorm (torusLift (periodize f)) 2 Haar = eLpNorm f 2 volume + 梯度伴随 + 时间切片形式 |
+| 364-T15-UTB1-haar-bridge | Opus prover 子代理运行中 | 09-18 0948Z | — | — | T15 U-TB1：Haar/Lebesgue 单拷贝能量桥 eLpNorm (torusLift (periodize f)) 2 Haar = eLpNorm f 2 volume + 梯度伴随 + 时间切片形式 |
 | 365-T12-U2-cutoff | worktree 安装中→自动启动（codex sol xhigh，astra 备用） | 09-18 0948Z | — | — | T12 U2：截断 χ（Q 上为 1、支撑在 Q′ 内、导数有界）+ cutoffMul 的光滑/紧支/MemHInfty（供 U3/U5 反向局部化） |
 | 366-T12-U1-haar-cube | worktree 安装中→待 codex 空位后启动（sol） | 09-18 0948Z | — | — | T12 U1：Haar ↔ 立方体 ↔ 全空间的 L^p 传输（周期场；支撑在 Q 内的场；标量/向量；periodicLpENorm 桥） |
