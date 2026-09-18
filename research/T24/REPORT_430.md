@@ -56,3 +56,6 @@ diff <(sed -n '958,1121p' research/T24/Spec.lean) <(sed -n '46,209p' verificatio
 ```
 
 Failed approaches, both recorded in `ATTEMPTS_UA9.md`: (a) `def` for the `Prop`-valued API instances tripped `linter.defProp` — switched both to `theorem` (lane 423's `def` precedent does not carry over, its API is `Type`-valued); (b) the base-ref drift above. The four Lean files themselves compiled on the first attempt, with no `sorry`, no `set_option`, and no conversion lemma — the contract/canonical defeq is transparent to structure-instance elaboration.
+
+
+> Lead note after review 430: the base-drift note is already addressed — the lane merged `origin/erenup/integration-section3` (commit 7661382b) before the review ran and re-ran `check_contracts.py --base-ref` (44 contracts, base compatibility checked); at merge time the lead re-merged once more against #391 (T22 registration) with the same JSON-aware resolution.
