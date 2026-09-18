@@ -71,3 +71,6 @@ All from `/data_8T/ping/blowup_density/.claude/worktrees/401-T12-U4b-critical-l3
 - `make test` → completed through `Tests.CompletedDensity`: `Contract BlowupDensity.Tests.checkedCompletedDensity: checked; standard logical axioms only` (all registered contracts still green).
 - `grep -n "sorry\|admit\|axiom\|native_decide\|maxHeartbeats"` on the module and the probe → no hits.
 - `git commit` → `90f8fa88`, 6 files, +890 lines. Nothing pushed.
+
+
+> Lead note after review 401: `make check` is a repository-root target (run it from the worktree root, not from `verification/`, where it reports no such target); the worker ran it from the root.
