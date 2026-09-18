@@ -197,3 +197,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 429-T20-U10a-h1-trilinear | Opus 完成：h1Trilinear（(3,6,2) 环面 Hölder + T12 U4/U5；C₁ = CcriticalHalf·Csix；U10b 切片形式）；因 400/405 同名冲突置于 GradientLSix 侧并复制 413 四条辅助引理为 …H1（427 修复后可清理）→ 排队审稿 | 09-18 1820Z | — | — | T20 U10a：均值零 H¹ 三线性估计 abs⟪(v·∇)v,Δv⟫ ≤ C₁ y ‖Δv‖²₂（Hölder (3,6,2) + T12 U4/U5） |
 | 430-T24-Ua9-affine-registration | Opus prover 子代理运行中 | 09-18 1819Z | — | — | T24a Ua9：AffineVariationAPI 装配（13 字段）+ affineVariationStatement + 注册 T04.affine_variation（绑定层从 packet 字段推出 energyENorm 1 U < ⊤） |
 | 431-T17-U8-force-volume | Opus prover 子代理运行中 | 09-18 1821Z | — | — | T17 U8：修正力环面支撑体积 O(ε³) 与时长 ≤ 4ε²（force_support + Haar=Lebesgue 单拷贝桥） |
+| 432-T20-U10b-h1-energy | worktree 安装中（428 + 429 + integration）→ Opus prover | 09-18 1830Z | — | — | T20 U10b：hOneEnergy（eq:H1energy：‖∇v‖²₂ 导数 + 耗散 + U10a 经 U9 吸收 + Young 力项；常数 CH1） |
