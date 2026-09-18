@@ -402,21 +402,40 @@ theorem physicalCorrection_cancels {v U : SpaceTimeField} {x₀ : Space}
 
 /-! ## 4. The assembled statement -/
 
-/-- **Lemma `lem:potential`** (`paper/sections/03-torus.tex:176-217`,
-`research/T16/Spec.lean:328-336`): the general local divergence-free cutoff on the
-three-torus.  The construction uses the two Urysohn cutoffs and the small-scale
-threshold (`exists_originCutoff`/`exists_timeCutoff`/`exists_threshold`), the
-radial vector potential `A = timePotential v x₀` on the chart ball
-(`exists_potential_on_ball`), and the unit-periodic lift
+/-- The construction data of `lem:potential`: the two Urysohn cutoffs `θ, η`
+with the plateau `O`, the support radius `θR`, the threshold `ε₀`, the radial
+potential `timePotential v x₀`, and the unit-periodic lift
 `fun ε => latticeLift (physicalCorrection v x₀ T θ η ε)` of the concrete chart
-correction (`correction_fields_of_chart`).  The Spec's statement follows through
-`research/T16/probes/api_on_canonical.lean:specStatement_of_module`. -/
-theorem localPotential : localPotentialStatement := by
-  intro v U K x₀ r T δ hr hr2 hT hδ hK hper hcont hdiv hUsupp
-  obtain ⟨θR, θ, O, hθRpos, hθsm, hθcs, hθsupp, hOopen, hKO, hθone, hθrange⟩ :=
-    exists_originCutoff hK
-  obtain ⟨η, hηsm, hηcs, hηrange, hηone, hηsupp⟩ := exists_timeCutoff
-  obtain ⟨ε₀, hε₀pos, hεtime, hεspace⟩ := exists_threshold hθRpos hr hT hδ
+correction.  This is the `CutoffData` witness assembled by `localPotential`. -/
+def localPotentialData (v : SpaceTimeField) (x₀ : Space) (T : ℝ)
+    (θ : Space → ℝ) (η : ℝ → ℝ) (O : Set Space) (θR ε₀ : ℝ) : CutoffData :=
+  ⟨θ, η, O, θR, ε₀, timePotential v x₀,
+    fun ε => latticeLift (physicalCorrection v x₀ T θ η ε)⟩
+
+/-- The reconciled `LocalPotentialAPI` for `localPotentialData`, given the two
+Urysohn cutoffs, the threshold, and the reference's local regularity /
+periodicity / packet-support hypotheses.  The seven `correction_*` fields come
+from `correction_fields_of_chart` with the concrete
+`physicalCorrection v x₀ T θ η ε`; the three chart facts requiring a *global*
+reference are supplied by the local-reference companions
+`physicalCorrection_contDiff`/`physicalCorrection_divergence` and the
+scaled-plateau datum `physicalCorrection_cancels`. -/
+theorem localPotentialAPI (v U : SpaceTimeField) (K : Set Space) (x₀ : Space) (r T δ : ℝ)
+    (θ : Space → ℝ) (η : ℝ → ℝ) (O : Set Space) (θR ε₀ : ℝ)
+    (hr2 : r < 1 / 2) (hK : IsCompact K) (hper : IsPeriodicOn univ v)
+    (hcont : ContDiffOn ℝ ∞ v (Ioo (0 : ℝ) (T + δ) ×ˢ ball x₀ r))
+    (hdiv : ∀ t ∈ Ioo (0 : ℝ) (T + δ), ∀ x ∈ ball x₀ r, spatialDivergence v t x = 0)
+    (hUsupp : ∀ t ∈ Ioo (0 : ℝ) 1, tsupport (fun x => U (t, x)) ⊆ K)
+    (hθsm : ContDiff ℝ ∞ θ) (hθcs : HasCompactSupport θ)
+    (hθrange : ∀ x, θ x ∈ Icc (0 : ℝ) 1) (hOopen : IsOpen O) (hKO : K ⊆ O)
+    (hθone : EqOn θ (fun _ => 1) O) (hθRpos : 0 < θR)
+    (hθsupp : tsupport θ ⊆ ball (0 : Space) θR)
+    (hηsm : ContDiff ℝ ∞ η) (hηcs : HasCompactSupport η)
+    (hηrange : ∀ t, η t ∈ Icc (0 : ℝ) 1) (hηone : EqOn η (fun _ => 1) (Icc (-1 : ℝ) 1))
+    (hηsupp : tsupport η ⊆ Ioo (-2 : ℝ) 2)
+    (hε₀pos : 0 < ε₀) (hεtime : ∀ ε ∈ Ioc (0 : ℝ) ε₀, 2 * ε ^ 2 < min T δ)
+    (hεspace : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ε * θR < r) :
+    LocalPotentialAPI v U K x₀ r T δ (localPotentialData v x₀ T θ η O θR ε₀) := by
   -- The seven canonical `correction_*` fields for the concrete correction.
   have hcorr := correction_fields_of_chart v U x₀ θ η (timePotential v x₀) r T ε₀ θR
     (fun ε => physicalCorrection v x₀ T θ η ε) hr2 hper hεspace
@@ -430,8 +449,6 @@ theorem localPotential : localPotentialStatement := by
     (fun ε hε t ht => physicalCorrection_cancels hK hcont hdiv hUsupp hOopen hKO
       hθsupp hθone hηone (hεtime ε hε) (hεspace ε hε) hε.1 ht)
   obtain ⟨hcf, hcs, hcp, hcd, hcsupp, hcsb, hcc⟩ := hcorr
-  refine ⟨⟨θ, η, O, θR, ε₀, timePotential v x₀,
-    fun ε => latticeLift (physicalCorrection v x₀ T θ η ε)⟩, ?_⟩
   exact
     { theta_smooth := hθsm
       theta_compactSupport := hθcs
@@ -459,5 +476,19 @@ theorem localPotential : localPotentialStatement := by
       correction_support := hcsupp
       correction_support_ball := hcsb
       correction_cancels := hcc }
+
+/-- **Lemma `lem:potential`** (`paper/sections/03-torus.tex:176-217`,
+`research/T16/Spec.lean:328-336`): the general local divergence-free cutoff on the
+three-torus, assembled as `⟨localPotentialData …, localPotentialAPI …⟩`. -/
+theorem localPotential : localPotentialStatement := by
+  intro v U K x₀ r T δ hr hr2 hT hδ hK hper hcont hdiv hUsupp
+  obtain ⟨θR, θ, O, hθRpos, hθsm, hθcs, hθsupp, hOopen, hKO, hθone, hθrange⟩ :=
+    exists_originCutoff hK
+  obtain ⟨η, hηsm, hηcs, hηrange, hηone, hηsupp⟩ := exists_timeCutoff
+  obtain ⟨ε₀, hε₀pos, hεtime, hεspace⟩ := exists_threshold hθRpos hr hT hδ
+  exact ⟨localPotentialData v x₀ T θ η O θR ε₀,
+    localPotentialAPI v U K x₀ r T δ θ η O θR ε₀ hr2 hK hper hcont hdiv hUsupp
+      hθsm hθcs hθrange hOopen hKO hθone hθRpos hθsupp
+      hηsm hηcs hηrange hηone hηsupp hε₀pos hεtime hεspace⟩
 
 end NSFormalization.Section3.T16

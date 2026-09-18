@@ -15,4 +15,6 @@ open NSFormalization.Section3.T16
 #print axioms periodicSet_mono
 #print axioms plateau_subset_ball
 #print axioms physicalCorrection_cancels
+#print axioms localPotentialData
+#print axioms localPotentialAPI
 #print axioms localPotential

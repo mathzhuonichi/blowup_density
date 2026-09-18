@@ -510,6 +510,27 @@ the reconciled Spec's `localPotentialStatement`. -/
 example : BlowupDensity.T16.Spec.localPotentialStatement :=
   T16Probe.specStatement_of_module NSFormalization.Section3.T16.localPotential
 
+/-- The required packaging: `localPotentialData` is the `CutoffData` witness. -/
+example (v : NSFormalization.Section4.A02.SpaceTimeField) (x₀ : Space) (T : ℝ)
+    (θ : Space → ℝ) (η : ℝ → ℝ) (O : Set Space) (θR ε₀ : ℝ) :
+    NSFormalization.Section3.T16.CutoffData :=
+  NSFormalization.Section3.T16.localPotentialData v x₀ T θ η O θR ε₀
+
+/-- The required packaging: `localPotential` composes `localPotentialData` and
+`localPotentialAPI`; both close `localPotentialStatement`. -/
+example : NSFormalization.Section3.T16.localPotentialStatement := by
+  intro v U K x₀ r T δ hr hr2 hT hδ hK hper hcont hdiv hUsupp
+  obtain ⟨θR, θ, O, hθRpos, hθsm, hθcs, hθsupp, hOopen, hKO, hθone, hθrange⟩ :=
+    NSFormalization.Section3.T16.exists_originCutoff hK
+  obtain ⟨η, hηsm, hηcs, hηrange, hηone, hηsupp⟩ :=
+    NSFormalization.Section3.T16.exists_timeCutoff
+  obtain ⟨ε₀, hε₀pos, hεtime, hεspace⟩ :=
+    NSFormalization.Section3.T16.exists_threshold hθRpos hr hT hδ
+  exact ⟨NSFormalization.Section3.T16.localPotentialData v x₀ T θ η O θR ε₀,
+    NSFormalization.Section3.T16.localPotentialAPI v U K x₀ r T δ θ η O θR ε₀
+      hr2 hK hper hcont hdiv hUsupp hθsm hθcs hθrange hOopen hKO hθone hθRpos hθsupp
+      hηsm hηcs hηrange hηone hηsupp hε₀pos hεtime hεspace⟩
+
 /-- Non-vacuity: the general theorem applies to a genuinely nonzero, periodic,
 divergence-free constant reference `v ≡ e₀` on the chart cylinder, producing the
 full reconciled `LocalPotentialAPI`. -/
@@ -546,4 +567,6 @@ end T16AssemblyProbe
 #print axioms T16Probe.api_ofModule
 #print axioms T16Probe.latticeVector_eq
 #print axioms T16Probe.periodicScaledPacket_eq
+#print axioms NSFormalization.Section3.T16.localPotentialData
+#print axioms NSFormalization.Section3.T16.localPotentialAPI
 #print axioms NSFormalization.Section3.T16.localPotential
