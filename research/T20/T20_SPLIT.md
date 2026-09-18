@@ -22,6 +22,21 @@ Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core
   Axioms `[propext, Classical.choice, Quot.sound]`.
 - Probe `research/T20/probes/bintegral_transport_closes.lean`; axiom audit
   `research/T20/axioms_u3_u4.lean`; attempts `research/T20/ATTEMPTS_U3_U4.md`.
+- **U7 critical trilinear estimate** — DONE (lane 413).
+  `Section3/T20/CriticalTrilinear.lean`, theorem
+  `NSFormalization.Section3.T20.criticalTrilinear` (`.toReal` form, the shape U8
+  applies at each time) with `criticalTrilinear_enorm` (`ℝ≥0∞` form, no
+  finiteness hypothesis) and `criticalTrilinear_pairing` (`periodicPairing`
+  spelling).  Explicit constant
+  `criticalTrilinearConst = CcriticalHalf * CcriticalThreeHalves ^ 2
+  = 16 * CcriticalHalf ^ 3`, with `criticalTrilinearConst_pos`; this is the `C₀`
+  U13 installs.  Built on the now-merged T12 U4 `velocityCriticalL3` (lane 401)
+  and T12 U6 `gradientLambdaCriticalL3` (lane 405), so **U7 is no longer blocked
+  on T12** and U8 is unblocked.  No named input.  Axioms
+  `[propext, Classical.choice, Quot.sound]` for all 13 declarations.
+  Probe `research/T20/probes/critical_trilinear_closes.lean` (nonzero witness
+  `probeMZ`, plus the U8 slice shape check); audit `research/T20/axioms_u7.lean`;
+  attempts `research/T20/ATTEMPTS_U7.md`.
 
 ## 0. Ground rules
 
