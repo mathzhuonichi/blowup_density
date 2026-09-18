@@ -37,6 +37,32 @@ Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core
   Probe `research/T20/probes/critical_trilinear_closes.lean` (nonzero witness
   `probeMZ`, plus the U8 slice shape check); audit `research/T20/axioms_u7.lean`;
   attempts `research/T20/ATTEMPTS_U7.md`.
+- **U9 `yBound`** — DONE (lane 428).
+  `Section3/T20/YBound.lean`, theorem
+  `NSFormalization.Section3.T20.yBound` (verbatim field type, at
+  `c = criticalSmallness = 1/(8*criticalTrilinearConst)`), with the general form
+  `yBound_of_le` for any `c ≤ 1/(2*criticalTrilinearConst)`.  No named input, no
+  residual.  `criticalSmallness_pos` and `criticalSmallness_lt_quarter`
+  (`c < 1/(4*C₀)`, the structure's strict shrinking) are exported for U13.
+  Route: one bounded even symbol `critSymbol k = |2πk|^{1/2}/(1+4π²|k|²)^{1/2}`,
+  packaged by `T11.torusMultiplierCLM` as a contraction
+  `critLower : PeriodicSobolev 1 →L[ℝ] PeriodicSobolev (1/2)`, sends an order-one
+  inhomogeneous datum to the order-`1/2` **homogeneous** datum of the mean-free
+  part (torus copy of `R43/ForcePath.lean`).  Applied to lane 312's
+  `T10.force_coefficient_path` it makes `b(t)` continuous on all of `ℝ`, so the
+  primitive `N(t)=∫₀ᵗ b` is everywhere differentiable with `N'=b`
+  (`intervalIntegral.integral_hasDerivAt_right`) — the force-path FTC was **not**
+  the long pole.  Applied to `w.sobolev 1` it makes `y(t)` continuous on
+  `Ico 0 T`, and `y(0)=0` from `w.initial`.  The scalar core is
+  `Paper1.critical_norm_bound` on the clamped profile
+  `ŷ s = y (min (max s 0) t)` (the scalar lemma needs `Continuous`, T11 gives
+  only `ContinuousOn`), followed by a **second** pass through
+  `Paper1.sqrt_energy_le_primitive` to upgrade `y ≤ ρ` into the paper's
+  `y(t) ≤ ∫₀ᵗ b`.  The `∫₀ᵗ b ≤ ρ` half is U3 `bIntegral` plus
+  `lintegral_mono_set Ioc_subset_Ioi_self`.
+  Axioms `[propext, Classical.choice, Quot.sound]` for all 36 declarations.
+  Probe `research/T20/probes/ybound_closes.lean`; audit
+  `research/T20/axioms_u9.lean`; attempts `research/T20/ATTEMPTS_U9.md`.
 - **U8 `criticalEnergy`** — DONE (lane 415).
   `Section3/T20/CriticalEnergy.lean`, theorem
   `NSFormalization.Section3.T20.criticalEnergy` (verbatim field type, with
