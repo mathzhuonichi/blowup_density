@@ -201,5 +201,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 433-T18-U5-U6-cross-transport-momentum | Opus 完成：U5 两交叉输运项恒零（t_ε 处分情形 + correction_cancels + Source.cross_advection_eq_zero）+ U6 精确动量方程（Source.residual 与 canonical 残差 rfl；压力规范化梯度不变，无需可积性）→ 排队审稿 | 09-18 1852Z | — | — | T18 U5 两个交叉输运项恒零（eq:bgzero）+ U6 插入三元组的精确动量方程 |
 | 434-T17-U9-energy-bound | Opus prover 子代理运行中 | 09-18 1846Z | — | — | T17 U9：修正场环面能量界 ‖w_ε‖_{E_T} ≤ C ε^{3/2} + 两个 MemLp 诚实切片（HaarBridge 单拷贝桥 + 注册 I02 能量界） |
 | 435-T18-U7-diff-support | worktree 安装中（433 + integration）→ codex sol | 09-18 1853Z | — | — | T18 U7：速度差的局部化（periodicSet 球，半径 max θR R_K；diffSupport_in_chart） |
-| 436-T18-U8-lifespan | worktree 安装中（433 + integration）→ Opus prover | 09-18 1853Z | — | — | T18 U8：插入解 solution / blowup / blowup_limsup / lifespan = T / maximal（H³ 窄化续延 API + velocity_unique） |
+| 436-T18-U8-lifespan | Opus prover 子代理运行中 | 09-18 1857Z | — | — | T18 U8：插入解 solution / blowup / blowup_limsup / lifespan = T / maximal（H³ 窄化续延 API + velocity_unique） |
 | 437-T20-U11-continuation-bound | worktree 安装中（432 + integration）→ Opus prover | 09-18 1855Z | — | — | T20 U11：continuationBound（常/均值零模正交分解 + hTwo_le_laplacian + 积分 U10b + U2 均值界；Ccriterion） |
