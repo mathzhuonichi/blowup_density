@@ -62,6 +62,23 @@ Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core
   `H1Trilinear` therefore sits on the `GradientLSix` side and repeats four small
   lane-413 helpers under `…H1` names; U10b needs both sides, so the duplicate
   must be deleted upstream (lane-400's general version subsumes lane-405's).
+- **U8 `criticalEnergy`** — DONE (lane 415).
+  `Section3/T20/CriticalEnergy.lean`, theorem
+  `NSFormalization.Section3.T20.criticalEnergy` (verbatim field type, with
+  `C₀ = criticalTrilinearConst`).  No named input, no residual.
+  The `y²` derivative is the T11 `hasDerivAt_torusSobolevNormAt_sq` template at
+  the homogeneous order-`1/2` weight (`hasDerivAt_tsum_critFreqEnergy`); the
+  pressure drop is T11's `freqEnergyDerivT_split` at order `0`
+  (`rawEnergyDeriv_split`); the force term is `T11.torusRealPairing_le` on the
+  order-`1/2` homogeneous data; the nonlinear term is lane 413's
+  `criticalTrilinear_pairing`, reached through a new torus Parseval for the real
+  `L²` pairing (`hasSum_periodicPairing`) and `T12.lambda_exists`.
+  **U8 does not use U5**: the constant transport is dropped on the Fourier side
+  (`re_sum_conj_fderiv_dir_zero`), because the physical skew route would need
+  both U5 and self-adjointness of `Λ`, neither of which is in the tree.
+  Axioms `[propext, Classical.choice, Quot.sound]` for all 21 declarations.
+  Probe `research/T20/probes/critical_energy_closes.lean`; audit
+  `research/T20/axioms_u8.lean`; attempts `research/T20/ATTEMPTS_U8.md`.
 
 ## 0. Ground rules
 
