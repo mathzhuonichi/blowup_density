@@ -324,12 +324,12 @@ theorem physicalCorrection_cancels {v U : SpaceTimeField} {x₀ : Space}
       by_contra h
       apply hy
       simp only [hw'def]
-      exact if_neg h
+      exact ite_eq_right h
     have hspacket : parabolicVelocity ε⁻¹ (T - ε ^ 2) x₀
         (zeroPastField U) (s, y) ≠ 0 := by
       have hy' := hy
       simp only [hw'def] at hy'
-      rwa [if_pos hsT] at hy'
+      rwa [ite_eq_left hsT] at hy'
     by_cases hs0 : s ≤ T - ε ^ 2
     · exact absurd (zeroPast_dilate_early U ε⁻¹ ((ε⁻¹) ^ 2) ε⁻¹ (T - ε ^ 2)
         (sq_nonneg _) x₀ hs0 y) hspacket
@@ -359,7 +359,7 @@ theorem physicalCorrection_cancels {v U : SpaceTimeField} {x₀ : Space}
     funext x
     refine tsum_congr (fun k => ?_)
     simp only [hw'def]
-    exact (if_pos ht.2).symm
+    exact (ite_eq_left ht.2).symm
   have hpacket : tsupport (fun x => periodicScaledPacket U x₀ T ε (t, x))
       ⊆ periodicSet (spaceMap ε x₀ '' O) := by
     rw [hpacket_eq]

@@ -261,3 +261,38 @@ above and in §1.
   Note for U4/U5 consumers: the hypothesis is `interior fundamentalCube`, strictly weaker than the
   `place.chartBall_in_cube` ball form, so a ball placement discharges it via
   `hsupp.trans (subset_closure.trans hball)`.
+
+### U2 status (lane 376)
+
+**Complete (r2, 2026-09-18).** `formalization/NSFormalization/Section3/T15/Placement.lean`
+(namespace `NSFormalization.Section3.T15`, builds clean, all 16 decls
+`[propext, Classical.choice, Quot.sound]`).  r0 goal-aliases and r1 (narrow time
+domain + dead force binder) were both rejected
+(`REVIEW_376-T15-U2-placement.md`); r2 is genuine transport from the raw
+`PacketAPI` clauses over the U3 time domains.  Shipped:
+
+- `scaledVelocity_tsupp_subset` / `scaledPressure_tsupp_subset` — for `0 < ε`,
+  **every `t < T`**, slice support `⊆ (fun y ↦ x₀+ε•y) '' Kstar`, from
+  `velocity_support`/`pressure_support` (`Ico 0 1`), `carrier_compact`,
+  `carrier_subset`.  Split at activation `t_ε = T-ε²`: pre-activation zero slice
+  (`scaled*_slice_eq_zero` via `zeroPast_dilate_early`), active window via
+  `parabolic_support`/`dilate_support` + `inv_inv` + `Set.image_mono`.  Domain
+  matches `velocity_singleCopy`/`pressure_singleCopy` (`Spec.lean:704-718`).
+- `scaledForce_tsupp_subset` — for **every** `t`, from the verbatim packet clause
+  `CompactPositiveTimeSupport f` used through `parabolicForce_support hf.1`, and
+  `force_projection_subset`.  Domain matches `force_singleCopy` (`Spec.lean:726-731`).
+- `scaledVelocity_slice_eq_zero`/`scaledPressure_slice_eq_zero`,
+  `tsupport_subset_of_slice_zero`; `affineImage_compact`,
+  `affineImage_subset_ball` (`eps_space`), `ball_subset_interior_cube`
+  (`chartBall_in_cube`), composed `scaled{Velocity,Pressure,Force}_slice_subset_cube`
+  (strict `interior fundamentalCube`, U3 / `HaarBridge.eLpNorm_torusLift_periodize`);
+  `scaled{Velocity,Pressure,Force}_slice_hasCompactSupport`.
+
+Non-vacuity: `research/T15/probes/placement_closes.lean` (explicit geometric
+instance — bump packet, cube-centre `x₀`, chart ball `3/8`, `ε₀=1` — firing the
+cube/compact-support lemmas at the active `t = 7/8` with a nonzero slice),
+reviewer probes `rev376_honest_nonvacuity.lean` / `rev376_contract_shape.lean` /
+`rev376_nonvacuity.lean`, mutation guard `rev376_negative.lean`, audit
+`axioms_u2.lean`.  A `PlacementData` inhabitant for the abstract `Bindings.packet`
+is U15 (gated on T13.localization).  Consumers U3, U7 take the
+`*_slice_subset_cube` / `*_slice_hasCompactSupport` lemmas.

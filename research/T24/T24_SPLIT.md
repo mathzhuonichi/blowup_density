@@ -78,6 +78,15 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   integrability of smooth periodic lifts (⑩, shared with T20 §4) and `integral_torusLift` (`Paper1/TorusCube.lean:40`);
   the internal pairing of `zero_of_conservative_residual` (`ConservativeForce.lean:23`) is the scaffold to mine.
   **M, Opus** (hard analytic: torus IBP). No named input. Deps: —.
+  **DONE (lane 395).** `formalization/NSFormalization/Section3/T24/PotentialPairing.lean` `potential_pairing`,
+  axioms `[propext, Classical.choice, Quot.sound]`. Route landed: NO `t=0` split needed — the whole `t ∈ Ico 0 T`
+  is handled uniformly by the vendor torus-IBP lemma `NavierStokes.PeriodicUniqueness.cubeIntegral_pressure_energy_zero`
+  (`vendor/…/PeriodicUniqueness.lean:435`, the mined form of the `zero_of_conservative_residual` scaffold): after
+  `integral_torusLift`, rewrite `⟪-∇φ,u⟫ = -⟪u,∇φ⟫` (`inner_neg_left`+`real_inner_comm`) and discharge
+  `∫_{cube}⟪u,∇φ⟫=0` for div-free periodic `u`. Hypotheses come from `S.velocity_smooth`
+  (`ContDiffOn.comp_contDiff` → spatial `ContDiff` at every slab time, incl. `t=0`), `S.velocity_periodic`,
+  `S.divergence`, and `φ`'s two `PeriodicPotentialT` clauses. **No `0<ν` used** — the statement is pure IBP.
+  `PeriodicPotentialT`/`conservativeForceT` restated verbatim (lane 392 `Conservative.lean` not on base; dedupe in Uc3).
 - **Uc3 — assembly + registration.** Assemble `ConservativeForcingAPI` from Uc1+Uc2; `conservativeForcingStatement`
   is the alias (`:1416`), inhabited by the same two proofs. Register `T24.conservative_forcing` v1 (contract +
   binding + tests), `ClassicalSolutionT` structure exception as in `T01.torus_local_theory`. Non-vacuity: the rest
@@ -108,7 +117,7 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   smooth with compact positive-time support (raw `force_smooth`/`force_support`). **L, Opus.** No named input. Deps: —.
 - **Ua5 — `speed_unbounded`** (`:1069`): `∀ b admissible, SpeedUnboundedAtOne (affineVelocity U b)`. Route:
   `U+b = U` on `t ≥ τ₁` (Ua1 `late_agreement`, `τ₁<1`), so the packet's `SpeedUnboundedAtOne U` (raw field,
-  `Packet.lean:145`) transfers. **S–M, codex-sol.** No named input. Deps: Ua1.
+  `Packet.lean:145`) transfers. **S–M, codex-sol.** No named input. Deps: Ua1. **Done: lane 403.**
 - **Ua6 — `energy_finite` (finite energy/dissipation + triangle ③).** Target verbatim (`:1076`): `∀ b
   admissible, energyENorm 1 (affineVelocity U b) < ⊤`. Route: `b` compactly supported smooth ⟹ `energyENorm 1 b
   < ⊤` (bounded velocity + gradient on a compact set, finite time interval); raw `energyENorm 1 U < ⊤` (packet
@@ -200,7 +209,7 @@ No T18 anywhere: T24b superposes T15 outputs, it does not insert.
 |---|---|---|---|
 | W1 | **Uc1** zero_from_rest · **Uc2** potential_pairing · **Ua1** geometry/kinematics | S–M sol / M Opus / S sol | **Uc1 + Ua1 done (lane 392)**; Uc2 in progress |
 | W2 | **Uc3** conservative assembly+register · **Ua2** divergence · **Ua3** momentum ① | S–M sol / S–M sol / L Opus | unblocked |
-| W3 | **Ua4** force smooth-ext ② · **Ua5** speed_unbounded · **Ua6** energy_finite ③ | L Opus / S–M sol / M–L Opus | unblocked |
+| W3 | **Ua4** force smooth-ext ② · **Ua5** speed_unbounded · **Ua6** energy_finite ③ | L Opus / S–M sol / M–L Opus | **Ua5 done (lane 403)**; Ua4/Ua6 unblocked |
 | W4 | **Ua7** infinite_dim ④ · **Ua8** nonisolated ⑤ | L Opus / L Opus | unblocked |
 | W5 | **Ua9** affine assembly+register · **Ub4** assembled solution ⑦\* · **Ub3** single-copy supports\* | M sol / L Opus / M sol | affine done; T24b conditional lemmas begin |
 | W6 | **Ub1** placement/scaling\* · **Ub2** components\* · **Ub5** region agree/blowup\* · **Ub6** energy/dissip ⑧\* · **Ub7** multiple assembly+register\* | M sol / S–M sol / M sol / L Opus / M sol | **\* gated on T15 (U2/U3/U4/U6/U11/U15)** |

@@ -109,6 +109,23 @@ embedding: it reduces by Fourier **order-shift** to `velocityCriticalL3` at `a =
   (1/2) v`. Set `CcriticalHalf`. Approximate a general `MemPeriodicHomogeneous` `v` by smooth (U3 needs
   smoothness) or restrict to the smooth core the API supplies. **M, Opus.** Deps: U1, U3.
 
+  **Status (lane 396, 2026-09-18): SMOOTH FORM COMPLETE; general case = density residual.**
+  `Section3/T12/CriticalL3.lean` proves `velocityCriticalL3_smooth (v) (SmoothPeriodicT v)
+  (IsMeanZeroT v) : periodicLpENorm 3 v ≤ ENNReal.ofReal CcriticalHalf ·
+  periodicHomogeneousENorm (1/2) v`, with `CcriticalHalf = criticalL3Const ·
+  cutoffGagliardoConst · (gapConst (1/2) + 1)` and `CcriticalHalf_pos`, via the exact U4 route
+  (HaarCube transfer → `cutoffMul = v` on `Q` → `Measure.restrict_le_self` → registered
+  `A05.velocityCriticalL3` with the rfl norm bridge `a05_dotHomogeneousENorm_eq` →
+  `cutoff_gagliardo_half` → `l2Q_le_homogeneous_half`).  Supporting lemmas
+  `periodicSobolevENorm_zero_le_half` (physical `L²` ≤ inhomogeneous `H^{1/2}` via a bounded
+  `reweightDatum`) and `l2Q_le_homogeneous_half` (ParsevalZero + spectral gap).  All 6
+  declarations audit to `[propext, Classical.choice, Quot.sound]`; probe
+  `research/T12/probes/critical_l3_closes.lean` (nonzero smooth mean-zero witness `probeMZ`).
+  The verbatim API field quantifies over `MemPeriodicHomogeneous (1/2)` (no smoothness) while
+  both analytic inputs need smoothness, so the general case is the torus mollification/Fatou
+  residual recorded in `research/T12/ATTEMPTS_U4.md` — its own S3 lane.  **U6 consumes U4 only
+  on the smooth fields `∂_j v`, `Lv`, so `velocityCriticalL3_smooth` unblocks U6.**
+
 - **U5 — `gradientLSix`** (probe `:184-187`), route (c). New `Section3/T12/GradientLSix.lean`. Target
   verbatim: `∀ v, SmoothPeriodicT v → IsMeanZeroT v → periodicLpENorm 6 (gradientTensor v) ≤
   ENNReal.ofReal Csix · periodicLpENorm 2 (laplacian v)`. Route: `periodicLpENorm 6 (gradientTensor v) =
