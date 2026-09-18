@@ -267,3 +267,21 @@ Lane numbers allocated by the lead in `PLAN.md`.
 | `hOneEnergy` | `eq:H1energy :482-484` | U10b (←U10a) | ⑪ | new torus (blocked T12 U4/U5) |
 | `continuationBound` | `:490-500` | U11 | ⑫ | new (orthogonality) + transport (R44 S4) |
 | `globalRegularity` | `prop:critical :383-390` | U12 | ⑫ | transport (R44 S5 via T11 H³ API) |
+
+## 5. Status log
+
+- **U1/U2/U6 — DONE (lane 389, 2026-09-18).**
+  `formalization/NSFormalization/Section3/T20/MeanReduction.lean` proves the
+  canonical `reductionRegular`, `meanBound`, and `meanFreeEquation` fields
+  verbatim, with no named residual input.  U1 uses the T11
+  `periodicMeanReductionAPI.mean_formula` to identify the data-defined mean,
+  then the smooth periodic/mean-zero and finite-norm bridges.  U2 uses the
+  zero Fourier mode estimate and the interval integral bound, followed by the
+  infimum defining `forceSobolevENormT`.  U6 uses T11
+  `mean_formula`/`mean_derivative`, transport slice calculus, and subtraction
+  of `forceMeanT` from the classical momentum equation.  The exact target
+  probes are in `research/T20/probes/mean_reduction_closes.lean`; the axiom
+  audit is in `research/T20/axioms_u1_2_6.lean`.  All three declarations print
+  exactly `[propext, Classical.choice, Quot.sound]`.  No T12 critical embedding
+  is needed and no residual remains for these units; U3/U4/U5 and later W1
+  units remain open.
