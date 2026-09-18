@@ -84,6 +84,11 @@ field); `D01.orderZeroDatum`/`exists_isSobolevDatum_zero_of_memLp` (`OrderZeroDa
   lemma) via the two `⨅` families. **S–M, codex-sol.** Deps: —.
 
 - **U-B2 — zero-extension regularity** (bookkeeping). New `Section3/T22/ZeroExtRegularity.lean`.
+  **[DONE — lane 408, 2026-09-18].** `contDiff_zeroExtension`,
+  `hasCompactSupport_zeroExtension`, `memLp_zeroExtension`,
+  `smoothJets_zeroExtension`, and `exists_datum_zeroExtension` are proved with
+  the standard three axioms. The probe uses a nonzero `ContDiffBump` on
+  `ball 0 1` supported in `closedBall 0 (1/2)`.
   Target (consumed by U-Z1 and U-A5): `contDiff_zeroExtension` + `hasCompactSupport_zeroExtension` — from
   `ContDiffOn ℝ ∞ z Ω`, `IsOpen Ω`, `IsCompact K`, `K ⊆ Ω`, `tsupport (zeroExtension Ω z) ⊆ K`, derive
   `ContDiff ℝ ∞ (zeroExtension Ω z)` and `HasCompactSupport`. Route: `zeroExtension Ω z = Ω.indicator z` agrees
