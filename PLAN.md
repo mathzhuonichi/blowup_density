@@ -157,3 +157,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 389-T20-U1-2-6-mean-reduction | codex sol 运行中（astra 备用） | 09-18 1325Z | — | — | T20 wave 1（codex 单元）：U1 reductionRegular、U2 meanBound（eq:meanbound）、U6 meanFreeEquation（eq:meanfree） |
 | 390-T20-U3-U4-bintegral-transport | Opus prover 子代理运行中（基座 = integration + 381 分支） | 09-18 1323Z | — | — | T20 wave 1（Opus 单元）：U3 bIntegral（eq:bintegral，去零模收缩）、U4 constantTransportSkew（:411，常系数输运在 L²(T³) 反对称） |
 | 391-T22-UA2-cutoff-kernel | worktree 安装中→Opus prover 子代理 | 09-18 1333Z | — | — | T22 U-A2：截断 χ 的 Fourier 变换对任意多项式权 weighted-L¹（Schwartz 衰减 + integrable_one_add_norm）供 cutoffMultiplier |
+| 392-T24-Uc1-Ua1 | worktree 安装中→等 codex 空位启动（sol） | 09-18 1334Z | — | — | T24 wave 1（codex）：Uc1 zero_from_rest（prop:conservative，ConservativeForce.lean:91）+ Ua1 五个几何/运动学字段（prop:affine，原始包字段版） |
