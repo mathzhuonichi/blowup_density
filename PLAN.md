@@ -71,7 +71,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 303-SPEC-t20-draft-a | 完成（草案 A；待 304 后 reconciliation） | 09-18 0303Z | — | — | SPEC **T20 双盲草案 A**：`prop:critical`（均值消去、`eq:criticalenergy/bintegral/ybound/H1energy`、经 `eq:criterion` 全局；镜像 R43+C01+A04） |
 | 304-SPEC-t20-draft-b | 完成（草案 B；与 303 一起 reconciliation） | 09-18 0315Z | — | — | SPEC **T20 双盲草案 B**（同上，互不可见） |
 | 305-T10-fourier-calculus | 已合入 #282 作为**部分交付**（审稿 REJECT 仅因范围遗漏 T10 第 11/12 项，已证内容审计/公理/变异全过）→ 312 补齐 | 09-18 0101Z | #282 | — | T10 基础引理：光滑周期场的 Fourier 微积分（导数符号 `2πi k_j`、Laplacian 符号、系数快速衰减、可和性与逐点反演、sup 界）→ 解锁 T12 `boundedRepresentative`/`lambda_exists`/`hTwo_le_laplacian` 与 T13 |
-| 306-SPEC-t24-draft-a | worktree 安装中→自动启动（codex sol xhigh） | 09-18 0321Z | — | — | SPEC **T24 双盲草案 A**：`prop:affine`/`prop:multiple`/`prop:conservative`（三个独立结构；基于 T14/T15 定稿） |
+| 306-SPEC-t24-draft-a | 7 次重连后切断（无产出）→ 05:02Z 原简报重启（astra 优先） | 09-18 0502Z | — | — | SPEC **T24 双盲草案 A**：`prop:affine`/`prop:multiple`/`prop:conservative`（三个独立结构；基于 T14/T15 定稿） |
 | 307-SPEC-t24-draft-b | astra at capacity 立刻死亡 → 重试脚本 30 分钟后换模型重试 | 09-18 0417Z | — | — | SPEC **T24 双盲草案 B**（同上，互不可见） |
 | 308-T11-U1-flow-conversion | 已合入 #284（codex 审稿 ACCEPT） | 09-18 0144Z | #284 | — | T11 U1：`ClassicalSolutionT ↔ Paper1.PeriodicLifespan.Flow` 逐字段转换 + 往返 + 两条拼写引理（S–M，sol） |
 | 310-T11-U3-galilean-classes | 已合入 #287（codex 审稿 ACCEPT） | 09-18 0243Z | #287 | — | T11 U3：`translation_preserves_sobolev`/`transformed_classes`/`transformed_mean_zero`（M，sol） |
