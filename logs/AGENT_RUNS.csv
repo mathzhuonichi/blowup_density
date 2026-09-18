@@ -1441,3 +1441,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T18,422-T18-U1-insertion-data,gpt-5.6-sol,proof-worker,"Section3/T18/Insertion.lean: canonical InsertionData + inserted triple + eq:insertion formulas + threshold/trivial fields; awaiting codex review",done,-
 2026-09-18,T15,421-T15-U3-single-copy,gpt-5.6-sol,proof-worker,"Section3/T15/SingleCopy.lean: six summable/singleCopy fields verbatim; codex review ACCEPT",merged,382
 2026-09-18,T12,419-T12-UREG-contract,gpt-6-astra,contract-registration,"Contracts/V1/MeanZeroCalculus.lean scaffold + registry entry; bindings/tests incomplete; found duplicate contDiff_dirDeriv in GradientLSix/GradientLambdaL3 (import clash)",partial,-
+2026-09-18,T18,422-T18-U1-insertion-data,gpt-5.6-sol,proof-worker,"Section3/T18/Insertion.lean: canonical insertion layer U1 (15 decls); codex review ACCEPT-WITH-NOTES",merged,383
