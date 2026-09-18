@@ -1465,3 +1465,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T18,433-T18-U5-U6-cross-transport-momentum,claude-opus,proof-worker,"Section3/T18/CrossTransport.lean + Momentum.lean: U5 cross-transport fields + U6 momentum; awaiting codex review",done,-
 2026-09-18,T20,432-T20-U10b-h1-energy,claude-opus,proof-worker,"Section3/T20/H1Energy.lean: hOneEnergy verbatim at CH1 = 2 with criticalSmallnessH1; order-2 Parseval; awaiting codex review",done,-
 2026-09-18,T20,432-T20-U10b-h1-energy,claude-opus,proof-worker,"Section3/T20/H1Energy.lean: hOneEnergy verbatim; codex review ACCEPT-WITH-NOTES",merged,393
+2026-09-18,T17,434-T17-U9-energy-bound,claude-opus,proof-worker,"Section3/T17/Energy.lean: correction energy bound + honest MemLp slices at concrete correctionData; awaiting codex review",done,-
