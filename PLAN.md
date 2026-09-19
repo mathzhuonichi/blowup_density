@@ -242,8 +242,8 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 478-T23-U7-noslip-uniqueness | 已合入 #442（codex 审稿 ACCEPT-WITH-NOTES，引用/空白已改；盒情形全证，光滑域条件于 IBP Ω） | 09-19 1646Z | #442 | — | T23 U7：有界盒/光滑域 no-slip 经典解速度唯一性（差能量 + 分部积分 + Grönwall；盒先闭，光滑域残差记录） |
 | 479-MAINT-section3-build-h | 已合入 #443（167 模块全量重编 rc 0，148 s；54 合同 66 行标准公理；298 probe 通过、41 预期负例；不绿项仍是 T22 defProp warning 与既有 source_hashes_match） | 09-19 1650Z | #443 | — | MAINT：T21 注册后的 Section 3 全量编译检查 h（预期 54 合同） |
 | 480-T23-UCAN-canonical-records | 已合入 #444（codex 审稿 ACCEPT-WITH-NOTES，继承空白已清） | 09-19 1702Z | #444 | — | T23 U-CAN：统一三条并行 lane 的记录（DomainPlacementData/CutoffData/ClassicalSolutionOmega）+ canonical BoundaryInsertionAPI 48 字段 + 字面/修正陈述 + 逐字段探针 |
-| 481-T23-U2b-matching-supplier | astra 完成：注册 I02/I03 供给在同一 D 上匹配（A.correction = C，构造半径 r/2）+ 能量/混合/Sobolev 力估计 + 两项交叉输运估计（19 声明标准公理；合同层构造子在 probe，U9 移入 binding）→ 审中 sol | 09-19 1716Z | — | — | T23 U2b：注册 I02/I03 供给在同一 D 上匹配（A.correction = C）+ 能量/混合/Sobolev 力估计（477 fix 2/3） |
-| 482-T23-U3-triple-solution | astra 完成：18 个 U3 字段 + 压力归一化 + ClassicalSolutionOmega 十字段 + API solution（供给事实与 U4 no-slip 穿线；42 声明标准公理）→ 审中 sol | 09-19 1715Z | — | — | T23 U3：三元组 (u,p,f)、阈值、公式、力类、光滑/初值/不可压/动量/历史 + 压力归一化 + ClassicalSolutionOmega 十字段构造子（no_slip 穿线） |
+| 481-T23-U2b-matching-supplier | 已合入 #446（codex 审稿 ACCEPT） | 09-19 1726Z | #446 | — | T23 U2b：注册 I02/I03 供给在同一 D 上匹配（A.correction = C）+ 能量/混合/Sobolev 力估计（477 fix 2/3） |
+| 482-T23-U3-triple-solution | 已合入 #447（codex 审稿 ACCEPT） | 09-19 1727Z | #447 | — | T23 U3：三元组 (u,p,f)、阈值、公式、力类、光滑/初值/不可压/动量/历史 + 压力归一化 + ClassicalSolutionOmega 十字段构造子（no_slip 穿线） |
 | 483-T23-U4-differences-boundary | sol 完成 → 审中 sol | 09-19 1721Z | — | — | T23 U4：局部差与边界保持 8 字段 |
 | 484-T23-U5-domain-comparison | 已合入 #445（codex 审稿 ACCEPT） | 09-19 1725Z | #445 | — | T23 U5：注册 T22 零延拓比较 + 域范数定义/API 转运 |
 | 485-T23-U6-rates-convergence | astra 完成：路径范数桥 + energyRate / Sobolev 力率 / 负阶尾 / 收敛 八字段（供给与 U5 比较穿线；18 声明标准公理）→ 审中 sol | 09-19 1718Z | — | — | T23 U6：能量率、Sobolev 力率、负阶尾、收敛 + 路径范数桥（8 字段） |
