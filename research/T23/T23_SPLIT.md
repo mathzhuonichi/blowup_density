@@ -74,6 +74,21 @@ Construct Kstar as the union of packet carrier and the spatial image of compact 
 
 ### U2 — local correction supplier and compatibility (L, codex-astra)
 
+**Lane 481 U2b status (2026-09-19): matching and correction estimates closed.**
+`MatchingSupplier.lean` proves local correction/force transport, both exact U2
+cross transports, the seven-field supplier cutoff, and the domain-reference
+locality bridge. `CorrectionEstimates.lean` proves energy restriction, local
+energy/mixed estimates, and the positive Sobolev-force estimate. The extended
+`T23-U2b-matching-supplier_closes.lean` probe actually constructs registered
+I02 V2/I03 records from the local reference, retaining `A.correction = C` and
+`D.ε₀ = C.ε₀ = A.ε₀`, with all three estimates and both cross terms at that D.
+Its literal supplier-cutoff variant additionally retains all seven G0 cutoff
+identities. Record construction remains in the contract-facing research layer
+because implementation modules cannot import Contracts/Bindings; U9 can move
+that checked bridge to its binding. No full BoundaryInsertionAPI assembly,
+V1 amendment, U6 path-to-slice comparison, or G1 completion is claimed.
+See `REPORT_481.md` for the inner-radius convention and exact gate results.
+
 **Lane 477 status (2026-09-19): partial, kernel checked.** Exact G0 zero-cutoff
 API instance refuted and existential repair defined in the research probe;
 canonical `StatementRepair` contains only the raw obstruction pending domain
