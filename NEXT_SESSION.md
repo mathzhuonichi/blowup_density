@@ -16,6 +16,7 @@
 
 ## 日志（最新在前）
 - **2026-09-19（lane 453 continuation）**：T17 U12 完成；最终 G4（含 raw packet support + ball-in-chart）装配 45 字段并注册 `T02.correction`，47 合同；cube-centred 非零参考场完整见证，反例已移至 research 独立 probe。报告：`research/T17/REPORT_453.md` Continuation。
+- **2026-09-19 14:12Z**：合入 #422（T15 U14b q=2，**T15 U1–U14 全证**）。cont_460 证出 `correctionStatementSlab'`（G5 canonical 闭合，审中）。459（T15 U15 + `T02.scaling`，astra）、448/449 拆分（sol）、463 全量编译（sol）在跑。461（T19 U0）等 459+460。
 - **2026-09-19 13:57Z**：合入 #419（T15 U14 q=1）、#420（T18 U12 + `T03.periodic_insertion`，**第 49 个合同**；work_items 冲突：T18 取 lane、其余取 integration，`tasks.py render` 重生成）、#421（T19 canonical 记录）。448/449 astra Reconnecting 循环 70–84 分钟无产出，杀掉改 sol 重跑。在跑：cont_460（slab 桥第二版）、462（q=2）。
 - **2026-09-19 13:50Z**：458（T15 U14）诚实部分：q=1 全闭，q=2 因简报符号错（`alphaT 2 2 = −1/2`）未闭 → 开 462（astra，ε 无关负阶界 + 插值）；459 等 462。457（T19 canonical）完成审中；460 在跑。
 - **2026-09-19 13:45Z**：合入 #417（T18 U11）、#418（T15 U11）。455 完成（T18 45 字段装配 + `T03.periodic_insertion` 注册，审中）。发现并记录 **G5**（T16/T17 全局光滑/周期假设 vs 经典解，`research/T17/SPEC_ISSUES.md`），开 460 slab 桥（astra）。459 简报改为显式 horizon。
