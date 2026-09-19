@@ -199,4 +199,36 @@ theorem domainPlacementThreshold_space {K : Set Space} {f : VelocityField}
       rw [domainPlacementMargin] at hsmall
       linarith
 
+/-! ## The sixteen-field constructor -/
+
+/-- The canonical cube-free placement for any prescribed interior ball and
+any point `x₀` in that ball.  The domain hypothesis is threaded here so the
+same arguments immediately furnish `interiorBall_in_domain`; no origin or
+fundamental cube is chosen. -/
+def domainPlacementData {u : VelocityField} {p : PressureField}
+    {f : VelocityField} {K Ω : Set Space}
+    (hK : IsCompact K) (hf : HasCompactSupport f)
+    (chartCenter : Space) (chartRadius : ℝ) (hchartRadius : 0 < chartRadius)
+    (hball : closure (Metric.ball chartCenter chartRadius) ⊆ Ω)
+    (x₀ : Space) (hx₀ : x₀ ∈ Metric.ball chartCenter chartRadius)
+    (T : ℝ) (hT : 0 < T) : DomainPlacementData u p f K where
+  T := T
+  time_pos := hT
+  chartCenter := chartCenter
+  chartRadius := chartRadius
+  chartRadius_pos := hchartRadius
+  x₀ := x₀
+  x₀_mem := hx₀
+  Kstar := domainPlacementCarrier K f
+  Kstar_compact := domainPlacementCarrier_compact hK hf
+  carrier_subset := subset_union_left
+  force_projection_subset := fun t x hx => Or.inr ⟨(t, x), hx, rfl⟩
+  ε₀ := domainPlacementThreshold hK hf T chartCenter x₀ chartRadius
+  eps_pos := domainPlacementThreshold_pos hK hf hT hx₀
+  eps_le_one := domainPlacementThreshold_le_one hK hf T chartCenter x₀ chartRadius
+  eps_time := domainPlacementThreshold_time hK hf hT chartCenter x₀ chartRadius
+  eps_space := by
+    have _hball := hball
+    exact domainPlacementThreshold_space hK hf
+
 end NSFormalization.Section3.T23
