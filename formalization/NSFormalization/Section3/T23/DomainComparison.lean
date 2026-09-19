@@ -43,6 +43,23 @@ theorem contDiffOn_slice_of_memForceOmega {Ω : Set Space} {f : SpaceTimeField}
   intro x hx
   exact ((hf.1 t).contDiffAt_slice ⟨ht.le, le_rfl⟩ (subset_closure hx)).contDiffWithinAt
 
+/-- The order-zero domain norm of a smooth force-difference slice is its
+physical restricted `L²(Ω)` norm. -/
+theorem domainForceDifference_orderZero
+    {Ω : Set Space} (norms : BoundedDomainNormAPI)
+    {ε₀ : ℝ} {force : ℝ → SpaceTimeField} {g : SpaceTimeField}
+    (hΩ : IsOpen Ω)
+    (hforce : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+      (fun z ↦ force ε z - g z) ∈ forceClassOmega Ω) :
+    ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t ∈ Ioi (0 : ℝ),
+      domainSobolevENorm Ω 0
+          (restrictField Ω (fun x ↦ force ε (t, x) - g (t, x))) =
+        eLpNorm (fun x ↦ force ε (t, x) - g (t, x)) 2
+          (volume.restrict Ω) := by
+  intro ε hε t ht
+  exact norms.orderZero Ω hΩ _
+    (contDiffOn_slice_of_memForceOmega (hforce ε hε) ht)
+
 /-- **T23 U5.** Integrate the registered T22 comparison for the actual force
 difference.  The compact set is the fixed closure of the prescribed ball, so
 the constant is selected once for `s`, before both time and `ε`.  No finiteness
