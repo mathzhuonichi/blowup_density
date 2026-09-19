@@ -1,3 +1,5 @@
+> Lane 487 worktree update: U9 partial, no T23 registration. Supplier migration and arbitrary inner-radius extension compile; same-D U2b/U3 adapter remains open. See `research/T23/REPORT_487.md` and `ATTEMPTS_U9.md`.
+
 > Lane 480 (2026-09-19): T23 canonical boundary interface and literal/repaired
 > statements are in `Section3/T23/Boundary.lean`; geometry follow-up and full
 > Spec conversions are checked. See `research/T23/REPORT_480.md`; U2 supplier

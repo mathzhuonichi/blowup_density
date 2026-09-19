@@ -78,3 +78,20 @@ No contract or Tests file, registry entry, or T23 contracts list was added.
 G0's existential repair and G1's unconditional box / explicit-IBP smooth scope
 remain the intended owner-pending V1 wording. Neither requested final theorem
 nor a full API non-vacuity instance is claimed by this partial delivery.
+
+## Audit/probe diagnostics (resolved)
+
+The guarded axiom output wrapped long names onto several lines:
+`Docstring on #guard_msgs does not match generated message`. All sets were
+already the exact standard three; `whitespace := lax` fixes formatting only.
+
+The first concrete probe imported PacketImport alongside Scaling and hit:
+`import Bindings.Packet failed, environment already contains
+'BlowupDensity.Bindings.navierStokesResidual_eq' from Bindings.Scaling`.
+This pre-existing collision is documented in `Bindings.InsertionFromData`.
+The probe now consumes its existing `insertionFromData_packet` constructor,
+which assembles the same upstream nonzero packet into the registered PacketAPI
+vocabulary without the colliding Packet binding import. No existing binding
+was edited or new packet witness assumed. This is a supplier non-vacuity probe
+at T=delta=1, inner radius 1/4 and outer radius 1/3, with zero reference velocity;
+it does not assert a unit-box ClassicalSolutionOmega or complete boundary API.
