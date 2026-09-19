@@ -593,7 +593,7 @@ theorem LocalCorrectionCore.toWindowed {v U : SpaceTimeField} {K : Set Space}
 
 instance {v U : SpaceTimeField} {K : Set Space} {x₀ : Space}
     {r T δ : ℝ} {D : CutoffData} :
-    Coe (LocalCorrectionCore v U K x₀ r T δ D)
+    CoeOut (LocalCorrectionCore v U K x₀ r T δ D)
       (WindowedCorrectionCore v U K x₀ r T δ D) := ⟨LocalCorrectionCore.toWindowed⟩
 
 /-- The operational support lies inside the open reference cylinder. -/

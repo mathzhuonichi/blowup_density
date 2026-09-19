@@ -47,8 +47,8 @@ theorem exists_spatial_solenoidal_extension_between {v : VelocityField} {I : Set
       (ball_subset_ball (by linarith : s ≤ r) hx)
 
 
-/-- The existing U3 core at the literal supplier cutoff would require global
-agreement of radial potentials, beyond agreement on the interior cylinder. -/
+/-- The original radial core requires global potential agreement. This
+historical diagnostic remains valid; U3 now uses the weaker windowed core. -/
 theorem supplierCutoff_core_requires_global_potential
     {ν : ℝ} {u v : VelocityField} {K : Set Space}
     (C : WholeSpaceCorrectionAPI ν u K)

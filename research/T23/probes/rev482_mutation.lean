@@ -18,6 +18,6 @@ example (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T del
     {eps : ℝ} (heps : eps ∈ Ioc 0 D.ε₀) {t : ℝ}
     (ht : t ≤ place.T - eps ^ 2) (x : Space) :
     velocity place D reference eps (t, x) = reference.velocity (t, x) := by
-  exact history C heps ht x
+  exact history C.toWindowed heps ht x
 
 end NSFormalization.Section3.T23.InsertedTriple

@@ -20,7 +20,7 @@ The migrated constructors now take explicit inner radius `ρ`, `0 < ρ`, and
 unchanged. The unused outer positivity argument in the first constructor was
 renamed `_hr` after Lean reported its unused-variable warning.
 
-## Same-D U2b/U3 seam (OPEN)
+## Same-D U2b/U3 seam (historical; closed by G2 below)
 
 For the repaired statement, D must copy all seven supplier fields, including
 `D.potential = C.potential` and `D.correction = C.correction` globally.
@@ -140,3 +140,23 @@ It preserves the complete repaired existential's matching identities and all
 registered V1 statement is their conjunction. The literal arbitrary-D statement
 is not registered. The original research Spec and existing contracts/tests
 remain untouched.
+
+## Continuation non-vacuity and audits
+
+`assembly_box_closes.lean` constructs a complete API on (0,1)^3, center
+(1/2,1/2,1/2), chart radius 1/4, prescribed supplier radius 1/8, viscosity=T=δ=1,
+zero datum/force/reference, and the registered nonzero packet. The reference
+horizon is spelled `place.T + 1`; `2` is propositionally but not definitionally
+equal under real addition. The probe separately proves the packet nonzero.
+Both theorems and all 54 U9 declaration audits print exactly the standard three.
+The contract check prints `checkedBoundaryInsertion: checked; standard logical
+axioms only`. Full gate details are in REPORT_487b.md.
+
+Backward-compatibility check: existing U3 research consumers use explicit
+`C.toWindowed` at the nine changed hypothesis sites; their theorem statements
+and embedded Spec are unchanged. The negative quiet-history probe also uses
+this projection so its rejection still tests the endpoint, not core inference.
+A `CoeOut` adapter is retained, but explicit projection is needed when the
+consumer leaves the radius/cutoff metavariables hidden behind Spec aliases.
+U4 and supplier probes compile unchanged. No lane 476/477/478/481/483–486
+production statement was changed.

@@ -1,112 +1,14 @@
-import NSFormalization.Section3.T23.Solution
-import Contracts.V1.TorusData
-import Contracts.V1.TorusLocalTheory
-import Contracts.V1.Packet
 import Contracts.V1.PacketImport
-import Contracts.V1.InsertionFamily
-import Contracts.V1.Correction
 import Contracts.V1.Scaling
-import Contracts.V1.HomogeneousNorm
 import Contracts.V1.MaximalPartial
-import Contracts.V2.InsertionLifespan
-import Contracts.V1.Data
+import Contracts.V1.BoundedDomainNorm
 
-/-!
-# T23 reconciled specification: Corollary `cor:boundary` (interior no-slip insertion)
-
-Statement-only (rule 2 of `CLAUDE.md`) for
-`paper/sections/03-torus.tex:632-666`, the corollary *Interior no-slip
-insertion* and its proof.  No proofs, no `sorry`, no axioms.
-
-This is the **reconciliation** of the two blind drafts — lane 368 (Draft A,
-codex gpt-5.6-sol) and lane 374 (Draft B, Opus) — per the lead-approved
-`research/T23/RECONCILIATION.md`.  **Base draft: B** (mirrors the reconciled
-T18 `PeriodicInsertionAPI` field-for-field, un-periodized whole-space packet,
-threaded T22 norm layer, per-slice `L¹H^s(Ω)`).  Three binding changes from the
-reconciliation are folded in:
-  1. **Cube-free interior placement** (`DomainPlacementData`, §0 below) replacing
-     Draft B's torus `PlacementData` and Draft A's origin-centred support — the
-     single most important ruling (`RECONCILIATION.md` §"False clauses" #1–2).
-  2. **Draft A's domain-shape disjunction** `IsBoundedBoxOrSmoothDomain`
-     (`IsBoxDomain ∨ IsRegularLevelDomain`), plus Draft B's explicit `Ω.Nonempty`.
-  3. **A record-form `maximal` field** (`IsMaximalDomainSolution`), concept from
-     Draft A, spelled like the registered `IsMaximalPeriodicSolution`.
-
-`cor:boundary` is `thm:insertion` (T18) restricted to a bounded domain
-`Ω ⊂ R³`: the localized packet/correction insertion is performed inside a fixed
-interior ball `B ⋐ Ω`, so the new velocity equals the reference in a fixed
-boundary collar and the no-slip boundary values are preserved; the energy uses
-`L²(Ω)` and the force uses `L¹(0,∞;H^s(Ω))` with the restriction norm
-`eq:restriction-norm`, whose comparison with the whole-space zero-extension
-norm `eq:zero-extension` is `ε`-uniform; and classical no-slip uniqueness holds
-by the same difference-energy calculation as `prop:local`.
-
-## What is imported vs. copied
-
-* **Imported registered contracts** (used by name): `Contracts.V1.Data`
-  (`SpatialField`, `sobolevENorm`, `spatialGradient`, `spatialDivergence`, …),
-  `Contracts.V1.Packet` / `Contracts.V1.PacketImport`
-  (`PacketAPI`, `PacketImportAPI`, `navierStokesResidual`, `spatialDerivative`,
-  `temporalDerivative`, `spatialLaplacian`, `advection`, `zeroPastField`),
-  `Contracts.V1.Scaling` / `Contracts.V1.Correction`
-  (`scaledPacket`, `scaledPressure`, `scaledForce`, `SpeedUnboundedAt`),
-  `Contracts.V1.MaximalPartial` (`limsupLeft`, `speedENorm`),
-  `Contracts.V1.TorusData` / `Contracts.V1.TorusLocalTheory` (loaded so the
-  registered vocabulary namespace is available).  **The registered whole-space
-  `ScalingAPI`/`CorrectionAPI` are consumed, not threaded** — asymmetric to T18,
-  which threads the *torus* (unregistered) scaling/correction chain (`prop:scaling`
-  therefore enters as the whole-space packet energy/force rate *constants*, which
-  appear as fields, plus `P.energyBound`, `P.dissipationBound`).  The rescaled
-  packet is the registered `scaledPacket`/`scaledPressure`/`scaledForce`, so no
-  wrapper is copied.
-* **Copied verbatim** (T13 copy policy — same names, namespaces, provenance
-  comments): from `research/T18/Spec.lean` the shared insertion vocabulary
-  `CutoffData` and `correctedBackground` (T16.Draft), `correctionForce`
-  (T17.Spec); from `research/T22/Spec.lean` the reconciled bounded-domain norm
-  layer `DomainTest`, `DomainFunctional`, `restrictDatum`, `domainSobolevENorm`,
-  `restrictField`, `zeroExtension`, `IsCutoffDatum`, `BoundedDomainNormAPI`.
-  The torus `fundamentalCube` (T13.Spec) and `PlacementData` (T15.Draft) are
-  **dropped** — the cube-free `DomainPlacementData` (§0) is adapted from the
-  latter with `chartBall_in_cube`/`fundamentalCube` removed.
-
-## How the torus (T18) differs on the bounded domain (documented inline)
-
-1. **No periodization.**  The domain uses the single whole-space rescaled packet
-   `scaledPacket P.velocity …` (support in one interior ball `⋐ Ω`), not
-   `periodizedScaledVelocity`; the velocity-difference support is a single ball,
-   not `periodicSet (ball …)`.  The torus scaling record `ScalingAPI` (the
-   periodization layer) is therefore not threaded; the registered whole-space
-   scaling/correction are consumed at proof time.
-2. **Domain norms.**  Energy in `L²(Ω)` and force in `L¹(0,∞;H^s(Ω))` use the
-   restriction norm (`domainSobolevENorm`, `restrictField`), not the torus Haar
-   norms; `BoundedDomainNormAPI` (T22, unregistered) is **threaded** as the
-   norm-layer input and consumed by `domain_zeroExt_comparison`.
-3. **No-slip boundary.**  New clauses: the fixed boundary collar agreement, the
-   preserved no-slip values, and classical no-slip uniqueness.
-4. **Reference and pressure gauge.**  The reference is a bounded-domain no-slip
-   classical solution `ClassicalSolutionOmega` (the paper's assumed compatible
-   reference), not the periodic `ClassicalSolutionT`; the pressure gauge is zero
-   spatial mean over `Ω`.
-
-The local implementation candidate
-`formalization/NSFormalization/Paper1/BoundaryCorollary.lean` (`BoundedReference`,
-`BoundedFlow`, `domainForceNorm`, `exists_interior_noSlip_insertion`) has a
-`sorry` at `:90` and is **cited only, never imported**.
-
-`Type`-valued structures carry data (fields as data: velocity/pressure/force,
-`ε₀`, closeness constants); `Prop`-valued ones carry only hypotheses/conclusions.
-Suprema are `ℝ≥0∞` `⨆`/`⨅`, never real `sSup`.  The bounded-domain quotient norm
-is the empty-`⨅ = ⊤` fail-safe infimum, so every displayed `≤ finite` bound is
-self-guarding (it forces the norm finite), exactly as the torus `energyENormT`
-bounds are.
--/
-
+/-! T23: G0 existential repair. Boxes are unconditional; smooth domains retain
+explicit scalar IBP. V1 scope wording remains owner-pending. Definitions and
+all 48 fields are the reconciled canonical vocabulary over registered types. -/
 noncomputable section
-
-open Set MeasureTheory Filter Topology
-
--- copied verbatim from research/T18/Spec.lean:863-922 (T16.Draft)
-namespace BlowupDensity.T16.Draft
+set_option linter.defProp false
+namespace BlowupDensity.Contracts.V1.BoundaryInsertion
 
 open BlowupDensity.Contracts.V1
 open BlowupDensity.Contracts.V1.Data
@@ -170,14 +72,14 @@ structure CutoffData where
   support, divergence, and cancellation fields. -/
   correction : ℝ → SpaceTimeField
 
-end BlowupDensity.T16.Draft
+end BlowupDensity.Contracts.V1.BoundaryInsertion
 
 -- copied verbatim from research/T18/Spec.lean:1330-1339 (T17.Spec)
-namespace BlowupDensity.T17.Spec
+namespace BlowupDensity.Contracts.V1.BoundaryInsertion
 
 open BlowupDensity.Contracts.V1
 open BlowupDensity.Contracts.V1.Data
-open BlowupDensity.T16.Draft
+open BlowupDensity.Contracts.V1.BoundaryInsertion
 open Set MeasureTheory
 open scoped ContDiff ENNReal Topology BigOperators
 
@@ -192,157 +94,17 @@ def correctionForce (ν : ℝ) (v : SpaceTimeField) (D : CutoffData) (ε : ℝ) 
       spatialDerivative v z.1 z.2 (D.correction ε z) +
       advection (D.correction ε) z.1 z.2
 
-end BlowupDensity.T17.Spec
+end BlowupDensity.Contracts.V1.BoundaryInsertion
 
 -- copied verbatim from research/T22/Spec.lean:1-190 (T22.Draft)
-namespace BlowupDensity.T22.Draft
-
-open Set MeasureTheory
-open NavierStokes.ProblemStatement (Space)
-open NSFormalization.Paper3 (RealVectorSobolev angularRealization)
-open NSFormalization.Source.RealSobolev (FourierData)
-open BlowupDensity.Contracts.V1.Data
-open scoped ContDiff ENNReal SchwartzMap
-
-/-! ## Bounded-domain distributional vocabulary -/
-
-/-- `03-torus.tex:601-604`: compactly supported smooth tests inside `Omega`,
-represented as Schwartz functions on `R^3`.
-
-This definition needs registration. -/
-abbrev DomainTest (Ω : Set Space) :=
-  {ψ : SchwartzMap Space ℂ // HasCompactSupport ψ ∧ tsupport ψ ⊆ Ω}
-
-/-- `03-torus.tex:601-606`: coordinates of a distribution restricted to
-`Omega`.  Only functionals admitting a Sobolev extension have finite norm
-below; the ambient type itself is deliberately total.
-
-This definition needs registration. -/
-abbrev DomainFunctional (Ω : Set Space) := Fin 3 → DomainTest Ω → ℂ
-
-/-- `03-torus.tex:601-604`: distributional restriction of a registered
-whole-space datum, including at negative orders.
-
-This definition needs registration. -/
-def restrictDatum (Ω : Set Space) (s : ℝ) (A : RealVectorSobolev s) :
-    DomainFunctional Ω :=
-  fun i ψ => angularRealization s ((A i : FourierData)) ψ.1
-
-/-- `03-torus.tex:603-606`, `eq:restriction-norm`: the quotient extended norm,
-literally the infimum over all distributional `H^s(R^3)` extensions.  An empty
-extension family has value `top`, so the definition remains fail-safe at every
-real order, including negative orders.
-
-This definition needs registration. -/
-def domainSobolevENorm (Ω : Set Space) (s : ℝ)
-    (z : DomainFunctional Ω) : ℝ≥0∞ :=
-  ⨅ A : {A : RealVectorSobolev s // restrictDatum Ω s A = z}, ‖A.1‖ₑ
-
-/-- `03-torus.tex:608-615`: a locally smooth physical field restricted to
-`Omega`, paired only against compactly supported interior tests.  Values
-outside `Omega` do not contribute.
-
-This definition needs registration. -/
-def restrictField (Ω : Set Space) (z : SpatialField) : DomainFunctional Ω :=
-  fun i ψ => ∫ x in Ω, ψ.1 x * ((z x i : ℝ) : ℂ)
-
-/-- `03-torus.tex:610-615`: literal extension by zero of the values on
-`Omega`.  Values supplied by the ambient representative outside `Omega` are
-ignored.
-
-This definition needs registration. -/
-def zeroExtension (Ω : Set Space) (z : SpatialField) : SpatialField :=
-  Ω.indicator z
-
-/-- `03-torus.tex:616-624`: `B` is the product of a whole-space Sobolev datum
-`A` by the fixed real cutoff `chi`, expressed through the transpose action on
-Schwartz tests.  No conjugation is inserted.
-
-For the smooth compact cutoffs quantified in `cutoffMultiplier`,
-`SchwartzMap.smulLeftCLM` is ordinary pointwise multiplication.  This graph
-definition needs registration. -/
-def IsCutoffDatum (s : ℝ) (χ : Space → ℝ)
-    (A B : RealVectorSobolev s) : Prop :=
-  ∀ (i : Fin 3) (ψ : SchwartzMap Space ℂ),
-    angularRealization s ((B i : FourierData)) ψ =
-      angularRealization s ((A i : FourierData))
-        (SchwartzMap.smulLeftCLM ℂ (fun x => (χ x : ℂ)) ψ)
-
-/-! ## Reconciled target API -/
-
-/-- The three bounded-domain norm facts selected by
-`research/T22/RECONCILIATION.md` for `03-torus.tex:600-630`.
-
-The quotient-norm identity is the definition `domainSobolevENorm`, rather than
-a redundant API field.  `Omega` is any open set; boundedness and boundary
-regularity are not used by these local statements. -/
-structure BoundedDomainNormAPI : Prop where
-  /-- `03-torus.tex:606-607`: at order zero the restriction quotient norm is
-  the usual vector `L^2(Omega)` norm.  Local smoothness makes the displayed
-  physical pairing meaningful; either side is allowed to be infinite.
-
-  Exact quantifier order: `forall Omega`, openness, `forall z`, then
-  smoothness on `Omega`.
-
-  Non-vacuity: this equates the independently defined distributional infimum
-  with the concrete restricted-measure `eLpNorm`; it is not an unfolding of
-  `domainSobolevENorm`. -/
-  orderZero : ∀ (Ω : Set Space), IsOpen Ω → ∀ z : SpatialField,
-    ContDiffOn ℝ ∞ z Ω →
-    domainSobolevENorm Ω 0 (restrictField Ω z) =
-      eLpNorm z 2 (volume.restrict Ω)
-
-  /-- `03-torus.tex:616-624`: multiplication by a fixed compactly supported
-  smooth cutoff is bounded on `H^s(R^3)` for every real `s`.  The finite
-  positive constant depends only on `s` and `chi`, and is chosen before `A`.
-
-  Exact quantifier order: `forall s chi`, regularity of `chi`, `exists C > 0`,
-  `forall A`, then `exists B` realizing the cutoff product.
-
-  Non-vacuity: the conclusion produces an actual datum `B`, pins its
-  distributional graph by `IsCutoffDatum`, and bounds its concrete extended
-  norm uniformly over all input data. -/
-  cutoffMultiplier : ∀ (s : ℝ) (χ : Space → ℝ),
-    ContDiff ℝ ∞ χ → HasCompactSupport χ →
-    ∃ C : ℝ, 0 < C ∧ ∀ A : RealVectorSobolev s,
-      ∃ B : RealVectorSobolev s,
-        IsCutoffDatum s χ A B ∧ ‖B‖ₑ ≤ ENNReal.ofReal C * ‖A‖ₑ
-
-  /-- `03-torus.tex:608-626`, `eq:zero-extension`: for a fixed compact
-  `K` contained in an open `Omega`, every real Sobolev order has one positive
-  constant giving the displayed two-sided comparison for all smooth fields
-  whose zero extension is supported in `K`.
-
-  Exact quantifier order: `forall Omega K`, the geometric hypotheses,
-  `forall s`, `exists C > 0`, and only then `forall z`.  Thus `C` is uniform
-  over smaller supports, time slices, and shrinking `epsilon`-families that
-  stay inside the same `K`, as required at `03-torus.tex:626-629`.
-
-  Non-vacuity: the conclusion is the full chain between the domain quotient
-  norm and the registered whole-space norm of the literal zero extension.
-  Its interior-support hypothesis deliberately prevents this field from
-  asserting a bounded zero-extension operator on arbitrary domain data. -/
-  zeroExtensionComparison :
-      ∀ (Ω K : Set Space), IsOpen Ω → IsCompact K → K ⊆ Ω →
-        ∀ s : ℝ, ∃ C : ℝ, 0 < C ∧ ∀ z : SpatialField,
-          ContDiffOn ℝ ∞ z Ω → tsupport (zeroExtension Ω z) ⊆ K →
-          domainSobolevENorm Ω s (restrictField Ω z) ≤
-              sobolevENorm s (zeroExtension Ω z) ∧
-          sobolevENorm s (zeroExtension Ω z) ≤
-              ENNReal.ofReal C * domainSobolevENorm Ω s (restrictField Ω z)
-
-end BlowupDensity.T22.Draft
-
-/-! # T23 reconciled spec: the bounded-domain layer and `cor:boundary` -/
-
-namespace BlowupDensity.T23.Spec
+namespace BlowupDensity.Contracts.V1.BoundaryInsertion
 
 open Set MeasureTheory Filter Topology
 open BlowupDensity.Contracts.V1
 open BlowupDensity.Contracts.V1.Data
-open BlowupDensity.T16.Draft
-open BlowupDensity.T17.Spec
-open BlowupDensity.T22.Draft
+open BlowupDensity.Contracts.V1.BoundaryInsertion
+open BlowupDensity.Contracts.V1.BoundaryInsertion
+open BlowupDensity.Contracts.V1.BoundedDomainNorm
 open scoped ContDiff ENNReal BigOperators Topology
 
 /-! ## 0. Cube-free interior placement `03-torus.tex:101-107,646,653-654`
@@ -692,7 +454,7 @@ structure BoundaryInsertionAPI (ν : ℝ) (P : PacketImportAPI ν)
     (place : DomainPlacementData P.toPacketAPI)
     (Ω : Set Space) (norms : BoundedDomainNormAPI)
     (a : SpatialField) (g : SpaceTimeField) (r δ : ℝ)
-    (D : BlowupDensity.T16.Draft.CutoffData)
+    (D : BlowupDensity.Contracts.V1.BoundaryInsertion.CutoffData)
     (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)) : Type where
   -- ### Domain and reference hypotheses `03-torus.tex:632-648`
   /-- `03-torus.tex:632-633`: `Ω` is a bounded box or bounded smooth domain.
@@ -1020,304 +782,74 @@ structure BoundaryInsertionAPI (ν : ℝ) (P : PacketImportAPI ν)
         ∀ t ∈ Ico (0 : ℝ) (min T₁ T₂), ∀ x ∈ Ω,
           u₁.velocity (t, x) = u₂.velocity (t, x)
 
-/-- **The existential form of `cor:boundary`,
-`paper/sections/03-torus.tex:632-651`.**  Paper quantifier order: for every
-`ν > 0`, packet `P`, cube-free interior placement `place`, bounded domain `Ω`,
-bounded-domain norm layer `norms`, initial datum `a`, reference force `g`, radii
-`r`, margin `δ`, cutoff data `D`, and bounded-domain no-slip reference regular
-through `T+δ`, with `Ω` a bounded box or bounded smooth domain, `δ > 0`,
-`g ∈ 𝓕(Ω)`, `a ∈ 𝓧(Ω)`, and the interior ball's closure strictly inside `Ω`,
-there is an inserted family: `Nonempty` of the API, which carries `ε₀` as a
-field.  Introducing this definition asserts nothing.
 
-Non-vacuity: with the cube-free `DomainPlacementData` (no `chartBall_in_cube`),
-the interior-ball hypothesis `closure(ball …) ⊆ Ω` is satisfiable for *every*
-admissible `Ω` (e.g. `Ω = (1,2)³`), so the statement is not vacuous off the unit
-cube (Draft B's trap) and not false for domains missing the origin (Draft A's
-trap); see `RECONCILIATION.md` §"False clauses". -/
-def boundaryInsertionStatement : Prop :=
+def IBP (Ω : Set Space) : Prop :=
+  ∀ (f g : Space → ℝ),
+    (∀ x ∈ closure Ω, ContDiffAt ℝ 1 f x) →
+    (∀ x ∈ closure Ω, ContDiffAt ℝ 1 g x) →
+    (∀ x ∈ frontier Ω, f x = 0) → ∀ j : Fin 3,
+    (∫ x in Ω, f x * fderiv ℝ g x (NavierStokes.ProblemStatement.coordinateVector j)) =
+      -(∫ x in Ω, fderiv ℝ f x (NavierStokes.ProblemStatement.coordinateVector j) * g x)
+
+
+def boundaryInsertionStatement' : Prop :=
   ∀ (ν : ℝ), 0 < ν → ∀ (P : PacketImportAPI ν)
     (place : DomainPlacementData P.toPacketAPI)
     (Ω : Set Space) (norms : BoundedDomainNormAPI)
     (a : SpatialField) (g : SpaceTimeField) (r δ : ℝ)
-    (D : BlowupDensity.T16.Draft.CutoffData)
     (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)),
-    IsBoundedBoxOrSmoothDomain Ω → 0 < δ → g ∈ forceClassOmega Ω →
-      a ∈ initialClassOmega Ω →
+    IsBoundedBoxOrSmoothDomain Ω → 0 < δ → 0 < r →
+      g ∈ forceClassOmega Ω → a ∈ initialClassOmega Ω →
+      closure (Metric.ball place.x₀ r) ⊆ Metric.ball place.chartCenter place.chartRadius →
       closure (Metric.ball place.chartCenter place.chartRadius) ⊆ Ω →
-        Nonempty
-          (BoundaryInsertionAPI ν P place Ω norms a g r δ D reference)
+      ∃ (C : CorrectionAPI ν P.toPacketAPI) (D : CutoffData),
+        C.T = place.T ∧ C.δ = δ ∧ C.x₀ = place.x₀ ∧ C.r = r ∧
+        (∀ t ∈ Ioo (0 : ℝ) (place.T + δ), ∀ x ∈ Metric.ball place.x₀ r,
+          C.v (t, x) = reference.velocity (t, x)) ∧
+        D.θ = C.θ ∧ D.η = C.η ∧ D.plateau = C.plateau ∧
+        D.θRadius = C.θRadius ∧ D.ε₀ = C.ε₀ ∧
+        D.potential = C.potential ∧ D.correction = C.correction ∧
+        Nonempty (BoundaryInsertionAPI ν P place Ω norms a g r δ D reference)
 
-/-! ## 4. Drift checks
+def boundaryInsertionStatement'_box : Prop :=
+  ∀ (ν : ℝ), 0 < ν → ∀ (P : PacketImportAPI ν)
+    (place : DomainPlacementData P.toPacketAPI)
+    (Ω : Set Space) (norms : BoundedDomainNormAPI)
+    (a : SpatialField) (g : SpaceTimeField) (r δ : ℝ)
+    (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)),
+    IsBoxDomain Ω → 0 < δ → 0 < r →
+      g ∈ forceClassOmega Ω → a ∈ initialClassOmega Ω →
+      closure (Metric.ball place.x₀ r) ⊆ Metric.ball place.chartCenter place.chartRadius →
+      closure (Metric.ball place.chartCenter place.chartRadius) ⊆ Ω →
+      ∃ (C : CorrectionAPI ν P.toPacketAPI) (D : CutoffData),
+        C.T = place.T ∧ C.δ = δ ∧ C.x₀ = place.x₀ ∧ C.r = r ∧
+        (∀ t ∈ Ioo (0 : ℝ) (place.T + δ), ∀ x ∈ Metric.ball place.x₀ r,
+          C.v (t, x) = reference.velocity (t, x)) ∧
+        D.θ = C.θ ∧ D.η = C.η ∧ D.plateau = C.plateau ∧
+        D.θRadius = C.θRadius ∧ D.ε₀ = C.ε₀ ∧
+        D.potential = C.potential ∧ D.correction = C.correction ∧
+        Nonempty (BoundaryInsertionAPI ν P place Ω norms a g r δ D reference)
 
-`RECONCILIATION.md` §3 "Copy policy": everything registered is imported and used
-by its registered name, never copied — so no copied block below shadows a
-registered declaration.  The whole-space rescaled packet objects that the three
-insertion formulas point to are the registered
-`BlowupDensity.Contracts.V1.{scaledPacket,scaledPressure,scaledForce}` and
-`SpeedUnboundedAt`, and the blow-up field uses the registered
-`MaximalPartial.{limsupLeft,speedENorm}`; the copied T22 layer's
-`zeroExtensionComparison` uses the registered `Contracts.V1.Data.sobolevENorm`.
-The `rfl` examples below pin the short names that appear in the statement to
-their fully-qualified registered definitions, guarding against a future local
-shadow (the T18 house-style `alphaT = Contracts.V1.alpha` drift check). -/
+def boundaryInsertionStatement'_of_ibp : Prop :=
+  ∀ (ν : ℝ), 0 < ν → ∀ (P : PacketImportAPI ν)
+    (place : DomainPlacementData P.toPacketAPI)
+    (Ω : Set Space) (norms : BoundedDomainNormAPI)
+    (a : SpatialField) (g : SpaceTimeField) (r δ : ℝ)
+    (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)),
+    IsBoundedBoxOrSmoothDomain Ω → IBP Ω → 0 < δ → 0 < r →
+      g ∈ forceClassOmega Ω → a ∈ initialClassOmega Ω →
+      closure (Metric.ball place.x₀ r) ⊆ Metric.ball place.chartCenter place.chartRadius →
+      closure (Metric.ball place.chartCenter place.chartRadius) ⊆ Ω →
+      ∃ (C : CorrectionAPI ν P.toPacketAPI) (D : CutoffData),
+        C.T = place.T ∧ C.δ = δ ∧ C.x₀ = place.x₀ ∧ C.r = r ∧
+        (∀ t ∈ Ioo (0 : ℝ) (place.T + δ), ∀ x ∈ Metric.ball place.x₀ r,
+          C.v (t, x) = reference.velocity (t, x)) ∧
+        D.θ = C.θ ∧ D.η = C.η ∧ D.plateau = C.plateau ∧
+        D.θRadius = C.θRadius ∧ D.ε₀ = C.ε₀ ∧
+        D.potential = C.potential ∧ D.correction = C.correction ∧
+        Nonempty (BoundaryInsertionAPI ν P place Ω norms a g r δ D reference)
 
-example (U : VelocityField) (x₀ : Space) (T ε : ℝ) :
-    scaledPacket U x₀ T ε =
-      BlowupDensity.Contracts.V1.scaledPacket U x₀ T ε := rfl
+def boundaryInsertionStatementV1 : Prop :=
+  boundaryInsertionStatement'_box ∧ boundaryInsertionStatement'_of_ibp
 
-example (Pr : PressureField) (x₀ : Space) (T ε : ℝ) :
-    scaledPressure Pr x₀ T ε =
-      BlowupDensity.Contracts.V1.scaledPressure Pr x₀ T ε := rfl
-
-example (F : VelocityField) (x₀ : Space) (T ε : ℝ) :
-    scaledForce F x₀ T ε =
-      BlowupDensity.Contracts.V1.scaledForce F x₀ T ε := rfl
-
-example (T : ℝ) (u : VelocityField) :
-    SpeedUnboundedAt T u =
-      BlowupDensity.Contracts.V1.SpeedUnboundedAt T u := rfl
-
-example (s : ℝ) (z : SpatialField) :
-    sobolevENorm s z = BlowupDensity.Contracts.V1.Data.sobolevENorm s z := rfl
-
-end BlowupDensity.T23.Spec
-
-namespace TripleSolutionProbe
-open Set MeasureTheory Filter Topology
-open BlowupDensity.Contracts.V1 BlowupDensity.Contracts.V1.Data
-open BlowupDensity.T23.Spec BlowupDensity.T16.Draft BlowupDensity.T22.Draft
-open scoped ContDiff ENNReal Topology
-variable {ν : ℝ} {P : PacketImportAPI ν} {Ω : Set Space}
-  {a : SpatialField} {g : SpaceTimeField} {T : ℝ}
-def placeTo (b : DomainPlacementData P.toPacketAPI) : NSFormalization.Section3.T23.DomainPlacementData P.velocity P.pressure P.force P.carrier where
-  T := b.T
-  time_pos := b.time_pos
-  chartCenter := b.chartCenter
-  chartRadius := b.chartRadius
-  chartRadius_pos := b.chartRadius_pos
-  x₀ := b.x₀
-  x₀_mem := b.x₀_mem
-  Kstar := b.Kstar
-  Kstar_compact := b.Kstar_compact
-  carrier_subset := b.carrier_subset
-  force_projection_subset := b.force_projection_subset
-  ε₀ := b.ε₀
-  eps_pos := b.eps_pos
-  eps_le_one := b.eps_le_one
-  eps_time := b.eps_time
-  eps_space := b.eps_space
-
-def placeFrom (b : NSFormalization.Section3.T23.DomainPlacementData P.velocity P.pressure P.force P.carrier) : DomainPlacementData P.toPacketAPI where
-  T := b.T
-  time_pos := b.time_pos
-  chartCenter := b.chartCenter
-  chartRadius := b.chartRadius
-  chartRadius_pos := b.chartRadius_pos
-  x₀ := b.x₀
-  x₀_mem := b.x₀_mem
-  Kstar := b.Kstar
-  Kstar_compact := b.Kstar_compact
-  carrier_subset := b.carrier_subset
-  force_projection_subset := b.force_projection_subset
-  ε₀ := b.ε₀
-  eps_pos := b.eps_pos
-  eps_le_one := b.eps_le_one
-  eps_time := b.eps_time
-  eps_space := b.eps_space
-
-def cutoffTo (b : CutoffData) : NSFormalization.Section3.T23.CutoffData where
-  θ := b.θ
-  η := b.η
-  plateau := b.plateau
-  θRadius := b.θRadius
-  ε₀ := b.ε₀
-  potential := b.potential
-  correction := b.correction
-
-def cutoffFrom (b : NSFormalization.Section3.T23.CutoffData) : CutoffData where
-  θ := b.θ
-  η := b.η
-  plateau := b.plateau
-  θRadius := b.θRadius
-  ε₀ := b.ε₀
-  potential := b.potential
-  correction := b.correction
-
-def solutionTo (b : ClassicalSolutionOmega ν Ω a g T) : NSFormalization.Section3.T23.ClassicalSolutionOmega ν Ω a g T where
-  velocity := b.velocity
-  pressure := b.pressure
-  horizon_pos := b.horizon_pos
-  velocity_smooth := b.velocity_smooth
-  pressure_smooth := b.pressure_smooth
-  initial := b.initial
-  divergence := b.divergence
-  momentum := b.momentum
-  no_slip := b.no_slip
-  pressure_gauge := b.pressure_gauge
-
-def solutionFrom (b : NSFormalization.Section3.T23.ClassicalSolutionOmega ν Ω a g T) : ClassicalSolutionOmega ν Ω a g T where
-  velocity := b.velocity
-  pressure := b.pressure
-  horizon_pos := b.horizon_pos
-  velocity_smooth := b.velocity_smooth
-  pressure_smooth := b.pressure_smooth
-  initial := b.initial
-  divergence := b.divergence
-  momentum := b.momentum
-  no_slip := b.no_slip
-  pressure_gauge := b.pressure_gauge
-
-
-open NSFormalization.Section3.T23 (LocalCorrectionCore)
-open NSFormalization.Section3.T23.InsertedTriple
-variable {δ r s b : ℝ} (place : DomainPlacementData P.toPacketAPI) (D : CutoffData)
-  (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ))
-  (hδ : 0 < δ) (ho : IsOpen Ω) (hb : Bornology.IsBounded Ω) (hne : Ω.Nonempty)
-  (C : LocalCorrectionCore reference.velocity P.velocity P.carrier place.x₀ r place.T δ (cutoffTo D))
-  (hball : Metric.ball place.x₀ r ⊆ Ω) (hg : g ∈ forceClassOmega Ω)
-  (hf : ContDiff ℝ ∞ P.force)
-  (hfs : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport P.force)
-  (hspos : 0 < s) (hbpos : 0 < b)
-  (hU : ∀ ε ∈ Ioc (0 : ℝ) s,
-    ContDiffOn ℝ ∞ (scaledPacket P.velocity place.x₀ place.T ε) (Iio place.T ×ˢ univ))
-  (hP : ∀ ε ∈ Ioc (0 : ℝ) s,
-    ContDiffOn ℝ ∞ (scaledPressure P.pressure place.x₀ place.T ε) (Iio place.T ×ˢ univ))
-  (hdiv : ∀ ε ∈ Ioc (0 : ℝ) s, ∀ t : ℝ, t < place.T → ∀ x : Space,
-    spatialDivergence (scaledPacket P.velocity place.x₀ place.T ε) t x = 0)
-  (heq : ∀ ε ∈ Ioc (0 : ℝ) s, ∀ t : ℝ, t < place.T → ∀ x : Space,
-    navierStokesResidual ν (scaledPacket P.velocity place.x₀ place.T ε)
-      (scaledPressure P.pressure place.x₀ place.T ε) t x = scaledForce P.force place.x₀ place.T ε (t, x))
-
-local notation "pl" => placeTo place
-local notation "dc" => cutoffTo D
-local notation "ref" => solutionTo reference
-local notation "e" => threshold pl dc s b
-local notation "V" => velocity pl dc ref
-local notation "Q" => pressure pl ref
-local notation "F" => force pl dc ref
-
--- The four data fields are concrete values, not assumed API projections.
-example : ℝ := by exact e
-example : ℝ → VelocityField := by exact V
-example : ℝ → SpaceTimeScalar := by exact Q
-example : ℝ → VelocityField := by exact F
-example : 0 < e := by exact eps_pos pl dc C.eps_pos hspos hbpos
-example : e ≤ place.ε₀ := by exact eps_le_scaling pl dc s b
-example : e ≤ D.ε₀ := by exact eps_le_cutoff pl dc s b
-example : ∀ ε : ℝ, ∀ z : SpaceTime,
-    V ε z = reference.velocity z + D.correction ε z + scaledPacket P.velocity place.x₀ place.T ε z := by
-  exact velocity_formula pl dc ref
-example : ∀ ε : ℝ, Q ε = domainNormalizePressure Ω
-    (fun z => reference.pressure z + scaledPressure P.pressure place.x₀ place.T ε z) := by
-  exact pressure_formula pl ref
-example : ∀ ε : ℝ, ∀ z : SpaceTime,
-    F ε z = g z + BlowupDensity.T17.Spec.correctionForce ν reference.velocity D ε z + scaledForce P.force place.x₀ place.T ε z := by
-  exact force_formula pl dc ref
-
--- Exact Spec / canonical API field: force_mem
-example : ∀ ε ∈ Ioc (0 : ℝ) e, F ε ∈ forceClassOmega Ω := by
-  intro ε hε
-  have hc : ε ∈ Ioc (0 : ℝ) (dc).ε₀ := ⟨hε.1, hε.2.trans (eps_le_cutoff pl dc s b)⟩
-  have hp : ε ∈ Ioc (0 : ℝ) (pl).ε₀ := ⟨hε.1, hε.2.trans (eps_le_scaling pl dc s b)⟩
-  have hs : ε ∈ Ioc (0 : ℝ) s := ⟨hε.1, hε.2.trans (eps_le_supplier pl dc s b)⟩
-  exact force_mem (place := pl) (reference := ref) C.toWindowed hball hg hf hfs hc hp
-
--- Exact Spec / canonical API field: forceDifference_mem
-example : ∀ ε ∈ Ioc (0 : ℝ) e, (fun z => F ε z - g z) ∈ forceClassOmega Ω := by
-  intro ε hε
-  have hc : ε ∈ Ioc (0 : ℝ) (dc).ε₀ := ⟨hε.1, hε.2.trans (eps_le_cutoff pl dc s b)⟩
-  have hp : ε ∈ Ioc (0 : ℝ) (pl).ε₀ := ⟨hε.1, hε.2.trans (eps_le_scaling pl dc s b)⟩
-  have hs : ε ∈ Ioc (0 : ℝ) s := ⟨hε.1, hε.2.trans (eps_le_supplier pl dc s b)⟩
-  exact forceDifference_mem (place := pl) (reference := ref) C.toWindowed hball hf hfs hc hp
-
--- Exact Spec / canonical API field: velocity_smooth
-example : ∀ ε ∈ Ioc (0 : ℝ) e, SmoothOnClosedSlab (Ico (0 : ℝ) place.T) Ω (V ε) := by
-  intro ε hε
-  have hc : ε ∈ Ioc (0 : ℝ) (dc).ε₀ := ⟨hε.1, hε.2.trans (eps_le_cutoff pl dc s b)⟩
-  have hp : ε ∈ Ioc (0 : ℝ) (pl).ε₀ := ⟨hε.1, hε.2.trans (eps_le_scaling pl dc s b)⟩
-  have hs : ε ∈ Ioc (0 : ℝ) s := ⟨hε.1, hε.2.trans (eps_le_supplier pl dc s b)⟩
-  exact velocity_smooth (place := pl) (reference := ref) hδ C.toWindowed hc (hU ε hs)
-
--- Exact Spec / canonical API field: pressure_smooth
-example : ∀ ε ∈ Ioc (0 : ℝ) e, SmoothOnClosedSlab (Ico (0 : ℝ) place.T) Ω (Q ε) := by
-  intro ε hε
-  have hc : ε ∈ Ioc (0 : ℝ) (dc).ε₀ := ⟨hε.1, hε.2.trans (eps_le_cutoff pl dc s b)⟩
-  have hp : ε ∈ Ioc (0 : ℝ) (pl).ε₀ := ⟨hε.1, hε.2.trans (eps_le_scaling pl dc s b)⟩
-  have hs : ε ∈ Ioc (0 : ℝ) s := ⟨hε.1, hε.2.trans (eps_le_supplier pl dc s b)⟩
-  exact pressure_smooth (place := pl) (reference := ref) hδ hb ho.measurableSet (hP ε hs)
-
--- Exact Spec / canonical API field: initial
-example : ∀ ε ∈ Ioc (0 : ℝ) e, ∀ x ∈ Ω, V ε (0, x) = a x := by
-  intro ε hε
-  have hc : ε ∈ Ioc (0 : ℝ) (dc).ε₀ := ⟨hε.1, hε.2.trans (eps_le_cutoff pl dc s b)⟩
-  have hp : ε ∈ Ioc (0 : ℝ) (pl).ε₀ := ⟨hε.1, hε.2.trans (eps_le_scaling pl dc s b)⟩
-  have hs : ε ∈ Ioc (0 : ℝ) s := ⟨hε.1, hε.2.trans (eps_le_supplier pl dc s b)⟩
-  exact fun _ hx => initial (place := pl) (reference := ref) C.toWindowed hc hp hx
-
--- Exact Spec / canonical API field: incompressible
-example : ∀ ε ∈ Ioc (0 : ℝ) e, ∀ t ∈ Ico (0 : ℝ) place.T, ∀ x ∈ Ω, spatialDivergence (V ε) t x = 0 := by
-  intro ε hε
-  have hc : ε ∈ Ioc (0 : ℝ) (dc).ε₀ := ⟨hε.1, hε.2.trans (eps_le_cutoff pl dc s b)⟩
-  have hp : ε ∈ Ioc (0 : ℝ) (pl).ε₀ := ⟨hε.1, hε.2.trans (eps_le_scaling pl dc s b)⟩
-  have hs : ε ∈ Ioc (0 : ℝ) s := ⟨hε.1, hε.2.trans (eps_le_supplier pl dc s b)⟩
-  exact fun _ ht _ hx => incompressible (place := pl) (reference := ref) hδ C.toWindowed hc (hU ε hs) (hdiv ε hs) ht hx
-
--- Exact Spec / canonical API field: momentum
-example : ∀ ε ∈ Ioc (0 : ℝ) e, ∀ t ∈ Ioo (0 : ℝ) place.T, ∀ x ∈ Ω, navierStokesResidual ν (V ε) (Q ε) t x = F ε (t, x) := by
-  intro ε hε
-  have hc : ε ∈ Ioc (0 : ℝ) (dc).ε₀ := ⟨hε.1, hε.2.trans (eps_le_cutoff pl dc s b)⟩
-  have hp : ε ∈ Ioc (0 : ℝ) (pl).ε₀ := ⟨hε.1, hε.2.trans (eps_le_scaling pl dc s b)⟩
-  have hs : ε ∈ Ioc (0 : ℝ) s := ⟨hε.1, hε.2.trans (eps_le_supplier pl dc s b)⟩
-  exact fun _ ht _ hx => momentum (place := pl) (reference := ref) hδ C.toWindowed hc (hU ε hs) (hP ε hs) (heq ε hs) ht hx
-
--- Exact Spec / canonical API field: history
-example : ∀ ε ∈ Ioc (0 : ℝ) e, ∀ t : ℝ, 0 ≤ t → t ≤ place.T - 2 * ε ^ 2 → ∀ x : Space, V ε (t, x) = reference.velocity (t, x) := by
-  intro ε hε
-  have hc : ε ∈ Ioc (0 : ℝ) (dc).ε₀ := ⟨hε.1, hε.2.trans (eps_le_cutoff pl dc s b)⟩
-  have hp : ε ∈ Ioc (0 : ℝ) (pl).ε₀ := ⟨hε.1, hε.2.trans (eps_le_scaling pl dc s b)⟩
-  have hs : ε ∈ Ioc (0 : ℝ) s := ⟨hε.1, hε.2.trans (eps_le_supplier pl dc s b)⟩
-  exact fun _ _ ht x => history (place := pl) (reference := ref) C.toWindowed hc ht x
-
-include hδ ho hb hne C hU hP hdiv heq
-
--- Exact API solution existential, converted fieldwise to the original Spec.
-theorem solution_exact (hnoSlip : ∀ ε ∈ Ioc (0 : ℝ) (threshold (placeTo place) (cutoffTo D) s b),
-    ∀ t ∈ Ico (0 : ℝ) place.T, ∀ x ∈ frontier Ω,
-      velocity (placeTo place) (cutoffTo D) (solutionTo reference) ε (t, x) = 0) : ∀ ε ∈ Ioc (0 : ℝ) e,
-    ∃ w : ClassicalSolutionOmega ν Ω a (F ε) place.T,
-      w.velocity = V ε ∧ w.pressure = Q ε := by
-  intro ε hε
-  obtain ⟨w, hv, hp⟩ := solution (place := pl) (reference := ref) hδ ho hb hne C.toWindowed s b hU hP hdiv heq hnoSlip ε hε
-  exact ⟨solutionFrom w, hv, hp⟩
-
--- Each of the ten Spec fields is consumed by exact from the constructed solution.
-def solution_fields (hnoSlip : ∀ ε ∈ Ioc (0 : ℝ) (threshold (placeTo place) (cutoffTo D) s b),
-    ∀ t ∈ Ico (0 : ℝ) place.T, ∀ x ∈ frontier Ω,
-      velocity (placeTo place) (cutoffTo D) (solutionTo reference) ε (t, x) = 0) (ε : ℝ) (hε : ε ∈ Ioc (0 : ℝ) e) :
-    ClassicalSolutionOmega ν Ω a (F ε) place.T := by
-  have hc : ε ∈ Ioc (0 : ℝ) (dc).ε₀ := ⟨hε.1, hε.2.trans (eps_le_cutoff pl dc s b)⟩
-  have hp : ε ∈ Ioc (0 : ℝ) (pl).ε₀ := ⟨hε.1, hε.2.trans (eps_le_scaling pl dc s b)⟩
-  have hs : ε ∈ Ioc (0 : ℝ) s := ⟨hε.1, hε.2.trans (eps_le_supplier pl dc s b)⟩
-  let w := classicalSolution (place := pl) (reference := ref) hδ ho hb hne C.toWindowed hc hp (hU ε hs) (hP ε hs)
-    (hdiv ε hs) (heq ε hs) (hnoSlip ε hε)
-  exact {
-    velocity := by exact w.velocity
-    pressure := by exact w.pressure
-    horizon_pos := by exact w.horizon_pos
-    velocity_smooth := by exact w.velocity_smooth
-    pressure_smooth := by exact w.pressure_smooth
-    initial := by exact w.initial
-    divergence := by exact w.divergence
-    momentum := by exact w.momentum
-    no_slip := by exact w.no_slip
-    pressure_gauge := by exact w.pressure_gauge }
-end TripleSolutionProbe
-
-/-- info: 'TripleSolutionProbe.solution_exact' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms TripleSolutionProbe.solution_exact
-
-/-- info: 'TripleSolutionProbe.solution_fields' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms TripleSolutionProbe.solution_fields
+end BlowupDensity.Contracts.V1.BoundaryInsertion

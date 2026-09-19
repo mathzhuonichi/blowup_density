@@ -2,9 +2,11 @@ import NSFormalization.Section3.T23.Assembly
 import NSFormalization.Section3.T23.CorrectionEstimates
 import Bindings.CorrectionV2
 import Bindings.Scaling
+import Contracts.V1.BoundaryInsertion
+import Bindings.Thresholds
 
-/-! T23 supplier preparation only; this module does not register or prove the
-48-field boundary insertion statement. Migrated from lane 481. -/
+/-! Registered I02/I03 suppliers, the 48-field T23 construction, and fieldwise
+contract conversions. The smooth branch retains explicit scalar IBP. -/
 noncomputable section
 namespace BlowupDensity.Bindings.BoundaryInsertion
 open BlowupDensity.Contracts.V1
@@ -258,4 +260,396 @@ theorem exists_matching_supplier_on_domain {ν T δ r ρ : ℝ} (P : PacketAPI �
     exists_matching_supplier P th reference.velocity x₀ hT hδ hr hρ hρr hl.1 hl.2
   exact ⟨C, A, D, hAC, hCT, hCδ, hx, hp, he, hm⟩
 
+/-- All supplier hypotheses are discharged from the packet and the given
+local domain reference. The smooth-domain branch exposes only the proved
+uniqueness engine's scalar integration-by-parts premise. -/
+theorem boundaryInsertionStatement'_of_ibp {ν : ℝ} (P : PacketAPI ν)
+    (th : ThresholdAPI) (place : DomainPlacementData P.velocity P.pressure P.force P.carrier)
+    (Ω : Set Space) (norms : NSFormalization.Section3.T22.BoundedDomainNormAPI)
+    (a : Data.SpatialField) (g : VelocityField) (r δ : ℝ)
+    (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ))
+    (hΩ : IsBoundedBoxOrSmoothDomain Ω) (hI : IBP Ω) (hδ : 0 < δ) (hr : 0 < r)
+    (hg : g ∈ forceClassOmega Ω) (ha : a ∈ initialClassOmega Ω)
+    (hrball : closure (Metric.ball place.x₀ r) ⊆ Metric.ball place.chartCenter place.chartRadius)
+    (hball : closure (Metric.ball place.chartCenter place.chartRadius) ⊆ Ω) :
+    ∃ (C : CorrectionAPI ν P) (D : CutoffData),
+      C.T = place.T ∧ C.δ = δ ∧ C.x₀ = place.x₀ ∧ C.r = r ∧
+      (∀ t ∈ Ioo (0 : ℝ) (place.T + δ), ∀ x ∈ Metric.ball place.x₀ r,
+        C.v (t, x) = reference.velocity (t, x)) ∧
+      D.θ = C.θ ∧ D.η = C.η ∧ D.plateau = C.plateau ∧
+      D.θRadius = C.θRadius ∧ D.ε₀ = C.ε₀ ∧
+      D.potential = C.potential ∧ D.correction = C.correction ∧
+      Nonempty (BoundaryInsertionAPI ν P.velocity P.pressure P.force P.carrier
+        P.energyBound P.dissipationBound place Ω norms a g r δ D reference) := by
+  have hclosed : closure (Metric.ball place.x₀ r) ⊆ Ω :=
+    hrball.trans (subset_closure.trans hball)
+  obtain ⟨R, hR, hRball⟩ := exists_outer_ball hΩ.1 hr hclosed
+  have hl := reference.local_velocity place.x₀ hRball
+  obtain ⟨C, A, L, hAC, hCT, hCδ, hx, hCr, _, _, _, _, hmatch, _⟩ :=
+    exists_matching_supplier P th reference.velocity place.x₀ place.time_pos hδ
+      (hr.trans hR) hr hR hl.1 hl.2
+  let c := correctionTo C
+  let D := c.supplierCutoff
+  have heq : EqOn reference.velocity c.v
+      (Ioo (0 : ℝ) (c.T + c.δ) ×ˢ Metric.ball c.x₀ c.r) := by
+    simpa only [c, correctionTo, hCT, hCδ, hx, hCr] using hmatch
+  have hlocal := reference.local_velocity place.x₀ (subset_closure.trans hclosed)
+  have hcore : WindowedCorrectionCore reference.velocity P.velocity P.carrier
+      place.x₀ r place.T δ D := by
+    have hc := c.windowedCore P.carrier_compact heq
+      (by simpa only [c, correctionTo, hCT, hCδ, hx, hCr] using hlocal.1)
+      (by simpa only [c, correctionTo, hCT, hCδ, hx, hCr] using hlocal.2)
+      (fun t ht => P.velocity_support t ⟨ht.1.le, ht.2⟩)
+    change WindowedCorrectionCore reference.velocity P.velocity P.carrier C.x₀ C.r C.T C.δ D at hc
+    simpa only [hCT, hCδ, hx, hCr] using hc
+  have hforce {ε : ℝ} (hε : ε ∈ Ioc (0 : ℝ) C.ε₀) :
+      NSFormalization.Section3.T23.correctionForce ν reference.velocity D ε = C.forceCorrection ε :=
+    c.supplierCutoff_force heq hε
+  let s := min C.ε₀ A.ε₀
+  have hεA {ε : ℝ} (hε : ε ∈ Ioc (0 : ℝ) s) : ε ∈ Ioc (0 : ℝ) A.ε₀ :=
+    ⟨hε.1, hε.2.trans (min_le_right _ _)⟩
+  have hεC {ε : ℝ} (hε : ε ∈ Ioc (0 : ℝ) s) : ε ∈ Ioc (0 : ℝ) C.ε₀ :=
+    ⟨hε.1, hε.2.trans (min_le_left _ _)⟩
+  have he (q : ℝ) : A.thresholds.exponent (1 : ℝ≥0∞).toReal q = 1 / 2 - q := by
+    rw [A.thresholds.formula]; norm_num
+  have he' (q : ℝ) : A.thresholds.exponent (1 : ℝ≥0∞).toReal q + 1 = 3 / 2 - q := by
+    rw [he]; ring
+  refine ⟨C, D, hCT, hCδ, hx, hCr, ?_, ?_⟩
+  · intro t ht x hx'
+    exact (@hmatch (t, x) ⟨ht, hx'⟩).symm
+  refine ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, ?_⟩
+  refine ⟨?_⟩
+  apply boundaryInsertionAPI place norms D reference P.viscosity_pos hΩ hI hδ hg ha
+    hball (subset_closure.trans hclosed) hcore C.eps_pos P.carrier_compact P.velocity_support
+    P.force_smooth P.force_support P.velocity_extension_smooth P.pressure_extension_smooth
+    P.speed_unbounded C.θRadius s P.energyBound P.dissipationBound A.correctionEnergyConst
+    (lt_min C.eps_pos A.eps_pos)
+    (by simpa only [hAC] using A.carrier_subset)
+    (fun ε hε t ht x => BlowupDensity.Bindings.scaled_divergence_free P place.x₀ hε.1 ht x)
+    (fun ε hε t ht x => BlowupDensity.Bindings.scaled_equation P place.x₀ hε.1 ht x)
+    (fun ε hε => by
+      have hb := A.perturbationEnergyBound ε (hεA hε)
+      change NSFormalization.Section3.T24.energyENorm A.correction.T
+        (fun z => A.correction.correction ε z + NSFormalization.Section3.T15.scaledVelocity
+          P.velocity A.correction.x₀ A.correction.T ε z) ≤ _ at hb
+      rw [hAC, hCT, hx] at hb
+      exact hb)
+    (A.positiveConst 1) (A.correctionPositiveConst 1)
+  · intro q hq hq' ε hε
+    have hb := A.packetPositiveScaling 1 le_rfl q hq (by linarith) ε (hεA hε)
+    change NSFormalization.Section4.D01.forceSobolevENorm 1 q
+      (NSFormalization.Section3.T15.scaledForce P.force A.correction.x₀ A.correction.T ε) ≤ _ at hb
+    rw [hAC, hCT, hx, he, he, sub_zero] at hb
+    exact hb
+  · intro q hq hq' ε hε
+    rw [hforce (hεC hε)]
+    have hb := A.correctionPositiveScaling 1 le_rfl q hq (by linarith) ε (hεA hε)
+    change NSFormalization.Section4.D01.forceSobolevENorm 1 q (A.correction.forceCorrection ε) ≤ _ at hb
+    rw [hAC, he', he', sub_zero] at hb
+    exact hb
+
+
 end BlowupDensity.Bindings.BoundaryInsertion
+
+namespace BlowupDensity.Bindings.BoundaryInsertion.Contract
+open Set MeasureTheory Filter Topology
+open BlowupDensity.Contracts.V1 BlowupDensity.Contracts.V1.Data
+open BlowupDensity.Contracts.V1.BoundaryInsertion BlowupDensity.Contracts.V1.BoundedDomainNorm
+open scoped ContDiff ENNReal Topology
+variable {ν : ℝ} {P : PacketImportAPI ν} {Ω : Set Space}
+  {a : SpatialField} {g : SpaceTimeField} {T : ℝ}
+def placeTo (b : DomainPlacementData P.toPacketAPI) : NSFormalization.Section3.T23.DomainPlacementData P.velocity P.pressure P.force P.carrier where
+  T := b.T
+  time_pos := b.time_pos
+  chartCenter := b.chartCenter
+  chartRadius := b.chartRadius
+  chartRadius_pos := b.chartRadius_pos
+  x₀ := b.x₀
+  x₀_mem := b.x₀_mem
+  Kstar := b.Kstar
+  Kstar_compact := b.Kstar_compact
+  carrier_subset := b.carrier_subset
+  force_projection_subset := b.force_projection_subset
+  ε₀ := b.ε₀
+  eps_pos := b.eps_pos
+  eps_le_one := b.eps_le_one
+  eps_time := b.eps_time
+  eps_space := b.eps_space
+
+def placeFrom (b : NSFormalization.Section3.T23.DomainPlacementData P.velocity P.pressure P.force P.carrier) : DomainPlacementData P.toPacketAPI where
+  T := b.T
+  time_pos := b.time_pos
+  chartCenter := b.chartCenter
+  chartRadius := b.chartRadius
+  chartRadius_pos := b.chartRadius_pos
+  x₀ := b.x₀
+  x₀_mem := b.x₀_mem
+  Kstar := b.Kstar
+  Kstar_compact := b.Kstar_compact
+  carrier_subset := b.carrier_subset
+  force_projection_subset := b.force_projection_subset
+  ε₀ := b.ε₀
+  eps_pos := b.eps_pos
+  eps_le_one := b.eps_le_one
+  eps_time := b.eps_time
+  eps_space := b.eps_space
+
+def cutoffTo (b : CutoffData) : NSFormalization.Section3.T23.CutoffData where
+  θ := b.θ
+  η := b.η
+  plateau := b.plateau
+  θRadius := b.θRadius
+  ε₀ := b.ε₀
+  potential := b.potential
+  correction := b.correction
+
+def cutoffFrom (b : NSFormalization.Section3.T23.CutoffData) : CutoffData where
+  θ := b.θ
+  η := b.η
+  plateau := b.plateau
+  θRadius := b.θRadius
+  ε₀ := b.ε₀
+  potential := b.potential
+  correction := b.correction
+
+def solutionTo (b : ClassicalSolutionOmega ν Ω a g T) : NSFormalization.Section3.T23.ClassicalSolutionOmega ν Ω a g T where
+  velocity := b.velocity
+  pressure := b.pressure
+  horizon_pos := b.horizon_pos
+  velocity_smooth := b.velocity_smooth
+  pressure_smooth := b.pressure_smooth
+  initial := b.initial
+  divergence := b.divergence
+  momentum := b.momentum
+  no_slip := b.no_slip
+  pressure_gauge := b.pressure_gauge
+
+def solutionFrom (b : NSFormalization.Section3.T23.ClassicalSolutionOmega ν Ω a g T) : ClassicalSolutionOmega ν Ω a g T where
+  velocity := b.velocity
+  pressure := b.pressure
+  horizon_pos := b.horizon_pos
+  velocity_smooth := b.velocity_smooth
+  pressure_smooth := b.pressure_smooth
+  initial := b.initial
+  divergence := b.divergence
+  momentum := b.momentum
+  no_slip := b.no_slip
+  pressure_gauge := b.pressure_gauge
+
+theorem normsTo (b : BoundedDomainNormAPI) : NSFormalization.Section3.T22.BoundedDomainNormAPI where
+  orderZero := b.orderZero
+  cutoffMultiplier := b.cutoffMultiplier
+  zeroExtensionComparison := b.zeroExtensionComparison
+theorem lifespan_eq (ν : ℝ) (Ω : Set Space) (a : SpatialField) (f : SpaceTimeField) :
+    NSFormalization.Section3.T23.domainMaximalLifespan ν Ω a f = domainMaximalLifespan ν Ω a f := by
+  unfold NSFormalization.Section3.T23.domainMaximalLifespan domainMaximalLifespan
+  congr 1
+  funext S
+  have h : Nonempty (NSFormalization.Section3.T23.ClassicalSolutionOmega ν Ω a f S) ↔
+      Nonempty (ClassicalSolutionOmega ν Ω a f S) :=
+    ⟨fun ⟨w⟩ => ⟨solutionFrom w⟩, fun ⟨w⟩ => ⟨solutionTo w⟩⟩
+  rw [propext h]
+
+theorem maximal_eq (ν : ℝ) (Ω : Set Space) (a : SpatialField) (f u : SpaceTimeField)
+    (p : SpaceTimeScalar) :
+    NSFormalization.Section3.T23.IsMaximalDomainSolution ν Ω a f u p ↔ IsMaximalDomainSolution ν Ω a f u p := by
+  unfold NSFormalization.Section3.T23.IsMaximalDomainSolution IsMaximalDomainSolution
+  rw [lifespan_eq]
+  constructor
+  · rintro ⟨hp, h⟩
+    refine ⟨hp, fun S hS hST => ?_⟩
+    obtain ⟨w, hv, hπ⟩ := h S hS hST
+    exact ⟨solutionFrom w, hv, hπ⟩
+  · rintro ⟨hp, h⟩
+    refine ⟨hp, fun S hS hST => ?_⟩
+    obtain ⟨w, hv, hπ⟩ := h S hS hST
+    exact ⟨solutionTo w, hv, hπ⟩
+
+variable {place : DomainPlacementData P.toPacketAPI} {norms : BoundedDomainNormAPI}
+  {r δ : ℝ} {D : CutoffData}
+  {reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)}
+def apiTo (b : BoundaryInsertionAPI ν P place Ω norms a g r δ D reference) : NSFormalization.Section3.T23.BoundaryInsertionAPI ν P.velocity P.pressure P.force P.carrier P.energyBound P.dissipationBound (placeTo place) Ω (normsTo norms) a g r δ (cutoffTo D) (solutionTo reference) where
+  domain := b.domain
+  delta_pos := b.delta_pos
+  reference_force_mem := b.reference_force_mem
+  initial_mem := b.initial_mem
+  interiorBall_in_domain := b.interiorBall_in_domain
+  ε₀ := b.ε₀
+  eps_pos := b.eps_pos
+  eps_le_scaling := b.eps_le_scaling
+  eps_le_cutoff := b.eps_le_cutoff
+  velocity := b.velocity
+  pressure := b.pressure
+  force := b.force
+  velocity_formula := b.velocity_formula
+  pressure_formula := b.pressure_formula
+  force_formula := b.force_formula
+  force_mem := b.force_mem
+  forceDifference_mem := b.forceDifference_mem
+  velocity_smooth := b.velocity_smooth
+  pressure_smooth := b.pressure_smooth
+  initial := b.initial
+  incompressible := b.incompressible
+  momentum := b.momentum
+  history := b.history
+  collar_agreement := b.collar_agreement
+  noSlip_preserved := b.noSlip_preserved
+  solution := by
+    intro ε hε
+    obtain ⟨w, hv, hp⟩ := b.solution ε hε
+    exact ⟨solutionTo w, hv, hp⟩
+  lifespan := by
+    intro ε hε
+    rw [lifespan_eq]
+    exact b.lifespan ε hε
+  maximal := fun ε hε => (maximal_eq ν Ω a (b.force ε) (b.velocity ε) (b.pressure ε)).mpr (b.maximal ε hε)
+  blowup := b.blowup
+  blowup_limsup := b.blowup_limsup
+  crossTransport_background_advects_packet := b.crossTransport_background_advects_packet
+  crossTransport_packet_advects_background := b.crossTransport_packet_advects_background
+  velocityDifference_divFree := b.velocityDifference_divFree
+  diffSupportRadius := b.diffSupportRadius
+  diffSupportRadius_pos := b.diffSupportRadius_pos
+  velocityDifference_support := b.velocityDifference_support
+  diffSupport_in_chart := b.diffSupport_in_chart
+  forceDifference_spatialSupport := b.forceDifference_spatialSupport
+  energyConst := b.energyConst
+  energyConst_nonneg := b.energyConst_nonneg
+  energyRate := b.energyRate
+  forceDiffSobolevConst := b.forceDiffSobolevConst
+  forceDiffSobolevConst_pos := b.forceDiffSobolevConst_pos
+  forceDifference_sobolev_bound := b.forceDifference_sobolev_bound
+  domain_zeroExt_comparison := b.domain_zeroExt_comparison
+  forceDifference_negativeSobolev_tendsto := b.forceDifference_negativeSobolev_tendsto
+  forceDifference_convergence := b.forceDifference_convergence
+  noSlip_uniqueness := fun a' ha f hf T₁ T₂ u₁ u₂ t ht x hx =>
+    b.noSlip_uniqueness a' ha f hf T₁ T₂ (solutionFrom u₁) (solutionFrom u₂) t ht x hx
+
+def apiFrom (b : NSFormalization.Section3.T23.BoundaryInsertionAPI ν P.velocity P.pressure P.force P.carrier P.energyBound P.dissipationBound (placeTo place) Ω (normsTo norms) a g r δ (cutoffTo D) (solutionTo reference)) : BoundaryInsertionAPI ν P place Ω norms a g r δ D reference where
+  domain := b.domain
+  delta_pos := b.delta_pos
+  reference_force_mem := b.reference_force_mem
+  initial_mem := b.initial_mem
+  interiorBall_in_domain := b.interiorBall_in_domain
+  ε₀ := b.ε₀
+  eps_pos := b.eps_pos
+  eps_le_scaling := b.eps_le_scaling
+  eps_le_cutoff := b.eps_le_cutoff
+  velocity := b.velocity
+  pressure := b.pressure
+  force := b.force
+  velocity_formula := b.velocity_formula
+  pressure_formula := b.pressure_formula
+  force_formula := b.force_formula
+  force_mem := b.force_mem
+  forceDifference_mem := b.forceDifference_mem
+  velocity_smooth := b.velocity_smooth
+  pressure_smooth := b.pressure_smooth
+  initial := b.initial
+  incompressible := b.incompressible
+  momentum := b.momentum
+  history := b.history
+  collar_agreement := b.collar_agreement
+  noSlip_preserved := b.noSlip_preserved
+  solution := by
+    intro ε hε
+    obtain ⟨w, hv, hp⟩ := b.solution ε hε
+    exact ⟨solutionFrom w, hv, hp⟩
+  lifespan := by
+    intro ε hε
+    rw [← lifespan_eq]
+    exact b.lifespan ε hε
+  maximal := fun ε hε => (maximal_eq ν Ω a (b.force ε) (b.velocity ε) (b.pressure ε)).mp (b.maximal ε hε)
+  blowup := b.blowup
+  blowup_limsup := b.blowup_limsup
+  crossTransport_background_advects_packet := b.crossTransport_background_advects_packet
+  crossTransport_packet_advects_background := b.crossTransport_packet_advects_background
+  velocityDifference_divFree := b.velocityDifference_divFree
+  diffSupportRadius := b.diffSupportRadius
+  diffSupportRadius_pos := b.diffSupportRadius_pos
+  velocityDifference_support := b.velocityDifference_support
+  diffSupport_in_chart := b.diffSupport_in_chart
+  forceDifference_spatialSupport := b.forceDifference_spatialSupport
+  energyConst := b.energyConst
+  energyConst_nonneg := b.energyConst_nonneg
+  energyRate := b.energyRate
+  forceDiffSobolevConst := b.forceDiffSobolevConst
+  forceDiffSobolevConst_pos := b.forceDiffSobolevConst_pos
+  forceDifference_sobolev_bound := b.forceDifference_sobolev_bound
+  domain_zeroExt_comparison := b.domain_zeroExt_comparison
+  forceDifference_negativeSobolev_tendsto := b.forceDifference_negativeSobolev_tendsto
+  forceDifference_convergence := b.forceDifference_convergence
+  noSlip_uniqueness := fun a' ha f hf T₁ T₂ u₁ u₂ t ht x hx =>
+    b.noSlip_uniqueness a' ha f hf T₁ T₂ (solutionTo u₁) (solutionTo u₂) t ht x hx
+
+example (b : BoundaryInsertionAPI ν P place Ω norms a g r δ D reference) : apiFrom (apiTo b) = b := rfl
+example (b : NSFormalization.Section3.T23.BoundaryInsertionAPI ν P.velocity P.pressure P.force P.carrier P.energyBound P.dissipationBound (placeTo place) Ω (normsTo norms) a g r δ (cutoffTo D) (solutionTo reference)) : apiTo (norms := norms) (apiFrom (norms := norms) b) = b := rfl
+
+
+/-- The registered statement has no unconsumed supplier or insertion hypothesis. -/
+theorem boundaryInsertionStatement'_of_ibp_holds :
+    BlowupDensity.Contracts.V1.BoundaryInsertion.boundaryInsertionStatement'_of_ibp := by
+  intro ν _hν P place Ω norms a g r δ reference hΩ hI hδ hr hg ha hrball hball
+  obtain ⟨C, D, hT, hd, hx, hR, heq, hθ, hη, hplat, hrad, he, hpot, hcorr, ⟨api⟩⟩ :=
+    BlowupDensity.Bindings.BoundaryInsertion.boundaryInsertionStatement'_of_ibp
+      P.toPacketAPI BlowupDensity.Bindings.thresholds (placeTo place) Ω (normsTo norms)
+      a g r δ (solutionTo reference) hΩ hI hδ hr hg ha hrball hball
+  refine ⟨C, cutoffFrom D, hT, hd, hx, hR, heq, hθ, hη, hplat, hrad, he, hpot, hcorr, ?_⟩
+  exact ⟨apiFrom (norms := norms) (D := cutoffFrom D) api⟩
+
+/-- Box integration by parts is a theorem, so the box branch is unconditional. -/
+theorem boundaryInsertionStatement'_box_holds :
+    BlowupDensity.Contracts.V1.BoundaryInsertion.boundaryInsertionStatement'_box := by
+  intro ν hν P place Ω norms a g r δ reference hbox hδ hr hg ha hrball hball
+  have hΩ : IsBoundedBoxOrSmoothDomain Ω :=
+    ⟨(NSFormalization.Section3.T23.IsBoxDomain.open_bounded hbox).1,
+      (NSFormalization.Section3.T23.IsBoxDomain.open_bounded hbox).2,
+      ⟨place.x₀, hball (subset_closure place.x₀_mem)⟩, Or.inl hbox⟩
+  exact boundaryInsertionStatement'_of_ibp_holds ν hν P place Ω norms a g r δ reference
+    hΩ (NSFormalization.Section3.T23.ibp_box hbox) hδ hr hg ha hrball hball
+
+theorem boundaryInsertionStatementV1_holds :
+    BlowupDensity.Contracts.V1.BoundaryInsertion.boundaryInsertionStatementV1 :=
+  ⟨boundaryInsertionStatement'_box_holds, boundaryInsertionStatement'_of_ibp_holds⟩
+
+
+theorem place_roundtrip (b : DomainPlacementData P.toPacketAPI) : placeFrom (placeTo b) = b := rfl
+theorem cutoff_roundtrip (b : CutoffData) : cutoffFrom (cutoffTo b) = b := rfl
+theorem solution_roundtrip (b : ClassicalSolutionOmega ν Ω a g T) : solutionFrom (solutionTo b) = b := rfl
+theorem solution_roundtrip_canonical (b : NSFormalization.Section3.T23.ClassicalSolutionOmega ν Ω a g T) :
+    solutionTo (solutionFrom b) = b := rfl
+
+theorem correctedBackground_eq (v : SpaceTimeField) (w : ℝ → SpaceTimeField) (ε : ℝ) :
+    correctedBackground v w ε = NSFormalization.Section3.T16.correctedBackground v w ε := rfl
+
+theorem correctionForce_eq (ν : ℝ) (v : SpaceTimeField) (D : CutoffData) (ε : ℝ) :
+    correctionForce ν v D ε = NSFormalization.Section3.T23.correctionForce ν v (cutoffTo D) ε := rfl
+
+theorem smoothOnClosedSlab_eq {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    (I : Set ℝ) (Ω : Set Space) (f : ℝ × Space → E) :
+    SmoothOnClosedSlab I Ω f = NSFormalization.Section3.T23.SmoothOnClosedSlab I Ω f := rfl
+
+theorem regularDomain_eq (Ω : Set Space) : IsRegularLevelDomain Ω = NSFormalization.Section3.T23.IsRegularLevelDomain Ω := rfl
+theorem boxDomain_eq (Ω : Set Space) : IsBoxDomain Ω = NSFormalization.Section3.T23.IsBoxDomain Ω := rfl
+theorem domain_eq (Ω : Set Space) : IsBoundedBoxOrSmoothDomain Ω = NSFormalization.Section3.T23.IsBoundedBoxOrSmoothDomain Ω := rfl
+theorem initialClass_eq (Ω : Set Space) : initialClassOmega Ω = NSFormalization.Section3.T23.initialClassOmega Ω := rfl
+theorem memForce_eq (Ω : Set Space) (f : SpaceTimeField) : MemForceOmega Ω f = NSFormalization.Section3.T23.MemForceOmega Ω f := rfl
+theorem forceClass_eq (Ω : Set Space) : forceClassOmega Ω = NSFormalization.Section3.T23.forceClassOmega Ω := rfl
+theorem ibp_eq (Ω : Set Space) : IBP Ω = NSFormalization.Section3.T23.IBP Ω := rfl
+
+theorem energyEssSup_eq (Ω : Set Space) (T : ℝ) (f : SpaceTimeField) :
+    domainEnergyEssSup Ω T f = NSFormalization.Section3.T23.domainEnergyEssSup Ω T f := rfl
+theorem energyGradient_eq (Ω : Set Space) (T : ℝ) (f : SpaceTimeField) :
+    domainEnergyGradient Ω T f = NSFormalization.Section3.T23.domainEnergyGradient Ω T f := rfl
+theorem energyENorm_eq (Ω : Set Space) (T : ℝ) (f : SpaceTimeField) :
+    domainEnergyENorm Ω T f = NSFormalization.Section3.T23.domainEnergyENorm Ω T f := rfl
+theorem forceSobolev_eq (Ω : Set Space) (s : ℝ) (f : SpaceTimeField) :
+    domainForceSobolevENorm Ω s f = NSFormalization.Section3.T23.domainForceSobolevENorm Ω s f := rfl
+theorem zeroExtForceSobolev_eq (Ω : Set Space) (s : ℝ) (f : SpaceTimeField) :
+    zeroExtForceSobolevENorm Ω s f = NSFormalization.Section3.T23.zeroExtForceSobolevENorm Ω s f := rfl
+theorem pressureMean_eq (Ω : Set Space) (p : SpaceTimeScalar) (t : ℝ) :
+    domainPressureMean Ω p t = NSFormalization.Section3.T23.domainPressureMean Ω p t := rfl
+theorem normalizePressure_eq (Ω : Set Space) (p : SpaceTimeScalar) :
+    domainNormalizePressure Ω p = NSFormalization.Section3.T23.domainNormalizePressure Ω p := rfl
+
+end BlowupDensity.Bindings.BoundaryInsertion.Contract

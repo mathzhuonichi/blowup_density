@@ -161,3 +161,14 @@ I02 (73 fields), not the weaker local core. The new boundary probe embeds the
 original Spec unchanged and checks both supplier conversions and the repaired
 existential's matching identities. No existence theorem, owner approval,
 registration, or smooth-domain IBP is asserted by this move.
+
+## G2 — local-potential seam (lead ruling 2026-09-19 17:40Z; closed by 487b)
+
+The continuation authorises weakening U3's hypothesis to what its proofs use.
+The audit finds no use of any potential identity in U3: its operational core
+needs correction smoothness/divergence/support, scale bounds, and the two
+cross transports. `WindowedCorrectionCore` therefore has no potential formula.
+`WholeSpaceCorrectionAPI.windowedCore` proves it at the literal supplier cutoff
+from agreement on the open interior cylinder. Original U2 core/statements and
+all U4 statements are preserved; U4 windowed variants are added in Assembly.
+No mathematical obstruction or global equality of distinct potentials is used.

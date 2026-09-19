@@ -210,7 +210,7 @@ The exact lifespan theorem is, for each admissible ε, `domainMaximalLifespan ν
 
 ### U9 — assembly, statement repair, contract/bindings/tests (M, codex-sol)
 
-**Lane 487: partial; registration withheld.** Migrated the same-C supplier to `Bindings.BoundaryInsertion` and generalized spatial extension to preserve a prescribed inner radius. The literal supplier cutoff has no proved `LocalCorrectionCore` for the original reference: its globally quantified potential formula is stronger than U2b local agreement. Full API assembly and both final theorems remain open; see `ATTEMPTS_U9.md` and `REPORT_487.md`. No contract entry was added.
+**Lane 487b: complete; `T04.boundary_insertion` registered (55 total).** G2 is closed by the weaker operational window core, proved at the literal U2b supplier cutoff; original U2/U4 theorem statements remain valid. The 48-field `boundaryInsertionAPI` is assembled, and the binding discharges every supplier clause. Box existence is unconditional; the smooth-domain branch has explicit `IBP Ω`. The full unit-box/nonzero-packet/zero-reference probe at T=1 and guarded audits pass. See `REPORT_487b.md` and `ATTEMPTS_U9.md`; G0/G1 V1 scope wording remains owner-pending.
 
 
 Own the remaining **4** API fields `domain:701`, `delta_pos:705`, `reference_force_mem:710`, `initial_mem:714`, and the final `boundaryInsertionStatement:1037–1050`. Dependencies: U1–U8, T18 U12 integration convention, G0 and owner choices in §4. Field count: U1=1, U2=2, U3=19 including solution, U4=8, U5=1, U6=8, U7=1, U8=4, U9=4: **48**. The separate 16 placement and 10 solution fields are all assigned above; the 7 cutoff data and 3 T22 fields are also accounted for.
