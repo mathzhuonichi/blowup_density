@@ -106,7 +106,7 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   always yields a representative in the *closed* fundamental cube, so `velocity_singleCopy` makes
   the Haar lift of the periodization *literally* the Haar lift of the rescaled slice; the velocity
   `MemLp` guard is then `T10.memLp_torusLift_vector`.  The gradient guard does need `periodize`
-  smooth (the two gradients differ on the cube frontier) — supplied by the vendor
+  smooth (the two gradients differ on the cube frontier) — supplied by the vendor [Lead correction after review 439: withdrawn — both gradients vanish at the frontier; the gradient guard comes from smoothness of the periodization, since the value-level single-copy identity is not a derivative statement.]
   `contDiff_periodize` through the lane-352 bridge.  The two identities are U-TB1's Goal 1 / Goal 2
   slicewise, then `I03.energyEssSup_scaled_eq` / `I03.energyGradient_scaled_eq`.  **No time-interval
   transport was needed**: both I03 lemmas are already over `Ioo 0 T`, literally T10's interval.
@@ -134,12 +134,26 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   witnesses `t ↑ T`, `x ∈ Q` (map source-time-1 witnesses into the cube) supply the periodic form.
   Needs `place.eps_time` for `ε^2 ≤ T`. **M, codex-sol.** Deps: U3.
 
+  **Status (lane 442, 2026-09-19): complete.** `Section3/T15/Blowup.lean`
+  proves the literal canonical field from the raw `SpeedUnboundedAtOne`,
+  carrier compactness/support, and `PlacementData`.  The Euclidean rescaling
+  supplies the witnesses; nonzero witness values lie in the placed cube, where
+  U3's `velocity_singleCopy` transfers them to the periodized field.  The probe
+  includes an explicit compact bump with `(1-t)⁻¹` amplitude.
+
 - **U7 — `force_mem`** (new torus, easy). New `Section3/T15/ForceMem.lean`. Target `force_mem`
   (`Spec.lean:738`): `MemForceT (periodizedScaledForce …)` = smooth + unit-periodic + compact
   positive-time support. Route: `contDiff_periodize` (vendor, via U1) for smoothness,
   `periodize_add_lattice` for periodicity, U2's compact spatial support + the packet's positive-time
   force support (`T10/ForcePaths.lean:395 memForceT_time_smul` pattern) for the time-support witness.
   **M, codex-sol.** Deps: U2, U3.
+
+  **Status (lane 442, 2026-09-19): complete.** `Section3/T15/ForceMem.lean`
+  proves the literal canonical field from the raw global smoothness and
+  `CompactPositiveTimeSupport` clauses plus `PlacementData`.  Vendor local
+  finiteness gives smoothness, lattice reindexing gives periodicity, and the
+  compact projection of the scaled force support supplies the positive-time
+  support witness; periodization introduces no new support time.
 
 - **U8 — periodized PDE transport** (transport core + ⑤⑦). New `Section3/T15/Equation.lean`. Proves the
   momentum (at the **unchanged** `ν`), divergence-free, and zero-initial obligations of `solution`
@@ -277,7 +291,7 @@ above and in §1.
   - `eLpNorm_torusLift_spatialGradient_periodize f hf t hsupp` (Goal 2) — the gradient companion,
     identifying `eLpNorm (torusLift (fun x ↦ spatialGradient (fun p ↦ periodize f p.2) t x)) 2 periodicTorusMeasure`
     with `T13.gradientENorm f volume`. `periodize f`'s regularity is **not** needed (the bridge is
-    measure-free; its gradient is replaced a.e.-on-cube by `f`'s, differing only on the null frontier).
+    measure-free; its gradient is replaced a.e.-on-cube by `f`'s, differing only on the null frontier). [Lead correction after review 439: withdrawn — both gradients vanish at the frontier; the gradient guard comes from smoothness of the periodization, since the value-level single-copy identity is not a derivative statement.]
   - `eLpNorm_torusLift_periodize_slice F t hf hsupp` (Goal 3) — per-slice corollary for `energyEssSupT`.
   - Helpers `lintegral_enorm_torusLift`, `eLpNorm_gradientVector_eq_gradientENorm` (the
     `energyGradientT`-vs-`gradientENorm` identity), `gradientENorm_restrict_eq`, and interior-hypothesis

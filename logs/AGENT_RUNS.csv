@@ -1478,3 +1478,12 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T17,438-T17-U11-sobolev,claude-opus,proof-worker,"Section3/T17/Sobolev.lean: sobolevConst/pos, forceSobolev_memLp, force_sobolev_bound for all 0<=s<=1 (via Paper1 periodic endpoint rates, not T13 localization); awaiting codex review",done,-
 2026-09-18,T15,439-T15-U4-U5-energy-mixed,claude-opus,proof-worker,"Section3/T15/Energy.lean + Mixed.lean: five U4/U5 fields (I03 scaling identities via map torusChart = restrict cube); awaiting codex review",done,-
 2026-09-19,MAINT,440-MAINT-section3-build-f,gpt-5.6-sol,build-check,"logs/SECTION3_BUILD_20260918f.md: 116 Section 3 modules rebuilt rc 0 105 s 0 errors; gates green; 46 contracts; 148 probes; standard axioms only",merged,400
+2026-09-19,T20,437-T20-U11-continuation-bound,claude-opus,proof-worker,"Section3/T20/Continuation.lean: continuationBound verbatim; review REJECT procedural/records, lead-corrected and merged",merged,401
+2026-09-19,T15,439-T15-U4-U5-energy-mixed,claude-opus,proof-worker,"Section3/T15/Energy.lean + Mixed.lean: five U4/U5 fields; codex review ACCEPT-WITH-NOTES",merged,402
+2026-09-19,T18,436-T18-U8-lifespan,claude-opus,proof-worker,"Section3/T18/Lifespan.lean: five U8 fields; review REJECT base-drift only, lead merged",merged,403
+2026-09-19,T17,438-T17-U11-sobolev,claude-opus,proof-worker,"Section3/T17/Sobolev.lean: sobolevConst/pos, forceSobolev_memLp, force_sobolev_bound; codex review ACCEPT-WITH-NOTES",merged,404
+2026-09-19,T15,442-T15-U6-U7-blowup-force-mem,gpt-5.6-sol,proof-worker,"Section3/T15/Blowup.lean + ForceMem.lean: unboundedSpeed + force_mem verbatim; awaiting codex review",done,-
+2026-09-19,T17,444-T17-U10-mixed-bound,gpt-6-astra,proof-worker,"Section3/T17/Mixed.lean: force_spatial_memLp, mixedConst, force_mixed_bound incl. infinity endpoints; awaiting codex review",done,-
+2026-09-19,T20,441-T20-U12-global-regularity,gpt-5.6-sol,proof-worker,"Section3/T20/GlobalRegularity.lean: globalRegularity verbatim via monotone exhaustion + lifespanInfiniteOfLocallyFinite; awaiting codex review",done,-
+2026-09-19,T15,442-T15-U6-U7-blowup-force-mem,gpt-5.6-sol,proof-worker,"Section3/T15/Blowup.lean + ForceMem.lean; codex review ACCEPT",merged,405
+2026-09-19,T15,446-T15-U8-periodized-pde,gpt-6-astra,proof-worker,"Section3/T15/Equation.lean: periodized momentum/divergence/initial for the scaled fields; awaiting codex review",done,-
