@@ -225,3 +225,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 457-T19-UCAN-canonical-record | worktree 安装中 → 排队 codex sol | 09-19 1312Z | — | — | T19 U-CAN：四个记录（PeriodicDensity/MixedRegion/StrongClosure/Projection）canonical 重述 Section3/T19/Density.lean + Spec↔canonical 探针（T21 与 T19 装配的前置） |
 | 458-T15-U14-force-convergence | worktree 安装中（456 + integration）→ 排队 codex sol | 09-19 1319Z | — | — | T15 U14：forceConvergence（q=1 用 U13 界 + 实幂极限；s<0 与 q=2 用负阶单调性 + 阶 0 混合基） |
 | 459-T15-U15-assembly-registration | 简报就绪，等 454/458 合入后建 worktree → codex astra | 09-19 1319Z | — | — | T15 U15：PlacementData 构造 + ScalingAPI 21 字段装配 + scalingStatement + 注册 T02.scaling |
+| 460-T17-U13-slab-smoothness-bridge | worktree 安装中 → codex astra（G5：把注册的 T17 修正块降到经典解实际具备的 slab 假设，T19 穿线前置） | 09-19 1339Z | — | — | T17 U13：correctionStatementSlab（IsPeriodicOn (Ico 0 (T+δ)) v + ContDiffOn 于 Ico 0 (T+δ) ×ˢ univ 替代全局假设），含 T16 势的 slab 版本；T19 U0 穿线的前置 |
