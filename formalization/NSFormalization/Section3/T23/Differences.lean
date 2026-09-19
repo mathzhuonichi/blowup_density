@@ -224,4 +224,40 @@ theorem collar_agreement {u : VelocityField} {p : PressureField}
   exact sub_eq_zero.mp (image_eq_zero_of_notMem_tsupport
     (f := fun y : Space => velocity ε (t, y) - v (t, y)) hxnot)
 
+/-- The inserted velocity retains the no-slip boundary values.  The prescribed
+closed chart ball is disjoint from the frontier of the open domain, so collar
+agreement reduces the claim to the reference solution's no-slip field. -/
+theorem noSlip_preserved {ν : ℝ} {u : VelocityField} {p : PressureField}
+    {f : VelocityField} {K Ω : Set Space}
+    (place : DomainPlacementData u p f K)
+    {a : SpatialField} {g : SpaceTimeField} {r δ base packetRadius : ℝ}
+    {D : CutoffData}
+    (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ))
+    {velocity : ℝ → VelocityField}
+    (core : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (hΩ : IsOpen Ω) (hδ : 0 < δ)
+    (hball : closure (ball place.chartCenter place.chartRadius) ⊆ Ω)
+    (hK : IsCompact K)
+    (hu : ∀ s ∈ Ico (0 : ℝ) 1,
+      tsupport (fun x : Space => u (s, x)) ⊆ K)
+    (hcarrier : K ⊆ ball (0 : Space) packetRadius)
+    (hbaseD : base ≤ D.ε₀)
+    (hvelocity : ∀ ε : ℝ, ∀ z : SpaceTime,
+      velocity ε z = reference.velocity z + D.correction ε z +
+        scaledVelocity u place.x₀ place.T ε z) :
+    ∀ ε ∈ Ioc (0 : ℝ)
+        (differenceThreshold place base D.θRadius packetRadius),
+      ∀ t ∈ Ico (0 : ℝ) place.T, ∀ x ∈ frontier Ω,
+        velocity ε (t, x) = 0 := by
+  intro ε hε t ht x hxfront
+  have hclosed : closedBall place.chartCenter place.chartRadius ⊆ Ω := by
+    rw [← closure_ball place.chartCenter place.chartRadius_pos.ne']
+    exact hball
+  have hdisjoint := prescribed_closedBall_disjoint_frontier hΩ hclosed
+  have hxout : x ∉ ball place.chartCenter place.chartRadius := by
+    intro hxball
+    exact Set.disjoint_left.mp hdisjoint (ball_subset_closedBall hxball) hxfront
+  rw [collar_agreement place core hK hu hcarrier hbaseD hvelocity ε hε t ht x hxout]
+  exact reference.no_slip t ⟨ht.1, ht.2.trans (lt_add_of_pos_right place.T hδ)⟩ x hxfront
+
 end NSFormalization.Section3.T23
