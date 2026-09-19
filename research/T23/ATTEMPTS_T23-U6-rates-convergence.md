@@ -34,3 +34,23 @@ NormBridge.lean:25:0: error: (deterministic) timeout at `whnf`, maximum number o
 Resolved without raising heartbeats: give the intermediate norm inequality and
 infimum binder explicit types. The preceding checkpoint contained this failure;
 the next commit repairs it and the declaration checks with zero output.
+
+## A4: quotient realization spelling
+```text
+NormBridge.lean:51:93: error: unsolved goals
+Ω : Set Space
+s r : ℝ
+hsr : s ≤ r
+z : T22.DomainFunctional Ω
+A : Paper3.RealVectorSobolev r
+hA : T22.restrictDatum Ω r A = z
+i : Fin 3
+ψ : T22.DomainTest Ω
+⊢ ((Paper3.angularRealization r)
+        ↑(↑(ContinuousLinearMap.proj i ∘SL
+                ↑(PiLp.continuousLinearEquiv 2 ℝ fun x => ↥(Source.RealSobolev.RealSobolevHilbert r)))
+            A))
+      ↑ψ =
+    T22.restrictDatum Ω r A i ψ
+```
+The residual is definitional; `rfl` closes it.
