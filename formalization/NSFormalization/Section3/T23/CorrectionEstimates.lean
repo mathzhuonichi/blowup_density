@@ -21,4 +21,25 @@ theorem domainEnergyENorm_le (Ω : Set Space) (T : ℝ) (w : VelocityField) :
     intro t
     exact ENNReal.rpow_le_rpow (eLpNorm_mono_measure _ Measure.restrict_le_self) (by norm_num)
 
+/-- I02 energy transported to the actual local family; the constant is
+nonnegative, and also bounds the restricted-domain energy. -/
+theorem WholeSpaceCorrectionAPI.local_energy_bound {ν : ℝ} {u v : VelocityField}
+    {K : Set Space} (C : WholeSpaceCorrectionAPI ν u K)
+    (heq : EqOn v C.v (Ioo (0 : ℝ) (C.T + C.δ) ×ˢ Metric.ball C.x₀ C.r))
+    {e : ℝ} (he : e ≤ C.ε₀) :
+    let D := localCorrectionData v C.x₀ C.T C.θ C.η C.plateau C.θRadius e
+    ∃ B : ℝ, 0 ≤ B ∧ ∀ ε ∈ Ioc (0 : ℝ) e,
+      NSFormalization.Section3.T24.energyENorm C.T (D.correction ε) ≤
+        ENNReal.ofReal (B * ε ^ ((3 : ℝ) / 2)) ∧
+      ∀ Ω : Set Space, domainEnergyENorm Ω C.T (D.correction ε) ≤
+        ENNReal.ofReal (B * ε ^ ((3 : ℝ) / 2)) := by
+  refine ⟨max C.energyConst 0, le_max_right _ _, ?_⟩
+  intro ε hε
+  have hεC : ε ∈ Ioc (0 : ℝ) C.ε₀ := ⟨hε.1, hε.2.trans he⟩
+  have hb := (C.correction_energy_bound ε hεC).trans
+    (ENNReal.ofReal_le_ofReal (mul_le_mul_of_nonneg_right (le_max_left C.energyConst 0)
+      (Real.rpow_nonneg hε.1.le _)))
+  rw [(C.local_match heq hεC).1]
+  exact ⟨hb, fun Ω => (domainEnergyENorm_le Ω C.T (C.correction ε)).trans hb⟩
+
 end NSFormalization.Section3.T23

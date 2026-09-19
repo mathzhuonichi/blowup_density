@@ -55,3 +55,25 @@ error: build failed
 Repair: `eLpNorm_mono_measure _ Measure.restrict_le_self`.
 
 Inspection error: `rg: research/T23/probes/boundary_closes.lean: IO error for operation on research/T23/probes/boundary_closes.lean: No such file or directory (os error 2)`. Actual file: `boundary_api_on_canonical.lean`.
+
+## Registered probe: constant smoothness
+```text
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:106:48: error: Invalid argument name `c` for function `ContDiff.contDiffOn`
+
+Hint: Perhaps you meant one of the following parameter names:
+  • `𝕜`: c̵𝕜̲
+  • `E`: c̵E̲
+  • `F`: c̵F̲
+  • `s`: c̵s̲
+  • `f`: c̵f̲
+  • `n`: c̵n̲
+  • `h`: c̵h̲
+  • `x`: c̵x̲
+```
+Fixed by passing `c` to `contDiff_const` before `.contDiffOn`.
+
+## Local energy: redundant simplification
+```text
+../formalization/NSFormalization/Section3/T23/CorrectionEstimates.lean:42:2: error: `dsimp` made no progress
+```
+Removed the redundant `dsimp only`; `refine` already reduced the let.
