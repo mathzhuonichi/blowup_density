@@ -370,4 +370,19 @@ theorem forceDifference_spatialSupport {ν : ℝ} {u : VelocityField}
   · apply subset_closure
     exact scaledForce_slice_support_chart place hpacketForce hεplace t hscaled
 
+/-- If every nonzero point of a field lies in a closed set, then so does the
+topological support of its literal domain zero extension. -/
+theorem zeroExtension_tsupport_subset_of_nonzero {Ω K : Set Space}
+    (hK : IsClosed K) {z : SpatialField}
+    (hsupport : ∀ x : Space, z x ≠ 0 → x ∈ K) :
+    tsupport (zeroExtension Ω z) ⊆ K := by
+  apply closure_minimal
+  · intro x hx
+    change zeroExtension Ω z x ≠ 0 at hx
+    by_cases hxΩ : x ∈ Ω
+    · apply hsupport x
+      simpa only [zeroExtension, indicator_of_mem hxΩ] using hx
+    · exact False.elim (hx (by simp only [zeroExtension, indicator_of_notMem hxΩ]))
+  · exact hK
+
 end NSFormalization.Section3.T23
