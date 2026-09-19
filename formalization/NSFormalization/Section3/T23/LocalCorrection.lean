@@ -440,4 +440,33 @@ theorem correction_support_interior {v U : SpaceTimeField} {K : Set Space}
   · linarith [hz'.1.1, ht.1]
   · linarith [hz'.1.2, ht.2]
 
+/-- One raw cutoff family for an interior domain reference, including global
+force smoothness, compact support, and support inside the domain at all times.
+Quantitative derivative/energy/Sobolev rates are not claimed by this theorem. -/
+theorem exists_localCorrection_in_domain (ν : ℝ) (v U : SpaceTimeField)
+    (K Ω : Set Space) (x₀ : Space) (r T δ : ℝ)
+    (hr : 0 < r) (hT : 0 < T) (hδ : 0 < δ) (hK : IsCompact K)
+    (hΩ : closure (ball x₀ r) ⊆ Ω)
+    (hv : ContDiffOn ℝ ∞ v (Ioo (0 : ℝ) (T + δ) ×ˢ ball x₀ r))
+    (hdiv : ∀ t ∈ Ioo (0 : ℝ) (T + δ), ∀ x ∈ ball x₀ r,
+      spatialDivergence v t x = 0)
+    (hU : ∀ t ∈ Ioo (0 : ℝ) 1, tsupport (fun x => U (t, x)) ⊆ K) :
+    ∃ D : CutoffData, LocalCorrectionCore v U K x₀ r T δ D ∧
+      ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+        ContDiff ℝ ∞ (correctionForce ν v D ε) ∧
+        HasCompactSupport (correctionForce ν v D ε) ∧
+        tsupport (D.correction ε) ⊆ Ioo (0 : ℝ) (T + δ) ×ˢ Ω ∧
+        tsupport (correctionForce ν v D ε) ⊆
+          Ioo (T - 2 * ε ^ 2) (T + 2 * ε ^ 2) ×ˢ ball x₀ (ε * D.θRadius) := by
+  obtain ⟨D, hD⟩ := exists_localCorrectionCore v U K x₀ r T δ hr hT hδ hK hv hdiv hU
+  refine ⟨D, hD, ?_⟩
+  intro ε hε
+  have hs := correction_support_interior hD hε
+  refine ⟨force_smooth_of_local ν v D ε (isOpen_Ioo.prod isOpen_ball)
+    hv (hD.correction_smooth ε hε) hs, ?_, ?_, ?_⟩
+  · exact (hD.correction_compactSupport ε hε).of_isClosed_subset
+      (isClosed_tsupport _) (force_support ν v D ε)
+  · exact hs.trans (Set.prod_mono Subset.rfl (subset_closure.trans hΩ))
+  · exact (force_support ν v D ε).trans (hD.correction_support ε hε)
+
 end NSFormalization.Section3.T23
