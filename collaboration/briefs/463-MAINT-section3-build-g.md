@@ -4,7 +4,7 @@ You are a Lean 4 (v4.34.0-rc2 + Mathlib) build-verification worker on the reposi
 `/data_8T/ping/blowup_density/.claude/worktrees/463-MAINT-section3-build-g` (git branch `erenup/463-MAINT-section3-build-g`, based on
 `origin/erenup/integration-section3` after the merges #354–#421: T15 U1–U14(q=1) (`Section3/T15/*`, 16 modules), T17 U1–U12 + contract `T02.correction` (#414), T18 U1–U12 + contract `T03.periodic_insertion` (#420),
 T20 U1–U13 + contract `T03.critical_regularity` (#415), T19 canonical `Density.lean` (#421), T22/T24 contracts (#391/#392/#396), T12 `DirDeriv` dedupe). Read `CLAUDE.md` and the previous report
-**`logs/SECTION3_BUILD_20260918.md`** (reproduce its structure and tables exactly; it is the template).
+**`logs/SECTION3_BUILD_20260918f.md`** (reproduce its structure and tables exactly; it is the template).
 
 ## Ground rules (non-negotiable)
 - Work ONLY inside this worktree; never `git push`, merge or rebase; committing on your branch is allowed.
