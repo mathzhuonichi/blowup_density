@@ -10,9 +10,8 @@ import Contracts.V1.Correction
 The fieldwise U1 conversion below exposes the one difference between the
 contract-facing Spec and canonical `InsertionData`: the contract packet still
 carries `energy_isLUB` and `dissipation_eq`, from which its two real energy
-constants are nonnegative.  The exact Spec `energyRate` therefore closes here,
-while the canonical module can only state the separate-`ofReal` bound until
-those two signs are threaded into `InsertionData`.
+constants are nonnegative.  These facts discharge the explicit raw premises
+of the canonical `energyRate` theorem and close the exact Spec field.
 -/
 
 noncomputable section
@@ -172,21 +171,6 @@ theorem packet_dissipationBound_nonneg {nu : ℝ} (P : PacketImportAPI nu) :
   rw [P.dissipation_eq]
   exact Real.sqrt_nonneg _
 
-private theorem energy_ofReal_assembly {M D C ε : ℝ}
-    (hM : 0 ≤ M) (hD : 0 ≤ D) (hC : 0 ≤ C) (hε : 0 < ε) :
-    ENNReal.ofReal (ε ^ ((1 : ℝ) / 2) * M) +
-        ENNReal.ofReal (ε ^ ((1 : ℝ) / 2) * D) +
-        ENNReal.ofReal (C * ε ^ ((3 : ℝ) / 2)) =
-      ENNReal.ofReal ((M + D) * ε ^ ((1 : ℝ) / 2) +
-        C * ε ^ ((3 : ℝ) / 2)) := by
-  have hr : 0 ≤ ε ^ ((1 : ℝ) / 2) := (Real.rpow_pos_of_pos hε _).le
-  have hs : 0 ≤ ε ^ ((3 : ℝ) / 2) := (Real.rpow_pos_of_pos hε _).le
-  rw [← ENNReal.ofReal_add (mul_nonneg hr hM) (mul_nonneg hr hD),
-    ← ENNReal.ofReal_add (add_nonneg (mul_nonneg hr hM) (mul_nonneg hr hD))
-      (mul_nonneg hC hs)]
-  congr 1
-  ring
-
 /-- All exact Spec-form U9/U10 fields close from the canonical declarations
 plus the two sign facts retained by `PacketImportAPI`. -/
 def insertionU9U10OfCanonical {nu : ℝ} (P : PacketImportAPI nu)
@@ -217,9 +201,8 @@ def insertionU9U10OfCanonical {nu : ℝ} (P : PacketImportAPI nu)
       forceDifference_mixed_bound := ?_ }
   · intro ε hε
     rw [BlowupDensity.Bindings.TorusLocalTheory.energyENormT_eq]
-    exact (NSFormalization.Section3.T18.energyRate_separateConstants data ε hε).trans_eq
-      (energy_ofReal_assembly (packet_energyBound_nonneg P)
-        (packet_dissipationBound_nonneg P) correction.energyConst_nonneg hε.1)
+    exact NSFormalization.Section3.T18.energyRate data
+      (packet_energyBound_nonneg P) (packet_dissipationBound_nonneg P) ε hε
   · intro p q _ hq ε hε
     change NSFormalization.Section3.T15.mixedLebesgueENormT q p
         (fun z => NSFormalization.Section3.T18.force data ε z - data.g z) ≤

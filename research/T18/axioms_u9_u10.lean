@@ -21,6 +21,7 @@ open NSFormalization.Section3.T18
 #print axioms velocityDifference_energyENorm_le
 #print axioms packet_energyENorm_eq
 #print axioms energyRate_separateConstants
+#print axioms energyRate
 
 #print axioms mixedLebesgueENormT_eq_of_path
 #print axioms mixedLebesgueENorm_eq_of_path

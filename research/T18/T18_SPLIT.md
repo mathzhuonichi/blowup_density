@@ -177,10 +177,11 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   `packetDissipationIdentity` (`:709`), `M=P.energyBound`, `D=P.dissipationBound`; `‖w_ε‖ ≤ Cε^{3/2}` with
   `C=correction.energyConst` from `correction.correction_energy_bound` (`Spec.lean:1523`). **M, Opus.** Hard
   analytic (norm triangle), no named input. Deps: U1. **Gated on T15 U4 + T17 U9.**
-  **Lane 443 status:** analytic triangle and all threaded bookkeeping are complete as
-  `energyRate_separateConstants`.  The exact canonical field is blocked only by absent
-  `0 ≤ energyBound` and `0 ≤ dissipationBound` fields; the Spec-form field closes in
-  `probes/u9_u10_closes.lean` from `PacketImportAPI.energy_isLUB` and `dissipation_eq`.
+  **Lane 443 status (lead ruling): complete.** `energyRate` has the exact canonical
+  conclusion and takes the erased raw clauses `0 ≤ energyBound` and
+  `0 ≤ dissipationBound` as explicit premises.  U12 assembly discharges them from
+  `PacketImportAPI.energy_isLUB` and `dissipation_eq`; a later MAINT may add them to
+  `InsertionData`.
 
 - **U10 — `eq:Fclose` (mixed-norm closeness).** New `Section3/T18/MixedRate.lean`. Targets `forceDiffMixedConst`
   (`Spec.lean:1899`), `forceDiffMixedConst_nonneg` (`:1902`), `forceDifference_mixed_memLp` (`:1910`),

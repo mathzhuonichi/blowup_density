@@ -10,7 +10,8 @@ spatial-gradient addition formula and measurable time paths; then
 Minkowski inequality.  The threaded correction and scaling slice guards close
 the resulting full-energy triangle.  The packet identities and correction
 bound give `energyRate_separateConstants` with three separate
-`ENNReal.ofReal` terms.
+`ENNReal.ofReal` terms.  The canonical `energyRate` then combines those terms
+under the two explicit raw nonnegativity premises described below.
 
 For U10, admissible mixed-norm paths representing the same physical slices
 are equal almost everywhere.  Hence every admissible path realizes the
@@ -29,9 +30,38 @@ forceDiffMixedConst data p q =
 on the stated range `1 ≤ p`; the two rate terms are absorbed by elementary
 nonnegative real arithmetic.
 
-## Exact canonical U9 residual
+## Lead ruling resolution
 
-The exact unresolved canonical statement is
+The canonical theorem now follows the same ruling as lane 435's
+`velocityDifference_support`: facts available on the registered raw packet but
+erased by `InsertionData` are explicit theorem premises.  `InsertionData`
+remains unchanged:
+
+```lean
+theorem energyRate (data : InsertionData)
+    (hM : 0 ≤ data.energyBound) (hD : 0 ≤ data.dissipationBound) :
+    ∀ ε ∈ Ioc (0 : ℝ) (ε₀ data),
+      energyENormT data.place.T
+          (fun z => velocity data ε z - data.reference.velocity z) ≤
+        ENNReal.ofReal ((data.energyBound + data.dissipationBound) *
+          ε ^ ((1 : ℝ) / 2) +
+          data.correction.energyConst * ε ^ ((3 : ℝ) / 2))
+```
+
+The proof applies `energyRate_separateConstants` and uses
+`ENNReal.ofReal_add` twice.  Its three real summands are nonnegative from
+`hM`, `hD`, `data.correction.energyConst_nonneg`, and `ε > 0`.
+
+`probes/u9_u10_closes.lean` models U12 assembly.  It discharges the explicit
+raw premises from `PacketImportAPI.energy_isLUB` and
+`PacketImportAPI.dissipation_eq`, respectively, and closes the Spec field by a
+direct call to `energyRate`.  Thus the ruling is: **explicit raw premises; U12
+discharges them from the packet clauses; a later MAINT may add them to
+`InsertionData`**.
+
+## Pre-ruling exact canonical U9 residual (superseded)
+
+Before the lead ruling, the exact unresolved canonical statement was
 
 ```lean
 ∀ ε ∈ Set.Ioc (0 : ℝ) (ε₀ data),
@@ -54,10 +84,9 @@ does not carry either
 so the separate `ofReal` terms cannot be combined across real addition.
 This is substantive: `ENNReal.ofReal` truncates negative inputs, so an
 arbitrary positive and negative pair need not satisfy
-`ofReal a + ofReal b ≤ ofReal (a + b)`.  No named hypothesis was added.  The
-Spec-side `PacketImportAPI` retains `energy_isLUB` and `dissipation_eq`; the
-probe derives both signs from those fields and closes the exact Spec
-`energyRate`.
+`ofReal a + ofReal b ≤ ofReal (a + b)`.  At that stage no named hypothesis was
+permitted.  The explicit-premise ruling above supersedes this residual without
+changing the underlying interface analysis.
 
 ## Failed approaches and exact diagnostics
 

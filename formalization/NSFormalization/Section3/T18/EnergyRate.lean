@@ -254,4 +254,28 @@ theorem energyRate_separateConstants (data : InsertionData) :
       add_le_add_left hcorr _
     _ = _ := add_rotate _ _ _
 
+/-- `03-torus.tex`'s canonical energy-closeness rate.
+
+The two nonnegativity hypotheses are the raw packet clauses erased by
+`InsertionData`.  U12 assembly supplies them from the registered packet
+contract. -/
+theorem energyRate (data : InsertionData) (hM : 0 ≤ data.energyBound)
+    (hD : 0 ≤ data.dissipationBound) :
+    ∀ ε ∈ Ioc (0 : ℝ) (ε₀ data),
+      energyENormT data.place.T (fun z => velocity data ε z - data.reference.velocity z) ≤
+        ENNReal.ofReal ((data.energyBound + data.dissipationBound) * ε ^ ((1 : ℝ) / 2) +
+          data.correction.energyConst * ε ^ ((3 : ℝ) / 2)) := by
+  intro ε hε
+  have hr : 0 ≤ ε ^ ((1 : ℝ) / 2) :=
+    (Real.rpow_pos_of_pos hε.1 _).le
+  have hs : 0 ≤ ε ^ ((3 : ℝ) / 2) :=
+    (Real.rpow_pos_of_pos hε.1 _).le
+  apply (energyRate_separateConstants data ε hε).trans_eq
+  rw [← ENNReal.ofReal_add (mul_nonneg hr hM) (mul_nonneg hr hD),
+    ← ENNReal.ofReal_add
+      (add_nonneg (mul_nonneg hr hM) (mul_nonneg hr hD))
+      (mul_nonneg data.correction.energyConst_nonneg hs)]
+  congr 1
+  ring
+
 end NSFormalization.Section3.T18

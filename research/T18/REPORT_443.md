@@ -146,3 +146,68 @@ was run from `verification/`, and the build used `LEAN_NUM_THREADS=6`.
 
 The build replayed pre-existing upstream linter warnings but reported no error.
 The final forbidden-declaration scan and `git diff --check` also pass.
+
+## Continuation fix final report (lead ruling)
+
+### 1. Theorems
+
+`Section3/T18/EnergyRate.lean` now contains the canonical theorem required by
+the lead ruling:
+
+```lean
+theorem energyRate (data : InsertionData)
+    (hM : 0 ≤ data.energyBound) (hD : 0 ≤ data.dissipationBound) :
+    ∀ ε ∈ Ioc (0 : ℝ) (ε₀ data),
+      energyENormT data.place.T
+          (fun z => velocity data ε z - data.reference.velocity z) ≤
+        ENNReal.ofReal ((data.energyBound + data.dissipationBound) *
+          ε ^ ((1 : ℝ) / 2) +
+          data.correction.energyConst * ε ^ ((3 : ℝ) / 2))
+```
+
+Its conclusion is the Spec field verbatim under the `InsertionData`
+projections.  The proof derives it from `energyRate_separateConstants`, using
+`ENNReal.ofReal_add` twice.  Nonnegativity of the three real summands follows
+from `hM`, `hD`, `correction.energyConst_nonneg`, and `ε > 0`.
+
+### 2. Files
+
+- `formalization/NSFormalization/Section3/T18/EnergyRate.lean`: added the
+  canonical `energyRate` theorem with the two explicit raw premises;
+  `InsertionData` was not changed.
+- `research/T18/probes/u9_u10_closes.lean`: removed the probe-local assembly
+  lemma and now closes the Spec field directly through canonical `energyRate`,
+  discharging its premises from `PacketImportAPI.energy_isLUB` and
+  `dissipation_eq`.
+- `research/T18/axioms_u9_u10.lean`: added `energyRate` to the public axiom
+  audit.
+- `research/T18/ATTEMPTS_U9_U10.md`: records the lead ruling and marks the old
+  parameter-free residual as superseded.
+- `research/T18/T18_SPLIT.md`: marks U9 complete under the explicit-premise
+  ruling.
+- `research/T18/REPORT_443.md`: appended this four-part continuation report.
+
+### 3. Gaps
+
+There is no remaining U9 proof or Spec-field residual.  The intentional
+canonical interface boundary is: **explicit raw premises; U12 discharges them
+from the packet clauses; a later MAINT may add them to `InsertionData`**.  The
+registered packet clauses used by U12 are `PacketImportAPI.energy_isLUB` for
+`0 ≤ energyBound` and `PacketImportAPI.dissipation_eq` for
+`0 ≤ dissipationBound`.  This section supersedes the pre-ruling residual in
+the original §3 above.
+
+### 4. Commands and results
+
+- `LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T18.EnergyRate
+  NSFormalization.Section3.T18.MixedRate` — success, 10,021 jobs, zero errors.
+- `lake env lean ../formalization/NSFormalization/Section3/T18/EnergyRate.lean`
+  — zero output.
+- `lake env lean ../formalization/NSFormalization/Section3/T18/MixedRate.lean`
+  — zero output.
+- `lake env lean ../research/T18/probes/u9_u10_closes.lean` — zero output; the
+  Spec `energyRate` field closes through the canonical theorem.
+- `lake env lean ../research/T18/axioms_u9_u10.lean` — all 24 public
+  declarations print exactly `[propext, Classical.choice, Quot.sound]`.
+- `make check` from the worktree root — success; all 13 contract-policy tests
+  pass and all 45 work items are consistent.
