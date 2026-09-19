@@ -264,4 +264,15 @@ theorem domainPlacementData_chartRadius {u : VelocityField} {p : PressureField}
     (domainPlacementData (u := u) (p := p) hK hf chartCenter chartRadius
       hchartRadius hball x₀ hx₀ T hT).chartRadius = chartRadius := rfl
 
+/-- The prescribed placement point is preserved definitionally. -/
+theorem domainPlacementData_x₀ {u : VelocityField} {p : PressureField}
+    {f : VelocityField} {K Ω : Set Space}
+    (hK : IsCompact K) (hf : HasCompactSupport f)
+    (chartCenter : Space) (chartRadius : ℝ) (hchartRadius : 0 < chartRadius)
+    (hball : closure (Metric.ball chartCenter chartRadius) ⊆ Ω)
+    (x₀ : Space) (hx₀ : x₀ ∈ Metric.ball chartCenter chartRadius)
+    (T : ℝ) (hT : 0 < T) :
+    (domainPlacementData (u := u) (p := p) hK hf chartCenter chartRadius
+      hchartRadius hball x₀ hx₀ T hT).x₀ = x₀ := rfl
+
 end NSFormalization.Section3.T23
