@@ -44,4 +44,23 @@ theorem diffSupportRadius_pos {cutoffRadius packetRadius : ℝ}
     0 < diffSupportRadius cutoffRadius packetRadius :=
   hcutoff.trans (cutoffRadius_lt_diffSupportRadius cutoffRadius packetRadius)
 
+/-- Shrink any already-compatible family threshold so its closed upper
+endpoint still places the entire open `ε ρ` ball inside the chart ball. -/
+def differenceThreshold {u : VelocityField} {p : PressureField}
+    {f : VelocityField} {K : Set Space}
+    (place : DomainPlacementData u p f K) (base cutoffRadius packetRadius : ℝ) : ℝ :=
+  min base (domainPlacementMargin place.chartCenter place.x₀ place.chartRadius /
+    (2 * diffSupportRadius cutoffRadius packetRadius))
+
+/-- The shrunk threshold remains positive. -/
+theorem differenceThreshold_pos {u : VelocityField} {p : PressureField}
+    {f : VelocityField} {K : Set Space}
+    (place : DomainPlacementData u p f K) {base cutoffRadius packetRadius : ℝ}
+    (hbase : 0 < base) (hcutoff : 0 < cutoffRadius) :
+    0 < differenceThreshold place base cutoffRadius packetRadius := by
+  unfold differenceThreshold
+  apply lt_min hbase
+  exact div_pos (domainPlacementMargin_pos place.x₀_mem)
+    (mul_pos (by norm_num) (diffSupportRadius_pos hcutoff))
+
 end NSFormalization.Section3.T23
