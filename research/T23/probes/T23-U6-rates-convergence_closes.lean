@@ -98,15 +98,52 @@ example (velocity : ℝ → VelocityField) (ε₀ : ℝ)
         ENNReal.ofReal ((P.energyBound + P.dissipationBound) * ε ^ ((1 : ℝ) / 2) +
           energyConst (BlowupDensity.Bindings.scaling C th).correctionEnergyConst *
             ε ^ ((3 : ℝ) / 2)) := by
-  apply energyRate place D reference velocity P.energyBound P.dissipationBound
-    (BlowupDensity.Bindings.scaling C th).correctionEnergyConst ε₀ hformula
-  intro ε hε
-  have h := (BlowupDensity.Bindings.scaling C th).perturbationEnergyBound ε
-    ⟨hε.1, hε.2.trans he⟩
-  change NSFormalization.Section3.T24.energyENorm C.T
-    (fun z => C.correction ε z + NSFormalization.Section3.T15.scaledVelocity
-      P.velocity C.x₀ C.T ε z) ≤ _ at h
-  rw [hT, hx, hD] at h
+  have hwhole : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+      NSFormalization.Section3.T24.energyENorm place.T
+        (fun z => D.correction ε z + NSFormalization.Section3.T15.scaledVelocity
+          P.velocity place.x₀ place.T ε z) ≤
+        ENNReal.ofReal ((P.energyBound + P.dissipationBound) * ε ^ ((1 : ℝ) / 2) +
+          (BlowupDensity.Bindings.scaling C th).correctionEnergyConst * ε ^ ((3 : ℝ) / 2)) := by
+    intro ε hε
+    have h := (BlowupDensity.Bindings.scaling C th).perturbationEnergyBound ε
+      ⟨hε.1, hε.2.trans he⟩
+    change NSFormalization.Section3.T24.energyENorm C.T
+      (fun z => C.correction ε z + NSFormalization.Section3.T15.scaledVelocity
+        P.velocity C.x₀ C.T ε z) ≤ _ at h
+    rw [hT, hx, hD] at h
+    exact h
+  exact energyRate place D reference velocity P.energyBound P.dissipationBound
+    (BlowupDensity.Bindings.scaling C th).correctionEnergyConst ε₀ hformula hwhole
+
+-- The normalized q = 1 supplier clauses consumed by Rates.lean.
+example (s : ℝ) (hs : 0 ≤ s) (hs1 : s ≤ 1)
+    (ε : ℝ) (hε : ε ∈ Ioc (0 : ℝ) (BlowupDensity.Bindings.scaling C th).ε₀) :
+    NSFormalization.Section4.D01.forceSobolevENorm 1 s
+      (NSFormalization.Section3.T15.scaledForce P.force C.x₀ C.T ε) ≤
+      ENNReal.ofReal ((BlowupDensity.Bindings.scaling C th).positiveConst 1 s *
+        (ε ^ ((1 : ℝ) / 2) + ε ^ ((1 : ℝ) / 2 - s))) := by
+  have h := (BlowupDensity.Bindings.scaling C th).packetPositiveScaling 1 le_rfl s hs hs1 ε hε
+  change NSFormalization.Section4.D01.forceSobolevENorm 1 s
+    (NSFormalization.Section3.T15.scaledForce P.force C.x₀ C.T ε) ≤
+    ENNReal.ofReal ((BlowupDensity.Bindings.scaling C th).positiveConst 1 s *
+      (ε ^ (th.exponent (1 : ℝ≥0∞).toReal 0) +
+        ε ^ (th.exponent (1 : ℝ≥0∞).toReal s))) at h
+  simpa only [ENNReal.toReal_one, th.l1, sub_zero] using h
+
+example (s : ℝ) (hs : 0 ≤ s) (hs1 : s ≤ 1)
+    (ε : ℝ) (hε : ε ∈ Ioc (0 : ℝ) (BlowupDensity.Bindings.scaling C th).ε₀) :
+    NSFormalization.Section4.D01.forceSobolevENorm 1 s (C.forceCorrection ε) ≤
+      ENNReal.ofReal ((BlowupDensity.Bindings.scaling C th).correctionPositiveConst 1 s *
+        (ε ^ ((3 : ℝ) / 2) + ε ^ ((3 : ℝ) / 2 - s))) := by
+  have h := (BlowupDensity.Bindings.scaling C th).correctionPositiveScaling 1 le_rfl s hs hs1 ε hε
+  have h0 : th.exponent (1 : ℝ≥0∞).toReal 0 + 1 = (3 : ℝ) / 2 := by
+    rw [ENNReal.toReal_one, th.l1]
+    norm_num
+  have hs' : th.exponent (1 : ℝ≥0∞).toReal s + 1 = (3 : ℝ) / 2 - s := by
+    rw [ENNReal.toReal_one, th.l1]
+    ring
+  change _ ≤ ENNReal.ofReal (_ * (ε ^ (th.exponent _ 0 + 1) + ε ^ (th.exponent _ s + 1))) at h
+  rw [h0, hs'] at h
   exact h
 end Energy
 

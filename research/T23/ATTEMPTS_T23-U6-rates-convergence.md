@@ -146,3 +146,38 @@ Possible interpretations:
   NavierStokes.ProblemStatement.VelocityField : Type
 ```
 Add PacketImport and open only the three needed contract types.
+
+## A8: concrete scaling projections before exponent rewriting
+```text
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:119:2: error: Type mismatch: After simplification, term
+  h
+ has type
+  BlowupDensity.Contracts.V1.Data.forceSobolevENorm 1 s
+      (BlowupDensity.Contracts.V1.scaledForce P.force (BlowupDensity.Bindings.scaling C th).correction.x₀
+        (BlowupDensity.Bindings.scaling C th).correction.T ε) ≤
+    ENNReal.ofReal
+      ((BlowupDensity.Bindings.scaling C th).positiveConst 1 s *
+        (ε ^ (BlowupDensity.Bindings.scaling C th).thresholds.exponent 1 0 +
+          ε ^ (BlowupDensity.Bindings.scaling C th).thresholds.exponent 1 s))
+but is expected to have type
+  NSFormalization.Section4.D01.forceSobolevENorm 1 s (NSFormalization.Section3.T15.scaledForce P.force C.x₀ C.T ε) ≤
+    ENNReal.ofReal ((BlowupDensity.Bindings.scaling C th).positiveConst 1 s * (ε ^ (1 / 2) + ε ^ (1 / 2 - s)))
+```
+Expose the definitionally equal threshold projection with `change` before rewriting `th.l1`.
+
+## A9: simplifier does not unfold the concrete correction projection
+```text
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:128:2: error: Type mismatch: After simplification, term
+  h
+ has type
+  @LE.le ℝ≥0∞ ENNReal.instLE
+    (BlowupDensity.Contracts.V1.Data.forceSobolevENorm 1 s
+      (BlowupDensity.Contracts.V1.scaledForce P.force (BlowupDensity.Bindings.scaling C th).correction.x₀
+        (BlowupDensity.Bindings.scaling C th).correction.T ε))
+    (ENNReal.ofReal ((BlowupDensity.Bindings.scaling C th).positiveConst 1 s * (ε ^ (1 / 2) + ε ^ (1 / 2 - s))))
+but is expected to have type
+  @LE.le ℝ≥0∞ ENNReal.instLE
+    (NSFormalization.Section4.D01.forceSobolevENorm 1 s (NSFormalization.Section3.T15.scaledForce P.force C.x₀ C.T ε))
+    (ENNReal.ofReal ((BlowupDensity.Bindings.scaling C th).positiveConst 1 s * (ε ^ (1 / 2) + ε ^ (1 / 2 - s))))
+```
+Use an explicit change of the complete supplier type before simplification.

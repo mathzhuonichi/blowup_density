@@ -17,3 +17,4 @@ import NSFormalization.Section3.T23.Rates
 #print axioms NSFormalization.Section3.T23.zeroExtForceSobolevENorm_mono_order
 #print axioms NSFormalization.Section3.T23.forceDifference_convergence
 #print axioms NSFormalization.Section3.T23.forceDifference_negativeSobolev_tendsto
+#print axioms NSFormalization.Section3.T23.sobolevENorm_zeroExtension_nonpos_le_L2
