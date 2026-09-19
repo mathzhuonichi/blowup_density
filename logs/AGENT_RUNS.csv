@@ -1494,7 +1494,7 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-19,T20,452-T20-U5-transport-commutes-lambda,gpt-5.6-sol,proof-worker,"Section3/T20/TransportLambda.lean: constantTransportCommutesLambda verbatim; awaiting codex review",done,-
 2026-09-19,T15,446-T15-U8-periodized-pde,gpt-6-astra,proof-worker,"Section3/T15/Equation.lean; codex review ACCEPT-WITH-NOTES",merged,408
 2026-09-19,T18,443-T18-U9-U10-energy-mixed-rates,gpt-5.6-sol,proof-worker,"Section3/T18/EnergyRate.lean + MixedRate.lean: U10 four fields verbatim; U9 separate-constants form (InsertionData lacks sign clauses) -> fix with explicit premises",done,-
-2026-09-19,T17,453-T17-U12-assembly-registration,gpt-6-astra,assembly,"Counterexample: first amended correctionStatement still false (ball_in_chart); G4 addendum; continuation queued",partial,-
+2026-09-19,T17,453-T17-U12-assembly-registration,gpt-6-astra,assembly,"Counterexample: first amended correctionStatement still false (ball_in_chart); G4 addendum; continuation queued",done,-
 2026-09-19,T20,452-T20-U5-transport-commutes-lambda,gpt-5.6-sol,proof-worker,"Section3/T20/TransportLambda.lean; codex review ACCEPT",merged,409
 2026-09-19,T15,447-T15-U10-pressure,gpt-5.6-sol,proof-worker,"Section3/T15/Pressure.lean; codex review ACCEPT",merged,410
 2026-09-19,T18,435-T18-U7-diff-support,gpt-5.6-sol,proof-worker,"Section3/T18/Support.lean: U7 four fields; codex review ACCEPT-WITH-NOTES",merged,411
