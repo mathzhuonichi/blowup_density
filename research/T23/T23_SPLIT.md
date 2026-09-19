@@ -93,6 +93,15 @@ For every s<0, prove the inhomogeneous weight contraction from order 0, giving `
 
 ### U7 — domain no-slip velocity uniqueness (L, codex-astra)
 
+**Lane 478 continuation status (2026-09-19): box U7 closed.**
+`noSlip_uniqueness_box` proves the original velocity conclusion on `IsBoxDomain Ω`;
+`ibp_box`, the domain difference-energy identity, convection estimate and Grönwall
+are proved. `noSlip_uniqueness_of_ibp` proves the full conclusion under the explicit
+scalar boundary identity `IBP Ω`. The sole smooth-branch analytic residual is
+`IsOpen Ω → Bornology.IsBounded Ω → IsRegularLevelDomain Ω → IBP Ω`; see
+`SPEC_ISSUES.md` G1 and `REPORT_478b.md`. Unrestricted `noSlip_uniqueness` remains
+unclaimed; V1 box-only registration is a lead decision.
+
 API target `noSlip_uniqueness:1015–1021`. Dependencies: canonical domain record and geometry; independent of packet/correction and T18 U12. Exact new theorem target (same local names as Spec):
 
 ```lean
