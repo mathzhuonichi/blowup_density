@@ -16,6 +16,7 @@
 
 ## 日志（最新在前）
 - **2026-09-19（lane 453 continuation）**：T17 U12 完成；最终 G4（含 raw packet support + ball-in-chart）装配 45 字段并注册 `T02.correction`，47 合同；cube-centred 非零参考场完整见证，反例已移至 research 独立 probe。报告：`research/T17/REPORT_453.md` Continuation。
+- **2026-09-19 15:52Z**：合入 #436（T23 拆分）。T23 G0 裁定写入 `research/T23/SPEC_ISSUES.md`（Spec 对任意 `D : CutoffData` 全称量化，`D.ε₀ = 0` 不可满足 → 存在式修正陈述，V1 措辞 owner 待定）。开 T23 wave-0：476 U1（sol）、477 U2 + G0（astra）、478 U7 no-slip 唯一性（astra）。T21：472/474 在跑。
 - **2026-09-19 15:50Z**：合入 #434（T21 拆分）、#435（T19 U15 + `T03.density`，**第 52 个合同，T19 完成**）。开 T21 lane：472（N0–N10 + N12，sol）、474（N11/N13–N15，sol，并行）；之后 475 装配 + 注册（T21 = `thm:main`）。449（T23 拆分）在写。
 - **2026-09-19 15:35Z**：合入 #433（T24b Ub7 + `T04.multiple_regions`，**第 51 个合同，T24 三叶全注册**）。470（T19 `T03.density`）审中，合入后 52。448/449 拆分（astra 第三次）在写。
 - **2026-09-19 15:12Z**：合入 #430（T19 U13+U14，**T19 全证**）、#431（T24b Ub4）、#432（T24b Ub5+Ub6，**Ub1–Ub6 全证**）。在跑：470（T19 `T03.density` 注册，sol）、471（T24b `T04.multiple_regions` 注册，sol）、448/449 拆分第三次（astra，增量规则生效，骨架已写）。
