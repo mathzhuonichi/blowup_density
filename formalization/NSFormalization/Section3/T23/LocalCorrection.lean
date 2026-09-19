@@ -484,4 +484,42 @@ theorem LocalCorrectionCore.correction_eq_physical {v U : SpaceTimeField} {K : S
   rw [h.correction_formula, hp]
   rfl
 
+/-- Shrinking the chosen threshold preserves the same actual fields and every
+proved core clause. This is used to share the analytic supplier's threshold. -/
+theorem LocalCorrectionCore.threshold_mono {v U : SpaceTimeField} {K : Set Space}
+    {x₀ : Space} {r T δ : ℝ} {D : CutoffData}
+    (h : LocalCorrectionCore v U K x₀ r T δ D) {e : ℝ} (he : 0 < e) (hle : e ≤ D.ε₀) :
+    LocalCorrectionCore v U K x₀ r T δ { D with ε₀ := e } := by
+  have hrange {ε : ℝ} (hε : ε ∈ Ioc (0 : ℝ) e) : ε ∈ Ioc (0 : ℝ) D.ε₀ :=
+    ⟨hε.1, hε.2.trans hle⟩
+  exact {
+    theta_smooth := h.theta_smooth
+    theta_compactSupport := h.theta_compactSupport
+    theta_range := h.theta_range
+    plateau_open := h.plateau_open
+    prescribed_subset_plateau := h.prescribed_subset_plateau
+    theta_one := h.theta_one
+    theta_radius_pos := h.theta_radius_pos
+    theta_support := h.theta_support
+    eta_smooth := h.eta_smooth
+    eta_compactSupport := h.eta_compactSupport
+    eta_range := h.eta_range
+    eta_one := h.eta_one
+    eta_support := h.eta_support
+    eps_pos := he
+    eps_time := fun ε hε => h.eps_time ε (hrange hε)
+    eps_space := fun ε hε => h.eps_space ε (hrange hε)
+    potential_smooth := h.potential_smooth
+    potential_formula := h.potential_formula
+    potential_curl := h.potential_curl
+    correction_formula := h.correction_formula
+    correction_smooth := fun ε hε => h.correction_smooth ε (hrange hε)
+    correction_divergence_free := fun ε hε => h.correction_divergence_free ε (hrange hε)
+    correction_compactSupport := fun ε hε => h.correction_compactSupport ε (hrange hε)
+    correction_support := fun ε hε => h.correction_support ε (hrange hε)
+    correction_cancels := fun ε hε => h.correction_cancels ε (hrange hε)
+    crossTransport_background_advects_packet := fun ε hε => h.crossTransport_background_advects_packet ε (hrange hε)
+    crossTransport_packet_advects_background := fun ε hε => h.crossTransport_packet_advects_background ε (hrange hε)
+  }
+
 end NSFormalization.Section3.T23
