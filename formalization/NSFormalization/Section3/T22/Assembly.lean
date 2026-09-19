@@ -22,7 +22,7 @@ open NSFormalization.Section4.A02 (SpatialField)
 open scoped ContDiff ENNReal Topology
 
 /-- The canonical bounded-domain norm API assembled from U-A5, U-A3 and U-Z1. -/
-def boundedDomainNorm : BoundedDomainNormAPI :=
+theorem boundedDomainNorm : BoundedDomainNormAPI :=
   ⟨orderZero, cutoffMultiplier, zeroExtensionComparison⟩
 
 /-! Existential statement form used by the contract registration. -/
