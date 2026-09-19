@@ -211,7 +211,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 443-T18-U9-U10-energy-mixed-rates | worktree 安装中 → codex sol（+15 分钟） | 09-19 1219Z | — | — | T18 U9 energyRate（eq:Eclose）+ U10 混合范数接近（eq:Fclose），全部消费线程化记录字段 |
 | 444-T17-U10-mixed-bound | codex astra 完成：force_spatial_memLp / mixedConst_nonneg / force_mixed_bound 含两个 ∞ 端点（d33367d3）→ 排队审稿 | 09-19 1233Z | — | — | T17 U10：修正力混合范数界 + 诚实 L^p 切片（439 的 mixedLebesgueENormT_eq + I02 界） |
 | 445-T18-U11-sobolev-rate | 排队（安装后、并发 <6 时启动）→ codex sol | 09-19 1224Z | — | — | T18 U11：eq:Hsclose 力差 Sobolev 接近六字段（记录字段 + 范数在 s 上单调 + 三角不等式） |
-| 446-T15-U8-periodized-pde | 排队 → codex astra（传输核心） | 09-19 1224Z | — | — | T15 U8：周期化场满足 NS 动量方程 / 无散 / 零初值（periodize 与各算子交换，单拷贝局部化） |
+| 446-T15-U8-periodized-pde | codex astra 完成：periodized_momentum / periodized_divergence / periodized_initial（不变 ν；18 声明；5eb71f5b）→ 排队审稿 | 09-19 1241Z | — | — | T15 U8：周期化场满足 NS 动量方程 / 无散 / 零初值（periodize 与各算子交换，单拷贝局部化） |
 | 447-T15-U10-pressure | 排队 → codex sol | 09-19 1224Z | — | — | T15 U10：pressureSlice_integrable + normalizedScaledPressure 的均值零规范 |
 | 448-T21-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T21 证明拆分 T21_SPLIT.md（N0–N15 分组成 S/M lane，波次，风险） |
 | 449-T23-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T23 证明拆分 T23_SPLIT.md（DomainPlacementData、Ω 上未周期化 packet、无滑移边界保持、T22 范数比较、唯一性/寿命、装配） |
