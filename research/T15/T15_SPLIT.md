@@ -260,6 +260,23 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   `s=0` mixed base (U5). The `s∈[0,1/2)` sub-range inherits U13's **T13.localization** dependency; the
   `s<0` sub-range is independent. **L, Opus.** Deps: U12, U13.
 
+  **Status (lane 458, 2026-09-19): honest partial.** The complete `q = 1`
+  specialization is proved, including negative orders via a genuine bounded
+  Fourier order-lowering map. The exact canonical field remains open only at
+  `q = 2`: the proposed order-zero route has an arithmetic sign error,
+  `alphaT 2 2 = -1/2` (not `+1/2`), so its mixed norm grows. The tree has the
+  required whole-space negative-order concentration limit but no torus
+  periodization bridge preserving it. See `ATTEMPTS_U14.md` and
+  `REPORT_458.md` for the exact residual and diagnostics.
+
+  **U14b status (lane 462, 2026-09-19): complete.**
+  `ConvergenceTwo.lean` proves `forceConvergence_two` for every `s < -1/2`
+  and combines it with lane 458 into the literal canonical `forceConvergence`.
+  Sharp summability holds for every `r < -3/2`; the spatial `L¹` bound and
+  Fourier/time interpolation give the positive power `ε^(1-3θ/2)`.
+  No named inputs or residual strip. Nonzero packet and all 17 axiom audits
+  pass; see `REPORT_462.md` and `ATTEMPTS_U14b.md`.
+
 - **U15 — non-vacuity + assembly + registration** (②; assembly Nonempty **blocked on T13.localization**).
   New `Section3/T15/Assembly.lean` + `Contracts/V1/Scaling*`?→ a fresh `Contracts/V1/…` for T15
   (`T02.scaling`) + `Bindings` + `Tests`. Constructs a `PlacementData` witness for the non-vacuity
