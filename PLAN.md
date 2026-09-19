@@ -220,3 +220,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 452-T20-U5-transport-commutes-lambda | 已合入：T20 U5 constantTransportCommutesLambda 逐字，审稿 ACCEPT；T20 23 字段全证 #409 | 09-19 1256Z | #409 | — | T20 U5：constantTransportCommutesLambda（唯一未证字段；Fourier 侧对角乘子交换 + 系数唯一性） |
 | 453-T17-U12-assembly-registration | astra 4 分钟给出反例：修订陈述仍缺 ball_in_chart 包含 → G4 补全（+ 原始支撑子句），续做排队（astra，同 worktree） | 09-19 1253Z | — | — | T17 U12：CorrectionAPI 45 字段装配 + correctionStatementAmended（T16 前提块 + 0<ν + 全局光滑，lead 裁定 G4）+ 注册 T02.correction |
 | 454-T15-U11-solution-assembly | worktree 安装中（450 + integration）→ 排队 codex sol | 09-19 1303Z | — | — | T15 U11：solution 字段装配（一个 ClassicalSolutionT，13 字段来自 U7–U10） |
+| 455-T18-U12-assembly-registration | 简报就绪，等 443/445 合入后建 worktree → codex astra | 09-19 1305Z | — | — | T18 U12：PeriodicInsertionAPI 45 字段装配 + periodicInsertionStatement + 注册 T03.periodic_insertion（非空见证等 T15 U15/T17 U12） |
+| 456-T15-U12-U13-force-sobolev | worktree 安装中（450 + integration，排在 454 之后）→ 排队 codex astra | 09-19 1305Z | — | — | T15 U12 sobolevConst/pos + forceSobolev_memLp、U13 packetSobolevBound（eq:packetHs；T13 localization 或 Paper1 端点率） |
