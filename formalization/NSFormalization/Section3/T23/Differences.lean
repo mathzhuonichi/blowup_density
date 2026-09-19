@@ -70,4 +70,35 @@ theorem differenceThreshold_le_base {u : VelocityField} {p : PressureField}
     differenceThreshold place base cutoffRadius packetRadius ≤ base := by
   exact min_le_left _ _
 
+/-- The `O(ε)` difference-support ball lies in the prescribed chart ball on
+the shrunk range, including the closed upper endpoint. -/
+theorem diffSupport_in_chart {u : VelocityField} {p : PressureField}
+    {f : VelocityField} {K : Set Space}
+    (place : DomainPlacementData u p f K) (base cutoffRadius packetRadius : ℝ)
+    (hcutoff : 0 < cutoffRadius) :
+    ∀ ε ∈ Ioc (0 : ℝ)
+        (differenceThreshold place base cutoffRadius packetRadius),
+      ball place.x₀ (ε * diffSupportRadius cutoffRadius packetRadius) ⊆
+        ball place.chartCenter place.chartRadius := by
+  intro ε hε x hx
+  have hρ : 0 < diffSupportRadius cutoffRadius packetRadius :=
+    diffSupportRadius_pos hcutoff
+  have hden : 0 < 2 * diffSupportRadius cutoffRadius packetRadius := by
+    positivity
+  have he : ε * (2 * diffSupportRadius cutoffRadius packetRadius) ≤
+      domainPlacementMargin place.chartCenter place.x₀ place.chartRadius :=
+    (le_div_iff₀ hden).mp
+      (hε.2.trans (min_le_right _ _))
+  have heρ : ε * diffSupportRadius cutoffRadius packetRadius <
+      domainPlacementMargin place.chartCenter place.x₀ place.chartRadius := by
+    nlinarith [mul_pos hε.1 hρ]
+  have hxρ := mem_ball.mp hx
+  apply mem_ball.mpr
+  calc
+    dist x place.chartCenter ≤ dist x place.x₀ + dist place.x₀ place.chartCenter :=
+      dist_triangle _ _ _
+    _ < place.chartRadius := by
+      rw [domainPlacementMargin] at heρ
+      linarith
+
 end NSFormalization.Section3.T23
