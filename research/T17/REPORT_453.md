@@ -219,3 +219,8 @@ $ git diff --stat verification/contracts.json
 verification/contracts.json | 11 +++++++++++
  1 file changed, 11 insertions(+)
 ```
+
+
+## Lead ruling after review 453 (REJECT on statement fidelity against the stale brief; merged on lead authority)
+
+The reviewer measured the implementation against the *original* brief text (first G4 block, without the chart inclusion) rather than the amended ruling. The authoritative ruling is `research/T17/SPEC_ISSUES.md` G4 + addendum (2026-09-19 12:53Z), issued after this lane's own counterexample, and it **includes** `ball place.x₀ r ⊆ ball place.chartCenter place.chartRadius` and the raw packet support clause; the brief record is now amended to match. Builds, axioms, gates, hygiene, non-vacuity and the widen-radius mutation all passed in the review. The unamended `correctionStatement` remains documented as unprovable; the owner-pending V1 wording amendment is logged in `RECONCILIATION.md`.
