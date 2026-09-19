@@ -73,4 +73,11 @@ theorem domainPlacementCarrier_compact {K : Set Space} {f : VelocityField}
     IsCompact (domainPlacementCarrier K f) :=
   hK.union (hf.image continuous_snd)
 
+/-- A positive radius bounds every point of the canonical compact
+enlargement. -/
+theorem domainPlacementCarrier_bound {K : Set Space} {f : VelocityField}
+    (hK : IsCompact K) (hf : HasCompactSupport f) :
+    ∃ R : ℝ, 0 < R ∧ ∀ y ∈ domainPlacementCarrier K f, ‖y‖ ≤ R :=
+  (domainPlacementCarrier_compact hK hf).isBounded.exists_pos_norm_le
+
 end NSFormalization.Section3.T23
