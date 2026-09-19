@@ -38,4 +38,3 @@ example :
             ∃ u' : SpaceTimeField, SingularTrajectoryT ν a T u' ∧
               energyENormT T (fun z => u z - u' z) < r := by
   exact closureInEnergy
-
