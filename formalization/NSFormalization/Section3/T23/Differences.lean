@@ -31,4 +31,10 @@ theorem cutoffRadius_lt_diffSupportRadius (cutoffRadius packetRadius : ℝ) :
   unfold diffSupportRadius
   linarith [le_max_left cutoffRadius packetRadius]
 
+/-- The packet-carrier radius is strictly below the common radius. -/
+theorem packetRadius_lt_diffSupportRadius (cutoffRadius packetRadius : ℝ) :
+    packetRadius < diffSupportRadius cutoffRadius packetRadius := by
+  unfold diffSupportRadius
+  linarith [le_max_right cutoffRadius packetRadius]
+
 end NSFormalization.Section3.T23
