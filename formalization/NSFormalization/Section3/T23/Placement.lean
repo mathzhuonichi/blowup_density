@@ -59,4 +59,18 @@ structure DomainPlacementData (u : VelocityField) (p : PressureField)
   eps_space : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ y ∈ Kstar,
     x₀ + ε • y ∈ Metric.ball chartCenter chartRadius
 
+/-! ## The canonical compact enlargement -/
+
+/-- `03-torus.tex:101-102`: enlarge the packet carrier by the spatial
+projection of the spacetime support of its force. -/
+def domainPlacementCarrier (K : Set Space) (f : VelocityField) : Set Space :=
+  K ∪ Prod.snd '' tsupport f
+
+/-- The canonical enlargement is compact when both raw packet supports are
+compact. -/
+theorem domainPlacementCarrier_compact {K : Set Space} {f : VelocityField}
+    (hK : IsCompact K) (hf : HasCompactSupport f) :
+    IsCompact (domainPlacementCarrier K f) :=
+  hK.union (hf.image continuous_snd)
+
 end NSFormalization.Section3.T23
