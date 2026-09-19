@@ -41,6 +41,16 @@ zero-extension congruence on `Ico`, and U0's Sobolev convergence. U14 selects
 one admissible scale and reverses the difference using energy norm symmetry.
 Both literal field probes and all five declaration axiom audits pass.
 
+**U15 status (lane 470, 2026-09-19): complete.**
+`NSFormalization.Section3.T19.Assembly` assembles all 13 proved fields and
+closes the four canonical statements. `T03.density` V1 registers the four
+`Prop` records in `Contracts/V1/Density.lean`, with fieldwise transport of the
+registered `ClassicalSolutionT` and the lifespan bridge in
+`Bindings/Density.lean`; `Tests/Density.lean` checks all four statements.  The
+zero-datum/zero-force probe selects an actual breakdown force at
+`ν = T = 1`, `s = 0`.  The T18 insertion is consumed through U0's T17 slab
+route (G5), and no slab premise is exposed by the contract.
+
 ## 0. Ground rules
 
 **Peeling rule (T11/T18).** Every unit ends in a `theorem` whose statement **is** a T19 `Spec.lean` field
