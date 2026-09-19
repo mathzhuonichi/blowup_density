@@ -260,6 +260,15 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   `s=0` mixed base (U5). The `s∈[0,1/2)` sub-range inherits U13's **T13.localization** dependency; the
   `s<0` sub-range is independent. **L, Opus.** Deps: U12, U13.
 
+  **Status (lane 458, 2026-09-19): honest partial.** The complete `q = 1`
+  specialization is proved, including negative orders via a genuine bounded
+  Fourier order-lowering map. The exact canonical field remains open only at
+  `q = 2`: the proposed order-zero route has an arithmetic sign error,
+  `alphaT 2 2 = -1/2` (not `+1/2`), so its mixed norm grows. The tree has the
+  required whole-space negative-order concentration limit but no torus
+  periodization bridge preserving it. See `ATTEMPTS_U14.md` and
+  `REPORT_458.md` for the exact residual and diagnostics.
+
 - **U15 — non-vacuity + assembly + registration** (②; assembly Nonempty **blocked on T13.localization**).
   New `Section3/T15/Assembly.lean` + `Contracts/V1/Scaling*`?→ a fresh `Contracts/V1/…` for T15
   (`T02.scaling`) + `Bindings` + `Tests`. Constructs a `PlacementData` witness for the non-vacuity
