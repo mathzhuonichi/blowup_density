@@ -79,13 +79,12 @@ packet, zero reference, T=1. See `research/T23/REPORT_487b.md` and
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-19 17:03Z 快照）
+## 当前在跑 / 待启动（2026-09-19 18:25Z 快照）
 
-- **用户新规（09-19）**：**不再启动 Opus 子代理**；全部 codex（astra 强推理/贵 → 硬分析、装配、规划；sol 便宜 → 簿记、注册、审稿），lead 调度（`tmp/launch_when_free.sh`，<7 窗口才启动；审稿 `tmp/retry_review.sh`，已知部分交付的 lane 附 `review_notes_<lane>.md`；合入前删掉 worktree 里与根目录相同的未跟踪简报副本；lane 名含 `main` 时用 `git push -u origin HEAD`）。
-- **合同 54**。Section 3 节点完成：T10–T14、T16、**T15**（#425）、**T17**（#414 + G5 slab 桥 #423）、**T18**（#420）、**T19**（#435）、**T20**（#415）、**T21**（#439，`T03.non_density` + `T03.main` = **`thm:main`**）、T22（#391）、**T24**（三叶，#433）。全量编译检查 h #443：167 模块 rc 0。
-- **唯一未完成节点 T23（`cor:boundary`）**：拆分 #436；U1 放置 #440；U2 阶段 1 #441（部分）；U7 盒情形 #442（光滑域 = `IBP Ω` 残差，G1）；U-CAN #444。**在跑六条并行 lane**：481 U2b（匹配 I02/I03 供给 + 估计，astra）、482 U3（三元组/解记录，astra）、483 U4（局部差，sol）、484 U5（T22 比较，sol）、485 U6（率与收敛，astra）、486 U8（内部爆破/寿命，astra）；跨 lane 依赖穿线假设，U9 装配放电。
-- **T23 owner 待定**（挡注册，不挡证明）：G0 措辞（Spec 对任意 `D` 全称量化 → 存在式修正）、G1（光滑域 IBP 不在 Mathlib → V1 只注册盒情形？）、域记录放置/光滑域编码/gauge（`T23_SPLIT.md` §4）。
-- **下一批**：六条 lane 合入 → 487 U9 装配 + 注册（按 owner 决定的范围）→ 全量编译检查 i → Section 3 收尾（PR #270 改 base 到 main 等 #259）。小 MAINT：`T22/Assembly.lean:24` defProp warning。
+- **用户新规（09-19）**：**不再启动 Opus 子代理**；全部 codex（astra 强推理/贵，sol 便宜），lead 调度（`tmp/launch_when_free.sh`，<7 窗口；审稿 `tmp/retry_review.sh` + `review_notes_<lane>.md`；合入前删 worktree 里与根目录相同的未跟踪简报副本；lane 名含 `main` 用 `git push -u origin HEAD`）。
+- **合同 55，Section 3 全部节点 T10–T24 已注册**：T15 #425、T17 #414（+G5 桥 #423）、T18 #420、T19 #435、T20 #415、**T21 #439（`thm:main`）**、T22 #391、T24 #433、**T23 #451（`cor:boundary`：盒域无条件，光滑域条件于 `IBP Ω`）**。全量编译 g #424、h #443 全绿；**i（488，sol）在跑**。
+- **T23 裁定**（`research/T23/SPEC_ISSUES.md`）：G0（Spec 对任意 `D` 全称量化为假 → 注册存在式修正）、G1（光滑域分部积分 Mathlib 无 → 条件定理）、G2（U2b/U3 势恒等式接缝 → 窗口化 U3 核心假设）。
+- **剩余工作（全部 owner 级或小 MAINT）**：`logs/SECTION3_OWNER_DECISIONS_20260919.md` 八项（T17 G4/G5 措辞、T23 G0/G1 措辞与范围、域记录放置、Prop/Type、T22 defProp、PR #270 改 base）；488 报告合入后收工。lane 号下一个 **489**。
 - **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码（记录/注释/空白类微改除外）；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
