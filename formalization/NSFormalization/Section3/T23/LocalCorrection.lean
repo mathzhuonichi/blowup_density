@@ -545,4 +545,69 @@ theorem force_support_ball (ν : ℝ) {v U : SpaceTimeField} {K : Set Space}
     {z : SpaceTime} (hz : z ∈ tsupport (correctionForce ν v D ε)) : z.2 ∈ ball x₀ r :=
   (correction_support_interior h hε (force_support ν v D ε hz)).2
 
+/-- Operational window core used by U3. No potential identity is needed:
+the correction is smooth globally and supported strictly inside the controlled
+cylinder. The original radial core remains available without any change. -/
+structure WindowedCorrectionCore (v U : SpaceTimeField) (K : Set Space)
+    (x₀ : Space) (r T δ : ℝ) (D : CutoffData) : Prop where
+  theta_radius_pos : 0 < D.θRadius
+  eps_time : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, 2 * ε ^ 2 < min T δ
+  eps_space : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ε * D.θRadius < r
+  correction_smooth : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ContDiff ℝ ∞ (D.correction ε)
+  correction_divergence_free : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ t x,
+    spatialDivergence (D.correction ε) t x = 0
+  correction_compactSupport : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    HasCompactSupport (D.correction ε)
+  correction_support : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    tsupport (D.correction ε) ⊆
+      Ioo (T - 2 * ε ^ 2) (T + 2 * ε ^ 2) ×ˢ ball x₀ (ε * D.θRadius)
+  correction_cancels : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ t ∈ Ico (T - ε ^ 2) T,
+    ∃ O : Set Space, IsOpen O ∧ O ⊆ ball x₀ r ∧
+      tsupport (fun x => scaledVelocity U x₀ T ε (t, x)) ⊆ O ∧
+      ∀ x ∈ O, v (t, x) + D.correction ε (t, x) = 0
+  crossTransport_background_advects_packet : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    ∀ t ∈ Ico (0 : ℝ) T, ∀ x : Space,
+      spatialDerivative (scaledVelocity U x₀ T ε) t x
+        (NSFormalization.Section3.T16.correctedBackground v D.correction ε (t, x)) = 0
+  crossTransport_packet_advects_background : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    ∀ t ∈ Ico (0 : ℝ) T, ∀ x : Space,
+      spatialDerivative (NSFormalization.Section3.T16.correctedBackground v D.correction ε) t x
+        (scaledVelocity U x₀ T ε (t, x)) = 0
+
+
+/-- Every original radial core supplies the weaker operational core. -/
+theorem LocalCorrectionCore.toWindowed {v U : SpaceTimeField} {K : Set Space}
+    {x₀ : Space} {r T δ : ℝ} {D : CutoffData}
+    (h : LocalCorrectionCore v U K x₀ r T δ D) :
+    WindowedCorrectionCore v U K x₀ r T δ D where
+  theta_radius_pos := h.theta_radius_pos
+  eps_time := h.eps_time
+  eps_space := h.eps_space
+  correction_smooth := h.correction_smooth
+  correction_divergence_free := h.correction_divergence_free
+  correction_compactSupport := h.correction_compactSupport
+  correction_support := h.correction_support
+  correction_cancels := h.correction_cancels
+  crossTransport_background_advects_packet := h.crossTransport_background_advects_packet
+  crossTransport_packet_advects_background := h.crossTransport_packet_advects_background
+
+instance {v U : SpaceTimeField} {K : Set Space} {x₀ : Space}
+    {r T δ : ℝ} {D : CutoffData} :
+    Coe (LocalCorrectionCore v U K x₀ r T δ D)
+      (WindowedCorrectionCore v U K x₀ r T δ D) := ⟨LocalCorrectionCore.toWindowed⟩
+
+/-- The operational support lies inside the open reference cylinder. -/
+theorem WindowedCorrectionCore.correction_support_interior
+    {v U : SpaceTimeField} {K : Set Space} {x₀ : Space}
+    {r T δ ε : ℝ} {D : CutoffData}
+    (h : WindowedCorrectionCore v U K x₀ r T δ D)
+    (hε : ε ∈ Ioc (0 : ℝ) D.ε₀) :
+    tsupport (D.correction ε) ⊆ Ioo (0 : ℝ) (T + δ) ×ˢ ball x₀ r := by
+  intro z hz
+  have hz' := h.correction_support ε hε hz
+  have ht := lt_min_iff.mp (h.eps_time ε hε)
+  refine ⟨⟨?_, ?_⟩, ball_subset_ball (h.eps_space ε hε).le hz'.2⟩
+  · linarith [hz'.1.1, ht.1]
+  · linarith [hz'.1.2, ht.2]
+
 end NSFormalization.Section3.T23

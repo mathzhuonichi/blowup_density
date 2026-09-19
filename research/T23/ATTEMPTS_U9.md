@@ -95,3 +95,48 @@ vocabulary without the colliding Packet binding import. No existing binding
 was edited or new packet witness assumed. This is a supplier non-vacuity probe
 at T=delta=1, inner radius 1/4 and outer radius 1/3, with zero reference velocity;
 it does not assert a unit-box ClassicalSolutionOmega or complete boundary API.
+
+## Continuation 487b: G2 potential seam CLOSED
+
+The U3 use audit found **zero reads of `potential_formula`, `potential_smooth`,
+`potential_curl`, or `correction_formula`** in Triple/Solution/PressureNormalization.
+Triple reads correction smoothness, divergence, support, the time/space scale
+bounds and both cross transports. PressureNormalization reads no core at all.
+The weakest useful core therefore has no potential identity, even windowed.
+
+Authorised edits: LocalCorrection adds `WindowedCorrectionCore`, the projection
+`LocalCorrectionCore.toWindowed`, a coercion, and its support-in-cylinder lemma.
+The original core and every existing U2 theorem statement remain unchanged.
+Triple and Solution replace only their core hypotheses and the support helper;
+all conclusions remain unchanged. PressureNormalization needs no edit.
+Assembly proves `WholeSpaceCorrectionAPI.windowedCore` at the **literal**
+`supplierCutoff`, using `local_match` and `local_crossTransport` on the open
+cylinder. Potentials are never globally identified. U4's existing statements
+remain unchanged; seven weaker windowed variants live in Assembly.Windowed.
+
+Assembly now includes the complete 48-field `boundaryInsertionAPI`. It takes
+internal raw supplier clauses, not an API or conclusion-shaped record. The
+binding chooses I02/I03 from the given reference and discharges **every** such
+clause from that same C/A/D, including both normalized q=1 estimates. The
+closed prescribed ball supplies a larger outer ball via compact thickening,
+so the supplier retains C.r = the original prescribed r, not r/2.
+
+Resolved compiler diagnostics:
+- Cross transport rewriting required unfolding `correctedBackground` before
+  rewriting the correction family equality.
+- `simpa only` did not normalize the registered norm wrappers. Explicit
+  `change` to the canonical norm, then rewriting center/time, closed all three
+  I03 energy and Sobolev conversions (as in the U6 probe).
+- Implicit point inference in `hmatch ⟨ht,hx⟩` exhausted even a temporary
+  diagnostic million-heartbeat budget. `@hmatch (t,x) ⟨ht,hx⟩` resolves it;
+  no heartbeat override remains.
+- Contract conversion namespaces were closed/reopened to avoid inheriting
+  the proof-side `open` and ambiguous solution/cutoff names.
+
+The registered contract uses packet-indexed vocabulary, so the raw canonical
+statement's missing packet clauses are discharged by PacketAPI projections.
+It preserves the complete repaired existential's matching identities and all
+48 fields. The box and explicit-IBP branches are distinct definitions; the
+registered V1 statement is their conjunction. The literal arbitrary-D statement
+is not registered. The original research Spec and existing contracts/tests
+remain untouched.
