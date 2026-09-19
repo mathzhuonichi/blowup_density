@@ -17,6 +17,13 @@ force_support_closes,force_volume_closes,energy_closes,mixed_closes,sobolev_clos
 - No `sorry`/`admit`/`axiom`/`native_decide`/placeholder fields; no edits to existing modules (new files plus registry/work-items additions); every restated definition bridged by `rfl` (or fieldwise
   conversion for `LocalizationAPI`/`LocalPotentialAPI`/`PlacementData` records as the precedents do); every declaration prints exactly `[propext, Classical.choice, Quot.sound]`.
 
+## Lead ruling G4 (binding; amended 2026-09-19 12:53Z after lane 453's counterexample — see `research/T17/SPEC_ISSUES.md` G4 + addendum)
+`correctionStatement` as written (`∀ ν place v r δ, ∃ D, LocalPotentialAPI … ∧ Nonempty (CorrectionAPI …)`) is false for non-periodic `v` or `ν ≤ 0`, and the first amended block (without the chart inclusion)
+is still false (lane 453's kernel-checked counterexample: chart radius `1/8`, `r = 1/4`). The assembly states and registers the **final amended** statement `correctionStatementAmended`:
+`∀ ν u p f K (place : PlacementData u p f K) v r δ, 0 < ν → 0 < r → r < 1/2 → 0 < δ → IsPeriodicOn univ v → ContDiff ℝ ∞ v → (∀ t ∈ Ioo 0 (place.T + δ), ∀ x ∈ ball place.x₀ r, spatialDivergence v t x = 0) →
+(∀ t ∈ Ioo 0 1, tsupport (fun x ↦ u (t, x)) ⊆ K) → Metric.ball place.x₀ r ⊆ Metric.ball place.chartCenter place.chartRadius → ∃ D, LocalPotentialAPI v u place.Kstar place.x₀ r place.T δ D ∧ Nonempty (CorrectionAPI ν place v r δ D)`
+— the registered `T02.local_potential` hypothesis block plus `0 < ν`, the global smoothness (G1 option (a) at the statement level; the `CorrectionAPI` field list is unchanged), the raw packet support clause
+and the chart inclusion (the `ball_in_chart` field). The unamended `correctionStatement` stays in the contract as documentation only.
 ## Lead ruling G4 (binding)
 `correctionStatement` as written (`∀ ν place v r δ, ∃ D, LocalPotentialAPI … ∧ Nonempty (CorrectionAPI …)`) is false for non-periodic `v` or `ν ≤ 0`. The assembly states and registers the **amended**
 statement: `∀ ν u p f K (place : PlacementData u p f K) v r δ, 0 < ν → 0 < r → r < 1/2 → 0 < δ → IsPeriodicOn univ v → ContDiff ℝ ∞ v → (∀ t ∈ Ioo 0 (place.T + δ), ∀ x ∈ ball place.x₀ r,

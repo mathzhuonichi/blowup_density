@@ -93,6 +93,23 @@ Constants: real data fields with `0 ≤ ·`, except `sobolevConst` which takes T
 
 **Open for the lead / owner**: (a) whether `CorrectionAPI` should carry `place : PlacementData P` — definitional sharing with T15/T18 at the price of a `PacketAPI` parameter the lemma's mathematics does not use; (b) whether `mixedLebesgueENormT` should move into the T10 data contract (raised by draft B) rather than being copied by both T15 and T17 — a T01/T10 contract change, hence not a T17 decision.
 
+## Lead amendment — completed G4, lane 453 continuation
+
+The user's final block is implemented literally in the raw-field
+`correctionStatementAmended`: positive viscosity/radius/margin, `r < 1/2`,
+periodicity, global smoothness, divergence-free on the chart cylinder, raw
+packet support on `(0,1)`, and the requested ball's inclusion in the placement
+chart. The last clause repairs the accepted geometry counterexample; it is not
+inferred from the API being constructed. Compactness and positive target time
+come from placement. G1 is handled at statement level, and G3 by raw fields.
+
+The unamended statement and every API field remain unchanged. The contract's
+`Packet` namespace preserves the Spec's `CorrectionAPI` and unamended statement
+byte-for-byte; the enclosing raw-field record gives the completed G4 block
+without requiring an artificial `PacketAPI` for arbitrary raw fields. Fieldwise
+conversions and round trips connect the two contract spellings and the canonical
+record. Only the amended statement is registered. Cutoffs come from T16 with
+threshold `min ε₁ place.ε₀`; every bound uses that same positive threshold.
 
 ### Lead amendment (2026-09-19 12:45Z, G4)
 
