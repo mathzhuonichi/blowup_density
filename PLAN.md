@@ -210,7 +210,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 442-T15-U6-U7-blowup-force-mem | 已合入 #405：T15 U6 unboundedSpeed + U7 force_mem，审稿 ACCEPT | 09-19 1241Z | #405 | — | T15 U6 unboundedSpeed + U7 force_mem（单拷贝 + 放缩 blow-up 见证 / periodize 光滑周期 + 正时间紧支） |
 | 443-T18-U9-U10-energy-mixed-rates | 已合入 #412：T18 U9 energyRate + U10 混合范数接近四字段，审稿 ACCEPT | 09-19 1308Z | #412 | — | T18 U9 energyRate（eq:Eclose）+ U10 混合范数接近（eq:Fclose），全部消费线程化记录字段 |
 | 444-T17-U10-mixed-bound | 已合入 #406：T17 U10 混合范数界 + 诚实 L^p 切片（含 ∞ 端点），审稿 ACCEPT；T17 U1–U11 全证 | 09-19 1244Z | #406 | — | T17 U10：修正力混合范数界 + 诚实 L^p 切片（439 的 mixedLebesgueENormT_eq + I02 界） |
-| 445-T18-U11-sobolev-rate | 排队（安装后、并发 <6 时启动）→ codex sol | 09-19 1224Z | — | — | T18 U11：eq:Hsclose 力差 Sobolev 接近六字段（记录字段 + 范数在 s 上单调 + 三角不等式） |
+| 445-T18-U11-sobolev-rate | codex sol 完成：U11 六字段（forceDiffSobolevConst = 2(scaling.C_s + correction.C_s)，负阶经 T11 persistenceDown；71da7e34）→ 排队审稿 | 09-19 1319Z | — | — | T18 U11：eq:Hsclose 力差 Sobolev 接近六字段（记录字段 + 范数在 s 上单调 + 三角不等式） |
 | 446-T15-U8-periodized-pde | 已合入 #408：T15 U8 周期化 PDE 传输（动量/无散/零初值），审稿 ACCEPT-WITH-NOTES（空白已清） | 09-19 1250Z | #408 | — | T15 U8：周期化场满足 NS 动量方程 / 无散 / 零初值（periodize 与各算子交换，单拷贝局部化） |
 | 447-T15-U10-pressure | 已合入：T15 U10 压力规范化（切片可积 + 均值零规范），审稿 ACCEPT #410 | 09-19 1257Z | #410 | — | T15 U10：pressureSlice_integrable + normalizedScaledPressure 的均值零规范 |
 | 448-T21-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T21 证明拆分 T21_SPLIT.md（N0–N15 分组成 S/M lane，波次，风险） |
@@ -220,7 +220,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 452-T20-U5-transport-commutes-lambda | 已合入：T20 U5 constantTransportCommutesLambda 逐字，审稿 ACCEPT；T20 23 字段全证 #409 | 09-19 1256Z | #409 | — | T20 U5：constantTransportCommutesLambda（唯一未证字段；Fourier 侧对角乘子交换 + 系数唯一性） |
 | 453-T17-U12-assembly-registration | astra 续做完成：45 字段装配 + correctionStatementAmended_holds（G4 最终前提块）+ T02.correction 合同/绑定/测试（47 合同；dfc5ebd2）→ 排队审稿 | 09-19 1309Z | — | — | T17 U12：CorrectionAPI 45 字段装配 + correctionStatementAmended（T16 前提块 + 0<ν + 全局光滑，lead 裁定 G4）+ 注册 T02.correction |
 | 454-T15-U11-solution-assembly | worktree 安装中（450 + integration）→ 排队 codex sol | 09-19 1303Z | — | — | T15 U11：solution 字段装配（一个 ClassicalSolutionT，13 字段来自 U7–U10） |
-| 455-T18-U12-assembly-registration | 简报就绪，等 443/445 合入后建 worktree → codex astra | 09-19 1305Z | — | — | T18 U12：PeriodicInsertionAPI 45 字段装配 + periodicInsertionStatement + 注册 T03.periodic_insertion（非空见证等 T15 U15/T17 U12） |
+| 455-T18-U12-assembly-registration | worktree 安装中（445 + integration，含 U1–U11）→ 排队 codex astra | 09-19 1319Z | — | — | T18 U12：PeriodicInsertionAPI 45 字段装配 + periodicInsertionStatement + 注册 T03.periodic_insertion（非空见证等 T15 U15/T17 U12） |
 | 456-T15-U12-U13-force-sobolev | codex astra 完成：sobolevConst/pos + forceSobolev_memLp + packetSobolevBound（0≤s≤1，路线 B Paper1 端点率；16 声明；6a07f394）→ 排队审稿 | 09-19 1317Z | — | — | T15 U12 sobolevConst/pos + forceSobolev_memLp、U13 packetSobolevBound（eq:packetHs；T13 localization 或 Paper1 端点率） |
 | 457-T19-UCAN-canonical-record | worktree 安装中 → 排队 codex sol | 09-19 1312Z | — | — | T19 U-CAN：四个记录（PeriodicDensity/MixedRegion/StrongClosure/Projection）canonical 重述 Section3/T19/Density.lean + Spec↔canonical 探针（T21 与 T19 装配的前置） |
 | 458-T15-U14-force-convergence | worktree 安装中（456 + integration）→ 排队 codex sol | 09-19 1319Z | — | — | T15 U14：forceConvergence（q=1 用 U13 界 + 实幂极限；s<0 与 q=2 用负阶单调性 + 阶 0 混合基） |
