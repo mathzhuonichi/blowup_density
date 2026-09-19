@@ -308,4 +308,18 @@ theorem correctionForce_slice_support (ν : ℝ)
     (mul_le_mul_of_nonneg_left
       (cutoffRadius_lt_diffSupportRadius D.θRadius packetRadius).le hε.1.le) hw.2
 
+/-- The rescaled packet force is inside the fixed chart ball at every real
+time.  This is the all-time force projection clause of placement, transported
+by the unperiodized scaling lemma. -/
+theorem scaledForce_slice_support_chart {u : VelocityField}
+    {p : PressureField} {f : VelocityField} {K : Set Space}
+    (place : DomainPlacementData u p f K)
+    (hf : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f)
+    {ε : ℝ} (hε : ε ∈ Ioc (0 : ℝ) place.ε₀) (t : ℝ) :
+    tsupport (fun x : Space => scaledForce f place.x₀ place.T ε (t, x)) ⊆
+      ball place.chartCenter place.chartRadius :=
+  (scaledForce_tsupp_subset hε.1 place.Kstar_compact hf
+    place.force_projection_subset t).trans
+      (affineImage_subset_ball hε place.eps_space)
+
 end NSFormalization.Section3.T23
