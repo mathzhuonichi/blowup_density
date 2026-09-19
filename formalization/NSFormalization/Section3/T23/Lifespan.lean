@@ -127,5 +127,12 @@ theorem maximal : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
     obtain ⟨w, hw, hp⟩ := hsolution ε hε
     exact ⟨w.restrictHorizon hS hST, hw, hp⟩
 
+omit ho hb hI in
+/-- The box specialization has no unproved integration-by-parts premise. -/
+theorem lifespan_box (hbox : IsBoxDomain Ω) : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+    domainMaximalLifespan ν Ω a (force ε) = ENNReal.ofReal place.T := by
+  exact lifespan place D reference hspeed hscale hball hformula hsupport hcancel hsolution
+    hν hbox.open_bounded.1 hbox.open_bounded.2 (ibp_box hbox)
+
 end U8
 end NSFormalization.Section3.T23
