@@ -517,6 +517,17 @@
       "declaration": "BlowupDensity.Tests.checkedConservativeForcing",
       "scope": "Proposition prop:conservative (03-torus.tex:723-740), torus branch only: for every smooth unit-periodic scalar potential and every registered classical torus solution from rest forced by its negative pressure gradient, the Haar force-velocity pairing vanishes throughout the lifespan, and at positive viscosity the velocity is identically zero on that lifespan. The contract has exactly these two universal fields, potential_pairing and zero_from_rest, and reuses the registered T10/T11 ClassicalSolutionT through fieldwise conversions. A genuine zero-velocity, zero-pressure rest solution at φ = 0 witnesses non-vacuity. The paper's bounded-domain branch with homogeneous no-slip boundary data is deliberately omitted because V1 has no bounded-domain/no-slip carrier; it is explicitly out of scope, not identified with periodicity.",
       "enabled": true
+    },
+    {
+      "id": "T02.correction",
+      "parent_task": "T02",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Correction3.lean",
+      "binding_module": "Bindings.Correction3",
+      "test_module": "Tests.Correction3",
+      "declaration": "BlowupDensity.Tests.checkedCorrection3",
+      "scope": "T17 lem:correction (03-torus.tex:218-285), all 45 reconciled fields at the concrete correctionData lattice lift, including the T16 local potential, T13 localization, profile identities and uniform bounds, force regularity/periodicity/open support, torus spatial volume and time length, derivative bounds, honest Haar energy/mixed/Sobolev guards and endpoint estimates. Registers correctionStatementAmended with the completed hypothesis block: ∀ (ν : ℝ) (u : VelocityField) (p : PressureField) (f : VelocityField) (K : Set Space) (place : PlacementData u p f K) (v : SpaceTimeField) (r δ : ℝ), 0 < ν → 0 < r → r < 1 / 2 → 0 < δ → IsPeriodicOn univ v → ContDiff ℝ ∞ v → (∀ t ∈ Ioo (0 : ℝ) (place.T + δ), ∀ x ∈ Metric.ball place.x₀ r, spatialDivergence v t x = 0) → (∀ t ∈ Ioo (0 : ℝ) 1, tsupport (fun x : Space ↦ u (t, x)) ⊆ K) → Metric.ball place.x₀ r ⊆ Metric.ball place.chartCenter place.chartRadius → ∃ D : CutoffData, LocalPotentialAPI v u place.Kstar place.x₀ r place.T δ D ∧ Nonempty (CorrectionAPI ν place v r δ D). G1: global reference smoothness is explicit at statement level, without adding an API field. G3: placement uses raw packet fields; the Packet namespace also preserves the Spec's packet-indexed 45-field record and unamended statement verbatim, connected by fieldwise conversions. G4: the original unamended universal statement is not asserted or proved; nonpositive viscosity or nonperiodic reference contradict its API fields. The intermediate G4 without ball-in-chart is also false, as the accepted research-only geometry counterexample shows. Compact Kstar, positive T, cube containment, positive theta radius and eps ≤ 1 are derived; the constructed cutoff threshold is min ε₁ place.ε₀. Non-vacuity is a full API at a nonzero constant reference centred at (1/2,1/2,1/2), with r=1/4, ν=T=δ=1 and a positive admissible scale. No assertion is made without the displayed hypotheses.",
+      "enabled": true
     }
   ]
 }
