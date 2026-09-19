@@ -73,4 +73,31 @@ theorem ofReal_le_eLpNormTop_of_continuousAt {z : Space → Space} {x : Space}
     exact (ENNReal.ofReal_le_ofReal hy.le).trans_eq (ofReal_norm _)
   exact (not_le.mpr hpos) ((measure_mono hsub).trans (ae_iff.mp hae).le)
 
+/-- Interior witnesses and closed-slab regularity force the whole-space
+essential-supremum limsup, regardless of exterior values of the total field. -/
+theorem limsupLeft_speedENorm_eq_top_of_interior {T : ℝ} {Ω : Set Space}
+    {u : VelocityField}
+    (hsmooth : SmoothOnClosedSlab (Ico (0 : ℝ) T) Ω u)
+    (hblow : ∀ M : ℝ, 0 < M → ∀ δ : ℝ, 0 < δ →
+      ∃ t : ℝ, ∃ x : Space, t ∈ Ioo 0 T ∧ T - δ < t ∧ x ∈ Ω ∧ M < ‖u (t, x)‖) :
+    NSFormalization.Section4.A02.limsupLeft T
+      (fun t => NSFormalization.Section4.A02.speedENorm (fun x => u (t, x))) = ⊤ := by
+  by_contra hne
+  obtain ⟨b, hb1, hb2⟩ := exists_between (lt_top_iff_ne_top.mpr hne)
+  have hfreq : ∃ᶠ t in nhdsWithin T (Iio T),
+      b ≤ NSFormalization.Section4.A02.speedENorm (fun x => u (t, x)) := by
+    refine (nhdsLT_basis T).frequently_iff.mpr ?_
+    intro c hc
+    have hb0 : (0 : ℝ) ≤ b.toReal := ENNReal.toReal_nonneg
+    obtain ⟨t, x, ht, htc, hx, hMx⟩ :=
+      hblow (b.toReal + 1) (by linarith) (T - c) (by linarith)
+    refine ⟨t, ⟨by linarith, ht.2⟩, ?_⟩
+    have hM := ofReal_le_eLpNormTop_of_continuousAt
+      (hsmooth.contDiffAt_slice ⟨ht.1.le, ht.2⟩ (subset_closure hx)).continuousAt hMx
+    calc
+      b = ENNReal.ofReal b.toReal := (ENNReal.ofReal_toReal hb2.ne).symm
+      _ ≤ ENNReal.ofReal (b.toReal + 1) := ENNReal.ofReal_le_ofReal (by linarith)
+      _ ≤ NSFormalization.Section4.A02.speedENorm (fun x => u (t, x)) := hM
+  exact (not_le.mpr hb1) (le_limsup_of_frequently_le' hfreq)
+
 end NSFormalization.Section3.T23
