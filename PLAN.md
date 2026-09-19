@@ -200,9 +200,9 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 432-T20-U10b-h1-energy | 已合入 #393：T20 U10b hOneEnergy 逐字（CH1 = 2，c = criticalSmallnessH1），审稿 ACCEPT-WITH-NOTES | 09-18 1901Z | #393 | — | T20 U10b：hOneEnergy（eq:H1energy：‖∇v‖²₂ 导数 + 耗散 + U10a 经 U9 吸收 + Young 力项；常数 CH1） |
 | 433-T18-U5-U6-cross-transport-momentum | 已合入 #395：T18 U5 交叉输运项恒零 + U6 精确动量方程，审稿 ACCEPT-WITH-NOTES | 09-18 1906Z | #395 | — | T18 U5 两个交叉输运项恒零（eq:bgzero）+ U6 插入三元组的精确动量方程 |
 | 434-T17-U9-energy-bound | 已合入 #398：T17 U9 能量界 + 诚实切片（energyConst = √A+√D），审稿 ACCEPT-WITH-NOTES | 09-18 1921Z | #398 | — | T17 U9：修正场环面能量界 ‖w_ε‖_{E_T} ≤ C ε^{3/2} + 两个 MemLp 诚实切片（HaarBridge 单拷贝桥 + 注册 I02 能量界） |
-| 435-T18-U7-diff-support | astra 只交付 diffSupportRadius + 正性骨架，声称缺 R_K 与支撑桥（可疑）→ 待 Claude 路由恢复后 Opus 续做（cont_435_opus.md） | 09-18 1935Z | — | — | T18 U7：速度差的局部化（periodicSet 球，半径 max θR R_K；diffSupport_in_chart） |
-| 436-T18-U8-lifespan | Opus 19:46Z 续做（路由 429 窗口后）；若再被拒则再等 30 分钟 | 09-18 1946Z | — | — | T18 U8：插入解 solution / blowup / blowup_limsup / lifespan = T / maximal（H³ 窄化续延 API + velocity_unique） |
-| 437-T20-U11-continuation-bound | Opus 19:46Z 续做（路由 429 窗口后）；若再被拒则再等 30 分钟 | 09-18 1946Z | — | — | T20 U11：continuationBound（常/均值零模正交分解 + hTwo_le_laplacian + 积分 U10b + U2 均值界；Ccriterion） |
-| 438-T17-U11-sobolev | Opus 19:46Z 续做（路由 429 窗口后）；若再被拒则再等 30 分钟 | 09-18 1946Z | — | — | T17 U11：eq:HHs 修正力 L¹_tH^s 界（0≤s≤1，注册 T02.localization + Paper1/I02 力 Sobolev 界；sobolevConst） |
-| 439-T15-U4-U5-energy-mixed | Opus 19:46Z 续做（路由 429 窗口后）；若再被拒则再等 30 分钟 | 09-18 1946Z | — | — | T15 U4 能量恒等式 + 诚实切片、U5 混合范数放缩 + 诚实路径（单拷贝 + Haar 桥 + I03 放缩恒等式） |
+| 435-T18-U7-diff-support | astra 骨架不合格 → codex sol 续做（cont_435 简报） | 09-19 1215Z | — | — | T18 U7：速度差的局部化（periodicSet 球，半径 max θR R_K；diffSupport_in_chart） |
+| 436-T18-U8-lifespan | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T18 U8：插入解 solution / blowup / blowup_limsup / lifespan = T / maximal（H³ 窄化续延 API + velocity_unique） |
+| 437-T20-U11-continuation-bound | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T20 U11：continuationBound（常/均值零模正交分解 + hTwo_le_laplacian + 积分 U10b + U2 均值界；Ccriterion） |
+| 438-T17-U11-sobolev | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T17 U11：eq:HHs 修正力 L¹_tH^s 界（0≤s≤1，注册 T02.localization + Paper1/I02 力 Sobolev 界；sobolevConst） |
+| 439-T15-U4-U5-energy-mixed | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T15 U4 能量恒等式 + 诚实切片、U5 混合范数放缩 + 诚实路径（单拷贝 + Haar 桥 + I03 放缩恒等式） |
 | 440-MAINT-section3-build-f | worktree 安装中 → codex astra | 09-18 1911Z | — | — | MAINT：第六次 Section 3 全量编译检查（#354–#396 之后，46 合同；四门禁 + 公理扫描 → logs/SECTION3_BUILD_20260918f.md） |
