@@ -1,7 +1,7 @@
 # Lane 466-T19-U10-U11-U12-projection — T19 wave 4: `extendedProductDensity` (U10), `projectionOntoInitialData` (U11), `zeroInitialProjection` (U12)
 
 You are a Lean 4 (v4.34.0-rc2 + Mathlib) proof worker on the repository checked out at your working directory
-`/data_8T/ping/blowup_density/.claude/worktrees/466-T19-U10-U11-U12-projection` (git branch `erenup/466-T19-U10-U11-U12-projection`, = `origin/erenup/integration-section3` after lane 464 (T19 U7–U9) merged).
+`/data_8T/ping/blowup_density/.claude/worktrees/466-T19-U10-U11-U12-projection` (git branch `erenup/466-T19-U10-U11-U12-projection`, = lane 464's branch (464 in review) + `origin/erenup/integration-section3`).
 Read `CLAUDE.md`, **`research/T19/T19_SPLIT.md`** (§0; wave 4 units U10/U11/U12 verbatim targets and routes), `research/T19/REPORT_464.md` + `Section3/T19/DensityEngine.lean` (`fixedInitialDensity`), `Section3/T19/Density.lean`
 (`ProjectionAPI.extendedProductDensity`, `.projectionOntoInitialData`, `.zeroInitialProjection`; `extendedBreakdownSetT` — read the exact definitions/statements), `verification/Contracts/V1/TorusLocalTheory.lean` (`RelativelyDenseT`, `breakdownSetT`,
 `forceClassT`, `initialClassT`; grep `zero_mem_forceClassT` / `zero_mem_initialClassT` analogues in `Section3/T10`/`T11` and `Bindings/DensityFromInsertion.lean:57`), the R³ templates `PeriodicDensityFiber.lean` / `PeriodicDense.lean` cited in

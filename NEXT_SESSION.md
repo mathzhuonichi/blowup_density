@@ -16,6 +16,7 @@
 
 ## 日志（最新在前）
 - **2026-09-19（lane 453 continuation）**：T17 U12 完成；最终 G4（含 raw packet support + ball-in-chart）装配 45 字段并注册 `T02.correction`，47 合同；cube-centred 非零参考场完整见证，反例已移至 research 独立 probe。报告：`research/T17/REPORT_453.md` Continuation。
+- **2026-09-19 14:40Z**：合入 #426（T19 U0 穿线）。464（T19 U7/U8/U9，sol 9 分钟全闭）审中；465（U13+U14，astra）、466（U10–U12，sol）基于 464 分支排队。467（T24b canonical + Ub1–Ub3，astra）在跑。448/449 拆分（sol）仍未写出文件。
 - **2026-09-19 14:35Z**：合入 #425（T15 U15 + `T02.scaling`，**第 50 个合同，T15 完成**）。461（T19 U0 穿线）完成审中；464（T19 U7–U9，sol）在跑；465/466 简报就绪。T24b 解锁：开 467（canonical 记录 + Ub1–Ub3，astra）；后续 Ub4（装配解，astra）、Ub5+Ub6、Ub7 注册。
 - **2026-09-19 14:20Z**：合入 #423（T17 slab 桥 `correctionStatementSlab'`，G5 canonical 闭合）、#424（全量编译检查 g：142 模块 rc 0，49 合同，263 probe 通过；待办：`T22/Assembly.lean:24 boundedDomainNorm` 是 Prop 的 `def`，改 `theorem` 的小 MAINT）。459 完成（T15 U15 + `T02.scaling`，分支上第 50 个合同，审中）。461 T19 U0 穿线（astra）在跑；464（T19 U7–U9）简报就绪。
 - **2026-09-19 14:12Z**：合入 #422（T15 U14b q=2，**T15 U1–U14 全证**）。cont_460 证出 `correctionStatementSlab'`（G5 canonical 闭合，审中）。459（T15 U15 + `T02.scaling`，astra）、448/449 拆分（sol）、463 全量编译（sol）在跑。461（T19 U0）等 459+460。
