@@ -110,3 +110,9 @@ without requiring an artificial `PacketAPI` for arbitrary raw fields. Fieldwise
 conversions and round trips connect the two contract spellings and the canonical
 record. Only the amended statement is registered. Cutoffs come from T16 with
 threshold `min ε₁ place.ε₀`; every bound uses that same positive threshold.
+
+### Lead amendment (2026-09-19 12:45Z, G4)
+
+`correctionStatement` is registered with the hypothesis block of the registered `T02.local_potential` statement plus `0 < ν` and the global `ContDiff ℝ ∞ v` (G1 option (a) at the statement level; the `CorrectionAPI` field list is unchanged). See `SPEC_ISSUES.md` (G4). Owner-pending: whether the Spec text should be amended to carry these hypotheses explicitly (V1 wording).
+
+> Addendum (2026-09-19 12:53Z): the amended hypothesis block also carries `ball place.x₀ r ⊆ ball place.chartCenter place.chartRadius` and the raw packet support clause — see `SPEC_ISSUES.md` G4 addendum (lane 453 counterexample).
