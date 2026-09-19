@@ -29,4 +29,35 @@ theorem box_face_mem_frontier (a b : Fin 3 → ℝ) (hab : ∀ i, a i < b i)
     · exact (lt_irrefl _ hi.1)
     · exact (lt_irrefl _ hi.2)
 
+/-- A C¹ flux vanishing on the boundary has zero integral divergence on a box.
+Only neighborhood smoothness at points of the closed box is required. -/
+theorem box_integral_divergence_eq_zero (a b : Fin 3 → ℝ) (hab : ∀ i, a i < b i)
+    (F : (Fin 3 → ℝ) → (Fin 3 → ℝ))
+    (hF : ∀ x ∈ Icc a b, ContDiffAt ℝ 1 F x)
+    (hzero : ∀ x ∈ frontier (Icc a b), F x = 0) :
+    (∫ x in Icc a b, ∑ i : Fin 3, fderiv ℝ F x (Pi.single i 1) i) = 0 := by
+  have hc : ContinuousOn F (Icc a b) := fun x hx => (hF x hx).continuousAt.continuousWithinAt
+  have hd : ContinuousOn (fderiv ℝ F) (Icc a b) := fun x hx =>
+    ((hF x hx).continuousAt_fderiv (by norm_num)).continuousWithinAt
+  have hi : IntegrableOn (fun x => ∑ i : Fin 3, fderiv ℝ F x (Pi.single i 1) i)
+      (Icc a b) := by
+    apply ContinuousOn.integrableOn_Icc
+    exact continuousOn_finsetSum _ fun i _ =>
+      (continuous_apply i).comp_continuousOn (hd.clm_apply continuousOn_const)
+  rw [integral_divergence_of_hasFDerivAt_off_countable a b (fun i => (hab i).le)
+    F (fderiv ℝ F) ∅ countable_empty hc ?_ hi]
+  · apply Finset.sum_eq_zero
+    intro i _
+    have hz (c : ℝ) (hc : c = a i ∨ c = b i) :
+        (∫ x in Icc (a ∘ i.succAbove) (b ∘ i.succAbove), F (i.insertNth c x) i) = 0 := by
+      apply setIntegral_eq_zero_of_forall_eq_zero
+      intro x hx
+      rw [hzero _ (box_face_mem_frontier a b hab i c hc x hx)]
+      rfl
+    rw [hz (b i) (Or.inr rfl), hz (a i) (Or.inl rfl), sub_self]
+  · intro x hx
+    apply ((hF x ?_).differentiableAt one_ne_zero).hasFDerivAt
+    exact ⟨fun i => (hx.1 i (mem_univ i)).1.le,
+      fun i => (hx.1 i (mem_univ i)).2.le⟩
+
 end NSFormalization.Section3.T23
