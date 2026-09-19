@@ -14,7 +14,7 @@ arrow-type `Prop` definitions `nonDensityOfCritical`, `mainOfDensityAndNonDensit
 - Every declaration prints exactly `[propext, Classical.choice, Quot.sound]`. `grep -rn` before claiming "not in the tree"; `sed -n` before citing a line.
 
 ## Goal
-1. `Section3/T21/Assembly.lean`: with `K := ` the canonical T20 inhabitant (`Section3/T20/Assembly.lean`) and `D := periodicDensityAPI` (T19): theorems inhabiting the three arrow statements under fresh names (`nonDensityOfCritical_holds`, `mainOfDensityAndNonDensity_holds`,
+1. `Section3/T21/MainAssembly.lean` (**new file** — lane 472 already owns `Section3/T21/Assembly.lean` with `nonDensityAPI K : NonDensityAPI K.c` and `nonDensityOfCritical_holds`; import it): with `K := ` the canonical T20 inhabitant (`Section3/T20/Assembly.lean`) and `D := periodicDensityAPI` (T19): theorems inhabiting the three arrow statements under fresh names (`nonDensityOfCritical_holds`, `mainOfDensityAndNonDensity_holds`,
    `mainOfInputs_holds`), the closed records `Nonempty (NonDensityAPI K.c)` and `Nonempty MainTheoremAPI`, the witness-independent `∃ c, Nonempty (NonDensityAPI c)`, and the two unconditional paper statements (`nonDensityStatement` and the `thm:main` statement as the Spec spells
    them). Non-vacuity: the records' fields are `∀`-statements over registered classes with an explicit `c = criticalSmallnessH1`; add `research/T21/probes/assembly_closes.lean` reading off `zeroInitialNonDensity 1 1 1` and `fixedInitialDensity` at the zero datum.
 2. Contract trios `verification/Contracts/V1/TorusNonDensity.lean` and `verification/Contracts/V1/TorusMain.lean` (records + statements token-for-token; `TorusMain` may import `TorusNonDensity` and the registered `Density`/`CriticalRegularityT` contracts), `Bindings/TorusNonDensity.lean`,
@@ -28,3 +28,6 @@ the probe, the axioms file.
 
 ## Report
 Commit on your branch; end with four parts (what was registered with exact statements / files / gaps / commands and results). Also write it to `research/T21/REPORT_475.md`.
+
+## Lead note (2026-09-19 16:03Z) — module ownership and duplicates
+Your worktree = lane 472's branch (nine modules `Section3/T21/{Definitions,CriticalBridge,OrderLowering,ForceMonotonicity,Zero,Ball,Disjointness,NonDensity,Assembly}.lean`) + lane 474's branch (`Section3/T21/Main.lean`: `thresholdValue`, `zeroInitialClass`, `fixedInitialDensity D`, `zeroInitialDensityIff D nonDensity`, `zeroInitialNonDensity nonDensity`, `mainTheoremAPI D nonDensity`, `mainOfDensityAndNonDensity_holds D nonDensity`) + integration. The two lanes ran in parallel: **check for duplicate declarations** (`zeroInitialClass` appears in both; 474 unfolded `breakdownSetTZero` locally). You may edit `Main.lean` for exactly this dedupe (delete its duplicate, import 472's module, keep statements unchanged) — record it in `ATTEMPTS_A.md`. The adapter 474 asks for: `fun _c D (N : NonDensityAPI _c) => mainOfDensityAndNonDensity_holds D N.nonDensity`. No other edits to existing modules.
