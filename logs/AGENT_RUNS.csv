@@ -1490,3 +1490,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-19,T17,444-T17-U10-mixed-bound,gpt-6-astra,proof-worker,"Section3/T17/Mixed.lean; codex review ACCEPT",merged,406
 2026-09-19,T15,447-T15-U10-pressure,gpt-5.6-sol,proof-worker,"Section3/T15/Pressure.lean: pressureSlice_integrable + mean-zero gauge; awaiting codex review",done,-
 2026-09-19,T18,435-T18-U7-diff-support,gpt-5.6-sol,proof-worker,"Section3/T18/Support.lean: diffSupportRadius/pos, velocityDifference_support (explicit raw support premise, lead ruling), diffSupport_in_chart; awaiting codex review",done,-
+2026-09-19,T20,441-T20-U12-global-regularity,gpt-5.6-sol,proof-worker,"Section3/T20/GlobalRegularity.lean; codex review ACCEPT",merged,407
