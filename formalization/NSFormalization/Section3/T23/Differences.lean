@@ -13,7 +13,7 @@ noncomputable section
 
 namespace NSFormalization.Section3.T23
 
-open Set Metric
+open Set Metric Filter
 open NavierStokes NavierStokes.ProblemStatement
 open NSFormalization.Section3.T15
 open NSFormalization.Section3.T22 (zeroExtension)
@@ -100,5 +100,19 @@ theorem diffSupport_in_chart {u : VelocityField} {p : PressureField}
     _ < place.chartRadius := by
       rw [domainPlacementMargin] at heρ
       linarith
+
+/-- A support point of a fixed-time slice is a support point of the spacetime
+field at that time. -/
+theorem slice_tsupport_subset_spacetime_tsupport
+    (F : SpaceTimeField) (t : ℝ) :
+    tsupport (fun x : Space => F (t, x)) ⊆
+      {x : Space | (t, x) ∈ tsupport F} := by
+  intro x hx
+  by_contra htx
+  have hzero : F =ᶠ[𝓝 (t, x)] 0 :=
+    notMem_tsupport_iff_eventuallyEq.mp htx
+  have hmap : Tendsto (fun y : Space => (t, y)) (𝓝 x) (𝓝 (t, x)) :=
+    continuousAt_const.prodMk continuousAt_id
+  exact (notMem_tsupport_iff_eventuallyEq.mpr (hmap.eventually hzero)) hx
 
 end NSFormalization.Section3.T23
