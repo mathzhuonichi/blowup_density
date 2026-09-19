@@ -201,6 +201,26 @@ Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core
   lanes 415/428/432's zero-force zero-solution instance with the smallness
   hypothesis satisfied, all three conjuncts produced); audit
   `research/T20/axioms_u11.lean`; attempts `research/T20/ATTEMPTS_U11.md`.
+- **U12 `globalRegularity`** — DONE (lane 441).
+  `Section3/T20/GlobalRegularity.lean`, theorem
+  `NSFormalization.Section3.T20.globalRegularity` (verbatim field type) at
+  `c = criticalSmallnessH1`.  No named input, no residual, and no use of the
+  open `PeriodicRestartH1` predicate.  The reusable endpoint lemma
+  `maximal_squaredHTwoIntegralT_ne_top` turns U11's classical-horizon estimate
+  into T11's exact local-finiteness premise: for `0 < S` with
+  `ENNReal.ofReal S ≤ maximalLifespanT`, exhaust `Ioo 0 S` by
+  `Ioo 0 (S - S/(n+2))`; `IsMaximalPeriodicSolution` supplies a classical
+  solution on each strict subhorizon whose velocity is literally the common
+  maximal field, and U11 bounds every subintegral by the same finite expression
+  with `S` in place of the smaller endpoint.  Thus no separate uniqueness
+  transport is needed.  T11's proved
+  `periodicContinuationH3API.lifespanInfiniteOfLocallyFinite` then gives the
+  infinite lifespan.  Both declarations have axioms exactly
+  `[propext, Classical.choice, Quot.sound]`.  Probe
+  `research/T20/probes/global_regularity_closes.lean` checks the field type and
+  the admissible zero-force instance with
+  `criticalRho 0 = 0 < criticalSmallnessH1 * 1`; audit
+  `research/T20/axioms_u12.lean`; attempts `research/T20/ATTEMPTS_U12.md`.
 
 ## 0. Ground rules
 
