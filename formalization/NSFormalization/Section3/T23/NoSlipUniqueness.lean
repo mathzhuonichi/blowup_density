@@ -1,0 +1,142 @@
+import NSFormalization.Section4.A02.SolutionClass
+import Mathlib.MeasureTheory.Integral.DivergenceTheorem
+
+/-! Canonical T23 domain vocabulary, copied verbatim from research/T23/Spec.lean.
+The no-slip uniqueness proof is under development; no uniqueness result is asserted here. -/
+
+noncomputable section
+namespace NSFormalization.Section3.T23
+open Set MeasureTheory
+open NavierStokes.ProblemStatement
+open NavierStokesR3.ProblemStatement (navierStokesResidual)
+open NSFormalization.Section4.A02 (SpatialField SpaceTimeField SpaceTimeScalar)
+open scoped ContDiff
+
+/-- `03-torus.tex:635-639`: the manuscript's closed-spacetime-slab smoothness
+convention — "restriction of a `C∞` field from an open neighborhood of that
+slab" (this also fixes smoothness at edges and corners of a box).  Encoded as
+the literal restriction: an open `N` covering the slab `I × cl Ω` on which the
+(total) field is genuinely `C∞`.
+
+Non-vacuity: `ContDiffOn ℝ ∞ f N` on the open `N` is real smoothness, not the
+closed-set `ContDiffOn` on `cl Ω`; it is the honest reading of the convention. -/
+def SmoothOnClosedSlab {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    (I : Set ℝ) (Ω : Set Space) (f : SpaceTime → E) : Prop :=
+  ∃ N : Set SpaceTime, IsOpen N ∧ I ×ˢ closure Ω ⊆ N ∧ ContDiffOn ℝ ∞ f N
+
+/-- `03-torus.tex:632-634`: concrete regular-level-set encoding of a bounded
+smooth domain (adopted from Draft A per `RECONCILIATION.md` §3 "Take from A" 1).
+A `C∞` defining function `φ` with `Ω = {φ < 0}` and nonvanishing boundary
+gradient.  The box-vs-smooth distinction governs only the *assumed* reference's
+elliptic regularity (`:645`), which the corollary takes as a hypothesis; but
+statement fidelity (`CLAUDE.md` rule 2) keeps the paper's disjunction.
+
+Non-vacuity: it carries an actual `C∞` defining function and a nonzero boundary
+derivative, not an unconstrained proposition; owner question `RECONCILIATION.md`
+§4.3 flags this encoding. -/
+def IsRegularLevelDomain (Ω : Set Space) : Prop :=
+  ∃ φ : Space → ℝ, ContDiff ℝ ∞ φ ∧ Ω = {x | φ x < 0} ∧
+    ∀ x ∈ frontier Ω, fderiv ℝ φ x ≠ 0
+
+/-- `03-torus.tex:632-634`: coordinate-box domain (adopted from Draft A).
+
+Non-vacuity: the stored lower and upper corners have strict coordinate
+separation, so `Ω` is a genuine open box. -/
+def IsBoxDomain (Ω : Set Space) : Prop :=
+  ∃ lo hi : Fin 3 → ℝ, (∀ i, lo i < hi i) ∧
+    Ω = {x : Space | ∀ i : Fin 3, lo i < x i ∧ x i < hi i}
+
+/-- `03-torus.tex:632-633`: the paper's disjunctive domain class — `Ω ⊂ R³` is a
+bounded box or a bounded smooth domain.  Adopted from Draft A's disjunction
+(`RECONCILIATION.md` §3 "Take from A" 1), with Draft B's explicit `Ω.Nonempty`
+folded in (the smooth branch `{φ < 0}` may be empty; openness already gives
+measurability).  The box-vs-smooth disjunction is kept for statement fidelity.
+
+Non-vacuity: a genuine conjunction of openness, boundedness, nonemptiness, and
+the honest box-or-smooth disjunction on `Ω`; it is neither `True` nor an
+unfolding. -/
+def IsBoundedBoxOrSmoothDomain (Ω : Set Space) : Prop :=
+  IsOpen Ω ∧ Bornology.IsBounded Ω ∧ Ω.Nonempty ∧
+    (IsBoxDomain Ω ∨ IsRegularLevelDomain Ω)
+
+/-- `02-preliminaries.tex:9` and `03-torus.tex:640-644`: the bounded-domain
+initial class — smooth on `cl Ω` (slab convention at `t=0`), divergence free in
+`Ω`, and no-slip on `∂Ω`.  The torus analogue is `initialClassT`.
+
+Non-vacuity: three concrete clauses; the divergence reuses the registered
+`spatialDivergence` of the constant-in-time extension. -/
+def initialClassOmega (Ω : Set Space) : Set SpatialField :=
+  {a | ContDiffOn ℝ ∞ a (closure Ω) ∧
+    (∀ x ∈ Ω, spatialDivergence (fun z : SpaceTime => a z.2) 0 x = 0) ∧
+    (∀ x ∈ frontier Ω, a x = 0)}
+
+/-- `03-torus.tex:635-639`: the bounded-domain force class `𝓕(Ω)` — smooth on
+`cl Ω × [0,T']` for every finite `T'` (slab convention, "`g` on each finite
+closed slab"), with temporal support compact in `(0,∞)`.  The torus analogue is
+`MemForceT`; periodicity is dropped and smoothness is over `cl Ω`.
+
+Non-vacuity: the smoothness conjunct is universal over `T'`, and the temporal
+support conjunct is a genuine compact-in-`(0,∞)` witness. -/
+def MemForceOmega (Ω : Set Space) (f : SpaceTimeField) : Prop :=
+  (∀ T' : ℝ, SmoothOnClosedSlab (Icc (0 : ℝ) T') Ω f) ∧
+    ∃ K : Set ℝ, IsCompact K ∧ K ⊆ Ioi 0 ∧ tsupport f ⊆ K ×ˢ (univ : Set Space)
+
+/-- `03-torus.tex:635-639`: the bounded-domain reference/inserted force class. -/
+def forceClassOmega (Ω : Set Space) : Set SpaceTimeField := {f | MemForceOmega Ω f}
+
+/-! ## 1. Bounded-domain classical no-slip solutions -/
+
+/-- `03-torus.tex:640-648` and `02-preliminaries.tex:28-36`: a classical
+no-slip solution of Navier–Stokes on the bounded domain `Ω` over `[0,T)`, at
+viscosity `ν`, initial velocity `a`, force `g`, with the equation and
+incompressibility holding *in* `Ω`, no-slip on `∂Ω`, and the pressure fixed by
+zero spatial mean over `Ω` (`:644`, "Pressure may be normalized by zero spatial
+mean").  This is the paper's assumed *compatible reference* (`:648`).
+
+**Structure exception** (`CLAUDE.md`): a genuinely new bounded-domain solution
+record, mirroring the registered torus `ClassicalSolutionT`
+(`Contracts/V1/TorusLocalTheory.lean`) field-for-field with `univ → cl Ω`,
+periodicity/`sobolev` dropped, no-slip added, and the equation restricted to
+`Ω`.  The local implementation candidate is
+`Paper1/BoundaryCorollary.lean:28` `BoundedReference` / `:42` `BoundedFlow`
+(cite only; that module has a `sorry`). -/
+structure ClassicalSolutionOmega (ν : ℝ) (Ω : Set Space) (a : SpatialField)
+    (g : SpaceTimeField) (T : ℝ) where
+  /-- `02-preliminaries.tex:28-36`: the velocity field. -/
+  velocity : SpaceTimeField
+  /-- `02-preliminaries.tex:28,84-88` and `03-torus.tex:644`: the scalar
+  pressure, ultimately fixed by the zero-`Ω`-mean gauge. -/
+  pressure : SpaceTimeScalar
+  /-- `02-preliminaries.tex:32-36`: the horizon is a genuine positive
+  interval.  Non-vacuity: a strict inequality. -/
+  horizon_pos : 0 < T
+  /-- `03-torus.tex:637-643`: velocity smoothness on `[0,T) × cl Ω` in the
+  slab-neighborhood convention.  Non-vacuity: `SmoothOnClosedSlab` gives a real
+  open-neighborhood `C∞` extension. -/
+  velocity_smooth : SmoothOnClosedSlab (Ico (0 : ℝ) T) Ω velocity
+  /-- `03-torus.tex:637-643`: pressure smoothness on the same slab. -/
+  pressure_smooth : SmoothOnClosedSlab (Ico (0 : ℝ) T) Ω pressure
+  /-- `02-preliminaries.tex:28-29` and `03-torus.tex:641`: `u(0,·)=a` on `Ω`.
+  Exact quantifier order: `∀ x ∈ Ω`.  Non-vacuity: pointwise equality of
+  physical vectors on the domain. -/
+  initial : ∀ x ∈ Ω, velocity (0, x) = a x
+  /-- `03-torus.tex:641` "incompressibility hold in `Ω`": `div u = 0` in `Ω`.
+  Exact quantifier order: `∀ t ∈ Ico 0 T, ∀ x ∈ Ω`.  Non-vacuity: the
+  registered physical divergence vanishes pointwise. -/
+  divergence : ∀ t ∈ Ico (0 : ℝ) T, ∀ x ∈ Ω, spatialDivergence velocity t x = 0
+  /-- `03-torus.tex:641` "The equation … hold in `Ω`": the momentum equation at
+  interior times, inside `Ω`.  Exact quantifier order: `∀ t ∈ Ioo 0 T,
+  ∀ x ∈ Ω`.  Non-vacuity: the NS residual equals `g` pointwise at `ν`. -/
+  momentum : ∀ t ∈ Ioo (0 : ℝ) T, ∀ x ∈ Ω,
+    navierStokesResidual ν velocity pressure t x = g (t, x)
+  /-- `03-torus.tex:641` "`v|_{∂Ω}=0`": no-slip on the boundary.  Exact
+  quantifier order: `∀ t ∈ Ico 0 T, ∀ x ∈ frontier Ω`.  Non-vacuity: the
+  velocity vanishes pointwise on `∂Ω = frontier Ω`. -/
+  no_slip : ∀ t ∈ Ico (0 : ℝ) T, ∀ x ∈ frontier Ω, velocity (t, x) = 0
+  /-- `03-torus.tex:644`: the pressure gauge `∫_Ω p(t)=0`.  Exact quantifier
+  order: `∀ t ∈ Ico 0 T`.  Non-vacuity: an actual set-integral equation over
+  `Ω`. -/
+  pressure_gauge : ∀ t ∈ Ico (0 : ℝ) T, (∫ x in Ω, pressure (t, x)) = 0
+
+
+end NSFormalization.Section3.T23
