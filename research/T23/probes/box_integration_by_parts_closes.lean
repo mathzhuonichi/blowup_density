@@ -14,4 +14,3 @@ example (a b : Fin 3 → ℝ) (hab : ∀ i, a i < b i)
     (∫ x in Icc a b, f x * fderiv ℝ g x (Pi.single j 1)) =
       -(∫ x in Icc a b, fderiv ℝ f x (Pi.single j 1) * g x) :=
   box_integral_mul_fderiv_eq_neg a b hab f g hf hg hz j
-
