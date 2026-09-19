@@ -208,6 +208,11 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   `packetDissipationIdentity` (`:709`), `M=P.energyBound`, `D=P.dissipationBound`; `‖w_ε‖ ≤ Cε^{3/2}` with
   `C=correction.energyConst` from `correction.correction_energy_bound` (`Spec.lean:1523`). **M, Opus.** Hard
   analytic (norm triangle), no named input. Deps: U1. **Gated on T15 U4 + T17 U9.**
+  **Lane 443 status (lead ruling): complete.** `energyRate` has the exact canonical
+  conclusion and takes the erased raw clauses `0 ≤ energyBound` and
+  `0 ≤ dissipationBound` as explicit premises.  U12 assembly discharges them from
+  `PacketImportAPI.energy_isLUB` and `dissipation_eq`; a later MAINT may add them to
+  `InsertionData`.
 
 - **U10 — `eq:Fclose` (mixed-norm closeness).** New `Section3/T18/MixedRate.lean`. Targets `forceDiffMixedConst`
   (`Spec.lean:1899`), `forceDiffMixedConst_nonneg` (`:1902`), `forceDifference_mixed_memLp` (`:1910`),
@@ -217,6 +222,9 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   `:736`) + `C_{pq}ε^{α+1}` (`correction.force_mixed_bound`, `Spec.lean:1541`), `α := Contracts.V1.alpha`;
   `forceDiffMixedConst p q` absorbs both, `_nonneg` on `1≤p,q`. **M-L, Opus.** No named input. Deps: U1, U2.
   **Gated on T15 U5 + T17 U10.**
+  **Lane 443 status:** complete.  All four exact canonical fields close; finiteness of
+  `correction.force_mixed_bound` supplies the correction's honest mixed path, so no
+  additional continuity reconstruction or named input is required.
 
 - **U11 — `eq:Hsclose` + the `s<0` tail (Sobolev closeness).** New `Section3/T18/SobolevRate.lean`. Targets
   `forceDiffSobolevConst` (`Spec.lean:1928`), `forceDiffSobolevConst_pos` (`:1932`),
@@ -230,6 +238,11 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   (`:797`, `q=1`) + the correction tail. Precedent `Paper1/PeriodicInsertionPositiveConvergence.lean:73`.
   **L, Opus.** No named input. Deps: U1, U2. **Gated on T15 U13+U14 and T17 U11 — both transitively on
   T13.localization (`correction.localization`).**
+
+  **Status (lane 445, 2026-09-19): complete.** All six U11 fields are proved from the threaded T15/T17
+  records.  The path-infimum triangle inequality and all-real-order monotonicity are proved locally;
+  `negative_s_memLp` lowers the honest order-zero path through T11 `persistenceDown`.  The exact
+  Spec-form conversion probe and the fifteen-declaration standard-three-axiom audit both pass.
 
 - **U12 — assembly + statement + contract/bindings/tests + non-vacuity.** New `Section3/T18/Assembly.lean`
   + a fresh `Contracts/V1/…` (T18 registration, T03 umbrella per PLAN §8) + `Bindings` + `Tests`. Bundle

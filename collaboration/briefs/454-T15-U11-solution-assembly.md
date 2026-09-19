@@ -1,6 +1,6 @@
 # Lane 454-T15-U11-solution-assembly — T15 U11: the `solution` field (one `ClassicalSolutionT ν 0 F_ε place.T` for the periodized fields)
 
-(Worktree to be created from lane 450's branch + integration once 450 lands.) You are a Lean 4 (v4.34.0-rc2 + Mathlib) proof worker in
+You are a Lean 4 (v4.34.0-rc2 + Mathlib) proof worker in
 `/data_8T/ping/blowup_density/.claude/worktrees/454-T15-U11-solution-assembly` (branch `erenup/454-T15-U11-solution-assembly`). On this base: `Section3/T15/Equation.lean` (U8: `periodized_initial`,
 `periodized_divergence`, `periodized_momentum`), `Blowup.lean`/`ForceMem.lean` (U6/U7), `Pressure.lean` (U10: `pressureSlice_integrable`, `pressure_gauge`), `SobolevPath.lean` (U9, lane 450:
 `periodized_sobolev`, `periodized_pressure_gradient`), `Energy.lean` (U4: `scaledVelocity_slice_contDiff`, `contDiff_periodize_of_subset_interior`), `SingleCopy.lean`, `Placement.lean`,
