@@ -311,19 +311,35 @@ Audit and exact resolved diagnostics: `axioms_ub1_ub3.lean`,
   kill every cross transport `(U_i·∇)U_j = 0`, so the sum solves `ClassicalSolutionT ν 0 (Σ F_j) T`; `forceClassT`
   and the zero-mean gauge are closed under finite sums (`force_mem`); `rest` from each `component`.`initial`.
   **L, Opus** (hard analytic core). No named input beyond the threaded `sc j`/components (Ub2, Ub3). Deps: Ub2, Ub3.
+  **DONE (lane 468).** `MultipleAssembled.lean` constructs the explicit sums and actual `solution`,
+  proves `crossTransport_eq_zero`, `solution_pin`, `force_mem`, and `rest`; all 29 declarations have
+  exactly `[propext, Classical.choice, Quot.sound]`. Probe: `probes/assembled_closes.lean`;
+  audit: `axioms_ub4.lean`; diagnostics: `ATTEMPTS_UB4.md`; report: `REPORT_468.md`.
 - **Ub5 — region agreement + blow-up** (`region_agreement:1305`, `region_blowup:1313`). Route: on `B_j` every
   other component vanishes (Ub3, disjoint), so `assembled = component j` there; then `sc j`.`unboundedSpeed`
   transfers to `SpeedUnboundedAtOn T B_j assembled_velocity`. **M, codex-sol.** Named input: T15 `unboundedSpeed`
   (**blocked on T15 U6 `Blowup.lean`**). Deps: Ub3, Ub4.
+  **DONE (lane 469).** `MultipleRegions.lean`: `RegionsData.region_agreement` and
+  `region_blowup` for the explicit finite sum; no Ub4 dependency. T15's global
+  blow-up construction is localized using scaled support before single-copy transfer.
 - **Ub6 — energy + dissipation bounds** (`energy_bound:1321` `≤`, `dissipation_bound:1328` `=`, ⑧). Route:
   disjoint-support additivity `‖u(t)‖₂² = Σ‖U_j(t)‖₂²` and `∫‖∇u‖² = Σ∫‖∇U_j‖²` (Ub3), then `sc j`.
   `packetEnergyIdentity` (`= ε_j^{1/2}M`) gives `energyEssSupT² ≤ M²Σε_j` and `packetDissipationIdentity`
   (`= ε_j^{1/2}D`) gives `energyGradientT² = D²Σε_j` (equality, by disjointness). **L, Opus.** Named input: T15
   `packetEnergyIdentity`/`packetDissipationIdentity` (**blocked on T15 U4 `Energy.lean`**). Deps: Ub3.
+  **DONE (lane 469).** `MultipleRegions.lean`: `RegionsData.energy_bound` (`≤`)
+  and `dissipation_bound` (`=`), with exactly the original packet constants.
+  Squared slice norms add by disjointness; gradients are localized on the cube
+  interior and its null boundary removed. All 15 declarations have exactly
+  `[propext, Classical.choice, Quot.sound]`; four exact field probes close.
 - **Ub7 — assembly + `multipleRegionsStatement` + registration + non-vacuity.** Assemble the 30 fields;
   `multipleRegionsStatement:1335` `Nonempty` from the per-region T15 witnesses; probe to the `PacketImportAPI`
-  spelling. Register `T24.multiple_regions` v1; record the bounded-domain/no-slip omission in `scope`. Non-vacuity
+  spelling. Register `T04.multiple_regions` v1; record the bounded-domain/no-slip omission in `scope`. Non-vacuity
   at `N=1`, one region. **M, codex-sol.** **Blocked on all T15 (U2/U4/U6/U11/U15) + U-CAN lane 384.** Deps: all Ub.
+  **DONE (lane 471).** `MultipleAssembly.lean` assembles all 30 canonical fields and proves the raw universal
+  statement; the fieldwise binding registers `T04.multiple_regions`. The concrete registered `N=1`, `T=1`,
+  radius-`1/4` centre-ball probe reads `region_blowup 0`. The bounded-domain/no-slip branch remains explicitly
+  outside V1 scope.
 
 ## 2. Proof-dependency ledger (registered / threaded input each unit consumes)
 
@@ -346,7 +362,7 @@ Audit and exact resolved diagnostics: `axioms_ub1_ub3.lean`,
 | Ub4 | multiple | ⑦ | threaded components (Ub2,Ub3) | (via Ub2/Ub3) |
 | Ub5 | multiple | — | T15 `unboundedSpeed` | **T15 U6** |
 | Ub6 | multiple | ⑧ | T15 `packet{Energy,Dissipation}Identity` | **T15 U4** |
-| Ub7 | multiple | — | all T15 + U-CAN 384 | **T15 U2/U4/U6/U11/U15** |
+| Ub7 | multiple | — | all T15 + U-CAN 384 | done, lane 471 |
 
 No T18 anywhere: T24b superposes T15 outputs, it does not insert.
 
