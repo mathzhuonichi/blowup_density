@@ -66,4 +66,25 @@ theorem WholeSpaceCorrectionAPI.local_match {ν : ℝ} {u v : VelocityField}
   funext z
   exact (C.force_formula ε z.1 z.2).symm
 
+/-- The two exact U2 cross-transport fields for the local family chosen with
+the supplier cutoffs, including t = 0. -/
+theorem WholeSpaceCorrectionAPI.local_crossTransport {ν : ℝ} {u v : VelocityField}
+    {K : Set Space} (C : WholeSpaceCorrectionAPI ν u K) (hK : IsCompact K)
+    (hv : ContDiffOn ℝ ∞ v (Ioo (0 : ℝ) (C.T + C.δ) ×ˢ ball C.x₀ C.r))
+    (hdiv : ∀ t ∈ Ioo (0 : ℝ) (C.T + C.δ), ∀ x ∈ ball C.x₀ C.r,
+      spatialDivergence v t x = 0)
+    (hu : ∀ t ∈ Ioo (0 : ℝ) 1, tsupport (fun x => u (t, x)) ⊆ K)
+    {e : ℝ} (he : e ≤ C.ε₀) :
+    let D := localCorrectionData v C.x₀ C.T C.θ C.η C.plateau C.θRadius e
+    ∀ ε ∈ Ioc (0 : ℝ) e, ∀ t ∈ Ico (0 : ℝ) C.T, ∀ x : Space,
+      spatialDerivative (NSFormalization.Section3.T15.scaledVelocity u C.x₀ C.T ε) t x
+        (NSFormalization.Section3.T16.correctedBackground v D.correction ε (t, x)) = 0 ∧
+      spatialDerivative (NSFormalization.Section3.T16.correctedBackground v D.correction ε) t x
+        (NSFormalization.Section3.T15.scaledVelocity u C.x₀ C.T ε (t, x)) = 0 := by
+  intro D ε hε t ht x
+  have hεC : ε ∈ Ioc (0 : ℝ) C.ε₀ := ⟨hε.1, hε.2.trans he⟩
+  exact crossTransport_pair hK hv hdiv hu C.plateau_open C.carrier_subset_plateau
+    C.theta_support C.theta_one C.eta_one (C.eps_time ε hεC) (C.eps_space ε hεC)
+    hε.1 ht x
+
 end NSFormalization.Section3.T23
