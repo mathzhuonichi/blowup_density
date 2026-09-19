@@ -54,3 +54,17 @@ i : Fin 3
     T22.restrictDatum Ω r A i ψ
 ```
 The residual is definitional; `rfl` closes it.
+
+## A5: addition-side convention
+```text
+Rates.lean:58:30: error: Application type mismatch: The argument
+  add_le_add_left (mul_le_mul_of_nonneg_right (le_max_left C 0) (Real.rpow_nonneg (LT.lt.le hε.left) ?m.249)) ?m.250
+has type
+  C * ε ^ ?m.249 + ?m.250 ≤ max C 0 * ε ^ ?m.249 + ?m.250
+but is expected to have type
+  (M + E) * ε ^ (1 / 2) + C * ε ^ (3 / 2) ≤ (M + E) * ε ^ (1 / 2) + energyConst C * ε ^ (3 / 2)
+in the application
+  ENNReal.ofReal_le_ofReal
+    (add_le_add_left (mul_le_mul_of_nonneg_right (le_max_left C 0) (Real.rpow_nonneg (LT.lt.le hε.left) ?m.249)) ?m.250)
+```
+Resolved with `add_le_add le_rfl`.
