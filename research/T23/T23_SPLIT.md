@@ -1,6 +1,6 @@
 # T23 proof split — interior no-slip insertion (`cor:boundary`)
 
-Planning lane 449. Incremental draft: supplier evidence and exact field ownership are refined in subsequent commits. No proof or registration is asserted by this document.
+Planning lane 449, 2026-09-19. Completed planning inventory, persisted first as a skeleton and then refined in section commits. No proof or registration is asserted by this document.
 
 Model legend: **codex-sol = bookkeeping/transport; codex-astra = analytic core**. Sizes: S = focused transport; M = several dependent lemmas; L = new analytic theorem or substantial construction.
 
@@ -42,7 +42,7 @@ Cancellation gives both cross terms by the open-neighborhood argument of `S3/T18
 
 ### U3 — triple, kinematics, momentum and solution record (L, codex-astra)
 
-API targets **18 fields**: `ε₀:726`, `eps_pos:728`, `eps_le_scaling:731`, `eps_le_cutoff:734`; `velocity:738`, `pressure:740`, `force:742`; formulas `:749,757,764`; `force_mem:773`, `forceDifference_mem:777`; `velocity_smooth:784`, `pressure_smooth:789`, `initial:794`, `incompressible:798`, `momentum:806`, `history:812`. Dependencies: U1/U2, with U4 no-slip used only for the bundled solution below.
+API targets **18 fields**: `ε₀:726`, `eps_pos:728`, `eps_le_scaling:731`, `eps_le_cutoff:734`; `velocity:738`, `pressure:740`, `force:742`; `velocity_formula:749`, `pressure_formula:757`, `force_formula:764`; `force_mem:773`, `forceDifference_mem:777`; `velocity_smooth:784`, `pressure_smooth:789`, `initial:794`, `incompressible:798`, `momentum:806`, `history:812`. Dependencies: U1/U2, with U4 no-slip used only for the bundled solution below.
 
 Set `u=v+w+scaledPacket`, `p=domainNormalizePressure Ω (π+scaledPressure)`, `f=g+correctionForce+scaledForce`, for **all** ε and spacetime points as the formulas require. Choose threshold below placement, cutoff, consumed I03 and the extra geometric bounds; do not use the simple T18 min unless all other bounds have already been built into those inputs. Use I03 `scaledEquation:223`, `scaledDivergenceFree:231` (`C1/Scaling.lean`) restricted to Ω. Sum derivatives locally; use U2 cross terms and spatial constancy of the pressure shift for the exact residual. Intersect open neighborhoods for smooth sums, and union compact positive time supports for force classes. Quiet history is global, including its closed endpoint, by I02 `correction_vanishes_before:369` and packet zero past.
 
