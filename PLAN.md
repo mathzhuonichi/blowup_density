@@ -209,7 +209,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 441-T20-U12-global-regularity | codex sol 完成：globalRegularity 逐字（严格子寿命单调穷竭 → 端点 H² 局部有限 → T11 lifespanInfiniteOfLocallyFinite；无 PeriodicRestartH1；414aef5c）→ 排队审稿；T20 12 单元全证 | 09-19 1239Z | — | — | T20 U12：globalRegularity（U11 有限 H² 预算 + T11 lifespanInfiniteOfLocallyFinite） |
 | 442-T15-U6-U7-blowup-force-mem | 已合入 #405：T15 U6 unboundedSpeed + U7 force_mem，审稿 ACCEPT | 09-19 1241Z | #405 | — | T15 U6 unboundedSpeed + U7 force_mem（单拷贝 + 放缩 blow-up 见证 / periodize 光滑周期 + 正时间紧支） |
 | 443-T18-U9-U10-energy-mixed-rates | worktree 安装中 → codex sol（+15 分钟） | 09-19 1219Z | — | — | T18 U9 energyRate（eq:Eclose）+ U10 混合范数接近（eq:Fclose），全部消费线程化记录字段 |
-| 444-T17-U10-mixed-bound | codex astra 完成：force_spatial_memLp / mixedConst_nonneg / force_mixed_bound 含两个 ∞ 端点（d33367d3）→ 排队审稿 | 09-19 1233Z | — | — | T17 U10：修正力混合范数界 + 诚实 L^p 切片（439 的 mixedLebesgueENormT_eq + I02 界） |
+| 444-T17-U10-mixed-bound | 已合入 #406：T17 U10 混合范数界 + 诚实 L^p 切片（含 ∞ 端点），审稿 ACCEPT；T17 U1–U11 全证 | 09-19 1244Z | #406 | — | T17 U10：修正力混合范数界 + 诚实 L^p 切片（439 的 mixedLebesgueENormT_eq + I02 界） |
 | 445-T18-U11-sobolev-rate | 排队（安装后、并发 <6 时启动）→ codex sol | 09-19 1224Z | — | — | T18 U11：eq:Hsclose 力差 Sobolev 接近六字段（记录字段 + 范数在 s 上单调 + 三角不等式） |
 | 446-T15-U8-periodized-pde | codex astra 完成：periodized_momentum / periodized_divergence / periodized_initial（不变 ν；18 声明；5eb71f5b）→ 排队审稿 | 09-19 1241Z | — | — | T15 U8：周期化场满足 NS 动量方程 / 无散 / 零初值（periodize 与各算子交换，单拷贝局部化） |
 | 447-T15-U10-pressure | 排队 → codex sol | 09-19 1224Z | — | — | T15 U10：pressureSlice_integrable + normalizedScaledPressure 的均值零规范 |
