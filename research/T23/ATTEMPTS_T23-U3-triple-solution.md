@@ -484,3 +484,9 @@ Resolution under test: make no-slip a direct theorem binder with explicit fields
 Q5 resolved: the explicit no-slip theorem binder eliminates the internal
 exception and every admission warning. The full original-Spec probe now exits
 0 with zero output. No heartbeat override was needed anywhere.
+
+## A1: optional printing width
+```text
+../research/T23/axioms_T23-U3-triple-solution.lean:3:0: error: Unknown option `pp.width`
+```
+Removed the optional formatting setting; multiline axiom lists are audited as lists.

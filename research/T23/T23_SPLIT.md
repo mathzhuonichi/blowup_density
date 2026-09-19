@@ -94,6 +94,15 @@ Cancellation gives both cross terms by the open-neighborhood argument of `S3/T18
 
 ### U3 — triple, kinematics, momentum and solution record (L, codex-astra)
 
+**Lane 482 status (2026-09-19): complete with the authorized supplier/U4 threading.**
+`PressureNormalization.lean`, `Triple.lean`, and `Solution.lean` prove the 18
+triple fields, pressure normalization analysis, and the ten-field domain solution
+constructor / API `solution`. Theorems retain the same raw placement, correction
+and reference; U2's existing `LocalCorrectionCore`, same-scale packet facts and
+U4 no-slip are explicit parameters. The threshold also retains independent I03
+and geometry bounds. Original-Spec field probe and all gates pass; 42 production
+declarations have exactly the standard three axioms. See `REPORT_482.md`.
+
 API targets **18 fields**: `ε₀:726`, `eps_pos:728`, `eps_le_scaling:731`, `eps_le_cutoff:734`; `velocity:738`, `pressure:740`, `force:742`; `velocity_formula:749`, `pressure_formula:757`, `force_formula:764`; `force_mem:773`, `forceDifference_mem:777`; `velocity_smooth:784`, `pressure_smooth:789`, `initial:794`, `incompressible:798`, `momentum:806`, `history:812`. Dependencies: U1/U2, with U4 no-slip used only for the bundled solution below.
 
 Set `u=v+w+scaledPacket`, `p=domainNormalizePressure Ω (π+scaledPressure)`, `f=g+correctionForce+scaledForce`, for **all** ε and spacetime points as the formulas require. Choose threshold below placement, cutoff, consumed I03 and the extra geometric bounds; do not use the simple T18 min unless all other bounds have already been built into those inputs. Use I03 `scaledEquation:223`, `scaledDivergenceFree:231` (`C1/Scaling.lean`) restricted to Ω. Sum derivatives locally; use U2 cross terms and spatial constancy of the pressure shift for the exact residual. Intersect open neighborhoods for smooth sums, and union compact positive time supports for force classes. Quiet history is global, including its closed endpoint, by I02 `correction_vanishes_before:369` and packet zero past.

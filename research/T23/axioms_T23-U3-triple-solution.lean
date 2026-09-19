@@ -1,7 +1,5 @@
 import NSFormalization.Section3.T23.Solution
 
-set_option pp.width 200
-
 #print axioms NSFormalization.Section3.T23.domain_volume_pos
 #print axioms NSFormalization.Section3.T23.SmoothOnClosedSlab.integrableOn_slice
 #print axioms NSFormalization.Section3.T23.domainNormalizePressure_integral

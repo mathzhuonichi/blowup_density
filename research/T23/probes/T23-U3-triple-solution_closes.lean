@@ -1313,3 +1313,11 @@ def solution_fields (hnoSlip : ∀ ε ∈ Ioc (0 : ℝ) (threshold (placeTo plac
     no_slip := by exact w.no_slip
     pressure_gauge := by exact w.pressure_gauge }
 end TripleSolutionProbe
+
+/-- info: 'TripleSolutionProbe.solution_exact' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms TripleSolutionProbe.solution_exact
+
+/-- info: 'TripleSolutionProbe.solution_fields' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms TripleSolutionProbe.solution_fields
