@@ -44,9 +44,10 @@ the selected component solutions.  No new constant is introduced: `M, D` are the
 imported packet's `energyBound`/`dissipationBound`.
 
 The paper's bounded-domain / homogeneous-no-slip branch (`03-torus.tex:698,706,720`)
-is deliberately omitted: no bounded-domain carrier, restriction norm, or no-slip
-class exists anywhere in the current tree, so an honest omission is recorded here
-rather than a placeholder field — out of V1 scope. -/
+is deliberately omitted: the existing bounded-domain vocabulary (T22,
+`Section3/T22/Domain.lean`, contract `T04.bounded_domain_norm`) and no-slip
+material are not yet threaded into the reconciled T24b torus API, so an honest
+omission is recorded here rather than a placeholder field — out of V1 scope. -/
 structure MultipleRegionsAPI {ν : ℝ} (u : VelocityField) (p : PressureField) (f : VelocityField)
     (K : Set Space) (M D : ℝ) (T : ℝ)
     {N : ℕ} (regionCenter : Fin N → Space) (regionRadius : Fin N → ℝ) : Type where
