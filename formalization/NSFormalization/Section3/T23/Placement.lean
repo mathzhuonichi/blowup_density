@@ -275,4 +275,21 @@ theorem domainPlacementData_x₀ {u : VelocityField} {p : PressureField}
     (domainPlacementData (u := u) (p := p) hK hf chartCenter chartRadius
       hchartRadius hball x₀ hx₀ T hT).x₀ = x₀ := rfl
 
+/-- `03-torus.tex:646,653-654`: the fixed localization ball of the canonical
+placement is the prescribed interior ball.  This is the exact geometry field
+used by `BoundaryInsertionAPI`, with no fundamental-cube side condition. -/
+theorem interiorBall_in_domain {u : VelocityField} {p : PressureField}
+    {f : VelocityField} {K Ω : Set Space}
+    (hK : IsCompact K) (hf : HasCompactSupport f)
+    (chartCenter : Space) (chartRadius : ℝ) (hchartRadius : 0 < chartRadius)
+    (hball : closure (Metric.ball chartCenter chartRadius) ⊆ Ω)
+    (x₀ : Space) (hx₀ : x₀ ∈ Metric.ball chartCenter chartRadius)
+    (T : ℝ) (hT : 0 < T) :
+    closure (Metric.ball
+      (domainPlacementData (u := u) (p := p) hK hf chartCenter chartRadius
+        hchartRadius hball x₀ hx₀ T hT).chartCenter
+      (domainPlacementData (u := u) (p := p) hK hf chartCenter chartRadius
+        hchartRadius hball x₀ hx₀ T hT).chartRadius) ⊆ Ω :=
+  hball
+
 end NSFormalization.Section3.T23
