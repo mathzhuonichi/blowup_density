@@ -136,3 +136,110 @@ but is expected to have type
   ‖fderiv ℝ u.velocity (t, x)‖ * ‖ContinuousLinearMap.inr ℝ ℝ Space‖ ≤ C
 ```
 Fix: explicitly rewrite ContinuousLinearMap.norm_inr (not a simp lemma).
+
+## Supplier search and exact remaining obligations
+
+Commands executed (after reading the referenced sources with `sed -n`):
+
+```sh
+grep -rnE 'theorem.*(noSlip|domain.*unique|unique.*domain)' formalization vendor --include='*.lean'
+grep -rnEi 'theorem.*(divergence|stokes)|integral.*(regularLevel|regular_level)' verification/.lake/packages/mathlib/Mathlib --include='*.lean'
+```
+
+The first search found boundary-support lemmas and the conditional corrected
+corollary, not a domain uniqueness supplier. The second returned:
+
+```text
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:83:theorem for Bochner integral. The divergence theorem for Bochner integral
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:101:  in the main theorem `MeasureTheory.integral_divergence_of_hasFDerivAt_off_countable`.
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:108:private theorem integral_divergence_of_hasFDerivWithinAt_off_countable_aux₁ (I : Box (Fin (n + 1)))
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:141:private theorem integral_divergence_of_hasFDerivAt_off_countable_aux₂ (I : Box (Fin (n + 1)))
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:266:theorem integral_divergence_of_hasFDerivAt_off_countable (hle : a ≤ b)
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:296:theorem integral_divergence_of_hasFDerivAt_off_countable' (hle : a ≤ b)
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:313:theorem integral_divergence_of_hasFDerivAt_off_countable_of_equiv {F : Type*}
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:427:theorem integral_divergence_prod_Icc_of_hasFDerivAt_off_countable_of_le (f g : ℝ × ℝ → E)
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:482:theorem integral_divergence_prod_Icc_of_hasFDerivAt_of_le (f g : ℝ × ℝ → E)
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:503:theorem integral2_divergence_prod_of_hasFDerivAt_off_countable (f g : ℝ × ℝ → E)
+verification/.lake/packages/mathlib/Mathlib/MeasureTheory/Integral/DivergenceTheorem.lean:550:theorem integral2_divergence_prod_of_hasFDerivAt (f g : ℝ × ℝ → E)
+verification/.lake/packages/mathlib/Mathlib/Analysis/BoxIntegral/DivergenceTheorem.lean:40:Henstock-Kurzweil integral, integral, Stokes theorem, divergence theorem
+verification/.lake/packages/mathlib/Mathlib/Analysis/BoxIntegral/DivergenceTheorem.lean:265:theorem hasIntegral_GP_divergence_of_forall_hasDerivWithinAt
+verification/.lake/packages/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:93:divergence theorem, see `MeasureTheory.integral_divergence_of_hasFDerivAt_off_countable`
+
+```
+
+This is a scoped negative search, not a proof that a general divergence theorem
+cannot be built from other Mathlib infrastructure. The brief's WithinAt name
+appears only as a private auxiliary theorem with the suffix `_aux₁`; the public
+box theorem is `integral_divergence_of_hasFDerivAt_off_countable`.
+
+### Smooth-domain residual (not a declaration or assumed input)
+
+With the namespace and imports of `NoSlipUniqueness.lean`, the following exact
+proposition remains unproved:
+
+```lean
+∀ (Ω : Set Space), IsOpen Ω → Bornology.IsBounded Ω → IsRegularLevelDomain Ω →
+  ∀ (f g : Space → ℝ),
+    (∀ x ∈ closure Ω, ContDiffAt ℝ 1 f x) →
+    (∀ x ∈ closure Ω, ContDiffAt ℝ 1 g x) →
+    (∀ x ∈ frontier Ω, f x = 0) →
+    ∀ j : Fin 3,
+      (∫ x in Ω, f x * fderiv ℝ g x (coordinateVector j)) =
+        -(∫ x in Ω, fderiv ℝ f x (coordinateVector j) * g x)
+```
+
+No connectedness assumption is needed. No such theorem was inserted with a
+missing proof or as a hypothesis of uniqueness. No compiler error is claimed
+for this mathematical residual: it has not been implemented.
+
+### Box scope and difference-energy residual
+
+`box_integral_mul_fderiv_eq_neg` is fully proved on the closed coordinate box
+`Icc a b : Set (Fin 3 → ℝ)`, with local C¹ regularity and genuine frontier
+vanishing. It does not yet provide a theorem for the Spec's open box in
+`Space = EuclideanSpace ℝ (Fin 3)`. Remaining transport uses the volume-preserving
+PiLp coordinate equivalence and `Measure.univ_pi_Ioo_ae_eq_Icc`.
+**Full box velocity uniqueness is not proved.**
+
+For either shape, with solutions u₁,u₂ and `0 < S < min T₁ T₂`, put
+
+```lean
+w := fun z : SpaceTime => u₁.velocity z - u₂.velocity z
+E := fun t : ℝ => ∫ x in Ω, ‖w (t, x)‖ ^ 2
+```
+
+The central remaining proposition is
+
+```lean
+∀ t ∈ Ioo (0 : ℝ) S,
+  HasDerivAt E
+    (-2 * ν * (∫ x in Ω, ∑ i : Fin 3,
+      ‖spatialDerivative w t x (coordinateVector i)‖ ^ 2)
+     - 2 * (∫ x in Ω,
+       inner ℝ (spatialDerivative u₂.velocity t x (w (t, x))) (w (t, x)))) t
+```
+
+This requires differentiation under the domain integral, pressure cancellation,
+transport cancellation, and viscous integration by parts. The bound on
+`spatialDerivative u₂` is now proved from the original solution fields;
+the integral convection estimate, energy differential inequality and Grönwall
+application are still unproved. The final zero-energy-to-pointwise implication
+is proved. No pressure equality or domain connectedness is asserted.
+
+The precise final target remains the U7 proposition in T23_SPLIT.md; there is
+intentionally no `noSlip_uniqueness` declaration and no substitute conditional
+uniqueness theorem.
+
+## Verification
+
+All seven theorem axiom lists are exactly `[propext, Classical.choice, Quot.sound]`.
+The seven vocabulary definitions and the solution record are literal Spec copies;
+no artificial dependencies were inserted into definitions to force axiom lists.
+The entire copied vocabulary/record block was checked byte-for-byte against Spec.
+No new analytic premises or fields were added to the solution record.
+
+The module and probe compile without output. Build, `make check`, `lake test`,
+and mutation tests pass. Existing dependency warnings are replayed by Lake.
+`make check` still reports the repository-wide historical BoundaryCorollary
+admission and source-manifest mismatch without failing; the new module does not
+import that module. Source import traversal found no path to BoundaryCorollary.

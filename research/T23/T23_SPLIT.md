@@ -74,6 +74,8 @@ For every s<0, prove the inhomogeneous weight contraction from order 0, giving `
 
 ### U7 — domain no-slip velocity uniqueness (L, codex-astra)
 
+**Lane 478 status (2026-09-19): partial, not closed.** Canonical domain record copied; coordinate-box no-slip IBP, finite difference energy, compact-subslab derivative bound and zero-energy pointwise implication proved. Physical-domain box transport, smooth-domain IBP, difference-energy identity/inequality and Grönwall remain. No `noSlip_uniqueness` theorem. See `ATTEMPTS_U7.md` and `REPORT_478.md`.
+
 API target `noSlip_uniqueness:1015–1021`. Dependencies: canonical domain record and geometry; independent of packet/correction and T18 U12. Exact new theorem target (same local names as Spec):
 
 ```lean

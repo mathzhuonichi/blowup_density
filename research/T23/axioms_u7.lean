@@ -1,0 +1,11 @@
+import NSFormalization.Section3.T23.NoSlipUniqueness
+
+open NSFormalization.Section3.T23
+
+#print axioms box_face_mem_frontier
+#print axioms box_integral_divergence_eq_zero
+#print axioms box_integral_mul_fderiv_eq_neg
+#print axioms SmoothOnClosedSlab.contDiffAt_slice
+#print axioms difference_energy_integrable
+#print axioms eqOn_of_integral_norm_sub_sq_eq_zero
+#print axioms ClassicalSolutionOmega.spatialDerivative_bound
