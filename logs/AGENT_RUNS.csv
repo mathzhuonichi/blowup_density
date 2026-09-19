@@ -1478,3 +1478,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T17,438-T17-U11-sobolev,claude-opus,proof-worker,"Section3/T17/Sobolev.lean: sobolevConst/pos, forceSobolev_memLp, force_sobolev_bound for all 0<=s<=1 (via Paper1 periodic endpoint rates, not T13 localization); awaiting codex review",done,-
 2026-09-18,T15,439-T15-U4-U5-energy-mixed,claude-opus,proof-worker,"Section3/T15/Energy.lean + Mixed.lean: five U4/U5 fields (I03 scaling identities via map torusChart = restrict cube); awaiting codex review",done,-
 2026-09-19,MAINT,440-MAINT-section3-build-f,gpt-5.6-sol,build-check,"logs/SECTION3_BUILD_20260918f.md: 116 Section 3 modules rebuilt rc 0 105 s 0 errors; gates green; 46 contracts; 148 probes; standard axioms only",merged,400
+2026-09-19,T20,437-T20-U11-continuation-bound,claude-opus,proof-worker,"Section3/T20/Continuation.lean: continuationBound verbatim; review REJECT procedural/records, lead-corrected and merged",merged,401
