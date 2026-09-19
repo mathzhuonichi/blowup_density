@@ -20,6 +20,14 @@ Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core
 - **U4 `constantTransportSkew`** — DONE. `Section3/T20/ConstantTransport.lean`,
   theorem `NSFormalization.Section3.T20.constantTransportSkew` (verbatim field type).
   Axioms `[propext, Classical.choice, Quot.sound]`.
+- **U5 `constantTransportCommutesLambda`** — DONE (lane 452).
+  `Section3/T20/TransportLambda.lean`, theorem
+  `NSFormalization.Section3.T20.constantTransportCommutesLambda` (verbatim field
+  type).  The proof uses the constant-transport Fourier symbol from U8 and the
+  coefficientwise `IsPeriodicLambda` graph; no Fourier-injectivity residual is
+  needed.  Axioms `[propext, Classical.choice, Quot.sound]`.  Probe
+  `research/T20/probes/transport_lambda_closes.lean`; audit
+  `research/T20/axioms_u5.lean`; attempts `research/T20/ATTEMPTS_U5.md`.
 - Probe `research/T20/probes/bintegral_transport_closes.lean`; axiom audit
   `research/T20/axioms_u3_u4.lean`; attempts `research/T20/ATTEMPTS_U3_U4.md`.
 - **U7 critical trilinear estimate** — DONE (lane 413).
