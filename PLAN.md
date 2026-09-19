@@ -230,3 +230,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 462-T15-U14b-q2-negative-order | 已合入 #422（codex 审稿 ACCEPT；T15 U14 两半齐） | 09-19 1415Z | #422 | — | T15 U14b：forceConvergence q=2（s<−1/2）——ε 无关的负阶 L¹ 界（W^{s₁} 可和，s₁<−3/2）+ 0/s₁ 阶插值；并合成字段型 forceConvergence |
 | 463-MAINT-section3-build-g | 已合入 #424（142 模块全量重编 rc 0；49 合同 54 行标准公理；263 probe 通过、34 预期负例；不绿项：T22 Assembly defProp warning、source_hashes_match false 为既有） | 09-19 1419Z | #424 | — | MAINT：#354–#421 合并批次后的 Section 3 全量编译检查（49 合同），报告 logs/SECTION3_BUILD_20260919g.md |
 | 464-T19-U7-U8-U9-density-engine | 简报就绪，等 461 合入后建 worktree → codex sol（astra 备） | 09-19 1417Z | — | — | T19 wave 2：U7 fixedInitialDensity、U8 regularReferenceSingular、U9 mixedDensity，全部经 U0 导出引理 + U6 零范数 + U2 算术 |
+| 465-T19-U13-U14-closure | 简报就绪，等 461+464 合入 → codex astra | 09-19 1420Z | — | — | T19 wave 3：U13 simultaneousPairConvergence（U0 导出 + 零延拓 EqOn + U5）、U14 closureInEnergy |
+| 466-T19-U10-U11-U12-projection | 简报就绪，等 464 合入 → codex sol | 09-19 1420Z | — | — | T19 wave 4：U10 extendedProductDensity、U11 projectionOntoInitialData、U12 zeroInitialProjection（全部由 U7 推出） |
