@@ -134,12 +134,26 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   witnesses `t ↑ T`, `x ∈ Q` (map source-time-1 witnesses into the cube) supply the periodic form.
   Needs `place.eps_time` for `ε^2 ≤ T`. **M, codex-sol.** Deps: U3.
 
+  **Status (lane 442, 2026-09-19): complete.** `Section3/T15/Blowup.lean`
+  proves the literal canonical field from the raw `SpeedUnboundedAtOne`,
+  carrier compactness/support, and `PlacementData`.  The Euclidean rescaling
+  supplies the witnesses; nonzero witness values lie in the placed cube, where
+  U3's `velocity_singleCopy` transfers them to the periodized field.  The probe
+  includes an explicit compact bump with `(1-t)⁻¹` amplitude.
+
 - **U7 — `force_mem`** (new torus, easy). New `Section3/T15/ForceMem.lean`. Target `force_mem`
   (`Spec.lean:738`): `MemForceT (periodizedScaledForce …)` = smooth + unit-periodic + compact
   positive-time support. Route: `contDiff_periodize` (vendor, via U1) for smoothness,
   `periodize_add_lattice` for periodicity, U2's compact spatial support + the packet's positive-time
   force support (`T10/ForcePaths.lean:395 memForceT_time_smul` pattern) for the time-support witness.
   **M, codex-sol.** Deps: U2, U3.
+
+  **Status (lane 442, 2026-09-19): complete.** `Section3/T15/ForceMem.lean`
+  proves the literal canonical field from the raw global smoothness and
+  `CompactPositiveTimeSupport` clauses plus `PlacementData`.  Vendor local
+  finiteness gives smoothness, lattice reindexing gives periodicity, and the
+  compact projection of the scaled force support supplies the positive-time
+  support witness; periodization introduces no new support time.
 
 - **U8 — periodized PDE transport** (transport core + ⑤⑦). New `Section3/T15/Equation.lean`. Proves the
   momentum (at the **unchanged** `ν`), divergence-free, and zero-initial obligations of `solution`
@@ -148,6 +162,16 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   identities; U3's single copy on `Q` + periodicity (periodization commutes with every derivative in
   `navierStokesResidual`, incl. the nonlinear term, via `contDiffOn_periodize` and locally-finite-sum
   differentiation) transport them to the torus fields. **L, Opus.** Deps: U3.
+
+  **Status (lane 446, 2026-09-19): complete.** `Equation.lean` proves
+  `periodized_momentum`, `periodized_divergence`, and `periodized_initial`
+  from raw packet clauses and `PlacementData`, at unchanged viscosity.
+  Uniform closed support plus the vendor locally finite lattice family gives
+  one fixed translate on a neighbourhood, including cube faces; local
+  derivative congruence handles the nonlinear term without extra smoothness
+  premises. The probe constructs placement for the registered nonzero packet
+  and applies all three results. All 18 module declarations have exactly the
+  three standard axioms. See `REPORT_446.md` and `ATTEMPTS_U8.md`.
 
 - **U9 — velocity `H^m` datum path + `pressure_gradient`** (new; ⑧). New `Section3/T15/SobolevPath.lean`.
   Proves `ClassicalSolutionT.sobolev` (a `ContinuousOn` `PeriodicSobolev m` datum path for every `m : ℕ`)
@@ -169,6 +193,16 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   Haar-integrable; `normalizedScaledPressure = normalizePressureT (…)` (`rfl`, U1) subtracts the mean,
   so `∫_{T³} = 0` follows from `T13/TorusIdentity.lean:419 lintegral_fundamentalCube_ofReal`. The
   gradient/residual are unchanged by a spatially constant shift. **M, Opus.** Deps: U3.
+
+  **Status (lane 447, 2026-09-19): complete.** `Section3/T15/Pressure.lean`
+  proves the literal `ScalingAPI.pressureSlice_integrable` field from the raw
+  carrier/support and past-zero pressure smoothness clauses, using placement
+  plus the vendor locally finite periodizer.  It also proves
+  `pressure_gauge` in the exact `ClassicalSolutionT` form by `integral_sub` and
+  `integral_const` on the probability Haar measure.  The field-shape and
+  concrete `placement_closes` bump checks are in
+  `research/T15/probes/pressure_closes.lean`; all five module declarations
+  audit to `[propext, Classical.choice, Quot.sound]`.
 
 - **U11 — `solution` assembly.** New `Section3/T15/Solution.lean`. Target `solution` (`Spec.lean:753`):
   build one `ClassicalSolutionT ν 0 F_ε place.T` from U8 (momentum/div/initial), U9 (sobolev/pressure_gradient),
