@@ -37,4 +37,11 @@ theorem packetRadius_lt_diffSupportRadius (cutoffRadius packetRadius : ℝ) :
   unfold diffSupportRadius
   linarith [le_max_right cutoffRadius packetRadius]
 
+/-- The API's common support radius is positive as soon as the actual cutoff
+radius is positive. -/
+theorem diffSupportRadius_pos {cutoffRadius packetRadius : ℝ}
+    (hcutoff : 0 < cutoffRadius) :
+    0 < diffSupportRadius cutoffRadius packetRadius :=
+  hcutoff.trans (cutoffRadius_lt_diffSupportRadius cutoffRadius packetRadius)
+
 end NSFormalization.Section3.T23
