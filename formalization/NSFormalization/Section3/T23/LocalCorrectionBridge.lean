@@ -1,5 +1,6 @@
 import NSFormalization.Section3.T23.LocalCorrection
 import NSFormalization.Section3.T23.SpatialExtension
+import NSFormalization.Paper1.CorrectionForceProfile
 
 /-! A single fixed solenoidal extension transfers the entire small-scale
 physical correction and its force. The threshold is chosen after the cutoffs. -/
@@ -71,5 +72,46 @@ theorem exists_matching_global_correction (ν : ℝ) {v : VelocityField}
   change NSFormalization.Source.correctionForce ν v (physicalCorrection v x₀ T θ η ε) =
     NSFormalization.Source.correctionForce ν V (physicalCorrection v x₀ T θ η ε) at hf
   exact hf.trans (congrArg (NSFormalization.Source.correctionForce ν V) hw)
+
+/-- The literal I02 mixed correction-jet and spatial force-jet bounds,
+with one threshold chosen before either derivative order. -/
+theorem exists_local_derivative_bounds (ν : ℝ) {v : VelocityField}
+    {x₀ : Space} {r T δ R : ℝ} {θ : Space → ℝ} {η : ℝ → ℝ}
+    (hr : 0 < r) (hT : 0 < T) (hδ : 0 < δ) (hR : 0 < R)
+    (hv : ContDiffOn ℝ ∞ v (Ioo (0 : ℝ) (T + δ) ×ˢ ball x₀ r))
+    (hdiv : ∀ t ∈ Ioo (0 : ℝ) (T + δ), ∀ x ∈ ball x₀ r,
+      spatialDivergence v t x = 0)
+    (hθ : ContDiff ℝ ∞ θ) (hη : ContDiff ℝ ∞ η)
+    (hθc : HasCompactSupport θ) (hηc : HasCompactSupport η)
+    (hθs : tsupport θ ⊆ ball (0 : Space) R) (hηs : tsupport η ⊆ Ioo (-2 : ℝ) 2) :
+    ∃ ε₀ : ℝ, 0 < ε₀ ∧ ε₀ ≤ 1 ∧
+      (∀ j m : ℕ, ∃ C : ℝ, 0 ≤ C ∧ ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ z : SpaceTime,
+        ∀ u : Fin m → Space, (∀ i, ‖u i‖ ≤ 1) →
+        ‖iteratedFDeriv ℝ (j + m) (physicalCorrection v x₀ T θ η ε) z
+          (Fin.append (fun _ : Fin j => ((1 : ℝ), (0 : Space)))
+            (fun i => ((0 : ℝ), u i)))‖ ≤ C * (ε⁻¹) ^ (2 * j + m)) ∧
+      (∀ m : ℕ, ∃ C : ℝ, 0 ≤ C ∧ ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ z : SpaceTime,
+        ∀ u : Fin m → Space, (∀ i, ‖u i‖ ≤ 1) →
+        ‖iteratedFDeriv ℝ m
+          (NSFormalization.Source.correctionForce ν v (physicalCorrection v x₀ T θ η ε)) z
+          (fun i => ((0 : ℝ), u i))‖ ≤ C * (ε⁻¹) ^ (2 + m)) := by
+  obtain ⟨V, ε₀, hV, _, he, he1, heq⟩ :=
+    exists_matching_global_correction ν hr hT hδ hR hv hdiv hθc hηc hθs hηs
+  refine ⟨ε₀, he, he1, ?_, ?_⟩
+  · intro j m
+    obtain ⟨C, hC, hb⟩ := NSFormalization.Paper1.CorrectionProfile.physical_mixed_derivative_bound
+      hV x₀ T hθ hη hθc hηc j m
+    refine ⟨C, hC, ?_⟩
+    intro ε hε z u hu
+    rw [(heq ε hε).1]
+    exact hb ε ⟨hε.1, hε.2.trans he1⟩ z u hu
+  · intro m
+    obtain ⟨C, hC, hb⟩ :=
+      NSFormalization.Paper1.CorrectionForceProfile.physicalForce_spatial_derivative_bound
+        ν hV x₀ T hθ hη hθc hηc m
+    refine ⟨C, hC, ?_⟩
+    intro ε hε z u hu
+    rw [(heq ε hε).2]
+    exact hb ε ⟨hε.1, hε.2.trans he1⟩ z u hu
 
 end NSFormalization.Section3.T23
