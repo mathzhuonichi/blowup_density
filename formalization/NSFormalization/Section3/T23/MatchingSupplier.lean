@@ -107,4 +107,19 @@ theorem WholeSpaceCorrectionAPI.supplierCutoff_force {ν : ℝ} {u v : VelocityF
   rw [← hw]
   exact hf
 
+/-- The actual domain solution supplies precisely the local hypotheses used
+by the construction; no whole-space regularity is inferred. -/
+theorem ClassicalSolutionOmega.local_velocity {ν T δ r : ℝ} {Ω : Set Space}
+    {a : NSFormalization.Section4.A02.SpatialField} {g : VelocityField}
+    (reference : ClassicalSolutionOmega ν Ω a g (T + δ)) (x₀ : Space)
+    (hball : ball x₀ r ⊆ Ω) :
+    ContDiffOn ℝ ∞ reference.velocity (Ioo (0 : ℝ) (T + δ) ×ˢ ball x₀ r) ∧
+      ∀ t ∈ Ioo (0 : ℝ) (T + δ), ∀ x ∈ ball x₀ r,
+        spatialDivergence reference.velocity t x = 0 := by
+  obtain ⟨N, _, hN, hv⟩ := reference.velocity_smooth
+  refine ⟨hv.mono (fun z hz => hN ⟨⟨hz.1.1.le, hz.1.2⟩,
+    subset_closure (hball hz.2)⟩), ?_⟩
+  intro t ht x hx
+  exact reference.divergence t ⟨ht.1.le, ht.2⟩ x (hball hx)
+
 end NSFormalization.Section3.T23
