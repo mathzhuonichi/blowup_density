@@ -276,6 +276,20 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
 `sc j := (scaling j)` = the region-`j` T15 `ScalingAPI`; every field below is a conditional lemma over the
 threaded canonical T15 records (draftable now), whose **instantiation / `Nonempty` closure waits on T15**.
 
+**Lane 467 (2026-09-19): U-CAN DONE.** `Section3/T24/Multiple.lean` is the
+canonical 30-field raw-packet `MultipleRegionsAPI` and full-clause
+`multipleRegionsStatement`. The probe `probes/multiple_api_on_canonical.lean`
+checks both fieldwise conversions and all 30 Spec projections.
+**Ub1 DONE:** `MultipleComponents.lean`, `RegionsData.placement`,
+`placement_time`, `placement_chart`, `scaling`, `ε`, `eps_admissible`, `eps_time`;
+prescribed balls and horizon, radius-dependent threshold, no named input.
+**Ub2 DONE:** `RegionsData.component` and `component_pin` select T15's solution.
+**Ub3 DONE:** `RegionsData.component_support` and `component_force_support`;
+velocity on `Ico 0 T`, force at every time, both on `fundamentalCube`.
+T15 gates below are historical and are discharged by lane 459. No T18 is used.
+Audit and exact resolved diagnostics: `axioms_ub1_ub3.lean`,
+`ATTEMPTS_UB1_UB3.md`; report `REPORT_467.md`. Ub4–Ub7 remain future work.
+
 - **Ub1 — placement + scaling selection** (`placement:1203`, `placement_time:1207`, `placement_chart:1213`,
   `scaling:1220`, `ε`, `eps_admissible:1226`, `eps_time:1230`). Route: for each `j`, build a `PlacementData` with
   `chartCenter = regionCenter j`, `chartRadius = regionRadius j` (`chartBall_in_cube` from `region_interior:1191`),
@@ -326,9 +340,9 @@ threaded canonical T15 records (draftable now), whose **instantiation / `Nonempt
 | Ua7 | affine | ④ | bump-function library (new) | no |  <!-- done: lane 417 -->
 | Ua8 | affine | ⑤ | Ua3 expansion | no |
 | Ua9 | affine | — | `I01.packet` (contract) | no |  <!-- done: lane 430, `T04.affine_variation` -->
-| Ub1 | multiple | — | T15 `PlacementData`/`ScalingAPI` | **T15 U2, U15** |
-| Ub2 | multiple | — | T15 `ScalingAPI.solution` | **T15 U11** |
-| Ub3 | multiple | ⑥ | T15 `*_singleCopy` + `eps_space` | **T15 U3, U2** |
+| Ub1 | multiple | — | T15 `PlacementData`/`ScalingAPI` | done, lane 467 |
+| Ub2 | multiple | — | T15 `ScalingAPI.solution` | done, lane 467 |
+| Ub3 | multiple | ⑥ | T15 `*_singleCopy` + `eps_space` | done, lane 467 |
 | Ub4 | multiple | ⑦ | threaded components (Ub2,Ub3) | (via Ub2/Ub3) |
 | Ub5 | multiple | — | T15 `unboundedSpeed` | **T15 U6** |
 | Ub6 | multiple | ⑧ | T15 `packet{Energy,Dissipation}Identity` | **T15 U4** |
