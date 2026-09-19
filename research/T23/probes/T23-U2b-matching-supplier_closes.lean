@@ -96,11 +96,28 @@ theorem exists_matching_supplier {ν T δ r : ℝ} (P : PacketAPI ν)
     ∃ (C : CorrectionAPI ν P) (A : ScalingAPI ν P) (D : CutoffData),
       A.correction = C ∧ C.T = T ∧ C.δ = δ ∧ C.x₀ = x₀ ∧
       C.r = r / 2 ∧ A.thresholds = th ∧
-      0 < D.ε₀ ∧ D.ε₀ ≤ A.ε₀ ∧
+      0 < D.ε₀ ∧ D.ε₀ ≤ A.ε₀ ∧ D.ε₀ = C.ε₀ ∧
+      EqOn v C.v (Ioo (0 : ℝ) (T + δ) ×ˢ Metric.ball x₀ (r / 2)) ∧
       D = localCorrectionData v x₀ T C.θ C.η C.plateau C.θRadius A.ε₀ ∧
       (∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
         D.correction ε = C.correction ε ∧
-        NSFormalization.Section3.T23.correctionForce ν v D ε = C.forceCorrection ε) := by
+        NSFormalization.Section3.T23.correctionForce ν v D ε = C.forceCorrection ε) ∧
+      (∃ B : ℝ, 0 ≤ B ∧ ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+        Data.energyENorm T (D.correction ε) ≤ ENNReal.ofReal (B * ε ^ ((3 : ℝ) / 2))) ∧
+      (∀ (p q : ℝ≥0∞) [Fact (1 ≤ p)], ∃ B : ℝ, 0 < B ∧
+        ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+          Data.mixedLebesgueENorm q p (NSFormalization.Section3.T23.correctionForce ν v D ε) ≤
+            ENNReal.ofReal (B * ε ^ (alpha p q + 1))) ∧
+      (∀ q : ℝ≥0∞, 1 ≤ q → ∀ s : ℝ, 0 ≤ s → s ≤ 1 →
+        ∃ B : ℝ, 0 < B ∧ ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+          Data.forceSobolevENorm q s (NSFormalization.Section3.T23.correctionForce ν v D ε) ≤
+            ENNReal.ofReal (B *
+              (ε ^ (2 / q.toReal - 1 / 2) + ε ^ (2 / q.toReal - 1 / 2 - s)))) ∧
+      (∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ t ∈ Ico (0 : ℝ) T, ∀ x : Space,
+        spatialDerivative (scaledPacket P.velocity x₀ T ε) t x
+          (v (t, x) + D.correction ε (t, x)) = 0 ∧
+        spatialDerivative (fun z => v z + D.correction ε z) t x
+          (scaledPacket P.velocity x₀ T ε (t, x)) = 0) := by
   obtain ⟨V, hV, hdV, heqV⟩ := exists_spatial_solenoidal_extension isOpen_Ioo hr hv hdiv
   let C₂ := BlowupDensity.Bindings.correctionV2 P x₀ P.carrier_compact hT hδ
     (half_pos hr) hV ((contDiff_const (c := (0 : ℝ))).contDiffOn) hdV
@@ -109,10 +126,45 @@ theorem exists_matching_supplier {ν T δ r : ℝ} (P : PacketAPI ν)
   let C := C₂.toCorrectionAPI
   let A := BlowupDensity.Bindings.scaling C th
   let D := localCorrectionData v x₀ T C.θ C.η C.plateau C.θRadius A.ε₀
-  refine ⟨C, A, D, rfl, rfl, rfl, rfl, rfl, rfl, A.eps_pos, le_rfl, rfl, ?_⟩
-  intro ε hε
-  apply (correctionTo C).local_match (e := A.ε₀) ?_ ⟨hε.1,
-    hε.2.trans A.eps_le_correction⟩
-  exact fun z hz => (heqV hz).symm
+  have heA : A.ε₀ = C.ε₀ := by
+    change min C.ε₀ (Real.sqrt (min T δ / 4 / 2)) = C.ε₀
+    apply min_eq_left
+    change min 1 (min _ (Real.sqrt (min T δ / 4 / 2))) ≤ _
+    exact (min_le_right _ _).trans (min_le_right _ _)
+  have hmatch : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+      D.correction ε = C.correction ε ∧
+        NSFormalization.Section3.T23.correctionForce ν v D ε = C.forceCorrection ε := by
+    intro ε hε
+    exact (correctionTo C).local_match (e := A.ε₀)
+      (fun z hz => (heqV hz).symm) ⟨hε.1, hε.2.trans A.eps_le_correction⟩
+  refine ⟨C, A, D, rfl, rfl, rfl, rfl, rfl, rfl, A.eps_pos, le_rfl, heA, (fun z hz => (heqV hz).symm), rfl,
+    hmatch, ?_, ?_, ?_, ?_⟩
+  · refine ⟨A.correctionEnergyConst, A.correctionEnergyConst_nonneg, ?_⟩
+    intro ε hε
+    rw [(hmatch ε hε).1]
+    exact A.correctionEnergyBound ε hε
+  · exact (correctionTo C).local_mixed_bound (fun z hz => (heqV hz).symm)
+      A.eps_le_correction
+  · intro q hq s hs hs1
+    let b := A.correctionPositiveConst q s
+    refine ⟨max b 0 + 1, by positivity, ?_⟩
+    intro ε hε
+    rw [(hmatch ε hε).2]
+    have hb := A.correctionPositiveScaling q hq s hs hs1 ε hε
+    have hx (s : ℝ) : th.exponent q.toReal s + 1 = 2 / q.toReal - 1 / 2 - s := by
+      rw [th.formula]; ring
+    change Data.forceSobolevENorm q s (C.forceCorrection ε) ≤
+      ENNReal.ofReal (b * (ε ^ (th.exponent q.toReal 0 + 1) +
+        ε ^ (th.exponent q.toReal s + 1))) at hb
+    rw [hx 0, hx s, sub_zero] at hb
+    apply hb.trans
+    apply ENNReal.ofReal_le_ofReal
+    apply mul_le_mul_of_nonneg_right ((le_max_left b 0).trans (by linarith))
+    exact add_nonneg (Real.rpow_nonneg hε.1.le _) (Real.rpow_nonneg hε.1.le _)
+  · have hball : Metric.ball x₀ (r / 2) ⊆ Metric.ball x₀ r :=
+      Metric.ball_subset_ball (by linarith)
+    exact (correctionTo C).local_crossTransport P.carrier_compact
+      (hv.mono (Set.prod_mono Subset.rfl hball))
+      (fun t ht x hx => hdiv t ht x (hball hx)) (fun t ht => P.velocity_support t ⟨ht.1.le, ht.2⟩) A.eps_le_correction
 
 end T23U2b

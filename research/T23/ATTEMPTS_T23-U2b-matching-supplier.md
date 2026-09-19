@@ -77,3 +77,19 @@ Fixed by passing `c` to `contDiff_const` before `.contDiffOn`.
 ../formalization/NSFormalization/Section3/T23/CorrectionEstimates.lean:42:2: error: `dsimp` made no progress
 ```
 Removed the redundant `dsimp only`; `refine` already reduced the let.
+
+## Packet support interval
+```text
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:162:48: error: Application type mismatch: The argument
+  P.velocity_support
+has type
+  ∀ t ∈ Ico 0 1, (tsupport fun x => P.velocity (t, x)) ⊆ P.carrier
+but is expected to have type
+  ∀ t ∈ Ioo 0 1, (tsupport fun x => P.velocity (t, x)) ⊆ P.carrier
+in the application
+  @WholeSpaceCorrectionAPI.local_crossTransport ν P.velocity v P.carrier (correctionTo C) P.carrier_compact
+    (ContDiffOn.mono hv (prod_mono Subset.rfl hball)) (fun t ht x hx => hdiv t ht x (hball hx)) P.velocity_support
+```
+Repair: restrict the registered Ico support assertion to Ioo using `⟨ht.1.le, ht.2⟩`.
+
+Inspection error: `rg: verification/Contracts/V1/Threshold.lean: IO error for operation on verification/Contracts/V1/Threshold.lean: No such file or directory (os error 2)`. Actual file: `Thresholds.lean`.
