@@ -100,4 +100,38 @@ theorem limsupLeft_speedENorm_eq_top_of_interior {T : ℝ} {Ω : Set Space}
       _ ≤ NSFormalization.Section4.A02.speedENorm (fun x => u (t, x)) := hM
   exact (not_le.mpr hb1) (le_limsup_of_frequently_le' hfreq)
 
+namespace U8
+
+variable {U f : VelocityField} {p : PressureField} {K Ω : Set Space}
+  (place : DomainPlacementData U p f K) (D : CutoffData)
+  {ν δ : ℝ} {a : NSFormalization.Section4.A02.SpatialField} {g : VelocityField}
+  (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ))
+  {ε₀ : ℝ} {velocity force : ℝ → VelocityField} {pressure : ℝ → PressureField}
+  (hspeed : SpeedUnboundedAtOne U) (hscale : ε₀ ≤ place.ε₀)
+  (hball : closure (Metric.ball place.chartCenter place.chartRadius) ⊆ Ω)
+  (hformula : ∀ ε z, velocity ε z = reference.velocity z + D.correction ε z +
+    NSFormalization.Section3.T15.scaledVelocity U place.x₀ place.T ε z)
+  (hsupport : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t ∈ Ioo (0 : ℝ) place.T,
+    tsupport (fun x => NSFormalization.Section3.T15.scaledVelocity U place.x₀ place.T ε (t, x)) ⊆
+      Metric.ball place.chartCenter place.chartRadius)
+  (hcancel : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t ∈ Ico (place.T - ε ^ 2) place.T,
+    ∀ x ∈ tsupport (fun y => NSFormalization.Section3.T15.scaledVelocity U place.x₀ place.T ε (t, y)),
+      reference.velocity (t, x) + D.correction ε (t, x) = 0)
+  (hsolution : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+    ∃ w : ClassicalSolutionOmega ν Ω a (force ε) place.T,
+      w.velocity = velocity ε ∧ w.pressure = pressure ε)
+
+include hspeed hscale hball hformula hsupport hcancel
+
+/-- The strengthened witness at the exact family threshold. -/
+theorem interior : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+    ∀ M : ℝ, 0 < M → ∀ d : ℝ, 0 < d →
+      ∃ t : ℝ, ∃ x : Space, t ∈ Ioo 0 place.T ∧ place.T - d < t ∧
+        x ∈ Metric.ball place.chartCenter place.chartRadius ∧ x ∈ Ω ∧
+        M < ‖velocity ε (t, x)‖ := by
+  intro ε hε
+  exact interior_blowup place D hspeed ⟨hε.1, hε.2.trans hscale⟩ hball
+    (hformula ε) (hsupport ε hε) (hcancel ε hε)
+
+end U8
 end NSFormalization.Section3.T23

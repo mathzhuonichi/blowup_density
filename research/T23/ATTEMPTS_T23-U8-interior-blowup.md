@@ -37,3 +37,19 @@ ht : t ∈ Ioo 0 T
 ⊢ t < T
 ```
 Fix: `rw [min_eq_left hTSr.le]; exact ht.2`; `rwa` does not extract the conjunction.
+
+## A4: section variables used only in proof
+```text
+InteriorBlowup.lean:131:30: error(lean.unknownIdentifier): Unknown identifier `D`
+InteriorBlowup.lean:131:32: error(lean.unknownIdentifier): Unknown identifier `hspeed`
+InteriorBlowup.lean:131:57: error(lean.unknownIdentifier): Unknown identifier `hscale`
+InteriorBlowup.lean:131:65: error(lean.unknownIdentifier): Unknown identifier `hball`
+InteriorBlowup.lean:132:5: error(lean.unknownIdentifier): Unknown identifier `hformula`
+InteriorBlowup.lean:132:18: error(lean.unknownIdentifier): Unknown identifier `hsupport`
+InteriorBlowup.lean:132:34: error(lean.unknownIdentifier): Unknown identifier `hcancel`
+InteriorBlowup.lean:129:35: error: unsolved goals
+⊢ ∀ (M : ℝ), 0 < M → ∀ (d : ℝ), 0 < d → ∃ t x,
+  t ∈ Ioo 0 place.T ∧ place.T - d < t ∧
+  x ∈ Metric.ball place.chartCenter place.chartRadius ∧ x ∈ Ω ∧ M < ‖velocity ε (t, x)‖
+```
+Fix: explicitly `include` the six proof-side hypotheses.
