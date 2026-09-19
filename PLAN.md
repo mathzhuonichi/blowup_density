@@ -243,7 +243,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 479-MAINT-section3-build-h | 已合入 #443（167 模块全量重编 rc 0，148 s；54 合同 66 行标准公理；298 probe 通过、41 预期负例；不绿项仍是 T22 defProp warning 与既有 source_hashes_match） | 09-19 1650Z | #443 | — | MAINT：T21 注册后的 Section 3 全量编译检查 h（预期 54 合同） |
 | 480-T23-UCAN-canonical-records | 已合入 #444（codex 审稿 ACCEPT-WITH-NOTES，继承空白已清） | 09-19 1702Z | #444 | — | T23 U-CAN：统一三条并行 lane 的记录（DomainPlacementData/CutoffData/ClassicalSolutionOmega）+ canonical BoundaryInsertionAPI 48 字段 + 字面/修正陈述 + 逐字段探针 |
 | 481-T23-U2b-matching-supplier | worktree 安装中（480 分支 + integration）→ codex astra | 09-19 1650Z | — | — | T23 U2b：注册 I02/I03 供给在同一 D 上匹配（A.correction = C）+ 能量/混合/Sobolev 力估计（477 fix 2/3） |
-| 482-T23-U3-triple-solution | worktree 安装中 → codex astra | 09-19 1650Z | — | — | T23 U3：三元组 (u,p,f)、阈值、公式、力类、光滑/初值/不可压/动量/历史 + 压力归一化 + ClassicalSolutionOmega 十字段构造子（no_slip 穿线） |
+| 482-T23-U3-triple-solution | astra 完成：18 个 U3 字段 + 压力归一化 + ClassicalSolutionOmega 十字段 + API solution（供给事实与 U4 no-slip 穿线；42 声明标准公理）→ 审中 sol | 09-19 1715Z | — | — | T23 U3：三元组 (u,p,f)、阈值、公式、力类、光滑/初值/不可压/动量/历史 + 压力归一化 + ClassicalSolutionOmega 十字段构造子（no_slip 穿线） |
 | 483-T23-U4-differences-boundary | worktree 安装中 → codex sol | 09-19 1650Z | — | — | T23 U4：局部差与边界保持 8 字段 |
 | 484-T23-U5-domain-comparison | sol 完成：domain_zeroExt_comparison（C 先于 t、ε）+ 域范数定义桥 + 固定支撑/零阶物理 L² 引理（9 声明标准公理；U3/U4 事实穿线）→ 审中 sol | 09-19 1708Z | — | — | T23 U5：注册 T22 零延拓比较 + 域范数定义/API 转运 |
 | 485-T23-U6-rates-convergence | worktree 安装中 → codex astra | 09-19 1650Z | — | — | T23 U6：能量率、Sobolev 力率、负阶尾、收敛 + 路径范数桥（8 字段） |
