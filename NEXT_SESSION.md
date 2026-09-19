@@ -16,6 +16,7 @@
 
 ## 日志（最新在前）
 - **2026-09-19（lane 453 continuation）**：T17 U12 完成；最终 G4（含 raw packet support + ball-in-chart）装配 45 字段并注册 `T02.correction`，47 合同；cube-centred 非零参考场完整见证，反例已移至 research 独立 probe。报告：`research/T17/REPORT_453.md` Continuation。
+- **2026-09-19 13:50Z**：458（T15 U14）诚实部分：q=1 全闭，q=2 因简报符号错（`alphaT 2 2 = −1/2`）未闭 → 开 462（astra，ε 无关负阶界 + 插值）；459 等 462。457（T19 canonical）完成审中；460 在跑。
 - **2026-09-19 13:45Z**：合入 #417（T18 U11）、#418（T15 U11）。455 完成（T18 45 字段装配 + `T03.periodic_insertion` 注册，审中）。发现并记录 **G5**（T16/T17 全局光滑/周期假设 vs 经典解，`research/T17/SPEC_ISSUES.md`），开 460 slab 桥（astra）。459 简报改为显式 horizon。
 - **2026-09-19 13:28Z**：合入 #415（T20 U13 装配 + `T03.critical_regularity`，**第 48 个合同，T20 完成**）、#416（T15 U12+U13）。根目录曾因 453 简报本地改动 ff 失败，已 union 合并并推送。审中：454（T15 U11）、445（T18 U11）。在跑：448 T21 拆分、449 T23 拆分（astra 反复 Reconnecting）、455 T18 U12 装配、457 T19 U-CAN、458 T15 U14。下一步：455+457 落地后开 T19 U7（astra）；454+458 落地后开 459。
 - **2026-09-19 13:20Z**：合入 #405（T15 U6+U7）、#406（T17 U10）、#407（T20 U12）、#408（T15 U8）、#409（T20 U5，**T20 23 字段全证**）、#410（T15 U10）、#411（T18 U7）、#412（T18 U9+U10）、#413（T15 U9）。待审：451（T20 注册 `T03.critical_regularity`）、453（T17 注册 `T02.correction`，G4 前提块）、456（T15 U12+U13）、445（T18 U11）。在跑：448 T21 拆分、449 T23 拆分、454 T15 U11、457 T19 U-CAN；排队：455 T18 U12 装配（astra）、458 T15 U14；简报就绪：459 T15 U15。
