@@ -277,3 +277,191 @@ ht : t ∈ Ico 0 place.T
 of type `DomainPlacementData u p f K`
 ```
 Resolution: explicit joint scalar field; canonical horizon field is time_pos.
+
+## Q1: original-Spec consumer elaboration
+```text
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1215:18: error: Function expected at
+  correctionForce
+but this term has type
+  ?m.169
+
+Note: Expected a function because this term is being applied to the argument
+  ν
+
+Hint: The identifier `correctionForce` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1221:28: error(lean.unknownIdentifier): Unknown identifier `«dc».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1222:28: error(lean.unknownIdentifier): Unknown identifier `«pl».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1219:58: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1229:28: error(lean.unknownIdentifier): Unknown identifier `«dc».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1230:28: error(lean.unknownIdentifier): Unknown identifier `«pl».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1227:77: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1237:28: error(lean.unknownIdentifier): Unknown identifier `«dc».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1238:28: error(lean.unknownIdentifier): Unknown identifier `«pl».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1240:32: error: Application type mismatch: The argument
+  hU ε hs
+has type
+  ContDiffOn ℝ ∞ (scaledPacket P.velocity place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+but is expected to have type
+  ContDiffOn ℝ ∞
+    (NSFormalization.Section3.T15.scaledVelocity ?m.298 (NSFormalization.Section3.T23.DomainPlacementData.x₀ ?m.301)
+      (NSFormalization.Section3.T23.DomainPlacementData.T ?m.301) ?m.305)
+    (Iio (NSFormalization.Section3.T23.DomainPlacementData.T ?m.301) ×ˢ univ)
+in the application
+  velocity_smooth hδ ?m.304 ?m.306 (hU ε hs)
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1245:28: error(lean.unknownIdentifier): Unknown identifier `«dc».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1246:28: error(lean.unknownIdentifier): Unknown identifier `«pl».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1248:47: error: Application type mismatch: The argument
+  hP ε hs
+has type
+  ContDiffOn ℝ ∞ (scaledPressure P.pressure place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+but is expected to have type
+  ContDiffOn ℝ ∞
+    (NSFormalization.Section3.T15.scaledPressure ?m.299 (NSFormalization.Section3.T23.DomainPlacementData.x₀ ?m.300)
+      (NSFormalization.Section3.T23.DomainPlacementData.T ?m.300) ?m.307)
+    (Iio (NSFormalization.Section3.T23.DomainPlacementData.T ?m.300) ×ˢ univ)
+in the application
+  pressure_smooth hδ hb (IsOpen.measurableSet ho) (hP ε hs)
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1253:28: error(lean.unknownIdentifier): Unknown identifier `«dc».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1254:28: error(lean.unknownIdentifier): Unknown identifier `«pl».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1261:28: error(lean.unknownIdentifier): Unknown identifier `«dc».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1262:28: error(lean.unknownIdentifier): Unknown identifier `«pl».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1264:48: error: Application type mismatch: The argument
+  hU ε hs
+has type
+  ContDiffOn ℝ ∞ (scaledPacket P.velocity place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+but is expected to have type
+  ContDiffOn ℝ ∞
+    (NSFormalization.Section3.T15.scaledVelocity ?m.310 (NSFormalization.Section3.T23.DomainPlacementData.x₀ ?m.313)
+      (NSFormalization.Section3.T23.DomainPlacementData.T ?m.313) ?m.317)
+    (Iio (NSFormalization.Section3.T23.DomainPlacementData.T ?m.313) ×ˢ univ)
+in the application
+  incompressible hδ ?m.316 ?m.318 (hU ε hs)
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1269:28: error(lean.unknownIdentifier): Unknown identifier `«dc».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1270:28: error(lean.unknownIdentifier): Unknown identifier `«pl».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1272:42: error: Application type mismatch: The argument
+  hU ε hs
+has type
+  ContDiffOn ℝ ∞ (scaledPacket P.velocity place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+but is expected to have type
+  ContDiffOn ℝ ∞
+    (NSFormalization.Section3.T15.scaledVelocity ?m.342 (NSFormalization.Section3.T23.DomainPlacementData.x₀ ?m.345)
+      (NSFormalization.Section3.T23.DomainPlacementData.T ?m.345) ?m.349)
+    (Iio (NSFormalization.Section3.T23.DomainPlacementData.T ?m.345) ×ˢ univ)
+in the application
+  momentum hδ ?m.348 ?m.350 (hU ε hs)
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1277:28: error(lean.unknownIdentifier): Unknown identifier `«dc».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1278:28: error(lean.unknownIdentifier): Unknown identifier `«pl».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:52: error: Application type mismatch: The argument
+  hU
+has type
+  ∀ ε ∈ Ioc 0 s, ContDiffOn ℝ ∞ (scaledPacket P.velocity place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+but is expected to have type
+  ∀ ε ∈ Ioc 0 s,
+    ContDiffOn ℝ ∞
+      (NSFormalization.Section3.T15.scaledVelocity ?m.332 (NSFormalization.Section3.T23.DomainPlacementData.x₀ ?m.335)
+        (NSFormalization.Section3.T23.DomainPlacementData.T ?m.335) ε)
+      (Iio (NSFormalization.Section3.T23.DomainPlacementData.T ?m.335) ×ˢ univ)
+in the application
+  solution hδ ho hb hne ?m.338 s b hU
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1296:28: error(lean.unknownIdentifier): Unknown identifier `«dc».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1297:28: error(lean.unknownIdentifier): Unknown identifier `«pl».ε₀`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1299:50: error: Application type mismatch: The argument
+  hU ε hs
+has type
+  ContDiffOn ℝ ∞ (scaledPacket P.velocity place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+but is expected to have type
+  ContDiffOn ℝ ∞
+    (NSFormalization.Section3.T15.scaledVelocity ?m.361 (NSFormalization.Section3.T23.DomainPlacementData.x₀ ?m.364)
+      (NSFormalization.Section3.T23.DomainPlacementData.T ?m.364) ?m.368)
+    (Iio (NSFormalization.Section3.T23.DomainPlacementData.T ?m.364) ×ˢ univ)
+in the application
+  classicalSolution hδ ho hb hne ?m.367 ?m.369 ?m.370 ⋯
+```
+Resolution: qualify the Spec correction force, parenthesize notation before projection, and explicitly instantiate placement/reference. No heartbeat increase.
+
+## Q2: copied correction namespace
+```text
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1215:18: error(lean.unknownIdentifier): Unknown identifier `BlowupDensity.T17.Draft.correctionForce`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1286:0: warning: declaration uses `sorry`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:0: warning: declaration uses `sorry`
+```
+Resolution: T17.Spec, as read in the original source. The admission warnings came from failed elaboration; no admission token was added.
+
+## Q3: unexplained consumer admission warnings
+```text
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1286:0: warning: declaration uses `sorry`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:0: warning: declaration uses `sorry`
+```
+Investigating elaboration of the no-slip-dependent examples; production axiom audit is clean.
+
+## T3: inverse-power normalization changed the field syntax
+```text
+../formalization/NSFormalization/Section3/T23/Triple.lean:141:2: error: Type mismatch: After simplification, term
+  h
+ has type
+  ContDiffOn ℝ ∞
+    (Source.dilateField ε⁻¹ (ε ^ 2)⁻¹ ε⁻¹ (place.T - ε ^ 2) place.x₀ (Source.PacketScaling.zeroPastField u))
+    (Iio place.T ×ˢ univ)
+but is expected to have type
+  ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+../formalization/NSFormalization/Section3/T23/Triple.lean:151:2: error: Type mismatch: After simplification, term
+  h
+ has type
+  ContDiffOn ℝ ∞
+    (Source.dilateField (ε ^ 2)⁻¹ (ε ^ 2)⁻¹ ε⁻¹ (place.T - ε ^ 2) place.x₀ (Source.PacketScaling.zeroPastField p))
+    (Iio place.T ×ˢ univ)
+but is expected to have type
+  ContDiffOn ℝ ∞ (scaledPressure p place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+```
+Resolution: rewrite only the horizon equality, preserving the definitionally equal field expression.
+
+## Q4: named consumer missing section proof variables
+```text
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:66: error(lean.unknownIdentifier): Unknown identifier `hδ`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:69: error(lean.unknownIdentifier): Unknown identifier `ho`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:72: error(lean.unknownIdentifier): Unknown identifier `hb`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:75: error(lean.unknownIdentifier): Unknown identifier `hne`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:79: error(lean.unknownIdentifier): Unknown identifier `C`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:85: error(lean.unknownIdentifier): Unknown identifier `hU`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:88: error(lean.unknownIdentifier): Unknown identifier `hP`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:91: error(lean.unknownIdentifier): Unknown identifier `hdiv`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:96: error(lean.unknownIdentifier): Unknown identifier `heq`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1290:100: error(lean.unknownIdentifier): Unknown identifier `hnoSlip`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:4: warning: declaration uses `sorry`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:4: warning: declaration uses `sorry`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:4: warning: declaration uses `sorry`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:4: warning: declaration uses `sorry`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:4: warning: declaration uses `sorry`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:4: warning: declaration uses `sorry`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:4: warning: declaration uses `sorry`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:4: warning: declaration uses `sorry`
+../research/T23/probes/T23-U3-triple-solution_closes.lean:1294:4: warning: declaration uses `sorry`
+theorem TripleSolutionProbe.solution_exact : ∀ {ν : ℝ} {P : BlowupDensity.Contracts.V1.PacketImportAPI ν}
+  {Ω : Set BlowupDensity.Contracts.V1.Space} {a : BlowupDensity.Contracts.V1.Data.SpatialField}
+  {g : BlowupDensity.Contracts.V1.Data.SpaceTimeField} {δ s b : ℝ}
+  (place : BlowupDensity.T23.Spec.DomainPlacementData P.toPacketAPI) (D : BlowupDensity.T16.Draft.CutoffData)
+  (reference : BlowupDensity.T23.Spec.ClassicalSolutionOmega ν Ω a g (place.T + δ)),
+  ∀
+    ε ∈
+      Ioc 0
+        (NSFormalization.Section3.T23.InsertedTriple.threshold (TripleSolutionProbe.placeTo place)
+          (TripleSolutionProbe.cutoffTo D) s b),
+    ∃ w,
+      w.velocity =
+          NSFormalization.Section3.T23.InsertedTriple.velocity (TripleSolutionProbe.placeTo place)
+            (TripleSolutionProbe.cutoffTo D) (TripleSolutionProbe.solutionTo reference) ε ∧
+        w.pressure =
+          NSFormalization.Section3.T23.InsertedTriple.pressure (TripleSolutionProbe.placeTo place)
+            (TripleSolutionProbe.solutionTo reference) ε :=
+sorry
+'TripleSolutionProbe.solution_exact' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+```
+Resolution under test: explicitly include supplier/no-slip hypotheses in the named consumers.

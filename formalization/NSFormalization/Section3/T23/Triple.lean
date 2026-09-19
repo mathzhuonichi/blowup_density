@@ -130,6 +130,32 @@ theorem eps_le_geometry (s b : ℝ) : threshold place D s b ≤ b :=
 
 variable {place D reference}
 
+/-- The raw zero-past packet regularity transports to the full open presingular slab. -/
+theorem packet_velocity_smooth
+    (hu : ContDiffOn ℝ ∞ (NSFormalization.Source.PacketScaling.zeroPastField u)
+      (Iio (1 : ℝ) ×ˢ (univ : Set Space))) {ε : ℝ} (hε : 0 < ε) :
+    ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε)
+      (Iio place.T ×ˢ (univ : Set Space)) := by
+  have h := NSFormalization.Source.PacketScaling.dilate_smoothOn ε⁻¹
+    (inv_pos.mpr hε) (place.T - ε ^ 2) place.x₀ hu
+  have he : (place.T - ε ^ 2) + ((ε⁻¹) ^ 2)⁻¹ = place.T := by
+    simp only [inv_pow, inv_inv, sub_add_cancel]
+  rw [he] at h
+  exact h
+
+/-- The same affine transport applies to the scalar packet pressure. -/
+theorem packet_pressure_smooth
+    (hp : ContDiffOn ℝ ∞ (NSFormalization.Source.PacketScaling.zeroPastField p)
+      (Iio (1 : ℝ) ×ˢ (univ : Set Space))) {ε : ℝ} (hε : 0 < ε) :
+    ContDiffOn ℝ ∞ (scaledPressure p place.x₀ place.T ε)
+      (Iio place.T ×ˢ (univ : Set Space)) := by
+  have h := NSFormalization.Source.PacketScaling.dilate_smoothOn ((ε⁻¹) ^ 2)
+    (inv_pos.mpr hε) (place.T - ε ^ 2) place.x₀ hp
+  have he : (place.T - ε ^ 2) + ((ε⁻¹) ^ 2)⁻¹ = place.T := by
+    simp only [inv_pow, inv_inv, sub_add_cancel]
+  rw [he] at h
+  exact h
+
 /-- Quiet history is global, including its closed right endpoint. -/
 theorem history (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
     {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀) {t : ℝ}
