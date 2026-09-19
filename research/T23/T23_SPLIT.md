@@ -134,7 +134,7 @@ API targets **8 fields**: `collar_agreement:823`, `noSlip_preserved:831`, `veloc
 `Section3/T23/Differences.lean` proves all eight fields over the explicit U3
 velocity/force formulas, smoothness and incompressibility hypotheses.  It uses
 lane 477's actual `LocalCorrectionCore` support and correction-force support,
-the raw I03 `carrier_subset` clause, and the raw packet force support.  The
+the raw I03 `carrier_subset` clause, and the raw packet force support.  The Lead note (review 483): the carrier-ball bound is derived from `place.Kstar_compact` and `place.carrier_subset`, not directly consumed.
 chosen `ρ = max R_cutoff R_packet + 1` is strictly larger than both radii; the
 positive common threshold is shrunk so `ball x₀ (ερ) ⊆ B` at its closed upper
 endpoint.  Force support holds for every real time, and the literal zero
