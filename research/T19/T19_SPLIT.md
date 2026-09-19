@@ -19,6 +19,21 @@ contract-Spec ↔ canonical probe supplies both fieldwise conversion directions;
 T18 remains unthreaded exactly as approved, and U1–U6 line up with lane 388 by
 literal canonical examples.
 
+**U0 status (lane 461, 2026-09-19): complete.**
+`NSFormalization.Section3.T19.Threading` constructs `insertionData`, proves its
+`RawPremises`, and supplies `T19.insertion hν ha hg hT hδ reference` with no
+additional inputs. The reference is `extendByZero reference`; its velocity
+agrees on the entire original `Ico` slab (`extendByZero_velocity_eqOn`).
+All requested T18 exports, the subcritical Sobolev limit, and
+`exists_force_close hν ha hg hT hreg s hs r hr` are proved.
+
+**U7/U8/U9/U13 route:** unpack `RegularThroughT` when necessary, then build
+`ins` = `T19.insertion hν ha hg hT hδ reference`. U7/U8 may call
+`T19.exists_force_close` directly; U9 uses the mixed bound; U13 uses the
+same family, the energy bound against `extendByZero reference`, and
+`extendByZero_velocity_eqOn` to identify the reference on `[0,T)`.
+The historical T18-blocked labels below are superseded for these entry routes.
+
 ## 0. Ground rules
 
 **Peeling rule (T11/T18).** Every unit ends in a `theorem` whose statement **is** a T19 `Spec.lean` field
