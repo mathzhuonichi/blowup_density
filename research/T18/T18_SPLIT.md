@@ -147,8 +147,18 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   periodicSet (Metric.ball place.x₀ (ε·ρ))` (diameter `O(ε)`) via T16 `latticeLift_sliceSupport`
   (`LatticeLift.lean:275`) for `w_ε` and `scaling.velocity_singleCopy` + `place.eps_space` for `U_ε`;
   `diffSupport_in_chart` = `place.eps_space`/`chartBall_in_cube`. **A's single-ball form is FALSE** for a
-  periodic difference (`RECONCILIATION.md` §"False clauses"); keep `periodicSet`. **M, codex-sol.** No named
-  input. Deps: U1.
+  periodic difference (`RECONCILIATION.md` §"False clauses"); keep `periodicSet`. **M, codex-sol.** Explicit
+  raw packet-support premise on the canonical support theorem (lead ruling). Deps: U1.
+
+  **Status (lane 435 continuation fix, 2026-09-19): complete.** All four U7
+  fields are proved with exact three-axiom audits.  Per the lead ruling,
+  canonical `velocityDifference_support` takes the raw clause
+  `∀ s ∈ Ico 0 1, tsupport (packetVelocity (s, ·)) ⊆ carrier` explicitly;
+  `carrier_subset` transports it to the compact `Kstar` form used by the
+  T15/T16 bridge.  `InsertionData` remains unchanged.  The Spec-form probe
+  closes the premise from registered `PacketImportAPI.velocity_support` with
+  no residual.  U12 assembly will use the same discharge; a later MAINT may
+  add the clause to `InsertionData`.
 
 - **U8 — lifespan exactly `T`, maximality, blow-up (clause (i)).** New `Section3/T18/Lifespan.lean`. Targets
   `solution` (`Spec.lean:1796`), `maximal` (`:1806`), `lifespan` (`:1812`), `blowup` (`:1818`),
@@ -169,6 +179,27 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   (mirror R42 `Bindings/InsertionLifespan.lean §9 isMaximalSolution_of_inserted`, `MAXIMAL_SPLIT.md`).
   **Uses the H³-narrowed API only — no `PeriodicRestartH1` (§H1/H3).** **L, Opus.** No named input. Deps:
   U1, U3, U4, U6 (threaded `scaling.solution`/`unboundedSpeed` = T15 U11/U6; registered T11+T12, DONE).
+
+  **Status (lane 436, 2026-09-18): complete.** All five fields proved in
+  `Section3/T18/Lifespan.lean`, no named input, exact three-axiom audit, Spec-form probe
+  `research/T18/probes/u8_closes.lean`. Two route changes against the plan above, both
+  *reducing* the dependency set (details in `research/T18/ATTEMPTS_U8.md`):
+  (i) `solution` needs **no** cutoff-in-time / `contDiff_angularPath` path (R42 residual 1a/1e-i):
+  on the compact torus a slab-smooth periodic slice has a datum at every order
+  (`T11.exists_periodicDatum_smooth`) and the selected path is continuous by
+  `T11.continuousOn_periodicDatum_path_of_slab`; `pressure_gradient` is one
+  `memLp_torusLift_vector`, and the gauge/periodicity of `p_ε` follow from the mean being
+  spatially constant plus the two integrability facts U3 already used.
+  (ii) the `≤` half of `lifespan` does **not** go through `lifespanInfiniteOfLocallyFinite` +
+  `higherOrderBound` + `boundedRepresentative` — that route has no torus analogue of A02's
+  `lifespan_le_of_unbounded`, and `boundedRepresentative` bounds the **Haar** `L^∞` norm
+  `periodicLpENorm ⊤` while `blowup_limsup` is the **Lebesgue** `speedENorm`, a bridge the tree
+  does not contain. Instead: a longer solution would agree with `u_ε` below `T` by
+  `velocity_unique`, and a slab-smooth unit-periodic field is bounded on `Icc 0 T × R³`
+  (compactness of `Icc 0 T ×ˢ fundamentalCube` + lattice reduction `x ↦ ⌊x i⌋`), contradicting
+  `blowup`. **U8 therefore consumes no field of `torusContinuationH3API` and nothing from T12**;
+  the only T11 field it uses is `torusLocalTheoryAPI.velocity_unique`, which carries no ball, so
+  the `H1_GAP.md` §4 "expected OK" verdict holds a fortiori.
 
 - **U9 — `eq:Eclose` (energy closeness).** New `Section3/T18/EnergyRate.lean`. Target `energyRate`
   (`Spec.lean:1892`, `‖u_ε-v‖_{E_T} ≤ (M+D)ε^{1/2}+Cε^{3/2}`). Route: `u_ε-v=w_ε+U_ε`; triangle inequality
@@ -229,7 +260,7 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
 | U4 | — | — | — | `scaling.solution.divergence` | `correction.correction_divergence_free` |
 | U5 | — | — | — | packet zero-past | `correction.potential.correction_cancels`,`potential_curl` (T16); `latticeLift_cancels` |
 | U6 | — | — | — | `scaling.solution.momentum` | `correctionForce` residual identity + U5 |
-| U7 | — | — | — | `scaling.velocity_singleCopy`,`place.eps_space` | `latticeLift_sliceSupport`; `correction_support_ball` |
+| U7 | — | — | — | **missing canonically:** raw packet `velocity_support`; `place.Kstar_compact/carrier_subset` | `latticeLift_sliceSupport_closed`; `potential.theta_support/eps_space`; `correction.ball_in_chart` |
 | U8 | `torusLocalTheoryAPI.{velocity_unique,solution,regularity}`, `torusContinuationH3API.{higherOrderBound,extendsBeyond,lifespanInfiniteOfLocallyFinite}` | `boundedRepresentative` (H²↪L∞) | — | `scaling.unboundedSpeed`,`scaling.solution` | U5 (`u_ε=U_ε` on active support) |
 | U9 | — | — | — | `scaling.packetEnergyIdentity`,`packetDissipationIdentity` | `correction.correction_energy_bound`,`energyConst` |
 | U10 | — | — | — | `scaling.packetMixedScaling`,`mixed_memLp`; `Contracts.V1.alpha` | `correction.force_mixed_bound`,`force_spatial_memLp` |
@@ -240,7 +271,7 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
 | wave | units | sizes / models | status |
 |---|---|---|---|
 | W1 | **U1** triple+formulas · **U2** force class · **U3** kinematics | S sol / S-M sol / M sol | unblocked |
-| W2 | **U4** divergence · **U5** cross-transport · **U7** localization support | S-M sol / M Opus / M sol | unblocked (T16/T11 DONE) |
+| W2 | **U4** divergence · **U5** cross-transport · **U7** localization support | S-M sol / M Opus / M sol | U4/U5 done; U7 partial, blocked by canonical erasure of packet `velocity_support` |
 | W3 | **U6** momentum · **U8** lifespan-exactly-`T` | M-L Opus / L Opus | U6→U8; H³-narrowed API + T12, no `PeriodicRestartH1` |
 | W4 | **U9** energy rate\* · **U10** mixed rate\* · **U11** Sobolev rate\* | M / M-L / L Opus | \* gated (closeness bounds) |
 | W5 | **U12** assembly + registration\* | M sol | \* non-vacuity gated |
@@ -248,9 +279,10 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
 `*` = the closeness units consume the **T15/T17 quantitative bound fields** (T15 U4/U5/U13/U14, T17 U9/U10/U11;
 U11 additionally T13.localization). Their field *theorems* are provable now against the threaded
 `scaling`/`correction` hypotheses; only U12's non-vacuity/`Nonempty` closure is truly gated (T15 U15 + T17 U12 +
-T13 assembly). W1/W2 (the inserted triple, class memberships, kinematics, the two cross-transport identities
-via T16 `correction_cancels`/`potential_curl`, and the localization support via the lattice lift) and W3
-(lifespan, via T11 uniqueness + H³-narrowed continuation + H²↪L∞) are unblocked today. U5 is on the critical
+T13 assembly). W1 and U4/U5 (the inserted triple, class memberships, kinematics, divergence, and the two
+cross-transport identities via T16 `correction_cancels`/`potential_curl`) are complete. U7's lattice-lift
+proof is complete conditionally, but its raw packet support premise was erased by the canonical T15/T18
+records; W3 (lifespan, via T11 uniqueness + H³-narrowed continuation + H²↪L∞) is otherwise unblocked. U5 is on the critical
 path (U6 rewrites through it; U8 uses `u_ε=U_ε` from it). Lane numbers allocated by the lead in `PLAN.md`.
 
 ## 4. Risks
