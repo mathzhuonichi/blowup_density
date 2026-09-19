@@ -99,4 +99,18 @@ theorem norm_le_domainPlacementRadius {K : Set Space} {f : VelocityField}
     ‖y‖ ≤ domainPlacementRadius hK hf :=
   (Classical.choose_spec (domainPlacementCarrier_bound hK hf)).2 y hy
 
+/-! ## Interior margin and the common threshold -/
+
+/-- The distance from `x₀` to the boundary radius of the prescribed ball. -/
+def domainPlacementMargin (chartCenter x₀ : Space) (chartRadius : ℝ) : ℝ :=
+  chartRadius - dist x₀ chartCenter
+
+/-- Membership of `x₀` in the prescribed open ball gives a strictly
+positive radial margin. -/
+theorem domainPlacementMargin_pos {chartCenter x₀ : Space} {chartRadius : ℝ}
+    (hx₀ : x₀ ∈ Metric.ball chartCenter chartRadius) :
+    0 < domainPlacementMargin chartCenter x₀ chartRadius := by
+  rw [domainPlacementMargin, sub_pos]
+  exact Metric.mem_ball.mp hx₀
+
 end NSFormalization.Section3.T23
