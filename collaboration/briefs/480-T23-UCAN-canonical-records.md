@@ -18,3 +18,6 @@ the final canonical names each later unit (U3–U6, U8, U9) must consume. Delive
 
 ## Gates
 `cd verification && LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T23.Boundary` (0 errors) plus rebuilding the three lanes' modules and probes after any dedupe, `lake env lean` on the module (0 output), the probe, the axioms file, `make check`.
+
+## Lead note (2026-09-19 16:34Z) — reviewer follow-up from lane 476
+Also add to `Placement.lean`'s successor (or a small `Section3/T23/Geometry.lean`) the three auxiliary geometry lemmas `T23_SPLIT.md:40` requested and lane 476 skipped: compactness of the prescribed closed ball, a smaller closed ball around `x₀` inside the prescribed ball, and separation of the closed ball from `frontier Ω` under `IsOpen Ω` (explicit premise). Each with a one-line probe.
