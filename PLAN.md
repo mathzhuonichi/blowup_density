@@ -246,7 +246,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 482-T23-U3-triple-solution | 已合入 #447（codex 审稿 ACCEPT） | 09-19 1727Z | #447 | — | T23 U3：三元组 (u,p,f)、阈值、公式、力类、光滑/初值/不可压/动量/历史 + 压力归一化 + ClassicalSolutionOmega 十字段构造子（no_slip 穿线） |
 | 483-T23-U4-differences-boundary | sol 完成 → 审中 sol | 09-19 1721Z | — | — | T23 U4：局部差与边界保持 8 字段 |
 | 484-T23-U5-domain-comparison | 已合入 #445（codex 审稿 ACCEPT） | 09-19 1725Z | #445 | — | T23 U5：注册 T22 零延拓比较 + 域范数定义/API 转运 |
-| 485-T23-U6-rates-convergence | astra 完成：路径范数桥 + energyRate / Sobolev 力率 / 负阶尾 / 收敛 八字段（供给与 U5 比较穿线；18 声明标准公理）→ 审中 sol | 09-19 1718Z | — | — | T23 U6：能量率、Sobolev 力率、负阶尾、收敛 + 路径范数桥（8 字段） |
+| 485-T23-U6-rates-convergence | 已合入 #449（codex 审稿 ACCEPT-WITH-NOTES，空白已清） | 09-19 1730Z | #449 | — | T23 U6：能量率、Sobolev 力率、负阶尾、收敛 + 路径范数桥（8 字段） |
 | 486-T23-U8-interior-blowup | 已合入 #448（codex 审稿 ACCEPT） | 09-19 1728Z | #448 | — | T23 U8：内部爆破见证 + 寿命恰为 T + maximal（盒用 noSlip_uniqueness_box，光滑域穿线 IBP Ω） |
 | 487-T23-U9-assembly-registration | worktree 安装中（integration + 483/485/486 分支）→ codex astra | 09-19 1727Z | — | — | T23 U9：48 字段装配（盒域无条件，光滑域条件于 IBP Ω）+ 修正陈述 boundaryInsertionStatement' + 合同 T04.boundary_insertion（scope 注明 G0/G1 owner 待定） |
 | 467-T24-UbCAN-Ub1-Ub3-multiple-regions | 已合入 #429（codex 审稿 ACCEPT-WITH-NOTES，docstring 注释按意见收窄） | 09-19 1459Z | #429 | — | T24b：canonical MultipleRegionsAPI（30 字段 Type，raw-field T15 记录）+ Ub1 放置/尺度选择 + Ub2 分量 + Ub3 单拷贝支撑 |
