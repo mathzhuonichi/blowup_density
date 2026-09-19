@@ -245,7 +245,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 481-T23-U2b-matching-supplier | worktree 安装中（480 分支 + integration）→ codex astra | 09-19 1650Z | — | — | T23 U2b：注册 I02/I03 供给在同一 D 上匹配（A.correction = C）+ 能量/混合/Sobolev 力估计（477 fix 2/3） |
 | 482-T23-U3-triple-solution | worktree 安装中 → codex astra | 09-19 1650Z | — | — | T23 U3：三元组 (u,p,f)、阈值、公式、力类、光滑/初值/不可压/动量/历史 + 压力归一化 + ClassicalSolutionOmega 十字段构造子（no_slip 穿线） |
 | 483-T23-U4-differences-boundary | worktree 安装中 → codex sol | 09-19 1650Z | — | — | T23 U4：局部差与边界保持 8 字段 |
-| 484-T23-U5-domain-comparison | worktree 安装中 → codex sol | 09-19 1650Z | — | — | T23 U5：注册 T22 零延拓比较 + 域范数定义/API 转运 |
+| 484-T23-U5-domain-comparison | sol 完成：domain_zeroExt_comparison（C 先于 t、ε）+ 域范数定义桥 + 固定支撑/零阶物理 L² 引理（9 声明标准公理；U3/U4 事实穿线）→ 审中 sol | 09-19 1708Z | — | — | T23 U5：注册 T22 零延拓比较 + 域范数定义/API 转运 |
 | 485-T23-U6-rates-convergence | worktree 安装中 → codex astra | 09-19 1650Z | — | — | T23 U6：能量率、Sobolev 力率、负阶尾、收敛 + 路径范数桥（8 字段） |
 | 486-T23-U8-interior-blowup | worktree 安装中 → codex astra | 09-19 1650Z | — | — | T23 U8：内部爆破见证 + 寿命恰为 T + maximal（盒用 noSlip_uniqueness_box，光滑域穿线 IBP Ω） |
 | 467-T24-UbCAN-Ub1-Ub3-multiple-regions | 已合入 #429（codex 审稿 ACCEPT-WITH-NOTES，docstring 注释按意见收窄） | 09-19 1459Z | #429 | — | T24b：canonical MultipleRegionsAPI（30 字段 Type，raw-field T15 记录）+ Ub1 放置/尺度选择 + Ub2 分量 + Ub3 单拷贝支撑 |
