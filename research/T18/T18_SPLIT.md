@@ -254,6 +254,16 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   **G1 spec note (`research/T17/SPEC_ISSUES.md`):** if T17 assembly adds `reference_smooth` to `CorrectionAPI`,
   U1's `velocity_formula`/U3 pick it up for free (reference is a classical solution, globally smooth after a
   time cutoff); no T18 field changes. **M, codex-sol.** Deps: all.
+  **Lane 455 status (2026-09-19): complete.** All 45 fields assembled in
+  `Section3/T18/Assembly.lean`; canonical `RawPremises` explicitly bundles
+  `hsupp`, `hM`, `hD`, discharged from the registered packet in the binding.
+  `T03.periodic_insertion` V1 registers the byte-identical reconciled T18
+  record and statement, using the landed `Correction3.Packet` vocabulary.
+  The statement is proved; a concrete T15 U15 scaling witness with compatible
+  reference/correction remains the end-to-end gate. T13 and T17 now have
+  registered inhabitants. Conditional `nonvacuity_of_witnesses` is proved,
+  with the missing witnesses explicit. See `REPORT_455.md`, `ATTEMPTS_U12.md`.
+
 
 ## 2. Proof-dependency ledger (which T11-T17 declaration each unit consumes; from RECONCILIATION §4)
 

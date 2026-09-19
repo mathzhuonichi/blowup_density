@@ -379,9 +379,11 @@
     {
       "id": "T18",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-review",
+      "owner": "erenup",
+      "contracts": [
+        "T03.periodic_insertion"
+      ],
       "deliverable": "Reconcile research/T18/Spec.lean against thm:insertion and all simultaneous bounds, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
     },
     {
