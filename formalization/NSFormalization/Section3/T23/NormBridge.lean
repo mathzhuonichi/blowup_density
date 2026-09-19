@@ -34,8 +34,10 @@ theorem sobolevENorm_mono_order {s r : ℝ} (hsr : s ≤ r) (z : Space → Space
       (NSFormalization.Paper3.angularOrderLowering r s hsr _) ψ = _
     rw [NSFormalization.Paper3.angularRealization_orderLowering]
     exact hA i ψ
-  exact (iInf_le_of_le ⟨_, hlow⟩ le_rfl).trans
-    (enorm_le_iff_norm_le.mpr
-      (NSFormalization.Section4.R41.lowerVectorL_norm_le r s hsr A))
+  have hn : ‖lowerVectorL r s hsr A‖ₑ ≤ ‖A‖ₑ :=
+    enorm_le_iff_norm_le.mpr
+      (NSFormalization.Section4.R41.lowerVectorL_norm_le r s hsr A)
+  exact (iInf_le (fun B : {B : NSFormalization.Paper3.RealVectorSobolev s //
+      IsSobolevDatum s z B} => ‖B.1‖ₑ) ⟨_, hlow⟩).trans hn
 
 end NSFormalization.Section3.T23

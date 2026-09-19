@@ -26,3 +26,11 @@ Unknown constant `ENNReal.lintegral_add_le`
 Unknown identifier `MeasureTheory.lintegral_add_le`
 ```
 The triangle proof uses measurable paths and `eLpNorm_add_le` instead.
+
+## A3: inferred infimum witness timed out
+```text
+NormBridge.lean:25:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+```
+Resolved without raising heartbeats: give the intermediate norm inequality and
+infimum binder explicit types. The preceding checkpoint contained this failure;
+the next commit repairs it and the declaration checks with zero output.
