@@ -54,3 +54,18 @@ Lean also warned that `hd`, `sub_apply`, `PiLp.sub_apply`, and
 `Finset.sum_sub_distrib` were unused. Resolution: first `change` the explicit
 lambda target to `spatialDivergence (velocity ε - reference.velocity) ... = 0`;
 then the local derivative equality rewrites exactly.
+
+## A4. Probe hypotheses left as section variables
+
+The first exact-field probe left the two U3 facts `hvelocity_smooth` and
+`hincompressible` as surrounding section variables. Lean accepted the example
+but diagnosed the generated declaration:
+
+```text
+../research/T23/probes/T23-U4-differences-boundary_closes.lean:63:0: warning: declaration uses `sorry`
+```
+
+Adding explicit named parameters to the theorem application did not remove the
+warning. Resolution: bind both hypotheses explicitly on that `example`; the
+same `by exact velocityDifference_divFree ...` then elaborates with zero
+output and no hidden synthetic placeholder.
