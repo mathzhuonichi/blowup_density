@@ -1,4 +1,4 @@
-import NSFormalization.Section3.T23.NoSlipUniqueness
+import NSFormalization.Section3.T23.DomainSolution
 import Mathlib.Analysis.Calculus.ParametricIntegral
 
 /-! Differentiation under a bounded-domain integral from closed-slab smoothness. -/

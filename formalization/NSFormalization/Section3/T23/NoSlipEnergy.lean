@@ -1,4 +1,4 @@
-import NSFormalization.Section3.T23.NoSlipUniqueness
+import NSFormalization.Section3.T23.DomainSolution
 import NavierStokes.PeriodicUniqueness
 
 /-! Energy calculus on bounded domains with the explicit boundary IBP identity. -/

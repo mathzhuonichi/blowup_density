@@ -1,5 +1,4 @@
-import NSFormalization.Section3.T23.NoSlipEnergy
-import NSFormalization.Section3.T23.DomainTimeIntegral
+import NSFormalization.Section3.T23.NoSlipUniqueness
 
 open NSFormalization.Section3.T23
 
@@ -25,3 +24,21 @@ open NSFormalization.Section3.T23
 #print axioms domainIntegral_hasDerivAt
 #print axioms SmoothOnClosedSlab.contDiffAt
 #print axioms SmoothOnClosedSlab.hasDerivAt_integral
+#print axioms SmoothOnClosedSlab.sub
+#print axioms SmoothOnClosedSlab.mono
+#print axioms SmoothOnClosedSlab.norm_sq
+#print axioms differenceEnergy_continuousOn
+#print axioms differenceEnergy_hasDerivAt
+#print axioms spatialDerivative_sub_at
+#print axioms spatialLaplacian_sub_on
+#print axioms difference_momentum
+#print axioms difference_divergence
+#print axioms difference_no_slip
+#print axioms contDiffAt_spatialLaplacian
+#print axioms contDiffAt_pressureGradient
+#print axioms difference_energy_identity
+#print axioms abs_convection_integral_le
+#print axioms velocity_eq_of_ibp
+#print axioms noSlip_uniqueness_of_ibp
+#print axioms IsBoxDomain.open_bounded
+#print axioms noSlip_uniqueness_box
