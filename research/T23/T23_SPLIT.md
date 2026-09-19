@@ -102,9 +102,33 @@ Own the remaining **4** API fields `domain:701`, `delta_pos:705`, `reference_for
 
 Assemble only after each exact field theorem is closed. Preserve the current Spec field inventory in compatibility documentation, but **do not claim its universal arbitrary-D statement proved**. Owner-approved corrected quantification must actually select a compatible cutoff and matching internal whole-space records. Register domain vocabulary separately or with T23 according to owner decision; consume registered T22 instead of copying its definitions again. Bind raw packet fields and all copied definitions by rfl bridges where valid; build domain/contract record conversions and round trips explicitly. Final tests: literal field types and quantifier order, translated interior ball, positive common threshold, chosen-family identity, normalized pressure and no-slip, all-t force support, uniform comparison constant, interior blow-up, lifespan equality, negative orders below -3/2, plus transitive axiom checks restricted to propext/Classical.choice/Quot.sound. Run repository contract/import and mutation gates when Lean is implemented. U9 is bookkeeping only after these gates; unproved analysis is sent back to its owning L unit.
 
-## 2. Dependency ledger
+## 2. Dependency ledger and negative-search evidence
 
-U1/U2 → U3/U4 → U5/U6; U3/U4/U7 → U8; all units → U9. Registered suppliers must be instantiated with matching data; registration alone is not a compatibility proof.
+| Consumer | Supplier / exact route | Residual and owner |
+|---|---|---|
+| U1 placement | `B/CorrectionV2.lean:537` compact carrier enlargement | Free-center geometry and strict threshold: U1 |
+| U2 correction | `C1/Correction.lean:542`, `C2/Correction.lean:155`; actual constructor `B/CorrectionV2.lean:87` | Domain-to-local/whole-space bridge, matching D: U2; G0 repair: owner |
+| U3 packet equation | `C1/Scaling.lean:480` retains given C; fields `:223,231` | Local restriction and normalized pressure: U3 |
+| U4 support | `C1/Correction.lean:359,433,444`, `C2/Correction.lean:136` | Kstar force projection and all-time support; no V1 carrier-only shortcut |
+| U5 comparison | `C1/BoundedDomainNorm.lean:74,109`; `B/BoundedDomainNorm.lean:81` | Fixed K then C before ε,t; integration: U5 |
+| U6 rates | `C1/Scaling.lean:284,319,335`; `C1/Data.lean:225` | Measurable-path to slice-integral inequality; all-negative-order contraction |
+| U7 uniqueness | `S3/T11/Uniqueness.lean:27` is periodic only | New Ω integration-by-parts / difference-energy theorem |
+| U8 lifespan | `S3/T18/Lifespan.lean:273,300,338` is a template | U7 plus interior blow-up and compact closure Ω |
+| U9 registration | T18 canonical raw bundle `S3/T18/Insertion.lean:37`; T22 conversion `B/BoundedDomainNorm.lean:54–67` | T18 U12, G0, domain record registration and owner policy |
+
+Dependency order is U1 → U2 → U3 formulas/regularity → U4 → U3 solution; U3/U4 → U5 → U6; U7 can run independently on domain vocabulary; U3 solution/U4/U7 → U8; all → U9. The apparent U3/U4 cycle disappears by packaging solution last. U6 is not needed for uniqueness or lifespan except force-class membership, already owned by U3.
+
+Searches actually run (paths relative to repository root):
+
+```sh
+grep -rnEi 'no.?slip|domain.*unique|unique.*domain|boundary.*unique|unique.*boundary' formalization/NSFormalization/Section4 formalization/NSFormalization/Paper1 vendor --include='*.lean'
+grep -rnE '^(theorem|lemma|def).*([Nn]o[Ss]lip.*[Uu]niqu|[Uu]niqu.*[Nn]o[Ss]lip|[Dd]omain[Vv]elocity[Uu]nique|[Dd]omainMaximalLifespan)' formalization/NSFormalization/Section4 formalization/NSFormalization/Paper1 vendor --include='*.lean'
+grep -rnE 'ClassicalSolutionOmega|BoundaryInsertionAPI' verification/Contracts formalization/NSFormalization --include='*.lean'
+```
+
+The first broad search found boundary-support bookkeeping (`P1/BoundaryReferenceRestriction.lean:40,76,126`), the conditional corrected corollary (`P1/BoundaryCorollaryCorrected.lean:28,45`), periodic lifespan (`vendor/NavierStokesAndEuler/NavierStokes/MaximalLifespan.lean:86,89`) and unrelated UniqueDiffOn/boundary-coordinate/Euler hits. None supplies classical Navier–Stokes no-slip uniqueness on this Ω structure. The second and third searches returned **no output** (grep exit 1). This is a scoped search result, not a claim that no differently named lemma could exist. No bounded-domain uniqueness or canonical/registered T23 record was located in the searched tree. U7 is therefore budgeted L, not marked reusable. No claim is made that in-flight branches have landed.
+
+Registration and declarations were independently checked with `grep -nE 'I02|I03|bounded_domain_norm' verification/contracts.json`, `grep -rnE '^(theorem|lemma|def|structure|noncomputable def)'` on the cited supplier directories, and `sed -n` on the cited declarations. The older reconciliation's “T22 unregistered” and “LocalizationBoundary:189 zero-extension core” descriptions are superseded by the checked sources above.
 
 ## 3. Waves
 
