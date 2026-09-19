@@ -334,8 +334,12 @@ Audit and exact resolved diagnostics: `axioms_ub1_ub3.lean`,
   `[propext, Classical.choice, Quot.sound]`; four exact field probes close.
 - **Ub7 — assembly + `multipleRegionsStatement` + registration + non-vacuity.** Assemble the 30 fields;
   `multipleRegionsStatement:1335` `Nonempty` from the per-region T15 witnesses; probe to the `PacketImportAPI`
-  spelling. Register `T24.multiple_regions` v1; record the bounded-domain/no-slip omission in `scope`. Non-vacuity
+  spelling. Register `T04.multiple_regions` v1; record the bounded-domain/no-slip omission in `scope`. Non-vacuity
   at `N=1`, one region. **M, codex-sol.** **Blocked on all T15 (U2/U4/U6/U11/U15) + U-CAN lane 384.** Deps: all Ub.
+  **DONE (lane 471).** `MultipleAssembly.lean` assembles all 30 canonical fields and proves the raw universal
+  statement; the fieldwise binding registers `T04.multiple_regions`. The concrete registered `N=1`, `T=1`,
+  radius-`1/4` centre-ball probe reads `region_blowup 0`. The bounded-domain/no-slip branch remains explicitly
+  outside V1 scope.
 
 ## 2. Proof-dependency ledger (registered / threaded input each unit consumes)
 
@@ -358,7 +362,7 @@ Audit and exact resolved diagnostics: `axioms_ub1_ub3.lean`,
 | Ub4 | multiple | ⑦ | threaded components (Ub2,Ub3) | (via Ub2/Ub3) |
 | Ub5 | multiple | — | T15 `unboundedSpeed` | **T15 U6** |
 | Ub6 | multiple | ⑧ | T15 `packet{Energy,Dissipation}Identity` | **T15 U4** |
-| Ub7 | multiple | — | all T15 + U-CAN 384 | **T15 U2/U4/U6/U11/U15** |
+| Ub7 | multiple | — | all T15 + U-CAN 384 | done, lane 471 |
 
 No T18 anywhere: T24b superposes T15 outputs, it does not insert.
 
