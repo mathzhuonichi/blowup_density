@@ -33,9 +33,10 @@ Supporting the field:
 - Five `rfl` theorems expose the exact definitions of
   `domainEnergyEssSup`, `domainEnergyGradient`, `domainEnergyENorm`,
   `domainForceSobolevENorm`, and `zeroExtForceSobolevENorm`.
-- The closure probe checks fieldwise conversions in both directions between
-  the registered T22 contract copy and the canonical proof-side three-field
-  record, with round trips and shared-definition `rfl` bridges.
+- The closure probe checks fieldwise conversions in both directions from the
+  historical `Spec.lean` copy and from the registered T22 contract copy to the
+  canonical proof-side three-field record, with round trips and
+  shared-definition `rfl` bridges.
 
 ## 2. Files
 
