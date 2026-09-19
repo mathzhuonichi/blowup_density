@@ -514,4 +514,18 @@ def boundaryInsertionStatement' : Prop :=
         D.potential = C.potential ∧ D.correction = C.correction ∧
         Nonempty (BoundaryInsertionAPI ν u p f K M E place Ω norms a g r δ D reference)
 
+/-- G0's exact false instance for the canonical 48-field interface. -/
+theorem boundaryInsertionAPI_zero_cutoff
+    (ν : ℝ) (u : VelocityField) (p : PressureField) (f : VelocityField)
+    (K : Set Space) (M E : ℝ) (place : DomainPlacementData u p f K)
+    (Ω : Set Space) (norms : BoundedDomainNormAPI)
+    (a : SpatialField) (g : SpaceTimeField) (r δ : ℝ)
+    (D : CutoffData) (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ))
+    (hD : D.ε₀ = 0) :
+    ¬ Nonempty (BoundaryInsertionAPI ν u p f K M E place Ω norms a g r δ D reference) := by
+  rintro ⟨A⟩
+  have hl := A.eps_le_cutoff
+  rw [hD] at hl
+  exact (not_lt_of_ge hl) A.eps_pos
+
 end NSFormalization.Section3.T23

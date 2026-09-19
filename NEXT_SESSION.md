@@ -1,3 +1,8 @@
+> Lane 480 (2026-09-19): T23 canonical boundary interface and literal/repaired
+> statements are in `Section3/T23/Boundary.lean`; geometry follow-up and full
+> Spec conversions are checked. See `research/T23/REPORT_480.md`; U2 supplier
+> matching and smooth-domain G1 remain analytic obligations. No push/merge.
+
 # NEXT_SESSION.md — 第 3 节当前状态与下一步
 
 状态依据：2026-09-17 lead 快照；本次 267 只整理文档。

@@ -35,3 +35,35 @@ Existing cutoff, placement, solution, domain and T22 records are imported.
 - Boundary and Geometry then built successfully (10087 jobs).
 
 Further probe/gate results are recorded below as checked.
+
+## Probe and audit follow-up
+
+- Full original Spec is embedded byte-for-byte (checked by Python substring
+  equality). Bidirectional adapters check 16 placement, 7 cutoff, 10 solution,
+  3 T22, 73 whole-space correction and 48 boundary fields. Solution witnesses
+  require fieldwise conversion; lifespan uses an equivalence of Nonempty
+  solution records under the supremum. Maximality transports the same witnesses.
+- First probe: `Definition normsTo is a proposition; use theorem instead of def`;
+  changed the proof-valued adapter to theorem. Reverse API round trip initially
+  reported `don't know how to synthesize implicit argument norms`; supplied
+  `(norms := norms)` explicitly because the proof-valued parameter is erased.
+- Probe also checks literal/repaired raw binders by rfl, the exact repaired
+  Spec conclusion in both directions (including all seven cutoff identities),
+  and three one-line geometry consumers. Both arbitrary-record round trips are
+  checked for the data adapters.
+- Audit-only formatting attempt failed with `Unknown option pp.width`; removed
+  that option. All 17 new production declarations then print exactly
+  `[propext, Classical.choice, Quot.sound]` (line wrapping ignored).
+- Import traversal initially matched prose inside comments; reran with nested
+  block comments and line comments removed. The resolved project/vendor source
+  closure contains 1324 files and no BoundaryCorollary import.
+
+## Final gates
+
+Boundary build: exit 0. Direct Lean checks: all 12 relevant implementation
+modules and all seven non-mutation T23 probes exit 0, zero output. Axioms file:
+exit 0, the 17 exact standard-three lists. No existing Lean module was changed.
+`make check`: exit 0 (54 contracts, 13 policy tests, 45 queue entries);
+`lake test`: exit 0 (11015 jobs); `make test-mutations`: exit 0, refactor accepted
+and all three invalid mutations rejected. The check's historical umbrella
+BoundaryCorollary admission and `source_hashes_match: false` remain disclosed.
