@@ -118,3 +118,6 @@ Every Lean shell sourced `. scripts/lean-env.sh`; all Lake invocations ran from
   the seven-field `CutoffData` structure is copied verbatim in LocalCorrection.
 - No forbidden proof tokens in the four implementation modules;
   `git diff --check` passes. All proof checkpoints were committed incrementally.
+
+## Lead note (2026-09-19 16:40Z)
+Reviewed REJECT (deliverables incomplete: canonical G0 statements, matching I02/I03 supplier, estimates). Merged as an honest U2 stage-1 partial on lead authority; fix 1 → lane 480 (U-CAN), fixes 2–3 → lane 481 (U2b). See `REVIEW_477-T23-U2-local-correction-G0.md` (lead ruling).
