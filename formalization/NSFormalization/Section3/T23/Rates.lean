@@ -58,4 +58,34 @@ theorem energyRate {ν : ℝ} {u f : VelocityField} {p : PressureField}
     (ENNReal.ofReal_le_ofReal (add_le_add le_rfl
       (mul_le_mul_of_nonneg_right (le_max_left C 0) (Real.rpow_nonneg hε.1.le _)))))
 
+/-- One positive constant absorbs both suppliers, chosen before ε. -/
+def forceDiffSobolevConst (A B : ℝ → ℝ) (s : ℝ) : ℝ :=
+  2 * (|A s| + |B s|) + 1
+
+theorem forceDiffSobolevConst_pos (A B : ℝ → ℝ) (s : ℝ) :
+    0 < forceDiffSobolevConst A B s := by
+  unfold forceDiffSobolevConst
+  positivity
+
+/-- The two inhomogeneous order-zero terms are absorbed for ε ≤ 1 and s ≥ 0. -/
+theorem positive_rates_absorb (A B s ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1)
+    (hs : 0 ≤ s) :
+    max A 0 * (ε ^ ((1 : ℝ) / 2) + ε ^ ((1 : ℝ) / 2 - s)) +
+      max B 0 * (ε ^ ((3 : ℝ) / 2) + ε ^ ((3 : ℝ) / 2 - s)) ≤
+      (2 * (|A| + |B|) + 1) *
+        (ε ^ ((1 : ℝ) / 2 - s) + ε ^ ((3 : ℝ) / 2 - s)) := by
+  have h1 := Real.rpow_le_rpow_of_exponent_ge hε hε1
+    (show (1 : ℝ) / 2 - s ≤ 1 / 2 by linarith)
+  have h3 := Real.rpow_le_rpow_of_exponent_ge hε hε1
+    (show (3 : ℝ) / 2 - s ≤ 3 / 2 by linarith)
+  have ha : max A 0 ≤ |A| := max_le (le_abs_self _) (abs_nonneg _)
+  have hb : max B 0 ≤ |B| := max_le (le_abs_self _) (abs_nonneg _)
+  have hx := Real.rpow_nonneg hε.le ((1 : ℝ) / 2 - s)
+  have hy := Real.rpow_nonneg hε.le ((3 : ℝ) / 2 - s)
+  have hA := mul_le_mul ha (add_le_add h1 le_rfl)
+    (add_nonneg (Real.rpow_nonneg hε.le _) hx) (abs_nonneg A)
+  have hB := mul_le_mul hb (add_le_add h3 le_rfl)
+    (add_nonneg (Real.rpow_nonneg hε.le _) hy) (abs_nonneg B)
+  nlinarith [mul_nonneg (abs_nonneg A) hy, mul_nonneg (abs_nonneg B) hx]
+
 end NSFormalization.Section3.T23
