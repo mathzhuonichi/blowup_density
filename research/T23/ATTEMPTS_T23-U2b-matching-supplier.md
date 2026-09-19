@@ -93,3 +93,25 @@ in the application
 Repair: restrict the registered Ico support assertion to Ioo using `⟨ht.1.le, ht.2⟩`.
 
 Inspection error: `rg: verification/Contracts/V1/Threshold.lean: IO error for operation on verification/Contracts/V1/Threshold.lean: No such file or directory (os error 2)`. Actual file: `Thresholds.lean`.
+
+## Supplier cutoff force: let-bound conjunction
+```text
+../formalization/NSFormalization/Section3/T23/MatchingSupplier.lean:105:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  correctionForce ?ν ?v ?D ?ε
+in the target expression
+  have D := localCorrectionData v C.x₀ C.T C.θ C.η C.plateau C.θRadius C.ε₀;
+  D.correction ε = C.correction ε ∧ correctionForce ν v D ε = C.forceCorrection ε
+
+ν : ℝ
+u v : VelocityField
+K : Set Space
+C : WholeSpaceCorrectionAPI ν u K
+heq : EqOn v C.v (Ioo 0 (C.T + C.δ) ×ˢ ball C.x₀ C.r)
+ε : ℝ
+hε : ε ∈ Ioc 0 C.ε₀
+h :
+  have D := localCorrectionData v C.x₀ C.T C.θ C.η C.plateau C.θRadius C.ε₀;
+  D.correction ε = C.correction ε ∧ correctionForce ν v D ε = C.forceCorrection ε
+⊢ correctionForce ν v C.supplierCutoff ε = C.forceCorrection ε
+```
+Repair: destruct the conjunction before rewriting the force formula.

@@ -87,4 +87,24 @@ theorem WholeSpaceCorrectionAPI.local_crossTransport {ν : ℝ} {u v : VelocityF
     C.theta_support C.theta_one C.eta_one (C.eps_time ε hεC) (C.eps_space ε hεC)
     hε.1 ht x
 
+/-- The seven-field cutoff required by the repaired boundary statement.
+Its potential is the supplier potential, not an unjustified global replacement
+by the radial potential of the local reference. -/
+def WholeSpaceCorrectionAPI.supplierCutoff {ν : ℝ} {u : VelocityField}
+    {K : Set Space} (C : WholeSpaceCorrectionAPI ν u K) : CutoffData :=
+  ⟨C.θ, C.η, C.plateau, C.θRadius, C.ε₀, C.potential, C.correction⟩
+
+/-- The literal supplier cutoff has the local force, even when the reference
+has uncontrolled exterior values. -/
+theorem WholeSpaceCorrectionAPI.supplierCutoff_force {ν : ℝ} {u v : VelocityField}
+    {K : Set Space} (C : WholeSpaceCorrectionAPI ν u K)
+    (heq : EqOn v C.v (Ioo (0 : ℝ) (C.T + C.δ) ×ˢ ball C.x₀ C.r))
+    {ε : ℝ} (hε : ε ∈ Ioc (0 : ℝ) C.ε₀) :
+    correctionForce ν v C.supplierCutoff ε = C.forceCorrection ε := by
+  obtain ⟨hw, hf⟩ := C.local_match (e := C.ε₀) heq hε
+  rw [correctionForce_eq_source] at hf ⊢
+  change NSFormalization.Source.correctionForce ν v (C.correction ε) = _
+  rw [← hw]
+  exact hf
+
 end NSFormalization.Section3.T23
