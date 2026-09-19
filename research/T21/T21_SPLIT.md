@@ -250,7 +250,29 @@ Route. `Spec.lean:637-643` verifies the only nondefinitional seam; `Paper1/Perio
 
 ## 2. Dependency ledger
 
-Pending source-verified field-level ledger. Separate proofs with threaded records from closed registered witnesses.
+Here “registered” describes vocabulary; it does not assert a closed T19/T20 witness. Input citations use the prefix convention in §0. No unit takes a new named-input proposition.
+
+| Unit / lane | Registered or threaded input consumed | Local proof dependency | Closed supplier gate |
+|---|---|---|---|
+| N0 / C | K.c, K.hc, K.globalRegularity (`Section3/T20/CriticalRegularity.lean:145,150,365`); lifespan bridge (`Bindings/TorusLocalTheory.lean:270`) | — | T20 U12 → U13 for closed K |
+| N1 / D | T10 weights/reweight/data (`Contracts/V1/TorusData.lean:81,125,228`); T11 multiplier bound (`Section3/T11/LocalExistenceProbe.lean:61`) | — | none |
+| N2 / D | registered infimum norm (`Contracts/V1/TorusData.lean:134`) | N1 | none |
+| N3 / F | registered path/norm (`Contracts/V1/TorusLocalTheory.lean:82,89`); T11 CLM (`Section3/T11/LocalExistence.lean:63`) | N1 | none |
+| N4 / Z | force class (`Contracts/V1/TorusLocalTheory.lean:103,109`) | — | none |
+| N5 / Z | T19 U6 (`Section3/T19/Bookkeeping.lean:238`), explicit hc | N4 | none; K.hc supplied at final assembly |
+| N6 / T | datum/path/norm (`Contracts/V1/TorusData.lean:125`; `TorusLocalTheory.lean:82,89`) | additive datum/path helpers internal to N6 | none; shared supplier coordination with T18 U11 |
+| N7 / B | ball (`Spec.lean:215`), ENNReal radius | N6 (N5 for nonempty) | none |
+| N8 / C | registered lifespan/breakdown (`Contracts/V1/TorusLocalTheory.lean:200,215,221`) | N0 | T20 U13 only for closed instance |
+| N9 / C | same-radius ball (`Spec.lean:215`) | N3,N8 | T20 U13 only for closed instance |
+| N10 / B | density ε-form (`Contracts/V1/TorusLocalTheory.lean:226`), hc | N4,N9 | T20 U13 only for unconditional statement |
+| N11 / M | T19 U1 threshold (`Section3/T19/Bookkeeping.lean:55`) | — | none |
+| N12 / Z | initial class (`Contracts/V1/TorusLocalTheory.lean:97`), proved zero lemma (`Section3/T20/CriticalEnergy.lean:402`) | — | none |
+| N13 / M | threaded T19.fixedInitialDensity (`research/T19/Spec.lean:207`) | — | T19 U7 density + registration; T18 U12 upstream |
+| N14 / M | threaded density and NonDensityAPI (`Spec.lean:115,269`) | N12,N13,N10 | T19 and T20 for closed main theorem |
+| N15 / M | threaded NonDensityAPI.nonDensity (`Spec.lean:430`) | N10 | T20 U13 for closed instance |
+| A | registered/inhabited T19 and T20 APIs; all registered T10 vocabulary | N0–N15 | registrations T19 → T20 → T21 |
+
+Only `PeriodicDensityAPI.fixedInitialDensity` is needed for the mathematical density half; N11 can use the proved arithmetic lemma. T19's `regularReferenceSingular` (`research/T19/Spec.lean:239`) and the other three T19 APIs are not inputs of T21. Their completion may affect the upstream registration schedule, not this field-level DAG. T19 U7–U14's T18 U12 scheduling gate is recorded in `research/T19/T19_SPLIT.md:226-231`.
 
 ## 3. Waves
 
