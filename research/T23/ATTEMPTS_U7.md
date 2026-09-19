@@ -91,3 +91,48 @@ Fix: keep the field chain attached to its receiver.
 ../formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean:179:43: error(lean.unknownIdentifier): Unknown identifier `pow_eq_zero`
 ```
 Fix: use sq_eq_zero_iff.mp.
+
+## Derivative bound attempt 01
+
+Composition spelling did not match under rewrite.
+```text
+../formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean:202:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  fderiv ℝ (u.velocity ∘ fun f => (t, f)) x
+in the target expression
+  ‖fderiv ℝ (fun y => u.velocity (t, y)) x‖ ≤ max C 0
+
+ν T : ℝ
+Ω : Set Space
+a : SpatialField
+g : SpaceTimeField
+u : ClassicalSolutionOmega ν Ω a g T
+hΩ : Bornology.IsBounded Ω
+S : ℝ
+hS : S < T
+N : Set SpaceTime
+hN : IsOpen N
+hsub : Ico 0 T ×ˢ closure Ω ⊆ N
+hu : ContDiffOn ℝ ∞ u.velocity N
+hsub' : Icc 0 S ×ˢ closure Ω ⊆ N
+hc : ContinuousOn (fderiv ℝ u.velocity) (Icc 0 S ×ˢ closure Ω)
+C : ℝ
+hC : ∀ x ∈ Icc 0 S ×ˢ closure Ω, ‖fderiv ℝ u.velocity x‖ ≤ C
+t : ℝ
+ht : t ∈ Icc 0 S
+x : Space
+hx : x ∈ closure Ω
+hd : HasFDerivAt (u.velocity ∘ fun f => (t, f)) (fderiv ℝ u.velocity (t, x) ∘SL ContinuousLinearMap.inr ℝ ℝ Space) x
+⊢ ‖fderiv ℝ (fun y => u.velocity (t, y)) x‖ ≤ max C 0
+```
+Fix: change the target to the composition spelling before rewriting.
+
+## Derivative bound attempt 02
+```text
+../formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean:207:16: error: Type mismatch: After simplification, term
+  hC (t, x) ⟨ht, hx⟩
+ has type
+  ‖fderiv ℝ u.velocity (t, x)‖ ≤ C
+but is expected to have type
+  ‖fderiv ℝ u.velocity (t, x)‖ * ‖ContinuousLinearMap.inr ℝ ℝ Space‖ ≤ C
+```
+Fix: explicitly rewrite ContinuousLinearMap.norm_inr (not a simp lemma).

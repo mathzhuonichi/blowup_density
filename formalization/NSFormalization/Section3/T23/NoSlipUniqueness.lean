@@ -179,4 +179,32 @@ theorem eqOn_of_integral_norm_sub_sq_eq_zero {Ω : Set Space} (hΩ : IsOpen Ω)
     exact sub_eq_zero.mp (norm_eq_zero.mp (sq_eq_zero_iff.mp hx))
   exact Measure.eqOn_open_of_ae_eq heq hΩ hv hw
 
+/-- A classical solution has a single spatial derivative bound on every compact
+subslab. The constant is obtained from the raw neighborhood-smoothness field. -/
+theorem ClassicalSolutionOmega.spatialDerivative_bound
+    {ν T : ℝ} {Ω : Set Space} {a : SpatialField} {g : SpaceTimeField}
+    (u : ClassicalSolutionOmega ν Ω a g T) (hΩ : Bornology.IsBounded Ω)
+    {S : ℝ} (hS : S < T) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ t ∈ Icc (0 : ℝ) S, ∀ x ∈ closure Ω,
+      ‖spatialDerivative u.velocity t x‖ ≤ C := by
+  obtain ⟨N, hN, hsub, hu⟩ := u.velocity_smooth
+  have hsub' : Icc (0 : ℝ) S ×ˢ closure Ω ⊆ N := by
+    intro z hz
+    exact hsub ⟨⟨hz.1.1, lt_of_le_of_lt hz.1.2 hS⟩, hz.2⟩
+  have hc : ContinuousOn (fderiv ℝ u.velocity) (Icc (0 : ℝ) S ×ˢ closure Ω) :=
+    (hu.continuousOn_fderiv_of_isOpen hN (by simp)).mono hsub'
+  obtain ⟨C, hC⟩ := (isCompact_Icc.prod hΩ.isCompact_closure).exists_bound_of_continuousOn hc
+  refine ⟨max C 0, le_max_right _ _, ?_⟩
+  intro t ht x hx
+  have hd := ((hu.contDiffAt (hN.mem_nhds (hsub' ⟨ht, hx⟩))).differentiableAt
+    (by simp)).hasFDerivAt.comp x (hasFDerivAt_prodMk_right t x)
+  change ‖fderiv ℝ (u.velocity ∘ fun y => (t, y)) x‖ ≤ _
+  rw [hd.fderiv]
+  calc
+    ‖(fderiv ℝ u.velocity (t, x)).comp (ContinuousLinearMap.inr ℝ ℝ Space)‖ ≤
+        ‖fderiv ℝ u.velocity (t, x)‖ * ‖ContinuousLinearMap.inr ℝ ℝ Space‖ :=
+      ContinuousLinearMap.opNorm_comp_le _ _
+    _ ≤ C := by simpa only [ContinuousLinearMap.norm_inr, mul_one] using hC (t, x) ⟨ht, hx⟩
+    _ ≤ max C 0 := le_max_left _ _
+
 end NSFormalization.Section3.T23
