@@ -20,4 +20,15 @@ open NSFormalization.Section3.T22 (zeroExtension)
 open NSFormalization.Section4.A02 (SpatialField SpaceTimeField)
 open scoped Topology
 
+/-- One radius strictly larger than both the correction cutoff radius and the
+packet-carrier radius supplied by the scaling API. -/
+def diffSupportRadius (cutoffRadius packetRadius : ℝ) : ℝ :=
+  max cutoffRadius packetRadius + 1
+
+/-- The correction cutoff radius is strictly below the common radius. -/
+theorem cutoffRadius_lt_diffSupportRadius (cutoffRadius packetRadius : ℝ) :
+    cutoffRadius < diffSupportRadius cutoffRadius packetRadius := by
+  unfold diffSupportRadius
+  linarith [le_max_left cutoffRadius packetRadius]
+
 end NSFormalization.Section3.T23
