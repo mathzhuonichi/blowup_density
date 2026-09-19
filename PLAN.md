@@ -213,8 +213,8 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 445-T18-U11-sobolev-rate | 已合入 #417（codex 审稿 ACCEPT） | 09-19 1329Z | #417 | — | T18 U11：eq:Hsclose 力差 Sobolev 接近六字段（记录字段 + 范数在 s 上单调 + 三角不等式） |
 | 446-T15-U8-periodized-pde | 已合入 #408：T15 U8 周期化 PDE 传输（动量/无散/零初值），审稿 ACCEPT-WITH-NOTES（空白已清） | 09-19 1250Z | #408 | — | T15 U8：周期化场满足 NS 动量方程 / 无散 / 零初值（periodize 与各算子交换，单拷贝局部化） |
 | 447-T15-U10-pressure | 已合入：T15 U10 压力规范化（切片可积 + 均值零规范），审稿 ACCEPT #410 | 09-19 1257Z | #410 | — | T15 U10：pressureSlice_integrable + normalizedScaledPressure 的均值零规范 |
-| 448-T21-SPLIT-plan | astra 84 分钟 Reconnecting 循环无产出，13:57Z 杀掉改 sol 重跑 | 09-19 1356Z | — | — | T21 证明拆分 T21_SPLIT.md（N0–N15 分组成 S/M lane，波次，风险） |
-| 449-T23-SPLIT-plan | astra 70 分钟 Reconnecting 循环无产出，13:57Z 杀掉改 sol 重跑 | 09-19 1356Z | — | — | T23 证明拆分 T23_SPLIT.md（DomainPlacementData、Ω 上未周期化 packet、无滑移边界保持、T22 范数比较、唯一性/寿命、装配） |
+| 448-T21-SPLIT-plan | sol 也陷入 Reconnecting 循环（68 分钟无产出，日志 26 分钟无增长），15:08Z 第三次启动（astra，简报加增量输出规则） | 09-19 1507Z | — | — | T21 证明拆分 T21_SPLIT.md（N0–N15 分组成 S/M lane，波次，风险） |
+| 449-T23-SPLIT-plan | sol 也陷入 Reconnecting 循环 68 分钟无产出，15:08Z 第三次启动（astra，简报加增量输出规则） | 09-19 1507Z | — | — | T23 证明拆分 T23_SPLIT.md（DomainPlacementData、Ω 上未周期化 packet、无滑移边界保持、T22 范数比较、唯一性/寿命、装配） |
 | 450-T15-U9-sobolev-path | 已合入 #413：T15 U9 各阶 datum 路径 + pressure_gradient，审稿 ACCEPT | 09-19 1314Z | #413 | — | T15 U9：周期化速度的各阶 H^m datum 路径 + pressure_gradient（436 的 T11 slab 定理模式） |
 | 451-T20-U13-assembly-registration | 已合入 #415（codex sol 审稿 ACCEPT；T03.critical_regularity 第 48 个合同） | 09-19 1326Z | #415 | — | T20 U13：CriticalRegularityTAPI 23 字段装配（c = criticalSmallnessH1，常数安装）+ 注册 T03.critical_regularity |
 | 452-T20-U5-transport-commutes-lambda | 已合入：T20 U5 constantTransportCommutesLambda 逐字，审稿 ACCEPT；T20 23 字段全证 #409 | 09-19 1256Z | #409 | — | T20 U5：constantTransportCommutesLambda（唯一未证字段；Fourier 侧对角乘子交换 + 系数唯一性） |
@@ -229,7 +229,11 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 461-T19-U0-insertion-from-reference | 已合入 #426（codex 审稿 ACCEPT） | 09-19 1439Z | #426 | — | T19 U0：insertionFromReference 穿线（packet import + T15 placementData/scalingAPI + T17 slab 桥 + T18 assemble），导出 force_mem/lifespan/…/exists_force_close 给 U7–U14 |
 | 462-T15-U14b-q2-negative-order | 已合入 #422（codex 审稿 ACCEPT；T15 U14 两半齐） | 09-19 1415Z | #422 | — | T15 U14b：forceConvergence q=2（s<−1/2）——ε 无关的负阶 L¹ 界（W^{s₁} 可和，s₁<−3/2）+ 0/s₁ 阶插值；并合成字段型 forceConvergence |
 | 463-MAINT-section3-build-g | 已合入 #424（142 模块全量重编 rc 0；49 合同 54 行标准公理；263 probe 通过、34 预期负例；不绿项：T22 Assembly defProp warning、source_hashes_match false 为既有） | 09-19 1419Z | #424 | — | MAINT：#354–#421 合并批次后的 Section 3 全量编译检查（49 合同），报告 logs/SECTION3_BUILD_20260919g.md |
-| 464-T19-U7-U8-U9-density-engine | sol 9 分钟完成：fixedInitialDensity / regularReferenceSingular / mixedDensity 三字段全闭 → 审中 sol | 09-19 1440Z | — | — | T19 wave 2：U7 fixedInitialDensity、U8 regularReferenceSingular、U9 mixedDensity，全部经 U0 导出引理 + U6 零范数 + U2 算术 |
-| 465-T19-U13-U14-closure | worktree 安装中（464 分支 + integration）→ codex astra | 09-19 1440Z | — | — | T19 wave 3：U13 simultaneousPairConvergence（U0 导出 + 零延拓 EqOn + U5）、U14 closureInEnergy |
-| 466-T19-U10-U11-U12-projection | worktree 安装中（464 分支 + integration）→ codex sol | 09-19 1440Z | — | — | T19 wave 4：U10 extendedProductDensity、U11 projectionOntoInitialData、U12 zeroInitialProjection（全部由 U7 推出） |
-| 467-T24-UbCAN-Ub1-Ub3-multiple-regions | worktree 安装中（integration，T15 完成）→ codex astra | 09-19 1433Z | — | — | T24b：canonical MultipleRegionsAPI（30 字段 Type，raw-field T15 记录）+ Ub1 放置/尺度选择 + Ub2 分量 + Ub3 单拷贝支撑 |
+| 464-T19-U7-U8-U9-density-engine | 已合入 #427（codex 审稿 ACCEPT） | 09-19 1450Z | #427 | — | T19 wave 2：U7 fixedInitialDensity、U8 regularReferenceSingular、U9 mixedDensity，全部经 U0 导出引理 + U6 零范数 + U2 算术 |
+| 465-T19-U13-U14-closure | 已合入 #430（codex 审稿 ACCEPT-WITH-NOTES，探针尾空行已删） | 09-19 1500Z | #430 | — | T19 wave 3：U13 simultaneousPairConvergence（U0 导出 + 零延拓 EqOn + U5）、U14 closureInEnergy |
+| 466-T19-U10-U11-U12-projection | 已合入 #428（codex 审稿 ACCEPT） | 09-19 1458Z | #428 | — | T19 wave 4：U10 extendedProductDensity、U11 projectionOntoInitialData、U12 zeroInitialProjection（全部由 U7 推出） |
+| 470-T19-U15-assembly-registration | worktree 安装中（465 分支 + integration）→ codex sol | 09-19 1500Z | — | — | T19 U15：四记录装配 + 四 Statement + 合同 T03.density（Contracts/Bindings/Tests）+ 非空探针 |
+| 471-T24-Ub7-assembly-registration | worktree 安装中（468 + 469 分支 + integration；两分支重复定义 assembledVelocity，由 471 去重）→ codex sol | 09-19 1502Z | — | — | T24b Ub7：30 字段装配 + multipleRegionsStatement + 合同 T04.multiple_regions + N=1 非空探针 |
+| 467-T24-UbCAN-Ub1-Ub3-multiple-regions | 已合入 #429（codex 审稿 ACCEPT-WITH-NOTES，docstring 注释按意见收窄） | 09-19 1459Z | #429 | — | T24b：canonical MultipleRegionsAPI（30 字段 Type，raw-field T15 记录）+ Ub1 放置/尺度选择 + Ub2 分量 + Ub3 单拷贝支撑 |
+| 468-T24-Ub4-assembled-solution | 已合入 #431（codex 审稿 ACCEPT-WITH-NOTES，引用行号已改） | 09-19 1509Z | #431 | — | T24b Ub4：装配解 assembledVelocity/Pressure/Force + solution : ClassicalSolutionT ν 0 (Σ F_j) T（交叉输运项因支撑不交为零）+ solution_pin/force_mem/rest |
+| 469-T24-Ub5-Ub6-regions-energy | astra 13 分钟完成：region_agreement / region_blowup / energy_bound / dissipation_bound（=）全闭 → 审中 sol | 09-19 1502Z | — | — | T24b Ub5 region_agreement/region_blowup + Ub6 energy_bound/dissipation_bound（不交支撑可加性 + packetEnergy/DissipationIdentity） |
