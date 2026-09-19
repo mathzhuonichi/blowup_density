@@ -1,6 +1,6 @@
 import NSFormalization.Section3.T24.MultipleComponents
 
-/-! Finite superposition of the disjoint T15 components (`03-torus.tex:710-716`). -/
+/-! Finite superposition of the disjoint T15 components (`03-torus.tex:707-712,719`). -/
 noncomputable section
 namespace NSFormalization.Section3.T24
 open Set Filter MeasureTheory

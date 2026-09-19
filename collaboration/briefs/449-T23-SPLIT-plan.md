@@ -1,5 +1,7 @@
 # Lane 449-T23-SPLIT-plan — T23 proof-lane split (`cor:boundary`, interior no-slip insertion): `research/T23/T23_SPLIT.md`
 
+**Incremental-output rule (lead, 2026-09-19 15:05Z — added after two sessions died in `Reconnecting` loops with nothing on disk):** within the first 5 minutes write a skeleton of the split file (unit list with one-line targets) and `git commit` it; then refine section by section and commit after each section. A session death must leave the partial split on disk. Do not spend more than ~15 minutes reading before the first commit. If the split file already exists in the worktree (a previous session wrote it), read it and continue from it — do not start over.
+
 You are a Lean 4 (v4.34.0-rc2 + Mathlib) **planning** worker on the repository checked out at your working directory
 `/data_8T/ping/blowup_density/.claude/worktrees/449-T23-SPLIT-plan` (git branch `erenup/449-T23-SPLIT-plan`, based on `origin/erenup/integration-section3`). Read `CLAUDE.md`, the reconciled
 statement `research/T23/Spec.lean` (`CutoffData :130`, `BoundedDomainNormAPI :278` (copied — T22 is now registered as `T04.bounded_domain_norm`, `Contracts/V1/BoundedDomainNorm.lean`, so the copy
