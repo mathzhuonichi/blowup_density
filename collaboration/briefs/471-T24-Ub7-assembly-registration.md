@@ -31,3 +31,8 @@ Deliverables: the modules, the probe, `research/T24/axioms_ub7.lean`, `research/
 
 ## Report
 Commit on your branch; end with four parts (what was registered with exact statements / files / gaps / commands and results). Also write it to `research/T24/REPORT_471.md`.
+
+## Lead note (2026-09-19 15:03Z) — duplicate `assembledVelocity`
+Lanes 468 and 469 ran in parallel: `MultipleAssembled.lean` (468) and `MultipleRegions.lean` (469) both define `RegionsData.assembledVelocity` with the same body `finiteVelocitySum (fun j ↦ (d.component j).velocity)`, so importing both fails
+with a duplicate declaration. **You may edit `MultipleRegions.lean` for exactly this dedupe**: delete its local `def assembledVelocity`, add `import NSFormalization.Section3.T24.MultipleAssembled`, keep every theorem statement unchanged (they
+must still elaborate, since the bodies are syntactically identical — if a proof used `unfold assembledVelocity`/`rfl` on the local def, adjust the proof only). Record the change in `ATTEMPTS_UB7.md`. No other edits to existing modules.
