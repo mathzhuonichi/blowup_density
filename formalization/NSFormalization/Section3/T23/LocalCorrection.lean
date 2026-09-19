@@ -1,6 +1,7 @@
 import NSFormalization.Section3.T16.Assembly
 import NSFormalization.Section3.T15.Bridges
 import NSFormalization.Source.Insertion
+import NSFormalization.Source.LocalizedInsertion
 
 /-! Raw, un-periodised local correction vocabulary for T23.
 The seven fields are copied verbatim from research/T23/Spec.lean.
@@ -357,5 +358,23 @@ theorem exists_localCorrectionCore (v U : SpaceTimeField) (K : Set Space)
     crossTransport_packet_advects_background := fun ε hε _ ht' x =>
       (crossTransport_pair hK hv hdiv hU hO hKO hθs hθone hηone
         (ht ε hε) (hs ε hε) hε.1 ht' x).2 }
+
+/-- The force formula, copied in the summand order of the reconciled Spec. -/
+def correctionForce (ν : ℝ) (v : SpaceTimeField) (D : CutoffData) (ε : ℝ) :
+    SpaceTimeField :=
+  fun z =>
+    temporalDerivative (D.correction ε) z.1 z.2 -
+      ν • spatialLaplacian (D.correction ε) z.1 z.2 +
+      spatialDerivative (D.correction ε) z.1 z.2 (v z) +
+      spatialDerivative v z.1 z.2 (D.correction ε z) +
+      advection (D.correction ε) z.1 z.2
+
+
+/-- The Spec and supplier differ only in the order of the two cross summands. -/
+theorem correctionForce_eq_source (ν : ℝ) (v : SpaceTimeField) (D : CutoffData) (ε : ℝ) :
+    correctionForce ν v D ε = NSFormalization.Source.correctionForce ν v (D.correction ε) := by
+  funext z
+  simp only [correctionForce, NSFormalization.Source.correctionForce]
+  abel
 
 end NSFormalization.Section3.T23
