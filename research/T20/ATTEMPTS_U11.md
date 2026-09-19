@@ -116,3 +116,6 @@ Closed with **no residual and no named input**.  27 declarations, all
   force — likely wanted by U12/U13), `zero_isPeriodicDatum`,
   `torusSobolevNormAt_initial`, `contDiff_meanPathT`, `enorm_rpow_two`,
   `coeff_meanZeroPart`, `continuousOn_meanFreeHTwoSq`.
+
+
+> Lead correction after review 437: see `REPORT_437.md` "Lead notes" — the Laplacian-continuity absence claim is narrowed to the torus profile, and the T11 local theory/bump witness (`Section3/T11/Assembly.lean:99,182,525`) exists (nonzero initial data, not a U11 smallness instance).

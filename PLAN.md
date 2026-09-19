@@ -200,9 +200,20 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 432-T20-U10b-h1-energy | 已合入 #393：T20 U10b hOneEnergy 逐字（CH1 = 2，c = criticalSmallnessH1），审稿 ACCEPT-WITH-NOTES | 09-18 1901Z | #393 | — | T20 U10b：hOneEnergy（eq:H1energy：‖∇v‖²₂ 导数 + 耗散 + U10a 经 U9 吸收 + Young 力项；常数 CH1） |
 | 433-T18-U5-U6-cross-transport-momentum | 已合入 #395：T18 U5 交叉输运项恒零 + U6 精确动量方程，审稿 ACCEPT-WITH-NOTES | 09-18 1906Z | #395 | — | T18 U5 两个交叉输运项恒零（eq:bgzero）+ U6 插入三元组的精确动量方程 |
 | 434-T17-U9-energy-bound | 已合入 #398：T17 U9 能量界 + 诚实切片（energyConst = √A+√D），审稿 ACCEPT-WITH-NOTES | 09-18 1921Z | #398 | — | T17 U9：修正场环面能量界 ‖w_ε‖_{E_T} ≤ C ε^{3/2} + 两个 MemLp 诚实切片（HaarBridge 单拷贝桥 + 注册 I02 能量界） |
-| 435-T18-U7-diff-support | astra 骨架不合格 → codex sol 续做（cont_435 简报） | 09-19 1215Z | — | — | T18 U7：速度差的局部化（periodicSet 球，半径 max θR R_K；diffSupport_in_chart） |
-| 436-T18-U8-lifespan | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T18 U8：插入解 solution / blowup / blowup_limsup / lifespan = T / maximal（H³ 窄化续延 API + velocity_unique） |
-| 437-T20-U11-continuation-bound | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T20 U11：continuationBound（常/均值零模正交分解 + hTwo_le_laplacian + 积分 U10b + U2 均值界；Ccriterion） |
-| 438-T17-U11-sobolev | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T17 U11：eq:HHs 修正力 L¹_tH^s 界（0≤s≤1，注册 T02.localization + Paper1/I02 力 Sobolev 界；sobolevConst） |
-| 439-T15-U4-U5-energy-mixed | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T15 U4 能量恒等式 + 诚实切片、U5 混合范数放缩 + 诚实路径（单拷贝 + Haar 桥 + I03 放缩恒等式） |
+| 435-T18-U7-diff-support | sol 续做交付 3/4（diffSupportRadius/pos、diffSupport_in_chart、correction_slice_support）；velocityDifference_support 缺原始 packet 支撑子句（InsertionData 未保留，422 设计遗漏）→ lead 裁定显式原始前提 + 探针从 PacketImportAPI.velocity_support 放电，fix lane 排队（sol） | 09-19 1236Z | — | — | T18 U7：速度差的局部化（periodicSet 球，半径 max θR R_K；diffSupport_in_chart） |
+| 436-T18-U8-lifespan | 已合入 #403（审稿 REJECT 仅因基线漂移；数学与保真通过）：T18 U8 solution/blowup/blowup_limsup/lifespan=T/maximal（只用 T11 velocity_unique） | 09-19 1229Z | #403 | — | T18 U8：插入解 solution / blowup / blowup_limsup / lifespan = T / maximal（H³ 窄化续延 API + velocity_unique） |
+| 437-T20-U11-continuation-bound | 已合入 #401（lead 裁定：审稿仅程序性/记录性 REJECT，Lean 与突变通过；三处记录已更正）：T20 U11 continuationBound | 09-19 1226Z | #401 | — | T20 U11：continuationBound（常/均值零模正交分解 + hTwo_le_laplacian + 积分 U10b + U2 均值界；Ccriterion） |
+| 438-T17-U11-sobolev | 已合入 #404：T17 U11 eq:HHs（0≤s≤1，经 Paper1 周期端点率），审稿 ACCEPT-WITH-NOTES（记录已改） | 09-19 1230Z | #404 | — | T17 U11：eq:HHs 修正力 L¹_tH^s 界（0≤s≤1，注册 T02.localization + Paper1/I02 力 Sobolev 界；sobolevConst） |
+| 439-T15-U4-U5-energy-mixed | 已合入 #402：T15 U4+U5 五字段（map torusChart = restrict cube；I03 放缩恒等式），审稿 ACCEPT-WITH-NOTES（四处记录已改） | 09-19 1227Z | #402 | — | T15 U4 能量恒等式 + 诚实切片、U5 混合范数放缩 + 诚实路径（单拷贝 + Haar 桥 + I03 放缩恒等式） |
 | 440-MAINT-section3-build-f | 已合入 #400：116 模块全编译 0 错误、四门禁、46 合同、148 探针、895 公理组全标准（logs/SECTION3_BUILD_20260918f.md）；1 个 defProp warning（T22/Assembly，卫生项） | 09-19 1216Z | #400 | — | MAINT：第六次 Section 3 全量编译检查（#354–#396 之后，46 合同；四门禁 + 公理扫描 → logs/SECTION3_BUILD_20260918f.md） |
+| 441-T20-U12-global-regularity | codex sol 完成：globalRegularity 逐字（严格子寿命单调穷竭 → 端点 H² 局部有限 → T11 lifespanInfiniteOfLocallyFinite；无 PeriodicRestartH1；414aef5c）→ 排队审稿；T20 12 单元全证 | 09-19 1239Z | — | — | T20 U12：globalRegularity（U11 有限 H² 预算 + T11 lifespanInfiniteOfLocallyFinite） |
+| 442-T15-U6-U7-blowup-force-mem | codex sol 完成：unboundedSpeed（原始 SpeedUnboundedAtOne + 放缩见证）+ force_mem（f6a0b569）→ 排队审稿 | 09-19 1233Z | — | — | T15 U6 unboundedSpeed + U7 force_mem（单拷贝 + 放缩 blow-up 见证 / periodize 光滑周期 + 正时间紧支） |
+| 443-T18-U9-U10-energy-mixed-rates | worktree 安装中 → codex sol（+15 分钟） | 09-19 1219Z | — | — | T18 U9 energyRate（eq:Eclose）+ U10 混合范数接近（eq:Fclose），全部消费线程化记录字段 |
+| 444-T17-U10-mixed-bound | codex astra 完成：force_spatial_memLp / mixedConst_nonneg / force_mixed_bound 含两个 ∞ 端点（d33367d3）→ 排队审稿 | 09-19 1233Z | — | — | T17 U10：修正力混合范数界 + 诚实 L^p 切片（439 的 mixedLebesgueENormT_eq + I02 界） |
+| 445-T18-U11-sobolev-rate | 排队（安装后、并发 <6 时启动）→ codex sol | 09-19 1224Z | — | — | T18 U11：eq:Hsclose 力差 Sobolev 接近六字段（记录字段 + 范数在 s 上单调 + 三角不等式） |
+| 446-T15-U8-periodized-pde | 排队 → codex astra（传输核心） | 09-19 1224Z | — | — | T15 U8：周期化场满足 NS 动量方程 / 无散 / 零初值（periodize 与各算子交换，单拷贝局部化） |
+| 447-T15-U10-pressure | 排队 → codex sol | 09-19 1224Z | — | — | T15 U10：pressureSlice_integrable + normalizedScaledPressure 的均值零规范 |
+| 448-T21-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T21 证明拆分 T21_SPLIT.md（N0–N15 分组成 S/M lane，波次，风险） |
+| 449-T23-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T23 证明拆分 T23_SPLIT.md（DomainPlacementData、Ω 上未周期化 packet、无滑移边界保持、T22 范数比较、唯一性/寿命、装配） |
+| 450-T15-U9-sobolev-path | 排队 → codex astra | 09-19 1232Z | — | — | T15 U9：周期化速度的各阶 H^m datum 路径 + pressure_gradient（436 的 T11 slab 定理模式） |
+| 451-T20-U13-assembly-registration | worktree 安装中（441 + integration）→ 排队 codex sol | 09-19 1239Z | — | — | T20 U13：CriticalRegularityTAPI 23 字段装配（c = criticalSmallnessH1，常数安装）+ 注册 T03.critical_regularity |
