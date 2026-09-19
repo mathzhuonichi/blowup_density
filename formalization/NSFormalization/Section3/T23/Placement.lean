@@ -231,4 +231,15 @@ def domainPlacementData {u : VelocityField} {p : PressureField}
     have _hball := hball
     exact domainPlacementThreshold_space hK hf
 
+/-- The prescribed horizon is preserved definitionally. -/
+theorem domainPlacementData_time {u : VelocityField} {p : PressureField}
+    {f : VelocityField} {K Ω : Set Space}
+    (hK : IsCompact K) (hf : HasCompactSupport f)
+    (chartCenter : Space) (chartRadius : ℝ) (hchartRadius : 0 < chartRadius)
+    (hball : closure (Metric.ball chartCenter chartRadius) ⊆ Ω)
+    (x₀ : Space) (hx₀ : x₀ ∈ Metric.ball chartCenter chartRadius)
+    (T : ℝ) (hT : 0 < T) :
+    (domainPlacementData (u := u) (p := p) hK hf chartCenter chartRadius
+      hchartRadius hball x₀ hx₀ T hT).T = T := rfl
+
 end NSFormalization.Section3.T23
