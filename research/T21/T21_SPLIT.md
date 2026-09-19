@@ -14,6 +14,14 @@ the nine-field `nonDensityAPI`, and
 `nonDensityOfCritical`.  Registration remains assigned to the separate final
 assembly lane.
 
+**Lane 475 status (2026-09-19): A complete.** `MainAssembly.lean` closes the
+three assembly arrows, both records at the explicit T20 constant
+`criticalSmallnessH1`, the witness-independent existential, and both
+unconditional paper statements.  `T03.non_density` and `T03.main` V1 are
+registered with contract/binding/test trios; the end-to-end probe and complete
+axiom audit pass, as do build, check, test, mutation, and base-compatibility
+gates.
+
 ## 0. Ground rules
 
 **Peeling rule.** Every N-unit ends in a theorem with the verbatim field type below, or a helper directly consumed by that field. If an M unit grows into a multi-file campaign, stop and split its exact residual into smaller helper theorems; do not introduce a named input, placeholder field, extra axiom, or stronger hypothesis to conceal it. T21 has **no named inputs**: everything is threaded from `CriticalRegularityTAPI` / `PeriodicDensityAPI`, proved by the units below, or registered.
