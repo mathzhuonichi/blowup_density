@@ -157,4 +157,46 @@ theorem domainPlacementThreshold_time {K : Set Space} {f : VelocityField}
     hε.2.trans ((min_le_left _ _).trans (min_le_right _ _))
   nlinarith [mul_nonneg hε.1.le (sub_nonneg.mpr he)]
 
+/-- Every scaled translate of the canonical carrier remains strictly inside
+the prescribed ball, including at the closed upper endpoint. -/
+theorem domainPlacementThreshold_space {K : Set Space} {f : VelocityField}
+    (hK : IsCompact K) (hf : HasCompactSupport f)
+    {T chartRadius : ℝ} {chartCenter x₀ : Space} :
+    ∀ ε ∈ Ioc (0 : ℝ)
+        (domainPlacementThreshold hK hf T chartCenter x₀ chartRadius),
+      ∀ y ∈ domainPlacementCarrier K f,
+        x₀ + ε • y ∈ Metric.ball chartCenter chartRadius := by
+  intro ε hε y hy
+  have hR : 0 < domainPlacementRadius hK hf :=
+    domainPlacementRadius_pos hK hf
+  have hden : 0 < 2 * (domainPlacementRadius hK hf + 1) := by
+    positivity
+  have he :
+      ε * (2 * (domainPlacementRadius hK hf + 1)) ≤
+        domainPlacementMargin chartCenter x₀ chartRadius :=
+    (le_div_iff₀ hden).mp
+      (hε.2.trans (min_le_right _ _))
+  have hn : ε * ‖y‖ ≤ ε * domainPlacementRadius hK hf :=
+    mul_le_mul_of_nonneg_left (norm_le_domainPlacementRadius hK hf hy) hε.1.le
+  have hfactor : domainPlacementRadius hK hf <
+      2 * (domainPlacementRadius hK hf + 1) := by
+    linarith
+  have hstrict : ε * domainPlacementRadius hK hf <
+      ε * (2 * (domainPlacementRadius hK hf + 1)) :=
+    mul_lt_mul_of_pos_left hfactor hε.1
+  have hsmall : ε * ‖y‖ < domainPlacementMargin chartCenter x₀ chartRadius := by
+    exact hn.trans_lt (hstrict.trans_le he)
+  rw [Metric.mem_ball, dist_eq_norm]
+  have heq : x₀ + ε • y - chartCenter = (x₀ - chartCenter) + ε • y := by
+    abel
+  rw [heq]
+  calc
+    ‖(x₀ - chartCenter) + ε • y‖ ≤
+        ‖x₀ - chartCenter‖ + ‖ε • y‖ := norm_add_le _ _
+    _ = dist x₀ chartCenter + ε * ‖y‖ := by
+      rw [dist_eq_norm, norm_smul, Real.norm_eq_abs, abs_of_pos hε.1]
+    _ < chartRadius := by
+      rw [domainPlacementMargin] at hsmall
+      linarith
+
 end NSFormalization.Section3.T23
