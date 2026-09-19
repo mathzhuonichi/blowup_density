@@ -6,10 +6,12 @@
 .assurance{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}.assurance>div{border:1px solid var(--line);border-radius:12px;padding:14px;background:#f8fbf9}.assurance b{display:block;font-size:18px}.assurance span{display:block;color:var(--muted);font-size:13px;line-height:1.55;margin-top:5px}.contract-controls{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin:22px 0 8px}.contract-controls label{display:grid;gap:4px;font-size:12px;font-weight:700;color:var(--muted)}.contract-controls input{width:min(330px,75vw)}.contract-controls input,.contract-controls select{border:1px solid var(--line);border-radius:8px;padding:8px;background:#fff;color:var(--ink)}#contract-count{margin-left:auto}.status-chip{display:inline-grid;place-items:center;width:19px;height:19px;margin:1px;border-radius:50%;font:700 12px/1 system-ui;font-style:normal}.status-chip.reg{background:#dff3e9;color:#10664f;border:1px solid #8dc8b3}.status-chip.canonical{background:#18745c;color:#fff;border:1px solid #125844}.status-chip.caution{background:#ffe8b7;color:#754407;border:1px solid #d39432}.contract-table{min-width:1100px;line-height:1.55}.contract-table th:first-child{width:88px}.contract-table td:nth-child(2){font-weight:700}.contract-table td:last-child{min-width:420px}.contract-table tr.contract-warn{background:#fffaf0}.contract-legend{font-size:13px}@media(max-width:850px){.assurance{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.assurance{grid-template-columns:1fr}#contract-count{margin-left:0;width:100%}}
 </style><style>
 .pipeline{display:grid;grid-template-columns:minmax(145px,1fr) 24px minmax(145px,1fr) 24px minmax(145px,1fr) 24px minmax(145px,1fr) 24px minmax(145px,1fr) 24px minmax(145px,1fr) 24px minmax(145px,1fr);align-items:stretch;overflow-x:auto;padding:12px 4px 20px;margin:12px 0}.pipe-step{border:1px solid var(--line);border-top:4px solid var(--green);border-radius:12px;padding:15px;background:#f8fbf9;min-height:180px}.pipe-step b,.pipe-step span,.pipe-step code,.pipe-step small{display:block}.pipe-step b{font-size:14px}.pipe-step span{font-weight:700;line-height:1.4;margin:10px 0}.pipe-step code{font-size:11px;line-height:1.5}.pipe-step small{color:var(--muted);line-height:1.5;margin-top:12px}.pipe-step.human{border-top-color:#c7923c;background:#fff9ee}.pipe-step.policy{border-top-color:#76588d;background:#faf7fc}.pipe-step.audit{border-top-color:var(--blue);background:#f4f8fb}.pipe-arrow{display:grid;place-items:center;color:#718b84;font-size:24px}.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.trust-grid article{border-top:3px solid var(--green);background:#f6faf7;padding:18px;border-radius:4px 4px 12px 12px}.trust-grid h3{margin:0}.trust-grid p{font-size:14px}@media(max-width:900px){.pipeline{grid-template-columns:repeat(13,max-content)}.pipe-step{width:180px}.trust-grid{grid-template-columns:1fr}}
+</style><style>
+.build-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}.build-card{border:1px solid var(--line);border-radius:14px;padding:20px;background:#f8fbf9}.build-head{display:flex;justify-content:space-between;align-items:start;gap:12px}.build-head h3{margin:6px 0}.build-head>strong{color:var(--green);white-space:nowrap}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:16px 0}.metrics>div{background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px}.metrics b,.metrics span{display:block}.metrics b{font-size:18px;line-height:1.4}.metrics span{font-size:11px;color:var(--muted);line-height:1.35}.build-card p{font-size:14px}.gate-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:14px 0}.gate-grid>div{border-left:3px solid var(--green);padding:8px 12px;background:#f6faf7}.gate-grid b,.gate-grid span{display:block}.gate-grid span{font-size:12px;color:var(--muted)}@media(max-width:1000px){.build-columns{grid-template-columns:1fr}.gate-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.metrics{grid-template-columns:repeat(2,1fr)}.gate-grid{grid-template-columns:1fr}}
 </style></head><body>
 <header><div class="eyebrow">NAVIER–STOKES / PROOF ATLAS</div><h1>一个微小的力改动，<br>如何插入一次爆破？</h1><p>从论文的直觉，到 Lean 检查的陈述。全空间 ℝ³ 与环面 𝕋³ 的证明地图。</p>
-<div class="strip"><div class="stat"><b>55</b><span>注册合同 = 全空间 37 + 环面 18</span></div><div class="stat"><b>400</b><span>源码模块 = 206 + 194；非单次构建</span></div><div class="stat"><b>0 sorry</b><span>注册声明闭包；据历史审计</span></div><div class="stat"><b>3</b><span>允许的标准逻辑公理</span></div><div class="stat"><b>第 4 节</b><span>构建数字待核对 · 未核实</span></div><div class="stat"><b>第 3 节 ✓</b><span>历史重编记录，非本页新编译</span></div></div>
-<p class="source">合同数：verification/contracts.json（按 parent_task 分组）；模块数：当前 Section3 / Section4 目录的 .lean 文件计数。公理与构建：第 3 节日志及 PR #259 本地快照；范围和例外见下文。</p>
+<div class="strip"><div class="stat"><b>55</b><span>注册合同 = 全空间 37 + 环面 18</span></div><div class="stat"><b>400</b><span>源码模块 = 206 + 194；分两次历史重编</span></div><div class="stat"><b>0 sorry</b><span>注册声明闭包；据历史审计</span></div><div class="stat"><b>3</b><span>允许的标准逻辑公理</span></div><div class="stat"><b>第 4 节 ✓</b><span>206 模块重编 · exit 0</span></div><div class="stat"><b>第 3 节 ✓</b><span>194 模块重编 · exit 0</span></div></div>
+<p class="source">合同数：verification/contracts.json（全空间 37 + 环面 18）。模块与构建：logs/SECTION4_FULL_BUILD_20260917.md、logs/SECTION3_BUILD_20260919i.md；均为仓库中的历史本地验证记录，不是打开本页时或本次文档任务重新编译。</p>
 <nav aria-label="页面导航"><a href="#goal">论文目标</a><a href="#graph">依赖图</a><a href="#contracts">合同台账</a><a href="#architecture">信任架构</a><a href="#build">构建记录</a><a href="#caveats">待决事项</a></nav></header>
 <main>
 <section id="goal"><div class="eyebrow">01 / WHAT IS PROVED</div><h2>临界线以下，爆破力可以任意接近给定的力</h2>
@@ -83,7 +85,32 @@ function render(){const q=search.value.trim().toLowerCase(),sec=section.value,st
 <div class="trust-grid"><article><h3>为什么先有 Spec？</h3><p>Lean 能排除无效证明，却不能判断形式化者是否挑错了目标。每个节点先由两个互不可见的草稿从论文独立转写，再把量词、端点、范数和定义域差异写进 <code>COMPARISON.md</code> / <code>RECONCILIATION.md</code>。这是“陈述保真”的人工审查边界。</p></article><article><h3>为什么再冻一层 Contract？</h3><p>canonical proof 可以重构、改名或换实现；冻结合同只保留外部承诺。普通定义由 <code>rfl</code> 桥钉住，定义一漂移桥就不再通过。Lean <code>structure</code> 不能跨两份定义用 <code>rfl</code>，因此用逐字段双向转换和往返引理，不假装两种归纳类型相同。</p></article><article><h3>门禁拒绝什么？</h3><p>合同 import 有白名单；旧 <code>V1</code> 和测试不得被静默修改；Tests 在 warning-as-error 下检查具体绑定及完整公理闭包；注册脚本核对 id、版本、模块与声明。负向 mutation probe 刻意改坏端点或量词，确认测试会真的失败。</p></article></div>
 <p class="source">架构与政策：CLAUDE.md:29–36、69、91–99；verification/README.md:1–29；具体注册数据：verification/contracts.json。颜色表示责任边界：米色为论文/人审，绿色为 kernel 验证路径，紫灰色为冻结政策，蓝色为审计与注册。</p>
 </section>
-<!-- build -->
+<section id="build"><div class="eyebrow">05 / BUILD &amp; GATES</div><h2>两节都做过清空本节产物后的真实重编</h2>
+<p>这里的“✓”有严格口径：先删掉对应 Section 的本地编译产物，再把列出的每一个模块交给同一次 <code>lake build</code>；依赖库缓存保留。它比“Lake 三秒发现缓存都在”更强，但仍是指定 commit 上的本地记录，不是此页面刚刚运行的 CI。</p>
+<div class="build-columns">
+<article class="build-card"><div class="build-head"><div><span class="pill">Section 4 · ℝ³</span><h3>PR #259 交付物</h3></div><strong>✓ exit 0</strong></div><div class="metrics"><div><b>206 / 206</b><span>fresh-built modules</span></div><div><b>232 s</b><span>墙钟时间</span></div><div><b>0</b><span>errors</span></div><div><b>37</b><span>注册合同</span></div></div><p>第一次独立报告记录 <strong>10,636</strong> Lake jobs；第二位验证者又以 <strong>219.648 s</strong> 得到相同的 206 个 fresh builds、0 error 与门禁结果。PR 正文中的“205 local modules”来自会漏掉根层 <code>HeliCorgiPort.lean</code> 的旧 pathspec；完整文件系统枚举和两次构建都确认是 206。</p><p class="muted">两条 Section 4 自身 warning 是未显式引用变量；另一个补充 combined-import probe 报告两个 binding 中的同名声明冲突。它不在 206-target build 或注册合同闭包内，故不改写 exit 0，但属于维护提示。</p></article>
+<article class="build-card"><div class="build-head"><div><span class="pill">Section 3 · 𝕋³</span><h3>集成提交 <code>c839e37b…</code></h3></div><strong>✓ exit 0</strong></div><div class="metrics"><div><b>194 / 194</b><span>fresh-built modules</span></div><div><b>148.65 s</b><span>墙钟时间</span></div><div><b>0</b><span>errors</span></div><div><b>55</b><span>全 registry 合同</span></div></div><p><strong>67</strong> 行 standard-axiom checks 覆盖当时全部 55 个注册合同。研究扫描共 <strong>384</strong> 个文件：<strong>335</strong> 个正向 probe/审计退出 0，<strong>49</strong> 个刻意改坏的负例按预期失败；扫描出的 <strong>2,309</strong> 组公理列表全都恰为三个标准公理，其他公理名为 0。</p><p class="muted">日志中的 17 个 “sorry” grep 命中全是注释里写着“No sorry”；Section 3 自身只有一条“Prop 应使用 theorem 而非 def”的 warning，不是错误。</p></article>
+</div>
+<h3>记录中执行的核心命令</h3><pre><code>. scripts/lean-env.sh
+
+# Section 3：清空该节 lib/lean 与 ir 后，生成 194 个模块名：
+find formalization/NSFormalization/Section3 -name '*.lean' | sort \
+  | sed -e 's#formalization/##' -e 's#\.lean$##' -e 's#/#.#g' \
+  > tmp/section3_modules.txt
+cd verification
+env LEAN_NUM_THREADS=6 lake build $(cat ../tmp/section3_modules.txt)
+
+# Section 4 同法由 find 生成并传入全部 206 个目标。
+
+# 回到仓库根目录执行合同政策、测试与负向变异门禁：
+cd ..
+make check
+make test
+make test-mutations
+python3 experiments/check_contracts.py --base-ref main</code></pre>
+<div class="gate-grid"><div><b>make check</b><span>Section 3: 10.42 s · exit 0</span></div><div><b>make test</b><span>6.96 s · 67 个标准公理检查行</span></div><div><b>make test-mutations</b><span>13.61 s · 预设变异结果符合预期</span></div><div><b>check_contracts.py</b><span>5.06 s · 55 contracts · base compatible</span></div></div>
+<p class="source">Section 4：logs/SECTION4_FULL_BUILD_20260917.md:28–64、190–244；独立复核：logs/SECTION4_FULL_BUILD_20260917_ASTRA.md:23–47、231–255。Section 3：logs/SECTION3_BUILD_20260919i.md:15–49、79–88、292–318、374。第 4 节的 232 s 取首份报告；219.648 s 是独立第二次结果。第 3 节 55 是全 registry 合同数，不是“55 份第 3 节合同”。</p>
+</section>
 <!-- caveats -->
 </main><footer><p>离线文档 · 中文导读，英文标识保留原样。数字是仓库快照证据，不是本次重新认证。</p></footer>
 <script>
