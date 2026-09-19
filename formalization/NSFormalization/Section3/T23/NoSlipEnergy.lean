@@ -169,4 +169,3 @@ theorem IBP.integral_pressure_energy_zero {Ω : Set Space} (hI : IBP Ω)
   exact hI.integral_fderiv_apply_zero hΩ hm hp hw hz hd
 
 end NSFormalization.Section3.T23
-
