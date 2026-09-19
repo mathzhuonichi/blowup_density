@@ -214,7 +214,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 446-T15-U8-periodized-pde | 已合入 #408：T15 U8 周期化 PDE 传输（动量/无散/零初值），审稿 ACCEPT-WITH-NOTES（空白已清） | 09-19 1250Z | #408 | — | T15 U8：周期化场满足 NS 动量方程 / 无散 / 零初值（periodize 与各算子交换，单拷贝局部化） |
 | 447-T15-U10-pressure | 已合入：T15 U10 压力规范化（切片可积 + 均值零规范），审稿 ACCEPT #410 | 09-19 1257Z | #410 | — | T15 U10：pressureSlice_integrable + normalizedScaledPressure 的均值零规范 |
 | 448-T21-SPLIT-plan | 已合入 #434（astra 第三次启动 34 分钟完成，8 次增量提交；N0–N15 + 装配，8 个 bundle，3 波） | 09-19 1540Z | #434 | — | T21 证明拆分 T21_SPLIT.md（N0–N15 分组成 S/M lane，波次，风险） |
-| 449-T23-SPLIT-plan | sol 也陷入 Reconnecting 循环 68 分钟无产出，15:08Z 第三次启动（astra，简报加增量输出规则） | 09-19 1507Z | — | — | T23 证明拆分 T23_SPLIT.md（DomainPlacementData、Ω 上未周期化 packet、无滑移边界保持、T22 范数比较、唯一性/寿命、装配） |
+| 449-T23-SPLIT-plan | 已合入 #436（astra 第三次启动 45 分钟完成，增量提交；U1–U9 + G0 陈述阻塞：boundaryInsertionStatement 对任意 D 全称量化，D.ε₀=0 不可满足） | 09-19 1549Z | #436 | — | T23 证明拆分 T23_SPLIT.md（DomainPlacementData、Ω 上未周期化 packet、无滑移边界保持、T22 范数比较、唯一性/寿命、装配） |
 | 450-T15-U9-sobolev-path | 已合入 #413：T15 U9 各阶 datum 路径 + pressure_gradient，审稿 ACCEPT | 09-19 1314Z | #413 | — | T15 U9：周期化速度的各阶 H^m datum 路径 + pressure_gradient（436 的 T11 slab 定理模式） |
 | 451-T20-U13-assembly-registration | 已合入 #415（codex sol 审稿 ACCEPT；T03.critical_regularity 第 48 个合同） | 09-19 1326Z | #415 | — | T20 U13：CriticalRegularityTAPI 23 字段装配（c = criticalSmallnessH1，常数安装）+ 注册 T03.critical_regularity |
 | 452-T20-U5-transport-commutes-lambda | 已合入：T20 U5 constantTransportCommutesLambda 逐字，审稿 ACCEPT；T20 23 字段全证 #409 | 09-19 1256Z | #409 | — | T20 U5：constantTransportCommutesLambda（唯一未证字段；Fourier 侧对角乘子交换 + 系数唯一性） |
