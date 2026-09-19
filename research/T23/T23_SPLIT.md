@@ -74,6 +74,21 @@ Construct Kstar as the union of packet carrier and the spatial image of compact 
 
 ### U2 — local correction supplier and compatibility (L, codex-astra)
 
+**Lane 481 U2b status (2026-09-19): matching and correction estimates closed.**
+`MatchingSupplier.lean` proves local correction/force transport, both exact U2
+cross transports, the seven-field supplier cutoff, and the domain-reference
+locality bridge. `CorrectionEstimates.lean` proves energy restriction, local
+energy/mixed estimates, and the positive Sobolev-force estimate. The extended
+`T23-U2b-matching-supplier_closes.lean` probe actually constructs registered
+I02 V2/I03 records from the local reference, retaining `A.correction = C` and
+`D.ε₀ = C.ε₀ = A.ε₀`, with all three estimates and both cross terms at that D.
+Its literal supplier-cutoff variant additionally retains all seven G0 cutoff
+identities. Record construction remains in the contract-facing research layer
+because implementation modules cannot import Contracts/Bindings; U9 can move
+that checked bridge to its binding. No full BoundaryInsertionAPI assembly,
+V1 amendment, U6 path-to-slice comparison, or G1 completion is claimed.
+See `REPORT_481.md` for the inner-radius convention and exact gate results.
+
 **Lane 477 status (2026-09-19): partial, kernel checked.** Exact G0 zero-cutoff
 API instance refuted and existential repair defined in the research probe;
 canonical `StatementRepair` contains only the raw obstruction pending domain
@@ -118,6 +133,17 @@ API targets **8 fields**: `collar_agreement:823`, `noSlip_preserved:831`, `veloc
 Take ρ strictly larger than the cutoff and packet carrier radii, bound tsupport of the sum by the union, and shrink ε so `ball x₀ (ερ) ⊆ B`. Use I02 support fields cited in U2 and the scaled carrier from I03 `carrier_subset:190`; this is a single un-periodized ball. Force support also needs the force projection in Kstar, not merely P.carrier. Establish the all-real-time support assertion, especially after T, via I02 `force_support:433` plus scaled force support. With K=closure B, prove `tsupport (zeroExtension Ω (fε(t)-g(t))) ⊆ K` by closedness of K; the API only states pointwise nonvanishing support, so this conversion is a separate lemma. Outside B both perturbations vanish; frontier Ω misses B, giving no-slip from reference.no_slip. For a literally open boundary neighborhood use `(closure B)ᶜ`; the API's Bᶜ equality is stronger and suffices. Divergence of the difference follows locally in Ω.
 
 ### U5 — registered T22 domain/zero-extension comparison (M, codex-sol)
+
+**Status (lane 484, 2026-09-19): complete.**
+`Section3/T23/DomainComparison.lean:domain_zeroExt_comparison` applies the
+canonical T22 three-field API to the actual force difference with the fixed
+compact set `closure B`, chooses `C` before time and `ε`, and integrates both
+extended-norm inequalities over `Ioi 0` without finiteness assumptions.  It
+threads exactly U3's `forceDifference_mem` and U4's all-time pointwise support;
+the order-zero slice identity and all five copied T23 norm-definition bridges
+are checked separately.  The closure probe also gives explicit fieldwise
+adapters from both the historical `Spec.lean` copy and the registered T22
+contract copy to the canonical proof-side record.
 
 API target `domain_zeroExt_comparison:983`; supporting targets domain norm definitions `Spec:615,622,629,640,648` and copied norm API `:289,304,324` transport. Dependencies: U3 force smoothness, U4 fixed support, registered T22. No new proof of cutoffMultiplier is requested.
 
