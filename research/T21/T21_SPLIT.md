@@ -274,9 +274,20 @@ Here “registered” describes vocabulary; it does not assert a closed T19/T20 
 
 Only `PeriodicDensityAPI.fixedInitialDensity` is needed for the mathematical density half; N11 can use the proved arithmetic lemma. T19's `regularReferenceSingular` (`research/T19/Spec.lean:239`) and the other three T19 APIs are not inputs of T21. Their completion may affect the upstream registration schedule, not this field-level DAG. T19 U7–U14's T18 U12 scheduling gate is recorded in `research/T19/T19_SPLIT.md:226-231`.
 
-## 3. Waves
+## 3. Waves — at most three concurrent lanes
 
-At most three concurrent lanes. Start independent helpers and parameterized assembly before upstream registration; closed assembly waits for suppliers.
+The task's lead snapshot is T20 U1–U11 landed, U12 lane 441 in flight, U13 next; T19 U1–U6 proved, U7–U14 gated on T18 U12. This is scheduling input from the brief. The actual local proofs reused here were individually checked above. Recheck upstream registrations before starting A; do not infer availability from an old status paragraph.
+
+| Wave | Slot 1 | Slot 2 | Slot 3 | Release condition |
+|---|---|---|---|---|
+| W1 | Z: N4+N5+N12 (S, codex-sol) | D: N1+N2 (M, codex-astra) | T: N6 (M, codex-astra), unless lane 445 owns it | All start now; no T19 U7+ or T20 U13 witness needed |
+| W2 | F: N3 (M, codex-astra) | C: N0+N8 then N9 (S, codex-sol) | B: N7 then N10 (S, codex-sol) | F after N1; C can start N0/N8 now against K, N9 after N3; B N7 after N6, N10 after N9+N4 |
+| W3 | M: N11+N13+N14+N15 (S, codex-sol) | Conditional assembly/probes from A if capacity permits | Spare for a peeled N6 residual or shared-helper integration | M may start now with threaded density/non-density and proved N12; concrete integration after W2 |
+| W4 | A: closed assembly + registration (M, codex-sol) | — | — | All N-units plus inhabited, registered T19 and T20; preserve T19 → T20 → T21 |
+
+**Start-now is broader than W1.** N0/N8, N11/N13/N14/N15 and the arrow-type assembly are provable conditionally now; their placement later avoids exceeding three concurrent lanes and module ownership conflicts. Only closure against actual upstream witnesses/registration waits for T20 U13 or T19 U7+. The two local analytic paths are N1 → N3 → N9 → N10 and N6 → N7; the latter gates the full NonDensityAPI even though it is not used by N10. External closure follows T18 U12 → T19 density/registration and T20 U12 → U13/registration.
+
+If lane 445 is already proving N6, count that shared work once and use the freed T21 slot for C's N0/N8 or M's conditional proofs. Lead communicates the exact helper signature and chosen module; this plan sends no external messages or new lane claims.
 
 ## 4. Risks
 
