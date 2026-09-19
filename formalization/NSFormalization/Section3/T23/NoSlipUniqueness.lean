@@ -167,4 +167,16 @@ theorem difference_energy_integrable {ν T₁ T₂ : ℝ} {Ω : Set Space}
   exact (((h₁.sub h₂).norm.pow 2).integrableOn_compact hΩ.isCompact_closure).mono_set
     subset_closure
 
+/-- On an open domain, continuous velocities with zero squared L² difference
+agree pointwise. This is the final measure-to-pointwise step, not uniqueness. -/
+theorem eqOn_of_integral_norm_sub_sq_eq_zero {Ω : Set Space} (hΩ : IsOpen Ω)
+    {v w : Space → Space} (hv : ContinuousOn v Ω) (hw : ContinuousOn w Ω)
+    (hi : IntegrableOn (fun x => ‖v x - w x‖ ^ 2) Ω)
+    (hz : (∫ x in Ω, ‖v x - w x‖ ^ 2) = 0) : EqOn v w Ω := by
+  have hae := (integral_eq_zero_iff_of_nonneg (fun x => sq_nonneg ‖v x - w x‖) hi).mp hz
+  have heq : v =ᵐ[volume.restrict Ω] w := by
+    filter_upwards [hae] with x hx
+    exact sub_eq_zero.mp (norm_eq_zero.mp (sq_eq_zero_iff.mp hx))
+  exact Measure.eqOn_open_of_ae_eq heq hΩ hv hw
+
 end NSFormalization.Section3.T23

@@ -85,3 +85,9 @@ Line break before chained dot notation parsed as a dotted identifier.
 ../formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean:168:6: error: Invalid dotted identifier notation: The name `continuousAt.continuousWithinAt` must be atomic
 ```
 Fix: keep the field chain attached to its receiver.
+
+## Zero-energy attempt 01
+```text
+../formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean:179:43: error(lean.unknownIdentifier): Unknown identifier `pow_eq_zero`
+```
+Fix: use sq_eq_zero_iff.mp.
