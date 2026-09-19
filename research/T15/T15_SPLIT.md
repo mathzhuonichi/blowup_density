@@ -130,6 +130,16 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   `navierStokesResidual`, incl. the nonlinear term, via `contDiffOn_periodize` and locally-finite-sum
   differentiation) transport them to the torus fields. **L, Opus.** Deps: U3.
 
+  **Status (lane 446, 2026-09-19): complete.** `Equation.lean` proves
+  `periodized_momentum`, `periodized_divergence`, and `periodized_initial`
+  from raw packet clauses and `PlacementData`, at unchanged viscosity.
+  Uniform closed support plus the vendor locally finite lattice family gives
+  one fixed translate on a neighbourhood, including cube faces; local
+  derivative congruence handles the nonlinear term without extra smoothness
+  premises. The probe constructs placement for the registered nonzero packet
+  and applies all three results. All 18 module declarations have exactly the
+  three standard axioms. See `REPORT_446.md` and `ATTEMPTS_U8.md`.
+
 - **U9 — velocity `H^m` datum path + `pressure_gradient`** (new; ⑧). New `Section3/T15/SobolevPath.lean`.
   Proves `ClassicalSolutionT.sobolev` (a `ContinuousOn` `PeriodicSobolev m` datum path for every `m : ℕ`)
   and `pressure_gradient` (`MemLp` of the torus pressure gradient) for the periodized velocity/pressure.
