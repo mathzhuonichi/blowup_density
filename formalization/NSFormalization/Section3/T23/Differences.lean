@@ -115,4 +115,19 @@ theorem slice_tsupport_subset_spacetime_tsupport
     continuousAt_const.prodMk continuousAt_id
   exact (notMem_tsupport_iff_eventuallyEq.mpr (hmap.eventually hzero)) hx
 
+/-- Every correction slice lies in the common `ε ρ` ball; this uses the sharp
+I02/local-correction spacetime support, not merely its fixed-radius corollary. -/
+theorem correction_slice_support {v u : SpaceTimeField} {K : Set Space}
+    {x₀ : Space} {r T δ ε packetRadius : ℝ} {D : CutoffData}
+    (core : LocalCorrectionCore v u K x₀ r T δ D)
+    (hε : ε ∈ Ioc (0 : ℝ) D.ε₀) (t : ℝ) :
+    tsupport (fun x : Space => D.correction ε (t, x)) ⊆
+      ball x₀ (ε * diffSupportRadius D.θRadius packetRadius) := by
+  intro x hx
+  have hz := core.correction_support ε hε
+    (slice_tsupport_subset_spacetime_tsupport (D.correction ε) t hx)
+  exact ball_subset_ball
+    (mul_le_mul_of_nonneg_left
+      (cutoffRadius_lt_diffSupportRadius D.θRadius packetRadius).le hε.1.le) hz.2
+
 end NSFormalization.Section3.T23
