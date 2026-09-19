@@ -209,4 +209,38 @@ theorem physicalCorrection_cancels_packet {v U : SpaceTimeField} {x₀ : Space}
       spatialCurl_timePotential_on_ball hcont hdiv htIoo hxball]
   rw [hW]; abel
 
+/-- Both cross transports vanish globally on `[0,T)`, including the inactive initial slice. -/
+theorem crossTransport_pair {v U : SpaceTimeField} {x₀ : Space}
+    {θ : Space → ℝ} {η : ℝ → ℝ} {K O : Set Space} {T r δ ε θRadius : ℝ}
+    (hK : IsCompact K)
+    (hcont : ContDiffOn ℝ ∞ v (Ioo (0 : ℝ) (T + δ) ×ˢ ball x₀ r))
+    (hdiv : ∀ t ∈ Ioo (0 : ℝ) (T + δ), ∀ x ∈ ball x₀ r, spatialDivergence v t x = 0)
+    (hUsupp : ∀ t ∈ Ioo (0 : ℝ) 1, tsupport (fun x => U (t, x)) ⊆ K)
+    (hOopen : IsOpen O) (hKO : K ⊆ O)
+    (hθsupp : tsupport θ ⊆ ball (0 : Space) θRadius) (hθone : EqOn θ (fun _ => 1) O)
+    (hηone : EqOn η (fun _ => 1) (Icc (-1 : ℝ) 1))
+    (hεtime : 2 * ε ^ 2 < min T δ) (hεspace : ε * θRadius < r) (hε : 0 < ε)
+    {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) (x : Space) :
+    spatialDerivative (scaledVelocity U x₀ T ε) t x
+        (v (t, x) + physicalCorrection v x₀ T θ η ε (t, x)) = 0 ∧
+      spatialDerivative (fun z => v z + physicalCorrection v x₀ T θ η ε z) t x
+        (scaledVelocity U x₀ T ε (t, x)) = 0 := by
+  by_cases hstart : t ≤ T - ε ^ 2
+  · have hz := packet_slice_zero U x₀ T ε t hstart
+    have hd : spatialDerivative (scaledVelocity U x₀ T ε) t x = 0 := by
+      simp only [spatialDerivative, hz]
+      simp
+    have hval := congrFun hz x
+    exact ⟨by rw [hd]; simp, by rw [hval]; exact map_zero _⟩
+  · obtain ⟨O', hO', _, hsupp, hzero⟩ := physicalCorrection_cancels_packet hK
+      hcont hdiv hUsupp hOopen hKO hθsupp hθone hηone hεtime hεspace hε
+      ⟨(lt_of_not_ge hstart).le, ht.2⟩
+    have hremove : ∀ y ∈ tsupport (fun z => scaledVelocity U x₀ T ε (t, z)),
+        ∀ᶠ z in 𝓝 y, v (t, z) + physicalCorrection v x₀ T θ η ε (t, z) = 0 := by
+      intro y hy
+      filter_upwards [hO'.mem_nhds (hsupp hy)] with z hz using hzero z hz
+    exact (NSFormalization.Source.cross_advection_eq_zero
+      (fun z => v z + physicalCorrection v x₀ T θ η ε z)
+      (scaledVelocity U x₀ T ε) t hremove x).symm
+
 end NSFormalization.Section3.T23

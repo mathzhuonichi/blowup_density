@@ -33,3 +33,14 @@ but is expected to have type
   @Ne Space (parabolicVelocity ε⁻¹ (T - ε ^ 2) x₀ (zeroPastField U) (t, y)) 0
 ```
 Next: unfold both rescalings explicitly.
+
+## Cross transport endpoint
+
+`simp only [spatialDerivative, hz, fderiv_const]` failed:
+```text
+LocalCorrection.lean:230:69: error: unsolved goals
+⊢ fderiv ℝ (fun x => 0) x = 0
+LocalCorrection.lean:231:40: warning: This simp argument is unused:
+  fderiv_const
+```
+Fix: follow the checked T18 proof and finish the constant derivative with `simp`.
