@@ -177,6 +177,10 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   `packetDissipationIdentity` (`:709`), `M=P.energyBound`, `D=P.dissipationBound`; `‖w_ε‖ ≤ Cε^{3/2}` with
   `C=correction.energyConst` from `correction.correction_energy_bound` (`Spec.lean:1523`). **M, Opus.** Hard
   analytic (norm triangle), no named input. Deps: U1. **Gated on T15 U4 + T17 U9.**
+  **Lane 443 status:** analytic triangle and all threaded bookkeeping are complete as
+  `energyRate_separateConstants`.  The exact canonical field is blocked only by absent
+  `0 ≤ energyBound` and `0 ≤ dissipationBound` fields; the Spec-form field closes in
+  `probes/u9_u10_closes.lean` from `PacketImportAPI.energy_isLUB` and `dissipation_eq`.
 
 - **U10 — `eq:Fclose` (mixed-norm closeness).** New `Section3/T18/MixedRate.lean`. Targets `forceDiffMixedConst`
   (`Spec.lean:1899`), `forceDiffMixedConst_nonneg` (`:1902`), `forceDifference_mixed_memLp` (`:1910`),
@@ -186,6 +190,9 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   `:736`) + `C_{pq}ε^{α+1}` (`correction.force_mixed_bound`, `Spec.lean:1541`), `α := Contracts.V1.alpha`;
   `forceDiffMixedConst p q` absorbs both, `_nonneg` on `1≤p,q`. **M-L, Opus.** No named input. Deps: U1, U2.
   **Gated on T15 U5 + T17 U10.**
+  **Lane 443 status:** complete.  All four exact canonical fields close; finiteness of
+  `correction.force_mixed_bound` supplies the correction's honest mixed path, so no
+  additional continuity reconstruction or named input is required.
 
 - **U11 — `eq:Hsclose` + the `s<0` tail (Sobolev closeness).** New `Section3/T18/SobolevRate.lean`. Targets
   `forceDiffSobolevConst` (`Spec.lean:1928`), `forceDiffSobolevConst_pos` (`:1932`),
