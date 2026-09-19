@@ -200,6 +200,11 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   **L, Opus.** No named input. Deps: U1, U2. **Gated on T15 U13+U14 and T17 U11 — both transitively on
   T13.localization (`correction.localization`).**
 
+  **Status (lane 445, 2026-09-19): complete.** All six U11 fields are proved from the threaded T15/T17
+  records.  The path-infimum triangle inequality and all-real-order monotonicity are proved locally;
+  `negative_s_memLp` lowers the honest order-zero path through T11 `persistenceDown`.  The exact
+  Spec-form conversion probe and the fifteen-declaration standard-three-axiom audit both pass.
+
 - **U12 — assembly + statement + contract/bindings/tests + non-vacuity.** New `Section3/T18/Assembly.lean`
   + a fresh `Contracts/V1/…` (T18 registration, T03 umbrella per PLAN §8) + `Bindings` + `Tests`. Bundle
   U1-U11 into `PeriodicInsertionAPI` and close `periodicInsertionStatement` (`Spec.lean:1977`,
