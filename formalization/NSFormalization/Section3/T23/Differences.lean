@@ -290,4 +290,22 @@ theorem velocityDifference_divFree {ν : ℝ} {u : VelocityField}
     ((hincompressible ε hε t ht x hx).trans
       (reference.divergence t htref x hx).symm)
 
+/-- Every correction-force slice, including slices after `T`, lies in the
+common `ε ρ` ball.  The proof uses I02's force-support-in-correction-support
+fact followed by the sharp correction cutoff support. -/
+theorem correctionForce_slice_support (ν : ℝ)
+    {v u : SpaceTimeField} {K : Set Space}
+    {x₀ : Space} {r T δ ε packetRadius : ℝ} {D : CutoffData}
+    (core : LocalCorrectionCore v u K x₀ r T δ D)
+    (hε : ε ∈ Ioc (0 : ℝ) D.ε₀) (t : ℝ) :
+    tsupport (fun x : Space => correctionForce ν v D ε (t, x)) ⊆
+      ball x₀ (ε * diffSupportRadius D.θRadius packetRadius) := by
+  intro x hx
+  have hz : (t, x) ∈ tsupport (correctionForce ν v D ε) :=
+    slice_tsupport_subset_spacetime_tsupport (correctionForce ν v D ε) t hx
+  have hw := core.correction_support ε hε (force_support ν v D ε hz)
+  exact ball_subset_ball
+    (mul_le_mul_of_nonneg_left
+      (cutoffRadius_lt_diffSupportRadius D.θRadius packetRadius).le hε.1.le) hw.2
+
 end NSFormalization.Section3.T23
