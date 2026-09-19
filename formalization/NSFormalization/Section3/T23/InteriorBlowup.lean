@@ -55,4 +55,22 @@ theorem interior_blowup
   rw [hformula, hcancel t ⟨hstart.le, ht.2⟩ x hx, zero_add]
   exact hlarge
 
+/-- Continuity at one witness suffices; no regularity outside the domain is
+used. The strict superlevel set is a neighborhood and has positive volume. -/
+theorem ofReal_le_eLpNormTop_of_continuousAt {z : Space → Space} {x : Space}
+    (hz : ContinuousAt z x) {M : ℝ} (hx : M < ‖z x‖) :
+    ENNReal.ofReal M ≤ eLpNorm z ⊤ (volume : Measure Space) := by
+  rw [eLpNorm_exponent_top, eLpNormEssSup_eq_essSup_enorm]
+  by_contra hcon
+  have hae : ∀ᵐ y ∂(volume : Measure Space), ‖z y‖ₑ < ENNReal.ofReal M :=
+    ae_lt_of_essSup_lt (not_le.mp hcon)
+  have hpos : 0 < volume {y : Space | M < ‖z y‖} :=
+    Measure.measure_pos_of_mem_nhds volume (hz.norm.eventually (Ioi_mem_nhds hx))
+  have hsub : {y : Space | M < ‖z y‖} ⊆ {y : Space | ¬ ‖z y‖ₑ < ENNReal.ofReal M} := by
+    intro y hy
+    change ¬ ‖z y‖ₑ < ENNReal.ofReal M
+    rw [not_lt]
+    exact (ENNReal.ofReal_le_ofReal hy.le).trans_eq (ofReal_norm _)
+  exact (not_le.mpr hpos) ((measure_mono hsub).trans (ae_iff.mp hae).le)
+
 end NSFormalization.Section3.T23
