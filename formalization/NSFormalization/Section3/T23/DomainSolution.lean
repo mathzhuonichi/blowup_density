@@ -117,7 +117,7 @@ structure ClassicalSolutionOmega (ν : ℝ) (Ω : Set Space) (a : SpatialField)
   velocity_smooth : SmoothOnClosedSlab (Ico (0 : ℝ) T) Ω velocity
   /-- `03-torus.tex:637-643`: pressure smoothness on the same slab. -/
   pressure_smooth : SmoothOnClosedSlab (Ico (0 : ℝ) T) Ω pressure
-  /-- `02-preliminaries.tex:28-29` and `03-torus.tex:643`: `u(0,·)=a` on `Ω`.
+  /-- `01-introduction.tex:4-7` and `03-torus.tex:634-646`: `u(0,·)=a` on `Ω`.
   Exact quantifier order: `∀ x ∈ Ω`.  Non-vacuity: pointwise equality of
   physical vectors on the domain. -/
   initial : ∀ x ∈ Ω, velocity (0, x) = a x
@@ -130,7 +130,7 @@ structure ClassicalSolutionOmega (ν : ℝ) (Ω : Set Space) (a : SpatialField)
   ∀ x ∈ Ω`.  Non-vacuity: the NS residual equals `g` pointwise at `ν`. -/
   momentum : ∀ t ∈ Ioo (0 : ℝ) T, ∀ x ∈ Ω,
     navierStokesResidual ν velocity pressure t x = g (t, x)
-  /-- `03-torus.tex:641` "`v|_{∂Ω}=0`": no-slip on the boundary.  Exact
+  /-- `03-torus.tex:644` "`v|_{∂Ω}=0`": no-slip on the boundary.  Exact
   quantifier order: `∀ t ∈ Ico 0 T, ∀ x ∈ frontier Ω`.  Non-vacuity: the
   velocity vanishes pointwise on `∂Ω = frontier Ω`. -/
   no_slip : ∀ t ∈ Ico (0 : ℝ) T, ∀ x ∈ frontier Ω, velocity (t, x) = 0
@@ -268,4 +268,3 @@ theorem ibp_box {Ω : Set Space} (hΩ : IsBoxDomain Ω) : IBP Ω := by
     intro y hy
     exact congrArg (fun z => z * g (e y)) (hd f hf y hy).symm
 end NSFormalization.Section3.T23
-
