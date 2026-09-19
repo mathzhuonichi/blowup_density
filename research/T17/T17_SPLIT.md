@@ -206,6 +206,22 @@ in the tree today.
   (`Contracts/V1/Correction.lean:454`); temporal projection is not periodized, so
   `torusTemporalSupport = Prod.fst '' tsupport` directly ≤ `ofReal(4ε²)` by `I02.force_time_length`
   (`:460`). **M–L, Opus.** Deps: U2, U7; T15 `HaarBridge`.
+  **Status (lane 431, DONE):** `Section3/T17/ForceVolume.lean` proves
+  `spatialVolumeConst θR = π·4/3·θR³`, `spatialVolumeConst_nonneg` (under the
+  `theta_radius_pos` datum `0 ≤ θR`) and both fields at the concrete
+  `correctionData`, inheriting `hv` only through lane 425's `force_support`.
+  The planned route was adjusted in two places.  (i) The measured object is the
+  support of `torusSpaceTimeLift`, which reads the field at the *discontinuous*
+  `(0,1]³` representative, so the torus image of the manuscript's **open** ball
+  is enlarged to the closed ball to obtain a closed — hence `tsupport`-stable —
+  superset; the constant is unaffected.  (ii) The new single-copy set bridge is
+  an **inequality**, `measure_torusPoint_image_le : IsCompact A →
+  periodicTorusMeasure (torusPoint '' A) ≤ volume A`, proved for arbitrary
+  compact `A` from T15's `lintegral_enorm_torusLift` applied to the unit-periodic
+  indicator of `periodicSet A` plus T13's `lintegral_eq_tsum_halfOpenCube`; the
+  registered `I02.force_spatial_volume` is not used, because the Mathlib ball
+  volume `EuclideanSpace.volume_closedBall_fin_three` lands the constant
+  directly.  All declarations have exactly the standard three axioms.
 
 - **U9 — energy bound + honest slices** (new torus wrapping I02 content). New `Section3/T17/Energy.lean`.
   Targets `correction_slice_memLp` (`Spec.lean:902`), `correction_gradient_memLp` (`:906`), `energyConst`,
@@ -216,6 +232,28 @@ in the tree today.
   (`Contracts/V1/Correction.lean:486`, `≤ C ε^{3/2}`, from `CorrectionEnergy.physicalCorrection_uniform_energy:54`).
   Torus `MemLp` slices from `I02.correction_slice_memLp`/`correction_gradient_memLp` + `torusLift` single-copy.
   **L, Opus.** Deps: U2; **T15 U-TB1** (lane 363/364).
+
+  **U9 status (lane 434, DONE 2026-09-18).** All five targets closed in the new
+  `Section3/T17/Energy.lean` (namespace `NSFormalization.Section3.T17`), at the concrete
+  `correctionData` of U2: `correction_slice_memLp`, `correction_gradient_memLp`, `energyConst`,
+  `energyConst_nonneg`, `correction_energy_bound` (`≤ ofReal (energyConst · ε^(3/2))`), with
+  `energyConst = √A + √D` — literally the constant the Section 4 binding registers
+  (`Bindings/Correction.lean:349`), `A` from `Paper1.CorrectionEnergy.physicalCorrection_uniform_energy`,
+  `D` from `Paper1.InsertionEnergy.correction_gradientSquare_bound`.  The route is the planned one:
+  each torus slice of `D.correction ε` is **definitionally** T13's `periodize` of the single-copy
+  slice, so T15 U-TB1's `eLpNorm_torusLift_periodize` and
+  `eLpNorm_torusLift_spatialGradient_periodize` identify both summands of `energyENormT` with the
+  whole-space summands bounded by `I02.energyEssSup_le` / `I02.energyGradient_le`.  The two `MemLp`
+  fields do **not** use the bridge (there is no `memLp_torusLift_*` in `HaarBridge.lean`): §1 of the
+  module reproves `Paper1.memLp_torusLift` for an arbitrary normed value type
+  (`memLp_torusLift_of_continuous`), which is what the `Space`- and
+  `WithLp 2 (Fin 3 → Space)`-valued lifts need.  Premises = lane 385's cutoff block + the documented
+  G1 `hv : ContDiff ℝ ∞ v` + one placement clause
+  `hcube : closure (ball x₀ r) ⊆ interior fundamentalCube`, which
+  `research/T17/probes/energy_closes.lean:hcube_of_placement` derives from
+  `PlacementData.chartBall_in_cube` ∘ `CorrectionAPI.ball_in_chart` (so it is not a new assumption).
+  Note for later units: a non-vacuity witness for anything Haar-normed must be placed **inside** the
+  cube — lane 425's `x₀ = 0` does not satisfy `hcube`; this lane uses the cube centre.
 
 - **U10 — mixed bound + honest slices** (new torus wrapping I02 content). New `Section3/T17/Mixed.lean`.
   Targets `force_spatial_memLp` (`Spec.lean:923`), `mixedConst`, `mixedConst_nonneg`, `force_mixed_bound`
