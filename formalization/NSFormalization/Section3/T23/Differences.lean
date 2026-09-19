@@ -63,4 +63,11 @@ theorem differenceThreshold_pos {u : VelocityField} {p : PressureField}
   exact div_pos (domainPlacementMargin_pos place.x₀_mem)
     (mul_pos (by norm_num) (diffSupportRadius_pos hcutoff))
 
+/-- Shrinking preserves every supplier fact already valid up to `base`. -/
+theorem differenceThreshold_le_base {u : VelocityField} {p : PressureField}
+    {f : VelocityField} {K : Set Space}
+    (place : DomainPlacementData u p f K) (base cutoffRadius packetRadius : ℝ) :
+    differenceThreshold place base cutoffRadius packetRadius ≤ base := by
+  exact min_le_left _ _
+
 end NSFormalization.Section3.T23
