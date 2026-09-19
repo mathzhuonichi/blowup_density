@@ -469,4 +469,19 @@ theorem exists_localCorrection_in_domain (ν : ℝ) (v U : SpaceTimeField)
   · exact hs.trans (Set.prod_mono Subset.rfl (subset_closure.trans hΩ))
   · exact (force_support ν v D ε).trans (hD.correction_support ε hε)
 
+/-- The core's potential and curl formulas fix the entire correction family;
+it cannot be an unrelated correction chosen to satisfy only support clauses. -/
+theorem LocalCorrectionCore.correction_eq_physical {v U : SpaceTimeField} {K : Set Space}
+    {x₀ : Space} {r T δ : ℝ} {D : CutoffData}
+    (h : LocalCorrectionCore v U K x₀ r T δ D) (ε : ℝ) :
+    D.correction ε = physicalCorrection v x₀ T D.θ D.η ε := by
+  have hp : D.potential = timePotential v x₀ := by
+    funext z
+    exact (h.potential_formula z.1 z.2).trans
+      (NSFormalization.Paper1.RadialPotential.centeredPotential_eq_integral
+        (fun y => v (z.1, y)) x₀ z.2).symm
+  funext z
+  rw [h.correction_formula, hp]
+  rfl
+
 end NSFormalization.Section3.T23
