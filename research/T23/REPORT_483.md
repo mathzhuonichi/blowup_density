@@ -115,4 +115,3 @@ Every Lean shell sourced `scripts/lean-env.sh`; every Lake command ran from
   `source_hashes_match: false`; neither is in this module's imports or changes.
 - Targeted forbidden-token/unsafe-import scans: no output.
 - `git diff --check`: exit 0.
-

@@ -434,7 +434,9 @@
       "kind": "specification",
       "state": "ready",
       "owner": null,
-      "contracts": [],
+      "contracts": [
+        "T04.boundary_insertion"
+      ],
       "deliverable": "Reconcile research/T23/Spec.lean against cor:boundary and its no-slip uniqueness requirements, then register the accepted versioned contract under parent task T04 with its typed binding and axiom test."
     },
     {

@@ -594,6 +594,17 @@
       "declaration": "BlowupDensity.Tests.checkedMultipleRegions",
       "scope": "Proposition prop:multiple (03-torus.tex:697-722), torus branch only: for every positive viscosity, every registered PacketImportAPI, every positive terminal time, and every nonempty finite family of positive-radius pairwise-disjoint balls whose closures lie in the interior of the fundamental cube, the complete 30-field MultipleRegionsAPI is inhabited. It carries one registered T15 PlacementData and ScalingAPI per prescribed ball, admissible scales with epsilon_j^2 < T, pinned component solutions and single-copy supports, the explicit finite-sum velocity/pressure/force, a pinned classical torus solution from rest with force in forceClassT, agreement and unbounded speed in every prescribed ball, the bound energyEssSupT(T,u)^2 <= energyBound^2 * sum epsilon_j, and the exact identity energyGradientT(T,u)^2 = dissipationBound^2 * sum epsilon_j. A concrete N=1 witness uses the registered nonzero packet at viscosity one, T=1, and the radius-1/4 ball centred at (1/2,1/2,1/2). The paper's bounded-domain/homogeneous-no-slip branch at 03-torus.tex:698,703,719 is deliberately omitted: V1 has a bounded-domain norm layer but no bounded-domain solution/no-slip carrier threaded through this proposition; it is out of scope, not identified with torus periodicity. No T18 insertion, density consequence, sharpness, or optimality claim is included.",
       "enabled": true
+    },
+    {
+      "id": "T04.boundary_insertion",
+      "parent_task": "T04",
+      "version": 1,
+      "specification": "verification/Contracts/V1/BoundaryInsertion.lean",
+      "binding_module": "Bindings.BoundaryInsertion",
+      "test_module": "Tests.BoundaryInsertion",
+      "declaration": "BlowupDensity.Tests.checkedBoundaryInsertion",
+      "scope": "T23 Corollary cor:boundary (03-torus.tex:632-666), G0 existential repair: jointly choose the matching whole-space correction supplier and its literal seven-field cutoff; all 48 BoundaryInsertionAPI fields for the registered packet, prescribed interior ball and domain reference. Box domains are unconditional; bounded smooth-level domains are conditional on the explicit scalar IBP Ω identity (G1). The statement includes exact global triple formulas, no-slip solution, lifespan T and maximality, pointwise and essential-supremum blowup, fixed interior supports, domain/zero-extension comparison, energy rate and all subcritical force convergence. I02/I03 and T22 suppliers are discharged in the binding; no named inputs remain. G2 uses an operational window core, requiring no global identification of the local reference's potential. V1 G0/G1 scope wording is owner-pending. The literal universally prescribed-cutoff statement and unconditional smooth-domain IBP are not asserted.",
+      "enabled": true
     }
   ]
 }

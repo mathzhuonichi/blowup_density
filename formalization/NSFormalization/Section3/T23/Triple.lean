@@ -157,7 +157,7 @@ theorem packet_pressure_smooth
   exact h
 
 /-- Quiet history is global, including its closed right endpoint. -/
-theorem history (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+theorem history (C : WindowedCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
     {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀) {t : ℝ}
     (ht : t ≤ place.T - 2 * ε ^ 2) (x : Space) :
     velocity place D reference ε (t, x) = reference.velocity (t, x) := by
@@ -168,7 +168,7 @@ theorem history (C : LocalCorrectionCore reference.velocity u K place.x₀ r pla
   simp only [velocity, hw, hU, add_zero]
 
 /-- The initial datum follows from quiet history and the placement time bound. -/
-theorem initial (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+theorem initial (C : WindowedCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
     {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀) (hplace : ε ∈ Ioc 0 place.ε₀)
     {x : Space} (hx : x ∈ Ω) : velocity place D reference ε (0, x) = a x := by
   rw [history C hε (by linarith [place.eps_time ε hplace]) x]
@@ -176,7 +176,7 @@ theorem initial (C : LocalCorrectionCore reference.velocity u K place.x₀ r pla
 
 /-- Restrict the reference horizon, then add the smooth correction and packet. -/
 theorem velocity_smooth (hδ : 0 < δ)
-    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (C : WindowedCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
     {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀)
     (hU : ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε)
       (Iio place.T ×ˢ (univ : Set Space))) :
@@ -197,7 +197,7 @@ theorem pressure_smooth (hδ : 0 < δ) (hb : Bornology.IsBounded Ω) (hm : Measu
 
 /-- The actual correction force is smooth and has compact positive temporal support. -/
 theorem correction_force_mem
-    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (C : WindowedCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
     (hball : Metric.ball place.x₀ r ⊆ Ω)
     {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀) :
     MemForceOmega Ω (correctionForce ν reference.velocity D ε) := by
@@ -207,7 +207,7 @@ theorem correction_force_mem
       ⟨⟨hz.1.1.le, hz.1.2⟩, subset_closure (hball hz.2)⟩).contDiffWithinAt
   have hs := force_smooth_of_local ν reference.velocity D ε
     (isOpen_Ioo.prod Metric.isOpen_ball) href (C.correction_smooth ε hε)
-    (correction_support_interior C hε)
+    (C.correction_support_interior hε)
   refine ⟨fun T => smoothOnClosedSlab_of_contDiff hs _ _,
     Icc (place.T - 2 * ε ^ 2) (place.T + 2 * ε ^ 2), isCompact_Icc, ?_, ?_⟩
   · intro t ht
@@ -229,7 +229,7 @@ theorem packet_force_mem (hf : ContDiff ℝ ∞ f)
     (inv_pos.mpr hε.1) (by change 0 ≤ place.T - ε ^ 2; nlinarith [place.eps_time ε hε, sq_nonneg ε]) _
 
 theorem force_mem
-    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (C : WindowedCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
     (hball : Metric.ball place.x₀ r ⊆ Ω) (hg : g ∈ forceClassOmega Ω)
     (hf : ContDiff ℝ ∞ f) (hs : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f)
     {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀) (hplace : ε ∈ Ioc 0 place.ε₀) :
@@ -237,7 +237,7 @@ theorem force_mem
   (hg.add (correction_force_mem C hball hε)).add (packet_force_mem hf hs hplace)
 
 theorem forceDifference_mem
-    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (C : WindowedCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
     (hball : Metric.ball place.x₀ r ⊆ Ω)
     (hf : ContDiff ℝ ∞ f) (hs : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f)
     {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀) (hplace : ε ∈ Ioc 0 place.ε₀) :
@@ -252,7 +252,7 @@ theorem forceDifference_mem
 
 /-- Incompressibility is the sum of the three physical divergences in Ω. -/
 theorem incompressible (hδ : 0 < δ)
-    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (C : WindowedCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
     {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀)
     (hU : ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε)
       (Iio place.T ×ˢ (univ : Set Space)))
@@ -274,7 +274,7 @@ theorem incompressible (hδ : 0 < δ)
 
 /-- The corrected background equation, computed using only local smoothness. -/
 theorem corrected_background_momentum (hδ : 0 < δ)
-    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (C : WindowedCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
     {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀)
     {t : ℝ} (ht : t ∈ Ioo 0 place.T) {x : Space} (hx : x ∈ Ω) :
     NavierStokesR3.ProblemStatement.navierStokesResidual ν
@@ -300,7 +300,7 @@ theorem corrected_background_momentum (hδ : 0 < δ)
 /-- The exact inserted momentum equation: local residual addition, U2 cross
 cancellation and the same-scale I03 packet equation, followed by gauge invariance. -/
 theorem momentum (hδ : 0 < δ)
-    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (C : WindowedCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
     {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀)
     (hU : ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε)
       (Iio place.T ×ˢ (univ : Set Space)))

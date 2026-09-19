@@ -162,6 +162,16 @@ original Spec unchanged and checks both supplier conversions and the repaired
 existential's matching identities. No existence theorem, owner approval,
 registration, or smooth-domain IBP is asserted by this move.
 
+## G2 — local-potential seam (lead ruling 2026-09-19 17:40Z; closed by 487b)
+
+The continuation authorises weakening U3's hypothesis to what its proofs use.
+The audit finds no use of any potential identity in U3: its operational core
+needs correction smoothness/divergence/support, scale bounds, and the two
+cross transports. `WindowedCorrectionCore` therefore has no potential formula.
+`WholeSpaceCorrectionAPI.windowedCore` proves it at the literal supplier cutoff
+from agreement on the open interior cylinder. Original U2 core/statements and
+all U4 statements are preserved; U4 windowed variants are added in Assembly.
+No mathematical obstruction or global equality of distinct potentials is used.
 ## G2 — U2b/U3 potential seam (lane 487 audit, lead ruling 2026-09-19 17:40Z)
 - **Finding (lane 487).** U3 (lane 482) states its fields over `LocalCorrectionCore reference.velocity … D`, whose `potential_formula` identifies `D.potential` with the original reference's radial integral at all times and points; U2b's matched `D` (lane 481) carries the whole-space extension's potential, which agrees with the reference only on the interior cylinder. The available same-`D` supplier therefore does not discharge U3's core. Registry stays at 54 (no incomplete contract registered).
 - **Ruling.** A hypothesis-shape seam between parallel lanes, not an obstruction: weaken U3's core to the windowed identity actually used (the correction, packet and pressure only read the potential inside the cut-off window), re-prove U3 under it, or build the assembled `D` from the reference's own potential and match U2b on the window. Lane 487 continuation is authorised to edit the 477/482 T23 modules for exactly this. No contract change.
