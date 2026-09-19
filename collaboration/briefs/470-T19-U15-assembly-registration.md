@@ -1,7 +1,7 @@
 # Lane 470-T19-U15-assembly-registration — T19 U15: assemble the four density records, close the four statements, register `T03.density`
 
 You are a Lean 4 (v4.34.0-rc2 + Mathlib) proof/registration worker on the repository checked out at your working directory
-`/data_8T/ping/blowup_density/.claude/worktrees/470-T19-U15-assembly-registration` (git branch `erenup/470-T19-U15-assembly-registration`, = `origin/erenup/integration-section3` after lanes 464 (U7–U9), 465 (U13+U14) and 466 (U10–U12) merged).
+`/data_8T/ping/blowup_density/.claude/worktrees/470-T19-U15-assembly-registration` (git branch `erenup/470-T19-U15-assembly-registration`, = lane 465's branch (464/466 merged into integration; 465 in the merge queue) + `origin/erenup/integration-section3`).
 Read `CLAUDE.md` (contract import rules: `Contracts/*` import only `Mathlib`/`Lean`/`Init`/`Contracts.*` + the canonical-module whitelist; bindings bridge canonical ↔ contract by `rfl` or fieldwise conversions; `Tests` = `warningAsError`),
 **`research/T19/T19_SPLIT.md`** (§0 and the U-CAN/U0/U7–U14 status lines), `research/T19/RECONCILIATION.md` (§3 decisions, §4 ledger — the registered vocabulary the records are stated over), `Section3/T19/Density.lean` (canonical `PeriodicDensityAPI`,
 `MixedRegionAPI`, `StrongClosureAPI`, `ProjectionAPI` — all `Prop`, 13 fields — and `periodicDensityStatement`, `mixedRegionStatement`, `strongClosureStatement`, `projectionStatement`), the proved fields: `Section3/T19/Bookkeeping.lean` (U1–U6),
