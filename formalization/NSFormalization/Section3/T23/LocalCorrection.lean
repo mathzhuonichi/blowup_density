@@ -243,4 +243,119 @@ theorem crossTransport_pair {v U : SpaceTimeField} {x₀ : Space}
       (fun z => v z + physicalCorrection v x₀ T θ η ε z)
       (scaledVelocity U x₀ T ε) t hremove x).symm
 
+/-- Actual raw data: one radial potential and the un-periodised curl correction. -/
+def localCorrectionData (v : SpaceTimeField) (x₀ : Space) (T : ℝ)
+    (θ : Space → ℝ) (η : ℝ → ℝ) (O : Set Space) (θR ε₀ : ℝ) : CutoffData :=
+  ⟨θ, η, O, θR, ε₀, timePotential v x₀,
+    fun ε => physicalCorrection v x₀ T θ η ε⟩
+
+/-- The proved local construction core. Force estimates and the I02/I03 matching
+record are separate remaining obligations, not fields assumed by this record. -/
+structure LocalCorrectionCore (v U : SpaceTimeField) (K : Set Space)
+    (x₀ : Space) (r T δ : ℝ) (D : CutoffData) : Prop where
+  theta_smooth : ContDiff ℝ ∞ D.θ
+  theta_compactSupport : HasCompactSupport D.θ
+  theta_range : ∀ x, D.θ x ∈ Icc (0 : ℝ) 1
+  plateau_open : IsOpen D.plateau
+  prescribed_subset_plateau : K ⊆ D.plateau
+  theta_one : EqOn D.θ (fun _ => 1) D.plateau
+  theta_radius_pos : 0 < D.θRadius
+  theta_support : tsupport D.θ ⊆ ball (0 : Space) D.θRadius
+  eta_smooth : ContDiff ℝ ∞ D.η
+  eta_compactSupport : HasCompactSupport D.η
+  eta_range : ∀ t, D.η t ∈ Icc (0 : ℝ) 1
+  eta_one : EqOn D.η (fun _ => 1) (Icc (-1 : ℝ) 1)
+  eta_support : tsupport D.η ⊆ Ioo (-2 : ℝ) 2
+  eps_pos : 0 < D.ε₀
+  eps_time : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, 2 * ε ^ 2 < min T δ
+  eps_space : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ε * D.θRadius < r
+  potential_smooth : ContDiffOn ℝ ∞ D.potential
+    (Ioo (0 : ℝ) (T + δ) ×ˢ ball x₀ r)
+  potential_formula : ∀ t x, D.potential (t, x) =
+    ∫ ρ in (0 : ℝ)..1,
+      ρ • NSFormalization.Paper1.RadialPotential.cross
+        (v (t, x₀ + ρ • (x - x₀))) (x - x₀)
+  potential_curl : ∀ t ∈ Ioo (0 : ℝ) (T + δ), ∀ x ∈ ball x₀ r,
+    SpatialCurl.curl (fun y => D.potential (t, y)) x = v (t, x)
+  correction_formula : ∀ ε t x, D.correction ε (t, x) =
+    -SpatialCurl.curl (fun y =>
+      (temporalCutoff D.η T ε t * spatialCutoff D.θ x₀ ε y) • D.potential (t, y)) x
+  correction_smooth : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ContDiff ℝ ∞ (D.correction ε)
+  correction_divergence_free : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ t x,
+    spatialDivergence (D.correction ε) t x = 0
+  correction_compactSupport : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    HasCompactSupport (D.correction ε)
+  correction_support : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    tsupport (D.correction ε) ⊆
+      Ioo (T - 2 * ε ^ 2) (T + 2 * ε ^ 2) ×ˢ ball x₀ (ε * D.θRadius)
+  correction_cancels : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ t ∈ Ico (T - ε ^ 2) T,
+    ∃ O : Set Space, IsOpen O ∧ O ⊆ ball x₀ r ∧
+      tsupport (fun x => scaledVelocity U x₀ T ε (t, x)) ⊆ O ∧
+      ∀ x ∈ O, v (t, x) + D.correction ε (t, x) = 0
+  crossTransport_background_advects_packet : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    ∀ t ∈ Ico (0 : ℝ) T, ∀ x : Space,
+      spatialDerivative (scaledVelocity U x₀ T ε) t x
+        (NSFormalization.Section3.T16.correctedBackground v D.correction ε (t, x)) = 0
+  crossTransport_packet_advects_background : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    ∀ t ∈ Ico (0 : ℝ) T, ∀ x : Space,
+      spatialDerivative (NSFormalization.Section3.T16.correctedBackground v D.correction ε) t x
+        (scaledVelocity U x₀ T ε (t, x)) = 0
+
+/-- Choose both cutoffs and a single positive threshold from the actual local
+reference and compact packet carrier. No periodicity, global regularity,
+placement record, correction record, or conclusion-shaped input is required. -/
+theorem exists_localCorrectionCore (v U : SpaceTimeField) (K : Set Space)
+    (x₀ : Space) (r T δ : ℝ) (hr : 0 < r) (hT : 0 < T) (hδ : 0 < δ)
+    (hK : IsCompact K)
+    (hv : ContDiffOn ℝ ∞ v (Ioo (0 : ℝ) (T + δ) ×ˢ ball x₀ r))
+    (hdiv : ∀ t ∈ Ioo (0 : ℝ) (T + δ), ∀ x ∈ ball x₀ r,
+      spatialDivergence v t x = 0)
+    (hU : ∀ t ∈ Ioo (0 : ℝ) 1, tsupport (fun x => U (t, x)) ⊆ K) :
+    ∃ D : CutoffData, LocalCorrectionCore v U K x₀ r T δ D := by
+  obtain ⟨R, θ, O, hR, hθ, hθc, hθs, hO, hKO, hθone, hθrange⟩ :=
+    NSFormalization.Section3.T16.exists_originCutoff hK
+  obtain ⟨η, hη, hηc, hηrange, hηone, hηs⟩ :=
+    NSFormalization.Section3.T16.exists_timeCutoff
+  obtain ⟨ε₀, hε₀, ht, hs⟩ := NSFormalization.Section3.T16.exists_threshold hR hr hT hδ
+  refine ⟨localCorrectionData v x₀ T θ η O R ε₀, ?_⟩
+  exact {
+    theta_smooth := hθ
+    theta_compactSupport := hθc
+    theta_range := hθrange
+    plateau_open := hO
+    prescribed_subset_plateau := hKO
+    theta_one := hθone
+    theta_radius_pos := hR
+    theta_support := hθs
+    eta_smooth := hη
+    eta_compactSupport := hηc
+    eta_range := hηrange
+    eta_one := hηone
+    eta_support := hηs
+    eps_pos := hε₀
+    eps_time := ht
+    eps_space := hs
+    potential_smooth := NSFormalization.Section3.T16.timePotential_contDiffOn_ball isOpen_Ioo hv
+    potential_formula := fun t x =>
+      NSFormalization.Paper1.RadialPotential.centeredPotential_eq_integral (fun y => v (t, y)) x₀ x
+    potential_curl := fun _ ht _ hx => spatialCurl_timePotential_on_ball hv hdiv ht hx
+    correction_formula := fun _ _ _ => rfl
+    correction_smooth := fun ε hε => NSFormalization.Section3.T16.physicalCorrection_contDiff
+      hθ hη hθc hηc hθs hηs hv (ht ε hε) (hs ε hε) hε.1
+    correction_divergence_free := fun ε hε =>
+      NSFormalization.Section3.T16.physicalCorrection_divergence
+        hθ hη hθc hηc hθs hηs hv (ht ε hε) (hs ε hε) hε.1
+    correction_compactSupport := fun _ hε =>
+      NSFormalization.Source.PhysicalRemoval.physical_compact hε.1.ne' v x₀ T hθc hηc
+    correction_support := fun _ hε =>
+      NSFormalization.Source.PhysicalRemoval.physical_support hε.1 v x₀ T hθc hηc hθs hηs
+    correction_cancels := fun ε hε _ ht' => physicalCorrection_cancels_packet hK hv hdiv hU
+      hO hKO hθs hθone hηone (ht ε hε) (hs ε hε) hε.1 ht'
+    crossTransport_background_advects_packet := fun ε hε _ ht' x =>
+      (crossTransport_pair hK hv hdiv hU hO hKO hθs hθone hηone
+        (ht ε hε) (hs ε hε) hε.1 ht' x).1
+    crossTransport_packet_advects_background := fun ε hε _ ht' x =>
+      (crossTransport_pair hK hv hdiv hU hO hKO hθs hθone hηone
+        (ht ε hε) (hs ε hε) hε.1 ht' x).2 }
+
 end NSFormalization.Section3.T23
