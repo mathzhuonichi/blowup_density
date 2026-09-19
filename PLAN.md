@@ -212,9 +212,10 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 444-T17-U10-mixed-bound | 已合入 #406：T17 U10 混合范数界 + 诚实 L^p 切片（含 ∞ 端点），审稿 ACCEPT；T17 U1–U11 全证 | 09-19 1244Z | #406 | — | T17 U10：修正力混合范数界 + 诚实 L^p 切片（439 的 mixedLebesgueENormT_eq + I02 界） |
 | 445-T18-U11-sobolev-rate | 排队（安装后、并发 <6 时启动）→ codex sol | 09-19 1224Z | — | — | T18 U11：eq:Hsclose 力差 Sobolev 接近六字段（记录字段 + 范数在 s 上单调 + 三角不等式） |
 | 446-T15-U8-periodized-pde | codex astra 完成：periodized_momentum / periodized_divergence / periodized_initial（不变 ν；18 声明；5eb71f5b）→ 排队审稿 | 09-19 1241Z | — | — | T15 U8：周期化场满足 NS 动量方程 / 无散 / 零初值（periodize 与各算子交换，单拷贝局部化） |
-| 447-T15-U10-pressure | 排队 → codex sol | 09-19 1224Z | — | — | T15 U10：pressureSlice_integrable + normalizedScaledPressure 的均值零规范 |
+| 447-T15-U10-pressure | codex sol 完成（Pressure.lean）→ 排队审稿 | 09-19 1246Z | — | — | T15 U10：pressureSlice_integrable + normalizedScaledPressure 的均值零规范 |
 | 448-T21-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T21 证明拆分 T21_SPLIT.md（N0–N15 分组成 S/M lane，波次，风险） |
 | 449-T23-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T23 证明拆分 T23_SPLIT.md（DomainPlacementData、Ω 上未周期化 packet、无滑移边界保持、T22 范数比较、唯一性/寿命、装配） |
 | 450-T15-U9-sobolev-path | 排队 → codex astra | 09-19 1232Z | — | — | T15 U9：周期化速度的各阶 H^m datum 路径 + pressure_gradient（436 的 T11 slab 定理模式） |
 | 451-T20-U13-assembly-registration | 等 452（U5）完成后合并其分支再启动 → codex sol | 09-19 1240Z | — | — | T20 U13：CriticalRegularityTAPI 23 字段装配（c = criticalSmallnessH1，常数安装）+ 注册 T03.critical_regularity |
 | 452-T20-U5-transport-commutes-lambda | worktree 安装中（441 + integration）→ 排队 codex sol | 09-19 1240Z | — | — | T20 U5：constantTransportCommutesLambda（唯一未证字段；Fourier 侧对角乘子交换 + 系数唯一性） |
+| 453-T17-U12-assembly-registration | 排队 → codex astra（装配，G4 裁定） | 09-19 1246Z | — | — | T17 U12：CorrectionAPI 45 字段装配 + correctionStatementAmended（T16 前提块 + 0<ν + 全局光滑，lead 裁定 G4）+ 注册 T02.correction |
