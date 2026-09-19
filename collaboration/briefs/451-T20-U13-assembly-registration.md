@@ -1,6 +1,6 @@
 # Lane 451-T20-U13-assembly-registration — T20 U13: assemble `CriticalRegularityTAPI` (23 fields) and register `T03.critical_regularity`
 
-(Worktree to be created from lane 441's branch + integration once 441 merges.) You are a Lean 4 (v4.34.0-rc2 + Mathlib) worker in
+You are a Lean 4 (v4.34.0-rc2 + Mathlib) worker in
 `/data_8T/ping/blowup_density/.claude/worktrees/451-T20-U13-assembly-registration` (branch `erenup/451-T20-U13-assembly-registration`). All twelve mathematical units are landed:
 `Section3/T20/{MeanReduction (U1 reductionRegular, U2 meanBound/meanIdentity, U6 meanFreeEquation), BIntegral (U3), ConstantTransport (U4 constantTransportSkew), CriticalTrilinear (U7, C₀ := criticalTrilinearConst),
 CriticalEnergy (U8), YBound (U9: criticalSmallness, yBound_of_le), H1Trilinear (U10a, C₁ := h1TrilinearConst), H1Energy (U10b: CH1 = 2, criticalSmallnessH1, criticalSmallnessH1_le_half, _lt_quarter_C₀, _lt_quarter_C₁),

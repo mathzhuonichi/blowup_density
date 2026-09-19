@@ -206,7 +206,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 438-T17-U11-sobolev | 已合入 #404：T17 U11 eq:HHs（0≤s≤1，经 Paper1 周期端点率），审稿 ACCEPT-WITH-NOTES（记录已改） | 09-19 1230Z | #404 | — | T17 U11：eq:HHs 修正力 L¹_tH^s 界（0≤s≤1，注册 T02.localization + Paper1/I02 力 Sobolev 界；sobolevConst） |
 | 439-T15-U4-U5-energy-mixed | 已合入 #402：T15 U4+U5 五字段（map torusChart = restrict cube；I03 放缩恒等式），审稿 ACCEPT-WITH-NOTES（四处记录已改） | 09-19 1227Z | #402 | — | T15 U4 能量恒等式 + 诚实切片、U5 混合范数放缩 + 诚实路径（单拷贝 + Haar 桥 + I03 放缩恒等式） |
 | 440-MAINT-section3-build-f | 已合入 #400：116 模块全编译 0 错误、四门禁、46 合同、148 探针、895 公理组全标准（logs/SECTION3_BUILD_20260918f.md）；1 个 defProp warning（T22/Assembly，卫生项） | 09-19 1216Z | #400 | — | MAINT：第六次 Section 3 全量编译检查（#354–#396 之后，46 合同；四门禁 + 公理扫描 → logs/SECTION3_BUILD_20260918f.md） |
-| 441-T20-U12-global-regularity | worktree 安装中（437 + integration）→ codex sol（+5 分钟错峰） | 09-19 1219Z | — | — | T20 U12：globalRegularity（U11 有限 H² 预算 + T11 lifespanInfiniteOfLocallyFinite） |
+| 441-T20-U12-global-regularity | codex sol 完成：globalRegularity 逐字（严格子寿命单调穷竭 → 端点 H² 局部有限 → T11 lifespanInfiniteOfLocallyFinite；无 PeriodicRestartH1；414aef5c）→ 排队审稿；T20 12 单元全证 | 09-19 1239Z | — | — | T20 U12：globalRegularity（U11 有限 H² 预算 + T11 lifespanInfiniteOfLocallyFinite） |
 | 442-T15-U6-U7-blowup-force-mem | codex sol 完成：unboundedSpeed（原始 SpeedUnboundedAtOne + 放缩见证）+ force_mem（f6a0b569）→ 排队审稿 | 09-19 1233Z | — | — | T15 U6 unboundedSpeed + U7 force_mem（单拷贝 + 放缩 blow-up 见证 / periodize 光滑周期 + 正时间紧支） |
 | 443-T18-U9-U10-energy-mixed-rates | worktree 安装中 → codex sol（+15 分钟） | 09-19 1219Z | — | — | T18 U9 energyRate（eq:Eclose）+ U10 混合范数接近（eq:Fclose），全部消费线程化记录字段 |
 | 444-T17-U10-mixed-bound | codex astra 完成：force_spatial_memLp / mixedConst_nonneg / force_mixed_bound 含两个 ∞ 端点（d33367d3）→ 排队审稿 | 09-19 1233Z | — | — | T17 U10：修正力混合范数界 + 诚实 L^p 切片（439 的 mixedLebesgueENormT_eq + I02 界） |
@@ -216,4 +216,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 448-T21-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T21 证明拆分 T21_SPLIT.md（N0–N15 分组成 S/M lane，波次，风险） |
 | 449-T23-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T23 证明拆分 T23_SPLIT.md（DomainPlacementData、Ω 上未周期化 packet、无滑移边界保持、T22 范数比较、唯一性/寿命、装配） |
 | 450-T15-U9-sobolev-path | 排队 → codex astra | 09-19 1232Z | — | — | T15 U9：周期化速度的各阶 H^m datum 路径 + pressure_gradient（436 的 T11 slab 定理模式） |
-| 451-T20-U13-assembly-registration | 简报就绪，等 441 合入后建 worktree → codex sol | 09-19 1232Z | — | — | T20 U13：CriticalRegularityTAPI 23 字段装配（c = criticalSmallnessH1，常数安装）+ 注册 T03.critical_regularity |
+| 451-T20-U13-assembly-registration | worktree 安装中（441 + integration）→ 排队 codex sol | 09-19 1239Z | — | — | T20 U13：CriticalRegularityTAPI 23 字段装配（c = criticalSmallnessH1，常数安装）+ 注册 T03.critical_regularity |
