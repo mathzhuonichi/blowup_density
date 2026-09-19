@@ -156,6 +156,13 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   continuous_datum_path` and `T10/DatumBasics.lean:129 datum_unique` at each `m`, with continuity in `t`
   from the packet's joint smoothness. **L, Opus.** Deps: U3.
 
+  **Status (lane 450, 2026-09-19): complete.** `SobolevPath.lean` proves
+  `periodized_sobolev` at every natural order and `periodized_pressure_gradient`
+  for the normalized pressure, from raw packet smoothness/support and placement.
+  Slab periodization feeds T11's smooth-datum existence and continuous selected
+  path theorems; the pressure gradient follows from slice smoothness. The probe
+  instantiates both at scale `1/2` on lane 439's nonzero velocity/pressure packet.
+
 - **U10 — pressure normalization** (new; ⑥). New `Section3/T15/Pressure.lean`. Targets
   `pressureSlice_integrable` (`Spec.lean:766`) and the gauge `PressureGaugeT` used inside `solution`.
   Route: U3 collapses the raw pressure to its single copy, smooth compactly supported on `Q`, hence
