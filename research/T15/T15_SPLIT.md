@@ -209,6 +209,14 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   U10 (gauge), U7 (regularity/periodicity), with the two pinning equations `S.velocity = U_ε^per`,
   `S.pressure = p_ε` by `rfl`. **M, codex-sol.** Deps: U7, U8, U9, U10.
 
+  **Status (lane 454, 2026-09-19): complete.** `Section3/T15/Solution.lean`
+  proves joint slab smoothness and unit periodicity for both explicit fields,
+  transports Haar normalization through the existing smooth cube-mean theorem,
+  assembles all thirteen `ClassicalSolutionT` fields, and proves the literal
+  `ScalingAPI.solution` conclusion from the nine raw packet clauses actually
+  used.  `solution_closes.lean` applies the theorem by bare `exact` and builds
+  the pinned solution for the registered nonzero viscosity-one PDE packet.
+
 - **U12 — `forceSobolev_memLp` + `sobolevConst`/`sobolevConst_pos`** (new; ⑬). New
   `Section3/T15/SobolevBoundMem.lean`. Targets `forceSobolev_memLp` (`Spec.lean:872`), the data field
   `sobolevConst` (`:855`) and `sobolevConst_pos` (`:862`). Route: honest `L¹_tH^s(T³)` datum path from
