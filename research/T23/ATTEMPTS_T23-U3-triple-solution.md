@@ -52,3 +52,19 @@ Hint: Omit it from the simp argument list.
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
 ```
 Resolution: unfold Measure.real before reducing restriction volume.
+
+## P3: final ring normalization
+```text
+../formalization/NSFormalization/Section3/T23/PressureNormalization.lean:30:58: error: unsolved goals
+Ω : Set Space
+ho : IsOpen Ω
+hb : Bornology.IsBounded Ω
+hne : Ω.Nonempty
+p : SpaceTimeScalar
+t : ℝ
+hp : IntegrableOn (fun x => p (t, x)) Ω volume
+this : IsFiniteMeasure (volume.restrict Ω)
+hv : (volume Ω).toReal ≠ 0
+⊢ (∫ (a : Space) in Ω, p (t, a)) * (1 - 1) = 0
+```
+Resolution: ring after field_simp. Checkpoint e57eefb7 preceded this final fix.

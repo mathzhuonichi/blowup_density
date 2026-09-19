@@ -35,6 +35,7 @@ theorem domainNormalizePressure_integral {Ω : Set Space} (ho : IsOpen Ω)
   simp only [Measure.real, Measure.restrict_apply_univ, smul_eq_mul, domainPressureMean]
   have hv := (domain_volume_pos ho hb hne).ne'
   field_simp
+  ring
 
 /-- No regularity hypothesis is needed for invariance under the spatially constant gauge. -/
 theorem pressureGradient_domainNormalizePressure (Ω : Set Space)
