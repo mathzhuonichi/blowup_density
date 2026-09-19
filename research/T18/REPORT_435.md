@@ -1,5 +1,7 @@
 # REPORT 435
 
+> The original sections 1–4 below are superseded in full by “Continuation fix final report (lead ruling)” at line 101.
+
 ## 1. Theorems with exact statements
 
 `Section3/T18/Support.lean` now proves, without extra inputs:
