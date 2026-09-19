@@ -77,4 +77,59 @@ theorem forceSobolevENorm_le_cycles (s : ℝ) (q : ℝ≥0∞) {F : VelocityFiel
     (NSFormalization.Section4.I03.memLp_angularPath s F hF hc q).aestronglyMeasurable⟩) ?_
   exact NSFormalization.Section4.I03.eLpNorm_angularPath_le s F hF hc q
 
+/-- One threshold, chosen before q and s, gives the local Sobolev-force rate.
+The global extension is constructed from local smoothness and divergence. -/
+theorem exists_local_sobolev_bounds (ν : ℝ) {v : VelocityField}
+    {x₀ : Space} {r T δ R : ℝ} {θ : Space → ℝ} {η : ℝ → ℝ}
+    (hr : 0 < r) (hT : 0 < T) (hδ : 0 < δ) (hR : 0 < R)
+    (hv : ContDiffOn ℝ ∞ v (Ioo (0 : ℝ) (T + δ) ×ˢ Metric.ball x₀ r))
+    (hdiv : ∀ t ∈ Ioo (0 : ℝ) (T + δ), ∀ x ∈ Metric.ball x₀ r,
+      spatialDivergence v t x = 0)
+    (hθ : ContDiff ℝ ∞ θ) (hη : ContDiff ℝ ∞ η)
+    (hθc : HasCompactSupport θ) (hηc : HasCompactSupport η)
+    (hθs : tsupport θ ⊆ Metric.ball (0 : Space) R)
+    (hηs : tsupport η ⊆ Ioo (-2 : ℝ) 2) :
+    ∃ e : ℝ, 0 < e ∧ e ≤ 1 ∧ ∀ q : ℝ≥0∞, 1 ≤ q →
+      ∀ s : ℝ, 0 ≤ s → s ≤ 1 → ∃ B : ℝ, 0 < B ∧
+        ∀ ε ∈ Ioc (0 : ℝ) e,
+          NSFormalization.Section4.D01.forceSobolevENorm q s
+            (NSFormalization.Source.correctionForce ν v
+              (NSFormalization.Paper1.CorrectionProfile.physicalCorrection v x₀ T θ η ε)) ≤
+            ENNReal.ofReal (B *
+              (ε ^ (2 / q.toReal - 1 / 2) + ε ^ (2 / q.toReal - 1 / 2 - s))) := by
+  obtain ⟨V, e, hV, _, he, he1, heq⟩ := exists_matching_global_correction
+    ν hr hT hδ hR hv hdiv hθc hηc hθs hηs
+  refine ⟨e, he, he1, ?_⟩
+  intro q hq s hs hs1
+  obtain ⟨L, hL, hb⟩ :=
+    NSFormalization.Paper1.CorrectionForceNorms.vectorPhysicalForce_uniform_positive_time
+      ν hV x₀ T hθ hη hθc hηc hs1 hs q hq
+  let b := NSFormalization.Source.frequencyUnit ^ |s| * L.toReal
+  have hb0 : 0 ≤ b := mul_nonneg
+    (Real.rpow_nonneg NSFormalization.Source.frequencyUnit_pos.le _) ENNReal.toReal_nonneg
+  refine ⟨b + 1, by linarith, ?_⟩
+  intro ε hε
+  rw [(heq ε hε).2]
+  have hF := NSFormalization.Paper1.CorrectionForceNorms.physicalForce_smooth
+    ν hV x₀ T ε hθ hη
+  have hc := NSFormalization.Paper1.CorrectionForceNorms.physicalForce_compact
+    ν V x₀ T ε hε.1.ne' hθc hηc
+  have hrpow := Real.rpow_nonneg hε.1.le (2 / q.toReal - 1 / 2 - s)
+  calc
+    _ ≤ ENNReal.ofReal (NSFormalization.Source.frequencyUnit ^ |s|) *
+        (ENNReal.ofReal (ε ^ (2 / q.toReal - 1 / 2 - s)) * L) :=
+      (forceSobolevENorm_le_cycles s q hF hc).trans
+        (mul_le_mul_right (hb ε ⟨hε.1, hε.2.trans he1⟩) _)
+    _ = ENNReal.ofReal (b * ε ^ (2 / q.toReal - 1 / 2 - s)) := by
+      dsimp only [b]
+      rw [ENNReal.ofReal_mul (mul_nonneg
+        (Real.rpow_nonneg NSFormalization.Source.frequencyUnit_pos.le _) ENNReal.toReal_nonneg),
+        ENNReal.ofReal_mul (Real.rpow_nonneg NSFormalization.Source.frequencyUnit_pos.le _),
+        ENNReal.ofReal_toReal hL.ne]
+      ring
+    _ ≤ _ := by
+      apply ENNReal.ofReal_le_ofReal
+      nlinarith [Real.rpow_nonneg hε.1.le (2 / q.toReal - 1 / 2),
+        mul_nonneg hb0 (Real.rpow_nonneg hε.1.le (2 / q.toReal - 1 / 2))]
+
 end NSFormalization.Section3.T23
