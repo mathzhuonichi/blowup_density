@@ -42,4 +42,23 @@ theorem WholeSpaceCorrectionAPI.local_energy_bound {ν : ℝ} {u v : VelocityFie
   rw [(C.local_match heq hεC).1]
   exact ⟨hb, fun Ω => (domainEnergyENorm_le Ω C.T (C.correction ε)).trans hb⟩
 
+/-- The mixed norm uses the same correction force and the same cutoff;
+both essential-supremum endpoints are included. -/
+theorem WholeSpaceCorrectionAPI.local_mixed_bound {ν : ℝ} {u v : VelocityField}
+    {K : Set Space} (C : WholeSpaceCorrectionAPI ν u K)
+    (heq : EqOn v C.v (Ioo (0 : ℝ) (C.T + C.δ) ×ˢ Metric.ball C.x₀ C.r))
+    {e : ℝ} (he : e ≤ C.ε₀) (p q : ℝ≥0∞) [Fact (1 ≤ p)] :
+    let D := localCorrectionData v C.x₀ C.T C.θ C.η C.plateau C.θRadius e
+    ∃ B : ℝ, 0 < B ∧ ∀ ε ∈ Ioc (0 : ℝ) e,
+      NSFormalization.Section3.T15.mixedLebesgueENorm q p (correctionForce ν v D ε) ≤
+        ENNReal.ofReal (B * ε ^ (NSFormalization.Section3.T15.alphaT p q + 1)) := by
+  refine ⟨max (C.mixedConst p q) 0 + 1, by positivity, ?_⟩
+  intro ε hε
+  have hεC : ε ∈ Ioc (0 : ℝ) C.ε₀ := ⟨hε.1, hε.2.trans he⟩
+  rw [(C.local_match heq hεC).2]
+  apply (C.force_mixed_bound p q ε hεC).trans
+  apply ENNReal.ofReal_le_ofReal
+  apply mul_le_mul_of_nonneg_right _ (Real.rpow_nonneg hε.1.le _)
+  exact (le_max_left _ _).trans (by linarith)
+
 end NSFormalization.Section3.T23
