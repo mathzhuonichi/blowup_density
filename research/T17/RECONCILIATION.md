@@ -92,3 +92,21 @@ Constants: real data fields with `0 ≤ ·`, except `sobolevConst` which takes T
 **Implementation candidates** (union of both comparisons; none imported by the spec, none discharges a field alone): `Paper1/CorrectionProfile.lean` `profile_smooth`, `profile_support`, `profile_uniform_derivative_bound`, `profile_uniform_global_derivative_bound`, `physicalCorrection_rescale`, `physicalCorrection_eq_profile:223`, `physical_mixed_derivative_bound`; `Paper1/CorrectionForceProfile.lean` `forceProfile`, `forceProfile_eq_operators`, `forceProfile_smooth`, `forceProfile_support`, `physicalForce_eq_profile:185`, `forceProfile_uniform_derivative_bound`, `physicalForce_spatial_derivative_bound`; `Paper1/CorrectionEnergy.lean` `compact_energy_bound`, `physicalCorrection_uniform_energy`, `physicalCorrection_total_direction_energy`; `Paper1/CorrectionMixedNorms.lean` `physical_force_spatial_memLp`, `physical_force_mixed_bound:123`, `physical_force_mixed_memLp`; `Paper1/CorrectionPositiveNorms.lean` + `CorrectionVectorNorms.lean` (positive-order profile bounds, vector assembly); `Paper1/PeriodicCorrectionEndpointRates.lean:49` `correction_vector_whole_endpoint_rates` (whole-space `s = 0,1` rates, still needs the T13 single-copy adapter). Two files neither comparison listed but which sit on ⑦: `Paper1/CorrectionForceNorms.lean:78,100` `scalarProfile_uniform_homogeneous(_time)` (uniform homogeneous-norm bounds of the force profile) and `Paper1/PeriodicCorrectionEndpointInstantiation.lean:30` `eventually_correction_coordinate_periodized_endpoint_product` (the only existing *periodized* endpoint statement).
 
 **Open for the lead / owner**: (a) whether `CorrectionAPI` should carry `place : PlacementData P` — definitional sharing with T15/T18 at the price of a `PacketAPI` parameter the lemma's mathematics does not use; (b) whether `mixedLebesgueENormT` should move into the T10 data contract (raised by draft B) rather than being copied by both T15 and T17 — a T01/T10 contract change, hence not a T17 decision.
+
+## Lead amendment — completed G4, lane 453 continuation
+
+The user's final block is implemented literally in the raw-field
+`correctionStatementAmended`: positive viscosity/radius/margin, `r < 1/2`,
+periodicity, global smoothness, divergence-free on the chart cylinder, raw
+packet support on `(0,1)`, and the requested ball's inclusion in the placement
+chart. The last clause repairs the accepted geometry counterexample; it is not
+inferred from the API being constructed. Compactness and positive target time
+come from placement. G1 is handled at statement level, and G3 by raw fields.
+
+The unamended statement and every API field remain unchanged. The contract's
+`Packet` namespace preserves the Spec's `CorrectionAPI` and unamended statement
+byte-for-byte; the enclosing raw-field record gives the completed G4 block
+without requiring an artificial `PacketAPI` for arbitrary raw fields. Fieldwise
+conversions and round trips connect the two contract spellings and the canonical
+record. Only the amended statement is registered. Cutoffs come from T16 with
+threshold `min ε₁ place.ε₀`; every bound uses that same positive threshold.

@@ -369,11 +369,17 @@ U5 (`correction_derivative_bound`) and U6 (`force_derivative_bound`) are now
 the fundamental ball; see the unit status notes above and `REPORT_385.md`.
 
 
-**U12 status (lane 453, BLOCKED 2026-09-19).** The user-supplied G4 amended
-hypothesis block is still false: it omits
-`ball place.x₀ r ⊆ ball place.chartCenter place.chartRadius`.
-`Section3/T17/AssemblyObstruction.lean` proves `statedG4_false` on a valid
-cube-centred placement (chart radius `1/8`, requested radius `1/4`), an empty
-packet, and a nonzero constant reference. Shrinking the cutoff threshold
-cannot repair the scale-independent `CorrectionAPI.ball_in_chart` field.
-No correction contract was registered. See `REPORT_453.md` and `ATTEMPTS_U12.md`.
+**U12 status (lane 453 continuation, DONE 2026-09-19).** The accepted
+counterexample led to the completed G4 block, now proved by
+`Section3/T17/Assembly.lean:correctionStatementAmended_holds`. All 45 fields are
+assembled at `correctionData` in `correctionAPI_of_smooth`, with threshold
+`min ε₁ place.ε₀`; no further structural hypothesis is needed. The full
+cube-centred nonzero-reference witness includes a positive admissible scale.
+`Contracts/V1/Correction3.lean`, `Bindings/Correction3.lean`, and
+`Tests/Correction3.lean` register `T02.correction` under the exact amended block.
+The Spec's packet-indexed record and unamended statement remain verbatim in the
+contract's `Packet` namespace; only the raw-field amended statement is proved.
+The earlier geometric obstruction is preserved solely in the standalone
+`research/T17/probes/assembly_geometry_obstruction_module.lean` with inline
+axiom prints. See `REPORT_453.md` (Continuation), `ATTEMPTS_U12.md`, and
+`axioms_u12.lean` for the construction and verification record.

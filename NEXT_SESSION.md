@@ -15,6 +15,7 @@
 - 第 4 节全量编译通过（2026-09-17 21:30Z，Opus 子代理，冻结分支）：206 模块真实重新 elaborate，232 秒，0 错误，三门禁全过，37 合同审计齐全；报告 `logs/SECTION4_FULL_BUILD_20260917.md` 已并入 PR #259（评论已发）。
 
 ## 日志（最新在前）
+- **2026-09-19（lane 453 continuation）**：T17 U12 完成；最终 G4（含 raw packet support + ball-in-chart）装配 45 字段并注册 `T02.correction`，47 合同；cube-centred 非零参考场完整见证，反例已移至 research 独立 probe。报告：`research/T17/REPORT_453.md` Continuation。
 - **2026-09-19 12:33Z**：用户新规——不再启动 Opus 子代理，全部用 tmux codex（astra 强推理/贵 → 硬分析、传输核心、装配、规划；sol 便宜 → 簿记、注册、修复、审稿），lead 统一调度（`tmp/launch_when_free.sh` 并发 <6 才启动）。合入 #400（440 全量检查 f：116 模块 0 错误、46 合同）、#401（T20 U11）、#402（T15 U4+U5）、#403（T18 U8）、#404（T17 U11）。在跑：441 T20 U12、443 T18 U9+U10、446 T15 U8、447 T15 U10、448 T21 拆分、cont_435 T18 U7；已完成待审：442 T15 U6+U7、444 T17 U10；排队：445、449、450；简报就绪：451 T20 U13 注册。
 - **2026-09-18 19:17Z**：Claude 路由 429（"reserving weekly capacity"）于 19:13Z 起拒绝 Opus 子代理（436/437/438/439 全部中断，续做亦被拒）；已设 19:45Z 一次性 cron 统一重试；codex 侧（rev-434、440 全量检查、rev-431/435 退避）继续。合入 #396（T24 conservative 注册，46 合同）、#397（T18 U2–U4）。
 - **2026-09-18 15:09Z**：合入 #364（T15 U2）、#365（T24 Ua5）、#366（T17 U-CAN + canonical force_profile_identity；union 合并误伤 `ForceProfile.lean` → 修复 lane 412）、#367（T24 Ua2）、#368（T12 U4b 逐字 velocityCriticalL3）、#369（T24 Ua3 + 非零见证）。Opus 交付待审：400（T12 U5，T12 九字段齐）、405（T12 U6）、406（T22 `cutoffMultiplier` 逐字闭合）、407（T24 Ua6）、411（T21 草案 B）；codex 14:50Z 起 sol 429 / astra at capacity 交替，408 交付、409 未交付（改 Opus）、410 草案 A 42 万 token 后 429（续做）、412 改 Opus；审稿全部在退避重试。T13 SPLIT 里的 `domainL2Sq` 措辞已由 406 更正。

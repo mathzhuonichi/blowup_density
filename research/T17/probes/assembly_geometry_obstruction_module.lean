@@ -94,3 +94,10 @@ theorem reference_nonzero : (fun _ : SpaceTime => coordinateVector (0 : Fin 3)) 
   norm_num [coordinateVector] at hc
 
 end NSFormalization.Section3.T17.GeometryObstruction
+
+
+#print axioms NSFormalization.Section3.T17.GeometryObstruction.chart_in_cube
+#print axioms NSFormalization.Section3.T17.GeometryObstruction.place
+#print axioms NSFormalization.Section3.T17.GeometryObstruction.ball_not_in_chart
+#print axioms NSFormalization.Section3.T17.GeometryObstruction.statedG4_false
+#print axioms NSFormalization.Section3.T17.GeometryObstruction.reference_nonzero
