@@ -34,3 +34,23 @@ in the application
 
 Resolution: supply `(f := fun y : Space => velocity ε (t,y) - v (t,y))`
 explicitly.
+
+## A3. Lambda subtraction did not rewrite as pointwise subtraction
+
+The first divergence proof applied `spatialDerivative_sub_at`, whose conclusion
+uses the pointwise function subtraction notation, directly to the API's
+explicit lambda. Lean left the divergence derivative unreduced:
+
+```text
+../formalization/NSFormalization/Section3/T23/Differences.lean:288:2: error: Type mismatch
+  sub_eq_zero.mpr (Eq.trans (hincompressible ε hε t ht x hx) (Eq.symm (reference.divergence t htref x hx)))
+has type
+  spatialDivergence (velocity ε) t x - spatialDivergence reference.velocity t x = 0
+but is expected to have type
+  ∑ x_1, ((spatialDerivative (fun z => velocity ε z - reference.velocity z) t x) (coordinateVector x_1)).ofLp x_1 = 0
+```
+
+Lean also warned that `hd`, `sub_apply`, `PiLp.sub_apply`, and
+`Finset.sum_sub_distrib` were unused. Resolution: first `change` the explicit
+lambda target to `spatialDivergence (velocity ε - reference.velocity) ... = 0`;
+then the local derivative equality rewrites exactly.

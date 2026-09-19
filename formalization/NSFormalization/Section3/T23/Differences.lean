@@ -260,4 +260,34 @@ theorem noSlip_preserved {ν : ℝ} {u : VelocityField} {p : PressureField}
   rw [collar_agreement place core hK hu hcarrier hbaseD hvelocity ε hε t ht x hxout]
   exact reference.no_slip t ⟨ht.1, ht.2.trans (lt_add_of_pos_right place.T hδ)⟩ x hxfront
 
+/-- The velocity difference is divergence free in the domain.  This consumes
+the U3 smoothness and divergence conclusions directly, without packaging an
+inserted solution record. -/
+theorem velocityDifference_divFree {ν : ℝ} {u : VelocityField}
+    {p : PressureField} {f : VelocityField} {K Ω : Set Space}
+    (place : DomainPlacementData u p f K)
+    {a : SpatialField} {g : SpaceTimeField} {δ ε₀ : ℝ}
+    (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ))
+    {velocity : ℝ → VelocityField} (hδ : 0 < δ)
+    (hvelocity_smooth : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+      SmoothOnClosedSlab (Ico (0 : ℝ) place.T) Ω (velocity ε))
+    (hincompressible : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+      ∀ t ∈ Ico (0 : ℝ) place.T, ∀ x ∈ Ω,
+        spatialDivergence (velocity ε) t x = 0) :
+    ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t ∈ Ico (0 : ℝ) place.T, ∀ x ∈ Ω,
+      spatialDivergence
+        (fun z => velocity ε z - reference.velocity z) t x = 0 := by
+  intro ε hε t ht x hx
+  change spatialDivergence (velocity ε - reference.velocity) t x = 0
+  have htref : t ∈ Ico (0 : ℝ) (place.T + δ) :=
+    ⟨ht.1, ht.2.trans (lt_add_of_pos_right place.T hδ)⟩
+  have hd := spatialDerivative_sub_at
+    ((hvelocity_smooth ε hε).contDiffAt_slice ht (subset_closure hx))
+    (reference.velocity_smooth.contDiffAt_slice htref (subset_closure hx))
+  simp only [spatialDivergence, hd, _root_.sub_apply, PiLp.sub_apply,
+    Finset.sum_sub_distrib]
+  exact sub_eq_zero.mpr
+    ((hincompressible ε hε t ht x hx).trans
+      (reference.divergence t htref x hx).symm)
+
 end NSFormalization.Section3.T23
