@@ -88,4 +88,36 @@ theorem positive_rates_absorb (A B s ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1)
     (add_nonneg (Real.rpow_nonneg hε.le _) hy) (abs_nonneg B)
   nlinarith [mul_nonneg (abs_nonneg A) hy, mul_nonneg (abs_nonneg B) hx]
 
+/-- Combine the q = 1 packet and correction path estimates before restricting
+to the domain. The hypotheses are precisely the separate supplier rates. -/
+theorem force_sum_rate {s ε A B : ℝ} (hs : 0 ≤ s) (hε : 0 < ε) (hε1 : ε ≤ 1)
+    (F H : VelocityField)
+    (hF : ∀ t, 0 ≤ t → Continuous (fun x => F (t, x)))
+    (hH : ∀ t, 0 ≤ t → Continuous (fun x => H (t, x)))
+    (hpacket : NSFormalization.Section4.D01.forceSobolevENorm 1 s F ≤
+      ENNReal.ofReal (A * (ε ^ ((1 : ℝ) / 2) + ε ^ ((1 : ℝ) / 2 - s))))
+    (hcorr : NSFormalization.Section4.D01.forceSobolevENorm 1 s H ≤
+      ENNReal.ofReal (B * (ε ^ ((3 : ℝ) / 2) + ε ^ ((3 : ℝ) / 2 - s)))) :
+    (∫⁻ t in Ioi (0 : ℝ), NSFormalization.Section4.D01.sobolevENorm s
+      (fun x => H (t, x) + F (t, x))) ≤
+      ENNReal.ofReal ((2 * (|A| + |B|) + 1) *
+        (ε ^ ((1 : ℝ) / 2 - s) + ε ^ ((3 : ℝ) / 2 - s))) := by
+  have hA : 0 ≤ max A 0 * (ε ^ ((1 : ℝ) / 2) + ε ^ ((1 : ℝ) / 2 - s)) :=
+    mul_nonneg (le_max_right _ _) (add_nonneg (Real.rpow_nonneg hε.le _)
+      (Real.rpow_nonneg hε.le _))
+  have hB : 0 ≤ max B 0 * (ε ^ ((3 : ℝ) / 2) + ε ^ ((3 : ℝ) / 2 - s)) :=
+    mul_nonneg (le_max_right _ _) (add_nonneg (Real.rpow_nonneg hε.le _)
+      (Real.rpow_nonneg hε.le _))
+  have hp := hpacket.trans (ENNReal.ofReal_le_ofReal
+    (mul_le_mul_of_nonneg_right (le_max_left A 0)
+      (add_nonneg (Real.rpow_nonneg hε.le _) (Real.rpow_nonneg hε.le _))))
+  have hc := hcorr.trans (ENNReal.ofReal_le_ofReal
+    (mul_le_mul_of_nonneg_right (le_max_left B 0)
+      (add_nonneg (Real.rpow_nonneg hε.le _) (Real.rpow_nonneg hε.le _))))
+  apply (lintegral_sobolevENorm_le_forceSobolevENorm s (fun z => H z + F z)).trans
+  apply (forceSobolevENorm_add_le_of_continuous hs H F hH hF).trans
+  apply (add_le_add hc hp).trans
+  rw [add_comm, ← ENNReal.ofReal_add hA hB]
+  exact ENNReal.ofReal_le_ofReal (positive_rates_absorb A B s ε hε hε1 hs)
+
 end NSFormalization.Section3.T23

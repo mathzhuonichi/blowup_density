@@ -68,3 +68,34 @@ in the application
     (add_le_add_left (mul_le_mul_of_nonneg_right (le_max_left C 0) (Real.rpow_nonneg (LT.lt.le hε.left) ?m.249)) ?m.250)
 ```
 Resolved with `add_le_add le_rfl`.
+
+## A6: slice unification needs the spacetime lambda
+```text
+../formalization/NSFormalization/Section3/T23/Rates.lean:117:2: error: Tactic `apply` failed: could not unify the conclusion of `LE.le.trans
+  (lintegral_sobolevENorm_le_forceSobolevENorm s ?m.438)`
+  (∫⁻ (t : ℝ) in Ioi 0, Section4.D01.sobolevENorm s fun x => ?m.438 (t, x)) ≤ ?m.443
+with the goal
+  (∫⁻ (t : ℝ) in Ioi 0, Section4.D01.sobolevENorm s fun x => H (t, x) + F (t, x)) ≤
+    ENNReal.ofReal ((2 * (|A| + |B|) + 1) * (ε ^ (1 / 2 - s) + ε ^ (3 / 2 - s)))
+
+Note: The full type of `LE.le.trans (lintegral_sobolevENorm_le_forceSobolevENorm s ?m.438)` is
+  Section4.D01.forceSobolevENorm 1 s ?m.438 ≤ ?m.443 →
+    (∫⁻ (t : ℝ) in Ioi 0, Section4.D01.sobolevENorm s fun x => ?m.438 (t, x)) ≤ ?m.443
+
+s ε A B : ℝ
+hs : 0 ≤ s
+hε : 0 < ε
+hε1 : ε ≤ 1
+F H : VelocityField
+hF : ∀ (t : ℝ), 0 ≤ t → Continuous fun x => F (t, x)
+hH : ∀ (t : ℝ), 0 ≤ t → Continuous fun x => H (t, x)
+hpacket : Section4.D01.forceSobolevENorm 1 s F ≤ ENNReal.ofReal (A * (ε ^ (1 / 2) + ε ^ (1 / 2 - s)))
+hcorr : Section4.D01.forceSobolevENorm 1 s H ≤ ENNReal.ofReal (B * (ε ^ (3 / 2) + ε ^ (3 / 2 - s)))
+hA : 0 ≤ max A 0 * (ε ^ (1 / 2) + ε ^ (1 / 2 - s))
+hB : 0 ≤ max B 0 * (ε ^ (3 / 2) + ε ^ (3 / 2 - s))
+hp : Section4.D01.forceSobolevENorm 1 s F ≤ ENNReal.ofReal (max A 0 * (ε ^ (1 / 2) + ε ^ (1 / 2 - s)))
+hc : Section4.D01.forceSobolevENorm 1 s H ≤ ENNReal.ofReal (max B 0 * (ε ^ (3 / 2) + ε ^ (3 / 2 - s)))
+⊢ (∫⁻ (t : ℝ) in Ioi 0, Section4.D01.sobolevENorm s fun x => H (t, x) + F (t, x)) ≤
+    ENNReal.ofReal ((2 * (|A| + |B|) + 1) * (ε ^ (1 / 2 - s) + ε ^ (3 / 2 - s)))
+```
+Resolved by passing `(fun z => H z + F z)` explicitly.
