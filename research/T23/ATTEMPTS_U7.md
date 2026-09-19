@@ -243,3 +243,146 @@ and mutation tests pass. Existing dependency warnings are replayed by Lake.
 `make check` still reports the repository-wide historical BoundaryCorollary
 admission and source-manifest mismatch without failing; the new module does not
 import that module. Source import traversal found no path to BoundaryCorollary.
+
+## Continuation: physical-box transport
+
+The first API probe used an absent name:
+```text
+Unknown identifier `frontier_closure`
+```
+Use `frontier_closure_subset`; equality is unnecessary. First proof diagnostics:
+```text
+../research/T23/probes/box_transport_work.lean:30:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ⇑e.toHomeomorph ⁻¹' closure ?s
+in the target expression
+  ⇑e ⁻¹' closure Ω = Icc a b
+
+a b : Fin 3 → ℝ
+hab : ∀ (i : Fin 3), a i < b i
+e : (Fin 3 → ℝ) ≃L[ℝ] PiLp 2 fun x => ℝ := (PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ).symm
+U : Set (Fin 3 → ℝ) := univ.pi fun i => Ioo (a i) (b i)
+Ω : Set Space := {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}
+heU : ⇑e ⁻¹' Ω = U
+hcl : closure U = Icc a b
+⊢ ⇑e ⁻¹' closure Ω = Icc a b
+../research/T23/probes/box_transport_work.lean:32:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ⇑e.toHomeomorph ⁻¹' frontier ?s
+in the target expression
+  ⇑e ⁻¹' frontier Ω = frontier U
+
+a b : Fin 3 → ℝ
+hab : ∀ (i : Fin 3), a i < b i
+e : (Fin 3 → ℝ) ≃L[ℝ] PiLp 2 fun x => ℝ := (PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ).symm
+U : Set (Fin 3 → ℝ) := univ.pi fun i => Ioo (a i) (b i)
+Ω : Set Space := {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}
+heU : ⇑e ⁻¹' Ω = U
+hcl : closure U = Icc a b
+hecl : ⇑e ⁻¹' closure Ω = Icc a b
+⊢ ⇑e ⁻¹' frontier Ω = frontier U
+../research/T23/probes/box_transport_work.lean:42:32: error(lean.unknownIdentifier): Unknown identifier `univ_pi_Ioo_ae_eq_Icc`
+../research/T23/probes/box_transport_work.lean:62:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (fderiv ℝ (g ∘ ⇑e) y) (Pi.single j 1)
+in the target expression
+  (fun x => f (e x) * (fderiv ℝ g (e x)) (coordinateVector j)) y =
+    (fun x => (f ∘ ⇑e) x * (fderiv ℝ (g ∘ ⇑e) x) (Pi.single j 1)) y
+
+case e'_2
+a b : Fin 3 → ℝ
+hab : ∀ (i : Fin 3), a i < b i
+e : (Fin 3 → ℝ) ≃L[ℝ] PiLp 2 fun x => ℝ := (PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ).symm
+U : Set (Fin 3 → ℝ) := univ.pi fun i => Ioo (a i) (b i)
+Ω : Set Space := {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}
+heU : ⇑e ⁻¹' Ω = U
+hcl : closure U = Icc a b
+hecl : ⇑e ⁻¹' closure Ω = Icc a b
+hefr : ⇑e ⁻¹' frontier Ω = frontier U
+hfr : frontier (Icc a b) ⊆ frontier U
+hint : ∀ (F : Space → ℝ), ∫ (x : Space) in Ω, F x = ∫ (y : Fin 3 → ℝ) in Icc a b, F (e y)
+f g : Space → ℝ
+hf : ∀ x ∈ closure {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}, ContDiffAt ℝ 1 f x
+hg : ∀ x ∈ closure {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}, ContDiffAt ℝ 1 g x
+hz : ∀ x ∈ frontier {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}, f x = 0
+j : Fin 3
+hc : ∀ (q : Space → ℝ), (∀ x ∈ closure Ω, ContDiffAt ℝ 1 q x) → ∀ y ∈ Icc a b, ContDiffAt ℝ 1 (q ∘ ⇑e) y
+hd :
+  ∀ (q : Space → ℝ),
+    (∀ x ∈ closure Ω, ContDiffAt ℝ 1 q x) →
+      ∀ y ∈ Icc a b, (fderiv ℝ (q ∘ ⇑e) y) (Pi.single j 1) = (fderiv ℝ q (e y)) (coordinateVector j)
+h :
+  ∫ (x : Fin 3 → ℝ) in Icc a b, (f ∘ ⇑e) x * (fderiv ℝ (g ∘ ⇑e) x) (Pi.single j 1) =
+    -∫ (x : Fin 3 → ℝ) in Icc a b, (fderiv ℝ (f ∘ ⇑e) x) (Pi.single j 1) * (g ∘ ⇑e) x
+y : Fin 3 → ℝ
+hy : y ∈ Icc a b
+⊢ (fun x => f (e x) * (fderiv ℝ g (e x)) (coordinateVector j)) y =
+    (fun x => (f ∘ ⇑e) x * (fderiv ℝ (g ∘ ⇑e) x) (Pi.single j 1)) y
+../research/T23/probes/box_transport_work.lean:67:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (fderiv ℝ (f ∘ ⇑e) y) (Pi.single j 1)
+in the target expression
+  (fun x => (fderiv ℝ f (e x)) (coordinateVector j) * g (e x)) y =
+    (fun x => (fderiv ℝ (f ∘ ⇑e) x) (Pi.single j 1) * (g ∘ ⇑e) x) y
+
+case e'_3
+a b : Fin 3 → ℝ
+hab : ∀ (i : Fin 3), a i < b i
+e : (Fin 3 → ℝ) ≃L[ℝ] PiLp 2 fun x => ℝ := (PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ).symm
+U : Set (Fin 3 → ℝ) := univ.pi fun i => Ioo (a i) (b i)
+Ω : Set Space := {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}
+heU : ⇑e ⁻¹' Ω = U
+hcl : closure U = Icc a b
+hecl : ⇑e ⁻¹' closure Ω = Icc a b
+hefr : ⇑e ⁻¹' frontier Ω = frontier U
+hfr : frontier (Icc a b) ⊆ frontier U
+hint : ∀ (F : Space → ℝ), ∫ (x : Space) in Ω, F x = ∫ (y : Fin 3 → ℝ) in Icc a b, F (e y)
+f g : Space → ℝ
+hf : ∀ x ∈ closure {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}, ContDiffAt ℝ 1 f x
+hg : ∀ x ∈ closure {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}, ContDiffAt ℝ 1 g x
+hz : ∀ x ∈ frontier {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}, f x = 0
+j : Fin 3
+hc : ∀ (q : Space → ℝ), (∀ x ∈ closure Ω, ContDiffAt ℝ 1 q x) → ∀ y ∈ Icc a b, ContDiffAt ℝ 1 (q ∘ ⇑e) y
+hd :
+  ∀ (q : Space → ℝ),
+    (∀ x ∈ closure Ω, ContDiffAt ℝ 1 q x) →
+      ∀ y ∈ Icc a b, (fderiv ℝ (q ∘ ⇑e) y) (Pi.single j 1) = (fderiv ℝ q (e y)) (coordinateVector j)
+h :
+  ∫ (x : Fin 3 → ℝ) in Icc a b, (f ∘ ⇑e) x * (fderiv ℝ (g ∘ ⇑e) x) (Pi.single j 1) =
+    -∫ (x : Fin 3 → ℝ) in Icc a b, (fderiv ℝ (f ∘ ⇑e) x) (Pi.single j 1) * (g ∘ ⇑e) x
+y : Fin 3 → ℝ
+hy : y ∈ Icc a b
+⊢ (fun x => (fderiv ℝ f (e x)) (coordinateVector j) * g (e x)) y =
+    (fun x => (fderiv ℝ (f ∘ ⇑e) x) (Pi.single j 1) * (g ∘ ⇑e) x) y
+
+```
+Fixes: use the homeomorphism equalities via `Eq.trans` (coercion spelling),
+qualify `Measure.univ_pi_Ioo_ae_eq_Icc`, and use `congrArg` for beta-redex
+integrands. The second attempt still needed explicit `congrArg closure heU` and
+`congrArg frontier heU` to bridge the homeomorphism coercion.
+```text
+../research/T23/probes/box_transport_work.lean:30:60: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ⇑e ⁻¹' Ω
+in the target expression
+  closure (⇑e.toHomeomorph ⁻¹' Ω) = Icc a b
+
+a b : Fin 3 → ℝ
+hab : ∀ (i : Fin 3), a i < b i
+e : (Fin 3 → ℝ) ≃L[ℝ] PiLp 2 fun x => ℝ := (PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ).symm
+U : Set (Fin 3 → ℝ) := univ.pi fun i => Ioo (a i) (b i)
+Ω : Set Space := {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}
+heU : ⇑e ⁻¹' Ω = U
+hcl : closure U = Icc a b
+⊢ closure (⇑e.toHomeomorph ⁻¹' Ω) = Icc a b
+../research/T23/probes/box_transport_work.lean:32:61: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ⇑e ⁻¹' Ω
+in the target expression
+  frontier (⇑e.toHomeomorph ⁻¹' Ω) = frontier U
+
+a b : Fin 3 → ℝ
+hab : ∀ (i : Fin 3), a i < b i
+e : (Fin 3 → ℝ) ≃L[ℝ] PiLp 2 fun x => ℝ := (PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ).symm
+U : Set (Fin 3 → ℝ) := univ.pi fun i => Ioo (a i) (b i)
+Ω : Set Space := {x | ∀ (i : Fin 3), a i < x.ofLp i ∧ x.ofLp i < b i}
+heU : ⇑e ⁻¹' Ω = U
+hcl : closure U = Icc a b
+hecl : ⇑e ⁻¹' closure Ω = Icc a b
+⊢ frontier (⇑e.toHomeomorph ⁻¹' Ω) = frontier U
+
+```

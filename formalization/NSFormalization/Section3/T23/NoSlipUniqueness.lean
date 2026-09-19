@@ -1,5 +1,6 @@
 import NSFormalization.Section4.A02.SolutionClass
 import NSFormalization.Section3.T23.BoxIntegration
+import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 
 /-! Canonical T23 domain vocabulary, copied verbatim from research/T23/Spec.lean.
 The no-slip uniqueness proof is under development; no uniqueness result is asserted here. -/
@@ -207,4 +208,64 @@ theorem ClassicalSolutionOmega.spatialDerivative_bound
     _ ≤ C := by simpa only [ContinuousLinearMap.norm_inr, mul_one] using hC (t, x) ⟨ht, hx⟩
     _ ≤ max C 0 := le_max_left _ _
 
+/-- Boundary integration by parts for scalar C¹ fields. This is the sole
+missing domain-specific analytic input for regular-level domains; boxes are
+proved below. Smoothness means ordinary neighborhood smoothness at every
+point of the closure, and only the first factor must vanish on the frontier. -/
+def IBP (Ω : Set Space) : Prop :=
+  ∀ (f g : Space → ℝ),
+    (∀ x ∈ closure Ω, ContDiffAt ℝ 1 f x) →
+    (∀ x ∈ closure Ω, ContDiffAt ℝ 1 g x) →
+    (∀ x ∈ frontier Ω, f x = 0) → ∀ j : Fin 3,
+    (∫ x in Ω, f x * fderiv ℝ g x (coordinateVector j)) =
+      -(∫ x in Ω, fderiv ℝ f x (coordinateVector j) * g x)
+
+/-- The Spec's open Euclidean boxes satisfy boundary integration by parts. -/
+theorem ibp_box {Ω : Set Space} (hΩ : IsBoxDomain Ω) : IBP Ω := by
+  obtain ⟨a, b, hab, rfl⟩ := hΩ
+  let e := (PiLp.continuousLinearEquiv 2 ℝ (fun _ : Fin 3 => ℝ)).symm
+  let U : Set (Fin 3 → ℝ) := Set.univ.pi (fun i => Ioo (a i) (b i))
+  let Ω : Set Space := {x | ∀ i, a i < x i ∧ x i < b i}
+  have heU : e ⁻¹' Ω = U := by ext x; simp [e, Ω, U]
+  have hcl : closure U = Icc a b := by
+    simp only [U, closure_pi_set, closure_Ioo (hab _).ne, pi_univ_Icc]
+  have hecl : e ⁻¹' closure Ω = Icc a b := by
+    exact (e.toHomeomorph.preimage_closure Ω).trans ((congrArg closure heU).trans hcl)
+  have hefr : e ⁻¹' frontier Ω = frontier U := by
+    exact (e.toHomeomorph.preimage_frontier Ω).trans (congrArg frontier heU)
+  have hfr : frontier (Icc a b) ⊆ frontier U := by
+    rw [← hcl]
+    exact frontier_closure_subset
+  have hint (F : Space → ℝ) :
+      (∫ x in Ω, F x) = ∫ y in Icc a b, F (e y) := by
+    rw [← (PiLp.volume_preserving_toLp (Fin 3)).setIntegral_preimage_emb
+      e.toHomeomorph.measurableEmbedding F Ω]
+    change (∫ y in e ⁻¹' Ω, F (e y)) = _
+    rw [heU]
+    exact setIntegral_congr_set Measure.univ_pi_Ioo_ae_eq_Icc
+  intro f g hf hg hz j
+  have hc (q : Space → ℝ) (hq : ∀ x ∈ closure Ω, ContDiffAt ℝ 1 q x) :
+      ∀ y ∈ Icc a b, ContDiffAt ℝ 1 (q ∘ e) y := by
+    intro y hy
+    exact (hq (e y) (show y ∈ e ⁻¹' closure Ω by rwa [hecl])).comp y e.contDiff.contDiffAt
+  have hd (q : Space → ℝ) (hq : ∀ x ∈ closure Ω, ContDiffAt ℝ 1 q x)
+      (y : Fin 3 → ℝ) (hy : y ∈ Icc a b) :
+      fderiv ℝ (q ∘ e) y (Pi.single j 1) = fderiv ℝ q (e y) (coordinateVector j) := by
+    have h := ((hq (e y) (show y ∈ e ⁻¹' closure Ω by rwa [hecl])).differentiableAt
+      one_ne_zero).hasFDerivAt.comp y e.hasFDerivAt
+    rw [h.fderiv]
+    rfl
+  have h := box_integral_mul_fderiv_eq_neg a b hab (f ∘ e) (g ∘ e) (hc f hf) (hc g hg)
+    (fun y hy => hz (e y) (show y ∈ e ⁻¹' frontier Ω by rw [hefr]; exact hfr hy)) j
+  change (∫ x in Ω, _) = -(∫ x in Ω, _)
+  rw [hint, hint]
+  convert h using 1
+  · apply setIntegral_congr_fun measurableSet_Icc
+    intro y hy
+    exact congrArg (fun z => f (e y) * z) (hd g hg y hy).symm
+  · congr 1
+    apply setIntegral_congr_fun measurableSet_Icc
+    intro y hy
+    exact congrArg (fun z => z * g (e y)) (hd f hf y hy).symm
 end NSFormalization.Section3.T23
+
