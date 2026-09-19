@@ -205,4 +205,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 437-T20-U11-continuation-bound | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T20 U11：continuationBound（常/均值零模正交分解 + hTwo_le_laplacian + 积分 U10b + U2 均值界；Ccriterion） |
 | 438-T17-U11-sobolev | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T17 U11：eq:HHs 修正力 L¹_tH^s 界（0≤s≤1，注册 T02.localization + Paper1/I02 力 Sobolev 界；sobolevConst） |
 | 439-T15-U4-U5-energy-mixed | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T15 U4 能量恒等式 + 诚实切片、U5 混合范数放缩 + 诚实路径（单拷贝 + Haar 桥 + I03 放缩恒等式） |
-| 440-MAINT-section3-build-f | worktree 安装中 → codex astra | 09-18 1911Z | — | — | MAINT：第六次 Section 3 全量编译检查（#354–#396 之后，46 合同；四门禁 + 公理扫描 → logs/SECTION3_BUILD_20260918f.md） |
+| 440-MAINT-section3-build-f | 已合入 #400：116 模块全编译 0 错误、四门禁、46 合同、148 探针、895 公理组全标准（logs/SECTION3_BUILD_20260918f.md）；1 个 defProp warning（T22/Assembly，卫生项） | 09-19 1216Z | #400 | — | MAINT：第六次 Section 3 全量编译检查（#354–#396 之后，46 合同；四门禁 + 公理扫描 → logs/SECTION3_BUILD_20260918f.md） |
