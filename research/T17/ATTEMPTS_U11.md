@@ -110,3 +110,6 @@ on the chart cylinder.
   expected to have type … ε ^ (3 / 2 + s)`.
 * `s ≤ 1` → `s ≤ 2` on all three fields: three `Type mismatch` errors printing
   the delivered `s ≤ 1` range.
+
+
+> Lead correction after review 438: the "no angularFourier/Mathlib-Fourier bridge; only endpoints" sentences are withdrawn — the arbitrary-real convention equivalence exists in `Source/FourierConvention.lean:23-143` and `Source/AngularForceNorms.lean:19-50`; only a direct `ENNReal` adapter from `dotHomogeneousENorm` to the Paper1 norm (needed by the T13-localization route) was not found.

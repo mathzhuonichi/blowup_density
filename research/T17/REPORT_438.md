@@ -21,7 +21,7 @@ Common premise block (identical to lanes 385/425, plus lane 385's `hε₀`):
 (hεspace : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ε * θR < r)
 ```
 
-**The constant** (`sobolevConst`, `Sobolev.lean:283`) — a `def`, explicit in Paper1's two endpoint profile constants, fixed before `ε`:
+**The constant** (`sobolevConst`, `Sobolev.lean:275`) — a `def`, explicit in Paper1's two endpoint profile constants, fixed before `ε`:
 
 ```
 def sobolevConst (ν) (hv) (x₀) (T) (hθ) (hη) (hθc) (hηc) : ℝ → ℝ :=
@@ -32,9 +32,9 @@ def sobolevConst (ν) (hv) (x₀) (T) (hθ) (hη) (hθc) (hηc) : ℝ → ℝ :=
 
 where `sobolevC0/sobolevC1 … i` are the `Classical.choose` of Paper1's `correction_scalar_whole_endpoint_rates` (house style of lane 385's `forceDerivConst`).
 
-**`sobolevConst_pos`** (`:299`): `∀ s : ℝ, 0 ≤ s → s ≤ 1 → 0 < sobolevConst ν hv x₀ T hθ hη hθc hηc s`.
+**`sobolevConst_pos`** (`:293`): `∀ s : ℝ, 0 ≤ s → s ≤ 1 → 0 < sobolevConst ν hv x₀ T hθ hη hθc hηc s`.
 
-**`forceSobolev_memLp`** (`:547`):
+**`forceSobolev_memLp`** (`:548`):
 ```
 ∀ s : ℝ, 0 ≤ s → s ≤ 1 → ∀ ε ∈ Ioc (0 : ℝ) (correctionData v x₀ T θ η O θR ε₀).ε₀,
   MemForceSobolevT 1 s (correctionForce ν v (correctionData v x₀ T θ η O θR ε₀) ε)
@@ -54,7 +54,7 @@ Types are literally the canonical fields: the probe's three `example`s project `
 
 ## 2. What exists in Lean now
 
-- `/data_8T/ping/blowup_density/.claude/worktrees/438-T17-U11-sobolev/formalization/NSFormalization/Section3/T17/Sobolev.lean` — 592 lines, new module, namespace `NSFormalization.Section3.T17`, 21 declarations. **No existing module edited.** Reusable pieces beyond the four fields:
+- `/data_8T/ping/blowup_density/.claude/worktrees/438-T17-U11-sobolev/formalization/NSFormalization/Section3/T17/Sobolev.lean` — 592 lines, new module, namespace `NSFormalization.Section3.T17`, 25 declarations (21 theorems and four definitions; all 21 theorems are axiom-audited). **No existing module edited.** Reusable pieces beyond the four fields:
   - `norm_scalar_datum_real` / `norm_datum_eq_sqrt` / `norm_datum_eq_vector` / `periodicSobolevENorm_slice_eq` — T10's order-`s` datum norm **is** Paper1's `periodicVectorSobolevNorm` at every *real* order (`T10.norm_scalar_datum_nat` is natural-order only because it rewrites one step further, into `periodicSobolevSq_nat`).
   - `periodicSobolevENorm_translate` — spatial translation invariance, via T11's `isPeriodicDatum_translate` + `translatePeriodicDatum_norm`.
   - `norm_datum_mono`, `force_coefficient_path_real` — the real-order analogue of `T10.force_coefficient_path` for `s ≤ 1`; continuity at fractional `s` by squeezing against the order-1 path (`Paper1.periodicSobolevSq_mono_smooth`).
@@ -93,7 +93,7 @@ All from `…/438-T17-U11-sobolev/verification` after `. ../scripts/lean-env.sh`
 | `lake build NSFormalization.Section3.T17.Sobolev` | `Build completed successfully (10014 jobs).` — 0 errors (warnings are pre-existing, from replayed upstream modules only) |
 | `lake env lean ../formalization/NSFormalization/Section3/T17/Sobolev.lean` | no output, exit 0 |
 | `lake env lean ../research/T17/probes/sobolev_closes.lean` | 5 lines, each `depends on axioms: [propext, Classical.choice, Quot.sound]` (`field_sobolevConst_pos`, `field_forceSobolev_memLp`, `field_force_sobolev_bound`, `fields_at_placement`, `nonvacuous_sobolev`); no errors, so the three `A.*` record-projection conformance `example`s typechecked |
-| `lake env lean ../research/T17/axioms_u11.lean` | 21 declarations, all `[propext, Classical.choice, Quot.sound]` |
+| `lake env lean ../research/T17/axioms_u11.lean` | 25 declarations (21 theorems and four definitions; all 21 theorems are axiom-audited), all `[propext, Classical.choice, Quot.sound]` |
 | `make check` (repo root) | passes: architecture checks JSON; `test_contract_policy.py` `Ran 13 tests … OK`; `check_work_queue.py` `45 work items: ownership, contract registration and task cards consistent.` |
 | `grep -nE "sorry\|admit\|native_decide\|^axiom \|maxHeartbeats"` on the three new Lean files | no matches (exit 1) |
 | `git show --stat HEAD` | 6 files, 962 insertions, 0 deletions — 1 new Lean module, 2 new research Lean files, 1 new md, 2 md appends; no existing module touched |
@@ -101,3 +101,9 @@ All from `…/438-T17-U11-sobolev/verification` after `. ../scripts/lean-env.sh`
 Negative probes (run from `/tmp/u11mut`, deliberately not committed), both **failed as required**:
 - exponent `ε ^ ((3:ℝ)/2 - s)` → `ε ^ ((3:ℝ)/2 + s)`: `error: Type mismatch … ENNReal.ofReal (sobolevConst … s * (ε ^ (3 / 2) + ε ^ (3 / 2 - s))) but is expected to have type … ε ^ (3 / 2 + s)`
 - range `s ≤ 1` → `s ≤ 2` on all three fields: three `Type mismatch` errors, each printing the delivered `s ≤ 1` range.
+
+
+## Lead notes after review 438 (ACCEPT-WITH-NOTES; records corrected)
+
+1. **"Not in the tree" narrowed.** The arbitrary-real Fourier-convention equivalence (`angularFourier` ↔ Mathlib `𝓕`, incl. the `(2π)` dilation) exists in `Source/FourierConvention.lean:23-143` and `Source/AngularForceNorms.lean:19-50` (pointwise bridge also at `Section4/A01/CarrierBridge.lean:31-35`). What the search did not find is a ready-made `ENNReal` adapter from `dotHomogeneousENorm`/`homogeneousFourierENorm` (`Section4/D01/HomogeneousNorm.lean:21-40`, compact value identified in `Section3/T13/WholeSpaceIdentity.lean:40-58`) to Paper1's cycles-frequency inhomogeneous norm required by the T13-localization route. That narrower adapter may be missing, but it is not a missing convention/dilation theorem and does not justify a separate analytic lane. The delivered proof (Paper1 periodic endpoint rates) is unaffected.
+2. Declaration-line citations corrected (`sobolevConst :275`, `sobolevConst_pos :293`, `forceSobolev_memLp :548`) and the declaration count corrected to 25 (21 theorems + 4 definitions).
