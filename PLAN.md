@@ -232,3 +232,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 464-T19-U7-U8-U9-density-engine | worktree 安装中（461 分支 + integration）→ codex sol | 09-19 1429Z | — | — | T19 wave 2：U7 fixedInitialDensity、U8 regularReferenceSingular、U9 mixedDensity，全部经 U0 导出引理 + U6 零范数 + U2 算术 |
 | 465-T19-U13-U14-closure | 简报就绪，等 461+464 合入 → codex astra | 09-19 1420Z | — | — | T19 wave 3：U13 simultaneousPairConvergence（U0 导出 + 零延拓 EqOn + U5）、U14 closureInEnergy |
 | 466-T19-U10-U11-U12-projection | 简报就绪，等 464 合入 → codex sol | 09-19 1420Z | — | — | T19 wave 4：U10 extendedProductDensity、U11 projectionOntoInitialData、U12 zeroInitialProjection（全部由 U7 推出） |
+| 467-T24-UbCAN-Ub1-Ub3-multiple-regions | worktree 安装中（integration，T15 完成）→ codex astra | 09-19 1433Z | — | — | T24b：canonical MultipleRegionsAPI（30 字段 Type，raw-field T15 记录）+ Ub1 放置/尺度选择 + Ub2 分量 + Ub3 单拷贝支撑 |
