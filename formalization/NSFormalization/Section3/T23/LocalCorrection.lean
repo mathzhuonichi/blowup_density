@@ -522,4 +522,19 @@ theorem LocalCorrectionCore.threshold_mono {v U : SpaceTimeField} {K : Set Space
     crossTransport_packet_advects_background := fun ε hε => h.crossTransport_packet_advects_background ε (hrange hε)
   }
 
+/-- Exact spatial-slice support in the prescribed ball, including all times
+outside the presingular interval. -/
+theorem correction_support_ball {v U : SpaceTimeField} {K : Set Space}
+    {x₀ : Space} {r T δ ε : ℝ} {D : CutoffData}
+    (h : LocalCorrectionCore v U K x₀ r T δ D) (hε : ε ∈ Ioc (0 : ℝ) D.ε₀) (t : ℝ) :
+    tsupport (fun x => D.correction ε (t, x)) ⊆ ball x₀ r := by
+  have hs : tsupport (fun x => D.correction ε (t, x)) ⊆
+      (fun x => (t, x)) ⁻¹' tsupport (D.correction ε) := by
+    apply closure_minimal
+    · intro x hx
+      exact subset_tsupport (D.correction ε) hx
+    · exact (isClosed_tsupport _).preimage (continuous_const.prodMk continuous_id)
+  intro x hx
+  exact (correction_support_interior h hε (hs hx)).2
+
 end NSFormalization.Section3.T23
