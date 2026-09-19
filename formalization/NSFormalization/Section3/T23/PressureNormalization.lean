@@ -3,7 +3,7 @@ import NSFormalization.Section3.T23.Boundary
 /-! Pressure normalization for the canonical bounded-domain insertion. -/
 noncomputable section
 namespace NSFormalization.Section3.T23
-open Set MeasureTheory
+open Set MeasureTheory Filter Topology
 open NavierStokes.ProblemStatement
 open NSFormalization.Section4.A02 (SpaceTimeScalar)
 open scoped ContDiff
@@ -52,4 +52,62 @@ theorem residual_domainNormalizePressure (ν : ℝ) (Ω : Set Space)
     NavierStokesR3.ProblemStatement.navierStokesResidual ν u p t x := by
   simp only [NavierStokesR3.ProblemStatement.navierStokesResidual,
     pressureGradient_domainNormalizePressure]
+
+/-- Smooth domain integrals on an open time interval, at every finite order. -/
+theorem domainIntegral_contDiffOn_nat {Ω : Set Space}
+    (hb : Bornology.IsBounded Ω) (hm : MeasurableSet Ω) {I : Set ℝ}
+    (hI : IsOpen I) (n : ℕ) {p : SpaceTimeScalar}
+    (hp : SmoothOnClosedSlab I Ω p) :
+    ContDiffOn ℝ n (fun t => ∫ x in Ω, p (t, x)) I := by
+  induction n generalizing p with
+  | zero =>
+    change ContDiffOn ℝ 0 _ _
+    rw [contDiffOn_zero]
+    exact fun t ht => (hp.hasDerivAt_integral hb hm hI ht).continuousAt.continuousWithinAt
+  | succ n ih =>
+    let q : SpaceTimeScalar := fun z => fderiv ℝ p z (1, 0)
+    have hq : SmoothOnClosedSlab I Ω q := by
+      obtain ⟨N, hN, hsub, hs⟩ := hp
+      refine ⟨N, hN, hsub, ?_⟩
+      exact (hs.fderiv_of_isOpen hN (by simp)).clm_apply contDiffOn_const
+    have hd (t : ℝ) (ht : t ∈ I) :
+        HasDerivAt (fun s => ∫ x in Ω, p (s, x)) (∫ x in Ω, q (t, x)) t := by
+      convert hp.hasDerivAt_integral hb hm hI ht using 1
+      apply setIntegral_congr_fun hm
+      intro x hx
+      exact (((hp.contDiffAt ⟨ht, subset_closure hx⟩).differentiableAt (by simp)).hasFDerivAt.comp_hasDerivAt t
+        ((hasDerivAt_id t).prodMk (hasDerivAt_const t x))).deriv.symm
+    rw [show ((n + 1 : ℕ) : ℕ∞ω) = (n : ℕ∞ω) + 1 by simp,
+      contDiffOn_succ_iff_deriv_of_isOpen hI]
+    refine ⟨fun t ht => (hd t ht).differentiableAt.differentiableWithinAt, ?_, ?_⟩
+    · simp
+    · exact (ih hq).congr (fun t ht => (hd t ht).deriv)
+
+/-- The integral of a slab-smooth pressure is smooth on an open time neighborhood. -/
+theorem SmoothOnClosedSlab.integral_smooth {Ω : Set Space}
+    (hb : Bornology.IsBounded Ω) (hm : MeasurableSet Ω) {I : Set ℝ}
+    {p : SpaceTimeScalar} (hp : SmoothOnClosedSlab I Ω p) :
+    ∃ J : Set ℝ, IsOpen J ∧ I ⊆ J ∧ ContDiffOn ℝ ∞ (fun t => ∫ x in Ω, p (t, x)) J := by
+  obtain ⟨N, hN, hsub, hs⟩ := hp
+  let J := interior {t : ℝ | ∀ x ∈ closure Ω, (t, x) ∈ N}
+  have hIJ : I ⊆ J := by
+    intro t ht
+    apply mem_interior_iff_mem_nhds.mpr
+    exact hb.isCompact_closure.eventually_forall_of_forall_eventually
+      (fun x hx => hN.mem_nhds (hsub ⟨ht, hx⟩))
+  refine ⟨J, isOpen_interior, hIJ, contDiffOn_infty.mpr fun n => ?_⟩
+  apply domainIntegral_contDiffOn_nat hb hm isOpen_interior n
+  exact ⟨N, hN, fun z hz => interior_subset hz.1 z.2 hz.2, hs⟩
+
+/-- Pressure normalization preserves the exact open-neighborhood slab convention. -/
+theorem SmoothOnClosedSlab.domainNormalizePressure {Ω : Set Space}
+    (hb : Bornology.IsBounded Ω) (hm : MeasurableSet Ω) {I : Set ℝ}
+    {p : SpaceTimeScalar} (hp : SmoothOnClosedSlab I Ω p) :
+    SmoothOnClosedSlab I Ω (domainNormalizePressure Ω p) := by
+  obtain ⟨J, hJ, hIJ, hi⟩ := hp.integral_smooth hb hm
+  obtain ⟨N, hN, hsub, hs⟩ := hp
+  refine ⟨N ∩ (J ×ˢ univ), hN.inter (hJ.prod isOpen_univ),
+    fun z hz => ⟨hsub hz, hIJ hz.1, mem_univ _⟩, ?_⟩
+  apply (hs.mono inter_subset_left).sub
+  exact (hi.div_const _).comp contDiffOn_fst (fun z hz => hz.2.1)
 end NSFormalization.Section3.T23

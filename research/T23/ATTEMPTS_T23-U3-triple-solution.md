@@ -68,3 +68,24 @@ hv : (volume Ω).toReal ≠ 0
 ⊢ (∫ (a : Space) in Ω, p (t, a)) * (1 - 1) = 0
 ```
 Resolution: ring after field_simp. Checkpoint e57eefb7 preceded this final fix.
+
+## P4: finite-order zero cast
+```text
+../formalization/NSFormalization/Section3/T23/PressureNormalization.lean:64:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  @ContDiffOn ?m.42 ?m.43 ?m.44 ?m.45 ?m.46 ?m.47 ?m.48 ?m.49 0 ?m.51 ?m.50
+in the target expression
+  @ContDiffOn ℝ DenselyNormedField.toNontriviallyNormedField ℝ Real.normedAddCommGroup
+    RCLike.toInnerProductSpaceReal.toNormedSpace ℝ Real.normedAddCommGroup RCLike.toInnerProductSpaceReal.toNormedSpace
+    (↑0) (fun t => ∫ (x : Space) in Ω, p (t, x)) I
+
+case zero
+Ω : Set Space
+hb : Bornology.IsBounded Ω
+hm : MeasurableSet Ω
+I : Set ℝ
+hI : IsOpen I
+p : SpaceTimeScalar
+hp : SmoothOnClosedSlab I Ω p
+⊢ ContDiffOn ℝ (↑0) (fun t => ∫ (x : Space) in Ω, p (t, x)) I
+```
+Resolution: change the order to literal zero.
