@@ -99,3 +99,50 @@ hc : Section4.D01.forceSobolevENorm 1 s H ≤ ENNReal.ofReal (max B 0 * (ε ^ (3
     ENNReal.ofReal ((2 * (|A| + |B|) + 1) * (ε ^ (1 / 2 - s) + ε ^ (3 / 2 - s)))
 ```
 Resolved by passing `(fun z => H z + F z)` explicitly.
+
+## A7: probe imports and overlapping namespaces
+```text
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:72:22: error: Function expected at
+  PacketImportAPI
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  ν
+
+Hint: The identifier `PacketImportAPI` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:74:11: error: Ambiguous term
+  Space
+Possible interpretations:
+  BlowupDensity.Contracts.V1.Space : Type
+  
+  NavierStokes.ProblemStatement.Space : Type
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:74:23: error: Ambiguous term
+  Space
+Possible interpretations:
+  BlowupDensity.Contracts.V1.Space : Type
+  
+  NavierStokes.ProblemStatement.Space : Type
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:74:31: error: Ambiguous term
+  Space
+Possible interpretations:
+  BlowupDensity.Contracts.V1.Space : Type
+  
+  NavierStokes.ProblemStatement.Space : Type
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:74:43: error: Ambiguous term
+  VelocityField
+Possible interpretations:
+  BlowupDensity.Contracts.V1.VelocityField : Type
+  
+  NavierStokes.ProblemStatement.VelocityField : Type
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:80:0: warning: declaration uses `sorry`
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:83:0: warning: declaration uses `sorry`
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:86:0: warning: declaration uses `sorry`
+../research/T23/probes/T23-U6-rates-convergence_closes.lean:89:24: error: Ambiguous term
+  VelocityField
+Possible interpretations:
+  BlowupDensity.Contracts.V1.VelocityField : Type
+  
+  NavierStokes.ProblemStatement.VelocityField : Type
+```
+Add PacketImport and open only the three needed contract types.

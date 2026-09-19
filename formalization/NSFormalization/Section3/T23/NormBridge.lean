@@ -1,5 +1,6 @@
 import NSFormalization.Section3.T23.Boundary
 import NSFormalization.Section4.R41.NonDensityL1
+import NSFormalization.Section3.T22.OrderZero
 
 /-! Slice-integral bounds for the canonical measurable-path Sobolev norm. -/
 noncomputable section
@@ -85,5 +86,15 @@ theorem forceSobolevENorm_add_le_of_continuous {s : ℝ} (hs : 0 ≤ s)
       (hF t ht) (hG t ht)
   refine (iInf_le _ ⟨_, hsum, hmF.add hmG⟩).trans ?_
   exact eLpNorm_add_le hmF hmG le_rfl
+
+/-- The literal negative-order zero-extension estimate against its physical
+L² norm; square integrability is an honest realization hypothesis. -/
+theorem sobolevENorm_zeroExtension_nonpos_le_L2 (Ω : Set Space) {s : ℝ}
+    (hs : s ≤ 0) (z : Space → Space)
+    (hz : MemLp (NSFormalization.Section3.T22.zeroExtension Ω z) 2 volume) :
+    sobolevENorm s (NSFormalization.Section3.T22.zeroExtension Ω z) ≤
+      eLpNorm (NSFormalization.Section3.T22.zeroExtension Ω z) 2 volume := by
+  exact (sobolevENorm_mono_order hs _).trans_eq
+    (NSFormalization.Section3.T22.sobolevENorm_zero_eq_eLpNorm hz)
 
 end NSFormalization.Section3.T23
