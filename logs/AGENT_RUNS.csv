@@ -1482,3 +1482,5 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-19,T15,439-T15-U4-U5-energy-mixed,claude-opus,proof-worker,"Section3/T15/Energy.lean + Mixed.lean: five U4/U5 fields; codex review ACCEPT-WITH-NOTES",merged,402
 2026-09-19,T18,436-T18-U8-lifespan,claude-opus,proof-worker,"Section3/T18/Lifespan.lean: five U8 fields; review REJECT base-drift only, lead merged",merged,403
 2026-09-19,T17,438-T17-U11-sobolev,claude-opus,proof-worker,"Section3/T17/Sobolev.lean: sobolevConst/pos, forceSobolev_memLp, force_sobolev_bound; codex review ACCEPT-WITH-NOTES",merged,404
+2026-09-19,T15,442-T15-U6-U7-blowup-force-mem,gpt-5.6-sol,proof-worker,"Section3/T15/Blowup.lean + ForceMem.lean: unboundedSpeed + force_mem verbatim; awaiting codex review",done,-
+2026-09-19,T17,444-T17-U10-mixed-bound,gpt-6-astra,proof-worker,"Section3/T17/Mixed.lean: force_spatial_memLp, mixedConst, force_mixed_bound incl. infinity endpoints; awaiting codex review",done,-
