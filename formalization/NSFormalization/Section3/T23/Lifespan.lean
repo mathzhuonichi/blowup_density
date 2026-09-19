@@ -56,4 +56,23 @@ theorem domainLifespan_eq_of_interior {ν T : ℝ} {Ω : Set Space}
   have := le_max_left C 0
   linarith
 
+/-- Restriction preserves the literal total velocity and pressure fields. -/
+def ClassicalSolutionOmega.restrictHorizon {ν T S : ℝ} {Ω : Set Space}
+    {a : SpatialField} {g : SpaceTimeField} (u : ClassicalSolutionOmega ν Ω a g T)
+    (hS : 0 < S) (hST : S ≤ T) : ClassicalSolutionOmega ν Ω a g S where
+  velocity := u.velocity
+  pressure := u.pressure
+  horizon_pos := hS
+  velocity_smooth := by
+    obtain ⟨N, ho, hsub, hs⟩ := u.velocity_smooth
+    exact ⟨N, ho, fun z hz => hsub ⟨⟨hz.1.1, hz.1.2.trans_le hST⟩, hz.2⟩, hs⟩
+  pressure_smooth := by
+    obtain ⟨N, ho, hsub, hs⟩ := u.pressure_smooth
+    exact ⟨N, ho, fun z hz => hsub ⟨⟨hz.1.1, hz.1.2.trans_le hST⟩, hz.2⟩, hs⟩
+  initial := u.initial
+  divergence := fun t ht => u.divergence t ⟨ht.1, ht.2.trans_le hST⟩
+  momentum := fun t ht => u.momentum t ⟨ht.1, ht.2.trans_le hST⟩
+  no_slip := fun t ht => u.no_slip t ⟨ht.1, ht.2.trans_le hST⟩
+  pressure_gauge := fun t ht => u.pressure_gauge t ⟨ht.1, ht.2.trans_le hST⟩
+
 end NSFormalization.Section3.T23
