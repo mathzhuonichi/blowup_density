@@ -289,6 +289,31 @@ The task's lead snapshot is T20 U1–U11 landed, U12 lane 441 in flight, U13 nex
 
 If lane 445 is already proving N6, count that shared work once and use the freed T21 slot for C's N0/N8 or M's conditional proofs. Lead communicates the exact helper signature and chosen module; this plan sends no external messages or new lane claims.
 
-## 4. Risks
+## 4. Risks and evidence boundaries
 
-Resolve Prop-versus-Type with owner; preserve registration order T19 → T20 → T21 and the lifespan bridge in Bindings. N6 is a real analytic obligation, shared with T18 U11 lane 445. Verify lane 428 critLower before assigning N3.
+1. **Prop versus Type is an owner convention question, not a blocker to helpers.** Lead approved Prop for both structures (`research/T21/RECONCILIATION.md:22-32`); actual declarations are `Spec.lean:269,467`. The Section 4 record defaults to Type (`Contracts/V1/MainThresholds.lean:11`) although its four fields are propositions (`:23,40,54,79`). Keep the approved Spec pending one owner ruling covering T19/T21/T24. Do not silently change universes or replace either paper statement by mere `Nonempty`. The lead also kept `zeroInitialNonDensity` and `ballRelativelyOpen`; older owner questions about dropping them (`RECONCILIATION.md:110-111`) do not authorize dropping them here.
+
+2. **Registration order and the lifespan bridge.** Preserve T19 → T20 → T21 (`RECONCILIATION.md:104`). The bridge theorem already lives in `Bindings/TorusLocalTheory.lean:270`; it is its **use in the Spec seam** (`Spec.lean:637-643`) that moves into the T20/T21 Bindings layer after registration, not a new theorem in Contracts. Registered and canonical solution structures are distinct, so use the propositional lifespan equality, not rfl. T20 registration should expose its global-regularity conclusion in registered vocabulary; T21 then consumes that conclusion directly where available. Maintain only one canonical T19 record and replace the Spec copy at registration. Do not promote a conditional assembly theorem to an unconditional claim merely because all T21 field proofs compile.
+
+3. **N6 is the main cost risk for the retained openness field.** Adding physical data requires Haar integrability to justify Fourier coefficient additivity, and adding paths requires AE strong measurability. The two extended infima cannot be treated as ordinary attained finite norms. Handle missing representatives/⊤ and finite-radius ENNReal subtraction without `.toReal`. If this exceeds M, peel datum addition, path addition, and infimum descent into separately reviewable helper theorems within the shared lane; no named analytic premise. The first verified helper from T18 U11 lane 445 or T21 wins; the other consumer imports it. N7 must prove strictness using the finite norm of the ball centre. N10's six-line model does not discharge this retained field.
+
+4. **The critLower pattern is useful but has different semantics.** `Section3/T20/YBound.lean:56,86,96` explicitly uses the homogeneous mean-free symbol. General inhomogeneous lowering must preserve the zero mode (weight there is 1), use `IsPeriodicReweight` (`Contracts/V1/TorusData.lean:228`), and support all real s≤t. Reuse `torusMultiplierCLM` (`Section3/T11/LocalExistence.lean:63`) and its norm bound, not the specialized homogeneous datum theorem. Paper1's smooth-force comparisons (`Paper1/PeriodicCriticalRegularity.lean:33,47`) do not prove the unconditional infimum fields without the representation bridge.
+
+5. **Reconciliation status is older than the checkout.** N12 is now a proved transport (`Section3/T20/CriticalEnergy.lean:402`); N5 and N11 reuse `Section3/T19/Bookkeeping.lean:238,55`. “New” below means an assignment, not an exhaustive assertion that no equivalent lemma exists under another name. The negative scans were:
+
+```sh
+grep -rnE 'structure PeriodicDensityAPI|forceSobolevENormT_add|torusForceSobolevENorm_add|forceSobolevENormT_triangle|memForceT_zero|zero_mem_forceClassT' formalization/NSFormalization/Section3 verification/Contracts/V1
+grep -nE 'T19|T20|T21' verification/contracts.json
+```
+
+Both returned no output (exit 1). Thus no canonical/registered T19 record under that declaration name, no triangle/zero-force helper under those candidate names, and no T19/T20/T21 text in the current registry were found. This is a bounded name search, not a proof of global mathematical absence. Before implementing N4/N6, repeat a semantic search for alternate names and new lane 445 work. The exact positive pattern search was:
+
+```sh
+grep -rnE 'critLower|critSymbol' formalization/NSFormalization/Section3/T20/YBound.lean
+grep -rnE 'def torusMultiplierCLM|theorem torusMultiplier_norm_le' formalization/NSFormalization/Section3/T11
+grep -rnE 'zero_mem_initialClassT|torusForceSobolevENorm_zero|theorem thresholdValue' formalization/NSFormalization/Section3
+```
+
+It found the cited declarations (`YBound:56,86,96`; `LocalExistence:63`; `LocalExistenceProbe:61`; `CriticalEnergy:402`; `Bookkeeping:55,238`). Read the exact cited paper ranges with `sed -n '1,16p' paper/sections/03-torus.tex` and `sed -n '506,525p' paper/sections/03-torus.tex`; their proof supports zero-datum non-density and the fixed-datum subcritical density assertion, with no claim above threshold for nonzero datum.
+
+6. **Keep the twin comparison precise.** `Section4/R41/NonDensityL1.lean:42-55,82-111` is the line-by-line transport/separation template for N3 and N8–N10 and supplies N14/N15's negative half. It has no relative-openness proof or complete torus iff field. N7 uses ENNReal ball bookkeeping, while `Paper1/PeriodicMain.lean:44,59` supplies the iff/assembly pattern. `Section4/R41/NonDensity.lean:37` packages whole-space thresholds; do not import its q=2 obligations into the torus result.
