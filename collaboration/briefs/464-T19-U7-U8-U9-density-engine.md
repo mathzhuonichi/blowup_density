@@ -1,7 +1,7 @@
 # Lane 464-T19-U7-U8-U9-density-engine — T19 wave 2: `fixedInitialDensity` (U7), `regularReferenceSingular` (U8), `mixedDensity` (U9) from the U0 threading exports
 
 You are a Lean 4 (v4.34.0-rc2 + Mathlib) proof worker on the repository checked out at your working directory
-`/data_8T/ping/blowup_density/.claude/worktrees/464-T19-U7-U8-U9-density-engine` (git branch `erenup/464-T19-U7-U8-U9-density-engine`, = `origin/erenup/integration-section3` after lane 461 (T19 U0) merged).
+`/data_8T/ping/blowup_density/.claude/worktrees/464-T19-U7-U8-U9-density-engine` (git branch `erenup/464-T19-U7-U8-U9-density-engine`, = lane 461's branch (459 + 461 on top of integration; 461 in review) + `origin/erenup/integration-section3`).
 Read `CLAUDE.md`, **`research/T19/T19_SPLIT.md`** (§0; units U7, U8, U9 verbatim targets and routes; U0 status line added by lane 461), `research/T19/REPORT_461.md` + `Section3/T19/Threading.lean` (`extendByZero`, `insertionData`,
 `insertion`, and the **export lemmas** `force_mem`, `lifespan`, `solution`, `blowup_limsup`, `energyRate`, `forceDifference_mixed_bound`, `forceDifference_sobolev_bound`, `forceDifference_negativeSobolev_tendsto`, guards, and
 `exists_force_close` — verify every name by `grep -n` in `Threading.lean`), `Section3/T19/Density.lean` (canonical fields `PeriodicDensityAPI.fixedInitialDensity`, `.regularReferenceSingular`, `MixedRegionAPI.mixedDensity` — read the exact
