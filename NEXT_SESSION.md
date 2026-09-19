@@ -33,6 +33,7 @@ packet, zero reference, T=1. See `research/T23/REPORT_487b.md` and
 
 ## 日志（最新在前）
 - **2026-09-19（lane 453 continuation）**：T17 U12 完成；最终 G4（含 raw packet support + ball-in-chart）装配 45 字段并注册 `T02.correction`，47 合同；cube-centred 非零参考场完整见证，反例已移至 research 独立 probe。报告：`research/T17/REPORT_453.md` Continuation。
+- **2026-09-19 18:45Z**：合入 #452（全量编译检查 i，Section 3 全部节点注册后）。**Section 3 lane 工作收工**；剩余全部为 owner 决策与小 MAINT（见快照）。
 - **2026-09-19 18:12Z**：合入 #451（T23 U9：48 字段装配 + `T04.boundary_insertion`，**第 55 个合同，T23 完成 → Section 3 全部节点 T10–T24 注册**）。开 488 全量编译检查 i（sol）。剩余：owner 决策（`logs/SECTION3_OWNER_DECISIONS_20260919.md`）、T22 defProp 小 MAINT、PR #270 改 base。
 - **2026-09-19 18:05Z**：487 第一阶段部分（G2：U2b/U3 势恒等式接缝，裁定窗口化 U3 假设），cont_487 闭合接缝并装配 48 字段、注册 `T04.boundary_insertion`（分支上第 55 个合同，Section 3 全部节点注册待审）。owner 决策汇总：`logs/SECTION3_OWNER_DECISIONS_20260919.md`。审过合入后开 488 全量编译 i。
 - **2026-09-19 17:33Z**：合入 #445（U5）、#446（U2b）、#447（U3）、#448（U8）、#449（U6）、#450（U4）：**T23 U1–U8 全证**（U7 盒情形，光滑域条件于 `IBP Ω`）。487（U9 装配 + `T04.boundary_insertion`，astra）在跑；合入后即 Section 3 全部节点注册，再跑全量编译 i。
@@ -82,7 +83,7 @@ packet, zero reference, T=1. See `research/T23/REPORT_487b.md` and
 ## 当前在跑 / 待启动（2026-09-19 18:25Z 快照）
 
 - **用户新规（09-19）**：**不再启动 Opus 子代理**；全部 codex（astra 强推理/贵，sol 便宜），lead 调度（`tmp/launch_when_free.sh`，<7 窗口；审稿 `tmp/retry_review.sh` + `review_notes_<lane>.md`；合入前删 worktree 里与根目录相同的未跟踪简报副本；lane 名含 `main` 用 `git push -u origin HEAD`）。
-- **合同 55，Section 3 全部节点 T10–T24 已注册**：T15 #425、T17 #414（+G5 桥 #423）、T18 #420、T19 #435、T20 #415、**T21 #439（`thm:main`）**、T22 #391、T24 #433、**T23 #451（`cor:boundary`：盒域无条件，光滑域条件于 `IBP Ω`）**。全量编译 g #424、h #443 全绿；**i（488，sol）在跑**。
+- **合同 55，Section 3 全部节点 T10–T24 已注册**：T15 #425、T17 #414（+G5 桥 #423）、T18 #420、T19 #435、T20 #415、**T21 #439（`thm:main`）**、T22 #391、T24 #433、**T23 #451（`cor:boundary`：盒域无条件，光滑域条件于 `IBP Ω`）**。全量编译 g #424、h #443 全绿；i #452 全绿（见报告）。
 - **T23 裁定**（`research/T23/SPEC_ISSUES.md`）：G0（Spec 对任意 `D` 全称量化为假 → 注册存在式修正）、G1（光滑域分部积分 Mathlib 无 → 条件定理）、G2（U2b/U3 势恒等式接缝 → 窗口化 U3 核心假设）。
 - **剩余工作（全部 owner 级或小 MAINT）**：`logs/SECTION3_OWNER_DECISIONS_20260919.md` 八项（T17 G4/G5 措辞、T23 G0/G1 措辞与范围、域记录放置、Prop/Type、T22 defProp、PR #270 改 base）；488 报告合入后收工。lane 号下一个 **489**。
 - **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码（记录/注释/空白类微改除外）；每次合入更新追踪 PR #270。
