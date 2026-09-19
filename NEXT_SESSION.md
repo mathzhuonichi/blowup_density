@@ -21,6 +21,7 @@
 
 ## 日志（最新在前）
 - **2026-09-19（lane 453 continuation）**：T17 U12 完成；最终 G4（含 raw packet support + ball-in-chart）装配 45 字段并注册 `T02.correction`，47 合同；cube-centred 非零参考场完整见证，反例已移至 research 独立 probe。报告：`research/T17/REPORT_453.md` Continuation。
+- **2026-09-19 16:58Z**：合入 #441（T23 U2 阶段 1 部分，审稿 REJECT 完整性、lead 裁定合入）、#442（T23 U7 盒情形）、#443（全量编译 h：167 模块 rc 0，54 合同）。480（T23 U-CAN）审中；基于其分支开 T23 六条并行 lane：481 U2b、482 U3、485 U6、486 U8（astra），483 U4、484 U5（sol）；跨 lane 依赖一律穿线假设，U9 装配放电。
 - **2026-09-19 16:36Z**：合入 #440（T23 U1）。cont_478 闭合盒情形 `noSlip_uniqueness_box` + `noSlip_uniqueness_of_ibp`，光滑域残差 = `IBP Ω`（G1，Mathlib 无正则水平集域散度定理；V1 可能只注册盒情形，owner 待定）；审中。480（T23 U-CAN 统一记录 + BoundaryInsertionAPI，astra）基于 477+478 分支排队。479 全量编译 h 在跑。
 - **2026-09-19 16:32Z**：合入 #439（T21 装配 + `T03.non_density`/`T03.main`，**第 53/54 个合同，`thm:main` 注册，T21 完成**）。开 479 全量编译检查 h（sol）。T23：476 审中、477 部分（G0 反例 + 局部修正供给）审中、cont_478 在跑；480 U-CAN 简报就绪。
 - **2026-09-19 16:16Z**：合入 #437（T21 主定理侧）、#438（T21 非稠密侧，**T21 全部 N 单元证完**）。475 完成：`MainAssembly.lean` + `T03.non_density`/`T03.main`（分支上 54 合同），审中；合入后开 479 全量编译检查。T23：476 U1 审中；477 U2+G0、cont_478 U7（盒情形优先）在跑。
@@ -63,14 +64,14 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-19 15:50Z 快照）
+## 当前在跑 / 待启动（2026-09-19 17:03Z 快照）
 
-- **用户新规（09-19）**：**不再启动 Opus 子代理**；全部 codex（astra 强推理/贵 → 硬分析、装配、规划；sol 便宜 → 簿记、注册、审稿），lead 调度（`tmp/launch_when_free.sh`，<7 窗口才启动；审稿 `tmp/retry_review.sh`；合入前删掉 worktree 里与根目录相同的未跟踪简报副本）。
-- **合同 52**。今日下午完成的节点：**T15**（`T02.scaling` #425）、**T17**（`T02.correction` #414 + G5 slab 桥 #423）、**T18**（`T03.periodic_insertion` #420）、**T19**（`T03.density` #435）、**T20**（`T03.critical_regularity` #415）、**T24**（`T04.multiple_regions` #433，三叶全注册）。全量编译检查 g #424（142 模块 rc 0）。
-- **裁定记录**：G4、G5（`research/T17/SPEC_ISSUES.md`）：T16/T17 的全局周期/光滑假设 vs 经典解 → `correctionStatementSlab'`（保留全局周期、去掉全局光滑）+ T19 U0 零延拓参照。不改合同。
-- **codex 在跑**：472（T21 N0–N10+N12，sol）、474（T21 N11/N13–N15，sol）、449（T23 拆分，astra 第三次，增量提交）。简报就绪：475（T21 A 装配 + `T03.non_density`/`T03.main`）。
-- **下一批**：472+474 → 475（**`thm:main` 注册**）；449 拆分 → T23 单元 lane；之后全量编译检查 h；`T22/Assembly.lean:24` defProp warning 小 MAINT；owner 待办不变。
-- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码（记录/注释类微改除外，审稿 note 的 docstring/引用修正算微改）；每次合入更新追踪 PR #270。
+- **用户新规（09-19）**：**不再启动 Opus 子代理**；全部 codex（astra 强推理/贵 → 硬分析、装配、规划；sol 便宜 → 簿记、注册、审稿），lead 调度（`tmp/launch_when_free.sh`，<7 窗口才启动；审稿 `tmp/retry_review.sh`，已知部分交付的 lane 附 `review_notes_<lane>.md`；合入前删掉 worktree 里与根目录相同的未跟踪简报副本；lane 名含 `main` 时用 `git push -u origin HEAD`）。
+- **合同 54**。Section 3 节点完成：T10–T14、T16、**T15**（#425）、**T17**（#414 + G5 slab 桥 #423）、**T18**（#420）、**T19**（#435）、**T20**（#415）、**T21**（#439，`T03.non_density` + `T03.main` = **`thm:main`**）、T22（#391）、**T24**（三叶，#433）。全量编译检查 h #443：167 模块 rc 0。
+- **唯一未完成节点 T23（`cor:boundary`）**：拆分 #436；U1 放置 #440；U2 阶段 1 #441（部分）；U7 盒情形 #442（光滑域 = `IBP Ω` 残差，G1）；U-CAN #444。**在跑六条并行 lane**：481 U2b（匹配 I02/I03 供给 + 估计，astra）、482 U3（三元组/解记录，astra）、483 U4（局部差，sol）、484 U5（T22 比较，sol）、485 U6（率与收敛，astra）、486 U8（内部爆破/寿命，astra）；跨 lane 依赖穿线假设，U9 装配放电。
+- **T23 owner 待定**（挡注册，不挡证明）：G0 措辞（Spec 对任意 `D` 全称量化 → 存在式修正）、G1（光滑域 IBP 不在 Mathlib → V1 只注册盒情形？）、域记录放置/光滑域编码/gauge（`T23_SPLIT.md` §4）。
+- **下一批**：六条 lane 合入 → 487 U9 装配 + 注册（按 owner 决定的范围）→ 全量编译检查 i → Section 3 收尾（PR #270 改 base 到 main 等 #259）。小 MAINT：`T22/Assembly.lean:24` defProp warning。
+- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码（记录/注释/空白类微改除外）；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
 

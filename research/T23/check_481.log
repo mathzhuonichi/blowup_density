@@ -1,0 +1,39 @@
+Selected excerpts from successful make check; large inventory output omitted.
+
+python3 experiments/check_formalization_plan.py --check
+{
+  "task_count": 45,
+  "source_counts": {
+    "formalization": 733,
+    "vendor/NavierStokesAndEuler": 2486,
+    "vendor/HeliCorgi": 129
+  },
+  "source_manifest_entries": 2975,
+  "missing_copied_imports": [],
+  "citation_interfaces_reachable": [],
+  "tokens_in_copied_umbrella_closure": [
+    {
+      "module": "NSFormalization.Paper1.BoundaryCorollary",
+      "path": "formalization/NSFormalization/Paper1/BoundaryCorollary.lean",
+      "line": 90,
+      "token": "sorry"
+    }
+  ],
+  "tracked_cache_free": true,
+  "source_hashes_match": false
+}
+Explicit axiom/admission tokens, all copied sources: 11
+python3 experiments/check_contracts.py
+{
+
+[intermediate inventory omitted]
+
+}
+python3 experiments/test_contract_policy.py
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.042s
+
+OK
+python3 experiments/check_work_queue.py
+45 work items: ownership, contract registration and task cards consistent.

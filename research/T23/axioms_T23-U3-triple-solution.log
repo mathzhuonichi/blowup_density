@@ -1,0 +1,74 @@
+'NSFormalization.Section3.T23.domain_volume_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.SmoothOnClosedSlab.integrableOn_slice' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.domainNormalizePressure_integral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.pressureGradient_domainNormalizePressure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.residual_domainNormalizePressure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.domainIntegral_contDiffOn_nat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.SmoothOnClosedSlab.integral_smooth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.SmoothOnClosedSlab.domainNormalizePressure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.SmoothOnClosedSlab.add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.SmoothOnClosedSlab.mono_time' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.smoothOnClosedSlab_of_contDiff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.MemForceOmega.add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.memForceOmega_of_compactPositiveTimeSupport' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.domain_residual_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.threshold' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.velocity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.pressure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.force' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.velocity_formula' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.pressure_formula' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.force_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.eps_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.eps_le_scaling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.eps_le_cutoff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.eps_le_supplier' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.eps_le_geometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.packet_velocity_smooth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.packet_pressure_smooth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.history' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.initial' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.velocity_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.pressure_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.correction_force_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.packet_force_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.force_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.forceDifference_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.incompressible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.corrected_background_momentum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.momentum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.pressure_gauge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.classicalSolution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.InsertedTriple.solution' depends on axioms: [propext, Classical.choice, Quot.sound]
