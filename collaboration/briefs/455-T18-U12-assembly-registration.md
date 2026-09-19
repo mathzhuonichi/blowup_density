@@ -1,6 +1,6 @@
 # Lane 455-T18-U12-assembly-registration — T18 U12: assemble `PeriodicInsertionAPI` (45 fields) from U1–U11, close `periodicInsertionStatement`, register `T03.periodic_insertion`
 
-(Worktree to be created from the merged base once lanes 443 (U9/U10) and 445 (U11) land.) You are a Lean 4 (v4.34.0-rc2 + Mathlib) worker in
+You are a Lean 4 (v4.34.0-rc2 + Mathlib) worker in
 `/data_8T/ping/blowup_density/.claude/worktrees/455-T18-U12-assembly-registration` (branch `erenup/455-T18-U12-assembly-registration`). On the base: the whole canonical T18 layer
 `Section3/T18/{Insertion (U1: InsertionData, velocity/pressure/force, formulas, ε₀, eps_*, delta_pos, reference_force_mem, initial_mem), ForceClass (U2), Kinematics (U3), Divergence (U4), CrossTransport
 (U5), Momentum (U6), Support (U7: velocityDifference_support takes the explicit raw premise `hsupp`), Lifespan (U8), EnergyRate (U9: energyRate takes explicit `hM`/`hD`), MixedRate (U10), SobolevRate
