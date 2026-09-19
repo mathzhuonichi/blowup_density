@@ -90,10 +90,7 @@ paper's separate peaks remark, following `RECONCILIATION.md`.
 T18 is consumed internally through the T17 slab route G5: the reference is
 zero-extended only to provide T17's global periodicity/smoothness inputs and
 is identified with the original reference on `[0,T)`.  Consequently no slab
-premise or T18 record is exported in the contract.  The four canonical API
-values produce the expected `defProp` linter notices because the task requires
-`def` while the target records live in `Prop`; these are not build or test
-warnings in the warning-as-error contract tests.
+The required Prop-valued API defs use a module-local defProp-linter suppression, so direct elaboration and the lane's build/test output contain no Assembly warnings.
 
 ## 4. Commands and results
 

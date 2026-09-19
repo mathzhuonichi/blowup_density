@@ -12,6 +12,7 @@ statement theorems expose the headline propositions of `prop:density`,
 noncomputable section
 
 namespace NSFormalization.Section3.T19
+set_option linter.defProp false
 
 /-- The complete three-field canonical package for `prop:density`. -/
 def periodicDensityAPI : PeriodicDensityAPI where
