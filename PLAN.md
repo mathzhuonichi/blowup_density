@@ -223,3 +223,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 455-T18-U12-assembly-registration | 简报就绪，等 443/445 合入后建 worktree → codex astra | 09-19 1305Z | — | — | T18 U12：PeriodicInsertionAPI 45 字段装配 + periodicInsertionStatement + 注册 T03.periodic_insertion（非空见证等 T15 U15/T17 U12） |
 | 456-T15-U12-U13-force-sobolev | codex astra 完成：sobolevConst/pos + forceSobolev_memLp + packetSobolevBound（0≤s≤1，路线 B Paper1 端点率；16 声明；6a07f394）→ 排队审稿 | 09-19 1317Z | — | — | T15 U12 sobolevConst/pos + forceSobolev_memLp、U13 packetSobolevBound（eq:packetHs；T13 localization 或 Paper1 端点率） |
 | 457-T19-UCAN-canonical-record | worktree 安装中 → 排队 codex sol | 09-19 1312Z | — | — | T19 U-CAN：四个记录（PeriodicDensity/MixedRegion/StrongClosure/Projection）canonical 重述 Section3/T19/Density.lean + Spec↔canonical 探针（T21 与 T19 装配的前置） |
+| 458-T15-U14-force-convergence | worktree 安装中（456 + integration）→ 排队 codex sol | 09-19 1319Z | — | — | T15 U14：forceConvergence（q=1 用 U13 界 + 实幂极限；s<0 与 q=2 用负阶单调性 + 阶 0 混合基） |
+| 459-T15-U15-assembly-registration | 简报就绪，等 454/458 合入后建 worktree → codex astra | 09-19 1319Z | — | — | T15 U15：PlacementData 构造 + ScalingAPI 21 字段装配 + scalingStatement + 注册 T02.scaling |
