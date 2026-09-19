@@ -64,3 +64,6 @@ All from the worktree, after `. scripts/lean-env.sh`, `lake` from `verification/
 - `make check` → contract/architecture checks pass, `Ran 13 tests … OK`, `45 work items: ownership, contract registration and task cards consistent.`
 - `grep` for `sorry|admit|native_decide|axiom` over the five new/changed files → no hits other than the `#print axioms` lines.
 - Duplicate-name check across all six `Section3/T18/*.lean` (`awk`+`uniq -d`) → empty, so no clash with lanes 422/426.
+
+
+> Lead notes after review 433: the report's "Four failed approaches" list actually enumerates six (count corrected here); `58e94178` is the implementation commit and `324c1cb1` the (lead-transcribed) report commit; the base-aware contract gate failed only because the worktree predates #392's `AffineVariation.lean` — the merge into integration below refreshes the base, and the lane touches no `verification/` file.

@@ -180,6 +180,27 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   **Uses the H³-narrowed API only — no `PeriodicRestartH1` (§H1/H3).** **L, Opus.** No named input. Deps:
   U1, U3, U4, U6 (threaded `scaling.solution`/`unboundedSpeed` = T15 U11/U6; registered T11+T12, DONE).
 
+  **Status (lane 436, 2026-09-18): complete.** All five fields proved in
+  `Section3/T18/Lifespan.lean`, no named input, exact three-axiom audit, Spec-form probe
+  `research/T18/probes/u8_closes.lean`. Two route changes against the plan above, both
+  *reducing* the dependency set (details in `research/T18/ATTEMPTS_U8.md`):
+  (i) `solution` needs **no** cutoff-in-time / `contDiff_angularPath` path (R42 residual 1a/1e-i):
+  on the compact torus a slab-smooth periodic slice has a datum at every order
+  (`T11.exists_periodicDatum_smooth`) and the selected path is continuous by
+  `T11.continuousOn_periodicDatum_path_of_slab`; `pressure_gradient` is one
+  `memLp_torusLift_vector`, and the gauge/periodicity of `p_ε` follow from the mean being
+  spatially constant plus the two integrability facts U3 already used.
+  (ii) the `≤` half of `lifespan` does **not** go through `lifespanInfiniteOfLocallyFinite` +
+  `higherOrderBound` + `boundedRepresentative` — that route has no torus analogue of A02's
+  `lifespan_le_of_unbounded`, and `boundedRepresentative` bounds the **Haar** `L^∞` norm
+  `periodicLpENorm ⊤` while `blowup_limsup` is the **Lebesgue** `speedENorm`, a bridge the tree
+  does not contain. Instead: a longer solution would agree with `u_ε` below `T` by
+  `velocity_unique`, and a slab-smooth unit-periodic field is bounded on `Icc 0 T × R³`
+  (compactness of `Icc 0 T ×ˢ fundamentalCube` + lattice reduction `x ↦ ⌊x i⌋`), contradicting
+  `blowup`. **U8 therefore consumes no field of `torusContinuationH3API` and nothing from T12**;
+  the only T11 field it uses is `torusLocalTheoryAPI.velocity_unique`, which carries no ball, so
+  the `H1_GAP.md` §4 "expected OK" verdict holds a fortiori.
+
 - **U9 — `eq:Eclose` (energy closeness).** New `Section3/T18/EnergyRate.lean`. Target `energyRate`
   (`Spec.lean:1892`, `‖u_ε-v‖_{E_T} ≤ (M+D)ε^{1/2}+Cε^{3/2}`). Route: `u_ε-v=w_ε+U_ε`; triangle inequality
   for `energyENormT place.T` (Minkowski on `essSup+lintegral`, no `MemLp` guard needed) ⟹
