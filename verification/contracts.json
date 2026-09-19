@@ -539,6 +539,17 @@
       "declaration": "BlowupDensity.Tests.checkedPeriodicInsertion",
       "scope": "The reconciled 45-field PeriodicInsertionAPI and periodicInsertionStatement of thm:insertion (03-torus.tex:287-346), for every registered energy-enhanced packet and threaded placement, ScalingAPI, reference ClassicalSolutionT and CorrectionAPI. Includes exact momentum, maximal lifespan T, both blow-up forms, periodic O(epsilon) support and energy, mixed and Sobolev closeness with honest paths. The canonical assembly has explicit raw premises hsupp, hM and hD; the binding discharges them from PacketImportAPI.velocity_support, energy_isLUB and dissipation_eq, so the registered statement adds no hypotheses. Concrete end-to-end non-vacuity remains gated on a compatible full T15 U15 scaling and T17 U12 correction/reference witness; only nonvacuity_of_witnesses is asserted here. T13 and T11 are already registered and inhabited. Parent T02 follows the T18 work-item deliverable; the contract ID uses the requested T03.periodic_insertion spelling.",
       "enabled": true
+    },
+    {
+      "id": "T02.scaling",
+      "parent_task": "T02",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Scaling3.lean",
+      "binding_module": "Bindings.Scaling3",
+      "test_module": "Tests.Scaling3",
+      "declaration": "BlowupDensity.Tests.checkedScaling3",
+      "scope": "T15 Proposition 3.3 (03-torus.tex:101-159): all 21 reconciled ScalingAPI fields and the verbatim scalingStatement, for every registered PacketImportFamily, positive viscosity and fixed shared placement. Includes canonical T13 localization, summability and single-copy guards, pinned classical torus solution, pressure integrability, blowup, exact energy/dissipation and mixed scaling with honest paths, uniform Sobolev bounds and full q=1,2 subcritical convergence. Canonical placement is data for any prescribed T>0 and preserves T definitionally. Both source and periodized non-vacuity are proved on the registered I01 packet at arbitrary positive viscosity and horizon. No extra hypotheses or omitted fields.",
+      "enabled": true
     }
   ]
 }

@@ -351,9 +351,11 @@
     {
       "id": "T15",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T02.scaling"
+      ],
       "deliverable": "Reconcile research/T15/Spec.lean against prop:scaling and the endpoint-rate sources, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
     },
     {

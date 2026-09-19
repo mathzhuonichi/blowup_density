@@ -288,6 +288,18 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   register everything except `localization`/`packetSobolevBound`/`forceConvergence[s≥0]` and keep the
   gated fields staged. **M, codex-sol.** Deps: all; **T13.localization**.
 
+  **U15 status (lane 459, 2026-09-19): complete.**
+  `Assembly.lean` constructs `placementData` for every prescribed `T > 0`,
+  preserving its horizon by `rfl`, and assembles all 21 fields, using T13's
+  canonical localization and U14b's combined `forceConvergence`.
+  `Contracts/V1/Scaling3.lean` preserves the packet-indexed Spec records and
+  statement verbatim; fieldwise conversions and all definitional bridges are
+  in the binding. `T02.scaling` is registered, with nonzero registered source
+  and periodized instances at arbitrary positive viscosity and horizon.
+  All gates pass; 68 declarations audit to exactly the three standard axioms.
+  The historical T13/U14 assembly blockers above are superseded.
+  See `REPORT_459.md`, `ATTEMPTS_U15.md`, and `axioms_u15.lean`.
+
 ## 2. Waves (≤ 3 concurrent per current lane cap)
 
 | wave | units | sizes / models |
