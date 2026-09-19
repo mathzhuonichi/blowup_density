@@ -135,4 +135,11 @@ theorem domainPlacementThreshold_pos {K : Set Space} {f : VelocityField}
       have := domainPlacementRadius_pos hK hf
       positivity))
 
+/-- The common threshold has the harmless normalization `ε₀ ≤ 1`. -/
+theorem domainPlacementThreshold_le_one {K : Set Space} {f : VelocityField}
+    (hK : IsCompact K) (hf : HasCompactSupport f) (T : ℝ)
+    (chartCenter x₀ : Space) (chartRadius : ℝ) :
+    domainPlacementThreshold hK hf T chartCenter x₀ chartRadius ≤ 1 :=
+  (min_le_left _ _).trans ((min_le_left _ _).trans (by norm_num))
+
 end NSFormalization.Section3.T23
