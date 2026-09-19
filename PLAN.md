@@ -240,6 +240,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 476-T23-U1-domain-placement | worktree 安装中 → codex sol | 09-19 1550Z | — | — | T23 U1：cube-free DomainPlacementData（16 字段）构造子 + interiorBall_in_domain + 平移非空例 |
 | 477-T23-U2-local-correction-G0 | worktree 安装中 → codex astra | 09-19 1550Z | — | — | T23 U2：G0 反例 + 修正陈述 boundaryInsertionStatement'（存在式给出 cutoff）+ 局部修正供给（CutoffData 七字段构造、交叉输运恒等式） |
 | 478-T23-U7-noslip-uniqueness | worktree 安装中 → codex astra | 09-19 1550Z | — | — | T23 U7：有界盒/光滑域 no-slip 经典解速度唯一性（差能量 + 分部积分 + Grönwall；盒先闭，光滑域残差记录） |
+| 479-MAINT-section3-build-h | 简报就绪，等 475 合入（T21 注册）后建 worktree → codex sol | 09-19 1603Z | — | — | MAINT：T21 注册后的 Section 3 全量编译检查 h（预期 54 合同） |
 | 467-T24-UbCAN-Ub1-Ub3-multiple-regions | 已合入 #429（codex 审稿 ACCEPT-WITH-NOTES，docstring 注释按意见收窄） | 09-19 1459Z | #429 | — | T24b：canonical MultipleRegionsAPI（30 字段 Type，raw-field T15 记录）+ Ub1 放置/尺度选择 + Ub2 分量 + Ub3 单拷贝支撑 |
 | 468-T24-Ub4-assembled-solution | 已合入 #431（codex 审稿 ACCEPT-WITH-NOTES，引用行号已改） | 09-19 1509Z | #431 | — | T24b Ub4：装配解 assembledVelocity/Pressure/Force + solution : ClassicalSolutionT ν 0 (Σ F_j) T（交叉输运项因支撑不交为零）+ solution_pin/force_mem/rest |
 | 469-T24-Ub5-Ub6-regions-energy | 已合入 #432（codex 审稿 ACCEPT） | 09-19 1515Z | #432 | — | T24b Ub5 region_agreement/region_blowup + Ub6 energy_bound/dissipation_bound（不交支撑可加性 + packetEnergy/DissipationIdentity） |
