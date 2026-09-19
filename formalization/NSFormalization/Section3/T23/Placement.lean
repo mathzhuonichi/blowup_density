@@ -91,4 +91,12 @@ theorem domainPlacementRadius_pos {K : Set Space} {f : VelocityField}
     0 < domainPlacementRadius hK hf :=
   (Classical.choose_spec (domainPlacementCarrier_bound hK hf)).1
 
+/-- Every point in the canonical enlargement is bounded by the chosen
+radius. -/
+theorem norm_le_domainPlacementRadius {K : Set Space} {f : VelocityField}
+    (hK : IsCompact K) (hf : HasCompactSupport f) {y : Space}
+    (hy : y ∈ domainPlacementCarrier K f) :
+    ‖y‖ ≤ domainPlacementRadius hK hf :=
+  (Classical.choose_spec (domainPlacementCarrier_bound hK hf)).2 y hy
+
 end NSFormalization.Section3.T23
