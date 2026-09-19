@@ -351,9 +351,11 @@
     {
       "id": "T15",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T02.scaling"
+      ],
       "deliverable": "Reconcile research/T15/Spec.lean against prop:scaling and the endpoint-rate sources, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
     },
     {
@@ -369,33 +371,41 @@
     {
       "id": "T17",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T02.correction"
+      ],
       "deliverable": "Reconcile research/T17/Spec.lean against lem:correction and its uniform endpoint bounds, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
     },
     {
       "id": "T18",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-review",
+      "owner": "erenup",
+      "contracts": [
+        "T03.periodic_insertion"
+      ],
       "deliverable": "Reconcile research/T18/Spec.lean against thm:insertion and all simultaneous bounds, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
     },
     {
       "id": "T19",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T03.density"
+      ],
       "deliverable": "Reconcile research/T19/Spec.lean against the subcritical density package, then register the accepted versioned contract under parent task T03 with its typed binding and axiom test."
     },
     {
       "id": "T20",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T03.critical_regularity"
+      ],
       "deliverable": "Reconcile research/T20/Spec.lean against prop:critical and the CriticalRegularityCertificate target, then register the accepted versioned contract under parent task T03 with its typed binding and axiom test."
     },
     {
@@ -430,7 +440,8 @@
       "state": "in-progress",
       "owner": "erenup",
       "contracts": [
-        "T04.affine_variation"
+        "T04.affine_variation",
+        "T04.multiple_regions"
       ],
       "deliverable": "Reconcile research/T24/Spec.lean against prop:affine, prop:multiple and prop:conservative, then register the accepted versioned leaf contracts under parent task T04 with typed bindings and axiom tests."
     }

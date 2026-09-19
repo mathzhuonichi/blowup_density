@@ -12,6 +12,45 @@ Section 4 R41 `MainThresholdsAPI` (`Contracts/V1/MainThresholds.lean`, `Bindings
 Size: **S** ≤ ~100 lines; **M** one self-contained lemma with a known proof; **L** a multi-file campaign.
 Model: `codex-sol` = reuse/transport/algebra/bookkeeping; `Opus` = analytic core.
 
+**U-CAN status (lane 457, 2026-09-19): complete.**
+`NSFormalization.Section3.T19.Density` now carries the canonical B/B/A/A,
+`Prop`-valued 3/3/4/3 records and all four statement definitions.  The
+contract-Spec ↔ canonical probe supplies both fieldwise conversion directions;
+T18 remains unthreaded exactly as approved, and U1–U6 line up with lane 388 by
+literal canonical examples.
+
+**U0 status (lane 461, 2026-09-19): complete.**
+`NSFormalization.Section3.T19.Threading` constructs `insertionData`, proves its
+`RawPremises`, and supplies `T19.insertion hν ha hg hT hδ reference` with no
+additional inputs. The reference is `extendByZero reference`; its velocity
+agrees on the entire original `Ico` slab (`extendByZero_velocity_eqOn`).
+All requested T18 exports, the subcritical Sobolev limit, and
+`exists_force_close hν ha hg hT hreg s hs r hr` are proved.
+
+**U7/U8/U9/U13 route:** unpack `RegularThroughT` when necessary, then build
+`ins` = `T19.insertion hν ha hg hT hδ reference`. U7/U8 may call
+`T19.exists_force_close` directly; U9 uses the mixed bound; U13 uses the
+same family, the energy bound against `extendByZero reference`, and
+`extendByZero_velocity_eqOn` to identify the reference on `[0,T)`.
+The historical T18-blocked labels below are superseded for these entry routes.
+
+**U13/U14 status (lane 465, 2026-09-19): complete.**
+`NSFormalization.Section3.T19.Closure` proves both canonical field types with
+no named inputs. U13 uses U0's insertion, energy subadditivity and U5,
+zero-extension congruence on `Ico`, and U0's Sobolev convergence. U14 selects
+one admissible scale and reverses the difference using energy norm symmetry.
+Both literal field probes and all five declaration axiom audits pass.
+
+**U15 status (lane 470, 2026-09-19): complete.**
+`NSFormalization.Section3.T19.Assembly` assembles all 13 proved fields and
+closes the four canonical statements. `T03.density` V1 registers the four
+`Prop` records in `Contracts/V1/Density.lean`, with fieldwise transport of the
+registered `ClassicalSolutionT` and the lifespan bridge in
+`Bindings/Density.lean`; `Tests/Density.lean` checks all four statements.  The
+zero-datum/zero-force probe selects an actual breakdown force at
+`ν = T = 1`, `s = 0`.  The T18 insertion is consumed through U0's T17 slab
+route (G5), and no slab premise is exposed by the contract.
+
 ## 0. Ground rules
 
 **Peeling rule (T11/T18).** Every unit ends in a `theorem` whose statement **is** a T19 `Spec.lean` field
@@ -129,6 +168,8 @@ re-target every conclusion to the registered vocabulary.
   driving `ofReal T`-scaled powers to `0` along `𝓝[>]0`, pick `ε ∈ Ioc 0 ins.ε₀` (`Ioc_mem_nhdsGT`), witness
   `⟨ins.force ε, ⟨ins.force_mem ε …, (ins.lifespan ε … ).le⟩, hdist⟩` (`force_mem :1741`, `lifespan :1812`).
   **L, Opus.** **One named input: registered T18 `PeriodicInsertionAPI` (T18 U12).** Deps: U6. Blocked on T18 U12.
+  **Status: complete (lane 464).** `NSFormalization.Section3.T19.fixedInitialDensity` uses the U0
+  `exists_force_close` export in the regular branch and the U6 zero representative in the singular branch.
 
 - **U8 — `regularReferenceSingular` (sharp, exactly-`T`).** Target (verbatim, `Spec.lean:240`): `… ∀ g∈𝓕,
   RegularThroughT ν a g T → ∀ s<1/2, ∀ r>0, ∃ f∈𝓕, forceSobolevENormT 1 s (f−g) < r ∧ maximalLifespanT ν a f
@@ -137,6 +178,8 @@ re-target every conclusion to the registered vocabulary.
   `ins.lifespan ε … : maximalLifespanT ν a (ins.force ε) = ofReal T` (`:1812`, not `.le`). Mirrors the sharp
   half of R41 `regularReferenceApproximation` (`Bindings/MainThresholds.lean:97-136`). **M-L, Opus.** One
   named input: T18 `PeriodicInsertionAPI` (T18 U12). Deps: U7 (shared eventual-`< r` helper). Blocked on T18 U12.
+  **Status: complete (lane 464).** `NSFormalization.Section3.T19.regularReferenceSingular` calls
+  `exists_force_close` directly and preserves its exact lifespan equality.
 
 - **U9 — `mixedDensity`.** Target (verbatim, `Spec.lean:281`): `∀ a∈𝓧, ∀ ν>0, ∀ T>0, ∀ (p q)[Fact(1≤p)],
   1≤q → 3 < 3/p.toReal+2/q.toReal → RelativelyDenseMixedT q p forceClassT (breakdownSetT ν a T)`. Route:
@@ -145,6 +188,8 @@ re-target every conclusion to the registered vocabulary.
   `≤ C(ε^α + ε^{α+1})`) with U2's `0 < alpha p q ∧ 0 < alpha p q + 1` driving both powers to `0` along
   `𝓝[>]0` (mirror `Bindings/CompletedClosure.lean:closure_relativeHomogeneous` at `:180`). **M-L, Opus.**
   One named input: T18 `PeriodicInsertionAPI` (T18 U12). Deps: U2, U6. Blocked on T18 U12.
+  **Status: complete (lane 464).** `NSFormalization.Section3.T19.mixedDensity` derives convergence from
+  U0's mixed bound and U2's positivity of both powers, then selects one admissible insertion scale.
 
 ### Wave 3 — the closure family, **blocked on T18 U12** (Opus + codex)
 
@@ -180,12 +225,17 @@ re-target every conclusion to the registered vocabulary.
   `f∈𝓕 ∧ maximalLifespanT ν a f ≤ ofReal T ∧ ‖f−g‖<r`, repackage the first two as membership in
   `extendedBreakdownSetT ν T` (`Spec.lean:160`, definitional). **S-M, codex-sol.** No new named input
   (consumes U7). Deps: U7. Blocked (via U7).
+  **Status: complete (lane 466).** `NSFormalization.Section3.T19.extendedProductDensity` repackages the
+  U7 witness into the extended breakdown set.
 
 - **U11 — `projectionOntoInitialData`.** Target (verbatim, `Spec.lean:492`): `∀ ν>0, ∀ T>0, Prod.fst ''
   (extendedBreakdownSetT ν T) = initialClassT`. Route: `Set.ext`; `⊆` by `rintro ⟨a,f⟩ ⟨ha,_,_⟩` (the
   `extendedBreakdownSetT` membership carries `a∈initialClassT`); `⊇` from U10/U7 — for `a∈𝓧` pick any
   `g∈forceClassT` (e.g. the zero force, `0∈forceClassT`) and any `r`, U10 gives `f` with `(a,f)∈𝔅`, so
   `a ∈ Prod.fst '' 𝔅`. **M, codex-sol.** No new named input. Deps: U7, U10. Blocked (via U7).
+
+  **Status: complete (lane 466).** `NSFormalization.Section3.T19.projectionOntoInitialData` proves both
+  inclusions, using the canonical zero force for fibre nonemptiness.
 
 - **U12 — `zeroInitialProjection`.** Target (verbatim, `Spec.lean:508`): `∀ ν>0, ∀ T>0, Prod.fst ''
   {p | p ∈ extendedBreakdownSetT ν T ∧ p.1 = fun _ => 0} = {(fun _ => 0 : SpatialField)}`. Route: `Set.ext`;
@@ -194,6 +244,9 @@ re-target every conclusion to the registered vocabulary.
   `Bindings/DensityFromInsertion.lean:57`) + U10/U7 at `a=0` gives `f` with `((fun _=>0), f)∈𝔅`. **M,
   codex-sol.** One named input: `0 ∈ initialClassT` (a T10/T11 data fact; discharge by the torus
   `zero_mem_initialClassT` analogue). Deps: U7, U10. Blocked (via U7).
+
+  **Status: complete (lane 466).** `NSFormalization.Section3.T19.zeroInitialProjection` proves the singleton
+  equality, with direct canonical class proofs for the zero initial datum and zero force.
 
 ## 2. Proof-dependency ledger (which registered declaration each unit consumes; from RECONCILIATION §4)
 

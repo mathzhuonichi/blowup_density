@@ -475,6 +475,17 @@
       "enabled": true
     },
     {
+      "id": "T03.critical_regularity",
+      "parent_task": "T03",
+      "version": 1,
+      "specification": "verification/Contracts/V1/CriticalRegularityT.lean",
+      "binding_module": "Bindings.CriticalRegularityT",
+      "test_module": "Tests.CriticalRegularityT",
+      "declaration": "BlowupDensity.Tests.checkedCriticalRegularityT",
+      "scope": "Proposition prop:critical and its displayed estimates (03-torus.tex:383-503), in the complete 23-field CriticalRegularityTAPI shape reconciled in research/T20/Spec.lean. The twelve data/certification fields are fixed before every viscosity and force by closed canonical terms: c = criticalSmallnessH1 = min (1/(8·criticalTrilinearConst)) (1/(8·h1TrilinearConst)), C₀ = criticalTrilinearConst, C₁ = h1TrilinearConst, CH1 = 2, and Ccriterion = hTwoConst²·CH1, with positivity and the two strict shrinkings c < 1/(4C₀), c < 1/(4C₁). The eleven mathematical fields are reductionRegular, meanBound, meanFreeEquation, constantTransportSkew, constantTransportCommutesLambda, criticalEnergy, bIntegral, yBound, hOneEnergy, continuationBound, and globalRegularity; yBound is installed through yBound_of_le criticalSmallnessH1_le_half. The untranslated mean-free equation retains (m·∇)v, and the Lambda commutation field is the coefficientwise IsPeriodicLambda graph proved by T20 U5. The contract reuses the registered T10/T11/T12 vocabulary, restates only T20-specific definitions with rfl bridges, and transports ClassicalSolutionT field by field; maximalLifespanT is transported by Bindings.TorusLocalTheory.maximalLifespanT_eq. Non-vacuity is checked at a nonzero smooth unit-periodic force with compact positive-time support, finite critical size, a positive viscosity satisfying rho < c·nu, and infinite registered maximal lifespan. No density, insertion, sharpness, optimality, arbitrary initial datum, or H1-ball restart theorem is asserted.",
+      "enabled": true
+    },
+    {
       "id": "T04.bounded_domain_norm",
       "parent_task": "T04",
       "version": 1,
@@ -505,6 +516,61 @@
       "test_module": "Tests.ConservativeForcing",
       "declaration": "BlowupDensity.Tests.checkedConservativeForcing",
       "scope": "Proposition prop:conservative (03-torus.tex:723-740), torus branch only: for every smooth unit-periodic scalar potential and every registered classical torus solution from rest forced by its negative pressure gradient, the Haar force-velocity pairing vanishes throughout the lifespan, and at positive viscosity the velocity is identically zero on that lifespan. The contract has exactly these two universal fields, potential_pairing and zero_from_rest, and reuses the registered T10/T11 ClassicalSolutionT through fieldwise conversions. A genuine zero-velocity, zero-pressure rest solution at φ = 0 witnesses non-vacuity. The paper's bounded-domain branch with homogeneous no-slip boundary data is deliberately omitted because V1 has no bounded-domain/no-slip carrier; it is explicitly out of scope, not identified with periodicity.",
+      "enabled": true
+    },
+    {
+      "id": "T02.correction",
+      "parent_task": "T02",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Correction3.lean",
+      "binding_module": "Bindings.Correction3",
+      "test_module": "Tests.Correction3",
+      "declaration": "BlowupDensity.Tests.checkedCorrection3",
+      "scope": "T17 lem:correction (03-torus.tex:218-285), all 45 reconciled fields at the concrete correctionData lattice lift, including the T16 local potential, T13 localization, profile identities and uniform bounds, force regularity/periodicity/open support, torus spatial volume and time length, derivative bounds, honest Haar energy/mixed/Sobolev guards and endpoint estimates. Registers correctionStatementAmended with the completed hypothesis block: ∀ (ν : ℝ) (u : VelocityField) (p : PressureField) (f : VelocityField) (K : Set Space) (place : PlacementData u p f K) (v : SpaceTimeField) (r δ : ℝ), 0 < ν → 0 < r → r < 1 / 2 → 0 < δ → IsPeriodicOn univ v → ContDiff ℝ ∞ v → (∀ t ∈ Ioo (0 : ℝ) (place.T + δ), ∀ x ∈ Metric.ball place.x₀ r, spatialDivergence v t x = 0) → (∀ t ∈ Ioo (0 : ℝ) 1, tsupport (fun x : Space ↦ u (t, x)) ⊆ K) → Metric.ball place.x₀ r ⊆ Metric.ball place.chartCenter place.chartRadius → ∃ D : CutoffData, LocalPotentialAPI v u place.Kstar place.x₀ r place.T δ D ∧ Nonempty (CorrectionAPI ν place v r δ D). G1: global reference smoothness is explicit at statement level, without adding an API field. G3: placement uses raw packet fields; the Packet namespace also preserves the Spec's packet-indexed 45-field record and unamended statement verbatim, connected by fieldwise conversions. G4: the original unamended universal statement is not asserted or proved; nonpositive viscosity or nonperiodic reference contradict its API fields. The intermediate G4 without ball-in-chart is also false, as the accepted research-only geometry counterexample shows. Compact Kstar, positive T, cube containment, positive theta radius and eps ≤ 1 are derived; the constructed cutoff threshold is min ε₁ place.ε₀. Non-vacuity is a full API at a nonzero constant reference centred at (1/2,1/2,1/2), with r=1/4, ν=T=δ=1 and a positive admissible scale. No assertion is made without the displayed hypotheses.",
+      "enabled": true
+    },
+    {
+      "id": "T03.periodic_insertion",
+      "parent_task": "T02",
+      "version": 1,
+      "specification": "verification/Contracts/V1/PeriodicInsertion.lean",
+      "binding_module": "Bindings.PeriodicInsertion",
+      "test_module": "Tests.PeriodicInsertion",
+      "declaration": "BlowupDensity.Tests.checkedPeriodicInsertion",
+      "scope": "The reconciled 45-field PeriodicInsertionAPI and periodicInsertionStatement of thm:insertion (03-torus.tex:287-346), for every registered energy-enhanced packet and threaded placement, ScalingAPI, reference ClassicalSolutionT and CorrectionAPI. Includes exact momentum, maximal lifespan T, both blow-up forms, periodic O(epsilon) support and energy, mixed and Sobolev closeness with honest paths. The canonical assembly has explicit raw premises hsupp, hM and hD; the binding discharges them from PacketImportAPI.velocity_support, energy_isLUB and dissipation_eq, so the registered statement adds no hypotheses. Concrete end-to-end non-vacuity remains gated on a compatible full T15 U15 scaling and T17 U12 correction/reference witness; only nonvacuity_of_witnesses is asserted here. T13 and T11 are already registered and inhabited. Parent T02 follows the T18 work-item deliverable; the contract ID uses the requested T03.periodic_insertion spelling.",
+      "enabled": true
+    },
+    {
+      "id": "T03.density",
+      "parent_task": "T03",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Density.lean",
+      "binding_module": "Bindings.Density",
+      "test_module": "Tests.Density",
+      "declaration": "BlowupDensity.Tests.checkedDensity",
+      "scope": "The four Prop-valued T19 density results on the unit three-torus: prop:density (03-torus.tex:349-368), for every fixed a in initialClassT, positive viscosity and horizon, and every s < 1/2, RelativelyDenseT 1 s forceClassT (breakdownSetT nu a T), together with the exact-lifespan regular-reference clause and criticalOrder 1 = 1/2; cor:mixed (:528-538), relative density in the honest periodic L^q_t L^p_x norm whenever 1 <= p,q and 3/p+2/q > 3, including the two exponent signs and the (2,1), (4/3,2) examples; cor:closure (:540-561), RegularTrajectoryT contained in the epsilon-form E_T closure of finite-energy SingularTrajectoryT, the simultaneous trajectory/force family, reference finiteness and the finite-time L2 embedding; and prop:projection (:564-590), fixed-a product density, Prod.fst image equal to initialClassT, and the zero-initial fibre image equal to {0}. All four structures have exactly 3/3/4/3 propositional fields and export no chosen data. The binding reuses registered T10/T11/T15 vocabulary, moves ClassicalSolutionT field by field, and rewrites maximalLifespanT through its registered bridge. The constructive proof consumes T18 periodic insertion through the T17 slab route (reconciliation route G5): Threading zero-extends the reference only for T17's global periodicity/smoothness inputs and identifies it with the original reference throughout [0,T); no extra slab hypothesis appears in any registered statement. T20 critical regularity, optimality, an initial-data topology, and the paper's separate peaks remark are not asserted. Non-vacuity is checked at the registered zero datum and zero force with nu=T=1 and s=0, selecting an actual breakdown force at radius 1.",
+      "enabled": true
+    },
+    {
+      "id": "T02.scaling",
+      "parent_task": "T02",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Scaling3.lean",
+      "binding_module": "Bindings.Scaling3",
+      "test_module": "Tests.Scaling3",
+      "declaration": "BlowupDensity.Tests.checkedScaling3",
+      "scope": "T15 Proposition 3.3 (03-torus.tex:101-159): all 21 reconciled ScalingAPI fields and the verbatim scalingStatement, for every registered PacketImportFamily, positive viscosity and fixed shared placement. Includes canonical T13 localization, summability and single-copy guards, pinned classical torus solution, pressure integrability, blowup, exact energy/dissipation and mixed scaling with honest paths, uniform Sobolev bounds and full q=1,2 subcritical convergence. Canonical placement is data for any prescribed T>0 and preserves T definitionally. Both source and periodized non-vacuity are proved on the registered I01 packet at arbitrary positive viscosity and horizon. No extra hypotheses or omitted fields.",
+      "enabled": true
+    },
+    {
+      "id": "T04.multiple_regions",
+      "parent_task": "T04",
+      "version": 1,
+      "specification": "verification/Contracts/V1/MultipleRegions.lean",
+      "binding_module": "Bindings.MultipleRegions",
+      "test_module": "Tests.MultipleRegions",
+      "declaration": "BlowupDensity.Tests.checkedMultipleRegions",
+      "scope": "Proposition prop:multiple (03-torus.tex:697-722), torus branch only: for every positive viscosity, every registered PacketImportAPI, every positive terminal time, and every nonempty finite family of positive-radius pairwise-disjoint balls whose closures lie in the interior of the fundamental cube, the complete 30-field MultipleRegionsAPI is inhabited. It carries one registered T15 PlacementData and ScalingAPI per prescribed ball, admissible scales with epsilon_j^2 < T, pinned component solutions and single-copy supports, the explicit finite-sum velocity/pressure/force, a pinned classical torus solution from rest with force in forceClassT, agreement and unbounded speed in every prescribed ball, the bound energyEssSupT(T,u)^2 <= energyBound^2 * sum epsilon_j, and the exact identity energyGradientT(T,u)^2 = dissipationBound^2 * sum epsilon_j. A concrete N=1 witness uses the registered nonzero packet at viscosity one, T=1, and the radius-1/4 ball centred at (1/2,1/2,1/2). The paper's bounded-domain/homogeneous-no-slip branch at 03-torus.tex:698,703,719 is deliberately omitted: V1 has a bounded-domain norm layer but no bounded-domain solution/no-slip carrier threaded through this proposition; it is out of scope, not identified with torus periodicity. No T18 insertion, density consequence, sharpness, or optimality claim is included.",
       "enabled": true
     }
   ]

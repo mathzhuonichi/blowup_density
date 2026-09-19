@@ -1169,7 +1169,7 @@ finite energy and dissipation.
 the selected component solutions.  No new constant is introduced: `M, D` are the
 imported packet's `energyBound`/`dissipationBound`.
 
-The paper's bounded-domain / homogeneous-no-slip branch (`03-torus.tex:698,706,720`)
+The paper's bounded-domain / homogeneous-no-slip branch (`03-torus.tex:698,703,719`)
 is deliberately omitted: no bounded-domain carrier, restriction norm, or no-slip
 class exists anywhere in the current tree, so an honest omission is recorded here
 rather than a placeholder field — out of V1 scope. -/
