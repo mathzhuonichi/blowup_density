@@ -495,6 +495,17 @@
       "declaration": "BlowupDensity.Tests.checkedAffineVariation",
       "scope": "Proposition prop:affine (03-torus.tex:668-696) on whole space only, for every registered I01.packet record and every cylinder ball c r x (tau0,tau1) with 0 < r and 0 < tau0 < tau1 < 1: the thirteen clauses of the affine family U+b over the admissible class C_c^infty(Q) with div b = 0 - positive radius and interior window, global smoothness and compact positive-time support of the six-term force F + d_t b - nu*Laplacian b + (U.grad)b + (b.grad)U + (b.grad)b, the divergence and momentum equations of U+b with the unchanged pressure, zero initial data, agreement with U past tau1, unbounded speed at t=1, finiteness of the registered energyENorm 1, an R-linearly independent admissible sequence, injectivity of b -> U+b, and the two C^m-seminorm non-isolation limits as lambda -> 0 in the ENNReal-valued ckSeminormE on tsupport b. The record is assembled from the eight canonical T24a proof terms in NSFormalization.Section3.T24 (radius_pos/window/zero_initial/late_agreement/distinct, divergence_free, momentum, force_smooth/force_support, speed_unbounded, energy_finite, infinite_dimensional, nonisolated); the packet clause the registered PacketAPI does not carry, energyENorm 1 velocity < top, is derived in the binding from square_integrable, energy_isLUB, velocity_support with carrier_compact, and dissipation_integrable. No packet existence is asserted (that is I01.packet), and prop:multiple (T24b), prop:conservative (T24c), every torus statement and every density consequence are outside this contract.",
       "enabled": true
+    },
+    {
+      "id": "T04.conservative_forcing",
+      "parent_task": "T04",
+      "version": 1,
+      "specification": "verification/Contracts/V1/ConservativeForcing.lean",
+      "binding_module": "Bindings.ConservativeForcing",
+      "test_module": "Tests.ConservativeForcing",
+      "declaration": "BlowupDensity.Tests.checkedConservativeForcing",
+      "scope": "Proposition prop:conservative (03-torus.tex:723-740), torus branch only: for every smooth unit-periodic scalar potential and every registered classical torus solution from rest forced by its negative pressure gradient, the Haar force-velocity pairing vanishes throughout the lifespan, and at positive viscosity the velocity is identically zero on that lifespan. The contract has exactly these two universal fields, potential_pairing and zero_from_rest, and reuses the registered T10/T11 ClassicalSolutionT through fieldwise conversions. A genuine zero-velocity, zero-pressure rest solution at φ = 0 witnesses non-vacuity. The paper's bounded-domain branch with homogeneous no-slip boundary data is deliberately omitted because V1 has no bounded-domain/no-slip carrier; it is explicitly out of scope, not identified with periodicity.",
+      "enabled": true
     }
   ]
 }
