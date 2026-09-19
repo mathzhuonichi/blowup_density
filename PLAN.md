@@ -201,7 +201,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 433-T18-U5-U6-cross-transport-momentum | 已合入 #395：T18 U5 交叉输运项恒零 + U6 精确动量方程，审稿 ACCEPT-WITH-NOTES | 09-18 1906Z | #395 | — | T18 U5 两个交叉输运项恒零（eq:bgzero）+ U6 插入三元组的精确动量方程 |
 | 434-T17-U9-energy-bound | 已合入 #398：T17 U9 能量界 + 诚实切片（energyConst = √A+√D），审稿 ACCEPT-WITH-NOTES | 09-18 1921Z | #398 | — | T17 U9：修正场环面能量界 ‖w_ε‖_{E_T} ≤ C ε^{3/2} + 两个 MemLp 诚实切片（HaarBridge 单拷贝桥 + 注册 I02 能量界） |
 | 435-T18-U7-diff-support | astra 骨架不合格 → codex sol 续做（cont_435 简报） | 09-19 1215Z | — | — | T18 U7：速度差的局部化（periodicSet 球，半径 max θR R_K；diffSupport_in_chart） |
-| 436-T18-U8-lifespan | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T18 U8：插入解 solution / blowup / blowup_limsup / lifespan = T / maximal（H³ 窄化续延 API + velocity_unique） |
+| 436-T18-U8-lifespan | 已合入 #403（审稿 REJECT 仅因基线漂移；数学与保真通过）：T18 U8 solution/blowup/blowup_limsup/lifespan=T/maximal（只用 T11 velocity_unique） | 09-19 1229Z | #403 | — | T18 U8：插入解 solution / blowup / blowup_limsup / lifespan = T / maximal（H³ 窄化续延 API + velocity_unique） |
 | 437-T20-U11-continuation-bound | 已合入 #401（lead 裁定：审稿仅程序性/记录性 REJECT，Lean 与突变通过；三处记录已更正）：T20 U11 continuationBound | 09-19 1226Z | #401 | — | T20 U11：continuationBound（常/均值零模正交分解 + hTwo_le_laplacian + 积分 U10b + U2 均值界；Ccriterion） |
 | 438-T17-U11-sobolev | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T17 U11：eq:HHs 修正力 L¹_tH^s 界（0≤s≤1，注册 T02.localization + Paper1/I02 力 Sobolev 界；sobolevConst） |
 | 439-T15-U4-U5-energy-mixed | 已合入 #402：T15 U4+U5 五字段（map torusChart = restrict cube；I03 放缩恒等式），审稿 ACCEPT-WITH-NOTES（四处记录已改） | 09-19 1227Z | #402 | — | T15 U4 能量恒等式 + 诚实切片、U5 混合范数放缩 + 诚实路径（单拷贝 + Haar 桥 + I03 放缩恒等式） |
