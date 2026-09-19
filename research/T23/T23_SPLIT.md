@@ -28,6 +28,13 @@ All targets below refer to exact current Spec field types; G0 means the final qu
 
 ### U1 — cube-free placement and interior geometry (M, codex-sol)
 
+**Status (lane 476, 2026-09-19): complete.** `Section3/T23/Placement.lean`
+constructs all 16 raw-field `DomainPlacementData` fields for every prescribed
+positive-radius interior ball and proves `interiorBall_in_domain`; the
+translated `(5,5,5)` probe exercises every field and confirms that the domain
+need not contain the origin.  Axiom audit: exactly
+`[propext, Classical.choice, Quot.sound]` for every introduced declaration.
+
 Target all **16** `DomainPlacementData` fields: `T:378`, `time_pos:382`, `chartCenter:386`, `chartRadius:390`, `chartRadius_pos:394`, `x₀:398`, `x₀_mem:402`, `Kstar:407`, `Kstar_compact:412`, `carrier_subset:417`, `force_projection_subset:423`, `ε₀:429`, `eps_pos:433`, `eps_le_one:437`, `eps_time:443`, `eps_space:449`; API `interiorBall_in_domain:720`. Dependencies: packet compact support, prescribed positive T and prescribed closed ball inside Ω; no T18 assembly dependency.
 
 Construct Kstar as the union of packet carrier and the spatial image of compact force support (verified route `B/CorrectionV2.lean:537`, `isCompact_carrierStar`). Choose a finite radius R bounding Kstar and positive margin `chartRadius - dist x₀ chartCenter`. Choose one positive threshold below 1, a strict time bound, and margin/(R+1), with a factor 1/2 to retain strict inequalities at the closed upper endpoint. Prove affine-image containment. This works for any given interior ball and any x₀ in it, including Ω=(1,2)³; no origin or cube condition. Also prove closed-ball compactness, separation from frontier Ω, and existence of a smaller ball around x₀. The geometry proof at `P1/BoundaryCorollaryCorrected.lean:19` is a template only (unsafe import noted above). A concrete translated-ball placement probe must satisfy eps_time, not just list the fields.
