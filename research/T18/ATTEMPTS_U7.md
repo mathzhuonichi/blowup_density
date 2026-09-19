@@ -1,6 +1,43 @@
 # U7 attempts
 
-## Verified outcome (lane 435 continuation)
+## Lead ruling resolution (lane 435 continuation fix)
+
+The canonical theorem now follows the lead ruling: the raw packet support
+clause is an explicit premise of `velocityDifference_support`, and
+`InsertionData` is unchanged:
+
+```lean
+theorem velocityDifference_support (data : InsertionData)
+    (hsupp : ∀ s ∈ Ico (0 : ℝ) 1,
+      tsupport (fun y : Space ↦ data.packetVelocity (s, y)) ⊆ data.carrier) :
+    ∀ ε ∈ Ioc (0 : ℝ) (ε₀ data), ∀ t ∈ Ico (0 : ℝ) data.place.T,
+      tsupport (fun x : Space ↦ velocity data ε (t, x) -
+        data.reference.velocity (t, x)) ⊆
+          periodicSet (Metric.ball data.place.x₀
+            (ε * diffSupportRadius data))
+```
+
+The premise deliberately uses `data.carrier`, not `data.place.Kstar`: this is
+token-for-token the support target of the registered
+`PacketImportAPI.velocity_support`.  The proof composes it with
+`data.place.carrier_subset` to obtain the `Kstar` form and then uses retained
+`Kstar_compact`, exactly as the T15 placement bridge requires.
+
+`probes/u7_closes.lean` models U12 assembly from a registered
+`P : PacketImportAPI ν`.  Its `InsertionData` has packet velocity and carrier
+definitionally equal to `P.velocity` and `P.carrier`, so the support field is
+closed by
+
+```lean
+NSFormalization.Section3.T18.velocityDifference_support data
+  P.velocity_support
+```
+
+with no residual premise.  Thus the ruling is: **explicit raw premise; U12
+assembly discharges it from `PacketImportAPI.velocity_support`; a later MAINT
+may add the clause to `InsertionData`** if the canonical interface is revised.
+
+## Pre-ruling verified outcome (superseded by the lead ruling above)
 
 The original scaffold identified two blockers. The first is false, and the
 second was stated too broadly:
@@ -57,12 +94,10 @@ of type
     data.energyBound data.dissipationBound data.place
 ```
 
-Because the lane rules prohibit editing existing modules and prohibit adding a
-named input, the exact parameter-free canonical theorem
-`velocityDifference_support (data : InsertionData)` cannot be declared in this
-lane. The minimal upstream repair is to retain the raw packet velocity-support
-clause in `InsertionData` (or in `ScalingAPI`); `Kstar_compact` already removes
-the need to retain `carrier_compact` for U7.
+At this stage the lane treated any named input as forbidden, so the
+parameter-free theorem could not be declared.  The subsequent lead ruling
+supersedes that restriction for this field by requiring precisely the explicit
+raw premise documented above; no record mutation is needed.
 
 ## Superseded codex scaffold assessment
 

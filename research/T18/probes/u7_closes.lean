@@ -1,12 +1,14 @@
 import NSFormalization.Section3.T18.Support
+import Contracts.V1.PacketImport
 
 /-!
-Diagnostic U7 probe.
+# T18 U7 Spec-form closure probe
 
-The target closes from the existing T15/T16 bridges once the raw packet
-velocity-support clause is supplied.  The final example records the exact
-residual premise which is present on `PacketImportAPI` in the Spec layer but
-is not a projection of canonical `T18.InsertionData`.
+The four fields below are the U7 fields of `PeriodicInsertionAPI`, with every
+Spec object replaced by its canonical `InsertionData` projection.  The
+assembly-shaped constructor uses a registered `PacketImportAPI`, so the new
+explicit premise of canonical `velocityDifference_support` is discharged by
+`P.velocity_support`; no support premise remains in the result.
 -/
 
 noncomputable section
@@ -15,76 +17,83 @@ namespace NSFormalization.Section3.T18.U7Probe
 
 open Set Metric
 open NavierStokes.ProblemStatement
+open BlowupDensity.Contracts.V1
+open NSFormalization.Section3.T10
 open NSFormalization.Section3.T15
 open NSFormalization.Section3.T16
+open NSFormalization.Section3.T17
 open NSFormalization.Section3.T18
-open NSFormalization.Section4.A02 (SpaceTimeField)
+open NSFormalization.Section4.A02 (SpatialField SpaceTimeField)
 
-private theorem periodizedScaledVelocity_support
-    (data : InsertionData)
-    (hpacket : ∀ s ∈ Ico (0 : ℝ) 1,
-      tsupport (fun y : Space => data.packetVelocity (s, y)) ⊆ data.place.Kstar) :
-    ∀ ε ∈ Ioc (0 : ℝ) (ε₀ data), ∀ t ∈ Ico (0 : ℝ) data.place.T,
-      tsupport (fun x : Space => periodizedScaledVelocity data.packetVelocity
-        data.place.x₀ data.place.T ε (t, x)) ⊆
-          periodicSet (Metric.ball data.place.x₀ (ε * diffSupportRadius data)) := by
-  intro ε hε t ht
-  have hεplace : ε ∈ Ioc (0 : ℝ) data.place.ε₀ :=
-    ⟨hε.1, hε.2.trans (eps_le_scaling data)⟩
-  let C : Set Space := (fun y : Space => data.place.x₀ + ε • y) '' data.place.Kstar
-  have hscaled :
-      tsupport (fun y : Space => scaledVelocity data.packetVelocity data.place.x₀
-        data.place.T ε (t, y)) ⊆ C :=
-    scaledVelocity_tsupp_subset hε.1 data.place.Kstar_compact hpacket
-      (subset_refl data.place.Kstar) ht.2
-  have hCcompact : IsCompact C :=
-    data.place.Kstar_compact.image (by fun_prop)
-  have hCball : C ⊆ Metric.ball data.place.x₀
-      (ε * diffSupportRadius data) := by
-    rintro _ ⟨y, hy, rfl⟩
-    have hyball := packetCarrierRadius_spec data hy
-    rw [diffSupportRadius_eq]
-    rw [mem_ball, dist_eq_norm]
-    have hynorm : ‖y‖ < data.D.θRadius := by
-      simpa [mem_ball, packetCarrierRadius] using hyball
-    simpa [norm_smul, abs_of_pos hε.1] using
-      (mul_lt_mul_of_pos_left hynorm hε.1)
-  let w : SpaceTimeField := fun z =>
-    scaledVelocity data.packetVelocity data.place.x₀ data.place.T ε (t, z.2)
-  have hslice : ∀ (s : ℝ) (y : Space), w (s, y) ≠ 0 → y ∈ C := by
-    intro s y hy
-    exact hscaled (subset_tsupport _ hy)
-  have hlift := latticeLift_sliceSupport_closed hCcompact hCball hslice 0
-  have heq : (fun x : Space => latticeLift w (0, x)) =
-      (fun x : Space => periodizedScaledVelocity data.packetVelocity
-        data.place.x₀ data.place.T ε (t, x)) := by
-    funext x
-    rfl
-  rw [heq] at hlift
-  exact hlift.trans (periodicSet_mono hCball)
+/-- The assembly input bundle specialized to a registered packet.  In
+particular, its raw velocity and carrier projections are definitionally
+`P.velocity` and `P.carrier`, respectively. -/
+def insertionDataOfPacket {ν : ℝ} (P : PacketImportAPI ν)
+    (place : PlacementData P.velocity P.pressure P.force P.carrier)
+    (scaling : ScalingAPI (ν := ν) P.velocity P.pressure P.force P.carrier
+      P.energyBound P.dissipationBound place)
+    (a : SpatialField) (g : SpaceTimeField) (r δ : ℝ) (D : CutoffData)
+    (reference : ClassicalSolutionT ν a g (place.T + δ))
+    (correction : CorrectionAPI ν place reference.velocity r δ D)
+    (hδ : 0 < δ) (hg : g ∈ forceClassT) (ha : a ∈ initialClassT) :
+    InsertionData :=
+  { ν := ν
+    packetVelocity := P.velocity
+    packetPressure := P.pressure
+    packetForce := P.force
+    carrier := P.carrier
+    energyBound := P.energyBound
+    dissipationBound := P.dissipationBound
+    place := place
+    scaling := scaling
+    a := a
+    g := g
+    r := r
+    δ := δ
+    D := D
+    reference := reference
+    correction := correction
+    hδ := hδ
+    hg := hg
+    ha := ha }
 
-/-- Exact residual: this has the requested Spec field after projecting U1,
-with only the packet clause omitted by `InsertionData` supplied explicitly. -/
-example (data : InsertionData)
-    (hpacket : ∀ s ∈ Ico (0 : ℝ) 1,
-      tsupport (fun y : Space => data.packetVelocity (s, y)) ⊆ data.place.Kstar) :
+/-- Exactly the four U7 Spec fields under the canonical U1 projections. -/
+structure PeriodicInsertionU7Fields (data : InsertionData) : Type where
+  diffSupportRadius : ℝ
+  diffSupportRadius_pos : 0 < diffSupportRadius
+  velocityDifference_support :
     ∀ ε ∈ Ioc (0 : ℝ) (ε₀ data), ∀ t ∈ Ico (0 : ℝ) data.place.T,
-      tsupport (fun x : Space => velocity data ε (t, x) -
+      tsupport (fun x : NavierStokes.ProblemStatement.Space ↦ velocity data ε (t, x) -
         data.reference.velocity (t, x)) ⊆
-          periodicSet (Metric.ball data.place.x₀
-            (ε * diffSupportRadius data)) := by
-  intro ε hε t ht
-  have heq : (fun x : Space => velocity data ε (t, x) -
-      data.reference.velocity (t, x)) =
-      (fun x : Space => data.D.correction ε (t, x) +
-        periodizedScaledVelocity data.packetVelocity data.place.x₀
-          data.place.T ε (t, x)) := by
-    funext x
-    simp only [velocity]
-    abel
-  rw [heq]
-  exact (tsupport_add _ _).trans (union_subset
-    (correction_slice_support data ε hε t)
-    (periodizedScaledVelocity_support data hpacket ε hε t ht))
+          periodicSet (Metric.ball data.place.x₀ (ε * diffSupportRadius))
+  diffSupport_in_chart :
+    ∀ ε ∈ Ioc (0 : ℝ) (ε₀ data),
+      Metric.ball data.place.x₀ (ε * diffSupportRadius) ⊆
+        Metric.ball data.place.chartCenter data.place.chartRadius
+
+/-- U12 assembly shape: all four U7 fields close, and the raw support premise
+is supplied directly by the registered packet contract. -/
+def insertionU7OfPacket {ν : ℝ} (P : PacketImportAPI ν)
+    (place : PlacementData P.velocity P.pressure P.force P.carrier)
+    (scaling : ScalingAPI (ν := ν) P.velocity P.pressure P.force P.carrier
+      P.energyBound P.dissipationBound place)
+    (a : SpatialField) (g : SpaceTimeField) (r δ : ℝ) (D : CutoffData)
+    (reference : ClassicalSolutionT ν a g (place.T + δ))
+    (correction : CorrectionAPI ν place reference.velocity r δ D)
+    (hδ : 0 < δ) (hg : g ∈ forceClassT) (ha : a ∈ initialClassT) :
+    let data := insertionDataOfPacket P place scaling a g r δ D reference
+      correction hδ hg ha
+    PeriodicInsertionU7Fields data := by
+  let data := insertionDataOfPacket P place scaling a g r δ D reference
+    correction hδ hg ha
+  exact
+    { diffSupportRadius := diffSupportRadius data
+      diffSupportRadius_pos :=
+        NSFormalization.Section3.T18.diffSupportRadius_pos data
+      velocityDifference_support :=
+        NSFormalization.Section3.T18.velocityDifference_support data
+          P.velocity_support
+      diffSupport_in_chart :=
+        NSFormalization.Section3.T18.diffSupport_in_chart data }
 
 end NSFormalization.Section3.T18.U7Probe

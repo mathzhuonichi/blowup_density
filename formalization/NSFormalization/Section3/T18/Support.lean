@@ -10,11 +10,12 @@ the cutoff plateau, and the plateau lies in `ball 0 θRadius`.  Consequently it
 is also a valid packet-carrier radius; no additional radius field is needed.
 
 This module proves the radius, its positivity, the requested chart inclusion,
-and the sharp `O(ε)` support bound for the correction slice.  The packet half
-of `velocityDifference_support` additionally needs the raw packet clause
-`tsupport (packetVelocity (s,·)) ⊆ carrier` (or `Kstar`).  That clause is a
-premise of `T15.scalingStatement`, but is not retained by either
-`T15.ScalingAPI` or `T18.InsertionData`; see `research/T18/ATTEMPTS_U7.md`.
+and the sharp `O(ε)` support bound for the correction slice.  Following the
+lead ruling, `velocityDifference_support` takes the raw packet clause
+`tsupport (packetVelocity (s,·)) ⊆ carrier` explicitly.  This is the exact
+clause on the registered `PacketImportAPI`; U12 assembly supplies it while
+constructing the Spec record.  It is intentionally not added to
+`InsertionData`, on which other lanes already depend.
 -/
 
 noncomputable section
@@ -114,6 +115,84 @@ theorem correction_slice_support (data : InsertionData) :
       (physicalCorrection data.reference.velocity data.place.x₀ data.place.T
         data.D.θ data.D.η ε) t hshifted)).2
   simpa [diffSupportRadius_eq] using hspace
+
+/-- The periodized scaled packet is supported in the periodic `O(ε)` ball.
+
+The explicit raw support clause uses `data.carrier`, matching the registered
+packet contract.  `PlacementData.carrier_subset` transports it to `Kstar`,
+whose compactness is retained by the canonical placement record and is what
+the T15/T16 support bridge consumes. -/
+theorem periodizedScaledVelocity_support (data : InsertionData)
+    (hsupp : ∀ s ∈ Ico (0 : ℝ) 1,
+      tsupport (fun y : Space ↦ data.packetVelocity (s, y)) ⊆ data.carrier) :
+    ∀ ε ∈ Ioc (0 : ℝ) (ε₀ data), ∀ t ∈ Ico (0 : ℝ) data.place.T,
+      tsupport (fun x : Space ↦ periodizedScaledVelocity data.packetVelocity
+        data.place.x₀ data.place.T ε (t, x)) ⊆
+          periodicSet (Metric.ball data.place.x₀ (ε * diffSupportRadius data)) := by
+  intro ε hε t ht
+  let C : Set Space := (fun y : Space ↦ data.place.x₀ + ε • y) '' data.place.Kstar
+  have hpacket : ∀ s ∈ Ico (0 : ℝ) 1,
+      tsupport (fun y : Space ↦ data.packetVelocity (s, y)) ⊆ data.place.Kstar := by
+    intro s hs
+    exact (hsupp s hs).trans data.place.carrier_subset
+  have hscaled :
+      tsupport (fun y : Space ↦ scaledVelocity data.packetVelocity data.place.x₀
+        data.place.T ε (t, y)) ⊆ C :=
+    scaledVelocity_tsupp_subset hε.1 data.place.Kstar_compact hpacket
+      (subset_refl data.place.Kstar) ht.2
+  have hCcompact : IsCompact C :=
+    data.place.Kstar_compact.image (by fun_prop)
+  have hCball : C ⊆ Metric.ball data.place.x₀
+      (ε * diffSupportRadius data) := by
+    rintro _ ⟨y, hy, rfl⟩
+    have hyball := packetCarrierRadius_spec data hy
+    rw [diffSupportRadius_eq]
+    rw [mem_ball, dist_eq_norm]
+    have hynorm : ‖y‖ < data.D.θRadius := by
+      simpa [mem_ball, packetCarrierRadius] using hyball
+    simpa [norm_smul, abs_of_pos hε.1] using
+      (mul_lt_mul_of_pos_left hynorm hε.1)
+  let w : SpaceTimeField := fun z ↦
+    scaledVelocity data.packetVelocity data.place.x₀ data.place.T ε (t, z.2)
+  have hslice : ∀ (s : ℝ) (y : Space), w (s, y) ≠ 0 → y ∈ C := by
+    intro s y hy
+    exact hscaled (subset_tsupport _ hy)
+  have hlift := latticeLift_sliceSupport_closed hCcompact hCball hslice 0
+  have heq : (fun x : Space ↦ latticeLift w (0, x)) =
+      (fun x : Space ↦ periodizedScaledVelocity data.packetVelocity
+        data.place.x₀ data.place.T ε (t, x)) := by
+    funext x
+    rfl
+  rw [heq] at hlift
+  exact hlift.trans (periodicSet_mono hCball)
+
+/-- `03-torus.tex:293-295`: the velocity difference is supported in integer
+translates of one ball of radius `ε * diffSupportRadius data`.
+
+The raw packet support hypothesis is explicit because the contract-free
+`InsertionData` deliberately does not retain it.  Assembly from the registered
+packet contract discharges it with `PacketImportAPI.velocity_support`. -/
+theorem velocityDifference_support (data : InsertionData)
+    (hsupp : ∀ s ∈ Ico (0 : ℝ) 1,
+      tsupport (fun y : Space ↦ data.packetVelocity (s, y)) ⊆ data.carrier) :
+    ∀ ε ∈ Ioc (0 : ℝ) (ε₀ data), ∀ t ∈ Ico (0 : ℝ) data.place.T,
+      tsupport (fun x : Space ↦ velocity data ε (t, x) -
+        data.reference.velocity (t, x)) ⊆
+          periodicSet (Metric.ball data.place.x₀
+            (ε * diffSupportRadius data)) := by
+  intro ε hε t ht
+  have heq : (fun x : Space ↦ velocity data ε (t, x) -
+      data.reference.velocity (t, x)) =
+      (fun x : Space ↦ data.D.correction ε (t, x) +
+        periodizedScaledVelocity data.packetVelocity data.place.x₀
+          data.place.T ε (t, x)) := by
+    funext x
+    simp only [velocity]
+    abel
+  rw [heq]
+  exact (tsupport_add _ _).trans (union_subset
+    (correction_slice_support data ε hε t)
+    (periodizedScaledVelocity_support data hsupp ε hε t ht))
 
 /-- The scaled support ball is contained in the chosen placement chart. -/
 theorem diffSupport_in_chart (data : InsertionData) :

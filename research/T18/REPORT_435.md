@@ -97,3 +97,65 @@ Added Support.lean, `probes/u7_closes.lean`, `axioms_u7.lean`, and `ATTEMPTS_U7.
 ### Commands/results
 
 `lake build NSFormalization.Section3.T18.Insertion` passes. `Support` does not compile because the two missing API facts leave unsolved goals.
+
+## Continuation fix final report (lead ruling)
+
+### 1. Theorems
+
+`Section3/T18/Support.lean` now contains the canonical theorem required by the
+lead ruling:
+
+```lean
+theorem velocityDifference_support (data : InsertionData)
+    (hsupp : ∀ s ∈ Ico (0 : ℝ) 1,
+      tsupport (fun y : Space ↦ data.packetVelocity (s, y)) ⊆ data.carrier) :
+    ∀ ε ∈ Ioc (0 : ℝ) (ε₀ data), ∀ t ∈ Ico (0 : ℝ) data.place.T,
+      tsupport (fun x : Space ↦ velocity data ε (t, x) -
+        data.reference.velocity (t, x)) ⊆
+          periodicSet (Metric.ball data.place.x₀
+            (ε * diffSupportRadius data))
+```
+
+The conclusion is the Spec field verbatim after replacing its objects by
+`InsertionData` projections.  The new supporting theorem
+`periodizedScaledVelocity_support` first composes `hsupp` with
+`data.place.carrier_subset`, then uses compactness of `Kstar` and
+`latticeLift_sliceSupport_closed`.  The public premise is stated over
+`data.carrier` because that is exactly the target of the registered raw clause
+`PacketImportAPI.velocity_support`.
+
+### 2. Files
+
+- `formalization/NSFormalization/Section3/T18/Support.lean`: added the
+  periodized-packet support theorem and the full velocity-difference support
+  theorem with the explicit raw premise; `InsertionData` was not changed.
+- `research/T18/probes/u7_closes.lean`: now packages all four U7 Spec-form
+  fields and discharges the explicit premise directly with
+  `P.velocity_support` in the U12 assembly shape.
+- `research/T18/axioms_u7.lean`: audits both new public theorems.
+- `research/T18/ATTEMPTS_U7.md`: records the lead ruling and supersedes the
+  earlier parameter-free-blocker conclusion.
+- `research/T18/T18_SPLIT.md`: marks U7 complete under the explicit-premise
+  ruling.
+
+### 3. Gaps
+
+There is no remaining U7 proof or Spec-field residual.  The intentional
+canonical interface boundary is: **explicit raw premise; U12 assembly
+discharges it from `PacketImportAPI.velocity_support`; a later MAINT may add
+the clause to `InsertionData`**.  Using `carrier` rather than `Kstar` makes the
+assembly discharge exact; `carrier_subset` supplies the stronger placement
+form internally.
+
+### 4. Commands and results
+
+- `LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T18.Support` —
+  success, 10018 jobs, zero errors.
+- `lake env lean ../formalization/NSFormalization/Section3/T18/Support.lean` —
+  zero output.
+- `lake env lean ../research/T18/probes/u7_closes.lean` — zero output; all four
+  U7 Spec-form fields close and `velocityDifference_support` has no residual.
+- `lake env lean ../research/T18/axioms_u7.lean` — all eight public U7 support
+  theorems print exactly `[propext, Classical.choice, Quot.sound]`.
+- `make check` — success; 13 policy tests passed and all 45 work items were
+  consistent.

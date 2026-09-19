@@ -147,20 +147,18 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   periodicSet (Metric.ball place.x₀ (ε·ρ))` (diameter `O(ε)`) via T16 `latticeLift_sliceSupport`
   (`LatticeLift.lean:275`) for `w_ε` and `scaling.velocity_singleCopy` + `place.eps_space` for `U_ε`;
   `diffSupport_in_chart` = `place.eps_space`/`chartBall_in_cube`. **A's single-ball form is FALSE** for a
-  periodic difference (`RECONCILIATION.md` §"False clauses"); keep `periodicSet`. **M, codex-sol.** No named
-  input. Deps: U1.
+  periodic difference (`RECONCILIATION.md` §"False clauses"); keep `periodicSet`. **M, codex-sol.** Explicit
+  raw packet-support premise on the canonical support theorem (lead ruling). Deps: U1.
 
-  **Status (lane 435 continuation, 2026-09-19): partial; canonical interface
-  blocker verified.** `diffSupportRadius`, positivity, the sharp correction
-  slice support, and `diffSupport_in_chart` are complete with exact three-axiom
-  audits. `D.θRadius` already bounds `Kstar` through the T16 plateau, so the
-  earlier radius blocker was false; the T15/T16 periodization bridge also
-  closes in `probes/u7_closes.lean`. The sole residual is the raw packet clause
-  `∀ s ∈ Ico 0 1, tsupport (packetVelocity (s, ·)) ⊆ place.Kstar`: it is present
-  on the Spec's `PacketImportAPI` but erased by canonical `ScalingAPI` and
-  `InsertionData`. Existing-module edits and named inputs are forbidden in
-  this lane, so the exact parameter-free `velocityDifference_support` field
-  remains blocked. See `ATTEMPTS_U7.md` for the exact projection error.
+  **Status (lane 435 continuation fix, 2026-09-19): complete.** All four U7
+  fields are proved with exact three-axiom audits.  Per the lead ruling,
+  canonical `velocityDifference_support` takes the raw clause
+  `∀ s ∈ Ico 0 1, tsupport (packetVelocity (s, ·)) ⊆ carrier` explicitly;
+  `carrier_subset` transports it to the compact `Kstar` form used by the
+  T15/T16 bridge.  `InsertionData` remains unchanged.  The Spec-form probe
+  closes the premise from registered `PacketImportAPI.velocity_support` with
+  no residual.  U12 assembly will use the same discharge; a later MAINT may
+  add the clause to `InsertionData`.
 
 - **U8 — lifespan exactly `T`, maximality, blow-up (clause (i)).** New `Section3/T18/Lifespan.lean`. Targets
   `solution` (`Spec.lean:1796`), `maximal` (`:1806`), `lifespan` (`:1812`), `blowup` (`:1818`),
