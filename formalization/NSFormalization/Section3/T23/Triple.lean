@@ -246,5 +246,74 @@ theorem incompressible (hδ : 0 < δ)
     reference.divergence t htr x hx, C.correction_divergence_free ε hε t x, hdiv t ht.2 x]
   simp
 
+/-- The corrected background equation, computed using only local smoothness. -/
+theorem corrected_background_momentum (hδ : 0 < δ)
+    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀)
+    {t : ℝ} (ht : t ∈ Ioo 0 place.T) {x : Space} (hx : x ∈ Ω) :
+    NavierStokesR3.ProblemStatement.navierStokesResidual ν
+      (fun z => reference.velocity z + D.correction ε z) reference.pressure t x =
+      g (t, x) + correctionForce ν reference.velocity D ε (t, x) := by
+  have htr : t ∈ Ico 0 (place.T + δ) := ⟨ht.1.le, by linarith [ht.2]⟩
+  obtain ⟨N, hN, hn, hv⟩ := reference.velocity_smooth
+  have hz : (t, x) ∈ N := hn ⟨htr, subset_closure hx⟩
+  have hw := (C.correction_smooth ε hε).contDiffOn (s := N)
+  have hvt := ResidualStability.timeSlice_differentiable hN hv hz
+  have hwt := ResidualStability.timeSlice_differentiable hN hw hz
+  have hvs := ResidualStability.spatialSlice_differentiable hN hv hz
+  have hws := ResidualStability.spatialSlice_differentiable hN hw hz
+  have hr := reference.momentum t ⟨ht.1, htr.2⟩ x hx
+  unfold NavierStokesR3.ProblemStatement.navierStokesResidual at hr ⊢
+  rw [ResidualCalculus.temporalDerivative_add _ _ t x hvt hwt,
+    ResidualCalculus.advection_add _ _ t x hvs hws,
+    ResidualStability.spatialLaplacian_add_on hN hv hw hz, smul_add]
+  unfold correctionForce
+  rw [← hr]
+  abel
+
+/-- The exact inserted momentum equation: local residual addition, U2 cross
+cancellation and the same-scale I03 packet equation, followed by gauge invariance. -/
+theorem momentum (hδ : 0 < δ)
+    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀)
+    (hU : ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε)
+      (Iio place.T ×ˢ (univ : Set Space)))
+    (hP : ContDiffOn ℝ ∞ (scaledPressure p place.x₀ place.T ε)
+      (Iio place.T ×ˢ (univ : Set Space)))
+    (heq : ∀ t : ℝ, t < place.T → ∀ x : Space,
+      NavierStokesR3.ProblemStatement.navierStokesResidual ν
+        (scaledVelocity u place.x₀ place.T ε) (scaledPressure p place.x₀ place.T ε) t x =
+        scaledForce f place.x₀ place.T ε (t, x))
+    {t : ℝ} (ht : t ∈ Ioo 0 place.T) {x : Space} (hx : x ∈ Ω) :
+    NavierStokesR3.ProblemStatement.navierStokesResidual ν
+      (velocity place D reference ε) (pressure place reference ε) t x =
+      force place D reference ε (t, x) := by
+  have htr : t ∈ Ico 0 (place.T + δ) := ⟨ht.1.le, by linarith [ht.2]⟩
+  obtain ⟨N, hN, hn, hv⟩ := reference.velocity_smooth
+  obtain ⟨M, hM, hm, hp⟩ := reference.pressure_smooth
+  let O := (N ∩ M) ∩ (Iio place.T ×ˢ (univ : Set Space))
+  have hO : IsOpen O := (hN.inter hM).inter (isOpen_Iio.prod isOpen_univ)
+  have hz : (t, x) ∈ O := ⟨⟨hn ⟨htr, subset_closure hx⟩,
+    hm ⟨htr, subset_closure hx⟩⟩, ht.2, mem_univ _⟩
+  have hvO := hv.mono (show O ⊆ N from fun z hz => hz.1.1)
+  have hpO := hp.mono (show O ⊆ M from fun z hz => hz.1.2)
+  have hwO := (C.correction_smooth ε hε).contDiffOn (s := O)
+  have hUO := hU.mono (show O ⊆ Iio place.T ×ˢ univ from inter_subset_right)
+  have hPO := hP.mono (show O ⊆ Iio place.T ×ˢ univ from inter_subset_right)
+  change NavierStokesR3.ProblemStatement.navierStokesResidual ν
+    (fun z => (reference.velocity z + D.correction ε z) + scaledVelocity u place.x₀ place.T ε z)
+    (domainNormalizePressure Ω (fun z => reference.pressure z + scaledPressure p place.x₀ place.T ε z)) t x = _
+  rw [residual_domainNormalizePressure,
+    domain_residual_add hO (hvO.add hwO) hUO hpO hPO ν hz,
+    corrected_background_momentum hδ C hε ht hx, heq t ht.2 x]
+  have hc₁ := C.crossTransport_background_advects_packet ε hε t ⟨ht.1.le, ht.2⟩ x
+  have hc₂ := C.crossTransport_packet_advects_background ε hε t ⟨ht.1.le, ht.2⟩ x
+  change spatialDerivative (scaledVelocity u place.x₀ place.T ε) t x
+    (reference.velocity (t, x) + D.correction ε (t, x)) = 0 at hc₁
+  change spatialDerivative (fun z => reference.velocity z + D.correction ε z) t x
+    (scaledVelocity u place.x₀ place.T ε (t, x)) = 0 at hc₂
+  rw [hc₂, hc₁, add_zero, add_zero]
+  rfl
+
 end InsertedTriple
 end NSFormalization.Section3.T23
