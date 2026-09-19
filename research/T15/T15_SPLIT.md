@@ -115,12 +115,26 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   witnesses `t ↑ T`, `x ∈ Q` (map source-time-1 witnesses into the cube) supply the periodic form.
   Needs `place.eps_time` for `ε^2 ≤ T`. **M, codex-sol.** Deps: U3.
 
+  **Status (lane 442, 2026-09-19): complete.** `Section3/T15/Blowup.lean`
+  proves the literal canonical field from the raw `SpeedUnboundedAtOne`,
+  carrier compactness/support, and `PlacementData`.  The Euclidean rescaling
+  supplies the witnesses; nonzero witness values lie in the placed cube, where
+  U3's `velocity_singleCopy` transfers them to the periodized field.  The probe
+  includes an explicit compact bump with `(1-t)⁻¹` amplitude.
+
 - **U7 — `force_mem`** (new torus, easy). New `Section3/T15/ForceMem.lean`. Target `force_mem`
   (`Spec.lean:738`): `MemForceT (periodizedScaledForce …)` = smooth + unit-periodic + compact
   positive-time support. Route: `contDiff_periodize` (vendor, via U1) for smoothness,
   `periodize_add_lattice` for periodicity, U2's compact spatial support + the packet's positive-time
   force support (`T10/ForcePaths.lean:395 memForceT_time_smul` pattern) for the time-support witness.
   **M, codex-sol.** Deps: U2, U3.
+
+  **Status (lane 442, 2026-09-19): complete.** `Section3/T15/ForceMem.lean`
+  proves the literal canonical field from the raw global smoothness and
+  `CompactPositiveTimeSupport` clauses plus `PlacementData`.  Vendor local
+  finiteness gives smoothness, lattice reindexing gives periodicity, and the
+  compact projection of the scaled force support supplies the positive-time
+  support witness; periodization introduces no new support time.
 
 - **U8 — periodized PDE transport** (transport core + ⑤⑦). New `Section3/T15/Equation.lean`. Proves the
   momentum (at the **unchanged** `ν`), divergence-free, and zero-initial obligations of `solution`
