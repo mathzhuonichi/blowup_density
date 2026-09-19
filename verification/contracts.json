@@ -475,6 +475,17 @@
       "enabled": true
     },
     {
+      "id": "T03.critical_regularity",
+      "parent_task": "T03",
+      "version": 1,
+      "specification": "verification/Contracts/V1/CriticalRegularityT.lean",
+      "binding_module": "Bindings.CriticalRegularityT",
+      "test_module": "Tests.CriticalRegularityT",
+      "declaration": "BlowupDensity.Tests.checkedCriticalRegularityT",
+      "scope": "Proposition prop:critical and its displayed estimates (03-torus.tex:383-503), in the complete 23-field CriticalRegularityTAPI shape reconciled in research/T20/Spec.lean. The twelve data/certification fields are fixed before every viscosity and force by closed canonical terms: c = criticalSmallnessH1 = min (1/(8·criticalTrilinearConst)) (1/(8·h1TrilinearConst)), C₀ = criticalTrilinearConst, C₁ = h1TrilinearConst, CH1 = 2, and Ccriterion = hTwoConst²·CH1, with positivity and the two strict shrinkings c < 1/(4C₀), c < 1/(4C₁). The eleven mathematical fields are reductionRegular, meanBound, meanFreeEquation, constantTransportSkew, constantTransportCommutesLambda, criticalEnergy, bIntegral, yBound, hOneEnergy, continuationBound, and globalRegularity; yBound is installed through yBound_of_le criticalSmallnessH1_le_half. The untranslated mean-free equation retains (m·∇)v, and the Lambda commutation field is the coefficientwise IsPeriodicLambda graph proved by T20 U5. The contract reuses the registered T10/T11/T12 vocabulary, restates only T20-specific definitions with rfl bridges, and transports ClassicalSolutionT field by field; maximalLifespanT is transported by Bindings.TorusLocalTheory.maximalLifespanT_eq. Non-vacuity is checked at a nonzero smooth unit-periodic force with compact positive-time support, finite critical size, a positive viscosity satisfying rho < c·nu, and infinite registered maximal lifespan. No density, insertion, sharpness, optimality, arbitrary initial datum, or H1-ball restart theorem is asserted.",
+      "enabled": true
+    },
+    {
       "id": "T04.bounded_domain_norm",
       "parent_task": "T04",
       "version": 1,

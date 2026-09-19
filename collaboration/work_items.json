@@ -395,9 +395,11 @@
     {
       "id": "T20",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T03.critical_regularity"
+      ],
       "deliverable": "Reconcile research/T20/Spec.lean against prop:critical and the CriticalRegularityCertificate target, then register the accepted versioned contract under parent task T03 with its typed binding and axiom test."
     },
     {

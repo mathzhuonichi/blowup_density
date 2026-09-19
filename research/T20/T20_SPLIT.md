@@ -12,7 +12,23 @@ modules under `Section4/R43/`, `Section4/R44/` (splits `research/R43/R43_SPLIT.m
 Size: **S** ≤ ~100 lines; **M** one self-contained lemma with a known proof; **L** a multi-file campaign.
 Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core.
 
-## Status (lane 390, 2026-09-18)
+## Status (lane 451, 2026-09-19)
+
+- **U13 assembly + registration** — DONE (lane 451).
+  `Section3/T20/Assembly.lean` installs all 23 canonical fields at
+  `c = criticalSmallnessH1`, `C₀ = criticalTrilinearConst`,
+  `C₁ = h1TrilinearConst`, `CH1 = 2`, and `Ccriterion`; in particular U5 is
+  lane 452's proved `constantTransportCommutesLambda`, and `yBound` is
+  `yBound_of_le criticalSmallnessH1_le_half`.  It proves
+  `criticalRegularityStatement_holds` and a nonzero compact positive-time force
+  witness satisfying strict smallness for a positive viscosity and infinite
+  lifespan.  Registered as `T03.critical_regularity` V1 through the additive
+  modules `Contracts/V1/CriticalRegularityT.lean`,
+  `Bindings/CriticalRegularityT.lean`, and `Tests/CriticalRegularityT.lean`.
+  The `T` suffix is necessary because the unsuffixed three module names and
+  `checkedCriticalRegularity` are the frozen R43 whole-space V1 contract; they
+  remain unchanged.  Audit `research/T20/axioms_u13.lean`; attempts
+  `research/T20/ATTEMPTS_U13.md`; report `research/T20/REPORT_451.md`.
 
 - **U3 `bIntegral`** — DONE. `Section3/T20/BIntegral.lean`, theorem
   `NSFormalization.Section3.T20.bIntegral` (verbatim field type). Axioms
