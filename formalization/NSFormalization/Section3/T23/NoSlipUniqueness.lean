@@ -151,4 +151,20 @@ theorem SmoothOnClosedSlab.contDiffAt_slice
   exact (hs.contDiffAt (hN.mem_nhds (hsub ⟨ht, hx⟩))).comp x
     (contDiffAt_const.prodMk contDiffAt_id)
 
+/-- Compact-domain smoothness supplies the integrability needed by the real
+Bochner energy integral; no integrability premise is added to the solution. -/
+theorem difference_energy_integrable {ν T₁ T₂ : ℝ} {Ω : Set Space}
+    {a : SpatialField} {g : SpaceTimeField}
+    (hΩ : Bornology.IsBounded Ω)
+    (u₁ : ClassicalSolutionOmega ν Ω a g T₁)
+    (u₂ : ClassicalSolutionOmega ν Ω a g T₂)
+    {t : ℝ} (ht : t ∈ Ico (0 : ℝ) (min T₁ T₂)) :
+    IntegrableOn (fun x => ‖u₁.velocity (t, x) - u₂.velocity (t, x)‖ ^ 2) Ω := by
+  have h₁ : ContinuousOn (fun x => u₁.velocity (t, x)) (closure Ω) := fun x hx =>
+    (u₁.velocity_smooth.contDiffAt_slice ⟨ht.1, lt_of_lt_of_le ht.2 (min_le_left _ _)⟩ hx).continuousAt.continuousWithinAt
+  have h₂ : ContinuousOn (fun x => u₂.velocity (t, x)) (closure Ω) := fun x hx =>
+    (u₂.velocity_smooth.contDiffAt_slice ⟨ht.1, lt_of_lt_of_le ht.2 (min_le_right _ _)⟩ hx).continuousAt.continuousWithinAt
+  exact (((h₁.sub h₂).norm.pow 2).integrableOn_compact hΩ.isCompact_closure).mono_set
+    subset_closure
+
 end NSFormalization.Section3.T23

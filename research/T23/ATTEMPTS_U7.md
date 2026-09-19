@@ -76,3 +76,12 @@ hv : HasFDerivAt F (ContinuousLinearMap.single ℝ (fun x => ℝ) j ∘SL (g x �
     g x * (fderiv ℝ f x) (Pi.single j 1) + f x * (fderiv ℝ g x) (Pi.single j 1)
 ```
 Fix: match the product-rule order and use Finset.sum_eq_single before simplification.
+
+## Energy integrability attempt 01
+
+Line break before chained dot notation parsed as a dotted identifier.
+```text
+../formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean:165:6: error: Invalid dotted identifier notation: The name `continuousAt.continuousWithinAt` must be atomic
+../formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean:168:6: error: Invalid dotted identifier notation: The name `continuousAt.continuousWithinAt` must be atomic
+```
+Fix: keep the field chain attached to its receiver.
