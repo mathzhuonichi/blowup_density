@@ -115,3 +115,15 @@ h :
 ⊢ correctionForce ν v C.supplierCutoff ε = C.forceCorrection ε
 ```
 Repair: destruct the conjunction before rewriting the force formula.
+
+## Copied cutoff: dependent rewrite
+```text
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:191:10: error: invalid `▸` notation, expected result type of cast is 
+  D.ε₀ ≤ A.ε₀
+however, the equality 
+  hcut
+of type 
+  L.ε₀ = C.ε₀
+does not contain the expected result type on either the left or the right hand side
+```
+Repair: expose the copied threshold with `change`, then rewrite by `hcut`.

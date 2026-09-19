@@ -167,4 +167,50 @@ theorem exists_matching_supplier {ν T δ r : ℝ} (P : PacketAPI ν)
       (hv.mono (Set.prod_mono Subset.rfl hball))
       (fun t ht x hx => hdiv t ht x (hball hx)) (fun t ht => P.velocity_support t ⟨ht.1.le, ht.2⟩) A.eps_le_correction
 
+/-- The cutoff spelling in G0: copy the supplier potential and family literally,
+while proving the force identity for the original domain-local reference. -/
+theorem exists_matching_registered_cutoff {ν T δ r : ℝ} (P : PacketAPI ν)
+    (th : ThresholdAPI) (v : VelocityField) (x₀ : Space)
+    (hT : 0 < T) (hδ : 0 < δ) (hr : 0 < r)
+    (hv : ContDiffOn ℝ ∞ v (Ioo (0 : ℝ) (T + δ) ×ˢ Metric.ball x₀ r))
+    (hdiv : ∀ t ∈ Ioo (0 : ℝ) (T + δ), ∀ x ∈ Metric.ball x₀ r,
+      spatialDivergence v t x = 0) :
+    ∃ (C : CorrectionAPI ν P) (A : ScalingAPI ν P) (D : CutoffData),
+      A.correction = C ∧ C.T = T ∧ C.δ = δ ∧ C.x₀ = x₀ ∧ C.r = r / 2 ∧
+      EqOn C.v v (Ioo (0 : ℝ) (T + δ) ×ˢ Metric.ball x₀ (r / 2)) ∧
+      D.θ = C.θ ∧ D.η = C.η ∧ D.plateau = C.plateau ∧
+      D.θRadius = C.θRadius ∧ D.ε₀ = C.ε₀ ∧ D.ε₀ ≤ A.ε₀ ∧ 0 < D.ε₀ ∧
+      D.potential = C.potential ∧ D.correction = C.correction ∧
+      ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+        NSFormalization.Section3.T23.correctionForce ν v D ε = C.forceCorrection ε := by
+  obtain ⟨C, A, L, hAC, hT', hδ', hx, hr', _, hp, he, hcut, heq, _, _, _⟩ :=
+    exists_matching_supplier P th v x₀ hT hδ hr hv hdiv
+  let D := (correctionTo C).supplierCutoff
+  refine ⟨C, A, D, hAC, hT', hδ', hx, hr', (fun z hz => (heq hz).symm),
+    rfl, rfl, rfl, rfl, rfl, ?_, ?_, rfl, rfl, ?_⟩
+  · change C.ε₀ ≤ A.ε₀
+    rw [← hcut]
+    exact he
+  · exact C.eps_pos
+  · intro ε hε
+    apply (correctionTo C).supplierCutoff_force ?_ hε
+    simpa only [correctionTo, hT', hδ', hx, hr'] using heq
+
+/-- The exact residual conjunction instantiated with an actual domain reference. -/
+theorem exists_matching_supplier_on_domain {ν T δ r : ℝ} (P : PacketAPI ν)
+    (th : ThresholdAPI) (Ω : Set Space) (a : Data.SpatialField) (g : VelocityField)
+    (reference : ClassicalSolutionOmega ν Ω a g (T + δ)) (x₀ : Space)
+    (hT : 0 < T) (hδ : 0 < δ) (hr : 0 < r) (hball : Metric.ball x₀ r ⊆ Ω) :
+    ∃ (C : CorrectionAPI ν P) (A : ScalingAPI ν P) (D : CutoffData),
+      A.correction = C ∧ C.T = T ∧ C.δ = δ ∧ C.x₀ = x₀ ∧
+      0 < D.ε₀ ∧ D.ε₀ ≤ A.ε₀ ∧
+      ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+        D.correction ε = C.correction ε ∧
+        NSFormalization.Section3.T23.correctionForce ν reference.velocity D ε =
+          C.forceCorrection ε := by
+  have hl := reference.local_velocity x₀ hball
+  obtain ⟨C, A, D, hAC, hCT, hCδ, hx, _, _, hp, he, _, _, _, hm, _⟩ :=
+    exists_matching_supplier P th reference.velocity x₀ hT hδ hr hl.1 hl.2
+  exact ⟨C, A, D, hAC, hCT, hCδ, hx, hp, he, hm⟩
+
 end T23U2b
