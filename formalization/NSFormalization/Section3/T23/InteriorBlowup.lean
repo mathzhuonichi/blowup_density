@@ -133,5 +133,12 @@ theorem interior : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
   exact interior_blowup place D hspeed ⟨hε.1, hε.2.trans hscale⟩ hball
     (hformula ε) (hsupport ε hε) (hcancel ε hε)
 
+/-- The exact whole-space pointwise API field, from interior witnesses. -/
+theorem blowup : ∀ ε ∈ Ioc (0 : ℝ) ε₀, SpeedUnboundedAt place.T (velocity ε) := by
+  intro ε hε M hM d hd
+  obtain ⟨t, x, ht, hn, _, _, hl⟩ :=
+    interior place D reference hspeed hscale hball hformula hsupport hcancel ε hε M hM d hd
+  exact ⟨t, x, ht, hn, hl⟩
+
 end U8
 end NSFormalization.Section3.T23
