@@ -385,4 +385,29 @@ theorem zeroExtension_tsupport_subset_of_nonzero {Ω K : Set Space}
     · exact False.elim (hx (by simp only [zeroExtension, indicator_of_notMem hxΩ]))
   · exact hK
 
+/-- The literal zero extension of each force-difference slice is supported in
+the same closed chart ball.  This is the support hypothesis consumed by T22's
+zero-extension comparison. -/
+theorem forceDifference_zeroExtension_support {ν : ℝ}
+    {u : VelocityField} {p : PressureField} {f : VelocityField}
+    {K Ω : Set Space} (place : DomainPlacementData u p f K)
+    {v g : SpaceTimeField} {r δ base packetRadius : ℝ} {D : CutoffData}
+    {force : ℝ → VelocityField}
+    (core : LocalCorrectionCore v u K place.x₀ r place.T δ D)
+    (hpacketForce : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f)
+    (hbaseD : base ≤ D.ε₀) (hbasePlace : base ≤ place.ε₀)
+    (hforce : ∀ ε : ℝ, ∀ z : SpaceTime,
+      force ε z = g z + correctionForce ν v D ε z +
+        scaledForce f place.x₀ place.T ε z) :
+    ∀ ε ∈ Ioc (0 : ℝ)
+        (differenceThreshold place base D.θRadius packetRadius),
+      ∀ t : ℝ,
+        tsupport (zeroExtension Ω
+          (fun x : Space => force ε (t, x) - g (t, x))) ⊆
+            closure (ball place.chartCenter place.chartRadius) := by
+  intro ε hε t
+  exact zeroExtension_tsupport_subset_of_nonzero isClosed_closure
+    (forceDifference_spatialSupport place core hpacketForce hbaseD hbasePlace
+      hforce ε hε t)
+
 end NSFormalization.Section3.T23
