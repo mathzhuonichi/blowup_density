@@ -142,4 +142,19 @@ theorem domainPlacementThreshold_le_one {K : Set Space} {f : VelocityField}
     domainPlacementThreshold hK hf T chartCenter x₀ chartRadius ≤ 1 :=
   (min_le_left _ _).trans ((min_le_left _ _).trans (by norm_num))
 
+/-- Every admissible scale satisfies the strict temporal placement
+inequality, including at the closed upper endpoint. -/
+theorem domainPlacementThreshold_time {K : Set Space} {f : VelocityField}
+    (hK : IsCompact K) (hf : HasCompactSupport f) {T : ℝ}
+    (hT : 0 < T) (chartCenter x₀ : Space) (chartRadius : ℝ) :
+    ∀ ε ∈ Ioc (0 : ℝ)
+      (domainPlacementThreshold hK hf T chartCenter x₀ chartRadius),
+      2 * ε ^ 2 < T := by
+  intro ε hε
+  have he : ε ≤ 1 / 2 :=
+    hε.2.trans ((min_le_left _ _).trans (min_le_left _ _))
+  have ht : ε ≤ T / 4 :=
+    hε.2.trans ((min_le_left _ _).trans (min_le_right _ _))
+  nlinarith [mul_nonneg hε.1.le (sub_nonneg.mpr he)]
+
 end NSFormalization.Section3.T23
