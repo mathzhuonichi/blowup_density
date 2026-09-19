@@ -46,6 +46,42 @@ theorem MemForceOmega.add {Ω : Set Space} {f g : SpaceTimeField}
   · exact ⟨Or.inl (hfK hz).1, mem_univ _⟩
   · exact ⟨Or.inr (hgL hz).1, mem_univ _⟩
 
+/-- Whole-spacetime compact positive support yields the domain force class. -/
+theorem memForceOmega_of_compactPositiveTimeSupport {Ω : Set Space} {f : SpaceTimeField}
+    (hf : ContDiff ℝ ∞ f)
+    (hs : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f) :
+    MemForceOmega Ω f := by
+  refine ⟨fun T => smoothOnClosedSlab_of_contDiff hf _ _,
+    Prod.fst '' tsupport f, hs.1.isCompact.image continuous_fst, ?_, ?_⟩
+  · rintro t ⟨z, hz, rfl⟩
+    exact (hs.2 hz).1
+  · intro z hz
+    exact ⟨⟨z, hz, rfl⟩, mem_univ _⟩
+
+/-- Local residual addition with viscosity; all calculus stays on one open set. -/
+theorem domain_residual_add {N : Set SpaceTime} (hN : IsOpen N)
+    {v w : VelocityField} {p q : PressureField}
+    (hv : ContDiffOn ℝ ∞ v N) (hw : ContDiffOn ℝ ∞ w N)
+    (hp : ContDiffOn ℝ ∞ p N) (hq : ContDiffOn ℝ ∞ q N)
+    (ν : ℝ) {z : SpaceTime} (hz : z ∈ N) :
+    NavierStokesR3.ProblemStatement.navierStokesResidual ν
+      (fun y => v y + w y) (fun y => p y + q y) z.1 z.2 =
+    NavierStokesR3.ProblemStatement.navierStokesResidual ν v p z.1 z.2 +
+    NavierStokesR3.ProblemStatement.navierStokesResidual ν w q z.1 z.2 +
+      spatialDerivative v z.1 z.2 (w z) + spatialDerivative w z.1 z.2 (v z) := by
+  unfold NavierStokesR3.ProblemStatement.navierStokesResidual
+  rw [ResidualCalculus.temporalDerivative_add v w z.1 z.2
+      (ResidualStability.timeSlice_differentiable hN hv hz)
+      (ResidualStability.timeSlice_differentiable hN hw hz),
+    ResidualCalculus.advection_add v w z.1 z.2
+      (ResidualStability.spatialSlice_differentiable hN hv hz)
+      (ResidualStability.spatialSlice_differentiable hN hw hz),
+    ResidualStability.spatialLaplacian_add_on hN hv hw hz,
+    ResidualCalculus.pressureGradient_add p q z.1 z.2
+      (ResidualStability.spatialSlice_differentiable hN hp hz)
+      (ResidualStability.spatialSlice_differentiable hN hq hz), smul_add]
+  abel
+
 namespace InsertedTriple
 variable {ν δ r : ℝ} {Ω K : Set Space} {a : SpatialField} {g : SpaceTimeField}
   {u f : VelocityField} {p : PressureField}
@@ -132,6 +168,83 @@ theorem pressure_smooth (hδ : 0 < δ) (hb : Bornology.IsBounded Ω) (hm : Measu
   exact ((reference.pressure_smooth.mono_time
     (fun t ht => ⟨ht.1, by linarith [ht.2]⟩)).add
     ⟨_, isOpen_Iio.prod isOpen_univ, fun z hz => ⟨hz.1.2, mem_univ _⟩, hP⟩).domainNormalizePressure hb hm
+
+/-- The actual correction force is smooth and has compact positive temporal support. -/
+theorem correction_force_mem
+    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (hball : Metric.ball place.x₀ r ⊆ Ω)
+    {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀) :
+    MemForceOmega Ω (correctionForce ν reference.velocity D ε) := by
+  have href : ContDiffOn ℝ ∞ reference.velocity
+      (Ioo 0 (place.T + δ) ×ˢ Metric.ball place.x₀ r) :=
+    fun z hz => (reference.velocity_smooth.contDiffAt
+      ⟨⟨hz.1.1.le, hz.1.2⟩, subset_closure (hball hz.2)⟩).contDiffWithinAt
+  have hs := force_smooth_of_local ν reference.velocity D ε
+    (isOpen_Ioo.prod Metric.isOpen_ball) href (C.correction_smooth ε hε)
+    (correction_support_interior C hε)
+  refine ⟨fun T => smoothOnClosedSlab_of_contDiff hs _ _,
+    Icc (place.T - 2 * ε ^ 2) (place.T + 2 * ε ^ 2), isCompact_Icc, ?_, ?_⟩
+  · intro t ht
+    have htime := (lt_min_iff.mp (C.eps_time ε hε)).1
+    change 0 < t
+    linarith [ht.1]
+  · intro z hz
+    have h := C.correction_support ε hε (force_support ν reference.velocity D ε hz)
+    exact ⟨⟨h.1.1.le, h.1.2.le⟩, mem_univ _⟩
+
+/-- The packet force remains in the domain force class after the positive delay. -/
+theorem packet_force_mem (hf : ContDiff ℝ ∞ f)
+    (hs : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f)
+    {ε : ℝ} (hε : ε ∈ Ioc 0 place.ε₀) :
+    MemForceOmega Ω (scaledForce f place.x₀ place.T ε) := by
+  apply memForceOmega_of_compactPositiveTimeSupport
+    (NSFormalization.Source.PacketScaling.parabolicForce_smooth hf _ _ _)
+  exact NSFormalization.Source.PacketScaling.parabolicForce_positive_support hs
+    (inv_pos.mpr hε.1) (by change 0 ≤ place.T - ε ^ 2; nlinarith [place.eps_time ε hε, sq_nonneg ε]) _
+
+theorem force_mem
+    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (hball : Metric.ball place.x₀ r ⊆ Ω) (hg : g ∈ forceClassOmega Ω)
+    (hf : ContDiff ℝ ∞ f) (hs : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f)
+    {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀) (hplace : ε ∈ Ioc 0 place.ε₀) :
+    force place D reference ε ∈ forceClassOmega Ω :=
+  (hg.add (correction_force_mem C hball hε)).add (packet_force_mem hf hs hplace)
+
+theorem forceDifference_mem
+    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    (hball : Metric.ball place.x₀ r ⊆ Ω)
+    (hf : ContDiff ℝ ∞ f) (hs : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f)
+    {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀) (hplace : ε ∈ Ioc 0 place.ε₀) :
+    (fun z => force place D reference ε z - g z) ∈ forceClassOmega Ω := by
+  have he : (fun z => force place D reference ε z - g z) =
+      (fun z => correctionForce ν reference.velocity D ε z + scaledForce f place.x₀ place.T ε z) := by
+    funext z
+    simp only [force]
+    abel
+  rw [he]
+  exact (correction_force_mem C hball hε).add (packet_force_mem hf hs hplace)
+
+/-- Incompressibility is the sum of the three physical divergences in Ω. -/
+theorem incompressible (hδ : 0 < δ)
+    (C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D)
+    {ε : ℝ} (hε : ε ∈ Ioc 0 D.ε₀)
+    (hU : ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε)
+      (Iio place.T ×ˢ (univ : Set Space)))
+    (hdiv : ∀ t : ℝ, t < place.T → ∀ x : Space,
+      spatialDivergence (scaledVelocity u place.x₀ place.T ε) t x = 0)
+    {t : ℝ} (ht : t ∈ Ico 0 place.T) {x : Space} (hx : x ∈ Ω) :
+    spatialDivergence (velocity place D reference ε) t x = 0 := by
+  have htr : t ∈ Ico 0 (place.T + δ) := ⟨ht.1, by linarith [ht.2]⟩
+  have hv := (reference.velocity_smooth.contDiffAt_slice htr (subset_closure hx)).differentiableAt (by simp)
+  have hw := ((C.correction_smooth ε hε).comp ((contDiff_const (c := t)).prodMk contDiff_id)).differentiable (by simp) x
+  have hUs := ResidualStability.spatialSlice_differentiable (isOpen_Iio.prod isOpen_univ)
+    hU (show (t, x) ∈ Iio place.T ×ˢ (univ : Set Space) from ⟨ht.2, mem_univ _⟩)
+  change spatialDivergence (fun z => reference.velocity z + D.correction ε z +
+    scaledVelocity u place.x₀ place.T ε z) t x = 0
+  rw [ResidualCalculus.spatialDivergence_add _ _ t x (hv.add hw) hUs,
+    ResidualCalculus.spatialDivergence_add _ _ t x hv hw,
+    reference.divergence t htr x hx, C.correction_divergence_free ε hε t x, hdiv t ht.2 x]
+  simp
 
 end InsertedTriple
 end NSFormalization.Section3.T23

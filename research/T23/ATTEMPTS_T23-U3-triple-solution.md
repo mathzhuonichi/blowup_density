@@ -89,3 +89,161 @@ hp : SmoothOnClosedSlab I Ω p
 ⊢ ContDiffOn ℝ (↑0) (fun t => ∫ (x : Space) in Ω, p (t, x)) I
 ```
 Resolution: change the order to literal zero.
+
+## T1: opaque start time and slice inference
+```text
+../formalization/NSFormalization/Section3/T23/Triple.lean:203:27: error: linarith failed to find a contradiction
+Ω K : Set Space
+u f : VelocityField
+p : PressureField
+place : DomainPlacementData u p f K
+hf : ContDiff ℝ ∞ f
+hs : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f
+ε : ℝ
+hε : ε ∈ Ioc 0 place.ε₀
+a✝ : T15.scaledStartTime place.T ε < 0
+⊢ False
+failed
+../formalization/NSFormalization/Section3/T23/Triple.lean:239:13: error: don't know how to synthesize implicit argument `f`
+  @ContDiff.differentiable ℝ DenselyNormedField.toNontriviallyNormedField Space (PiLp.normedAddCommGroup 2 fun x => ℝ)
+    (PiLp.normedSpace 2 ℝ fun x => ℝ) Space (PiLp.normedAddCommGroup 2 fun x => ℝ) (PiLp.normedSpace 2 ℝ fun x => ℝ)
+    (D.correction ε ∘ fun x => (?m.201, id x)) ∞
+    (ContDiff.comp (C.correction_smooth ε hε) (ContDiff.prodMk contDiff_const contDiff_id))
+    (of_eq_true
+      (Eq.trans (congrArg Not (Eq.trans WithTop.coe_eq_zero._simp_1 ENat.top_ne_zero._simp_1)) not_false_eq_true))
+    x
+context:
+ν δ r : ℝ
+Ω K : Set Space
+a : SpatialField
+g : SpaceTimeField
+u f : VelocityField
+p : PressureField
+place : DomainPlacementData u p f K
+D : CutoffData
+reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)
+hδ : 0 < δ
+C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D
+ε : ℝ
+hε : ε ∈ Ioc 0 D.ε₀
+hU : ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+hdiv : ∀ t < place.T, ∀ (x : Space), spatialDivergence (scaledVelocity u place.x₀ place.T ε) t x = 0
+t : ℝ
+ht : t ∈ Ico 0 place.T
+x : Space
+hx : x ∈ Ω
+htr : t ∈ Ico 0 (place.T + δ)
+hv : DifferentiableAt ℝ (fun y => reference.velocity (t, y)) x
+⊢ Space → Space
+../formalization/NSFormalization/Section3/T23/Triple.lean:239:14: error: don't know how to synthesize implicit argument `f`
+  @ContDiff.comp ℝ Space SpaceTime Space DenselyNormedField.toNontriviallyNormedField
+    (PiLp.normedAddCommGroup 2 fun x => ℝ) (PiLp.normedSpace 2 ℝ fun x => ℝ) Prod.normedAddCommGroup Prod.normedSpace
+    (PiLp.normedAddCommGroup 2 fun x => ℝ) (PiLp.normedSpace 2 ℝ fun x => ℝ) ∞ (D.correction ε)
+    (fun x => (?m.201, id x)) (C.correction_smooth ε hε) (ContDiff.prodMk contDiff_const contDiff_id)
+context:
+ν δ r : ℝ
+Ω K : Set Space
+a : SpatialField
+g : SpaceTimeField
+u f : VelocityField
+p : PressureField
+place : DomainPlacementData u p f K
+D : CutoffData
+reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)
+hδ : 0 < δ
+C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D
+ε : ℝ
+hε : ε ∈ Ioc 0 D.ε₀
+hU : ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+hdiv : ∀ t < place.T, ∀ (x : Space), spatialDivergence (scaledVelocity u place.x₀ place.T ε) t x = 0
+t : ℝ
+ht : t ∈ Ico 0 place.T
+x : Space
+hx : x ∈ Ω
+htr : t ∈ Ico 0 (place.T + δ)
+hv : DifferentiableAt ℝ (fun y => reference.velocity (t, y)) x
+⊢ Space → SpaceTime
+../formalization/NSFormalization/Section3/T23/Triple.lean:239:47: error: don't know how to synthesize implicit argument `f`
+  @ContDiff.prodMk ℝ Space ℝ Space DenselyNormedField.toNontriviallyNormedField (PiLp.normedAddCommGroup 2 fun x => ℝ)
+    (PiLp.normedSpace 2 ℝ fun x => ℝ) Real.normedAddCommGroup RCLike.toInnerProductSpaceReal.toNormedSpace
+    (PiLp.normedAddCommGroup 2 fun x => ℝ) (PiLp.normedSpace 2 ℝ fun x => ℝ) ∞ (fun x => ?m.201) id contDiff_const
+    contDiff_id
+context:
+ν δ r : ℝ
+Ω K : Set Space
+a : SpatialField
+g : SpaceTimeField
+u f : VelocityField
+p : PressureField
+place : DomainPlacementData u p f K
+D : CutoffData
+reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)
+hδ : 0 < δ
+C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D
+ε : ℝ
+hε : ε ∈ Ioc 0 D.ε₀
+hU : ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+hdiv : ∀ t < place.T, ∀ (x : Space), spatialDivergence (scaledVelocity u place.x₀ place.T ε) t x = 0
+t : ℝ
+ht : t ∈ Ico 0 place.T
+x : Space
+hx : x ∈ Ω
+htr : t ∈ Ico 0 (place.T + δ)
+hv : DifferentiableAt ℝ (fun y => reference.velocity (t, y)) x
+⊢ Space → ℝ
+../formalization/NSFormalization/Section3/T23/Triple.lean:239:62: error: don't know how to synthesize placeholder
+context:
+ν δ r : ℝ
+Ω K : Set Space
+a : SpatialField
+g : SpaceTimeField
+u f : VelocityField
+p : PressureField
+place : DomainPlacementData u p f K
+D : CutoffData
+reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)
+hδ : 0 < δ
+C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D
+ε : ℝ
+hε : ε ∈ Ioc 0 D.ε₀
+hU : ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+hdiv : ∀ t < place.T, ∀ (x : Space), spatialDivergence (scaledVelocity u place.x₀ place.T ε) t x = 0
+t : ℝ
+ht : t ∈ Ico 0 place.T
+x : Space
+hx : x ∈ Ω
+htr : t ∈ Ico 0 (place.T + δ)
+hv : DifferentiableAt ℝ (fun y => reference.velocity (t, y)) x
+⊢ ℝ
+../formalization/NSFormalization/Section3/T23/Triple.lean:239:7: error: failed to infer `have` declaration type
+../formalization/NSFormalization/Section3/T23/Triple.lean:236:64: error: unsolved goals
+ν δ r : ℝ
+Ω K : Set Space
+a : SpatialField
+g : SpaceTimeField
+u f : VelocityField
+p : PressureField
+place : DomainPlacementData u p f K
+D : CutoffData
+reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)
+hδ : 0 < δ
+C : LocalCorrectionCore reference.velocity u K place.x₀ r place.T δ D
+ε : ℝ
+hε : ε ∈ Ioc 0 D.ε₀
+hU : ContDiffOn ℝ ∞ (scaledVelocity u place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+hdiv : ∀ t < place.T, ∀ (x : Space), spatialDivergence (scaledVelocity u place.x₀ place.T ε) t x = 0
+t : ℝ
+ht : t ∈ Ico 0 place.T
+x : Space
+hx : x ∈ Ω
+htr : t ∈ Ico 0 (place.T + δ)
+hv : DifferentiableAt ℝ (fun y => reference.velocity (t, y)) x
+⊢ spatialDivergence (velocity place D reference ε) t x = 0
+```
+Resolution: expose scaledStartTime and give the constant slice time explicitly.
+
+## T2: velocity unfolding
+```text
+../formalization/NSFormalization/Section3/T23/Triple.lean:242:6: error: Failed to rewrite using equation theorems for `velocity`
+```
+Resolution: change to the explicit function before derivative rewrites.
