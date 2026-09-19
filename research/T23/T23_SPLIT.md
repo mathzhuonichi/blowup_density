@@ -26,6 +26,39 @@ Thread the given domain reference, free center/ball and packet raw fields. Follo
 
 All targets below refer to exact current Spec field types; G0 means the final quantified theorem cannot yet be proved. Suggested new modules live under `S3/T23/`; names are proposed, not claims of existing files.
 
+### U-CAN — canonical vocabulary (lane 480, 2026-09-19)
+
+**Status: complete, kernel checked.** `Section3/T23/Boundary.lean` is the public
+entry point for the 48-field raw `BoundaryInsertionAPI`, literal
+`boundaryInsertionStatement`, and G0's existential `boundaryInsertionStatement'`.
+These are interfaces/definitions, not a construction or registration of T23.
+The literal zero-cutoff instance is refuted by `boundaryInsertionAPI_zero_cutoff`.
+The earlier G0 location gap is closed; U2's analytic matching obligations remain.
+
+Canonical ownership (all T23 names below are in `NSFormalization.Section3.T23`):
+
+| Consumers | Canonical names / defining module |
+|---|---|
+| U3–U6, U8, U9 | `DomainPlacementData u p f K`, `domainPlacementData`, `interiorBall_in_domain` — `Placement` (16 fields) |
+| U3–U6, U8, U9 | `CutoffData`, `localCorrectionData`, `LocalCorrectionCore`, `correctionForce` — `LocalCorrection` (one seven-field cutoff record); the supplier bridge remains `LocalCorrectionBridge` |
+| U3, U4, U8, U9 | `ClassicalSolutionOmega`, `SmoothOnClosedSlab`, `IsBoxDomain`, `IsRegularLevelDomain`, `IsBoundedBoxOrSmoothDomain`, `initialClassOmega`, `MemForceOmega`, `forceClassOmega` — `DomainSolution`; imported through `NoSlipUniqueness` |
+| U3–U6, U8, U9 | `BoundaryInsertionAPI ν u p f K M E place Ω norms a g r δ D reference` — `Boundary`; preserve its 48 fields and order |
+| U3, U8 | `domainMaximalLifespan`, `IsMaximalDomainSolution`, `domainPressureMean`, `domainNormalizePressure` — `Boundary` |
+| U5, U6 | `domainEnergyEssSup`, `domainEnergyGradient`, `domainEnergyENorm`, `domainForceSobolevENorm`, `zeroExtForceSobolevENorm` — `Boundary`; use `NSFormalization.Section3.T22.BoundedDomainNormAPI` and its existing norm vocabulary from `T22.Domain` |
+| U4, U5, U8 | `prescribed_closedBall_compact`, `exists_inner_closedBall`, `prescribed_closedBall_disjoint_frontier` — `Geometry`; frontier separation explicitly requires `IsOpen Ω` |
+| U2, U9 | `WholeSpaceCorrectionAPI ν u K` — `WholeSpaceCorrection`, the full 73-field raw adapter for registered I02; both fieldwise directions checked in the boundary probe |
+| U9 | `boundaryInsertionStatement'` — `Boundary`; choose matching `C` and `D` existentially with all seven cutoff identities, positive radius and both ball inclusions. The unprimed definition preserves the literal false-instance-bearing wording only. |
+
+No existing Lean module needed a deduplication edit: this checkout already has
+one T23 cutoff record and one domain family (478's continuation moved the latter
+to `DomainSolution`). Do not introduce a new copy in subsequent units.
+The raw packet order is velocity, pressure, force, carrier, energy bound,
+dissipation bound; no packet validity or analytic supplier is fabricated here.
+The probe embeds the untouched Spec and checks bidirectional field conversions,
+round trips, the exact literal/repaired binders, and the repaired existential's
+full supplier/cutoff matching. Registration policy and the remaining analytic
+units in §4 are unchanged.
+
 ### U1 — cube-free placement and interior geometry (M, codex-sol)
 
 **Status (lane 476, 2026-09-19): complete.** `Section3/T23/Placement.lean`

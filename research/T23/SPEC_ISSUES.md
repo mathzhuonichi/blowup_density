@@ -150,3 +150,14 @@ The false-instance theorem's guarded axiom audit is exactly
 and U9 registration remain pending.
 ## G1 — no-slip uniqueness on smooth-level domains needs a divergence theorem Mathlib may lack (lane 478, lead note 2026-09-19 16:12Z)
 - Lane 478 (astra) proved the canonical domain record and the box integration by parts on `Icc` in `Fin 3 → ℝ`, energy integrability, zero-energy ⇒ equality and uniform derivative bounds, but not `noSlip_uniqueness`; its search found no regular-level-domain integration-by-parts theorem in Mathlib. Lead priority for the continuation: close the **box** branch completely; expose the smooth branch's missing identity as one explicit hypothesis (`IBP Ω`) and record the exact missing theorem here. Pending that result, V1 of `cor:boundary` may register the box case only (owner decision, same list as G0).
+
+## Lane 480 canonical-location follow-up (2026-09-19)
+
+The historical G0 location gap above is now resolved by `Section3/T23/Boundary.lean`:
+all 48 API fields, both statement definitions, and the exact zero-cutoff
+instance obstruction are canonical. The full existential supplier is
+`WholeSpaceCorrectionAPI ν u K`, a field-for-field raw adapter for registered
+I02 (73 fields), not the weaker local core. The new boundary probe embeds the
+original Spec unchanged and checks both supplier conversions and the repaired
+existential's matching identities. No existence theorem, owner approval,
+registration, or smooth-domain IBP is asserted by this move.
