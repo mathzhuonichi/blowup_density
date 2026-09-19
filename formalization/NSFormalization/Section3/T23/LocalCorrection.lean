@@ -384,4 +384,21 @@ theorem force_support (ν : ℝ) (v : SpaceTimeField) (D : CutoffData) (ε : ℝ
   rw [correctionForce_eq_source]
   exact NSFormalization.Source.LocalizedInsertion.correctionForce_support ν v (D.correction ε)
 
+/-- A change of reference outside an open neighbourhood of the actual
+correction support leaves the force unchanged, without exterior regularity. -/
+theorem correctionForce_eq_of_open_agreement (ν : ℝ) (v V : SpaceTimeField)
+    (D : CutoffData) (ε : ℝ) {O : Set SpaceTime} (hO : IsOpen O)
+    (hs : tsupport (D.correction ε) ⊆ O) (heq : EqOn v V O) :
+    correctionForce ν v D ε = correctionForce ν V D ε := by
+  funext z
+  by_cases hz : z ∈ O
+  · have he : v =ᶠ[𝓝 z] V := by
+      filter_upwards [hO.mem_nhds hz] with y hy using heq hy
+    have hd := NavierStokes.ResidualRegularity.spatialDerivative_congr he
+    simp only [correctionForce, heq hz, hd]
+  · have hn : z ∉ tsupport (D.correction ε) := fun h => hz (hs h)
+    rw [correctionForce_eq_source, correctionForce_eq_source,
+      NSFormalization.Source.LocalizedInsertion.correctionForce_eq_zero_outside ν v (D.correction ε) hn,
+      NSFormalization.Source.LocalizedInsertion.correctionForce_eq_zero_outside ν V (D.correction ε) hn]
+
 end NSFormalization.Section3.T23
