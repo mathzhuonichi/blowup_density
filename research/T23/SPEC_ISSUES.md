@@ -1,0 +1,10 @@
+# T23 (`cor:boundary`) — specification issues and lead rulings
+
+## G0 — `boundaryInsertionStatement` quantifies an arbitrary cutoff (lane 449 audit, lead ruling 2026-09-19 15:55Z)
+
+- **Finding (lane 449, `T23_SPLIT.md` §0/§4).** `research/T23/Spec.lean:1037-1050` universally quantifies a raw `D : CutoffData` (seven data fields, no compatibility or positivity hypothesis) and concludes `Nonempty (BoundaryInsertionAPI … D …)`, whose fields `eps_pos`/`eps_time` require `0 < D.ε₀`. With `D.ε₀ = 0` the statement is unsatisfiable for admissible data: a false universal, not a missing proof. `RECONCILIATION.md` §3 intended the cutoff to be *the* cutoff of the consumed correction (I02/I03 route), but the Spec quantifies it independently. Raw `r` is likewise unconstrained.
+- **Ruling (lead).** Same pattern as T17 G4/G5: the statement is repaired at the canonical level, the reconciled record is unchanged. Lane U2 (477) formalises the counterexample (`not_boundaryInsertionStatement` for the literal Spec statement, or the exact false instance) and states the repaired statement `boundaryInsertionStatement'` that **existentially** produces the cutoff/correction from the consumed whole-space correction (`∃ D, … ∧ Nonempty (BoundaryInsertionAPI … D …)`), with `0 < r` and the ball hypotheses spelled out — mirroring `Section3/T17/Assembly.lean:correctionStatementAmended`. Registration (U9) uses the repaired statement; the V1 wording amendment is **owner-pending** (same list as T17 G4).
+- **Owner-pending decisions blocking registration (from `T23_SPLIT.md` §4).** Domain record placement (`ClassicalSolutionOmega` canonical location / registration), smooth-domain encoding (regular-level domains + boxes), gauge/scope of the no-slip corollary. Wave-0/1 proof units do not depend on these; only U9 does.
+
+## Wave-0 lanes opened 2026-09-19 (lead)
+- 476 U1 (geometry, sol), 477 U2 (local correction supplier + G0 counterexample/repair, astra), 478 U7 (domain no-slip uniqueness, astra). T23 is not on the `thm:main` critical path (T21); it runs alongside.
