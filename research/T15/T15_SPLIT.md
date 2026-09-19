@@ -215,6 +215,12 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   U9's per-`m` construction restricted to `s ∈ [0,1]`; `sobolevConst` defined as the (positive)
   constant assembled in U13 from T13's localization constant × the Euclidean rate. **L, Opus.** Deps: U3, U9.
 
+  **Status (lane 456, 2026-09-19): complete.** `SobolevBound.lean` proves
+  `forceSobolev_memLp` on the entire `[0,1]` range from raw force smoothness,
+  positive compact support, and `PlacementData`, using the continuous real-order
+  datum path of T17. `sobolevConst f s = 1 + ∑ i, C₀ᵢ^(1-s) (2π C₁ᵢ)^s`,
+  with finite unscaled component endpoint time norms, is explicit and positive.
+
 - **U13 — `packetSobolevBound` (eq:packetHs)** (⑫; **BLOCKED on T13.localization**). New
   `Section3/T15/SobolevBound.lean`. Target `packetSobolevBound` (`Spec.lean:884`). Route:
   time-integrated localization — apply the structure's `localization : LocalizationAPI` field
@@ -227,6 +233,15 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   `LocalizationAPI` is a *structure field*), but the `.localization` sub-field of that witness is what
   lanes 354/359 are still proving, so this unit is **exercisable/testable only once T13.localization
   lands**; keep it as a separate lane and gate its non-vacuity on 354/359. **L, Opus.** Deps: U12; **T13.localization**.
+
+  **Status (lane 456, 2026-09-19): complete; prior T13 blocker superseded.**
+  `SobolevBound.lean` proves `packetSobolevBound`, the literal canonical field for every
+  admissible scale and all `0 ≤ s ≤ 1`, including both endpoints. Route B:
+  recenter at the chart center, derive `chartRadius < 1/2`, apply Paper1's
+  packet endpoint rates and periodic endpoint interpolation, then use T17's
+  datum/Paper1 norm bridge. No extra placement premise or named input.
+  The probe checks the exact fields and the nonzero bump packet. All 16 module
+  declarations print exactly the three standard axioms. See `REPORT_456.md`.
 
 - **U14 — `forceConvergence`** (⑭; **partly blocked on T13.localization**). New
   `Section3/T15/Convergence.lean`. Target `forceConvergence` (`Spec.lean:903`),
