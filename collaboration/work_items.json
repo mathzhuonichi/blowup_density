@@ -391,9 +391,11 @@
     {
       "id": "T19",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T03.density"
+      ],
       "deliverable": "Reconcile research/T19/Spec.lean against the subcritical density package, then register the accepted versioned contract under parent task T03 with its typed binding and axiom test."
     },
     {

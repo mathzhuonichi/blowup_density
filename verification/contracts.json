@@ -541,6 +541,17 @@
       "enabled": true
     },
     {
+      "id": "T03.density",
+      "parent_task": "T03",
+      "version": 1,
+      "specification": "verification/Contracts/V1/Density.lean",
+      "binding_module": "Bindings.Density",
+      "test_module": "Tests.Density",
+      "declaration": "BlowupDensity.Tests.checkedDensity",
+      "scope": "The four Prop-valued T19 density results on the unit three-torus: prop:density (03-torus.tex:349-368), for every fixed a in initialClassT, positive viscosity and horizon, and every s < 1/2, RelativelyDenseT 1 s forceClassT (breakdownSetT nu a T), together with the exact-lifespan regular-reference clause and criticalOrder 1 = 1/2; cor:mixed (:528-538), relative density in the honest periodic L^q_t L^p_x norm whenever 1 <= p,q and 3/p+2/q > 3, including the two exponent signs and the (2,1), (4/3,2) examples; cor:closure (:540-561), RegularTrajectoryT contained in the epsilon-form E_T closure of finite-energy SingularTrajectoryT, the simultaneous trajectory/force family, reference finiteness and the finite-time L2 embedding; and prop:projection (:564-590), fixed-a product density, Prod.fst image equal to initialClassT, and the zero-initial fibre image equal to {0}. All four structures have exactly 3/3/4/3 propositional fields and export no chosen data. The binding reuses registered T10/T11/T15 vocabulary, moves ClassicalSolutionT field by field, and rewrites maximalLifespanT through its registered bridge. The constructive proof consumes T18 periodic insertion through the T17 slab route (reconciliation route G5): Threading zero-extends the reference only for T17's global periodicity/smoothness inputs and identifies it with the original reference throughout [0,T); no extra slab hypothesis appears in any registered statement. T20 critical regularity, optimality, an initial-data topology, and the paper's separate peaks remark are not asserted. Non-vacuity is checked at the registered zero datum and zero force with nu=T=1 and s=0, selecting an actual breakdown force at radius 1.",
+      "enabled": true
+    },
+    {
       "id": "T02.scaling",
       "parent_task": "T02",
       "version": 1,
