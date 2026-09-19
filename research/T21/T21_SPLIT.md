@@ -2,7 +2,7 @@
 
 Lead-facing, 2026-09-19. Target: nine-field `NonDensityAPI` and five-field `MainTheoremAPI`, their paper-order statements and assembly signatures.
 Target: `research/T21/Spec.lean`; approved design: `research/T21/RECONCILIATION.md` §0.
-Twin: Section4/R41. House style: T18/T20 splits.
+Twin: `Section4/R41/NonDensityL1.lean` and `Contracts/V1/MainThresholds.lean`. House style: `research/T18/T18_SPLIT.md` (header, peeling rule, units), `research/T20/T20_SPLIT.md` (waves and risks).
 Size legend: **S** ≤ approximately 100 lines; **M** one bounded lemma with a known route; **L** a multi-file campaign, which must be peeled before assignment. Model legend: **codex-sol = bookkeeping/transport, codex-astra = analytic core/planning**.
 
 ## 0. Ground rules
@@ -272,7 +272,7 @@ Here “registered” describes vocabulary; it does not assert a closed T19/T20 
 | N15 / M | threaded NonDensityAPI.nonDensity (`Spec.lean:430`) | N10 | T20 U13 for closed instance |
 | A | registered/inhabited T19 and T20 APIs; all registered T10 vocabulary | N0–N15 | registrations T19 → T20 → T21 |
 
-Only `PeriodicDensityAPI.fixedInitialDensity` is needed for the mathematical density half; N11 can use the proved arithmetic lemma. T19's `regularReferenceSingular` (`research/T19/Spec.lean:239`) and the other three T19 APIs are not inputs of T21. Their completion may affect the upstream registration schedule, not this field-level DAG. T19 U7–U14's T18 U12 scheduling gate is recorded in `research/T19/T19_SPLIT.md:226-231`.
+Only `PeriodicDensityAPI.fixedInitialDensity` is needed for the mathematical density half; N11 can use the proved arithmetic lemma. T19's `regularReferenceSingular` (`research/T19/Spec.lean:240`) and the other three T19 APIs are not inputs of T21. Their completion may affect the upstream registration schedule, not this field-level DAG. T19 U7–U14's T18 U12 scheduling gate is recorded in `research/T19/T19_SPLIT.md:226-231`.
 
 ## 3. Waves — at most three concurrent lanes
 
@@ -303,10 +303,10 @@ If lane 445 is already proving N6, count that shared work once and use the freed
 
 ```sh
 grep -rnE 'structure PeriodicDensityAPI|forceSobolevENormT_add|torusForceSobolevENorm_add|forceSobolevENormT_triangle|memForceT_zero|zero_mem_forceClassT' formalization/NSFormalization/Section3 verification/Contracts/V1
-grep -nE 'T19|T20|T21' verification/contracts.json
+grep -nE '"id": "T(19|20|21)\.|"id": ".*(torus_density|torus_critical|torus_main|torus_non_density)' verification/contracts.json
 ```
 
-Both returned no output (exit 1). Thus no canonical/registered T19 record under that declaration name, no triangle/zero-force helper under those candidate names, and no T19/T20/T21 text in the current registry were found. This is a bounded name search, not a proof of global mathematical absence. Before implementing N4/N6, repeat a semantic search for alternate names and new lane 445 work. The exact positive pattern search was:
+Both returned no output (exit 1). Thus no canonical/registered T19 record under that declaration name, no triangle/zero-force helper under those candidate names, and no registry IDs matching the listed candidate patterns were found. The broader `grep -nE 'T19|T20|T21' verification/contracts.json` does return the T11 scope description at line 430 (a mention of T20, not a T20 registration). This is a bounded name search, not a proof of global mathematical absence. Before implementing N4/N6, repeat a semantic search for alternate names and new lane 445 work. The exact positive pattern search was:
 
 ```sh
 grep -rnE 'critLower|critSymbol' formalization/NSFormalization/Section3/T20/YBound.lean
