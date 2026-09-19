@@ -161,4 +161,34 @@ theorem scaledPacket_slice_support {u : VelocityField} {K : Set Space}
   (scaledVelocity_tsupp_subset hε hK hu Subset.rfl ht).trans
     (affineCarrier_subset_commonBall hε hcarrier)
 
+/-- The velocity difference has the API's sharp single-ball support.  The U3
+velocity formula is threaded verbatim; the support of its two perturbation
+summands is bounded by their union. -/
+theorem velocityDifference_support {v u : SpaceTimeField}
+    {K : Set Space} {x₀ : Space} {r T δ ε₀ packetRadius : ℝ}
+    {D : CutoffData} {velocity : ℝ → VelocityField}
+    (core : LocalCorrectionCore v u K x₀ r T δ D)
+    (hK : IsCompact K)
+    (hu : ∀ s ∈ Ico (0 : ℝ) 1,
+      tsupport (fun x : Space => u (s, x)) ⊆ K)
+    (hcarrier : K ⊆ ball (0 : Space) packetRadius)
+    (hle : ε₀ ≤ D.ε₀)
+    (hvelocity : ∀ ε : ℝ, ∀ z : SpaceTime,
+      velocity ε z = v z + D.correction ε z + scaledVelocity u x₀ T ε z) :
+    ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ t ∈ Ico (0 : ℝ) T,
+      tsupport (fun x : Space => velocity ε (t, x) - v (t, x)) ⊆
+        ball x₀ (ε * diffSupportRadius D.θRadius packetRadius) := by
+  intro ε hε t ht
+  have hεD : ε ∈ Ioc (0 : ℝ) D.ε₀ := ⟨hε.1, hε.2.trans hle⟩
+  have heq : (fun x : Space => velocity ε (t, x) - v (t, x)) =
+      (fun x : Space => D.correction ε (t, x) +
+        scaledVelocity u x₀ T ε (t, x)) := by
+    funext x
+    rw [hvelocity]
+    abel
+  rw [heq]
+  exact (tsupport_add _ _).trans (union_subset
+    (correction_slice_support core hεD t)
+    (scaledPacket_slice_support hK hu hcarrier hε.1 ht.2))
+
 end NSFormalization.Section3.T23
