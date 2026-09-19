@@ -49,7 +49,7 @@ theorem interior_blowup
   have hstart : place.T - ε ^ 2 < t := by
     by_contra hn
     exact hne (congrFun (packet_slice_zero U place.x₀ place.T ε t (not_lt.mp hn)) x)
-  have hx := subset_tsupport _ hne
+  have hx := subset_tsupport (fun y => scaledVelocity U place.x₀ place.T ε (t, y)) hne
   have hxball := hsupport t ht hx
   refine ⟨t, x, ht, hnear, hxball, hball (subset_closure hxball), ?_⟩
   rw [hformula, hcancel t ⟨hstart.le, ht.2⟩ x hx, zero_add]
