@@ -130,9 +130,16 @@ The first broad search found boundary-support bookkeeping (`P1/BoundaryReference
 
 Registration and declarations were independently checked with `grep -nE 'I02|I03|bounded_domain_norm' verification/contracts.json`, `grep -rnE '^(theorem|lemma|def|structure|noncomputable def)'` on the cited supplier directories, and `sed -n` on the cited declarations. The older reconciliation's “T22 unregistered” and “LocalizationBoundary:189 zero-extension core” descriptions are superseded by the checked sources above.
 
-## 3. Waves
+## 3. Waves and start conditions
 
-Start geometry and supplier audits now. Domain analytic units can proceed independently of torus assembly. Final canonical reuse and registration wait for T18 U12 and unresolved owner decisions.
+| Wave | Startable work | Exit condition |
+|---|---|---|
+| 0 — now | U1 geometry; U2 supplier/local-extension audit; U7 domain record and integration-by-parts development; U5 generic fixed-K integration and U6 path-norm bridge | Named lemmas with exact hypotheses; G0 counterexample delivered to owner |
+| 1 — after local supplier | U2 cancellation and cutoff estimates; U3 formulas, local smoothness, force classes, gauge and residual; U4 support/collar | One compatible family and positive common threshold; all-time force support |
+| 2 — after family facts | U3 solution packaging, U5 instantiated comparison, U6 rates/convergence; U8 after U7 | Every mathematical field closed, including interior blow-up and lifespan=T |
+| 3 — gated assembly | U9 contract, bindings, field/type probes and mutation tests | T18 U12 canonical integration reviewed, all owner decisions resolved, no G0 false quantifier remains |
+
+T18 U12 is an integration/registration gate requested for this lane, not a mathematical prerequisite for constructing an un-periodized domain packet. Its in-flight U7/U9–U11 may furnish patterns, but no planned Ω theorem depends on an unverified upstream proof. Independent analytic work should not wait for them. Conversely, T18 U12 cannot resolve the missing domain uniqueness or arbitrary-D quantifier by itself. Conditional local theorem development can start while G0 is pending; the final unconditional statement and registry entry cannot.
 
 ## 4. Risks
 
