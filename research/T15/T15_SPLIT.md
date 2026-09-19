@@ -144,6 +144,16 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   so `∫_{T³} = 0` follows from `T13/TorusIdentity.lean:419 lintegral_fundamentalCube_ofReal`. The
   gradient/residual are unchanged by a spatially constant shift. **M, Opus.** Deps: U3.
 
+  **Status (lane 447, 2026-09-19): complete.** `Section3/T15/Pressure.lean`
+  proves the literal `ScalingAPI.pressureSlice_integrable` field from the raw
+  carrier/support and past-zero pressure smoothness clauses, using placement
+  plus the vendor locally finite periodizer.  It also proves
+  `pressure_gauge` in the exact `ClassicalSolutionT` form by `integral_sub` and
+  `integral_const` on the probability Haar measure.  The field-shape and
+  concrete `placement_closes` bump checks are in
+  `research/T15/probes/pressure_closes.lean`; all five module declarations
+  audit to `[propext, Classical.choice, Quot.sound]`.
+
 - **U11 — `solution` assembly.** New `Section3/T15/Solution.lean`. Target `solution` (`Spec.lean:753`):
   build one `ClassicalSolutionT ν 0 F_ε place.T` from U8 (momentum/div/initial), U9 (sobolev/pressure_gradient),
   U10 (gauge), U7 (regularity/periodicity), with the two pinning equations `S.velocity = U_ε^per`,
