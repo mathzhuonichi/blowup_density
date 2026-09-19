@@ -151,6 +151,8 @@ re-target every conclusion to the registered vocabulary.
   driving `ofReal T`-scaled powers to `0` along `𝓝[>]0`, pick `ε ∈ Ioc 0 ins.ε₀` (`Ioc_mem_nhdsGT`), witness
   `⟨ins.force ε, ⟨ins.force_mem ε …, (ins.lifespan ε … ).le⟩, hdist⟩` (`force_mem :1741`, `lifespan :1812`).
   **L, Opus.** **One named input: registered T18 `PeriodicInsertionAPI` (T18 U12).** Deps: U6. Blocked on T18 U12.
+  **Status: complete (lane 464).** `NSFormalization.Section3.T19.fixedInitialDensity` uses the U0
+  `exists_force_close` export in the regular branch and the U6 zero representative in the singular branch.
 
 - **U8 — `regularReferenceSingular` (sharp, exactly-`T`).** Target (verbatim, `Spec.lean:240`): `… ∀ g∈𝓕,
   RegularThroughT ν a g T → ∀ s<1/2, ∀ r>0, ∃ f∈𝓕, forceSobolevENormT 1 s (f−g) < r ∧ maximalLifespanT ν a f
@@ -159,6 +161,8 @@ re-target every conclusion to the registered vocabulary.
   `ins.lifespan ε … : maximalLifespanT ν a (ins.force ε) = ofReal T` (`:1812`, not `.le`). Mirrors the sharp
   half of R41 `regularReferenceApproximation` (`Bindings/MainThresholds.lean:97-136`). **M-L, Opus.** One
   named input: T18 `PeriodicInsertionAPI` (T18 U12). Deps: U7 (shared eventual-`< r` helper). Blocked on T18 U12.
+  **Status: complete (lane 464).** `NSFormalization.Section3.T19.regularReferenceSingular` calls
+  `exists_force_close` directly and preserves its exact lifespan equality.
 
 - **U9 — `mixedDensity`.** Target (verbatim, `Spec.lean:281`): `∀ a∈𝓧, ∀ ν>0, ∀ T>0, ∀ (p q)[Fact(1≤p)],
   1≤q → 3 < 3/p.toReal+2/q.toReal → RelativelyDenseMixedT q p forceClassT (breakdownSetT ν a T)`. Route:
@@ -167,6 +171,8 @@ re-target every conclusion to the registered vocabulary.
   `≤ C(ε^α + ε^{α+1})`) with U2's `0 < alpha p q ∧ 0 < alpha p q + 1` driving both powers to `0` along
   `𝓝[>]0` (mirror `Bindings/CompletedClosure.lean:closure_relativeHomogeneous` at `:180`). **M-L, Opus.**
   One named input: T18 `PeriodicInsertionAPI` (T18 U12). Deps: U2, U6. Blocked on T18 U12.
+  **Status: complete (lane 464).** `NSFormalization.Section3.T19.mixedDensity` derives convergence from
+  U0's mixed bound and U2's positivity of both powers, then selects one admissible insertion scale.
 
 ### Wave 3 — the closure family, **blocked on T18 U12** (Opus + codex)
 
