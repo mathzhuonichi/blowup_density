@@ -77,4 +77,44 @@ theorem exists_solenoidal_window_extension {v : VelocityField}
   rw [NSFormalization.Paper1.timeTruncation_eq W χ hc x]
   exact hWeq ⟨ht', hx⟩
 
+/-- Equality of local references on the radial cylinder gives equality of the
+entire physical correction, including outside that cylinder. -/
+theorem physicalCorrection_eq_of_cylinder (v V : VelocityField) (x₀ : Space)
+    (T ε r : ℝ) (θ : Space → ℝ) (η : ℝ → ℝ) {I : Set ℝ}
+    (heq : EqOn v V (I ×ˢ ball x₀ r))
+    (ht : tsupport (NSFormalization.Paper1.CorrectionProfile.temporalCutoff η T ε) ⊆ I)
+    (hs : tsupport (NSFormalization.Paper1.CorrectionProfile.spatialCutoff θ x₀ ε) ⊆ ball x₀ r) :
+    NSFormalization.Paper1.CorrectionProfile.physicalCorrection v x₀ T θ η ε =
+      NSFormalization.Paper1.CorrectionProfile.physicalCorrection V x₀ T θ η ε := by
+  funext z
+  have hinner : (fun y : Space =>
+      (NSFormalization.Paper1.CorrectionProfile.temporalCutoff η T ε z.1 *
+        NSFormalization.Paper1.CorrectionProfile.spatialCutoff θ x₀ ε y) •
+          timePotential v x₀ (z.1, y)) =
+      (fun y : Space =>
+      (NSFormalization.Paper1.CorrectionProfile.temporalCutoff η T ε z.1 *
+        NSFormalization.Paper1.CorrectionProfile.spatialCutoff θ x₀ ε y) •
+          timePotential V x₀ (z.1, y)) := by
+    funext y
+    by_cases hc : NSFormalization.Paper1.CorrectionProfile.temporalCutoff η T ε z.1 *
+        NSFormalization.Paper1.CorrectionProfile.spatialCutoff θ x₀ ε y = 0
+    · simp only [hc, zero_smul]
+    · have htc := (mul_ne_zero_iff.mp hc).1
+      have hsc := (mul_ne_zero_iff.mp hc).2
+      have hyt := ht (subset_tsupport _ htc)
+      have hy := hs (subset_tsupport _ hsc)
+      have hp : timePotential v x₀ (z.1, y) = timePotential V x₀ (z.1, y) := by
+        apply timePotential_congr_segment
+        intro ρ hρ
+        apply heq
+        refine ⟨hyt, ?_⟩
+        rw [mem_ball, dist_eq_norm]
+        have hh : x₀ + ρ • (y - x₀) - x₀ = ρ • (y - x₀) := by abel
+        rw [hh, norm_smul, Real.norm_eq_abs, abs_of_nonneg hρ.1]
+        have hyn : ‖y - x₀‖ < r := by simpa only [mem_ball, dist_eq_norm] using hy
+        nlinarith [norm_nonneg (y - x₀), hρ.2]
+      rw [hp]
+  change -SpatialCurl.curl _ z.2 = -SpatialCurl.curl _ z.2
+  rw [hinner]
+
 end NSFormalization.Section3.T23

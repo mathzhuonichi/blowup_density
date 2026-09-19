@@ -44,3 +44,15 @@ LocalCorrection.lean:231:40: warning: This simp argument is unused:
   fderiv_const
 ```
 Fix: follow the checked T18 proof and finish the constant derivative with `simp`.
+
+## Spatial transport warning
+
+The cylinder agreement lemma closed, but emitted:
+```text
+SpatialExtension.lean:84:5: warning: Variable name `hr` is not explicitly referenced.
+```
+Removed the unnecessary positivity hypothesis: the nonzero spatial cutoff
+already places the queried point in the ball, which suffices for the segment.
+Additional guessed-path searches for T17/Support.lean and
+Paper1/CorrectionDerivativeBounds.lean returned `No such file or directory`;
+no proof depended on these paths.
