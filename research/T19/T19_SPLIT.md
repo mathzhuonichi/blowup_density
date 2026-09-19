@@ -215,12 +215,17 @@ re-target every conclusion to the registered vocabulary.
   `f∈𝓕 ∧ maximalLifespanT ν a f ≤ ofReal T ∧ ‖f−g‖<r`, repackage the first two as membership in
   `extendedBreakdownSetT ν T` (`Spec.lean:160`, definitional). **S-M, codex-sol.** No new named input
   (consumes U7). Deps: U7. Blocked (via U7).
+  **Status: complete (lane 466).** `NSFormalization.Section3.T19.extendedProductDensity` repackages the
+  U7 witness into the extended breakdown set.
 
 - **U11 — `projectionOntoInitialData`.** Target (verbatim, `Spec.lean:492`): `∀ ν>0, ∀ T>0, Prod.fst ''
   (extendedBreakdownSetT ν T) = initialClassT`. Route: `Set.ext`; `⊆` by `rintro ⟨a,f⟩ ⟨ha,_,_⟩` (the
   `extendedBreakdownSetT` membership carries `a∈initialClassT`); `⊇` from U10/U7 — for `a∈𝓧` pick any
   `g∈forceClassT` (e.g. the zero force, `0∈forceClassT`) and any `r`, U10 gives `f` with `(a,f)∈𝔅`, so
   `a ∈ Prod.fst '' 𝔅`. **M, codex-sol.** No new named input. Deps: U7, U10. Blocked (via U7).
+
+  **Status: complete (lane 466).** `NSFormalization.Section3.T19.projectionOntoInitialData` proves both
+  inclusions, using the canonical zero force for fibre nonemptiness.
 
 - **U12 — `zeroInitialProjection`.** Target (verbatim, `Spec.lean:508`): `∀ ν>0, ∀ T>0, Prod.fst ''
   {p | p ∈ extendedBreakdownSetT ν T ∧ p.1 = fun _ => 0} = {(fun _ => 0 : SpatialField)}`. Route: `Set.ext`;
@@ -229,6 +234,9 @@ re-target every conclusion to the registered vocabulary.
   `Bindings/DensityFromInsertion.lean:57`) + U10/U7 at `a=0` gives `f` with `((fun _=>0), f)∈𝔅`. **M,
   codex-sol.** One named input: `0 ∈ initialClassT` (a T10/T11 data fact; discharge by the torus
   `zero_mem_initialClassT` analogue). Deps: U7, U10. Blocked (via U7).
+
+  **Status: complete (lane 466).** `NSFormalization.Section3.T19.zeroInitialProjection` proves the singleton
+  equality, with direct canonical class proofs for the zero initial datum and zero force.
 
 ## 2. Proof-dependency ledger (which registered declaration each unit consumes; from RECONCILIATION §4)
 
