@@ -29,3 +29,11 @@ in the target expression
   y ∈ {y | ¬‖z y‖ₑ < ENNReal.ofReal M}
 ```
 Fix: use `Measure.measure_pos_of_mem_nhds`; expose membership with `change`.
+
+## A3: conjunction projection after rewriting min
+```text
+Lifespan.lean:53:48: error: Tactic `assumption` failed
+ht : t ∈ Ioo 0 T
+⊢ t < T
+```
+Fix: `rw [min_eq_left hTSr.le]; exact ht.2`; `rwa` does not extract the conjunction.
