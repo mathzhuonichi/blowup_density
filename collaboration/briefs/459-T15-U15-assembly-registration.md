@@ -18,7 +18,7 @@ registration precedents (`Contracts/V1/TorusLocalTheory.lean` trio; lane 430's `
 
 ## Deliverables
 1. `formalization/NSFormalization/Section3/T15/Assembly.lean`: `def scalingAPI … : ScalingAPI …` assembling the 21 fields from the unit theorems for any raw packet data satisfying the raw clauses
-   (list the union of clauses; the `localization` field from the canonical T13 witness); a **canonical `PlacementData` constructor** `exists_placementData` for any raw packet (compact carrier `K`, force
+   (list the union of clauses; the `localization` field from the canonical T13 witness); a **canonical `PlacementData` constructor** `placementData` (data, not `∃`) for any raw packet **and any prescribed horizon `T` with `0 < T` (explicit parameter; `(placementData … T hT).T = T` by `rfl` — T19 must place at the horizon of a given reference)** (compact carrier `K`, force
    support projection compact): choose `Kstar ⊇ K ∪ pr_x (tsupport f)` compact, a chart ball with `closure ⊆ interior fundamentalCube` (centre the cube centre `(1/2,1/2,1/2)`, radius `< 1/2`), `x₀` in it,
    `ε₀` small enough for `eps_time`/`eps_space`; `theorem scalingStatement_holds` in the canonical shape; non-vacuity on the registered nonzero packet (`Bindings.packet` clauses restated in the probe).
 2. `verification/Contracts/V1/Scaling3.lean` (name avoids the Section 4 `Scaling.lean`): `PlacementData`, `ScalingAPI`, `scalingStatement` token-for-token from `research/T15/Spec.lean` over the registered
@@ -32,3 +32,6 @@ the axioms file; `git diff --stat verification/contracts.json`.
 
 ## Report
 Commit on your branch; end with four parts. Also write it to `research/T15/REPORT_459.md`.
+
+## Lead note (2026-09-19 13:50Z)
+U14 landed in two halves: `Section3/T15/Convergence.lean` (lane 458, `forceConvergence_one`, `q = 1`) and `Section3/T15/ConvergenceTwo.lean` (lane 462, `forceConvergence_two`, `q = 2`, plus the combined `forceConvergence` with the field type). Use the combined theorem for the `forceConvergence` field; read `research/T15/REPORT_{458,462}.md`. Note `alphaT 2 2 = −1/2` (the mixed `q = 2` order-0 quantity diverges; only negative orders converge).
