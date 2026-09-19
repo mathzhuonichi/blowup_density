@@ -151,6 +151,8 @@ No verified domain uniqueness supplier was found; the searches are recorded in �
 
 ### U8 — interior blow-up and lifespan exactly T (L, codex-astra)
 
+**Lane 486: four fields kernel checked over the authorized U3/U4 family hypotheses.** `InteriorBlowup.lean` proves witnesses in the prescribed ball and Ω, pointwise blow-up and the local-continuity essential-supremum limsup. `Lifespan.lean` proves lifespan exactly T and maximality by compact closure bounds and U7; box specializations discharge IBP, while the smooth branch retains the explicit G1 `IBP Ω` premise. No new solution/placement/insertion record or U9 assembly is asserted. Probe and complete 15-declaration three-axiom audit pass; see `REPORT_486.md`.
+
 API targets **4 fields**: `lifespan:847`, `maximal:857`, `blowup:863`, `blowup_limsup:868`. Dependencies: U2 cancellation, U3 solution, U4, U7. `solution:840` belongs to U3.
 
 First strengthen the internal blow-up witness to include `x ∈ Ω` (indeed in the packet ball): I03 `scaledBlowup:239` and support/cancellation place every positive-level witness there; u equals the packet on its support. This implies the API's whole-space `SpeedUnboundedAt`, but the latter alone is insufficient for domain lifespan. For essential-supremum blow-up, continuity on a neighborhood of the witness inside Ω yields a positive-measure ball with large speed. `S4/R42/BlowupEssSup.lean:100` assumes global slice continuity, which the domain reference does not have outside Ω; adapt its `:63` local positive-measure argument, do not apply it blindly.

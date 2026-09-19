@@ -1,7 +1,8 @@
 # Lane 486 attempts
 
-Prerequisite closure build passed (10087 jobs). No failed proof attempts yet.
-Skeleton checkpoint only; no theorem completion claimed.
+Prerequisite closure build passed (10087 jobs). The initial skeleton was
+committed as cda74e54 before any completion claim. All four field theorems
+subsequently closed; the failed attempts and their fixes follow.
 
 ## A1: slice support inference
 The first interior proof inferred spacetime support from an unannotated function.
