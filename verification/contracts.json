@@ -552,6 +552,28 @@
       "enabled": true
     },
     {
+      "id": "T03.non_density",
+      "parent_task": "T03",
+      "version": 1,
+      "specification": "verification/Contracts/V1/TorusNonDensity.lean",
+      "binding_module": "Bindings.TorusNonDensity",
+      "test_module": "Tests.TorusNonDensity",
+      "declaration": "BlowupDensity.Tests.checkedTorusNonDensity",
+      "scope": "Corollary cor:nondensity (03-torus.tex:506-520) on the unit three-torus at time exponent q = 1: for every positive viscosity, every real s >= 1/2 and every positive horizon T, the zero-datum breakdown set breakdownSetTZero nu T is not RelativelyDenseT 1 s in forceClassT. The complete Prop-valued nine-field NonDensityAPI also records a positive critical constant, registered small-force global regularity, membership of zero in the explicit radius-c*nu ball, relative openness, slice and time-integrated Sobolev monotonicity, and disjointness at and above the critical order. The critical-to-non-density arrow is proved for every registered T20 package; the closed record has c = criticalSmallnessH1, and witness-independent existence is exposed only as exists c, Nonempty (NonDensityAPI c), not for every c. The lifespan/breakdown-set seam is transported through Bindings.TorusLocalTheory. No subcritical density, q = 2 branch, nonzero-initial-data assertion, or new critical-regularity constant is asserted.",
+      "enabled": true
+    },
+    {
+      "id": "T03.main",
+      "parent_task": "T03",
+      "version": 1,
+      "specification": "verification/Contracts/V1/TorusMain.lean",
+      "binding_module": "Bindings.TorusMain",
+      "test_module": "Tests.TorusMain",
+      "declaration": "BlowupDensity.Tests.checkedTorusMain",
+      "scope": "Theorem thm:main (03-torus.tex:6-16, proof :522-524) on the unit three-torus at time exponent q = 1. Clause (i): for every fixed a in initialClassT, positive viscosity and horizon, and every real s < 1/2, breakdownSetT nu a T is relatively dense in forceClassT. Clause (ii): at the zero datum, RelativelyDenseT 1 s forceClassT (breakdownSetTZero nu T) holds if and only if s < 1/2, for every real s; the complete five-field Prop record also retains the explicit non-density field for s >= 1/2, zero-datum admissibility, and criticalOrder 1 = 1/2. The registered density/non-density and T19/T20 input arrows are inhabited, and the closed record consumes exactly T03.density plus T03.critical_regularity through T03.non_density. No q = 2 branch, regular-reference rider, converse for a nonzero initial datum, classification at or above critical order for nonzero data, or formal proposition for the paper's scope remark at :525 is asserted.",
+      "enabled": true
+    },
+    {
       "id": "T02.scaling",
       "parent_task": "T02",
       "version": 1,
