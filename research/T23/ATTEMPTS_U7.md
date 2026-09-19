@@ -915,3 +915,13 @@ A future proof of this residual and a case split give unrestricted U7.
 No unrestricted `noSlip_uniqueness` declaration is claimed. See SPEC_ISSUES G1.
 The canonical Spec block has moved unchanged to `DomainSolution.lean` to avoid
 an import cycle; importing `NoSlipUniqueness` still exposes all public results.
+
+## Continuation verification
+
+Final dependency build: exit 0 (8820 jobs). Direct Lean checks on all five
+entry/analytic modules and all three probes: exit 0, zero output. The 40 printed
+theorem axiom lists were mechanically checked to contain exactly the standard
+three. `make check`, `lake test`, and `make test-mutations` pass. The canonical
+Spec vocabulary/record passed byte comparison after its move to DomainSolution.
+The final source dependency traversal has no forbidden BoundaryCorollary path.
+See REPORT_478b for the four-part handoff and SPEC_ISSUES G1 for the sole residual.
