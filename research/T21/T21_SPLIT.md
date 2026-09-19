@@ -167,6 +167,8 @@ Route. Reuse `Section3/T19/Bookkeeping.lean:55` verbatim through the canonical/r
 
 **Size, model:** S, codex-sol. **Deps:** proved T19 U1.
 
+**Status (lane 474, 2026-09-19): complete.** `Section3/T21/Main.lean:thresholdValue` reuses the canonical T19 theorem with the verbatim field type.
+
 **N12 — zero initial class** (transport; lane Z). New module: `Section3/T21/Zero.lean`.
 
 Target (verbatim, `Spec.lean:496`):
@@ -177,6 +179,8 @@ Target (verbatim, `Spec.lean:496`):
 Route. Already proved as `Section3/T20/CriticalEnergy.lean:402-407` (`zero_mem_initialClassT`), contrary to the older reconciliation N12 status. Transport with `Bindings/TorusLocalTheory.lean:61` (`initialClassT_eq`). If that import makes a small helper unnecessarily heavy, reproduce the six-line constant/periodic/divergence proof against `Contracts/V1/TorusLocalTheory.lean:97`; do not move or edit the existing module in this planning lane.
 
 **Size, model:** S, codex-sol. **Deps:** proved T20 zero datum lemma or the registered definition; no T20 U13.
+
+**Status (lane 474 consumer, 2026-09-19): complete.** `Section3/T21/Main.lean:zeroInitialClass` reuses `T20.zero_mem_initialClassT` directly for N14; lane 472 remains the canonical N12 supplier for final non-density assembly.
 
 **N13 — fixed initial density** (transport; lane M). New module: `verification/Bindings/TorusMain.lean` (registered assembly destination).
 
@@ -193,6 +197,8 @@ Route. Take the threaded density record field verbatim: `research/T19/Spec.lean:
 
 **Size, model:** S, codex-sol. **Deps:** threaded PeriodicDensityAPI.fixedInitialDensity; closed supplier waits for T19 density/registration.
 
+**Status (lane 474, 2026-09-19): complete.** `Section3/T21/Main.lean:fixedInitialDensity` takes the canonical `PeriodicDensityAPI` and preserves the `a`-first binder order; the probe instantiates it with `periodicDensityAPI`.
+
 **N14 — zero-datum density iff subcritical** (bookkeeping; lane M). New module: `verification/Bindings/TorusMain.lean`.
 
 Target (verbatim, `Spec.lean:536`):
@@ -204,6 +210,8 @@ Target (verbatim, `Spec.lean:536`):
 Route. Backward: specialize N13 at zero using N12 and unfold `breakdownSetTZero` (`Spec.lean:203`). Forward: if s is not < 1/2, `le_of_not_lt` feeds N10, contradicting density. `Paper1/PeriodicMain.lean:44-53` is the exact order argument; R41 `NonDensityL1.lean:105` supplies its negative half, and `Contracts/V1/MainThresholds.lean:40` records the whole-space iff shape. No nonzero-datum converse is claimed.
 
 **Size, model:** S, codex-sol. **Deps:** N12,N13,N10; may prove now against threaded density and NonDensityAPI.
+
+**Status (lane 474, 2026-09-19): complete conditionally.** `Section3/T21/Main.lean:zeroInitialDensityIff` uses the proved canonical zero-datum lemma and threads the exact `NonDensityAPI.nonDensity` field type while lane 472 builds the record.
 
 **N15 — explicit zero-datum non-density** (bookkeeping; lane M). New module: `verification/Bindings/TorusMain.lean`.
 
@@ -217,6 +225,8 @@ Target (verbatim, `Spec.lean:557`):
 Route. Apply `NonDensityAPI.nonDensity` (`Spec.lean:430`) with ν,s,T reordered to ν,T,s. This is the negative assertion named by paper `03-torus.tex:523`; keep it even though N14 implies it. R41 `NonDensityL1.lean:105-111` supplies the parallel negative result.
 
 **Size, model:** S, codex-sol. **Deps:** N10 or threaded NonDensityAPI.nonDensity.
+
+**Status (lane 474, 2026-09-19): complete conditionally.** `Section3/T21/Main.lean:zeroInitialNonDensity` is the exact binder reordering of the threaded `nonDensity` field; `mainTheoremAPI` assembles all five fields from the canonical density package and that exact hypothesis.
 
 **A — assembly + Nonempty statements + contract/bindings/tests** (assembly/registration; lane A). New modules: `Section3/T21/Assembly.lean` for canonical packaging as needed; proposed `Contracts/V1/TorusNonDensity.lean`, `Contracts/V1/TorusMain.lean`, corresponding `Bindings/` and new `Tests/` modules. Final names/registry IDs are selected by the registration owner.
 
