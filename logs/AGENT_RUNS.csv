@@ -1493,3 +1493,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-19,T20,441-T20-U12-global-regularity,gpt-5.6-sol,proof-worker,"Section3/T20/GlobalRegularity.lean; codex review ACCEPT",merged,407
 2026-09-19,T20,452-T20-U5-transport-commutes-lambda,gpt-5.6-sol,proof-worker,"Section3/T20/TransportLambda.lean: constantTransportCommutesLambda verbatim; awaiting codex review",done,-
 2026-09-19,T15,446-T15-U8-periodized-pde,gpt-6-astra,proof-worker,"Section3/T15/Equation.lean; codex review ACCEPT-WITH-NOTES",merged,408
+2026-09-19,T18,443-T18-U9-U10-energy-mixed-rates,gpt-5.6-sol,proof-worker,"Section3/T18/EnergyRate.lean + MixedRate.lean: U10 four fields verbatim; U9 separate-constants form (InsertionData lacks sign clauses) -> fix with explicit premises",partial,-

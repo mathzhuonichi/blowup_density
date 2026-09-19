@@ -208,7 +208,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 440-MAINT-section3-build-f | 已合入 #400：116 模块全编译 0 错误、四门禁、46 合同、148 探针、895 公理组全标准（logs/SECTION3_BUILD_20260918f.md）；1 个 defProp warning（T22/Assembly，卫生项） | 09-19 1216Z | #400 | — | MAINT：第六次 Section 3 全量编译检查（#354–#396 之后，46 合同；四门禁 + 公理扫描 → logs/SECTION3_BUILD_20260918f.md） |
 | 441-T20-U12-global-regularity | 已合入 #407：T20 U12 globalRegularity（U11 + T11 lifespanInfiniteOfLocallyFinite），审稿 ACCEPT | 09-19 1248Z | #407 | — | T20 U12：globalRegularity（U11 有限 H² 预算 + T11 lifespanInfiniteOfLocallyFinite） |
 | 442-T15-U6-U7-blowup-force-mem | 已合入 #405：T15 U6 unboundedSpeed + U7 force_mem，审稿 ACCEPT | 09-19 1241Z | #405 | — | T15 U6 unboundedSpeed + U7 force_mem（单拷贝 + 放缩 blow-up 见证 / periodize 光滑周期 + 正时间紧支） |
-| 443-T18-U9-U10-energy-mixed-rates | worktree 安装中 → codex sol（+15 分钟） | 09-19 1219Z | — | — | T18 U9 energyRate（eq:Eclose）+ U10 混合范数接近（eq:Fclose），全部消费线程化记录字段 |
+| 443-T18-U9-U10-energy-mixed-rates | codex sol 完成：U10 四字段逐字；U9 分常数版 + Spec 探针闭合（InsertionData 缺 0≤M、0≤D）→ lead 裁定显式非负前提，fix 排队后审稿 | 09-19 1252Z | — | — | T18 U9 energyRate（eq:Eclose）+ U10 混合范数接近（eq:Fclose），全部消费线程化记录字段 |
 | 444-T17-U10-mixed-bound | 已合入 #406：T17 U10 混合范数界 + 诚实 L^p 切片（含 ∞ 端点），审稿 ACCEPT；T17 U1–U11 全证 | 09-19 1244Z | #406 | — | T17 U10：修正力混合范数界 + 诚实 L^p 切片（439 的 mixedLebesgueENormT_eq + I02 界） |
 | 445-T18-U11-sobolev-rate | 排队（安装后、并发 <6 时启动）→ codex sol | 09-19 1224Z | — | — | T18 U11：eq:Hsclose 力差 Sobolev 接近六字段（记录字段 + 范数在 s 上单调 + 三角不等式） |
 | 446-T15-U8-periodized-pde | 已合入 #408：T15 U8 周期化 PDE 传输（动量/无散/零初值），审稿 ACCEPT-WITH-NOTES（空白已清） | 09-19 1250Z | #408 | — | T15 U8：周期化场满足 NS 动量方程 / 无散 / 零初值（periodize 与各算子交换，单拷贝局部化） |
