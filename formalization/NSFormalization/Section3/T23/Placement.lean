@@ -1,4 +1,4 @@
-import NSFormalization.Section3.T15.Scaling
+import NSFormalization.Section3.T15.Bridges
 
 /-!
 # T23 U1: cube-free placement in a prescribed interior ball
