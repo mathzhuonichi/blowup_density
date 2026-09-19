@@ -33,6 +33,7 @@ packet, zero reference, T=1. See `research/T23/REPORT_487b.md` and
 
 ## 日志（最新在前）
 - **2026-09-19（lane 453 continuation）**：T17 U12 完成；最终 G4（含 raw packet support + ball-in-chart）装配 45 字段并注册 `T02.correction`，47 合同；cube-centred 非零参考场完整见证，反例已移至 research 独立 probe。报告：`research/T17/REPORT_453.md` Continuation。
+- **2026-09-19 18:12Z**：合入 #451（T23 U9：48 字段装配 + `T04.boundary_insertion`，**第 55 个合同，T23 完成 → Section 3 全部节点 T10–T24 注册**）。开 488 全量编译检查 i（sol）。剩余：owner 决策（`logs/SECTION3_OWNER_DECISIONS_20260919.md`）、T22 defProp 小 MAINT、PR #270 改 base。
 - **2026-09-19 18:05Z**：487 第一阶段部分（G2：U2b/U3 势恒等式接缝，裁定窗口化 U3 假设），cont_487 闭合接缝并装配 48 字段、注册 `T04.boundary_insertion`（分支上第 55 个合同，Section 3 全部节点注册待审）。owner 决策汇总：`logs/SECTION3_OWNER_DECISIONS_20260919.md`。审过合入后开 488 全量编译 i。
 - **2026-09-19 17:33Z**：合入 #445（U5）、#446（U2b）、#447（U3）、#448（U8）、#449（U6）、#450（U4）：**T23 U1–U8 全证**（U7 盒情形，光滑域条件于 `IBP Ω`）。487（U9 装配 + `T04.boundary_insertion`，astra）在跑；合入后即 Section 3 全部节点注册，再跑全量编译 i。
 - **2026-09-19 16:58Z**：合入 #441（T23 U2 阶段 1 部分，审稿 REJECT 完整性、lead 裁定合入）、#442（T23 U7 盒情形）、#443（全量编译 h：167 模块 rc 0，54 合同）。480（T23 U-CAN）审中；基于其分支开 T23 六条并行 lane：481 U2b、482 U3、485 U6、486 U8（astra），483 U4、484 U5（sol）；跨 lane 依赖一律穿线假设，U9 装配放电。
