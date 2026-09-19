@@ -377,4 +377,11 @@ theorem correctionForce_eq_source (ν : ℝ) (v : SpaceTimeField) (D : CutoffDat
   simp only [correctionForce, NSFormalization.Source.correctionForce]
   abel
 
+/-- The force never sees arbitrary exterior values of the reference: outside
+correction support, all correction jets and reference-dependent terms vanish. -/
+theorem force_support (ν : ℝ) (v : SpaceTimeField) (D : CutoffData) (ε : ℝ) :
+    tsupport (correctionForce ν v D ε) ⊆ tsupport (D.correction ε) := by
+  rw [correctionForce_eq_source]
+  exact NSFormalization.Source.LocalizedInsertion.correctionForce_support ν v (D.correction ε)
+
 end NSFormalization.Section3.T23
