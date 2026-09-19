@@ -127,3 +127,102 @@ of type
 does not contain the expected result type on either the left or the right hand side
 ```
 Repair: expose the copied threshold with `change`, then rewrite by `hcut`.
+
+## Extended literal probe: scope and omitted section hypotheses
+```text
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1172:0: error: Unexpected name `T23U2bPriorChecks` after `end`: The current section is unnamed
+
+Hint: Delete the name `T23U2bPriorChecks` to end the current unnamed scope; outer named scopes can then be closed using additional `end` command(s):
+  end ̵T̵2̵3̵U̵2̵b̵P̵r̵i̵o̵r̵C̵h̵e̵c̵k̵s̵
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1260:29: error: Ambiguous term
+  VelocityField
+Possible interpretations:
+  BlowupDensity.Contracts.V1.VelocityField : Type
+  
+  ProblemStatement.VelocityField : Type
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1260:50: error: Ambiguous term
+  Space
+Possible interpretations:
+  BlowupDensity.Contracts.V1.Space : Type
+  
+  ProblemStatement.Space : Type
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1285:58: error: Ambiguous term
+  Space
+Possible interpretations:
+  BlowupDensity.Contracts.V1.Space : Type
+  
+  ProblemStatement.Space : Type
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1342:29: error: Ambiguous term
+  VelocityField
+Possible interpretations:
+  BlowupDensity.Contracts.V1.VelocityField : Type
+  
+  ProblemStatement.VelocityField : Type
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1342:50: error: Ambiguous term
+  Space
+Possible interpretations:
+  BlowupDensity.Contracts.V1.Space : Type
+  
+  ProblemStatement.Space : Type
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1370:33: error: Ambiguous term
+  Space
+Possible interpretations:
+  BlowupDensity.Contracts.V1.Space : Type
+  
+  ProblemStatement.Space : Type
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1370:69: error: Ambiguous term
+  VelocityField
+Possible interpretations:
+  BlowupDensity.Contracts.V1.VelocityField : Type
+  
+  ProblemStatement.VelocityField : Type
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1371:63: error: Ambiguous term
+  Space
+Possible interpretations:
+  BlowupDensity.Contracts.V1.Space : Type
+  
+  ProblemStatement.Space : Type
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1379:33: error: unsolved goals
+ν T δ r : ℝ
+P : PacketAPI ν
+th : ThresholdAPI
+Ω : Set sorry
+a : Data.SpatialField
+g : sorry
+reference : ClassicalSolutionOmega ν sorry a sorry (T + δ)
+x₀ : sorry
+hT : 0 < T
+hδ : 0 < δ
+hr : 0 < r
+hball : sorry ⊆ Ω
+⊢ ∃ C A D,
+    A.correction = C ∧
+      C.T = T ∧
+        C.δ = δ ∧
+          sorry ∧
+            0 < D.ε₀ ∧
+              D.ε₀ ≤ A.ε₀ ∧
+                ∀ ε ∈ Ioc 0 D.ε₀,
+                  D.correction ε = C.correction ε ∧ correctionForce ν reference.velocity D ε = C.forceCorrection ε
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1406:32: error(lean.unknownIdentifier): Unknown identifier `hK`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1406:35: error(lean.unknownIdentifier): Unknown identifier `hv`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1406:38: error(lean.unknownIdentifier): Unknown identifier `hd`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1406:41: error(lean.unknownIdentifier): Unknown identifier `hu`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1406:44: error(lean.unknownIdentifier): Unknown identifier `he`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1414:32: error(lean.unknownIdentifier): Unknown identifier `hK`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1414:35: error(lean.unknownIdentifier): Unknown identifier `hv`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1414:38: error(lean.unknownIdentifier): Unknown identifier `hd`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1414:41: error(lean.unknownIdentifier): Unknown identifier `hu`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1414:44: error(lean.unknownIdentifier): Unknown identifier `he`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1423:46: error(lean.unknownIdentifier): Unknown identifier `hK`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1423:49: error(lean.unknownIdentifier): Unknown identifier `hv`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1423:52: error(lean.unknownIdentifier): Unknown identifier `hd`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1423:55: error(lean.unknownIdentifier): Unknown identifier `hu`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1423:58: error(lean.unknownIdentifier): Unknown identifier `he`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1430:46: error(lean.unknownIdentifier): Unknown identifier `hK`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1430:49: error(lean.unknownIdentifier): Unknown identifier `hv`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1430:52: error(lean.unknownIdentifier): Unknown identifier `hd`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1430:55: error(lean.unknownIdentifier): Unknown identifier `hu`
+../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1430:58: error(lean.unknownIdentifier): Unknown identifier `he`
+```
+Repair: close the old probe’s anonymous noncomputable section before its wrapper namespace; explicitly include proof-side section hypotheses in the four field consumers.
