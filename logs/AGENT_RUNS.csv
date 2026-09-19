@@ -1498,3 +1498,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-19,T20,452-T20-U5-transport-commutes-lambda,gpt-5.6-sol,proof-worker,"Section3/T20/TransportLambda.lean; codex review ACCEPT",merged,409
 2026-09-19,T15,447-T15-U10-pressure,gpt-5.6-sol,proof-worker,"Section3/T15/Pressure.lean; codex review ACCEPT",merged,410
 2026-09-19,T18,435-T18-U7-diff-support,gpt-5.6-sol,proof-worker,"Section3/T18/Support.lean: U7 four fields; codex review ACCEPT-WITH-NOTES",merged,411
+2026-09-19,T15,450-T15-U9-sobolev-path,gpt-6-astra,proof-worker,"Section3/T15/SobolevPath.lean: periodized_sobolev (all orders) + periodized_pressure_gradient; awaiting codex review",done,-
