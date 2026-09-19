@@ -1505,3 +1505,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-19,T15,456-T15-U12-U13-force-sobolev,gpt-6-astra,proof-worker,"Section3/T15/SobolevBound.lean: sobolevConst, forceSobolev_memLp, packetSobolevBound on [0,1]; awaiting codex review",done,-
 2026-09-19,T18,445-T18-U11-sobolev-rate,gpt-5.6-sol,proof-worker,"Section3/T18/SobolevRate.lean: six U11 fields incl. negative-order tail; awaiting codex review",done,-
 2026-09-19,T17,453-T17-U12-assembly-registration,gpt-6-astra,contract-registration,"Section3/T17/Assembly.lean + Contracts/Bindings/Tests Correction3 + registry T02.correction (47); review REJECT on stale brief text, lead ruling",merged,414
+2026-09-19,T20,451-T20-U13-assembly-registration,gpt-5.6-sol,contract-registration,"Section3/T20/Assembly.lean + Contracts/Bindings/Tests CriticalRegularityT + registry T03.critical_regularity (48); review ACCEPT (2cν mutation fails, exact+nonvacuity probe passes)",merged,415
