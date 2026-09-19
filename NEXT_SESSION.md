@@ -15,6 +15,7 @@
 - 第 4 节全量编译通过（2026-09-17 21:30Z，Opus 子代理，冻结分支）：206 模块真实重新 elaborate，232 秒，0 错误，三门禁全过，37 合同审计齐全；报告 `logs/SECTION4_FULL_BUILD_20260917.md` 已并入 PR #259（评论已发）。
 
 ## 日志（最新在前）
+- **2026-09-19 12:33Z**：用户新规——不再启动 Opus 子代理，全部用 tmux codex（astra 强推理/贵 → 硬分析、传输核心、装配、规划；sol 便宜 → 簿记、注册、修复、审稿），lead 统一调度（`tmp/launch_when_free.sh` 并发 <6 才启动）。合入 #400（440 全量检查 f：116 模块 0 错误、46 合同）、#401（T20 U11）、#402（T15 U4+U5）、#403（T18 U8）、#404（T17 U11）。在跑：441 T20 U12、443 T18 U9+U10、446 T15 U8、447 T15 U10、448 T21 拆分、cont_435 T18 U7；已完成待审：442 T15 U6+U7、444 T17 U10；排队：445、449、450；简报就绪：451 T20 U13 注册。
 - **2026-09-18 19:17Z**：Claude 路由 429（"reserving weekly capacity"）于 19:13Z 起拒绝 Opus 子代理（436/437/438/439 全部中断，续做亦被拒）；已设 19:45Z 一次性 cron 统一重试；codex 侧（rev-434、440 全量检查、rev-431/435 退避）继续。合入 #396（T24 conservative 注册，46 合同）、#397（T18 U2–U4）。
 - **2026-09-18 15:09Z**：合入 #364（T15 U2）、#365（T24 Ua5）、#366（T17 U-CAN + canonical force_profile_identity；union 合并误伤 `ForceProfile.lean` → 修复 lane 412）、#367（T24 Ua2）、#368（T12 U4b 逐字 velocityCriticalL3）、#369（T24 Ua3 + 非零见证）。Opus 交付待审：400（T12 U5，T12 九字段齐）、405（T12 U6）、406（T22 `cutoffMultiplier` 逐字闭合）、407（T24 Ua6）、411（T21 草案 B）；codex 14:50Z 起 sol 429 / astra at capacity 交替，408 交付、409 未交付（改 Opus）、410 草案 A 42 万 token 后 429（续做）、412 改 Opus；审稿全部在退避重试。T13 SPLIT 里的 `domainL2Sq` 措辞已由 406 更正。
 
@@ -39,13 +40,14 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-19 12:20Z 快照）
+## 当前在跑 / 待启动（2026-09-19 12:59Z 快照）
 
-- **用户新规（09-19）**：**不再启动 Opus 子代理**；所有工作 lane 与审稿一律 codex（tmux，`tmp/retry_lane.sh` / `tmp/retry_review.sh`，sol xhigh 为主、astra low 只做构建检查），lead 只调度/合入/记账。硬分析单元给 sol 写更细的路线；失败两次则按精确残差重新拆分，不升级到 Opus。
-- **09-18 晚 Opus 交付（未审）**：436 T18 U8 寿命（只用 T11 `velocity_unique`）、437 T20 U11 continuationBound（Ccriterion = hTwoConst²·CH1）、438 T17 U11 Sobolev（经 Paper1 周期端点率，非 T13 localization）、439 T15 U4+U5 → 09-19 12:15Z 已排 codex 审稿。440 全量检查 f 已合入 #400（116 模块 0 错误、46 合同、148 探针）。
-- **codex 在跑/排队**：rev-436/437/438/439；cont_435（T18 U7 续做，astra 骨架不合格）；441 T20 U12、442 T15 U6+U7、443 T18 U9+U10、444 T17 U10 安装后错峰启动。
-- **下一批待开（codex）**：T20 U13 装配+注册（等 U12）；T17 U12 装配+注册（等 U10/U11 合入；G1 hv 由假设或截断处理）；T18 U11 Sobolev 接近、U12 装配+注册（等 U7–U11）；T15 U8–U15；T19 U7+（等 T18 U12）；T21 N0–N15 拆分；T23；T24b（等 T15）。
-- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；每次合入更新追踪 PR #270。
+- **用户新规（09-19）**：**不再启动 Opus 子代理**；全部 codex（astra 强推理/贵 → 硬分析、传输核心、装配、规划；sol 便宜 → 簿记、注册、修复、审稿），lead 调度（`tmp/launch_when_free.sh`，并发 <6–8 才启动）。
+- **今晨合入 #400–#411**：440 全量检查 f；T20 U11 #401、U12 #407、U5 #409（**T20 23 字段全证**）；T15 U4+U5 #402、U6+U7 #405、U8 #408、U10 #410；T18 U8 #403、U7 #411；T17 U11 #404、U10 #406（**T17 U1–U11 全证**）。合同仍 46。
+- **裁定记录**：G4（`correctionStatement` 需 T16 前提块 + 0<ν + 全局光滑 + `ball_in_chart` + 原始支撑子句，`SPEC_ISSUES.md`）；`InsertionData` 缺原始 packet 子句 → 显式前提 + 探针从 `PacketImportAPI` 放电（435/443）。
+- **codex 在跑**：448 T21 拆分（astra）、449 T23 拆分（astra）、450 T15 U9（astra）、451 T20 U13 装配+注册（sol）、cont_453 T17 U12 装配+注册（astra）、fix_443 T18 U9 前提修复（sol）；队列：445 T18 U11；简报就绪：454 T15 U11（等 450）。
+- **下一批**：T18 U12 装配+注册（等 443/445）；T15 U12–U15（U13/U14 部分等 T13 localization——已注册，可开）；T21/T23 拆分完成后开对应 lane；T19 U7+（等 T18 U12）；T24b（等 T15 U15）。
+- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码（记录类微改除外）；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
 
