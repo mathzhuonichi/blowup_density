@@ -22,4 +22,10 @@ theorem ClassicalSolutionOmega.speed_bound {ν S T : ℝ} {Ω : Set Space}
     (hs.continuousOn.mono hsub')
   exact ⟨C, fun t ht x hx => hC (t, x) ⟨ht, hx⟩⟩
 
+/-- Every actual solution horizon contributes to the defining supremum. -/
+theorem domainLifespan_ge_horizon {ν T : ℝ} {Ω : Set Space}
+    {a : SpatialField} {g : SpaceTimeField} (w : ClassicalSolutionOmega ν Ω a g T) :
+    ENNReal.ofReal T ≤ domainMaximalLifespan ν Ω a g := by
+  exact le_iSup_of_le T (le_iSup_of_le (Nonempty.intro w) le_rfl)
+
 end NSFormalization.Section3.T23
