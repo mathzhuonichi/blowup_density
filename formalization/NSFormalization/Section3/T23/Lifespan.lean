@@ -111,5 +111,21 @@ theorem lifespan : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
     interior place D reference hspeed hscale hball hformula hsupport hcancel ε hε M hM d hd
   exact ⟨t, x, ht, hn, hx, by rwa [hw]⟩
 
+/-- Every shorter positive horizon is realized by the same total fields. -/
+theorem maximal : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+    IsMaximalDomainSolution ν Ω a (force ε) (velocity ε) (pressure ε) := by
+  intro ε hε
+  have hL := lifespan place D reference hspeed hscale hball hformula hsupport hcancel
+    hsolution hν ho hb hI ε hε
+  refine ⟨?_, ?_⟩
+  · rw [hL]
+    exact ENNReal.ofReal_pos.mpr place.time_pos
+  · intro S hS hSL
+    rw [hL] at hSL
+    have hST : S ≤ place.T :=
+      ((ENNReal.ofReal_lt_ofReal_iff_of_nonneg hS.le).mp hSL).le
+    obtain ⟨w, hw, hp⟩ := hsolution ε hε
+    exact ⟨w.restrictHorizon hS hST, hw, hp⟩
+
 end U8
 end NSFormalization.Section3.T23
