@@ -1351,20 +1351,63 @@ theorem exists_matching_registered_cutoff {ν T δ r : ℝ} (P : PacketAPI ν)
       D.θ = C.θ ∧ D.η = C.η ∧ D.plateau = C.plateau ∧
       D.θRadius = C.θRadius ∧ D.ε₀ = C.ε₀ ∧ D.ε₀ ≤ A.ε₀ ∧ 0 < D.ε₀ ∧
       D.potential = C.potential ∧ D.correction = C.correction ∧
-      ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
-        NSFormalization.Section3.T23.correctionForce ν v D ε = C.forceCorrection ε := by
-  obtain ⟨C, A, L, hAC, hT', hδ', hx, hr', _, hp, he, hcut, heq, _, _, _⟩ :=
+      (∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+        NSFormalization.Section3.T23.correctionForce ν v D ε = C.forceCorrection ε) ∧
+      (∃ B : ℝ, 0 ≤ B ∧ ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+        Data.energyENorm T (D.correction ε) ≤ ENNReal.ofReal (B * ε ^ ((3 : ℝ) / 2))) ∧
+      (∀ (p q : ℝ≥0∞) [Fact (1 ≤ p)], ∃ B : ℝ, 0 < B ∧
+        ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+          Data.mixedLebesgueENorm q p (NSFormalization.Section3.T23.correctionForce ν v D ε) ≤
+            ENNReal.ofReal (B * ε ^ (alpha p q + 1))) ∧
+      (∀ q : ℝ≥0∞, 1 ≤ q → ∀ s : ℝ, 0 ≤ s → s ≤ 1 →
+        ∃ B : ℝ, 0 < B ∧ ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+          Data.forceSobolevENorm q s (NSFormalization.Section3.T23.correctionForce ν v D ε) ≤
+            ENNReal.ofReal (B *
+              (ε ^ (2 / q.toReal - 1 / 2) + ε ^ (2 / q.toReal - 1 / 2 - s)))) ∧
+      (∀ ε ∈ Ioc (0 : ℝ) D.ε₀, ∀ t ∈ Ico (0 : ℝ) T, ∀ x : Space,
+        spatialDerivative (scaledPacket P.velocity x₀ T ε) t x
+          (v (t, x) + D.correction ε (t, x)) = 0 ∧
+        spatialDerivative (fun z => v z + D.correction ε z) t x
+          (scaledPacket P.velocity x₀ T ε (t, x)) = 0) := by
+  obtain ⟨C, A, L, hAC, hT', hδ', hx, hr', _, _, he, hcut, heq, _, hm, hE, hM, hS, hX⟩ :=
     exists_matching_supplier P th v x₀ hT hδ hr hv hdiv
   let D := (correctionTo C).supplierCutoff
+  have hF : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+      NSFormalization.Section3.T23.correctionForce ν v D ε = C.forceCorrection ε := by
+    intro ε hε
+    apply (correctionTo C).supplierCutoff_force ?_ hε
+    simpa only [correctionTo, hT', hδ', hx, hr'] using heq
+  have hεL {ε : ℝ} (hε : ε ∈ Ioc (0 : ℝ) D.ε₀) : ε ∈ Ioc (0 : ℝ) L.ε₀ := by
+    rw [hcut]
+    exact hε
   refine ⟨C, A, D, hAC, hT', hδ', hx, hr', (fun z hz => (heq hz).symm),
-    rfl, rfl, rfl, rfl, rfl, ?_, ?_, rfl, rfl, ?_⟩
+    rfl, rfl, rfl, rfl, rfl, ?_, ?_, rfl, rfl, hF, ?_, ?_, ?_, ?_⟩
   · change C.ε₀ ≤ A.ε₀
     rw [← hcut]
     exact he
   · exact C.eps_pos
-  · intro ε hε
-    apply (correctionTo C).supplierCutoff_force ?_ hε
-    simpa only [correctionTo, hT', hδ', hx, hr'] using heq
+  · obtain ⟨B, hB, hb⟩ := hE
+    refine ⟨B, hB, ?_⟩
+    intro ε hε
+    change Data.energyENorm T (C.correction ε) ≤ _
+    rw [← (hm ε (hεL hε)).1]
+    exact hb ε (hεL hε)
+  · intro p q _
+    obtain ⟨B, hB, hb⟩ := hM p q
+    refine ⟨B, hB, ?_⟩
+    intro ε hε
+    rw [hF ε hε, ← (hm ε (hεL hε)).2]
+    exact hb ε (hεL hε)
+  · intro q hq s hs hs1
+    obtain ⟨B, hB, hb⟩ := hS q hq s hs hs1
+    refine ⟨B, hB, ?_⟩
+    intro ε hε
+    rw [hF ε hε, ← (hm ε (hεL hε)).2]
+    exact hb ε (hεL hε)
+  · intro ε hε t ht x
+    have h := hX ε (hεL hε) t ht x
+    rw [(hm ε (hεL hε)).1] at h
+    exact h
 
 /-- The exact residual conjunction instantiated with an actual domain reference. -/
 theorem exists_matching_supplier_on_domain {ν T δ r : ℝ} (P : PacketAPI ν)
@@ -1432,3 +1475,35 @@ theorem spec_packet_advects_background :
         (BlowupDensity.Contracts.V1.scaledPacket u C.x₀ C.T ε (t, x)) = 0 := by
   exact canonical_packet_advects_background C hK hv hd hu he
 end T23U2b.FieldChecks
+
+/-- info: 'T23U2b.correctionTo' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms T23U2b.correctionTo
+
+/-- info: 'T23U2b.exists_matching_supplier' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms T23U2b.exists_matching_supplier
+
+/-- info: 'T23U2b.exists_matching_registered_cutoff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms T23U2b.exists_matching_registered_cutoff
+
+/-- info: 'T23U2b.exists_matching_supplier_on_domain' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms T23U2b.exists_matching_supplier_on_domain
+
+/-- info: 'T23U2b.FieldChecks.canonical_background_advects_packet' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms T23U2b.FieldChecks.canonical_background_advects_packet
+
+/-- info: 'T23U2b.FieldChecks.canonical_packet_advects_background' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms T23U2b.FieldChecks.canonical_packet_advects_background
+
+/-- info: 'T23U2b.FieldChecks.spec_background_advects_packet' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms T23U2b.FieldChecks.spec_background_advects_packet
+
+/-- info: 'T23U2b.FieldChecks.spec_packet_advects_background' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms T23U2b.FieldChecks.spec_packet_advects_background

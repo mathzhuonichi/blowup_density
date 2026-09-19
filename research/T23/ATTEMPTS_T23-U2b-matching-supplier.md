@@ -226,3 +226,10 @@ hball : sorry ⊆ Ω
 ../research/T23/probes/T23-U2b-matching-supplier_closes.lean:1430:58: error(lean.unknownIdentifier): Unknown identifier `he`
 ```
 Repair: close the old probe’s anonymous noncomputable section before its wrapper namespace; explicitly include proof-side section hypotheses in the four field consumers.
+
+## Final whitespace check
+`git diff --check` initially reported:
+```text
+research/T23/probes/T23-U2b-matching-supplier_closes.lean:1467: new blank line at EOF.
+```
+Removed the trailing blank line; no proof changed.
