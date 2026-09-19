@@ -77,6 +77,9 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   `memForceR_insertedForce` / `forceDifference_compact` (`LIFESPAN_SPLIT.md` #3). **S-M, codex-sol.** No named
   input. Deps: U1 (threaded `scaling.force_mem` = T15 U7, `correction.force_*` = T17 U7).
 
+  **Status (lane 426, 2026-09-18): complete.** Both force-class fields proved by compact time-support union; no missing threaded fact.
+  Canonical theorems, Spec-form conversion probe, and exact three-axiom audit pass.
+
 - **U3 — regularity, initial value, history, periodicity.** New `Section3/T18/Kinematics.lean`. Targets
   `velocity_smooth` (`Spec.lean:1753`), `pressure_smooth` (`:1758`), `initial` (`:1763`), `history` (`:1780`),
   `velocity_periodic` (`:1786`). Route: each is a summand fact. Smoothness on `Ico 0 T ×ˢ univ` from
@@ -88,12 +91,18 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   `scaledSourcePoint`/`zeroPastField`), and `T-2ε²<t_ε`. Mirror R42 assembly (`Section4/R42/Assembly.lean`).
   **M, codex-sol.** No named input. Deps: U1.
 
+  **Status (lane 426, 2026-09-18): complete.** All five kinematic fields proved, including normalized pressure smoothness and the closed quiet-history endpoint.
+  Canonical theorems, Spec-form conversion probe, and exact three-axiom audit pass.
+
 - **U4 — incompressibility.** New `Section3/T18/Divergence.lean`. Targets `incompressible` (`Spec.lean:1767`),
   `velocityDifference_divFree` (`:1858`) — the second is `incompressible` minus `v`. Route:
   `div u_ε = div v + div w_ε + div U_ε = 0` on `Ico 0 T`: `div v = 0` from `reference.divergence`; `div w_ε = 0`
   from `correction.correction_divergence_free` (`Spec.lean:1070`, it is a spatial curl); `div U_ε = 0` from
   `scaling.solution`'s `.divergence` (periodized packet). **S-M, codex-sol.** No named input. Deps: U1
   (threaded `scaling.solution` = T15 U11).
+
+  **Status (lane 426, 2026-09-18): complete.** Both divergence fields proved on Ico 0 T, including time zero.
+  Canonical theorems, Spec-form conversion probe, and exact three-axiom audit pass.
 
 - **U5 — the two vanishing cross-transport terms.** New `Section3/T18/CrossTransport.lean`. Targets
   `crossTransport_background_advects_packet` (`Spec.lean:1838`, `(b_ε·∇)U_ε=0`),
@@ -106,6 +115,14 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   directional-Fréchet locality of `spatialDerivative`. **M, Opus.** No named input. Deps: U1
   (`correction.potential` = T16, DONE; the periodized-packet-before-start is self-contained).
 
+  **Status (lane 433, 2026-09-18): complete.** Both cross-transport fields proved on `Ico 0 T`, with the
+  case split at exactly `t_ε = T - ε²`: before it the periodized packet *slice* is the constant zero field
+  (`packet_slice_zero`, sharper than lane 426's pointwise `packet_quiet`), from it on
+  `correction.potential.correction_cancels` supplies the open removal set and the Section 4 lemma
+  `Source.cross_advection_eq_zero` closes both terms. The T16 `periodicScaledPacket` and the T15
+  `periodizedScaledVelocity` spellings are `rfl`-equal (`periodicScaledPacket_eq`), so no transport is
+  needed. Canonical theorems, Spec-form conversion probe, and exact three-axiom audit pass.
+
 - **U6 — the exact momentum equation (`eq:insertion` exactness).** New `Section3/T18/Momentum.lean`. Target
   `momentum` (`Spec.lean:1774`, `navierStokesResidual ν (velocity ε) (pressure ε) t x = force ε (t,x)` on
   `Ioo 0 T`). Route (`:315-328`): the corrected background `b_ε=v+w_ε` satisfies
@@ -115,6 +132,13 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   **U5**; pressure via `pressure_formula` (mean-zero normalization is a spatially constant shift, `∇` unchanged).
   Mirror R42 `Section4/R42/Assembly.lean` momentum. **M-L, Opus.** No named input. Deps: U1, U5 (threaded
   `scaling.solution` = T15 U11).
+
+  **Status (lane 433, 2026-09-18): complete.** `momentum` proved on `Ioo 0 T`. `Source.residual ν` is
+  `rfl`-equal to the registered `navierStokesResidual ν`, so `Source.{residual_add, corrected_background}`
+  apply directly; the two cross terms they produce are discharged by U5, the reference equation by
+  `reference.momentum`, the packet equation by `scaling.solution`'s `momentum`, and both mean-zero gauges by
+  one hypothesis-free lemma `pressureGradient_normalizePressureT` (`fderiv_sub_const`). Canonical theorems,
+  Spec-form conversion probe, and exact three-axiom audit pass.
 
 - **U7 — localization of the velocity difference (clause (iii)).** New `Section3/T18/Support.lean`. Targets
   `diffSupportRadius` (`Spec.lean:1863`), `diffSupportRadius_pos` (`:1865`), `velocityDifference_support`
@@ -145,6 +169,27 @@ H1_GAP "expected OK" verdict; `PeriodicRestartH1`/`PeriodicRestartBeyondH1` stay
   (mirror R42 `Bindings/InsertionLifespan.lean §9 isMaximalSolution_of_inserted`, `MAXIMAL_SPLIT.md`).
   **Uses the H³-narrowed API only — no `PeriodicRestartH1` (§H1/H3).** **L, Opus.** No named input. Deps:
   U1, U3, U4, U6 (threaded `scaling.solution`/`unboundedSpeed` = T15 U11/U6; registered T11+T12, DONE).
+
+  **Status (lane 436, 2026-09-18): complete.** All five fields proved in
+  `Section3/T18/Lifespan.lean`, no named input, exact three-axiom audit, Spec-form probe
+  `research/T18/probes/u8_closes.lean`. Two route changes against the plan above, both
+  *reducing* the dependency set (details in `research/T18/ATTEMPTS_U8.md`):
+  (i) `solution` needs **no** cutoff-in-time / `contDiff_angularPath` path (R42 residual 1a/1e-i):
+  on the compact torus a slab-smooth periodic slice has a datum at every order
+  (`T11.exists_periodicDatum_smooth`) and the selected path is continuous by
+  `T11.continuousOn_periodicDatum_path_of_slab`; `pressure_gradient` is one
+  `memLp_torusLift_vector`, and the gauge/periodicity of `p_ε` follow from the mean being
+  spatially constant plus the two integrability facts U3 already used.
+  (ii) the `≤` half of `lifespan` does **not** go through `lifespanInfiniteOfLocallyFinite` +
+  `higherOrderBound` + `boundedRepresentative` — that route has no torus analogue of A02's
+  `lifespan_le_of_unbounded`, and `boundedRepresentative` bounds the **Haar** `L^∞` norm
+  `periodicLpENorm ⊤` while `blowup_limsup` is the **Lebesgue** `speedENorm`, a bridge the tree
+  does not contain. Instead: a longer solution would agree with `u_ε` below `T` by
+  `velocity_unique`, and a slab-smooth unit-periodic field is bounded on `Icc 0 T × R³`
+  (compactness of `Icc 0 T ×ˢ fundamentalCube` + lattice reduction `x ↦ ⌊x i⌋`), contradicting
+  `blowup`. **U8 therefore consumes no field of `torusContinuationH3API` and nothing from T12**;
+  the only T11 field it uses is `torusLocalTheoryAPI.velocity_unique`, which carries no ball, so
+  the `H1_GAP.md` §4 "expected OK" verdict holds a fortiori.
 
 - **U9 — `eq:Eclose` (energy closeness).** New `Section3/T18/EnergyRate.lean`. Target `energyRate`
   (`Spec.lean:1892`, `‖u_ε-v‖_{E_T} ≤ (M+D)ε^{1/2}+Cε^{3/2}`). Route: `u_ε-v=w_ε+U_ε`; triangle inequality
