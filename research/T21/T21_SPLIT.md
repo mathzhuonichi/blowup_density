@@ -5,6 +5,15 @@ Target: `research/T21/Spec.lean`; approved design: `research/T21/RECONCILIATION.
 Twin: `Section4/R41/NonDensityL1.lean` and `Contracts/V1/MainThresholds.lean`. House style: `research/T18/T18_SPLIT.md` (header, peeling rule, units), `research/T20/T20_SPLIT.md` (waves and risks).
 Size legend: **S** ≤ approximately 100 lines; **M** one bounded lemma with a known route; **L** a multi-file campaign, which must be peeled before assignment. Model legend: **codex-sol = bookkeeping/transport, codex-astra = analytic core/planning**.
 
+**Lane 472 status (2026-09-19).** N0--N10 and N12 are complete in canonical
+`Section3/T21/` modules.  N1, N3, N5, N6, and N12 reuse the now-landed T18,
+T15, T19, and T20 suppliers cited below; N2, N4, and N7--N10 close the
+remaining transport and bookkeeping.  `Section3/T21/Assembly.lean` constructs
+the nine-field `nonDensityAPI`, and
+`research/T21/probes/nondensity_closes.lean` checks every registered field plus
+`nonDensityOfCritical`.  Registration remains assigned to the separate final
+assembly lane.
+
 ## 0. Ground rules
 
 **Peeling rule.** Every N-unit ends in a theorem with the verbatim field type below, or a helper directly consumed by that field. If an M unit grows into a multi-file campaign, stop and split its exact residual into smaller helper theorems; do not introduce a named input, placeholder field, extra axiom, or stronger hypothesis to conceal it. T21 has **no named inputs**: everything is threaded from `CriticalRegularityTAPI` / `PeriodicDensityAPI`, proved by the units below, or registered.
