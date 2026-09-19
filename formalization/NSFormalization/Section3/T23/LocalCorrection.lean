@@ -1,4 +1,4 @@
-import NSFormalization.Section3.T16.BallPotential
+import NSFormalization.Section3.T16.Assembly
 import NSFormalization.Section3.T15.Bridges
 import NSFormalization.Source.Insertion
 
@@ -54,5 +54,20 @@ structure CutoffData where
   support, divergence, and cancellation fields. -/
   correction : ℝ → SpaceTimeField
 
+
+open NSFormalization.Section3.T15 (scaledVelocity scaledSourcePoint scaledStartTime)
+
+/-- The un-periodised packet vanishes on the entire slice before activation,
+including the endpoint. No smoothness or packet hypotheses are needed. -/
+theorem packet_slice_zero (U : VelocityField) (x₀ : Space) (T ε t : ℝ)
+    (ht : t ≤ T - ε ^ 2) :
+    (fun y : Space => scaledVelocity U x₀ T ε (t, y)) = fun _ => 0 := by
+  funext y
+  have hnonpos : (ε⁻¹) ^ 2 * (t - scaledStartTime T ε) ≤ 0 := by
+    apply mul_nonpos_of_nonneg_of_nonpos (sq_nonneg _)
+    exact sub_nonpos.mpr ht
+  simp only [scaledVelocity, NSFormalization.Source.PacketScaling.zeroPastField,
+    scaledSourcePoint]
+  simp only [not_lt.mpr hnonpos, ite_false, smul_zero]
 
 end NSFormalization.Section3.T23
