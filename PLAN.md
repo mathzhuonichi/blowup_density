@@ -247,7 +247,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 483-T23-U4-differences-boundary | worktree 安装中 → codex sol | 09-19 1650Z | — | — | T23 U4：局部差与边界保持 8 字段 |
 | 484-T23-U5-domain-comparison | sol 完成：domain_zeroExt_comparison（C 先于 t、ε）+ 域范数定义桥 + 固定支撑/零阶物理 L² 引理（9 声明标准公理；U3/U4 事实穿线）→ 审中 sol | 09-19 1708Z | — | — | T23 U5：注册 T22 零延拓比较 + 域范数定义/API 转运 |
 | 485-T23-U6-rates-convergence | worktree 安装中 → codex astra | 09-19 1650Z | — | — | T23 U6：能量率、Sobolev 力率、负阶尾、收敛 + 路径范数桥（8 字段） |
-| 486-T23-U8-interior-blowup | worktree 安装中 → codex astra | 09-19 1650Z | — | — | T23 U8：内部爆破见证 + 寿命恰为 T + maximal（盒用 noSlip_uniqueness_box，光滑域穿线 IBP Ω） |
+| 486-T23-U8-interior-blowup | astra 完成：blowup / blowup_limsup / lifespan / maximal 四字段（见证在 Ω 内；盒专门化放电 IBP，光滑域保留 IBP Ω 前提；U2/U3/U4 事实穿线；15 声明标准公理）→ 审中 sol | 09-19 1713Z | — | — | T23 U8：内部爆破见证 + 寿命恰为 T + maximal（盒用 noSlip_uniqueness_box，光滑域穿线 IBP Ω） |
 | 467-T24-UbCAN-Ub1-Ub3-multiple-regions | 已合入 #429（codex 审稿 ACCEPT-WITH-NOTES，docstring 注释按意见收窄） | 09-19 1459Z | #429 | — | T24b：canonical MultipleRegionsAPI（30 字段 Type，raw-field T15 记录）+ Ub1 放置/尺度选择 + Ub2 分量 + Ub3 单拷贝支撑 |
 | 468-T24-Ub4-assembled-solution | 已合入 #431（codex 审稿 ACCEPT-WITH-NOTES，引用行号已改） | 09-19 1509Z | #431 | — | T24b Ub4：装配解 assembledVelocity/Pressure/Force + solution : ClassicalSolutionT ν 0 (Σ F_j) T（交叉输运项因支撑不交为零）+ solution_pin/force_mem/rest |
 | 469-T24-Ub5-Ub6-regions-energy | 已合入 #432（codex 审稿 ACCEPT） | 09-19 1515Z | #432 | — | T24b Ub5 region_agreement/region_blowup + Ub6 energy_bound/dissipation_bound（不交支撑可加性 + packetEnergy/DissipationIdentity） |
