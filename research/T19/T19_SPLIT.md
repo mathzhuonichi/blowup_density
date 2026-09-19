@@ -34,6 +34,13 @@ same family, the energy bound against `extendByZero reference`, and
 `extendByZero_velocity_eqOn` to identify the reference on `[0,T)`.
 The historical T18-blocked labels below are superseded for these entry routes.
 
+**U13/U14 status (lane 465, 2026-09-19): complete.**
+`NSFormalization.Section3.T19.Closure` proves both canonical field types with
+no named inputs. U13 uses U0's insertion, energy subadditivity and U5,
+zero-extension congruence on `Ico`, and U0's Sobolev convergence. U14 selects
+one admissible scale and reverses the difference using energy norm symmetry.
+Both literal field probes and all five declaration axiom audits pass.
+
 ## 0. Ground rules
 
 **Peeling rule (T11/T18).** Every unit ends in a `theorem` whose statement **is** a T19 `Spec.lean` field
