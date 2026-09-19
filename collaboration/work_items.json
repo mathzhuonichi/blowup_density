@@ -411,9 +411,12 @@
     {
       "id": "T21",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
-      "contracts": [],
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T03.non_density",
+        "T03.main"
+      ],
       "deliverable": "Reconcile research/T21/Spec.lean against cor:nondensity and both clauses of thm:main, then register the accepted versioned contract under parent task T03 with its typed binding and axiom test."
     },
     {

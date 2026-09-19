@@ -8,3 +8,6 @@
 
 ## Wave-0 lanes opened 2026-09-19 (lead)
 - 476 U1 (geometry, sol), 477 U2 (local correction supplier + G0 counterexample/repair, astra), 478 U7 (domain no-slip uniqueness, astra). T23 is not on the `thm:main` critical path (T21); it runs alongside.
+
+## G1 — no-slip uniqueness on smooth-level domains needs a divergence theorem Mathlib may lack (lane 478, lead note 2026-09-19 16:12Z)
+- Lane 478 (astra) proved the canonical domain record and the box integration by parts on `Icc` in `Fin 3 → ℝ`, energy integrability, zero-energy ⇒ equality and uniform derivative bounds, but not `noSlip_uniqueness`; its search found no regular-level-domain integration-by-parts theorem in Mathlib. Lead priority for the continuation: close the **box** branch completely; expose the smooth branch's missing identity as one explicit hypothesis (`IBP Ω`) and record the exact missing theorem here. Pending that result, V1 of `cor:boundary` may register the box case only (owner decision, same list as G0).
