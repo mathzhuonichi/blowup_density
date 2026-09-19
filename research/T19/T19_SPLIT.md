@@ -12,6 +12,13 @@ Section 4 R41 `MainThresholdsAPI` (`Contracts/V1/MainThresholds.lean`, `Bindings
 Size: **S** ≤ ~100 lines; **M** one self-contained lemma with a known proof; **L** a multi-file campaign.
 Model: `codex-sol` = reuse/transport/algebra/bookkeeping; `Opus` = analytic core.
 
+**U-CAN status (lane 457, 2026-09-19): complete.**
+`NSFormalization.Section3.T19.Density` now carries the canonical B/B/A/A,
+`Prop`-valued 3/3/4/3 records and all four statement definitions.  The
+contract-Spec ↔ canonical probe supplies both fieldwise conversion directions;
+T18 remains unthreaded exactly as approved, and U1–U6 line up with lane 388 by
+literal canonical examples.
+
 ## 0. Ground rules
 
 **Peeling rule (T11/T18).** Every unit ends in a `theorem` whose statement **is** a T19 `Spec.lean` field

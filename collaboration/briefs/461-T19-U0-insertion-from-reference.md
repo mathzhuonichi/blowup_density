@@ -46,3 +46,6 @@ Deliverables: the module, `research/T19/probes/threading_closes.lean` (each expo
 
 ## Report
 Commit on your branch; end with four parts (theorems with exact statements / files / gaps with error text / commands and results). Also write it to `research/T19/REPORT_461.md`.
+
+## Lead note (2026-09-19 13:55Z, G5 addendum)
+The slab bridge is `correctionStatementSlab'` (hypotheses `IsPeriodicOn univ v` + `ContDiffOn ℝ ∞ v (Ioo 0 (place.T+δ) ×ˢ univ)`, lane 460 continuation, `research/T17/REPORT_460b.md`). Therefore U0 first builds the **zero-extended reference**: `def extendByZero (reference : ClassicalSolutionT ν a g T') : ClassicalSolutionT ν a g T'` with `velocity := fun z => if z.1 ∈ Ico 0 T' then reference.velocity z else 0` (pressure likewise), every field transported by `EqOn` on `Ico 0 T' ×ˢ univ` (`ContDiffOn.congr` for the smoothness fields); prove `IsPeriodicOn univ (extendByZero reference).velocity` and its `ContDiffOn` on the open slab; use `extendByZero reference` as `InsertionData.reference` and its velocity in the bridge call (mirror `research/T17/probes/slab_from_classical.lean`). All export lemmas are then about `extendByZero reference`; add `extendByZero_velocity_eqOn : EqOn (extendByZero reference).velocity reference.velocity (Ico 0 T' ×ˢ univ)` for U13.
