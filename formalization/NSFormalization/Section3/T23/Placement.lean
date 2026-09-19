@@ -113,4 +113,26 @@ theorem domainPlacementMargin_pos {chartCenter x₀ : Space} {chartRadius : ℝ}
   rw [domainPlacementMargin, sub_pos]
   exact Metric.mem_ball.mp hx₀
 
+/-- One threshold simultaneously enforces normalization, strict time
+smallness, and strict containment in the prescribed ball.  The last factor
+keeps a half-margin at the closed upper endpoint. -/
+def domainPlacementThreshold {K : Set Space} {f : VelocityField}
+    (hK : IsCompact K) (hf : HasCompactSupport f) (T : ℝ)
+    (chartCenter x₀ : Space) (chartRadius : ℝ) : ℝ :=
+  min (min (1 / 2) (T / 4))
+    (domainPlacementMargin chartCenter x₀ chartRadius /
+      (2 * (domainPlacementRadius hK hf + 1)))
+
+/-- The common threshold is positive. -/
+theorem domainPlacementThreshold_pos {K : Set Space} {f : VelocityField}
+    (hK : IsCompact K) (hf : HasCompactSupport f) {T chartRadius : ℝ}
+    {chartCenter x₀ : Space} (hT : 0 < T)
+    (hx₀ : x₀ ∈ Metric.ball chartCenter chartRadius) :
+    0 < domainPlacementThreshold hK hf T chartCenter x₀ chartRadius := by
+  unfold domainPlacementThreshold
+  exact lt_min (lt_min (by norm_num) (by positivity))
+    (div_pos (domainPlacementMargin_pos hx₀) (by
+      have := domainPlacementRadius_pos hK hf
+      positivity))
+
 end NSFormalization.Section3.T23
