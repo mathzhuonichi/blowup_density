@@ -134,5 +134,12 @@ theorem lifespan_box (hbox : IsBoxDomain Ω) : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
   exact lifespan place D reference hspeed hscale hball hformula hsupport hcancel hsolution
     hν hbox.open_bounded.1 hbox.open_bounded.2 (ibp_box hbox)
 
+omit ho hb hI in
+/-- Maximality on boxes follows from proved box IBP and the same family facts. -/
+theorem maximal_box (hbox : IsBoxDomain Ω) : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+    IsMaximalDomainSolution ν Ω a (force ε) (velocity ε) (pressure ε) := by
+  exact maximal place D reference hspeed hscale hball hformula hsupport hcancel hsolution
+    hν hbox.open_bounded.1 hbox.open_bounded.2 (ibp_box hbox)
+
 end U8
 end NSFormalization.Section3.T23
