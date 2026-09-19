@@ -147,4 +147,18 @@ theorem affineCarrier_subset_commonBall {K : Set Space} {x₀ : Space}
     (mul_lt_mul_of_pos_left
       (packetRadius_lt_diffSupportRadius cutoffRadius packetRadius) hε)
 
+/-- The unperiodized scaled packet slice is supported in the common `ε ρ`
+ball, using the raw packet support clause and I03's `carrier_subset`. -/
+theorem scaledPacket_slice_support {u : VelocityField} {K : Set Space}
+    {x₀ : Space} {T ε cutoffRadius packetRadius : ℝ}
+    (hK : IsCompact K)
+    (hu : ∀ s ∈ Ico (0 : ℝ) 1,
+      tsupport (fun x : Space => u (s, x)) ⊆ K)
+    (hcarrier : K ⊆ ball (0 : Space) packetRadius)
+    (hε : 0 < ε) {t : ℝ} (ht : t < T) :
+    tsupport (fun x : Space => scaledVelocity u x₀ T ε (t, x)) ⊆
+      ball x₀ (ε * diffSupportRadius cutoffRadius packetRadius) :=
+  (scaledVelocity_tsupp_subset hε hK hu Subset.rfl ht).trans
+    (affineCarrier_subset_commonBall hε hcarrier)
+
 end NSFormalization.Section3.T23
