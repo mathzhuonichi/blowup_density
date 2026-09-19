@@ -438,7 +438,8 @@
       "state": "in-progress",
       "owner": "erenup",
       "contracts": [
-        "T04.affine_variation"
+        "T04.affine_variation",
+        "T04.multiple_regions"
       ],
       "deliverable": "Reconcile research/T24/Spec.lean against prop:affine, prop:multiple and prop:conservative, then register the accepted versioned leaf contracts under parent task T04 with typed bindings and axiom tests."
     }

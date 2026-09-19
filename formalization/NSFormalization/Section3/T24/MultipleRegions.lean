@@ -1,4 +1,4 @@
-import NSFormalization.Section3.T24.MultipleComponents
+import NSFormalization.Section3.T24.MultipleAssembled
 
 /-! Regionwise agreement and blow-up for the explicit finite superposition. -/
 noncomputable section
@@ -14,10 +14,6 @@ open NSFormalization.Section4.A02 (SpaceTimeField)
 namespace RegionsData
 variable {ν : ℝ} {u f : VelocityField} {p : PressureField}
   {K : Set Space} {M E : ℝ} (d : RegionsData ν u p f K M E)
-
-/-- The explicit velocity superposition. -/
-def assembledVelocity : SpaceTimeField :=
-  finiteVelocitySum (fun j ↦ (d.component j).velocity)
 
 /-- On each prescribed ball all other components vanish. -/
 theorem region_agreement : ∀ j, ∀ t ∈ Ico (0 : ℝ) d.T,

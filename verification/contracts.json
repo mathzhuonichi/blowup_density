@@ -550,6 +550,17 @@
       "declaration": "BlowupDensity.Tests.checkedScaling3",
       "scope": "T15 Proposition 3.3 (03-torus.tex:101-159): all 21 reconciled ScalingAPI fields and the verbatim scalingStatement, for every registered PacketImportFamily, positive viscosity and fixed shared placement. Includes canonical T13 localization, summability and single-copy guards, pinned classical torus solution, pressure integrability, blowup, exact energy/dissipation and mixed scaling with honest paths, uniform Sobolev bounds and full q=1,2 subcritical convergence. Canonical placement is data for any prescribed T>0 and preserves T definitionally. Both source and periodized non-vacuity are proved on the registered I01 packet at arbitrary positive viscosity and horizon. No extra hypotheses or omitted fields.",
       "enabled": true
+    },
+    {
+      "id": "T04.multiple_regions",
+      "parent_task": "T04",
+      "version": 1,
+      "specification": "verification/Contracts/V1/MultipleRegions.lean",
+      "binding_module": "Bindings.MultipleRegions",
+      "test_module": "Tests.MultipleRegions",
+      "declaration": "BlowupDensity.Tests.checkedMultipleRegions",
+      "scope": "Proposition prop:multiple (03-torus.tex:697-722), torus branch only: for every positive viscosity, every registered PacketImportAPI, every positive terminal time, and every nonempty finite family of positive-radius pairwise-disjoint balls whose closures lie in the interior of the fundamental cube, the complete 30-field MultipleRegionsAPI is inhabited. It carries one registered T15 PlacementData and ScalingAPI per prescribed ball, admissible scales with epsilon_j^2 < T, pinned component solutions and single-copy supports, the explicit finite-sum velocity/pressure/force, a pinned classical torus solution from rest with force in forceClassT, agreement and unbounded speed in every prescribed ball, the bound energyEssSupT(T,u)^2 <= energyBound^2 * sum epsilon_j, and the exact identity energyGradientT(T,u)^2 = dissipationBound^2 * sum epsilon_j. A concrete N=1 witness uses the registered nonzero packet at viscosity one, T=1, and the radius-1/4 ball centred at (1/2,1/2,1/2). The paper's bounded-domain/homogeneous-no-slip branch at 03-torus.tex:698,703,719 is deliberately omitted: V1 has a bounded-domain norm layer but no bounded-domain solution/no-slip carrier threaded through this proposition; it is out of scope, not identified with torus periodicity. No T18 insertion, density consequence, sharpness, or optimality claim is included.",
+      "enabled": true
     }
   ]
 }
