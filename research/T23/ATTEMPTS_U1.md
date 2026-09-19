@@ -77,3 +77,38 @@ Hint: Type class instance resolution failures can be inspected with the `set_opt
 
 Resolution: use the explicit ordered-ring lemma
 `mul_lt_mul_of_pos_left hfactor hε.1`.
+
+## A4 — compiling the consumer before building its new import
+
+The first direct probe run occurred after checking `Placement.lean` with Lean,
+but before Lake had produced the new module's object file.
+
+Exact error:
+
+```text
+../research/T23/probes/placement_closes.lean:1:0: error: object file '/data_8T/ping/blowup_density/.claude/worktrees/476-T23-U1-domain-placement/formalization/.lake/build/lib/lean/NSFormalization/Section3/T23/Placement.olean' of module NSFormalization.Section3.T23.Placement does not exist
+```
+
+Resolution: build `NSFormalization.Section3.T23.Placement` from
+`verification/` before checking importing research files.
+
+## A5 — two probe names were not in the imported namespace
+
+After the production module built, the first translated probe used
+`Metric.isCompact_closedBall` (the theorem is unnamespaced) and used T13's
+coordinate-norm helper without importing/opening its defining module.
+
+Exact errors:
+
+```text
+../research/T23/probes/placement_closes.lean:34:8: error(lean.unknownIdentifier): Unknown identifier `Metric.isCompact_closedBall`
+../research/T23/probes/placement_closes.lean:58:17: error(lean.unknownIdentifier): Unknown identifier `abs_spaceCoord_le_norm`
+../research/T23/probes/placement_closes.lean:53:38: error: unsolved goals
+hzero : 0 ∈ translatedDomain
+hnorm : ‖translatedCenter‖ < 2
+⊢ False
+```
+
+Resolution: use `isCompact_closedBall`, and import/open the safe
+`Section3.T13.ConstantEndpoints` module that defines
+`abs_spaceCoord_le_norm`.
