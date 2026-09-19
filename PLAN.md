@@ -216,4 +216,5 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 448-T21-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T21 证明拆分 T21_SPLIT.md（N0–N15 分组成 S/M lane，波次，风险） |
 | 449-T23-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T23 证明拆分 T23_SPLIT.md（DomainPlacementData、Ω 上未周期化 packet、无滑移边界保持、T22 范数比较、唯一性/寿命、装配） |
 | 450-T15-U9-sobolev-path | 排队 → codex astra | 09-19 1232Z | — | — | T15 U9：周期化速度的各阶 H^m datum 路径 + pressure_gradient（436 的 T11 slab 定理模式） |
-| 451-T20-U13-assembly-registration | worktree 安装中（441 + integration）→ 排队 codex sol | 09-19 1239Z | — | — | T20 U13：CriticalRegularityTAPI 23 字段装配（c = criticalSmallnessH1，常数安装）+ 注册 T03.critical_regularity |
+| 451-T20-U13-assembly-registration | 等 452（U5）完成后合并其分支再启动 → codex sol | 09-19 1240Z | — | — | T20 U13：CriticalRegularityTAPI 23 字段装配（c = criticalSmallnessH1，常数安装）+ 注册 T03.critical_regularity |
+| 452-T20-U5-transport-commutes-lambda | worktree 安装中（441 + integration）→ 排队 codex sol | 09-19 1240Z | — | — | T20 U5：constantTransportCommutesLambda（唯一未证字段；Fourier 侧对角乘子交换 + 系数唯一性） |
