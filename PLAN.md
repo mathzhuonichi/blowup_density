@@ -204,7 +204,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 436-T18-U8-lifespan | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T18 U8：插入解 solution / blowup / blowup_limsup / lifespan = T / maximal（H³ 窄化续延 API + velocity_unique） |
 | 437-T20-U11-continuation-bound | 已合入 #401（lead 裁定：审稿仅程序性/记录性 REJECT，Lean 与突变通过；三处记录已更正）：T20 U11 continuationBound | 09-19 1226Z | #401 | — | T20 U11：continuationBound（常/均值零模正交分解 + hTwo_le_laplacian + 积分 U10b + U2 均值界；Ccriterion） |
 | 438-T17-U11-sobolev | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T17 U11：eq:HHs 修正力 L¹_tH^s 界（0≤s≤1，注册 T02.localization + Paper1/I02 力 Sobolev 界；sobolevConst） |
-| 439-T15-U4-U5-energy-mixed | Opus 完成（09-18 20:xxZ）→ 09-19 12:15Z 排队 codex 审稿 | 09-19 1215Z | — | — | T15 U4 能量恒等式 + 诚实切片、U5 混合范数放缩 + 诚实路径（单拷贝 + Haar 桥 + I03 放缩恒等式） |
+| 439-T15-U4-U5-energy-mixed | 已合入 #402：T15 U4+U5 五字段（map torusChart = restrict cube；I03 放缩恒等式），审稿 ACCEPT-WITH-NOTES（四处记录已改） | 09-19 1227Z | #402 | — | T15 U4 能量恒等式 + 诚实切片、U5 混合范数放缩 + 诚实路径（单拷贝 + Haar 桥 + I03 放缩恒等式） |
 | 440-MAINT-section3-build-f | 已合入 #400：116 模块全编译 0 错误、四门禁、46 合同、148 探针、895 公理组全标准（logs/SECTION3_BUILD_20260918f.md）；1 个 defProp warning（T22/Assembly，卫生项） | 09-19 1216Z | #400 | — | MAINT：第六次 Section 3 全量编译检查（#354–#396 之后，46 合同；四门禁 + 公理扫描 → logs/SECTION3_BUILD_20260918f.md） |
 | 441-T20-U12-global-regularity | worktree 安装中（437 + integration）→ codex sol（+5 分钟错峰） | 09-19 1219Z | — | — | T20 U12：globalRegularity（U11 有限 H² 预算 + T11 lifespanInfiniteOfLocallyFinite） |
 | 442-T15-U6-U7-blowup-force-mem | worktree 安装中 → codex sol（+10 分钟） | 09-19 1219Z | — | — | T15 U6 unboundedSpeed + U7 force_mem（单拷贝 + 放缩 blow-up 见证 / periodize 光滑周期 + 正时间紧支） |
