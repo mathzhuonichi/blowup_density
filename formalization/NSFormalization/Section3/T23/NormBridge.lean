@@ -1,5 +1,5 @@
 import NSFormalization.Section3.T23.Boundary
-import NSFormalization.Section4.D01.HalfOrder
+import NSFormalization.Section4.R41.NonDensityL1
 
 /-! Slice-integral bounds for the canonical measurable-path Sobolev norm. -/
 noncomputable section
@@ -21,5 +21,21 @@ theorem lintegral_sobolevENorm_le_forceSobolevENorm (s : ℝ) (f : VelocityField
   apply lintegral_mono_ae
   filter_upwards [ae_restrict_mem measurableSet_Ioi] with t ht
   exact iInf_le_of_le ⟨G t, hG t ht.le⟩ le_rfl
+
+/-- Inhomogeneous order lowering contracts every slice, including empty
+realization infima. -/
+theorem sobolevENorm_mono_order {s r : ℝ} (hsr : s ≤ r) (z : Space → Space) :
+    sobolevENorm s z ≤ sobolevENorm r z := by
+  apply le_iInf
+  rintro ⟨A, hA⟩
+  have hlow : IsSobolevDatum s z (lowerVectorL r s hsr A) := by
+    intro i ψ
+    change NSFormalization.Paper3.angularRealization s
+      (NSFormalization.Paper3.angularOrderLowering r s hsr _) ψ = _
+    rw [NSFormalization.Paper3.angularRealization_orderLowering]
+    exact hA i ψ
+  exact (iInf_le_of_le ⟨_, hlow⟩ le_rfl).trans
+    (enorm_le_iff_norm_le.mpr
+      (NSFormalization.Section4.R41.lowerVectorL_norm_le r s hsr A))
 
 end NSFormalization.Section3.T23
