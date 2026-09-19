@@ -42,4 +42,39 @@ theorem exists_spatial_solenoidal_extension {v : VelocityField} {I : Set ℝ}
     exact spatialCurl_timePotential_on_ball hv hdiv ht
       (ball_subset_ball (by linarith : r / 2 ≤ r) hx)
 
+/-- A fixed time cutoff turns the spatial extension into a globally smooth
+solenoidal field, retaining the reference on a closed window around `T`. -/
+theorem exists_solenoidal_window_extension {v : VelocityField}
+    {x₀ : Space} {r T δ : ℝ} (hr : 0 < r) (hT : 0 < T) (hδ : 0 < δ)
+    (hv : ContDiffOn ℝ ∞ v (Ioo (0 : ℝ) (T + δ) ×ˢ ball x₀ r))
+    (hdiv : ∀ t ∈ Ioo (0 : ℝ) (T + δ), ∀ x ∈ ball x₀ r,
+      spatialDivergence v t x = 0) :
+    ∃ V : VelocityField, ContDiff ℝ ∞ V ∧
+      (∀ t x, spatialDivergence V t x = 0) ∧
+      EqOn V v (Icc (T - min T δ / 2) (T + min T δ / 2) ×ˢ ball x₀ (r / 2)) := by
+  obtain ⟨W, hW, hWdiv, hWeq⟩ := exists_spatial_solenoidal_extension isOpen_Ioo hr hv hdiv
+  let m := min T δ
+  have hm : 0 < m := lt_min hT hδ
+  have hmT : m ≤ T := min_le_left _ _
+  have hmδ : m ≤ δ := min_le_right _ _
+  let χ : ContDiffBump T := ⟨m / 2, 3 * m / 4, by positivity, by linarith⟩
+  have hs : tsupport (χ : ℝ → ℝ) ⊆ Ioo (0 : ℝ) (T + δ) := by
+    rw [χ.tsupport_eq]
+    intro t ht
+    change dist t T ≤ 3 * m / 4 at ht
+    rw [Real.dist_eq, abs_le] at ht
+    exact ⟨by linarith [ht.1], by linarith [ht.2]⟩
+  refine ⟨NSFormalization.Paper1.timeTruncation W χ,
+    NSFormalization.Paper1.timeTruncation_smooth isOpen_Ioo hW χ.contDiff hs,
+    NSFormalization.Paper1.timeTruncation_divergence hW hWdiv hs, ?_⟩
+  rintro ⟨t, x⟩ ⟨ht, hx⟩
+  have ht' : t ∈ Ioo (0 : ℝ) (T + δ) := ⟨by linarith [ht.1], by linarith [ht.2]⟩
+  have hc : χ t = 1 := by
+    apply χ.one_of_mem_closedBall
+    change dist t T ≤ m / 2
+    rw [Real.dist_eq, abs_le]
+    exact ⟨by linarith [ht.1], by linarith [ht.2]⟩
+  rw [NSFormalization.Paper1.timeTruncation_eq W χ hc x]
+  exact hWeq ⟨ht', hx⟩
+
 end NSFormalization.Section3.T23
