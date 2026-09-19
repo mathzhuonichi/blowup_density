@@ -140,5 +140,19 @@ theorem blowup : ∀ ε ∈ Ioc (0 : ℝ) ε₀, SpeedUnboundedAt place.T (veloc
     interior place D reference hspeed hscale hball hformula hsupport hcancel ε hε M hM d hd
   exact ⟨t, x, ht, hn, hl⟩
 
+include hsolution
+
+/-- The exact essential-supremum API field, using only domain solution smoothness. -/
+theorem blowup_limsup : ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+    NSFormalization.Section4.A02.limsupLeft place.T
+      (fun t => NSFormalization.Section4.A02.speedENorm (fun x => velocity ε (t, x))) = ⊤ := by
+  intro ε hε
+  obtain ⟨w, hw, _⟩ := hsolution ε hε
+  apply limsupLeft_speedENorm_eq_top_of_interior (hw ▸ w.velocity_smooth)
+  intro M hM d hd
+  obtain ⟨t, x, ht, hn, _, hx, hl⟩ :=
+    interior place D reference hspeed hscale hball hformula hsupport hcancel ε hε M hM d hd
+  exact ⟨t, x, ht, hn, hx, hl⟩
+
 end U8
 end NSFormalization.Section3.T23
