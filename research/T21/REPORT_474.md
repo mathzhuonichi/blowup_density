@@ -27,7 +27,7 @@ All declarations are in `NSFormalization.Section3.T21`.
 
   Its threaded `nonDensity` hypothesis is exactly the final
   `NonDensityAPI.nonDensity` field with `breakdownSetTZero` unfolded.  The
-  forward direction applies `le_of_not_lt`; the backward direction specializes
+  forward direction applies `le_of_not_gt`; the backward direction specializes
   `D.fixedInitialDensity` at the proved zero datum.
 - `zeroInitialNonDensity nonDensity` (N15):
 
@@ -44,7 +44,7 @@ All declarations are in `NSFormalization.Section3.T21`.
   conditional assembly as a theorem.  The probe instantiates `D` with the
   canonical `T19.periodicDensityAPI`.
 
-The source unfolds `breakdownSetTZero` deliberately: lane 472 now owns the
+The source unfolds `breakdownSetTZero` deliberately: lane 472 is designated to own the
 single canonical declaration in `Definitions.lean`.  Once both lanes are
 present, its field type and these statements are definitionally equal.
 
