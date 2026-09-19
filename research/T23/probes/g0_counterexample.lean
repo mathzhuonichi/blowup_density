@@ -1,3 +1,5 @@
+import NSFormalization.Section3.T23.LocalCorrection
+-- Standalone exact copy of the reconciled Spec, followed by the G0 proof.
 import Contracts.V1.TorusData
 import Contracts.V1.TorusLocalTheory
 import Contracts.V1.Packet
@@ -451,7 +453,7 @@ structure DomainPlacementData {ν : ℝ} (P : PacketAPI ν) where
 
 /-! ## 0'. Bounded-domain geometry, classes, and the smoothness convention -/
 
-/-- `03-torus.tex:638-642`: the manuscript's closed-spacetime-slab smoothness
+/-- `03-torus.tex:635-639`: the manuscript's closed-spacetime-slab smoothness
 convention — "restriction of a `C∞` field from an open neighborhood of that
 slab" (this also fixes smoothness at edges and corners of a box).  Encoded as
 the literal restriction: an open `N` covering the slab `I × cl Ω` on which the
@@ -509,7 +511,7 @@ def initialClassOmega (Ω : Set Space) : Set SpatialField :=
     (∀ x ∈ Ω, spatialDivergence (fun z : SpaceTime => a z.2) 0 x = 0) ∧
     (∀ x ∈ frontier Ω, a x = 0)}
 
-/-- `03-torus.tex:638-642`: the bounded-domain force class `𝓕(Ω)` — smooth on
+/-- `03-torus.tex:635-639`: the bounded-domain force class `𝓕(Ω)` — smooth on
 `cl Ω × [0,T']` for every finite `T'` (slab convention, "`g` on each finite
 closed slab"), with temporal support compact in `(0,∞)`.  The torus analogue is
 `MemForceT`; periodicity is dropped and smoothness is over `cl Ω`.
@@ -520,7 +522,7 @@ def MemForceOmega (Ω : Set Space) (f : SpaceTimeField) : Prop :=
   (∀ T' : ℝ, SmoothOnClosedSlab (Icc (0 : ℝ) T') Ω f) ∧
     ∃ K : Set ℝ, IsCompact K ∧ K ⊆ Ioi 0 ∧ tsupport f ⊆ K ×ˢ (univ : Set Space)
 
-/-- `03-torus.tex:638-642`: the bounded-domain reference/inserted force class. -/
+/-- `03-torus.tex:635-639`: the bounded-domain reference/inserted force class. -/
 def forceClassOmega (Ω : Set Space) : Set SpaceTimeField := {f | MemForceOmega Ω f}
 
 /-! ## 1. Bounded-domain classical no-slip solutions -/
@@ -555,20 +557,20 @@ structure ClassicalSolutionOmega (ν : ℝ) (Ω : Set Space) (a : SpatialField)
   velocity_smooth : SmoothOnClosedSlab (Ico (0 : ℝ) T) Ω velocity
   /-- `03-torus.tex:637-643`: pressure smoothness on the same slab. -/
   pressure_smooth : SmoothOnClosedSlab (Ico (0 : ℝ) T) Ω pressure
-  /-- `01-introduction.tex:4-7` and `03-torus.tex:634-646`: `u(0,·)=a` on `Ω`.
+  /-- `02-preliminaries.tex:28-29` and `03-torus.tex:641`: `u(0,·)=a` on `Ω`.
   Exact quantifier order: `∀ x ∈ Ω`.  Non-vacuity: pointwise equality of
   physical vectors on the domain. -/
   initial : ∀ x ∈ Ω, velocity (0, x) = a x
-  /-- `03-torus.tex:643` "incompressibility hold in `Ω`": `div u = 0` in `Ω`.
+  /-- `03-torus.tex:641` "incompressibility hold in `Ω`": `div u = 0` in `Ω`.
   Exact quantifier order: `∀ t ∈ Ico 0 T, ∀ x ∈ Ω`.  Non-vacuity: the
   registered physical divergence vanishes pointwise. -/
   divergence : ∀ t ∈ Ico (0 : ℝ) T, ∀ x ∈ Ω, spatialDivergence velocity t x = 0
-  /-- `03-torus.tex:644` "The equation … hold in `Ω`": the momentum equation at
+  /-- `03-torus.tex:641` "The equation … hold in `Ω`": the momentum equation at
   interior times, inside `Ω`.  Exact quantifier order: `∀ t ∈ Ioo 0 T,
   ∀ x ∈ Ω`.  Non-vacuity: the NS residual equals `g` pointwise at `ν`. -/
   momentum : ∀ t ∈ Ioo (0 : ℝ) T, ∀ x ∈ Ω,
     navierStokesResidual ν velocity pressure t x = g (t, x)
-  /-- `03-torus.tex:644` "`v|_{∂Ω}=0`": no-slip on the boundary.  Exact
+  /-- `03-torus.tex:641` "`v|_{∂Ω}=0`": no-slip on the boundary.  Exact
   quantifier order: `∀ t ∈ Ico 0 T, ∀ x ∈ frontier Ω`.  Non-vacuity: the
   velocity vanishes pointwise on `∂Ω = frontier Ω`. -/
   no_slip : ∀ t ∈ Ico (0 : ℝ) T, ∀ x ∈ frontier Ω, velocity (t, x) = 0
@@ -1081,3 +1083,86 @@ example (s : ℝ) (z : SpatialField) :
     sobolevENorm s z = BlowupDensity.Contracts.V1.Data.sobolevENorm s z := rfl
 
 end BlowupDensity.T23.Spec
+
+namespace BlowupDensity.T23.Spec
+open Set MeasureTheory
+open BlowupDensity.Contracts.V1 BlowupDensity.Contracts.V1.Data
+open BlowupDensity.T16.Draft BlowupDensity.T22.Draft
+
+/-- Exact false instance of the literal API, without any replacement record. -/
+theorem boundaryInsertionAPI_zero_cutoff
+    (ν : ℝ) (P : PacketImportAPI ν) (place : DomainPlacementData P.toPacketAPI)
+    (Ω : Set Space) (norms : BoundedDomainNormAPI)
+    (a : SpatialField) (g : SpaceTimeField) (r δ : ℝ)
+    (D : CutoffData) (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ))
+    (hD : D.ε₀ = 0) :
+    ¬ Nonempty (BoundaryInsertionAPI ν P place Ω norms a g r δ D reference) := by
+  rintro ⟨A⟩
+  have hp := A.eps_pos
+  have hl := A.eps_le_cutoff
+  rw [hD] at hl
+  exact (not_lt_of_ge hl) hp
+
+/-- G0 repair at the exact Spec vocabulary. The correction is chosen jointly
+with its matching whole-space supplier, whose reference agrees on the interior
+cylinder. Proving existence of this supplier/extension is still U2 work. -/
+def boundaryInsertionStatement' : Prop :=
+  ∀ (ν : ℝ), 0 < ν → ∀ (P : PacketImportAPI ν)
+    (place : DomainPlacementData P.toPacketAPI)
+    (Ω : Set Space) (norms : BoundedDomainNormAPI)
+    (a : SpatialField) (g : SpaceTimeField) (r δ : ℝ)
+    (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)),
+    IsBoundedBoxOrSmoothDomain Ω → 0 < δ → 0 < r →
+      g ∈ forceClassOmega Ω → a ∈ initialClassOmega Ω →
+      closure (Metric.ball place.x₀ r) ⊆ Metric.ball place.chartCenter place.chartRadius →
+      closure (Metric.ball place.chartCenter place.chartRadius) ⊆ Ω →
+      ∃ (C : CorrectionAPI ν P.toPacketAPI) (D : CutoffData),
+        C.T = place.T ∧ C.δ = δ ∧ C.x₀ = place.x₀ ∧ C.r = r ∧
+        (∀ t ∈ Ioo (0 : ℝ) (place.T + δ), ∀ x ∈ Metric.ball place.x₀ r,
+          C.v (t, x) = reference.velocity (t, x)) ∧
+        D.θ = C.θ ∧ D.η = C.η ∧ D.plateau = C.plateau ∧
+        D.θRadius = C.θRadius ∧ D.ε₀ = C.ε₀ ∧
+        D.potential = C.potential ∧ D.correction = C.correction ∧
+        Nonempty (BoundaryInsertionAPI ν P place Ω norms a g r δ D reference)
+
+end BlowupDensity.T23.Spec
+
+/-- info: 'BlowupDensity.T23.Spec.boundaryInsertionAPI_zero_cutoff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms BlowupDensity.T23.Spec.boundaryInsertionAPI_zero_cutoff
+
+-- Raw-field vocabulary has the registered operator meanings, without contract
+-- imports in the implementation layer.
+example (u : BlowupDensity.Contracts.V1.VelocityField)
+    (x₀ : BlowupDensity.Contracts.V1.Space) (T ε : ℝ) :
+    NSFormalization.Section3.T15.scaledVelocity u x₀ T ε =
+      BlowupDensity.Contracts.V1.scaledPacket u x₀ T ε := rfl
+
+example (D : NSFormalization.Section3.T23.CutoffData) (ν : ℝ)
+    (v : BlowupDensity.Contracts.V1.VelocityField) (ε : ℝ) :
+    NSFormalization.Section3.T23.correctionForce ν v D ε =
+      BlowupDensity.T17.Spec.correctionForce ν v
+        ⟨D.θ, D.η, D.plateau, D.θRadius, D.ε₀, D.potential, D.correction⟩ ε := rfl
+
+-- Both raw cross-transport exports have exactly the registered operator form.
+open NSFormalization.Section3.T23 in
+example (v U : BlowupDensity.Contracts.V1.VelocityField)
+    (K : Set BlowupDensity.Contracts.V1.Space) (x₀ : BlowupDensity.Contracts.V1.Space)
+    (r T δ : ℝ) (D : CutoffData) (h : LocalCorrectionCore v U K x₀ r T δ D) :
+    ∀ ε ∈ Set.Ioc (0 : ℝ) D.ε₀, ∀ t ∈ Set.Ico (0 : ℝ) T,
+    ∀ x : BlowupDensity.Contracts.V1.Space,
+      BlowupDensity.Contracts.V1.spatialDerivative
+        (BlowupDensity.Contracts.V1.scaledPacket U x₀ T ε) t x
+        (BlowupDensity.T16.Draft.correctedBackground v D.correction ε (t, x)) = 0 :=
+  h.crossTransport_background_advects_packet
+
+open NSFormalization.Section3.T23 in
+example (v U : BlowupDensity.Contracts.V1.VelocityField)
+    (K : Set BlowupDensity.Contracts.V1.Space) (x₀ : BlowupDensity.Contracts.V1.Space)
+    (r T δ : ℝ) (D : CutoffData) (h : LocalCorrectionCore v U K x₀ r T δ D) :
+    ∀ ε ∈ Set.Ioc (0 : ℝ) D.ε₀, ∀ t ∈ Set.Ico (0 : ℝ) T,
+    ∀ x : BlowupDensity.Contracts.V1.Space,
+      BlowupDensity.Contracts.V1.spatialDerivative
+        (BlowupDensity.T16.Draft.correctedBackground v D.correction ε) t x
+        (BlowupDensity.Contracts.V1.scaledPacket U x₀ T ε (t, x)) = 0 :=
+  h.crossTransport_packet_advects_background

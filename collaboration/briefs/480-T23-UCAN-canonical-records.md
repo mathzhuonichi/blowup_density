@@ -1,7 +1,7 @@
 # Lane 480-T23-UCAN-canonical-records — T23 U-CAN: one canonical module for the reconciled T23 records (`DomainPlacementData` 16, `CutoffData` 7, `ClassicalSolutionOmega` + domain classes, `BoundaryInsertionAPI` 48) and the repaired statement
 
 You are a Lean 4 (v4.34.0-rc2 + Mathlib) worker on the repository checked out at your working directory
-`/data_8T/ping/blowup_density/.claude/worktrees/480-T23-UCAN-canonical-records` (git branch `erenup/480-T23-UCAN-canonical-records`, = `origin/erenup/integration-section3` after lanes 476 (U1), 477 (U2 partial) and 478 (U7) merged). Three parallel lanes each restated a piece of the T23 vocabulary:
+`/data_8T/ping/blowup_density/.claude/worktrees/480-T23-UCAN-canonical-records` (git branch `erenup/480-T23-UCAN-canonical-records`, = lane 478's branch + lane 477's branch + `origin/erenup/integration-section3` (476 merged; 477/478 in review)). Three parallel lanes each restated a piece of the T23 vocabulary:
 `Section3/T23/Placement.lean` (476: `DomainPlacementData`, `domainPlacementData`, `interiorBall_in_domain`), `Section3/T23/LocalCorrection.lean` + `SpatialExtension.lean` + `LocalCorrectionBridge.lean` + `StatementRepair.lean` (477: `CutoffData`, `localCorrectionData`, `LocalCorrection…` record, cross transports, `zeroCutoff` G0 obstruction), `Section3/T23/NoSlipUniqueness.lean` + `BoxIntegration.lean` (478:
 `ClassicalSolutionOmega`, `IsBoundedBoxOrSmoothDomain`, `IsBoxDomain`, `IsRegularLevelDomain`, `initialClassOmega`, `forceClassOmega`, `SmoothOnClosedSlab`, …). Read `CLAUDE.md`, **`research/T23/T23_SPLIT.md`** (§0 "consume versus thread", §1 field ownership incl. U9's list, §4), **`research/T23/SPEC_ISSUES.md`** (G0 ruling + lane 477 addendum with the exact literal/repaired statements; G1), `research/T23/Spec.lean` (the 48-field
 `BoundaryInsertionAPI`, `boundaryInsertionStatement :1037-1050`, all records/classes with docstrings), `research/T23/RECONCILIATION.md`, the three lanes' reports `research/T23/REPORT_{476,477,478}.md`, how T18/T24 did it (`Section3/T18/Insertion.lean` raw-field `InsertionData`; `Section3/T24/Multiple.lean`), and the top 40 lines of `logs/LESSONS.md`.
@@ -18,3 +18,6 @@ the final canonical names each later unit (U3–U6, U8, U9) must consume. Delive
 
 ## Gates
 `cd verification && LEAN_NUM_THREADS=6 lake build NSFormalization.Section3.T23.Boundary` (0 errors) plus rebuilding the three lanes' modules and probes after any dedupe, `lake env lean` on the module (0 output), the probe, the axioms file, `make check`.
+
+## Lead note (2026-09-19 16:34Z) — reviewer follow-up from lane 476
+Also add to `Placement.lean`'s successor (or a small `Section3/T23/Geometry.lean`) the three auxiliary geometry lemmas `T23_SPLIT.md:40` requested and lane 476 skipped: compactness of the prescribed closed ball, a smaller closed ball around `x₀` inside the prescribed ball, and separation of the closed ball from `frontier Ω` under `IsOpen Ω` (explicit premise). Each with a one-line probe.
