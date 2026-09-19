@@ -39,14 +39,13 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-18 19:10Z 快照）
+## 当前在跑 / 待启动（2026-09-19 12:20Z 快照）
 
-- **合入批次 #389–#396（18:37–19:10Z）**：429 T20 U10a #389；428 T20 U9 #390；423 **T22 注册 `T04.bounded_domain_norm`** #391（T22 全部完成）；430 **T24 `T04.affine_variation`** #392（prop:affine 完成）；432 T20 U10b #393；409 审稿记录 #394；433 T18 U5+U6 #395；420 **T24 `T04.conservative_forcing`** #396。**合同 46**（Section 3：T10、T11、T13、T14、T16、T12、T22、T24a、T24c）。
-- **完成度**：T20 关键链 U1–U10b ✅ → U11（437 Opus）→ U12 → U13 注册；T17 U1–U9 ✅（U8 431 / U9 434 待审）→ U10（等 T15 U5）、U11（438 Opus）、U12 装配；T18 U1–U6 ✅ → U7（435 codex 退避）、U8（436 Opus）→ U9–U12；T15 U1–U3 + U-CAN ✅ → U4+U5（439 Opus）→ U6–U15；T19 U7+ 等 T18 U12；T21 单元 N0–N15 待拆分；T23 等 T18/T22；T24b（prop:multiple）等 T15。
-- **Opus 在跑**：436 T18 U8 寿命、437 T20 U11、438 T17 U11、439 T15 U4+U5。
-- **codex**：rev-434（T17 U9）、rev-431（T17 U8）在跑；rev-426（T18 U2–U4）与 435（T18 U7）退避重试。codex 今日多次 429/at capacity；重要单元一律 Opus。
-- **待清理**：429 复制的 413 四条 `…H1` 辅助引理（U13 装配时合并）；423 装配模块四个 `defProp` 警告；`contracts.json` 并行新增条目用 JSON 感知解冲突（lead 脚本已固化在 merge 流程）。
-- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码（注释/记录类微改除外）；每次合入更新追踪 PR #270。
+- **用户新规（09-19）**：**不再启动 Opus 子代理**；所有工作 lane 与审稿一律 codex（tmux，`tmp/retry_lane.sh` / `tmp/retry_review.sh`，sol xhigh 为主、astra low 只做构建检查），lead 只调度/合入/记账。硬分析单元给 sol 写更细的路线；失败两次则按精确残差重新拆分，不升级到 Opus。
+- **09-18 晚 Opus 交付（未审）**：436 T18 U8 寿命（只用 T11 `velocity_unique`）、437 T20 U11 continuationBound（Ccriterion = hTwoConst²·CH1）、438 T17 U11 Sobolev（经 Paper1 周期端点率，非 T13 localization）、439 T15 U4+U5 → 09-19 12:15Z 已排 codex 审稿。440 全量检查 f 已合入 #400（116 模块 0 错误、46 合同、148 探针）。
+- **codex 在跑/排队**：rev-436/437/438/439；cont_435（T18 U7 续做，astra 骨架不合格）；441 T20 U12、442 T15 U6+U7、443 T18 U9+U10、444 T17 U10 安装后错峰启动。
+- **下一批待开（codex）**：T20 U13 装配+注册（等 U12）；T17 U12 装配+注册（等 U10/U11 合入；G1 hv 由假设或截断处理）；T18 U11 Sobolev 接近、U12 装配+注册（等 U7–U11）；T15 U8–U15；T19 U7+（等 T18 U12）；T21 N0–N15 拆分；T23；T24b（等 T15）。
+- **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
 
