@@ -363,9 +363,9 @@ a✝ : place.T ≤ place.T - ε ^ 2 + ε ^ 2 * s
 failed
 Try this:
   [apply] ring_nf
-  
+
   The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
-    
+
   Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
 ../research/T15/probes/equation_closes.lean:135:4: error: unsolved goals
 case fst
