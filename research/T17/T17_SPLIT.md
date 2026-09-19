@@ -255,6 +255,8 @@ in the tree today.
   Note for later units: a non-vacuity witness for anything Haar-normed must be placed **inside** the
   cube — lane 425's `x₀ = 0` does not satisfy `hcube`; this lane uses the cube centre.
 
+**U10 status (lane 444): DONE.** `T17/Mixed.lean` closes the canonical slice and mixed-bound fields at concrete `correctionData`, with finite Paper1 constant, both infinity endpoints, explicit G1 smoothness, cube placement, and ε₀ ≤ 1. Exact-field and cube-centred nonzero-reference probes and standard-three-axiom audits pass. See `REPORT_444.md`.
+
 - **U10 — mixed bound + honest slices** (new torus wrapping I02 content). New `Section3/T17/Mixed.lean`.
   Targets `force_spatial_memLp` (`Spec.lean:923`), `mixedConst`, `mixedConst_nonneg`, `force_mixed_bound`
   (`Spec.lean:936`). Route: U2(b) `force_eq` + single-copy Haar/Lebesgue mixed bridge (T15 `Mixed.lean`,
