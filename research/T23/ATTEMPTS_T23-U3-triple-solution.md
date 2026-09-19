@@ -247,3 +247,33 @@ Resolution: expose scaledStartTime and give the constant slice time explicitly.
 ../formalization/NSFormalization/Section3/T23/Triple.lean:242:6: error: Failed to rewrite using equation theorems for `velocity`
 ```
 Resolution: change to the explicit function before derivative rewrites.
+
+## S1: integral slice inference and placement field name
+```text
+../formalization/NSFormalization/Section3/T23/Solution.lean:27:2: error: Tactic `apply` failed: could not unify the type of `SmoothOnClosedSlab.integrableOn_slice hb ?m.89 ht`
+  IntegrableOn (fun x => ?m.88 (t, x)) Ω volume
+with the goal
+  IntegrableOn (fun x => reference.pressure (t, x) + scaledPressure p place.x₀ place.T ε (t, x)) Ω volume
+
+ν δ : ℝ
+Ω K : Set Space
+a : SpatialField
+g : SpaceTimeField
+u f : VelocityField
+p : PressureField
+place : DomainPlacementData u p f K
+reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)
+hδ : 0 < δ
+ho : IsOpen Ω
+hb : Bornology.IsBounded Ω
+hne : Ω.Nonempty
+ε : ℝ
+hP : ContDiffOn ℝ ∞ (scaledPressure p place.x₀ place.T ε) (Iio place.T ×ˢ univ)
+t : ℝ
+ht : t ∈ Ico 0 place.T
+⊢ IntegrableOn (fun x => reference.pressure (t, x) + scaledPressure p place.x₀ place.T ε (t, x)) Ω volume
+../formalization/NSFormalization/Section3/T23/Solution.lean:52:23: error(lean.invalidField): Invalid field `T_pos`: The environment does not contain `NSFormalization.Section3.T23.DomainPlacementData.T_pos`, so it is not possible to project the field `T_pos` from an expression
+  place
+of type `DomainPlacementData u p f K`
+```
+Resolution: explicit joint scalar field; canonical horizon field is time_pos.
