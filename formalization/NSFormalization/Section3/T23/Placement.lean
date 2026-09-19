@@ -261,7 +261,7 @@ def domainPlacementData {u : VelocityField} {p : PressureField}
     {f : VelocityField} {K Ω : Set Space}
     (hK : IsCompact K) (hf : HasCompactSupport f)
     (chartCenter : Space) (chartRadius : ℝ) (hchartRadius : 0 < chartRadius)
-    (hball : closure (Metric.ball chartCenter chartRadius) ⊆ Ω)
+    (_hball : closure (Metric.ball chartCenter chartRadius) ⊆ Ω)
     (x₀ : Space) (hx₀ : x₀ ∈ Metric.ball chartCenter chartRadius)
     (T : ℝ) (hT : 0 < T) : DomainPlacementData u p f K where
   T := T
@@ -279,9 +279,7 @@ def domainPlacementData {u : VelocityField} {p : PressureField}
   eps_pos := domainPlacementThreshold_pos hK hf hT hx₀
   eps_le_one := domainPlacementThreshold_le_one hK hf T chartCenter x₀ chartRadius
   eps_time := domainPlacementThreshold_time hK hf hT chartCenter x₀ chartRadius
-  eps_space := by
-    have _hball := hball
-    exact domainPlacementThreshold_space hK hf
+  eps_space := domainPlacementThreshold_space hK hf
 
 /-- The prescribed horizon is preserved definitionally. -/
 theorem domainPlacementData_time {u : VelocityField} {p : PressureField}
