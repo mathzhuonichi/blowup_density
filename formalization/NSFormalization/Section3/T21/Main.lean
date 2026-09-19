@@ -1,5 +1,5 @@
 import NSFormalization.Section3.T19.Assembly
-import NSFormalization.Section3.T20.CriticalEnergy
+import NSFormalization.Section3.T21.Zero
 
 /-!
 # T21 main theorem: density threshold at the zero datum
@@ -44,10 +44,6 @@ structure MainTheoremAPI : Prop where
 /-- N11: the torus threshold is the critical order at time exponent one. -/
 theorem thresholdValue : criticalOrder 1 = (1 : ℝ) / 2 :=
   NSFormalization.Section3.T19.thresholdValue
-
-/-- N12 transport: the zero field is an admissible periodic initial datum. -/
-theorem zeroInitialClass : (fun _ : Space ↦ 0) ∈ initialClassT :=
-  NSFormalization.Section3.T20.zero_mem_initialClassT
 
 /-- N13: the fixed-initial-datum density field, with its `a`-first binders. -/
 theorem fixedInitialDensity
