@@ -80,4 +80,15 @@ theorem domainPlacementCarrier_bound {K : Set Space} {f : VelocityField}
     ∃ R : ℝ, 0 < R ∧ ∀ y ∈ domainPlacementCarrier K f, ‖y‖ ≤ R :=
   (domainPlacementCarrier_compact hK hf).isBounded.exists_pos_norm_le
 
+/-- A fixed positive bound for the canonical compact enlargement. -/
+def domainPlacementRadius {K : Set Space} {f : VelocityField}
+    (hK : IsCompact K) (hf : HasCompactSupport f) : ℝ :=
+  Classical.choose (domainPlacementCarrier_bound hK hf)
+
+/-- The chosen carrier radius is strictly positive. -/
+theorem domainPlacementRadius_pos {K : Set Space} {f : VelocityField}
+    (hK : IsCompact K) (hf : HasCompactSupport f) :
+    0 < domainPlacementRadius hK hf :=
+  (Classical.choose_spec (domainPlacementCarrier_bound hK hf)).1
+
 end NSFormalization.Section3.T23
