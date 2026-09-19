@@ -233,3 +233,13 @@ Repair: close the old probe’s anonymous noncomputable section before its wrapp
 research/T23/probes/T23-U2b-matching-supplier_closes.lean:1467: new blank line at EOF.
 ```
 Removed the trailing blank line; no proof changed.
+
+## Final outcome
+
+All recorded failures are repaired. The registered constructor retains
+`A.correction = C` and has `A.ε₀ = C.ε₀` for this actual I02 V2 witness.
+Both the localCorrectionData variant and the literal supplier-cutoff variant
+carry the same three norm estimates and two cross transports. The guarded
+19-declaration audits and final elaborations succeed. Record construction is
+in the contract-facing probe, with canonical analytic/transport results in
+the two production modules; no competing ScalingAPI was manufactured.
