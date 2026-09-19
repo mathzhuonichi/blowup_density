@@ -1,5 +1,5 @@
 import NSFormalization.Section4.A02.SolutionClass
-import Mathlib.MeasureTheory.Integral.DivergenceTheorem
+import NSFormalization.Section3.T23.BoxIntegration
 
 /-! Canonical T23 domain vocabulary, copied verbatim from research/T23/Spec.lean.
 The no-slip uniqueness proof is under development; no uniqueness result is asserted here. -/
@@ -138,5 +138,17 @@ structure ClassicalSolutionOmega (ν : ℝ) (Ω : Set Space) (a : SpatialField)
   `Ω`. -/
   pressure_gauge : ∀ t ∈ Ico (0 : ℝ) T, (∫ x in Ω, pressure (t, x)) = 0
 
+
+/-- The slab-neighborhood convention gives ordinary smooth spatial derivatives,
+including at boundary points and at time zero. -/
+theorem SmoothOnClosedSlab.contDiffAt_slice
+    {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {I : Set ℝ} {Ω : Set Space} {f : SpaceTime → E}
+    (hf : SmoothOnClosedSlab I Ω f) {t : ℝ} (ht : t ∈ I)
+    {x : Space} (hx : x ∈ closure Ω) :
+    ContDiffAt ℝ ∞ (fun y => f (t, y)) x := by
+  obtain ⟨N, hN, hsub, hs⟩ := hf
+  exact (hs.contDiffAt (hN.mem_nhds (hsub ⟨ht, hx⟩))).comp x
+    (contDiffAt_const.prodMk contDiffAt_id)
 
 end NSFormalization.Section3.T23
