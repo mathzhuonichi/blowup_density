@@ -427,4 +427,17 @@ theorem force_smooth_of_local (ν : ℝ) (v : SpaceTimeField) (D : CutoffData) (
       exact image_eq_zero_of_notMem_tsupport hy
     exact contDiffAt_const.congr_of_eventuallyEq he
 
+/-- The chosen threshold puts the full spacetime correction support inside
+the cylinder on which the reference is controlled. -/
+theorem correction_support_interior {v U : SpaceTimeField} {K : Set Space}
+    {x₀ : Space} {r T δ ε : ℝ} {D : CutoffData}
+    (h : LocalCorrectionCore v U K x₀ r T δ D) (hε : ε ∈ Ioc (0 : ℝ) D.ε₀) :
+    tsupport (D.correction ε) ⊆ Ioo (0 : ℝ) (T + δ) ×ˢ ball x₀ r := by
+  intro z hz
+  have hz' := h.correction_support ε hε hz
+  have ht := lt_min_iff.mp (h.eps_time ε hε)
+  refine ⟨⟨?_, ?_⟩, ball_subset_ball (h.eps_space ε hε).le hz'.2⟩
+  · linarith [hz'.1.1, ht.1]
+  · linarith [hz'.1.2, ht.2]
+
 end NSFormalization.Section3.T23
