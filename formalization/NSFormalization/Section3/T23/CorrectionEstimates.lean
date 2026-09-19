@@ -1,6 +1,8 @@
 import NSFormalization.Section3.T23.MatchingSupplier
 import NSFormalization.Paper1.CorrectionEnergy
 import NSFormalization.Paper1.CorrectionVectorNorms
+import NSFormalization.Section4.D01.HalfOrder
+import NSFormalization.Section4.I03.Angular
 
 /-! Quantitative estimates for the same local correction family. -/
 noncomputable section
@@ -60,5 +62,19 @@ theorem WholeSpaceCorrectionAPI.local_mixed_bound {ν : ℝ} {u v : VelocityFiel
   apply ENNReal.ofReal_le_ofReal
   apply mul_le_mul_of_nonneg_right _ (Real.rpow_nonneg hε.1.le _)
   exact (le_max_left _ _).trans (by linarith)
+
+open scoped ContDiff
+
+/-- Test the registered path infimum against the actual angular datum path.
+This does not identify it with a slice-integral norm. -/
+theorem forceSobolevENorm_le_cycles (s : ℝ) (q : ℝ≥0∞) {F : VelocityField}
+    (hF : ContDiff ℝ ∞ F) (hc : HasCompactSupport F) :
+    NSFormalization.Section4.D01.forceSobolevENorm q s F ≤
+      ENNReal.ofReal (NSFormalization.Source.frequencyUnit ^ |s|) *
+        eLpNorm (NSFormalization.Source.vectorFourierSobolevNorm s F) q volume := by
+  refine le_trans (iInf_le _ ⟨NSFormalization.Section4.I03.angularPath s F hF hc,
+    fun t _ i ψ => NSFormalization.Section4.I03.angularPath_pairing s F hF hc t i ψ,
+    (NSFormalization.Section4.I03.memLp_angularPath s F hF hc q).aestronglyMeasurable⟩) ?_
+  exact NSFormalization.Section4.I03.eLpNorm_angularPath_le s F hF hc q
 
 end NSFormalization.Section3.T23
