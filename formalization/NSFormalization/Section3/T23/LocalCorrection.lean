@@ -537,4 +537,12 @@ theorem correction_support_ball {v U : SpaceTimeField} {K : Set Space}
   intro x hx
   exact (correction_support_interior h hε (hs hx)).2
 
+/-- The force remains in the prescribed ball at every real time, without
+any regularity assumption on the exterior reference. -/
+theorem force_support_ball (ν : ℝ) {v U : SpaceTimeField} {K : Set Space}
+    {x₀ : Space} {r T δ ε : ℝ} {D : CutoffData}
+    (h : LocalCorrectionCore v U K x₀ r T δ D) (hε : ε ∈ Ioc (0 : ℝ) D.ε₀)
+    {z : SpaceTime} (hz : z ∈ tsupport (correctionForce ν v D ε)) : z.2 ∈ ball x₀ r :=
+  (correction_support_interior h hε (force_support ν v D ε hz)).2
+
 end NSFormalization.Section3.T23
