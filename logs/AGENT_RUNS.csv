@@ -1466,3 +1466,16 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-18,T20,432-T20-U10b-h1-energy,claude-opus,proof-worker,"Section3/T20/H1Energy.lean: hOneEnergy verbatim at CH1 = 2 with criticalSmallnessH1; order-2 Parseval; awaiting codex review",done,-
 2026-09-18,T20,432-T20-U10b-h1-energy,claude-opus,proof-worker,"Section3/T20/H1Energy.lean: hOneEnergy verbatim; codex review ACCEPT-WITH-NOTES",merged,393
 2026-09-18,T17,434-T17-U9-energy-bound,claude-opus,proof-worker,"Section3/T17/Energy.lean: correction energy bound + honest MemLp slices at concrete correctionData; awaiting codex review",done,-
+2026-09-18,T22,409-T22-UB3-cutoff-datum,claude-opus,proof-worker,"Section3/T22/CutoffDatum.lean (merged via #381); codex review ACCEPT, record merged",merged,394
+2026-09-18,T18,433-T18-U5-U6-cross-transport-momentum,claude-opus,proof-worker,"Section3/T18/CrossTransport.lean + Momentum.lean; codex review ACCEPT-WITH-NOTES",merged,395
+2026-09-18,T24,420-T24-Uc3-conservative-registration,gpt-5.6-sol,contract-registration,"ConservativeAssembly + Contracts/Bindings/Tests ConservativeForcing + registry T04.conservative_forcing (46 contracts); review REJECT procedural, lead-resolved base merge",merged,396
+2026-09-18,T18,426-T18-U2-U4-force-class-kinematics-div,gpt-5.6-sol,proof-worker,"Section3/T18/{ForceClass,Kinematics,Divergence}.lean; codex review ACCEPT-WITH-NOTES",merged,397
+2026-09-18,T17,434-T17-U9-energy-bound,claude-opus,proof-worker,"Section3/T17/Energy.lean; codex review ACCEPT-WITH-NOTES",merged,398
+2026-09-18,T17,431-T17-U8-force-volume,claude-opus,proof-worker,"Section3/T17/ForceVolume.lean; review REJECT on hθR premise, lead ruling (threaded T16 record field)",merged,399
+2026-09-18,T18,435-T18-U7-diff-support,gpt-6-astra,proof-worker,"Section3/T18/Support.lean scaffold (radius + positivity only); support theorems left open; to be completed by Opus",partial,-
+2026-09-18,T18,436-T18-U8-lifespan,claude-opus,proof-worker,"Section3/T18/Lifespan.lean: solution/blowup/blowup_limsup/lifespan/maximal (21 decls, only velocity_unique from T11); awaiting codex review",done,-
+2026-09-18,T20,437-T20-U11-continuation-bound,claude-opus,proof-worker,"Section3/T20/Continuation.lean: continuationBound verbatim (Ccriterion = hTwoConst^2 * CH1); awaiting codex review",done,-
+2026-09-18,T17,438-T17-U11-sobolev,claude-opus,proof-worker,"Section3/T17/Sobolev.lean: sobolevConst/pos, forceSobolev_memLp, force_sobolev_bound for all 0<=s<=1 (via Paper1 periodic endpoint rates, not T13 localization); awaiting codex review",done,-
+2026-09-18,T15,439-T15-U4-U5-energy-mixed,claude-opus,proof-worker,"Section3/T15/Energy.lean + Mixed.lean: five U4/U5 fields (I03 scaling identities via map torusChart = restrict cube); awaiting codex review",done,-
+2026-09-19,MAINT,440-MAINT-section3-build-f,gpt-5.6-sol,build-check,"logs/SECTION3_BUILD_20260918f.md: 116 Section 3 modules rebuilt rc 0 105 s 0 errors; gates green; 46 contracts; 148 probes; standard axioms only",merged,400
+2026-09-19,T20,437-T20-U11-continuation-bound,claude-opus,proof-worker,"Section3/T20/Continuation.lean: continuationBound verbatim; review REJECT procedural/records, lead-corrected and merged",merged,401

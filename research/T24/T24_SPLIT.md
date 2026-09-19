@@ -87,11 +87,16 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
   (`ContDiffOn.comp_contDiff` → spatial `ContDiff` at every slab time, incl. `t=0`), `S.velocity_periodic`,
   `S.divergence`, and `φ`'s two `PeriodicPotentialT` clauses. **No `0<ν` used** — the statement is pure IBP.
   `PeriodicPotentialT`/`conservativeForceT` restated verbatim (lane 392 `Conservative.lean` not on base; dedupe in Uc3).
-- **Uc3 — assembly + registration.** Assemble `ConservativeForcingAPI` from Uc1+Uc2; `conservativeForcingStatement`
+- **Uc3 — assembly + registration.** **DONE (lane 420).** Assemble `ConservativeForcingAPI` from Uc1+Uc2; `conservativeForcingStatement`
   is the alias (`:1416`), inhabited by the same two proofs. Register `T24.conservative_forcing` v1 (contract +
   binding + tests), `ClassicalSolutionT` structure exception as in `T01.torus_local_theory`. Non-vacuity: the rest
   solution at `φ=0` (`conservativeForceT 0 = 0`, zero `ClassicalSolutionT`) satisfies the hypotheses. Record the
   bounded-domain/no-slip omission (out of V1 scope) in the contract `scope`. **S–M, codex-sol.** Deps: Uc1, Uc2.
+  Landed as `Section3/T24/ConservativeAssembly.lean`, with the two canonical fields assembled unconditionally and
+  a viscosity-generic zero-velocity/zero-pressure `restSolution`.  Its Sobolev field reuses T11's genuine
+  `constantVelocitySolutionT 0`; the binding uses `TorusLocalTheory.ofContract`/`toContract` fieldwise, and the
+  registered test instantiates the actual contract solution at `φ=0`.  Axiom audit: exactly
+  `[propext, Classical.choice, Quot.sound]`; no named input.
 
 ### T24a — affine variations (`Prop`, 13 fields), whole space / T14 only, unblocked today
 
