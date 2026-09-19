@@ -16,6 +16,7 @@
 
 ## 日志（最新在前）
 - **2026-09-19（lane 453 continuation）**：T17 U12 完成；最终 G4（含 raw packet support + ball-in-chart）装配 45 字段并注册 `T02.correction`，47 合同；cube-centred 非零参考场完整见证，反例已移至 research 独立 probe。报告：`research/T17/REPORT_453.md` Continuation。
+- **2026-09-19 16:58Z**：合入 #441（T23 U2 阶段 1 部分，审稿 REJECT 完整性、lead 裁定合入）、#442（T23 U7 盒情形）、#443（全量编译 h：167 模块 rc 0，54 合同）。480（T23 U-CAN）审中；基于其分支开 T23 六条并行 lane：481 U2b、482 U3、485 U6、486 U8（astra），483 U4、484 U5（sol）；跨 lane 依赖一律穿线假设，U9 装配放电。
 - **2026-09-19 16:36Z**：合入 #440（T23 U1）。cont_478 闭合盒情形 `noSlip_uniqueness_box` + `noSlip_uniqueness_of_ibp`，光滑域残差 = `IBP Ω`（G1，Mathlib 无正则水平集域散度定理；V1 可能只注册盒情形，owner 待定）；审中。480（T23 U-CAN 统一记录 + BoundaryInsertionAPI，astra）基于 477+478 分支排队。479 全量编译 h 在跑。
 - **2026-09-19 16:32Z**：合入 #439（T21 装配 + `T03.non_density`/`T03.main`，**第 53/54 个合同，`thm:main` 注册，T21 完成**）。开 479 全量编译检查 h（sol）。T23：476 审中、477 部分（G0 反例 + 局部修正供给）审中、cont_478 在跑；480 U-CAN 简报就绪。
 - **2026-09-19 16:16Z**：合入 #437（T21 主定理侧）、#438（T21 非稠密侧，**T21 全部 N 单元证完**）。475 完成：`MainAssembly.lean` + `T03.non_density`/`T03.main`（分支上 54 合同），审中；合入后开 479 全量编译检查。T23：476 U1 审中；477 U2+G0、cont_478 U7（盒情形优先）在跑。
