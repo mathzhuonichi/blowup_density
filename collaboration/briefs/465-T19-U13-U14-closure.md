@@ -1,7 +1,7 @@
 # Lane 465-T19-U13-U14-closure — T19 wave 3: `simultaneousPairConvergence` (U13) and `closureInEnergy` (U14)
 
 You are a Lean 4 (v4.34.0-rc2 + Mathlib) proof worker on the repository checked out at your working directory
-`/data_8T/ping/blowup_density/.claude/worktrees/465-T19-U13-U14-closure` (git branch `erenup/465-T19-U13-U14-closure`, = `origin/erenup/integration-section3` after lanes 461 (T19 U0) and 464 (U7–U9) merged).
+`/data_8T/ping/blowup_density/.claude/worktrees/465-T19-U13-U14-closure` (git branch `erenup/465-T19-U13-U14-closure`, = lane 464's branch (461 merged; 464 in review) + `origin/erenup/integration-section3`).
 Read `CLAUDE.md`, **`research/T19/T19_SPLIT.md`** (§0; wave 3 units U13/U14 verbatim targets and routes), `research/T19/REPORT_461.md` + `Section3/T19/Threading.lean` (`extendByZero`, `extendByZero_velocity_eqOn`, `insertionData`, `insertion`,
 export lemmas `force_mem`, `lifespan`, `solution`, `blowup_limsup`, `energyRate`, `forceDifference_sobolev_bound`, `forceDifference_negativeSobolev_tendsto`, guards, `exists_force_close` — verify names by `grep -n`), `research/T19/REPORT_464.md` +
 `Section3/T19/DensityEngine.lean` (how U7 turned the T18 bounds into "eventually `< r`"), `Section3/T19/Density.lean` (`StrongClosureAPI.simultaneousPairConvergence`, `.closureInEnergy` — read the exact statements; `RegularTrajectoryT`/`SingularTrajectoryT`
