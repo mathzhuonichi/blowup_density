@@ -74,6 +74,21 @@ Construct Kstar as the union of packet carrier and the spatial image of compact 
 
 ### U2 — local correction supplier and compatibility (L, codex-astra)
 
+**Lane 481 U2b status (2026-09-19): matching and correction estimates closed.**
+`MatchingSupplier.lean` proves local correction/force transport, both exact U2
+cross transports, the seven-field supplier cutoff, and the domain-reference
+locality bridge. `CorrectionEstimates.lean` proves energy restriction, local
+energy/mixed estimates, and the positive Sobolev-force estimate. The extended
+`T23-U2b-matching-supplier_closes.lean` probe actually constructs registered
+I02 V2/I03 records from the local reference, retaining `A.correction = C` and
+`D.ε₀ = C.ε₀ = A.ε₀`, with all three estimates and both cross terms at that D.
+Its literal supplier-cutoff variant additionally retains all seven G0 cutoff
+identities. Record construction remains in the contract-facing research layer
+because implementation modules cannot import Contracts/Bindings; U9 can move
+that checked bridge to its binding. No full BoundaryInsertionAPI assembly,
+V1 amendment, U6 path-to-slice comparison, or G1 completion is claimed.
+See `REPORT_481.md` for the inner-radius convention and exact gate results.
+
 **Lane 477 status (2026-09-19): partial, kernel checked.** Exact G0 zero-cutoff
 API instance refuted and existential repair defined in the research probe;
 canonical `StatementRepair` contains only the raw obstruction pending domain
@@ -94,6 +109,15 @@ Cancellation gives both cross terms by the open-neighborhood argument of `S3/T18
 
 ### U3 — triple, kinematics, momentum and solution record (L, codex-astra)
 
+**Lane 482 status (2026-09-19): complete with the authorized supplier/U4 threading.**
+`PressureNormalization.lean`, `Triple.lean`, and `Solution.lean` prove the 18
+triple fields, pressure normalization analysis, and the ten-field domain solution
+constructor / API `solution`. Theorems retain the same raw placement, correction
+and reference; U2's existing `LocalCorrectionCore`, same-scale packet facts and
+U4 no-slip are explicit parameters. The threshold also retains independent I03
+and geometry bounds. Original-Spec field probe and all gates pass; 42 production
+declarations have exactly the standard three axioms. See `REPORT_482.md`.
+
 API targets **18 fields**: `ε₀:726`, `eps_pos:728`, `eps_le_scaling:731`, `eps_le_cutoff:734`; `velocity:738`, `pressure:740`, `force:742`; `velocity_formula:749`, `pressure_formula:757`, `force_formula:764`; `force_mem:773`, `forceDifference_mem:777`; `velocity_smooth:784`, `pressure_smooth:789`, `initial:794`, `incompressible:798`, `momentum:806`, `history:812`. Dependencies: U1/U2, with U4 no-slip used only for the bundled solution below.
 
 Set `u=v+w+scaledPacket`, `p=domainNormalizePressure Ω (π+scaledPressure)`, `f=g+correctionForce+scaledForce`, for **all** ε and spacetime points as the formulas require. Choose threshold below placement, cutoff, consumed I03 and the extra geometric bounds; do not use the simple T18 min unless all other bounds have already been built into those inputs. Use I03 `scaledEquation:223`, `scaledDivergenceFree:231` (`C1/Scaling.lean`) restricted to Ω. Sum derivatives locally; use U2 cross terms and spatial constancy of the pressure shift for the exact residual. Intersect open neighborhoods for smooth sums, and union compact positive time supports for force classes. Quiet history is global, including its closed endpoint, by I02 `correction_vanishes_before:369` and packet zero past.
@@ -109,6 +133,17 @@ API targets **8 fields**: `collar_agreement:823`, `noSlip_preserved:831`, `veloc
 Take ρ strictly larger than the cutoff and packet carrier radii, bound tsupport of the sum by the union, and shrink ε so `ball x₀ (ερ) ⊆ B`. Use I02 support fields cited in U2 and the scaled carrier from I03 `carrier_subset:190`; this is a single un-periodized ball. Force support also needs the force projection in Kstar, not merely P.carrier. Establish the all-real-time support assertion, especially after T, via I02 `force_support:433` plus scaled force support. With K=closure B, prove `tsupport (zeroExtension Ω (fε(t)-g(t))) ⊆ K` by closedness of K; the API only states pointwise nonvanishing support, so this conversion is a separate lemma. Outside B both perturbations vanish; frontier Ω misses B, giving no-slip from reference.no_slip. For a literally open boundary neighborhood use `(closure B)ᶜ`; the API's Bᶜ equality is stronger and suffices. Divergence of the difference follows locally in Ω.
 
 ### U5 — registered T22 domain/zero-extension comparison (M, codex-sol)
+
+**Status (lane 484, 2026-09-19): complete.**
+`Section3/T23/DomainComparison.lean:domain_zeroExt_comparison` applies the
+canonical T22 three-field API to the actual force difference with the fixed
+compact set `closure B`, chooses `C` before time and `ε`, and integrates both
+extended-norm inequalities over `Ioi 0` without finiteness assumptions.  It
+threads exactly U3's `forceDifference_mem` and U4's all-time pointwise support;
+the order-zero slice identity and all five copied T23 norm-definition bridges
+are checked separately.  The closure probe also gives explicit fieldwise
+adapters from both the historical `Spec.lean` copy and the registered T22
+contract copy to the canonical proof-side record.
 
 API target `domain_zeroExt_comparison:983`; supporting targets domain norm definitions `Spec:615,622,629,640,648` and copied norm API `:289,304,324` transport. Dependencies: U3 force smoothness, U4 fixed support, registered T22. No new proof of cutoffMultiplier is requested.
 
@@ -152,6 +187,8 @@ API target `noSlip_uniqueness:1015–1021`. Dependencies: canonical domain recor
 No verified domain uniqueness supplier was found; the searches are recorded in §2. T11 `velocity_unique` (`S3/T11/Uniqueness.lean:27`) is only a periodic analogue. Prove difference energy on [0,S] strictly inside both horizons: finite integrals and differentiability from compact slab smoothness; integration by parts for box and smooth-level domains; pressure and boundary terms vanish by no-slip and divergence; transport skew cancellation; bound the remaining term by a uniform spatial derivative bound of u₂ times ‖u₁-u₂‖₂². Grönwall from zero initial difference gives zero energy; continuity on open Ω upgrades a.e. equality to pointwise equality. Peel box/smooth integration-by-parts infrastructure before the energy argument; no boundary uniqueness axiom, pressure equality, H¹ restart assumption or free energy-identity premise is allowed.
 
 ### U8 — interior blow-up and lifespan exactly T (L, codex-astra)
+
+**Lane 486: four fields kernel checked over the authorized U3/U4 family hypotheses.** `InteriorBlowup.lean` proves witnesses in the prescribed ball and Ω, pointwise blow-up and the local-continuity essential-supremum limsup. `Lifespan.lean` proves lifespan exactly T and maximality by compact closure bounds and U7; box specializations discharge IBP, while the smooth branch retains the explicit G1 `IBP Ω` premise. No new solution/placement/insertion record or U9 assembly is asserted. Probe and complete 15-declaration three-axiom audit pass; see `REPORT_486.md`.
 
 API targets **4 fields**: `lifespan:847`, `maximal:857`, `blowup:863`, `blowup_limsup:868`. Dependencies: U2 cancellation, U3 solution, U4, U7. `solution:840` belongs to U3.
 
