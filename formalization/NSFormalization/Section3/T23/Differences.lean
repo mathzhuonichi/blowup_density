@@ -191,4 +191,37 @@ theorem velocityDifference_support {v u : SpaceTimeField}
     (correction_slice_support core hεD t)
     (scaledPacket_slice_support hK hu hcarrier hε.1 ht.2))
 
+/-- Outside the fixed chart ball the inserted velocity agrees with the
+reference.  This is the boundary-collar field, derived from the threaded U3
+formula and the two supplier support clauses. -/
+theorem collar_agreement {u : VelocityField} {p : PressureField}
+    {f : VelocityField} {K : Set Space}
+    (place : DomainPlacementData u p f K)
+    {v : SpaceTimeField} {r δ base packetRadius : ℝ} {D : CutoffData}
+    {velocity : ℝ → VelocityField}
+    (core : LocalCorrectionCore v u K place.x₀ r place.T δ D)
+    (hK : IsCompact K)
+    (hu : ∀ s ∈ Ico (0 : ℝ) 1,
+      tsupport (fun x : Space => u (s, x)) ⊆ K)
+    (hcarrier : K ⊆ ball (0 : Space) packetRadius)
+    (hbaseD : base ≤ D.ε₀)
+    (hvelocity : ∀ ε : ℝ, ∀ z : SpaceTime,
+      velocity ε z = v z + D.correction ε z +
+        scaledVelocity u place.x₀ place.T ε z) :
+    ∀ ε ∈ Ioc (0 : ℝ)
+        (differenceThreshold place base D.θRadius packetRadius),
+      ∀ t ∈ Ico (0 : ℝ) place.T, ∀ x : Space,
+        x ∉ ball place.chartCenter place.chartRadius →
+          velocity ε (t, x) = v (t, x) := by
+  intro ε hε t ht x hx
+  have hle : differenceThreshold place base D.θRadius packetRadius ≤ D.ε₀ :=
+    (differenceThreshold_le_base place base D.θRadius packetRadius).trans hbaseD
+  have hsupp := velocityDifference_support core hK hu hcarrier hle hvelocity ε hε t ht
+  have hchart := diffSupport_in_chart place base D.θRadius packetRadius
+    core.theta_radius_pos ε hε
+  have hxnot : x ∉ tsupport (fun y : Space => velocity ε (t, y) - v (t, y)) :=
+    fun hxs => hx (hchart (hsupp hxs))
+  exact sub_eq_zero.mp (image_eq_zero_of_notMem_tsupport
+    (f := fun y : Space => velocity ε (t, y) - v (t, y)) hxnot)
+
 end NSFormalization.Section3.T23
