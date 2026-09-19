@@ -386,3 +386,90 @@ hecl : ⇑e ⁻¹' closure Ω = Icc a b
 ⊢ frontier (⇑e.toHomeomorph ⁻¹' Ω) = frontier U
 
 ```
+
+## Continuation: energy cancellations and parameter integrals
+
+Failed proof diagnostics (all corrected):
+
+### energy_errors01.log
+```text
+../formalization/NSFormalization/Section3/T23/NoSlipEnergy.lean:47:11: warning: Possibly looping simp theorem: `NavierStokes.PeriodicUniqueness.fderiv_apply_eq_sum`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+../formalization/NSFormalization/Section3/T23/NoSlipEnergy.lean:47:11: error: Tactic `simp` failed with a nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+
+```
+
+### energy_errors03.log
+```text
+../formalization/NSFormalization/Section3/T23/NoSlipEnergy.lean:150:4: error: Type mismatch: After simplification, term
+  integral_inner_partial hI hΩ hm hw (fun x hx => contDiffAt_partial (hw x hx) i) hz i
+ has type
+  @Eq ℝ
+    (∫ (x : Space) in Ω,
+      ⟪w (t, x), (fderiv ℝ (fun y => (fderiv ℝ (fun y => w (t, y)) y) (coordinateVector i)) x) (coordinateVector i)⟫_ℝ)
+    (-∫ (x : Space) in Ω, ‖(fderiv ℝ (fun y => w (t, y)) x) (coordinateVector i)‖ ^ 2)
+but is expected to have type
+  @Eq ℝ
+    (∫ (a : Space) in Ω,
+      ⟪w (t, a), (fderiv ℝ (fun y => (spatialDerivative w t y) (coordinateVector i)) a) (coordinateVector i)⟫_ℝ)
+    (-∫ (a : Space) in Ω, ‖(spatialDerivative w t a) (coordinateVector i)‖ ^ 2)
+
+```
+
+### time_errors01.log
+```text
+../formalization/NSFormalization/Section3/T23/DomainTimeIntegral.lean:16:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+../formalization/NSFormalization/Section3/T23/DomainTimeIntegral.lean:40:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+../formalization/NSFormalization/Section3/T23/DomainTimeIntegral.lean:85:41: error: unsolved goals
+Ω : Set Space
+hΩ : Bornology.IsBounded Ω
+hm : MeasurableSet Ω
+I : Set ℝ
+hI : IsOpen I
+F : SpaceTime → ℝ
+hF : SmoothOnClosedSlab I Ω F
+t : ℝ
+ht : t ∈ I
+G : SpaceTime → ℝ := fun z => (fderiv ℝ F z) (1, 0)
+hd : ∀ s ∈ I, ∀ x ∈ closure Ω, HasDerivAt (fun r => F (r, x)) (G (s, x)) s
+z : SpaceTime
+hz : z ∈ I ×ˢ closure Ω
+⊢ ¬?m.274 z hz = ω
+../formalization/NSFormalization/Section3/T23/DomainTimeIntegral.lean:76:51: error: unsolved goals
+Ω : Set Space
+hΩ : Bornology.IsBounded Ω
+hm : MeasurableSet Ω
+I : Set ℝ
+hI : IsOpen I
+F : SpaceTime → ℝ
+hF : SmoothOnClosedSlab I Ω F
+t : ℝ
+ht : t ∈ I
+G : SpaceTime → ℝ := fun z => (fderiv ℝ F z) (1, 0)
+hd : ∀ s ∈ I, ∀ x ∈ closure Ω, HasDerivAt (fun r => F (r, x)) (G (s, x)) s
+⊢ HasDerivAt (fun s => ∫ (x : Space) in Ω, F (s, x)) (∫ (x : Space) in Ω, deriv (fun s => F (s, x)) t) t
+
+```
+
+Fixes: rewrite the directional-derivative sum once (recursive simp loops);
+unfold `spatialDerivative` explicitly in the vector IBP application; specify
+`m := ∞` for continuity of the derivative; use `have` for local measure instances.
+Both new modules build successfully.
