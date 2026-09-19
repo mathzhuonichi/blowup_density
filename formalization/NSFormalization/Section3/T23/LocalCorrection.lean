@@ -401,4 +401,30 @@ theorem correctionForce_eq_of_open_agreement (ν : ℝ) (v V : SpaceTimeField)
       NSFormalization.Source.LocalizedInsertion.correctionForce_eq_zero_outside ν v (D.correction ε) hn,
       NSFormalization.Source.LocalizedInsertion.correctionForce_eq_zero_outside ν V (D.correction ε) hn]
 
+/-- Smoothness of the force only uses the reference near the correction
+support. On the complement all force terms vanish on a neighbourhood. -/
+theorem force_smooth_of_local (ν : ℝ) (v : SpaceTimeField) (D : CutoffData) (ε : ℝ)
+    {O : Set SpaceTime} (hO : IsOpen O) (hv : ContDiffOn ℝ ∞ v O)
+    (hw : ContDiff ℝ ∞ (D.correction ε)) (hs : tsupport (D.correction ε) ⊆ O) :
+    ContDiff ℝ ∞ (correctionForce ν v D ε) := by
+  have hwO := hw.contDiffOn (s := O)
+  have hdv := NavierStokes.ResidualRegularity.contDiffOn_spatialDerivative hO hv
+  have hdw := NavierStokes.ResidualRegularity.contDiffOn_spatialDerivative hO hwO
+  have ht := NavierStokes.ResidualRegularity.contDiffOn_temporalDerivative hO hwO
+  have hl := NavierStokes.ResidualRegularity.contDiffOn_spatialLaplacian hO hwO
+  have ha := NavierStokes.ResidualRegularity.contDiffOn_advection hO hwO
+  have hf : ContDiffOn ℝ ∞ (correctionForce ν v D ε) O :=
+    (((ht.sub ((contDiffOn_const (c := ν)).smul hl)).add
+      (hdw.clm_apply hv)).add (hdv.clm_apply hwO)).add ha
+  rw [contDiff_iff_contDiffAt]
+  intro z
+  by_cases hz : z ∈ O
+  · exact hf.contDiffAt (hO.mem_nhds hz)
+  · have hn : z ∉ tsupport (correctionForce ν v D ε) :=
+      fun h => hz (hs (force_support ν v D ε h))
+    have he : correctionForce ν v D ε =ᶠ[𝓝 z] (fun _ => (0 : Space)) := by
+      filter_upwards [(isClosed_tsupport _).isOpen_compl.mem_nhds hn] with y hy
+      exact image_eq_zero_of_notMem_tsupport hy
+    exact contDiffAt_const.congr_of_eventuallyEq he
+
 end NSFormalization.Section3.T23
