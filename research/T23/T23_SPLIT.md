@@ -130,6 +130,18 @@ Own all **10** `ClassicalSolutionOmega` fields: `velocity:545`, `pressure:548`, 
 
 API targets **8 fields**: `collar_agreement:823`, `noSlip_preserved:831`, `velocityDifference_divFree:897`, `diffSupportRadius:903`, `diffSupportRadius_pos:906`, `velocityDifference_support:912`, `diffSupport_in_chart:919`, `forceDifference_spatialSupport:930`. Dependencies: U1/U2 and U3 formulas/divergence (not its solution packaging).
 
+**Status (lane 483, 2026-09-19): complete conditionally.**
+`Section3/T23/Differences.lean` proves all eight fields over the explicit U3
+velocity/force formulas, smoothness and incompressibility hypotheses.  It uses
+lane 477's actual `LocalCorrectionCore` support and correction-force support,
+the raw I03 `carrier_subset` clause, and the raw packet force support.  The
+chosen `ρ = max R_cutoff R_packet + 1` is strictly larger than both radii; the
+positive common threshold is shrunk so `ball x₀ (ερ) ⊆ B` at its closed upper
+endpoint.  Force support holds for every real time, and the literal zero
+extension of each force-difference slice has `tsupport ⊆ closure B`.  Final U9
+assembly must instantiate the threaded U3 hypotheses and select this shrunk
+threshold; no parallel-lane module is imported.
+
 Take ρ strictly larger than the cutoff and packet carrier radii, bound tsupport of the sum by the union, and shrink ε so `ball x₀ (ερ) ⊆ B`. Use I02 support fields cited in U2 and the scaled carrier from I03 `carrier_subset:190`; this is a single un-periodized ball. Force support also needs the force projection in Kstar, not merely P.carrier. Establish the all-real-time support assertion, especially after T, via I02 `force_support:433` plus scaled force support. With K=closure B, prove `tsupport (zeroExtension Ω (fε(t)-g(t))) ⊆ K` by closedness of K; the API only states pointwise nonvanishing support, so this conversion is a separate lemma. Outside B both perturbations vanish; frontier Ω misses B, giving no-slip from reference.no_slip. For a literally open boundary neighborhood use `(closure B)ᶜ`; the API's Bᶜ equality is stronger and suffices. Divergence of the difference follows locally in Ω.
 
 ### U5 — registered T22 domain/zero-extension comparison (M, codex-sol)
