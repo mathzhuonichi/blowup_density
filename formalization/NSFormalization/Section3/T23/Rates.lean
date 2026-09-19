@@ -177,4 +177,63 @@ theorem forceDifference_sobolev_bound {ν : ℝ} {u f : VelocityField} {p : Pres
   exact force_sum_rate hs hε.1 (hε.2.trans he1) _ _ (hF ε hε) (hH ε hε)
     (hpacket s hs hs' ε hε) (hcorr s hs hs' ε hε)
 
+/-- The inhomogeneous contraction survives the domain quotient and time integral. -/
+theorem domainForceSobolevENorm_mono_order (Ω : Set Space) {s r : ℝ}
+    (hsr : s ≤ r) (f : VelocityField) :
+    domainForceSobolevENorm Ω s f ≤ domainForceSobolevENorm Ω r f := by
+  apply lintegral_mono
+  intro t
+  exact domainSobolevENorm_mono_order Ω hsr _
+
+/-- In particular, literal zero extensions contract from order zero at every
+negative order, with no lower endpoint such as -3/2. -/
+theorem zeroExtForceSobolevENorm_mono_order (Ω : Set Space) {s r : ℝ}
+    (hsr : s ≤ r) (f : VelocityField) :
+    zeroExtForceSobolevENorm Ω s f ≤ zeroExtForceSobolevENorm Ω r f := by
+  apply lintegral_mono
+  intro t
+  exact sobolevENorm_mono_order hsr _
+
+/-- Squeeze the actual domain force difference on the positive punctured
+neighbourhood; values outside the admissible scale interval are irrelevant. -/
+theorem forceDifference_convergence (Ω : Set Space) (force : ℝ → VelocityField)
+    (g : VelocityField) (ε₀ : ℝ) (C : ℝ → ℝ) (he : 0 < ε₀)
+    (hrate : ∀ s, 0 ≤ s → s < 1 / 2 → ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+      domainForceSobolevENorm Ω s (fun z => force ε z - g z) ≤
+        ENNReal.ofReal (C s *
+          (ε ^ ((1 : ℝ) / 2 - s) + ε ^ ((3 : ℝ) / 2 - s)))) :
+    ∀ s, 0 ≤ s → s < 1 / 2 →
+      Tendsto (fun ε : ℝ => domainForceSobolevENorm Ω s (fun z => force ε z - g z))
+        (𝓝[>] (0 : ℝ)) (𝓝 (0 : ℝ≥0∞)) := by
+  intro s hs hs'
+  have hreal := NSFormalization.Paper1.sobolev_error_tendsto_zero s (C s) hs'
+  have hupper : Tendsto (fun ε : ℝ => ENNReal.ofReal (C s *
+      (ε ^ ((1 : ℝ) / 2 - s) + ε ^ ((3 : ℝ) / 2 - s))))
+      (𝓝[>] (0 : ℝ)) (𝓝 (0 : ℝ≥0∞)) := by
+    simpa only [ENNReal.ofReal_zero] using
+      (ENNReal.tendsto_ofReal hreal).mono_left nhdsWithin_le_nhds
+  apply tendsto_of_tendsto_of_tendsto_of_le_of_le' tendsto_const_nhds hupper
+  · exact Filter.Eventually.of_forall fun _ => bot_le
+  · filter_upwards [Ioc_mem_nhdsGT he] with ε hε
+    exact hrate s hs hs' ε hε
+
+/-- All negative orders follow by inhomogeneous order-zero contraction on
+actual domain distributions, rather than the restricted negative I03 range. -/
+theorem forceDifference_negativeSobolev_tendsto (Ω : Set Space)
+    (force : ℝ → VelocityField) (g : VelocityField) (ε₀ : ℝ) (C : ℝ → ℝ)
+    (he : 0 < ε₀)
+    (hrate : ∀ s, 0 ≤ s → s < 1 / 2 → ∀ ε ∈ Ioc (0 : ℝ) ε₀,
+      domainForceSobolevENorm Ω s (fun z => force ε z - g z) ≤
+        ENNReal.ofReal (C s *
+          (ε ^ ((1 : ℝ) / 2 - s) + ε ^ ((3 : ℝ) / 2 - s)))) :
+    ∀ s, s < 0 →
+      Tendsto (fun ε : ℝ => domainForceSobolevENorm Ω s (fun z => force ε z - g z))
+        (𝓝[>] (0 : ℝ)) (𝓝 (0 : ℝ≥0∞)) := by
+  intro s hs
+  have hzero := forceDifference_convergence Ω force g ε₀ C he hrate 0 le_rfl (by norm_num)
+  apply tendsto_of_tendsto_of_tendsto_of_le_of_le' tendsto_const_nhds hzero
+  · exact Filter.Eventually.of_forall fun _ => bot_le
+  · exact Filter.Eventually.of_forall fun ε =>
+      domainForceSobolevENorm_mono_order Ω hs.le (fun z => force ε z - g z)
+
 end NSFormalization.Section3.T23
