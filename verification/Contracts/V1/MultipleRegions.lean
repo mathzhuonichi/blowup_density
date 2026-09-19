@@ -8,7 +8,7 @@ This is the reconciled T24b statement of `prop:multiple`
 `PacketImportAPI`, `PlacementData`, `ScalingAPI`, and torus solution vocabulary.
 
 The paper's bounded-domain / homogeneous-no-slip branch
-(`03-torus.tex:698,706,720`) is deliberately outside this V1 contract. A
+(`03-torus.tex:698,703,719`) is deliberately outside this V1 contract. A
 bounded-domain norm is registered, but no bounded-domain solution/no-slip
 carrier is threaded through T24b; this contract states exactly the torus branch.
 -/
@@ -52,7 +52,7 @@ finite energy and dissipation.
 the selected component solutions. No new constant is introduced: `M, D` are the
 imported packet's `energyBound`/`dissipationBound`.
 
-The paper's bounded-domain / homogeneous-no-slip branch (`03-torus.tex:698,706,720`)
+The paper's bounded-domain / homogeneous-no-slip branch (`03-torus.tex:698,703,719`)
 is deliberately omitted: the registered bounded-domain norm is not a
 bounded-domain solution/no-slip carrier, so that branch remains out of V1 scope. -/
 structure MultipleRegionsAPI {ν : ℝ} (P : PacketImportAPI ν) (T : ℝ)

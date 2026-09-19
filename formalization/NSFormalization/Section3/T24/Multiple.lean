@@ -43,7 +43,7 @@ finite energy and dissipation.
 the selected component solutions.  No new constant is introduced: `M, D` are the
 imported packet's `energyBound`/`dissipationBound`.
 
-The paper's bounded-domain / homogeneous-no-slip branch (`03-torus.tex:698,706,720`)
+The paper's bounded-domain / homogeneous-no-slip branch (`03-torus.tex:698,703,719`)
 is deliberately omitted: the existing bounded-domain vocabulary (T22,
 `Section3/T22/Domain.lean`, contract `T04.bounded_domain_norm`) and no-slip
 material are not yet threaded into the reconciled T24b torus API, so an honest

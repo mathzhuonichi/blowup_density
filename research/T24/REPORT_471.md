@@ -72,7 +72,7 @@ clauses. It builds `RegionsData` from those clauses and applies the single
 ## 3. Gaps and scope
 
 There is no remaining Ub7 or torus `prop:multiple` proof gap. The paper's
-bounded-domain/homogeneous-no-slip branch (`03-torus.tex:698,706,720`) is not
+bounded-domain/homogeneous-no-slip branch (`03-torus.tex:698,703,719`) is not
 registered: V1 now has a bounded-domain norm layer, but no bounded-domain
 solution/no-slip carrier is threaded through T24b. The registry records this as
 an explicit omission, not as torus periodicity and not as a placeholder field.
