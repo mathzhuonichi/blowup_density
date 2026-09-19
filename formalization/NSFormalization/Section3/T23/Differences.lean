@@ -322,4 +322,52 @@ theorem scaledForce_slice_support_chart {u : VelocityField}
     place.force_projection_subset t).trans
       (affineImage_subset_ball hε place.eps_space)
 
+/-- The force difference has one fixed interior spatial support at every real
+time, including times after `T`.  The threaded U3 force formula is rewritten as
+the sum of the correction force and scaled packet force, and `tsupport_add`
+separates the two all-time support arguments. -/
+theorem forceDifference_spatialSupport {ν : ℝ} {u : VelocityField}
+    {p : PressureField} {f : VelocityField} {K : Set Space}
+    (place : DomainPlacementData u p f K)
+    {v g : SpaceTimeField} {r δ base packetRadius : ℝ} {D : CutoffData}
+    {force : ℝ → VelocityField}
+    (core : LocalCorrectionCore v u K place.x₀ r place.T δ D)
+    (hpacketForce : NavierStokesR3.ProblemStatement.CompactPositiveTimeSupport f)
+    (hbaseD : base ≤ D.ε₀) (hbasePlace : base ≤ place.ε₀)
+    (hforce : ∀ ε : ℝ, ∀ z : SpaceTime,
+      force ε z = g z + correctionForce ν v D ε z +
+        scaledForce f place.x₀ place.T ε z) :
+    ∀ ε ∈ Ioc (0 : ℝ)
+        (differenceThreshold place base D.θRadius packetRadius),
+      ∀ t : ℝ, ∀ x : Space, force ε (t, x) - g (t, x) ≠ 0 →
+        x ∈ closure (ball place.chartCenter place.chartRadius) := by
+  intro ε hε t x hx
+  have hεD : ε ∈ Ioc (0 : ℝ) D.ε₀ :=
+    ⟨hε.1, hε.2.trans
+      ((differenceThreshold_le_base place base D.θRadius packetRadius).trans hbaseD)⟩
+  have hεplace : ε ∈ Ioc (0 : ℝ) place.ε₀ :=
+    ⟨hε.1, hε.2.trans
+      ((differenceThreshold_le_base place base D.θRadius packetRadius).trans hbasePlace)⟩
+  have heq : (fun y : Space => force ε (t, y) - g (t, y)) =
+      (fun y : Space => correctionForce ν v D ε (t, y) +
+        scaledForce f place.x₀ place.T ε (t, y)) := by
+    funext y
+    rw [hforce]
+    abel
+  have hxsum : x ∈ tsupport (fun y : Space =>
+      correctionForce ν v D ε (t, y) +
+        scaledForce f place.x₀ place.T ε (t, y)) := by
+    apply subset_tsupport
+    intro hzero
+    apply hx
+    rw [congrFun heq x]
+    exact hzero
+  rcases tsupport_add _ _ hxsum with hcorrection | hscaled
+  · apply subset_closure
+    exact diffSupport_in_chart place base D.θRadius packetRadius
+      core.theta_radius_pos ε hε
+        (correctionForce_slice_support ν core hεD t hcorrection)
+  · apply subset_closure
+    exact scaledForce_slice_support_chart place hpacketForce hεplace t hscaled
+
 end NSFormalization.Section3.T23
