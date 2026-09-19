@@ -6,7 +6,7 @@ import Mathlib.Analysis.Calculus.BumpFunction.InnerProduct
 # T15 U4/U5 conformance and concrete active-scale probe
 
 Part 1 copies the five canonical `ScalingAPI` field types
-(`formalization/NSFormalization/Section3/T15/Scaling.lean:348,353,364,376,390`,
+(`formalization/NSFormalization/Section3/T15/Scaling.lean:341,352,363,376,390`,
 Spec form `research/T15/Spec.lean:793-845`) verbatim and closes each by a bare
 `exact` of the corresponding U4/U5 theorem.  Part 1b checks that the Section 4
 hypothesis bundle `I03.PacketData` used by the two energy identities is built
@@ -18,7 +18,7 @@ Part 2 instantiates the same geometry as `research/T15/probes/placement_closes.l
 and `single_copy_closes.lean` — cube centre `(1/2,1/2,1/2)`, spatial bump of
 radius `1/4`, chart ball of radius `3/8`, `ε₀ = 1/2`, `T = 1` — with a
 **genuinely nonzero** velocity/force, obtained by multiplying the spatial bump
-by a time bump supported in `[1/4,3/4] ⊆ (0,∞)`.  At `ε = 1/2` all three fields
+by a time bump supported in `[1/4,3/4] ⊆ (0,∞)`.  At `ε = 1/2` all five fields
 whose hypotheses are the cheap packet clauses fire on that data.
 
 Run from `verification/` with

@@ -2,7 +2,7 @@
 
 Targets: the five canonical `ScalingAPI` fields `energySlices_memLp`,
 `packetEnergyIdentity`, `packetDissipationIdentity`
-(`formalization/NSFormalization/Section3/T15/Scaling.lean:348,353,364`) and
+(`formalization/NSFormalization/Section3/T15/Scaling.lean:341,352,363`) and
 `mixed_memLp`, `packetMixedScaling` (`:376,390`).
 Delivered in `Section3/T15/Energy.lean` and `Section3/T15/Mixed.lean`.
 
@@ -165,6 +165,9 @@ cd verification && lake env lean ../formalization/NSFormalization/Section3/T15/E
 cd verification && lake env lean ../formalization/NSFormalization/Section3/T15/Mixed.lean    -> 0 output
 cd verification && lake env lean ../research/T15/probes/energy_mixed_closes.lean             -> 0 output
 cd verification && lake env lean ../research/T15/axioms_u4_u5.lean
-  -> 29 lines, each `[propext, Classical.choice, Quot.sound]`
+  -> 29 declarations, each `[propext, Classical.choice, Quot.sound]`
 make check -> architecture checks OK, 13 contract-policy tests OK, work queue consistent
 ```
+
+
+> Lead correction after review 439 (D2): the gradient guard is obtained from smoothness of the periodization; the value-level single-copy identity alone does not supply a derivative statement, which is why regularity is supplied separately (the "differ on the cube frontier" explanation above is withdrawn — both gradients vanish there).

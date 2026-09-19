@@ -53,7 +53,7 @@ theorem packetMixedScaling (hf : ContDiff ℝ ∞ f)
         ENNReal.ofReal (ε ^ alphaT r q) * mixedLebesgueENorm q r f
 ```
 
-These are literally the field types of `Scaling.lean:348,353,364,376,390` (the exponent binders are renamed `r q` only to avoid clashing with the pressure field `p`; the types are alpha-equivalent, and the probe closes each field type verbatim by a bare `exact`).
+These are literally the field types of `Scaling.lean:341,352,363,376,390` (the exponent binders are renamed `r q` only to avoid clashing with the pressure field `p`; the types are alpha-equivalent, and the probe closes each field type verbatim by a bare `exact`).
 
 Three things are worth flagging as substance, not bookkeeping:
 
@@ -67,7 +67,7 @@ New files (absolute paths):
 
 - `/data_8T/ping/blowup_density/.claude/worktrees/439-T15-U4-U5-energy-mixed/formalization/NSFormalization/Section3/T15/Energy.lean` — 250 lines, 8 declarations. Besides the three fields: `torusChart_mem_fundamentalCube`, `torusLift_congr_cube`, `contDiff_periodize_of_subset_interior` (vendor `contDiff_periodize` through the lane-352 `rfl` bridge), `memLp_torusLift_gradientVector` (`MemLp.of_eval_piLp` on `WithLp 2 (Fin 3 → Space)`), `scaledVelocity_slice_contDiff`.
 - `/data_8T/ping/blowup_density/.claude/worktrees/439-T15-U4-U5-energy-mixed/formalization/NSFormalization/Section3/T15/Mixed.lean` — 383 lines, 21 declarations: §1 `torusChart`/`measurable_torusChart`/`torusChart_coe`/`lintegral_comp_torusChart`/`map_torusChart`/`eLpNorm_torusLift_eq_restrict`/`eLpNorm_torusLift_eq_volume`; §2 `mixedLebesgueENorm_eq`; §3 `continuous_slice`/`torusSlicePath`/`enorm_torusSlicePath`/`continuous_torusSlicePath`; §4 `mixedLebesgueENormT_eq`; §5 the force helpers and the two fields.
-- `/data_8T/ping/blowup_density/.claude/worktrees/439-T15-U4-U5-energy-mixed/research/T15/probes/energy_mixed_closes.lean` — 429 lines. Part 1: five field types copied verbatim, each closed by `exact`. Part 1b: `I03.PacketData` rebuilt from the eight verbatim `scalingStatement` clauses, so the packet bundle smuggles in nothing. Part 2: the `placement_closes.lean` geometry (cube centre, spatial bump radius `1/4`, chart ball `3/8`, `T = 1`, `ε₀ = 1/2`) with a **nonzero** packet — spatial bump times a time bump supported in `[1/4,3/4] ⊆ (0,∞)` — a complete `PlacementData` and a complete `I03.PacketData`; `energy_mixed_closes` fires all five fields at `ε = 1/2`, plus two non-vacuity examples (`0 < emM`, force nonzero at `t = 1/2`).
+- `/data_8T/ping/blowup_density/.claude/worktrees/439-T15-U4-U5-energy-mixed/research/T15/probes/energy_mixed_closes.lean` — 429 declarations. Part 1: five field types copied verbatim, each closed by `exact`. Part 1b: `I03.PacketData` rebuilt from the eight verbatim `scalingStatement` clauses, so the packet bundle smuggles in nothing. Part 2: the `placement_closes.lean` geometry (cube centre, spatial bump radius `1/4`, chart ball `3/8`, `T = 1`, `ε₀ = 1/2`) with a **nonzero** packet — spatial bump times a time bump supported in `[1/4,3/4] ⊆ (0,∞)` — a complete `PlacementData` and a complete `I03.PacketData`; `energy_mixed_closes` fires all five fields at `ε = 1/2`, plus two non-vacuity examples (`0 < emM`, force nonzero at `t = 1/2`).
 - `/data_8T/ping/blowup_density/.claude/worktrees/439-T15-U4-U5-energy-mixed/research/T15/axioms_u4_u5.lean` — 29 `#print axioms`, all three standard axioms.
 - `/data_8T/ping/blowup_density/.claude/worktrees/439-T15-U4-U5-energy-mixed/research/T15/ATTEMPTS_U4_U5.md` — design decisions D1–D7, failures F1–F8 with exact error text.
 - Modified: `/data_8T/ping/blowup_density/.claude/worktrees/439-T15-U4-U5-energy-mixed/research/T15/T15_SPLIT.md` — U4 and U5 bullet status lines plus a `### U4 / U5 status (lane 439)` section.
@@ -99,7 +99,15 @@ All from `/data_8T/ping/blowup_density/.claude/worktrees/439-T15-U4-U5-energy-mi
 - `lake env lean ../formalization/NSFormalization/Section3/T15/Energy.lean` — 0 output.
 - `lake env lean ../formalization/NSFormalization/Section3/T15/Mixed.lean` — 0 output.
 - `lake env lean ../research/T15/probes/energy_mixed_closes.lean` — 0 output.
-- `lake env lean ../research/T15/axioms_u4_u5.lean` — 29 lines; `grep -c propext` = 29, and `grep -vc "propext\|Classical.choice\|Quot.sound"` = 0, i.e. every declaration prints exactly `[propext, Classical.choice, Quot.sound]`.
+- `lake env lean ../research/T15/axioms_u4_u5.lean` — 29 declarations; `grep -c propext` = 29, and `grep -vc "propext\|Classical.choice\|Quot.sound"` = 0, i.e. every declaration prints exactly `[propext, Classical.choice, Quot.sound]`.
 - `make check` — architecture checks emitted their JSON report, `Ran 13 tests ... OK` (contract policy), `45 work items: ownership, contract registration and task cards consistent.`
 - `grep -nE "sorry|admit|native_decide|^axiom |maxHeartbeats"` over the four new files — only the two doc-comment occurrences of the string "No `sorry`, no named input, no new mathematical alias."
 - `git commit` on `erenup/439-T15-U4-U5-energy-mixed` → `0f7e2237`. No push, no merge, no rebase.
+
+
+## Lead notes after review 439 (ACCEPT-WITH-NOTES; records corrected)
+
+1. **Gradient guard wording (D2).** The claim that the two gradients differ on the cube frontier is false under smoothness and strict interior support (both vanish there). Correct statement: "The gradient guard is obtained from smoothness of the periodization; the value-level single-copy identity alone does not supply a derivative statement, which is why regularity is supplied separately." Applied in `ATTEMPTS_U4_U5.md` (D2) and `T15_SPLIT.md` U5 line.
+2. Canonical field citations corrected to `Scaling.lean:341,352,363,376,390` (declaration starts).
+3. Probe description corrected: all five U4/U5 fields are closed (comment-only edit).
+4. "29 lines" → "29 declarations" (four audit entries wrap).
