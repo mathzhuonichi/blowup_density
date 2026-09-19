@@ -245,7 +245,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 481-T23-U2b-matching-supplier | astra 完成：注册 I02/I03 供给在同一 D 上匹配（A.correction = C，构造半径 r/2）+ 能量/混合/Sobolev 力估计 + 两项交叉输运估计（19 声明标准公理；合同层构造子在 probe，U9 移入 binding）→ 审中 sol | 09-19 1716Z | — | — | T23 U2b：注册 I02/I03 供给在同一 D 上匹配（A.correction = C）+ 能量/混合/Sobolev 力估计（477 fix 2/3） |
 | 482-T23-U3-triple-solution | astra 完成：18 个 U3 字段 + 压力归一化 + ClassicalSolutionOmega 十字段 + API solution（供给事实与 U4 no-slip 穿线；42 声明标准公理）→ 审中 sol | 09-19 1715Z | — | — | T23 U3：三元组 (u,p,f)、阈值、公式、力类、光滑/初值/不可压/动量/历史 + 压力归一化 + ClassicalSolutionOmega 十字段构造子（no_slip 穿线） |
 | 483-T23-U4-differences-boundary | sol 完成 → 审中 sol | 09-19 1721Z | — | — | T23 U4：局部差与边界保持 8 字段 |
-| 484-T23-U5-domain-comparison | sol 完成：domain_zeroExt_comparison（C 先于 t、ε）+ 域范数定义桥 + 固定支撑/零阶物理 L² 引理（9 声明标准公理；U3/U4 事实穿线）→ 审中 sol | 09-19 1708Z | — | — | T23 U5：注册 T22 零延拓比较 + 域范数定义/API 转运 |
+| 484-T23-U5-domain-comparison | 已合入 #445（codex 审稿 ACCEPT） | 09-19 1725Z | #445 | — | T23 U5：注册 T22 零延拓比较 + 域范数定义/API 转运 |
 | 485-T23-U6-rates-convergence | astra 完成：路径范数桥 + energyRate / Sobolev 力率 / 负阶尾 / 收敛 八字段（供给与 U5 比较穿线；18 声明标准公理）→ 审中 sol | 09-19 1718Z | — | — | T23 U6：能量率、Sobolev 力率、负阶尾、收敛 + 路径范数桥（8 字段） |
 | 486-T23-U8-interior-blowup | astra 完成：blowup / blowup_limsup / lifespan / maximal 四字段（见证在 Ω 内；盒专门化放电 IBP，光滑域保留 IBP Ω 前提；U2/U3/U4 事实穿线；15 声明标准公理）→ 审中 sol | 09-19 1713Z | — | — | T23 U8：内部爆破见证 + 寿命恰为 T + maximal（盒用 noSlip_uniqueness_box，光滑域穿线 IBP Ω） |
 | 487-T23-U9-assembly-registration | 简报就绪，等 481–486 合入 → codex astra | 09-19 1718Z | — | — | T23 U9：48 字段装配（盒域无条件，光滑域条件于 IBP Ω）+ 修正陈述 boundaryInsertionStatement' + 合同 T04.boundary_insertion（scope 注明 G0/G1 owner 待定） |
