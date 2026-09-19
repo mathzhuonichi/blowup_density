@@ -134,12 +134,26 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   witnesses `t ↑ T`, `x ∈ Q` (map source-time-1 witnesses into the cube) supply the periodic form.
   Needs `place.eps_time` for `ε^2 ≤ T`. **M, codex-sol.** Deps: U3.
 
+  **Status (lane 442, 2026-09-19): complete.** `Section3/T15/Blowup.lean`
+  proves the literal canonical field from the raw `SpeedUnboundedAtOne`,
+  carrier compactness/support, and `PlacementData`.  The Euclidean rescaling
+  supplies the witnesses; nonzero witness values lie in the placed cube, where
+  U3's `velocity_singleCopy` transfers them to the periodized field.  The probe
+  includes an explicit compact bump with `(1-t)⁻¹` amplitude.
+
 - **U7 — `force_mem`** (new torus, easy). New `Section3/T15/ForceMem.lean`. Target `force_mem`
   (`Spec.lean:738`): `MemForceT (periodizedScaledForce …)` = smooth + unit-periodic + compact
   positive-time support. Route: `contDiff_periodize` (vendor, via U1) for smoothness,
   `periodize_add_lattice` for periodicity, U2's compact spatial support + the packet's positive-time
   force support (`T10/ForcePaths.lean:395 memForceT_time_smul` pattern) for the time-support witness.
   **M, codex-sol.** Deps: U2, U3.
+
+  **Status (lane 442, 2026-09-19): complete.** `Section3/T15/ForceMem.lean`
+  proves the literal canonical field from the raw global smoothness and
+  `CompactPositiveTimeSupport` clauses plus `PlacementData`.  Vendor local
+  finiteness gives smoothness, lattice reindexing gives periodicity, and the
+  compact projection of the scaled force support supplies the positive-time
+  support witness; periodization introduces no new support time.
 
 - **U8 — periodized PDE transport** (transport core + ⑤⑦). New `Section3/T15/Equation.lean`. Proves the
   momentum (at the **unchanged** `ν`), divergence-free, and zero-initial obligations of `solution`
@@ -149,12 +163,29 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   `navierStokesResidual`, incl. the nonlinear term, via `contDiffOn_periodize` and locally-finite-sum
   differentiation) transport them to the torus fields. **L, Opus.** Deps: U3.
 
+  **Status (lane 446, 2026-09-19): complete.** `Equation.lean` proves
+  `periodized_momentum`, `periodized_divergence`, and `periodized_initial`
+  from raw packet clauses and `PlacementData`, at unchanged viscosity.
+  Uniform closed support plus the vendor locally finite lattice family gives
+  one fixed translate on a neighbourhood, including cube faces; local
+  derivative congruence handles the nonlinear term without extra smoothness
+  premises. The probe constructs placement for the registered nonzero packet
+  and applies all three results. All 18 module declarations have exactly the
+  three standard axioms. See `REPORT_446.md` and `ATTEMPTS_U8.md`.
+
 - **U9 — velocity `H^m` datum path + `pressure_gradient`** (new; ⑧). New `Section3/T15/SobolevPath.lean`.
   Proves `ClassicalSolutionT.sobolev` (a `ContinuousOn` `PeriodicSobolev m` datum path for every `m : ℕ`)
   and `pressure_gradient` (`MemLp` of the torus pressure gradient) for the periodized velocity/pressure.
   Route: the periodized velocity slice is smooth periodic (U7-style); reuse `T10/ForcePaths.lean:82
   continuous_datum_path` and `T10/DatumBasics.lean:129 datum_unique` at each `m`, with continuity in `t`
   from the packet's joint smoothness. **L, Opus.** Deps: U3.
+
+  **Status (lane 450, 2026-09-19): complete.** `SobolevPath.lean` proves
+  `periodized_sobolev` at every natural order and `periodized_pressure_gradient`
+  for the normalized pressure, from raw packet smoothness/support and placement.
+  Slab periodization feeds T11's smooth-datum existence and continuous selected
+  path theorems; the pressure gradient follows from slice smoothness. The probe
+  instantiates both at scale `1/2` on lane 439's nonzero velocity/pressure packet.
 
 - **U10 — pressure normalization** (new; ⑥). New `Section3/T15/Pressure.lean`. Targets
   `pressureSlice_integrable` (`Spec.lean:766`) and the gauge `PressureGaugeT` used inside `solution`.
@@ -163,16 +194,40 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   so `∫_{T³} = 0` follows from `T13/TorusIdentity.lean:419 lintegral_fundamentalCube_ofReal`. The
   gradient/residual are unchanged by a spatially constant shift. **M, Opus.** Deps: U3.
 
+  **Status (lane 447, 2026-09-19): complete.** `Section3/T15/Pressure.lean`
+  proves the literal `ScalingAPI.pressureSlice_integrable` field from the raw
+  carrier/support and past-zero pressure smoothness clauses, using placement
+  plus the vendor locally finite periodizer.  It also proves
+  `pressure_gauge` in the exact `ClassicalSolutionT` form by `integral_sub` and
+  `integral_const` on the probability Haar measure.  The field-shape and
+  concrete `placement_closes` bump checks are in
+  `research/T15/probes/pressure_closes.lean`; all five module declarations
+  audit to `[propext, Classical.choice, Quot.sound]`.
+
 - **U11 — `solution` assembly.** New `Section3/T15/Solution.lean`. Target `solution` (`Spec.lean:753`):
   build one `ClassicalSolutionT ν 0 F_ε place.T` from U8 (momentum/div/initial), U9 (sobolev/pressure_gradient),
   U10 (gauge), U7 (regularity/periodicity), with the two pinning equations `S.velocity = U_ε^per`,
   `S.pressure = p_ε` by `rfl`. **M, codex-sol.** Deps: U7, U8, U9, U10.
+
+  **Status (lane 454, 2026-09-19): complete.** `Section3/T15/Solution.lean`
+  proves joint slab smoothness and unit periodicity for both explicit fields,
+  transports Haar normalization through the existing smooth cube-mean theorem,
+  assembles all thirteen `ClassicalSolutionT` fields, and proves the literal
+  `ScalingAPI.solution` conclusion from the nine raw packet clauses actually
+  used.  `solution_closes.lean` applies the theorem by bare `exact` and builds
+  the pinned solution for the registered nonzero viscosity-one PDE packet.
 
 - **U12 — `forceSobolev_memLp` + `sobolevConst`/`sobolevConst_pos`** (new; ⑬). New
   `Section3/T15/SobolevBoundMem.lean`. Targets `forceSobolev_memLp` (`Spec.lean:872`), the data field
   `sobolevConst` (`:855`) and `sobolevConst_pos` (`:862`). Route: honest `L¹_tH^s(T³)` datum path from
   U9's per-`m` construction restricted to `s ∈ [0,1]`; `sobolevConst` defined as the (positive)
   constant assembled in U13 from T13's localization constant × the Euclidean rate. **L, Opus.** Deps: U3, U9.
+
+  **Status (lane 456, 2026-09-19): complete.** `SobolevBound.lean` proves
+  `forceSobolev_memLp` on the entire `[0,1]` range from raw force smoothness,
+  positive compact support, and `PlacementData`, using the continuous real-order
+  datum path of T17. `sobolevConst f s = 1 + ∑ i, C₀ᵢ^(1-s) (2π C₁ᵢ)^s`,
+  with finite unscaled component endpoint time norms, is explicit and positive.
 
 - **U13 — `packetSobolevBound` (eq:packetHs)** (⑫; **BLOCKED on T13.localization**). New
   `Section3/T15/SobolevBound.lean`. Target `packetSobolevBound` (`Spec.lean:884`). Route:
@@ -187,6 +242,15 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   lanes 354/359 are still proving, so this unit is **exercisable/testable only once T13.localization
   lands**; keep it as a separate lane and gate its non-vacuity on 354/359. **L, Opus.** Deps: U12; **T13.localization**.
 
+  **Status (lane 456, 2026-09-19): complete; prior T13 blocker superseded.**
+  `SobolevBound.lean` proves `packetSobolevBound`, the literal canonical field for every
+  admissible scale and all `0 ≤ s ≤ 1`, including both endpoints. Route B:
+  recenter at the chart center, derive `chartRadius < 1/2`, apply Paper1's
+  packet endpoint rates and periodic endpoint interpolation, then use T17's
+  datum/Paper1 norm bridge. No extra placement premise or named input.
+  The probe checks the exact fields and the nonzero bump packet. All 16 module
+  declarations print exactly the three standard axioms. See `REPORT_456.md`.
+
 - **U14 — `forceConvergence`** (⑭; **partly blocked on T13.localization**). New
   `Section3/T15/Convergence.lean`. Target `forceConvergence` (`Spec.lean:903`),
   `q∈{1,2}`, `s < criticalOrder q.toReal` (`Data.lean:259`). Route: for `q=1, 0≤s<1/2` feed U13's bound
@@ -195,6 +259,23 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   datum; the `q=2` branch (`criticalOrder 2 = -1/2`, all `s<-1/2`) by the same monotonicity from the
   `s=0` mixed base (U5). The `s∈[0,1/2)` sub-range inherits U13's **T13.localization** dependency; the
   `s<0` sub-range is independent. **L, Opus.** Deps: U12, U13.
+
+  **Status (lane 458, 2026-09-19): honest partial.** The complete `q = 1`
+  specialization is proved, including negative orders via a genuine bounded
+  Fourier order-lowering map. The exact canonical field remains open only at
+  `q = 2`: the proposed order-zero route has an arithmetic sign error,
+  `alphaT 2 2 = -1/2` (not `+1/2`), so its mixed norm grows. The tree has the
+  required whole-space negative-order concentration limit but no torus
+  periodization bridge preserving it. See `ATTEMPTS_U14.md` and
+  `REPORT_458.md` for the exact residual and diagnostics.
+
+  **U14b status (lane 462, 2026-09-19): complete.**
+  `ConvergenceTwo.lean` proves `forceConvergence_two` for every `s < -1/2`
+  and combines it with lane 458 into the literal canonical `forceConvergence`.
+  Sharp summability holds for every `r < -3/2`; the spatial `L¹` bound and
+  Fourier/time interpolation give the positive power `ε^(1-3θ/2)`.
+  No named inputs or residual strip. Nonzero packet and all 17 axiom audits
+  pass; see `REPORT_462.md` and `ATTEMPTS_U14b.md`.
 
 - **U15 — non-vacuity + assembly + registration** (②; assembly Nonempty **blocked on T13.localization**).
   New `Section3/T15/Assembly.lean` + `Contracts/V1/Scaling*`?→ a fresh `Contracts/V1/…` for T15
@@ -206,6 +287,18 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   `LocalizationAPI` inhabitant, so the `Nonempty` assembly is **gated on lanes 354/359**; until then
   register everything except `localization`/`packetSobolevBound`/`forceConvergence[s≥0]` and keep the
   gated fields staged. **M, codex-sol.** Deps: all; **T13.localization**.
+
+  **U15 status (lane 459, 2026-09-19): complete.**
+  `Assembly.lean` constructs `placementData` for every prescribed `T > 0`,
+  preserving its horizon by `rfl`, and assembles all 21 fields, using T13's
+  canonical localization and U14b's combined `forceConvergence`.
+  `Contracts/V1/Scaling3.lean` preserves the packet-indexed Spec records and
+  statement verbatim; fieldwise conversions and all definitional bridges are
+  in the binding. `T02.scaling` is registered, with nonzero registered source
+  and periodized instances at arbitrary positive viscosity and horizon.
+  All gates pass; 68 declarations audit to exactly the three standard axioms.
+  The historical T13/U14 assembly blockers above are superseded.
+  See `REPORT_459.md`, `ATTEMPTS_U15.md`, and `axioms_u15.lean`.
 
 ## 2. Waves (≤ 3 concurrent per current lane cap)
 

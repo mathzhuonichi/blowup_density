@@ -276,6 +276,20 @@ T24b `Fin N` family; `Contracts/V1/ForceClasses.lean` `ForceClassesAPI.regularRe
 `sc j := (scaling j)` = the region-`j` T15 `ScalingAPI`; every field below is a conditional lemma over the
 threaded canonical T15 records (draftable now), whose **instantiation / `Nonempty` closure waits on T15**.
 
+**Lane 467 (2026-09-19): U-CAN DONE.** `Section3/T24/Multiple.lean` is the
+canonical 30-field raw-packet `MultipleRegionsAPI` and full-clause
+`multipleRegionsStatement`. The probe `probes/multiple_api_on_canonical.lean`
+checks both fieldwise conversions and all 30 Spec projections.
+**Ub1 DONE:** `MultipleComponents.lean`, `RegionsData.placement`,
+`placement_time`, `placement_chart`, `scaling`, `ε`, `eps_admissible`, `eps_time`;
+prescribed balls and horizon, radius-dependent threshold, no named input.
+**Ub2 DONE:** `RegionsData.component` and `component_pin` select T15's solution.
+**Ub3 DONE:** `RegionsData.component_support` and `component_force_support`;
+velocity on `Ico 0 T`, force at every time, both on `fundamentalCube`.
+T15 gates below are historical and are discharged by lane 459. No T18 is used.
+Audit and exact resolved diagnostics: `axioms_ub1_ub3.lean`,
+`ATTEMPTS_UB1_UB3.md`; report `REPORT_467.md`. Ub4–Ub7 remain future work.
+
 - **Ub1 — placement + scaling selection** (`placement:1203`, `placement_time:1207`, `placement_chart:1213`,
   `scaling:1220`, `ε`, `eps_admissible:1226`, `eps_time:1230`). Route: for each `j`, build a `PlacementData` with
   `chartCenter = regionCenter j`, `chartRadius = regionRadius j` (`chartBall_in_cube` from `region_interior:1191`),
@@ -297,19 +311,35 @@ threaded canonical T15 records (draftable now), whose **instantiation / `Nonempt
   kill every cross transport `(U_i·∇)U_j = 0`, so the sum solves `ClassicalSolutionT ν 0 (Σ F_j) T`; `forceClassT`
   and the zero-mean gauge are closed under finite sums (`force_mem`); `rest` from each `component`.`initial`.
   **L, Opus** (hard analytic core). No named input beyond the threaded `sc j`/components (Ub2, Ub3). Deps: Ub2, Ub3.
+  **DONE (lane 468).** `MultipleAssembled.lean` constructs the explicit sums and actual `solution`,
+  proves `crossTransport_eq_zero`, `solution_pin`, `force_mem`, and `rest`; all 29 declarations have
+  exactly `[propext, Classical.choice, Quot.sound]`. Probe: `probes/assembled_closes.lean`;
+  audit: `axioms_ub4.lean`; diagnostics: `ATTEMPTS_UB4.md`; report: `REPORT_468.md`.
 - **Ub5 — region agreement + blow-up** (`region_agreement:1305`, `region_blowup:1313`). Route: on `B_j` every
   other component vanishes (Ub3, disjoint), so `assembled = component j` there; then `sc j`.`unboundedSpeed`
   transfers to `SpeedUnboundedAtOn T B_j assembled_velocity`. **M, codex-sol.** Named input: T15 `unboundedSpeed`
   (**blocked on T15 U6 `Blowup.lean`**). Deps: Ub3, Ub4.
+  **DONE (lane 469).** `MultipleRegions.lean`: `RegionsData.region_agreement` and
+  `region_blowup` for the explicit finite sum; no Ub4 dependency. T15's global
+  blow-up construction is localized using scaled support before single-copy transfer.
 - **Ub6 — energy + dissipation bounds** (`energy_bound:1321` `≤`, `dissipation_bound:1328` `=`, ⑧). Route:
   disjoint-support additivity `‖u(t)‖₂² = Σ‖U_j(t)‖₂²` and `∫‖∇u‖² = Σ∫‖∇U_j‖²` (Ub3), then `sc j`.
   `packetEnergyIdentity` (`= ε_j^{1/2}M`) gives `energyEssSupT² ≤ M²Σε_j` and `packetDissipationIdentity`
   (`= ε_j^{1/2}D`) gives `energyGradientT² = D²Σε_j` (equality, by disjointness). **L, Opus.** Named input: T15
   `packetEnergyIdentity`/`packetDissipationIdentity` (**blocked on T15 U4 `Energy.lean`**). Deps: Ub3.
+  **DONE (lane 469).** `MultipleRegions.lean`: `RegionsData.energy_bound` (`≤`)
+  and `dissipation_bound` (`=`), with exactly the original packet constants.
+  Squared slice norms add by disjointness; gradients are localized on the cube
+  interior and its null boundary removed. All 15 declarations have exactly
+  `[propext, Classical.choice, Quot.sound]`; four exact field probes close.
 - **Ub7 — assembly + `multipleRegionsStatement` + registration + non-vacuity.** Assemble the 30 fields;
   `multipleRegionsStatement:1335` `Nonempty` from the per-region T15 witnesses; probe to the `PacketImportAPI`
-  spelling. Register `T24.multiple_regions` v1; record the bounded-domain/no-slip omission in `scope`. Non-vacuity
+  spelling. Register `T04.multiple_regions` v1; record the bounded-domain/no-slip omission in `scope`. Non-vacuity
   at `N=1`, one region. **M, codex-sol.** **Blocked on all T15 (U2/U4/U6/U11/U15) + U-CAN lane 384.** Deps: all Ub.
+  **DONE (lane 471).** `MultipleAssembly.lean` assembles all 30 canonical fields and proves the raw universal
+  statement; the fieldwise binding registers `T04.multiple_regions`. The concrete registered `N=1`, `T=1`,
+  radius-`1/4` centre-ball probe reads `region_blowup 0`. The bounded-domain/no-slip branch remains explicitly
+  outside V1 scope.
 
 ## 2. Proof-dependency ledger (registered / threaded input each unit consumes)
 
@@ -326,13 +356,13 @@ threaded canonical T15 records (draftable now), whose **instantiation / `Nonempt
 | Ua7 | affine | ④ | bump-function library (new) | no |  <!-- done: lane 417 -->
 | Ua8 | affine | ⑤ | Ua3 expansion | no |
 | Ua9 | affine | — | `I01.packet` (contract) | no |  <!-- done: lane 430, `T04.affine_variation` -->
-| Ub1 | multiple | — | T15 `PlacementData`/`ScalingAPI` | **T15 U2, U15** |
-| Ub2 | multiple | — | T15 `ScalingAPI.solution` | **T15 U11** |
-| Ub3 | multiple | ⑥ | T15 `*_singleCopy` + `eps_space` | **T15 U3, U2** |
+| Ub1 | multiple | — | T15 `PlacementData`/`ScalingAPI` | done, lane 467 |
+| Ub2 | multiple | — | T15 `ScalingAPI.solution` | done, lane 467 |
+| Ub3 | multiple | ⑥ | T15 `*_singleCopy` + `eps_space` | done, lane 467 |
 | Ub4 | multiple | ⑦ | threaded components (Ub2,Ub3) | (via Ub2/Ub3) |
 | Ub5 | multiple | — | T15 `unboundedSpeed` | **T15 U6** |
 | Ub6 | multiple | ⑧ | T15 `packet{Energy,Dissipation}Identity` | **T15 U4** |
-| Ub7 | multiple | — | all T15 + U-CAN 384 | **T15 U2/U4/U6/U11/U15** |
+| Ub7 | multiple | — | all T15 + U-CAN 384 | done, lane 471 |
 
 No T18 anywhere: T24b superposes T15 outputs, it does not insert.
 

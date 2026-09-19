@@ -12,7 +12,23 @@ modules under `Section4/R43/`, `Section4/R44/` (splits `research/R43/R43_SPLIT.m
 Size: **S** ≤ ~100 lines; **M** one self-contained lemma with a known proof; **L** a multi-file campaign.
 Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core.
 
-## Status (lane 390, 2026-09-18)
+## Status (lane 451, 2026-09-19)
+
+- **U13 assembly + registration** — DONE (lane 451).
+  `Section3/T20/Assembly.lean` installs all 23 canonical fields at
+  `c = criticalSmallnessH1`, `C₀ = criticalTrilinearConst`,
+  `C₁ = h1TrilinearConst`, `CH1 = 2`, and `Ccriterion`; in particular U5 is
+  lane 452's proved `constantTransportCommutesLambda`, and `yBound` is
+  `yBound_of_le criticalSmallnessH1_le_half`.  It proves
+  `criticalRegularityStatement_holds` and a nonzero compact positive-time force
+  witness satisfying strict smallness for a positive viscosity and infinite
+  lifespan.  Registered as `T03.critical_regularity` V1 through the additive
+  modules `Contracts/V1/CriticalRegularityT.lean`,
+  `Bindings/CriticalRegularityT.lean`, and `Tests/CriticalRegularityT.lean`.
+  The `T` suffix is necessary because the unsuffixed three module names and
+  `checkedCriticalRegularity` are the frozen R43 whole-space V1 contract; they
+  remain unchanged.  Audit `research/T20/axioms_u13.lean`; attempts
+  `research/T20/ATTEMPTS_U13.md`; report `research/T20/REPORT_451.md`.
 
 - **U3 `bIntegral`** — DONE. `Section3/T20/BIntegral.lean`, theorem
   `NSFormalization.Section3.T20.bIntegral` (verbatim field type). Axioms
@@ -20,6 +36,14 @@ Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core
 - **U4 `constantTransportSkew`** — DONE. `Section3/T20/ConstantTransport.lean`,
   theorem `NSFormalization.Section3.T20.constantTransportSkew` (verbatim field type).
   Axioms `[propext, Classical.choice, Quot.sound]`.
+- **U5 `constantTransportCommutesLambda`** — DONE (lane 452).
+  `Section3/T20/TransportLambda.lean`, theorem
+  `NSFormalization.Section3.T20.constantTransportCommutesLambda` (verbatim field
+  type).  The proof uses the constant-transport Fourier symbol from U8 and the
+  coefficientwise `IsPeriodicLambda` graph; no Fourier-injectivity residual is
+  needed.  Axioms `[propext, Classical.choice, Quot.sound]`.  Probe
+  `research/T20/probes/transport_lambda_closes.lean`; audit
+  `research/T20/axioms_u5.lean`; attempts `research/T20/ATTEMPTS_U5.md`.
 - Probe `research/T20/probes/bintegral_transport_closes.lean`; axiom audit
   `research/T20/axioms_u3_u4.lean`; attempts `research/T20/ATTEMPTS_U3_U4.md`.
 - **U7 critical trilinear estimate** — DONE (lane 413).
@@ -201,6 +225,26 @@ Model: `codex-sol` = reuse/transport/algebra/bookkeeping, `Opus` = analytic core
   lanes 415/428/432's zero-force zero-solution instance with the smallness
   hypothesis satisfied, all three conjuncts produced); audit
   `research/T20/axioms_u11.lean`; attempts `research/T20/ATTEMPTS_U11.md`.
+- **U12 `globalRegularity`** — DONE (lane 441).
+  `Section3/T20/GlobalRegularity.lean`, theorem
+  `NSFormalization.Section3.T20.globalRegularity` (verbatim field type) at
+  `c = criticalSmallnessH1`.  No named input, no residual, and no use of the
+  open `PeriodicRestartH1` predicate.  The reusable endpoint lemma
+  `maximal_squaredHTwoIntegralT_ne_top` turns U11's classical-horizon estimate
+  into T11's exact local-finiteness premise: for `0 < S` with
+  `ENNReal.ofReal S ≤ maximalLifespanT`, exhaust `Ioo 0 S` by
+  `Ioo 0 (S - S/(n+2))`; `IsMaximalPeriodicSolution` supplies a classical
+  solution on each strict subhorizon whose velocity is literally the common
+  maximal field, and U11 bounds every subintegral by the same finite expression
+  with `S` in place of the smaller endpoint.  Thus no separate uniqueness
+  transport is needed.  T11's proved
+  `periodicContinuationH3API.lifespanInfiniteOfLocallyFinite` then gives the
+  infinite lifespan.  Both declarations have axioms exactly
+  `[propext, Classical.choice, Quot.sound]`.  Probe
+  `research/T20/probes/global_regularity_closes.lean` checks the field type and
+  the admissible zero-force instance with
+  `criticalRho 0 = 0 < criticalSmallnessH1 * 1`; audit
+  `research/T20/axioms_u12.lean`; attempts `research/T20/ATTEMPTS_U12.md`.
 
 ## 0. Ground rules
 
