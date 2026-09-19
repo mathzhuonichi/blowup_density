@@ -422,7 +422,7 @@ but is expected to have type
 
 ### time_errors01.log
 ```text
-../formalization/NSFormalization/Section3/T23/DomainTimeIntegral.lean:16:2: warning: Try this: 
+../formalization/NSFormalization/Section3/T23/DomainTimeIntegral.lean:16:2: warning: Try this:
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -430,7 +430,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-../formalization/NSFormalization/Section3/T23/DomainTimeIntegral.lean:40:2: warning: Try this: 
+../formalization/NSFormalization/Section3/T23/DomainTimeIntegral.lean:40:2: warning: Try this:
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
