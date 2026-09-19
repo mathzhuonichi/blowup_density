@@ -1,3 +1,4 @@
+import NSFormalization.Section3.T23.LocalCorrection
 -- Standalone exact copy of the reconciled Spec, followed by the G0 proof.
 import Contracts.V1.TorusData
 import Contracts.V1.TorusLocalTheory
@@ -1125,3 +1126,43 @@ def boundaryInsertionStatement' : Prop :=
         Nonempty (BoundaryInsertionAPI ν P place Ω norms a g r δ D reference)
 
 end BlowupDensity.T23.Spec
+
+/-- info: 'BlowupDensity.T23.Spec.boundaryInsertionAPI_zero_cutoff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms BlowupDensity.T23.Spec.boundaryInsertionAPI_zero_cutoff
+
+-- Raw-field vocabulary has the registered operator meanings, without contract
+-- imports in the implementation layer.
+example (u : BlowupDensity.Contracts.V1.VelocityField)
+    (x₀ : BlowupDensity.Contracts.V1.Space) (T ε : ℝ) :
+    NSFormalization.Section3.T15.scaledVelocity u x₀ T ε =
+      BlowupDensity.Contracts.V1.scaledPacket u x₀ T ε := rfl
+
+example (D : NSFormalization.Section3.T23.CutoffData) (ν : ℝ)
+    (v : BlowupDensity.Contracts.V1.VelocityField) (ε : ℝ) :
+    NSFormalization.Section3.T23.correctionForce ν v D ε =
+      BlowupDensity.T17.Spec.correctionForce ν v
+        ⟨D.θ, D.η, D.plateau, D.θRadius, D.ε₀, D.potential, D.correction⟩ ε := rfl
+
+-- Both raw cross-transport exports have exactly the registered operator form.
+open NSFormalization.Section3.T23 in
+example (v U : BlowupDensity.Contracts.V1.VelocityField)
+    (K : Set BlowupDensity.Contracts.V1.Space) (x₀ : BlowupDensity.Contracts.V1.Space)
+    (r T δ : ℝ) (D : CutoffData) (h : LocalCorrectionCore v U K x₀ r T δ D) :
+    ∀ ε ∈ Set.Ioc (0 : ℝ) D.ε₀, ∀ t ∈ Set.Ico (0 : ℝ) T,
+    ∀ x : BlowupDensity.Contracts.V1.Space,
+      BlowupDensity.Contracts.V1.spatialDerivative
+        (BlowupDensity.Contracts.V1.scaledPacket U x₀ T ε) t x
+        (BlowupDensity.T16.Draft.correctedBackground v D.correction ε (t, x)) = 0 :=
+  h.crossTransport_background_advects_packet
+
+open NSFormalization.Section3.T23 in
+example (v U : BlowupDensity.Contracts.V1.VelocityField)
+    (K : Set BlowupDensity.Contracts.V1.Space) (x₀ : BlowupDensity.Contracts.V1.Space)
+    (r T δ : ℝ) (D : CutoffData) (h : LocalCorrectionCore v U K x₀ r T δ D) :
+    ∀ ε ∈ Set.Ioc (0 : ℝ) D.ε₀, ∀ t ∈ Set.Ico (0 : ℝ) T,
+    ∀ x : BlowupDensity.Contracts.V1.Space,
+      BlowupDensity.Contracts.V1.spatialDerivative
+        (BlowupDensity.T16.Draft.correctedBackground v D.correction ε) t x
+        (BlowupDensity.Contracts.V1.scaledPacket U x₀ T ε (t, x)) = 0 :=
+  h.crossTransport_packet_advects_background

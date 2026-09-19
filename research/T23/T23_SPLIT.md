@@ -34,6 +34,18 @@ Construct Kstar as the union of packet carrier and the spatial image of compact 
 
 ### U2 — local correction supplier and compatibility (L, codex-astra)
 
+**Lane 477 status (2026-09-19): partial, kernel checked.** Exact G0 zero-cutoff
+API instance refuted and existential repair defined in the research probe;
+canonical `StatementRepair` contains only the raw obstruction pending domain
+API vocabulary. One actual `D` now has local potential/curl, global smooth
+divergence-free correction, cancellation, Ico cross transports, compact smooth
+force and uniform correction/force jet bounds. Fixed solenoidal spatial/window
+extensions and global correction/force agreement are proved. Remaining: consume
+and retain matching I02/I03 records and close energy/mixed/Sobolev norm fields
+at this `D`; no full supplier or U9 registration is claimed. See
+`REPORT_477.md`, `ATTEMPTS_U2.md`, and `SPEC_ISSUES.md` G0 addendum.
+
+
 Targets the seven cutoff data fields `Spec:135–170` and their construction identities; API `crossTransport_background_advects_packet:879`, `crossTransport_packet_advects_background:888`. Dependencies: U1; statement repair G0 for end-to-end assembly. Produce one positive cutoff threshold and one D with its actual smoothness, curl/divergence, cancellation, support and force estimates, tied to the given reference and x₀. These are named proved lemmas, not placeholder fields.
 
 I02 gives `correction_support:359`, `correction_support_ball:364`, `correction_cancels_germ:385`, `force_support:433`, `force_support_ball:444`, `force_formula:415` in `C1/Correction.lean`. But `reference_divergence_free:230` is global. Preferred bridge to investigate: take the radial potential in a slightly larger interior ball, multiply it by a fixed compact cutoff equal to one near the construction ball, and take curl to obtain a globally smooth solenoidal reference extension agreeing there. Extend pressure smoothly with a cutoff and define its exterior force by the residual; it agrees with g where needed. Prove agreement of potential/correction/force jets on their supports, including the time window through T, before consuming I02/I03. `B/CorrectionV2.lean:87–100` still requires the global hypotheses; it does not supply this bridge. Its prescribed-K version (`C2/Correction.lean:136,155`) can cover Kstar, or separately shrink the packet-force range using U1. If extension transport is longer, peel the local versions of the I02 analytic lemmas; do not claim the registered record itself has weaker hypotheses.
