@@ -65,3 +65,6 @@ All from the worktree, after `. scripts/lean-env.sh`, with `lake` invoked from `
 | `make check` | architecture checks OK; `test_contract_policy.py` — `Ran 13 tests … OK`; `check_work_queue.py` — `45 work items: ownership, contract registration and task cards consistent.` |
 | `make test` | completed through `[10904/10904] Replayed Tests.CompletedDensity`; every registered contract line reads `checked; standard logical axioms only` |
 | `git commit` | `26af11b8 [436-T18] U8: full-horizon solution, blow-up, lifespan exactly T, maximality`; working tree clean afterwards |
+
+
+> Lead note after review 436 (REJECT solely for the current-base compatibility gate): the worktree predated #396 (`ConservativeForcing.lean`); Lean mathematics and statement fidelity passed. The merge into integration below refreshes the base; the lane touches no `verification/` file, so the base-aware contract gate is unaffected by its content.
