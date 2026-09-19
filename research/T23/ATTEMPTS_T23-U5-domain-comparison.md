@@ -36,3 +36,18 @@ The probe now qualifies all three raw placement field types through
 `NavierStokes.ProblemStatement`.  The accompanying
 `declaration uses 'sorry'` diagnostic was Lean's recovery from this type error;
 there was no proof admission in the source.
+
+## 3. Successful route
+
+For each Sobolev order, `norms.zeroExtensionComparison` is specialized once to
+`K = closure (Metric.ball c R)`, before introducing either time or `ε`.  U3's
+exact `forceDifference_mem` type yields smooth spatial slices by choosing the
+closed slab `Icc 0 t`.  U4's pointwise nonvanishing support yields the T22
+`tsupport` premise by `closure_minimal` and closedness of `K`.  Both pointwise
+inequalities are integrated with `setLIntegral_mono'`; the upper inequality is
+then factored with `lintegral_const_mul'`.  This route makes no measurability or
+finiteness assumption on either extended norm.
+
+The final standalone checks for both modules and the probe produced zero
+output.  The axiom audit printed exactly
+`[propext, Classical.choice, Quot.sound]` for all nine production theorems.

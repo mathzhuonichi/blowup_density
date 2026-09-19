@@ -110,6 +110,17 @@ Take ρ strictly larger than the cutoff and packet carrier radii, bound tsupport
 
 ### U5 — registered T22 domain/zero-extension comparison (M, codex-sol)
 
+**Status (lane 484, 2026-09-19): complete.**
+`Section3/T23/DomainComparison.lean:domain_zeroExt_comparison` applies the
+canonical T22 three-field API to the actual force difference with the fixed
+compact set `closure B`, chooses `C` before time and `ε`, and integrates both
+extended-norm inequalities over `Ioi 0` without finiteness assumptions.  It
+threads exactly U3's `forceDifference_mem` and U4's all-time pointwise support;
+the order-zero slice identity and all five copied T23 norm-definition bridges
+are checked separately.  The closure probe also gives the explicit fieldwise
+adapter between the registered T22 contract copy and the canonical proof-side
+record.
+
 API target `domain_zeroExt_comparison:983`; supporting targets domain norm definitions `Spec:615,622,629,640,648` and copied norm API `:289,304,324` transport. Dependencies: U3 force smoothness, U4 fixed support, registered T22. No new proof of cutoffMultiplier is requested.
 
 Apply `C1/BoundedDomainNorm.lean:109` with the **difference** zε(t), Ω and fixed K=closure B. Choose C once for each s, before t and ε; integrate its two inequalities over Ioi 0. Use ENNReal lintegral monotonicity and constant multiplication, keeping possible infinite norms valid. The implementation route is `S3/T22/ZeroExtensionComparison.lean:28`. Apply `orderZero` (`C1/BoundedDomainNorm.lean:74`, `S3/T22/OrderZero.lean:219`) to the smooth difference slice for its physical restricted L² interpretation; handle gradient components for energy separately, since T22's field is vector-valued. Prove zero extension equals the globally supported force difference, not the reference or full force. This is no bounded zero-extension theorem for arbitrary H^s(Ω) data.
