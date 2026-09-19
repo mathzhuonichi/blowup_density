@@ -369,8 +369,8 @@
     {
       "id": "T17",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
+      "state": "in-progress",
+      "owner": "erenup",
       "contracts": [
         "T02.correction"
       ],
@@ -397,8 +397,8 @@
     {
       "id": "T20",
       "kind": "specification",
-      "state": "ready",
-      "owner": null,
+      "state": "in-progress",
+      "owner": "erenup",
       "contracts": [
         "T03.critical_regularity"
       ],

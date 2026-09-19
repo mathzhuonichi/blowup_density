@@ -209,11 +209,25 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   U10 (gauge), U7 (regularity/periodicity), with the two pinning equations `S.velocity = U_ε^per`,
   `S.pressure = p_ε` by `rfl`. **M, codex-sol.** Deps: U7, U8, U9, U10.
 
+  **Status (lane 454, 2026-09-19): complete.** `Section3/T15/Solution.lean`
+  proves joint slab smoothness and unit periodicity for both explicit fields,
+  transports Haar normalization through the existing smooth cube-mean theorem,
+  assembles all thirteen `ClassicalSolutionT` fields, and proves the literal
+  `ScalingAPI.solution` conclusion from the nine raw packet clauses actually
+  used.  `solution_closes.lean` applies the theorem by bare `exact` and builds
+  the pinned solution for the registered nonzero viscosity-one PDE packet.
+
 - **U12 — `forceSobolev_memLp` + `sobolevConst`/`sobolevConst_pos`** (new; ⑬). New
   `Section3/T15/SobolevBoundMem.lean`. Targets `forceSobolev_memLp` (`Spec.lean:872`), the data field
   `sobolevConst` (`:855`) and `sobolevConst_pos` (`:862`). Route: honest `L¹_tH^s(T³)` datum path from
   U9's per-`m` construction restricted to `s ∈ [0,1]`; `sobolevConst` defined as the (positive)
   constant assembled in U13 from T13's localization constant × the Euclidean rate. **L, Opus.** Deps: U3, U9.
+
+  **Status (lane 456, 2026-09-19): complete.** `SobolevBound.lean` proves
+  `forceSobolev_memLp` on the entire `[0,1]` range from raw force smoothness,
+  positive compact support, and `PlacementData`, using the continuous real-order
+  datum path of T17. `sobolevConst f s = 1 + ∑ i, C₀ᵢ^(1-s) (2π C₁ᵢ)^s`,
+  with finite unscaled component endpoint time norms, is explicit and positive.
 
 - **U13 — `packetSobolevBound` (eq:packetHs)** (⑫; **BLOCKED on T13.localization**). New
   `Section3/T15/SobolevBound.lean`. Target `packetSobolevBound` (`Spec.lean:884`). Route:
@@ -228,6 +242,15 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   lanes 354/359 are still proving, so this unit is **exercisable/testable only once T13.localization
   lands**; keep it as a separate lane and gate its non-vacuity on 354/359. **L, Opus.** Deps: U12; **T13.localization**.
 
+  **Status (lane 456, 2026-09-19): complete; prior T13 blocker superseded.**
+  `SobolevBound.lean` proves `packetSobolevBound`, the literal canonical field for every
+  admissible scale and all `0 ≤ s ≤ 1`, including both endpoints. Route B:
+  recenter at the chart center, derive `chartRadius < 1/2`, apply Paper1's
+  packet endpoint rates and periodic endpoint interpolation, then use T17's
+  datum/Paper1 norm bridge. No extra placement premise or named input.
+  The probe checks the exact fields and the nonzero bump packet. All 16 module
+  declarations print exactly the three standard axioms. See `REPORT_456.md`.
+
 - **U14 — `forceConvergence`** (⑭; **partly blocked on T13.localization**). New
   `Section3/T15/Convergence.lean`. Target `forceConvergence` (`Spec.lean:903`),
   `q∈{1,2}`, `s < criticalOrder q.toReal` (`Data.lean:259`). Route: for `q=1, 0≤s<1/2` feed U13's bound
@@ -236,6 +259,15 @@ through `periodicSobolevENorm`. The gradient companion bridges `T13`'s `gradient
   datum; the `q=2` branch (`criticalOrder 2 = -1/2`, all `s<-1/2`) by the same monotonicity from the
   `s=0` mixed base (U5). The `s∈[0,1/2)` sub-range inherits U13's **T13.localization** dependency; the
   `s<0` sub-range is independent. **L, Opus.** Deps: U12, U13.
+
+  **Status (lane 458, 2026-09-19): honest partial.** The complete `q = 1`
+  specialization is proved, including negative orders via a genuine bounded
+  Fourier order-lowering map. The exact canonical field remains open only at
+  `q = 2`: the proposed order-zero route has an arithmetic sign error,
+  `alphaT 2 2 = -1/2` (not `+1/2`), so its mixed norm grows. The tree has the
+  required whole-space negative-order concentration limit but no torus
+  periodization bridge preserving it. See `ATTEMPTS_U14.md` and
+  `REPORT_458.md` for the exact residual and diagnostics.
 
 - **U15 — non-vacuity + assembly + registration** (②; assembly Nonempty **blocked on T13.localization**).
   New `Section3/T15/Assembly.lean` + `Contracts/V1/Scaling*`?→ a fresh `Contracts/V1/…` for T15

@@ -15,6 +15,11 @@
 - 第 4 节全量编译通过（2026-09-17 21:30Z，Opus 子代理，冻结分支）：206 模块真实重新 elaborate，232 秒，0 错误，三门禁全过，37 合同审计齐全；报告 `logs/SECTION4_FULL_BUILD_20260917.md` 已并入 PR #259（评论已发）。
 
 ## 日志（最新在前）
+- **2026-09-19（lane 453 continuation）**：T17 U12 完成；最终 G4（含 raw packet support + ball-in-chart）装配 45 字段并注册 `T02.correction`，47 合同；cube-centred 非零参考场完整见证，反例已移至 research 独立 probe。报告：`research/T17/REPORT_453.md` Continuation。
+- **2026-09-19 13:50Z**：458（T15 U14）诚实部分：q=1 全闭，q=2 因简报符号错（`alphaT 2 2 = −1/2`）未闭 → 开 462（astra，ε 无关负阶界 + 插值）；459 等 462。457（T19 canonical）完成审中；460 在跑。
+- **2026-09-19 13:45Z**：合入 #417（T18 U11）、#418（T15 U11）。455 完成（T18 45 字段装配 + `T03.periodic_insertion` 注册，审中）。发现并记录 **G5**（T16/T17 全局光滑/周期假设 vs 经典解，`research/T17/SPEC_ISSUES.md`），开 460 slab 桥（astra）。459 简报改为显式 horizon。
+- **2026-09-19 13:28Z**：合入 #415（T20 U13 装配 + `T03.critical_regularity`，**第 48 个合同，T20 完成**）、#416（T15 U12+U13）。根目录曾因 453 简报本地改动 ff 失败，已 union 合并并推送。审中：454（T15 U11）、445（T18 U11）。在跑：448 T21 拆分、449 T23 拆分（astra 反复 Reconnecting）、455 T18 U12 装配、457 T19 U-CAN、458 T15 U14。下一步：455+457 落地后开 T19 U7（astra）；454+458 落地后开 459。
+- **2026-09-19 13:20Z**：合入 #405（T15 U6+U7）、#406（T17 U10）、#407（T20 U12）、#408（T15 U8）、#409（T20 U5，**T20 23 字段全证**）、#410（T15 U10）、#411（T18 U7）、#412（T18 U9+U10）、#413（T15 U9）。待审：451（T20 注册 `T03.critical_regularity`）、453（T17 注册 `T02.correction`，G4 前提块）、456（T15 U12+U13）、445（T18 U11）。在跑：448 T21 拆分、449 T23 拆分、454 T15 U11、457 T19 U-CAN；排队：455 T18 U12 装配（astra）、458 T15 U14；简报就绪：459 T15 U15。
 - **2026-09-19 12:33Z**：用户新规——不再启动 Opus 子代理，全部用 tmux codex（astra 强推理/贵 → 硬分析、传输核心、装配、规划；sol 便宜 → 簿记、注册、修复、审稿），lead 统一调度（`tmp/launch_when_free.sh` 并发 <6 才启动）。合入 #400（440 全量检查 f：116 模块 0 错误、46 合同）、#401（T20 U11）、#402（T15 U4+U5）、#403（T18 U8）、#404（T17 U11）。在跑：441 T20 U12、443 T18 U9+U10、446 T15 U8、447 T15 U10、448 T21 拆分、cont_435 T18 U7；已完成待审：442 T15 U6+U7、444 T17 U10；排队：445、449、450；简报就绪：451 T20 U13 注册。
 - **2026-09-18 19:17Z**：Claude 路由 429（"reserving weekly capacity"）于 19:13Z 起拒绝 Opus 子代理（436/437/438/439 全部中断，续做亦被拒）；已设 19:45Z 一次性 cron 统一重试；codex 侧（rev-434、440 全量检查、rev-431/435 退避）继续。合入 #396（T24 conservative 注册，46 合同）、#397（T18 U2–U4）。
 - **2026-09-18 15:09Z**：合入 #364（T15 U2）、#365（T24 Ua5）、#366（T17 U-CAN + canonical force_profile_identity；union 合并误伤 `ForceProfile.lean` → 修复 lane 412）、#367（T24 Ua2）、#368（T12 U4b 逐字 velocityCriticalL3）、#369（T24 Ua3 + 非零见证）。Opus 交付待审：400（T12 U5，T12 九字段齐）、405（T12 U6）、406（T22 `cutoffMultiplier` 逐字闭合）、407（T24 Ua6）、411（T21 草案 B）；codex 14:50Z 起 sol 429 / astra at capacity 交替，408 交付、409 未交付（改 Opus）、410 草案 A 42 万 token 后 429（续做）、412 改 Opus；审稿全部在退避重试。T13 SPLIT 里的 `domainL2Sq` 措辞已由 406 更正。
@@ -40,13 +45,13 @@
 - **PR #270**（draft，保持 open）：`erenup/integration-section3` → `erenup/integration`，描述里是 T10–T24 进度表；**每次合入后 lead 用 `gh pr edit 270 --body-file tmp/section3_pr_body.md` 更新**（正文模板在 `tmp/section3_pr_body.md`，gitignored，丢了就照 PR 现有正文重建）。#259 合入 `main` 后把 base 改成 `main`（`gh pr edit 270 --base main`）。
 - 第 4 节：PR #259 → `main` 待 owner；两份全编译报告已在其评论里。
 
-## 当前在跑 / 待启动（2026-09-19 12:59Z 快照）
+## 当前在跑 / 待启动（2026-09-19 13:45Z 快照）
 
-- **用户新规（09-19）**：**不再启动 Opus 子代理**；全部 codex（astra 强推理/贵 → 硬分析、传输核心、装配、规划；sol 便宜 → 簿记、注册、修复、审稿），lead 调度（`tmp/launch_when_free.sh`，并发 <6–8 才启动）。
-- **今晨合入 #400–#411**：440 全量检查 f；T20 U11 #401、U12 #407、U5 #409（**T20 23 字段全证**）；T15 U4+U5 #402、U6+U7 #405、U8 #408、U10 #410；T18 U8 #403、U7 #411；T17 U11 #404、U10 #406（**T17 U1–U11 全证**）。合同仍 46。
-- **裁定记录**：G4（`correctionStatement` 需 T16 前提块 + 0<ν + 全局光滑 + `ball_in_chart` + 原始支撑子句，`SPEC_ISSUES.md`）；`InsertionData` 缺原始 packet 子句 → 显式前提 + 探针从 `PacketImportAPI` 放电（435/443）。
-- **codex 在跑**：448 T21 拆分（astra）、449 T23 拆分（astra）、450 T15 U9（astra）、451 T20 U13 装配+注册（sol）、cont_453 T17 U12 装配+注册（astra）、fix_443 T18 U9 前提修复（sol）；队列：445 T18 U11；简报就绪：454 T15 U11（等 450）。
-- **下一批**：T18 U12 装配+注册（等 443/445）；T15 U12–U15（U13/U14 部分等 T13 localization——已注册，可开）；T21/T23 拆分完成后开对应 lane；T19 U7+（等 T18 U12）；T24b（等 T15 U15）。
+- **用户新规（09-19）**：**不再启动 Opus 子代理**；全部 codex（astra 强推理/贵 → 硬分析、传输核心、装配、规划；sol 便宜 → 簿记、注册、修复、审稿），lead 调度（`tmp/launch_when_free.sh`，并发 <6 才启动；审稿用 `tmp/retry_review.sh`）。
+- **合同 48**（T20 `T03.critical_regularity` #415 是第 48 个）；455 已在分支上注册 `T03.periodic_insertion`（第 49 个，审中）。今日合入 #400–#418：T20 全部完成；T17 U1–U12 + `T02.correction` #414；T18 U1–U11；T15 U1–U13。
+- **裁定记录**：G4（`correctionStatement` 前提块，`research/T17/SPEC_ISSUES.md`）；**G5（13:40Z）**：注册的 T16/T17 要求全局 `ContDiff ℝ ∞ v` + `IsPeriodicOn univ v`，而 `ClassicalSolutionT` 只给 `Ico 0 T` 上的光滑/周期 → T19 无法把 T18 从 `RegularThroughT` 实例化；裁定不改合同，加 canonical slab 桥（lane 460，T17 U13 `correctionStatementSlab`），T19 新增 U0 穿线单元。
+- **codex 在跑**：448 T21 拆分、449 T23 拆分（astra，反复 Reconnecting，无部分产出；13:55Z 仍卡则杀掉改 sol 重跑）、457 T19 U-CAN canonical、458 T15 U14、rev-455（sol）；排队：460 T17 U13 slab 桥（astra，等安装）。简报就绪：459 T15 U15 装配+`T02.scaling`（等 458；已改为 `placementData … T hT` 显式 horizon）。
+- **下一批**：455 审过 → 合入（49 合同）；458 落地 → 459；459+460 落地 → 461 T19 U0 `insertionFromReference`（astra）→ T19 U7/U8/U9（wave 2）→ U13/U14 → U10–U12；448/449 拆分落地 → T21 N 单元、T23 单元；T24b（等 459）；合同批次后跑一次全量 Section 3 编译检查（astra low）。
 - **规矩（用户 09-17）**：lead 不自己跑全量编译、不自己改代码（记录类微改除外）；每次合入更新追踪 PR #270。
 
 ## 下一步（按顺序）
