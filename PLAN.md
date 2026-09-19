@@ -249,6 +249,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 485-T23-U6-rates-convergence | 已合入 #449（codex 审稿 ACCEPT-WITH-NOTES，空白已清） | 09-19 1730Z | #449 | — | T23 U6：能量率、Sobolev 力率、负阶尾、收敛 + 路径范数桥（8 字段） |
 | 486-T23-U8-interior-blowup | 已合入 #448（codex 审稿 ACCEPT） | 09-19 1728Z | #448 | — | T23 U8：内部爆破见证 + 寿命恰为 T + maximal（盒用 noSlip_uniqueness_box，光滑域穿线 IBP Ω） |
 | 487-T23-U9-assembly-registration | worktree 安装中（integration + 483/485/486 分支）→ codex astra | 09-19 1727Z | — | — | T23 U9：48 字段装配（盒域无条件，光滑域条件于 IBP Ω）+ 修正陈述 boundaryInsertionStatement' + 合同 T04.boundary_insertion（scope 注明 G0/G1 owner 待定） |
+| 488-MAINT-section3-build-i | 简报就绪，等 487 合入 → codex sol | 09-19 1732Z | — | — | MAINT：T23 注册后的 Section 3 全量编译检查 i（预期 55 合同，全部节点注册） |
 | 467-T24-UbCAN-Ub1-Ub3-multiple-regions | 已合入 #429（codex 审稿 ACCEPT-WITH-NOTES，docstring 注释按意见收窄） | 09-19 1459Z | #429 | — | T24b：canonical MultipleRegionsAPI（30 字段 Type，raw-field T15 记录）+ Ub1 放置/尺度选择 + Ub2 分量 + Ub3 单拷贝支撑 |
 | 468-T24-Ub4-assembled-solution | 已合入 #431（codex 审稿 ACCEPT-WITH-NOTES，引用行号已改） | 09-19 1509Z | #431 | — | T24b Ub4：装配解 assembledVelocity/Pressure/Force + solution : ClassicalSolutionT ν 0 (Σ F_j) T（交叉输运项因支撑不交为零）+ solution_pin/force_mem/rest |
 | 469-T24-Ub5-Ub6-regions-energy | 已合入 #432（codex 审稿 ACCEPT） | 09-19 1515Z | #432 | — | T24b Ub5 region_agreement/region_blowup + Ub6 energy_bound/dissipation_bound（不交支撑可加性 + packetEnergy/DissipationIdentity） |
