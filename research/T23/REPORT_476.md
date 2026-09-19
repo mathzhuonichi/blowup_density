@@ -81,3 +81,7 @@ Run from `verification/` after `. ../scripts/lean-env.sh` unless noted:
 - targeted forbidden-token and unsafe-import `rg` scans — no output.
 - from the repository root, `make check` — success (exit 0); 13 contract-policy
   tests passed and the 45-item work queue was consistent.
+
+## Lead amendment after review (2026-09-19 16:34Z)
+- Reviewer note 2 (disclosure): `make check` prints `source_hashes_match: false` (exit 0) — a pre-existing snapshot diagnostic recorded in every Section 3 build report since `logs/SECTION3_BUILD_20260918f.md`; the repository-wide forbidden-token count reported by the reviewer is documentation text only (see `logs/SECTION3_BUILD_20260919g.md` §3).
+- Reviewer note 1 (three auxiliary geometry lemmas: closed-ball compactness, a smaller closed ball around `x₀`, frontier separation under `IsOpen Ω`) is folded into lane 480 (T23 U-CAN) — `collaboration/briefs/480-T23-UCAN-canonical-records.md`.
