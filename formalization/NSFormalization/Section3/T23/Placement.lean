@@ -17,45 +17,97 @@ namespace NSFormalization.Section3.T23
 open Set
 open NavierStokes.ProblemStatement
 
-/-- Cube-free interior placement data, adapted from the T15 torus placement by
-removing its fundamental-cube field.  The raw arguments `u`, `p`, `f`, and `K`
-are the local spelling of the packet velocity, pressure, force, and carrier. -/
+/-- Cube-free interior placement data, **adapted from** the T15 torus
+`PlacementData` (`research/T18/Spec.lean:454-548`) by **removing**
+`chartBall_in_cube` (the torus artifact `closure(ball …) ⊆ interior
+fundamentalCube`) and never referencing `fundamentalCube`; every other field is
+kept verbatim.  On a bounded domain `Ω ⊂ R³` there is no torus, so the ball's
+placement is fixed by the free center `chartCenter`/`x₀` and its interior
+containment is a field of the API (`interiorBall_in_domain`), not of the
+placement.  `Kstar` still contains both spatial packet supports.  The raw
+arguments `u`, `p`, `f`, and `K` are the local spelling of the packet velocity,
+pressure, force, and carrier permitted inside `formalization/`.
+
+Non-vacuity: the fields below constrain actual real data (a positive time,
+a positive-radius metric ball, a compact `Kstar` carrying the packet and force
+supports, a positive threshold with genuine scale conditions); nothing is
+`True`. -/
 structure DomainPlacementData (u : VelocityField) (p : PressureField)
     (f : VelocityField) (K : Set Space) where
-  /-- `03-torus.tex:103-106`: the target singular time `T`. -/
+  /-- `03-torus.tex:103-106`: the target singular time `T`.
+
+  Non-vacuity: positivity makes `(0,T)` a genuine evolution interval. -/
   T : ℝ
-  /-- `03-torus.tex:103-106`: `0<T`. -/
+  /-- `03-torus.tex:103-106`: `0<T`.
+
+  Non-vacuity: this rules out the empty or reversed time interval. -/
   time_pos : 0 < T
-  /-- `03-torus.tex:102-105`: center of the fixed localization ball `B`. -/
+  /-- `03-torus.tex:102-105`: center of the fixed localization ball `B`.
+
+  Non-vacuity: it is used in the concrete ball containment below. -/
   chartCenter : Space
-  /-- `03-torus.tex:102-105`: radius of the fixed localization ball `B`. -/
+  /-- `03-torus.tex:102-105`: radius of the fixed localization ball `B`.
+
+  Non-vacuity: the next field requires this radius to be positive. -/
   chartRadius : ℝ
-  /-- `03-torus.tex:102`: `B` has positive radius. -/
+  /-- `03-torus.tex:102`: `B` has positive radius.
+
+  Non-vacuity: this excludes an empty metric ball. -/
   chartRadius_pos : 0 < chartRadius
-  /-- `03-torus.tex:102,105`: the placement center `x₀∈B`. -/
+  /-- `03-torus.tex:102,105`: the placement center `x₀∈B`.
+
+  Non-vacuity: the point is tied to the same concrete chart ball. -/
   x₀ : Space
-  /-- `03-torus.tex:102`: `x₀∈B`. -/
+  /-- `03-torus.tex:102`: `x₀∈B`.
+
+  Non-vacuity: this is membership in the explicit ball above. -/
   x₀_mem : x₀ ∈ Metric.ball chartCenter chartRadius
   /-- `03-torus.tex:101-102`: the compact spatial set `K_*` enlarged to cover
-  both the velocity/pressure carrier and the spatial projection of `supp F`. -/
+  both the velocity/pressure carrier and the spatial projection of `supp F`.
+
+  Non-vacuity: the following three fields constrain this actual set. -/
   Kstar : Set Space
-  /-- `03-torus.tex:101`: `K_*` is compact. -/
+  /-- `03-torus.tex:101`: `K_*` is compact.
+
+  Non-vacuity: this is an assertion about the carried set, not an existential
+  choice made separately for each scale. -/
   Kstar_compact : IsCompact Kstar
-  /-- `03-torus.tex:101`: `K⊆K_*`, where `K` is the packet carrier. -/
+  /-- `03-torus.tex:101`: `K⊆K_*`, where `K` is T14's packet carrier.
+
+  Exact quantifier order: every point of `K` lies in the fixed
+  `Kstar`.  Non-vacuity: this links placement to the selected packet. -/
   carrier_subset : K ⊆ Kstar
-  /-- `03-torus.tex:101-102`: the spatial projection of `supp F` is in `K_*`. -/
+  /-- `03-torus.tex:101-102`: the spatial projection of `supp F` is in `K_*`.
+
+  Exact quantifier order: for every spacetime support point `(t,x)`, its
+  spatial coordinate lies in `Kstar`.  Non-vacuity: this rules out choosing a
+  set that only covers the velocity carrier. -/
   force_projection_subset : ∀ t : ℝ, ∀ x : Space,
     (t, x) ∈ tsupport f → x ∈ Kstar
   /-- `03-torus.tex:103`: one positive threshold for all sufficiently small
-  scales. -/
+  scales.
+
+  Non-vacuity: every conclusion below uses the same interval `(0,ε₀]`. -/
   ε₀ : ℝ
-  /-- `03-torus.tex:103`: `ε₀>0`. -/
+  /-- `03-torus.tex:103`: `ε₀>0`.
+
+  Non-vacuity: `(0,ε₀]` contains admissible scales. -/
   eps_pos : 0 < ε₀
-  /-- `03-torus.tex:103`, harmless normalization after shrinking: `ε₀≤1`. -/
+  /-- `03-torus.tex:103`, harmless normalization after shrinking: `ε₀≤1`.
+
+  Non-vacuity: this is a quantitative restriction on the one threshold. -/
   eps_le_one : ε₀ ≤ 1
-  /-- `03-torus.tex:104-106`: `2ε²<T`, before `t_ε` is defined. -/
+  /-- `03-torus.tex:104-106`: `2ε²<T`, before `t_ε` is defined.
+
+  Exact quantifier order: first `ε∈(0,ε₀]`, then the inequality.
+  Non-vacuity: it gives `t_ε>0`, so positive-time force norms contain the
+  complete rescaled temporal support. -/
   eps_time : ∀ ε ∈ Ioc (0 : ℝ) ε₀, 2 * ε ^ 2 < T
-  /-- `03-torus.tex:104-105`: `x₀+εK_*⊆B`. -/
+  /-- `03-torus.tex:104-105`: `x₀+εK_*⊆B`.
+
+  Exact quantifier order: first `ε∈(0,ε₀]`, then every `y∈Kstar`.
+  Non-vacuity: together with `interiorBall_in_domain`, this is precisely the
+  support-versus-scale condition used by the single-copy conclusions. -/
   eps_space : ∀ ε ∈ Ioc (0 : ℝ) ε₀, ∀ y ∈ Kstar,
     x₀ + ε • y ∈ Metric.ball chartCenter chartRadius
 
