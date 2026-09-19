@@ -163,6 +163,8 @@ Apply `C1/BoundedDomainNorm.lean:109` with the **difference** zε(t), Ω and fix
 
 ### U6 — closeness rates, path-norm bridge and convergence (L, codex-astra)
 
+**Status (lane 485, 2026-09-19): complete with the authorized threaded U2b/U3/U4/U5 hypotheses.** `NormBridge.lean` and `Rates.lean` prove all eight field components; the probe consumes registered I03 scaling on the identical correction, and all 18 production declarations have exactly the standard three axioms. Both modules/probe, `make check`, `lake test`, and mutation gates pass. U9 must discharge the explicit matching, support, regularity, and comparison premises; no boundary API inhabitant or G0/G1 resolution is asserted. See `REPORT_485.md`.
+
 API targets **8 fields**: `energyConst:938`, `energyConst_nonneg:940`, `energyRate:947`, `forceDiffSobolevConst:956`, `forceDiffSobolevConst_pos:961`, `forceDifference_sobolev_bound:969`, `forceDifference_negativeSobolev_tendsto:995`, `forceDifference_convergence:1003`. Dependencies: U2 matching scaling/correction, U3/U4, U5.
 
 Energy: restriction of the L² measure decreases each velocity/gradient norm; pass through essSup, lintegral and the positive square root. Consume `C1/Scaling.lean:284` perturbationEnergyBound and preserve exactly `(P.energyBound+P.dissipationBound) ε^(1/2)+C ε^(3/2)`. `P1/LocalizationBoundary.lean:64,91` supplies real integral comparisons as a possible template; the actual target is ENNReal, so explicitly bridge or prove measure monotonicity directly.
