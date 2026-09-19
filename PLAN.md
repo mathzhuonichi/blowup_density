@@ -210,7 +210,7 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 442-T15-U6-U7-blowup-force-mem | 已合入 #405：T15 U6 unboundedSpeed + U7 force_mem，审稿 ACCEPT | 09-19 1241Z | #405 | — | T15 U6 unboundedSpeed + U7 force_mem（单拷贝 + 放缩 blow-up 见证 / periodize 光滑周期 + 正时间紧支） |
 | 443-T18-U9-U10-energy-mixed-rates | 已合入 #412：T18 U9 energyRate + U10 混合范数接近四字段，审稿 ACCEPT | 09-19 1308Z | #412 | — | T18 U9 energyRate（eq:Eclose）+ U10 混合范数接近（eq:Fclose），全部消费线程化记录字段 |
 | 444-T17-U10-mixed-bound | 已合入 #406：T17 U10 混合范数界 + 诚实 L^p 切片（含 ∞ 端点），审稿 ACCEPT；T17 U1–U11 全证 | 09-19 1244Z | #406 | — | T17 U10：修正力混合范数界 + 诚实 L^p 切片（439 的 mixedLebesgueENormT_eq + I02 界） |
-| 445-T18-U11-sobolev-rate | codex sol 完成：U11 六字段（forceDiffSobolevConst = 2(scaling.C_s + correction.C_s)，负阶经 T11 persistenceDown；71da7e34）→ 排队审稿 | 09-19 1319Z | — | — | T18 U11：eq:Hsclose 力差 Sobolev 接近六字段（记录字段 + 范数在 s 上单调 + 三角不等式） |
+| 445-T18-U11-sobolev-rate | 已合入 #417（codex 审稿 ACCEPT） | 09-19 1329Z | #417 | — | T18 U11：eq:Hsclose 力差 Sobolev 接近六字段（记录字段 + 范数在 s 上单调 + 三角不等式） |
 | 446-T15-U8-periodized-pde | 已合入 #408：T15 U8 周期化 PDE 传输（动量/无散/零初值），审稿 ACCEPT-WITH-NOTES（空白已清） | 09-19 1250Z | #408 | — | T15 U8：周期化场满足 NS 动量方程 / 无散 / 零初值（periodize 与各算子交换，单拷贝局部化） |
 | 447-T15-U10-pressure | 已合入：T15 U10 压力规范化（切片可积 + 均值零规范），审稿 ACCEPT #410 | 09-19 1257Z | #410 | — | T15 U10：pressureSlice_integrable + normalizedScaledPressure 的均值零规范 |
 | 448-T21-SPLIT-plan | 排队 → codex astra（规划） | 09-19 1232Z | — | — | T21 证明拆分 T21_SPLIT.md（N0–N15 分组成 S/M lane，波次，风险） |
