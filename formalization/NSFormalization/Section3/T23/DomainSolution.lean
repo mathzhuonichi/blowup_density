@@ -13,7 +13,7 @@ open NavierStokesR3.ProblemStatement (navierStokesResidual)
 open NSFormalization.Section4.A02 (SpatialField SpaceTimeField SpaceTimeScalar)
 open scoped ContDiff
 
-/-- `03-torus.tex:635-639`: the manuscript's closed-spacetime-slab smoothness
+/-- `03-torus.tex:638-642`: the manuscript's closed-spacetime-slab smoothness
 convention — "restriction of a `C∞` field from an open neighborhood of that
 slab" (this also fixes smoothness at edges and corners of a box).  Encoded as
 the literal restriction: an open `N` covering the slab `I × cl Ω` on which the
@@ -71,7 +71,7 @@ def initialClassOmega (Ω : Set Space) : Set SpatialField :=
     (∀ x ∈ Ω, spatialDivergence (fun z : SpaceTime => a z.2) 0 x = 0) ∧
     (∀ x ∈ frontier Ω, a x = 0)}
 
-/-- `03-torus.tex:635-639`: the bounded-domain force class `𝓕(Ω)` — smooth on
+/-- `03-torus.tex:638-642`: the bounded-domain force class `𝓕(Ω)` — smooth on
 `cl Ω × [0,T']` for every finite `T'` (slab convention, "`g` on each finite
 closed slab"), with temporal support compact in `(0,∞)`.  The torus analogue is
 `MemForceT`; periodicity is dropped and smoothness is over `cl Ω`.
@@ -82,7 +82,7 @@ def MemForceOmega (Ω : Set Space) (f : SpaceTimeField) : Prop :=
   (∀ T' : ℝ, SmoothOnClosedSlab (Icc (0 : ℝ) T') Ω f) ∧
     ∃ K : Set ℝ, IsCompact K ∧ K ⊆ Ioi 0 ∧ tsupport f ⊆ K ×ˢ (univ : Set Space)
 
-/-- `03-torus.tex:635-639`: the bounded-domain reference/inserted force class. -/
+/-- `03-torus.tex:638-642`: the bounded-domain reference/inserted force class. -/
 def forceClassOmega (Ω : Set Space) : Set SpaceTimeField := {f | MemForceOmega Ω f}
 
 /-! ## 1. Bounded-domain classical no-slip solutions -/
@@ -117,15 +117,15 @@ structure ClassicalSolutionOmega (ν : ℝ) (Ω : Set Space) (a : SpatialField)
   velocity_smooth : SmoothOnClosedSlab (Ico (0 : ℝ) T) Ω velocity
   /-- `03-torus.tex:637-643`: pressure smoothness on the same slab. -/
   pressure_smooth : SmoothOnClosedSlab (Ico (0 : ℝ) T) Ω pressure
-  /-- `02-preliminaries.tex:28-29` and `03-torus.tex:641`: `u(0,·)=a` on `Ω`.
+  /-- `02-preliminaries.tex:28-29` and `03-torus.tex:643`: `u(0,·)=a` on `Ω`.
   Exact quantifier order: `∀ x ∈ Ω`.  Non-vacuity: pointwise equality of
   physical vectors on the domain. -/
   initial : ∀ x ∈ Ω, velocity (0, x) = a x
-  /-- `03-torus.tex:641` "incompressibility hold in `Ω`": `div u = 0` in `Ω`.
+  /-- `03-torus.tex:643` "incompressibility hold in `Ω`": `div u = 0` in `Ω`.
   Exact quantifier order: `∀ t ∈ Ico 0 T, ∀ x ∈ Ω`.  Non-vacuity: the
   registered physical divergence vanishes pointwise. -/
   divergence : ∀ t ∈ Ico (0 : ℝ) T, ∀ x ∈ Ω, spatialDivergence velocity t x = 0
-  /-- `03-torus.tex:641` "The equation … hold in `Ω`": the momentum equation at
+  /-- `03-torus.tex:644` "The equation … hold in `Ω`": the momentum equation at
   interior times, inside `Ω`.  Exact quantifier order: `∀ t ∈ Ioo 0 T,
   ∀ x ∈ Ω`.  Non-vacuity: the NS residual equals `g` pointwise at `ν`. -/
   momentum : ∀ t ∈ Ioo (0 : ℝ) T, ∀ x ∈ Ω,
