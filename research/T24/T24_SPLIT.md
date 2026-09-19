@@ -311,6 +311,10 @@ Audit and exact resolved diagnostics: `axioms_ub1_ub3.lean`,
   kill every cross transport `(U_i·∇)U_j = 0`, so the sum solves `ClassicalSolutionT ν 0 (Σ F_j) T`; `forceClassT`
   and the zero-mean gauge are closed under finite sums (`force_mem`); `rest` from each `component`.`initial`.
   **L, Opus** (hard analytic core). No named input beyond the threaded `sc j`/components (Ub2, Ub3). Deps: Ub2, Ub3.
+  **DONE (lane 468).** `MultipleAssembled.lean` constructs the explicit sums and actual `solution`,
+  proves `crossTransport_eq_zero`, `solution_pin`, `force_mem`, and `rest`; all 29 declarations have
+  exactly `[propext, Classical.choice, Quot.sound]`. Probe: `probes/assembled_closes.lean`;
+  audit: `axioms_ub4.lean`; diagnostics: `ATTEMPTS_UB4.md`; report: `REPORT_468.md`.
 - **Ub5 — region agreement + blow-up** (`region_agreement:1305`, `region_blowup:1313`). Route: on `B_j` every
   other component vanishes (Ub3, disjoint), so `assembled = component j` there; then `sc j`.`unboundedSpeed`
   transfers to `SpeedUnboundedAtOn T B_j assembled_velocity`. **M, codex-sol.** Named input: T15 `unboundedSpeed`

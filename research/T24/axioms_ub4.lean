@@ -1,0 +1,31 @@
+import NSFormalization.Section3.T24.MultipleAssembled
+
+#print axioms NSFormalization.Section3.T24.forceClassT_finset_sum
+#print axioms NSFormalization.Section3.T24.RegionsData.assembledVelocity
+#print axioms NSFormalization.Section3.T24.RegionsData.assembledPressure
+#print axioms NSFormalization.Section3.T24.RegionsData.assembledForce
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_velocity_formula
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_pressure_formula
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_force_formula
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_velocity_smooth
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_pressure_smooth
+#print axioms NSFormalization.Section3.T24.RegionsData.velocity_periodic
+#print axioms NSFormalization.Section3.T24.RegionsData.pressure_periodic
+#print axioms NSFormalization.Section3.T24.RegionsData.rest
+#print axioms NSFormalization.Section3.T24.RegionsData.force_mem
+#print axioms NSFormalization.Section3.T24.RegionsData.component_slice
+#print axioms NSFormalization.Section3.T24.RegionsData.component_nonoverlap
+#print axioms NSFormalization.Section3.T24.RegionsData.crossTransport_eq_zero
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_spatialDerivative
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_divergence
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_sobolev
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_pressure_gradient
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_pressure_gauge
+#print axioms NSFormalization.Section3.T24.RegionsData.component_temporal
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_temporalDerivative
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_spatialLaplacian
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_pressureGradient
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_advection
+#print axioms NSFormalization.Section3.T24.RegionsData.assembled_momentum
+#print axioms NSFormalization.Section3.T24.RegionsData.solution
+#print axioms NSFormalization.Section3.T24.RegionsData.solution_pin
