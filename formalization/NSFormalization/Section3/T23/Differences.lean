@@ -130,4 +130,21 @@ theorem correction_slice_support {v u : SpaceTimeField} {K : Set Space}
     (mul_le_mul_of_nonneg_left
       (cutoffRadius_lt_diffSupportRadius D.θRadius packetRadius).le hε.1.le) hz.2
 
+/-- I03's carrier inclusion transports the scaled packet carrier into the same
+strictly larger `ε ρ` ball. -/
+theorem affineCarrier_subset_commonBall {K : Set Space} {x₀ : Space}
+    {ε cutoffRadius packetRadius : ℝ} (hε : 0 < ε)
+    (hcarrier : K ⊆ ball (0 : Space) packetRadius) :
+    (fun y : Space => x₀ + ε • y) '' K ⊆
+      ball x₀ (ε * diffSupportRadius cutoffRadius packetRadius) := by
+  rintro _ ⟨y, hy, rfl⟩
+  have hynorm : ‖y‖ < packetRadius := by
+    simpa only [mem_ball, dist_zero_right] using hcarrier hy
+  rw [mem_ball, dist_eq_norm]
+  have hsub : x₀ + ε • y - x₀ = ε • y := by abel
+  rw [hsub, norm_smul, Real.norm_eq_abs, abs_of_pos hε]
+  exact (mul_lt_mul_of_pos_left hynorm hε).trans
+    (mul_lt_mul_of_pos_left
+      (packetRadius_lt_diffSupportRadius cutoffRadius packetRadius) hε)
+
 end NSFormalization.Section3.T23
