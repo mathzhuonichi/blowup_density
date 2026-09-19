@@ -386,6 +386,3 @@ theorem noSlip_uniqueness_box : ∀ (ν : ℝ), 0 < ν →
   exact velocity_eq_of_ibp hν (ibp_box hΩ) hΩ.open_bounded.1 hΩ.open_bounded.2 u₁ u₂ ht hx
 
 end NSFormalization.Section3.T23
-
-
-
