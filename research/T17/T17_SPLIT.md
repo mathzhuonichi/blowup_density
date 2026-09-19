@@ -255,6 +255,8 @@ in the tree today.
   Note for later units: a non-vacuity witness for anything Haar-normed must be placed **inside** the
   cube — lane 425's `x₀ = 0` does not satisfy `hcube`; this lane uses the cube centre.
 
+**U10 status (lane 444): DONE.** `T17/Mixed.lean` closes the canonical slice and mixed-bound fields at concrete `correctionData`, with finite Paper1 constant, both infinity endpoints, explicit G1 smoothness, cube placement, and ε₀ ≤ 1. Exact-field and cube-centred nonzero-reference probes and standard-three-axiom audits pass. See `REPORT_444.md`.
+
 - **U10 — mixed bound + honest slices** (new torus wrapping I02 content). New `Section3/T17/Mixed.lean`.
   Targets `force_spatial_memLp` (`Spec.lean:923`), `mixedConst`, `mixedConst_nonneg`, `force_mixed_bound`
   (`Spec.lean:936`). Route: U2(b) `force_eq` + single-copy Haar/Lebesgue mixed bridge (T15 `Mixed.lean`,
@@ -275,6 +277,27 @@ in the tree today.
   `C_s(ε^{3/2}+ε^{3/2-s})`; assemble the `MemForceSobolevT 1 s` datum path. **No named input at theorem level**
   (`localization` is a structure field), but its `.localization` sub-field is what 354/359 prove — exercisable
   and non-vacuous only after T13.localization lands. **L, Opus.** Deps: U2; **T13.localization**.
+  **Status (lane 438, DONE 2026-09-18):** `Section3/T17/Sobolev.lean` proves all four fields
+  (`sobolevConst`, `sobolevConst_pos`, `forceSobolev_memLp`, `force_sobolev_bound`) at the concrete
+  `correctionData`, on the whole range `0 ≤ s ≤ 1`, under the same premise block as lanes 385/425
+  (`hv : ContDiff ℝ ∞ v` = G1, plus `hε₀ : ε₀ ≤ 1` as in lane 385).  **The delivered route is not the
+  one planned here.**  T13's `localization` is proved and its ball hypothesis is derivable from
+  `ball_in_chart` + `chartBall_in_cube`, but its right-hand side is `eLpNorm f 2 volume +
+  dotHomogeneousENorm s f`, and `dotHomogeneousENorm` evaluates (via `D01.isHomogeneousSliceDatum_compact`)
+  to an integral against `Source.angularFourier` (`e^{-i x·ξ}`), while Paper1's ε-rates are stated with
+  Mathlib's `𝓕` (`e^{-2πi x·ξ}`); the `(2π)^{3+2s}` whole-space dilation bridge between them is not in
+  the tree.  Instead the lane goes through Paper1's periodic Fourier series:
+  `periodized_scalar_L1Hs_le_endpoint_product` (endpoint interpolation for a copy in the origin cube)
+  fed by `correction_scalar_whole_endpoint_rates`, after recentring the single copy at the origin
+  (`shiftedForce`) to reconcile Paper1's origin-centred `SupportedInCube` with the `(0,1)³` chart ball —
+  translation invariance of `periodicSobolevENorm` comes from T11's `isPeriodicDatum_translate` /
+  `translatePeriodicDatum_norm`, so no hypothesis on `‖x₀‖` is added.  The honest `MemForceSobolevT 1 s`
+  path is the new `force_coefficient_path_real`, the real-order analogue of `T10.force_coefficient_path`
+  (continuity at fractional `s` by squeezing against the order-1 path).  The constant is
+  `1 + ∑_{i<3} c₀(i)^{1-s}(2π c₁(i))^s` with Paper1's two endpoint profile constants; the proof actually
+  gives `≤ C ε^{3/2-s}`, majorized into the manuscript's `C_s(ε^{3/2}+ε^{3/2-s})`.  All 21 declarations
+  have exactly the standard three axioms.  Residual for a later lane: `eq:HHs` proved *through*
+  `lem:localization` still needs the `angularFourier`/`𝓕` whole-space bridge.
 
 - **U12 — assembly + statement + contract/bindings/tests + non-vacuity.** New `Section3/T17/Assembly.lean`
   + a fresh `Contracts/V1/…` (T17 registration; T02 umbrella per PLAN). Bundle the `CorrectionAPI` over the
