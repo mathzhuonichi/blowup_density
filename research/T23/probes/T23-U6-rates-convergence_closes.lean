@@ -45,7 +45,7 @@ example : ∀ s : ℝ, 0 ≤ s → s < 1 / 2 → 0 < forceDiffSobolevConst A B s
   exact fun s _ _ => forceDiffSobolevConst_pos A B s
 
 -- Literal forceDifference_sobolev_bound field.
-example : 
+example :
     ∀ s, 0 ≤ s → s < 1 / 2 → ∀ ε ∈ Ioc (0 : ℝ) ε₀,
       domainForceSobolevENorm Ω s (fun z => force ε z - g z) ≤
         ENNReal.ofReal (forceDiffSobolevConst A B s *

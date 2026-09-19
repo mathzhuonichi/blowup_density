@@ -115,25 +115,25 @@ Hint: The identifier `PacketImportAPI` is unknown, and Lean's `autoImplicit` opt
   Space
 Possible interpretations:
   BlowupDensity.Contracts.V1.Space : Type
-  
+
   NavierStokes.ProblemStatement.Space : Type
 ../research/T23/probes/T23-U6-rates-convergence_closes.lean:74:23: error: Ambiguous term
   Space
 Possible interpretations:
   BlowupDensity.Contracts.V1.Space : Type
-  
+
   NavierStokes.ProblemStatement.Space : Type
 ../research/T23/probes/T23-U6-rates-convergence_closes.lean:74:31: error: Ambiguous term
   Space
 Possible interpretations:
   BlowupDensity.Contracts.V1.Space : Type
-  
+
   NavierStokes.ProblemStatement.Space : Type
 ../research/T23/probes/T23-U6-rates-convergence_closes.lean:74:43: error: Ambiguous term
   VelocityField
 Possible interpretations:
   BlowupDensity.Contracts.V1.VelocityField : Type
-  
+
   NavierStokes.ProblemStatement.VelocityField : Type
 ../research/T23/probes/T23-U6-rates-convergence_closes.lean:80:0: warning: declaration uses `sorry`
 ../research/T23/probes/T23-U6-rates-convergence_closes.lean:83:0: warning: declaration uses `sorry`
@@ -142,7 +142,7 @@ Possible interpretations:
   VelocityField
 Possible interpretations:
   BlowupDensity.Contracts.V1.VelocityField : Type
-  
+
   NavierStokes.ProblemStatement.VelocityField : Type
 ```
 Add PacketImport and open only the three needed contract types.
