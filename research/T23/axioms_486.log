@@ -1,0 +1,23 @@
+'NSFormalization.Section3.T23.scaledPacket_speedUnbounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.interior_blowup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.ofReal_le_eLpNormTop_of_continuousAt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.limsupLeft_speedENorm_eq_top_of_interior' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.U8.interior' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.U8.blowup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.U8.blowup_limsup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.ClassicalSolutionOmega.speed_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.domainLifespan_ge_horizon' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.domainLifespan_eq_of_interior' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.ClassicalSolutionOmega.restrictHorizon' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NSFormalization.Section3.T23.U8.lifespan' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.U8.maximal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.U8.lifespan_box' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NSFormalization.Section3.T23.U8.maximal_box' depends on axioms: [propext, Classical.choice, Quot.sound]
