@@ -226,3 +226,4 @@ lane 号跨章节全局唯一；下一号 **268**。263–266 行逐字保留自
 | 458-T15-U14-force-convergence | worktree 安装中（456 + integration）→ 排队 codex sol | 09-19 1319Z | — | — | T15 U14：forceConvergence（q=1 用 U13 界 + 实幂极限；s<0 与 q=2 用负阶单调性 + 阶 0 混合基） |
 | 459-T15-U15-assembly-registration | 简报就绪，等 454/458 合入后建 worktree → codex astra | 09-19 1319Z | — | — | T15 U15：PlacementData 构造 + ScalingAPI 21 字段装配 + scalingStatement + 注册 T02.scaling |
 | 460-T17-U13-slab-smoothness-bridge | worktree 安装中 → codex astra（G5：把注册的 T17 修正块降到经典解实际具备的 slab 假设，T19 穿线前置） | 09-19 1339Z | — | — | T17 U13：correctionStatementSlab（IsPeriodicOn (Ico 0 (T+δ)) v + ContDiffOn 于 Ico 0 (T+δ) ×ˢ univ 替代全局假设），含 T16 势的 slab 版本；T19 U0 穿线的前置 |
+| 461-T19-U0-insertion-from-reference | 简报就绪，等 455/459/460 合入后建 worktree → codex astra | 09-19 1342Z | — | — | T19 U0：insertionFromReference 穿线（packet import + T15 placementData/scalingAPI + T17 slab 桥 + T18 assemble），导出 force_mem/lifespan/…/exists_force_close 给 U7–U14 |
