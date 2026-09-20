@@ -1,0 +1,3 @@
+import Bindings.CompletedSobolevDensity
+
+#print axioms BlowupDensity.Bindings.completedSobolevDensity

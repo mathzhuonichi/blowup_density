@@ -297,6 +297,116 @@
       "declaration": "BlowupDensity.Tests.checkedEnergyAbsorptionV4",
       "scope": "Complete C01 ordinary-energy and H1-absorption interface for 04-whole-space.tex:106-130, reused at :171. Extends frozen V3 unchanged and adds the six exact fields of research/C01/Spec.lean:487-607: enstrophyIdentity, enstrophyDifferentialBound, enstrophyIntegralBound (including asserted IntervalIntegrable), sobolevTwoFourier for the actual angular Sobolev norm, h2TimeIntegral and h2TimeIntegralZeroDatum. Global positive CRH1/CH2/Cassembly are bound to 2/16/32; inherited C1 is unchanged. Absorption uses C1 times the L3 norm <= nu/4, with no additional regularity hypotheses. Differential statements use 0<t<T; the integrated enstrophy field includes t=0 and requires t<T; H2 assembly covers 0<S<=T, including S=T over (0,S), with nu^-1 and nu^-2 coefficients. Binding reuses uniqueness_toA02, the existing Frobenius gradient bridge and the exact V3 witness, with an rfl parent projection. Six field-shape tests, standard transitive axiom checks and a terminal-horizon finiteness consumer accompany the binding. Critical half-order estimates, bootstrap, Gronwall and continuation are downstream and not asserted here. Independent blind drafts and reconciliation: research/C01/BLIND165_A.lean, BLIND165_B.lean, COMPARISON_165.md and REVIEW_SPEC_165.md.",
       "enabled": true
+    },
+    {
+      "id": "D01.homogeneous_norm",
+      "parent_task": "D01",
+      "version": 1,
+      "specification": "verification/Contracts/V1/HomogeneousNorm.lean",
+      "binding_module": "Bindings.HomogeneousNorm",
+      "test_module": "Tests.HomogeneousNorm",
+      "declaration": "BlowupDensity.Tests.checkedHomogeneousNorm",
+      "scope": "Gap G1 of research/R43/COMPARISON.md section 4: the datum-form spatial homogeneous norm dotHomogeneousENorm (s : R) (z : SpatialField) : ENNReal := inf over G : {G : RealVectorSobolev s // IsHomogeneousSliceDatum s z G} of ||G.1||_e, copied verbatim from research/A05/Spec.lean:131-132 and research/R43/Spec.lean:142-143. It is the physical-field quantity ||z||_{Hdot^s} used by Lemma B.1 and Proposition 4.3 (appendix-b-embeddings.tex:26-27; 04-whole-space.tex:85): the empty infimum is top, so a field without a homogeneous datum fails safe. The specification is the new Contracts/V1/HomogeneousNorm.lean module importing only Contracts.V1.Data; creating this version-1 contract changes neither the frozen Data contract nor any pre-existing contract. Bindings.dotHomogeneousENorm_eq is the required rfl bridge to NSFormalization.Section4.D01.dotHomogeneousENorm, and Tests.checkedHomogeneousNorm checks that bridge's transitive axioms. The implementation additionally proves: dotHomogeneousENorm_le_of_isHomogeneousSlice, every supplied datum bounds the infimum; dotHomogeneousENorm_zero, the zero field has norm zero at every order; dotHomogeneousENorm_ne_top_of_isHomogeneousSlice; and the existential consumer form dotHomogeneousENorm_ne_top. Deliberately NOT identified with Contracts.V1.Data.dotHHalfENorm or dotHThreeHalvesENorm: those abbreviate homogeneousFourierENorm, a pointwise angularFourier integral faithful only on L1 intersect L2 slices and capable of totalizing to junk zero for a general non-L1 H-infinity field. Also out of scope and asserted nowhere in this contract: dotHomogeneousENorm s z <= sobolevENorm s z for 0 <= s, and its time-integrated force analogue. Section4/D01/HalfOrder.lean records that these require a new bounded multiplier |xi|^s (1+|xi|^2)^(-s/2), preservation of the real datum subspace, and identification through weightedAngularFourier_realization; this is the existing G2/homogeneous-G3 work rather than a consequence of the G1 definition.",
+      "enabled": true
+    },
+    {
+      "id": "A05.gradient_l6_v2",
+      "parent_task": "A05",
+      "version": 2,
+      "specification": "verification/Contracts/V2/GradientL6.lean",
+      "binding_module": "Bindings.GradientL6V2",
+      "test_module": "Tests.GradientL6V2",
+      "declaration": "BlowupDensity.Tests.checkedGradientL6V2",
+      "scope": "The Contracts.V1.Data.MemHInfty specialization of Lemma B.1's order-half velocity embedding ||v||_3 <= C(1/2) ||v||_{Hdot^(1/2)}, from research/A05/Spec.lean:366-368 and paper/sections/appendix-b-embeddings.tex:29, as consumed by Propositions 4.3 and 4.4 at 04-whole-space.tex:93,171. GradientL6V2API extends the frozen A05.gradient_l6 version-1 record unchanged and adds exactly velocityCriticalL3, stated for Contracts.V1.Data.MemHInfty and the registered Contracts.V1.HomogeneousNorm.dotHomogeneousENorm. The universal constant family C : R -> R is an interface parameter selected before the field; the checked binding chooses the constant function with value NSFormalization.Section4.A05.criticalL3Const = 3 * scalarCriticalConst (1/2), whose positivity is separately proved by gradientL6V2Constant_pos. The A05 implementation's local homogeneous-norm spelling is definitionally equal first to D01.dotHomogeneousENorm and then to the registered contract definition; the binding records the composed rfl bridge. Its A02.MemHInfty hypothesis is definitionally equal to the frozen Data.MemHInfty, neither stronger nor weaker. Out of scope: the broader embeddingPair (including a=1), C_pos as a contract field, criticalRepresentative, the derivative and Bessel critical-L3 clauses, homogeneousLeSobolev, the Hdot^(3/2) gradient comparison, every torus statement, and all R43/R44 PDE conclusions.",
+      "enabled": true
+    },
+    {
+      "id": "R43.critical_regularity",
+      "parent_task": "R43",
+      "version": 1,
+      "specification": "verification/Contracts/V1/CriticalRegularity.lean",
+      "binding_module": "Bindings.CriticalRegularity",
+      "test_module": "Tests.CriticalRegularity",
+      "declaration": "BlowupDensity.Tests.checkedCriticalRegularity",
+      "scope": "Proposition 4.3 (prop:Rcritical1), paper/sections/04-whole-space.tex:82-89, in the exact four-field shape of research/R43/Spec.lean's RCritical1API: one viscosity-independent real constant c with 0 < c, the universal clause for every nu > 0, a in initialClassR and f in MemForceR under strict ENNReal smallness dotHomogeneousENorm (1/2) a + forceHomogeneousENorm 1 (1/2) f < ofReal (c*nu), concluding maximalLifespanR nu a f = top; and the same-c inhomogeneous zero-datum consequence under forceSobolevENormL1 (1/2) f < ofReal (c*nu). The binding chooses c = min (1 / (8 * R43.trilinearConst)) (1 / (4 * (A05.gradientL6Const * A05.criticalL3Const))), with positivity proved by R43.criticalConst_pos. The spatial homogeneous norm is the canonical registered Contracts.V1.HomogeneousNorm.dotHomogeneousENorm, definitionally equal to the implementation spelling. Initial/force classes and force norms are rfl bridges; maximal lifespan uses the existing A02/Data structure bridge. No finite-horizon substitute, added regularity hypothesis, altered force class, weakened norm, or hidden proof constant is asserted.",
+      "enabled": true
+    },
+    {
+      "id": "R44.critical_finite_horizon",
+      "parent_task": "R44",
+      "version": 1,
+      "specification": "verification/Contracts/V1/CriticalFiniteHorizon.lean",
+      "binding_module": "Bindings.CriticalFiniteHorizon",
+      "test_module": "Tests.CriticalFiniteHorizon",
+      "declaration": "BlowupDensity.Tests.checkedCriticalFiniteHorizon",
+      "scope": "Proposition 4.4 (prop:Rcritical2), paper/sections/04-whole-space.tex:136-144, in the exact nine-field shape of research/R44/Spec.lean's RCritical2API: viscosity- and horizon-independent positive real constants c and C; a named radius r(nu,S) pinned to c * nu^(3/2) * exp(-(C*nu*S)) and positive for nu,S > 0; and, for every f in MemForceR with strict inhomogeneous forceSobolevENormL2 (-1/2) smallness below ofReal(r(nu,S)), the zero-datum conclusion ofReal(S) < maximalLifespanR nu 0 f. The same named radius also supplies the stated exclusion from breakdownSetRZero at horizon T. The binding chooses c = R44.theta/20 and C = 3, uses R44.radius, and binds R44.main and R44.nonDensityBallZero. Force class and norm vocabulary are rfl bridges; maximal lifespan and the derived breakdown-set membership use the existing A02/Data ClassicalSolutionR bridge. Scope is only zero-datum regularity through a prescribed finite horizon with this explicit radius: no global lifespan conclusion, nonzero datum, homogeneous force norm, weakened smallness, or extra analytic hypothesis is asserted.",
+      "enabled": true
+    },
+    {
+      "id": "R41.main_thresholds",
+      "parent_task": "R41",
+      "version": 1,
+      "specification": "verification/Contracts/V1/MainThresholds.lean",
+      "binding_module": "Bindings.MainThresholds",
+      "test_module": "Tests.MainThresholds",
+      "declaration": "BlowupDensity.Tests.checkedMainThresholds",
+      "scope": "Theorem 4.1 (thm:Rmain), paper/sections/04-whole-space.tex:7-14, for Y = F_R: all four fields of research/R41/Spec.lean RMainAPI verbatim under the name MainThresholdsAPI. Fixed-initial density for every admissible a below criticalOrder q.toReal; zero-initial density iff strictly subcritical (including non-density at equality); thresholds 1/2 and -1/2; and regular-reference approximation by one shared force/velocity family with MemForceR, exact lifespan T, a ClassicalSolutionR with unchanged datum, history on [0,T-2ε²], force-norm convergence and energyENorm convergence. Exponent q : ENNReal is restricted to 1 or 2. Density uses lane 235; non-density uses lane 232 with real-q case splitting and the A02/Data lifespan bridge. The rider uses one lane-233 R42 V2 record per reference, registered velocity uniqueness, and the registered energyRate bound via squeezing. No partial-field omission, extra analytic hypothesis, completed-space density, or F_c/F_rd claim.",
+      "enabled": true
+    },
+    {
+      "id": "R45.force_classes",
+      "parent_task": "R45",
+      "version": 1,
+      "specification": "verification/Contracts/V1/ForceClasses.lean",
+      "binding_module": "Bindings.ForceClasses",
+      "test_module": "Tests.ForceClasses",
+      "declaration": "BlowupDensity.Tests.checkedForceClasses",
+      "scope": "Corollary 4.5 (cor:Rclasses), paper/sections/04-whole-space.tex:194-199: all four fields of research/R45/Spec.lean's RClassesAPI verbatim under the name ForceClassesAPI. The guarded density and zero-data iff conclusions hold only when Y is exactly forceClassCompact or forceClassRapid, for q : ENNReal restricted to 1 or 2 and threshold criticalOrder q.toReal; the rapid class additionally has the stated Schwartz-datum density specialization. The regular-reference rider keeps the initial datum, produces an approximating force in the selected Y with exact maximal lifespan T and a ClassicalSolutionR on T, satisfies independent strict force and energy error bounds, and agrees pointwise with the named reference velocity through every prescribed cutoff 0 ≤ τ < T. Density and zeroIff use lane 257's guarded assembly from lanes 252/257; schwartzDensity uses lane 257; regularReference is the lane-262 guarded case split between lane 254's compact rider and lane 257's rapid rider. No arbitrary force subclass, completed-space density, terminal unbounded-speed clause, extra Schwartz rider, or additional analytic hypothesis is asserted.",
+      "enabled": true
+    },
+    {
+      "id": "A01.local_theory_v2",
+      "parent_task": "A01",
+      "version": 2,
+      "specification": "verification/Contracts/V2/LocalTheory.lean",
+      "binding_module": "Bindings.LocalTheoryV2",
+      "test_module": "Tests.LocalTheoryV2",
+      "declaration": "BlowupDensity.Tests.checkedLocalTheoryV2",
+      "scope": "The existence half of prop:local on R^3 (02-preliminaries.tex:105; appendix-a-local-theory.tex:60-107), extending A01.regularity_partial version 1 structurally. For every nu>0, a in initialClassR and f in MemForceR, the API selects one named horizon and one Data.ClassicalSolutionR on it; positivity is carried by the solution's horizon_pos. The selected solution on that same horizon carries all four clauses of research/A01/Spec.lean's ManuscriptLocalRegularity token-for-token: all-order Sobolev time smoothness, Helmholtz pressure recovery including t=0, the projected forced equation on Ioo, and the radial-potential pressure gauge. The binding uses Section4/A01/LocalTheoryBundle.lean's localHorizon', localCarrier and manuscriptLocalRegularity_localCarrier, moves ClassicalSolutionR field by field through the A02/Data conversions with full round-trip lemmas, and rfl-bridges every copied definition. The quantitative horizon_lower_bound is the owner-approved V2 narrowing, not the paper's sentence: for each positive viscosity and fixed admissible force f (f is quantified before exists delta), every finite physical H^7 datum ball has one genuine delta>0 below all selected horizons in that ball. It is discharged by horizon_lower_bound_H7_fixedForce. In contrast, Appendix A:147-150 invokes Tao's forced H^1 theory with H^1 datum and L1_t H^1 force bounds and chooses delta before both datum and force (cross-force uniformity). That H^1 statement is NOT proved or registered; it appears only as the unproved predicate ManuscriptHorizonLowerBoundH1, documented as open and requiring a forced quantitative H^1 mild theory. A04 is the only restart consumer: lanes 215/217 restart the same underlying force, use Gronwall-bounded H^7 data, and separately prove one window uniform over t0 in [0,S] and the shifted forces from a compact-time force bound; cross-force uniformity is never used. No uniqueness, maximal-lifespan, continuation-criterion, H^1 horizon bound, or arbitrary-force-ball uniformity is asserted.",
+      "enabled": true
+    },
+    {
+      "id": "A04.continuation_v2",
+      "parent_task": "A04",
+      "version": 2,
+      "specification": "verification/Contracts/V2/Continuation.lean",
+      "binding_module": "Bindings.ContinuationV2",
+      "test_module": "Tests.ContinuationV2",
+      "declaration": "BlowupDensity.Tests.checkedContinuationV2",
+      "scope": "The A04 continuation interface actually proved by lanes 215 and 217, registered as an independent ContinuationV2API rather than as an extension of the draft/V1 A04API. Its five fields are: (1) restart, exactly the owner-approved RestartFixedForce wording: for ν>0, one fixed f∈F_R and S≥0 chosen before ∃δ, and every finite H⁷ bound K, one genuine δ>0 works uniformly for all restart times t₀∈[0,S] and all a'∈X_R with ‖a'‖_{H⁷}≤K; (2) higherOrderBound, copied verbatim from research/A04/Spec.lean, giving every integer-order Sobolev bound from a finite squared H² time integral; and (3–5) restartBeyond, extendsBeyond and lifespanInfiniteOfLocallyFinite in the unconditional MemForceR shapes proved by Section4/A04/ShiftedExtension.lean's lane-217 primed theorems. Exact narrowing from the paper/V1 restart: the force is quantified before ∃δ instead of δ being uniform across forces, and the datum bound is H⁷ instead of H¹; uniformity over all restart times in [0,S] is retained. The paper sentence at appendix-a-local-theory.tex:147-152, 'The H¹ local existence bounds ... give a common positive existence duration ...', is NOT proved. Contracts.V2.Continuation.ManuscriptHorizonLowerBoundH1 records that H¹/cross-force sentence as a named definition only; it is not a structure field, theorem, axiom or implied consequence and remains open. The V1 Restart field likewise remains separately open: fixed-force compactness gives no cross-force uniformity, and a theorem for an H⁷ ball does not cover the larger H¹ ball (research/A04/REPORT_215.md §3). Why the narrowed result suffices downstream: restartBeyond, extendsBeyond and lifespanInfiniteOfLocallyFinite, plus A02's exists_maximal construction, restart the same force with H⁷ data bounded by the registered Grönwall theorem; no consumer uses cross-force uniformity. The contract imports only Contracts.V1.Data and parameterizes the horizon function because NSFormalization.Section4.A01.LocalTheoryBundle is absent from experiments/check_contracts.py's CONTRACT_CANONICAL_MODULES; Bindings.ContinuationV2 instantiates the parameter with A01.localHorizon' and supplies an rfl RestartFixedForce bridge. Definitions for classes and norms have rfl bridges; SolvesBelow and IsMaximalSolution use the established field-by-field ClassicalSolutionR conversions and maximalPartial_maximalLifespanR_eq. The concrete conformance audit exercises restart at a nonzero compact-bump force and a nonzero compactly supported divergence-free curl datum and obtains a positive real δ. Recovering the manuscript H¹ field would require a forced quantitative H¹ local theory on the mild stack, including uniform dependence on the H¹ datum and force bounds; that is outside this contract.",
+      "enabled": true
+    },
+    {
+      "id": "R47.grid_observations",
+      "parent_task": "R47",
+      "version": 1,
+      "specification": "verification/Contracts/V1/GridObservations.lean",
+      "binding_module": "Bindings.GridObservations",
+      "test_module": "Tests.GridObservations",
+      "declaration": "BlowupDensity.Tests.checkedGridObservations",
+      "scope": "Theorem 4.7 (thm:Rgrid), paper/sections/04-whole-space.tex:297-304, in the exact two-structure shape of research/R47/Spec.lean under the registry names GridFamilyAPI and GridObservationsAPI. For every positive viscosity, admissible initial datum and force, positive T and delta, named ClassicalSolutionR through T+delta, and complete prescribed Fin n grid family, one witness supplies a common positive-radius ball contained in one cell of every grid; one total force/solution family; MemForceR, inherited history, compact force difference, exact velocity and force grid observations on [0,T), exact maximal lifespan T, energy convergence, the literal mixedLebesgueENorm 1 2 plus inhomogeneous and homogeneous negative-order force convergence, and velocity, pressure-modulo-gauge, and global force support in the common ball. The binding instantiates lane 258's rGrid_choose_of_realization with lane 255's compactHomogeneousRealization and transports its nominally distinct but field-identical family record field by field. It asserts no completed-space density clause, point or pressure observations, closure/interior strengthening, arbitrary-grid-refinement uniformity, or mixed-norm/order-zero Sobolev identity.",
+      "enabled": true
+    },
+    {
+      "id": "R46.completed_density",
+      "parent_task": "R46",
+      "version": 1,
+      "specification": "verification/Contracts/V1/CompletedDensity.lean",
+      "binding_module": "Bindings.CompletedDensity",
+      "test_module": "Tests.CompletedDensity",
+      "declaration": "BlowupDensity.Tests.checkedCompletedDensity",
+      "scope": "Proposition 4.6 (prop:Renergy), paper/sections/04-whole-space.tex:218-229, in the exact three-field shape of research/R46/Spec.lean's REnergyAPI under the name CompletedDensityAPI. It asserts completed inhomogeneous density for q in {1,2} and s below criticalOrder q.toReal, completed homogeneous L²_t Hdot⁻¹ density, and simultaneous strong trajectory closure for every regular reference. The one returned insertion family is pinned to the reference datum, horizon, force, velocity and pressure; every positive admissible scale has MemForceR, exact maximal lifespan T and a full ClassicalSolutionR, while the energy norm and the single sum of forceSobolevENorm 1 0, forceSobolevENorm 2 (-1), and forceHomogeneousENorm 2 (-1) converge to zero. The homogeneous summand applies only to the compact force difference. The binding assembles lane 256's completedSobolevDensity with lane 259's two conditional theorems, discharging their sole CompactHomogeneousRealization input using lane 255's compactHomogeneousRealization. No weaker topology, split-family approximation, extra analytic premise, mixedLebesgueENorm substitution, or omitted field is asserted.",
+      "enabled": true
     }
   ]
 }

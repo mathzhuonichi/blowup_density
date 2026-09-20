@@ -175,7 +175,8 @@ theorem velocityL2Sq_continuousOn (w : ClassicalSolutionR ν a f T) :
 `E 0 = 0 ∧ N 0 = 0` hypotheses are replaced by the single `√(E 0) ≤ N 0`, which is what the
 ordinary energy estimate satisfies (there with equality, `√(E 0) = ‖a‖₂ = K(0)`).  Same
 regularized square root `√(E x + δ²)` and antitone-comparison proof; only the endpoint bound
-`G 0 ≤ δ` changes, using `E 0 ≤ (N 0)²` from `√(E 0) ≤ N 0`.  No edit to `Paper1/`. -/
+`G 0 ≤ δ` changes, using `E 0 ≤ (N 0)²` from `√(E 0) ≤ N 0`.  The generalized proof is now
+owned by `Paper1.sqrt_energy_le_primitive_general`. -/
 theorem sqrt_energy_le_primitive' {S : ℝ} {E E' N b : ℝ → ℝ}
     (hS : 0 ≤ S) (hE : ContinuousOn E (Icc 0 S)) (hN : ContinuousOn N (Icc 0 S))
     (hEN0 : Real.sqrt (E 0) ≤ N 0)
@@ -185,44 +186,8 @@ theorem sqrt_energy_le_primitive' {S : ℝ} {E E' N b : ℝ → ℝ}
     (hdN : ∀ t ∈ Ioo 0 S, HasDerivAt N (b t) t)
     (hineq : ∀ t ∈ Ioo 0 S, E' t ≤ 2 * b t * Real.sqrt (E t)) :
     ∀ t ∈ Icc 0 S, Real.sqrt (E t) ≤ N t := by
-  intro t ht
-  apply le_of_forall_pos_le_add
-  intro δ hδ
-  let G : ℝ → ℝ := fun x => Real.sqrt (E x + δ ^ 2) - N x
-  have hpos (x : ℝ) (hx : x ∈ Icc 0 S) : 0 < E x + δ ^ 2 := by nlinarith [hEnonneg x hx]
-  have hgcont : ContinuousOn G (Icc 0 S) := ((hE.add continuousOn_const).sqrt).sub hN
-  have hderiv (x : ℝ) (hx : x ∈ Ioo 0 S) :
-      HasDerivAt G (E' x / (2 * Real.sqrt (E x + δ ^ 2)) - b x) x :=
-    (((hdE x hx).add_const (δ ^ 2)).sqrt (ne_of_gt (hpos x ⟨hx.1.le, hx.2.le⟩))).sub (hdN x hx)
-  have hG : AntitoneOn G (Icc 0 S) := by
-    apply antitoneOn_of_hasDerivWithinAt_nonpos (convex_Icc 0 S) hgcont
-    · intro x hx
-      exact (hderiv x (by simpa only [interior_Icc] using hx)).hasDerivWithinAt
-    · intro x hx
-      have hx' : x ∈ Ioo 0 S := by simpa only [interior_Icc] using hx
-      have hs : 0 < Real.sqrt (E x + δ ^ 2) :=
-        Real.sqrt_pos.mpr (hpos x ⟨hx'.1.le, hx'.2.le⟩)
-      have hmono : Real.sqrt (E x) ≤ Real.sqrt (E x + δ ^ 2) :=
-        Real.sqrt_le_sqrt (by nlinarith [sq_nonneg δ])
-      have hdiv : E' x / (2 * Real.sqrt (E x + δ ^ 2)) ≤ b x := by
-        apply (div_le_iff₀ (by positivity : 0 < 2 * Real.sqrt (E x + δ ^ 2))).mpr
-        nlinarith [hineq x hx', mul_nonneg (hb x hx') (sub_nonneg.mpr hmono)]
-      exact sub_nonpos.mpr hdiv
-  have hbound := hG ⟨le_rfl, hS⟩ ht ht.1
-  have hE0nn : 0 ≤ E 0 := hEnonneg 0 ⟨le_rfl, hS⟩
-  have hN0nn : 0 ≤ N 0 := le_trans (Real.sqrt_nonneg _) hEN0
-  have hsq : E 0 ≤ N 0 ^ 2 := by
-    nlinarith [Real.sq_sqrt hE0nn, hEN0, Real.sqrt_nonneg (E 0)]
-  have hG0 : G 0 ≤ δ := by
-    show Real.sqrt (E 0 + δ ^ 2) - N 0 ≤ δ
-    have hle : Real.sqrt (E 0 + δ ^ 2) ≤ N 0 + δ := by
-      rw [show N 0 + δ = Real.sqrt ((N 0 + δ) ^ 2) from (Real.sqrt_sq (by linarith)).symm]
-      exact Real.sqrt_le_sqrt (by nlinarith [mul_nonneg hN0nn hδ.le])
-    linarith
-  have hGt : G t ≤ δ := le_trans hbound hG0
-  have hfinal : Real.sqrt (E t + δ ^ 2) ≤ N t + δ := by
-    simp only [G] at hGt; linarith
-  exact (Real.sqrt_le_sqrt (by nlinarith [sq_nonneg δ])).trans hfinal
+  exact NSFormalization.Paper1.sqrt_energy_le_primitive_general hS hE hN hEN0
+    hEnonneg hb hdE hdN hineq
 
 /-! ## 6. eq:RL2 (row `l2Bound`) -/
 

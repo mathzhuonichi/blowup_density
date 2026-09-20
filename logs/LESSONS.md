@@ -1,4 +1,30 @@
 # LESSONS.md — 坑与经验（滚动更新；每条一行，新的加在最上面；日期 = 学到的那天）
+- 2026-09-17 用 python `s.replace(anchor, …)` 往 NEXT_SESSION 插条目时锚点不存在会**静默不写**，连续十几条记录丢失（09-17 的条目全无，事后按行号重建）。规则：插入后 `assert` 新文本在文件里（或按行号插到首条条目之前），提交前 `grep` 核对。
+- 2026-09-17 `scripts/codex_review.sh <lane>` 只读 `collaboration/briefs/<lane>.md`；brief 若用了别名（如 `212-…-option1.md`），审稿会静默失败，`retry_review.sh` 当作容量失败退避 30 分钟。规则：启动 lane 时 brief 文件名 = lane 名；带选项的 brief 定稿后复制一份为 lane 名。
+- 2026-09-17 分支基线早于新注册合同时，`check_contracts.py --base-ref origin/erenup/integration` 会把新合同当作"删除"而失败，审稿据此 REJECT（251）。规则：**送审前先把 origin/erenup/integration 并入车道分支**（记录文件冲突取集成分支版本），尤其在刚合入过合同注册 lane 之后；审稿 REJECT 若只因基线，lead 合并后重跑门禁即可开 PR。
+- 2026-09-17 `tmp/queue_chain.sh` 靠 `tmux capture-pane` 看前一条链窗口里的 `CHAIN DONE`；在后一条链启动前把前一条的窗口 kill 掉会让队列永远等（#239 卡了 40 分钟）。规则：排队链存在时不要 kill 前序 chain 窗口（它们 1 小时后自退），或 kill 后把后续链改成直接运行。
+- 2026-09-16 lead 的 Bash 工具跑在 zsh 下：`for L in "a b c"; do set -- $L` 不分词（zsh 默认无 SH_WORD_SPLIT），`${x,,}` 是 bash 语法（"bad substitution"）。批量开 lane 用带位置参数的 shell 函数 `mk 244 R45 …`，小写用 `tr A-Z a-z`；出错后先清掉带空格的垃圾文件/后台脚本再重发。
+- 2026-09-16 叠放车道（基于未合入分支）在基分支被 lead 改过（哪怕只是 docstring）之后会与集成分支冲突（`AA` both-added），PR 显示 CONFLICTING 而合并链静默跳过合并只跑门禁（日志首行 `#NNN OPEN`）。合并前在叠放 worktree 里 `git show origin/erenup/integration:<file> > <file>` 对齐副本、提交、推送，再重跑链。lead 对基分支的修改尽量在叠放车道开出之前做。
+- 2026-09-16 brief 在 `run_install_launch_<n>.sh` 里是启动时一次性读入的；安装完成时间不可预期，启动后再补 addendum 无效（221、223 都因此重启）。规则：写 brief 时先 `grep`/`sed -n` 核对 Spec 的精确字段与名字再启动；启动后要改 brief 只能杀掉重启（`tmux kill-window` + 杀 retry 脚本 + 归档日志）。
+- 2026-09-16 容量波会在 worker 写完草稿后中途切断（rc=1，`model at capacity`/`Reconnecting 5/5`），草稿留在 worktree 未提交。不要重开原 brief（会重来/覆盖）：写 `tmp/codex/briefs/fix_<lane>.md`（"不要重来，读原 brief，补完构建/审计/记录/提交"），用 `tmp/retry_lane.sh <lane> <m1> <m2> <fix-brief> 1800 fix` 休息后续跑；两种模型可能同时不可用，脚本交替 + 30 分钟退避即可，不要手动轮询。
+- 2026-09-16 启动脚本里 `git merge -q --no-edit` 遇到 `research/*.md` 冲突会静默留下未合并状态（worker 在半合并的树上开工）。要么先在 lead 侧合并好再切树，要么脚本里检查 `MERGE_HEAD` 并用并集脚本解决记录文件冲突后再 commit；失败必须写进日志。
+- 2026-09-16 router 容量波（sol 与 astra 交替 "model at capacity"，一启动就死）：审稿用 `tmp/retry_review.sh <lane> <m1> <m2> [初始等待]`（交替模型、5 分钟退避、最多 8 次）；worker 同理可套。DONE rc=1 且 last.md 为 0B 基本就是容量死。
+- 2026-09-16 审稿文件里贴了 2.8 万行 `make check` 的 JSON 输出（REVIEW_189）：codex_review.sh 的提示词已加"原始输出只贴头尾各 ≤40 行"；合入前 `git diff --numstat` 看单文件行数 >3000 就裁。
+- 2026-09-16 又一次 `grep` 自杀（exit 144）：括号技巧 `premise[s]` 只保护了那一个 token，同一条命令行里别处出现的明文 `…premises.log` 仍被匹配。杀 codex 进程用 `pgrep -f "codex exec"` 后逐个 `ps -o args= -p` 过滤并排除 `$$`，或直接 `tmux kill-window`（会连带杀掉 pane 里的进程树）。
+- 2026-09-15 接口方向（180 第五审）：消费者的"供给义务"定义要带下游供给方**实际消费的全部对象**（同载体的全阶 `hpairs` 族含角不变性，而不是特化到一个阶的 `u`）；写消费者前先 `git show` 供给方落地模块的 binder 原文照抄。反过来的顺序（先写消费者再让供给方凑）每轮都要返工。
+- 2026-09-15 第二次可满足性漏网（180 第三审）：`constructedVelocity` 是 `Lp` 强制 `⇑(U t)` 的逐点值（a.e. 类代表，一般不连续），对它要求 `ContDiffOn` 不可能由供给方（190 给的是存在性光滑代表元 + 切片 a.e. 恒等式）满足。规则：构造器以"任意场 + a.e. 切片恒等式"为参数，光滑性只对该场要求；接口先写探针把供给方结论 `obtain` 出来再 `apply`。
+- 2026-09-15 **条件定理的命名输入必须对非平凡实例可满足**：180 把载体在 t≥S 夹住（projIcc）并取视界 S+1，于是 `hc3`（联合 C∞ 到 S 之后）只对定常解成立，零实例通过掩盖了这一点，审稿两轮都没抓到。审稿 check point 固定加一条："每个命名输入对非零解是否可满足？是否只是标准性质的限制？"
+- 2026-09-15 `tmp/plan_row.py` 按 `|` 切表格行：PLAN 进度表的描述里不能写 `|…|`（绝对值写 `abs ⟪…⟫`），否则 set/add 断言失败。
+- 2026-09-15 worktree 创建后没跑 `LEAN_SEED_DIR=… lean-install.sh` 就跑 lake：lake 在 worktree 里私自 clone 一份 Mathlib 并从源码编译（8.7 GB、数小时、看似"门禁在跑"）。跑门禁前先 `ls -la verification/.lake/packages` 确认是软链；发现私有 clone 直接删掉重链。
+- 2026-09-15 `pkill -f`/`pgrep -f <pattern>` 会匹配到自己这个 shell（命令行里含 pattern），把自己杀了（exit 144）。用 `grep "patter[n]"` 括号技巧或排除 `$$`。
+- 2026-09-15 合并 main 时把我们的模块改名（ConstructorDivergence→ConstructorDivergenceSlice），要 grep 所有 `import` 该路径的消费者（ForceBridge 167）一起改；门禁会抓到，但先 grep 省一轮。
+- （09-15 2031Z）两支团队（我们 `erenup/integration`，owner `codex/*`→`main`）在同一天用**同一批 lane 号做同一批题**（158–169），合并时两个同路径模块 add/add 冲突、V4 合同重名。规则：`main` 是主干，同路径以 `main` 为准、我方改名保留后 SIMP 去重；开 lane 前先 `git fetch origin main` 并看 owner 的 PR 列表；lane 号分段（HANDOFF §0）。
+- （09-15 2025Z）Claude 侧长时间 `sleep` 的后台 Bash 等待任务会被 harness 以「low on memory」停掉（系统内存其实充足）；盯 codex `DONE` 文件与合并链 `CHAIN DONE` 都用持久 Monitor（按 mtime 去重），不要再起 `until … sleep` 的后台 Bash。链本身在 nohup 下不受影响。
+- （09-15 2004Z）合并链在根目录做 `git merge origin/erenup/integration && push` 的那几秒里，lead 在根目录 commit+push 记账会被拒（`fetch first`），链随后把本地 commit 一起合并推上去（多一个 merge commit，不丢内容）。排队的链跑到「已合入 PR」之后再记账，或直接 `git fetch && git rebase` 后重推。
+- （09-15 1925Z）并发 8 条 lane 时，`research/A01/A3_SPLIT.md` 这类共享拆分表的「追加注记」几乎必然在 rebase 时冲突（168 撞上 161/162）：`merge_lane.sh` 现在对 `research/*.md` 的冲突自动保留两边；worker 的注记尽量写成独立文件（`ATTEMPTS_<lane>.md`），只在拆分表加一行指针。
+- （09-15 1912Z，164）codex reviewer 只按拿到的任务书判：lane 经 fix 改了布局后，review 必须附上 fix 任务书，否则会因「与原任务书不符」误判 REJECT（`scripts/codex_review.sh` 现在自动附带 `fix_<lane>.md`）。另：新组件版本 1 的合同文件放 `Contracts/V1/`（冻结只针对已有 V1 文件），不要造空壳 shim。
+- （09-15 1905Z，167）**brief 写错方向，worker 会照着证出一条假设不可满足的定理**：A01 行 (v) 我让 worker 从柱面路径 `F` 造物理力 `f'`，零延拓在 `t = S` 处不 `C^∞`，`ForcePathSmoothness (forcePath f)` 对非零 `f` 可证伪；正确方向是消费者方向（论文的全局 `f` 给定，`F := C01.forcePath hf`，`f' := f`）。写 brief 前先问「谁消费这条定理、它手里有什么」，再定方向；审稿附注（`review_notes_<lane>.md`）抓住了它。
+- （09-15 1901Z）`git worktree add` 不能并行跑（`.git/config` 锁：`could not lock config file`，分支建了但 worktree 没建）：多条 lane 的 worktree 串行创建，只有 `lean-install.sh` 可以并行。
 - （09-14 1232Z，159）开一个消费兄弟节点结果的 lane（R43/R44/R41）之前先审计 `verification/contracts.json` 的 scope：`research/*/Spec.lean` 里的字段不等于已注册合同，R43 引用的 A05 `velocityCriticalL3`、C01 `h2TimeIntegral`、A04 `lifespanInfiniteOfLocallyFinite` 三条都只是草稿。
 - （09-14 1046Z）router 429 窗口可能同时罩住 Opus 4.8 与 Opus 5 两个上游且持续 >45 分钟：被 kill 的 agent 上下文可用 SendMessage resume（工作树改动都在），但 resume 前先用一个只跑 `date` 的 1 秒探针试上游，别把 worker 的首轮读文件浪费在 429 上；退避阶梯 10 → 30 → 60 分钟。
 - （09-14 0839Z，151）弱导数唯一性（复 Schwartz 测试函数配对 ⇒ a.e. 相等）树里有：`A03.ae_eq_of_schwartz_pairing`（`ScalarTameProduct.lean:136`），经典侧配对是 `D01.smoothField_weakDeriv_pairing`（`FiniteOrderConstructor.lean:306`）。worker 只 grep 了 Mathlib 就宣称「树里没有、需要实紧支转换」——「不在树里」的结论必须先 `grep -rn` 全部 `Section4/{D01,A03,A04,C01}` 命名空间（第三次踩这个坑）。

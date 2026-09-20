@@ -119,3 +119,44 @@ demonstrably correct on the zero solution (the non-vacuity witness here).
 - Recorded failure 4 (`(0 : SpatialField)` `OfNat`): the true cause is `autoImplicit` binding the un-`open`ed name `SpatialField` as a free variable (the error's second line shows `Membership SpatialField (Set …A02.SpatialField)` with two different types); adding `SpatialField` to the `open` list fixes it. Lesson recorded in `logs/LESSONS.md`.
 - The zero solution has now been rebuilt eight times across reviews and lanes — MAINT: land it once.
 - `HasAprioriBound` (lane 139) is not yet reachable from `highOrder_bddAbove_of_kbnd`: still owed are the converse norm comparison (cylinder ≤ R³ side, `REVIEW_A2B_INV.md:242-247`), the `Ico 0 T₀ → Icc 0 T` widening, and the mild ⇒ energy bridge inside `hbound` — rows to add to `A3_SPLIT.md`. Suggested order: D-euler-pairing (140) → those three rows → A3-L1·k → A3-Tm → T1 → B1 (L, the largest block) → B2 → X1.
+
+## Lane 193 — base-order a-priori family (conditional finite-order energy input)
+
+See [ATTEMPTS_A3_M2_193.md](ATTEMPTS_A3_M2_193.md) and [REPORT_193.md](REPORT_193.md).
+`AprioriFamily.lean` proves the base bound, subwindow identification, H²-cap
+transfer and explicit all-order radii conditional on `MildGronwall`; it does
+not assume the all-order constructor. The lane-142 audit above is preserved;
+the new full audit is `axioms_a3_m2_193.lean`.
+
+## Review follow-up: lane 196 proof route for `MildGronwall`
+
+The review's proposed energy work (then lane 194, now lane 196) should start
+from `EulerMildMajorantEnergy.mild_majorized_energy_subinterval`
+(`vendor/NavierStokesAndEuler/Euler/MildMajorantEnergy.lean:22-65`). Its
+regularized-word prerequisites include `regularized_word_hasDerivAt`
+(`vendor/NavierStokesAndEuler/Euler/RegularizedWordEquation.lean:54-70`),
+which supplies the full-order word equation without assuming a top-order time
+derivative, and `finite_cylinder_viscous_energy`
+(`vendor/NavierStokesAndEuler/Euler/CylinderViscousEnergy.lean:24-86`).
+Specialize this regularized mild-energy chain to the constant Euclidean metric
+and the finite word family through order `q+1`; identify the scalar energy
+with a continuous majorant of the cylinder norm. This is a proof route, not
+an existing proof of `MildGronwall`: the mild-equation adapter, divergence and
+pressure constraints, maximal-regularity/forcing limits (the vendor entry's
+lines 39-50), and norm comparison/majorant bounds still need discharge.
+
+For the top-order nonlinear term, use `A03.outerProductTame`
+(`formalization/NSFormalization/Section4/A03/OuterTameProduct.lean:165-179`),
+its real-norm transport `A04.outerSobolevNormAt_le`
+(`formalization/NSFormalization/Section4/A04/HighEnergy.lean:157-179`), and
+feed the resulting tame bound through `A04.inner_energy_Rhigh`
+(`formalization/NSFormalization/Section4/A04/HighEnergy.lean:125-146`).
+The finite-order adapter must justify the real-norm finiteness premises and
+retain the dissipative term needed to absorb the nonlinear gradient factor.
+Lane 169/178's datum derivative route only reaches `m ≤ q-1`
+(`formalization/NSFormalization/Section4/A01/DatumPathDeriv.lean:400-438`),
+short of `q+1`; using the all-order constructor first would be circular.
+The vendor Picard ball bounds provide the short base horizon, but using them
+for the desired high-order estimate makes the radius depend on itself.
+They are not the right energy entry. The nonzero `MildGronwall` proof remains
+open in lane 196; this records-only fix changes no production theorem.

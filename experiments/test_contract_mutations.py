@@ -9,8 +9,14 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'verification'
 IMPORTS = '''import Contracts.V1.Thresholds
 import Bindings.Thresholds
+import Tests.GradientL6V2
+import Tests.LocalTheoryV2
 import TestSupport.Axioms
 open BlowupDensity
+open MeasureTheory
+open BlowupDensity.Contracts.V1.Data
+open BlowupDensity.Contracts.V1.HomogeneousNorm (dotHomogeneousENorm)
+open scoped ENNReal
 noncomputable section
 '''
 CASES = {
@@ -25,17 +31,21 @@ def missing : Contracts.V1.ThresholdAPI := by sorry
 run_cmd TestSupport.checkAxioms ``missing
 '''),
     'extra_axiom': (False, '''
-axiom fabricated : Contracts.V1.ThresholdAPI
-def apparentlyImplemented : Contracts.V1.ThresholdAPI := fabricated
+axiom fabricatedH7LowerBound :
+    ∀ ν, 0 < ν → ∀ f, MemForceR f → ∀ K : ℝ≥0∞, K ≠ ⊤ →
+      ∃ δ > 0, ∀ a, a ∈ initialClassR → sobolevENorm 7 a ≤ K →
+        δ ≤ Tests.checkedLocalTheoryV2.horizon ν a f
+def apparentlyImplemented : Contracts.V2.LocalTheory.LocalTheoryAPI :=
+  { Tests.checkedLocalTheoryV2 with
+    horizon_lower_bound := fabricatedH7LowerBound }
 run_cmd TestSupport.checkAxioms ``apparentlyImplemented
 '''),
     'weakened_hypothesis': (False, '''
-def weaker : ∀ s : ℝ, s < -2 →
-    ∃ r : ℝ, -3 / 2 < r ∧ r < -1 / 2 ∧ s < r := by
-  intro s hs
-  exact Bindings.thresholds.negativeIndex s (lt_trans hs (by norm_num))
-def exactNegative : ∀ s : ℝ, s < -1 / 2 →
-    ∃ r : ℝ, -3 / 2 < r ∧ r < -1 / 2 ∧ s < r := weaker
+def h7WithoutForceMembership :
+    ∀ ν, 0 < ν → ∀ f, ∀ K : ℝ≥0∞, K ≠ ⊤ →
+      ∃ δ > 0, ∀ a, a ∈ initialClassR → sobolevENorm 7 a ≤ K →
+        δ ≤ Tests.checkedLocalTheoryV2.horizon ν a f :=
+  Tests.checkedLocalTheoryV2.horizon_lower_bound
 '''),
 }
 

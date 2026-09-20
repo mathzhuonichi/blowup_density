@@ -17,12 +17,15 @@ Derivation of that inequality from the periodic PDE remains separate.
 namespace NSFormalization.Paper1
 open Set
 
-/-- A squared-energy inequality implies a bound by the forcing primitive even
-when the energy vanishes. The proof regularizes the square root before division. -/
-theorem sqrt_energy_le_primitive {T : ℝ} {E E' N b : ℝ → ℝ}
-    (hT : 0 ≤ T) (hE : ContinuousOn E (Icc 0 T))
-    (hN : ContinuousOn N (Icc 0 T))
-    (hE0 : E 0 = 0) (hN0 : N 0 = 0)
+/-! The generalized endpoint form is the canonical scalar lemma. -/
+
+/-- A squared-energy inequality implies a bound by the forcing primitive when the
+initial energy need not vanish.  The endpoint condition is the sharp
+`Real.sqrt (E 0) ≤ N 0` comparison; the zero-energy statement below is its
+special case. -/
+theorem sqrt_energy_le_primitive_general {T : ℝ} {E E' N b : ℝ → ℝ}
+    (hT : 0 ≤ T) (hE : ContinuousOn E (Icc 0 T)) (hN : ContinuousOn N (Icc 0 T))
+    (hEN0 : Real.sqrt (E 0) ≤ N 0)
     (hEnonneg : ∀ t ∈ Icc 0 T, 0 ≤ E t)
     (hb : ∀ t ∈ Ioo 0 T, 0 ≤ b t)
     (hdE : ∀ t ∈ Ioo 0 T, HasDerivAt E (E' t) t)
@@ -35,12 +38,10 @@ theorem sqrt_energy_le_primitive {T : ℝ} {E E' N b : ℝ → ℝ}
   let G : ℝ → ℝ := fun x => Real.sqrt (E x + δ ^ 2) - N x
   have hpos (x : ℝ) (hx : x ∈ Icc 0 T) : 0 < E x + δ ^ 2 := by
     nlinarith [hEnonneg x hx]
-  have hgcont : ContinuousOn G (Icc 0 T) :=
-    ((hE.add continuousOn_const).sqrt).sub hN
+  have hgcont : ContinuousOn G (Icc 0 T) := ((hE.add continuousOn_const).sqrt).sub hN
   have hderiv (x : ℝ) (hx : x ∈ Ioo 0 T) :
-      HasDerivAt G (E' x / (2 * Real.sqrt (E x + δ ^ 2)) - b x) x := by
-    exact (((hdE x hx).add_const (δ ^ 2)).sqrt
-      (ne_of_gt (hpos x ⟨hx.1.le, hx.2.le⟩))).sub (hdN x hx)
+      HasDerivAt G (E' x / (2 * Real.sqrt (E x + δ ^ 2)) - b x) x :=
+    (((hdE x hx).add_const (δ ^ 2)).sqrt (ne_of_gt (hpos x ⟨hx.1.le, hx.2.le⟩))).sub (hdN x hx)
   have hG : AntitoneOn G (Icc 0 T) := by
     apply antitoneOn_of_hasDerivWithinAt_nonpos (convex_Icc 0 T) hgcont
     · intro x hx
@@ -51,17 +52,40 @@ theorem sqrt_energy_le_primitive {T : ℝ} {E E' N b : ℝ → ℝ}
         Real.sqrt_pos.mpr (hpos x ⟨hx'.1.le, hx'.2.le⟩)
       have hmono : Real.sqrt (E x) ≤ Real.sqrt (E x + δ ^ 2) :=
         Real.sqrt_le_sqrt (by nlinarith [sq_nonneg δ])
-      have hprod := mul_le_mul_of_nonneg_left hmono (mul_nonneg (by norm_num : (0 : ℝ) ≤ 2) (hb x hx'))
       have hdiv : E' x / (2 * Real.sqrt (E x + δ ^ 2)) ≤ b x := by
         apply (div_le_iff₀ (by positivity : 0 < 2 * Real.sqrt (E x + δ ^ 2))).mpr
-        nlinarith [hineq x hx']
+        nlinarith [hineq x hx', mul_nonneg (hb x hx') (sub_nonneg.mpr hmono)]
       exact sub_nonpos.mpr hdiv
   have hbound := hG ⟨le_rfl, hT⟩ ht ht.1
-  have hroot : Real.sqrt (δ ^ 2) = δ := Real.sqrt_sq hδ.le
-  have hfinal : Real.sqrt (E t + δ ^ 2) ≤ N t + δ := by
-    simp only [G, hE0, hN0, zero_add, sub_zero, hroot] at hbound
+  have hE0nn : 0 ≤ E 0 := hEnonneg 0 ⟨le_rfl, hT⟩
+  have hN0nn : 0 ≤ N 0 := le_trans (Real.sqrt_nonneg _) hEN0
+  have hsq : E 0 ≤ N 0 ^ 2 := by
+    nlinarith [Real.sq_sqrt hE0nn, hEN0, Real.sqrt_nonneg (E 0)]
+  have hG0 : G 0 ≤ δ := by
+    show Real.sqrt (E 0 + δ ^ 2) - N 0 ≤ δ
+    have hle : Real.sqrt (E 0 + δ ^ 2) ≤ N 0 + δ := by
+      rw [show N 0 + δ = Real.sqrt ((N 0 + δ) ^ 2) from (Real.sqrt_sq (by linarith)).symm]
+      exact Real.sqrt_le_sqrt (by nlinarith [mul_nonneg hN0nn hδ.le])
     linarith
+  have hGt : G t ≤ δ := le_trans hbound hG0
+  have hfinal : Real.sqrt (E t + δ ^ 2) ≤ N t + δ := by
+    simp only [G] at hGt; linarith
   exact (Real.sqrt_le_sqrt (by nlinarith [sq_nonneg δ])).trans hfinal
+
+/-- A squared-energy inequality implies a bound by the forcing primitive even
+when the energy vanishes. The proof regularizes the square root before division. -/
+theorem sqrt_energy_le_primitive {T : ℝ} {E E' N b : ℝ → ℝ}
+    (hT : 0 ≤ T) (hE : ContinuousOn E (Icc 0 T))
+    (hN : ContinuousOn N (Icc 0 T))
+    (hE0 : E 0 = 0) (hN0 : N 0 = 0)
+    (hEnonneg : ∀ t ∈ Icc 0 T, 0 ≤ E t)
+    (hb : ∀ t ∈ Ioo 0 T, 0 ≤ b t)
+    (hdE : ∀ t ∈ Ioo 0 T, HasDerivAt E (E' t) t)
+    (hdN : ∀ t ∈ Ioo 0 T, HasDerivAt N (b t) t)
+    (hineq : ∀ t ∈ Ioo 0 T, E' t ≤ 2 * b t * Real.sqrt (E t)) :
+    ∀ t ∈ Icc 0 T, Real.sqrt (E t) ≤ N t := by
+  exact sqrt_energy_le_primitive_general hT hE hN (by rw [hE0, Real.sqrt_zero, hN0])
+    hEnonneg hb hdE hdN hineq
 
 /-- Absorb nonlinear critical energy when the critical norm stays below ν/(2C).
 The derivative variable is the derivative of the *squared* critical norm. -/

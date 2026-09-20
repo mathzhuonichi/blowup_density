@@ -205,17 +205,44 @@ maximal-function or Riesz-kernel theory.
 | **U1** | M | Uniqueness of `Data.IsSliceDistribution`, and uniqueness of `Data.IsHomogeneousSliceDatum` on `−3/2 < s ≤ 3/2` — **including the endpoint**, which is the order `04-whole-space.tex:91`'s `z = ‖Λ^{3/2}u‖₂` lives at; injectivity survives there even though surjectivity onto `L²` does not. Hence `dotHomogeneousENorm` is attained at every order U4/U8 use. Closes `sameRealDistribution`, `homogeneousDatumUnique`. | `Paper3/AngularSobolevClass.lean:22`; `Paper3/AngularFourierDilation.lean:203`; `Paper3/SobolevHilbertModel.lean:89,122`; `research/D01/RECONCILIATION.md` unit L7 |
 | **U2** | M | The homogeneous angular↔cycles identity `∫\|ζ\|^{2a}\|v̂_ang(ζ)\|²dζ = (2π)^{2a}∫\|ξ\|^{2a}\|𝓕v(ξ)\|²dξ`, at the datum level: `IsHomogeneousDatum a G u` ↔ `𝓕u = (2π)^{a}|ξ|^{-a}·(dilate G)`. **This is the only place the `(2π)^{-a}` constant appears.** | `Source/FourierConvention.lean:15,23,50`; `Paper3/AngularFourierDilation.lean:80,142,176` |
 | **U3** | S | `homogeneousLeSobolev`: an `H^a` field (`0 ≤ a < 3/2`) has an order-`a` homogeneous datum and `‖v‖_{Ḣ^a} ≤ ‖v‖_{H^a}`. Also the endpoint **existence** statement U4 needs but `homogeneousLeSobolev` does not carry: a `MemHInfty` field with `|ξ|^{3/2}v̂ ∈ L²` has an order-`3/2` homogeneous datum, because `|ξ|^{-3/2}G = v̂ ∈ L²` makes the `Integrable` clause hold. | `Source/BesselFractionalData.lean:12,15,45,49,55,86`; U1, U2 |
-| **U4** | M | `IsRieszPower` is inhabited and single-valued on `0 < a ≤ 3/2` for `MemHInfty` fields with finite homogeneous norm, with `‖Λ^a v‖₂ = ‖v‖_{Ḣ^a}`. The `a = 3/2` endpoint is supplied by U1 (uniqueness) and U3 (existence), so no clause of U4 reaches past its own prerequisites. Closes `rieszPowerExists`, `rieszPowerNorm`. | `Source/BesselFractionalData.lean:45` (`Λ^a` on data); `Paper3/SobolevHilbertModel.lean:130` (order-0 realization is the honest `L²` inverse transform); U1, U2, U3 |
+| **U4** | M | **R43 physical `Λv` realization DONE (lane 191):** `A05.rieszLambda` is the literal smooth field represented by `-∑ⱼRⱼ∂ⱼv`; `rieszLambda_memHInfty` proves all-order regularity and `rieszLambda_halfDatum` proves that an order-`3/2` datum `Z` of `v` is the order-`1/2` datum of `Λv`. The cycles symbol is `frequencyUnit·‖ξ‖`, and normalized angular dilation turns it into exactly `‖ξ‖`. Generic all-order homogeneous-datum uniqueness suffices at `3/2`; no separate endpoint lemma is used. The broader all-`a` `IsRieszPower`/norm API remains unexported. | `Section4/A05/RieszShift.lean`; `Euler/MeanOrbitSmoothL2Field`; `D01/HomogeneousWitness.lean`; U1/U2 machinery |
 | **U5** | S | `IsBesselPower` likewise, with `‖J^a v‖₂ = ‖v‖_{H^a}`. Closes `besselPowerExists`, `besselPowerNorm`. | `Paper3/SobolevOrderLowering.lean:26,39,78`; `Paper3/SobolevHilbertModel.lean:122`; U1 |
 | **U6** | M | Scalar Euclidean critical embedding on the **completion**, in homogeneous form, at both `a = 1/2` and `a = 1`, cycles convention: `‖v‖_{L^{p_a}} ≤ κ_a‖ \|ξ\|^a𝓕v‖₂` with the `L^{p_a}` element identified as the original distribution. | `Source/FractionalRealization.lean:44,78,96` (already all `0<a<3/2`); `Source/FractionalRepresentative.lean:15,19,25`; `Paper1/SchwartzCriticalEmbedding.lean:171` as the Schwartz template; `Source/RieszPotentialOperator.lean:97` |
 | **U7** | M | Real-3-vector + angular + `ℝ≥0∞` packaging of U6: closes `embeddingPair`, `velocityCriticalL3`, `criticalRepresentative`, and `ENNReal.ofReal (targetExponent (1/2)) = 3`. | U2, U6; `Paper3/RealVectorPositiveDensity.lean:15,18,24`; `Paper3/AngularRealVectorBochner.lean:47,54,64`; `Source/VectorForceNorms.lean:47` |
-| **U8** | M | Apply U7 at `a = 1/2` to each `∂_j v` and to `Λv`, assemble by `∑_j\|ξ_j\|² = \|ξ\|²`. Closes `derivativeCriticalL3`. | `Paper3/SobolevDirectionalDerivative.lean:54,67,120`; `Source/AngularGradientIdentity.lean:45,81,92`; U4, U7 |
+| **U8** | M | **Shifted carriers DONE (lane 191):** `derivativeHalfDatum j Z` has exact symbol `R43.rieszCoordinateSymbol j ξ * Zᵢ ξ` and `derivativeHalfDatum_isDatum` identifies it with the physical `dirDeriv j v`. `shiftedCriticalData_of_memHInfty` packages these three columns with U4's `Λv`; `R43.criticalAdvectionLpBridge_shifted` supplies the `shifted` field for every interior classical velocity slice. Lane 182's `derivativeCriticalL3` can now be instantiated unconditionally from `hcrit`; only its separate fractional Parseval pairing remains. | `Section4/A05/RieszShift.lean`; `Section4/R43/ShiftedData.lean`; `Paper3/SobolevDirectionalDerivative.lean:54,67,120`; U4, U7 |
 | **U9** | S | `gradientLSix` and `tensorMemLp`: instantiate the vendor `L⁶` bound at `E := WithLp 2 (Fin 3 → Space)`, then `‖fderiv (∇v)‖₂ = ‖D²v‖₂ = ‖Δv‖₂`. **Fourier-free; independent of U1–U8.** | `vendor/NavierStokesAndEuler/NavierStokes/R3/SmoothSobolevL6.lean:72,133,140`; `formalization/NSFormalization/Paper1/SmoothL6Adapter.lean:34`; D01 lemma item `‖D²z‖₂ = ‖Δz‖₂` (`research/D01/RECONCILIATION.md:184`) |
 | **U10** | M | `besselCriticalL3` and `dotThreeHalvesLeGradientSobolev`: U7 at `a = 1/2` applied to `Jv`, plus the weight inequalities `\|ξ\|^{2a} ≤ ⟨ξ⟩^{2a}` and `\|ξ\|³ ≤ ⟨ξ⟩\|ξ\|²`. | `Source/AngularGradientIdentity.lean:107` (with `HasCompactSupport` removed); U3, U5, U7 |
 
 Critical path for **R43**: U1 → U2 → U3 → U4 → U6 → U7 → U8, with U9 in
 parallel. Critical path for **R44**: additionally U5 → U10. U9 alone already
 discharges site 3 of §0 and is the natural first PR.
+
+> **Lane 165 status note (2026-09-15, HANDOFF P3).**  New module
+> `Section4/A05/CriticalL3.lean` proves the requested
+> `velocityCriticalL3` against the datum-form homogeneous norm, with explicit
+> constant `criticalL3Const = 3 * scalarCriticalConst (1/2)`.  Relative to the
+> U-table: **U1 closed** by the already-landed D01 uniqueness plus attained
+> infimum; **U2 closed for the critical route** by the exact inverse-dilation /
+> normalized-multiplier identity; **U3 partial** (physical inverse-transform and
+> Plancherel norm from an existing homogeneous datum are closed, while the
+> independent `homogeneousLeSobolev` constructor and `s = 3/2` endpoint producer
+> remain); **U4 open**; **U5 open**; **U6 closed** for every `0<a<3/2`; and
+> **U7 closed for the `a=1/2` velocity clause** (the broader `a=1`
+> `embeddingPair`/named `criticalRepresentative` wrappers remain).  The proof
+> handles absent data by the honest empty-infimum value `⊤`.  Full signatures,
+> route, and failed diagnostics are in `ATTEMPTS_CRITICAL_L3.md`; the nonzero
+> compact-bump audit is `axioms_critical_l3.lean`.  No V2 contract is registered
+> pending D01's canonical norm definition.
+
+> **Lane 181 registration note (2026-09-15).**  D01's canonical norm is now
+> registered as `D01.homogeneous_norm`, so the lane-165 theorem is registered as
+> `A05.gradient_l6_v2`.  `Contracts/V2/GradientL6.lean` extends the frozen V1
+> interface with `velocityCriticalL3`; its `C : ℝ → ℝ` parameter is bound to
+> the constant family with value `criticalL3Const`.  The adapter records both
+> definitional correspondences explicitly: the implementation's A02
+> `MemHInfty` is the frozen Data predicate by `rfl`, and the local A05
+> `dotHomogeneousENorm` reaches the registered definition through D01's existing
+> bridge by `rfl`.  The broader residuals listed above remain unregistered.
 
 ---
 

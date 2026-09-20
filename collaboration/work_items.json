@@ -59,7 +59,8 @@
       "state": "in-progress",
       "owner": "erenup",
       "contracts": [
-        "A01.regularity_partial"
+        "A01.regularity_partial",
+        "A01.local_theory_v2"
       ],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
@@ -93,7 +94,8 @@
       "owner": "erenup",
       "contracts": [
         "A04.energy_high_partial",
-        "A04.energy_high_partial_v2"
+        "A04.energy_high_partial_v2",
+        "A04.continuation_v2"
       ],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
@@ -103,7 +105,8 @@
       "state": "in-progress",
       "owner": "erenup",
       "contracts": [
-        "A05.gradient_l6"
+        "A05.gradient_l6",
+        "A05.gradient_l6_v2"
       ],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
@@ -176,7 +179,9 @@
       "kind": "specification",
       "state": "in-progress",
       "owner": "erenup",
-      "contracts": [],
+      "contracts": [
+        "R43.critical_regularity"
+      ],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
     {
@@ -184,7 +189,9 @@
       "kind": "specification",
       "state": "in-progress",
       "owner": "erenup",
-      "contracts": [],
+      "contracts": [
+        "R44.critical_finite_horizon"
+      ],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
     {
@@ -193,7 +200,8 @@
       "state": "needs-specification",
       "owner": null,
       "contracts": [
-        "R41.threshold_arithmetic"
+        "R41.threshold_arithmetic",
+        "R41.main_thresholds"
       ],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
@@ -202,7 +210,9 @@
       "kind": "specification",
       "state": "needs-specification",
       "owner": null,
-      "contracts": [],
+      "contracts": [
+        "R45.force_classes"
+      ],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
     {
@@ -231,7 +241,9 @@
       "kind": "specification",
       "state": "needs-specification",
       "owner": null,
-      "contracts": [],
+      "contracts": [
+        "R46.completed_density"
+      ],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
     {
@@ -247,7 +259,9 @@
       "kind": "specification",
       "state": "needs-specification",
       "owner": null,
-      "contracts": [],
+      "contracts": [
+        "R47.grid_observations"
+      ],
       "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
     },
     {

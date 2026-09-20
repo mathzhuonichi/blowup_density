@@ -281,3 +281,79 @@ and not a mild-solution continuation — the HeliCorgi continuation layer
 (`FormalPatched/R3MildContinuation.lean`) answers a different question, as
 `formalization/blueprint/EXTERNAL_REUSE.md:32` states, and is the source for
 A01's unit **A2b** rather than for anything here.
+
+## Lane 215 update — fixed-force restart and exact G3 (2026-09-16)
+
+`Section4/A04/RestartFixedForce.lean` now proves, without analytic hypotheses,
+`restartFixedForce_of_memForceR`: one positive lower bound for `localHorizon'`
+uniform over **all** restart times in `[0,S]` and all admissible H⁷-bounded
+data, for one fixed force. The common order-6 force bound is the continuous
+path norm on `[0,S+1]`; the chosen horizon is antitone.
+
+`higherOrderBound_of_gronwall : HigherOrderBound` is also unconditional and
+uses the existing definition unchanged. A new overlap/uniqueness argument
+proves `HasSmoothSobolevPath` for arbitrary classical solutions. The finite
+H² integral then supplies the common Grönwall cap on all shorter intervals.
+The separate `localCarrier_gronwall_bound` checks lane 179's literal closed
+cylinder interface for the same selected solution; no carrier at a possibly
+singular final endpoint is postulated.
+
+The fixed-force consumers are proved **conditional on one remaining precise
+fact**, `ShiftedLocalExtension`: an actual local classical solution starting
+at an interior time extends the original problem's maximal lifespan. This
+is the missing shifted union construction, not A02's existing same-origin
+`patch`. The force-window, smooth-path and Grönwall inputs are discharged.
+Thus unconditional lifespan continuation is **not yet delivered**.
+
+V2 wording is still for the owner: the new R1 theorem fixes f and S before δ
+and uses H⁷. It does not prove the old all-force/H¹ R1 statement. No original
+`Restart`, `HigherOrderBound`, or contract was changed. Full statements,
+satisfiability audit and proof route: [ATTEMPTS_RESTART_FIXED_FORCE.md](ATTEMPTS_RESTART_FIXED_FORCE.md).
+
+## Lane 217 update — shifted extension closed (2026-09-16)
+
+The remaining fact in the lane 215 update above is now proved:
+`Section4/A04/ShiftedExtension.lean` supplies
+`shiftedLocalExtension : ShiftedLocalExtension`, with no named input.
+`exists_shifted_glue` constructs the original problem's classical solution
+on `[0,b+L)` when the restarted interval reaches beyond T. A02 classical
+uniqueness identifies velocities; basepoint pressure normalization makes
+pressures literally agree on the overlap. Pasting at `(b+T)/2` avoids extending
+any gauge function across T and proves every classical-solution field.
+
+The new `restartBeyond_of_memForceR'`, `extendsBeyond_of_memForceR'`, and
+`lifespanInfiniteOfLocallyFinite_of_memForceR'` have **no remaining analytic or
+gluing input**. They retain the stated ν>0, datum, `MemForceR`, solution and
+norm/integral hypotheses. Together with lane 215's unconditional fixed-force
+windows and `HigherOrderBound`, this closes the fixed-force/H⁷ continuation
+chain. Existing conditional declarations remain unchanged for compatibility.
+This does not prove the old all-force/H¹ R1 statement or change a contract.
+
+See [ATTEMPTS_SHIFTED_EXTENSION.md](ATTEMPTS_SHIFTED_EXTENSION.md) for the
+construction, exact uniqueness API, and pressure-gauge treatment, and
+[REPORT_217.md](REPORT_217.md) for validation.
+
+## Paper vs V2
+
+The owner-approved V2 registration deliberately exposes the continuation chain
+that the tree proves without relabelling it as the paper's stronger restart.
+The paper's H¹ sentence remains named by
+`Contracts.V2.Continuation.ManuscriptHorizonLowerBoundH1`, but that definition
+is not a field, theorem or axiom and remains open.
+
+| paper sentence | V1 field (H¹) | V2 field (H⁷, fixed force) | why V2 suffices downstream | what the H¹ version would need |
+|---|---|---|---|---|
+| `appendix-a-local-theory.tex:147-152`: “The H¹ local existence bounds … give a common positive existence duration when restarting at t₀↑S”; the Spec/V1 quantifiers choose `δ` from viscosity and a common H¹ datum/force bound before choosing the force | `Restart`: `δ` is uniform over every admissible force and restart time, with an H¹ datum bound and an `L¹_tH¹_x` force bound. It remains open and is not included as a proved V2 field. | `ContinuationV2API.restart`: for each fixed `f ∈ F_R` and compact horizon `S`, both placed before `∃ δ`, one `δ > 0` works for every `t₀ ∈ [0,S]` and every `a' ∈ X_R` in a finite H⁷ ball. This is exactly the owner-approved `RestartFixedForce` recut. | `research/A04/REPORT_215.md` §3 identifies that all consumers keep the same force. `restartBeyond`, `extendsBeyond`, and `lifespanInfiniteOfLocallyFinite` (closed unconditionally in lane 217), and A02's `exists_maximal` construction (lane 213), restart that same force at data whose H⁷ norms are bounded by `higherOrderBound`. Cross-force uniformity is never used. | A forced quantitative H¹ local theory on the mild stack: a horizon lower bound depending only on the H¹ datum and force bounds, valid uniformly across the whole force class. The proved H⁷ ball cannot be enlarged to an H¹ ball, and compactness of one force's shifted path cannot supply cross-force uniformity. |
+
+Thus V2 is sufficient for the formalized downstream continuation argument, but
+it does **not** prove the manuscript's H¹ local-existence sentence. In
+particular, neither stronger-to-weaker Sobolev embedding nor the fixed-force
+compactness argument reverses the two missing implications: controlling an H⁷
+ball does not control every H¹-bounded datum, and a duration for one fixed force
+does not become uniform over all forces.
+
+## Lead corrections (review 230, 2026-09-17)
+
+1. "uninhabited" → "unproved" wherever the H¹ sentence is described (it is an open proposition, not a claim of falsity).
+2. A02's `exists_maximal'` (lane 213) does **not** depend on lane 179's Grönwall bound; it uses lane 211's `localHorizon'`/`localCarrier` only. The Grönwall bound enters the A04 continuation consumers (215/217), not maximal existence.
+3. The contract's restated `timeShift` is **definitionally equal** to lane 160's (bridged by `rfl`), not a token-for-token copy.

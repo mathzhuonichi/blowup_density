@@ -1,5 +1,24 @@
 # HANDOFF.md — 可分发的并行工作包（快照：2026-09-15 12:55Z）
 
+## 快照更新（2026-09-15 22:30Z，lead；表格于 2026-09-16 08:00Z 刷新：A01 局部理论装配完成，待合同措辞）
+
+截至集成分支 `2c3df18`；最后合入的 lane PR 是 **#192**（lane 182）；**29 个合同**；owner 的 `main`（PR #161–#171）已并入集成分支（lane 184；同名模块改名为 `C01/EnstrophyIdentityRaw`、`A01/ConstructorDivergenceSlice`）。lead 现用 codex 工作流（`scripts/codex_lane.sh` / `codex_review.sh`）跑 lane 175–191，下面的 P 表状态以此为准：
+
+| 包 | 状态（09-15 22:30Z） | 已落地 / 还缺 |
+|---|---|---|
+| P1 C01 能量/涡量 | **关闭**（owner V4 `C01.energy_absorption_v4` + 我们的 eq:RL2 V3） | 待一条 SIMP 去重 `Enstrophy`/`EnstrophyIdentityRaw` |
+| P2 D01 齐次范数 | **关闭**（`D01.homogeneous_norm`，164） | — |
+| P3 A05 临界嵌入 | **关闭**（165 + V2 合同 `A05.gradient_l6_v2`，181） | U4/U8（Λv 实现、∂_j v 半阶数据）lane 191 在做 |
+| P5 R43 | **Prop. 4.3 证完**：…221（#224）力路径、223（#225）`inhomogeneousAtZero`、225（#228）`universal` 全部合入，同一 `criticalConst`；226 在注册 V1 合同 | — |——为经典解构造 `CriticalDatumPath`（`Section4/R43/CriticalPairing.lean:161`：整数阶数据 ⇒ 半阶齐次数据路径 `velocityHalf`/`velocityThreeHalf`/`laplacianHalf`/`advectionHalf`/`pressureHalf`/`forceHalf` 及其 `IsHomogeneousSliceDatum` 字段；入口 `D01/HalfOrder.lean`、`HomogeneousWitness.lean`、A05 U3 `homogeneousLeSobolev`）；闭合后 eq:Rcritical1 无条件 |
+| P6 R44 | 166/218（#222）/220（#229）/222（#226）/227（#231）已合入：S1a–S1c 与 S2–S6 装配（仅条件于 S1 微分不等式）；228 的 S1d 由 229 整合中（Prop. 4.4 无条件 + R41 q=2） | — |
+| P7 A01 A3 | **闭合**：…202（#208）、203（#207）、204（#209）、205（#210）、206（#211）、207（#212）全部合入；`hb_of_base''` 无分析输入；`a01_constructor_unconditional` 探针在集成分支 | 剩合同注册（208/209/210，lead 在做）；**spec 问题**：`horizon_lower_bound` 的 H¹ 子句 vs 树支持的 H⁷（见 210 报告后 `NEXT_SESSION`） |
+| P8 A01 B1 | **闭合**：161 R1、169 R2、178 R3、187 hfs（#193）、190 R4 联合光滑代表元（#194）全部合入 | — |
+| P9 A01 B2/P4 | **闭合（条件于 hb）**：180（#190）构造器 + 189（#203）压力供给（194/195/197 三块 + Helmholtz 逆向）；探针 `a01_constructor_pipeline`：仅由 `hb` 得到 `ClassicalSolutionR` | — |
+| P9b A04 延拓 | **闭合（固定力 + H⁷ 形状）**：213（#218）、215（#219）、217（#220）全部合入；延拓定理对 MemForceR 力无具名输入 | — （owner 的 `Restart` H¹/跨力措辞待 V2 决定） |
+| P10/P11 R41、R41D、SPEC | **Theorem 4.1（Y = F_R）= 第 32 个合同 `R41.main_thresholds` V1，已合入 #242**：232/233/235 全部合入；规范 R41/R45/R46/R47 定稿并合入（#240/#238/#237/#239） | **第 4 节全部定理已证并注册**：R45（262，第 37）、R46（#254）、R47（#255）合同；A01/A04 V2（#257/#256，固定外力 + H⁷ 措辞，H¹ 谓词明确未证） | 第 4 节收尾：integration → main 的 PR（owner 审）；**Section 3 已启动**（`collaboration/SECTION3_PLAN.md`，T10 双盲草案 263/264） |
+
+外部协作者请优先领 **P5 Parseval**、**P6**、**P10**（互不依赖、不碰 A01）；lane 号仍用 200–299。
+
 ## Integration update (2026-09-15)
 
 This tree includes both dependency chains from PRs #161–#170. The package

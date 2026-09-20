@@ -1,5 +1,17 @@
 # R43 — Proposition 4.3 proof-route split (`prop:Rcritical1`)
 
+## Lane 223 update: zero-datum endpoint proved unconditionally
+
+`Endpoint.lean` closes S4/S5/S6 at zero datum. Its explicit positive
+`criticalConst` gives the exact inhomogeneous force-smallness statement of
+`Spec.lean:243–247`, with no named analytic hypothesis. G5 reuses lane 167's
+existing maximal-family bound; its absorption premise is now discharged from
+force smallness. The lane 217 continuation dependencies are included unchanged.
+See `REPORT_223.md` for provenance, exact scope and all validation results.
+The older registration audit below is historical, not a claim that the
+zero-datum endpoint remains unproved. General initial data remain separate.
+
+
 ## Lane 167 update: G5 endpoint passage proved locally
 
 `Section4/R43/MaximalEndpoint.lean` now transfers the C01 absorption/H2 estimate
@@ -85,23 +97,46 @@ homogeneous norm on a physical field. So the local `def dotHomogeneousENorm` in
 `y = ‖Λ^{1/2}u‖₂ = ‖u‖_{Ḣ^{1/2}}`, `z = ‖Λ^{3/2}u‖₂ = ‖u‖_{Ḣ^{3/2}}`,
 `b = ‖f‖_{Ḣ^{1/2}}`, `C₀` R43-own, `C₁` C01's, `Cemb = C(1/2)` A05's.
 
-### S1 — eq:Rcritical1: the critical energy inequality (G7, R43-owned, L)
+### S1 — eq:Rcritical1: the critical energy inequality (G7, CLOSED by lane 219)
 
-`04-whole-space.tex:97-99`. Testing the projected equation against `Λu`:
-`½(y²)' + (ν − C₀y)z² ≤ by`. **Blocks proving.** No sibling owns it (C01 declares
-it out of scope). Needs a differentiable critical path — a `HasSmoothCriticalPath`
-analogue of A04's `HasSmoothSobolevPath` (`research/A04/Spec.lean:247`) at orders
-`1/2`, `3/2`; no lane exports one. Sub-split (all R43-owned):
+`04-whole-space.tex:97-99`. Testing the projected equation against `Λu` gives
+`½(y²)' + (ν − C₀y)z² ≤ by`.
 
-| S1 sub | Lean shape (informal) | supplier | size |
-|---|---|---|---|
-| S1a pairing identities | `⟨∂_t u, Λu⟩ = ½(y²)'`, `ν⟨−Δu,Λu⟩ = νz²`, `⟨∇p,Λu⟩ = 0` (Leray) | R43-own; pressure orthogonality via `A02`/`D01` Leray | M |
-| S1b trilinear estimate | `|⟨(u·∇)u, Λu⟩| ≤ C₀·y·z²` | R43-own, via A05 `velocityCriticalL3` + `derivativeCriticalL3` (both **draft-only**) | L |
-| S1c force term | `|⟨f, Λu⟩| ≤ b·y` (Cauchy–Schwarz in `Ḣ^{1/2}`) | R43-own | S |
-| S1d differentiability of `y²` | `HasDerivAt (fun s => (y s)^2) (E' s) s` | R43-own smooth critical path (gap) | M |
+**CLOSED for every classical solution with positive viscosity and `MemForceR f`.**
+Lane 219's `Section4/R43/CriticalMomentum.lean` proves
+`criticalDatumInputs_of_classical`, `exists_criticalDatumPath'`, and
+`rcritical1_of_classical'`, with no `CriticalDatumInputs`, `hcrit`, or momentum
+hypothesis. The last theorem includes the genuine `HasDerivAt` statement for
+the squared critical norm and lane 214's exact inequality.
 
-The **scalar consequence** of S1 (`E'/2 + (ν−C₀y)z² ≤ by`) is exactly the `henergy`
-hypothesis of the tree's scalar bootstrap (see S2), so once S1 is proved, S2 is free.
+| S1 sub | result | supplier |
+|---|---|---|
+| S1a pairing identities | DONE: Laplacian symbol, pressure orthogonality, derivative pairing | lanes 175, 216; unconditional carrier from 219 |
+| S1b trilinear estimate | DONE: physical fractional Parseval and the exact shifted-field bridge | lanes 182, 191, 214 |
+| S1c force term | DONE: half-order Hilbert Cauchy–Schwarz | lane 175; slice data from 216 |
+| S1d differentiability | DONE: chosen half-order trajectory is smooth; its derivative is the momentum datum | lane 219 |
+
+The time bridge uses lane 215's local-carrier covering/uniqueness argument,
+reproduced in a separate namespace because its module is absent from this
+baseline. At order two, `A04.momentum_datum` identifies the derivative with
+the physical residual. The bounded Bessel-to-homogeneous map composed with
+order lowering transports both smoothness and momentum to the chosen
+half-order trajectory, using D01 homogeneous uniqueness.
+
+Lane 214 closes the bridge left by lanes 182 and 191. The general
+`half_order_parseval` theorem proves the real homogeneous half-order pairing
+equals the physical pairing with `A05.rieszLambda`; its classical-slice
+specialization fills `pairing_identity` with the exact lane 191 `shifted` field.
+The primed trilinear and differential-inequality corollaries consume only
+`hcrit` (and ambient `hf`). Lane 216 constructs every spatial field of
+`CriticalDatumPath` and assembles it conditional on the single two-field
+`CriticalDatumInputs` proposition: smoothness of the half-order velocity path
+and its datum-level momentum identity. The spatial carrier and symbol bridge
+are closed, but unconditional R43 still needs that time-path bridge. See
+`ATTEMPTS_PARSEVAL.md`, `ATTEMPTS_S1B.md`, and `../A05/ATTEMPTS_U4_U8.md`.
+This closes S1/G7, not the time-integrated force obligations of G2/G3/G4.
+Lane 216's G3 slicewise note below remains unchanged. See
+`ATTEMPTS_CRITICAL_MOMENTUM.md` and `REPORT_219.md`.
 
 ### S2 — regularized division + continuity bootstrap (M; **a=0 closed by reuse**)
 
@@ -123,9 +158,22 @@ discharging `C₀·K ≤ ν/2` and `ρ < K` from `0 < c < 1/(2C₀)`. Conclusion
 on `[0,T]`. **Remaining gap G4** (owner C01, M): the forcing primitive `N t = ∫₀ᵗ b`
 must be continuous with FTC derivative `b(t) = ‖f(t)‖_{Ḣ^{1/2}}` — C01's
 `forceTimeRegularity` (`research/C01/Spec.lean:326`) supplies this for the **L²** slice
-only, not the homogeneous critical slice. General-`a` bootstrap (`y(0)≠0`) needs
+only, not the homogeneous critical slice. Lane 216 proves that every
+nonnegative-time force slice has an order-`1/2` homogeneous datum
+(`criticalForceHalf_isDatum`) directly from `MemForceR`; it does not prove
+measurability, `L¹` membership, or FTC regularity of that chosen path, so G4
+remains open precisely at the time-path level. General-`a` bootstrap (`y(0)≠0`) needs
 `sqrt_energy_le_primitive'` + a re-run of `continuous_bootstrap` with `ρ = y(0)+∫b`
 (not yet wrapped; R43-own, S). **Blocks proving** general-a; a=0 closable modulo G4+S1.
+on `[0,T]`. **G4 CLOSED (221)**: `ForcePath.lean` proves continuity of
+`criticalForceAt`, interval integrability, and continuity/FTC/monotonicity of
+`criticalForcePrimitive`. `critical_bootstrap_zero_datum` wires these facts to
+lane 219's unconditional energy inequality and `criticalNormBound_radius`,
+proving `criticalNormAt w.velocity t ≤ c * ν` on every `[0,S]` with `S < T`.
+No extra analytic hypothesis remains for the zero-datum bootstrap. The strict
+lifespan restriction reflects that a classical solution is defined on `[0,T)`.
+General-`a` bootstrap (`y(0)≠0`) still needs `sqrt_energy_le_primitive'` and
+`continuous_bootstrap` with `ρ = y(0)+∫b` (not wrapped here).
 
 ### S3 — `‖u‖₃ ≤ C(1/2)·y` and the second-shrinking gate discharge (G8 done; A05 field draft-only)
 
@@ -142,41 +190,40 @@ only, not the homogeneous critical slice. General-`a` bootstrap (`y(0)≠0`) nee
   `criticalL3_gate_enorm` (ℝ≥0∞, exact C01 shape), `criticalL3_gate_real` (ℝ), and
   `exists_critical_radius` (one `c` below both `1/(4C₀)` and the gate threshold).
 
-### S4 — `∫₀ˢ‖u‖²_{H²} < ∞` for every finite `S ≤ T_max` (C01 assembly, **draft-only → C01 V4**)
+### S4 — finite H² integral through the maximal endpoint: **CLOSED (223)**
 
-`04-whole-space.tex:118-131`. C01's `h2TimeIntegral` (`research/C01/Spec.lean:576`)
-gives `∫⁻ Ioo 0 S, sobolevENorm 2 (u t) ^ (2:ℝ) ≤ ENNReal.ofReal (…)` under the gate
-of S3, per `w : ClassicalSolutionR ν a f T`, `0 < S ≤ T`. **NOT registered** (C01 V3
-scope disclosure 5 lists it out of scope). It is a **C01 V4 item**, together with its
-inputs `enstrophyIntegralBound` (eq:RH1) and `sobolevTwoFourier`, all draft-only.
+`maximal_h2TimeIntegral_zero_of_small_force` (namespace R43, module
+`Endpoint`) supplies the explicit zero-datum bound for every `0 < S` with
+`ofReal S ≤ maximalLifespanR ν 0 f`:
 
-Two further gaps:
-* **G5** (owner C01 endpoint, or R43 gluing, M): `h2TimeIntegral` is per fixed-horizon
-  `ClassicalSolutionR` with `S ≤ T`; A04's closing clause instantiates at `S = T_max`,
-  where no such solution exists. R43 can glue by monotone convergence (RHS monotone in
-  `S`, finite at `T_max` since `f ∈ 𝓕_ℝ`), or C01 adds an endpoint corollary.
-* **G6** (power spelling, one line): `squaredHTwoIntegral` (A04, `^(2:ℕ)`) vs
-  `h2TimeIntegral` (C01, `^(2:ℝ)`). **CLOSED this lane**: `enorm_npow_two_eq_rpow_two`
-  (`x ^ (2:ℕ) = x ^ (2:ℝ)` in `ℝ≥0∞`).
+`ofReal (32 * S * C01.forcePrimitive f S ^ 2 +
+32 * (ν⁻¹)^2 * ∫ t in 0..S, C01.l2Sq (C01.slice f t))`.
 
-**Blocks proving.**
+It uses the already present `MaximalEndpoint.maximal_h2TimeIntegral` theorem,
+which applies `C01.h2TimeIntegral_Ioc` with the **same terminal S budget** to
+all strictly shorter intervals and takes their directed union. The endpoint
+value of the velocity is never evaluated. C01 V4 is registered; the previous
+“draft-only” description was obsolete. G6 converts the real square to A04's
+natural square. `maximal_squaredHTwoIntegral_of_small_force` is unconditional
+under positive viscosity, force membership, maximality and homogeneous force
+smallness.
 
-### S5 — `lifespanInfiniteOfLocallyFinite` fed the maximal family ⟹ `T_max = ⊤` (A04, **draft-only → A04 V3**)
+### S5 — continuation: **CLOSED (223, using 217)**
 
-`04-whole-space.tex:132`, "Proposition 2.1 excludes every finite maximal lifespan."
-A04 `lifespanInfiniteOfLocallyFinite` (`research/A04/Spec.lean:657`): from `0 < T_max`,
-the presingular solution family, and `∀ S, 0<S → ofReal S ≤ T_max → squaredHTwoIntegral S u ≠ ⊤`
-(supplied by S4), concludes `maximalLifespanR ν a f = ⊤`. **NOT registered** (registered
-A04 V2 stops at `highContinuationIntegral`). An **A04 V3 item**.
+`A02.exists_maximal'` supplies a maximal family. The exact lane 217 theorem
+`A04.lifespanInfiniteOfLocallyFinite_of_memForceR'` consumes that family and
+`∀ S, 0 < S → ofReal S ≤ maximalLifespanR ν a f → squaredHTwoIntegral S u ≠ ⊤`.
+S4 supplies its last premise, including finite maximal S. No additional
+analytic hypothesis remains. This checkout lacked lanes 215/217's two A04
+files; they are included unchanged from local lane 217 commit
+`d6f9cfd605041cb015a2119d351b6d77578c6b18`, without a merge or rebase.
 
-* The maximal family (`exists_maximal`, `IsMaximalSolution`, `presingularTimes`):
-  **REGISTERED** in `A02.maximal_partial_v2` (V2 `MaximalPartial`). This is the one
-  fully-registered input on the closing path.
-* The `≠ ⊤` hypothesis comes from S4; the power spelling from G6 (done).
+### S6 — `inhomogeneousAtZero`: **CLOSED (223)**
 
 **Blocks proving** (needs A04 V3 registration + wiring S4→S5).
 
-### S6 — `inhomogeneousAtZero`: the `a = 0` clause R41 consumes (G2 + G3 + reduction)
+### S6 — `inhomogeneousAtZero`: the `a = 0` clause R41 consumes (partial; G2 + homogeneous path remain)
+### S6 — `inhomogeneousAtZero`: force reduction closed (221); global assembly remains
 
 `04-whole-space.tex:88,132`. `‖f‖_{L¹(0,∞;H^{1/2})} < cν ⟹ T^ν_{max,ℝ}(0,f) = ∞`.
 Reduction from `universal` at `a = 0`:
@@ -189,16 +236,45 @@ Reduction from `universal` at `a = 0`:
   (`research/A05/Spec.lean:268`); both `Data` force norms are infima over datum **paths**,
   so the bridge must carry an `IsHomogeneousPath` from an `IsSobolevPath` with
   `‖G' t‖ ≤ ‖G t‖`. Unregistered, unowned. **Blocks proving** the reduction.
-* **G3** (owner D01, non-vacuity, blocks **content**): `forceSobolevENormL1 (1/2) f ≠ ⊤`
-  and `forceHomogeneousENorm 1 (1/2) f ≠ ⊤` for `f ∈ 𝓕_ℝ`. `MemForceR` gives datum
-  paths at **integer** orders only; both norms are infima over order-`1/2` paths, so
-  both may be `⊤` and both conclusion fields **vacuously true**. `DatumLemmas.lean:160`
-  gives slicewise data at every real order but not the measurable **path**;
-  `compact_exists_homogeneousPath` (`DatumLemmas.lean:483`) covers only compactly
-  supported `f`. Not closable for general `f` on current defs; needs a D01 order-`1/2`
-  path constructor. **Blocks the statement's content** (not its well-formedness).
+* **G3** (owner D01, non-vacuity, blocks **content**), **PARTIALLY CLOSED**:
+  lane 165 proves `forceSobolevENormL1 (1/2) f ≠ ⊤` by lowering the integer-order
+  `MemForceR` path. Lane 216 additionally constructs an order-`1/2` homogeneous datum
+  for every force slice (`criticalForceHalf_isDatum`), with no extra integrability
+  input. What remains is `forceHomogeneousENorm 1 (1/2) f ≠ ⊤`: the definition is an
+  infimum over measurable `L¹` homogeneous datum **paths**, while lane 216's classical
+  choice is only slicewise. A D01 path constructor transporting measurability and
+  `L¹` control is still required. **Blocks the homogeneous statement's content.**
 
-**Blocks proving + content.**
+**Still blocks proving + homogeneous-norm content.** The inhomogeneous
+order-`1/2` force norm is non-vacuous and every homogeneous slice carrier now
+exists; neither fact supplies the measurable `L¹_t` homogeneous path required
+by G2/G3 and the S6 reduction.
+* `zero_dotHomogeneousENorm_half` and `zero_mem_initialClassR` discharge the
+  two zero-initial-field facts using the existing D01/A04 results.
+* **G2 CLOSED (221)**: `forceHomogeneousENorm_le_forceSobolevENormL1` proves
+  `∀ f, MemForceR f → forceHomogeneousENorm 1 (1/2) f ≤ forceSobolevENormL1 (1/2) f`.
+  The contractive continuous linear Bessel-to-homogeneous map sends every
+  measurable `IsSobolevPath` to a measurable `IsHomogeneousPath`; pointwise norm
+  comparison gives the eLpNorm inequality and then comparison of path infima.
+* **G3 CLOSED (221)**: `forceHomogeneousENorm_one_half_ne_top` proves
+  `forceHomogeneousENorm 1 (1/2) f ≠ ⊤` under `MemForceR f`.
+  The canonical `criticalForceHalf` path is explicitly homogeneous, strongly
+  measurable, and `MemLp` of order one for `forceTimeMeasure = volume.restrict (Ioi 0)`.
+* `criticalForcePrimitive_le_forceHomogeneousENorm` bounds every nonnegative-time
+  prefix integral by the homogeneous global norm; its inhomogeneous corollary
+  supplies the S2 smallness input. The wiring probe checks both forms.
+The force-path and zero-field reduction obligations are closed. This does not
+claim the maximal-lifespan conclusion: assembly with the universal estimate,
+S4/S5 continuation, and contract registration remains outside lane 221.
+`inhomogeneousAtZero_of_memForceR` proves the exact `Spec.lean:243–247` shape
+with the explicit positive radius
+`criticalConst = min (1/(8*trilinearConst))
+(1/(4*(A05.gradientL6Const*A05.criticalL3Const)))`.
+The smallness norm is the registered datum-path **inhomogeneous**
+`forceSobolevENormL1 (1/2)`. The stronger
+`homogeneousAtZero_of_memForceR` is proved first; lane 221's exact G2 inequality
+then derives the spec theorem. General nonzero initial data (`universal`) and
+registration of a complete `RCritical1API` remain outside this lane.
 
 ---
 
@@ -208,16 +284,20 @@ Reduction from `universal` at `a = 0`:
 |---|---|---|---|---|
 | **G1** | D01 / A05 | **stating** | open — `Data.dotHomogeneousENorm` absent; `Spec.lean` carries a local `def` | S (promote a `def` to a registered contract) |
 | **G2** | A05 / D01 | proving S6 | open — new; path-level force-norm monotonicity | M |
-| **G3** | D01 | **content** (non-vacuity) | open — order-`1/2` force datum *paths* for general `f` | M–L |
-| **G4** | C01 | proving S2 | open — homogeneous critical-slice force integrability | M |
+| **G3** | D01 | **content** (non-vacuity) | partial — inhomogeneous `H^{1/2}` finiteness and homogeneous slicewise data closed; measurable `L¹_t Ḣ^{1/2}` datum path open | M |
+| **G4** | C01 | proving S2 | partial — homogeneous critical force slices exist; time-path measurability/FTC regularity open | M |
+| **G2** | A05 / D01 | proving S6 | **CLOSED (221)** — contractive map and comparison of measurable path infima | DONE |
+| **G3** | D01 | **content** (non-vacuity) | **CLOSED (221)** — canonical measurable `L¹_t Ḣ^{1/2}` path and finite homogeneous force norm | DONE |
+| **G4** | C01 | proving S2 | **CLOSED (221)** — critical force continuity, interval integrability, primitive continuity and FTC | DONE |
 | **G5** | C01 / R43 | proving S4→S5 | open — `S = T_max` endpoint gluing (monotone convergence) | M |
+| **G5** | C01 / R43 | proving S4→S5 | **CLOSED (223 wiring)** — existing `MaximalEndpoint` directed-union bound, now with absorption discharged | DONE |
 | **G6** | A04↔C01 | proving S4 | **CLOSED** — `enorm_npow_two_eq_rpow_two` | S (done) |
-| **G7** | R43 | proving S1 | open — eq:Rcritical1 + differentiable critical path; largest R43 unit | L |
+| **G7** | R43 | proving S1 | **CLOSED (219)** — unconditional eq:Rcritical1 and smooth critical path for positive-viscosity classical solutions | DONE |
 | **G8** | A05↔C01 | nothing | **CLOSED** — `exists_critical_radius`, `criticalL3_gate_real`, `criticalL3_gate_enorm` | S (done) |
 
-Plus the **three registration prerequisites** (not "gaps" in COMPARISON's sense but
-hard blockers to proving): A05 V2 (`velocityCriticalL3`), C01 V4 (`h2TimeIntegral` +
-eq:RH1 + `sobolevTwoFourier`), A04 V3 (`lifespanInfiniteOfLocallyFinite`).
+Historical registration prerequisites above no longer block the zero-datum proof.
+Lane 223 consumes proved implementation theorems and the registered C01 V4
+implementation; it does not register the complete R43 API.
 
 ---
 
@@ -233,5 +313,5 @@ eq:RH1 + `sobolevTwoFourier`), A04 V3 (`lifespanInfiniteOfLocallyFinite`).
 | `criticalL3_gate_enorm` | G8 (S3) | ℝ≥0∞ gate `ofReal C₁ · L3 ≤ ofReal (ν/4)`, exact C01 shape |
 | `criticalNormBound_radius` | S2 (a=0) | eq:Rcritical1 ⟹ `y(t) ≤ cν` on `[0,T]`, via `Paper1.critical_norm_bound` |
 
-Blocked rows (need external registration or an R43-owned L unit): S1 (G7), S2 general-a
+Historical blocked rows, with S1/G7 now closed by lane 219: S2 general-a
 (G4), S3 embedding (A05 V2), S4 (C01 V4 + G5), S5 (A04 V3), S6 (G2 + G3).
