@@ -1,28 +1,29 @@
-# CLAUDE.md — blowup_density（用 Lean 证第 4 节）
+# CLAUDE.md — blowup_density（当前：第 3 节）
 
-> 每次会话自动载入。新 session 先读本文件，再读 [`NEXT_SESSION.md`](NEXT_SESSION.md)（当前状态、下一步），
-> 全貌和顺序看 [`PLAN.md`](PLAN.md)（§4 节点状态看板、§5 并行工作包）；可分发给外部协作者的工作包简报在 [`collaboration/HANDOFF.md`](collaboration/HANDOFF.md)（外部 lane 号 200–299）；第 3 节（环面）的独立规划在 [`collaboration/SECTION3_PLAN.md`](collaboration/SECTION3_PLAN.md)（第 4 节完成后启动，节点 T10–T24）。台账 = `collaboration/work_items.json`（`make tasks` 看 ready 队列）；
-> 记录 = `logs/`，每次 subagent 运行记一行 `logs/AGENT_RUNS.csv`。最近更新 2026-09-13。
-> 细节丢失时：派 subagent 用 grep 搜本地会话记录 `~/.claude/projects/-data-8T-ping-blowup-density/*.jsonl`，不要整文件读进主上下文。
+> 新 session 先读 [NEXT_SESSION.md](NEXT_SESSION.md)（当前状态、下一步），再读 [PLAN.md](PLAN.md)（阶段入口、§8 lane 编号表）。
+> 详细 DAG 与台账规则见 [SECTION3_PLAN.md](collaboration/SECTION3_PLAN.md)，工作包见 [HANDOFF.md](collaboration/HANDOFF.md)（外部预留 300–399）。
+> 第 4 节已完成：37 个注册合同，冻结分支 `erenup/integration`，PR #259 待 owner；历史文档见 [archive/section4](archive/section4/README.md)。
+> 台账 = `collaboration/work_items.json`，任务卡由 `tasks.py render` 生成；工具暂不支持完成状态/新增节点，当前调度以实时文档为准。
+> 记录 = `logs/`；最近状态依据 2026-09-17 lead 快照。细节恢复先按任务 ID 搜本地记录。
 
 ## 目标（一句话）
 
-用 Lean 4 把 `paper/blowup_density.tex` 的**第 4 节（全空间 R³，定理 4.1–4.7）**证出来。每个结果落成
-`verification/Contracts/V1/*.lean` 的版本化合同 + `Bindings/` + `Tests/`，CI 绿，传递公理只含
-`propext` / `Classical.choice` / `Quot.sound`。第 3 节（环面）deferred，不做。
+用 Lean 4 推进 `paper/sections/03-torus.tex` 的第 3 节（环面），当前 S3-0：T10 数据层。
+结果落成版本化合同、绑定与测试；传递公理只含 `propext` / `Classical.choice` / `Quot.sound`。
+第 4 节历史与 owner 待办见归档；不把旧快照的未完成项当作新工作。
 
 ## 身份与 git
 
 - 本机 gh 登录 = `erenup`（协作者，仓库级写权限，无 admin）。owner = `mathzhuonichi`。
 - 主干 `main`（2026-09-13 从 `codex/section4-blueprint` 改名，见 `logs/MAIN_BRANCH_20260913.md`）。`codex/*` 都是已合入的死分支。
 - 分支保护：PR 需 1 个 review，作者不能自审，CI 必须绿。
-- **集成分支 `erenup/integration`**：我们自己能合。每条 lane 的 PR 以它为 base，reviewer 跑通后由 lead 合入；
-  攒一批再从它向 `main` 提 PR 给 owner review（PR #15）。**根目录 `/data_8T/ping/blowup_density` 检出的就是 `erenup/integration`**（2026-09-13 下午起；`main` 暂无其他进展），lead 在根目录做记账、合并、跑门禁；改代码仍然只在 lane worktree 里。
+- **2026-09-17 起分节分支**：第 4 节完成（37 个合同，PR #259 → `main` 待 owner），`erenup/integration` **冻结**（只做 owner 对 #259 的修改）。第 3 节（环面）用新核心分支 **`erenup/integration-section3`**（从 integration 分出；根目录已切换到它）：Section 3 的 lane 从它开 worktree、PR 以它为 base、lead 在根目录合入；`tmp/mkchain.sh`/`scripts/codex_review.sh` 通过 `INTEGRATION_BRANCH`（默认 `erenup/integration-section3`）选分支；规划见 `collaboration/SECTION3_PLAN.md`，lane 号全局递增（263 起）。
+- **当前集成分支 `erenup/integration-section3`**：lead 在根目录集成 Section 3 lane；改代码仍只在各 lane worktree。第 4 节分支冻结。
 - **编号规则**：lane 序号 `NNN` 三位、全局递增，唯一分配点是 `PLAN.md` 进度表。
   worktree = `.claude/worktrees/NNN-<TaskID>-<slug>`，分支 = `erenup/NNN-<TaskID>-<slug>`，PR 标题 = `[NNN-<TaskID>] 一句话`。
-  TaskID 用 DAG 节点（D01…R47）；非节点的工程活用 `MAINT`，纯陈述整理用 `SPEC`。（`000-integration` worktree 已退役，根目录即集成分支。）
-- 一条 lane：从 `erenup/integration` 开 worktree → claim（`python3 experiments/tasks.py claim <ID> erenup && python3 experiments/tasks.py render`，
-  单独一个 commit）→ 干活（草稿放 `research/<ID>/`）→ PR to `erenup/integration` → opus reviewer 跑通 Lean → lead 合入并记 CSV。
+  TaskID 用当前 DAG 节点（T10–T24；历史 D01…R47）；非节点的工程活用 `MAINT`，纯陈述整理用 `SPEC`。（`000-integration` worktree 已退役，根目录即集成分支。）
+- 一条 lane：从 `erenup/integration-section3` 开 worktree → claim（`python3 experiments/tasks.py claim <ID> erenup && python3 experiments/tasks.py render`，
+  单独一个 commit）→ 干活（草稿放 `research/<ID>/`）→ PR to `erenup/integration-section3` → opus reviewer 跑通 Lean → lead 合入并记 CSV。
 - 冲突只会出现在 `verification/contracts.json`、`collaboration/work_items.json`、`collaboration/TASKS.md`（生成物）、`logs/AGENT_RUNS.csv`。
   CSV 只由 lead 在合入时追加。rebase 后重跑 `tasks.py render`。
 - 已有的 `Contracts/V1/*`、`Tests/*` 不改；数学变了加 V2。CI 会拒绝静默修改。
@@ -62,7 +63,7 @@
 
 | 路径 | 是什么 |
 |---|---|
-| `paper/sections/04-whole-space.tex` | 目标：定理 4.1–4.7 的权威陈述。附录 A/B 是它用的局部理论和嵌入 |
+| `paper/sections/03-torus.tex`、`collaboration/SECTION3_PLAN.md` | 当前目标：第 3 节；T10–T24 DAG 与表示层决策 |
 | `formalization/blueprint/DEPENDENCY_GRAPH.md`、`tasks.json` | 30 节点任务 DAG（数学依赖）和每个任务的精确合同 |
 | `collaboration/tasks/*.md`、`work_items.json` | 任务卡 + 台账（状态 / owner / 已注册合同） |
 | `verification/` | `Contracts/V1`（稳定陈述）→ `Bindings`（指向实现）→ `Tests`（类型 + 传递公理审计） |
@@ -77,8 +78,9 @@
 
 ## 关键路径与并发
 
-- 关键链：D01 → A01 → A02 → A04 → R43/R44 → R41（定理 4.1）。**A01 不再卡 U05**（U05 已于 004/010 两条 lane 完成，PR #8/#11，见 `PLAN.md`）：HeliCorgi mild 栈已就地编进主 workspace，093 的 reviewer 复现 `lake build Formal.R3EndpointSafeProjectedLocalExistence` 成功。A01 现在卡的是载体桥 C1b/C1c 与 A3/B1 三个 L 单元（`research/A01/A01_SPLIT.md`）。
-- 可并行起步、互不依赖：D01、A05、I01（U05 已完成）。并发上限 5 条车道；**2026-09-14 起因 API 限额，当前并发 2–3 个 subagent（含 reviewer）**，关键链优先。
+- 当前关键路径：T10 → T11 → T18 → T19 → T21；T12 → T20 → T21 为障碍主线。当前 S3-0，先完成 T10 reconciliation/spec 与数据合同注册。
+- 后续并行工作包和领取条件见 [HANDOFF](collaboration/HANDOFF.md)；第 4 节旧关键链见 [归档 PLAN](archive/section4/PLAN_SECTION4.md)。
+- 并发与模型按 lane 简报及用户指示执行；当前不从历史未完成清单自动开 lane。
 - 帮手模型：优先 `prover` agent（`.claude/agents/prover.md`，钉 Opus 4.8，本地未提交；**新会话启动时才加载**）。
   若 `prover` 不可用则 `general-purpose` + `model: opus`（当前解析为 Opus 5, 1M）。
   lead 自己留在关键路径上，只做拆任务、比对、归并、记账。

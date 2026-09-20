@@ -1,0 +1,5 @@
+import NSFormalization.Section3.T15.SobolevPath
+#print axioms NSFormalization.Section3.T15.contDiffOn_periodize_of_slice_support
+#print axioms NSFormalization.Section3.T15.periodizedVelocity_contDiffOn
+#print axioms NSFormalization.Section3.T15.periodized_sobolev
+#print axioms NSFormalization.Section3.T15.periodized_pressure_gradient

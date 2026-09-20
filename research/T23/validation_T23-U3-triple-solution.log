@@ -1,0 +1,13 @@
+Lane 482 final validation, 2026-09-19
+Dependency closure: PASS (10087 jobs)
+PressureNormalization / Triple / Solution build: PASS (10090 jobs)
+Direct Lean checks, three production files: PASS, zero output each
+Original-Spec field probe and guarded consumer axioms: PASS, zero output
+Production axiom audit: PASS, 42 declarations, exact standard three axioms
+Original Spec byte inclusion: PASS
+New production forbidden-token and heartbeat-override scan: PASS
+Project/vendor import closure: 1327 resolved files, no forbidden import
+make check: PASS; historical umbrella admission and source_hashes_match:false disclosed
+lake test: PASS (11015 jobs)
+make test-mutations: PASS, all four mutation outcomes correct
+git diff --check: PASS

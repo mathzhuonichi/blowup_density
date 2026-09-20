@@ -1,0 +1,14 @@
+import NSFormalization.Section3.T11.CriterionBridge
+
+open NSFormalization.Section3.T11
+
+#print axioms periodicSobolevENorm_eq_datum
+#print axioms exists_periodicDatum_smooth
+#print axioms periodicSobolevENorm_ne_top_smooth
+#print axioms norm_periodicDatum
+#print axioms periodicSobolevENorm_eq_of_datum
+#print axioms periodicSobolevENorm_eq_smooth
+#print axioms continuousOn_periodicSobolevENorm
+#print axioms aemeasurable_periodicSobolevENorm
+#print axioms continuousOn_h2SquaredProfile
+#print axioms squaredHTwoIntegralT_ne_top_iff_finiteH2Energy
