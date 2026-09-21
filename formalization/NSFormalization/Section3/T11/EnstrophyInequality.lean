@@ -595,4 +595,62 @@ theorem convection_bound_of_norm_bridgesT (z : SpatialField) (hz : SmoothPeriodi
   · rfl
   · rw [← hd]; ring
 
+/-- Explicit coefficient in the physical convection bound. -/
+def convectionConstT : ℝ := Real.sqrt 2 * velocitySixConstT * Real.sqrt Csix
+
+/-- Physical convection bound in full H¹ energy, retaining the mean. -/
+theorem convection_boundT (z : SpatialField) (hz : SmoothPeriodicT z)
+    (hGradient : periodicLpENorm 2 (gradientTensor z) ≤
+      ENNReal.ofReal (Real.sqrt (gradientSqT z))) :
+    |periodicPairing (fun x => advection (lift z) 0 x) (laplacian z)| ≤
+      convectionConstT * (lTwoSqT z + gradientSqT z) ^ (3 / 4 : ℝ) *
+        laplacianSqT z ^ (3 / 4 : ℝ) := by
+  have hU : 0 ≤ lTwoSqT z := sq_nonneg _
+  have hG : 0 ≤ gradientSqT z := sq_nonneg _
+  have hL : 0 ≤ laplacianSqT z := sq_nonneg _
+  have hC : 0 ≤ velocitySixConstT := by
+    have := cutoffGradBound_nonneg
+    have := NSFormalization.Section4.A05.gradientL6Const_pos
+    unfold velocitySixConstT
+    positivity
+  have hCs := Csix_pos.le
+  have hu : periodicLpENorm 2 z = ENNReal.ofReal (Real.sqrt (lTwoSqT z)) := by
+    rw [lTwoSqT, Real.sqrt_sq ENNReal.toReal_nonneg]
+    exact (ENNReal.ofReal_toReal (memLp_torusLift_vector hz.1.continuous 2).2.ne).symm
+  have hl : periodicLpENorm 2 (laplacian z) = ENNReal.ofReal (Real.sqrt (laplacianSqT z)) := by
+    rw [laplacianSqT, Real.sqrt_sq ENNReal.toReal_nonneg,
+      ENNReal.ofReal_toReal (T20.periodicLpENorm_two_laplacian_ne_top z hz)]
+  have h := convection_bound_of_norm_bridgesT z hz (Real.sqrt_nonneg _) (Real.sqrt_nonneg _)
+    (Real.sqrt_nonneg _) hu.le hGradient hl.le
+  have hsqrt : Real.sqrt (lTwoSqT z) + Real.sqrt (gradientSqT z) ≤
+      Real.sqrt 2 * Real.sqrt (lTwoSqT z + gradientSqT z) := by
+    have h1 := Real.sq_sqrt hU
+    have h2 := Real.sq_sqrt hG
+    have h3 := Real.sq_sqrt (add_nonneg hU hG)
+    have h4 := Real.sq_sqrt (show (0 : ℝ) ≤ 2 by norm_num)
+    have hp : 0 ≤ Real.sqrt 2 * Real.sqrt (lTwoSqT z + gradientSqT z) := by positivity
+    nlinarith [sq_nonneg (Real.sqrt (lTwoSqT z) - Real.sqrt (gradientSqT z)),
+      Real.sqrt_nonneg (lTwoSqT z), Real.sqrt_nonneg (gradientSqT z)]
+  have hr (x : ℝ) (hx : 0 ≤ x) (p : ℝ) :
+      (Real.sqrt x) ^ p = x ^ ((1 / 2 : ℝ) * p) := by
+    rw [Real.sqrt_eq_rpow, ← Real.rpow_mul hx]
+  rw [hr _ hG, hr _ hL] at h
+  norm_num only [show (1 / 2 : ℝ) * (1 / 2) = 1 / 4 by norm_num,
+    show (1 / 2 : ℝ) * (3 / 2) = 3 / 4 by norm_num] at h
+  have hg : gradientSqT z ^ (1 / 4 : ℝ) ≤
+      (lTwoSqT z + gradientSqT z) ^ (1 / 4 : ℝ) := by
+    apply Real.rpow_le_rpow hG (by linarith) (by norm_num)
+  have hpow : Real.sqrt (lTwoSqT z + gradientSqT z) *
+      (lTwoSqT z + gradientSqT z) ^ (1 / 4 : ℝ) =
+      (lTwoSqT z + gradientSqT z) ^ (3 / 4 : ℝ) := by
+    rw [Real.sqrt_eq_rpow, ← Real.rpow_add' (add_nonneg hU hG) (by norm_num)]
+    norm_num
+  apply h.trans
+  calc _ ≤ velocitySixConstT * (Real.sqrt 2 * Real.sqrt (lTwoSqT z + gradientSqT z)) *
+      (lTwoSqT z + gradientSqT z) ^ (1 / 4 : ℝ) * Csix ^ (1 / 2 : ℝ) *
+        laplacianSqT z ^ (3 / 4 : ℝ) := by gcongr
+    _ = _ := by
+      rw [convectionConstT, Real.sqrt_eq_rpow Csix, ← hpow]
+      ring
+
 end NSFormalization.Section3.T11
