@@ -51,7 +51,9 @@
 | 501-T24-P5c-assembly-registration | astra 完成：MultipleOmegaAssembly（30 字段装配 + multipleRegionsOmegaStatement_holds + 非空探针）+ T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B → 审中 sol | 09-21 0418Z | — | P5.5：30 字段装配 + multipleRegionsOmegaStatement + T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B |
 | 502-MAINT-core-refresh | 第一次刷新完成（基于 493 态：22/5，65 声明审计，四闸门 + paper 绿）；492 已合入后过期，等 494/495/501 合入再 cont 续跑 | 09-21 0416Z | — | MAINT：合入批次后刷新 core 的生成物（公理审计、DEPENDENCY_GRAPH、计数、PDF），使 make check 全绿 |
 | 503-P21-B0-h1-norm-bridges | worktree 安装中 → codex sol（窗口 <7 时启动） | 09-21 0401Z | — | P6 Route B B0：H¹/H² Fourier 范数 ↔ 导数能量桥（两域）+ 平移力上界 + 目标陈述 Targets.lean |
-| 504-P21-B1-enstrophy-r3 | worktree 安装中 → codex astra | 09-21 0401Z | — | P6 Route B B1：ℝ³ 上一般（无临界小性）涡量微分不等式 Y' + cνZ ≤ Cν(1+Y)³ + Cν‖f‖² |
+| 504-P21-B1-enstrophy-r3 | astra 完成：EnstrophyInequality.lean 16 引理（Hölder 6-3-2、L³ 插值、L⁶≤∇L²、Young、加权立方装配），最终定理只带 3 个 B0 范数桥假设 → 审中 sol | 09-21 0424Z | — | P6 Route B B1：ℝ³ 上一般（无临界小性）涡量微分不等式 Y' + cνZ ≤ Cν(1+Y)³ + Cν‖f‖² |
+| 505-P21-B2-enstrophy-torus | worktree 安装中（504 分支 + core）→ codex astra | 09-21 0424Z | — | P6 B2：𝕋³ 涡量微分不等式（保留均值与 L² 能量），镜像 B1 引理序列 |
+| 506-P21-B3-ode-barrier | worktree 安装中 → codex astra | 09-21 0424Z | — | P6 B3：一致 ODE 屏障（d、Ybar 只依赖 c,C,K₀,F）+ 积分耗散界 + 端点单调极限（纯实分析） |
 | 499-P21-P6-h1-assessment | 已合入 #457（评估：建议先留 Partial；若做，走 Route B 光滑数据 H¹ restart + 现有续接，L–XL） | 09-21 0400Z | #457 | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
 
 下一号 **505**（501 = P5 装配 + 注册、502 = core 刷新已预留）。
