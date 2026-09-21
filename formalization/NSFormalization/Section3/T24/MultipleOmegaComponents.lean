@@ -16,7 +16,7 @@ open NSFormalization.Section4.A02 (SpatialField)
 open scoped ContDiff Topology
 
 /-- Raw packet clauses consumed by T15, and the prescribed regions
-(`03-torus.tex:697-706`). No placement or solution is assumed. -/
+(`paper/revised/sections/03-torus.tex:511-520`). No placement or solution is assumed. -/
 structure RegionsOmegaData (ν : ℝ) (u : VelocityField) (p : PressureField)
     (f : VelocityField) (K : Set Space) (M E : ℝ) where
   packet : NSFormalization.Section4.I03.PacketData u K M E

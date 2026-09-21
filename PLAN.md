@@ -41,15 +41,19 @@
 | lane | 状态 | 时间 | PR | 说明 |
 |---|---|---|---|---|
 | 491-MAINT-main-build-check | 已合入 #455（587 模块 rc 0，29 合同，四闸门 + make paper + 公理审计全绿；不绿：54 条本地 warning、Bindings/BoundedDomainNorm 三个 defProp） | 09-21 0353Z | #455 | owner 新 main（lakefile/vendor 变更）全量重编 + 四闸门 + `audit_article_axioms` |
-| 492-T19-P1-prescribed-ball | astra 完成 → 审中 sol | 09-21 0356Z | — | P1 Thm 3.6 任意给定球：placementDataAt + insertionAt + periodicInsertion_from_data + T03.periodic_insertion_v2 + 蓝图 |
-| 493-T17-P2-article-scope | astra 完成 → 审中 sol | 09-21 0355Z | — | P2 Lemma 3.5 文章形式：correctionStatementArticle（经典参照 + 零延拓识别）+ T02.correction_v2 + 蓝图 |
-| 494-T18-P3-force-amplitude | astra 完成：ForceAmplitude.lean（F ≠ 0、sup 缩放恒等、H_ε ≤ Cε⁻²、下界 + 发散 𝓝 ⊤/atTop）+ T03.force_amplitude + 蓝图 → 审中 sol | 09-21 0400Z | — | P3 Remark 3.13：F ≠ 0、周期化缩放力的 sup 范数 ε⁻³‖F‖∞、H_ε ≤ Cε⁻²、发散 + T03.force_amplitude + 蓝图 |
-| 495-T24-P4-conservative-domain | astra 8 分钟完成：ConservativeOmega.lean（pairing 经 IBP、restSolutionOmega、零能量⇒零）+ T04.conservative_forcing_v2（30 合同）+ 蓝图/guide/计数 22/5 + 四闸门 + make paper → 审中 sol | 09-21 0348Z | — | P4 Prop 3.17 有界域：ConservativeForcingOmegaAPI（pairing 经 IBP.integral_pressure_energy_zero；从静止为零）+ T04.conservative_forcing_v2 + 蓝图 |
+| 492-T19-P1-prescribed-ball | 已合入 #459（审稿仅 --base-ref 工具问题 REJECT，其余全过；lead 裁定合入；T03.periodic_insertion_v2） | 09-21 0415Z | #459 | P1 Thm 3.6 任意给定球：placementDataAt + insertionAt + periodicInsertion_from_data + T03.periodic_insertion_v2 + 蓝图 |
+| 493-T17-P2-article-scope | 已合入 #458（审稿仅因 --base-ref 工具问题 REJECT，数学/保真/公理/变异全过；lead 裁定合入；T02.correction_v2） | 09-21 0408Z | #458 | P2 Lemma 3.5 文章形式：correctionStatementArticle（经典参照 + 零延拓识别）+ T02.correction_v2 + 蓝图 |
+| 494-T18-P3-force-amplitude | 已合入 #461（审稿仅 --base-ref 工具问题 REJECT，其余全过；lead 裁定合入；T03.force_amplitude） | 09-21 0421Z | #461 | P3 Remark 3.13：F ≠ 0、周期化缩放力的 sup 范数 ε⁻³‖F‖∞、H_ε ≤ Cε⁻²、发散 + T03.force_amplitude + 蓝图 |
+| 495-T24-P4-conservative-domain | 已合入 #463（审稿仅 --base-ref 工具问题 REJECT，其余全过；lead 裁定合入；T04.conservative_forcing_v2） | 09-21 0434Z | #463 | P4 Prop 3.17 有界域：ConservativeForcingOmegaAPI（pairing 经 IBP.integral_pressure_energy_zero；从静止为零）+ T04.conservative_forcing_v2 + 蓝图 |
 | 496-T24-P5-spec-multiple-domain | 已合入 #456（astra 规范：30 字段，去 scaling 加 no_slip；lead 比对通过；entrypoints 补一行） | 09-21 0355Z | #456 | P5 步骤 1：MultipleRegionsOmegaAPI 规范（镜像环面 30 字段）+ canonical 记录 + 拆分 |
-| 497-T24-P5a-domain-components-sum | worktree 安装中（core，含 496）→ codex astra | 09-21 0355Z | — | P5.1+P5.2：Ω 上的分量（无周期化缩放包 → ClassicalSolutionOmega）与有限和解（交叉输运为零、no-slip、gauge） |
-| 500-T24-P5b-domain-blowup-energy | worktree 安装中 → codex astra，与 497 并行（穿线假设） | 09-21 0355Z | — | P5.3+P5.4：每球 region_agreement/region_blowup + 能量/耗散可加性（限制积分 = 全空间积分） |
-| 503-P21-B0-h1-norm-bridges | worktree 安装中 → codex sol（窗口 <7 时启动） | 09-21 0401Z | — | P6 Route B B0：H¹/H² Fourier 范数 ↔ 导数能量桥（两域）+ 平移力上界 + 目标陈述 Targets.lean |
-| 504-P21-B1-enstrophy-r3 | worktree 安装中 → codex astra | 09-21 0401Z | — | P6 Route B B1：ℝ³ 上一般（无临界小性）涡量微分不等式 Y' + cνZ ≤ Cν(1+Y)³ + Cν‖f‖² |
+| 497-T24-P5a-domain-components-sum | 已合入 #460（codex 审稿 ACCEPT-WITH-NOTES，引用已改） | 09-21 0420Z | #460 | P5.1+P5.2：Ω 上的分量（无周期化缩放包 → ClassicalSolutionOmega）与有限和解（交叉输运为零、no-slip、gauge） |
+| 500-T24-P5b-domain-blowup-energy | 已合入 #462（codex 审稿 ACCEPT-WITH-NOTES） | 09-21 0423Z | #462 | P5.3+P5.4：每球 region_agreement/region_blowup + 能量/耗散可加性（限制积分 = 全空间积分） |
+| 501-T24-P5c-assembly-registration | astra 完成：MultipleOmegaAssembly（30 字段装配 + multipleRegionsOmegaStatement_holds + 非空探针）+ T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B → 审中 sol | 09-21 0418Z | — | P5.5：30 字段装配 + multipleRegionsOmegaStatement + T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B |
+| 502-MAINT-core-refresh | 第一次刷新基于 493 态；495 合入后 cont 续跑（core @ 33 合同，剩 L21_H1、M316_B） | 09-21 0434Z | — | MAINT：合入批次后刷新 core 的生成物（公理审计、DEPENDENCY_GRAPH、计数、PDF），使 make check 全绿 |
+| 503-P21-B0-h1-norm-bridges | sol 完成：两域 H¹/H² 范数 ↔ 导数能量恒等式、平移力上界、四个目标陈述 Targets.lean（23 声明标准公理）→ 审中 sol（重点：是否逐字放电 B1 的三个桥假设） | 09-21 0431Z | — | P6 Route B B0：H¹/H² Fourier 范数 ↔ 导数能量桥（两域）+ 平移力上界 + 目标陈述 Targets.lean |
+| 504-P21-B1-enstrophy-r3 | astra 完成：EnstrophyInequality.lean 16 引理（Hölder 6-3-2、L³ 插值、L⁶≤∇L²、Young、加权立方装配），最终定理只带 3 个 B0 范数桥假设 → 审中 sol | 09-21 0424Z | — | P6 Route B B1：ℝ³ 上一般（无临界小性）涡量微分不等式 Y' + cνZ ≤ Cν(1+Y)³ + Cν‖f‖² |
+| 505-P21-B2-enstrophy-torus | worktree 安装中（504 分支 + core）→ codex astra | 09-21 0424Z | — | P6 B2：𝕋³ 涡量微分不等式（保留均值与 L² 能量），镜像 B1 引理序列 |
+| 506-P21-B3-ode-barrier | worktree 安装中 → codex astra | 09-21 0424Z | — | P6 B3：一致 ODE 屏障（d、Ybar 只依赖 c,C,K₀,F）+ 积分耗散界 + 端点单调极限（纯实分析） |
 | 499-P21-P6-h1-assessment | 已合入 #457（评估：建议先留 Partial；若做，走 Route B 光滑数据 H¹ restart + 现有续接，L–XL） | 09-21 0400Z | #457 | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
 
-下一号 **505**（501 = P5 装配 + 注册、502 = core 刷新已预留）。
+下一号 **507**（B4、B5 预留 507、508）。
