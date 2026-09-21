@@ -23,7 +23,7 @@ an assumed analytic theorem from an ordinary hypothesis.
   coordinate ball.
 
 The other Partial entries are Proposition 2.1, Lemma 3.5, Remark 3.13, and
-Proposition 3.16. Their precise limits remain in the guide.
+Proposition 3.17. Their precise limits remain in the guide.
 
 ## The 22 Closed entries
 
@@ -46,7 +46,7 @@ below records why a helper record is not being accepted as an unproved input.
 | Proposition 3.12 | `projectionStatement_holds` obtains both clauses from the constructed `projectionAPI`. |
 | Corollary 3.14 | `boundaryInsertion_from_data` takes only domain, ball, time, datum, force and reference-solution hypotheses. It instantiates `packetImportFamily.select`, `domainPlacementData`, `Contract.placeFrom` and the proved bounded-domain norm record before applying the insertion theorem. No packet, norm, correction or boundary-identity supplier is a caller argument. |
 | Proposition 3.15 | `affineVariationPacket` is instantiated at the compiled selected packet. Remaining arguments are the stated affine vector and positive radius/time parameters. |
-| Proposition 3.17 | `conservativeForcing` and `conservativeForcingOmega` cover both branches. On a bounded box-or-regular-level domain the smooth potential has no periodicity or temporal-support hypothesis. The pairing follows directly from proved boundary IBP; the energy identity against the normalized-pressure rest solution has zero convection term and nonpositive derivative, so zero initial energy yields pointwise zero velocity. No boundary identity or uniqueness supplier is a caller input. |
+| Proposition 3.16 | `multipleRegionsStatementV2_holds` conjoins the torus theorem and the bounded-domain no-slip theorem. The latter constructs all thirty fields from raw packet projections, prescribed box-or-regular-level domain geometry, and disjoint interior balls. Concrete components supply every support, scaling, blow-up and norm hypothesis; no solution or analytic supplier is a caller premise. The registered packet gives a unit-box witness at viscosity and terminal time one. |
 | Theorem 4.1 | `mainThresholds` is a closed record. Its density branch invokes `insertionLifespanV2_of_data`; its converse invokes the proved critical estimates. |
 | Theorem 4.2 | `wholeSpaceInsertion_holds` selects one proved building block before the reference and region. It constructs an interior ball in every prescribed nonempty open set, keeps the given velocity and pressure definitionally, and proves every displayed clause for one family. The time margin is halved, so the original reference supplies strict continuation without an additional hypothesis. |
 | Proposition 4.3 | `universal_of_memForceR` takes only viscosity, datum/force-class and smallness hypotheses. Maximal existence and fixed-force H7 continuation are supplied by compiled theorems. |

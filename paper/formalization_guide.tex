@@ -122,8 +122,10 @@ The positive finite packet amplitude gives the displayed lower bound and diverge
 \source{F/Section3/T22/Assembly}{25}{boundedDomainNorm}{theorem}.
 \\
 \mapped{Proposition}{prop:affine} & \coverage{Closed}\source{B/AffineVariation}{109}{affineVariationPacket}{theorem}. Instantiated at the selected upstream building block. \\
-\mapped{Proposition}{prop:multiple} & \coverage{Partial}\source{F/Section3/T24/MultipleAssembly}{51}{multipleRegionsStatement_holds}{theorem}.
-Periodic case; the bounded-domain variant is not included. \\
+\mapped{Proposition}{prop:multiple} & \coverage{Closed}\source{F/Section3/T24/MultipleAssembly}{51}{multipleRegionsStatement_holds}{theorem};
+\source{F/Section3/T24/MultipleOmegaAssembly}{59}{multipleRegionsOmegaStatement_holds}{theorem};
+\source{B/MultipleRegionsV2}{167}{multipleRegionsStatementV2_holds}{theorem}.
+Both torus and bounded box-or-regular-level domain branches, with homogeneous no-slip on the latter. \\
 \mapped{Proposition}{prop:conservative} & \coverage{Closed}\source{F/Section3/T24/ConservativeAssembly}{45}{conservativeForcing}{theorem};
 \source{F/Section3/T24/ConservativeOmega}{126}{conservativeForcingOmega}{theorem}.
 Periodic potentials on the torus and smooth potentials on bounded box-or-regular-level domains with homogeneous no-slip. \\

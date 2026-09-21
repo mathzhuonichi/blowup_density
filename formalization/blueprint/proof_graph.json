@@ -411,17 +411,21 @@
     {
       "id": "M316_B",
       "title": "Proposition 3.16: bounded-domain case",
-      "status": "Partial",
+      "status": "Closed",
       "article_label": "prop:multiple",
-      "scope": "The bounded-domain no-slip variant has not been assembled.",
+      "scope": "Bounded box-or-regular-level domain no-slip variant assembled from un-periodised building blocks: zero initial velocity, separate blow-up in each prescribed disjoint interior ball, finite energy and exact dissipation sum.",
       "evidence": [
-        "formalization/NSFormalization/Section3/T24/Multiple.lean"
+        "formalization/NSFormalization/Section3/T24/MultipleOmegaComponents.lean",
+        "formalization/NSFormalization/Section3/T24/MultipleOmegaAssembled.lean",
+        "formalization/NSFormalization/Section3/T24/MultipleOmegaRegions.lean",
+        "formalization/NSFormalization/Section3/T24/MultipleOmegaAssembly.lean",
+        "verification/Bindings/MultipleRegionsV2.lean"
       ],
-      "depends_on": [],
-      "completion_from": [
+      "depends_on": [
         "M316",
         "B314"
-      ]
+      ],
+      "completion_from": []
     },
     {
       "id": "C317",

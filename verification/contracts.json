@@ -363,6 +363,17 @@
       "declaration": "BlowupDensity.Tests.checkedConservativeForcingV2",
       "scope": "Proposition 3.17, both branches: periodic potential on the torus; smooth potential on a bounded box-or-regular-level domain with homogeneous no-slip; pairing vanishes and the solution from rest is zero on its lifespan. Zero velocity requires positive viscosity; pairing holds for arbitrary viscosity. No temporal support assumption is imposed on the potential.",
       "enabled": true
+    },
+    {
+      "id": "T04.multiple_regions_v2",
+      "parent_task": "T24",
+      "version": 2,
+      "specification": "verification/Contracts/V2/MultipleRegions.lean",
+      "binding_module": "Bindings.MultipleRegionsV2",
+      "test_module": "Tests.MultipleRegionsV2",
+      "declaration": "BlowupDensity.Tests.checkedMultipleRegionsV2",
+      "scope": "Proposition 3.16, both branches: finitely many disjoint interior balls in the torus, and in a bounded box-or-regular-level domain with homogeneous no-slip; zero initial velocity, smooth on [0,T), finite energy and dissipation, separate limsup blow-up in each ball.",
+      "enabled": true
     }
   ]
 }
