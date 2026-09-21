@@ -49,4 +49,34 @@ theorem sobolevEnergy_one_smooth (Z : SmoothL2Field Space) :
   congr 1
   simpa only [norm_toLp_sq_eq_l2Sq, l2Sq, gradientSq, axis, coordinateVector] using gradientSq_eq_sum Z
 
+/-- The exact H² identity, including all low-frequency terms. -/
+theorem sobolevEnergy_two_smooth (Z : SmoothL2Field Space) :
+    (sobolevENorm 2 Z.field).toReal ^ 2 =
+      l2Sq Z.field + 2 * gradientSq Z.field + laplacianSq Z.field := by
+  have h := sobolevEnergy_succ_smooth Z 1
+  norm_num only [Nat.cast_one, one_add_one_eq_two] at h
+  rw [h]
+  simp_rw [sobolevEnergy_one_smooth]
+  rw [Finset.sum_add_distrib]
+  have hg : (∑ j : Fin 3, l2Sq (Z.directionalField (coordinateVector j)).field) =
+      gradientSq Z.field := by
+    simpa only [norm_toLp_sq_eq_l2Sq, l2Sq, gradientSq, axis, coordinateVector]
+      using gradientSq_eq_sum Z
+  have hh : (∑ j : Fin 3, gradientSq (Z.directionalField (coordinateVector j)).field) =
+      laplacianSq Z.field := by
+    have he (j : Fin 3) : (Z.directionalField (coordinateVector j)).field =
+        A05.dirDeriv j Z.field := rfl
+    have hdir (j : Fin 3) : gradientSq (Z.directionalField (coordinateVector j)).field =
+        ∑ i : Fin 3, ∫ x, ‖A05.dirDeriv i (A05.dirDeriv j Z.field) x‖ ^ 2 := by
+      have hh := (gradientSq_eq_sum (Z.directionalField (coordinateVector j))).symm
+      simp only [norm_toLp_sq_eq_l2Sq, directionalField_field] at hh
+      rw [he] at hh
+      rw [he]
+      simpa only [gradientSq, A05.dirDeriv, axis, coordinateVector] using hh
+    simp_rw [hdir]
+    rw [Finset.sum_comm]
+    exact A05.sum_integral_hessian ⟨Z.smooth, Z.integrable⟩
+  rw [hg, hh]
+  ring
+
 end NSFormalization.Section4.A04
