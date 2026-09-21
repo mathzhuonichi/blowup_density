@@ -241,7 +241,7 @@ theorem weightedEnergyIdentity_smoothT
   have he : (fun x => convectionFieldT w.velocity (t, x)) =
       (fun x => advection (lift (fun y => w.velocity (t, y))) 0 x) := rfl
   rw [he] at hd
-  convert hd using 1 <;> ring
+  convert hd using 1; ring
 
 /-- Shift-compatible enstrophy inequality, with no norm-bridge premises. -/
 theorem enstrophy_differential_smoothT

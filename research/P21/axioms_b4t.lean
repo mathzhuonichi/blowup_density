@@ -184,4 +184,3 @@ run_cmd do
   let expected := #[``propext, ``Classical.choice, ``Quot.sound]
   unless actual.size == 3 && expected.all actual.contains do
     throwError "Expected exactly the three standard axioms"
-
