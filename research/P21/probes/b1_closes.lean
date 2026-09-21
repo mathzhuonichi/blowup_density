@@ -2,3 +2,5 @@ import NSFormalization.Section4.A04.EnstrophyInequality
 #check NSFormalization.Section4.A04.inhomogeneousEnergyIdentity
 
 #check NSFormalization.Section4.A04.lintegral_convection_holder_632
+
+#check NSFormalization.Section4.A04.eLpNorm_three_interpolation

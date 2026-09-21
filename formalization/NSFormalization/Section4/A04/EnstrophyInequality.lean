@@ -117,4 +117,29 @@ theorem lintegral_convection_holder_632 (z : Space → Space) (hz : SmoothL2 z) 
   exact (lintegral_mono hpt).trans hHolder
 
 
+/-- L³ interpolation between L² and L⁶, including infinite norms. -/
+theorem eLpNorm_three_interpolation {E : Type*} [NormedAddCommGroup E] (g : NavierStokes.ProblemStatement.Space → E)
+    (hg : AEStronglyMeasurable g volume) :
+    eLpNorm g 3 volume ≤ (eLpNorm g 2 volume) ^ (1 / 2 : ℝ) *
+      (eLpNorm g 6 volume) ^ (1 / 2 : ℝ) := by
+  have h := ENNReal.lintegral_mul_norm_pow_le
+    (hg.enorm.pow_const (2 : ℝ)) (hg.enorm.pow_const (6 : ℝ))
+    (p := (3 / 4 : ℝ)) (q := (1 / 4 : ℝ)) (by norm_num) (by norm_num) (by norm_num)
+  have he : (fun x => (‖g x‖ₑ ^ (2 : ℝ)) ^ (3 / 4 : ℝ) *
+      (‖g x‖ₑ ^ (6 : ℝ)) ^ (1 / 4 : ℝ)) = fun x => ‖g x‖ₑ ^ (3 : ℝ) := by
+    funext x
+    rw [← ENNReal.rpow_mul, ← ENNReal.rpow_mul, ← ENNReal.rpow_add_of_nonneg _ _ (by norm_num) (by norm_num)]
+    norm_num
+  rw [he] at h
+  have hh := ENNReal.rpow_le_rpow h (by norm_num : (0 : ℝ) ≤ 1 / 3)
+  simp only [ENNReal.mul_rpow_of_nonneg _ _ (by norm_num : (0 : ℝ) ≤ 1 / 3),
+    ← ENNReal.rpow_mul] at hh
+  simp only [eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num : (3 : ℝ≥0∞) ≠ 0)
+    (by norm_num : (3 : ℝ≥0∞) ≠ ⊤),
+    eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num : (2 : ℝ≥0∞) ≠ 0)
+    (by norm_num : (2 : ℝ≥0∞) ≠ ⊤),
+    eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num : (6 : ℝ≥0∞) ≠ 0)
+    (by norm_num : (6 : ℝ≥0∞) ≠ ⊤), ENNReal.toReal_ofNat, ← ENNReal.rpow_mul]
+  convert hh using 1 <;> norm_num
+
 end NSFormalization.Section4.A04

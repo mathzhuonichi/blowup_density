@@ -14,3 +14,6 @@ Existing-file edits: entrypoints.json registers the new module as required.
 2. Closed Hölder with exponents 6,3,2 by adapting the existing C01 proof.
    First compile exposed namespace shadowing of `SpatialField`; fixed with
    explicit `Space → Space`. No analytic assumption was added.
+3. Closed L³ interpolation for any measurable normed-valued field via weighted
+   Hölder with weights 3/4,1/4 on |g|²,|g|⁶. The first rpow rewrite incorrectly
+   requested nonzero norms; `rpow_add_of_nonneg` handles zero and infinity.
