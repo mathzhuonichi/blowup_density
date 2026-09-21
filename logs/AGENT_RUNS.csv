@@ -1554,3 +1554,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-21,T18,494-T18-P3-force-amplitude,gpt-6-astra,closing-partial,"Section3/T18/ForceAmplitude.lean + T03.force_amplitude + blueprint R313 Closed; review REJECT on tooling only, lead ruling merge",merged,461
 2026-09-21,T24,500-T24-P5b-domain-blowup-energy,gpt-6-astra,proof-worker,"Section3/T24/MultipleOmegaRegions.lean: P5.3 region agreement/blow-up + P5.4 restricted energy/dissipation additivity; review ACCEPT-WITH-NOTES",merged,462
 2026-09-21,T24,495-T24-P4-conservative-domain,gpt-6-astra,closing-partial,"Section3/T24/ConservativeOmega.lean + T04.conservative_forcing_v2 + blueprint C317_B Closed; review REJECT on tooling only, lead ruling merge",merged,463
+2026-09-21,T24,501-T24-P5c-assembly-registration,gpt-6-astra,closing-partial,"Section3/T24/MultipleOmegaAssembly.lean + Contracts/Bindings/Tests MultipleRegionsV2 + T04.multiple_regions_v2 + blueprint M316_B Closed; review ACCEPT-WITH-NOTES",merged,464
