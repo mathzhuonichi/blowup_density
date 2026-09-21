@@ -330,6 +330,17 @@
       "declaration": "BlowupDensity.Tests.checkedCorrection3V2",
       "scope": "Lemma 3.5 with the article's hypotheses only: a periodic classical reference on [0,T+δ], the building-block placement and the Lemma 3.4 ball; the reference is zero-extended outside [0,T+δ) and identified with the article's v there. All 45 CorrectionAPI fields and displayed bounds are retained. The raw-field statement includes packet velocity support; correctionArticle_of_packet derives it from the registered PacketAPI.",
       "enabled": true
+    },
+    {
+      "id": "T03.periodic_insertion_v2",
+      "parent_task": "T18",
+      "version": 2,
+      "specification": "verification/Contracts/V2/PeriodicInsertion.lean",
+      "binding_module": "Bindings.PeriodicInsertionV2",
+      "test_module": "Tests.PeriodicInsertionV2",
+      "declaration": "BlowupDensity.Tests.checkedPeriodicInsertionV2",
+      "scope": "Theorem 3.6 from raw data for every prescribed coordinate ball whose closure lies in the interior of the fundamental cube; the building block is the registered packet; only the article's hypotheses are arguments. One positive threshold and one family satisfy exact lifespan, classical solution, limsup blowup, unchanged history, divergence-free difference with single-chart support in an epsilon-radius ball inside the prescribed ball, the simultaneous energy/mixed/Sobolev estimates with honest norm paths, and negative-order convergence. Constants are independent of epsilon and chosen before the norm indices. V1 is retained.",
+      "enabled": true
     }
   ]
 }

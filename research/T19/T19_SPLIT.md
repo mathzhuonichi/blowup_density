@@ -27,6 +27,13 @@ agrees on the entire original `Ico` slab (`extendByZero_velocity_eqOn`).
 All requested T18 exports, the subcritical Sobolev limit, and
 `exists_force_close hν ha hg hT hreg s hs r hr` are proved.
 
+**P1 status (lane 492, 2026-09-20): complete.**
+`T15.placementDataAt` and `T19.insertionAt` retain an arbitrary prescribed
+interior coordinate ball. `T19.periodicInsertion_from_data` proves all article
+clauses from raw data; `T03.periodic_insertion_v2` registers the result.
+Support is reduced to a single shrinking ball on the fundamental cube;
+history, divergence and energy use the original reference velocity.
+
 **U7/U8/U9/U13 route:** unpack `RegularThroughT` when necessary, then build
 `ins` = `T19.insertion hν ha hg hT hδ reference`. U7/U8 may call
 `T19.exists_force_close` directly; U9 uses the mixed bound; U13 uses the

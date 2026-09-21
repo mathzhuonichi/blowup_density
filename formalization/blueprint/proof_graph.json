@@ -209,17 +209,18 @@
     {
       "id": "G36_FULL",
       "title": "Theorem 3.6: prescribed ball",
-      "status": "Partial",
+      "status": "Closed",
       "article_label": "thm:insertion",
-      "scope": "The raw-data constructor uses a fixed placement. The complete quantification over an arbitrary prescribed coordinate ball is not closed.",
+      "scope": "Theorem 3.6 from raw data for every prescribed positive-radius coordinate ball whose closure lies in the interior of the fundamental cube. The registered packet supplies the building block; only article hypotheses are arguments. Includes exact lifespan, blowup, history, divergence-free single-chart shrinking support, simultaneous energy/mixed/Sobolev bounds and negative-order convergence.",
       "evidence": [
-        "formalization/NSFormalization/Section3/T18/Assembly.lean",
-        "formalization/NSFormalization/Section3/T19/Threading.lean"
+        "formalization/NSFormalization/Section3/T19/ThreadingAt.lean",
+        "formalization/NSFormalization/Section3/T19/FromData.lean",
+        "verification/Bindings/PeriodicInsertionV2.lean"
       ],
-      "depends_on": [],
-      "completion_from": [
+      "depends_on": [
         "G36"
-      ]
+      ],
+      "completion_from": []
     },
     {
       "id": "D37",
