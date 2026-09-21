@@ -229,9 +229,38 @@ theorem velocity_six_le_localized_gradientT (z : SpatialField) (hz : SmoothPerio
     _ ≤ _ := NSFormalization.Section4.A04.velocity_six_le_gradient_two
       (cutoffMul z) (smoothL2_cutoffMul hz.1)
 
+open NSFormalization.Section4.A05 (dirDeriv gradTensor)
+
+/-- Pointwise product estimate retaining the velocity term. -/
+theorem norm_gradient_cutoffMul_leT {z : SpatialField} (hz : ContDiff ℝ ∞ z)
+    (x : Space) :
+    ‖gradientTensor (cutoffMul z) x‖ ≤
+      3 * (cutoffGradBound * ‖z x‖ + ‖gradientTensor z x‖) := by
+  have hB := cutoffGradBound_nonneg
+  have hi (i : Fin 3) : ‖dirDeriv i (cutoffMul z) x‖ ≤
+      cutoffGradBound * ‖z x‖ + ‖gradientTensor z x‖ := by
+    rw [dirDeriv_cutoffMul_eq hz i]
+    calc ‖cutoff x • dirDeriv i z x + dirDeriv i cutoff x • z x‖
+        ≤ ‖cutoff x • dirDeriv i z x‖ + ‖dirDeriv i cutoff x • z x‖ := norm_add_le _ _
+      _ ≤ ‖gradientTensor z x‖ + cutoffGradBound * ‖z x‖ := by
+        rw [norm_smul, norm_smul]
+        have hc : ‖cutoff x‖ ≤ 1 := by
+          rw [Real.norm_eq_abs, abs_of_nonneg (cutoff_range x).1]
+          exact (cutoff_range x).2
+        have hd := norm_dirDeriv_le_norm_gradTensor z i x
+        have he := norm_dirDeriv_cutoff_le i x
+        nlinarith [mul_le_mul hc hd (norm_nonneg _) (by norm_num : (0 : ℝ) ≤ 1),
+          mul_le_mul_of_nonneg_right he (norm_nonneg (z x))]
+      _ = _ := by ring
+  change ‖gradTensor (cutoffMul z) x‖ ≤ _
+  rw [norm_gradTensor_eq]
+  apply Real.sqrt_le_iff.mpr
+  constructor
+  · positivity
+  · have h0 := sq_le_sq₀ (norm_nonneg _) (by positivity) |>.mpr (hi 0)
+    have h1 := sq_le_sq₀ (norm_nonneg _) (by positivity) |>.mpr (hi 1)
+    have h2 := sq_le_sq₀ (norm_nonneg _) (by positivity) |>.mpr (hi 2)
+    simp only [Fin.sum_univ_three]
+    nlinarith [sq_nonneg (cutoffGradBound * ‖z x‖ + ‖gradientTensor z x‖)]
+
 end NSFormalization.Section3.T11
-
-
-
-
-
