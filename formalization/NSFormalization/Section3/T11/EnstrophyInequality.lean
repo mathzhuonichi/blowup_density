@@ -655,7 +655,7 @@ theorem convection_boundT (z : SpatialField) (hz : SmoothPeriodicT z)
 
 /-- Pointwise enstrophy inequality with precisely the three torus norm bridges.
 The force class is the canonical T10 `MemForceT`, written `f ∈ forceClassT`. -/
-theorem enstrophy_differentialT
+theorem enstrophy_differential_of_norm_bridgesT
     {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
     (w : ClassicalSolutionT ν a f T) (hf : f ∈ forceClassT) (hν : 0 < ν)
     (hOne : ∀ s ∈ Ioo (0 : ℝ) T,
@@ -667,11 +667,10 @@ theorem enstrophy_differentialT
         laplacianSqT (fun x => w.velocity (t, x)))
     (hGradient : periodicLpENorm 2 (gradientTensor (fun x => w.velocity (t, x))) ≤
       ENNReal.ofReal (Real.sqrt (gradientSqT (fun x => w.velocity (t, x))))) :
-    let Cν := (2 * convectionConstT) ^ 4 / (ν / 2) ^ 3 + (1 + ν) + (1 + 2 / ν)
     deriv (fun s => (periodicSobolevENorm 1 (fun x => w.velocity (s, x))).toReal ^ 2) t +
         ν * (periodicSobolevENorm 2 (fun x => w.velocity (t, x))).toReal ^ 2 ≤
-      Cν * (1 + (periodicSobolevENorm 1 (fun x => w.velocity (t, x))).toReal ^ 2) ^ 3 +
-        Cν * lTwoSqT (fun x => f (t, x)) := by
+      ((2 * convectionConstT) ^ 4 / (ν / 2) ^ 3 + (1 + ν)) * (1 + (periodicSobolevENorm 1 (fun x => w.velocity (t, x))).toReal ^ 2) ^ 3 +
+        (1 + 2 / ν) * lTwoSqT (fun x => f (t, x)) := by
   have hz : SmoothPeriodicT (fun x => w.velocity (t, x)) :=
     ⟨classical_velocity_slice_contDiff w (Ioo_subset_Ico_self ht),
       w.velocity_periodic t (Ioo_subset_Ico_self ht)⟩
@@ -691,6 +690,27 @@ theorem enstrophy_differentialT
     (hOne t ht) hTwo (weightedEnergyIdentityT w hf ht).deriv hconv
     ((le_abs_self _).trans hP) ((neg_le_abs _).trans hQ)
   change _ ≤ _ + (1 + 2 / ν) * lTwoSqT (fun x => f (t, x)) at h
+  exact h
+
+/-- Fixed torus normalization κ=1, with one common coefficient Cν. -/
+theorem enstrophy_differentialT
+    {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionT ν a f T) (hf : f ∈ forceClassT) (hν : 0 < ν)
+    (hOne : ∀ s ∈ Ioo (0 : ℝ) T,
+      (periodicSobolevENorm 1 (fun x => w.velocity (s, x))).toReal ^ 2 =
+        lTwoSqT (fun x => w.velocity (s, x)) + gradientSqT (fun x => w.velocity (s, x)))
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T)
+    (hTwo : (periodicSobolevENorm 2 (fun x => w.velocity (t, x))).toReal ^ 2 ≤
+      lTwoSqT (fun x => w.velocity (t, x)) + 2 * gradientSqT (fun x => w.velocity (t, x)) +
+        laplacianSqT (fun x => w.velocity (t, x)))
+    (hGradient : periodicLpENorm 2 (gradientTensor (fun x => w.velocity (t, x))) ≤
+      ENNReal.ofReal (Real.sqrt (gradientSqT (fun x => w.velocity (t, x))))) :
+    let Cν := (2 * convectionConstT) ^ 4 / (ν / 2) ^ 3 + (1 + ν) + (1 + 2 / ν)
+    deriv (fun s => (periodicSobolevENorm 1 (fun x => w.velocity (s, x))).toReal ^ 2) t +
+        ν * (periodicSobolevENorm 2 (fun x => w.velocity (t, x))).toReal ^ 2 ≤
+      Cν * (1 + (periodicSobolevENorm 1 (fun x => w.velocity (t, x))).toReal ^ 2) ^ 3 +
+        Cν * lTwoSqT (fun x => f (t, x)) := by
+  have h := enstrophy_differential_of_norm_bridgesT w hf hν hOne ht hTwo hGradient
   dsimp only
   have hA : 0 ≤ (2 * convectionConstT) ^ 4 / (ν / 2) ^ 3 + (1 + ν) := by positivity
   have hB : 0 ≤ 1 + 2 / ν := by positivity
