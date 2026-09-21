@@ -34,4 +34,10 @@ theorem sobolevEnergy_succ_smooth (Z : SmoothL2Field Space) (m : ℕ) :
   simp_rw [A03.sobolevENorm_eq (hC _), toReal_enorm]
   exact norm_raise_sq_eq hA hC hw hg
 
+/-- Order zero is the physical energy on a smooth L² field. -/
+theorem sobolevEnergy_zero_smooth (Z : SmoothL2Field Space) :
+    (sobolevENorm 0 Z.field).toReal ^ 2 = l2Sq Z.field := by
+  rw [NSFormalization.Section3.T22.sobolevENorm_zero_eq_eLpNorm Z.memLp]
+  exact eLpNorm_toReal_sq_eq_l2Sq Z
+
 end NSFormalization.Section4.A04
