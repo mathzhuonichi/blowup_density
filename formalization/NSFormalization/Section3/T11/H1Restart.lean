@@ -572,4 +572,21 @@ theorem uniform_periodicHOne_lifespanT (ν : ℝ) (hν : 0 < ν)
   rw [← heq] at hbad
   exact (not_le_of_gt hRT) ((ENNReal.ofReal_le_ofReal_iff hR.le).mp hbad)
 
+/-- Fixed-force periodic restart: one positive duration before shift and smooth H¹ datum. -/
+theorem h1RestartT :
+    ∀ (ν : ℝ), 0 < ν → ∀ (f : SpaceTimeField), f ∈ forceClassT →
+      ∀ (S : ℝ), 0 ≤ S → ∀ (K : ℝ≥0∞), K ≠ ⊤ →
+        ∃ δ : ℝ, 0 < δ ∧ ∀ t₀ ∈ Icc (0 : ℝ) S,
+          ∀ (a' : SpatialField), a' ∈ initialClassT → periodicSobolevENorm 1 a' ≤ K →
+            ∃ w : ClassicalSolutionT ν a' (timeShiftT t₀ f) δ,
+              PeriodicLocalRegularity ν a' (timeShiftT t₀ f) δ w := by
+  intro ν hν f hf S hS K hK
+  obtain ⟨d, hd, hlife⟩ := uniform_periodicHOne_lifespanT ν hν f hf S hS K hK
+  refine ⟨d, hd, ?_⟩
+  intro t₀ ht₀ a ha hnorm
+  obtain ⟨u, p, hmax⟩ := exists_maximal_smoothT hν ha
+    (timeShiftT_contDiff hf.1 t₀) (timeShiftT_periodic hf.2.1 t₀)
+  obtain ⟨w, _, _⟩ := hmax.2 d hd (hlife t₀ ht₀ a ha hnorm)
+  exact ⟨w, periodicLocalRegularity_of_classical' (timeShiftT_contDiff hf.1 t₀) w⟩
+
 end NSFormalization.Section3.T11
