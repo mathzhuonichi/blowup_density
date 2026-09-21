@@ -40,7 +40,7 @@
 
 | lane | 状态 | 时间 | PR | 说明 |
 |---|---|---|---|---|
-| 491-MAINT-main-build-check | worktree 安装中 → codex sol | 09-21 0320Z | — | owner 新 main（lakefile/vendor 变更）全量重编 + 四闸门 + `audit_article_axioms` |
+| 491-MAINT-main-build-check | 已合入 #455（587 模块 rc 0，29 合同，四闸门 + make paper + 公理审计全绿；不绿：54 条本地 warning、Bindings/BoundedDomainNorm 三个 defProp） | 09-21 0353Z | #455 | owner 新 main（lakefile/vendor 变更）全量重编 + 四闸门 + `audit_article_axioms` |
 | 492-T19-P1-prescribed-ball | worktree 安装中（两串各 3 个）→ codex astra | 09-21 0335Z | — | P1 Thm 3.6 任意给定球：placementDataAt + insertionAt + periodicInsertion_from_data + T03.periodic_insertion_v2 + 蓝图 |
 | 493-T17-P2-article-scope | worktree 安装中（两串各 3 个）→ codex astra | 09-21 0335Z | — | P2 Lemma 3.5 文章形式：correctionStatementArticle（经典参照 + 零延拓识别）+ T02.correction_v2 + 蓝图 |
 | 494-T18-P3-force-amplitude | worktree 安装中（两串各 3 个）→ codex astra | 09-21 0335Z | — | P3 Remark 3.13：F ≠ 0、周期化缩放力的 sup 范数 ε⁻³‖F‖∞、H_ε ≤ Cε⁻²、发散 + T03.force_amplitude + 蓝图 |
