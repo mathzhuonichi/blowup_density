@@ -542,4 +542,20 @@ theorem weightedEnergyIdentityT
   rw [he] at hd
   convert hd using 1 <;> ring
 
+/-- Physical Cauchy–Schwarz on normalized Haar measure. -/
+theorem abs_pairing_carrier_leT (z b : SpatialField) (hz : Continuous z) (hb : Continuous b) :
+    |periodicPairing z b| ≤ Real.sqrt (lTwoSqT z) * Real.sqrt (lTwoSqT b) := by
+  have hzm := memLp_torusLift_vector hz 2
+  have hbm := memLp_torusLift_vector hb 2
+  have he : periodicPairing z b = inner ℝ (hzm.toLp (torusLift z))
+      (hbm.toLp (torusLift b)) := by
+    rw [L2.inner_def]
+    apply integral_congr_ae
+    filter_upwards [hzm.coeFn_toLp, hbm.coeFn_toLp] with x hx hy
+    rw [hx, hy]
+  rw [he, lTwoSqT, lTwoSqT, Real.sqrt_sq ENNReal.toReal_nonneg,
+    Real.sqrt_sq ENNReal.toReal_nonneg]
+  simpa only [Lp.norm_toLp, periodicLpENorm] using
+    abs_real_inner_le_norm (hzm.toLp (torusLift z)) (hbm.toLp (torusLift b))
+
 end NSFormalization.Section3.T11
