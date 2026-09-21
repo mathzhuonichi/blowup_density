@@ -56,4 +56,4 @@
 | 506-P21-B3-ode-barrier | worktree 安装中 → codex astra | 09-21 0424Z | — | P6 B3：一致 ODE 屏障（d、Ybar 只依赖 c,C,K₀,F）+ 积分耗散界 + 端点单调极限（纯实分析） |
 | 499-P21-P6-h1-assessment | 已合入 #457（评估：建议先留 Partial；若做，走 Route B 光滑数据 H¹ restart + 现有续接，L–XL） | 09-21 0400Z | #457 | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
 
-下一号 **505**（501 = P5 装配 + 注册、502 = core 刷新已预留）。
+下一号 **507**（B4、B5 预留 507、508）。
