@@ -27,6 +27,7 @@ example {ν U F P d : ℝ} (hν : 0 < ν) (hU : 0 ≤ U) (hF : 0 ≤ F)
 #check velocity_six_le_gradient_twoT
 #check weightedEnergyIdentityT
 #check convection_boundT
+#check enstrophy_differential_of_norm_bridgesT
 #check enstrophy_differentialT
 #check enstrophy_differential_on_IccT
 

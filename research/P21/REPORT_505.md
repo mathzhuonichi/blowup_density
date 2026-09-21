@@ -1,8 +1,11 @@
 # Lane 505 — P21 Route B, B2
 
-Status: **Partial.** Ten intermediate declarations are kernel-checked.
-The classical periodic enstrophy differential inequality is not yet proved.
-P6 / L21_H1 remains Partial.
+Status after cont_505: **B2 closed conditional only on the three torus norm
+bridges.** Both analytic residuals and the final classical periodic enstrophy
+inequality are kernel-checked. P6 / L21_H1 remains Partial.
+
+The original ten-declaration partial report is preserved below as history;
+the `cont` section supersedes its status and remaining-gap statements.
 
 ## 1. Statements
 
@@ -123,3 +126,107 @@ verification Lake configuration, and LEAN_NUM_THREADS=6.
 Logs are under ignored `tmp/b2-*.log` and `tmp/article-audit/`.
 Closed proof steps were committed separately. No push, merge, rebase,
 external message, or sub-agent launch was performed.
+
+## cont
+
+### 1. What was proved
+
+Residual A is closed by the cutoff product rule, the 343-cell covering and
+L² triangle inequality. The mean-retaining velocity estimate is
+`‖z‖₆ ≤ Cv (‖z‖₂ + ‖∇z‖₂)`, with
+`Cv = 3*343*A05.gradientL6Const*(1+cutoffGradBound)`.
+
+Residual B is closed by splitting the H¹ Fourier pairing into ordinary and
+Laplacian pairings, Parseval for dissipation, and periodic convection
+cancellation. Pressure cancellation is inherited from T11's unconditional
+energy identity. Physical force Cauchy–Schwarz is also proved.
+
+The final theorems `enstrophy_differentialT` and
+`enstrophy_differential_on_IccT` give
+
+```
+Y'(t) + ν Z(t) ≤ Cν (1+Y(t))^3 + Cν lTwoSqT(f(t))
+C = √2 * Cv * √Csix
+Cν = (2*C)^4/(ν/2)^3 + (1+ν) + (1+2/ν),   c=κ=1.
+```
+
+Here Y and Z are exactly the squared `toReal` registered periodic H¹/H²
+norms, and the mean is retained. The canonical solution is
+`T10.ClassicalSolutionT ν a f T`; `f ∈ forceClassT` is definitionally
+`T10.MemForceT f`. The compact-interval theorem has `0<r`, `s<T`, hOne on
+all interior times and hTwo/hGradient on Icc r s, matching B1's interface.
+
+### 2. What is in Lean
+
+`Section3/T11/EnstrophyInequality.lean` now has 30 proved theorems (20 new
+in this continuation). The main new exports are:
+
+- `cutoff_gradient_two_leT`, `velocity_six_le_gradient_twoT`;
+- `torusRealPairing_one_eqT`, `periodicPairing_convection_zeroT`,
+  `torusGradientNormAt_one_sqT`, `weightedEnergyIdentityT`;
+- `abs_pairing_carrier_leT`, `convection_bound_of_norm_bridgesT`,
+  `convection_boundT`;
+- `enstrophy_differential_of_norm_bridgesT`, `enstrophy_differentialT`,
+  `enstrophy_differential_on_IccT`.
+
+`research/P21/probes/b2_closes.lean` constructs an explicit zero classical
+solution with horizon 2 and applies the final theorem on [1/2,1], proving
+all bridge hypotheses. Its negative mutation removes the negative
+Laplacian dissipation from the energy-balance premise: the same scalar
+assembly application is rejected under `#guard_msgs`, and an independent
+counterexample proves that its proposed conclusion 3≤2 is false. Removing
+the positive dissipation term from the final conclusion would weaken the
+inequality, so cannot be a semantic negative test.
+
+`research/P21/axioms_b2.lean` checks all 30 exported theorems: each prints
+exactly the standard axiom set `[propext, Classical.choice, Quot.sound]`
+(some output wraps across lines) and passes TestSupport. No custom axiom,
+admission, assumed differential/nonlinear bound or extra heartbeat budget
+was introduced. Closed proof steps have separate `[505-P21-B2]` commits.
+`ATTEMPTS_B2.md` preserves failed paths and records the closed residuals;
+`P6_SPLIT.md` gives the exact final interface and B4 conversions.
+
+### 3. Gaps and scope
+
+There are **no remaining B2 analytic residuals**. The final theorem is
+conditional only on the three requested norm bridges. No lane-503 B0 module
+was imported or restated. B4 must reconcile its component-integral energies
+with T20 `lTwoSqT`, `gradientSqT`, and `laplacianSqT`; in particular
+`periodicHessianEnergy z = laplacianSqT z` is a periodic Parseval obligation,
+not a definitional equality or a theorem claimed by this lane.
+
+B3/B4/B5 remain responsible for the ODE/endpoint/lifespan/restart work;
+P6 / L21_H1 remains Partial. No initial-time or maximal-endpoint derivative
+is asserted. No contract, binding, registry, proof-graph coverage or article
+closure marker was changed. The inherited untracked lane brief is untouched.
+
+### 4. Commands and results
+
+All Lean commands sourced `scripts/lean-env.sh`, ran from `verification/`,
+and used `LEAN_NUM_THREADS=6`.
+
+- `lake build NSFormalization.Section3.T11.EnstrophyInequality`: passed,
+  10656 jobs.
+- `lake env lean ../research/P21/probes/b2_closes.lean`: passed, including
+  the explicit solution and the expected failed mutation.
+- `lake env lean ../research/P21/axioms_b2.lean`: passed; 30 standard-axiom
+  checks, including both final theorems.
+- `python3 experiments/audit_article_axioms.py --build --output-dir tmp/article-audit --workers 2`:
+  passed **before make check**; 69 declarations, 27 article entries,
+  zero forbidden-axiom results. Refreshed report copied to `AXIOM_AUDIT.json`.
+- `python3 experiments/check_formalization_plan.py`: passed; regeneration
+  produces no graph diff.
+- `make check`: failed **only** in
+  `test_recoloring_a_missing_clause_cannot_hide_whole_statement_partial`
+  with `AssertionError: AssertionError not raised`. The other ten policy
+  tests pass, as do packaging and `check_contracts.py --summary` (32 contracts).
+  This is the known C35_FULL fixture issue fixed by lane 509 (#465) on
+  erenup/core. The test was not edited, and core was not merged.
+- `make test`: passed (11015 build/test jobs).
+- `make test-mutations`: passed; refactor accepted and admitted proof,
+  extra axiom, weakened hypothesis rejected.
+- `make paper`: passed; both PDF logs and reader checks clean. No PDF diff.
+- `git diff --check`: passed.
+
+Logs: ignored `tmp/b2-cont-*.log` and `tmp/article-audit/`.
+No push, merge, rebase, external message or sub-agent launch was performed.

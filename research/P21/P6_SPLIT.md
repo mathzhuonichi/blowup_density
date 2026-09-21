@@ -7,7 +7,7 @@ article-level closure claims.
 |---|---|---|
 | B0 | lane 503 | Norm bridges / force cap; separate worktree, not imported here |
 | B1 | lane 504 | Analytic steps closed and kernel-checked; registered-norm inequality conditional only on the exact B0 bridges below |
-| B2 | lane 505 | Partial: full H¹ Fourier derivative, Haar Hölder/interpolation, gradient L⁶ for arbitrary mean, localized velocity L⁶, and scalar Young assembly closed; velocity embedding and physical pairing assembly remain |
+| B2 | lane 505 | Closed conditional only on the three torus norm bridges below; both analytic residuals and final differential inequality kernel-checked |
 | B3 | unassigned here | ODE barrier, integrated dissipation, endpoint monotone limit |
 | B4 | unassigned here | Maximal-lifespan contradiction and common smooth interval |
 | B5 | unassigned here | Uniform restart and final registration |
@@ -52,49 +52,70 @@ No initial-time derivative or endpoint time integral is asserted. Compact
 intervals lie strictly inside (0,T). B3 must still perform the uniform barrier
 and endpoint limit; strict-interior finiteness alone does not suffice.
 
-## B2 handoff (partial)
+## B2 handoff (closed conditional on three bridges)
 
-Module: `NSFormalization.Section3.T11.EnstrophyInequality`. Ten declarations
-are proved; see `REPORT_505.md` and `ATTEMPTS_B2.md` for exact residuals.
-There is **no** `enstrophy_differentialT` or
-`enstrophy_differential_on_IccT` yet. B3/B4 cannot consume this as a proved
-classical periodic differential inequality.
-
-`inhomogeneousEnergyIdentityT` differentiates the registered full H¹ norm,
-including the mean, but its RHS still uses Fourier H¹ pairings.
-`convection_interpolationT` still has the velocity L⁶ factor.
-`weighted_cubic_assemblyT` is scalar algebra: Y=U+G,
-Z≤U+2G+L, |N|≤C Y^(3/4) L^(3/4) give
+Module: `NSFormalization.Section3.T11.EnstrophyInequality`.
+Main theorem: `enstrophy_differential_on_IccT`; pointwise theorem:
+`enstrophy_differentialT`; separate-coefficient companion:
+`enstrophy_differential_of_norm_bridgesT`. Both residuals A/B are closed; see
+`ATTEMPTS_B2.md` and the cont section of `REPORT_505.md`.
 
 ```
-d + ν Z ≤ ((2C)^4/(ν/2)^3 + (1+ν)) (1+Y)^3 + (1+2/ν) F.
+Cv = velocitySixConstT = 3*343*A05.gradientL6Const*(1+cutoffGradBound)
+C = convectionConstT = √2 * Cv * √Csix
+c = κ = 1
+Cν = (2*C)^4/(ν/2)^3 + (1+ν) + (1+2/ν)
+Y(t) = (periodicSobolevENorm 1 (slice w.velocity t)).toReal^2
+Z(t) = (periodicSobolevENorm 2 (slice w.velocity t)).toReal^2
+Y'(t) + ν Z(t) ≤ Cν (1+Y(t))^3 + Cν lTwoSqT(slice f t)
 ```
 
-The periodic Fourier weight is 1+|2πk|², so κ=1, **not** the R³ κ in
-the B1 handoff. The corresponding three B0 interfaces, with z a velocity
-slice and namespaces T10/T12/T20 open, are:
+The force is `f ∈ T10.forceClassT`, definitionally `T10.MemForceT f`.
+The solution is canonical `T10.ClassicalSolutionT ν a f T`, with arbitrary
+initial datum and retained mean. No critical smallness is used.
+The three hypotheses, with z the appropriate velocity slice, are exactly:
 
 ```lean
+-- hOne: all times in Ioo 0 T
 (periodicSobolevENorm 1 z).toReal ^ 2 = lTwoSqT z + gradientSqT z
+-- hTwo: each time in Icc r s
 (periodicSobolevENorm 2 z).toReal ^ 2 ≤
   lTwoSqT z + 2 * gradientSqT z + laplacianSqT z
-eLpNorm (torusLift (gradientTensor z)) 2 periodicTorusMeasure ≤
+-- hGradient: each time in Icc r s
+periodicLpENorm 2 (gradientTensor z) ≤
   ENNReal.ofReal (Real.sqrt (gradientSqT z))
 ```
 
-As in B1, the first is needed on all interior times for a physical derivative
-transfer; the other two are pointwise on the compact interval. These are
-the intended normalized torus counterparts, not new B0 theorems. None is
-assumed by the ten delivered declarations; no final consumer has yet been
-proved in which to thread them. No B0 module was created or imported.
+The last left side is definitionally
+`eLpNorm (T10.torusLift (gradientTensor z)) 2 periodicTorusMeasure`.
+The energies are the existing T20 `lTwoSqT/gradientSqT/laplacianSqT`, each
+squared `toReal` of the corresponding periodic L² norm. The theorem assumes
+`0 < r`, `s < T`, and concludes at every `t ∈ Icc r s`, matching B1.
+No initial-time or maximal-endpoint assertion is made.
 
-The exact remaining localized velocity estimate is
+### Exact B4 reconciliation obligations with lane 503
+
+Lane 503's `H1Bridges.lean` is not imported or restated. For smooth periodic z,
+B4 needs these equalities between its physical component-integral energies
+and the T20 energies used here:
+
 ```lean
-eLpNorm (gradientTensor (cutoffMul z)) 2 volume ≤
-  343 * (3 * (ENNReal.ofReal cutoffGradBound * periodicLpENorm 2 z +
-    periodicLpENorm 2 (gradientTensor z)))
+periodicL2Energy z = T20.lTwoSqT z
+periodicGradientEnergy z = T20.gradientSqT z
+periodicHessianEnergy z = T20.laplacianSqT z
 ```
-for `SmoothPeriodicT z`. Together with the delivered localization theorem
-this gives a mean-retaining velocity L⁶ bound. The other residual is the
-physical RHS conversion of the full H¹ identity, spelled out in
-`ATTEMPTS_B2.md`. These are B2 analytic residuals, not B0 norm obligations.
+
+The first two are Haar/cube and finite-component L² norm conversions.
+The third is the periodic Parseval identity equating the sum of all ordered
+second-partial energies with the Laplacian energy; it is **an outstanding
+B4 reconciliation obligation**, not definitional equality and not proved here.
+After those conversions, rewriting lane 503's
+`periodicSobolevENorm_one_toReal_sq_eq` yields hOne; rewriting its
+`periodicSobolevENorm_two_toReal_sq_eq` and taking `.le` yields hTwo.
+For hGradient, prove the gradient L² norm finite from continuity on the torus,
+then rewrite `gradientSqT`, `Real.sqrt_sq ENNReal.toReal_nonneg` and
+`ENNReal.ofReal_toReal`; this is an ordinary norm conversion.
+
+There are no remaining B2 nonlinear/differential hypotheses. B3 still owes
+the ODE barrier and endpoint integration; B4/B5 still owe their respective
+lifespan/restart assemblies. P6 / L21_H1 remains Partial.

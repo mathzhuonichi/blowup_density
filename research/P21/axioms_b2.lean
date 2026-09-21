@@ -59,3 +59,6 @@ run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section3.T11.con
 run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section3.T11.enstrophy_differentialT
 #print axioms NSFormalization.Section3.T11.enstrophy_differential_on_IccT
 run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section3.T11.enstrophy_differential_on_IccT
+
+#print axioms NSFormalization.Section3.T11.enstrophy_differential_of_norm_bridgesT
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section3.T11.enstrophy_differential_of_norm_bridgesT
