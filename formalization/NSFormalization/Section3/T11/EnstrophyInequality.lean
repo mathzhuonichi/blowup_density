@@ -468,4 +468,15 @@ theorem torusRealPairing_one_eqT {z b : SpatialField}
     ring
   · ring
 
+/-- Periodic transport does no ordinary kinetic-energy work. -/
+theorem periodicPairing_convection_zeroT (z : SpatialField) (hz : SmoothPeriodicT z)
+    (hdiv : ∀ x, spatialDivergence (lift z) 0 x = 0) :
+    periodicPairing z (fun x => advection (lift z) 0 x) = 0 := by
+  change (∫ y : PeriodicTorus,
+    NSFormalization.Paper1.torusLift
+      (fun x => inner ℝ (z x) (advection (lift z) 0 x)) y ∂periodicTorusMeasure) = 0
+  rw [NSFormalization.Paper1.integral_torusLift]
+  exact NavierStokes.PeriodicUniqueness.cubeIntegral_transport_energy_zero
+    hz.1 hz.1 hz.2 hz.2 hdiv
+
 end NSFormalization.Section3.T11
