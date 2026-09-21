@@ -184,3 +184,63 @@ then rewrite `gradientSqT`, `Real.sqrt_sq ENNReal.toReal_nonneg` and
 There are no remaining B2 nonlinear/differential hypotheses. B3 still owes
 the ODE barrier and endpoint integration; B4/B5 still owe their respective
 lifespan/restart assemblies. P6 / L21_H1 remains Partial.
+
+## B4-T³ handoff — lane 508 (supersedes the pending torus B4 rows above)
+
+**B4-T³ closed. P6 / L21_H1 remains Partial pending B5 registration and the
+other-domain work.** Module `NSFormalization.Section3.T11.H1Restart` exports
+`h1RestartT`, with the exact local T10/T11 version of `Targets.lean`'s Prop.
+The consumer probe transports it to the contract structure using the existing
+`toContract` and `periodicLocalRegularity_toContract` equivalence.
+
+All B0/B2 norm reconciliations are closed, including
+`periodicHessianEnergy_eq_laplacianSqT`. The bridge-free
+`enstrophy_differential_on_IccT'` is available. For shifted forces use
+`enstrophy_differential_smoothT` (global smoothness plus spatial periodicity),
+not the forceClassT-only B2 theorem. B3's force parameter is the SQUARE of
+`forceL2CapT`'s real value. The running/endpoint dissipation bounds, smooth-force
+H³ bound, shifted horizon extension and uniform strict lifespan bound are all
+proved in the new module. The protected B0/B2/B3 files are unchanged.
+
+The registered `extendsBeyondH3` itself still has a forceClassT premise and
+cannot be directly fed a generic shifted test force. Lane 508 reuses its
+lower-level H³ pairing/Grönwall/Picard/gluing argument under the correct
+shift-compatible assumptions. `exists_maximal_smoothT` similarly reuses
+maximal gluing with smooth-force Picard existence. Regularity is supplied by
+`periodicLocalRegularity_of_classical'`, which requires only force smoothness.
+No new unproved input predicate is introduced.
+
+### Exact B5 endpoint target and consumption check
+
+In local T10/T11 vocabulary B5 needs:
+
+```lean
+∀ (ν : ℝ), 0 < ν → ∀ (f : SpaceTimeField), f ∈ forceClassT →
+  ∀ (S : ℝ), 0 < S → ∀ (K : ℝ≥0∞), K ≠ ⊤ →
+    ∃ δ : ℝ, 0 < δ ∧
+      ∀ (a : SpatialField), a ∈ initialClassT →
+        ∀ (u : SpaceTimeField) (p : SpaceTimeScalar),
+          SolvesBelowT ν a f S u p →
+            (∀ t ∈ Ico (0 : ℝ) S,
+              periodicSobolevENorm 1 (fun x => u (t, x)) ≤ K) →
+              ∃ v : ClassicalSolutionT ν a f (S + δ),
+                (∀ t ∈ Ico (0 : ℝ) S, ∀ x : Space,
+                  v.velocity (t, x) = u (t, x)) ∧
+                (∀ t ∈ Ico (0 : ℝ) S, ∀ x : Space,
+                  v.pressure (t, x) = p (t, x))
+```
+
+`RestartBeyond.lean:408` consumes the named local input ONLY through
+`restart H ν hν f hf S hS.le K hK`. Replace this application by
+`h1RestartT ν hν f hf S hS.le K hK` and remove H from the theorem binder;
+the rest of that proof uses just the returned restart conclusion, existing
+gluing and velocity/normalized-pressure uniqueness for the original test
+force. Thus B5 is an instantiation of that proof, with no additional analytic
+or force-shift adapter. Its δ is `t₀+d-S`, where t₀=max 0 (S-d/2).
+
+A new `PeriodicQuantitativeLocalInputH1Sup` predicate is unnecessary for this
+handoff. `Restart.lean` would need one additional application of the compact
+force cap to consume such a sup-input, so it is not literally unchanged;
+`RestartBeyond.lean` is unchanged after replacing its single restart supplier.
+Lane 508 proves the fixed-force R1 target and does not claim the stronger
+L¹-only `PeriodicQuantitativeLocalInput'` or cross-force H¹ Picard input.
