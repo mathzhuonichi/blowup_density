@@ -1,5 +1,5 @@
 import NSFormalization.Section3.T18.Lifespan
-import Bindings.MultipleRegions
+import Bindings.MultipleRegionsV2
 import NSFormalization.Section3.T24.MultipleOmegaAssembly
 
 /-! Concrete non-vacuity of the registered `T04.multiple_regions` contract:
@@ -96,5 +96,17 @@ theorem region_blowup_zero :
 
 theorem no_slip : ∀ t ∈ Ico (0 : ℝ) 1, ∀ x ∈ frontier unitBox,
     api.assembled_velocity (t, x) = 0 := api.no_slip
+
+/-- The registered V2 constructor supplies the same concrete geometry. -/
+def registeredAPI := BlowupDensity.Bindings.MultipleRegionsV2.multipleRegionsOmega
+  packet unitBox unitBox_domain 1 one_pos 1 one_pos centres radii
+  radius_pos region_interior regions_disjoint
+
+theorem registered_blowup_zero : SpeedUnboundedAtOn 1
+    (Metric.ball (centres 0) (radii 0)) registeredAPI.assembled_velocity :=
+  registeredAPI.region_blowup 0
+
+theorem registered_no_slip : ∀ t ∈ Ico (0 : ℝ) 1, ∀ x ∈ frontier unitBox,
+    registeredAPI.assembled_velocity (t, x) = 0 := registeredAPI.no_slip
 
 end MultipleOmegaNonvacuity

@@ -1,3 +1,13 @@
-import NSFormalization.Section3.T24.MultipleOmegaAssembly
+import Bindings.MultipleRegionsV2
 #print axioms NSFormalization.Section3.T24.multipleRegionsOmegaAPI
 #print axioms NSFormalization.Section3.T24.multipleRegionsOmegaStatement_holds
+#print axioms BlowupDensity.Bindings.MultipleRegionsV2.energyEssSupOmega_eq
+#print axioms BlowupDensity.Bindings.MultipleRegionsV2.energyGradientOmega_eq
+#print axioms BlowupDensity.Bindings.MultipleRegionsV2.ofContract
+#print axioms BlowupDensity.Bindings.MultipleRegionsV2.toContract
+#print axioms BlowupDensity.Bindings.MultipleRegionsV2.to_of
+#print axioms BlowupDensity.Bindings.MultipleRegionsV2.of_to
+#print axioms BlowupDensity.Bindings.MultipleRegionsV2.regionsOmegaData
+#print axioms BlowupDensity.Bindings.MultipleRegionsV2.multipleRegionsOmega
+#print axioms BlowupDensity.Bindings.MultipleRegionsV2.multipleRegionsOmegaStatement_holds
+#print axioms BlowupDensity.Bindings.MultipleRegionsV2.multipleRegionsStatementV2_holds

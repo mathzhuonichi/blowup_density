@@ -15,3 +15,12 @@ explicit `Fin 1` numeral because typeclass synthesis did not unfold `data.N`.
 After these changes the probe compiles, constructs the registered packet at
 ν=T=1 in the unit box, and reads both blow-up and no-slip. Both canonical
 assembly declarations print exactly the three standard axioms.
+
+Step 2: V2 record/domain statement match SpecOmega token-for-token after the
+registered substitutions: DomainPlacementData P.toPacketAPI, Scaling3's
+packet-indexed scaled fields, and Data.spatialGradient. Registered domain and
+solution types come from V1.BoundaryInsertion; all other record fields are
+unchanged. Both fieldwise conversions and round trips elaborate by definitional
+equality. The V2 statement conjoins the retained V1 torus statement. The test,
+registered unit-box probe and all twelve assembly/binding axiom checks pass.
+Existing-file edit: contracts.json adds T04.multiple_regions_v2 and keeps V1.
