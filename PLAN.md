@@ -47,7 +47,7 @@
 | 495-T24-P4-conservative-domain | astra 8 分钟完成：ConservativeOmega.lean（pairing 经 IBP、restSolutionOmega、零能量⇒零）+ T04.conservative_forcing_v2（30 合同）+ 蓝图/guide/计数 22/5 + 四闸门 + make paper → 审中 sol | 09-21 0348Z | — | P4 Prop 3.17 有界域：ConservativeForcingOmegaAPI（pairing 经 IBP.integral_pressure_energy_zero；从静止为零）+ T04.conservative_forcing_v2 + 蓝图 |
 | 496-T24-P5-spec-multiple-domain | 已合入 #456（astra 规范：30 字段，去 scaling 加 no_slip；lead 比对通过；entrypoints 补一行） | 09-21 0355Z | #456 | P5 步骤 1：MultipleRegionsOmegaAPI 规范（镜像环面 30 字段）+ canonical 记录 + 拆分 |
 | 497-T24-P5a-domain-components-sum | 已合入 #460（codex 审稿 ACCEPT-WITH-NOTES，引用已改） | 09-21 0420Z | #460 | P5.1+P5.2：Ω 上的分量（无周期化缩放包 → ClassicalSolutionOmega）与有限和解（交叉输运为零、no-slip、gauge） |
-| 500-T24-P5b-domain-blowup-energy | astra 完成：MultipleOmegaRegions（17 定理：每球爆破、能量界、耗散恒等）→ 审中 sol | 09-21 0407Z | — | P5.3+P5.4：每球 region_agreement/region_blowup + 能量/耗散可加性（限制积分 = 全空间积分） |
+| 500-T24-P5b-domain-blowup-energy | 已合入 #462（codex 审稿 ACCEPT-WITH-NOTES） | 09-21 0423Z | #462 | P5.3+P5.4：每球 region_agreement/region_blowup + 能量/耗散可加性（限制积分 = 全空间积分） |
 | 501-T24-P5c-assembly-registration | astra 完成：MultipleOmegaAssembly（30 字段装配 + multipleRegionsOmegaStatement_holds + 非空探针）+ T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B → 审中 sol | 09-21 0418Z | — | P5.5：30 字段装配 + multipleRegionsOmegaStatement + T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B |
 | 502-MAINT-core-refresh | 第一次刷新完成（基于 493 态：22/5，65 声明审计，四闸门 + paper 绿）；492 已合入后过期，等 494/495/501 合入再 cont 续跑 | 09-21 0416Z | — | MAINT：合入批次后刷新 core 的生成物（公理审计、DEPENDENCY_GRAPH、计数、PDF），使 make check 全绿 |
 | 503-P21-B0-h1-norm-bridges | worktree 安装中 → codex sol（窗口 <7 时启动） | 09-21 0401Z | — | P6 Route B B0：H¹/H² Fourier 范数 ↔ 导数能量桥（两域）+ 平移力上界 + 目标陈述 Targets.lean |
