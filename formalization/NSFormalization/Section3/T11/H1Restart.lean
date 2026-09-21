@@ -516,4 +516,26 @@ theorem shifted_horizon_extensionT {ν R t₀ : ℝ} (hν : 0 < ν)
     (by linarith : (b + R) / 2 < b + d)
   exact ⟨b + d, hRb, ⟨v'⟩⟩
 
+/-- Maximal gluing only needs positive local existence, smoothness and periodicity. -/
+theorem exists_maximal_smoothT {ν : ℝ} (hν : 0 < ν)
+    {a : SpatialField} (ha : a ∈ initialClassT) {f : SpaceTimeField}
+    (hf : ContDiff ℝ ∞ f) (hfp : IsPeriodicOn univ f) :
+    ∃ (u : SpaceTimeField) (p : NSFormalization.Section4.A02.SpaceTimeScalar),
+      IsMaximalPeriodicSolution ν a f u p := by
+  obtain ⟨T, _, w, _⟩ := exists_classical_of_picard ν hν a ha f hf hfp
+  have hpos : 0 < maximalLifespanT ν a f :=
+    (ENNReal.ofReal_pos.mpr w.horizon_pos).trans_le (lifespan_ge_of_horizon w)
+  have hflow : 0 < NSFormalization.Paper1.PeriodicLifespan.lifespan ν a f := by
+    rwa [← maximalLifespanT_eq_lifespan]
+  obtain ⟨M⟩ :=
+    NSFormalization.Paper1.PeriodicLocalLifespan.exists_maximal_periodic_solution_of_lifespan_pos
+      hν hflow
+  refine ⟨M.velocity, M.pressure, hpos, ?_⟩
+  intro S hS hSL
+  have hSE : ENNReal.ofReal S < M.endpoint := by
+    rw [M.endpoint_eq_lifespan, ← maximalLifespanT_eq_lifespan]
+    exact hSL
+  exact ⟨ofNormalizedFlow (M.flow S hS hSE) (M.normalized S hS hSE),
+    M.velocity_eq S hS hSE, M.pressure_eq S hS hSE⟩
+
 end NSFormalization.Section3.T11
