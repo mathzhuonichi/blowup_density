@@ -178,16 +178,17 @@
     {
       "id": "C35_FULL",
       "title": "Lemma 3.5: full article scope",
-      "status": "Partial",
+      "status": "Closed",
       "article_label": "lem:correction",
-      "scope": "The unrestricted article formulation has not been exported with all differences in hypotheses discharged.",
+      "scope": "Lemma 3.5 for a periodic classical reference on [0,T+δ), positive viscosity, the building-block placement and Lemma 3.4 ball. The zero extension is identified on the slab; all 45 API fields and the displayed derivative, support, energy, mixed and Sobolev bounds are retained, with the force identified globally with the article reference.",
       "evidence": [
-        "formalization/NSFormalization/Section3/T17/Assembly.lean"
+        "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+        "verification/Bindings/Correction3V2.lean"
       ],
-      "depends_on": [],
-      "completion_from": [
+      "depends_on": [
         "C35_T"
-      ]
+      ],
+      "completion_from": []
     },
     {
       "id": "G36",

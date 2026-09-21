@@ -321,6 +321,17 @@
       "enabled": true
     },
     {
+      "id": "T02.correction_v2",
+      "parent_task": "T17",
+      "version": 2,
+      "specification": "verification/Contracts/V2/Correction3.lean",
+      "binding_module": "Bindings.Correction3V2",
+      "test_module": "Tests.Correction3V2",
+      "declaration": "BlowupDensity.Tests.checkedCorrection3V2",
+      "scope": "Lemma 3.5 with the article's hypotheses only: a periodic classical reference on [0,T+δ], the building-block placement and the Lemma 3.4 ball; the reference is zero-extended outside [0,T+δ) and identified with the article's v there. All 45 CorrectionAPI fields and displayed bounds are retained. The raw-field statement includes packet velocity support; correctionArticle_of_packet derives it from the registered PacketAPI.",
+      "enabled": true
+    },
+    {
       "id": "T03.periodic_insertion_v2",
       "parent_task": "T18",
       "version": 2,

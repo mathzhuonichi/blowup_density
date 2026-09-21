@@ -35,7 +35,7 @@ make check
 make test
 make test-mutations
 \end{verbatim}
-The suite checks 29 current publication interfaces. The separate declaration
+The suite checks 30 current publication interfaces. The separate declaration
 audit checks the transitive axioms of the results cited in this guide.
 For macOS 27, use a Linux VM because of the pinned runtime's allocator issue.
 The repository README gives the build details.
@@ -92,9 +92,16 @@ The general $H^1$-uniform restart statements are not proved
 \mapped{Lemma}{lem:localization} & \coverage{Closed}\source{F/Section3/T13/Assembly}{330}{localizationAPI}{theorem}. Includes the interior-order estimate and the two endpoint identities. \\
 \mapped{Proposition}{prop:scaling} & \coverage{Closed}\source{F/Section3/T15/Assembly}{130}{scalingStatement_holds}{theorem}. \\
 \mapped{Lemma}{lem:potential} & \coverage{Closed}\source{F/Section3/T16/Assembly}{483}{localPotential}{theorem}. \\
-\mapped{Lemma}{lem:correction} & \coverage{Partial}\source{F/Section3/T17/Assembly}{107}{correctionStatementAmended_holds}{theorem}.
-The formal statement includes explicit smoothness, chart and positive-viscosity
-hypotheses. These are supplied in the downstream gluing theorem. \\
+\mapped{Lemma}{lem:correction} & \coverage{Closed}\source{F/Section3/T17/ArticleScope}{44}{correctionStatementArticle_holds}{theorem};
+\source{F/Section3/T17/ArticleScope}{70}{article_force_identification}{theorem};
+\source{F/Section3/T17/ArticleScope}{119}{article_correction_derivative_bound}{theorem};
+\source{F/Section3/T17/ArticleScope}{129}{article_force_derivative_bound}{theorem};
+\source{F/Section3/T17/ArticleScope}{103}{article_force_spatial_volume}{theorem};
+\source{F/Section3/T17/ArticleScope}{111}{article_force_time_length}{theorem};
+\source{F/Section3/T17/ArticleScope}{140}{article_correction_energy_bound}{theorem};
+\source{F/Section3/T17/ArticleScope}{155}{article_force_mixed_bound}{theorem};
+\source{F/Section3/T17/ArticleScope}{173}{article_force_sobolev_bound}{theorem}.
+Classical reference, building-block placement and the Lemma 3.4 ball; zero extension agrees on the classical slab and preserves every displayed bound. \\
 \mapped{Theorem}{thm:insertion} & \coverage{Closed}\source{F/Section3/T19/FromData}{20}{periodicInsertion_from_data}{theorem};
 \source{B/PeriodicInsertionV2}{10}{periodicInsertionStatementV2_holds}{theorem}.
 From raw data for every prescribed coordinate ball with closure in the cube interior;
