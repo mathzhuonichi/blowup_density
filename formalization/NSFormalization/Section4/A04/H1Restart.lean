@@ -273,4 +273,20 @@ theorem h1RestartR :
   let w := hw.some.restrict hd hdT.le
   exact ⟨w, classical_manuscriptLocalRegularity hν (restart_force f hf t₀ ht₀.1) w⟩
 
+/-- B5 handoff: a common restart length extends the original lifespan at each bounded slice. -/
+theorem h1RestartAt (ν : ℝ) (hν : 0 < ν) (f : SpaceTimeField) (hf : MemForceR f)
+    (S : ℝ) (hS : 0 ≤ S) (K : ℝ≥0∞) (hK : K ≠ ⊤) :
+    ∃ δ > 0, ∀ (a : SpatialField) (u : SpaceTimeField) (p : SpaceTimeScalar),
+      SolvesBelow ν a f S u p → ∀ t₀ ∈ Ico (0 : ℝ) S,
+        sobolevENorm 1 (C01.slice u t₀) ≤ K →
+          ENNReal.ofReal (t₀ + δ) ≤ maximalLifespanR ν a f := by
+  obtain ⟨δ, hδ, hr⟩ := h1RestartR ν hν f hf S hS K hK
+  refine ⟨δ, hδ, ?_⟩
+  intro a u p hu t ht hbound
+  obtain ⟨w, hw, _⟩ := hu ((t + S) / 2) (by linarith [ht.1, ht.2]) (by linarith [ht.2])
+  have ht' : t ∈ Ico (0 : ℝ) ((t + S) / 2) := ⟨ht.1, by linarith [ht.2]⟩
+  obtain ⟨v, _⟩ := hr t ⟨ht.1, ht.2.le⟩ _ (w.restart_datum ht')
+    (by change sobolevENorm 1 (C01.slice w.velocity t) ≤ K; rw [hw]; exact hbound)
+  exact shiftedLocalExtension ν hν a f _ w t ht' δ v
+
 end NSFormalization.Section4.A04
