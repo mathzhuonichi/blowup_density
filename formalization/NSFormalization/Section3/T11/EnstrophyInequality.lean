@@ -558,4 +558,41 @@ theorem abs_pairing_carrier_leT (z b : SpatialField) (hz : Continuous z) (hb : C
   simpa only [Lp.norm_toLp, periodicLpENorm] using
     abs_real_inner_le_norm (hzm.toLp (torusLift z)) (hbm.toLp (torusLift b))
 
+/-- Convection estimate with explicit real L² norm upper bounds. -/
+theorem convection_bound_of_norm_bridgesT (z : SpatialField) (hz : SmoothPeriodicT z)
+    {U H D : ℝ} (hU : 0 ≤ U) (hH : 0 ≤ H) (hD : 0 ≤ D)
+    (hu : periodicLpENorm 2 z ≤ ENNReal.ofReal U)
+    (hg : periodicLpENorm 2 (gradientTensor z) ≤ ENNReal.ofReal H)
+    (hl : periodicLpENorm 2 (laplacian z) ≤ ENNReal.ofReal D) :
+    |periodicPairing (fun x => advection (lift z) 0 x) (laplacian z)| ≤
+      velocitySixConstT * (U + H) * H ^ (1 / 2 : ℝ) *
+        Csix ^ (1 / 2 : ℝ) * D ^ (3 / 2 : ℝ) := by
+  have hCsix := Csix_pos.le
+  have hc : 0 ≤ velocitySixConstT := by
+    have := NSFormalization.Section4.A05.gradientL6Const_pos
+    have := cutoffGradBound_nonneg
+    unfold velocitySixConstT
+    positivity
+  have hv := (velocity_six_le_gradient_twoT z hz).trans
+    (mul_le_mul' le_rfl (add_le_add hu hg))
+  have h := (convection_interpolationT z hz).trans
+    (mul_le_mul' (mul_le_mul' hv
+      (mul_le_mul' (ENNReal.rpow_le_rpow hg (by norm_num))
+        (ENNReal.rpow_le_rpow (mul_le_mul' le_rfl hl) (by norm_num)))) hl)
+  rw [← ENNReal.ofReal_add hU hH,
+    ← ENNReal.ofReal_mul Csix_pos.le,
+    ENNReal.ofReal_rpow_of_nonneg hH (by norm_num),
+    ENNReal.ofReal_rpow_of_nonneg (mul_nonneg Csix_pos.le hD) (by norm_num),
+    ← ENNReal.ofReal_mul hc, ← ENNReal.ofReal_mul (by positivity),
+    ← ENNReal.ofReal_mul (by positivity), ← ENNReal.ofReal_mul (by positivity)] at h
+  have hr := (ENNReal.ofReal_le_ofReal_iff (by positivity)).mp h
+  have hd : D ^ (1 / 2 : ℝ) * D = D ^ (3 / 2 : ℝ) := by
+    calc D ^ (1 / 2 : ℝ) * D = D ^ (1 / 2 : ℝ) * D ^ (1 : ℝ) := by rw [Real.rpow_one]
+      _ = D ^ ((1 / 2 : ℝ) + 1) := (Real.rpow_add' hD (by norm_num)).symm
+      _ = _ := by norm_num
+  rw [Real.mul_rpow Csix_pos.le hD] at hr
+  convert hr using 1
+  · rfl
+  · rw [← hd]; ring
+
 end NSFormalization.Section3.T11
