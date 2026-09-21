@@ -142,4 +142,59 @@ theorem eLpNorm_three_interpolation {E : Type*} [NormedAddCommGroup E] (g : Navi
     (by norm_num : (6 : ℝ≥0∞) ≠ ⊤), ENNReal.toReal_ofNat, ← ENNReal.rpow_mul]
   convert hh using 1 <;> norm_num
 
+/-- Velocity Sobolev embedding with the same generous constant as A05. -/
+theorem velocity_six_le_gradient_two (z : Space → Space) (hz : SmoothL2 z) :
+    eLpNorm z 6 volume ≤ ENNReal.ofReal gradientL6Const * eLpNorm (gradTensor z) 2 volume := by
+  have hd : eLpNorm (fderiv ℝ z) 2 volume ≤ 3 * eLpNorm (gradTensor z) 2 volume := by
+    calc
+      _ ≤ ∑ i : Fin 3, eLpNorm (dirDeriv i z) 2 volume :=
+        A05.eLpNorm_le_sum_of_norm_le (by norm_num)
+          (fun i => (hz.dir i).memLp.aestronglyMeasurable)
+          (fun x => A05.opNorm_le_sum (fderiv ℝ z x))
+      _ ≤ ∑ _i : Fin 3, eLpNorm (gradTensor z) 2 volume := by
+        apply Finset.sum_le_sum
+        intro i _
+        exact eLpNorm_mono (fun x => PiLp.norm_apply_le (gradTensor z x) i)
+      _ = _ := by simp [Finset.sum_const]
+  have hv := NavierStokesR3.RieszTestOperators.smooth_eLpNorm_six_le
+    (hz.contDiff.of_le (by simp)) hz.memLp
+  refine hv.trans ((mul_le_mul' le_rfl hd).trans ?_)
+  rw [← mul_assoc]
+  gcongr
+  rw [← ENNReal.ofReal_coe_nnreal]
+  have h3 : (3 : ℝ≥0∞) = ENNReal.ofReal (3 : ℝ) := by norm_num
+  rw [h3, ← ENNReal.ofReal_mul (by positivity)]
+  apply ENNReal.ofReal_le_ofReal
+  unfold A05.gradientL6Const
+  have hc := (eLpNormLESNormFDerivOfEqInnerConst (volume : Measure Space) 2).coe_nonneg
+  linarith
+
+/-- General convection interpolation in physical extended norms; no critical gate. -/
+theorem convection_interpolation (z : Space → Space) (hz : SmoothL2 z) :
+    ENNReal.ofReal |advectionWork z| ≤
+      (ENNReal.ofReal gradientL6Const) ^ (3 / 2 : ℝ) *
+        (eLpNorm (gradTensor z) 2 volume) ^ (3 / 2 : ℝ) *
+        (eLpNorm (lap z) 2 volume) ^ (3 / 2 : ℝ) := by
+  have hcg : Continuous (gradTensor z) :=
+    (PiLp.continuous_toLp 2 (fun _ : Fin 3 => Space)).comp
+      (continuous_pi fun j => (hz.dir j).contDiff.continuous)
+  have hg := (eLpNorm_three_interpolation (gradTensor z) hcg.aestronglyMeasurable).trans
+    (mul_le_mul' le_rfl (ENNReal.rpow_le_rpow (A05.eLpNorm_gradTensor_six_le hz)
+      (by norm_num : (0 : ℝ) ≤ 1 / 2)))
+  have hw : ENNReal.ofReal |advectionWork z| ≤
+      eLpNorm z 6 volume * eLpNorm (gradTensor z) 3 volume * eLpNorm (lap z) 2 volume := by
+    rw [← Real.enorm_eq_ofReal_abs]
+    exact (enorm_integral_le_lintegral_enorm _).trans (lintegral_convection_holder_632 z hz)
+  refine hw.trans ((mul_le_mul' (mul_le_mul' (velocity_six_le_gradient_two z hz) hg) le_rfl).trans_eq ?_)
+  rw [ENNReal.mul_rpow_of_nonneg _ _ (by norm_num : (0 : ℝ) ≤ 1 / 2)]
+  have hp (x : ℝ≥0∞) : x * x ^ (1 / 2 : ℝ) = x ^ (3 / 2 : ℝ) := by
+    conv_lhs => lhs; rw [← ENNReal.rpow_one x]
+    rw [← ENNReal.rpow_add_of_nonneg _ _ (by norm_num) (by norm_num)]
+    norm_num
+  calc
+    _ = (ENNReal.ofReal gradientL6Const * (ENNReal.ofReal gradientL6Const) ^ (1 / 2 : ℝ)) *
+        (eLpNorm (gradTensor z) 2 volume * (eLpNorm (gradTensor z) 2 volume) ^ (1 / 2 : ℝ)) *
+        (eLpNorm (lap z) 2 volume * (eLpNorm (lap z) 2 volume) ^ (1 / 2 : ℝ)) := by ring
+    _ = _ := by rw [hp, hp, hp]
+
 end NSFormalization.Section4.A04

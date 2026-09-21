@@ -17,3 +17,8 @@ Existing-file edits: entrypoints.json registers the new module as required.
 3. Closed L³ interpolation for any measurable normed-valued field via weighted
    Hölder with weights 3/4,1/4 on |g|²,|g|⁶. The first rpow rewrite incorrectly
    requested nonzero norms; `rpow_add_of_nonneg` handles zero and infinity.
+4. Closed velocity L⁶ ≤ C gradient L² with C = A05.gradientL6Const,
+   using the underlying support-free Sobolev estimate and a three-column
+   operator/Frobenius comparison. Combined with interpolation and Hölder:
+   ofReal |advectionWork z| ≤ (ofReal C)^(3/2) G^(3/2) L^(3/2).
+   This is unconditional for SmoothL2 z; G and L are physical extended norms.
