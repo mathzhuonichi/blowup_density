@@ -127,4 +127,13 @@ theorem periodicGradientEnergy_eq_gradientSqT {z : SpatialField}
   rw [periodicHOne_bridgeT hz hp, periodicL2Energy_eq_lTwoSqT hz hp] at h
   linarith
 
+/-- Periodic Parseval identifies all ordered second partials with the Laplacian. -/
+theorem periodicHessianEnergy_eq_laplacianSqT {z : SpatialField}
+    (hz : ContDiff ℝ ∞ z) (hp : IsPeriodicSpatial z) :
+    periodicHessianEnergy z = laplacianSqT z := by
+  have h := periodicSobolevENorm_two_toReal_sq_eq hz hp
+  rw [periodicHTwo_bridgeT hz hp, periodicL2Energy_eq_lTwoSqT hz hp,
+    periodicGradientEnergy_eq_gradientSqT hz hp] at h
+  linarith
+
 end NSFormalization.Section3.T11
