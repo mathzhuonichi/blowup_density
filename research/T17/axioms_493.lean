@@ -15,3 +15,14 @@ import NSFormalization.Section3.T17.ArticleScope
 #print axioms NSFormalization.Section3.T17.article_force_mixed_bound
 #print axioms NSFormalization.Section3.T17.article_forceSobolev_memLp
 #print axioms NSFormalization.Section3.T17.article_force_sobolev_bound
+#print axioms NSFormalization.Section3.T17.article_potential_formula
+#print axioms NSFormalization.Section3.T17.article_correction_profile_identification
+#print axioms NSFormalization.Section3.T17.article_force_profile_identification
+#print axioms NSFormalization.Section3.T17.article_correction_profile_smooth
+#print axioms NSFormalization.Section3.T17.article_correction_profile_support
+#print axioms NSFormalization.Section3.T17.article_correction_profile_uniform
+#print axioms NSFormalization.Section3.T17.article_force_profile_smooth
+#print axioms NSFormalization.Section3.T17.article_force_profile_support
+#print axioms NSFormalization.Section3.T17.article_force_profile_uniform
+#print axioms NSFormalization.Section3.T17.article_correction_profile_identity
+#print axioms NSFormalization.Section3.T17.article_force_profile_identity

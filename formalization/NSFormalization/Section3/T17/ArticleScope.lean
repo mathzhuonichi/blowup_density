@@ -9,9 +9,10 @@ independent of sufficiently small $\eps$.” We retain every bound in
 (derivativebounds), (wE), (Hmixed), and (HHs), including both Sobolev terms.
 Lines 135-139 specify the coordinate ball and the time support.
 
-G5: `reference_periodic` is the only API obstruction to using the original
-velocity directly: a classical solution has no constraints outside its
-lifespan. The zero extension agrees on the entire classical slab. The force
+G5: `reference_periodic` prevents using the original velocity directly:
+a classical solution has no constraints outside its lifespan. The potential
+record also fixes its radial formula at every time; we retain that formula
+for the zero extension and identify it with the article formula on the slab. The zero extension agrees on the entire classical slab. The force
 agrees globally because the correction is supported strictly inside that slab.
 Placement contains geometry, not the raw velocity support clause; that clause
 is therefore explicit here (and is a projection of the registered packet).
@@ -178,5 +179,103 @@ theorem article_force_sobolev_bound : ∀ s : ℝ, 0 ≤ s → s ≤ 1 →
   intro s hs0 hs1 ε hε
   rw [← article_force_identification A ε hε]
   exact A.force_sobolev_bound s hs0 hs1 ε hε
+
+/-- Lemma 3.4, (potential), on the article reference's entire slab. -/
+theorem article_potential_formula (t : ℝ) (ht : t ∈ Ico (0 : ℝ) (place.T + δ))
+    (x : Space) :
+    D.potential (t, x) = ∫ ρ in (0 : ℝ)..1,
+      ρ • NSFormalization.Paper1.RadialPotential.cross (reference.velocity (t, place.x₀ + ρ • (x - place.x₀))) (x - place.x₀) := by
+  rw [A.potential.potential_formula]
+  congr 1
+  funext ρ
+  rw [extendByZero_velocity_eqOn reference ⟨ht, mem_univ _⟩]
+
+/-- The correction profile reads only cutoff-window reference slices. -/
+theorem article_correction_profile_identification (ε : ℝ)
+    (hε : ε ∈ Ioc (0 : ℝ) D.ε₀) :
+    rescaledCorrectionProfile (extendByZero reference).velocity place.x₀ place.T ε D =
+      rescaledCorrectionProfile reference.velocity place.x₀ place.T ε D := by
+  apply correctionProfile_eq_of_slices rfl rfl
+  intro σ hσ x
+  have hσ' := A.potential.eta_support (subset_tsupport D.η hσ)
+  exact article_window_identification A ε hε _
+    (chart_time_mem_window _ _ _ ⟨hσ'.1.le, hσ'.2.le⟩) x
+
+/-- The force profile agrees globally, including outside its fixed cylinder. -/
+theorem article_force_profile_identification (ε : ℝ)
+    (hε : ε ∈ Ioc (0 : ℝ) D.ε₀) :
+    rescaledForceProfile ν (extendByZero reference).velocity place.x₀ place.T ε D =
+      rescaledForceProfile ν reference.velocity place.x₀ place.T ε D := by
+  apply forceProfile_eq_of_slices (article_correction_profile_identification A ε hε)
+  · rw [← article_correction_profile_identification A ε hε]
+    exact A.correction_profile_support ε hε
+  · intro σ hσ x
+    exact article_window_identification A ε hε _ (chart_time_mem_window _ _ _ hσ) x
+
+/-- Lemma 3.5 proof: correction profile smooth. -/
+theorem article_correction_profile_smooth : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    ContDiffOn ℝ ∞ (rescaledCorrectionProfile reference.velocity place.x₀ place.T ε D)
+      (fixedProfileCylinder D) := by
+  intro ε hε
+  rw [← article_correction_profile_identification A ε hε]
+  exact A.correction_profile_smooth ε hε
+
+/-- Lemma 3.5 proof: correction profile support. -/
+theorem article_correction_profile_support : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    tsupport (rescaledCorrectionProfile reference.velocity place.x₀ place.T ε D) ⊆ fixedProfileCylinder D := by
+  intro ε hε
+  rw [← article_correction_profile_identification A ε hε]
+  exact A.correction_profile_support ε hε
+
+/-- Lemma 3.5 proof: correction profile uniform. -/
+theorem article_correction_profile_uniform : ∀ k : ℕ, ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    ∀ z ∈ fixedProfileCylinder D,
+      ‖iteratedFDeriv ℝ k (rescaledCorrectionProfile reference.velocity place.x₀ place.T ε D) z‖ ≤
+        A.correctionProfileConst k := by
+  intro k ε hε
+  rw [← article_correction_profile_identification A ε hε]
+  exact A.correction_profile_uniform k ε hε
+
+/-- Lemma 3.5 proof: force profile smooth. -/
+theorem article_force_profile_smooth : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    ContDiffOn ℝ ∞ (rescaledForceProfile ν reference.velocity place.x₀ place.T ε D)
+      (fixedProfileCylinder D) := by
+  intro ε hε
+  rw [← article_force_profile_identification A ε hε]
+  exact A.force_profile_smooth ε hε
+
+/-- Lemma 3.5 proof: force profile support. -/
+theorem article_force_profile_support : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    tsupport (rescaledForceProfile ν reference.velocity place.x₀ place.T ε D) ⊆ fixedProfileCylinder D := by
+  intro ε hε
+  rw [← article_force_profile_identification A ε hε]
+  exact A.force_profile_support ε hε
+
+/-- Lemma 3.5 proof: force profile uniform. -/
+theorem article_force_profile_uniform : ∀ k : ℕ, ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    ∀ z ∈ fixedProfileCylinder D,
+      ‖iteratedFDeriv ℝ k (rescaledForceProfile ν reference.velocity place.x₀ place.T ε D) z‖ ≤
+        A.forceProfileConst k := by
+  intro k ε hε
+  rw [← article_force_profile_identification A ε hε]
+  exact A.force_profile_uniform k ε hε
+
+/-- Lemma 3.5 proof: correction profile identity. -/
+theorem article_correction_profile_identity : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    ∀ z ∈ fixedProfileCylinder D,
+      D.correction ε (correctionChartPoint place.x₀ place.T ε z) =
+        rescaledCorrectionProfile reference.velocity place.x₀ place.T ε D z := by
+  intro ε hε
+  rw [← article_correction_profile_identification A ε hε]
+  exact A.correction_profile_identity ε hε
+
+/-- Lemma 3.5 proof: force profile identity. -/
+theorem article_force_profile_identity : ∀ ε ∈ Ioc (0 : ℝ) D.ε₀,
+    ∀ z ∈ fixedProfileCylinder D,
+      correctionForce ν reference.velocity D ε (correctionChartPoint place.x₀ place.T ε z) =
+        (ε ^ 2)⁻¹ • rescaledForceProfile ν reference.velocity place.x₀ place.T ε D z := by
+  intro ε hε
+  rw [← article_force_profile_identification A ε hε, ← article_force_identification A ε hε]
+  exact A.force_profile_identity ε hε
 
 end NSFormalization.Section3.T17
