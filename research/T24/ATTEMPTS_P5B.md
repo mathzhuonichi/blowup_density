@@ -52,3 +52,8 @@ No analytic residual or extra hypothesis was introduced.
 - Additional authorized metadata edit: `formalization/blueprint/AXIOM_AUDIT.json`
   (fresh audit required by `make check`). The graph is regenerated only if its
   rendered audit summary changes. P5.5/full article closure is not claimed here.
+
+Final gates passed: full article audit (56 declarations, no forbidden axioms),
+`make check` (29 contracts, 11 policy tests), and probe axiom audit (all four
+exactly standard-three). Audit metadata changed only the source fingerprint and
+source count; generated graph and article coverage were unchanged.
