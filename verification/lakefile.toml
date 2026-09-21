@@ -1,0 +1,24 @@
+name = "BlowupDensityVerification"
+version = "0.1.0"
+defaultTargets = ["Tests", "Contracts"]
+
+[[require]]
+name = "NSFormalization"
+path = "../formalization"
+
+[[lean_lib]]
+name = "Contracts"
+globs = ["Contracts.+"]
+
+[[lean_lib]]
+name = "Bindings"
+globs = ["Bindings.+"]
+
+[[lean_lib]]
+name = "TestSupport"
+globs = ["TestSupport.+"]
+
+[[lean_lib]]
+name = "Tests"
+globs = ["Tests.+"]
+leanOptions = { warningAsError = true }

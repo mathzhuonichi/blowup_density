@@ -1,0 +1,413 @@
+{
+  "checked_on": "2026-09-20",
+  "scope": "All bibliography entries in the current revised article and guide. Download and identity checks are not proof/citation certification.",
+  "sources": [
+    {
+      "id": "berselli",
+      "citation_keys": {
+        "article": "berselli"
+      },
+      "bibliography_tex": "L. C. Berselli and S. Spirito. On the existence of Leray--Hopf weak solutions to the Navier--Stokes equations. \\emph{Fluids} \\textbf{6}(1) (2021), 42. \\href{https://doi.org/10.3390/fluids6010042}{doi:10.3390/fluids6010042}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Berselli_Spirito_2021_Leray_Hopf.pdf",
+          "sha256": "60fa1c184b7b3e28c260b14ab9b2ef74ecc44620467ced64f5f8fecc77f02b56",
+          "bytes": 371524,
+          "pdf_pages": 20
+        }
+      ],
+      "source_urls": [
+        "https://arpi.unipi.it/retrieve/e0d6c930-5f68-fcf8-e053-d805fe0aa794/Fluids2021.pdf"
+      ],
+      "version_note": "Full text saved; future citation audit still required."
+    },
+    {
+      "id": "eppt2025",
+      "citation_keys": {
+        "article": "eppt2025"
+      },
+      "bibliography_tex": "A. Enciso, J. Pe\\~nafiel-Tom\\'as and D. Peralta-Salas. An extension theorem for weak solutions of the 3d incompressible Euler equations and applications to singular flows. \\emph{Forum of Mathematics, Pi} \\textbf{13} (2025), e21. \\href{https://doi.org/10.1017/fmp.2025.10012}{doi:10.1017/fmp.2025.10012}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Enciso_PenafielTomas_PeraltaSalas_2025_Published.pdf",
+          "sha256": "f9e2c1f526f0e1164a31c8a363de6aeff86e306e35bd4c82b93ff4606f8bb488",
+          "bytes": 1108927,
+          "pdf_pages": 84
+        }
+      ],
+      "source_urls": [
+        "https://doi.org/10.1017/fmp.2025.10012"
+      ],
+      "version_note": "Full text saved; future citation audit still required."
+    },
+    {
+      "id": "clay",
+      "citation_keys": {
+        "article": "clay"
+      },
+      "bibliography_tex": "C. L. Fefferman. Existence and smoothness of the Navier--Stokes equation. In J. Carlson, A. Jaffe and A. Wiles (eds.), \\emph{The Millennium Prize Problems}. Clay Mathematics Institute and American Mathematical Society, 2006, pp.~57--67.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Clay_Fefferman_Navier_Stokes.pdf",
+          "sha256": "c1b5f27b1a64705cfaf1afceea513db5deedca8a18ca56ab32e7f86445a06d0c",
+          "bytes": 203736,
+          "pdf_pages": 6
+        },
+        {
+          "path": "reference/Clay_Millennium_Prize_Problems_2006.pdf",
+          "sha256": "7fb0391e8ea20db9102c022a9f6aa504d5436e644d0dffb6c9ed82f4f09af269",
+          "bytes": 4411125,
+          "pdf_pages": 139
+        }
+      ],
+      "source_urls": [
+        "https://www.claymath.org/wp-content/uploads/2022/06/navierstokes.pdf",
+        "https://www.claymath.org/library/monographs/MPPc.pdf"
+      ],
+      "version_note": "The standalone official problem statement and the Clay monograph PDF are both retained."
+    },
+    {
+      "id": "gms",
+      "citation_keys": {
+        "article": "gms"
+      },
+      "bibliography_tex": "J. L. Guermond, P. Minev and J. Shen. An overview of projection methods for incompressible flows. \\emph{Computer Methods in Applied Mechanics and Engineering} \\textbf{195}(44--47) (2006), 6011--6045. \\href{https://doi.org/10.1016/j.cma.2005.10.010}{doi:10.1016/j.cma.2005.10.010}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Guermond_Minev_Shen_2006.pdf",
+          "sha256": "ca2781cf84676a4db01909a9d2f01be98386f70d9353c31500070f447b680253",
+          "bytes": 949927,
+          "pdf_pages": 35
+        }
+      ],
+      "source_urls": [
+        "https://doi.org/10.1016/j.cma.2005.10.010"
+      ],
+      "version_note": "Full text saved; future citation audit still required."
+    },
+    {
+      "id": "hzz2024",
+      "citation_keys": {
+        "article": "hzz2024"
+      },
+      "bibliography_tex": "M. Hofmanov\\'a, R. Zhu and X. Zhu. Non-uniqueness of Leray--Hopf solutions for stochastic forced Navier--Stokes equations. \\href{https://arxiv.org/abs/2309.03668v2}{arXiv:2309.03668v2}, 2024.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/HZZ_2024_Navier_Stokes.pdf",
+          "sha256": "898382019dd9f513ba15e8d61de4018f85e72e6923949aab3ba1eb430f3454d4",
+          "bytes": 381704,
+          "pdf_pages": 26
+        }
+      ],
+      "source_urls": [
+        "https://arxiv.org/pdf/2309.03668v2"
+      ],
+      "version_note": "Full text saved; future citation audit still required."
+    },
+    {
+      "id": "hunterpde",
+      "citation_keys": {
+        "article": "hunterpde",
+        "guide": "hunter"
+      },
+      "bibliography_tex": "J. K. Hunter. \\emph{Notes on Partial Differential Equations}. University of California, Davis, 2014. \\url{https://www.math.ucdavis.edu/~hunter/pdes/pde_notes.pdf}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Hunter_Notes_on_Partial_Differential_Equations.pdf",
+          "sha256": "0dbade1806f7a1ea79cc444a0eecfe19e157b286c964f1f48f2d744c460c12dd",
+          "bytes": 1597256,
+          "pdf_pages": 242
+        },
+        {
+          "path": "reference/Hunter_Vector_Valued_Functions.pdf",
+          "sha256": "62a8c67704e1c8cbafebcceae969945b56d17b36260e76505e7c7aa7a6f32341",
+          "bytes": 141507,
+          "pdf_pages": 16
+        }
+      ],
+      "source_urls": [
+        "https://www.math.ucdavis.edu/~hunter/pdes/pde_notes.pdf",
+        "https://www.math.ucdavis.edu/~hunter/pdes/ch6A.pdf"
+      ],
+      "version_note": "Full notes (2014 revision) and the previously cited Appendix 6.A file retained."
+    },
+    {
+      "id": "openai",
+      "citation_keys": {
+        "article": "openai"
+      },
+      "bibliography_tex": "OpenAI. \\emph{Finite Time Blowup for Navier--Stokes}. 2026. \\url{https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/OpenAI_Finite_Time_Blowup_for_Navier_Stokes.pdf",
+          "sha256": "0e779481c4da40bd28d1e642e1d8ca57447d129610df28dfa5a11e9af8ae228f",
+          "bytes": 2959204,
+          "pdf_pages": 166
+        }
+      ],
+      "source_urls": [
+        "https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf"
+      ],
+      "version_note": "Full text saved; future citation audit still required."
+    },
+    {
+      "id": "lean",
+      "citation_keys": {
+        "article": "lean"
+      },
+      "bibliography_tex": "OpenAI. \\emph{NavierStokesAndEuler}. Software, 2026. \\url{https://github.com/openai/NavierStokesAndEuler}.",
+      "coverage": "source_archive",
+      "files": [
+        {
+          "path": "reference/OpenAI_NavierStokesAndEuler_8937a8f.tar.gz",
+          "sha256": "e44f67a2bc3c133c14856d73b697f77344b030e3fae2f798254b64dcefbbb772",
+          "bytes": 6264375
+        }
+      ],
+      "source_urls": [
+        "https://codeload.github.com/openai/NavierStokesAndEuler/tar.gz/8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538"
+      ],
+      "version_note": "Full source archive at commit 8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538; no equivalence to a moving default branch is assumed."
+    },
+    {
+      "id": "petersen",
+      "citation_keys": {
+        "article": "petersen",
+        "guide": "petersen"
+      },
+      "bibliography_tex": "P. Petersen. \\emph{Manifolds, Transversality, and de Rham Cohomology}. University of California, Los Angeles, lecture notes. \\url{https://www.math.ucla.edu/~petersen/manifolds.pdf}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Petersen_Manifolds_Author.pdf",
+          "sha256": "18c28c10b77999ea2b999feb598ee3cfc017e31d80ba616220c17cd774e12272",
+          "bytes": 981507,
+          "pdf_pages": 186
+        }
+      ],
+      "source_urls": [
+        "https://www.math.ucla.edu/~petersen/manifolds.pdf"
+      ],
+      "version_note": "Full text saved; future citation audit still required."
+    },
+    {
+      "id": "taodispersive",
+      "citation_keys": {
+        "article": "taodispersive",
+        "guide": "taodispersive"
+      },
+      "bibliography_tex": "T. Tao. \\emph{Nonlinear Dispersive Equations: Local and Global Analysis}. CBMS Regional Conference Series in Mathematics, vol.~106. American Mathematical Society, 2006. \\href{https://doi.org/10.1090/cbms/106}{doi:10.1090/cbms/106}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Tao_Nonlinear_Dispersive_Equations_Author_Draft.pdf",
+          "sha256": "7109de5b84fa92fe2109809e0b720903912b2f72a7796a725fb217df7e938a8f",
+          "bytes": 2012629,
+          "pdf_pages": 239
+        }
+      ],
+      "source_urls": [
+        "https://www.math.ucla.edu/~tao/preprints/chapter.pdf"
+      ],
+      "version_note": "Complete downloaded author draft. Guide locators use its printed pagination (e.g. 336 and 338), not an assumed match to the published edition."
+    },
+    {
+      "id": "tao2013",
+      "citation_keys": {
+        "article": "tao2013",
+        "guide": "tao"
+      },
+      "bibliography_tex": "T. Tao. Localisation and compactness properties of the Navier--Stokes global regularity problem. \\emph{Analysis \\& PDE} \\textbf{6}(1) (2013), 25--107. \\href{https://doi.org/10.2140/apde.2013.6.25}{doi:10.2140/apde.2013.6.25}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Tao_2013_Localisation_Compactness_Published.pdf",
+          "sha256": "2dd8a5ae803ad13c3a17d76a59f4a6d1576713a6a2c8febcc9a674b42520b6ec",
+          "bytes": 1576330,
+          "pdf_pages": 86
+        }
+      ],
+      "source_urls": [
+        "https://msp.org/apde/2013/6-1/apde-v6-n1-p02-s.pdf"
+      ],
+      "version_note": "Full text saved; future citation audit still required."
+    },
+    {
+      "id": "tao2018",
+      "citation_keys": {
+        "article": "tao2018"
+      },
+      "bibliography_tex": "T. Tao. 254A, Notes 1: Local well-posedness of the Navier--Stokes equations. \\emph{What's New}, 16 September 2018. \\url{https://terrytao.wordpress.com/2018/09/16/254a-notes-1-local-well-posedness-of-the-navier-stokes-equations/}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Tao_2018_Local_Wellposedness.html",
+          "sha256": "2bc557bbc1aa49c2a98c07fd4a7a743e7498554b036e8f8fefcd80b3b28eee54",
+          "bytes": 1281608
+        }
+      ],
+      "source_urls": [
+        "https://terrytao.wordpress.com/2018/09/16/254a-notes-1-local-well-posedness-of-the-navier-stokes-equations/"
+      ],
+      "version_note": "Complete HTML article, not a PDF; math images in the original HTML may refer to remote assets."
+    },
+    {
+      "id": "taylor2011",
+      "citation_keys": {
+        "article": "taylor2011",
+        "guide": "taylor"
+      },
+      "bibliography_tex": "M. E. Taylor. \\emph{Partial Differential Equations I: Basic Theory}. 2nd ed., Applied Mathematical Sciences, vol.~115. Springer, 2011. \\href{https://doi.org/10.1007/978-1-4419-7055-8}{doi:10.1007/978-1-4419-7055-8}.",
+      "coverage": "cited_chapters",
+      "files": [
+        {
+          "path": "reference/Taylor_PDE_I_Chapter3_Author.pdf",
+          "sha256": "e85e7a4e882a278dbf18e88af2417abdbed96ea55763a77aa6c528aa8570553d",
+          "bytes": 603921,
+          "pdf_pages": 107
+        },
+        {
+          "path": "reference/Taylor_PDE_I_Chapter4_Author.pdf",
+          "sha256": "01aa8571d646ef5fad917a73773a93bd44145be3239c0bb38ca211c06d011877",
+          "bytes": 318830,
+          "pdf_pages": 35
+        }
+      ],
+      "source_urls": [
+        "https://mtaylor.web.unc.edu/wp-content/uploads/sites/16915/2018/04/fourier.pdf",
+        "https://mtaylor.web.unc.edu/wp-content/uploads/sites/16915/2018/04/chap4.pdf"
+      ],
+      "version_note": "Complete text of cited Chapters 3 and 4 in author chapter pagination; not the complete published volume."
+    },
+    {
+      "id": "taylor2011iii",
+      "citation_keys": {
+        "article": "taylor2011iii"
+      },
+      "bibliography_tex": "M. E. Taylor. \\emph{Partial Differential Equations III: Nonlinear Equations}. 2nd ed., Applied Mathematical Sciences, vol.~117. Springer, 2011. \\href{https://doi.org/10.1007/978-1-4419-7049-7}{doi:10.1007/978-1-4419-7049-7}.",
+      "coverage": "cited_chapters",
+      "files": [
+        {
+          "path": "reference/Taylor_PDE_III_Chapter13_Author.pdf",
+          "sha256": "a398fb89eb63a0f5beb14c06d8370c2d57aef65122b3132bf4c7326310672126",
+          "bytes": 701302,
+          "pdf_pages": 96
+        }
+      ],
+      "source_urls": [
+        "https://mtaylor.web.unc.edu/wp-content/uploads/sites/16915/2018/04/chap13.pdf"
+      ],
+      "version_note": "Complete text of cited Chapter 13 in author chapter pagination; not the complete published volume."
+    },
+    {
+      "id": "danchin",
+      "citation_keys": {
+        "article": "danchin",
+        "guide": "danchin"
+      },
+      "bibliography_tex": "R. Danchin. \\emph{Fourier Analysis Methods for PDE's}. Lecture notes, 2005. \\url{https://perso.math.u-pem.fr/danchin.raphael/cours/courschine.pdf}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Danchin_Fourier_Analysis_Methods_for_PDEs.pdf",
+          "sha256": "de2097542796b3ab179c1a9f2218a80078c634647947346a480e9828312de9d1",
+          "bytes": 648213,
+          "pdf_pages": 91
+        }
+      ],
+      "source_urls": [
+        "https://perso.math.u-pem.fr/danchin.raphael/cours/courschine.pdf"
+      ],
+      "version_note": "Full text saved; future citation audit still required."
+    },
+    {
+      "id": "mrrs",
+      "citation_keys": {
+        "article": "mrrs"
+      },
+      "bibliography_tex": "P. Mar\\'in-Rubio, J. C. Robinson and W. Sadowski. Solutions of the 3D Navier--Stokes equations for initial data in $\\dot H^{1/2}$: Robustness of regularity and numerical verification of regularity for bounded sets of initial data in $\\dot H^1$. \\emph{Journal of Mathematical Analysis and Applications} \\textbf{400}(1) (2013), 76--85. \\href{https://doi.org/10.1016/j.jmaa.2012.10.064}{doi:10.1016/j.jmaa.2012.10.064}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/MarinRubio_Robinson_Sadowski_2013_Robustness.pdf",
+          "sha256": "83d3ed6f86b2c31d6c34c4db5059816fb4e74763b8f9c2e0174d7990318921c0",
+          "bytes": 288866,
+          "pdf_pages": 16
+        }
+      ],
+      "source_urls": [
+        "https://idus.us.es/server/api/core/bitstreams/b0e9a174-2dd3-484d-9a9d-39ec5ee1323c/content"
+      ],
+      "version_note": "Full accepted manuscript, 16 PDF pages; guide/article locators refer to manuscript pp. 6-7."
+    },
+    {
+      "id": "dpv",
+      "citation_keys": {
+        "guide": "dpv"
+      },
+      "bibliography_tex": "E. Di Nezza, G. Palatucci and E. Valdinoci. Hitchhiker's guide to the fractional Sobolev spaces. \\emph{Bulletin des Sciences Math\\'ematiques} \\textbf{136}(5) (2012), 521--573. \\href{https://doi.org/10.1016/j.bulsci.2011.12.004}{doi:10.1016/j.bulsci.2011.12.004}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/DiNezza_Palatucci_Valdinoci_Fractional_Sobolev_v3.pdf",
+          "sha256": "9c766906f32852c89caf6b9aec08fd3d6ef134bee939e3bd70046b1b20da5c32",
+          "bytes": 589012,
+          "pdf_pages": 74
+        }
+      ],
+      "source_urls": [
+        "https://arxiv.org/pdf/1104.4345v3"
+      ],
+      "version_note": "Full arXiv v3; bibliography gives the published article. The guide explicitly identifies v3 pagination."
+    },
+    {
+      "id": "roncal",
+      "citation_keys": {
+        "guide": "roncal"
+      },
+      "bibliography_tex": "L. Roncal and P. R. Stinga. Fractional Laplacian on the torus. \\emph{Communications in Contemporary Mathematics} \\textbf{18}(3) (2016), 1550033. \\href{https://doi.org/10.1142/S0219199715500339}{doi:10.1142/S0219199715500339}.",
+      "coverage": "full_text",
+      "files": [
+        {
+          "path": "reference/Roncal_Stinga_Fractional_Laplacian_Torus_v3.pdf",
+          "sha256": "5b6ae373853c7a424ae939fa0ae4e3c9e511d2ef0e560c29321185e684f35f3b",
+          "bytes": 525112,
+          "pdf_pages": 18
+        }
+      ],
+      "source_urls": [
+        "https://arxiv.org/pdf/1209.6104v3"
+      ],
+      "version_note": "Full arXiv v3; bibliography gives the published article. The guide explicitly identifies v3 numbering and pagination."
+    }
+  ],
+  "archived_sources": [
+    {
+      "id": "fujita",
+      "bibliography_tex": "H. Fujita and T. Kato. On the Navier--Stokes initial value problem. I. \\emph{Archive for Rational Mechanics and Analysis} \\textbf{16} (1964), 269--315. \\href{https://doi.org/10.1007/BF00276188}{doi:10.1007/BF00276188}.",
+      "coverage": "metadata_only",
+      "files": [
+        {
+          "path": "reference/Fujita_Kato_1964.html",
+          "sha256": "c6a922ebcc0cfbc4a6de2781b2937fac564062b34ddcb7f2ef14d48ca5cd3700",
+          "bytes": 254597
+        }
+      ],
+      "source_urls": [
+        "https://link.springer.com/article/10.1007/BF00276188"
+      ],
+      "version_note": "Full article not obtained: publisher PDF requests redirect to a subscription page; public archive attempts failed. This HTML is metadata only, not the original article. Do not count it as full-text coverage.",
+      "previous_citation_keys": {
+        "article": "fujita"
+      },
+      "removal_note": "Historical background only; removed from the active article bibliography at the user request. Publisher metadata retained for possible future use."
+    }
+  ]
+}

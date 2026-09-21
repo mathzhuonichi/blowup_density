@@ -1,0 +1,100 @@
+\section{Introduction}\label{sec:intro}
+The three-dimensional incompressible Navier--Stokes equations with
+viscosity $\nu>0$ and external force $f$ are
+\begin{equation}\label{eq:NS}
+ \partial_tu+(u\cdot\nabla)u-\nu\Delta u+\nabla p=f,
+ \qquad \nabla\cdot u=0,\qquad u(\cdot,0)=a.
+\end{equation}
+We work on $\R^3$ and on the unit torus $\TT=\R^3/\mathbb Z^3$.
+For fixed $a$ and $T>0$, we ask in which force norms the smooth forces
+producing classical breakdown by $T$ are dense.
+
+The geometric argument is a divergence-free version of the smooth Urysohn
+construction: make a given smooth velocity vanish near a small compact set,
+leave it unchanged outside a slightly larger set, and place a compact blowup
+solution in the resulting region. Smooth cutoffs are supplied by the classical
+smooth Urysohn lemma~\cite[Corollary~1.3.4]{petersen}. To preserve
+incompressibility, apply the cutoff to a local vector potential rather than
+to the velocity itself. The remaining equation error is absorbed into the
+external force. Our blowup building block is the following result of
+OpenAI~\cite[Theorem~1.1]{openai}.
+
+\Needspace{12\baselineskip}
+\begin{theorem}\label{thm:packet}
+For every $\nu>0$ there exist a force
+$f\in C_c^\infty(\R^3\times(0,\infty);\R^3)$, a compact set
+$K\subset\R^3$, and smooth velocity and pressure fields $u,p$ on
+$\R^3\times[0,1)$ satisfying
+\begin{equation}\label{eq:packet}
+ \partial_tu+(u\cdot\nabla)u-\nu\Delta u+\nabla p=f,
+ \qquad \nabla\cdot u=0,\qquad u(\cdot,0)=0,
+\end{equation}
+such that $\supp u(\cdot,t)\cup\supp p(\cdot,t)\subset K$ for every
+$0\le t<1$,
+\begin{equation}\label{eq:packetblowup}
+ \sup_{0\le t<1}\norm{u(t)}_{L^2(\R^3)}<\infty,
+ \qquad \limsup_{t\uparrow1}\norm{u(t)}_{L^\infty(\R^3)}=\infty.
+\end{equation}
+Consequently, there is no smooth solution $(u,P)$ on
+$\R^3\times[0,\infty)$ with the same force and initial datum whose
+kinetic energy is uniformly bounded
+$\sup_{t\ge0}\frac12\int_{\R^3}|u(x,t)|^2\dd x<\infty$.
+\end{theorem}
+
+Fix one such building block $(U,P,F)$~\cite{openai,lean}.
+The local gluing strategy parallels
+Enciso, Pe\~nafiel-Tom\'as and Peralta-Salas~\cite[Theorem~1.5,
+Lemma~2.11, Sections~11.1 and~11.3]{eppt2025}: first modify a given smooth
+solution locally, then glue in a blowup building block. Their construction
+produces weak unforced Euler solutions by removing Reynolds stress with
+convex integration. Here the force is allowed to change, and the glued
+solution is classical before its blowup time.
+
+More explicitly, for a given smooth velocity $v=\nabla\times A$ locally,
+choose smooth cutoffs and set
+\[
+ w_\eps=-\nabla\times(\eta_\eps\theta_\eps A),\qquad
+ u_\eps=v+w_\eps+U_\eps.
+\]
+The corrected velocity $v+w_\eps$ vanishes near the support of the rescaled
+building block $U_\eps$. Hence both mixed nonlinear terms vanish. The force
+is the sum of the given force, the rescaled force, and a smooth cutoff
+correction. Plancherel's theorem and the Fourier dilation formula, followed
+by the time change $t=t_\eps+\eps^2\tau$, give the force factor
+$\eps^{2/q-3/2-s}$ in $L^q_t\dot H^s_x$, wherever finite.
+For $0\le s\le1$, the corresponding fractional estimate also follows from
+the classical Sobolev interpolation inequality
+\[
+ \norm{z}_{\dot H^s}\le\norm{z}_2^{1-s}\norm{\nabla z}_2^s,
+\]
+which is H\"older's inequality on the Fourier side; see
+\cite[Chapter~4, Sections~1--2]{taylor2011}. The cutoff correction has one
+additional power of $\eps$. Negative orders require the separate
+low-frequency estimate in Section~\ref{sec:whole}.
+
+The resulting sharp thresholds for zero initial velocity are
+\begin{center}
+\begin{tabular}{lll}
+\toprule Domain & Force topology & Density holds exactly when\\
+\midrule
+$\TT$ & $L^1_tH^s_x$ & $s<1/2$\\
+$\R^3$ & $L^1_tH^s_x$ & $s<1/2$\\
+$\R^3$ & $L^2_tH^s_x$ & $s<-1/2$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Below threshold, density holds for every fixed admissible smooth initial
+velocity. Near a solution smooth through $T$, the approximation preserves
+its initial velocity and earlier history, blows up exactly at $T$, and
+converges in energy and dissipation. For a general given force the conclusion
+is breakdown by $T$, since a solution that already breaks down earlier needs
+no modification. Non-density at and above threshold follows from the forced
+critical regularity estimates, not from scaling alone.
+
+For comparison, Hofmanov\'a, Zhu and Zhu~\cite[Theorem~1.4, Corollary~4.6,
+Theorem~5.1]{hzz2024} obtain force-density results for nonunique Leray--Hopf
+solutions. Our property is classical breakdown under a smooth force.
+Classical local theory and the critical velocity framework are supplied by
+Tao~\cite{tao2013,tao2018}. Section~\ref{sec:preliminaries} fixes conventions and collects
+the standard estimates used below; Sections~\ref{sec:torus}
+and~\ref{sec:whole} give the periodic and whole-space arguments.

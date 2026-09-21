@@ -1,0 +1,63 @@
+name = "NSFormalization"
+version = "0.1.0"
+defaultTargets = ["NSFormalization"]
+
+[[require]]
+name = "NavierStokesAndEuler"
+path = "../vendor/NavierStokesAndEuler"
+
+[[lean_lib]]
+name = "NSFormalization"
+globs = ["NSFormalization.+"]
+
+# Selected upstream HeliCorgi modules used by the current proof closure.
+# They compile in place with the main Lean/Mathlib pin.
+[[lean_lib]]
+name = "Formal"
+srcDir = "../vendor/HeliCorgi"
+roots = [
+  "Formal.EndpointSafeTwoSpaceDuhamel",
+  "Formal.EndpointSafeTwoSpacePicard",
+  "Formal.FlowMapChainRule",
+  "Formal.FlowMapContDiffOne",
+  "Formal.FlowMapFTC",
+  "Formal.FlowMapLocalContDiff",
+  "Formal.FlowMapNonextendibilityCriterion",
+  "Formal.FlowMapOperatorContinuity",
+  "Formal.NavierStokesTimeBridge",
+  "Formal.PDEBridgeAdapter",
+  "Formal.R3ClosedSolenoidalCarrier",
+  "Formal.R3ConjugationReflection",
+  "Formal.R3CoordinateLinearAux",
+  "Formal.R3DivergencePointwise",
+  "Formal.R3FourierConjugationBridge",
+  "Formal.R3H2AdditiveConvolutionWeight",
+  "Formal.R3H2BesselWeightGeometry",
+  "Formal.R3H2CoordinateFourierBounds",
+  "Formal.R3H2FourierL1Bound",
+  "Formal.R3H2VelocityFourierL1Bound",
+  "Formal.R3H2WeightedConvolutionKernel",
+  "Formal.R3H2YoungWeightedBridge",
+  "Formal.R3L2CoordinateAux",
+  "Formal.R3L2ScalarAux",
+  "Formal.R3LerayComplexDivergenceBridge",
+  "Formal.R3LerayComplexFiberSymbol",
+  "Formal.R3LerayFourierBridge",
+  "Formal.R3LerayFrequencySymbol",
+  "Formal.R3LerayL2Operator",
+  "Formal.R3LerayPointwiseL2",
+  "Formal.R3NormalizedDivergenceFrequency",
+  "Formal.R3NormalizedDivergenceTerm",
+  "Formal.R3NormalizedFrequencyLpTop",
+  "Formal.R3SchwartzConvection",
+  "Formal.R3SchwartzConvectionSobolevReduction",
+  "Formal.R3SchwartzSobolevCore",
+  "Formal.R3SchwartzSobolevMonotonicity",
+  "Formal.R3SobolevCarrier",
+  "Formal.R3SolenoidalCarrierCompleteness",
+  "Formal.R3SolenoidalSobolevCarrier",
+  "Formal.R3StokesFrequencySymbol",
+  "Formal.R3StokesL2Operator",
+  "Formal.R3YoungL1L2Bochner",
+  "Formal.UniformRestartContinuation"
+]

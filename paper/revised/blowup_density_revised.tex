@@ -1,0 +1,61 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=26mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem,needspace,booktabs,xcolor,hyperref}
+\definecolor{ink}{HTML}{16364A}
+\hypersetup{colorlinks=true,linkcolor=ink,urlcolor=ink,citecolor=ink,
+pdfauthor={Shaozhen Cao, Zhuoni Chi, and Ping Nie},
+pdftitle={Density of Forces Producing Navier--Stokes Blowup}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}\newcommand{\TT}{\mathbb T^3}
+\newcommand{\FF}{\mathcal F}\newcommand{\XX}{\mathcal X}
+\newcommand{\BB}{\mathcal B}\newcommand{\PP}{\mathbb P}
+\newcommand{\dd}{\,\mathrm d}\newcommand{\eps}{\varepsilon}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ip}[2]{\left\langle#1,#2\right\rangle}
+\DeclareMathOperator{\supp}{supp}
+\setlist[enumerate]{label=(\roman*),itemsep=2pt,topsep=4pt}
+\AtBeginEnvironment{theorem}{\samepage}
+\AtBeginEnvironment{proposition}{\samepage}
+\AtBeginEnvironment{lemma}{\samepage}
+\AtBeginEnvironment{corollary}{\samepage}
+\emergencystretch=1em
+\title{Density of Forces Producing\\ Navier--Stokes Blowup}
+\author{Shaozhen Cao\\\texttt{shaozhencao@zju.edu.cn}\and
+Zhuoni Chi\\\texttt{znchi@zju.edu.cn}\and
+Ping Nie\\\texttt{ping.nie@pku.edu.cn}}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+We study the density of smooth external forces for which the three-dimensional
+Navier--Stokes equations lose classical regularity by a prescribed time $T>0$.
+Starting from the compact forced blowup solution of OpenAI, we construct a
+blowup solution near every given smooth solution while preserving its
+initial velocity. A smooth cutoff of a local vector potential makes the
+given velocity vanish near the support of a rescaled blowup solution.
+The two velocities then have no nonlinear interaction, and the resulting
+force remains smooth through the blowup time. For fixed viscosity and zero
+initial velocity, such forces are dense in the relative $L^1_tH^s_x$ topology
+on both $\TT$ and $\R^3$ exactly when $s<1/2$.
+\end{abstract}
+\noindent\textbf{Keywords:} forced Navier--Stokes equations; finite-time blowup;
+force-space density; Sobolev spaces; compact support.
+
+\input{sections/01-introduction}
+\input{sections/02-preliminaries}
+\input{sections/03-torus}
+\input{sections/04-whole-space}
+\section*{Declaration of generative AI use}
+GPT Astra (OpenAI) assisted with literature review, development and checking
+of mathematical arguments, drafting, and LaTeX preparation. Codex assisted
+with manuscript consolidation and revision. Responsibility for the final
+content remains with the authors.
+\input{references}
+\end{document}

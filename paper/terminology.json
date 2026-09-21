@@ -1,0 +1,217 @@
+{
+  "scope": "Controlled prose substitutions for the reader revision. Mathematical notation, labels, citations, bibliographic titles and Lean identifiers are preserved.",
+  "replacements": [
+    {
+      "old": "extended singular data",
+      "new": "initial data and forces producing breakdown"
+    },
+    {
+      "old": "singular smooth compact force",
+      "new": "smooth compact force producing breakdown"
+    },
+    {
+      "old": "singular-force density",
+      "new": "density of forces producing breakdown"
+    },
+    {
+      "old": "singular-force set",
+      "new": "set of forces producing breakdown"
+    },
+    {
+      "old": "singular forces",
+      "new": "forces producing breakdown"
+    },
+    {
+      "old": "singular force",
+      "new": "force producing breakdown"
+    },
+    {
+      "old": "required singular set",
+      "new": "required breakdown set"
+    },
+    {
+      "old": "background correction",
+      "new": "cutoff correction"
+    },
+    {
+      "old": "background velocity",
+      "new": "given velocity"
+    },
+    {
+      "old": "reference velocities",
+      "new": "given velocities"
+    },
+    {
+      "old": "regular reference solution",
+      "new": "given smooth solution"
+    },
+    {
+      "old": "regular reference velocities",
+      "new": "given velocities"
+    },
+    {
+      "old": "regular reference",
+      "new": "given smooth solution"
+    },
+    {
+      "old": "smooth reference",
+      "new": "given smooth solution"
+    },
+    {
+      "old": "reference solution",
+      "new": "given smooth solution"
+    },
+    {
+      "old": "reference velocity",
+      "new": "given velocity"
+    },
+    {
+      "old": "reference force",
+      "new": "given force"
+    },
+    {
+      "old": "reference pair",
+      "new": "given pair"
+    },
+    {
+      "old": "reference equation",
+      "new": "equation for the given smooth solution"
+    },
+    {
+      "old": "reference regular through",
+      "new": "given solution smooth through"
+    },
+    {
+      "old": "reference smooth through",
+      "new": "given solution smooth through"
+    },
+    {
+      "old": "references regular through",
+      "new": "given solutions smooth through"
+    },
+    {
+      "old": "compact singular solution",
+      "new": "compact blowup solution"
+    },
+    {
+      "old": "localized singular solutions",
+      "new": "blowup building blocks"
+    },
+    {
+      "old": "localized solution",
+      "new": "building block"
+    },
+    {
+      "old": "singular solution",
+      "new": "blowup solution"
+    },
+    {
+      "old": "singular time",
+      "new": "blowup time"
+    },
+    {
+      "old": "singular regions",
+      "new": "regions of velocity blowup"
+    },
+    {
+      "old": "insertion",
+      "new": "gluing"
+    },
+    {
+      "old": "inserted",
+      "new": "glued"
+    },
+    {
+      "old": "inserting",
+      "new": "gluing"
+    },
+    {
+      "old": "insert",
+      "new": "glue"
+    },
+    {
+      "old": "packet",
+      "new": "building block"
+    },
+    {
+      "old": "regular given velocities",
+      "new": "given velocities"
+    },
+    {
+      "old": "given smooth solution force",
+      "new": "smooth force"
+    },
+    {
+      "old": "the reference is Euclidean",
+      "new": "the cited estimate is Euclidean"
+    },
+    {
+      "old": "the reference",
+      "new": "the given smooth solution"
+    },
+    {
+      "old": "every reference",
+      "new": "every given smooth solution"
+    },
+    {
+      "old": "this compatible reference",
+      "new": "this compatible smooth solution"
+    },
+    {
+      "old": "a general reference",
+      "new": "a given solution"
+    },
+    {
+      "old": "earlier-breaking reference",
+      "new": "force whose solution breaks down earlier"
+    },
+    {
+      "old": "regular-reference hypotheses",
+      "new": "hypotheses on the given smooth solution"
+    },
+    {
+      "old": "regular-reference case",
+      "new": "case of a solution smooth through the prescribed time"
+    },
+    {
+      "old": "regular through",
+      "new": "smooth through"
+    },
+    {
+      "old": "regular background",
+      "new": "given smooth solution"
+    },
+    {
+      "old": "background itself",
+      "new": "given force itself"
+    },
+    {
+      "old": "local modification of the background",
+      "new": "local modification of the given smooth solution"
+    },
+    {
+      "old": "makes the background spatially constant",
+      "new": "makes the given velocity spatially constant"
+    },
+    {
+      "old": "gluing-lifespan contract",
+      "new": "lifespan contract for the glued solution"
+    },
+    {
+      "old": "gluing-lifespan tests",
+      "new": "lifespan tests for the glued solution"
+    },
+    {
+      "old": "global reference-smoothness interface",
+      "new": "interface requiring a globally smooth given solution"
+    },
+    {
+      "old": "starting from rest",
+      "new": "with zero initial velocity"
+    },
+    {
+      "old": "from rest",
+      "new": "with zero initial velocity"
+    }
+  ]
+}
