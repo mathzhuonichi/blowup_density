@@ -443,3 +443,15 @@ with their assembly lanes; `M316_B` remains Partial.
   and I03 supplies the original M,D normalization. Energy is ≤; dissipation is =.
   Raw packet clauses are bundled only in the existing I03 `PacketData`; the probe
   constructs that bundle from the canonical raw hypotheses. No analytic residual.
+
+### Lane 501 P5.5 CLOSED
+
+`MultipleOmegaAssembly.multipleRegionsOmegaAPI` constructs all thirty fields;
+`multipleRegionsOmegaStatement_holds` supplies the raw universal statement.
+P5b's hypotheses are discharged by P5a's actual components; the velocity sums
+are definitionally equal, without deduplication. The registered unit-box,
+N=1, ν=T=1 probe reads blow-up and no-slip from concrete inhabitants.
+`T04.multiple_regions_v2` conjoins both branches of Proposition 3.16; V1 remains.
+M316_B and the article row are Closed (22 Closed / 5 Partial). Full article
+audit, make check/test/test-mutations/paper pass. See REPORT_501.md for the
+four-part statement, file, diagnostic and command ledger.
