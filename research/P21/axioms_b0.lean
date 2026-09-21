@@ -1,0 +1,27 @@
+import NSFormalization.Section4.A04.H1Bridges
+import NSFormalization.Section3.T11.H1Bridges
+
+#print axioms NSFormalization.Section4.A04.realSymmetry_angularDatum
+#print axioms NSFormalization.Section4.A04.compactAngularDatumR_apply
+#print axioms NSFormalization.Section4.A04.isSobolevDatum_compactAngularDatumR
+#print axioms NSFormalization.Section4.A04.compactAngularDatumR_norm_sq
+#print axioms NSFormalization.Section4.A04.sobolevENorm_toReal_sq_eq_angular
+#print axioms NSFormalization.Section4.A04.angularSobolevSq_two_eq_physical
+#print axioms NSFormalization.Section4.A04.sobolevENorm_one_toReal_sq_eq
+#print axioms NSFormalization.Section4.A04.sobolevENorm_two_toReal_sq_eq
+#print axioms NSFormalization.Section4.A04.sobolevENorm_two_eq_one_add_gradient_hessian
+#print axioms NSFormalization.Section4.A04.forceSlice_contDiffR
+#print axioms NSFormalization.Section4.A04.forceL2CapR_ne_top
+#print axioms NSFormalization.Section4.A04.force_slice_le_forceL2CapR
+#print axioms NSFormalization.Section4.A04.iSup_shifted_force_slice_le_forceL2CapR
+#print axioms NSFormalization.Section4.A04.timeShift_force_slice_le_forceL2CapR
+
+#print axioms NSFormalization.Section3.T11.periodicSobolevENorm_nat_toReal_sq_eq
+#print axioms NSFormalization.Section3.T11.periodicSobolevENorm_one_toReal_sq_eq
+#print axioms NSFormalization.Section3.T11.periodicSobolevENorm_two_toReal_sq_eq
+#print axioms NSFormalization.Section3.T11.periodicSobolevENorm_two_eq_one_add_gradient_hessian
+#print axioms NSFormalization.Section3.T11.forceL2CapT_ne_top
+#print axioms NSFormalization.Section3.T11.force_slice_le_forceL2CapT
+#print axioms NSFormalization.Section3.T11.iSup_shifted_force_slice_le_forceL2CapT
+#print axioms NSFormalization.Section3.T11.timeShiftT_force_slice_le_forceL2CapT
+#print axioms NSFormalization.Section3.T11.timeShiftT_smooth_periodic
