@@ -241,4 +241,42 @@ theorem weightedEnergyIdentity_smoothT
   rw [he] at hd
   convert hd using 1 <;> ring
 
+/-- Shift-compatible enstrophy inequality, with no norm-bridge premises. -/
+theorem enstrophy_differential_smoothT
+    {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionT ν a f T) (hf : ContDiff ℝ ∞ f)
+    (hfp : IsPeriodicOn univ f) (hν : 0 < ν)
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) :
+    let Cν := (2 * convectionConstT) ^ 4 / (ν / 2) ^ 3 + (1 + ν) + (1 + 2 / ν)
+    deriv (fun q => (periodicSobolevENorm 1 (fun x => w.velocity (q, x))).toReal ^ 2) t +
+      ν * (periodicSobolevENorm 2 (fun x => w.velocity (t, x))).toReal ^ 2 ≤
+    Cν * (1 + (periodicSobolevENorm 1 (fun x => w.velocity (t, x))).toReal ^ 2) ^ 3 +
+      Cν * lTwoSqT (fun x => f (t, x)) := by
+  have hz : SmoothPeriodicT (fun x => w.velocity (t, x)) :=
+    ⟨classical_velocity_slice_contDiff w (Ioo_subset_Ico_self ht),
+      w.velocity_periodic t (Ioo_subset_Ico_self ht)⟩
+  have hb : Continuous (fun x => f (t, x)) := (hf.comp (contDiff_const.prodMk contDiff_id)).continuous
+  have hC : 0 ≤ convectionConstT := by
+    have := cutoffGradBound_nonneg
+    have := NSFormalization.Section4.A05.gradientL6Const_pos
+    unfold convectionConstT velocitySixConstT
+    positivity
+  have hOne := periodicHOne_bridgeT hz.1 hz.2
+  have hconv := convection_boundT _ hz (periodicGradient_bridgeT hz.1).le
+  rw [← hOne] at hconv
+  have hP := abs_pairing_carrier_leT _ _ hz.1.continuous hb
+  have hQ := abs_pairing_carrier_leT _ _ hb (contDiff_laplacian hz.1).continuous
+  have h := weighted_cubic_assemblyT hν hC
+    (sq_nonneg _) (sq_nonneg _) (sq_nonneg _) (sq_nonneg _)
+    hOne (periodicHTwo_bridgeT hz.1 hz.2).le
+    (weightedEnergyIdentity_smoothT w hf hfp ht).deriv hconv
+    ((le_abs_self _).trans hP) ((neg_le_abs _).trans hQ)
+  change _ ≤ _ + (1 + 2 / ν) * lTwoSqT (fun x => f (t, x)) at h
+  dsimp only
+  have hA : 0 ≤ (2 * convectionConstT) ^ 4 / (ν / 2) ^ 3 + (1 + ν) := by positivity
+  have hB : 0 ≤ 1 + 2 / ν := by positivity
+  have hY : 0 ≤ (1 + (periodicSobolevENorm 1 (fun x => w.velocity (t, x))).toReal ^ 2) ^ 3 := by positivity
+  have hF : 0 ≤ lTwoSqT (fun x => f (t, x)) := sq_nonneg _
+  nlinarith only [h, mul_nonneg hA hF, mul_nonneg hB hY]
+
 end NSFormalization.Section3.T11
