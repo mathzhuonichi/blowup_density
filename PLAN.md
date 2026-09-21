@@ -44,7 +44,7 @@
 | 492-T19-P1-prescribed-ball | worktree 安装中（两串各 3 个）→ codex astra | 09-21 0335Z | — | P1 Thm 3.6 任意给定球：placementDataAt + insertionAt + periodicInsertion_from_data + T03.periodic_insertion_v2 + 蓝图 |
 | 493-T17-P2-article-scope | worktree 安装中（两串各 3 个）→ codex astra | 09-21 0335Z | — | P2 Lemma 3.5 文章形式：correctionStatementArticle（经典参照 + 零延拓识别）+ T02.correction_v2 + 蓝图 |
 | 494-T18-P3-force-amplitude | worktree 安装中（两串各 3 个）→ codex astra | 09-21 0335Z | — | P3 Remark 3.13：F ≠ 0、周期化缩放力的 sup 范数 ε⁻³‖F‖∞、H_ε ≤ Cε⁻²、发散 + T03.force_amplitude + 蓝图 |
-| 495-T24-P4-conservative-domain | worktree 安装中（两串各 3 个）→ codex astra | 09-21 0335Z | — | P4 Prop 3.17 有界域：ConservativeForcingOmegaAPI（pairing 经 IBP.integral_pressure_energy_zero；从静止为零）+ T04.conservative_forcing_v2 + 蓝图 |
+| 495-T24-P4-conservative-domain | astra 8 分钟完成：ConservativeOmega.lean（pairing 经 IBP、restSolutionOmega、零能量⇒零）+ T04.conservative_forcing_v2（30 合同）+ 蓝图/guide/计数 22/5 + 四闸门 + make paper → 审中 sol | 09-21 0348Z | — | P4 Prop 3.17 有界域：ConservativeForcingOmegaAPI（pairing 经 IBP.integral_pressure_energy_zero；从静止为零）+ T04.conservative_forcing_v2 + 蓝图 |
 | 496-T24-P5-spec-multiple-domain | worktree 安装中（两串各 3 个）→ codex astra | 09-21 0335Z | — | P5 步骤 1：MultipleRegionsOmegaAPI 规范（镜像环面 30 字段）+ canonical 记录 + 拆分 |
 | 499-P21-P6-h1-assessment | worktree 安装中（两串各 3 个）→ codex astra | 09-21 0335Z | — | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
 
