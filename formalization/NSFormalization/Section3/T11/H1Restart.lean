@@ -485,4 +485,35 @@ theorem periodicHThree_bound_smoothT {ν S : ℝ} (hν : 0 < ν)
   rw [← ENNReal.ofReal_toReal hn]
   exact ENNReal.ofReal_le_ofReal h
 
+/-- H³ Picard and gluing realize a strictly larger horizon for shifted forces. -/
+theorem shifted_horizon_extensionT {ν R t₀ : ℝ} (hν : 0 < ν)
+    {a : SpatialField} {f u : SpaceTimeField}
+    {p : NSFormalization.Section4.A02.SpaceTimeScalar}
+    (hf : MemForceT f) (ht₀ : 0 ≤ t₀) (hR : 0 < R)
+    (hu : SolvesBelowT ν a (timeShiftT t₀ f) R u p)
+    (hfin : squaredHTwoIntegralT R u ≠ ⊤) :
+    ∃ T : ℝ, R < T ∧ Nonempty (ClassicalSolutionT ν a (timeShiftT t₀ f) T) := by
+  obtain ⟨K, hK, hbound⟩ := periodicHThree_bound_smoothT hν
+    (timeShiftT_contDiff hf.1 t₀) (timeShiftT_periodic hf.2.1 t₀) hu hfin
+  let M := fun m : ℕ => forceSobolevENormT 1 (m : ℝ) f
+  obtain ⟨d, hd, hloc⟩ := periodicQuantitativeLocalInputH3 ν hν K hK M
+    (fun m => forceSobolevENormT_ne_top hf m 1)
+  let b := max 0 (R - d / 2)
+  have hb0 : 0 ≤ b := le_max_left _ _
+  have hbR : b < R := max_lt hR (by linarith)
+  have hRb : R < b + d := by have := le_max_right 0 (R - d / 2); dsimp [b]; linarith
+  obtain ⟨w, hw, _⟩ := hu ((b + R) / 2) (by linarith) (by linarith)
+  have hb : b ∈ Ico (0 : ℝ) ((b + R) / 2) := ⟨hb0, by linarith⟩
+  obtain ⟨v, _⟩ := hloc (fun x => w.velocity (b, x))
+    (velocitySlice_mem_initialClassT w hb)
+    (by rw [hw]; exact hbound b ⟨hb0, hbR⟩)
+    (timeShiftT b (timeShiftT t₀ f))
+    (timeShiftT_contDiff (timeShiftT_contDiff hf.1 t₀) b)
+    (timeShiftT_periodic (timeShiftT_periodic hf.2.1 t₀) b)
+    (fun m => (forceSobolevENormT_timeShift_le (m : ℝ) _ b hb0).trans
+      (forceSobolevENormT_timeShift_le (m : ℝ) f t₀ ht₀))
+  obtain ⟨v', _, _⟩ := glueClassicalSolutionT hν w hb v
+    (by linarith : (b + R) / 2 < b + d)
+  exact ⟨b + d, hRb, ⟨v'⟩⟩
+
 end NSFormalization.Section3.T11
