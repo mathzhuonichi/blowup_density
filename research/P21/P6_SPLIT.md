@@ -1,17 +1,17 @@
 # P21 / P6 Route B split
 
-Status: **P6 remains Partial.**  The whole-space B5 theorem and registration are
-closed in lane 510.  The periodic half and the final `L21_H1` closure remain for
-lane 511.
+Status: **P6 / L21_H1 is Closed.** Both fixed-force H¹-uniform restart and
+endpoint theorems are proved and registered on R³ and T³. Lane 511 completed
+the periodic V2 registration and the final article-level closure.
 
 | Unit | Exit condition | Size / model | Status |
 |---|---|---|---|
 | B0 | Reconcile H¹/H² Fourier norms with derivative energy and state shifted-force cap | M / sol | **Closed — lane 503.** Exact identities and finite caps on both domains; targets type-checked in `Targets.lean`. |
-| B1 | General (no critical smallness) enstrophy interpolation/Young inequality on R³ | L / astra | Pending |
-| B2 | Periodic version including mean and ordinary L² energy | L / astra | Pending |
-| B3 | Uniform ODE barrier, integrated dissipation, endpoint monotone limit | M–L / astra | Pending |
-| B4 | Maximal-lifespan contradiction, smooth common-interval restriction, regularity and pressure adapters | M / sol | **Closed on R³ — lane 507.** Exact `h1RestartR`, support-free bridges, and `h1RestartAt`; torus remains separate. |
-| B5 | Uniform restartBeyond and registration/audits | M / sol | **Closed on R³ — lane 510.** Strict endpoint theorem and `A04.continuation_v3` registered; periodic endpoint and final `L21_H1` closure are lane 511. |
+| B1 | General (no critical smallness) enstrophy interpolation/Young inequality on R³ | L / astra | **Closed — lane 504.** The bridge hypotheses were discharged by lane 507. |
+| B2 | Periodic version including mean and ordinary L² energy | L / astra | **Closed — lane 505.** The bridge hypotheses were discharged by lane 508. |
+| B3 | Uniform ODE barrier, integrated dissipation, endpoint monotone limit | M–L / astra | **Closed — lane 506.** Uniform barrier and endpoint integral passage are kernel-checked. |
+| B4 | Maximal-lifespan contradiction, smooth common-interval restriction, regularity and pressure adapters | M / sol | **Closed — lanes 507/508.** Exact `h1RestartR` and `h1RestartT`, including both domain adapters. |
+| B5 | Uniform restartBeyond and registration/audits | M / sol | **Closed — lanes 510/511.** Both endpoint theorems and both versioned contracts are registered; `L21_H1` is Closed. |
 
 ## B0 output
 
@@ -20,38 +20,18 @@ lane 511.
 - `Section3/T11/H1Bridges.lean`: exact periodic H¹/H² identities, the finite
   cap, and the smooth/periodic package for shifted forces.
 - `Targets.lean`: `h1RestartR`, `h1RestartT`, `h1UniformEndpointR`, and
-  `h1UniformEndpointT` as unproved `Prop` definitions in registered vocabulary.
+  `h1UniformEndpointT` as statement-only `Prop` targets in registered vocabulary;
+  all four now have compiled suppliers.
 
-## Remaining acceptance risks
+## Closure outcome
 
-- B1/B2 must prove the general cubic enstrophy inequality without importing
-  the critical-smallness absorption from T20.
-- B3 must choose the barrier time before restart time and datum, retain the
-  inhomogeneous low modes, and justify endpoint integrability by monotone
-  limits.
-- B4 must argue through the already constructed smooth maximal solution; it
-  must not infer a lower bound for the selected high-order local horizon.
-- On the torus, B3/B4 may use B0's shifted smoothness, periodicity, and common
-  `L²` cap, but not shifted membership in `forceClassT`.
-- Lane 511 remains responsible for the periodic H¹ restart/endpoint theorems,
-  their registered contract, and the graph/guide decision that closes
-  `L21_H1`. Lane 510 has registered the whole-space half without changing that
-  node's status.
-# P6 Route B split
-
-P6 / L21_H1 remains **Partial**. These are implementation units, not new
-article-level closure claims.
-
-| Unit | Owner | Status |
-|---|---|---|
-| B0 | lane 503 | Norm bridges / force cap; separate worktree, not imported here |
-| B1 | lane 504 | Analytic steps closed and kernel-checked; registered-norm inequality conditional only on the exact B0 bridges below |
-| B3 | lane 506 | Closed abstract real-analysis unit: uniform barrier, integrated dissipation and endpoint integrability |
-| B2 | lane 505 | Closed conditional only on the three torus norm bridges below; both analytic residuals and final differential inequality kernel-checked |
-| B4 | unassigned here | Maximal-lifespan contradiction and common smooth interval |
-| B5 | unassigned here | Uniform restart and final registration |
-| B4 | lane 507 | **Closed on R³.** Unconditional `h1RestartR` and `h1RestartAt`; no named analytic input |
-| B5 | lanes 510/511 | **R³ closed and registered by lane 510.** Periodic endpoint, periodic registration, and final `L21_H1` closure remain lane 511. |
+The general cubic inequalities use no critical-smallness hypothesis. The
+barrier time precedes every restart time and datum, retains the inhomogeneous
+low modes, and passes H² dissipation to the endpoint. The maximal-solution
+arguments do not claim lower bounds for the selected high-order horizons.
+Positive torus force shifts use smoothness and periodicity rather than false
+membership in `forceClassT`. The detailed unit handoffs below preserve the
+interfaces and historical sequencing used to obtain this closure.
 
 ## B1 handoff
 
@@ -90,45 +70,8 @@ The independent `convection_sobolev` theorem consumes the two explicit bounds
 Its underlying physical estimate `convection_interpolation` is unconditional.
 
 No initial-time derivative or endpoint time integral is asserted. Compact
-intervals lie strictly inside (0,T). B3 must still perform the uniform barrier
-and endpoint limit; strict-interior finiteness alone does not suffice.
-# P21 / P6 Route B split
-
-Status: **P6 remains Partial.**  This file tracks the preferred smooth-data,
-fixed-force Route B from `ASSESSMENT.md` §3.  Closing B0 supplies norm and force
-bridges; it does not prove H¹-uniform restart or either endpoint target.
-
-| Unit | Exit condition | Size / model | Status |
-|---|---|---|---|
-| B0 | Reconcile H¹/H² Fourier norms with derivative energy and state shifted-force cap | M / sol | **Closed — lane 503.** Exact identities and finite caps on both domains; targets type-checked in `Targets.lean`. |
-| B1 | General (no critical smallness) enstrophy interpolation/Young inequality on R³ | L / astra | Pending |
-| B2 | Periodic version including mean and ordinary L² energy | L / astra | Pending |
-| B3 | Uniform ODE barrier, integrated dissipation, endpoint monotone limit | M–L / astra | Pending |
-| B4 | Maximal-lifespan contradiction, smooth common-interval restriction, regularity and pressure adapters | M / sol | Pending |
-| B5 | Uniform restartBeyond and registration/audits | M / sol | Pending |
-
-## B0 output
-
-- `Section4/A04/H1Bridges.lean`: exact whole-space H¹/H² identities and the
-  finite compact-window force cap.
-- `Section3/T11/H1Bridges.lean`: exact periodic H¹/H² identities, the finite
-  cap, and the smooth/periodic package for shifted forces.
-- `Targets.lean`: `h1RestartR`, `h1RestartT`, `h1UniformEndpointR`, and
-  `h1UniformEndpointT` as unproved `Prop` definitions in registered vocabulary.
-
-## Remaining acceptance risks
-
-- B1/B2 must prove the general cubic enstrophy inequality without importing
-  the critical-smallness absorption from T20.
-- B3 must choose the barrier time before restart time and datum, retain the
-  inhomogeneous low modes, and justify endpoint integrability by monotone
-  limits.
-- B4 must argue through the already constructed smooth maximal solution; it
-  must not infer a lower bound for the selected high-order local horizon.
-- On the torus, B3/B4 may use B0's shifted smoothness, periodicity, and common
-  `L²` cap, but not shifted membership in `forceClassT`.
-- B5 remains responsible for the actual H¹ restart/endpoint theorems and any
-  ensuing contract, binding, test, graph, guide, or registry decision.
+intervals lie strictly inside (0,T). The B3 unit below supplies the uniform
+barrier and endpoint limit needed by the completed B4 arguments.
 
 ## B3 handoff
 
@@ -153,10 +96,10 @@ supplied by the compact-interval B3 estimate in B4 applications. Singleton
 endpoints have zero Lebesgue measure. No endpoint derivative is assumed.
 
 All six exported theorems have exactly the standard three logical axioms.
-B3 does not import, reimplement or modify the B0 norm bridges. B4 still must
+B3 does not import, reimplement or modify the B0 norm bridges. Lanes 507/508
 supply time continuity, interior differentiability, force bounds and local
 integrability from classical solutions, then apply the existing H² continuation
-criterion and maximality. P6 / L21_H1 remains Partial.
+criterion and maximality.
 
 ## B2 handoff (closed conditional on three bridges)
 
@@ -222,14 +165,14 @@ For hGradient, prove the gradient L² norm finite from continuity on the torus,
 then rewrite `gradientSqT`, `Real.sqrt_sq ENNReal.toReal_nonneg` and
 `ENNReal.ofReal_toReal`; this is an ordinary norm conversion.
 
-There are no remaining B2 nonlinear/differential hypotheses. B3 still owes
-the ODE barrier and endpoint integration; B4/B5 still owe their respective
-lifespan/restart assemblies. P6 / L21_H1 remains Partial.
+There are no remaining B2 nonlinear/differential hypotheses. Lane 506 supplies
+the ODE barrier and endpoint integration, and lanes 507--511 supply the
+lifespan, restart, endpoint and registration assemblies.
 
 ## B4-T³ handoff — lane 508 (supersedes the pending torus B4 rows above)
 
-**B4-T³ closed. P6 / L21_H1 remains Partial pending B5 registration and the
-other-domain work.** Module `NSFormalization.Section3.T11.H1Restart` exports
+**B4-T³ closed.** At this handoff `L21_H1` still awaited B5 registration;
+lane 511 has now completed it. Module `NSFormalization.Section3.T11.H1Restart` exports
 `h1RestartT`, with the exact local T10/T11 version of `Targets.lean`'s Prop.
 The consumer probe transports it to the contract structure using the existing
 `toContract` and `periodicLocalRegularity_toContract` equivalence.
@@ -294,8 +237,8 @@ registration or an article-coverage change.
 
 ## B4 handoff — lane 507 (R³)
 
-**Whole-space B4 is closed; P6's registered status remains Partial pending the
-separate torus work and final lane-511 closure.**
+**Whole-space B4 is closed.** At this handoff the registered status still
+awaited the separate torus work; lanes 508/511 have now completed it.
 `Section4/A04/H1Restart.lean:h1RestartR` proves
 exactly the local-name version of `Targets.lean:h1RestartR`, with one δ before
 restart time and smooth admissible datum, and all manuscript regularity on that
@@ -365,23 +308,33 @@ fieldwise conversions, and `Tests/ContinuationV3.lean` registers
 contracts. `A04.continuation_v2` is unchanged and remains separately
 registered for the H⁷/integral routes.
 
-Lane 511 still needs all of the following before changing `L21_H1` from
-`Partial`:
+Lane 511 completed all of the following before changing `L21_H1` from
+`Partial` to `Closed`:
 
-1. Prove the registered-vocabulary periodic `h1RestartT` and
-   `h1UniformEndpointT` targets. The latter must return a solution on
+1. Proved the registered-vocabulary periodic `h1RestartT` and
+   `h1UniformEndpointT` targets. The latter returns a solution on
    `S + δ` with literal velocity and normalized-pressure agreement on
    `[0,S)`. `Section3/T11/RestartBeyond.lean:restartBeyond` contains the
    gluing argument, but its public theorem is conditional on
-   `PeriodicQuantitativeLocalInput'`; the final theorem must consume the proved
+   `PeriodicQuantitativeLocalInput'`; the final theorem consumes the proved
    unconditional H¹ restart rather than register that named input.
-2. Register both periodic H¹ fields in a new versioned contract/binding/test,
+2. Registered both periodic H¹ fields in a new versioned contract/binding/test,
    preserving the frozen V1/H³ and V2 registrations and the whole-space
    `A04.continuation_v3` registration.
-3. Add periodic non-vacuity and exact-axiom probes, then update the authoritative
+3. Added periodic non-vacuity and exact-axiom probes, then updated the authoritative
    `L21_H1` scope/evidence, result map, guide, generated dependency graph and
-   axiom audit. Only after both domains are registered should the node become
-   `Closed`.
+   axiom audit. With both domains registered, the node is `Closed`.
 
 Lane 510 deliberately leaves `formalization/blueprint/proof_graph.json`, the
 guide coverage row and the `L21_H1` status unchanged.
+
+## B5 T³ closure — lane 511
+
+`Section3/T11/H1RestartBeyond.lean:restartBeyondH1T` copies the established
+periodic endpoint gluing proof and replaces its sole named supplier with
+`h1RestartT`. It keeps the duration returned at `S` and returns
+`δ = t₀ + d - S`, with exact velocity and normalized-pressure overlap on
+`[0,S)`. `Contracts/V2/TorusLocalTheory.lean` registers the H¹ `restart` and
+`restartBeyond` fields through `Bindings/TorusLocalTheoryV2.lean`; V1 remains
+registered. The zero-solution probe and exact axiom checks pass, bringing the
+registry to 36 contracts and closing `L21_H1`.

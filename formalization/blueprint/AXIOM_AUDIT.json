@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "toolchain": "leanprover/lean4:v4.34.0-rc2",
-  "source_tree_sha256": "534bdc17d7f247d7870f785309ac658327d2a472d5629fc0950cad9eadb855ed",
-  "source_file_count": 2282,
+  "source_tree_sha256": "488abf2ed1d220363704ae12de665d9a80d95790fef5fdc4629dfde454677cf8",
+  "source_file_count": 2292,
   "allowed_axioms": [
     "Classical.choice",
     "Quot.sound",
@@ -80,6 +80,58 @@
       "path": "verification/Bindings/TorusLocalTheory.lean",
       "line": 483,
       "kind": "def",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.continuationV3_holds",
+      "module": "Bindings.ContinuationV3",
+      "path": "verification/Bindings/ContinuationV3.lean",
+      "line": 29,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.torusLocalTheoryV2_holds",
+      "module": "Bindings.TorusLocalTheoryV2",
+      "path": "verification/Bindings/TorusLocalTheoryV2.lean",
+      "line": 48,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A04.h1RestartR",
+      "module": "NSFormalization.Section4.A04.H1Restart",
+      "path": "formalization/NSFormalization/Section4/A04/H1Restart.lean",
+      "line": 261,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T11.h1RestartT",
+      "module": "NSFormalization.Section3.T11.H1Restart",
+      "path": "formalization/NSFormalization/Section3/T11/H1Restart.lean",
+      "line": 576,
+      "kind": "theorem",
       "axioms": [
         "Classical.choice",
         "Quot.sound",
@@ -953,13 +1005,17 @@
     {
       "kind": "Proposition",
       "label": "prop:local",
-      "coverage": "Partial",
+      "coverage": "Closed",
       "declarations": [
         "BlowupDensity.Bindings.localTheoryV2",
         "NSFormalization.Section4.A02.velocity_unique",
         "NSFormalization.Section4.A02.exists_maximal_of_localSolution",
         "NSFormalization.Section4.A04.extendsBeyond_of_memForceR'",
-        "BlowupDensity.Bindings.torusLocalTheory"
+        "BlowupDensity.Bindings.torusLocalTheory",
+        "BlowupDensity.Bindings.continuationV3_holds",
+        "BlowupDensity.Bindings.torusLocalTheoryV2_holds",
+        "NSFormalization.Section4.A04.h1RestartR",
+        "NSFormalization.Section3.T11.h1RestartT"
       ],
       "number": "2.1"
     },

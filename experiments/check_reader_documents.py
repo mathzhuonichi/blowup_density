@@ -57,7 +57,7 @@ def main():
     assert len(coverage) == len(mapped), 'Every article row needs an explicit coverage label'
     status = dict(coverage)
     assert set(status.values()) <= {'Closed', 'Partial'}
-    partial = {'prop:local'}
+    partial = set()
     assert status['cor:boundary'] == 'Closed' and status['thm:Rinsert'] == 'Closed'
     assert status['lem:correction'] == 'Closed' and 'correctionStatementArticle_holds' in guide
     assert 'wholeSpaceInsertion_holds' in guide
@@ -68,7 +68,7 @@ def main():
     for label, state in coverage:
         assert f'`{label}` | {state} |' in result_map, ('Blueprint coverage drift', label)
     assert 'boundaryInsertion_from_data' in guide
-    assert 'H^1$-uniform' in guide and 'not proved' in guide
+    assert 'H^1$-uniform' in guide and 'uniform ODE barrier' in guide
     expected_map = {(kind.capitalize(), re.search(r'\\label\{([^}]+)\}', body)[1])
                     for kind, body in revised_statements} | {('Remark', 'rem:peaks')}
     assert len(mapped) == len(expected_map) and set(mapped) == expected_map, 'Incomplete or duplicate result mapping'

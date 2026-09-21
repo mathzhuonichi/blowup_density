@@ -79,14 +79,17 @@ and \emph{packet} where the article uses \emph{gluing} and \emph{building block}
 Construction and same-force global nonexistence for every positive viscosity,
 with blowup time fixed at one. \\
 \mapped{Proposition}{prop:local} &
-\coverage{Partial}\source{B/LocalTheoryV2}{93}{localTheoryV2}{def};
+\coverage{Closed}\source{B/LocalTheoryV2}{93}{localTheoryV2}{def};
 \source{F/Section4/A02/Uniqueness}{120}{velocity_unique}{theorem};
 \source{F/Section4/A02/Maximal}{157}{exists_maximal_of_localSolution}{theorem};
 \source{F/Section4/A04/ShiftedExtension}{247}{extendsBeyond_of_memForceR'}{theorem};
-\source{B/TorusLocalTheory}{483}{torusLocalTheory}{def}.
-Proved for the density force classes, with $H^7/H^3$ restart.
-The general $H^1$-uniform restart statements are not proved
-(Section~\ref{guide:methods}). \\
+\source{B/TorusLocalTheory}{483}{torusLocalTheory}{def};
+\source{B/ContinuationV3}{29}{continuationV3_holds}{theorem};
+\source{B/TorusLocalTheoryV2}{48}{torusLocalTheoryV2_holds}{theorem};
+\source{F/Section4/A04/H1Restart}{261}{h1RestartR}{theorem};
+\source{F/Section3/T11/H1Restart}{576}{h1RestartT}{theorem}.
+Proved for the used density force classes, including the fixed-force
+$H^1$-uniform restart and endpoint clauses on both domains. \\
 \mapped{Lemma}{lem:packetenergy} & \coverage{Closed}\source{F/Section3/T14/PacketEnergy}{160}{energy_le_work_of_packet}{theorem}; \source{F/Section3/T14/PacketEnergy}{106}{work_eq_square_of_packet}{theorem}; \source{F/Section4/I01/Quiet}{53}{exists_packet_quiet}{theorem}. \\
 \mapped{Theorem}{thm:main} & \coverage{Closed}\source{F/Section3/T21/MainAssembly}{84}{mainStatement_holds}{theorem}. \\
 \mapped{Lemma}{lem:localization} & \coverage{Closed}\source{F/Section3/T13/Assembly}{330}{localizationAPI}{theorem}. Includes the interior-order estimate and the two endpoint identities. \\
@@ -181,13 +184,24 @@ estimate and Gr\"onwall:
 Taking $m=7$ or $3$ gives a bounded set of restart data. For the fixed smooth
 force on a compact time window, the code obtains one positive lifespan valid
 for all these restart data and times, then pastes by uniqueness across $S$.
-The general $H^1$-uniform restart statement is not proved; the continuation
-argument above uses only the proved high-order case. Tao's higher-regularity argument
+The stronger fixed-force $H^1$-uniform restart is also proved directly on the
+maximal smooth solution.  With $Y=\|u\|_{H^1}^2$ and
+$Z=\|u\|_{H^2}^2$, the formalized enstrophy estimate has the form
+\[
+ Y' + \nu Z \le C_\nu(1+Y)^3 + C_\nu\|f(t)\|_{L^2}^2.
+\]
+A uniform ODE barrier chooses a time depending only on $\nu$, the $H^1$ ball,
+and the force cap on $[0,S+1]$; endpoint integration and the existing integral
+continuation criterion then give a common restart interval.  This stronger
+result does not change the article's continuation proof, which already uses
+the proved high-order route. Tao's higher-regularity argument
 (Theorem~5.4(iv), p.~53) explains why smooth data remain in all Sobolev orders;
 the uniform high-order restart bound is proved separately in the code.
 See \source{F/Section4/A04/RestartFixedForce}{41}{restartFixedForce_of_memForceR}{theorem},
 \source{F/Section4/A04/ShiftedExtension}{247}{extendsBeyond_of_memForceR'}{theorem}
-and \source{F/Section3/T11/ExistenceInputH3}{456}{extendsBeyondH3}{theorem}.
+and \source{F/Section3/T11/ExistenceInputH3}{456}{extendsBeyondH3}{theorem};
+the registered $H^1$ conclusions are the four sources in the correspondence
+row above.
 
 \paragraph{Fractional localization (Lemma~\paperref{lem:localization}).}
 The article invokes Taylor's coordinate-cover and partition-of-unity
