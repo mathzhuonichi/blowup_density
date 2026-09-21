@@ -1,0 +1,2 @@
+import NSFormalization.Section4.A04.EnstrophyInequality
+#print axioms NSFormalization.Section4.A04.inhomogeneousEnergyIdentity
