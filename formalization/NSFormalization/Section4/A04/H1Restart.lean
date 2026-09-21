@@ -57,4 +57,18 @@ theorem enstrophy_differential_on_Icc'
   dsimp [h1RestartConstant]
   nlinarith [mul_nonneg hA hF, mul_nonneg hB hY]
 
+/-- The fixed force cap controls squared physical force energy on every unit restart window. -/
+theorem timeShift_force_l2Sq_le {f : SpaceTimeField} (hf : MemForceR f)
+    {S t₀ t : ℝ} (hS : 0 ≤ S) (ht₀ : t₀ ∈ Icc (0 : ℝ) S)
+    (ht : t ∈ Icc (0 : ℝ) 1) :
+    l2Sq (C01.slice (timeShift t₀ f) t) ≤ (forceL2CapR f S).toReal ^ 2 := by
+  have h := ENNReal.toReal_mono (forceL2CapR_ne_top hf hS)
+    (timeShift_force_slice_le_forceL2CapR (f := f) ht₀ ht)
+  have he := eLpNorm_toReal_sq_eq_l2Sq
+    (forceSliceField (restart_force f hf t₀ ht₀.1) ht.1)
+  change (eLpNorm (C01.slice (timeShift t₀ f) t) 2 volume).toReal ^ 2 =
+    l2Sq (C01.slice (timeShift t₀ f) t) at he
+  rw [← he]
+  exact pow_le_pow_left₀ ENNReal.toReal_nonneg h 2
+
 end NSFormalization.Section4.A04
