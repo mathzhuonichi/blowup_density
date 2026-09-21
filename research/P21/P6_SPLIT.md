@@ -7,10 +7,8 @@ article-level closure claims.
 |---|---|---|
 | B0 | lane 503 | Norm bridges / force cap; separate worktree, not imported here |
 | B1 | lane 504 | Analytic steps closed and kernel-checked; registered-norm inequality conditional only on the exact B0 bridges below |
-| B2 | unassigned here | Periodic estimate, including mean |
 | B3 | lane 506 | Closed abstract real-analysis unit: uniform barrier, integrated dissipation and endpoint integrability |
 | B2 | lane 505 | Closed conditional only on the three torus norm bridges below; both analytic residuals and final differential inequality kernel-checked |
-| B3 | unassigned here | ODE barrier, integrated dissipation, endpoint monotone limit |
 | B4 | unassigned here | Maximal-lifespan contradiction and common smooth interval |
 | B5 | unassigned here | Uniform restart and final registration |
 
