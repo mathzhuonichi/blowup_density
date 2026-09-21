@@ -173,6 +173,23 @@ theorem weighted_cubic_assemblyT {ν C U G L F N P Q d Y Z : ℝ}
   have hu := mul_le_mul_of_nonneg_left hUY (show 0 ≤ 1 + ν by positivity)
   nlinarith only [hn', hp, hq, hb, hb1, hz, hu, hd]
 
+/-- The gradient L⁶ estimate applies without a zero-mean assumption on z:
+subtracting its mean leaves both derivatives unchanged. -/
+theorem gradient_six_le_laplacian_twoT (z : SpatialField) (hz : SmoothPeriodicT z) :
+    periodicLpENorm 6 (gradientTensor z) ≤
+      ENNReal.ofReal Csix * periodicLpENorm 2 (laplacian z) := by
+  have hs : SmoothPeriodicT (meanZeroPartT z) :=
+    ⟨hz.1.sub contDiff_const, fun x j ↦ by simp only [meanZeroPartT, hz.2 x j]⟩
+  have hm := (mean_decomposition z hz.2
+    ((memLp_torusLift_vector hz.1.continuous 1).integrable le_rfl)).2
+  have h := gradientLSix (meanZeroPartT z) hs hm
+  rw [show gradientTensor (meanZeroPartT z) = gradientTensor z from
+    T20.gradientTensor_sub_const z (meanT z),
+    show laplacian (meanZeroPartT z) = laplacian z from
+    T20.laplacian_sub_const z (meanT z)] at h
+  exact h
+
 end NSFormalization.Section3.T11
+
 
 
