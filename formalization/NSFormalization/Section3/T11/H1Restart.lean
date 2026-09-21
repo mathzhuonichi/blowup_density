@@ -18,7 +18,7 @@ namespace NSFormalization.Section3.T11
 open Set MeasureTheory NavierStokes.ProblemStatement
 open NSFormalization.Section4.A02 (SpatialField SpaceTimeField)
 open NSFormalization.Section3.T10 NSFormalization.Section3.T12
-open T20 (lTwoSqT gradientSqT laplacianSqT)
+open T20 (periodicPairing lTwoSqT gradientSqT laplacianSqT)
 open scoped ContDiff ENNReal BigOperators
 
 /-- The gradient carrier in B2 is precisely the finite physical L² norm. -/
@@ -182,5 +182,25 @@ theorem timeShiftT_lTwoSq_le_forceL2CapT {f : SpaceTimeField} (hf : MemForceT f)
   exact pow_le_pow_left₀ ENNReal.toReal_nonneg
     (ENNReal.toReal_mono (forceL2CapT_ne_top hf hS)
       (timeShiftT_force_slice_le_forceL2CapT ht₀ ht)) 2
+
+/-- The differentiated energy only needs smooth forcing. -/
+theorem inhomogeneousEnergyIdentity_smoothT
+    {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionT ν a f T) (hf : ContDiff ℝ ∞ f)
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T)
+    {G F N : PeriodicSobolev 1}
+    (hG : IsPeriodicDatum 1 (fun x ↦ w.velocity (t, x)) G)
+    (hF : IsPeriodicDatum 1 (fun x ↦ f (t, x)) F)
+    (hN : IsPeriodicDatum 1 (fun x ↦ convectionFieldT w.velocity (t, x)) N) :
+    HasDerivAt
+      (fun s ↦ (periodicSobolevENorm 1 (fun x ↦ w.velocity (s, x))).toReal ^ 2)
+      (-2 * ν * torusGradientNormAt 1 w.velocity t ^ 2 +
+        2 * torusRealPairing G F - 2 * torusRealPairing G N) t := by
+  convert
+    (energyIdentity_of_classical w hf 1 ht (Gm := G) (Fm := F) (Nm := N)
+      (by simpa only [IsPeriodicDatum, Nat.cast_one] using hG)
+      (by simpa only [IsPeriodicDatum, Nat.cast_one] using hF)
+      (by simpa only [IsPeriodicDatum, Nat.cast_one] using hN)) using 1 <;>
+    norm_num [torusSobolevNormAt, torusRealPairing]
 
 end NSFormalization.Section3.T11
