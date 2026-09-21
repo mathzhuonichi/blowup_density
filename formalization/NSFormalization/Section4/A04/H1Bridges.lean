@@ -8,6 +8,10 @@ import NSFormalization.Paper1.PeriodicScalarForceEndpoints
 /-!
 # Exact whole-space H¹/H² energies and compact shifted-force caps
 
+Source: `paper/revised/sections/02-preliminaries.tex:3–10` (norm conventions),
+`:178–182` (fixed force on `[0,S+1]`); internal Route B bridge, not a proof of
+Proposition 2.1.
+
 For a smooth compactly supported real vector field, the registered angular
 Bessel norm has the exact physical normalization
 

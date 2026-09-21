@@ -35,3 +35,5 @@ bridges; it does not prove H¹-uniform restart or either endpoint target.
   `L²` cap, but not shifted membership in `forceClassT`.
 - B5 remains responsible for the actual H¹ restart/endpoint theorems and any
   ensuing contract, binding, test, graph, guide, or registry decision.
+
+**B0 note (review 503):** B0 proves compact-core R³ identities with κ=1; B1 consumption still needs support-free/carrier adapters and specialization of `enstrophy_differential_of_norm_bridges` at κ=1, not its fixed (2π)⁻² wrapper (done by lane 507, `H1BridgesSmooth.lean`).
