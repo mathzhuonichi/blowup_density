@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "Please cite the manuscript and its accompanying Lean formalization using the preferred citation below."
+type: software
+title: "Density of Forces Producing Navier–Stokes Blowup"
+authors:
+  - family-names: Cao
+    given-names: Shaozhen
+  - family-names: Chi
+    given-names: Zhuoni
+  - family-names: Nie
+    given-names: Ping
+url: "https://github.com/mathzhuonichi/blowup_density"
+repository-code: "https://github.com/mathzhuonichi/blowup_density"
+preferred-citation:
+  type: generic
+  title: "Density of Forces Producing Navier–Stokes Blowup"
+  authors:
+    - family-names: Cao
+      given-names: Shaozhen
+    - family-names: Chi
+      given-names: Zhuoni
+    - family-names: Nie
+      given-names: Ping
+  year: 2026
+  url: "https://github.com/mathzhuonichi/blowup_density"
+  notes: "Manuscript and accompanying Lean formalization"

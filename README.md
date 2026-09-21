@@ -78,3 +78,19 @@ and required package configuration. HeliCorgi is an in-place source library
 under the main pin. The full downloaded OpenAI archive and the literature
 corpus remain in `reference/`. See
 [source provenance](formalization/blueprint/EXTERNAL_REUSE.md).
+
+## Citation
+
+[Citation metadata](CITATION.cff) is available through GitHub's **Cite this
+repository** menu. To cite the manuscript and its accompanying Lean
+formalization, copy the following BibTeX:
+
+```bibtex
+@misc{cao_chi_nie_2026_blowup_density,
+  author = {Cao, Shaozhen and Chi, Zhuoni and Nie, Ping},
+  title  = {Density of Forces Producing {Navier--Stokes} Blowup},
+  year   = {2026},
+  url    = {https://github.com/mathzhuonichi/blowup_density},
+  note   = {Manuscript and accompanying Lean formalization}
+}
+```
