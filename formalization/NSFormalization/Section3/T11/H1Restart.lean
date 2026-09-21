@@ -109,4 +109,14 @@ theorem periodicHTwo_bridgeT {z : SpatialField} (hz : ContDiff ℝ ∞ z)
     ring
   · simp only [T20.h1FreqEnergy, velocityCoeffT]
 
+/-- B0's ordinary energy equals the B2 carrier. -/
+theorem periodicL2Energy_eq_lTwoSqT {z : SpatialField}
+    (hz : ContDiff ℝ ∞ z) (hp : IsPeriodicSpatial z) :
+    periodicL2Energy z = lTwoSqT z := by
+  have h := periodicSobolevENorm_nat_toReal_sq_eq 0 hz hp
+  simp only [Nat.cast_zero] at h
+  change (periodicSobolevENorm 0 z).toReal ^ 2 = periodicL2Energy z at h
+  rw [sobolevENorm_zero_eq hz hp] at h
+  exact h.symm
+
 end NSFormalization.Section3.T11
