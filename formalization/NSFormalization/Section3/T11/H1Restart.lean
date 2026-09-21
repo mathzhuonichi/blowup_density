@@ -174,4 +174,13 @@ theorem differentiableAt_periodicSobolevEnergyT {ν T : ℝ} {a : SpatialField}
       (fun x => w.velocity (q, x))).toReal ^ 2) t :=
   (hasDerivAt_torusSobolevNormAt_sq w m ht).differentiableAt
 
+/-- The force energy is bounded by the square of B0's norm cap. -/
+theorem timeShiftT_lTwoSq_le_forceL2CapT {f : SpaceTimeField} (hf : MemForceT f)
+    {S t₀ t : ℝ} (hS : 0 ≤ S) (ht₀ : t₀ ∈ Icc (0 : ℝ) S)
+    (ht : t ∈ Icc (0 : ℝ) 1) :
+    lTwoSqT (fun x => timeShiftT t₀ f (t, x)) ≤ (forceL2CapT f S).toReal ^ 2 := by
+  exact pow_le_pow_left₀ ENNReal.toReal_nonneg
+    (ENNReal.toReal_mono (forceL2CapT_ne_top hf hS)
+      (timeShiftT_force_slice_le_forceL2CapT ht₀ ht)) 2
+
 end NSFormalization.Section3.T11
