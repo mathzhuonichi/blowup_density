@@ -187,4 +187,40 @@ theorem uniform_hTwo_running_bound (ν : ℝ) (hν : 0 < ν)
   rw [hTwo_lintegral_eq w hs0 hsT]
   exact ENNReal.ofReal_le_ofReal hreal
 
+/-- Pass the uniform bound through every shorter classical horizon to the endpoint. -/
+theorem uniform_hTwo_endpoint_bound (ν : ℝ) (hν : 0 < ν)
+    (f : SpaceTimeField) (hf : MemForceR f) (S : ℝ) (hS : 0 ≤ S)
+    (K : ℝ≥0∞) (hK : K ≠ ⊤) :
+    ∃ d > 0, ∃ B : ℝ, 0 ≤ B ∧
+      ∀ t₀ ∈ Icc (0 : ℝ) S, ∀ a : SpatialField, sobolevENorm 1 a ≤ K →
+      ∀ R : ℝ, 0 < R → R ≤ d → ∀ (u : SpaceTimeField) (p : SpaceTimeScalar),
+        SolvesBelow ν a (timeShift t₀ f) R u p → squaredHTwoIntegral R u ≤ ENNReal.ofReal B := by
+  obtain ⟨d, hd, _, B, hB, hb⟩ := uniform_hTwo_running_bound ν hν f hf S hS K hK
+  refine ⟨d, hd, B, hB, ?_⟩
+  intro t₀ ht₀ a ha R hR hRd u p hu
+  have heq (s : ℝ) (hs : s ≤ R) :
+      (∫⁻ t in Ico (0 : ℝ) s, sobolevENorm 2 (C01.slice u t) ^ 2) =
+        ∫⁻ t in Ico (0 : ℝ) s, ENNReal.ofReal ((sobolevENorm 2 (C01.slice u t)).toReal ^ 2) := by
+    apply setLIntegral_congr_fun measurableSet_Ico
+    intro t ht
+    dsimp only
+    obtain ⟨w, hw, _⟩ := hu ((t + R) / 2) (by linarith [ht.1])
+      (by linarith [ht.2])
+    have hne : sobolevENorm 2 (C01.slice u t) ≠ ⊤ := by
+      rw [← hw]
+      exact sobolevENorm_slice_ne_top w 2 ⟨ht.1, by linarith [ht.2]⟩
+    rw [ENNReal.ofReal_pow ENNReal.toReal_nonneg, ENNReal.ofReal_toReal hne]
+  have he : (∫⁻ t in Ico (0 : ℝ) R, sobolevENorm 2 (C01.slice u t) ^ 2) ≤
+      ENNReal.ofReal B := by
+    rw [heq R le_rfl]
+    apply enstrophy_endpoint_lintegral
+    intro s hs
+    rw [← heq s hs.le]
+    by_cases hs0 : 0 ≤ s
+    · obtain ⟨w, hw, _⟩ := hu ((s + R) / 2) (by linarith) (by linarith)
+      have h := hb t₀ ht₀ a ha _ w s hs0 (by linarith) (hs.le.trans hRd)
+      simpa only [hw] using h
+    · simp [Ico_eq_empty_of_le (le_of_not_ge hs0)]
+  exact (lintegral_mono_set Ioo_subset_Ico_self).trans he
+
 end NSFormalization.Section4.A04
