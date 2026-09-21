@@ -257,4 +257,20 @@ theorem uniform_hOne_lifespan (ν : ℝ) (hν : 0 < ν)
   rw [heq] at hbad
   exact lt_irrefl _ hbad
 
+/-- The exact fixed-force whole-space H¹ restart target: one duration before time and datum. -/
+theorem h1RestartR :
+    ∀ (ν : ℝ), 0 < ν → ∀ (f : SpaceTimeField), MemForceR f →
+      ∀ (S : ℝ), 0 ≤ S → ∀ (K : ℝ≥0∞), K ≠ ⊤ →
+        ∃ δ : ℝ, 0 < δ ∧ ∀ t₀ ∈ Icc (0 : ℝ) S,
+          ∀ (a' : SpatialField), a' ∈ initialClassR → sobolevENorm 1 a' ≤ K →
+            ∃ w : ClassicalSolutionR ν a' (timeShift t₀ f) δ,
+              A01.ManuscriptLocalRegularity ν a' (timeShift t₀ f) δ w := by
+  intro ν hν f hf S hS K hK
+  obtain ⟨d, hd, h⟩ := uniform_hOne_lifespan ν hν f hf S hS K hK
+  refine ⟨d, hd, ?_⟩
+  intro t₀ ht₀ a ha hnorm
+  obtain ⟨T, hdT, hw⟩ := exists_horizon_gt_of_lt_lifespan hd.le (h t₀ ht₀ a ha hnorm)
+  let w := hw.some.restrict hd hdT.le
+  exact ⟨w, classical_manuscriptLocalRegularity hν (restart_force f hf t₀ ht₀.1) w⟩
+
 end NSFormalization.Section4.A04
