@@ -1,4 +1,4 @@
-# NEXT_SESSION.md（2026-09-20 03:20Z）
+# NEXT_SESSION.md（2026-09-21 03:20Z UTC；本地 09-20 晚）
 
 - **owner 已合入 #259/#270 到 `main`**，随后 `1a1b53b6` 精简仓库（删流程层、去掉未用模块、注册表 29 合同、新蓝图与 guide PDF）。文章级：21 Closed / 6 Partial；两条主定理 Closed。
 - **新核心分支 `erenup/core`**（根目录已切换）= main + 恢复的流程层。老 `erenup/integration*` 分支冻结；487 个历史 worktree 已清理（磁盘回到 3.6 TB 空闲）。

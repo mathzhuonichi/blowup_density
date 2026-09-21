@@ -406,3 +406,47 @@ T15 records, but every instantiation and the `Nonempty` statement wait on T15's 
 `-φ` rest witness, and zero-from-rest via the energy identity. Potential class
 is `ContDiff ℝ ∞ φ`, without periodicity or temporal support. Both branches are
 registered by `T04.conservative_forcing_v2`; see `REPORT_495.md`.
+## P5 units
+
+**496 status:** bounded-domain specification only, in `SpecOmega.lean` and
+canonical `Section3/T24/MultipleOmega.lean`. Thirty fields, with torus `scaling`
+dropped and `no_slip` added; see `COMPARISON_OMEGA.md`. `M316_B` remains Partial.
+The following are future proof units for lane 497, followed by registration 498.
+No unit may take `MultipleRegionsOmegaAPI` or its existence as an input.
+
+| Unit | Exact target fields | Supplier / required work |
+|---|---|---|
+| P5.1 placement and components on Ω | `T_pos`, `N_pos`, `regionRadius_pos`, `region_interior`, `regions_disjoint`, `placement`, `placement_time`, `placement_chart`, `ε`, `eps_admissible`, `eps_time`, `component`, `component_pin`, `component_support`, `component_force_support` | Raw packet hypotheses from `multipleRegionsOmegaStatement`; `T23.Placement.domainPlacementData` at each prescribed ball. T15.Bridges `scaledVelocity/scaledPressure/scaledForce` at `scaledStartTime T ε = T − ε²`; I03.Energy `scaled_smoothOn` and Source.PacketScaling `dilate_smoothOn`, `delayed_parabolic_divergence`, `delayed_parabolic_equation`, `delayed_full_support`, `delayed_pressure_support`, and `parabolicForce_support`. Prove neighborhood smoothness for velocity and pressure on `[0,T) × closure Ω`, initial vanishing, and support inside B_j. Use `T23.PressureNormalization` for the Ω gauge. No T23 background or correction. |
+| P5.2 finite sum solution | `assembled_velocity`, `assembled_velocity_formula`, `assembled_pressure`, `assembled_pressure_formula`, `assembled_force`, `assembled_force_formula`, `solution`, `solution_pin`, `force_mem`, `rest`, `no_slip` | P5.1 plus finite sums, `T23.Triple.SmoothOnClosedSlab.add`, `MemForceOmega.add`, `domain_residual_add`, and `T23.PressureNormalization.domainNormalizePressure_integral`. Adapt `MultipleAssembled.crossTransport_eq_zero` to global disjoint supports; construct every `ClassicalSolutionOmega` field, including divergence, momentum, pressure gauge and frontier vanishing. |
+| P5.3 per-ball singularity | `region_agreement`, `region_blowup` | P5.1–2 supports and disjointness; localize the raw scaled blow-up witnesses as in `MultipleRegions.lean` before its torus transfer. Source.PacketScaling `speed_unbounded_at_target`, `zeroPastField_speed` and the raw packet `SpeedUnboundedAtOne` supply separate time sequences. |
+| P5.4 energy/dissipation additivity | `energy_bound`, `dissipation_bound` | P5.1 global supports: restricted integrals equal whole-space integrals for each component and its full gradient. I03.Energy `eLpNorm_scaled_slice`, `energyEssSup_scaled_le`, `scaled_total_dissipation`, `energyGradient_scaled_eq`; adapt finite disjoint-support square additivity from `MultipleRegions.lean`. Keep energy ≤ and dissipation = with the original M,D. No torus boundary-null-set argument is needed. |
+| P5.5 assembly (497) and registration (498) | `multipleRegionsOmegaStatement`, every field of `MultipleRegionsOmegaAPI`; future `T04.multiple_regions_v2` | Assemble P5.1–4 from the raw hypotheses, then bind the reconciled research and canonical records fieldwise. Only after that add the V2 contract/binding/test and update M316_B, audits and coverage through the common closing procedure. Retain V1 torus registration. |
+
+The unit-box, one-region probe is a type/elaboration check with an API variable,
+not a proof of existence or a claimed non-vacuity witness. Proving that existence
+is P5.5, not lane 496.
+
+### Lane 500 P5b status
+
+- **P5.3 CLOSED**: `NSFormalization.Section3.T24.OmegaRegions.region_agreement` and
+  `region_blowup`, over explicit global support, disjointness, raw velocity pin,
+  positive scales and time placement. Probe passes; both declarations use exactly
+  `[propext, Classical.choice, Quot.sound]`. Assembly remains P5.5 (lane 501).
+- **P5.4 CLOSED**: `NSFormalization.Section3.T24.OmegaRegions.energy_bound` and
+  `dissipation_bound`; compact support identifies restricted Ω velocity/full-gradient
+  norms with whole-space norms, disjoint supports give exact slice additivity,
+  and I03 supplies the original M,D normalization. Energy is ≤; dissipation is =.
+  Raw packet clauses are bundled only in the existing I03 `PacketData`; the probe
+  constructs that bundle from the canonical raw hypotheses. No analytic residual.
+**497 P5.1 DONE:** `MultipleOmegaComponents.lean`, `RegionsOmegaData` constructs
+prescribed domain placements, admissible scales, actual gauged no-slip components
+and global velocity/force support. No solution or target API premise. Module and
+field probe elaborate without output; all 16 definitions/theorems have exactly
+the three standard axioms (`axioms_p5a.lean`). P5.2 is in progress.
+
+**497 P5.2 DONE:** `MultipleOmegaAssembled.lean` constructs the explicit finite
+sums and `RegionsOmegaData.solution`, including cross-transport cancellation,
+slab smoothness, domain gauge, force class, global rest and no-slip. All P5.1–2
+fields are checked by `probes/p5a_closes.lean` using `exact`; all 45 module
+names have exactly the standard three axioms. P5.3–5 and registration remain
+with their assembly lanes; `M316_B` remains Partial.
