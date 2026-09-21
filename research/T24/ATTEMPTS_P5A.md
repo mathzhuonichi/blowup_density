@@ -35,3 +35,7 @@ First make check stopped with `AssertionError: Source changed: rerun the article
 axiom audit`. Running the required article audit and refreshing AXIOM_AUDIT.json
 is necessary because the two new modules change the source fingerprint; this
 additional existing-file edit is authorized by the common closing procedure.
+
+Final gate: full article audit passed (56 targets, no forbidden axioms); reviewed
+report copied to AXIOM_AUDIT.json. Regenerated graph is unchanged. `make check`
+then passed, including contract policy tests. M316_B coverage remains Partial.
