@@ -263,4 +263,116 @@ theorem norm_gradient_cutoffMul_leT {z : SpatialField} (hz : ContDiff ℝ ∞ z)
     simp only [Fin.sum_univ_three]
     nlinarith [sq_nonneg (cutoffGradBound * ‖z x‖ + ‖gradientTensor z x‖)]
 
+open Metric NSFormalization.Section3.T13
+open scoped Topology
+
+/-- Periodic majorant for the first derivative of the localized velocity. -/
+def gradientMajorantT (z : SpatialField) (x : Space) : ℝ :=
+  3 * (cutoffGradBound * ‖z x‖ + ‖gradientTensor z x‖)
+
+theorem gradientMajorantT_nonneg (z : SpatialField) (x : Space) :
+    0 ≤ gradientMajorantT z x := by
+  have := cutoffGradBound_nonneg
+  unfold gradientMajorantT
+  positivity
+
+theorem continuous_gradientMajorantT {z : SpatialField} (hz : ContDiff ℝ ∞ z) :
+    Continuous (gradientMajorantT z) :=
+  continuous_const.mul ((continuous_const.mul hz.continuous.norm).add
+    (continuous_norm_gradTensor hz))
+
+theorem isPeriodicSpatial_gradientMajorantT {z : SpatialField} (hz : IsPeriodicSpatial z) :
+    IsPeriodicSpatial (gradientMajorantT z) := by
+  intro x j
+  unfold gradientMajorantT
+  rw [hz x j, show gradientTensor z (x + coordinateVector j) = gradientTensor z x from
+    isPeriodicSpatial_gradientTensor hz x j]
+
+theorem gradient_cutoffMul_eq_zeroT (z : SpatialField) {x : Space}
+    (hx : x ∉ closedBall (0 : Space) 3) : gradientTensor (cutoffMul z) x = 0 := by
+  have hw : EqOn (cutoffMul z) 0 ((closedBall (0 : Space) 3)ᶜ) := by
+    intro y hy
+    by_contra h
+    exact hy (support_cutoffMul_subset z h)
+  apply PiLp.ext
+  intro i
+  exact eqOn_zero_dirDeriv isClosed_closedBall.isOpen_compl hw i hx
+
+theorem enorm_gradient_cutoffMul_leT {v : SpatialField} (hv : ContDiff ℝ ∞ v) (z : Space) :
+    ‖gradientTensor (cutoffMul v) z‖ₑ ^ (2 : ℝ)
+      ≤ (closedBall (0 : Space) 3).indicator (fun _ => (1 : ℝ≥0∞)) z
+          * ‖gradientMajorantT v z‖ₑ ^ (2 : ℝ) := by
+  by_cases hz : z ∈ closedBall (0 : Space) 3
+  · rw [Set.indicator_of_mem hz, one_mul]
+    refine ENNReal.rpow_le_rpow ?_ (by norm_num)
+    rw [← ofReal_norm, ← ofReal_norm]
+    refine ENNReal.ofReal_le_ofReal ?_
+    rw [Real.norm_eq_abs, abs_of_nonneg (gradientMajorantT_nonneg v z)]
+    exact norm_gradient_cutoffMul_leT hv z
+  · rw [Set.indicator_of_notMem hz, gradient_cutoffMul_eq_zeroT v hz, zero_mul, enorm_zero,
+      ENNReal.zero_rpow_of_pos (by norm_num)]
+
+/-! ## The lattice tiling estimate -/
+
+
+
+theorem lintegral_gradient_cutoffMul_leT {v : SpatialField} (hv : SmoothPeriodicT v) :
+    ∫⁻ x : Space, ‖gradientTensor (cutoffMul v) x‖ₑ ^ (2 : ℝ)
+      ≤ 343 * ∫⁻ y in halfOpenCube, ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ) := by
+  have hmajM : Measurable (fun y : Space => ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ)) :=
+    measurable_enn_sq.comp (continuous_gradientMajorantT hv.1).measurable.enorm
+  have hmeasLHS : Measurable (fun x : Space => ‖gradientTensor (cutoffMul v) x‖ₑ ^ (2 : ℝ)) :=
+    measurable_enn_sq.comp
+      (T20.continuous_gradientTensorH1 (contDiff_cutoffMul hv.1)).measurable.enorm
+  have hind : Measurable ((closedBall (0 : Space) 3).indicator (fun _ => (1 : ℝ≥0∞))) :=
+    measurable_const.indicator measurableSet_closedBall
+  have hterm : ∀ n : PeriodicFrequency, Measurable (fun y : Space =>
+      (closedBall (0 : Space) 3).indicator (fun _ => (1 : ℝ≥0∞)) (y + latticeVector n)
+        * ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ)) := fun n =>
+    (hind.comp (measurable_id.add_const (latticeVector n))).mul hmajM
+  rw [lintegral_eq_tsum_halfOpenCube hmeasLHS]
+  calc ∑' n : PeriodicFrequency, ∫⁻ y in halfOpenCube,
+          ‖gradientTensor (cutoffMul v) (y + latticeVector n)‖ₑ ^ (2 : ℝ)
+      ≤ ∑' n : PeriodicFrequency, ∫⁻ y in halfOpenCube,
+          (closedBall (0 : Space) 3).indicator (fun _ => (1 : ℝ≥0∞)) (y + latticeVector n)
+            * ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ) := by
+        refine ENNReal.tsum_le_tsum fun n => lintegral_mono fun y => ?_
+        have h := enorm_gradient_cutoffMul_leT hv.1 (y + latticeVector n)
+        rwa [periodic_latticeVector (isPeriodicSpatial_gradientMajorantT hv.2) y n] at h
+    _ = ∫⁻ y in halfOpenCube, ∑' n : PeriodicFrequency,
+          (closedBall (0 : Space) 3).indicator (fun _ => (1 : ℝ≥0∞)) (y + latticeVector n)
+            * ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ) :=
+        (lintegral_tsum fun n => (hterm n).aemeasurable).symm
+    _ = ∫⁻ y in halfOpenCube, (∑' n : PeriodicFrequency,
+          (closedBall (0 : Space) 3).indicator (fun _ => (1 : ℝ≥0∞)) (y + latticeVector n))
+            * ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ) := by
+        refine lintegral_congr fun y => ?_
+        rw [ENNReal.tsum_mul_right]
+    _ ≤ ∫⁻ y in halfOpenCube, (343 : ℝ≥0∞) * ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ) :=
+        lintegral_mono fun y => mul_le_mul' (lattice_count_le y) le_rfl
+    _ = 343 * ∫⁻ y in halfOpenCube, ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ) :=
+        lintegral_const_mul _ hmajM
+
+theorem eLpNorm_gradient_cutoffMul_leT {v : SpatialField} (hv : SmoothPeriodicT v) :
+    eLpNorm (gradientTensor (cutoffMul v)) 2 volume
+      ≤ 343 * eLpNorm (gradientMajorantT v) 2 (volume.restrict fundamentalCube) := by
+  have hQ : (volume : Measure Space).restrict fundamentalCube
+      = (volume : Measure Space).restrict halfOpenCube :=
+    Measure.restrict_congr_set fundamentalCube_ae_eq_halfOpenCube
+  rw [eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num) (by norm_num),
+    eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num) (by norm_num), hQ,
+    show (2 : ℝ≥0∞).toReal = 2 by norm_num]
+  calc (∫⁻ x : Space, ‖gradientTensor (cutoffMul v) x‖ₑ ^ (2 : ℝ)) ^ (1 / (2 : ℝ))
+      ≤ (343 * ∫⁻ y in halfOpenCube, ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ)) ^ (1 / (2 : ℝ)) :=
+        ENNReal.rpow_le_rpow (lintegral_gradient_cutoffMul_leT hv) (by norm_num)
+    _ = (343 : ℝ≥0∞) ^ (1 / (2 : ℝ))
+        * (∫⁻ y in halfOpenCube, ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ)) ^ (1 / (2 : ℝ)) :=
+        ENNReal.mul_rpow_of_nonneg _ _ (by norm_num)
+    _ ≤ 343 * (∫⁻ y in halfOpenCube, ‖gradientMajorantT v y‖ₑ ^ (2 : ℝ)) ^ (1 / (2 : ℝ)) := by
+        gcongr
+        calc (343 : ℝ≥0∞) ^ (1 / (2 : ℝ)) ≤ (343 : ℝ≥0∞) ^ (1 : ℝ) :=
+              ENNReal.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
+          _ = 343 := ENNReal.rpow_one _
+
+
 end NSFormalization.Section3.T11
