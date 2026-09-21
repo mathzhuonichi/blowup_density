@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "toolchain": "leanprover/lean4:v4.34.0-rc2",
-  "source_tree_sha256": "f820dd950a76efbfc73300b56e0a4b85f02e7a89c8941cbfe448e400a3ababaf",
-  "source_file_count": 2249,
+  "source_tree_sha256": "7806dc3956f0810d6131bbc4fd979dc7127e7b97f3241456ac5a943c1aa0c1af",
+  "source_file_count": 2255,
   "allowed_axioms": [
     "Classical.choice",
     "Quot.sound",
@@ -192,10 +192,10 @@
       "unexpected_axioms": []
     },
     {
-      "declaration": "NSFormalization.Section3.T18.periodicInsertionStatement_holds",
-      "module": "NSFormalization.Section3.T18.Assembly",
-      "path": "formalization/NSFormalization/Section3/T18/Assembly.lean",
-      "line": 238,
+      "declaration": "NSFormalization.Section3.T19.periodicInsertion_from_data",
+      "module": "NSFormalization.Section3.T19.FromData",
+      "path": "formalization/NSFormalization/Section3/T19/FromData.lean",
+      "line": 20,
       "kind": "theorem",
       "axioms": [
         "Classical.choice",
@@ -205,11 +205,11 @@
       "unexpected_axioms": []
     },
     {
-      "declaration": "NSFormalization.Section3.T19.insertion",
-      "module": "NSFormalization.Section3.T19.Threading",
-      "path": "formalization/NSFormalization/Section3/T19/Threading.lean",
-      "line": 126,
-      "kind": "def",
+      "declaration": "BlowupDensity.Bindings.PeriodicInsertion.periodicInsertionStatementV2_holds",
+      "module": "Bindings.PeriodicInsertionV2",
+      "path": "verification/Bindings/PeriodicInsertionV2.lean",
+      "line": 10,
+      "kind": "theorem",
       "axioms": [
         "Classical.choice",
         "Quot.sound",
@@ -814,10 +814,10 @@
     {
       "kind": "Theorem",
       "label": "thm:insertion",
-      "coverage": "Partial",
+      "coverage": "Closed",
       "declarations": [
-        "NSFormalization.Section3.T18.periodicInsertionStatement_holds",
-        "NSFormalization.Section3.T19.insertion"
+        "NSFormalization.Section3.T19.periodicInsertion_from_data",
+        "BlowupDensity.Bindings.PeriodicInsertion.periodicInsertionStatementV2_holds"
       ],
       "number": "3.6"
     },

@@ -1,7 +1,7 @@
 # Current publication acceptance interfaces
 
 Run `make test` from the repository root, or `lake test` here. There are
-29 current typed acceptance interfaces. Each test names a mathematical
+30 current typed acceptance interfaces. Each test names a mathematical
 specification, a concrete implementation and a transitive axiom check.
 
 The registry lists the retained interfaces. Superseded tests and unused

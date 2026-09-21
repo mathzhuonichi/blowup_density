@@ -16,7 +16,7 @@ See [the input-closure audit](CLOSURE_AUDIT.md) and [the axiom audit](DEPENDENCY
 | Proposition 3.3 | `prop:scaling` | Closed | [`scalingStatement_holds`](../../formalization/NSFormalization/Section3/T15/Assembly.lean#L130) |
 | Lemma 3.4 | `lem:potential` | Closed | [`localPotential`](../../formalization/NSFormalization/Section3/T16/Assembly.lean#L483) |
 | Lemma 3.5 | `lem:correction` | Partial | [`correctionStatementAmended_holds`](../../formalization/NSFormalization/Section3/T17/Assembly.lean#L107) |
-| Theorem 3.6 | `thm:insertion` | Partial | [`periodicInsertionStatement_holds`](../../formalization/NSFormalization/Section3/T18/Assembly.lean#L238); [`insertion`](../../formalization/NSFormalization/Section3/T19/Threading.lean#L126) |
+| Theorem 3.6 | `thm:insertion` | Closed | [`periodicInsertion_from_data`](../../formalization/NSFormalization/Section3/T19/FromData.lean#L20); [`periodicInsertionStatementV2_holds`](../../verification/Bindings/PeriodicInsertionV2.lean#L10) |
 | Proposition 3.7 | `prop:density` | Closed | [`periodicDensityStatement_holds`](../../formalization/NSFormalization/Section3/T19/Assembly.lean#L43) |
 | Proposition 3.8 | `prop:critical` | Closed | [`criticalRegularityStatement_holds`](../../formalization/NSFormalization/Section3/T20/Assembly.lean#L53) |
 | Corollary 3.9 | `cor:nondensity` | Closed | [`nonDensityStatement_unconditional`](../../formalization/NSFormalization/Section3/T21/MainAssembly.lean#L80) |

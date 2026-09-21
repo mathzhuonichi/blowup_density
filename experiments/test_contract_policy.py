@@ -28,7 +28,7 @@ class ArticleProofCoverage(unittest.TestCase):
 
     def test_recoloring_a_missing_clause_cannot_hide_whole_statement_partial(self):
         changed = copy.deepcopy(self.proof)
-        clause = next(n for n in changed['nodes'] if n['id'] == 'G36_FULL')
+        clause = next(n for n in changed['nodes'] if n['id'] == 'C35_FULL')
         clause['status'] = 'Closed'
         clause['completion_from'] = []
         with self.assertRaisesRegex(AssertionError, 'disagrees with whole-statement coverage'):
