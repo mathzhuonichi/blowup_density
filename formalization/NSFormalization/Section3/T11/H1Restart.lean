@@ -1,5 +1,7 @@
 import NSFormalization.Section3.T11.H1Bridges
 import NSFormalization.Section3.T11.EnstrophyInequality
+import NSFormalization.Section3.T11.ExistenceInputH3
+import NSFormalization.Section3.T11.PairingBound
 import NSFormalization.Section3.T11.ClassicalRegularity
 import NSFormalization.Section4.A04.EnstrophyBarrier
 
@@ -405,5 +407,38 @@ theorem uniform_periodicHTwo_endpoint_boundT (ν : ℝ) (hν : 0 < ν)
       simpa only [hw] using h
     · simp [Ico_eq_empty_of_le (le_of_not_ge hs0)]
   exact (lintegral_mono_set Ioo_subset_Ico_self).trans he
+
+/-- Existing H³ energy estimate under the smooth force hypotheses used by Picard. -/
+theorem periodicHThree_energy_smoothT {ν T : ℝ} {a : SpatialField}
+    {f : SpaceTimeField} (w : ClassicalSolutionT ν a f T)
+    (hf : ContDiff ℝ ∞ f) (hfp : IsPeriodicOn univ f)
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) :
+    ∃ d g : ℝ, 0 ≤ g ∧
+      HasDerivAt (fun r => torusSobolevNormAt 3 w.velocity r ^ 2) d t ∧
+      (1 / 2) * d + ν * g ^ 2 ≤
+        torusPairingConstant 3 * torusSobolevNormAt 2 w.velocity t *
+          torusSobolevNormAt 3 w.velocity t * g +
+            torusSobolevNormAt 3 f t * torusSobolevNormAt 3 w.velocity t := by
+  have ht' := Ioo_subset_Ico_self ht
+  have hz := classical_velocity_slice_contDiff w ht'
+  have hp := w.velocity_periodic t ht'
+  obtain ⟨G, hG⟩ := exists_periodicDatum_smooth 3 hz hp
+  obtain ⟨G1, hG1⟩ := exists_periodicDatum_smooth (3 + 1) hz hp
+  obtain ⟨F, hF⟩ := exists_force_datum hf hfp 3 t
+  obtain ⟨N, hN⟩ := exists_convection_datum w 3 ht'
+  let g := torusGradientNormAt 3 w.velocity t
+  refine ⟨-2 * ν * g ^ 2 + 2 * torusRealPairing G F - 2 * torusRealPairing G N,
+    g, torusGradientNormAt_nonneg _ _ _, ?_, ?_⟩
+  · exact energyIdentity_of_classical w hf 3 ht hG hF hN
+  · have hforce : torusRealPairing G F ≤
+        torusSobolevNormAt 3 f t * torusSobolevNormAt 3 w.velocity t := by
+      rw [torusSobolevNormAt_eq hG, torusSobolevNormAt_eq hF, mul_comm]
+      exact torusRealPairing_le G F
+    have hconv := (neg_le_abs (torusRealPairing G N)).trans
+      (torusPairingBound_slice (m := 3) le_rfl hz hp hG hG1 hN)
+    change -torusRealPairing G N ≤
+      torusPairingConstant 3 * torusSobolevNormAt 2 w.velocity t *
+        torusSobolevNormAt 3 w.velocity t * g at hconv
+    linarith
 
 end NSFormalization.Section3.T11
