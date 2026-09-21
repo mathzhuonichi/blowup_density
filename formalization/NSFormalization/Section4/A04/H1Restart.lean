@@ -126,4 +126,65 @@ theorem hTwo_lintegral_eq {ν T s : ℝ} {a : SpatialField} {f : SpaceTimeField}
     sobolevENorm_slice_ne_top w 2 ⟨ht.1, ht.2.trans hsT⟩
   rw [ENNReal.ofReal_pow ENNReal.toReal_nonneg, ENNReal.ofReal_toReal hne]
 
+/-- A single window and dissipation bound precede both restart time and datum. -/
+theorem uniform_hTwo_running_bound (ν : ℝ) (hν : 0 < ν)
+    (f : SpaceTimeField) (hf : MemForceR f) (S : ℝ) (hS : 0 ≤ S)
+    (K : ℝ≥0∞) (hK : K ≠ ⊤) :
+    ∃ d > 0, d ≤ 1 ∧ ∃ B : ℝ, 0 ≤ B ∧
+      ∀ t₀ ∈ Icc (0 : ℝ) S, ∀ a : SpatialField, sobolevENorm 1 a ≤ K →
+      ∀ T : ℝ, ∀ w : ClassicalSolutionR ν a (timeShift t₀ f) T,
+      ∀ s : ℝ, 0 ≤ s → s < T → s ≤ d →
+        (∫⁻ t in Ico (0 : ℝ) s, sobolevENorm 2 (C01.slice w.velocity t) ^ 2) ≤
+          ENNReal.ofReal B := by
+  have hC : 0 < h1RestartConstant ν := by unfold h1RestartConstant; positivity
+  obtain ⟨d, hd, M, hM, hb⟩ := enstrophy_uniform_barrier_and_dissipation hν hC
+    (sq_nonneg K.toReal) (sq_nonneg (forceL2CapR f S).toReal)
+  let D := min d 1
+  let B := (K.toReal ^ 2 + h1RestartConstant ν * (1 + M) ^ 3 * D +
+    h1RestartConstant ν * (forceL2CapR f S).toReal ^ 2 * D) / ν
+  have hD : 0 < D := lt_min hd zero_lt_one
+  have hM0 : 0 ≤ M := by rw [hM]; nlinarith [sq_nonneg K.toReal]
+  have hB : 0 ≤ B := by dsimp [B]; positivity
+  refine ⟨D, hD, min_le_right _ _, B, hB, ?_⟩
+  intro t₀ ht₀ a ha T w s hs0 hsT hsD
+  let Y := fun t => (sobolevENorm 1 (C01.slice w.velocity t)).toReal ^ 2
+  let Z := fun t => (sobolevENorm 2 (C01.slice w.velocity t)).toReal ^ 2
+  have hf' := restart_force f hf t₀ ht₀.1
+  have hsub : Icc (0 : ℝ) s ⊆ Ico 0 T := fun t ht => ⟨ht.1, ht.2.trans_lt hsT⟩
+  have hcY : ContinuousOn Y (Icc (0 : ℝ) s) := by
+    convert (continuousOn_sobolevEnergy w 1).mono hsub using 1; norm_num [Y]
+  have hcZ : ContinuousOn Z (Icc (0 : ℝ) s) := by
+    convert (continuousOn_sobolevEnergy w 2).mono hsub using 1; norm_num [Z]
+  have hinit : Y 0 ≤ K.toReal ^ 2 := by
+    have he : C01.slice w.velocity 0 = a := funext w.initial
+    dsimp [Y]
+    rw [he]
+    exact pow_le_pow_left₀ ENNReal.toReal_nonneg (ENNReal.toReal_mono hK ha) 2
+  have hdY : ∀ t ∈ Ioo (0 : ℝ) s, DifferentiableAt ℝ Y t :=
+    fun t ht => differentiableAt_hOneEnergy w hf' ⟨ht.1, ht.2.trans hsT⟩
+  have hineq : ∀ t ∈ Ioo (0 : ℝ) s,
+      deriv Y t + ν * Z t ≤ h1RestartConstant ν * (1 + Y t) ^ 3 +
+        h1RestartConstant ν * (forceL2CapR f S).toReal ^ 2 := by
+    intro t ht
+    have he := enstrophy_differential_on_Icc' w hf' hν ht.1 hsT t ⟨le_rfl, ht.2.le⟩
+    exact he.trans (add_le_add le_rfl (mul_le_mul_of_nonneg_left
+      (timeShift_force_l2Sq_le hf hS ht₀
+        ⟨ht.1.le, ht.2.le.trans (hsD.trans (min_le_right _ _))⟩) hC.le))
+  have hh := hb 0 s Y Z hs0 (hsD.trans (min_le_left _ _))
+    (by simpa only [zero_add] using hcY)
+    (by simpa only [zero_add] using hdY)
+    (fun t _ => sq_nonneg _) hinit (fun t _ => sq_nonneg _)
+    (by simpa only [zero_add] using hcZ.integrableOn_Icc (μ := volume))
+    (by simpa only [zero_add] using hineq)
+  have hreal : (∫ t in (0 : ℝ)..s, Z t) ≤ B := by
+    have hh' : (∫ t in (0 : ℝ)..s, Z t) ≤
+        (K.toReal ^ 2 + h1RestartConstant ν * (1 + M) ^ 3 * s +
+          h1RestartConstant ν * (forceL2CapR f S).toReal ^ 2 * s) / ν := by
+      simpa only [zero_add] using hh.2
+    apply hh'.trans
+    dsimp [B]
+    gcongr
+  rw [hTwo_lintegral_eq w hs0 hsT]
+  exact ENNReal.ofReal_le_ofReal hreal
+
 end NSFormalization.Section4.A04
