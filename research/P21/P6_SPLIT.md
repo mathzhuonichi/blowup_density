@@ -50,6 +50,8 @@ article-level closure claims.
 |---|---|---|
 | B0 | lane 503 | Norm bridges / force cap; separate worktree, not imported here |
 | B1 | lane 504 | Analytic steps closed and kernel-checked; registered-norm inequality conditional only on the exact B0 bridges below |
+| B3 | lane 506 | Closed abstract real-analysis unit: uniform barrier, integrated dissipation and endpoint integrability |
+| B2 | lane 505 | Closed conditional only on the three torus norm bridges below; both analytic residuals and final differential inequality kernel-checked |
 | B2 | unassigned here | Periodic estimate, including mean |
 | B3 | lane 506 | Closed abstract real-analysis unit: uniform barrier, integrated dissipation and endpoint integrability |
 | B4 | lane 507 | **Closed on R³.** Unconditional `h1RestartR` and `h1RestartAt`; no named analytic input |
@@ -98,6 +100,43 @@ Its underlying physical estimate `convection_interpolation` is unconditional.
 No initial-time derivative or endpoint time integral is asserted. Compact
 intervals lie strictly inside (0,T). B3 must still perform the uniform barrier
 and endpoint limit; strict-interior finiteness alone does not suffice.
+# P21 / P6 Route B split
+
+Status: **P6 remains Partial.**  This file tracks the preferred smooth-data,
+fixed-force Route B from `ASSESSMENT.md` §3.  Closing B0 supplies norm and force
+bridges; it does not prove H¹-uniform restart or either endpoint target.
+
+| Unit | Exit condition | Size / model | Status |
+|---|---|---|---|
+| B0 | Reconcile H¹/H² Fourier norms with derivative energy and state shifted-force cap | M / sol | **Closed — lane 503.** Exact identities and finite caps on both domains; targets type-checked in `Targets.lean`. |
+| B1 | General (no critical smallness) enstrophy interpolation/Young inequality on R³ | L / astra | Pending |
+| B2 | Periodic version including mean and ordinary L² energy | L / astra | Pending |
+| B3 | Uniform ODE barrier, integrated dissipation, endpoint monotone limit | M–L / astra | Pending |
+| B4 | Maximal-lifespan contradiction, smooth common-interval restriction, regularity and pressure adapters | M / sol | Pending |
+| B5 | Uniform restartBeyond and registration/audits | M / sol | Pending |
+
+## B0 output
+
+- `Section4/A04/H1Bridges.lean`: exact whole-space H¹/H² identities and the
+  finite compact-window force cap.
+- `Section3/T11/H1Bridges.lean`: exact periodic H¹/H² identities, the finite
+  cap, and the smooth/periodic package for shifted forces.
+- `Targets.lean`: `h1RestartR`, `h1RestartT`, `h1UniformEndpointR`, and
+  `h1UniformEndpointT` as unproved `Prop` definitions in registered vocabulary.
+
+## Remaining acceptance risks
+
+- B1/B2 must prove the general cubic enstrophy inequality without importing
+  the critical-smallness absorption from T20.
+- B3 must choose the barrier time before restart time and datum, retain the
+  inhomogeneous low modes, and justify endpoint integrability by monotone
+  limits.
+- B4 must argue through the already constructed smooth maximal solution; it
+  must not infer a lower bound for the selected high-order local horizon.
+- On the torus, B3/B4 may use B0's shifted smoothness, periodicity, and common
+  `L²` cap, but not shifted membership in `forceClassT`.
+- B5 remains responsible for the actual H¹ restart/endpoint theorems and any
+  ensuing contract, binding, test, graph, guide, or registry decision.
 
 ## B3 handoff
 
@@ -288,3 +327,69 @@ then rewrite `gradientSqT`, `Real.sqrt_sq ENNReal.toReal_nonneg` and
 There are no remaining B2 nonlinear/differential hypotheses. B3 still owes
 the ODE barrier and endpoint integration; B4/B5 still owe their respective
 lifespan/restart assemblies. P6 / L21_H1 remains Partial.
+
+## B4-T³ handoff — lane 508 (supersedes the pending torus B4 rows above)
+
+**B4-T³ closed. P6 / L21_H1 remains Partial pending B5 registration and the
+other-domain work.** Module `NSFormalization.Section3.T11.H1Restart` exports
+`h1RestartT`, with the exact local T10/T11 version of `Targets.lean`'s Prop.
+The consumer probe transports it to the contract structure using the existing
+`toContract` and `periodicLocalRegularity_toContract` equivalence.
+
+All B0/B2 norm reconciliations are closed, including
+`periodicHessianEnergy_eq_laplacianSqT`. The bridge-free
+`enstrophy_differential_on_IccT'` is available. For shifted forces use
+`enstrophy_differential_smoothT` (global smoothness plus spatial periodicity),
+not the forceClassT-only B2 theorem. B3's force parameter is the SQUARE of
+`forceL2CapT`'s real value. The running/endpoint dissipation bounds, smooth-force
+H³ bound, shifted horizon extension and uniform strict lifespan bound are all
+proved in the new module. The protected B0/B2/B3 files are unchanged.
+
+The registered `extendsBeyondH3` itself still has a forceClassT premise and
+cannot be directly fed a generic shifted test force. Lane 508 reuses its
+lower-level H³ pairing/Grönwall/Picard/gluing argument under the correct
+shift-compatible assumptions. `exists_maximal_smoothT` similarly reuses
+maximal gluing with smooth-force Picard existence. Regularity is supplied by
+`periodicLocalRegularity_of_classical'`, which requires only force smoothness.
+No new unproved input predicate is introduced.
+
+### Exact B5 endpoint target and consumption check
+
+In local T10/T11 vocabulary B5 needs:
+
+```lean
+∀ (ν : ℝ), 0 < ν → ∀ (f : SpaceTimeField), f ∈ forceClassT →
+  ∀ (S : ℝ), 0 < S → ∀ (K : ℝ≥0∞), K ≠ ⊤ →
+    ∃ δ : ℝ, 0 < δ ∧
+      ∀ (a : SpatialField), a ∈ initialClassT →
+        ∀ (u : SpaceTimeField) (p : SpaceTimeScalar),
+          SolvesBelowT ν a f S u p →
+            (∀ t ∈ Ico (0 : ℝ) S,
+              periodicSobolevENorm 1 (fun x => u (t, x)) ≤ K) →
+              ∃ v : ClassicalSolutionT ν a f (S + δ),
+                (∀ t ∈ Ico (0 : ℝ) S, ∀ x : Space,
+                  v.velocity (t, x) = u (t, x)) ∧
+                (∀ t ∈ Ico (0 : ℝ) S, ∀ x : Space,
+                  v.pressure (t, x) = p (t, x))
+```
+
+`RestartBeyond.lean:408` consumes the named local input ONLY through
+`restart H ν hν f hf S hS.le K hK`. Replace this application by
+`h1RestartT ν hν f hf S hS.le K hK` and remove H from the theorem binder;
+the rest of that proof uses just the returned restart conclusion, existing
+gluing and velocity/normalized-pressure uniqueness for the original test
+force. Thus B5 is an instantiation of that proof, with no additional analytic
+or force-shift adapter. Its δ is `t₀+d-S`, where t₀=max 0 (S-d/2).
+
+A new `PeriodicQuantitativeLocalInputH1Sup` predicate is unnecessary for this
+handoff. `Restart.lean` would need one additional application of the compact
+force cap to consume such a sup-input, so it is not literally unchanged;
+`RestartBeyond.lean` is unchanged after replacing its single restart supplier.
+Lane 508 proves the fixed-force R1 target and does not claim the stronger
+L¹-only `PeriodicQuantitativeLocalInput'` or cross-force H¹ Picard input.
+
+The one-supplier B5 replacement above was additionally kernel-checked in
+`tmp/b4t-endpoint-handoff.lean`: the existing proof compiles after removing
+its H binder and replacing `restart H` by `h1RestartT`, without any other
+proof-body change. This is a temporary consumer check, not endpoint
+registration or an article-coverage change.
