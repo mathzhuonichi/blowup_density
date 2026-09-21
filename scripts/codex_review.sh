@@ -43,8 +43,10 @@ Check, citing \`file:line\` for each:
    intervals, unused binders); named hypotheses are honest and isolated.
 2. **Build**: rerun every gate the brief lists (\`lake build\` of the module — silent for this module,
    \`lake env lean\` on the module — 0 output, the axioms file — every \`#print axioms\` exactly
-   \`[propext, Classical.choice, Quot.sound]\`, \`make check\`, plus \`scripts/gates.sh\` and
-   \`check_contracts.py --base-ref origin/${INTEGRATION_BRANCH:-erenup/core}\` if \`verification/\` was touched).
+   \`[propext, Classical.choice, Quot.sound]\`, \`make check\` (the owner's: \`check_formalization_plan.py --check\`,
+   \`check_contracts.py --summary\`, policy tests; if it stops with "Source changed: rerun the article axiom audit", run
+   \`python3 experiments/audit_article_axioms.py --build --output-dir tmp/article-audit --workers 2\` and retry), plus
+   \`make test\` and \`make test-mutations\` if \`verification/\` was touched).
    Paste exact outputs.
 3. **Hygiene**: no \`sorry/admit/axiom/native_decide\`; \`maxHeartbeats\` only per declaration ≤ 400000
    with a comment; no existing module modified (\`git diff --name-only origin/${INTEGRATION_BRANCH:-erenup/core}...HEAD\`);
