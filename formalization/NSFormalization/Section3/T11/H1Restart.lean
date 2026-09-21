@@ -70,4 +70,43 @@ theorem periodicHOne_bridgeT {z : SpatialField} (hz : ContDiff ℝ ∞ z)
     ring
   · simp only [T20.h1FreqEnergy, velocityCoeffT, periodicAngularFrequencySq]
 
+/-- Full H² energy, with the exact ordered-Hessian/Laplacian normalization. -/
+theorem periodicHTwo_bridgeT {z : SpatialField} (hz : ContDiff ℝ ∞ z)
+    (hp : IsPeriodicSpatial z) :
+    (periodicSobolevENorm 2 z).toReal ^ 2 =
+      lTwoSqT z + 2 * gradientSqT z + laplacianSqT z := by
+  obtain ⟨A, hA⟩ := smooth_periodic_datum 2 hz hp
+  rw [periodicSobolevENorm_eq hA, toReal_enorm]
+  have hG := T20.gradientSqT_meanFreeVelocity_eq_tsum
+    (g := 0) (u := fun p => z p.2) (r := 0) hz hp
+  have hL := T20.laplacianSqT_meanFreeVelocity_eq_tsum
+    (g := 0) (u := fun p => z p.2) (r := 0) hz hp
+  simp only [gradientSqT, T20.gradientTensor_meanFreeVelocity] at hG
+  simp only [laplacianSqT, T20.laplacian_meanFreeVelocity] at hL
+  have hs (m : ℝ) (hm : 0 < m) :=
+    NSFormalization.Section3.T13.summable_homogeneous_total (s := m) hm.le hp hz
+  have hg : Summable (fun k : PeriodicFrequency =>
+      periodicAngularFrequencySq k *
+        ∑ i : Fin 3, ‖periodicFourierCoeff (fun x => (z x i : ℂ)) k‖ ^ 2) := by
+    convert hs 1 (by norm_num) using 1
+    funext k
+    rw [T20.homogeneousDatumWeight_one_sq]
+  have hl : Summable (fun k : PeriodicFrequency =>
+      periodicAngularFrequencySq k ^ 2 *
+        ∑ i : Fin 3, ‖periodicFourierCoeff (fun x => (z x i : ℂ)) k‖ ^ 2) := by
+    convert hs 2 (by norm_num) using 1
+    funext k
+    rw [T20.homogeneousDatumWeight_two_eq]
+  have h := ((hasSum_lTwoSqT hz hp).add (hg.hasSum.mul_left 2)).add hl.hasSum
+  change _ = lTwoSqT z + 2 * (periodicLpENorm 2 (gradientTensor z)).toReal ^ 2 +
+    (periodicLpENorm 2 (laplacian z)).toReal ^ 2
+  rw [hG, hL]
+  apply (hasSum_freqEnergyT (u := fun p => z p.2) (t := 0) hA).unique
+  convert h using 1
+  · funext k
+    simp only [freqEnergyT, Real.rpow_two, velocityCoeffT]
+    unfold periodicFrequencyWeight periodicAngularFrequencySq
+    ring
+  · simp only [T20.h1FreqEnergy, velocityCoeffT]
+
 end NSFormalization.Section3.T11
