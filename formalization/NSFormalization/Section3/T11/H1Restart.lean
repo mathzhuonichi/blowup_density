@@ -28,4 +28,19 @@ theorem periodicGradient_bridgeT {z : SpatialField} (hz : ContDiff ℝ ∞ z) :
   rw [gradientSqT, Real.sqrt_sq ENNReal.toReal_nonneg]
   exact (ENNReal.ofReal_toReal (memLp_gradientTensor hz).2.ne).symm
 
+/-- Ordinary Parseval including the mean mode, in B2's carrier. -/
+theorem hasSum_lTwoSqT {z : SpatialField} (hz : ContDiff ℝ ∞ z)
+    (hp : IsPeriodicSpatial z) :
+    HasSum (fun k : PeriodicFrequency =>
+      ∑ i : Fin 3, ‖periodicFourierCoeff (fun x => (z x i : ℂ)) k‖ ^ 2)
+      (lTwoSqT z) := by
+  obtain ⟨A, hA⟩ := smooth_periodic_datum 0 hz hp
+  have h := hasSum_freqEnergyT (u := fun p => z p.2) (t := 0) hA
+  have he : lTwoSqT z = ‖A‖ ^ 2 := by
+    unfold lTwoSqT
+    change (eLpNorm (torusLift z) 2 periodicTorusMeasure).toReal ^ 2 = _
+    rw [← sobolevENorm_zero_eq hz hp, periodicSobolevENorm_eq hA, toReal_enorm]
+  rw [he]
+  simpa only [freqEnergyT, Real.rpow_zero, one_mul, velocityCoeffT] using h
+
 end NSFormalization.Section3.T11
