@@ -57,3 +57,6 @@ Source `. scripts/lean-env.sh`; run Lake from `verification/` with
 - Textual comparison after expanding the research packet projections: PASS,
   all 30 canonical/research field types match.
 - `git diff --check`: PASS; prohibited proof tokens absent from new Lean files.
+
+## Lead note (2026-09-21 04:00Z)
+Spec accepted after comparison with `Spec.lean:1176-1333` and revised `03-torus.tex:511-535`: dropping `scaling` (no periodisation) and adding `no_slip` are the right domain changes; `energyEssSupOmega`/`energyGradientOmega` use the registered restricted physical norms. Lead micro-edit: `entrypoints.json` now lists `NSFormalization.Section3.T24.MultipleOmega` so that `make check` (module reachability) passes on the core branch; the proof lanes 497/500 and the registration lane 501 follow the "P5 units" split.
