@@ -107,4 +107,23 @@ theorem sobolevENorm_slice_ne_top {ν T : ℝ} {a : SpatialField} {f : SpaceTime
   rw [he]
   exact enorm_ne_top
 
+/-- Classical compact-interval dissipation is the nonnegative integral of its real energy. -/
+theorem hTwo_lintegral_eq {ν T s : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionR ν a f T) (hs0 : 0 ≤ s) (hsT : s < T) :
+    (∫⁻ t in Ico (0 : ℝ) s, sobolevENorm 2 (C01.slice w.velocity t) ^ 2) =
+      ENNReal.ofReal (∫ t in (0 : ℝ)..s,
+        (sobolevENorm 2 (C01.slice w.velocity t)).toReal ^ 2) := by
+  have hi : IntegrableOn (fun t => (sobolevENorm 2 (C01.slice w.velocity t)).toReal ^ 2)
+      (Icc (0 : ℝ) s) := ((continuousOn_sobolevEnergy w 2).mono
+    (show Icc (0 : ℝ) s ⊆ Ico 0 T from fun t ht => ⟨ht.1, ht.2.trans_lt hsT⟩)).integrableOn_Icc
+  rw [intervalIntegral.integral_of_le hs0, ← integral_Ico_eq_integral_Ioc,
+    ofReal_integral_eq_lintegral_ofReal (hi.mono_set Ico_subset_Icc_self)
+      (ae_of_all _ (fun t => sq_nonneg _))]
+  apply setLIntegral_congr_fun measurableSet_Ico
+  intro t ht
+  dsimp only
+  have hne : sobolevENorm 2 (C01.slice w.velocity t) ≠ ⊤ :=
+    sobolevENorm_slice_ne_top w 2 ⟨ht.1, ht.2.trans hsT⟩
+  rw [ENNReal.ofReal_pow ENNReal.toReal_nonneg, ENNReal.ofReal_toReal hne]
+
 end NSFormalization.Section4.A04
