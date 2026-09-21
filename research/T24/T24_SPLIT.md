@@ -418,3 +418,10 @@ No unit may take `MultipleRegionsOmegaAPI` or its existence as an input.
 The unit-box, one-region probe is a type/elaboration check with an API variable,
 not a proof of existence or a claimed non-vacuity witness. Proving that existence
 is P5.5, not lane 496.
+
+### Lane 500 P5b status
+
+- **P5.3 CLOSED**: `MultipleOmegaRegions.OmegaRegions.region_agreement` and
+  `region_blowup`, over explicit global support, disjointness, raw velocity pin,
+  positive scales and time placement. Probe passes; both declarations use exactly
+  `[propext, Classical.choice, Quot.sound]`. Assembly remains P5.5 (lane 501).
