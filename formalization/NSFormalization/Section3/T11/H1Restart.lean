@@ -136,4 +136,27 @@ theorem periodicHessianEnergy_eq_laplacianSqT {z : SpatialField}
     periodicGradientEnergy_eq_gradientSqT hz hp] at h
   linarith
 
+/-- B2 on compact interior intervals, with all three spatial bridges discharged. -/
+theorem enstrophy_differential_on_IccT'
+    {ν T r s : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionT ν a f T) (hf : f ∈ forceClassT)
+    (hν : 0 < ν) (hr : 0 < r) (hs : s < T) :
+    ∀ t ∈ Icc r s,
+      let Cν := (2 * convectionConstT) ^ 4 / (ν / 2) ^ 3 + (1 + ν) + (1 + 2 / ν)
+      deriv (fun q => (periodicSobolevENorm 1 (fun x => w.velocity (q, x))).toReal ^ 2) t +
+        ν * (periodicSobolevENorm 2 (fun x => w.velocity (t, x))).toReal ^ 2 ≤
+      Cν * (1 + (periodicSobolevENorm 1 (fun x => w.velocity (t, x))).toReal ^ 2) ^ 3 +
+        Cν * lTwoSqT (fun x => f (t, x)) := by
+  apply enstrophy_differential_on_IccT w hf hν hr hs
+  · intro q hq
+    exact periodicHOne_bridgeT (classical_velocity_slice_contDiff w (Ioo_subset_Ico_self hq))
+      (w.velocity_periodic q (Ioo_subset_Ico_self hq))
+  · intro t ht
+    have ht' : t ∈ Ico (0 : ℝ) T := ⟨(hr.trans_le ht.1).le, ht.2.trans_lt hs⟩
+    exact (periodicHTwo_bridgeT (classical_velocity_slice_contDiff w ht')
+      (w.velocity_periodic t ht')).le
+  · intro t ht
+    exact (periodicGradient_bridgeT (classical_velocity_slice_contDiff w
+      ⟨(hr.trans_le ht.1).le, ht.2.trans_lt hs⟩)).le
+
 end NSFormalization.Section3.T11
