@@ -55,6 +55,7 @@
 | 505-P21-B2-enstrophy-torus | worktree 安装中（504 分支 + core）→ codex astra | 09-21 0424Z | — | P6 B2：𝕋³ 涡量微分不等式（保留均值与 L² 能量），镜像 B1 引理序列 |
 | 506-P21-B3-ode-barrier | astra 完成：EnstrophyBarrier.lean 六定理（一致屏障 d,M 先于 t₀/S/Y/Z、积分耗散、端点可积）、探针非空；无合同/状态变更 → 审稿 rev-506（sol） | 09-21 0442Z | — | P6 B3：一致 ODE 屏障（d、Ybar 只依赖 c,C,K₀,F）+ 积分耗散界 + 端点单调极限（纯实分析） |
 | 509-MAINT-policy-test | 已合入 #465（lead 微修，纯 Python） | 09-21 0442Z | #465 | 政策测试 test_contract_policy.py 两条改为不依赖具体 Partial 节点（原绑死 C35_FULL / L21_H1；493 闭合后 make check 必红） |
+| 507-P21-B4-restart-r3 | worktree = core+503+504+506 安装中 → codex astra | 09-21 0451Z | — | P6 B4（ℝ³）：B0↔B1 对账（紧支撑→MemHInfty 桥）、时间正则性、力上界、B3 屏障、极大寿命反证 → h1RestartR |
 | 499-P21-P6-h1-assessment | 已合入 #457（评估：建议先留 Partial；若做，走 Route B 光滑数据 H¹ restart + 现有续接，L–XL） | 09-21 0400Z | #457 | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
 
 下一号 **510**（B4、B5 预留 507、508；509 已用）。
