@@ -46,8 +46,9 @@
 | 494-T18-P3-force-amplitude | astra 完成：ForceAmplitude.lean（F ≠ 0、sup 缩放恒等、H_ε ≤ Cε⁻²、下界 + 发散 𝓝 ⊤/atTop）+ T03.force_amplitude + 蓝图 → 审中 sol | 09-21 0400Z | — | P3 Remark 3.13：F ≠ 0、周期化缩放力的 sup 范数 ε⁻³‖F‖∞、H_ε ≤ Cε⁻²、发散 + T03.force_amplitude + 蓝图 |
 | 495-T24-P4-conservative-domain | astra 8 分钟完成：ConservativeOmega.lean（pairing 经 IBP、restSolutionOmega、零能量⇒零）+ T04.conservative_forcing_v2（30 合同）+ 蓝图/guide/计数 22/5 + 四闸门 + make paper → 审中 sol | 09-21 0348Z | — | P4 Prop 3.17 有界域：ConservativeForcingOmegaAPI（pairing 经 IBP.integral_pressure_energy_zero；从静止为零）+ T04.conservative_forcing_v2 + 蓝图 |
 | 496-T24-P5-spec-multiple-domain | 已合入 #456（astra 规范：30 字段，去 scaling 加 no_slip；lead 比对通过；entrypoints 补一行） | 09-21 0355Z | #456 | P5 步骤 1：MultipleRegionsOmegaAPI 规范（镜像环面 30 字段）+ canonical 记录 + 拆分 |
-| 497-T24-P5a-domain-components-sum | worktree 安装中（core，含 496）→ codex astra | 09-21 0355Z | — | P5.1+P5.2：Ω 上的分量（无周期化缩放包 → ClassicalSolutionOmega）与有限和解（交叉输运为零、no-slip、gauge） |
-| 500-T24-P5b-domain-blowup-energy | worktree 安装中 → codex astra，与 497 并行（穿线假设） | 09-21 0355Z | — | P5.3+P5.4：每球 region_agreement/region_blowup + 能量/耗散可加性（限制积分 = 全空间积分） |
+| 497-T24-P5a-domain-components-sum | astra 完成：MultipleOmegaComponents/Assembled（45 声明）→ 审中 sol | 09-21 0407Z | — | P5.1+P5.2：Ω 上的分量（无周期化缩放包 → ClassicalSolutionOmega）与有限和解（交叉输运为零、no-slip、gauge） |
+| 500-T24-P5b-domain-blowup-energy | astra 完成：MultipleOmegaRegions（17 定理：每球爆破、能量界、耗散恒等）→ 审中 sol | 09-21 0407Z | — | P5.3+P5.4：每球 region_agreement/region_blowup + 能量/耗散可加性（限制积分 = 全空间积分） |
+| 501-T24-P5c-assembly-registration | worktree 安装中（497 + 500 分支 + core）→ codex astra | 09-21 0407Z | — | P5.5：30 字段装配 + multipleRegionsOmegaStatement + T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B |
 | 503-P21-B0-h1-norm-bridges | worktree 安装中 → codex sol（窗口 <7 时启动） | 09-21 0401Z | — | P6 Route B B0：H¹/H² Fourier 范数 ↔ 导数能量桥（两域）+ 平移力上界 + 目标陈述 Targets.lean |
 | 504-P21-B1-enstrophy-r3 | worktree 安装中 → codex astra | 09-21 0401Z | — | P6 Route B B1：ℝ³ 上一般（无临界小性）涡量微分不等式 Y' + cνZ ≤ Cν(1+Y)³ + Cν‖f‖² |
 | 499-P21-P6-h1-assessment | 已合入 #457（评估：建议先留 Partial；若做，走 Route B 光滑数据 H¹ restart + 现有续接，L–XL） | 09-21 0400Z | #457 | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
