@@ -211,7 +211,26 @@ theorem convection_interpolationT (z : SpatialField) (hz : SmoothPeriodicT z) :
     (lintegral_convection_holder_632T z hz)).trans
       (mul_le_mul' (mul_le_mul' le_rfl hg') le_rfl)
 
+/-- Elementary localization route for the velocity embedding. The remaining
+cutoff-gradient estimate must retain both the velocity L² and gradient L² terms. -/
+theorem velocity_six_le_localized_gradientT (z : SpatialField) (hz : SmoothPeriodicT z) :
+    periodicLpENorm 6 z ≤
+      ENNReal.ofReal NSFormalization.Section4.A05.gradientL6Const *
+        eLpNorm (gradientTensor (cutoffMul z)) 2 volume := by
+  calc periodicLpENorm 6 z
+      = eLpNorm z 6 (volume.restrict NSFormalization.Section3.T13.fundamentalCube) :=
+        periodicLpENorm_eq_restrict z hz.2 6
+    _ = eLpNorm (cutoffMul z) 6
+        (volume.restrict NSFormalization.Section3.T13.fundamentalCube) :=
+      (eLpNorm_congr_ae (ae_restrict_of_forall_mem
+        NSFormalization.Section3.T13.measurableSet_fundamentalCube
+        (fun x hx ↦ cutoffMul_eq_on_cube z hx))).symm
+    _ ≤ eLpNorm (cutoffMul z) 6 volume := eLpNorm_mono_measure _ Measure.restrict_le_self
+    _ ≤ _ := NSFormalization.Section4.A04.velocity_six_le_gradient_two
+      (cutoffMul z) (smoothL2_cutoffMul hz.1)
+
 end NSFormalization.Section3.T11
+
 
 
 

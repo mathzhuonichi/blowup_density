@@ -8,3 +8,4 @@ import NSFormalization.Section3.T11.EnstrophyInequality
 #print axioms NSFormalization.Section3.T11.weighted_cubic_assemblyT
 #print axioms NSFormalization.Section3.T11.gradient_six_le_laplacian_twoT
 #print axioms NSFormalization.Section3.T11.convection_interpolationT
+#print axioms NSFormalization.Section3.T11.velocity_six_le_localized_gradientT
