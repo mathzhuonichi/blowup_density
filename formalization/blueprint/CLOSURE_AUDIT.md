@@ -22,10 +22,10 @@ an assumed analytic theorem from an ordinary hypothesis.
   by itself close the article's quantification over an arbitrary prescribed
   coordinate ball.
 
-The other Partial entries are Proposition 2.1, Lemma 3.5, Remark 3.13, and
+The other Partial entries are Proposition 2.1, Remark 3.13, and
 Propositions 3.16 and 3.17. Their precise limits remain in the guide.
 
-## The 21 Closed entries
+## The 22 Closed entries
 
 The proof locations are linked in [RESULT_MAP.md](RESULT_MAP.md). The table
 below records why a helper record is not being accepted as an unproved input.
@@ -38,6 +38,7 @@ below records why a helper record is not being accepted as an unproved input.
 | Lemma 3.2 | `localizationAPI` is a closed inhabitant of the six-field localization record. Its norm identities, estimate and endpoints are proved in its definition. |
 | Proposition 3.3 | `scalingStatement_holds` proves scaling for the specified packet and geometric placement. All packet conditions, including energy and extension properties, are supplied by the compiled packet-import construction; no scaling estimate is a premise. |
 | Lemma 3.4 | `localPotential` constructs the cutoffs, threshold and potential from the lemma's regularity, divergence and geometric hypotheses. No potential or cutoff theorem is an input. |
+| Lemma 3.5 | `correctionStatementArticle_holds` derives slab smoothness, periodicity and divergence from the classical reference after zero extension. `article_force_identification` transfers the force and all displayed bounds to the original velocity; packet support is a registered packet projection. No correction or estimate supplier is an input. |
 | Proposition 3.7 | `periodicDensityStatement_holds` uses the constructed `periodicDensityAPI`; `T19.insertion` closes the reference-solution branch. Density needs some localization ball, not every prescribed ball. |
 | Proposition 3.8 | `criticalRegularityStatement_holds` supplies the constructed `criticalRegularityT`. Its continuation argument uses proved H3 restart, not the missing H1-uniform statement. |
 | Corollary 3.9 | `nonDensityStatement_unconditional` uses `closedNonDensityAPI`, whose critical-regularity supplier is constructed. |
@@ -83,7 +84,7 @@ without changing those downstream constructions or their hypotheses.
 `Tests.Packet.checkedPacketBreakdown` checks the exact full statement and its
 transitive axioms, alongside the existing construction check. The guide's
 kernel audit also includes `Source.source_breakdown`. The Linux acceptance run
-checks this declaration together with all 29 registered interfaces; the full
+checks this declaration together with all 30 registered interfaces; the full
 source snapshot and collected axiom sets are recorded in `AXIOM_AUDIT.json`.
 
 ## Verification

@@ -23,7 +23,7 @@ flowchart TD
   C35_LOCAL["Lemma 3.5<br/>proved local estimates<br/>Closed"]
   L32["Lemma 3.2<br/>fractional localization<br/>Closed"]
   C35_T["Lemma 3.5<br/>proved periodic case<br/>Closed"]
-  C35_FULL["Lemma 3.5<br/>full article scope<br/>Partial"]
+  C35_FULL["Lemma 3.5<br/>full article scope<br/>Closed"]
   B11 --> B11_FULL
   CMP --> B11_FULL
   B11 --> E22
@@ -32,12 +32,12 @@ flowchart TD
   V34 --> C35_LOCAL
   C35_LOCAL --> C35_T
   L32 --> C35_T
-  C35_T -. remaining scope .-> C35_FULL
+  C35_T --> C35_FULL
   classDef closed fill:#dcfce7,stroke:#15803d,color:#14532d;
   classDef partial fill:#fff7d6,stroke:#b45309,color:#78350f;
   classDef mainResult stroke-width:4px;
-  class B11,CMP,B11_FULL,E22,L21T,L21R,V34,C35_LOCAL,L32,C35_T closed;
-  class L21_H1,C35_FULL partial;
+  class B11,CMP,B11_FULL,E22,L21T,L21R,V34,C35_LOCAL,L32,C35_T,C35_FULL closed;
+  class L21_H1 partial;
 ```
 
 ## The periodic main theorem and its consequences
@@ -167,7 +167,6 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 | Article statement | Closed part used in the proofs | Partial scope |
 |---|---|---|
 | Proposition 2.1 | Periodic existence, uniqueness, maximality and continuation for the used force class, using the formally proved H3 restart case.; Whole-space existence, uniqueness, maximality and continuation for the used force class, using fixed-force H7 restart. | The general H1-uniform restart clauses remain unformalized. They are not inputs to the proved H3/H7 continuation routes. |
-| Lemma 3.5 | Local support, derivative, energy and mixed-norm bounds with the smoothness and geometric hypotheses supplied by a smooth reference solution.; The formal periodic correction theorem with its explicit smoothness, chart and viscosity hypotheses; those hypotheses are supplied in the fixed-ball construction. | The unrestricted article formulation has not been exported with all differences in hypotheses discharged. |
 | Theorem 3.6 | Construct the scaling and correction inputs from raw data; exact lifespan, history and convergence for the fixed-ball case used in density. | The raw-data constructor uses a fixed placement. The complete quantification over an arbitrary prescribed coordinate ball is not closed. |
 | Remark 3.13 | Related estimates are proved in Proposition 3.3 and the used cases of Lemma 3.5. | Scaling and correction estimates are proved; there is no separately exported divergence-of-force-amplitudes conclusion. |
 | Proposition 3.16 | Place finitely many rescaled building blocks in prescribed disjoint periodic regions and sum them. | The bounded-domain no-slip variant has not been assembled. |
@@ -189,7 +188,7 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 | Lemma 3.4: potential and cutoffs | Closed | Construct a local vector potential and divergence-free cutoff modification. [Assembly.lean](../../formalization/NSFormalization/Section3/T16/Assembly.lean) |
 | Lemma 3.5: proved local estimates | Closed | Local support, derivative, energy and mixed-norm bounds with the smoothness and geometric hypotheses supplied by a smooth reference solution. [Reference.lean](../../formalization/NSFormalization/Section4/I02/Reference.lean); [Correction.lean](../../verification/Bindings/Correction.lean) |
 | Lemma 3.5: proved periodic case | Closed | The formal periodic correction theorem with its explicit smoothness, chart and viscosity hypotheses; those hypotheses are supplied in the fixed-ball construction. [Assembly.lean](../../formalization/NSFormalization/Section3/T17/Assembly.lean); [SlabBridge2.lean](../../formalization/NSFormalization/Section3/T17/SlabBridge2.lean) |
-| Lemma 3.5: full article scope | Partial | The unrestricted article formulation has not been exported with all differences in hypotheses discharged. [Assembly.lean](../../formalization/NSFormalization/Section3/T17/Assembly.lean) |
+| Lemma 3.5: full article scope | Closed | Lemma 3.5 for a periodic classical reference on [0,T+δ), positive viscosity, the building-block placement and Lemma 3.4 ball. The zero extension is identified on the slab; all 45 API fields and the displayed derivative, support, energy, mixed and Sobolev bounds are retained, with the force identified globally with the article reference. [ArticleScope.lean](../../formalization/NSFormalization/Section3/T17/ArticleScope.lean); [Correction3V2.lean](../../verification/Bindings/Correction3V2.lean) |
 | Theorem 3.6: fixed-ball construction | Closed | Construct the scaling and correction inputs from raw data; exact lifespan, history and convergence for the fixed-ball case used in density. [Threading.lean](../../formalization/NSFormalization/Section3/T19/Threading.lean) |
 | Theorem 3.6: prescribed ball | Partial | The raw-data constructor uses a fixed placement. The complete quantification over an arbitrary prescribed coordinate ball is not closed. [Assembly.lean](../../formalization/NSFormalization/Section3/T18/Assembly.lean); [Threading.lean](../../formalization/NSFormalization/Section3/T19/Threading.lean) |
 | Proposition 3.7: periodic density | Closed | The two-case lifespan argument needs only one fully constructed localization, not the prescribed-ball extension. [Assembly.lean](../../formalization/NSFormalization/Section3/T19/Assembly.lean) |
@@ -221,7 +220,7 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 
 ## Verification and source data
 
-The article-level inventory has **21 Closed and 6 Partial entries** (26 numbered statements and one numbered remark). These counts are distinct from the number of clause-level nodes above. The recorded kernel audit checks **56 declarations**, with **no forbidden axioms**. The permitted logical axioms are `propext`, `Classical.choice` and `Quot.sound`; the retained source scan has no admissions or custom axiom declarations.
+The article-level inventory has **22 Closed and 5 Partial entries** (26 numbered statements and one numbered remark). These counts are distinct from the number of clause-level nodes above. The recorded kernel audit checks **65 declarations**, with **no forbidden axioms**. The permitted logical axioms are `propext`, `Classical.choice` and `Quot.sound`; the retained source scan has no admissions or custom axiom declarations.
 
 The graph is generated from [proof_graph.json](proof_graph.json). [RESULT_MAP.md](RESULT_MAP.md) supplies declaration locations, [CLOSURE_AUDIT.md](CLOSURE_AUDIT.md) records the input review, and [AXIOM_AUDIT.json](AXIOM_AUDIT.json) records the kernel results. The implementation registry in `tasks.json` is used for package checks, not as the reader-facing proof graph.
 
