@@ -166,4 +166,12 @@ theorem continuousOn_periodicSobolevEnergyT {ν T : ℝ} {a : SpatialField}
       (fun x => w.velocity (t, x))).toReal ^ 2) (Ico (0 : ℝ) T) :=
   (continuousOn_torusSobolevNormAt_velocity w m).pow 2
 
+/-- Interior differentiability needs no force-class membership. -/
+theorem differentiableAt_periodicSobolevEnergyT {ν T : ℝ} {a : SpatialField}
+    {f : SpaceTimeField} (w : ClassicalSolutionT ν a f T) (m : ℕ)
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) :
+    DifferentiableAt ℝ (fun q => (periodicSobolevENorm (m : ℝ)
+      (fun x => w.velocity (q, x))).toReal ^ 2) t :=
+  (hasDerivAt_torusSobolevNormAt_sq w m ht).differentiableAt
+
 end NSFormalization.Section3.T11
