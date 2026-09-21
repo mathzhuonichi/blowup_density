@@ -1545,3 +1545,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-19,MAINT,488-MAINT-section3-build-i,gpt-5.6-sol,build-check,"logs/SECTION3_BUILD_20260919i.md: full Section 3 rebuild after T23 registration (55 contracts); see report conclusion",merged,452
 2026-09-19,MAINT,489-MAINT-t22-defprop-warning,gpt-5.6-sol,maintenance,"Section3/T22/Assembly.lean: boundedDomainNorm def -> theorem, silences the only Section 3 warning; gates pass",merged,453
 2026-09-19,SPEC,490-SPEC-proof-map-html,gpt-5.6-sol,documentation,"docs/proof_map/index.html: explanatory proof map of Sections 3+4 (goal, interactive DAG, 55-contract ledger, trust architecture, build results, caveats) + README provenance; astra stalled twice, sol finished",merged,454
+2026-09-21,MAINT,491-MAINT-main-build-check,gpt-5.6-sol,build-check,"logs/MAIN_BUILD_20260920.md: owner's streamlined main rebuilt from clean products (587 modules rc 0), all gates + make paper + axiom audit green",merged,455
