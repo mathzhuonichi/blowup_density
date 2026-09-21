@@ -40,4 +40,13 @@ theorem sobolevEnergy_zero_smooth (Z : SmoothL2Field Space) :
   rw [NSFormalization.Section3.T22.sobolevENorm_zero_eq_eLpNorm Z.memLp]
   exact eLpNorm_toReal_sq_eq_l2Sq Z
 
+/-- The angular H¹ energy equals the unweighted physical energy plus gradient. -/
+theorem sobolevEnergy_one_smooth (Z : SmoothL2Field Space) :
+    (sobolevENorm 1 Z.field).toReal ^ 2 = l2Sq Z.field + gradientSq Z.field := by
+  have h := sobolevEnergy_succ_smooth Z 0
+  simp only [Nat.cast_zero, zero_add, sobolevEnergy_zero_smooth] at h
+  rw [h]
+  congr 1
+  simpa only [norm_toLp_sq_eq_l2Sq, l2Sq, gradientSq, axis, coordinateVector] using gradientSq_eq_sum Z
+
 end NSFormalization.Section4.A04
