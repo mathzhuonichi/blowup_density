@@ -1,2 +1,3 @@
 import NSFormalization.Section3.T11.EnstrophyInequality
 #check NSFormalization.Section3.T11.inhomogeneousEnergyIdentityT
+#check NSFormalization.Section3.T11.lintegral_convection_holder_632T

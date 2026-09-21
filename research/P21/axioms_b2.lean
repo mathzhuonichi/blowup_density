@@ -1,2 +1,3 @@
 import NSFormalization.Section3.T11.EnstrophyInequality
 #print axioms NSFormalization.Section3.T11.inhomogeneousEnergyIdentityT
+#print axioms NSFormalization.Section3.T11.lintegral_convection_holder_632T

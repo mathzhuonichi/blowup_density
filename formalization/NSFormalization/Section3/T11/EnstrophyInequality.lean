@@ -46,4 +46,26 @@ theorem inhomogeneousEnergyIdentityT
       (by simpa only [IsPeriodicDatum, Nat.cast_one] using hN)) using 1 <;>
     norm_num [torusSobolevNormAt, torusRealPairing]
 
+/-- Haar Hölder with velocity in L⁶, gradient in L³, Laplacian in L². -/
+theorem lintegral_convection_holder_632T (z : SpatialField) (hz : SmoothPeriodicT z) :
+    ∫⁻ y, ‖torusLift
+      (fun x ↦ (inner ℝ (advection (lift z) 0 x) (laplacian z x) : ℝ)) y‖ₑ
+        ∂periodicTorusMeasure ≤
+      periodicLpENorm 6 z * periodicLpENorm 3 (gradientTensor z) *
+        periodicLpENorm 2 (laplacian z) := by
+  have h := T20.lintegral_enorm_mul_three_le_torus_three_six_two
+    (T20.aestronglyMeasurable_torusLiftH1 (T20.continuous_gradientTensorH1 hz.1))
+    (T20.aestronglyMeasurable_torusLiftH1 hz.1.continuous)
+    (T20.aestronglyMeasurable_torusLiftH1 (contDiff_laplacian hz.1).continuous)
+  have hp : ∀ y : PeriodicTorus,
+      ‖torusLift (fun x ↦ (inner ℝ (advection (lift z) 0 x) (laplacian z x) : ℝ)) y‖ₑ ≤
+        ‖torusLift (gradientTensor z) y‖ₑ * ‖torusLift z y‖ₑ *
+          ‖torusLift (laplacian z) y‖ₑ := by
+    intro y
+    simpa only [torusLift, NSFormalization.Paper1.torusLift, mul_comm] using T20.enorm_inner_advection_leH1 z (laplacian z)
+      (NavierStokes.PeriodicIntegration.toSpace
+        ((UnitAddTorus.measurableEquivPiIoc (0 : NavierStokes.PeriodicIntegration.Coords) y).val))
+  exact (lintegral_mono hp).trans (by simpa only [periodicLpENorm, mul_comm] using h)
+
 end NSFormalization.Section3.T11
+
