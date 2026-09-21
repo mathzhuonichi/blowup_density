@@ -35,7 +35,7 @@ make check
 make test
 make test-mutations
 \end{verbatim}
-The suite checks 29 current publication interfaces. The separate declaration
+The suite checks 30 current publication interfaces. The separate declaration
 audit checks the transitive axioms of the results cited in this guide.
 For macOS 27, use a Linux VM because of the pinned runtime's allocator issue.
 The repository README gives the build details.
@@ -105,9 +105,12 @@ from raw data uses a fixed ball; the prescribed-ball version is not yet closed. 
 \mapped{Corollary}{cor:mixed} & \coverage{Closed}\source{F/Section3/T19/Assembly}{47}{mixedRegionStatement_holds}{theorem}. \\
 \mapped{Corollary}{cor:closure} & \coverage{Closed}\source{F/Section3/T19/Assembly}{51}{strongClosureStatement_holds}{theorem}. \\
 \mapped{Proposition}{prop:projection} & \coverage{Closed}\source{F/Section3/T19/Assembly}{55}{projectionStatement_holds}{theorem}. \\
-\mapped{Remark}{rem:peaks} & \coverage{Partial}No separately registered conclusion for divergence
-of the force amplitudes. Related estimates: \source{F/Section3/T15/Assembly}{130}{scalingStatement_holds}{theorem}
-and \source{F/Section3/T17/Assembly}{107}{correctionStatementAmended_holds}{theorem}. \\
+\mapped{Remark}{rem:peaks} & \coverage{Closed}\source{F/Section3/T18/ForceAmplitude}{24}{packetForce_ne_zero}{theorem};
+\source{F/Section3/T18/ForceAmplitude}{240}{forceAmplitude_lower}{theorem};
+\source{F/Section3/T18/ForceAmplitude}{288}{forceAmplitude_diverges}{theorem};
+\source{F/Section3/T18/ForceAmplitude}{332}{forceAmplitude_real_diverges}{theorem};
+\source{B/ForceAmplitude}{40}{forceAmplitude_from_data}{theorem}.
+The positive finite packet amplitude gives the displayed lower bound and divergence for every inserted family. \\
 \mapped{Corollary}{cor:boundary} & \coverage{Closed}\source{B/BoundaryInsertionV2}{27}{boundaryInsertion_from_data}{theorem};
 \source{F/Section3/T22/Assembly}{25}{boundedDomainNorm}{theorem}.
 \\

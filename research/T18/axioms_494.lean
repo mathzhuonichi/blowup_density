@@ -21,3 +21,4 @@ import Bindings.ForceAmplitude
 #print axioms BlowupDensity.Bindings.forceAmplitude_from_data
 #print axioms BlowupDensity.Bindings.selectedPacketForce_ne_zero
 #print axioms NSFormalization.Section3.T18.forceAmplitude_real_diverges
+#print axioms BlowupDensity.Bindings.packetForce_ne_zero
