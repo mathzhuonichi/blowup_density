@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "toolchain": "leanprover/lean4:v4.34.0-rc2",
-  "source_tree_sha256": "31e7a784e14c64081144cea4b15cf4024f7b15472fbc903e24b693c4a9c64cdb",
-  "source_file_count": 2257,
+  "source_tree_sha256": "faac6d3c381e5e0827e3e2bd5a4bf9c90c65947caede7f5150a4e298d516626b",
+  "source_file_count": 2251,
   "allowed_axioms": [
     "Classical.choice",
     "Quot.sound",
@@ -339,32 +339,6 @@
       "module": "NSFormalization.Section3.T24.MultipleAssembly",
       "path": "formalization/NSFormalization/Section3/T24/MultipleAssembly.lean",
       "line": 51,
-      "kind": "theorem",
-      "axioms": [
-        "Classical.choice",
-        "Quot.sound",
-        "propext"
-      ],
-      "unexpected_axioms": []
-    },
-    {
-      "declaration": "NSFormalization.Section3.T24.multipleRegionsOmegaStatement_holds",
-      "module": "NSFormalization.Section3.T24.MultipleOmegaAssembly",
-      "path": "formalization/NSFormalization/Section3/T24/MultipleOmegaAssembly.lean",
-      "line": 59,
-      "kind": "theorem",
-      "axioms": [
-        "Classical.choice",
-        "Quot.sound",
-        "propext"
-      ],
-      "unexpected_axioms": []
-    },
-    {
-      "declaration": "BlowupDensity.Bindings.MultipleRegionsV2.multipleRegionsStatementV2_holds",
-      "module": "Bindings.MultipleRegionsV2",
-      "path": "verification/Bindings/MultipleRegionsV2.lean",
-      "line": 167,
       "kind": "theorem",
       "axioms": [
         "Classical.choice",
@@ -933,11 +907,9 @@
     {
       "kind": "Proposition",
       "label": "prop:multiple",
-      "coverage": "Closed",
+      "coverage": "Partial",
       "declarations": [
-        "NSFormalization.Section3.T24.multipleRegionsStatement_holds",
-        "NSFormalization.Section3.T24.multipleRegionsOmegaStatement_holds",
-        "BlowupDensity.Bindings.MultipleRegionsV2.multipleRegionsStatementV2_holds"
+        "NSFormalization.Section3.T24.multipleRegionsStatement_holds"
       ],
       "number": "3.16"
     },
