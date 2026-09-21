@@ -56,8 +56,9 @@
 | 506-P21-B3-ode-barrier | astra 完成：EnstrophyBarrier.lean 六定理（一致屏障 d,M 先于 t₀/S/Y/Z、积分耗散、端点可积）、探针非空；无合同/状态变更 → 审稿 rev-506（sol） | 09-21 0442Z | — | P6 B3：一致 ODE 屏障（d、Ybar 只依赖 c,C,K₀,F）+ 积分耗散界 + 端点单调极限（纯实分析） |
 | 509-MAINT-policy-test | 已合入 #465（lead 微修，纯 Python） | 09-21 0442Z | #465 | 政策测试 test_contract_policy.py 两条改为不依赖具体 Partial 节点（原绑死 C35_FULL / L21_H1；493 闭合后 make check 必红） |
 | 507-P21-B4-restart-r3 | 审稿 ACCEPT（无修改）；分支含 503/506，待其审稿结论后按序合入 | 09-21 0532Z | — | P6 B4（ℝ³）：B0↔B1 对账（紧支撑→MemHInfty 桥）、时间正则性、力上界、B3 屏障、极大寿命反证 → h1RestartR |
-| 508-P21-B4-restart-torus | worktree = core+503+505+506 安装中 → codex astra | 09-21 0511Z | — | P6 B4（𝕋³）：B0↔B2 对账、时间正则性、力上界、B3 屏障、extendsBeyondH3 反证 → h1RestartT；两条路线（固定力 sup 上界 / L¹ 强迫屏障） |
+| 508-P21-B4-restart-torus | astra 完成：B4-𝕋³ 闭合（H1Restart 23 定理，h1RestartT；力类不匹配真解决）→ 审稿 rev-508（sol） | 09-21 0539Z | — | P6 B4（𝕋³）：B0↔B2 对账、时间正则性、力上界、B3 屏障、extendsBeyondH3 反证 → h1RestartT；两条路线（固定力 sup 上界 / L¹ 强迫屏障） |
 | 510-P21-B5-continuation-v3 | sol 完成：H1RestartBeyond（restartBeyondH1 严格端点）+ Contracts/V3/Continuation + Bindings/Tests + A04.continuation_v3（35 合同）+ 504 linter 清理 → 审稿 rev-510 | 09-21 0537Z | — | P6 B5（ℝ³ 半）：端点定理 restartBeyondH1（h1UniformEndpointR）+ Contracts/V3/Continuation 注册（A04.continuation_v3）；不动蓝图状态 |
+| 511-P21-B5-torus-closure | worktree = 508+510+core 安装中 → codex sol | 09-21 0539Z | — | P6 B5（𝕋³ 半 + 收尾）：restartBeyondH1T、Contracts/V2/TorusLocalTheory 注册（T01.torus_local_theory_v2，36 合同）、L21_H1 → Closed、RESULT_MAP/guide/README/partial=set() |
 | 499-P21-P6-h1-assessment | 已合入 #457（评估：建议先留 Partial；若做，走 Route B 光滑数据 H¹ restart + 现有续接，L–XL） | 09-21 0400Z | #457 | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
 
 下一号 **512**（511 预留给 B5-𝕋³ + L21_H1 关闭）。
