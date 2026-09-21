@@ -1546,3 +1546,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-19,MAINT,489-MAINT-t22-defprop-warning,gpt-5.6-sol,maintenance,"Section3/T22/Assembly.lean: boundedDomainNorm def -> theorem, silences the only Section 3 warning; gates pass",merged,453
 2026-09-19,SPEC,490-SPEC-proof-map-html,gpt-5.6-sol,documentation,"docs/proof_map/index.html: explanatory proof map of Sections 3+4 (goal, interactive DAG, 55-contract ledger, trust architecture, build results, caveats) + README provenance; astra stalled twice, sol finished",merged,454
 2026-09-21,MAINT,491-MAINT-main-build-check,gpt-5.6-sol,build-check,"logs/MAIN_BUILD_20260920.md: owner's streamlined main rebuilt from clean products (587 modules rc 0), all gates + make paper + axiom audit green",merged,455
+2026-09-21,T24,496-T24-P5-spec-multiple-domain,gpt-6-astra,spec,"research/T24/SpecOmega.lean + Section3/T24/MultipleOmega.lean: MultipleRegionsOmegaAPI (30 fields) + COMPARISON_OMEGA + P5 split; lead-compared",merged,456
