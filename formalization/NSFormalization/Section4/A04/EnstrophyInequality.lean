@@ -140,7 +140,7 @@ theorem eLpNorm_three_interpolation {E : Type*} [NormedAddCommGroup E] (g : Navi
     (by norm_num : (2 : ℝ≥0∞) ≠ ⊤),
     eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num : (6 : ℝ≥0∞) ≠ 0)
     (by norm_num : (6 : ℝ≥0∞) ≠ ⊤), ENNReal.toReal_ofNat, ← ENNReal.rpow_mul]
-  convert hh using 1 <;> norm_num
+  (convert hh using 1; norm_num)
 
 /-- Velocity Sobolev embedding with the same generous constant as A05. -/
 theorem velocity_six_le_gradient_two (z : Space → Space) (hz : SmoothL2 z) :
@@ -246,14 +246,14 @@ theorem young_three_quarters {C Y Z ε : ℝ} (hC : 0 ≤ C) (hY : 0 ≤ Y)
   have hY4 : (Y ^ (3 / 4 : ℝ)) ^ (4 : ℕ) = Y ^ (3 : ℕ) := by
     rw [← Real.rpow_natCast, ← Real.rpow_mul hY]; norm_num
   rw [h3, h4, mul_pow, hY4] at h
-  convert h using 1 <;> ring
+  (convert h using 1; ring)
 
 /-- Quadratic force absorption with arbitrary positive scale. -/
 theorem young_two_factors {a b ε : ℝ} (hε : 0 < ε) :
     2 * a * b ≤ ε * b ^ 2 + a ^ 2 / ε := by
   have h : 2 * a * b ≤ (ε ^ 2 * b ^ 2 + a ^ 2) / ε :=
     (le_div_iff₀ hε).2 (by nlinarith [sq_nonneg (ε * b - a)])
-  convert h using 1 <;> field_simp
+  (convert h using 1; field_simp)
 
 /-- Weighted inhomogeneous identity. The weight permits the registered Fourier
 normalization to be supplied by B0 without asserting a false unweighted equality. -/
@@ -462,7 +462,7 @@ theorem convection_sobolev (z : Space → Space) (hz : SmoothL2 z)
   have h := convection_bound_of_norm_bridges z hz (by positivity) (by positivity) hG hL
   rw [Real.mul_rpow (by positivity) ENNReal.toReal_nonneg,
     Real.mul_rpow (by positivity) ENNReal.toReal_nonneg] at h
-  convert h using 1 <;> ring
+  (convert h using 1; ring)
 
 /-- The cubic estimate on every closed subinterval strictly inside (0,T).
 The same ν-dependent constant works at every time in the interval. -/

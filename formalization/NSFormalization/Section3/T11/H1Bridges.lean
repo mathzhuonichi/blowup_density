@@ -5,6 +5,10 @@ import NSFormalization.Paper1.PeriodicHigherSobolev
 /-!
 # Exact periodic H¹/H² energies and compact shifted-force caps
 
+Source: `paper/revised/sections/02-preliminaries.tex:3–10` (norm conventions),
+`:178–182` (fixed force on `[0,S+1]`); internal Route B bridge, not a proof of
+Proposition 2.1.
+
 For the registered torus Bessel weight, smooth periodic real vector fields
 satisfy `H¹² = L²² + ∇²` and `H²² = L²² + 2∇² + ∇²²`.  The final section
 records precisely what the Route B restart argument may use after translating
