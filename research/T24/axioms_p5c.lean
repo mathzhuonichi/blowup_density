@@ -1,0 +1,3 @@
+import NSFormalization.Section3.T24.MultipleOmegaAssembly
+#print axioms NSFormalization.Section3.T24.multipleRegionsOmegaAPI
+#print axioms NSFormalization.Section3.T24.multipleRegionsOmegaStatement_holds
