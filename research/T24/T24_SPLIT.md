@@ -418,3 +418,9 @@ No unit may take `MultipleRegionsOmegaAPI` or its existence as an input.
 The unit-box, one-region probe is a type/elaboration check with an API variable,
 not a proof of existence or a claimed non-vacuity witness. Proving that existence
 is P5.5, not lane 496.
+
+**497 P5.1 DONE:** `MultipleOmegaComponents.lean`, `RegionsOmegaData` constructs
+prescribed domain placements, admissible scales, actual gauged no-slip components
+and global velocity/force support. No solution or target API premise. Module and
+field probe elaborate without output; all 16 definitions/theorems have exactly
+the three standard axioms (`axioms_p5a.lean`). P5.2 is in progress.

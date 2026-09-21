@@ -48,7 +48,8 @@
     "NSFormalization.Source.ViscosityPacket",
     "NavierStokes.ComparatorR3Theorem",
     "NavierStokes.R3ActualCandidate",
-    "NavierStokes.R3FiniteEnergyComparison"
+    "NavierStokes.R3FiniteEnergyComparison",
+    "NSFormalization.Section3.T24.MultipleOmegaComponents"
   ],
   "test_modules": [
     "Tests.AffineVariation",
