@@ -43,4 +43,31 @@ theorem hasSum_lTwoSqT {z : SpatialField} (hz : ContDiff ℝ ∞ z)
   rw [he]
   simpa only [freqEnergyT, Real.rpow_zero, one_mul, velocityCoeffT] using h
 
+/-- Full H¹ energy in B2's physical carriers. -/
+theorem periodicHOne_bridgeT {z : SpatialField} (hz : ContDiff ℝ ∞ z)
+    (hp : IsPeriodicSpatial z) :
+    (periodicSobolevENorm 1 z).toReal ^ 2 = lTwoSqT z + gradientSqT z := by
+  obtain ⟨A, hA⟩ := smooth_periodic_datum 1 hz hp
+  rw [periodicSobolevENorm_eq hA, toReal_enorm]
+  have hG := T20.gradientSqT_meanFreeVelocity_eq_tsum
+    (g := 0) (u := fun p => z p.2) (r := 0) hz hp
+  simp only [gradientSqT, T20.gradientTensor_meanFreeVelocity] at hG
+  have hs : Summable (fun k : PeriodicFrequency =>
+      periodicAngularFrequencySq k *
+        ∑ i : Fin 3, ‖periodicFourierCoeff (fun x => (z x i : ℂ)) k‖ ^ 2) := by
+    convert (NSFormalization.Section3.T13.summable_homogeneous_total
+      (s := (1 : ℝ)) (by norm_num) hp hz) using 1
+    funext k
+    rw [T20.homogeneousDatumWeight_one_sq]
+  have h := (hasSum_lTwoSqT hz hp).add hs.hasSum
+  change _ = lTwoSqT z + (periodicLpENorm 2 (gradientTensor z)).toReal ^ 2
+  rw [hG]
+  apply (hasSum_freqEnergyT (u := fun p => z p.2) (t := 0) hA).unique
+  convert h using 1
+  · funext k
+    simp only [freqEnergyT, Real.rpow_one, velocityCoeffT]
+    unfold periodicFrequencyWeight periodicAngularFrequencySq
+    ring
+  · simp only [T20.h1FreqEnergy, velocityCoeffT, periodicAngularFrequencySq]
+
 end NSFormalization.Section3.T11
