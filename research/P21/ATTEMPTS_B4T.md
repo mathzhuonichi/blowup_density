@@ -96,3 +96,19 @@ No residual mathematical goal remains for B4-T³. B5's endpoint theorem and
 registration remain separate. No claim about the stronger L¹-only
 `PeriodicQuantitativeLocalInput'`, rough H¹ data, or the old selected H³
 horizon is made. No per-declaration heartbeat override was needed.
+
+## Final verification
+
+The full module builds (10674 jobs). All 23 theorem axiom sets were checked
+for exact equality with the standard set, not merely absence of forbidden
+axioms. The contract-shaped consumer and a generated probe against the literal
+Targets.lean Prop both compile. A second temporary probe verifies B5's entire
+existing restartBeyond proof with the single supplier replacement.
+
+Required article audit: 72 declarations / 27 entries / zero forbidden results.
+`make check` (all 11 policy tests), `make test` (11027 jobs), mutation suite,
+and paper/reader gates all pass. The inherited policy regression mentioned in
+older lane reports is not present in this checkout. Required audit and graph
+regeneration refresh stale generated artifacts against the inherited
+unchanged authoritative source; no new article status is assigned by this
+lane. Generated PDFs were restored, since no paper source was edited.

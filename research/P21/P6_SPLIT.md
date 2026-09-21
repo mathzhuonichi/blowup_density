@@ -244,3 +244,9 @@ force cap to consume such a sup-input, so it is not literally unchanged;
 `RestartBeyond.lean` is unchanged after replacing its single restart supplier.
 Lane 508 proves the fixed-force R1 target and does not claim the stronger
 L¹-only `PeriodicQuantitativeLocalInput'` or cross-force H¹ Picard input.
+
+The one-supplier B5 replacement above was additionally kernel-checked in
+`tmp/b4t-endpoint-handoff.lean`: the existing proof compiles after removing
+its H binder and replacing `restart H` by `h1RestartT`, without any other
+proof-body change. This is a temporary consumer check, not endpoint
+registration or an article-coverage change.
