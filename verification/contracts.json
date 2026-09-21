@@ -123,6 +123,17 @@
       "enabled": true
     },
     {
+      "id": "A04.continuation_v3",
+      "parent_task": "A04",
+      "version": 3,
+      "specification": "verification/Contracts/V3/Continuation.lean",
+      "binding_module": "Bindings.ContinuationV3",
+      "test_module": "Tests.ContinuationV3",
+      "declaration": "BlowupDensity.Tests.checkedContinuationV3",
+      "scope": "Proposition 2.1 / appendix A on R3: restart uniform on an H1 datum ball with one duration before restart time and datum, and the H1-uniform strict endpoint continuation, for a fixed force in the manuscript class; V2's H7 routes stay registered.",
+      "enabled": true
+    },
+    {
       "id": "R47.grid_observations",
       "parent_task": "R47",
       "version": 1,
