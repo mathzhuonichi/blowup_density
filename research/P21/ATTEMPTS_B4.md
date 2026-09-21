@@ -73,3 +73,18 @@ No residual Lean goal or analytic hypothesis remains in B4. The mutation probe
 clears `hnorm` and checks that the identical restart supplier application fails;
 with the bound restored it succeeds. It makes no claim that an unrestricted
 uniform global result has been disproved.
+
+## Repository gates
+
+The required fresh article audit passed (72 declarations, 27 entries, zero
+forbidden axioms). `make check` initially found the inherited stale dependency
+graph; regeneration from unchanged `proof_graph.json` resolved it. Audit target
+changes likewise reflect the inherited guide, not a B4 coverage decision.
+The generated `AXIOM_AUDIT.json` and `DEPENDENCY_GRAPH.md` refreshes are the only
+additional blueprint edits. `make check`, `make test`, `make test-mutations`,
+`make paper`, and `git diff --check` all passed. Generated PDF churn was restored.
+
+The separately executed bound-deletion mutant exited 1 at
+`⊢ sobolevENorm 1 a ≤ K` (`Tactic assumption failed`); the positive probe exits 0.
+All 17 printed theorem axiom sets were also mechanically compared to the exact
+three-element allowed set, beyond the standard-only TestSupport checks.

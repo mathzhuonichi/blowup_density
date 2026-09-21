@@ -10,7 +10,7 @@ bridges; it does not prove H¹-uniform restart or either endpoint target.
 | B1 | General (no critical smallness) enstrophy interpolation/Young inequality on R³ | L / astra | Pending |
 | B2 | Periodic version including mean and ordinary L² energy | L / astra | Pending |
 | B3 | Uniform ODE barrier, integrated dissipation, endpoint monotone limit | M–L / astra | Pending |
-| B4 | Maximal-lifespan contradiction, smooth common-interval restriction, regularity and pressure adapters | M / sol | Pending |
+| B4 | Maximal-lifespan contradiction, smooth common-interval restriction, regularity and pressure adapters | M / sol | **Closed on R³ — lane 507.** Exact `h1RestartR`, support-free bridges, and `h1RestartAt`; torus remains separate. |
 | B5 | Uniform restartBeyond and registration/audits | M / sol | Pending |
 
 ## B0 output
@@ -46,7 +46,7 @@ article-level closure claims.
 | B1 | lane 504 | Analytic steps closed and kernel-checked; registered-norm inequality conditional only on the exact B0 bridges below |
 | B2 | unassigned here | Periodic estimate, including mean |
 | B3 | lane 506 | Closed abstract real-analysis unit: uniform barrier, integrated dissipation and endpoint integrability |
-| B4 | unassigned here | Maximal-lifespan contradiction and common smooth interval |
+| B4 | lane 507 | **Closed on R³.** Unconditional `h1RestartR` and `h1RestartAt`; no named analytic input |
 | B5 | unassigned here | Uniform restart and final registration |
 
 ## B1 handoff
@@ -116,3 +116,57 @@ B3 does not import, reimplement or modify the B0 norm bridges. B4 still must
 supply time continuity, interior differentiability, force bounds and local
 integrability from classical solutions, then apply the existing H² continuation
 criterion and maximality. P6 / L21_H1 remains Partial.
+
+
+## B4 handoff — lane 507 (R³)
+
+**Whole-space B4 is closed; P6's registered status remains Partial pending B5
+and the separate torus work.** `Section4/A04/H1Restart.lean:h1RestartR` proves
+exactly the local-name version of `Targets.lean:h1RestartR`, with one δ before
+restart time and smooth admissible datum, and all manuscript regularity on that
+same interval. The research probe proves the literal target Prop using existing
+contract structure conversions. No contract or blueprint status is changed.
+
+### Corrections to the earlier B0/B1 interface discussion
+
+- The registered whole-space datum uses **angular**, not cycles, frequency.
+  `Source.angular_partial_norm_sq` cancels `2π`. Thus **κ=1** is the correct
+  parameter for B1's `enstrophy_differential_of_norm_bridges`. The preceding
+  historical B1 handoff's κ=(2π)⁻² is not used by B4.
+- `forceL2CapR` bounds the L² norm. B3's real force-energy parameter is
+  **`(forceL2CapR f S).toReal ^ 2`**.
+- `H1BridgesSmooth.lean` proves the support-free exact successor/H¹/H² identities
+  via D01's sharp raising identity and smooth weak derivatives, and proves the
+  Frobenius-gradient norm identity. Compact support and a new approximation
+  theorem are unnecessary. All reviewed modules remain untouched.
+
+### Consumer API for B5
+
+`h1RestartAt ν hν f hf S hS K hK` returns one `δ>0` and
+
+```lean
+∀ (a : SpatialField) (u : SpaceTimeField) (p : SpaceTimeScalar),
+  SolvesBelow ν a f S u p → ∀ t₀ ∈ Ico (0 : ℝ) S,
+    sobolevENorm 1 (C01.slice u t₀) ≤ K →
+      ENNReal.ofReal (t₀ + δ) ≤ maximalLifespanR ν a f
+```
+
+It uses `w.restart_datum` and the proved `shiftedLocalExtension`, with no
+hypothesis naming a local supplier or extension principle. B5 can feed the
+per-time conclusion into `restartBeyond_of_restartAt`, obtaining
+`ofReal (S+δ) ≤ maximalLifespanR`. For the strict endpoint target return δ/2;
+`ofReal (S+δ/2) < ofReal (S+δ)` follows from S>0 and δ>0. This is an existential
+horizon theorem, not a lower bound on `A01.localHorizon'`.
+
+For contract transport, the copied scalar/field/norm definitions are `rfl`;
+`ClassicalSolutionR` itself is a distinct structure. Use
+`Bindings.maximalPartial_ofA02` and
+`Bindings.localTheoryV2_regularity_ofA02`, as kernel-checked in
+`probes/b4_closes.lean:registered_target`.
+
+The endpoint proof uses B3's **lintegral** theorem and explicit finiteness-based
+conversion of the registered squared norm. This proves a bound on
+`squaredHTwoIntegral` directly and avoids a global measurability claim outside
+the solution's constrained interval. Arbitrary classical regularity is supplied
+by `classical_hasSmoothSobolevPath` (uniqueness on overlapping carrier windows)
+and A01's general pressure recovery, projected equation and gauge theorems.
