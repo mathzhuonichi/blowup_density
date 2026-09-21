@@ -479,4 +479,28 @@ theorem periodicPairing_convection_zeroT (z : SpatialField) (hz : SmoothPeriodic
   exact NavierStokes.PeriodicUniqueness.cubeIntegral_transport_energy_zero
     hz.1 hz.1 hz.2 hz.2 hdiv
 
+/-- The order-one dissipation includes both gradient and Laplacian energy. -/
+theorem torusGradientNormAt_one_sqT
+    {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionT ν a f T) {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) :
+    torusGradientNormAt 1 w.velocity t ^ 2 =
+      gradientSqT (fun x => w.velocity (t, x)) +
+        laplacianSqT (fun x => w.velocity (t, x)) := by
+  have hs := classical_velocity_slice_contDiff w ht
+  have hp := w.velocity_periodic t ht
+  have hG := T20.gradientSqT_meanFreeVelocity_eq_tsum (g := f) hs hp
+  have hL := T20.laplacianSqT_meanFreeVelocity_eq_tsum (g := f) hs hp
+  simp only [gradientSqT, T20.gradientTensor_meanFreeVelocity] at hG
+  simp only [laplacianSqT, T20.laplacian_meanFreeVelocity] at hL
+  rw [torusGradientNormAt_sq]
+  change _ = (periodicLpENorm 2 (gradientTensor (fun x => w.velocity (t, x)))).toReal ^ 2 +
+    (periodicLpENorm 2 (laplacian (fun x => w.velocity (t, x)))).toReal ^ 2
+  rw [hG, hL, ← Summable.tsum_add (T20.summable_h1FreqEnergy w ht)
+    (T20.summable_laplacianSq_tsum w ht)]
+  apply tsum_congr
+  intro k
+  simp only [torusGradientEnergyT, Real.rpow_one, T20.h1FreqEnergy]
+  unfold periodicFrequencyWeight periodicAngularFrequencySq
+  ring
+
 end NSFormalization.Section3.T11
