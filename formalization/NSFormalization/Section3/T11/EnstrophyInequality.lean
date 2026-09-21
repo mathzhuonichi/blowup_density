@@ -412,4 +412,40 @@ theorem cutoff_gradient_two_leT (z : SpatialField) (hz : SmoothPeriodicT z) :
     ← periodicLpENorm_eq_restrict (gradientTensor z) (isPeriodicSpatial_gradientTensor hz.2) 2]
     using h
 
+/-- Explicit mean-retaining velocity embedding constant. -/
+def velocitySixConstT : ℝ :=
+  3 * 343 * NSFormalization.Section4.A05.gradientL6Const * (1 + cutoffGradBound)
+
+/-- Inhomogeneous Sobolev embedding on the normalized torus; no mean condition. -/
+theorem velocity_six_le_gradient_twoT (z : SpatialField) (hz : SmoothPeriodicT z) :
+    periodicLpENorm 6 z ≤ ENNReal.ofReal velocitySixConstT *
+      (periodicLpENorm 2 z + periodicLpENorm 2 (gradientTensor z)) := by
+  have hA := NSFormalization.Section4.A05.gradientL6Const_pos.le
+  have hB := cutoffGradBound_nonneg
+  have h := (velocity_six_le_localized_gradientT z hz).trans
+    (mul_le_mul' le_rfl (cutoff_gradient_two_leT z hz))
+  have hC : ENNReal.ofReal velocitySixConstT =
+      3 * 343 * ENNReal.ofReal NSFormalization.Section4.A05.gradientL6Const *
+        (1 + ENNReal.ofReal cutoffGradBound) := by
+    unfold velocitySixConstT
+    rw [ENNReal.ofReal_mul (by positivity), ENNReal.ofReal_mul (by positivity),
+      ENNReal.ofReal_add (by norm_num) hB]
+    norm_num
+  apply h.trans
+  rw [hC]
+  have hb : ENNReal.ofReal cutoffGradBound * periodicLpENorm 2 z +
+      periodicLpENorm 2 (gradientTensor z) ≤
+      (1 + ENNReal.ofReal cutoffGradBound) *
+        (periodicLpENorm 2 z + periodicLpENorm 2 (gradientTensor z)) := by
+    rw [mul_add]
+    exact add_le_add (mul_le_mul' (le_add_left le_rfl) le_rfl)
+      (by simpa using mul_le_mul' (show (1 : ℝ≥0∞) ≤ 1 + ENNReal.ofReal cutoffGradBound from
+        le_add_right le_rfl) (le_refl (periodicLpENorm 2 (gradientTensor z))))
+  calc _ = (3 * 343 * ENNReal.ofReal NSFormalization.Section4.A05.gradientL6Const) *
+      (ENNReal.ofReal cutoffGradBound * periodicLpENorm 2 z +
+        periodicLpENorm 2 (gradientTensor z)) := by ring
+    _ ≤ _ := by
+      rw [mul_assoc (3 * 343 * ENNReal.ofReal NSFormalization.Section4.A05.gradientL6Const)]
+      exact mul_le_mul' le_rfl hb
+
 end NSFormalization.Section3.T11
