@@ -97,4 +97,14 @@ theorem differentiableAt_hOneEnergy {ν T : ℝ} {a : SpatialField} {f : SpaceTi
   filter_upwards [isOpen_Ioo.mem_nhds ht] with q hq
   exact sobolevEnergy_one_smooth (velocitySliceField w (Ioo_subset_Ico_self hq))
 
+/-- Every integer-order norm is finite on a classical slice. -/
+theorem sobolevENorm_slice_ne_top {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionR ν a f T) (m : ℕ) {t : ℝ} (ht : t ∈ Ico (0 : ℝ) T) :
+    sobolevENorm (m : ℝ) (C01.slice w.velocity t) ≠ ⊤ := by
+  obtain ⟨G, _, hG⟩ := w.sobolev m
+  have he := A03.sobolevENorm_eq (hG t ht)
+  change sobolevENorm (m : ℝ) (C01.slice w.velocity t) = ‖G t‖ₑ at he
+  rw [he]
+  exact enorm_ne_top
+
 end NSFormalization.Section4.A04
