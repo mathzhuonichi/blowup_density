@@ -538,4 +538,38 @@ theorem exists_maximal_smoothT {ν : ℝ} (hν : 0 < ν)
   exact ⟨ofNormalizedFlow (M.flow S hS hSE) (M.normalized S hS hSE),
     M.velocity_eq S hS hSE, M.pressure_eq S hS hSE⟩
 
+/-- Every shifted problem in the H¹ ball has lifespan beyond one common window. -/
+theorem uniform_periodicHOne_lifespanT (ν : ℝ) (hν : 0 < ν)
+    (f : SpaceTimeField) (hf : MemForceT f) (S : ℝ) (hS : 0 ≤ S)
+    (K : ℝ≥0∞) (hK : K ≠ ⊤) :
+    ∃ d > 0, ∀ t₀ ∈ Icc (0 : ℝ) S, ∀ a ∈ initialClassT,
+      periodicSobolevENorm 1 a ≤ K →
+        ENNReal.ofReal d < maximalLifespanT ν a (timeShiftT t₀ f) := by
+  obtain ⟨d, hd, B, _, hb⟩ := uniform_periodicHTwo_endpoint_boundT ν hν f hf S hS K hK
+  refine ⟨d, hd, ?_⟩
+  intro t₀ ht₀ a ha hnorm
+  obtain ⟨u, p, hmax⟩ := exists_maximal_smoothT hν ha
+    (timeShiftT_contDiff hf.1 t₀) (timeShiftT_periodic hf.2.1 t₀)
+  by_contra hn
+  have hle := le_of_not_gt hn
+  let L := maximalLifespanT ν a (timeShiftT t₀ f)
+  have hfin : L ≠ ⊤ := ne_top_of_le_ne_top ENNReal.ofReal_ne_top hle
+  have hR : 0 < L.toReal := ENNReal.toReal_pos hmax.1.ne' hfin
+  have heq : ENNReal.ofReal L.toReal = L := ENNReal.ofReal_toReal hfin
+  have hRd : L.toReal ≤ d := by
+    have hh := ENNReal.toReal_mono ENNReal.ofReal_ne_top hle
+    simpa only [ENNReal.toReal_ofReal hd.le] using hh
+  have hbelow : SolvesBelowT ν a (timeShiftT t₀ f) L.toReal u p := by
+    intro b hb0 hbR
+    apply hmax.2 b hb0
+    change ENNReal.ofReal b < L
+    rw [← heq]
+    exact (ENNReal.ofReal_lt_ofReal_iff hR).mpr hbR
+  have hi := hb t₀ ht₀ a hnorm L.toReal hR hRd u p hbelow
+  obtain ⟨T, hRT, ⟨w⟩⟩ := shifted_horizon_extensionT hν hf ht₀.1 hR hbelow
+    (ne_top_of_le_ne_top ENNReal.ofReal_ne_top hi)
+  have hbad : ENNReal.ofReal T ≤ L := lifespan_ge_of_horizon w
+  rw [← heq] at hbad
+  exact (not_le_of_gt hRT) ((ENNReal.ofReal_le_ofReal_iff hR.le).mp hbad)
+
 end NSFormalization.Section3.T11
