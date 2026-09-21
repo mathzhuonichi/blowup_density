@@ -223,4 +223,38 @@ theorem uniform_hTwo_endpoint_bound (ν : ℝ) (hν : 0 < ν)
     · simp [Ico_eq_empty_of_le (le_of_not_ge hs0)]
   exact (lintegral_mono_set Ioo_subset_Ico_self).trans he
 
+/-- The maximal lifespan strictly exceeds one common H¹-controlled window. -/
+theorem uniform_hOne_lifespan (ν : ℝ) (hν : 0 < ν)
+    (f : SpaceTimeField) (hf : MemForceR f) (S : ℝ) (hS : 0 ≤ S)
+    (K : ℝ≥0∞) (hK : K ≠ ⊤) :
+    ∃ d > 0, ∀ t₀ ∈ Icc (0 : ℝ) S, ∀ a ∈ initialClassR,
+      sobolevENorm 1 a ≤ K → ENNReal.ofReal d < maximalLifespanR ν a (timeShift t₀ f) := by
+  obtain ⟨d, hd, B, _, hb⟩ := uniform_hTwo_endpoint_bound ν hν f hf S hS K hK
+  refine ⟨d, hd, ?_⟩
+  intro t₀ ht₀ a ha hnorm
+  have hf' := restart_force f hf t₀ ht₀.1
+  by_contra hlt
+  have hle := le_of_not_gt hlt
+  let L := maximalLifespanR ν a (timeShift t₀ f)
+  have hfin : L ≠ ⊤ := ne_top_of_le_ne_top ENNReal.ofReal_ne_top hle
+  have hpos : 0 < L := maximalLifespanR_pos ν a _ hν ha hf'
+  have hR : 0 < L.toReal := ENNReal.toReal_pos hpos.ne' hfin
+  have heq : ENNReal.ofReal L.toReal = L := ENNReal.ofReal_toReal hfin
+  have hRd : L.toReal ≤ d := by
+    have h := ENNReal.toReal_mono ENNReal.ofReal_ne_top hle
+    simpa only [ENNReal.toReal_ofReal hd.le] using h
+  obtain ⟨u, p, hu⟩ := exists_maximal' ν a _ hν ha hf'
+  have hbelow : SolvesBelow ν a (timeShift t₀ f) L.toReal u p := by
+    intro b hb0 hbR
+    apply hu.2 b hb0
+    change ENNReal.ofReal b < L
+    rw [← heq]
+    exact (ENNReal.ofReal_lt_ofReal_iff hR).mpr hbR
+  have hi := hb t₀ ht₀ a hnorm L.toReal hR hRd u p hbelow
+  have hbad := extendsBeyond_of_memForceR' ν a _ hν ha hf' L.toReal hR u p hbelow
+    (ne_top_of_le_ne_top ENNReal.ofReal_ne_top hi)
+  change ENNReal.ofReal L.toReal < L at hbad
+  rw [heq] at hbad
+  exact lt_irrefl _ hbad
+
 end NSFormalization.Section4.A04
