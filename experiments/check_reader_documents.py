@@ -57,8 +57,9 @@ def main():
     assert len(coverage) == len(mapped), 'Every article row needs an explicit coverage label'
     status = dict(coverage)
     assert set(status.values()) <= {'Closed', 'Partial'}
-    partial = {'prop:local', 'lem:correction', 'thm:insertion', 'rem:peaks', 'prop:multiple', 'prop:conservative'}
+    partial = {'prop:local', 'lem:correction', 'thm:insertion', 'rem:peaks', 'prop:conservative'}
     assert {label for label, state in status.items() if state == 'Partial'} == partial
+    assert status['prop:multiple'] == 'Closed' and 'multipleRegionsStatementV2_holds' in guide
     assert status['cor:boundary'] == 'Closed' and status['thm:Rinsert'] == 'Closed'
     assert 'wholeSpaceInsertion_holds' in guide
     assert status['thm:packet'] == 'Closed' and 'source_breakdown' in guide
