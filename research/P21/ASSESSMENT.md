@@ -1,5 +1,12 @@
 # P21 / lane 499 — feasibility assessment
 
+**Outcome (2026-09-21).** The recommended smooth-data fixed-force Route B was
+subsequently completed. The H¹-uniform restart and endpoint targets are proved
+and registered on both R³ and T³ (`A04.continuation_v3` and
+`T01.torus_local_theory_v2`), and blueprint node `L21_H1` is Closed. The
+assessment below is retained as the historical feasibility record that led to
+that implementation.
+
 Status: assessment only; P6 remains Partial. No Lean theorem or registry change is proposed in this lane.
 
 The recommended decision is (iii): retain the separate H¹-uniform restart obligation, because the registered high-order routes already prove the integral continuation conclusion used downstream. The current revised Proposition 2.1 does not itself display an H¹-uniform bound. Detailed statement, source, and effort analysis follows in this document.

@@ -17,6 +17,7 @@
     "Bindings.MultipleRegionsV2",
     "Bindings.PeriodicInsertionV2",
     "Bindings.TorusLocalTheory",
+    "Bindings.TorusLocalTheoryV2",
     "NSFormalization.Section3.T11.EnstrophyInequality",
     "NSFormalization.Section3.T11.ExistenceInputH3",
     "NSFormalization.Section3.T11.H1Bridges",
@@ -74,7 +75,8 @@
     "NavierStokes.ComparatorR3Theorem",
     "NavierStokes.R3ActualCandidate",
     "NavierStokes.R3FiniteEnergyComparison",
-    "NSFormalization.Section3.T11.H1Restart"
+    "NSFormalization.Section3.T11.H1Restart",
+    "NSFormalization.Section3.T11.H1RestartBeyond"
   ],
   "test_modules": [
     "Tests.AffineVariation",
@@ -109,6 +111,7 @@
     "Tests.PeriodicInsertionV2",
     "Tests.Scaling3",
     "Tests.TorusLocalTheory",
+    "Tests.TorusLocalTheoryV2",
     "Tests.TorusMain",
     "Tests.TorusNonDensity",
     "Tests.Uniqueness"

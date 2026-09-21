@@ -1,17 +1,17 @@
 # P21 / P6 Route B split
 
-Status: **P6 remains Partial.**  The whole-space B5 theorem and registration are
-closed in lane 510.  The periodic half and the final `L21_H1` closure remain for
-lane 511.
+Status: **P6 / L21_H1 is Closed.** Both fixed-force H¹-uniform restart and
+endpoint theorems are proved and registered on R³ and T³. Lane 511 completed
+the periodic V2 registration and the final article-level closure.
 
 | Unit | Exit condition | Size / model | Status |
 |---|---|---|---|
 | B0 | Reconcile H¹/H² Fourier norms with derivative energy and state shifted-force cap | M / sol | **Closed — lane 503.** Exact identities and finite caps on both domains; targets type-checked in `Targets.lean`. |
-| B1 | General (no critical smallness) enstrophy interpolation/Young inequality on R³ | L / astra | Pending |
-| B2 | Periodic version including mean and ordinary L² energy | L / astra | Pending |
-| B3 | Uniform ODE barrier, integrated dissipation, endpoint monotone limit | M–L / astra | Pending |
-| B4 | Maximal-lifespan contradiction, smooth common-interval restriction, regularity and pressure adapters | M / sol | **Closed on R³ — lane 507.** Exact `h1RestartR`, support-free bridges, and `h1RestartAt`; torus remains separate. |
-| B5 | Uniform restartBeyond and registration/audits | M / sol | **Closed on R³ — lane 510.** Strict endpoint theorem and `A04.continuation_v3` registered; periodic endpoint and final `L21_H1` closure are lane 511. |
+| B1 | General (no critical smallness) enstrophy interpolation/Young inequality on R³ | L / astra | **Closed — lane 504.** The bridge hypotheses were discharged by lane 507. |
+| B2 | Periodic version including mean and ordinary L² energy | L / astra | **Closed — lane 505.** The bridge hypotheses were discharged by lane 508. |
+| B3 | Uniform ODE barrier, integrated dissipation, endpoint monotone limit | M–L / astra | **Closed — lane 506.** Uniform barrier and endpoint integral passage are kernel-checked. |
+| B4 | Maximal-lifespan contradiction, smooth common-interval restriction, regularity and pressure adapters | M / sol | **Closed — lanes 507/508.** Exact `h1RestartR` and `h1RestartT`, including both domain adapters. |
+| B5 | Uniform restartBeyond and registration/audits | M / sol | **Closed — lanes 510/511.** Both endpoint theorems and both versioned contracts are registered; `L21_H1` is Closed. |
 
 ## B0 output
 
@@ -20,10 +20,18 @@ lane 511.
 - `Section3/T11/H1Bridges.lean`: exact periodic H¹/H² identities, the finite
   cap, and the smooth/periodic package for shifted forces.
 - `Targets.lean`: `h1RestartR`, `h1RestartT`, `h1UniformEndpointR`, and
-  `h1UniformEndpointT` as unproved `Prop` definitions in registered vocabulary.
+  `h1UniformEndpointT` as statement-only `Prop` targets in registered vocabulary;
+  all four now have compiled suppliers.
 
-## Remaining acceptance risks
+## Closure outcome
 
+The general cubic inequalities use no critical-smallness hypothesis. The
+barrier time precedes every restart time and datum, retains the inhomogeneous
+low modes, and passes H² dissipation to the endpoint. The maximal-solution
+arguments do not claim lower bounds for the selected high-order horizons.
+Positive torus force shifts use smoothness and periodicity rather than false
+membership in `forceClassT`. The detailed unit handoffs below preserve the
+interfaces and historical sequencing used to obtain this closure.
 - B1/B2 must prove the general cubic enstrophy inequality without importing
   the critical-smallness absorption from T20.
 - B3 must choose the barrier time before restart time and datum, retain the
@@ -98,45 +106,8 @@ The independent `convection_sobolev` theorem consumes the two explicit bounds
 Its underlying physical estimate `convection_interpolation` is unconditional.
 
 No initial-time derivative or endpoint time integral is asserted. Compact
-intervals lie strictly inside (0,T). B3 must still perform the uniform barrier
-and endpoint limit; strict-interior finiteness alone does not suffice.
-# P21 / P6 Route B split
-
-Status: **P6 remains Partial.**  This file tracks the preferred smooth-data,
-fixed-force Route B from `ASSESSMENT.md` §3.  Closing B0 supplies norm and force
-bridges; it does not prove H¹-uniform restart or either endpoint target.
-
-| Unit | Exit condition | Size / model | Status |
-|---|---|---|---|
-| B0 | Reconcile H¹/H² Fourier norms with derivative energy and state shifted-force cap | M / sol | **Closed — lane 503.** Exact identities and finite caps on both domains; targets type-checked in `Targets.lean`. |
-| B1 | General (no critical smallness) enstrophy interpolation/Young inequality on R³ | L / astra | Pending |
-| B2 | Periodic version including mean and ordinary L² energy | L / astra | Pending |
-| B3 | Uniform ODE barrier, integrated dissipation, endpoint monotone limit | M–L / astra | Pending |
-| B4 | Maximal-lifespan contradiction, smooth common-interval restriction, regularity and pressure adapters | M / sol | Pending |
-| B5 | Uniform restartBeyond and registration/audits | M / sol | Pending |
-
-## B0 output
-
-- `Section4/A04/H1Bridges.lean`: exact whole-space H¹/H² identities and the
-  finite compact-window force cap.
-- `Section3/T11/H1Bridges.lean`: exact periodic H¹/H² identities, the finite
-  cap, and the smooth/periodic package for shifted forces.
-- `Targets.lean`: `h1RestartR`, `h1RestartT`, `h1UniformEndpointR`, and
-  `h1UniformEndpointT` as unproved `Prop` definitions in registered vocabulary.
-
-## Remaining acceptance risks
-
-- B1/B2 must prove the general cubic enstrophy inequality without importing
-  the critical-smallness absorption from T20.
-- B3 must choose the barrier time before restart time and datum, retain the
-  inhomogeneous low modes, and justify endpoint integrability by monotone
-  limits.
-- B4 must argue through the already constructed smooth maximal solution; it
-  must not infer a lower bound for the selected high-order local horizon.
-- On the torus, B3/B4 may use B0's shifted smoothness, periodicity, and common
-  `L²` cap, but not shifted membership in `forceClassT`.
-- B5 remains responsible for the actual H¹ restart/endpoint theorems and any
-  ensuing contract, binding, test, graph, guide, or registry decision.
+intervals lie strictly inside (0,T). The B3 unit below supplies the uniform
+barrier and endpoint limit needed by the completed B4 arguments.
 
 ## B3 handoff
 
@@ -161,16 +132,149 @@ supplied by the compact-interval B3 estimate in B4 applications. Singleton
 endpoints have zero Lebesgue measure. No endpoint derivative is assumed.
 
 All six exported theorems have exactly the standard three logical axioms.
-B3 does not import, reimplement or modify the B0 norm bridges. B4 still must
+B3 does not import, reimplement or modify the B0 norm bridges. Lanes 507/508
 supply time continuity, interior differentiability, force bounds and local
 integrability from classical solutions, then apply the existing H² continuation
-criterion and maximality. P6 / L21_H1 remains Partial.
+criterion and maximality.
 
+## B2 handoff (closed conditional on three bridges)
+
+Module: `NSFormalization.Section3.T11.EnstrophyInequality`.
+Main theorem: `enstrophy_differential_on_IccT`; pointwise theorem:
+`enstrophy_differentialT`; separate-coefficient companion:
+`enstrophy_differential_of_norm_bridgesT`. Both residuals A/B are closed; see
+`ATTEMPTS_B2.md` and the cont section of `REPORT_505.md`.
+
+```
+Cv = velocitySixConstT = 3*343*A05.gradientL6Const*(1+cutoffGradBound)
+C = convectionConstT = √2 * Cv * √Csix
+c = κ = 1
+Cν = (2*C)^4/(ν/2)^3 + (1+ν) + (1+2/ν)
+Y(t) = (periodicSobolevENorm 1 (slice w.velocity t)).toReal^2
+Z(t) = (periodicSobolevENorm 2 (slice w.velocity t)).toReal^2
+Y'(t) + ν Z(t) ≤ Cν (1+Y(t))^3 + Cν lTwoSqT(slice f t)
+```
+
+The force is `f ∈ T10.forceClassT`, definitionally `T10.MemForceT f`.
+The solution is canonical `T10.ClassicalSolutionT ν a f T`, with arbitrary
+initial datum and retained mean. No critical smallness is used.
+The three hypotheses, with z the appropriate velocity slice, are exactly:
+
+```lean
+-- hOne: all times in Ioo 0 T
+(periodicSobolevENorm 1 z).toReal ^ 2 = lTwoSqT z + gradientSqT z
+-- hTwo: each time in Icc r s
+(periodicSobolevENorm 2 z).toReal ^ 2 ≤
+  lTwoSqT z + 2 * gradientSqT z + laplacianSqT z
+-- hGradient: each time in Icc r s
+periodicLpENorm 2 (gradientTensor z) ≤
+  ENNReal.ofReal (Real.sqrt (gradientSqT z))
+```
+
+The last left side is definitionally
+`eLpNorm (T10.torusLift (gradientTensor z)) 2 periodicTorusMeasure`.
+The energies are the existing T20 `lTwoSqT/gradientSqT/laplacianSqT`, each
+squared `toReal` of the corresponding periodic L² norm. The theorem assumes
+`0 < r`, `s < T`, and concludes at every `t ∈ Icc r s`, matching B1.
+No initial-time or maximal-endpoint assertion is made.
+
+### Exact B4 reconciliation obligations with lane 503
+
+Lane 503's `H1Bridges.lean` is not imported or restated. For smooth periodic z,
+B4 needs these equalities between its physical component-integral energies
+and the T20 energies used here:
+
+```lean
+periodicL2Energy z = T20.lTwoSqT z
+periodicGradientEnergy z = T20.gradientSqT z
+periodicHessianEnergy z = T20.laplacianSqT z
+```
+
+The first two are Haar/cube and finite-component L² norm conversions.
+The third is the periodic Parseval identity equating the sum of all ordered
+second-partial energies with the Laplacian energy; it is **an outstanding
+B4 reconciliation obligation**, not definitional equality and not proved here.
+After those conversions, rewriting lane 503's
+`periodicSobolevENorm_one_toReal_sq_eq` yields hOne; rewriting its
+`periodicSobolevENorm_two_toReal_sq_eq` and taking `.le` yields hTwo.
+For hGradient, prove the gradient L² norm finite from continuity on the torus,
+then rewrite `gradientSqT`, `Real.sqrt_sq ENNReal.toReal_nonneg` and
+`ENNReal.ofReal_toReal`; this is an ordinary norm conversion.
+
+There are no remaining B2 nonlinear/differential hypotheses. Lane 506 supplies
+the ODE barrier and endpoint integration, and lanes 507--511 supply the
+lifespan, restart, endpoint and registration assemblies.
+
+## B4-T³ handoff — lane 508 (supersedes the pending torus B4 rows above)
+
+**B4-T³ closed.** At this handoff `L21_H1` still awaited B5 registration;
+lane 511 has now completed it. Module `NSFormalization.Section3.T11.H1Restart` exports
+`h1RestartT`, with the exact local T10/T11 version of `Targets.lean`'s Prop.
+The consumer probe transports it to the contract structure using the existing
+`toContract` and `periodicLocalRegularity_toContract` equivalence.
+
+All B0/B2 norm reconciliations are closed, including
+`periodicHessianEnergy_eq_laplacianSqT`. The bridge-free
+`enstrophy_differential_on_IccT'` is available. For shifted forces use
+`enstrophy_differential_smoothT` (global smoothness plus spatial periodicity),
+not the forceClassT-only B2 theorem. B3's force parameter is the SQUARE of
+`forceL2CapT`'s real value. The running/endpoint dissipation bounds, smooth-force
+H³ bound, shifted horizon extension and uniform strict lifespan bound are all
+proved in the new module. The protected B0/B2/B3 files are unchanged.
+
+The registered `extendsBeyondH3` itself still has a forceClassT premise and
+cannot be directly fed a generic shifted test force. Lane 508 reuses its
+lower-level H³ pairing/Grönwall/Picard/gluing argument under the correct
+shift-compatible assumptions. `exists_maximal_smoothT` similarly reuses
+maximal gluing with smooth-force Picard existence. Regularity is supplied by
+`periodicLocalRegularity_of_classical'`, which requires only force smoothness.
+No new unproved input predicate is introduced.
+
+### Exact B5 endpoint target and consumption check
+
+In local T10/T11 vocabulary B5 needs:
+
+```lean
+∀ (ν : ℝ), 0 < ν → ∀ (f : SpaceTimeField), f ∈ forceClassT →
+  ∀ (S : ℝ), 0 < S → ∀ (K : ℝ≥0∞), K ≠ ⊤ →
+    ∃ δ : ℝ, 0 < δ ∧
+      ∀ (a : SpatialField), a ∈ initialClassT →
+        ∀ (u : SpaceTimeField) (p : SpaceTimeScalar),
+          SolvesBelowT ν a f S u p →
+            (∀ t ∈ Ico (0 : ℝ) S,
+              periodicSobolevENorm 1 (fun x => u (t, x)) ≤ K) →
+              ∃ v : ClassicalSolutionT ν a f (S + δ),
+                (∀ t ∈ Ico (0 : ℝ) S, ∀ x : Space,
+                  v.velocity (t, x) = u (t, x)) ∧
+                (∀ t ∈ Ico (0 : ℝ) S, ∀ x : Space,
+                  v.pressure (t, x) = p (t, x))
+```
+
+`RestartBeyond.lean:408` consumes the named local input ONLY through
+`restart H ν hν f hf S hS.le K hK`. Replace this application by
+`h1RestartT ν hν f hf S hS.le K hK` and remove H from the theorem binder;
+the rest of that proof uses just the returned restart conclusion, existing
+gluing and velocity/normalized-pressure uniqueness for the original test
+force. Thus B5 is an instantiation of that proof, with no additional analytic
+or force-shift adapter. Its δ is `t₀+d-S`, where t₀=max 0 (S-d/2).
+
+A new `PeriodicQuantitativeLocalInputH1Sup` predicate is unnecessary for this
+handoff. `Restart.lean` would need one additional application of the compact
+force cap to consume such a sup-input, so it is not literally unchanged;
+`RestartBeyond.lean` is unchanged after replacing its single restart supplier.
+Lane 508 proves the fixed-force R1 target and does not claim the stronger
+L¹-only `PeriodicQuantitativeLocalInput'` or cross-force H¹ Picard input.
+
+The one-supplier B5 replacement above was additionally kernel-checked in
+`tmp/b4t-endpoint-handoff.lean`: the existing proof compiles after removing
+its H binder and replacing `restart H` by `h1RestartT`, without any other
+proof-body change. This is a temporary consumer check, not endpoint
+registration or an article-coverage change.
 
 ## B4 handoff — lane 507 (R³)
 
-**Whole-space B4 is closed; P6's registered status remains Partial pending the
-separate torus work and final lane-511 closure.**
+**Whole-space B4 is closed.** At this handoff the registered status still
+awaited the separate torus work; lanes 508/511 have now completed it.
 `Section4/A04/H1Restart.lean:h1RestartR` proves
 exactly the local-name version of `Targets.lean:h1RestartR`, with one δ before
 restart time and smooth admissible datum, and all manuscript regularity on that
@@ -240,34 +344,37 @@ fieldwise conversions, and `Tests/ContinuationV3.lean` registers
 contracts. `A04.continuation_v2` is unchanged and remains separately
 registered for the H⁷/integral routes.
 
-Lane 511 still needs all of the following before changing `L21_H1` from
-`Partial`:
+Lane 511 completed all of the following before changing `L21_H1` from
+`Partial` to `Closed`:
 
-1. Prove the registered-vocabulary periodic `h1RestartT` and
-   `h1UniformEndpointT` targets. The latter must return a solution on
+1. Proved the registered-vocabulary periodic `h1RestartT` and
+   `h1UniformEndpointT` targets. The latter returns a solution on
    `S + δ` with literal velocity and normalized-pressure agreement on
    `[0,S)`. `Section3/T11/RestartBeyond.lean:restartBeyond` contains the
    gluing argument, but its public theorem is conditional on
-   `PeriodicQuantitativeLocalInput'`; the final theorem must consume the proved
+   `PeriodicQuantitativeLocalInput'`; the final theorem consumes the proved
    unconditional H¹ restart rather than register that named input.
-2. Register both periodic H¹ fields in a new versioned contract/binding/test,
+2. Registered both periodic H¹ fields in a new versioned contract/binding/test,
    preserving the frozen V1/H³ and V2 registrations and the whole-space
    `A04.continuation_v3` registration.
-3. Add periodic non-vacuity and exact-axiom probes, then update the authoritative
+3. Added periodic non-vacuity and exact-axiom probes, then updated the authoritative
    `L21_H1` scope/evidence, result map, guide, generated dependency graph and
-   axiom audit. Only after both domains are registered should the node become
-   `Closed`.
+   axiom audit. With both domains registered, the node is `Closed`.
 
 Lane 510 deliberately leaves `formalization/blueprint/proof_graph.json`, the
 guide coverage row and the `L21_H1` status unchanged.
 ## B2 handoff (closed conditional on three bridges)
 
-Module: `NSFormalization.Section3.T11.EnstrophyInequality`.
-Main theorem: `enstrophy_differential_on_IccT`; pointwise theorem:
-`enstrophy_differentialT`; separate-coefficient companion:
-`enstrophy_differential_of_norm_bridgesT`. Both residuals A/B are closed; see
-`ATTEMPTS_B2.md` and the cont section of `REPORT_505.md`.
+## B5 T³ closure — lane 511
 
+`Section3/T11/H1RestartBeyond.lean:restartBeyondH1T` copies the established
+periodic endpoint gluing proof and replaces its sole named supplier with
+`h1RestartT`. It keeps the duration returned at `S` and returns
+`δ = t₀ + d - S`, with exact velocity and normalized-pressure overlap on
+`[0,S)`. `Contracts/V2/TorusLocalTheory.lean` registers the H¹ `restart` and
+`restartBeyond` fields through `Bindings/TorusLocalTheoryV2.lean`; V1 remains
+registered. The zero-solution probe and exact axiom checks pass, bringing the
+registry to 36 contracts and closing `L21_H1`.
 ```
 Cv = velocitySixConstT = 3*343*A05.gradientL6Const*(1+cutoffGradBound)
 C = convectionConstT = √2 * Cv * √Csix

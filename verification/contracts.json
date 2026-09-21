@@ -167,6 +167,17 @@
       "enabled": true
     },
     {
+      "id": "T01.torus_local_theory_v2",
+      "parent_task": "T11",
+      "version": 2,
+      "specification": "verification/Contracts/V2/TorusLocalTheory.lean",
+      "binding_module": "Bindings.TorusLocalTheoryV2",
+      "test_module": "Tests.TorusLocalTheoryV2",
+      "declaration": "BlowupDensity.Tests.checkedTorusLocalTheoryV2",
+      "scope": "Proposition 2.1 / appendix A on T3: restart uniform on an H1 datum ball with one duration before restart time and datum, and the H1-uniform restartBeyond with exact velocity and normalized-pressure overlap, for a fixed force in forceClassT; V1's H3 routes stay registered.",
+      "enabled": true
+    },
+    {
       "id": "T01.packet_import",
       "parent_task": "T14",
       "version": 1,

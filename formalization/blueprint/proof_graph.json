@@ -77,18 +77,22 @@
     {
       "id": "L21_H1",
       "title": "Proposition 2.1: general H1 restart",
-      "status": "Partial",
+      "status": "Closed",
       "article_label": "prop:local",
-      "scope": "The general H1-uniform restart clauses remain unformalized. They are not inputs to the proved H3/H7 continuation routes.",
+      "scope": "The H1-uniform restart clauses of Proposition 2.1 are proved on both domains for the used fixed force classes (MemForceR, forceClassT) via the enstrophy differential inequality, a uniform ODE barrier and the registered H7/H3 continuation routes; they are not inputs to the proved continuation routes.",
       "evidence": [
-        "verification/Bindings/LocalTheoryV2.lean",
-        "verification/Bindings/TorusLocalTheory.lean"
+        "verification/Bindings/ContinuationV3.lean",
+        "verification/Bindings/TorusLocalTheoryV2.lean",
+        "formalization/NSFormalization/Section4/A04/H1Restart.lean",
+        "formalization/NSFormalization/Section4/A04/H1RestartBeyond.lean",
+        "formalization/NSFormalization/Section3/T11/H1Restart.lean",
+        "formalization/NSFormalization/Section3/T11/H1RestartBeyond.lean"
       ],
-      "depends_on": [],
-      "completion_from": [
+      "depends_on": [
         "L21T",
         "L21R"
-      ]
+      ],
+      "completion_from": []
     },
     {
       "id": "E22",

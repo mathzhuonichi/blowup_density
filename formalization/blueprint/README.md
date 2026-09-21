@@ -45,6 +45,6 @@ hypotheses and the standard logical axioms `propext`, `Classical.choice` and
 formally proved. A downstream theorem can be Closed when it uses only fully
 formalized cases of a Partial result.
 
-The guide records 22 Closed and five Partial entries. The statement-level
+The guide records 27 Closed and zero Partial entries. The statement-level
 [input-closure audit](CLOSURE_AUDIT.md) explains the corrected labels and
 identifies the compiled suppliers for the remaining Closed results.

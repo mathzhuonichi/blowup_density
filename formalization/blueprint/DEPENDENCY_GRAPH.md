@@ -18,7 +18,7 @@ flowchart TD
   E22["Lemma 2.2<br/>energy and initial<br/>vanishing<br/>Closed"]
   L21T["Proposition 2.1<br/>periodic H3 route<br/>Closed"]
   L21R["Proposition 2.1<br/>whole-space H7 route<br/>Closed"]
-  L21_H1["Proposition 2.1<br/>general H1 restart<br/>Partial"]
+  L21_H1["Proposition 2.1<br/>general H1 restart<br/>Closed"]
   V34["Lemma 3.4<br/>potential and cutoffs<br/>Closed"]
   C35_LOCAL["Lemma 3.5<br/>proved local estimates<br/>Closed"]
   L32["Lemma 3.2<br/>fractional localization<br/>Closed"]
@@ -27,8 +27,8 @@ flowchart TD
   B11 --> B11_FULL
   CMP --> B11_FULL
   B11 --> E22
-  L21T -. remaining scope .-> L21_H1
-  L21R -. remaining scope .-> L21_H1
+  L21T --> L21_H1
+  L21R --> L21_H1
   V34 --> C35_LOCAL
   C35_LOCAL --> C35_T
   L32 --> C35_T
@@ -36,8 +36,7 @@ flowchart TD
   classDef closed fill:#dcfce7,stroke:#15803d,color:#14532d;
   classDef partial fill:#fff7d6,stroke:#b45309,color:#78350f;
   classDef mainResult stroke-width:4px;
-  class B11,CMP,B11_FULL,E22,L21T,L21R,V34,C35_LOCAL,L32,C35_T,C35_FULL closed;
-  class L21_H1 partial;
+  class B11,CMP,B11_FULL,E22,L21T,L21R,L21_H1,V34,C35_LOCAL,L32,C35_T,C35_FULL closed;
 ```
 
 ## The periodic main theorem and its consequences
@@ -164,7 +163,6 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 
 | Article statement | Closed part used in the proofs | Partial scope |
 |---|---|---|
-| Proposition 2.1 | Periodic existence, uniqueness, maximality and continuation for the used force class, using the formally proved H3 restart case.; Whole-space existence, uniqueness, maximality and continuation for the used force class, using fixed-force H7 restart. | The general H1-uniform restart clauses remain unformalized. They are not inputs to the proved H3/H7 continuation routes. |
 
 ## Proof locations
 
@@ -175,7 +173,7 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 | Theorem 1.1: complete statement | Closed | One time-one compact candidate and its same-force global nonexistence conclusion for every positive viscosity, proved by source_breakdown. [PacketBreakdown.lean](../../formalization/NSFormalization/Source/PacketBreakdown.lean); [ProblemStatement.lean](../../vendor/NavierStokesAndEuler/NavierStokes/R3/ProblemStatement.lean) |
 | Proposition 2.1: periodic H3 route | Closed | Periodic existence, uniqueness, maximality and continuation for the used force class, using the formally proved H3 restart case. [TorusLocalTheory.lean](../../verification/Bindings/TorusLocalTheory.lean); [ExistenceInputH3.lean](../../formalization/NSFormalization/Section3/T11/ExistenceInputH3.lean) |
 | Proposition 2.1: whole-space H7 route | Closed | Whole-space existence, uniqueness, maximality and continuation for the used force class, using fixed-force H7 restart. [LocalTheoryV2.lean](../../verification/Bindings/LocalTheoryV2.lean); [ShiftedExtension.lean](../../formalization/NSFormalization/Section4/A04/ShiftedExtension.lean) |
-| Proposition 2.1: general H1 restart | Partial | The general H1-uniform restart clauses remain unformalized. They are not inputs to the proved H3/H7 continuation routes. [LocalTheoryV2.lean](../../verification/Bindings/LocalTheoryV2.lean); [TorusLocalTheory.lean](../../verification/Bindings/TorusLocalTheory.lean) |
+| Proposition 2.1: general H1 restart | Closed | The H1-uniform restart clauses of Proposition 2.1 are proved on both domains for the used fixed force classes (MemForceR, forceClassT) via the enstrophy differential inequality, a uniform ODE barrier and the registered H7/H3 continuation routes; they are not inputs to the proved continuation routes. [ContinuationV3.lean](../../verification/Bindings/ContinuationV3.lean); [TorusLocalTheoryV2.lean](../../verification/Bindings/TorusLocalTheoryV2.lean); [H1Restart.lean](../../formalization/NSFormalization/Section4/A04/H1Restart.lean); [H1RestartBeyond.lean](../../formalization/NSFormalization/Section4/A04/H1RestartBeyond.lean); [H1Restart.lean](../../formalization/NSFormalization/Section3/T11/H1Restart.lean); [H1RestartBeyond.lean](../../formalization/NSFormalization/Section3/T11/H1RestartBeyond.lean) |
 | Lemma 2.2: energy and initial vanishing | Closed | Finite energy and dissipation, the energy identity and an initial zero interval for the selected candidate. [PacketImport.lean](../../verification/Bindings/PacketImport.lean); [Quiet.lean](../../formalization/NSFormalization/Section4/I01/Quiet.lean) |
 | Lemma 3.2: fractional localization | Closed | Local-to-torus Sobolev comparison, including the endpoint identities. [Assembly.lean](../../formalization/NSFormalization/Section3/T13/Assembly.lean) |
 | Proposition 3.3: scaling | Closed | Energy, mixed-norm and Sobolev scaling of the compact building block. [Assembly.lean](../../formalization/NSFormalization/Section3/T15/Assembly.lean) |
@@ -214,7 +212,7 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 
 ## Verification and source data
 
-The article-level inventory has **26 Closed and 1 Partial entries** (26 numbered statements and one numbered remark). These counts are distinct from the number of clause-level nodes above. The recorded kernel audit checks **72 declarations**, with **no forbidden axioms**. The permitted logical axioms are `propext`, `Classical.choice` and `Quot.sound`; the retained source scan has no admissions or custom axiom declarations.
+The article-level inventory has **27 Closed and 0 Partial entries** (26 numbered statements and one numbered remark). These counts are distinct from the number of clause-level nodes above. The recorded kernel audit checks **76 declarations**, with **no forbidden axioms**. The permitted logical axioms are `propext`, `Classical.choice` and `Quot.sound`; the retained source scan has no admissions or custom axiom declarations.
 
 The graph is generated from [proof_graph.json](proof_graph.json). [RESULT_MAP.md](RESULT_MAP.md) supplies declaration locations, [CLOSURE_AUDIT.md](CLOSURE_AUDIT.md) records the input review, and [AXIOM_AUDIT.json](AXIOM_AUDIT.json) records the kernel results. The implementation registry in `tasks.json` is used for package checks, not as the reader-facing proof graph.
 
