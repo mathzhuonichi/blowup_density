@@ -1,0 +1,2 @@
+import NSFormalization.Section3.T11.EnstrophyInequality
+#check NSFormalization.Section3.T11.inhomogeneousEnergyIdentityT
