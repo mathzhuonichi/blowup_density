@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "toolchain": "leanprover/lean4:v4.34.0-rc2",
-  "source_tree_sha256": "751ff53774e355c2cd3bfd4dc65b9726f0415f85255b3e05dafee8cf867340e5",
-  "source_file_count": 2252,
+  "source_tree_sha256": "f0fb6cb4a15d6cc65dad2a534da1cb0104a4b9e720ef4c46f812708af8c8da8b",
+  "source_file_count": 2254,
   "allowed_axioms": [
     "Classical.choice",
     "Quot.sound",
@@ -287,6 +287,71 @@
       "module": "NSFormalization.Section3.T19.Assembly",
       "path": "formalization/NSFormalization/Section3/T19/Assembly.lean",
       "line": 55,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T18.packetForce_ne_zero",
+      "module": "NSFormalization.Section3.T18.ForceAmplitude",
+      "path": "formalization/NSFormalization/Section3/T18/ForceAmplitude.lean",
+      "line": 24,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T18.forceAmplitude_lower",
+      "module": "NSFormalization.Section3.T18.ForceAmplitude",
+      "path": "formalization/NSFormalization/Section3/T18/ForceAmplitude.lean",
+      "line": 240,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T18.forceAmplitude_diverges",
+      "module": "NSFormalization.Section3.T18.ForceAmplitude",
+      "path": "formalization/NSFormalization/Section3/T18/ForceAmplitude.lean",
+      "line": 288,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T18.forceAmplitude_real_diverges",
+      "module": "NSFormalization.Section3.T18.ForceAmplitude",
+      "path": "formalization/NSFormalization/Section3/T18/ForceAmplitude.lean",
+      "line": 332,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.forceAmplitude_from_data",
+      "module": "Bindings.ForceAmplitude",
+      "path": "verification/Bindings/ForceAmplitude.lean",
+      "line": 40,
       "kind": "theorem",
       "axioms": [
         "Classical.choice",
@@ -878,10 +943,13 @@
     {
       "kind": "Remark",
       "label": "rem:peaks",
-      "coverage": "Partial",
+      "coverage": "Closed",
       "declarations": [
-        "NSFormalization.Section3.T15.scalingStatement_holds",
-        "NSFormalization.Section3.T17.correctionStatementAmended_holds"
+        "NSFormalization.Section3.T18.packetForce_ne_zero",
+        "NSFormalization.Section3.T18.forceAmplitude_lower",
+        "NSFormalization.Section3.T18.forceAmplitude_diverges",
+        "NSFormalization.Section3.T18.forceAmplitude_real_diverges",
+        "BlowupDensity.Bindings.forceAmplitude_from_data"
       ],
       "number": "3.13"
     },

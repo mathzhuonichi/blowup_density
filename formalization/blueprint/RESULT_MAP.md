@@ -23,7 +23,7 @@ See [the input-closure audit](CLOSURE_AUDIT.md) and [the axiom audit](DEPENDENCY
 | Corollary 3.10 | `cor:mixed` | Closed | [`mixedRegionStatement_holds`](../../formalization/NSFormalization/Section3/T19/Assembly.lean#L47) |
 | Corollary 3.11 | `cor:closure` | Closed | [`strongClosureStatement_holds`](../../formalization/NSFormalization/Section3/T19/Assembly.lean#L51) |
 | Proposition 3.12 | `prop:projection` | Closed | [`projectionStatement_holds`](../../formalization/NSFormalization/Section3/T19/Assembly.lean#L55) |
-| Remark 3.13 | `rem:peaks` | Partial | [`scalingStatement_holds`](../../formalization/NSFormalization/Section3/T15/Assembly.lean#L130); [`correctionStatementAmended_holds`](../../formalization/NSFormalization/Section3/T17/Assembly.lean#L107) |
+| Remark 3.13 | `rem:peaks` | Closed | [`packetForce_ne_zero`](../../formalization/NSFormalization/Section3/T18/ForceAmplitude.lean#L24); [`forceAmplitude_lower`](../../formalization/NSFormalization/Section3/T18/ForceAmplitude.lean#L240); [`forceAmplitude_diverges`](../../formalization/NSFormalization/Section3/T18/ForceAmplitude.lean#L288); [`forceAmplitude_from_data`](../../verification/Bindings/ForceAmplitude.lean#L40) |
 | Corollary 3.14 | `cor:boundary` | Closed | [`boundaryInsertion_from_data`](../../verification/Bindings/BoundaryInsertionV2.lean#L27); [`boundedDomainNorm`](../../formalization/NSFormalization/Section3/T22/Assembly.lean#L25) |
 | Proposition 3.15 | `prop:affine` | Closed | [`affineVariationPacket`](../../verification/Bindings/AffineVariation.lean#L109) |
 | Proposition 3.16 | `prop:multiple` | Partial | [`multipleRegionsStatement_holds`](../../formalization/NSFormalization/Section3/T24/MultipleAssembly.lean#L51) |

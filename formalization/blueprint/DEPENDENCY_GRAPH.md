@@ -50,7 +50,7 @@ flowchart TD
   C35_T["Lemma 3.5<br/>proved periodic case<br/>Closed"]
   L21T["Proposition 2.1<br/>periodic H3 route<br/>Closed"]
   G36["Theorem 3.6<br/>fixed-ball construction<br/>Closed"]
-  G36_FULL["Theorem 3.6<br/>prescribed ball<br/>Closed"]
+  G36_FULL["Theorem 3.6<br/>prescribed ball<br/>Partial"]
   D37["Proposition 3.7<br/>periodic density<br/>Closed"]
   K38["Proposition 3.8<br/>periodic critical estimate<br/>Closed"]
   N39["Corollary 3.9<br/>non-density<br/>Closed"]
@@ -58,14 +58,14 @@ flowchart TD
   M310["Corollary 3.10<br/>mixed-norm density<br/>Closed"]
   E311["Corollary 3.11<br/>trajectory closure<br/>Closed"]
   P312["Proposition 3.12<br/>data-pair projection<br/>Closed"]
-  R313["Remark 3.13<br/>force-amplitude divergence<br/>Partial"]
+  R313["Remark 3.13<br/>force-amplitude divergence<br/>Closed"]
   E22 --> S33
   L32 --> S33
   L32 --> C35_T
   S33 --> G36
   C35_T --> G36
   L21T --> G36
-  G36 --> G36_FULL
+  G36 -. remaining scope .-> G36_FULL
   G36 --> D37
   L21T --> K38
   K38 --> N39
@@ -74,13 +74,13 @@ flowchart TD
   G36 --> M310
   G36 --> E311
   D37 --> P312
-  S33 -. remaining scope .-> R313
-  C35_T -. remaining scope .-> R313
+  S33 --> R313
+  C35_T --> R313
   classDef closed fill:#dcfce7,stroke:#15803d,color:#14532d;
   classDef partial fill:#fff7d6,stroke:#b45309,color:#78350f;
   classDef mainResult stroke-width:4px;
-  class E22,L32,S33,C35_T,L21T,G36,G36_FULL,D37,K38,N39,T31,M310,E311,P312 closed;
-  class R313 partial;
+  class E22,L32,S33,C35_T,L21T,G36,D37,K38,N39,T31,M310,E311,P312,R313 closed;
+  class G36_FULL partial;
   class T31 mainResult;
 ```
 
@@ -168,7 +168,7 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 |---|---|---|
 | Proposition 2.1 | Periodic existence, uniqueness, maximality and continuation for the used force class, using the formally proved H3 restart case.; Whole-space existence, uniqueness, maximality and continuation for the used force class, using fixed-force H7 restart. | The general H1-uniform restart clauses remain unformalized. They are not inputs to the proved H3/H7 continuation routes. |
 | Lemma 3.5 | Local support, derivative, energy and mixed-norm bounds with the smoothness and geometric hypotheses supplied by a smooth reference solution.; The formal periodic correction theorem with its explicit smoothness, chart and viscosity hypotheses; those hypotheses are supplied in the fixed-ball construction. | The unrestricted article formulation has not been exported with all differences in hypotheses discharged. |
-| Remark 3.13 | Related estimates are proved in Proposition 3.3 and the used cases of Lemma 3.5. | Scaling and correction estimates are proved; there is no separately exported divergence-of-force-amplitudes conclusion. |
+| Theorem 3.6 | Construct the scaling and correction inputs from raw data; exact lifespan, history and convergence for the fixed-ball case used in density. | The raw-data constructor uses a fixed placement. The complete quantification over an arbitrary prescribed coordinate ball is not closed. |
 | Proposition 3.16 | Place finitely many rescaled building blocks in prescribed disjoint periodic regions and sum them. | The bounded-domain no-slip variant has not been assembled. |
 | Proposition 3.17 | Potential-force pairing vanishes and the solution from rest has zero velocity on the torus. | The bounded-domain conservative-force variant is not exported. |
 
@@ -190,7 +190,7 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 | Lemma 3.5: proved periodic case | Closed | The formal periodic correction theorem with its explicit smoothness, chart and viscosity hypotheses; those hypotheses are supplied in the fixed-ball construction. [Assembly.lean](../../formalization/NSFormalization/Section3/T17/Assembly.lean); [SlabBridge2.lean](../../formalization/NSFormalization/Section3/T17/SlabBridge2.lean) |
 | Lemma 3.5: full article scope | Partial | The unrestricted article formulation has not been exported with all differences in hypotheses discharged. [Assembly.lean](../../formalization/NSFormalization/Section3/T17/Assembly.lean) |
 | Theorem 3.6: fixed-ball construction | Closed | Construct the scaling and correction inputs from raw data; exact lifespan, history and convergence for the fixed-ball case used in density. [Threading.lean](../../formalization/NSFormalization/Section3/T19/Threading.lean) |
-| Theorem 3.6: prescribed ball | Closed | Theorem 3.6 from raw data for every prescribed positive-radius coordinate ball whose closure lies in the interior of the fundamental cube. The registered packet supplies the building block; only article hypotheses are arguments. Includes exact lifespan, blowup, history, divergence-free single-chart shrinking support, simultaneous energy/mixed/Sobolev bounds and negative-order convergence. [ThreadingAt.lean](../../formalization/NSFormalization/Section3/T19/ThreadingAt.lean); [FromData.lean](../../formalization/NSFormalization/Section3/T19/FromData.lean); [PeriodicInsertionV2.lean](../../verification/Bindings/PeriodicInsertionV2.lean) |
+| Theorem 3.6: prescribed ball | Partial | The raw-data constructor uses a fixed placement. The complete quantification over an arbitrary prescribed coordinate ball is not closed. [Assembly.lean](../../formalization/NSFormalization/Section3/T18/Assembly.lean); [Threading.lean](../../formalization/NSFormalization/Section3/T19/Threading.lean) |
 | Proposition 3.7: periodic density | Closed | The two-case lifespan argument needs only one fully constructed localization, not the prescribed-ball extension. [Assembly.lean](../../formalization/NSFormalization/Section3/T19/Assembly.lean) |
 | Proposition 3.8: periodic critical estimate | Closed | Small critical forcing gives regularity through the proved H3 continuation route. [Assembly.lean](../../formalization/NSFormalization/Section3/T20/Assembly.lean) |
 | Corollary 3.9: non-density | Closed | A nonempty open regularity ball and Sobolev monotonicity exclude density at and above the threshold. [MainAssembly.lean](../../formalization/NSFormalization/Section3/T21/MainAssembly.lean) |
@@ -198,7 +198,7 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 | Corollary 3.10: mixed-norm density | Closed | Use the same two-case argument and the positive mixed-norm scaling exponent. [Assembly.lean](../../formalization/NSFormalization/Section3/T19/Assembly.lean) |
 | Corollary 3.11: trajectory closure | Closed | Energy and force convergence for one constructed family around a smooth reference. [Assembly.lean](../../formalization/NSFormalization/Section3/T19/Assembly.lean) |
 | Proposition 3.12: data-pair projection | Closed | Fixed-initial-data density gives product density and surjectivity onto the initial-data class. [Assembly.lean](../../formalization/NSFormalization/Section3/T19/Assembly.lean) |
-| Remark 3.13: force-amplitude divergence | Partial | Scaling and correction estimates are proved; there is no separately exported divergence-of-force-amplitudes conclusion. [Assembly.lean](../../formalization/NSFormalization/Section3/T15/Assembly.lean); [Assembly.lean](../../formalization/NSFormalization/Section3/T17/Assembly.lean) |
+| Remark 3.13: force-amplitude divergence | Closed | For every inserted family, the force-difference supremum is at least epsilon^(-3) times the positive finite packet-force amplitude minus correction.forceProfileConst(0) times epsilon^(-2), and diverges as epsilon decreases to zero. Packet forcing is nonzero by energy and blowup; includes the constructed T19 fixed-ball family. Extended amplitudes tend to nhds top and finite real amplitudes to atTop. [ForceAmplitude.lean](../../formalization/NSFormalization/Section3/T18/ForceAmplitude.lean); [ForceAmplitude.lean](../../formalization/NSFormalization/Section3/T19/ForceAmplitude.lean); [ForceAmplitude.lean](../../verification/Bindings/ForceAmplitude.lean); [ForceAmplitude.lean](../../verification/Tests/ForceAmplitude.lean) |
 | Bounded-domain norm comparison | Closed | Restriction and zero-extension estimates for compactly supported interior perturbations. [Assembly.lean](../../formalization/NSFormalization/Section3/T22/Assembly.lean) |
 | No-slip uniqueness | Closed | The classical uniqueness theorem on the bounded domain is formally proved. [NoSlipUniqueness.lean](../../formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean) |
 | Corollary 3.14: bounded-domain gluing | Closed | The final raw-data theorem constructs its packet, placement and norm witnesses internally in the prescribed interior ball. [BoundaryInsertionV2.lean](../../verification/Bindings/BoundaryInsertionV2.lean) |
@@ -220,7 +220,7 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 
 ## Verification and source data
 
-The article-level inventory has **22 Closed and 5 Partial entries** (26 numbered statements and one numbered remark). These counts are distinct from the number of clause-level nodes above. The recorded kernel audit checks **56 declarations**, with **no forbidden axioms**. The permitted logical axioms are `propext`, `Classical.choice` and `Quot.sound`; the retained source scan has no admissions or custom axiom declarations.
+The article-level inventory has **22 Closed and 5 Partial entries** (26 numbered statements and one numbered remark). These counts are distinct from the number of clause-level nodes above. The recorded kernel audit checks **61 declarations**, with **no forbidden axioms**. The permitted logical axioms are `propext`, `Classical.choice` and `Quot.sound`; the retained source scan has no admissions or custom axiom declarations.
 
 The graph is generated from [proof_graph.json](proof_graph.json). [RESULT_MAP.md](RESULT_MAP.md) supplies declaration locations, [CLOSURE_AUDIT.md](CLOSURE_AUDIT.md) records the input review, and [AXIOM_AUDIT.json](AXIOM_AUDIT.json) records the kernel results. The implementation registry in `tasks.json` is used for package checks, not as the reader-facing proof graph.
 

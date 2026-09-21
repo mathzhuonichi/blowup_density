@@ -15,7 +15,14 @@ an assumed analytic theorem from an ordinary hypothesis.
 
 ## Remaining scope
 
-The five Partial entries are Proposition 2.1, Lemma 3.5, Remark 3.13, and
+- **Theorem 3.6.** `T18.periodicInsertionStatement_holds` quantifies over
+  scaling and correction records. `T19.insertion` formally constructs those
+  inputs from admissible data and a reference solution, but fixes its placement
+  and correction radius. This closes the case needed for density; it does not
+  by itself close the article's quantification over an arbitrary prescribed
+  coordinate ball.
+
+The other Partial entries are Proposition 2.1, Lemma 3.5, and
 Propositions 3.16 and 3.17. Their precise limits remain in the guide.
 
 ## The 22 Closed entries
@@ -31,13 +38,13 @@ below records why a helper record is not being accepted as an unproved input.
 | Lemma 3.2 | `localizationAPI` is a closed inhabitant of the six-field localization record. Its norm identities, estimate and endpoints are proved in its definition. |
 | Proposition 3.3 | `scalingStatement_holds` proves scaling for the specified packet and geometric placement. All packet conditions, including energy and extension properties, are supplied by the compiled packet-import construction; no scaling estimate is a premise. |
 | Lemma 3.4 | `localPotential` constructs the cutoffs, threshold and potential from the lemma's regularity, divergence and geometric hypotheses. No potential or cutoff theorem is an input. |
-| Theorem 3.6 | `T19.periodicInsertion_from_data` constructs placement, scaling and correction from the registered packet and the reference solution for every prescribed positive-radius ball with closure in the cube interior. Only the article's hypotheses remain. Zero-extension equality transfers history, divergence and energy to the given reference; lattice separation reduces the support to a single shrinking ball in the chart. The V2 binding retains all four clauses and the negative-order limit. |
 | Proposition 3.7 | `periodicDensityStatement_holds` uses the constructed `periodicDensityAPI`; `T19.insertion` closes the reference-solution branch. Density needs some localization ball, not every prescribed ball. |
 | Proposition 3.8 | `criticalRegularityStatement_holds` supplies the constructed `criticalRegularityT`. Its continuation argument uses proved H3 restart, not the missing H1-uniform statement. |
 | Corollary 3.9 | `nonDensityStatement_unconditional` uses `closedNonDensityAPI`, whose critical-regularity supplier is constructed. |
 | Corollary 3.10 | `mixedRegionStatement_holds` uses `mixedRegionAPI` and the constructed fixed-ball insertion. No gluing record is supplied by the caller. |
 | Corollary 3.11 | `strongClosureStatement_holds` uses `strongClosureAPI`, with the inserted families and energy convergence supplied internally. |
 | Proposition 3.12 | `projectionStatement_holds` obtains both clauses from the constructed `projectionAPI`. |
+| Remark 3.13 | `T18.packetForce_ne_zero` derives nonzero forcing from packet energy and blowup. Single-copy scaling and the correction record’s order-zero profile bound prove `forceAmplitude_lower`; `forceAmplitude_diverges` and `forceAmplitude_real_diverges` apply to every canonical record without additional premises. The binding discharges all raw packet clauses from the registered packet, and `T19.forceAmplitude_diverges` instantiates the constructed fixed-ball family. |
 | Corollary 3.14 | `boundaryInsertion_from_data` takes only domain, ball, time, datum, force and reference-solution hypotheses. It instantiates `packetImportFamily.select`, `domainPlacementData`, `Contract.placeFrom` and the proved bounded-domain norm record before applying the insertion theorem. No packet, norm, correction or boundary-identity supplier is a caller argument. |
 | Proposition 3.15 | `affineVariationPacket` is instantiated at the compiled selected packet. Remaining arguments are the stated affine vector and positive radius/time parameters. |
 | Theorem 4.1 | `mainThresholds` is a closed record. Its density branch invokes `insertionLifespanV2_of_data`; its converse invokes the proved critical estimates. |

@@ -341,6 +341,17 @@
       "declaration": "BlowupDensity.Tests.checkedPeriodicInsertionV2",
       "scope": "Theorem 3.6 from raw data for every prescribed coordinate ball whose closure lies in the interior of the fundamental cube; the building block is the registered packet; only the article's hypotheses are arguments. One positive threshold and one family satisfy exact lifespan, classical solution, limsup blowup, unchanged history, divergence-free difference with single-chart support in an epsilon-radius ball inside the prescribed ball, the simultaneous energy/mixed/Sobolev estimates with honest norm paths, and negative-order convergence. Constants are independent of epsilon and chosen before the norm indices. V1 is retained.",
       "enabled": true
+    },
+    {
+      "id": "T03.force_amplitude",
+      "parent_task": "T18",
+      "version": 1,
+      "specification": "verification/Contracts/V1/ForceAmplitude.lean",
+      "binding_module": "Bindings.ForceAmplitude",
+      "test_module": "Tests.ForceAmplitude",
+      "declaration": "BlowupDensity.Tests.checkedForceAmplitude",
+      "scope": "Remark 3.13: the sup norm of g_epsilon - g is at least epsilon^(-3) ||F||_infinity - C epsilon^(-2) and diverges as epsilon tends to zero for every inserted family of the registered record; C is correction.forceProfileConst 0. F is nonzero by the proved packet energy estimate and blow-up clause, and its supremum is positive and finite. Includes ENNReal convergence to nhds top and finite-real convergence to atTop; the T19 fixed-ball raw-data family is a checked corollary. Single-copy scaling is proved as the lower inequality sufficient for the remark.",
+      "enabled": true
     }
   ]
 }
