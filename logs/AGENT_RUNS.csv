@@ -1563,3 +1563,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-21,P21,507-P21-B4-restart-r3,gpt-6-astra,route-b-unit,"Section4/A04/H1BridgesSmooth.lean + H1Restart.lean: support-free bridges, h1RestartR, h1RestartAt; review ACCEPT",merged,470
 2026-09-21,P21,510-P21-B5-continuation-v3,gpt-5.6-sol,registration,"Section4/A04/H1RestartBeyond.lean + Contracts/V3/Continuation + Bindings/Tests + A04.continuation_v3; review ACCEPT",merged,471
 2026-09-21,P21,508-P21-B4-restart-torus,gpt-6-astra,route-b-unit,"Section3/T11/H1Restart.lean: h1RestartT (23 theorems, fixed-force route, shifted-force continuation rebuilt); review ACCEPT-WITH-NOTES",merged,472
+2026-09-21,P21,511-P21-B5-torus-closure,gpt-5.6-sol,closing-partial,"Section3/T11/H1RestartBeyond.lean + Contracts/V2/TorusLocalTheory + Bindings/Tests + T01.torus_local_theory_v2 + blueprint L21_H1 Closed + guide/README/RESULT_MAP; review ACCEPT",merged,473
