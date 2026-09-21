@@ -21,3 +21,9 @@ The minimal remedy is one entry in `formalization/blueprint/entrypoints.json`'s
 `proof_modules` list (the existing schema has no separate specification list).
 This is reachability metadata, not theorem registration or proof coverage.
 User clarification requested because that file is outside the explicit lane scope.
+
+Final review: all 30 research field types match canonical fields after replacing
+P.velocity/P.pressure/P.force/P.carrier/P.energyBound/P.dissipationBound with
+u/p/f/K/M/D. Corrected the future supplier name to the existing
+`Source.PacketScaling.speed_unbounded_at_target`. The two remaining commands
+in `make check` pass independently (29 contracts, 11 policy tests).

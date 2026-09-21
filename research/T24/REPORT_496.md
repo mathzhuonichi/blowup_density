@@ -52,3 +52,8 @@ Source `. scripts/lean-env.sh`; run Lake from `verification/` with
 - `lake env lean ../research/T24/probes/multiple_omega_spec_closes.lean`: PASS,
   0 output (49 examples).
 - `make check` from the worktree root: FAIL at the exact manifest gate above.
+- `python3 experiments/check_contracts.py --summary`: PASS, 29 contracts.
+- `python3 experiments/test_contract_policy.py`: PASS, 11 tests.
+- Textual comparison after expanding the research packet projections: PASS,
+  all 30 canonical/research field types match.
+- `git diff --check`: PASS; prohibited proof tokens absent from new Lean files.
