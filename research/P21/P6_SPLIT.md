@@ -1,8 +1,8 @@
 # P21 / P6 Route B split
 
-Status: **P6 remains Partial.**  This file tracks the preferred smooth-data,
-fixed-force Route B from `ASSESSMENT.md` §3.  Closing B0 supplies norm and force
-bridges; it does not prove H¹-uniform restart or either endpoint target.
+Status: **P6 remains Partial.**  The whole-space B5 theorem and registration are
+closed in lane 510.  The periodic half and the final `L21_H1` closure remain for
+lane 511.
 
 | Unit | Exit condition | Size / model | Status |
 |---|---|---|---|
@@ -11,7 +11,7 @@ bridges; it does not prove H¹-uniform restart or either endpoint target.
 | B2 | Periodic version including mean and ordinary L² energy | L / astra | Pending |
 | B3 | Uniform ODE barrier, integrated dissipation, endpoint monotone limit | M–L / astra | Pending |
 | B4 | Maximal-lifespan contradiction, smooth common-interval restriction, regularity and pressure adapters | M / sol | **Closed on R³ — lane 507.** Exact `h1RestartR`, support-free bridges, and `h1RestartAt`; torus remains separate. |
-| B5 | Uniform restartBeyond and registration/audits | M / sol | Pending |
+| B5 | Uniform restartBeyond and registration/audits | M / sol | **Closed on R³ — lane 510.** Strict endpoint theorem and `A04.continuation_v3` registered; periodic endpoint and final `L21_H1` closure are lane 511. |
 
 ## B0 output
 
@@ -33,6 +33,10 @@ bridges; it does not prove H¹-uniform restart or either endpoint target.
   must not infer a lower bound for the selected high-order local horizon.
 - On the torus, B3/B4 may use B0's shifted smoothness, periodicity, and common
   `L²` cap, but not shifted membership in `forceClassT`.
+- Lane 511 remains responsible for the periodic H¹ restart/endpoint theorems,
+  their registered contract, and the graph/guide decision that closes
+  `L21_H1`. Lane 510 has registered the whole-space half without changing that
+  node's status.
 - B5 remains responsible for the actual H¹ restart/endpoint theorems and any
   ensuing contract, binding, test, graph, guide, or registry decision.
 
@@ -49,6 +53,7 @@ article-level closure claims.
 | B2 | unassigned here | Periodic estimate, including mean |
 | B3 | lane 506 | Closed abstract real-analysis unit: uniform barrier, integrated dissipation and endpoint integrability |
 | B4 | lane 507 | **Closed on R³.** Unconditional `h1RestartR` and `h1RestartAt`; no named analytic input |
+| B5 | lanes 510/511 | **R³ closed and registered by lane 510.** Periodic endpoint, periodic registration, and final `L21_H1` closure remain lane 511. |
 | B2 | lane 505 | Closed conditional only on the three torus norm bridges below; both analytic residuals and final differential inequality kernel-checked |
 | B3 | unassigned here | ODE barrier, integrated dissipation, endpoint monotone limit |
 | B4 | unassigned here | Maximal-lifespan contradiction and common smooth interval |
@@ -125,8 +130,9 @@ criterion and maximality. P6 / L21_H1 remains Partial.
 
 ## B4 handoff — lane 507 (R³)
 
-**Whole-space B4 is closed; P6's registered status remains Partial pending B5
-and the separate torus work.** `Section4/A04/H1Restart.lean:h1RestartR` proves
+**Whole-space B4 is closed; P6's registered status remains Partial pending the
+separate torus work and final lane-511 closure.**
+`Section4/A04/H1Restart.lean:h1RestartR` proves
 exactly the local-name version of `Targets.lean:h1RestartR`, with one δ before
 restart time and smooth admissible datum, and all manuscript regularity on that
 same interval. The research probe proves the literal target Prop using existing
@@ -175,6 +181,46 @@ conversion of the registered squared norm. This proves a bound on
 the solution's constrained interval. Arbitrary classical regularity is supplied
 by `classical_hasSmoothSobolevPath` (uniqueness on overlapping carrier windows)
 and A01's general pressure recovery, projected equation and gauge theorems.
+
+## B5 R³ handoff — lane 510
+
+The whole-space B5 unit is closed. The new
+`Section4/A04/H1RestartBeyond.lean` exports:
+
+- `RestartFixedForceH1 ν f S`, the named body of the fixed-force H¹ restart;
+- `restartBeyondH1_le`, which applies `restartBeyond_of_restartAt` to lane
+  507's `h1RestartAt` and retains the full non-strict endpoint margin;
+- `restartBeyondH1`, the exact strict `h1UniformEndpointR` shape, obtained by
+  returning half that margin.
+
+`Contracts/V3/Continuation.lean` adds exactly the registered-vocabulary
+`restartH1` and `restartBeyondH1` fields. `Bindings/ContinuationV3.lean`
+transports the distinct classical-solution records with the existing V2
+fieldwise conversions, and `Tests/ContinuationV3.lean` registers
+`BlowupDensity.Tests.checkedContinuationV3`. The registry now has 35 enabled
+contracts. `A04.continuation_v2` is unchanged and remains separately
+registered for the H⁷/integral routes.
+
+Lane 511 still needs all of the following before changing `L21_H1` from
+`Partial`:
+
+1. Prove the registered-vocabulary periodic `h1RestartT` and
+   `h1UniformEndpointT` targets. The latter must return a solution on
+   `S + δ` with literal velocity and normalized-pressure agreement on
+   `[0,S)`. `Section3/T11/RestartBeyond.lean:restartBeyond` contains the
+   gluing argument, but its public theorem is conditional on
+   `PeriodicQuantitativeLocalInput'`; the final theorem must consume the proved
+   unconditional H¹ restart rather than register that named input.
+2. Register both periodic H¹ fields in a new versioned contract/binding/test,
+   preserving the frozen V1/H³ and V2 registrations and the whole-space
+   `A04.continuation_v3` registration.
+3. Add periodic non-vacuity and exact-axiom probes, then update the authoritative
+   `L21_H1` scope/evidence, result map, guide, generated dependency graph and
+   axiom audit. Only after both domains are registered should the node become
+   `Closed`.
+
+Lane 510 deliberately leaves `formalization/blueprint/proof_graph.json`, the
+guide coverage row and the `L21_H1` status unchanged.
 ## B2 handoff (closed conditional on three bridges)
 
 Module: `NSFormalization.Section3.T11.EnstrophyInequality`.
