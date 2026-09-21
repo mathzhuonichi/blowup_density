@@ -343,5 +343,3 @@ theorem dissipation_bound : energyGradientOmega Ω T (assembledVelocity w) ^ (2 
         (fun j _ => mul_nonneg (sq_nonneg D) (eps_admissible j).1.le), Finset.mul_sum]
 
 end NSFormalization.Section3.T24.OmegaRegions
-
-
