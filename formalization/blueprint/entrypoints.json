@@ -33,6 +33,7 @@
     "NSFormalization.Section3.T23.NoSlipUniqueness",
     "NSFormalization.Section3.T24.ConservativeAssembly",
     "NSFormalization.Section3.T24.MultipleAssembly",
+    "NSFormalization.Section3.T24.MultipleOmega",
     "NSFormalization.Section4.A02.Maximal",
     "NSFormalization.Section4.A02.Uniqueness",
     "NSFormalization.Section4.A03.BoundedRepresentative",
