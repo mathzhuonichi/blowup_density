@@ -4,13 +4,13 @@ set -euo pipefail
 LANE=$1; MSG=$2
 ROOT=/data_8T/ping/blowup_density/.claude/worktrees; cd "$ROOT/$LANE"
 git fetch -q origin
-MB=$(git merge-base HEAD origin/erenup/integration)
+MB=$(git merge-base HEAD origin/erenup/core)
 if [ "$(git rev-list --count "$MB"..HEAD)" -gt 1 ]; then git reset -q --soft "$MB"; git commit -q -m "$MSG"; fi
 LANE_TIP=$(git rev-parse HEAD)
-if ! GIT_EDITOR=true git rebase origin/erenup/integration >/dev/null 2>&1; then
+if ! GIT_EDITOR=true git rebase origin/erenup/core >/dev/null 2>&1; then
   for f in verification/contracts.json collaboration/work_items.json; do
     if git ls-files -u -- "$f" | grep -q .; then
-      git show "$MB:$f" > /tmp/mb.json; git show "origin/erenup/integration:$f" > /tmp/int.json; git show "$LANE_TIP:$f" > /tmp/lane.json
+      git show "$MB:$f" > /tmp/mb.json; git show "origin/erenup/core:$f" > /tmp/int.json; git show "$LANE_TIP:$f" > /tmp/lane.json
       python3 "$(git rev-parse --show-toplevel)/scripts/merge_json3.py" "$f" /tmp/mb.json /tmp/int.json /tmp/lane.json; git add "$f"
     fi
   done
