@@ -79,4 +79,18 @@ theorem sobolevEnergy_two_smooth (Z : SmoothL2Field Space) :
   rw [hg, hh]
   ring
 
+/-- The Frobenius gradient norm is the square root of B1's gradient energy. -/
+theorem eLpNorm_gradTensor_eq_sqrt (Z : SmoothL2Field Space) :
+    eLpNorm (A05.gradTensor Z.field) 2 volume =
+      ENNReal.ofReal (Real.sqrt (gradientSq Z.field)) := by
+  have he (x : Space) : ‖A05.gradTensor Z.field x‖ ^ 2 =
+      ∑ i : Fin 3, ‖fderiv ℝ Z.field x (coordinateVector i)‖ ^ 2 :=
+    PiLp.norm_sq_eq_of_L2 _ _
+  have hi : Integrable (fun x => ‖A05.gradTensor Z.field x‖ ^ 2) volume := by
+    simp_rw [he]
+    exact integrable_finsetSum _ (fun i _ =>
+      field_normSq_integrable (Z.directionalField (coordinateVector i)))
+  rw [I02.eLpNorm_two_eq_ofReal_sqrt hi]
+  simp only [he, gradientSq]
+
 end NSFormalization.Section4.A04
