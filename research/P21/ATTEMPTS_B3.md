@@ -5,7 +5,7 @@ P6 remains Partial. Initial implementation uses the one-sided FTC inequality,
 which needs an integrable upper bound, not an integrable derivative.
 Barrier route: differentiate -(1+Y)^(-2), folding F into C(1+F).
 Only authorized existing-file edits: entrypoints.json, P6_SPLIT.md, and the
-required refreshed AXIOM_AUDIT.json. New internal unit needs no article contract.
+required refreshed AXIOM_AUDIT.json and generated DEPENDENCY_GRAPH.md. New internal unit needs no article contract.
 
 ## Closed steps
 
@@ -40,3 +40,23 @@ required refreshed AXIOM_AUDIT.json. New internal unit needs no article contract
 No remaining Lean errors; no new assumptions about spatial norm carriers.
 No article-level Closed markers, contracts or registry entries changed: this
 is an internal unit of the still-Partial H¹ restart obligation.
+
+## Gate findings inherited from the starting branch
+
+The mandatory regenerated article audit has 69 targets / 27 entries. The
+checked-in old audit had 61 targets and stale article rows. Regenerating the
+graph therefore also reflects existing C35_FULL and G36_FULL closures (24
+Closed / 3 Partial), without changing proof_graph.json or guide coverage.
+
+`make check` passes source packaging and the 32-contract registry, but its
+policy suite has one inherited failure: the recoloring test chooses C35_FULL,
+which was already Closed in the starting commit, then expects recoloring it
+Closed to contradict Partial coverage. Exact error:
+`AssertionError: AssertionError not raised` at
+`experiments/test_contract_policy.py:34`.
+Confirmed both that test and the Closed status with `git show ef2cc079^:...`.
+The unrelated policy test is left unchanged; this lane does not reclassify
+article statements to make an obsolete negative test pass.
+
+`make paper` regenerated PDFs successfully; timestamp/build-only PDF changes
+were restored. The mandatory generated audit and graph updates are retained.
