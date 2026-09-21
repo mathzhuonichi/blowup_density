@@ -71,4 +71,13 @@ theorem timeShift_force_l2Sq_le {f : SpaceTimeField} (hf : MemForceR f)
   rw [← he]
   exact pow_le_pow_left₀ ENNReal.toReal_nonneg h 2
 
+/-- Every classical solution has the full manuscript regularity bundle. -/
+theorem classical_manuscriptLocalRegularity {ν T : ℝ} {a : SpatialField}
+    {f : SpaceTimeField} (hν : 0 < ν) (hf : MemForceR f)
+    (w : ClassicalSolutionR ν a f T) : A01.ManuscriptLocalRegularity ν a f T w where
+  sobolev_smooth := classical_hasSmoothSobolevPath hν hf w
+  pressure_recovery := A01.pressure_recovery_of_classicalSolution w hf
+  projected := A01.projected_of_classicalSolution w
+  pressure_potential := A01.PressureGauge.pressure_potential_of_classicalSolution w
+
 end NSFormalization.Section4.A04
