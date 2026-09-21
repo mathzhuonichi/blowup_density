@@ -49,3 +49,14 @@ PiLp's exponent (replaced by an explicit equality for 3); a derivative-value
 placeholder was not inferred (the exact raw derivative value is now written).
 No failed proof is shipped and no analytic residual is inferred from these
 elaboration errors. The B0 bridge proofs are deliberately outside lane scope.
+
+Validation: all 16 declarations print exactly
+`[propext, Classical.choice, Quot.sound]` and pass TestSupport.checkAxioms.
+The required article audit passed (56 declarations, 27 entries, zero forbidden
+axioms); refreshed AXIOM_AUDIT.json after reviewing its unchanged target scope.
+No contract or article-level closure is claimed by the internal B1 work unit.
+Final gates passed: check_formalization_plan.py, make check (29 contracts;
+11 policy tests), make test (11000 jobs), make test-mutations (all four expected
+outcomes), make paper (both PDF logs clean), and git diff --check. No existing
+proof module was edited. The only existing tracked files changed are
+entrypoints.json and AXIOM_AUDIT.json, both required by the lane brief.
