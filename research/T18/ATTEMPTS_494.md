@@ -23,3 +23,10 @@
   dependent force index alone detached its velocity equality (rewrite the
   existential solution before destructuring it).
 - No residual mathematical hypotheses or failed proof branches remain.
+
+## Contract step
+
+- Added Contracts.V1.ForceAmplitude, Bindings.ForceAmplitude and Tests.ForceAmplitude.
+- `lake build Tests.ForceAmplitude`, the conformance probe and every `#print axioms` pass.
+- Every new theorem prints exactly propext, Classical.choice, Quot.sound.
+- Authorized existing-file edit: verification/contracts.json registers T03.force_amplitude.

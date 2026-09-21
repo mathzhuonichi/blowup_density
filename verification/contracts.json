@@ -319,6 +319,17 @@
       "declaration": "BlowupDensity.Tests.checkedBoundaryInsertionV2",
       "scope": "All 48 boundary insertion fields on the registered bounded box-or-regular-level domain class. Correction and compatible cutoff are jointly chosen. IBP follows from openness and boundedness and is not an extra hypothesis. The given smooth reference solution and prescribed interior-ball placement are retained.",
       "enabled": true
+    },
+    {
+      "id": "T03.force_amplitude",
+      "parent_task": "T18",
+      "version": 1,
+      "specification": "verification/Contracts/V1/ForceAmplitude.lean",
+      "binding_module": "Bindings.ForceAmplitude",
+      "test_module": "Tests.ForceAmplitude",
+      "declaration": "BlowupDensity.Tests.checkedForceAmplitude",
+      "scope": "Remark 3.13: the sup norm of g_epsilon - g is at least epsilon^(-3) ||F||_infinity - C epsilon^(-2) and diverges as epsilon tends to zero for every inserted family of the registered record; C is correction.forceProfileConst 0. F is nonzero by the proved packet energy estimate and blow-up clause, and its supremum is positive and finite. Includes ENNReal convergence to nhds top and finite-real convergence to atTop; the T19 fixed-ball raw-data family is a checked corollary. Single-copy scaling is proved as the lower inequality sufficient for the remark.",
+      "enabled": true
     }
   ]
 }
