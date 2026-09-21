@@ -1561,3 +1561,4 @@ date,task,unit,model,kind,result,pr,notes
 2026-09-21,P21,506-P21-B3-ode-barrier,gpt-6-astra,route-b-unit,"Section4/A04/EnstrophyBarrier.lean: uniform ODE barrier, integrated dissipation, endpoint integrability (6 theorems); review ACCEPT",merged,468
 2026-09-21,P21,503-P21-B0-h1-norm-bridges,gpt-5.6-sol,route-b-unit,"Section4/A04/H1Bridges.lean + Section3/T11/H1Bridges.lean: exact H1/H2 norm-energy identities and shifted-force caps; research/P21/Targets.lean; review ACCEPT-WITH-NOTES",merged,469
 2026-09-21,P21,507-P21-B4-restart-r3,gpt-6-astra,route-b-unit,"Section4/A04/H1BridgesSmooth.lean + H1Restart.lean: support-free bridges, h1RestartR, h1RestartAt; review ACCEPT",merged,470
+2026-09-21,P21,510-P21-B5-continuation-v3,gpt-5.6-sol,registration,"Section4/A04/H1RestartBeyond.lean + Contracts/V3/Continuation + Bindings/Tests + A04.continuation_v3; review ACCEPT",merged,471
