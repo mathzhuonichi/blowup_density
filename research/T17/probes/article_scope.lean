@@ -1,0 +1,13 @@
+import NSFormalization.Section3.T17.ArticleScope
+
+open NSFormalization.Section3.T17
+example : correctionStatementArticle := correctionStatementArticle_holds
+#check article_window_identification
+#check article_force_identification
+#check article_correction_derivative_bound
+#check article_force_derivative_bound
+#check article_force_spatial_volume
+#check article_force_time_length
+#check article_correction_energy_bound
+#check article_force_mixed_bound
+#check article_force_sobolev_bound
