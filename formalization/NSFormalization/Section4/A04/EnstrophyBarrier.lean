@@ -1,3 +1,5 @@
+import Mathlib.Analysis.Calculus.Deriv.Inv
+import Mathlib.Analysis.Calculus.Deriv.Pow
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
 import Mathlib.Analysis.Calculus.MeanValue
 
@@ -12,6 +14,7 @@ not assert a new displayed clause of that proposition. All functions are real.
 
 noncomputable section
 open Set MeasureTheory
+open scoped ENNReal
 namespace NSFormalization.Section4.A04
 
 /-- Integrating the differential inequality requires only integrability of Z,
@@ -42,5 +45,98 @@ theorem enstrophy_integrated_of_bound
   simp only [smul_eq_mul] at hi
   apply (le_div_iff₀ hc).2
   nlinarith
+
+/-- Reciprocal-square comparison, including both endpoints. -/
+theorem enstrophy_reciprocal_barrier
+    {c C F a b : ℝ} {Y Z : ℝ → ℝ}
+    (hc : 0 ≤ c) (hC : 0 ≤ C) (hF : 0 ≤ F) (hab : a ≤ b)
+    (hY : ContinuousOn Y (Icc a b))
+    (hd : ∀ t ∈ Ioo a b, DifferentiableAt ℝ Y t)
+    (hn : ∀ t ∈ Icc a b, 0 ≤ Y t)
+    (hZ : ∀ t ∈ Ioo a b, 0 ≤ Z t)
+    (hi : ∀ t ∈ Ioo a b, deriv Y t + c * Z t ≤ C * (1 + Y t)^3 + C * F) :
+    1 / (1 + Y a)^2 - 2 * C * (1 + F) * (b-a) ≤ 1 / (1 + Y b)^2 := by
+  have hp : ∀ t ∈ Icc a b, 0 < 1 + Y t := fun t ht => by linarith [hn t ht]
+  have hcont : ContinuousOn (fun t => -(1 / (1 + Y t)^2)) (Icc a b) :=
+    (continuousOn_const.div ((continuousOn_const.add hY).pow 2)
+      (fun t ht => pow_ne_zero _ (ne_of_gt (hp t ht)))).neg
+  have hder : ∀ t ∈ Ioo a b, HasDerivAt (fun t => -(1 / (1 + Y t)^2))
+      (2 * deriv Y t / (1 + Y t)^3) t := by
+    intro t ht
+    convert! (((((hd t ht).hasDerivAt.const_add 1).pow 2).inv
+      (pow_ne_zero _ (ne_of_gt (hp t (Ioo_subset_Icc_self ht))))).neg) using 1 <;>
+      first | rfl | (funext x; simp [one_div]) | (simp only [Pi.pow_apply]; field_simp [ne_of_gt (hp t (Ioo_subset_Icc_self ht))]; ring)
+  have hbound : ∀ t ∈ Ioo a b, 2 * deriv Y t / (1 + Y t)^3 ≤ 2 * C * (1 + F) := by
+    intro t ht
+    have hy := hn t (Ioo_subset_Icc_self ht)
+    have hy3 : 1 ≤ (1 + Y t)^3 := by nlinarith [sq_nonneg (Y t)]
+    have hcf : C * F ≤ C * F * (1 + Y t)^3 := le_mul_of_one_le_right (mul_nonneg hC hF) hy3
+    have hz := mul_nonneg hc (hZ t ht)
+    apply (div_le_iff₀ (pow_pos (hp t (Ioo_subset_Icc_self ht)) 3)).2
+    nlinarith [hi t ht]
+  have h := intervalIntegral.sub_le_integral_of_hasDeriv_right_of_le hab hcont
+    (fun t ht => (hder t ht).hasDerivWithinAt) continuousOn_const.integrableOn_Icc hbound
+  rw [intervalIntegral.integral_const] at h
+  simp only [smul_eq_mul] at h
+  linarith
+
+/-- Explicit uniform time and height, chosen before the interval and functions. -/
+theorem enstrophy_uniform_barrier {c C K F : ℝ}
+    (hc : 0 < c) (hC : 0 < C) (hK : 0 ≤ K) (hF : 0 ≤ F) :
+    ∃ d > 0, ∃ M : ℝ, M = 2 * (1 + K) - 1 ∧
+      ∀ (a S : ℝ) (Y Z : ℝ → ℝ), S ≤ d →
+      ContinuousOn Y (Icc a (a+S)) →
+      (∀ t ∈ Ioo a (a+S), DifferentiableAt ℝ Y t) →
+      (∀ t ∈ Icc a (a+S), 0 ≤ Y t) → Y a ≤ K →
+      (∀ t ∈ Ioo a (a+S), 0 ≤ Z t) →
+      (∀ t ∈ Ioo a (a+S), deriv Y t + c * Z t ≤ C * (1+Y t)^3 + C * F) →
+      ∀ t ∈ Icc a (a+S), Y t ≤ M := by
+  let d := 1 / (4 * C * (1+F) * (1+K)^2)
+  have hA : 0 < 1+K := by linarith
+  have hG : 0 < 1+F := by linarith
+  refine ⟨d, by dsimp [d]; positivity, 2*(1+K)-1, rfl, ?_⟩
+  intro a S Y Z hS hY hd hn hinit hZ hi t ht
+  have hsub : Icc a t ⊆ Icc a (a+S) := Icc_subset_Icc le_rfl ht.2
+  have hosub : Ioo a t ⊆ Ioo a (a+S) := Ioo_subset_Ioo le_rfl ht.2
+  have hr := enstrophy_reciprocal_barrier hc.le hC.le hF ht.1 (hY.mono hsub)
+    (fun x hx => hd x (hosub hx)) (fun x hx => hn x (hsub hx))
+    (fun x hx => hZ x (hosub hx)) (fun x hx => hi x (hosub hx))
+  have hya : 0 < 1+Y a := by linarith [hn a (hsub (left_mem_Icc.mpr ht.1))]
+  have hyt : 0 < 1+Y t := by linarith [hn t ht]
+  have hstart : 1 / (1+K)^2 ≤ 1 / (1+Y a)^2 := by
+    apply one_div_le_one_div_of_le (sq_pos_of_pos hya)
+    nlinarith
+  have htime : 2*C*(1+F)*(t-a) ≤ 1 / (2*(1+K)^2) := by
+    calc
+      _ ≤ 2*C*(1+F)*d := mul_le_mul_of_nonneg_left (by linarith [ht.2]) (by positivity)
+      _ = _ := by dsimp [d]; field_simp; ring
+  have hlow : 1 / (2*(1+K)^2) ≤ 1 / (1+Y t)^2 := by
+    have heq : 1 / (1+K)^2 = 2 * (1 / (2*(1+K)^2)) := by field_simp
+    linarith
+  have hsquares : (1+Y t)^2 ≤ 2*(1+K)^2 := by
+    have := (div_le_div_iff₀ (by positivity : 0 < 2*(1+K)^2) (sq_pos_of_pos hyt)).mp hlow
+    nlinarith
+  nlinarith [sq_nonneg (1+K)]
+
+/-- Monotone passage to the right endpoint, in the nonnegative integral.
+No measurability assumption is needed for this stronger formulation. -/
+theorem enstrophy_endpoint_lintegral {a b : ℝ} {Z : ℝ → ℝ} {B : ℝ≥0∞}
+    (h : ∀ s < b, (∫⁻ t in Ico a s, ENNReal.ofReal (Z t)) ≤ B) :
+    (∫⁻ t in Ico a b, ENNReal.ofReal (Z t)) ≤ B := by
+  let J := {q : ℚ // (q : ℝ) < b}
+  have heq : (⋃ q : J, Ico a (q.val : ℝ)) = Ico a b := by
+    ext t
+    simp only [mem_iUnion, mem_Ico]
+    constructor
+    · rintro ⟨q, hat, htq⟩
+      exact ⟨hat, htq.trans q.property⟩
+    · rintro ⟨hat, htb⟩
+      obtain ⟨q, htq, hqb⟩ := exists_rat_btwn htb
+      exact ⟨⟨q, hqb⟩, hat, htq⟩
+  rw [← heq, setLIntegral_iUnion_of_directed]
+  · exact iSup_le fun q => h _ q.property
+  · intro i j
+    refine ⟨max i j, ?_, ?_⟩ <;>
+      apply Ico_subset_Ico_right <;> exact_mod_cast (show _ ≤ max i j from by simp)
 
 end NSFormalization.Section4.A04
