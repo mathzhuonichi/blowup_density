@@ -366,4 +366,44 @@ theorem uniform_periodicHTwo_running_boundT (ν : ℝ) (hν : 0 < ν)
   rw [periodicHTwo_lintegral_eqT w hs0 hsT]
   exact ENNReal.ofReal_le_ofReal hreal
 
+/-- The common running bound passes to a possibly maximal endpoint. -/
+theorem uniform_periodicHTwo_endpoint_boundT (ν : ℝ) (hν : 0 < ν)
+    (f : SpaceTimeField) (hf : MemForceT f) (S : ℝ) (hS : 0 ≤ S)
+    (K : ℝ≥0∞) (hK : K ≠ ⊤) :
+    ∃ d > 0, ∃ B : ℝ, 0 ≤ B ∧
+      ∀ t₀ ∈ Icc (0 : ℝ) S, ∀ a : SpatialField, periodicSobolevENorm 1 a ≤ K →
+      ∀ R : ℝ, 0 < R → R ≤ d →
+      ∀ (u : SpaceTimeField) (p : NSFormalization.Section4.A02.SpaceTimeScalar),
+        SolvesBelowT ν a (timeShiftT t₀ f) R u p →
+          squaredHTwoIntegralT R u ≤ ENNReal.ofReal B := by
+  obtain ⟨d, hd, _, B, hB, hb⟩ := uniform_periodicHTwo_running_boundT ν hν f hf S hS K hK
+  refine ⟨d, hd, B, hB, ?_⟩
+  intro t₀ ht₀ a ha R hR hRd u p hu
+  have heq (s : ℝ) (hs : s ≤ R) :
+      (∫⁻ t in Ico (0 : ℝ) s, periodicSobolevENorm 2 (fun x => u (t, x)) ^ 2) =
+        ∫⁻ t in Ico (0 : ℝ) s,
+          ENNReal.ofReal ((periodicSobolevENorm 2 (fun x => u (t, x))).toReal ^ 2) := by
+    apply setLIntegral_congr_fun measurableSet_Ico
+    intro t ht
+    dsimp only
+    obtain ⟨w, hw, _⟩ := hu ((t + R) / 2) (by linarith [ht.1]) (by linarith [ht.2])
+    have hn : periodicSobolevENorm 2 (fun x => u (t, x)) ≠ ⊤ := by
+      rw [← hw]
+      have ht' : t ∈ Ico (0 : ℝ) ((t + R) / 2) := ⟨ht.1, by linarith [ht.2]⟩
+      exact periodicSobolevENorm_ne_top_smooth 2 (classical_velocity_slice_contDiff w ht')
+        (w.velocity_periodic t ht')
+    rw [ENNReal.ofReal_pow ENNReal.toReal_nonneg, ENNReal.ofReal_toReal hn]
+  have he : (∫⁻ t in Ico (0 : ℝ) R,
+      periodicSobolevENorm 2 (fun x => u (t, x)) ^ 2) ≤ ENNReal.ofReal B := by
+    rw [heq R le_rfl]
+    apply NSFormalization.Section4.A04.enstrophy_endpoint_lintegral
+    intro s hs
+    rw [← heq s hs.le]
+    by_cases hs0 : 0 ≤ s
+    · obtain ⟨w, hw, _⟩ := hu ((s + R) / 2) (by linarith) (by linarith)
+      have h := hb t₀ ht₀ a ha _ w s hs0 (by linarith) (hs.le.trans hRd)
+      simpa only [hw] using h
+    · simp [Ico_eq_empty_of_le (le_of_not_ge hs0)]
+  exact (lintegral_mono_set Ioo_subset_Ico_self).trans he
+
 end NSFormalization.Section3.T11
