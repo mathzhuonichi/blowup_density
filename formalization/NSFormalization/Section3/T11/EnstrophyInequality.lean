@@ -698,4 +698,28 @@ theorem enstrophy_differentialT
   have hF : 0 ≤ lTwoSqT (fun x => f (t, x)) := sq_nonneg _
   nlinarith only [h, mul_nonneg hA hF, mul_nonneg hB hY]
 
+/-- Uniform statement on any closed interval strictly inside the lifespan.
+Exactly the three norm bridges remain; c = κ = 1. -/
+theorem enstrophy_differential_on_IccT
+    {ν T r s : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionT ν a f T) (hf : f ∈ forceClassT) (hν : 0 < ν)
+    (hr : 0 < r) (hs : s < T)
+    (hOne : ∀ q ∈ Ioo (0 : ℝ) T,
+      (periodicSobolevENorm 1 (fun x => w.velocity (q, x))).toReal ^ 2 =
+        lTwoSqT (fun x => w.velocity (q, x)) + gradientSqT (fun x => w.velocity (q, x)))
+    (hTwo : ∀ t ∈ Icc r s, (periodicSobolevENorm 2 (fun x => w.velocity (t, x))).toReal ^ 2 ≤
+      lTwoSqT (fun x => w.velocity (t, x)) + 2 * gradientSqT (fun x => w.velocity (t, x)) +
+        laplacianSqT (fun x => w.velocity (t, x)))
+    (hGradient : ∀ t ∈ Icc r s, periodicLpENorm 2 (gradientTensor (fun x => w.velocity (t, x))) ≤
+      ENNReal.ofReal (Real.sqrt (gradientSqT (fun x => w.velocity (t, x))))) :
+    ∀ t ∈ Icc r s,
+    let Cν := (2 * convectionConstT) ^ 4 / (ν / 2) ^ 3 + (1 + ν) + (1 + 2 / ν)
+    deriv (fun q => (periodicSobolevENorm 1 (fun x => w.velocity (q, x))).toReal ^ 2) t +
+        ν * (periodicSobolevENorm 2 (fun x => w.velocity (t, x))).toReal ^ 2 ≤
+      Cν * (1 + (periodicSobolevENorm 1 (fun x => w.velocity (t, x))).toReal ^ 2) ^ 3 +
+        Cν * lTwoSqT (fun x => f (t, x)) := by
+  intro t ht
+  exact enstrophy_differentialT w hf hν hOne ⟨hr.trans_le ht.1, ht.2.trans_lt hs⟩
+    (hTwo t ht) (hGradient t ht)
+
 end NSFormalization.Section3.T11
