@@ -80,7 +80,8 @@ theorem enstrophy_reciprocal_barrier
   simp only [smul_eq_mul] at h
   linarith
 
-/-- Explicit uniform time and height, chosen before the interval and functions. -/
+/-- Explicit uniform time and height, chosen before the interval and functions.
+The proof chooses `d = 1 / (4*C*(1+F)*(1+K)^2)`. -/
 theorem enstrophy_uniform_barrier {c C K F : ℝ}
     (hc : 0 < c) (hC : 0 < C) (hK : 0 ≤ K) (hF : 0 ≤ F) :
     ∃ d > 0, ∃ M : ℝ, M = 2 * (1 + K) - 1 ∧
