@@ -44,14 +44,21 @@
 | 492-T19-P1-prescribed-ball | 已合入 #459（审稿仅 --base-ref 工具问题 REJECT，其余全过；lead 裁定合入；T03.periodic_insertion_v2） | 09-21 0415Z | #459 | P1 Thm 3.6 任意给定球：placementDataAt + insertionAt + periodicInsertion_from_data + T03.periodic_insertion_v2 + 蓝图 |
 | 493-T17-P2-article-scope | 已合入 #458（审稿仅因 --base-ref 工具问题 REJECT，数学/保真/公理/变异全过；lead 裁定合入；T02.correction_v2） | 09-21 0408Z | #458 | P2 Lemma 3.5 文章形式：correctionStatementArticle（经典参照 + 零延拓识别）+ T02.correction_v2 + 蓝图 |
 | 494-T18-P3-force-amplitude | 已合入 #461（审稿仅 --base-ref 工具问题 REJECT，其余全过；lead 裁定合入；T03.force_amplitude） | 09-21 0421Z | #461 | P3 Remark 3.13：F ≠ 0、周期化缩放力的 sup 范数 ε⁻³‖F‖∞、H_ε ≤ Cε⁻²、发散 + T03.force_amplitude + 蓝图 |
-| 495-T24-P4-conservative-domain | astra 8 分钟完成：ConservativeOmega.lean（pairing 经 IBP、restSolutionOmega、零能量⇒零）+ T04.conservative_forcing_v2（30 合同）+ 蓝图/guide/计数 22/5 + 四闸门 + make paper → 审中 sol | 09-21 0348Z | — | P4 Prop 3.17 有界域：ConservativeForcingOmegaAPI（pairing 经 IBP.integral_pressure_energy_zero；从静止为零）+ T04.conservative_forcing_v2 + 蓝图 |
+| 495-T24-P4-conservative-domain | 已合入 #463（审稿仅 --base-ref 工具问题 REJECT，其余全过；lead 裁定合入；T04.conservative_forcing_v2） | 09-21 0434Z | #463 | P4 Prop 3.17 有界域：ConservativeForcingOmegaAPI（pairing 经 IBP.integral_pressure_energy_zero；从静止为零）+ T04.conservative_forcing_v2 + 蓝图 |
 | 496-T24-P5-spec-multiple-domain | 已合入 #456（astra 规范：30 字段，去 scaling 加 no_slip；lead 比对通过；entrypoints 补一行） | 09-21 0355Z | #456 | P5 步骤 1：MultipleRegionsOmegaAPI 规范（镜像环面 30 字段）+ canonical 记录 + 拆分 |
 | 497-T24-P5a-domain-components-sum | 已合入 #460（codex 审稿 ACCEPT-WITH-NOTES，引用已改） | 09-21 0420Z | #460 | P5.1+P5.2：Ω 上的分量（无周期化缩放包 → ClassicalSolutionOmega）与有限和解（交叉输运为零、no-slip、gauge） |
 | 500-T24-P5b-domain-blowup-energy | 已合入 #462（codex 审稿 ACCEPT-WITH-NOTES） | 09-21 0423Z | #462 | P5.3+P5.4：每球 region_agreement/region_blowup + 能量/耗散可加性（限制积分 = 全空间积分） |
-| 501-T24-P5c-assembly-registration | astra 完成：MultipleOmegaAssembly（30 字段装配 + multipleRegionsOmegaStatement_holds + 非空探针）+ T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B → 审中 sol | 09-21 0418Z | — | P5.5：30 字段装配 + multipleRegionsOmegaStatement + T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B |
-| 502-MAINT-core-refresh | 第一次刷新完成（基于 493 态：22/5，65 声明审计，四闸门 + paper 绿）；492 已合入后过期，等 494/495/501 合入再 cont 续跑 | 09-21 0416Z | — | MAINT：合入批次后刷新 core 的生成物（公理审计、DEPENDENCY_GRAPH、计数、PDF），使 make check 全绿 |
-| 503-P21-B0-h1-norm-bridges | worktree 安装中 → codex sol（窗口 <7 时启动） | 09-21 0401Z | — | P6 Route B B0：H¹/H² Fourier 范数 ↔ 导数能量桥（两域）+ 平移力上界 + 目标陈述 Targets.lean |
-| 504-P21-B1-enstrophy-r3 | worktree 安装中 → codex astra | 09-21 0401Z | — | P6 Route B B1：ℝ³ 上一般（无临界小性）涡量微分不等式 Y' + cνZ ≤ Cν(1+Y)³ + Cν‖f‖² |
+| 501-T24-P5c-assembly-registration | 已合入 #464（codex 审稿 ACCEPT-WITH-NOTES；T04.multiple_regions_v2，**P5 闭合**） | 09-21 0436Z | #464 | P5.5：30 字段装配 + multipleRegionsOmegaStatement + T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B |
+| 502-MAINT-core-refresh | 第一次刷新基于 493 态；cont_502 于 0450Z 被 lead 终止（base 已过时且被政策测试卡住）；待 503–506 合入后重开刷新 | 09-21 0442Z | — | MAINT：合入批次后刷新 core 的生成物（公理审计、DEPENDENCY_GRAPH、计数、PDF），使 make check 全绿 |
+| 503-P21-B0-h1-norm-bridges | sol 完成：两域 H¹/H² 范数 ↔ 导数能量恒等式、平移力上界、四个目标陈述 Targets.lean（23 声明标准公理）→ 审中 sol（重点：是否逐字放电 B1 的三个桥假设） | 09-21 0431Z | — | P6 Route B B0：H¹/H² Fourier 范数 ↔ 导数能量桥（两域）+ 平移力上界 + 目标陈述 Targets.lean |
+| 504-P21-B1-enstrophy-r3 | 已合入 #466（codex 审稿 ACCEPT-WITH-NOTES；4 条 linter 风格注释交 B5 一并处理） | 09-21 0454Z | #466 | P6 Route B B1：ℝ³ 上一般（无临界小性）涡量微分不等式 Y' + cνZ ≤ Cν(1+Y)³ + Cν‖f‖² |
+| 505-P21-B2-enstrophy-torus | astra 完成（cont 续跑）：B2 闭合，30 定理，enstrophy_differential_on_IccT 仅以三条环面范数桥为假设 → 审稿 rev-505（sol） | 09-21 0511Z | — | P6 B2：𝕋³ 涡量微分不等式（保留均值与 L² 能量），镜像 B1 引理序列 |
+| 506-P21-B3-ode-barrier | astra 完成：EnstrophyBarrier.lean 六定理（一致屏障 d,M 先于 t₀/S/Y/Z、积分耗散、端点可积）、探针非空；无合同/状态变更 → 审稿 rev-506（sol） | 09-21 0442Z | — | P6 B3：一致 ODE 屏障（d、Ybar 只依赖 c,C,K₀,F）+ 积分耗散界 + 端点单调极限（纯实分析） |
+| 509-MAINT-policy-test | 已合入 #465（lead 微修，纯 Python） | 09-21 0442Z | #465 | 政策测试 test_contract_policy.py 两条改为不依赖具体 Partial 节点（原绑死 C35_FULL / L21_H1；493 闭合后 make check 必红） |
+| 507-P21-B4-restart-r3 | 审稿 ACCEPT（无修改）；分支含 503/506，待其审稿结论后按序合入 | 09-21 0532Z | — | P6 B4（ℝ³）：B0↔B1 对账（紧支撑→MemHInfty 桥）、时间正则性、力上界、B3 屏障、极大寿命反证 → h1RestartR |
+| 508-P21-B4-restart-torus | astra 完成：B4-𝕋³ 闭合（H1Restart 23 定理，h1RestartT；力类不匹配真解决）→ 审稿 rev-508（sol） | 09-21 0539Z | — | P6 B4（𝕋³）：B0↔B2 对账、时间正则性、力上界、B3 屏障、extendsBeyondH3 反证 → h1RestartT；两条路线（固定力 sup 上界 / L¹ 强迫屏障） |
+| 510-P21-B5-continuation-v3 | sol 完成：H1RestartBeyond（restartBeyondH1 严格端点）+ Contracts/V3/Continuation + Bindings/Tests + A04.continuation_v3（35 合同）+ 504 linter 清理 → 审稿 rev-510 | 09-21 0537Z | — | P6 B5（ℝ³ 半）：端点定理 restartBeyondH1（h1UniformEndpointR）+ Contracts/V3/Continuation 注册（A04.continuation_v3）；不动蓝图状态 |
+| 511-P21-B5-torus-closure | worktree = 508+510+core 安装中 → codex sol | 09-21 0539Z | — | P6 B5（𝕋³ 半 + 收尾）：restartBeyondH1T、Contracts/V2/TorusLocalTheory 注册（T01.torus_local_theory_v2，36 合同）、L21_H1 → Closed、RESULT_MAP/guide/README/partial=set() |
 | 499-P21-P6-h1-assessment | 已合入 #457（评估：建议先留 Partial；若做，走 Route B 光滑数据 H¹ restart + 现有续接，L–XL） | 09-21 0400Z | #457 | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
 
-下一号 **505**（501 = P5 装配 + 注册、502 = core 刷新已预留）。
+下一号 **512**（511 预留给 B5-𝕋³ + L21_H1 关闭）。
