@@ -1,0 +1,23 @@
+import Bindings.ForceAmplitude
+
+#print axioms NSFormalization.Section3.T18.packetForce_ne_zero
+#print axioms NSFormalization.Section3.T18.packetForce_sup_pos
+#print axioms NSFormalization.Section3.T18.packetForce_sup_lt_top
+#print axioms NSFormalization.Section3.T18.periodizedScaledForce_at_source
+#print axioms NSFormalization.Section3.T18.periodizedScaledForce_amplitude
+#print axioms NSFormalization.Section3.T18.correctionForce_amplitude_le_deriv
+#print axioms NSFormalization.Section3.T18.correctionForce_norm_le
+#print axioms NSFormalization.Section3.T18.correctionForce_amplitude_le
+#print axioms NSFormalization.Section3.T18.forceAmplitude_point_lower
+#print axioms NSFormalization.Section3.T18.amplitude_polynomial_tendsto
+#print axioms NSFormalization.Section3.T18.forceAmplitude_diverges_of_ne_zero
+#print axioms NSFormalization.Section3.T18.forceAmplitude_lower
+#print axioms NSFormalization.Section3.T18.insertionData_packetForce_ne_zero
+#print axioms NSFormalization.Section3.T18.forceAmplitude_diverges
+#print axioms NSFormalization.Section3.T18.memForceT_sup_lt_top
+#print axioms NSFormalization.Section3.T18.insertionData_packetForce_sup_lt_top
+#print axioms NSFormalization.Section3.T19.forceAmplitude_diverges
+#print axioms BlowupDensity.Bindings.forceAmplitude
+#print axioms BlowupDensity.Bindings.forceAmplitude_from_data
+#print axioms BlowupDensity.Bindings.selectedPacketForce_ne_zero
+#print axioms NSFormalization.Section3.T18.forceAmplitude_real_diverges
