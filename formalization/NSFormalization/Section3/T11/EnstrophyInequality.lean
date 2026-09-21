@@ -93,5 +93,44 @@ theorem eLpNorm_three_interpolationT {E : Type*} [NormedAddCommGroup E] (g : Per
   convert hh using 1 <;> norm_num
 
 
+theorem young_quarticT {a b ε : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) (hε : 0 < ε) :
+    a * b ^ 3 ≤ ε * b ^ 4 + a ^ 4 / ε ^ 3 := by
+  by_cases h : b ≤ a / ε
+  · have hh : a * b ^ 3 ≤ a * (a / ε) ^ 3 := by gcongr
+    have he : a * (a / ε) ^ 3 = a ^ 4 / ε ^ 3 := by ring
+    rw [he] at hh
+    exact hh.trans (le_add_of_nonneg_left (by positivity))
+  · have hh : a ≤ ε * b := by
+      have := (div_lt_iff₀ hε).mp (lt_of_not_ge h)
+      linarith
+    have hm := mul_le_mul_of_nonneg_right hh (pow_nonneg hb 3)
+    have he : ε * b * b ^ 3 = ε * b ^ 4 := by ring
+    rw [he] at hm
+    exact hm.trans (le_add_of_nonneg_right (by positivity))
+
+
+theorem young_three_quartersT {C Y Z ε : ℝ} (hC : 0 ≤ C) (hY : 0 ≤ Y)
+    (hZ : 0 ≤ Z) (hε : 0 < ε) :
+    C * Y ^ (3 / 4 : ℝ) * Z ^ (3 / 4 : ℝ) ≤
+      ε * Z + C ^ 4 / ε ^ 3 * Y ^ 3 := by
+  have h := young_quarticT (a := C * Y ^ (3 / 4 : ℝ))
+    (b := Z ^ (1 / 4 : ℝ)) (by positivity) (by positivity) hε
+  have h3 : (Z ^ (1 / 4 : ℝ)) ^ (3 : ℕ) = Z ^ (3 / 4 : ℝ) := by
+    rw [← Real.rpow_natCast, ← Real.rpow_mul hZ]; norm_num
+  have h4 : (Z ^ (1 / 4 : ℝ)) ^ (4 : ℕ) = Z := by
+    rw [← Real.rpow_natCast, ← Real.rpow_mul hZ]; norm_num
+  have hY4 : (Y ^ (3 / 4 : ℝ)) ^ (4 : ℕ) = Y ^ (3 : ℕ) := by
+    rw [← Real.rpow_natCast, ← Real.rpow_mul hY]; norm_num
+  rw [h3, h4, mul_pow, hY4] at h
+  convert h using 1 <;> ring
+
+
+theorem young_two_factorsT {a b ε : ℝ} (hε : 0 < ε) :
+    2 * a * b ≤ ε * b ^ 2 + a ^ 2 / ε := by
+  have h : 2 * a * b ≤ (ε ^ 2 * b ^ 2 + a ^ 2) / ε :=
+    (le_div_iff₀ hε).2 (by nlinarith [sq_nonneg (ε * b - a)])
+  convert h using 1 <;> field_simp
+
+
 end NSFormalization.Section3.T11
 

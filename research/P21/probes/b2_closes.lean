@@ -2,3 +2,6 @@ import NSFormalization.Section3.T11.EnstrophyInequality
 #check NSFormalization.Section3.T11.inhomogeneousEnergyIdentityT
 #check NSFormalization.Section3.T11.lintegral_convection_holder_632T
 #check NSFormalization.Section3.T11.eLpNorm_three_interpolationT
+#check NSFormalization.Section3.T11.young_quarticT
+#check NSFormalization.Section3.T11.young_three_quartersT
+#check NSFormalization.Section3.T11.young_two_factorsT
