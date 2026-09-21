@@ -419,6 +419,18 @@ The unit-box, one-region probe is a type/elaboration check with an API variable,
 not a proof of existence or a claimed non-vacuity witness. Proving that existence
 is P5.5, not lane 496.
 
+### Lane 500 P5b status
+
+- **P5.3 CLOSED**: `NSFormalization.Section3.T24.OmegaRegions.region_agreement` and
+  `region_blowup`, over explicit global support, disjointness, raw velocity pin,
+  positive scales and time placement. Probe passes; both declarations use exactly
+  `[propext, Classical.choice, Quot.sound]`. Assembly remains P5.5 (lane 501).
+- **P5.4 CLOSED**: `NSFormalization.Section3.T24.OmegaRegions.energy_bound` and
+  `dissipation_bound`; compact support identifies restricted Ω velocity/full-gradient
+  norms with whole-space norms, disjoint supports give exact slice additivity,
+  and I03 supplies the original M,D normalization. Energy is ≤; dissipation is =.
+  Raw packet clauses are bundled only in the existing I03 `PacketData`; the probe
+  constructs that bundle from the canonical raw hypotheses. No analytic residual.
 **497 P5.1 DONE:** `MultipleOmegaComponents.lean`, `RegionsOmegaData` constructs
 prescribed domain placements, admissible scales, actual gauged no-slip components
 and global velocity/force support. No solution or target API premise. Module and
