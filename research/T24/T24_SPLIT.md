@@ -398,3 +398,11 @@ T15 records, but every instantiation and the `Nonempty` statement wait on T15's 
 5. **Bounded-domain / no-slip branches** of `prop:multiple` (`:698,706,720`) and `prop:conservative` (`:724-725`)
    are omitted (no carrier in the tree); recorded in each contract `scope`, an open owner question
    (`COMPARISON.md` "Open questions" 2), not a placeholder field.
+
+## Phase 5 P4 — lane 495
+
+**Closed**: Proposition 3.17 bounded no-slip branch (`C317_B`).
+`ConservativeOmega.lean` supplies direct boundary-IBP pairing, the normalized
+`-φ` rest witness, and zero-from-rest via the energy identity. Potential class
+is `ContDiff ℝ ∞ φ`, without periodicity or temporal support. Both branches are
+registered by `T04.conservative_forcing_v2`; see `REPORT_495.md`.
