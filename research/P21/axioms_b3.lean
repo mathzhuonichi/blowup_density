@@ -1,0 +1,15 @@
+import NSFormalization.Section4.A04.EnstrophyBarrier
+import TestSupport.Axioms
+
+#print axioms NSFormalization.Section4.A04.enstrophy_integrated_of_bound
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.enstrophy_integrated_of_bound
+#print axioms NSFormalization.Section4.A04.enstrophy_reciprocal_barrier
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.enstrophy_reciprocal_barrier
+#print axioms NSFormalization.Section4.A04.enstrophy_uniform_barrier
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.enstrophy_uniform_barrier
+#print axioms NSFormalization.Section4.A04.enstrophy_endpoint_lintegral
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.enstrophy_endpoint_lintegral
+#print axioms NSFormalization.Section4.A04.enstrophy_endpoint_integral
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.enstrophy_endpoint_integral
+#print axioms NSFormalization.Section4.A04.enstrophy_uniform_barrier_and_dissipation
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.enstrophy_uniform_barrier_and_dissipation
