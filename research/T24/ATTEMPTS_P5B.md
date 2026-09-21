@@ -20,3 +20,35 @@ component_support`); explicitly including the proof variables fixes it.
 
 - `formalization/blueprint/entrypoints.json`: register the new proof module.
 - `research/T24/T24_SPLIT.md`: unit status entries (at completion).
+
+## P5.4
+
+Closed via the compact-support route. `component_tsupport` uses the raw scaled
+support and cube-free placement to put the closed support inside the open ball.
+`fderiv_of_notMem_tsupport` then gives global gradient vanishing outside it.
+`eLpNorm_restrict_eq_of_support_subset` preserves both component norms on Ω;
+no measurability or boundary-null-set assumption on Ω is needed for these bridges.
+A generic at-most-one-nonzero-summand lemma yields squared-norm additivity,
+then `lintegral_finsetSum'` gives slice additivity. The energy bound uses
+`I03.eLpNorm_scaled_slice` and `l2Norm_zeroPastField_le` directly, a slice-level
+version of `energyEssSup_scaled_le`. Dissipation uses
+`energyGradient_scaled_eq` (which proves the `scaled_total_dissipation` identity)
+and `scaled_dissipation_integrableOn` for time measurability. Constants remain
+exactly M and D. Gradient is I02's full Euclidean matrix, not the operator norm.
+
+One elaboration correction: rewriting under the set-integral congruence initially
+reported `Tactic rewrite failed: Did not find an occurrence of the pattern
+eLpNorm ...`. `dsimp only` reduces the applied integrand lambdas before rewriting.
+No analytic residual or extra hypothesis was introduced.
+
+## Validation and metadata
+
+- Dependency closure and the new module build successfully.
+- Direct module and four-field probe Lean runs exit 0 with zero output.
+- All 17 module theorems print exactly the standard three axioms.
+- First `make check` stopped with `Source changed: rerun the article axiom audit`.
+  The common closing procedure explicitly requires a fresh audit after source
+  edits; rerun it and refresh `AXIOM_AUDIT.json`, with no coverage changes.
+- Additional authorized metadata edit: `formalization/blueprint/AXIOM_AUDIT.json`
+  (fresh audit required by `make check`). The graph is regenerated only if its
+  rendered audit summary changes. P5.5/full article closure is not claimed here.

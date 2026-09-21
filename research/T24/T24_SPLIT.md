@@ -425,3 +425,9 @@ is P5.5, not lane 496.
   `region_blowup`, over explicit global support, disjointness, raw velocity pin,
   positive scales and time placement. Probe passes; both declarations use exactly
   `[propext, Classical.choice, Quot.sound]`. Assembly remains P5.5 (lane 501).
+- **P5.4 CLOSED**: `MultipleOmegaRegions.OmegaRegions.energy_bound` and
+  `dissipation_bound`; compact support identifies restricted Ω velocity/full-gradient
+  norms with whole-space norms, disjoint supports give exact slice additivity,
+  and I03 supplies the original M,D normalization. Energy is ≤; dissipation is =.
+  Raw packet clauses are bundled only in the existing I03 `PacketData`; the probe
+  constructs that bundle from the canonical raw hypotheses. No analytic residual.
