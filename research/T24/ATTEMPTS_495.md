@@ -19,3 +19,8 @@ exports and the probe print exactly `[propext, Classical.choice, Quot.sound]`.
 The first build caught a malformed dot-notation expression in pressure slice
 integrability (`Unknown constant Space.integrableOn_compact`); an explicitly
 typed `ContinuousOn` intermediate resolves it. No mathematical residual.
+
+V2 contract and tests compile; registered as `T04.conservative_forcing_v2`.
+The domain record is copied token-for-token over V1 boundary vocabulary;
+`BoundaryInsertion.Contract.solutionTo` preserves the velocity definitionally.
+The V1 torus record is retained as the first conjunct. Registry check passes.
