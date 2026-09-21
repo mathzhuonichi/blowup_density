@@ -139,4 +139,56 @@ theorem enstrophy_endpoint_lintegral {a b : ℝ} {Z : ℝ → ℝ} {B : ℝ≥0�
     refine ⟨max i j, ?_, ?_⟩ <;>
       apply Ico_subset_Ico_right <;> exact_mod_cast (show _ ≤ max i j from by simp)
 
+/-- Ordinary-integral endpoint version. Local integrability is explicit because
+Lean's real integral is zero for a nonintegrable function. The conclusion also
+proves integrability at the endpoint, as required by continuation criteria. -/
+theorem enstrophy_endpoint_integral {a b B : ℝ} {Z : ℝ → ℝ}
+    (hab : a ≤ b) (hB : 0 ≤ B) (hm : Measurable Z)
+    (hn : ∀ t ∈ Ico a b, 0 ≤ Z t)
+    (hi : ∀ s ∈ Ico a b, IntegrableOn Z (Icc a s))
+    (hb : ∀ s ∈ Ico a b, (∫ t in a..s, Z t) ≤ B) :
+    IntegrableOn Z (Icc a b) ∧ (∫ t in a..b, Z t) ≤ B := by
+  have hnn : 0 ≤ᵐ[volume.restrict (Ico a b)] Z :=
+    (ae_restrict_mem measurableSet_Ico).mono hn
+  have hl : (∫⁻ t in Ico a b, ENNReal.ofReal (Z t)) ≤ ENNReal.ofReal B := by
+    apply enstrophy_endpoint_lintegral
+    intro s hs
+    by_cases has : a ≤ s
+    · have hsi := (hi s ⟨has, hs⟩).mono_set Ico_subset_Icc_self
+      have hsn : 0 ≤ᵐ[volume.restrict (Ico a s)] Z :=
+        (ae_restrict_mem measurableSet_Ico).mono fun t ht => hn t ⟨ht.1, ht.2.trans hs⟩
+      rw [← ofReal_integral_eq_lintegral_ofReal hsi hsn,
+        integral_Ico_eq_integral_Ioc, ← intervalIntegral.integral_of_le has]
+      exact ENNReal.ofReal_le_ofReal (hb s ⟨has, hs⟩)
+    · simp [Ico_eq_empty_of_le (le_of_not_ge has)]
+  have hint : IntegrableOn Z (Ico a b) :=
+    ⟨hm.aestronglyMeasurable, (hasFiniteIntegral_iff_ofReal hnn).mpr
+      (hl.trans_lt ENNReal.ofReal_lt_top)⟩
+  refine ⟨(integrableOn_Icc_iff_integrableOn_Ico).mpr hint, ?_⟩
+  rw [intervalIntegral.integral_of_le hab, ← integral_Ico_eq_integral_Ioc,
+    integral_eq_lintegral_of_nonneg_ae hnn hint.aestronglyMeasurable]
+  exact (ENNReal.toReal_mono ENNReal.ofReal_ne_top hl).trans_eq (ENNReal.toReal_ofReal hB)
+
+/-- Uniform barrier and dissipation on the same time window. -/
+theorem enstrophy_uniform_barrier_and_dissipation {c C K F : ℝ}
+    (hc : 0 < c) (hC : 0 < C) (hK : 0 ≤ K) (hF : 0 ≤ F) :
+    ∃ d > 0, ∃ M : ℝ, M = 2 * (1 + K) - 1 ∧
+      ∀ (a S : ℝ) (Y Z : ℝ → ℝ), 0 ≤ S → S ≤ d →
+      ContinuousOn Y (Icc a (a+S)) →
+      (∀ t ∈ Ioo a (a+S), DifferentiableAt ℝ Y t) →
+      (∀ t ∈ Icc a (a+S), 0 ≤ Y t) → Y a ≤ K →
+      (∀ t ∈ Ioo a (a+S), 0 ≤ Z t) →
+      IntegrableOn Z (Icc a (a+S)) →
+      (∀ t ∈ Ioo a (a+S), deriv Y t + c * Z t ≤ C * (1+Y t)^3 + C * F) →
+      (∀ t ∈ Icc a (a+S), Y t ≤ M) ∧
+      (∫ t in a..a+S, Z t) ≤ (K + C*(1+M)^3*S + C*F*S) / c := by
+  obtain ⟨d, hd, M, hM, h⟩ := enstrophy_uniform_barrier hc hC hK hF
+  refine ⟨d, hd, M, hM, ?_⟩
+  intro a S Y Z hS hSd hY hdY hn hinit hnZ hiZ hineq
+  have hbound := h a S Y Z hSd hY hdY hn hinit hnZ hineq
+  refine ⟨hbound, ?_⟩
+  simpa only [add_sub_cancel_left] using enstrophy_integrated_of_bound hc hC.le
+    (by linarith : a ≤ a+S) hY hdY hiZ hinit (hn _ ⟨by linarith, le_rfl⟩)
+    (fun t ht => hbound t (Ioo_subset_Icc_self ht)) hineq
+
 end NSFormalization.Section4.A04
