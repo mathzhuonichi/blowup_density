@@ -87,4 +87,14 @@ theorem continuousOn_sobolevEnergy {ν T : ℝ} {a : SpatialField} {f : SpaceTim
       (Ico (0 : ℝ) T) :=
   (continuousOn_sobolevNormAt_velocity w m).pow 2
 
+/-- The H¹ energy is differentiable at every strictly interior time. -/
+theorem differentiableAt_hOneEnergy {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionR ν a f T) (hf : MemForceR f)
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) :
+    DifferentiableAt ℝ
+      (fun q => (sobolevENorm 1 (C01.slice w.velocity q)).toReal ^ 2) t := by
+  apply (inhomogeneousEnergyIdentity w hf ht).differentiableAt.congr_of_eventuallyEq
+  filter_upwards [isOpen_Ioo.mem_nhds ht] with q hq
+  exact sobolevEnergy_one_smooth (velocitySliceField w (Ioo_subset_Ico_self hq))
+
 end NSFormalization.Section4.A04
