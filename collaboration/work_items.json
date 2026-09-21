@@ -1,0 +1,454 @@
+{
+  "schema_version": 1,
+  "collaborators": [
+    "mathzhuonichi",
+    "erenup"
+  ],
+  "items": [
+    {
+      "id": "U01",
+      "kind": "reference",
+      "state": "reference-available",
+      "owner": null,
+      "contracts": [],
+      "deliverable": "Record exact declaration types, revisions, and applicability differences; source availability is not a new build certificate."
+    },
+    {
+      "id": "U04",
+      "kind": "reference",
+      "state": "reference-available",
+      "owner": null,
+      "contracts": [],
+      "deliverable": "Record exact declaration types, revisions, and applicability differences; source availability is not a new build certificate."
+    },
+    {
+      "id": "U05",
+      "kind": "compatibility",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [],
+      "deliverable": "Check a minimal upstream import closure under the chosen pinned toolchain; report compatibility or exact failures. Do not mass-upgrade both dependency trees."
+    },
+    {
+      "id": "U02",
+      "kind": "reference",
+      "state": "reference-available",
+      "owner": null,
+      "contracts": [],
+      "deliverable": "Record exact declaration types, revisions, and applicability differences; source availability is not a new build certificate."
+    },
+    {
+      "id": "U03",
+      "kind": "reference",
+      "state": "reference-available",
+      "owner": null,
+      "contracts": [],
+      "deliverable": "Record exact declaration types, revisions, and applicability differences; source availability is not a new build certificate."
+    },
+    {
+      "id": "D01",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "A01",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "A01.regularity_partial",
+        "A01.local_theory_v2"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "A02",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "A02.uniqueness",
+        "A02.maximal_partial",
+        "A02.maximal_partial_v2"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "A03",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "A03.bounded_representative",
+        "A03.tame_products"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "A04",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "A04.energy_high_partial",
+        "A04.energy_high_partial_v2",
+        "A04.continuation_v2"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "A05",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "A05.gradient_l6",
+        "A05.gradient_l6_v2"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "I01",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "I01.packet"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "I02",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "I02.correction",
+        "I02.correction_v2"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "I03",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "I03.scaling"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "R42",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "R42.insertion_family",
+        "R42.insertion_lifespan",
+        "R42.insertion_lifespan_v2"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "R41D",
+      "kind": "specification",
+      "state": "needs-specification",
+      "owner": null,
+      "contracts": [],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "C01",
+      "kind": "assembly",
+      "state": "in-review",
+      "owner": "erenup",
+      "contracts": [
+        "C01.energy_absorption_partial",
+        "C01.energy_absorption_partial_v2",
+        "C01.energy_absorption_partial_v3",
+        "C01.energy_absorption_v4"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "R43",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "R43.critical_regularity"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "R44",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "R44.critical_finite_horizon"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "R41",
+      "kind": "specification",
+      "state": "needs-specification",
+      "owner": null,
+      "contracts": [
+        "R41.threshold_arithmetic",
+        "R41.main_thresholds"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "R45",
+      "kind": "specification",
+      "state": "needs-specification",
+      "owner": null,
+      "contracts": [
+        "R45.force_classes"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "B01",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "B01.bochner_partial"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "B02",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "B02.homogeneous_partial",
+        "B02.homogeneous_partial_v2"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "R46",
+      "kind": "specification",
+      "state": "needs-specification",
+      "owner": null,
+      "contracts": [
+        "R46.completed_density"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "G01",
+      "kind": "specification",
+      "state": "needs-specification",
+      "owner": null,
+      "contracts": [],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "R47",
+      "kind": "specification",
+      "state": "needs-specification",
+      "owner": null,
+      "contracts": [
+        "R47.grid_observations"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "T01",
+      "kind": "specification",
+      "state": "deferred",
+      "owner": null,
+      "contracts": [],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "T02",
+      "kind": "specification",
+      "state": "deferred",
+      "owner": null,
+      "contracts": [],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "T03",
+      "kind": "specification",
+      "state": "deferred",
+      "owner": null,
+      "contracts": [],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "T04",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T04.conservative_forcing"
+      ],
+      "deliverable": "Submit a concrete versioned Lean contract matching the manuscript, plus a source-to-target comparison and a bounded implementation split. Do not begin bulk proof filling before specification review."
+    },
+    {
+      "id": "T10",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T01.torus_data"
+      ],
+      "deliverable": "Reconcile research/T10/Spec.lean from the lane 263/264 drafts, review its comparison, and register the accepted versioned contract under parent task T01 with its typed binding and axiom test."
+    },
+    {
+      "id": "T11",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T01.torus_local_theory"
+      ],
+      "deliverable": "Reconcile research/T11/Spec.lean against prop:local and the periodic local-theory sources, then register the accepted versioned contract under parent task T01 with its typed binding and axiom test."
+    },
+    {
+      "id": "T12",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T01.mean_zero_calculus"
+      ],
+      "deliverable": "Reconcile research/T12/Spec.lean against the mean-zero calculus and critical-embedding targets, then register the accepted versioned contract under parent task T01 with its typed binding and axiom test."
+    },
+    {
+      "id": "T13",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T02.localization"
+      ],
+      "deliverable": "Reconcile research/T13/Spec.lean and its comparison using research/T13/RECONCILIATION.md, then register the accepted versioned lem:localization contract under parent task T02 with its typed binding and axiom test."
+    },
+    {
+      "id": "T14",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T01.packet_import"
+      ],
+      "deliverable": "Reconcile research/T14/Spec.lean against thm:packet and lem:packetenergy, then register the accepted versioned contract components under parent tasks T01/T02 as applicable with typed bindings and axiom tests."
+    },
+    {
+      "id": "T15",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T02.scaling"
+      ],
+      "deliverable": "Reconcile research/T15/Spec.lean against prop:scaling and the endpoint-rate sources, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
+    },
+    {
+      "id": "T16",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T02.local_potential"
+      ],
+      "deliverable": "Reconcile research/T16/Spec.lean against lem:potential and the local-cutoff sources, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
+    },
+    {
+      "id": "T17",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T02.correction"
+      ],
+      "deliverable": "Reconcile research/T17/Spec.lean against lem:correction and its uniform endpoint bounds, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
+    },
+    {
+      "id": "T18",
+      "kind": "specification",
+      "state": "in-review",
+      "owner": "erenup",
+      "contracts": [
+        "T03.periodic_insertion"
+      ],
+      "deliverable": "Reconcile research/T18/Spec.lean against thm:insertion and all simultaneous bounds, then register the accepted versioned contract under parent task T02 with its typed binding and axiom test."
+    },
+    {
+      "id": "T19",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T03.density"
+      ],
+      "deliverable": "Reconcile research/T19/Spec.lean against the subcritical density package, then register the accepted versioned contract under parent task T03 with its typed binding and axiom test."
+    },
+    {
+      "id": "T20",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T03.critical_regularity"
+      ],
+      "deliverable": "Reconcile research/T20/Spec.lean against prop:critical and the CriticalRegularityCertificate target, then register the accepted versioned contract under parent task T03 with its typed binding and axiom test."
+    },
+    {
+      "id": "T21",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T03.non_density",
+        "T03.main"
+      ],
+      "deliverable": "Reconcile research/T21/Spec.lean against cor:nondensity and both clauses of thm:main, then register the accepted versioned contract under parent task T03 with its typed binding and axiom test."
+    },
+    {
+      "id": "T22",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T04.bounded_domain_norm"
+      ],
+      "deliverable": "Reconcile research/T22/Spec.lean against eq:restriction-norm and eq:zero-extension, then register the accepted versioned contract under parent task T04 with its typed binding and axiom test."
+    },
+    {
+      "id": "T23",
+      "kind": "specification",
+      "state": "ready",
+      "owner": null,
+      "contracts": [
+        "T04.boundary_insertion"
+      ],
+      "deliverable": "Reconcile research/T23/Spec.lean against cor:boundary and its no-slip uniqueness requirements, then register the accepted versioned contract under parent task T04 with its typed binding and axiom test."
+    },
+    {
+      "id": "T24",
+      "kind": "specification",
+      "state": "in-progress",
+      "owner": "erenup",
+      "contracts": [
+        "T04.affine_variation",
+        "T04.multiple_regions"
+      ],
+      "deliverable": "Reconcile research/T24/Spec.lean against prop:affine, prop:multiple and prop:conservative, then register the accepted versioned leaf contracts under parent task T04 with typed bindings and axiom tests."
+    }
+  ]
+}

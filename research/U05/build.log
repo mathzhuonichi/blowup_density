@@ -1,0 +1,408 @@
+BUILD START 2026-09-13 00:24:25-0400
+warning: manifest out of date: git revision of dependency 'mathlib' changed; use `lake update mathlib` to update it
+⚠ [8763/8850] Replayed Formal.R3LerayFrequencySymbol
+warning: Formal/R3LerayFrequencySymbol.lean:43:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [8765/8850] Replayed Formal.R3StokesL2Operator
+warning: Formal/R3StokesL2Operator.lean:111:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [8773/8850] Replayed Formal.FlowMapNonextendibilityCriterion
+warning: Formal/FlowMapNonextendibilityCriterion.lean:40:16: Variable name `ht0` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ht0
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/FlowMapNonextendibilityCriterion.lean:40:30: Variable name `htT` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _htT
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/FlowMapNonextendibilityCriterion.lean:43:16: Variable name `ht0` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ht0
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/FlowMapNonextendibilityCriterion.lean:43:30: Variable name `htT` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _htT
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8774/8850] Replayed Formal.UniformRestartContinuation
+warning: Formal/UniformRestartContinuation.lean:36:16: Variable name `ht0` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ht0
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/UniformRestartContinuation.lean:36:30: Variable name `htT` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _htT
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/UniformRestartContinuation.lean:39:16: Variable name `ht0` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ht0
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/UniformRestartContinuation.lean:39:30: Variable name `htT` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _htT
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/UniformRestartContinuation.lean:95:0: Definition `FlowMapUniformRestartPackage.toContinuationPackage` is a proposition; use `theorem` instead of `def`
+
+Note: This linter can be disabled with `set_option linter.defProp false`
+⚠ [8775/8850] Replayed Formal.R3SobolevCarrier
+warning: Formal/R3SobolevCarrier.lean:80:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+✔ [8776/8850] Built Formal.EndpointSafeTwoSpaceDuhamel (2.3s)
+⚠ [8777/8850] Built Formal.R3CoordinateLinearAux (2.9s)
+warning: Formal/R3CoordinateLinearAux.lean:10:11: Variable name `x` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _x
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/R3CoordinateLinearAux.lean:10:13: Variable name `y` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _y
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/R3CoordinateLinearAux.lean:11:12: Variable name `c` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _c
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/R3CoordinateLinearAux.lean:11:14: Variable name `x` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _x
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [8778/8850] Built Formal.R3SolenoidalSobolevCarrier (3.2s)
+⚠ [8779/8850] Built Formal.R3L2ScalarAux (3.8s)
+warning: Formal/R3L2ScalarAux.lean:26:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [8780/8850] Built Formal.EndpointSafeTwoSpacePicard (3.6s)
+warning: Formal/EndpointSafeTwoSpacePicard.lean:126:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/EndpointSafeTwoSpacePicard.lean:627:18: `continuousOn_iff_continuous_restrict` has been deprecated: Use `continuousOn_iff_continuous_domRestrict` instead
+warning: Formal/EndpointSafeTwoSpacePicard.lean:766:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/EndpointSafeTwoSpacePicard.lean:768:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/EndpointSafeTwoSpacePicard.lean:839:21: `continuousOn_iff_continuous_restrict` has been deprecated: Use `continuousOn_iff_continuous_domRestrict` instead
+✔ [8781/8850] Built Formal.R3ConjugationReflection (4.7s)
+✔ [8782/8850] Built Formal.R3NormalizedFrequencyLpTop (2.5s)
+⚠ [8783/8850] Built Formal.R3DivergencePointwise (2.5s)
+warning: Formal/R3DivergencePointwise.lean:25:19: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8784/8850] Built Formal.R3L2CoordinateAux (2.5s)
+✔ [8785/8850] Built Formal.R3FourierConjugationBridge (5.4s)
+✔ [8786/8850] Built Formal.R3NormalizedDivergenceTerm (2.5s)
+✔ [8787/8850] Built Formal.R3NormalizedDivergenceFrequency (2.5s)
+✔ [8788/8850] Built Formal.R3ClosedSolenoidalCarrier (2.4s)
+✔ [8789/8850] Built Formal.R3SolenoidalCarrierCompleteness (2.5s)
+✔ [8790/8850] Built Formal.R3CoordinateIncompressibility (4.1s)
+✔ [8791/8850] Built Formal.R3StokesDivergenceCommutation (2.5s)
+⚠ [8792/8850] Built Formal.R3LerayL2Operator (2.8s)
+warning: Formal/R3LerayL2Operator.lean:34:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: Formal/R3LerayL2Operator.lean:61:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+✔ [8793/8850] Built Formal.R3StokesSolenoidalPreservation (3.2s)
+✔ [8794/8850] Built Formal.R3ClassicalIncompressibility (4.5s)
+⚠ [8795/8850] Built Formal.R3LerayFourierBridge (3.8s)
+warning: Formal/R3LerayFourierBridge.lean:73:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+✔ [8796/8850] Built Formal.R3SchwartzConvection (3.9s)
+⚠ [8797/8850] Built Formal.R3LerayComplexFiberSymbol (2.8s)
+warning: Formal/R3LerayComplexFiberSymbol.lean:42:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+✔ [8798/8850] Built Formal.R3SchwartzProductConvolution (3.2s)
+✔ [8799/8850] Built Formal.R3SchwartzSobolevCore (3.5s)
+✔ [8800/8850] Built Formal.R3LerayComplexDivergenceBridge (2.6s)
+✔ [8801/8850] Built Formal.R3SchwartzSobolevDensity (2.8s)
+✔ [8802/8850] Built Formal.R3SchwartzConvectionSobolevReduction (2.9s)
+✔ [8803/8850] Built Formal.R3SchwartzSobolevMonotonicity (2.9s)
+✔ [8804/8850] Built Formal.R3LerayPointwiseL2 (2.7s)
+✔ [8805/8850] Built Formal.R3H2BesselWeightGeometry (2.5s)
+✔ [8806/8850] Built Formal.R3LerayPointwiseProjectionIdentification (2.9s)
+✔ [8807/8850] Built Formal.R3H2WeightedConvolutionKernel (2.6s)
+✔ [8808/8850] Built Formal.R3H2AdditiveConvolutionWeight (2.7s)
+✔ [8809/8850] Built Formal.R3YoungL1L2Bochner (2.0s)
+✔ [8810/8850] Built Formal.R3H2YoungWeightedBridge (2.9s)
+⚠ [8811/8850] Built Formal.R3YoungRealL1L2Bochner (3.0s)
+warning: Formal/R3YoungRealL1L2Bochner.lean:71:18: Variable name `hf` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hf
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Formal/R3YoungRealL1L2Bochner.lean:71:38: Variable name `hfi` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hfi
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [8812/8850] Built Formal.R3H2FourierL1Bound (4.5s)
+✔ [8813/8850] Built Formal.R3SchwartzConvectionH2FrequencyMajorant (4.7s)
+⚠ [8814/8850] Built Formal.R3YoungRealSetIntegralBridge (4.5s)
+warning: Formal/R3YoungRealSetIntegralBridge.lean:92:68: `MeasureTheory.Measure.QuasiMeasurePreserving.ae_eq` has been deprecated: Use `MeasureTheory.Measure.QuasiMeasurePreserving.ae_eq_comp` instead
+warning: Formal/R3YoungRealSetIntegralBridge.lean:115:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/R3YoungRealSetIntegralBridge.lean:106:18: Variable name `hs` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hs
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [8815/8850] Built Formal.R3SchwartzNormFieldL2 (4.0s)
+✔ [8816/8850] Built Formal.R3YoungRealConvolutionCommutativity (3.7s)
+✔ [8817/8850] Built Formal.R3H2VelocityFourierL1Bound (4.0s)
+✔ [8818/8850] Built Formal.R3SchwartzConvectionScalarMajorants (4.2s)
+⚠ [8819/8850] Built Formal.R3H2LerayBridge (5.8s)
+warning: Formal/R3H2LerayBridge.lean:138:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [8820/8850] Built Formal.R3H2CoordinateFourierBounds (2.0s)
+✔ [8821/8850] Built Formal.R3SchwartzMajorantYoungRepresentative (2.7s)
+✔ [8822/8850] Built Formal.R3H3DerivativeWeightGeometry (2.6s)
+✔ [8823/8850] Built Formal.R3SchwartzScalarMajorantL2 (2.6s)
+⚠ [8824/8850] Built Formal.R3StokesH2H3Smoothing (4.4s)
+warning: Formal/R3StokesH2H3Smoothing.lean:143:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/R3StokesH2H3Smoothing.lean:282:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [8825/8850] Built Formal.R3SchwartzConvectionH2L2Majorant (2.0s)
+✔ [8826/8850] Built Formal.R3SchwartzDerivativeFrequencyBound (3.1s)
+✔ [8827/8850] Built Formal.R3DecoderFrequencyBridge (3.5s)
+✔ [8828/8850] Built Formal.R3SchwartzDerivativeH3LpBounds (3.4s)
+✔ [8829/8850] Built Formal.R3InversionConsistency (4.2s)
+✔ [8830/8850] Built Formal.R3StokesH3Evolution (7.9s)
+✔ [8831/8850] Built Formal.R3SchwartzConvectionH3Closure (4.6s)
+✔ [8832/8850] Built Formal.R3StokesConjugationEquivariance (4.5s)
+✔ [8833/8850] Built Formal.R3SchwartzConvectionSobolevEstimate (4.1s)
+✔ [8834/8850] Built Formal.R3LerayConjugationEquivariance (4.1s)
+✔ [8835/8850] Built Formal.R3HelmholtzPressure (9.5s)
+⚠ [8836/8850] Built Formal.R3SobolevConvectionExtension (7.6s)
+warning: Formal/R3SobolevConvectionExtension.lean:104:6: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: Formal/R3SobolevConvectionExtension.lean:120:6: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+✔ [8837/8850] Built Formal.R3ProjectedSobolevConvection (3.0s)
+✔ [8838/8850] Built Formal.R3EndpointSafeProjectedDuhamel (4.1s)
+✔ [8839/8850] Built Formal.R3EndpointSafeProjectedLocalExistence (4.1s)
+⚠ [8840/8850] Built Formal.R3ConvectionSourceIdentification (8.3s)
+warning: Formal/R3ConvectionSourceIdentification.lean:389:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/R3ConvectionSourceIdentification.lean:494:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/R3ConvectionSourceIdentification.lean:567:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/R3ConvectionSourceIdentification.lean:575:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [8841/8850] Built Formal.EndpointSafeTwoSpaceRestart (4.6s)
+⚠ [8842/8850] Built Formal.EndpointSafeTwoSpaceConcatenation (3.0s)
+warning: Formal/EndpointSafeTwoSpaceConcatenation.lean:49:18: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: Formal/EndpointSafeTwoSpaceConcatenation.lean:54:25: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: Formal/EndpointSafeTwoSpaceConcatenation.lean:55:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: Formal/EndpointSafeTwoSpaceConcatenation.lean:74:17: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: Formal/EndpointSafeTwoSpaceConcatenation.lean:75:12: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: Formal/EndpointSafeTwoSpaceConcatenation.lean:78:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+✔ [8843/8850] Built Formal.R3ConvectionConjugationEquivariance (14s)
+⚠ [8844/8850] Built Formal.R3ProjectedMomentumDuhamelInfrastructure (6.9s)
+warning: Formal/R3ProjectedMomentumDuhamelInfrastructure.lean:196:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/R3ProjectedMomentumDuhamelInfrastructure.lean:207:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/R3ProjectedMomentumDuhamelInfrastructure.lean:658:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Formal/R3ProjectedMomentumDuhamelInfrastructure.lean:673:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: Formal/R3ProjectedMomentumDuhamelInfrastructure.lean:675:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+✖ [8845/8850] Building Formal.R3RealLocalMildSolution (3.9s)
+trace: .> LEAN_PATH=/data_8T/ping/blowup_density/verification/.lake/packages/Cli/.lake/build/lib/lean:/data_8T/ping/blowup_density/verification/.lake/packages/batteries/.lake/build/lib/lean:/data_8T/ping/blowup_density/verification/.lake/packages/Qq/.lake/build/lib/lean:/data_8T/ping/blowup_density/verification/.lake/packages/aesop/.lake/build/lib/lean:/data_8T/ping/blowup_density/verification/.lake/packages/proofwidgets/.lake/build/lib/lean:/data_8T/ping/blowup_density/verification/.lake/packages/importGraph/.lake/build/lib/lean:/data_8T/ping/blowup_density/verification/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/data_8T/ping/blowup_density/verification/.lake/packages/plausible/.lake/build/lib/lean:/data_8T/ping/blowup_density/verification/.lake/packages/mathlib/.lake/build/lib/lean:/data_8T/ping/blowup_density/.claude/worktrees/004-U05-toolchain-probe/research/U05/probe/.lake/build/lib/lean /data_8T/ping/blowup_density/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lean /data_8T/ping/blowup_density/.claude/worktrees/004-U05-toolchain-probe/research/U05/probe/Formal/R3RealLocalMildSolution.lean -o /data_8T/ping/blowup_density/.claude/worktrees/004-U05-toolchain-probe/research/U05/probe/.lake/build/lib/lean/Formal/R3RealLocalMildSolution.olean -i /data_8T/ping/blowup_density/.claude/worktrees/004-U05-toolchain-probe/research/U05/probe/.lake/build/lib/lean/Formal/R3RealLocalMildSolution.ilean -c /data_8T/ping/blowup_density/.claude/worktrees/004-U05-toolchain-probe/research/U05/probe/.lake/build/ir/Formal/R3RealLocalMildSolution.c --setup /data_8T/ping/blowup_density/.claude/worktrees/004-U05-toolchain-probe/research/U05/probe/.lake/build/ir/Formal/R3RealLocalMildSolution.setup.json --json
+error: Formal/R3RealLocalMildSolution.lean:76:16: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  r3L2Conj ((r3StokesH3Evolution ?hnu ?t) ?g)
+in the target expression
+  r3L2Conj ((r3StokesH3Evolution ⋯ ⟨t, ⋯⟩) u0) -
+      r3L2Conj (∫ (s : ℝ) in 0..t, r3EndpointSafeProjectedDuhamelIntegrand hnu t u s) =
+    (r3StokesH3Evolution ⋯ ⟨t, ⋯⟩) u0 - ∫ (s : ℝ) in 0..t, r3L2Conj (r3EndpointSafeProjectedDuhamelIntegrand hnu t u s)
+
+nu T : ℝ
+hnu : 0 < nu
+u0 : ↥(R3HsVelocity 3)
+u : ℝ → ↥(R3HsVelocity 3)
+hu0 : IsR3RealVelocity u0
+hu0' : r3L2Conj u0 = u0
+hT0 : 0 ≤ T
+hucont : ContinuousOn u (Icc 0 T)
+hu0eq : u 0 = u0
+humild : ∀ (t : ℝ) (ht : t ∈ Icc 0 T), (r3EndpointSafeProjectedDuhamelContract hnu).IsMildAt ⟨t, ⋯⟩ u0 u
+t : ℝ
+ht : t ∈ Icc 0 T
+hvcont : ContinuousOn (fun τ => r3L2Conj (u τ)) (Icc 0 t)
+hint_u : IntervalIntegrable (r3EndpointSafeProjectedDuhamelIntegrand hnu t u) volume 0 t
+heq_u : u t = (r3StokesH3Evolution ⋯ ⟨t, ⋯⟩) u0 - ∫ (s : ℝ) in 0..t, r3EndpointSafeProjectedDuhamelIntegrand hnu t u s
+hpt :
+  ∀ (s : ℝ),
+    r3EndpointSafeProjectedDuhamelIntegrand hnu t (fun τ => r3L2Conj (u τ)) s =
+      r3L2Conj (r3EndpointSafeProjectedDuhamelIntegrand hnu t u s)
+⊢ r3L2Conj ((r3StokesH3Evolution ⋯ ⟨t, ⋯⟩) u0) -
+      r3L2Conj (∫ (s : ℝ) in 0..t, r3EndpointSafeProjectedDuhamelIntegrand hnu t u s) =
+    (r3StokesH3Evolution ⋯ ⟨t, ⋯⟩) u0 - ∫ (s : ℝ) in 0..t, r3L2Conj (r3EndpointSafeProjectedDuhamelIntegrand hnu t u s)
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    ht
+  has type
+    t ∈ Icc 0 T
+  but is expected to have type
+    0 ≤ t ∧ t ≤ T
+  in the application
+    ht.left
+✔ [8849/8850] Built Formal.R3ProjectedMomentumEquation (7.0s)
+✔ [8850/8850] Built Formal.R3NavierStokesEquation (5.2s)
+Some required targets logged failures:
+- Formal.R3RealLocalMildSolution
+error: build failed
+Command exited with non-zero status 1
+	Command being timed: "timeout 2700 lake build --no-ansi Formal.R3EndpointSafeProjectedLocalExistence Formal.R3MildContinuation Formal.R3NavierStokesEquation Formal.R3HelmholtzPressure"
+	User time (seconds): 319.90
+	System time (seconds): 80.71
+	Percent of CPU this job got: 353%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:53.36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6962680
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 439
+	Minor (reclaiming a frame) page faults: 13874753
+	Voluntary context switches: 305512
+	Involuntary context switches: 14482
+	Swaps: 0
+	File system inputs: 8944
+	File system outputs: 952912
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1
+LAKE_EXIT=1
+BUILD END 2026-09-13 00:26:18-0400
