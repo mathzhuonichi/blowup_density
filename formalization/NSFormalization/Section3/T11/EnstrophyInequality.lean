@@ -189,7 +189,30 @@ theorem gradient_six_le_laplacian_twoT (z : SpatialField) (hz : SmoothPeriodicT 
     T20.laplacian_sub_const z (meanT z)] at h
   exact h
 
+/-- Interpolation stage before the velocity Sobolev embedding. The velocity
+L⁶ factor is still explicit; this is not yet the H¹/H² convection estimate. -/
+theorem convection_interpolationT (z : SpatialField) (hz : SmoothPeriodicT z) :
+    ENNReal.ofReal |∫ y : PeriodicTorus,
+      torusLift (fun x ↦ (inner ℝ (advection (lift z) 0 x) (laplacian z x) : ℝ)) y
+        ∂periodicTorusMeasure| ≤
+      periodicLpENorm 6 z *
+        ((periodicLpENorm 2 (gradientTensor z)) ^ (1 / 2 : ℝ) *
+          (ENNReal.ofReal Csix * periodicLpENorm 2 (laplacian z)) ^ (1 / 2 : ℝ)) *
+        periodicLpENorm 2 (laplacian z) := by
+  have hg := eLpNorm_three_interpolationT (torusLift (gradientTensor z))
+    (T20.aestronglyMeasurable_torusLiftH1 (T20.continuous_gradientTensorH1 hz.1))
+  have hg' : periodicLpENorm 3 (gradientTensor z) ≤
+      (periodicLpENorm 2 (gradientTensor z)) ^ (1 / 2 : ℝ) *
+        (ENNReal.ofReal Csix * periodicLpENorm 2 (laplacian z)) ^ (1 / 2 : ℝ) :=
+    hg.trans (mul_le_mul' le_rfl
+      (ENNReal.rpow_le_rpow (gradient_six_le_laplacian_twoT z hz) (by norm_num)))
+  rw [← Real.enorm_eq_ofReal_abs]
+  exact ((enorm_integral_le_lintegral_enorm _).trans
+    (lintegral_convection_holder_632T z hz)).trans
+      (mul_le_mul' (mul_le_mul' le_rfl hg') le_rfl)
+
 end NSFormalization.Section3.T11
+
 
 
 

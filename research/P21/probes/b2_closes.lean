@@ -7,3 +7,4 @@ import NSFormalization.Section3.T11.EnstrophyInequality
 #check NSFormalization.Section3.T11.young_two_factorsT
 #check NSFormalization.Section3.T11.weighted_cubic_assemblyT
 #check NSFormalization.Section3.T11.gradient_six_le_laplacian_twoT
+#check NSFormalization.Section3.T11.convection_interpolationT
