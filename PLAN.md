@@ -58,7 +58,7 @@
 | 507-P21-B4-restart-r3 | 审稿 ACCEPT（无修改）；分支含 503/506，待其审稿结论后按序合入 | 09-21 0532Z | — | P6 B4（ℝ³）：B0↔B1 对账（紧支撑→MemHInfty 桥）、时间正则性、力上界、B3 屏障、极大寿命反证 → h1RestartR |
 | 508-P21-B4-restart-torus | astra 完成：B4-𝕋³ 闭合（H1Restart 23 定理，h1RestartT；力类不匹配真解决）→ 审稿 rev-508（sol） | 09-21 0539Z | — | P6 B4（𝕋³）：B0↔B2 对账、时间正则性、力上界、B3 屏障、extendsBeyondH3 反证 → h1RestartT；两条路线（固定力 sup 上界 / L¹ 强迫屏障） |
 | 510-P21-B5-continuation-v3 | 审稿 ACCEPT（无修改）；分支含 507/503/506，待其合入后按序合入 | 09-21 0601Z | — | P6 B5（ℝ³ 半）：端点定理 restartBeyondH1（h1UniformEndpointR）+ Contracts/V3/Continuation 注册（A04.continuation_v3）；不动蓝图状态 |
-| 511-P21-B5-torus-closure | sol 完成：restartBeyondH1T + Contracts/V2/TorusLocalTheory（T01.torus_local_theory_v2，36 合同）+ L21_H1 → Closed（41/41 节点、27/27 条目、0 Partial）+ guide/README/RESULT_MAP/partial=set() → 审稿 rev-511 | 09-21 0601Z | — | P6 B5（𝕋³ 半 + 收尾）：restartBeyondH1T、Contracts/V2/TorusLocalTheory 注册（T01.torus_local_theory_v2，36 合同）、L21_H1 → Closed、RESULT_MAP/guide/README/partial=set() |
+| 511-P21-B5-torus-closure | 审稿 ACCEPT（无修改）；待 503/507/508/510 合入后最后合入 | 09-21 0615Z | — | P6 B5（𝕋³ 半 + 收尾）：restartBeyondH1T、Contracts/V2/TorusLocalTheory 注册（T01.torus_local_theory_v2，36 合同）、L21_H1 → Closed、RESULT_MAP/guide/README/partial=set() |
 | 499-P21-P6-h1-assessment | 已合入 #457（评估：建议先留 Partial；若做，走 Route B 光滑数据 H¹ restart + 现有续接，L–XL） | 09-21 0400Z | #457 | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
 
 下一号 **512**（511 预留给 B5-𝕋³ + L21_H1 关闭）。
