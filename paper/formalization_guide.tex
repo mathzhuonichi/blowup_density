@@ -35,7 +35,7 @@ make check
 make test
 make test-mutations
 \end{verbatim}
-The suite checks 29 current publication interfaces. The separate declaration
+The suite checks 30 current publication interfaces. The separate declaration
 audit checks the transitive axioms of the results cited in this guide.
 For macOS 27, use a Linux VM because of the pinned runtime's allocator issue.
 The repository README gives the build details.
@@ -79,43 +79,59 @@ and \emph{packet} where the article uses \emph{gluing} and \emph{building block}
 Construction and same-force global nonexistence for every positive viscosity,
 with blowup time fixed at one. \\
 \mapped{Proposition}{prop:local} &
-\coverage{Partial}\source{B/LocalTheoryV2}{93}{localTheoryV2}{def};
+\coverage{Closed}\source{B/LocalTheoryV2}{93}{localTheoryV2}{def};
 \source{F/Section4/A02/Uniqueness}{120}{velocity_unique}{theorem};
 \source{F/Section4/A02/Maximal}{157}{exists_maximal_of_localSolution}{theorem};
 \source{F/Section4/A04/ShiftedExtension}{247}{extendsBeyond_of_memForceR'}{theorem};
-\source{B/TorusLocalTheory}{483}{torusLocalTheory}{def}.
-Proved for the density force classes, with $H^7/H^3$ restart.
-The general $H^1$-uniform restart statements are not proved
-(Section~\ref{guide:methods}). \\
+\source{B/TorusLocalTheory}{483}{torusLocalTheory}{def};
+\source{B/ContinuationV3}{29}{continuationV3_holds}{theorem};
+\source{B/TorusLocalTheoryV2}{48}{torusLocalTheoryV2_holds}{theorem};
+\source{F/Section4/A04/H1Restart}{261}{h1RestartR}{theorem};
+\source{F/Section3/T11/H1Restart}{576}{h1RestartT}{theorem}.
+Proved for the used density force classes, including the fixed-force
+$H^1$-uniform restart and endpoint clauses on both domains. \\
 \mapped{Lemma}{lem:packetenergy} & \coverage{Closed}\source{F/Section3/T14/PacketEnergy}{160}{energy_le_work_of_packet}{theorem}; \source{F/Section3/T14/PacketEnergy}{106}{work_eq_square_of_packet}{theorem}; \source{F/Section4/I01/Quiet}{53}{exists_packet_quiet}{theorem}. \\
 \mapped{Theorem}{thm:main} & \coverage{Closed}\source{F/Section3/T21/MainAssembly}{84}{mainStatement_holds}{theorem}. \\
 \mapped{Lemma}{lem:localization} & \coverage{Closed}\source{F/Section3/T13/Assembly}{330}{localizationAPI}{theorem}. Includes the interior-order estimate and the two endpoint identities. \\
 \mapped{Proposition}{prop:scaling} & \coverage{Closed}\source{F/Section3/T15/Assembly}{130}{scalingStatement_holds}{theorem}. \\
 \mapped{Lemma}{lem:potential} & \coverage{Closed}\source{F/Section3/T16/Assembly}{483}{localPotential}{theorem}. \\
-\mapped{Lemma}{lem:correction} & \coverage{Partial}\source{F/Section3/T17/Assembly}{107}{correctionStatementAmended_holds}{theorem}.
-The formal statement includes explicit smoothness, chart and positive-viscosity
-hypotheses. These are supplied in the downstream gluing theorem. \\
-\mapped{Theorem}{thm:insertion} & \coverage{Partial}\source{F/Section3/T18/Assembly}{238}{periodicInsertionStatement_holds}{theorem};
-\source{F/Section3/T19/Threading}{126}{insertion}{def}.
-The generic assembly takes scaling and correction records. The construction
-from raw data uses a fixed ball; the prescribed-ball version is not yet closed. \\
+\mapped{Lemma}{lem:correction} & \coverage{Closed}\source{F/Section3/T17/ArticleScope}{44}{correctionStatementArticle_holds}{theorem};
+\source{F/Section3/T17/ArticleScope}{70}{article_force_identification}{theorem};
+\source{F/Section3/T17/ArticleScope}{119}{article_correction_derivative_bound}{theorem};
+\source{F/Section3/T17/ArticleScope}{129}{article_force_derivative_bound}{theorem};
+\source{F/Section3/T17/ArticleScope}{103}{article_force_spatial_volume}{theorem};
+\source{F/Section3/T17/ArticleScope}{111}{article_force_time_length}{theorem};
+\source{F/Section3/T17/ArticleScope}{140}{article_correction_energy_bound}{theorem};
+\source{F/Section3/T17/ArticleScope}{155}{article_force_mixed_bound}{theorem};
+\source{F/Section3/T17/ArticleScope}{173}{article_force_sobolev_bound}{theorem}.
+Classical reference, building-block placement and the Lemma 3.4 ball; zero extension agrees on the classical slab and preserves every displayed bound. \\
+\mapped{Theorem}{thm:insertion} & \coverage{Closed}\source{F/Section3/T19/FromData}{20}{periodicInsertion_from_data}{theorem};
+\source{B/PeriodicInsertionV2}{10}{periodicInsertionStatementV2_holds}{theorem}.
+From raw data for every prescribed coordinate ball with closure in the cube interior;
+all four clauses, including shrinking support in that chart, hold simultaneously. \\
 \mapped{Proposition}{prop:density} & \coverage{Closed}\source{F/Section3/T19/Assembly}{43}{periodicDensityStatement_holds}{theorem}. \\
 \mapped{Proposition}{prop:critical} & \coverage{Closed}\source{F/Section3/T20/Assembly}{53}{criticalRegularityStatement_holds}{theorem}. \\
 \mapped{Corollary}{cor:nondensity} & \coverage{Closed}\source{F/Section3/T21/MainAssembly}{80}{nonDensityStatement_unconditional}{theorem}. \\
 \mapped{Corollary}{cor:mixed} & \coverage{Closed}\source{F/Section3/T19/Assembly}{47}{mixedRegionStatement_holds}{theorem}. \\
 \mapped{Corollary}{cor:closure} & \coverage{Closed}\source{F/Section3/T19/Assembly}{51}{strongClosureStatement_holds}{theorem}. \\
 \mapped{Proposition}{prop:projection} & \coverage{Closed}\source{F/Section3/T19/Assembly}{55}{projectionStatement_holds}{theorem}. \\
-\mapped{Remark}{rem:peaks} & \coverage{Partial}No separately registered conclusion for divergence
-of the force amplitudes. Related estimates: \source{F/Section3/T15/Assembly}{130}{scalingStatement_holds}{theorem}
-and \source{F/Section3/T17/Assembly}{107}{correctionStatementAmended_holds}{theorem}. \\
+\mapped{Remark}{rem:peaks} & \coverage{Closed}\source{F/Section3/T18/ForceAmplitude}{24}{packetForce_ne_zero}{theorem};
+\source{F/Section3/T18/ForceAmplitude}{240}{forceAmplitude_lower}{theorem};
+\source{F/Section3/T18/ForceAmplitude}{288}{forceAmplitude_diverges}{theorem};
+\source{F/Section3/T18/ForceAmplitude}{332}{forceAmplitude_real_diverges}{theorem};
+\source{B/ForceAmplitude}{40}{forceAmplitude_from_data}{theorem}.
+The positive finite packet amplitude gives the displayed lower bound and divergence for every inserted family. \\
 \mapped{Corollary}{cor:boundary} & \coverage{Closed}\source{B/BoundaryInsertionV2}{27}{boundaryInsertion_from_data}{theorem};
 \source{F/Section3/T22/Assembly}{25}{boundedDomainNorm}{theorem}.
 \\
 \mapped{Proposition}{prop:affine} & \coverage{Closed}\source{B/AffineVariation}{109}{affineVariationPacket}{theorem}. Instantiated at the selected upstream building block. \\
-\mapped{Proposition}{prop:multiple} & \coverage{Partial}\source{F/Section3/T24/MultipleAssembly}{51}{multipleRegionsStatement_holds}{theorem}.
-Periodic case; the bounded-domain variant is not included. \\
-\mapped{Proposition}{prop:conservative} & \coverage{Partial}\source{F/Section3/T24/ConservativeAssembly}{45}{conservativeForcing}{theorem}.
-Periodic case; the bounded-domain variant is not included. \\
+\mapped{Proposition}{prop:multiple} & \coverage{Closed}\source{F/Section3/T24/MultipleAssembly}{51}{multipleRegionsStatement_holds}{theorem};
+\source{F/Section3/T24/MultipleOmegaAssembly}{59}{multipleRegionsOmegaStatement_holds}{theorem};
+\source{B/MultipleRegionsV2}{167}{multipleRegionsStatementV2_holds}{theorem}.
+Both torus and bounded box-or-regular-level domain branches, with homogeneous no-slip on the latter. \\
+\mapped{Proposition}{prop:conservative} & \coverage{Closed}\source{F/Section3/T24/ConservativeAssembly}{45}{conservativeForcing}{theorem};
+\source{F/Section3/T24/ConservativeOmega}{126}{conservativeForcingOmega}{theorem}.
+Periodic potentials on the torus and smooth potentials on bounded box-or-regular-level domains with homogeneous no-slip. \\
 \mapped{Theorem}{thm:Rmain} & \coverage{Closed}\source{B/MainThresholds}{85}{mainThresholds}{theorem}. Density: \source{B/DensityFromInsertion}{30}{breakdownDenseR_of_subcritical}{theorem}; converse: \source{B/MainThresholds}{34}{mainThresholds_nonDensity}{theorem}. \\
 \mapped{Theorem}{thm:Rinsert} & \coverage{Closed}\source{B/InsertionFromData}{150}{wholeSpaceInsertion_holds}{theorem}.
 Any prescribed nonempty open set, with one family and the given reference solution. \\
@@ -168,13 +184,24 @@ estimate and Gr\"onwall:
 Taking $m=7$ or $3$ gives a bounded set of restart data. For the fixed smooth
 force on a compact time window, the code obtains one positive lifespan valid
 for all these restart data and times, then pastes by uniqueness across $S$.
-The general $H^1$-uniform restart statement is not proved; the continuation
-argument above uses only the proved high-order case. Tao's higher-regularity argument
+The stronger fixed-force $H^1$-uniform restart is also proved directly on the
+maximal smooth solution.  With $Y=\|u\|_{H^1}^2$ and
+$Z=\|u\|_{H^2}^2$, the formalized enstrophy estimate has the form
+\[
+ Y' + \nu Z \le C_\nu(1+Y)^3 + C_\nu\|f(t)\|_{L^2}^2.
+\]
+A uniform ODE barrier chooses a time depending only on $\nu$, the $H^1$ ball,
+and the force cap on $[0,S+1]$; endpoint integration and the existing integral
+continuation criterion then give a common restart interval.  This stronger
+result does not change the article's continuation proof, which already uses
+the proved high-order route. Tao's higher-regularity argument
 (Theorem~5.4(iv), p.~53) explains why smooth data remain in all Sobolev orders;
 the uniform high-order restart bound is proved separately in the code.
 See \source{F/Section4/A04/RestartFixedForce}{41}{restartFixedForce_of_memForceR}{theorem},
 \source{F/Section4/A04/ShiftedExtension}{247}{extendsBeyond_of_memForceR'}{theorem}
-and \source{F/Section3/T11/ExistenceInputH3}{456}{extendsBeyondH3}{theorem}.
+and \source{F/Section3/T11/ExistenceInputH3}{456}{extendsBeyondH3}{theorem};
+the registered $H^1$ conclusions are the four sources in the correspondence
+row above.
 
 \paragraph{Fractional localization (Lemma~\paperref{lem:localization}).}
 The article invokes Taylor's coordinate-cover and partition-of-unity
