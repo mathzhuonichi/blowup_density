@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "toolchain": "leanprover/lean4:v4.34.0-rc2",
-  "source_tree_sha256": "ff7a2e14e0592495b1f0e42ff2263446aa305617649939d477f24231762e116e",
-  "source_file_count": 2251,
+  "source_tree_sha256": "883bd451c00653cd8b6792be4e35391838fd455fcc96b99871077994cbbc5d16",
+  "source_file_count": 2253,
   "allowed_axioms": [
     "Classical.choice",
     "Quot.sound",
@@ -352,6 +352,19 @@
       "module": "NSFormalization.Section3.T24.ConservativeAssembly",
       "path": "formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean",
       "line": 45,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T24.conservativeForcingOmega",
+      "module": "NSFormalization.Section3.T24.ConservativeOmega",
+      "path": "formalization/NSFormalization/Section3/T24/ConservativeOmega.lean",
+      "line": 126,
       "kind": "theorem",
       "axioms": [
         "Classical.choice",
@@ -916,9 +929,10 @@
     {
       "kind": "Proposition",
       "label": "prop:conservative",
-      "coverage": "Partial",
+      "coverage": "Closed",
       "declarations": [
-        "NSFormalization.Section3.T24.conservativeForcing"
+        "NSFormalization.Section3.T24.conservativeForcing",
+        "NSFormalization.Section3.T24.conservativeForcingOmega"
       ],
       "number": "3.17"
     },

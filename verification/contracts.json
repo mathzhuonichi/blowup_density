@@ -352,6 +352,17 @@
       "declaration": "BlowupDensity.Tests.checkedForceAmplitude",
       "scope": "Remark 3.13: the sup norm of g_epsilon - g is at least epsilon^(-3) ||F||_infinity - C epsilon^(-2) and diverges as epsilon tends to zero for every inserted family of the registered record; C is correction.forceProfileConst 0. F is nonzero by the proved packet energy estimate and blow-up clause, and its supremum is positive and finite. Includes ENNReal convergence to nhds top and finite-real convergence to atTop; the T19 fixed-ball raw-data family is a checked corollary. Single-copy scaling is proved as the lower inequality sufficient for the remark.",
       "enabled": true
+    },
+    {
+      "id": "T04.conservative_forcing_v2",
+      "parent_task": "T24",
+      "version": 2,
+      "specification": "verification/Contracts/V2/ConservativeForcing.lean",
+      "binding_module": "Bindings.ConservativeForcingV2",
+      "test_module": "Tests.ConservativeForcingV2",
+      "declaration": "BlowupDensity.Tests.checkedConservativeForcingV2",
+      "scope": "Proposition 3.17, both branches: periodic potential on the torus; smooth potential on a bounded box-or-regular-level domain with homogeneous no-slip; pairing vanishes and the solution from rest is zero on its lifespan. Zero velocity requires positive viscosity; pairing holds for arbitrary viscosity. No temporal support assumption is imposed on the potential.",
+      "enabled": true
     }
   ]
 }

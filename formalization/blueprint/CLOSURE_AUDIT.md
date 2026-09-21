@@ -22,8 +22,8 @@ an assumed analytic theorem from an ordinary hypothesis.
   by itself close the article's quantification over an arbitrary prescribed
   coordinate ball.
 
-The other Partial entries are Proposition 2.1, Lemma 3.5, and
-Propositions 3.16 and 3.17. Their precise limits remain in the guide.
+The other Partial entries are Proposition 2.1, Lemma 3.5, Remark 3.13, and
+Proposition 3.16. Their precise limits remain in the guide.
 
 ## The 22 Closed entries
 
@@ -44,9 +44,9 @@ below records why a helper record is not being accepted as an unproved input.
 | Corollary 3.10 | `mixedRegionStatement_holds` uses `mixedRegionAPI` and the constructed fixed-ball insertion. No gluing record is supplied by the caller. |
 | Corollary 3.11 | `strongClosureStatement_holds` uses `strongClosureAPI`, with the inserted families and energy convergence supplied internally. |
 | Proposition 3.12 | `projectionStatement_holds` obtains both clauses from the constructed `projectionAPI`. |
-| Remark 3.13 | `T18.packetForce_ne_zero` derives nonzero forcing from packet energy and blowup. Single-copy scaling and the correction record’s order-zero profile bound prove `forceAmplitude_lower`; `forceAmplitude_diverges` and `forceAmplitude_real_diverges` apply to every canonical record without additional premises. The binding discharges all raw packet clauses from the registered packet, and `T19.forceAmplitude_diverges` instantiates the constructed fixed-ball family. |
 | Corollary 3.14 | `boundaryInsertion_from_data` takes only domain, ball, time, datum, force and reference-solution hypotheses. It instantiates `packetImportFamily.select`, `domainPlacementData`, `Contract.placeFrom` and the proved bounded-domain norm record before applying the insertion theorem. No packet, norm, correction or boundary-identity supplier is a caller argument. |
 | Proposition 3.15 | `affineVariationPacket` is instantiated at the compiled selected packet. Remaining arguments are the stated affine vector and positive radius/time parameters. |
+| Proposition 3.17 | `conservativeForcing` and `conservativeForcingOmega` cover both branches. On a bounded box-or-regular-level domain the smooth potential has no periodicity or temporal-support hypothesis. The pairing follows directly from proved boundary IBP; the energy identity against the normalized-pressure rest solution has zero convection term and nonpositive derivative, so zero initial energy yields pointwise zero velocity. No boundary identity or uniqueness supplier is a caller input. |
 | Theorem 4.1 | `mainThresholds` is a closed record. Its density branch invokes `insertionLifespanV2_of_data`; its converse invokes the proved critical estimates. |
 | Theorem 4.2 | `wholeSpaceInsertion_holds` selects one proved building block before the reference and region. It constructs an interior ball in every prescribed nonempty open set, keeps the given velocity and pressure definitionally, and proves every displayed clause for one family. The time margin is halved, so the original reference supplies strict continuation without an additional hypothesis. |
 | Proposition 4.3 | `universal_of_memForceR` takes only viscosity, datum/force-class and smallness hypotheses. Maximal existence and fixed-force H7 continuation are supplied by compiled theorems. |
