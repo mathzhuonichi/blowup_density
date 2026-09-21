@@ -26,6 +26,8 @@
 | P5 | Prop 3.16 bounded domain（`M316_B`，from `M316`,`B314`） | 有界域 no-slip 变体未装配 | 文章证明无背景：各分量 = 缩放包 `U_j`（I03），支撑在 `x_j + ε_j K_* ⊂ B_j ⊂ Ω`，和为 `ClassicalSolutionOmega`（光滑、div、动量、no-slip 因支撑在内部、压力 gauge、初值 0），每球 `SpeedUnboundedAtOn`，能量/耗散和；记录 `MultipleRegionsOmegaAPI` 镜像环面 30 字段（`ClassicalSolutionOmega` 替 `ClassicalSolutionT`，`Ω` 替方体）；`T04.multiple_regions_v2` | M–L（管道多） | 496 spec（astra，单稿 + lead 与环面记录/论文句逐字段比对）→ 497 证明（astra）→ 498 注册（sol） |
 | P6 | Prop 2.1 general H¹ restart（`L21_H1`，from `L21T`,`L21R`） | Tao 的 H¹-uniform 局部存在/重启未形式化；已证 H³(T³)/H⁷(R³) 路线 | **499 评估结论**（`research/P21/ASSESSMENT.md`）：修订版 Prop 2.1 文本没有显式 H¹ 子句，该节点是历史规范遗留，下游无消费；若要闭合，走 **Route B**（光滑数据、固定力：从已证高阶解出发，涡量微分不等式 `Y' + cνZ ≤ Cν(1+Y)³ + Cν‖f‖²` + ODE 屏障 + 现有 H⁷/H³ 续接反证最大寿命），单元 B0–B5 | L–XL（12–21 人日估计） | 499 ✅；B0 503 sol、B1 504 astra 先做有界的概念验证；B2–B5 视结果 |
 
+**结果（2026-09-21 06:45Z）：六个 Partial 全部关闭，core 36 合同、41/41 节点 Closed、27/27 文章条目 Closed、0 Partial。** P1 #459、P2 #458、P3 #461、P4 #463、P5 #460/#462/#464；P6 走 Route B（`research/P21/ASSESSMENT.md`）：B0 503 #469、B1 504 #466、B2 505 #467、B3 506 #468、B4-ℝ³ 507 #470、B4-𝕋³ 508 #472、B5-ℝ³ 510 #471（`A04.continuation_v3`）、B5-𝕋³+关闭 511 #473（`T01.torus_local_theory_v2`，`L21_H1` Closed）。关键技术点：B0 桥只对紧支撑场成立而解的切片只是 `MemHInfty`（507 用 D01 的数据提升恒等式做了无紧支撑桥）；环面平移力不在 `forceClassT` 里（508 用光滑力能量恒等式 + H³ Grönwall/Picard/粘合重建了延拓）；ODE 屏障常数先于重启时刻与数据选取。
+
 每个 P 的收尾（同一 lane 或 500 系列 sol lane）：`proof_graph.json` 节点状态 → Closed、evidence 指向新模块、`entrypoints.json` 加 proof_modules；`RESULT_MAP.md` 行；`paper/formalization_guide.tex` 的 `\coverage{Partial}` 行改 Closed 并更新 `\source`；`python3 experiments/check_formalization_plan.py`（重生成 `DEPENDENCY_GRAPH.md`）；`audit_article_axioms.py --build`（更新 `AXIOM_AUDIT.json`）；`README.md` 的 "21 Closed / 6 Partial" 计数；合同注册 `contracts.json`（V2 条目格式见 `T23.boundary_insertion_v2`）；`make check/test/test-mutations`；`make paper`。
 
 ## 2. 顺序与并发（codex tmux，astra 硬活/sol 簿记审稿，<7 窗口）
@@ -59,6 +61,7 @@
 | 508-P21-B4-restart-torus | 已合入（codex 审稿 ACCEPT-WITH-NOTES，卫生项已应用；B4-𝕋³ 闭合） #472 | 09-21 0644Z | #472 | P6 B4（𝕋³）：B0↔B2 对账、时间正则性、力上界、B3 屏障、extendsBeyondH3 反证 → h1RestartT；两条路线（固定力 sup 上界 / L¹ 强迫屏障） |
 | 510-P21-B5-continuation-v3 | 已合入（codex 审稿 ACCEPT；A04.continuation_v3，35 合同） #471 | 09-21 0623Z | #471 | P6 B5（ℝ³ 半）：端点定理 restartBeyondH1（h1UniformEndpointR）+ Contracts/V3/Continuation 注册（A04.continuation_v3）；不动蓝图状态 |
 | 511-P21-B5-torus-closure | 已合入（codex 审稿 ACCEPT；T01.torus_local_theory_v2，36 合同，**L21_H1 Closed，0 Partial**） #473 | 09-21 0645Z | #473 | P6 B5（𝕋³ 半 + 收尾）：restartBeyondH1T、Contracts/V2/TorusLocalTheory 注册（T01.torus_local_theory_v2，36 合同）、L21_H1 → Closed、RESULT_MAP/guide/README/partial=set() |
+| 512-MAINT-final-build-check | worktree = 最终 core 安装中 → codex sol | 09-21 0646Z | — | 最终全量重编（全部 NSFormalization/Bindings/Tests）+ owner 全部门 + 36 合同公理表 + 交付差异清单 → logs/FINAL_BUILD_20260921.md；审计如过期则重生成 |
 | 499-P21-P6-h1-assessment | 已合入 #457（评估：建议先留 Partial；若做，走 Route B 光滑数据 H¹ restart + 现有续接，L–XL） | 09-21 0400Z | #457 | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
 
-下一号 **512**（511 预留给 B5-𝕋³ + L21_H1 关闭）。
+下一号 **513**。
