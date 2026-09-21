@@ -95,9 +95,9 @@ flowchart TD
   A315["Proposition 3.15<br/>affine variations<br/>Closed"]
   S33["Proposition 3.3<br/>scaling<br/>Closed"]
   M316["Proposition 3.16<br/>periodic regions<br/>Closed"]
-  M316_B["Proposition 3.16<br/>bounded-domain case<br/>Partial"]
+  M316_B["Proposition 3.16<br/>bounded-domain case<br/>Closed"]
   C317["Proposition 3.17<br/>periodic conservative force<br/>Closed"]
-  C317_B["Proposition 3.17<br/>bounded-domain case<br/>Partial"]
+  C317_B["Proposition 3.17<br/>bounded-domain case<br/>Closed"]
   E22 --> B314
   C35_LOCAL --> B314
   BN --> B314
@@ -105,15 +105,14 @@ flowchart TD
   E22 --> A315
   E22 --> S33
   S33 --> M316
-  M316 -. remaining scope .-> M316_B
-  B314 -. remaining scope .-> M316_B
-  C317 -. remaining scope .-> C317_B
-  BU -. remaining scope .-> C317_B
+  M316 --> M316_B
+  B314 --> M316_B
+  C317 --> C317_B
+  BU --> C317_B
   classDef closed fill:#dcfce7,stroke:#15803d,color:#14532d;
   classDef partial fill:#fff7d6,stroke:#b45309,color:#78350f;
   classDef mainResult stroke-width:4px;
-  class E22,C35_LOCAL,BN,BU,B314,A315,S33,M316,C317 closed;
-  class M316_B,C317_B partial;
+  class E22,C35_LOCAL,BN,BU,B314,A315,S33,M316,M316_B,C317,C317_B closed;
 ```
 
 ## The whole-space main theorem and its consequences
@@ -166,8 +165,6 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 | Article statement | Closed part used in the proofs | Partial scope |
 |---|---|---|
 | Proposition 2.1 | Periodic existence, uniqueness, maximality and continuation for the used force class, using the formally proved H3 restart case.; Whole-space existence, uniqueness, maximality and continuation for the used force class, using fixed-force H7 restart. | The general H1-uniform restart clauses remain unformalized. They are not inputs to the proved H3/H7 continuation routes. |
-| Proposition 3.16 | Place finitely many rescaled building blocks in prescribed disjoint periodic regions and sum them. | The bounded-domain no-slip variant has not been assembled. |
-| Proposition 3.17 | Potential-force pairing vanishes and the solution from rest has zero velocity on the torus. | The bounded-domain conservative-force variant is not exported. |
 
 ## Proof locations
 
@@ -201,9 +198,9 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 | Corollary 3.14: bounded-domain gluing | Closed | The final raw-data theorem constructs its packet, placement and norm witnesses internally in the prescribed interior ball. [BoundaryInsertionV2.lean](../../verification/Bindings/BoundaryInsertionV2.lean) |
 | Proposition 3.15: affine variations | Closed | Compact divergence-free perturbations of the selected building block give the affine family. [AffineVariation.lean](../../verification/Bindings/AffineVariation.lean) |
 | Proposition 3.16: periodic regions | Closed | Place finitely many rescaled building blocks in prescribed disjoint periodic regions and sum them. [MultipleAssembly.lean](../../formalization/NSFormalization/Section3/T24/MultipleAssembly.lean) |
-| Proposition 3.16: bounded-domain case | Partial | The bounded-domain no-slip variant has not been assembled. [Multiple.lean](../../formalization/NSFormalization/Section3/T24/Multiple.lean) |
+| Proposition 3.16: bounded-domain case | Closed | Bounded box-or-regular-level domain no-slip variant assembled from un-periodised building blocks: zero initial velocity, separate blow-up in each prescribed disjoint interior ball, finite energy and exact dissipation sum. [MultipleOmegaComponents.lean](../../formalization/NSFormalization/Section3/T24/MultipleOmegaComponents.lean); [MultipleOmegaAssembled.lean](../../formalization/NSFormalization/Section3/T24/MultipleOmegaAssembled.lean); [MultipleOmegaRegions.lean](../../formalization/NSFormalization/Section3/T24/MultipleOmegaRegions.lean); [MultipleOmegaAssembly.lean](../../formalization/NSFormalization/Section3/T24/MultipleOmegaAssembly.lean); [MultipleRegionsV2.lean](../../verification/Bindings/MultipleRegionsV2.lean) |
 | Proposition 3.17: periodic conservative force | Closed | Potential-force pairing vanishes and the solution from rest has zero velocity on the torus. [ConservativeAssembly.lean](../../formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean) |
-| Proposition 3.17: bounded-domain case | Partial | The bounded-domain conservative-force variant is not exported. [ConservativeAssembly.lean](../../formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean) |
+| Proposition 3.17: bounded-domain case | Closed | For every smooth spacetime potential on a bounded box-or-regular-level domain with homogeneous no-slip, the force-velocity pairing vanishes; at positive viscosity every classical solution from rest has zero velocity throughout its lifespan. [ConservativeOmega.lean](../../formalization/NSFormalization/Section3/T24/ConservativeOmega.lean); [ConservativeForcingV2.lean](../../verification/Bindings/ConservativeForcingV2.lean) |
 | Whole-space negative-order estimates | Closed | Fourier scaling and low-frequency control of compact force profiles; the positive and negative norm bounds needed for the subcritical limits. [HomogeneousScaling.lean](../../formalization/NSFormalization/Section4/I03/HomogeneousScaling.lean); [ScalingNorms.lean](../../verification/Bindings/ScalingNorms.lean) |
 | Theorem 4.2: prescribed-region gluing | Closed | For every prescribed nonempty open set, construct one family from the given reference, with exact lifespan, blowup, history, compact support, energy bound and all subcritical force limits. The building block is selected before the reference and region. [InsertionFromData.lean](../../verification/Bindings/InsertionFromData.lean); [InsertionLifespan.lean](../../verification/Contracts/V2/InsertionLifespan.lean) |
 | Proposition 4.3: L1 critical estimate | Closed | The whole-space critical estimate with the proved high-order continuation route. [Universal.lean](../../formalization/NSFormalization/Section4/R43/Universal.lean) |
@@ -217,7 +214,7 @@ A whole-statement row is Partial whenever an unfinished clause remains. This doe
 
 ## Verification and source data
 
-The article-level inventory has **24 Closed and 3 Partial entries** (26 numbered statements and one numbered remark). These counts are distinct from the number of clause-level nodes above. The recorded kernel audit checks **69 declarations**, with **no forbidden axioms**. The permitted logical axioms are `propext`, `Classical.choice` and `Quot.sound`; the retained source scan has no admissions or custom axiom declarations.
+The article-level inventory has **26 Closed and 1 Partial entries** (26 numbered statements and one numbered remark). These counts are distinct from the number of clause-level nodes above. The recorded kernel audit checks **72 declarations**, with **no forbidden axioms**. The permitted logical axioms are `propext`, `Classical.choice` and `Quot.sound`; the retained source scan has no admissions or custom axiom declarations.
 
 The graph is generated from [proof_graph.json](proof_graph.json). [RESULT_MAP.md](RESULT_MAP.md) supplies declaration locations, [CLOSURE_AUDIT.md](CLOSURE_AUDIT.md) records the input review, and [AXIOM_AUDIT.json](AXIOM_AUDIT.json) records the kernel results. The implementation registry in `tasks.json` is used for package checks, not as the reader-facing proof graph.
 

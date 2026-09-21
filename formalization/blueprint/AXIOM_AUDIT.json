@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "toolchain": "leanprover/lean4:v4.34.0-rc2",
-  "source_tree_sha256": "fb6adbd7ed810d9f053e70e0ce316c7108f1cbaf7c764614e8e244cc7526d551",
-  "source_file_count": 2252,
+  "source_tree_sha256": "a8da079b6484be76a38a9d835d70b1b50057170fc73045a179cd678f7e4feda4",
+  "source_file_count": 2282,
   "allowed_axioms": [
     "Classical.choice",
     "Quot.sound",
@@ -179,10 +179,10 @@
       "unexpected_axioms": []
     },
     {
-      "declaration": "NSFormalization.Section3.T17.correctionStatementAmended_holds",
-      "module": "NSFormalization.Section3.T17.Assembly",
-      "path": "formalization/NSFormalization/Section3/T17/Assembly.lean",
-      "line": 107,
+      "declaration": "NSFormalization.Section3.T17.correctionStatementArticle_holds",
+      "module": "NSFormalization.Section3.T17.ArticleScope",
+      "path": "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+      "line": 44,
       "kind": "theorem",
       "axioms": [
         "Classical.choice",
@@ -192,10 +192,10 @@
       "unexpected_axioms": []
     },
     {
-      "declaration": "NSFormalization.Section3.T18.periodicInsertionStatement_holds",
-      "module": "NSFormalization.Section3.T18.Assembly",
-      "path": "formalization/NSFormalization/Section3/T18/Assembly.lean",
-      "line": 238,
+      "declaration": "NSFormalization.Section3.T17.article_force_identification",
+      "module": "NSFormalization.Section3.T17.ArticleScope",
+      "path": "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+      "line": 70,
       "kind": "theorem",
       "axioms": [
         "Classical.choice",
@@ -205,11 +205,115 @@
       "unexpected_axioms": []
     },
     {
-      "declaration": "NSFormalization.Section3.T19.insertion",
-      "module": "NSFormalization.Section3.T19.Threading",
-      "path": "formalization/NSFormalization/Section3/T19/Threading.lean",
-      "line": 126,
-      "kind": "def",
+      "declaration": "NSFormalization.Section3.T17.article_correction_derivative_bound",
+      "module": "NSFormalization.Section3.T17.ArticleScope",
+      "path": "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+      "line": 119,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T17.article_force_derivative_bound",
+      "module": "NSFormalization.Section3.T17.ArticleScope",
+      "path": "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+      "line": 129,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T17.article_force_spatial_volume",
+      "module": "NSFormalization.Section3.T17.ArticleScope",
+      "path": "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+      "line": 103,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T17.article_force_time_length",
+      "module": "NSFormalization.Section3.T17.ArticleScope",
+      "path": "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+      "line": 111,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T17.article_correction_energy_bound",
+      "module": "NSFormalization.Section3.T17.ArticleScope",
+      "path": "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+      "line": 140,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T17.article_force_mixed_bound",
+      "module": "NSFormalization.Section3.T17.ArticleScope",
+      "path": "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+      "line": 155,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T17.article_force_sobolev_bound",
+      "module": "NSFormalization.Section3.T17.ArticleScope",
+      "path": "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+      "line": 173,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T19.periodicInsertion_from_data",
+      "module": "NSFormalization.Section3.T19.FromData",
+      "path": "formalization/NSFormalization/Section3/T19/FromData.lean",
+      "line": 20,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.PeriodicInsertion.periodicInsertionStatementV2_holds",
+      "module": "Bindings.PeriodicInsertionV2",
+      "path": "verification/Bindings/PeriodicInsertionV2.lean",
+      "line": 10,
+      "kind": "theorem",
       "axioms": [
         "Classical.choice",
         "Quot.sound",
@@ -296,6 +400,71 @@
       "unexpected_axioms": []
     },
     {
+      "declaration": "NSFormalization.Section3.T18.packetForce_ne_zero",
+      "module": "NSFormalization.Section3.T18.ForceAmplitude",
+      "path": "formalization/NSFormalization/Section3/T18/ForceAmplitude.lean",
+      "line": 24,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T18.forceAmplitude_lower",
+      "module": "NSFormalization.Section3.T18.ForceAmplitude",
+      "path": "formalization/NSFormalization/Section3/T18/ForceAmplitude.lean",
+      "line": 240,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T18.forceAmplitude_diverges",
+      "module": "NSFormalization.Section3.T18.ForceAmplitude",
+      "path": "formalization/NSFormalization/Section3/T18/ForceAmplitude.lean",
+      "line": 288,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T18.forceAmplitude_real_diverges",
+      "module": "NSFormalization.Section3.T18.ForceAmplitude",
+      "path": "formalization/NSFormalization/Section3/T18/ForceAmplitude.lean",
+      "line": 332,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.forceAmplitude_from_data",
+      "module": "Bindings.ForceAmplitude",
+      "path": "verification/Bindings/ForceAmplitude.lean",
+      "line": 40,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
       "declaration": "BlowupDensity.Bindings.BoundaryInsertion.boundaryInsertion_from_data",
       "module": "Bindings.BoundaryInsertionV2",
       "path": "verification/Bindings/BoundaryInsertionV2.lean",
@@ -348,10 +517,49 @@
       "unexpected_axioms": []
     },
     {
+      "declaration": "NSFormalization.Section3.T24.multipleRegionsOmegaStatement_holds",
+      "module": "NSFormalization.Section3.T24.MultipleOmegaAssembly",
+      "path": "formalization/NSFormalization/Section3/T24/MultipleOmegaAssembly.lean",
+      "line": 59,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.MultipleRegionsV2.multipleRegionsStatementV2_holds",
+      "module": "Bindings.MultipleRegionsV2",
+      "path": "verification/Bindings/MultipleRegionsV2.lean",
+      "line": 167,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
       "declaration": "NSFormalization.Section3.T24.conservativeForcing",
       "module": "NSFormalization.Section3.T24.ConservativeAssembly",
       "path": "formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean",
       "line": 45,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T24.conservativeForcingOmega",
+      "module": "NSFormalization.Section3.T24.ConservativeOmega",
+      "path": "formalization/NSFormalization/Section3/T24/ConservativeOmega.lean",
+      "line": 126,
       "kind": "theorem",
       "axioms": [
         "Classical.choice",
@@ -805,19 +1013,27 @@
     {
       "kind": "Lemma",
       "label": "lem:correction",
-      "coverage": "Partial",
+      "coverage": "Closed",
       "declarations": [
-        "NSFormalization.Section3.T17.correctionStatementAmended_holds"
+        "NSFormalization.Section3.T17.correctionStatementArticle_holds",
+        "NSFormalization.Section3.T17.article_force_identification",
+        "NSFormalization.Section3.T17.article_correction_derivative_bound",
+        "NSFormalization.Section3.T17.article_force_derivative_bound",
+        "NSFormalization.Section3.T17.article_force_spatial_volume",
+        "NSFormalization.Section3.T17.article_force_time_length",
+        "NSFormalization.Section3.T17.article_correction_energy_bound",
+        "NSFormalization.Section3.T17.article_force_mixed_bound",
+        "NSFormalization.Section3.T17.article_force_sobolev_bound"
       ],
       "number": "3.5"
     },
     {
       "kind": "Theorem",
       "label": "thm:insertion",
-      "coverage": "Partial",
+      "coverage": "Closed",
       "declarations": [
-        "NSFormalization.Section3.T18.periodicInsertionStatement_holds",
-        "NSFormalization.Section3.T19.insertion"
+        "NSFormalization.Section3.T19.periodicInsertion_from_data",
+        "BlowupDensity.Bindings.PeriodicInsertion.periodicInsertionStatementV2_holds"
       ],
       "number": "3.6"
     },
@@ -878,10 +1094,13 @@
     {
       "kind": "Remark",
       "label": "rem:peaks",
-      "coverage": "Partial",
+      "coverage": "Closed",
       "declarations": [
-        "NSFormalization.Section3.T15.scalingStatement_holds",
-        "NSFormalization.Section3.T17.correctionStatementAmended_holds"
+        "NSFormalization.Section3.T18.packetForce_ne_zero",
+        "NSFormalization.Section3.T18.forceAmplitude_lower",
+        "NSFormalization.Section3.T18.forceAmplitude_diverges",
+        "NSFormalization.Section3.T18.forceAmplitude_real_diverges",
+        "BlowupDensity.Bindings.forceAmplitude_from_data"
       ],
       "number": "3.13"
     },
@@ -907,18 +1126,21 @@
     {
       "kind": "Proposition",
       "label": "prop:multiple",
-      "coverage": "Partial",
+      "coverage": "Closed",
       "declarations": [
-        "NSFormalization.Section3.T24.multipleRegionsStatement_holds"
+        "NSFormalization.Section3.T24.multipleRegionsStatement_holds",
+        "NSFormalization.Section3.T24.multipleRegionsOmegaStatement_holds",
+        "BlowupDensity.Bindings.MultipleRegionsV2.multipleRegionsStatementV2_holds"
       ],
       "number": "3.16"
     },
     {
       "kind": "Proposition",
       "label": "prop:conservative",
-      "coverage": "Partial",
+      "coverage": "Closed",
       "declarations": [
-        "NSFormalization.Section3.T24.conservativeForcing"
+        "NSFormalization.Section3.T24.conservativeForcing",
+        "NSFormalization.Section3.T24.conservativeForcingOmega"
       ],
       "number": "3.17"
     },
