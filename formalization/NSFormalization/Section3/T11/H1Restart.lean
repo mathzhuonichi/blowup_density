@@ -119,4 +119,12 @@ theorem periodicL2Energy_eq_lTwoSqT {z : SpatialField}
   rw [sobolevENorm_zero_eq hz hp] at h
   exact h.symm
 
+/-- B0's component gradient energy equals the B2 carrier. -/
+theorem periodicGradientEnergy_eq_gradientSqT {z : SpatialField}
+    (hz : ContDiff ℝ ∞ z) (hp : IsPeriodicSpatial z) :
+    periodicGradientEnergy z = gradientSqT z := by
+  have h := periodicSobolevENorm_one_toReal_sq_eq hz hp
+  rw [periodicHOne_bridgeT hz hp, periodicL2Energy_eq_lTwoSqT hz hp] at h
+  linarith
+
 end NSFormalization.Section3.T11
