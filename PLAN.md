@@ -41,7 +41,7 @@
 | lane | 状态 | 时间 | PR | 说明 |
 |---|---|---|---|---|
 | 491-MAINT-main-build-check | 已合入 #455（587 模块 rc 0，29 合同，四闸门 + make paper + 公理审计全绿；不绿：54 条本地 warning、Bindings/BoundedDomainNorm 三个 defProp） | 09-21 0353Z | #455 | owner 新 main（lakefile/vendor 变更）全量重编 + 四闸门 + `audit_article_axioms` |
-| 492-T19-P1-prescribed-ball | astra 完成 → 审中 sol | 09-21 0356Z | — | P1 Thm 3.6 任意给定球：placementDataAt + insertionAt + periodicInsertion_from_data + T03.periodic_insertion_v2 + 蓝图 |
+| 492-T19-P1-prescribed-ball | 已合入 #459（审稿仅 --base-ref 工具问题 REJECT，其余全过；lead 裁定合入；T03.periodic_insertion_v2） | 09-21 0415Z | #459 | P1 Thm 3.6 任意给定球：placementDataAt + insertionAt + periodicInsertion_from_data + T03.periodic_insertion_v2 + 蓝图 |
 | 493-T17-P2-article-scope | 已合入 #458（审稿仅因 --base-ref 工具问题 REJECT，数学/保真/公理/变异全过；lead 裁定合入；T02.correction_v2） | 09-21 0408Z | #458 | P2 Lemma 3.5 文章形式：correctionStatementArticle（经典参照 + 零延拓识别）+ T02.correction_v2 + 蓝图 |
 | 494-T18-P3-force-amplitude | astra 完成：ForceAmplitude.lean（F ≠ 0、sup 缩放恒等、H_ε ≤ Cε⁻²、下界 + 发散 𝓝 ⊤/atTop）+ T03.force_amplitude + 蓝图 → 审中 sol | 09-21 0400Z | — | P3 Remark 3.13：F ≠ 0、周期化缩放力的 sup 范数 ε⁻³‖F‖∞、H_ε ≤ Cε⁻²、发散 + T03.force_amplitude + 蓝图 |
 | 495-T24-P4-conservative-domain | astra 8 分钟完成：ConservativeOmega.lean（pairing 经 IBP、restSolutionOmega、零能量⇒零）+ T04.conservative_forcing_v2（30 合同）+ 蓝图/guide/计数 22/5 + 四闸门 + make paper → 审中 sol | 09-21 0348Z | — | P4 Prop 3.17 有界域：ConservativeForcingOmegaAPI（pairing 经 IBP.integral_pressure_energy_zero；从静止为零）+ T04.conservative_forcing_v2 + 蓝图 |
