@@ -41,8 +41,6 @@ abbrev SolvesBelow := Contracts.V2.Continuation.SolvesBelow
 abbrev MemL1Hm := Contracts.V2.Continuation.MemL1Hm
 abbrev IsMaximalSolution := Contracts.V2.Continuation.IsMaximalSolution
 abbrev RestartFixedForce := Contracts.V2.Continuation.RestartFixedForce
-abbrev ManuscriptHorizonLowerBoundH1 :=
-  Contracts.V2.Continuation.ManuscriptHorizonLowerBoundH1
 abbrev ContinuationV2API := Contracts.V2.Continuation.ContinuationV2API
 
 end C
@@ -87,13 +85,6 @@ theorem continuationV2_restartFixedForce_eq :
         NSFormalization.Section4.A02.MemForceR f →
         ∀ S : ℝ, 0 ≤ S →
           NSFormalization.Section4.A04.RestartFixedForce ν f S) := rfl
-
-/-- The named open manuscript proposition is exactly A01's named open
-proposition after the horizon parameter is instantiated.  This equality is a
-drift guard, not a proof of either proposition. -/
-theorem continuationV2_manuscriptHorizonLowerBoundH1_eq :
-    C.ManuscriptHorizonLowerBoundH1 NSFormalization.Section4.A01.localHorizon' =
-      NSFormalization.Section4.A01.ManuscriptHorizonLowerBoundH1 := rfl
 
 /-! ## Transport through `ClassicalSolutionR` -/
 

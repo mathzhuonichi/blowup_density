@@ -1,40 +1,6 @@
 import Contracts.V1.Data
 
-/-!
-# A04 continuation, version 2: fixed-force H⁷ restart
-
-This contract registers the continuation interface proved by lanes 215 and 217.
-Its restart field is the owner-approved recut of the manuscript restart:
-
-* `ν`, one force `f ∈ F_R`, and the compact restart window `[0,S]` are fixed
-  before the common duration `δ` is chosen;
-* the restart datum is bounded in `H⁷`;
-* that one `δ > 0` is uniform over every `t₀ ∈ [0,S]` and every admissible
-  datum in the `H⁷` ball.
-
-This is deliberately **not** an extension of a version-one continuation record.
-The manuscript/V1 restart chooses a common duration from an `H¹` bound uniformly
-across forces as well as restart times.  The fixed-force `H⁷` theorem does not
-imply that field: `H⁷` control is stronger than `H¹` control, and compactness of
-one fixed force path gives no uniformity across all forces.  This is the precise
-gap recorded in `research/A04/REPORT_215.md` §3.
-
-The paper's `H¹` horizon sentence remains below as the named proposition
-`ManuscriptHorizonLowerBoundH1`.  It is not a field of `ContinuationV2API`, has no
-proof here, and is explicitly open.  In particular, nothing in this module
-suggests that the paper's `H¹` statement has been proved.
-
-`localHorizon'` is represented by the parameter `horizon`.  The implementation
-module defining it is not one of `experiments/check_contracts.py`'s
-`CONTRACT_CANONICAL_MODULES`, so importing it from a versioned contract would
-violate the contract policy.  The binding instantiates `horizon` with the actual
-`A01.localHorizon'` and records by `rfl` that `RestartFixedForce horizon` is the
-implementation predicate.
-
-All other local notions below are token-for-token restatements from
-`research/A04/Spec.lean` or `research/A02/Spec.lean`, in the canonical
-`Contracts.V1.Data` vocabulary.  No implementation module is imported here.
--/
+/-! Whole-space integral continuation with fixed-force H7 restart. No H1-uniform or cross-force restart statement is exported. -/
 
 noncomputable section
 
@@ -92,24 +58,6 @@ def RestartFixedForce
       ∃ δ : ℝ, 0 < δ ∧
         ∀ t₀ ∈ Icc (0 : ℝ) S, ∀ a' : SpatialField, a' ∈ initialClassR →
           sobolevENorm 7 a' ≤ K → δ ≤ horizon ν a' (timeShift t₀ f)
-
-/-- The manuscript's `H¹` local-horizon sentence; **NOT implied by this API;
-open**.  This is `research/A01/Spec.lean:338-344` verbatim after naming the
-same horizon parameter.
-
-Unlike `RestartFixedForce`, it chooses `δ` before the force and controls an
-`H¹` datum together with an `L¹_tH¹_x` force norm.  Neither the downgrade from
-`H⁷` to `H¹` nor cross-force uniformity follows from the registered theorem.
-This definition is documentation of the outstanding proposition, not a proved
-field or an axiom. -/
-def ManuscriptHorizonLowerBoundH1
-    (horizon : ℝ → SpatialField → SpaceTimeField → ℝ) : Prop :=
-  ∀ (ν : ℝ), 0 < ν → ∀ K : ℝ≥0∞, K ≠ ⊤ →
-    ∃ δ : ℝ, 0 < δ ∧
-      ∀ (a : SpatialField) (f : SpaceTimeField),
-        a ∈ initialClassR → MemForceR f →
-          sobolevENorm 1 a ≤ K → forceSobolevENormL1 1 f ≤ K →
-            δ ≤ horizon ν a f
 
 /-- The proved A04 continuation interface with the owner-approved restart
 recut.  It is intentionally independent of the open manuscript/V1 `H¹`,

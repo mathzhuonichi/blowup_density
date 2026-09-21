@@ -8,115 +8,56 @@ path = "../vendor/NavierStokesAndEuler"
 
 [[lean_lib]]
 name = "NSFormalization"
+globs = ["NSFormalization.+"]
 
-# Vendored HeliCorgi R3 mild-solution sources, compiled in place under this
-# repository's pin (Lean 4.34.0-rc2 / Mathlib 85e3a25e006c35636f0e53b0e9296caca2685bc0).
-# `srcDir` keeps vendor/HeliCorgi byte-identical: no file there is copied or edited.
-# The list is the import closure of Formal.R3EndpointSafeProjectedLocalExistence,
-# Formal.R3NavierStokesEquation, Formal.R3HelmholtzPressure and Formal.R3MildContinuation
-# (88 modules) minus the four modules that do not compile at this pin, which are
-# maintained as patched copies in the FormalPatched library below.
-# Explicit `roots` on purpose: a glob would sweep in all 128 vendored modules.
-# Do not add `warningAsError` here; the vendored sources emit 52 benign warnings.
-# Evidence: research/U05/REPORT.md, research/U05/REVIEW.md, research/U05/PORT.md.
+# Selected upstream HeliCorgi modules used by the current proof closure.
+# They compile in place with the main Lean/Mathlib pin.
 [[lean_lib]]
 name = "Formal"
 srcDir = "../vendor/HeliCorgi"
 roots = [
   "Formal.EndpointSafeTwoSpaceDuhamel",
+  "Formal.EndpointSafeTwoSpacePicard",
+  "Formal.FlowMapChainRule",
+  "Formal.FlowMapContDiffOne",
+  "Formal.FlowMapFTC",
+  "Formal.FlowMapLocalContDiff",
+  "Formal.FlowMapNonextendibilityCriterion",
+  "Formal.FlowMapOperatorContinuity",
+  "Formal.NavierStokesTimeBridge",
+  "Formal.PDEBridgeAdapter",
+  "Formal.R3ClosedSolenoidalCarrier",
+  "Formal.R3ConjugationReflection",
+  "Formal.R3CoordinateLinearAux",
+  "Formal.R3DivergencePointwise",
+  "Formal.R3FourierConjugationBridge",
+  "Formal.R3H2AdditiveConvolutionWeight",
+  "Formal.R3H2BesselWeightGeometry",
+  "Formal.R3H2CoordinateFourierBounds",
+  "Formal.R3H2FourierL1Bound",
+  "Formal.R3H2VelocityFourierL1Bound",
+  "Formal.R3H2WeightedConvolutionKernel",
+  "Formal.R3H2YoungWeightedBridge",
+  "Formal.R3L2CoordinateAux",
+  "Formal.R3L2ScalarAux",
+  "Formal.R3LerayComplexDivergenceBridge",
+  "Formal.R3LerayComplexFiberSymbol",
+  "Formal.R3LerayFourierBridge",
   "Formal.R3LerayFrequencySymbol",
+  "Formal.R3LerayL2Operator",
+  "Formal.R3LerayPointwiseL2",
+  "Formal.R3NormalizedDivergenceFrequency",
+  "Formal.R3NormalizedDivergenceTerm",
+  "Formal.R3NormalizedFrequencyLpTop",
+  "Formal.R3SchwartzConvection",
+  "Formal.R3SchwartzConvectionSobolevReduction",
+  "Formal.R3SchwartzSobolevCore",
+  "Formal.R3SchwartzSobolevMonotonicity",
+  "Formal.R3SobolevCarrier",
+  "Formal.R3SolenoidalCarrierCompleteness",
+  "Formal.R3SolenoidalSobolevCarrier",
   "Formal.R3StokesFrequencySymbol",
   "Formal.R3StokesL2Operator",
-  "Formal.R3CoordinateLinearAux",
-  "Formal.R3L2ScalarAux",
-  "Formal.FlowMapFTC",
-  "Formal.FlowMapChainRule",
-  "Formal.FlowMapOperatorContinuity",
-  "Formal.FlowMapContDiffOne",
-  "Formal.FlowMapLocalContDiff",
-  "Formal.PDEBridgeAdapter",
-  "Formal.NavierStokesTimeBridge",
-  "Formal.FlowMapNonextendibilityCriterion",
-  "Formal.UniformRestartContinuation",
-  "Formal.R3SobolevCarrier",
-  "Formal.R3SolenoidalSobolevCarrier",
-  "Formal.R3NormalizedFrequencyLpTop",
-  "Formal.R3L2CoordinateAux",
-  "Formal.R3NormalizedDivergenceTerm",
-  "Formal.R3DivergencePointwise",
-  "Formal.R3NormalizedDivergenceFrequency",
-  "Formal.R3ClosedSolenoidalCarrier",
-  "Formal.R3SolenoidalCarrierCompleteness",
-  "Formal.R3LerayL2Operator",
-  "Formal.R3SchwartzConvection",
-  "Formal.R3SchwartzSobolevCore",
-  "Formal.R3SchwartzConvectionSobolevReduction",
-  "Formal.R3H2BesselWeightGeometry",
-  "Formal.R3H2WeightedConvolutionKernel",
-  "Formal.R3H2AdditiveConvolutionWeight",
   "Formal.R3YoungL1L2Bochner",
-  "Formal.R3SchwartzSobolevMonotonicity",
-  "Formal.R3H2YoungWeightedBridge",
-  "Formal.R3H2FourierL1Bound",
-  "Formal.R3LerayFourierBridge",
-  "Formal.R3LerayComplexFiberSymbol",
-  "Formal.R3LerayComplexDivergenceBridge",
-  "Formal.R3LerayPointwiseL2",
-  "Formal.R3LerayPointwiseProjectionIdentification",
-  "Formal.R3H2LerayBridge",
-  "Formal.R3SchwartzProductConvolution",
-  "Formal.R3SchwartzConvectionH2FrequencyMajorant",
-  "Formal.R3SchwartzConvectionScalarMajorants",
-  "Formal.R3YoungRealL1L2Bochner",
-  "Formal.R3SchwartzNormFieldL2",
-  "Formal.R3YoungRealSetIntegralBridge",
-  "Formal.R3YoungRealConvolutionCommutativity",
-  "Formal.R3SchwartzMajorantYoungRepresentative",
-  "Formal.R3SchwartzScalarMajorantL2",
-  "Formal.R3SchwartzConvectionH2L2Majorant",
-  "Formal.R3H2VelocityFourierL1Bound",
-  "Formal.R3H2CoordinateFourierBounds",
-  "Formal.R3H3DerivativeWeightGeometry",
-  "Formal.R3SchwartzDerivativeFrequencyBound",
-  "Formal.R3SchwartzDerivativeH3LpBounds",
-  "Formal.R3SchwartzConvectionH3Closure",
-  "Formal.R3SchwartzConvectionSobolevEstimate",
-  "Formal.R3SchwartzSobolevDensity",
-  "Formal.R3SobolevConvectionExtension",
-  "Formal.R3ProjectedSobolevConvection",
-  "Formal.R3StokesDivergenceCommutation",
-  "Formal.R3StokesSolenoidalPreservation",
-  "Formal.R3StokesH2H3Smoothing",
-  "Formal.R3StokesH3Evolution",
-  "Formal.R3EndpointSafeProjectedDuhamel",
-  "Formal.EndpointSafeTwoSpacePicard",
-  "Formal.R3EndpointSafeProjectedLocalExistence",
-  "Formal.R3ConjugationReflection",
-  "Formal.R3FourierConjugationBridge",
-  "Formal.R3StokesConjugationEquivariance",
-  "Formal.R3LerayConjugationEquivariance",
-  "Formal.R3ConvectionConjugationEquivariance",
-  "Formal.EndpointSafeTwoSpaceRestart",
-  "Formal.EndpointSafeTwoSpaceConcatenation",
-  "Formal.R3CoordinateIncompressibility",
-  "Formal.R3ClassicalIncompressibility",
-  "Formal.R3DecoderFrequencyBridge",
-  "Formal.R3InversionConsistency",
-  "Formal.R3HelmholtzPressure",
-  "Formal.R3ConvectionSourceIdentification",
-  "Formal.R3ProjectedMomentumDuhamelInfrastructure",
-  "Formal.R3ProjectedMomentumEquation",
-  "Formal.R3NavierStokesEquation"
-]
-
-# Patched copies of the four modules that fail at this pin. Same Lean namespaces
-# and declaration names as upstream, module path renamed so nothing collides with
-# the in-place `Formal` library. See research/U05/PORT.md for the exact diff.
-[[lean_lib]]
-name = "FormalPatched"
-roots = [
-  "FormalPatched.R3RealLocalMildSolution",
-  "FormalPatched.R3QuantitativeLifespan",
-  "FormalPatched.EndpointSafeTwoSpaceUniqueness",
-  "FormalPatched.R3MildContinuation"
+  "Formal.UniformRestartContinuation"
 ]

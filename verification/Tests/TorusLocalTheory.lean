@@ -2,14 +2,7 @@ import Contracts.V1.TorusLocalTheory
 import Bindings.TorusLocalTheory
 import TestSupport.Axioms
 
-/-! Public-type, `Spec`-field conformance, and transitive-axiom checks for
-`T01.torus_local_theory` V1.
-
-The registered continuation component is the `H³` narrowing
-`PeriodicContinuationH3API`.  The manuscript's two `H¹` sentences are the named
-predicates `PeriodicRestartH1` / `PeriodicRestartBeyondH1`; the last example
-below records that the manuscript package follows from exactly those two and is
-**not** claimed by this test. -/
+/-! Typed and transitive-axiom checks for the current periodic local-theory, H3 continuation, mean-reduction and viscosity-rescaling interfaces. -/
 
 noncomputable section
 
@@ -101,13 +94,5 @@ example : ∀ (ν : ℝ), 0 < ν →
             PeriodicLocalRegularity 1 (unitViscosityInitialT ν a)
               (unitViscosityForceT ν f) (ν * T) v :=
   checkedTorusLocalTheory.viscosityRescaling.to_unit
-
-/-- The exact residue: the manuscript's `PeriodicContinuationAPI` follows from
-the two named `H¹` predicates together with the three registered ball-free
-fields, and from nothing weaker.  Both predicates remain hypotheses here; the
-test claims neither. -/
-example (h₁ : PeriodicRestartH1) (h₂ : PeriodicRestartBeyondH1) :
-    PeriodicContinuationAPI :=
-  Bindings.TorusLocalTheory.torusContinuationAPI_of_h1 h₁ h₂
 
 end BlowupDensity.Tests

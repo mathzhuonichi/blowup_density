@@ -9,99 +9,13 @@ import NSFormalization.Section4.R42.SolutionOnShorter
 import NSFormalization.Section4.R42.BlowupEssSup
 import NSFormalization.Section4.R42.FullHorizon
 
-/-! The Bindings-level assembly of the **two lifespan clauses of Theorem 4.2**
-(`paper/sections/04-whole-space.tex:32,34`) from the registered contracts and the
-merged `R42` modules.  This file has two inhabitants:
+/-! Lifespan and maximality of the inserted whole-space solution.
 
-* §8 `insertionLifespanAPI` inhabits the **registered** contract
-  `R42.insertion_lifespan` (version 1 of a new id,
-  `Contracts.V1.InsertionLifespan.InsertionLifespanAPI`, 5 fields — lane 096);
-  this is the record consumers should use.
-* §7 `insertionLifespan` inhabits the legacy, frozen, unregistered 3-field
-  `Contracts.V1.InsertionFamily.InsertionLifespanAPI`
-  (`Contracts/V1/InsertionFamily.lean:421-436`) — the lane-092 record.  It is
-  kept because it is that structure's only inhabitant and §8 reuses its two
-  clause proofs (`referenceLifespan`, `lifespan_eq`) verbatim.
-
-The whole assembly rests on three registered interfaces and the merged R42
-analytic lemmas:
-
-* `BlowupDensity.Bindings.maximalPartial` — the registered
-  `Contracts.V1.MaximalPartial.MaximalPartialAPI` (A02's proved maximal-solution
-  interface), giving `lifespan_ge_of_forall_shorter`, `lifespan_le_of_unbounded`
-  and `regularThrough_iff`, all stated in `Data` vocabulary
-  (`Data.maximalLifespanR`, `Data.RegularThrough`, `Data.ClassicalSolutionR`);
-* `BlowupDensity.Bindings.datumLemmas` — the registered
-  `Contracts.V1.DatumLemmas.DatumLemmasAPI` (D01), giving
-  `memForceR_of_compact_difference`;
-* `Bindings.MaximalPartial`'s `uniqueness_toA02` / `maximalPartial_ofA02`, the
-  field-by-field conversions between the contract's `Data.ClassicalSolutionR` and
-  the `Section4/A02` restatement (a `rfl` bridge being impossible for two
-  separately declared structures);
-* `NSFormalization.Section4.R42.{classicalSolutionR_of_inserted,
-  limsupLeft_speedENorm_eq_top, continuous_slice_of_velocity_smooth}` — the merged
-  `sol_on_shorter` construction (lane 087) and the pointwise → essSup blow-up
-  transfer (lane 080).
-
-## Route (see `research/R42/LIFESPAN_SPLIT.md`)
-
-1. `sol_on_shorter` (split #1): the inserted pair is a `Data.ClassicalSolutionR`
-   on every `[0,S)`, `S < T` — the reviewer-verified 22-line instantiation of
-   `classicalSolutionR_of_inserted` (`research/R42/REVIEW_SOL_SHORTER.md`).
-2. `memForceR_force` (split #3): `g_ε ∈ F_R` from `g ∈ F_R` and
-   `forceDifference_compact`, one application of the registered D01 unit.
-3. `lifespan_lower` (split #5): `ofReal T ≤ maximalLifespanR ν a g_ε`, from (1) and
-   `lifespan_ge_of_forall_shorter` — the only structural input is `0 < T`, which is
-   `CorrectionAPI.time_pos`, so **no extra hypothesis** here.
-4. `lifespan_upper` (split #4): `maximalLifespanR ν a g_ε ≤ ofReal T`, from (1),
-   (2), the essSup blow-up transfer of `F.blowup` and `lifespan_le_of_unbounded`.
-5. `lifespan_eq` := `le_antisymm` of 4 and 3 — the `lifespan` field.
-6. `referenceLifespan` (split #6): `ofReal (T+δ) < maximalLifespanR ν a g`, one
-   step from `regularThrough_iff` at `T' = T+δ`.  Taken through the registered
-   `maximalPartial.regularThrough_iff` (Data vocabulary), so no `A02`/`Data`
-   `RegularThrough` bridge is needed.
-7. `insertionLifespan` — the legacy frozen 3-field inhabitant (lane 092).
-8. `insertionLifespanAPI` — the registered `R42.insertion_lifespan` inhabitant
-   (lane 096), reusing (6) and `lifespan_eq` and additionally storing `hg`/`hreg`
-   as the record's `memForce`/`regular` fields.
-
-## The registered contract's hypothesis list
-
-`insertionLifespanAPI` — the registered `R42.insertion_lifespan` — adds exactly
-**two** hypotheses beyond `F : InsertionFamilyAPI ν P`, and no more:
-
-* `hg  : Data.MemForceR F.g`  (the reference force is in `F_R`,
-  `04-whole-space.tex:32`).  `Data.ClassicalSolutionR` has no force-class field
-  and `g_ε − g ∈ C_c^∞` alone cannot give it (`DatumLemmas.lean:378-381`), so this
-  must be carried.  Enters only `lifespan_upper`.
-* `hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin)`  (the reference is *the*
-  solution, regular through `T+δ`, `04-whole-space.tex:32`).
-  `InsertionFamilyAPI.reference` is only a solution on the half-open `[0,T+δ)`,
-  which gives `≤`, not the strict `<`; `RegularThrough` supplies a solution past
-  `T+δ`.  Enters only `referenceLifespan`.
-
-Four things that look like hypotheses but are **derived from the ambient
-contracts** (lane-092 review findings 1, 2; corrected from an earlier draft that
-listed the first two as hypotheses):
-
-* `0 < ν`  = `P.viscosity_pos` (`Packet.lean:199`; `P` is a parameter of every
-  structure here);
-* `F.a ∈ Data.initialClassR` (`X_R`) = `initialClassR_a F`, derived from
-  `F.reference` at `t = 0` (reviewer's 12-line derivation, below);
-* `0 < F.T` = `CorrectionAPI.time_pos`, `0 < F.margin` = `CorrectionAPI.margin_pos`;
-* the essSup blow-up = `F.blowup` + `F.velocity_smooth` through
-  `limsupLeft_speedENorm_eq_top`.
-
-Lane 072's `Section4/R42/Lifespan.lean` (`memForceR_insertedForce`,
-`lt_maximalLifespanR_of_regularThrough`) is **deliberately not imported**: both are
-`A02`-vocabulary restatements of steps we take directly through the registered
-`Data`-vocabulary fields `datumLemmas.memForceR_of_compact_difference` and
-`maximalPartial.regularThrough_iff`, which need no `A02`↔`Data` bridge.
-
-Every declaration carries the `BlowupDensity.Bindings.InsertionLifespan`
-namespace; `maximalPartial`, `datumLemmas`, `uniqueness_toA02`,
-`maximalPartial_ofA02` are visible through the parent `BlowupDensity.Bindings`.
--/
+The lower bound comes from classical solutions on every shorter interval.
+The upper bound follows from the essential-supremum blow-up and maximal
+uniqueness. The reference solution remains regular beyond the prescribed
+insertion time. These results supply the current lifespan record and its
+full-horizon extension. -/
 
 noncomputable section
 
@@ -240,34 +154,8 @@ theorem referenceLifespan (hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin
   (maximalPartial.regularThrough_iff ν F.a F.g (F.T + F.margin)
     (add_pos F.scaling.correction.time_pos F.scaling.correction.margin_pos)).mp hreg
 
-/-! ## 7. `insertionLifespan` — the legacy frozen 3-field inhabitant (lane 092)
-
-Inhabits the frozen, unregistered `Contracts.V1.InsertionFamily.InsertionLifespanAPI`.
-Takes exactly the two hypotheses `hg`, `hreg` — the same two the registered
-`R42.insertion_lifespan` carries (see §8).  `0 < ν` and `F.a ∈ Data.initialClassR`
-are derived inside `lifespan_upper` from `P.viscosity_pos` and `initialClassR_a`. -/
-def insertionLifespan (hg : Data.MemForceR F.g)
-    (hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin)) :
-    InsertionLifespanAPI ν P where
-  family := F
-  referenceLifespan := referenceLifespan F hreg
-  lifespan := fun _ε hε => lifespan_eq F hg hε
-
-/-- Regression guard (lane-092 review finding 5): the two clauses are about the
-**given** family `F`, not a substituted one. -/
-theorem insertionLifespan_family (hg : Data.MemForceR F.g)
-    (hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin)) :
-    (insertionLifespan F hg hreg).family = F := rfl
-
-/-! ## 8. `insertionLifespanAPI` — the **registered** structure inhabitant
-
-Inhabits the registered `Contracts.V1.InsertionLifespan.InsertionLifespanAPI`
-(`Contracts/V1/InsertionLifespan.lean`, contract `R42.insertion_lifespan`).  It
-differs from the frozen 3-field `insertionLifespan` above only by additionally
-storing the two hypotheses `hg`, `hreg` as the new record's `memForce`/`regular`
-fields — so a downstream consumer holding the record can reuse them (R47 needs
-`g ∈ F_R`).  The two lifespan clauses reuse the same `referenceLifespan` and
-`lifespan_eq` proofs. -/
+/-- Package the reference force and regularity hypotheses with the two proved
+lifespan conclusions for the given inserted family. -/
 def insertionLifespanAPI (hg : Data.MemForceR F.g)
     (hreg : Data.RegularThrough ν F.a F.g (F.T + F.margin)) :
     Contracts.V1.InsertionLifespan.InsertionLifespanAPI ν P where

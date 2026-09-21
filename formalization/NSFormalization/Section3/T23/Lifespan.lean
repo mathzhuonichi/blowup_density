@@ -29,7 +29,7 @@ theorem domainLifespan_ge_horizon {ν T : ℝ} {Ω : Set Space}
   exact le_iSup_of_le T (le_iSup_of_le (Nonempty.intro w) le_rfl)
 
 /-- Uniqueness on the domain and an interior witness exclude every longer
-solution. In the smooth branch the sole extra analytic premise is scalar IBP. -/
+solution. The scalar IBP input is supplied by `BoundaryIntegration`. -/
 theorem domainLifespan_eq_of_interior {ν T : ℝ} {Ω : Set Space}
     {a : SpatialField} {g : SpaceTimeField} (hν : 0 < ν)
     (ho : IsOpen Ω) (hb : Bornology.IsBounded Ω) (hI : IBP Ω)

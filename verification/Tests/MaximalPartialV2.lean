@@ -2,14 +2,7 @@ import Contracts.V2.MaximalPartial
 import Bindings.MaximalPartialV2
 import TestSupport.Axioms
 
-/-! The exact public type and its transitive trust boundary are both checked.
-
-The version-one test `Tests.MaximalPartial` is untouched and keeps running against
-`Bindings.maximalPartial`; this is the second, stronger acceptance test, not a
-replacement.  `Bindings.maximalPartial_of_v2` is the checked link between the two:
-it projects `Contracts.V1.MaximalPartial.MaximalPartialAPI` out of the version-two
-witness, so nothing that version one guarantees is lost by version two.
--/
+/-! Exact-type and transitive-axiom checks for current maximal solutions. -/
 
 noncomputable section
 namespace BlowupDensity.Tests

@@ -7,14 +7,9 @@ import Bindings.Thresholds
 import Bindings.InsertionFamily
 import Bindings.InsertionLifespanV2
 
-/-!
-# R42 insertion from raw R41D data
-
-A02 selects a reference horizon strictly inside the lifespan. I02 accepts its
-open-slab restriction, with the arbitrary ball centred at zero of radius one.
-I03 and R42 preserve the reference data definitionally. No supplier hypothesis
-is needed, and the resulting object is the registered contract V2 record.
--/
+/-! Whole-space gluing from a prescribed reference solution and spatial ball.
+The correction, scaling, lifespan and convergence results share one family.
+The raw-data density entry point specializes the same construction. -/
 
 noncomputable section
 
@@ -24,11 +19,7 @@ open Set Filter
 open Contracts.V1 Contracts.V1.Data
 open scoped ENNReal Topology
 
-/-! `Bindings.Packet` and `Bindings.Scaling` both declare
-`BlowupDensity.Bindings.navierStokesResidual_eq`, so Lean cannot import them
-together. The following field assembly reproduces `Bindings.packet` under a
-fresh name, using the very same upstream witnesses. Existing bindings stay
-unchanged; this is an import collision workaround, not a supplier assumption. -/
+/-! Construct the concrete packet used by whole-space gluing from the selected source witness. -/
 
 open MeasureTheory in
 open NSFormalization.Section4.I01 in
@@ -83,7 +74,41 @@ def insertionFromData_packet (ν : ℝ) (hν : 0 < ν) : Contracts.V1.PacketAPI 
       extension_divergence_free := fun _ ht y =>
         extension_divergence_free hprop.divergence_free ht y }
 
-/-- Gap G1: construct the registered insertion record from admissible data. -/
+/-- Construct one inserted family in any prescribed positive-radius ball,
+using exactly the given reference velocity and pressure. The internal time
+margin is halved so the original reference supplies strict continuation past
+that margin without any additional hypothesis. -/
+theorem insertionLifespanV2_of_reference
+    {ν T δ : ℝ} {a : SpatialField} {g : SpaceTimeField}
+    (P : PacketAPI ν) (hT : 0 < T) (hδ : 0 < δ) (hg : MemForceR g)
+    (R : ClassicalSolutionR ν a g (T + δ)) (x₀ : Space) (r : ℝ) (hr : 0 < r) :
+    ∃ L : Contracts.V2.InsertionLifespan.InsertionLifespanV2API ν P,
+      L.family.a = a ∧ L.family.g = g ∧ L.family.T = T ∧
+      L.family.v = R.velocity ∧ L.family.π = R.pressure ∧
+      L.family.ball = Metric.ball x₀ r := by
+  let R' : ClassicalSolutionR ν a g (T + δ / 2) :=
+    maximalPartial_ofA02 ((uniqueness_toA02 R).restrict (by linarith) (by linarith))
+  have hsub : Ioo (0 : ℝ) (T + δ / 2) ×ˢ (univ : Set Space) ⊆
+      Ico (0 : ℝ) (T + δ / 2) ×ˢ (univ : Set Space) :=
+    prod_mono Ioo_subset_Ico_self Subset.rfl
+  let C : CorrectionAPI ν P := correction P (T := T) (δ := δ / 2) (r := r)
+    (v := R'.velocity) (π := R'.pressure) (g := g) x₀ hT (by linarith) hr
+    (R'.velocity_smooth.mono hsub) (R'.pressure_smooth.mono hsub)
+    (fun t ht => R'.divergence t ⟨ht.1.le, ht.2⟩) R'.momentum
+  let S := scaling C thresholds
+  let F := insertionFamily S R' rfl rfl
+  have hregLong : RegularThrough ν F.a F.g (F.T + F.margin) := by
+    refine ⟨δ / 2, by linarith, ?_⟩
+    change Nonempty (ClassicalSolutionR ν a g ((T + δ / 2) + δ / 2))
+    have he : (T + δ / 2) + δ / 2 = T + δ := by ring
+    rw [he]
+    exact ⟨R⟩
+  exact ⟨InsertionLifespan.insertionLifespanV2API F hg hregLong,
+    rfl, rfl, rfl, rfl, rfl, rfl⟩
+
+/-- Construct the inserted family from admissible data and a regular lifespan.
+The density argument uses the unit-ball specialization of the general
+reference-solution construction. -/
 theorem insertionLifespanV2_of_data :
     ∀ (ν : ℝ), 0 < ν → ∀ (T : ℝ), 0 < T →
       ∀ (a : SpatialField), a ∈ initialClassR →
@@ -93,21 +118,11 @@ theorem insertionLifespanV2_of_data :
               (L : Contracts.V2.InsertionLifespan.InsertionLifespanV2API ν P),
               L.family.a = a ∧ L.family.g = g ∧ L.family.T = T := by
   intro ν hν T hT a _ha g hg hLife
-  have hreg := (maximalPartial.regularThrough_iff ν a g T hT).mpr hLife
-  obtain ⟨δ, hδ, ⟨R⟩, _, hlong⟩ := maximalPartial.referenceLifespan ν a g T hT hreg
-  have hsub : Ioo (0 : ℝ) (T + δ) ×ˢ (univ : Set Space) ⊆
-      Ico (0 : ℝ) (T + δ) ×ˢ (univ : Set Space) :=
-    prod_mono Ioo_subset_Ico_self Subset.rfl
+  obtain ⟨δ, hδ, ⟨R⟩⟩ := (maximalPartial.regularThrough_iff ν a g T hT).mpr hLife
   let P := insertionFromData_packet ν hν
-  let C : CorrectionAPI ν P := correction P (T := T) (δ := δ) (r := 1)
-    (v := R.velocity) (π := R.pressure) (g := g) 0 hT hδ zero_lt_one
-    (R.velocity_smooth.mono hsub) (R.pressure_smooth.mono hsub)
-    (fun t ht => R.divergence t ⟨ht.1.le, ht.2⟩) R.momentum
-  let S := scaling C thresholds
-  let F := insertionFamily S R rfl rfl
-  have hregLong : RegularThrough ν F.a F.g (F.T + F.margin) :=
-    (maximalPartial.regularThrough_iff ν a g (T + δ) (add_pos hT hδ)).mpr hlong
-  exact ⟨P, InsertionLifespan.insertionLifespanV2API F hg hregLong, rfl, rfl, rfl⟩
+  obtain ⟨L, ha, hforce, htime, _⟩ :=
+    insertionLifespanV2_of_reference P hT hδ hg R 0 1 zero_lt_one
+  exact ⟨P, L, ha, hforce, htime⟩
 
 /-- Rewrite the record's exact lifespan to the original datum and time. -/
 theorem insertionFromData_lifespan {ν T : ℝ} {a : SpatialField} {P : PacketAPI ν}
@@ -129,5 +144,53 @@ theorem insertionFromData_forceConvergence {ν : ℝ} {g : SpaceTimeField}
   change Tendsto (fun ε : ℝ => forceSobolevENorm q s
     (fun z => L.family.force ε z - L.family.g z)) (𝓝[>] 0) (𝓝 0) at h
   simpa only [hg] using h
+
+/-- The full prescribed-region gluing theorem, with no analytic supplier
+arguments. The open-set formulation includes every prescribed nonempty ball. -/
+theorem wholeSpaceInsertion_holds :
+    Contracts.V2.InsertionLifespan.wholeSpaceInsertionStatement := by
+  intro ν hν
+  let P := insertionFromData_packet ν hν
+  refine ⟨P, ?_⟩
+  intro T δ hT hδ a _ha g hg R B hB hBne
+  obtain ⟨x₀, hx₀⟩ := hBne
+  obtain ⟨r, hr, hball⟩ := Metric.isOpen_iff.mp hB x₀ hx₀
+  obtain ⟨L, ha, hforce, htime, hv, hp, hregion⟩ :=
+    insertionLifespanV2_of_reference P hT hδ hg R x₀ r hr
+  have hinside : L.family.ball ⊆ B := by rw [hregion]; exact hball
+  refine ⟨L, ha, hforce, htime, hv, hp, hinside, ?_, ?_⟩
+  · intro ε hε
+    refine ⟨InsertionLifespan.memForceR_force L.family L.memForce hε, ?_, ?_,
+      ?_, ?_, ?_, ?_, ?_, ?_⟩
+    · simpa only [ha, htime] using L.lifespan ε hε
+    · simpa only [htime] using L.blowup_limsup ε hε
+    · subst a
+      subst T
+      exact L.solution ε hε
+    · have h : ∀ t : ℝ, 0 ≤ t → t ≤ L.family.T - 2 * ε ^ 2 → ∀ x : Space,
+          L.family.velocity ε (t, x) = L.family.v (t, x) := L.family.history ε hε
+      simpa only [htime, hv] using h
+    · intro t ht
+      have ht' : t ∈ Ico (0 : ℝ) L.family.T := by rw [htime]; exact ht
+      have h := L.family.velocityDifference_support ε hε t ht'
+      change tsupport (fun x : Space => L.family.velocity ε (t, x) - L.family.v (t, x)) ⊆
+        L.family.ball at h
+      rw [hv] at h
+      exact h.trans hinside
+    · have h : MemForceCompact (fun z => L.family.force ε z - L.family.g z) :=
+        L.family.forceDifference_compact ε hε
+      simpa only [hforce] using h
+    · have h : ∀ z ∈ tsupport (fun z => L.family.force ε z - L.family.g z),
+          z.2 ∈ L.family.ball := L.family.forceDifference_ball ε hε
+      rw [hforce] at h
+      exact fun z hz => hinside (h z hz)
+    · have h : energyENorm L.family.T (fun z => L.family.velocity ε z - L.family.v z) ≤
+          ENNReal.ofReal ((P.energyBound + P.dissipationBound) * ε ^ ((1 : ℝ) / 2) +
+            L.family.scaling.correctionEnergyConst * ε ^ ((3 : ℝ) / 2)) :=
+        L.family.energyRate ε hε
+      simpa only [htime, hv] using h
+  · intro q hq s hs
+    apply insertionFromData_forceConvergence L hforce q hq s
+    simpa only [L.family.scaling.thresholds.formula, sub_zero] using hs
 
 end BlowupDensity.Bindings

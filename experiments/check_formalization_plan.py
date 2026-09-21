@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Validate and render the source-only proof plan; never invoke Lean or Lake."""
+"""Validate source packaging and the retained blueprint; never invoke Lean."""
 import argparse
-from pathlib import Path
 import hashlib
 import json
-import re
 import os
+from pathlib import Path
+import re
 import subprocess
+import textwrap
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / "formalization/blueprint"
-
+PLAN = ROOT / 'formalization/blueprint'
 
 def uncomment(text):
     """Remove nested Lean comments and string contents, retaining line numbers."""
@@ -51,175 +51,259 @@ def uncomment(text):
     return "".join(out)
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--snapshot", action="store_true",
-                        help="Also require byte identity with the historical migration snapshot")
-    parser.add_argument("--check", action="store_true",
-                        help="Verify generated plan documents without rewriting any files")
-    args = parser.parse_args()
-
-    def emit(path, content, generated=False):
-        if args.check:
-            if generated:
-                assert path.read_text() == content, f"Regenerate {path.relative_to(ROOT)}"
-        else:
-            path.write_text(content)
-
-    data = json.loads((PLAN / "tasks.json").read_text())
-    nodes = {n["id"]: n for n in data["nodes"]}
-    assert len(nodes) == len(data["nodes"]), "Duplicate task IDs"
-    order, active, done = [], set(), set()
-
+def validate_proof_graph(proof, report):
+    nodes = {n['id']: n for n in proof['nodes']}
+    assert len(nodes) == len(proof['nodes']), 'Duplicate proof-node IDs'
+    assert report is not None, 'The proof graph requires the recorded kernel audit'
+    expected = {r['label']: r['coverage'] for r in report['article_rows']}
+    coverage = {}
+    active, done = set(), set()
     def visit(key):
-        assert key in nodes, f"Missing task {key}"
-        assert key not in active, f"Dependency cycle at {key}"
+        assert key in nodes, f'Unknown proof dependency: {key}'
+        assert key not in active, f'Cycle in the article proof graph: {key}'
         if key in done:
             return
         active.add(key)
-        for dep in nodes[key]["dependencies"]:
+        node = nodes[key]
+        assert node['status'] in {'Closed', 'Partial'}, key
+        assert node['scope'] and node['evidence'], key
+        for path in node['evidence']:
+            assert (ROOT / path).is_file(), (key, path)
+        for source in node['depends_on']:
+            visit(source)
+            if node['status'] == 'Closed':
+                assert nodes[source]['status'] == 'Closed', f'Closed proof depends on Partial input: {source} -> {key}'
+        if node['completion_from']:
+            assert node['status'] == 'Partial', f'Only unfinished scopes have completion links: {key}'
+        for source in node['completion_from']:
+            visit(source)
+        active.remove(key)
+        done.add(key)
+    for key, node in nodes.items():
+        visit(key)
+        label = node['article_label']
+        if label is not None:
+            assert label in expected, label
+            previous = coverage.get(label, 'Closed')
+            coverage[label] = 'Partial' if 'Partial' in (previous, node['status']) else 'Closed'
+    assert coverage == expected, 'Clause-level graph disagrees with whole-statement coverage'
+    displayed, displayed_edges = set(), set()
+    for panel in proof['panels']:
+        ids = set(panel['nodes'])
+        assert len(ids) == len(panel['nodes']) and ids <= nodes.keys(), panel['title']
+        displayed.update(ids)
+        displayed_edges.update((source, target) for target in ids
+                               for source in nodes[target]['depends_on'] + nodes[target]['completion_from']
+                               if source in ids)
+    assert displayed == nodes.keys(), 'Some proof nodes are missing from the diagrams'
+    required_edges = {(source, key) for key, n in nodes.items()
+                      for source in n['depends_on'] + n['completion_from']}
+    assert displayed_edges == required_edges, 'Some dependencies are missing from the diagrams'
+    assert {nodes[k]['article_label'] for k in proof['main_results']} == {'thm:main', 'thm:Rmain'}
+    assert all(nodes[k]['status'] == 'Closed' for k in proof['main_results'])
+
+
+def render_graph(proof, report):
+    nodes = {n['id']: n for n in proof['nodes']}
+    rows = report['article_rows']
+    closed = sum(r['coverage'] == 'Closed' for r in rows)
+    partial = len(rows) - closed
+    lines = [
+        '# Article proof dependencies and formalization coverage', '',
+        'The project formalizes the two main density theorems, **Theorems 3.1 and 4.1**, '
+        'and the proved cases used in their arguments. The diagrams follow the paper\'s '
+        'mathematical reductions, rather than Lean imports or implementation task IDs.', '',
+        '**Green = Closed. Orange = Partial.** The status belongs to the exact clause '
+        'written in each node. A single article proposition can therefore have both green '
+        'and orange nodes. Closed requires a Lean kernel-checked proof with all auxiliary '
+        'results formally proved and instantiated. It introduces no assumptions beyond '
+        'those explicitly stated in the article (for example, positive viscosity). '
+        'Only the standard logical axioms `propext`, `Classical.choice` and '
+        '`Quot.sound` are permitted.', '',
+        '**Solid arrows** are dependencies of the proved argument. **Dashed arrows** '
+        'connect available proved components to an unfinished extension or remaining '
+        'clause; they do not assert that the extension has been proved. Orange branches '
+        'are not inputs to the green main-theorem paths. Repeated nodes in different '
+        'panels denote the same result.', '',
+        'The periodic argument splits into a construction/density branch and a critical '
+        'regularity/non-density branch. The whole-space argument has the same structure, '
+        'with separate low-frequency estimates and two critical norms. The formal '
+        'continuation routes use the proved H3/H7 cases of Proposition 2.1.', '',
+    ]
+    for panel in proof['panels']:
+        ids = set(panel['nodes'])
+        lines += ['## ' + panel['title'], '', '```mermaid', 'flowchart TD']
+        for key in panel['nodes']:
+            n = nodes[key]
+            title = '<br/>'.join(line for part in n['title'].split(': ') for line in textwrap.wrap(part, width=27)).replace('"', '&quot;')
+            lines.append(f'  {key}["{title}<br/>{n["status"]}"]')
+        for key in panel['nodes']:
+            n = nodes[key]
+            for source in n['depends_on']:
+                if source in ids:
+                    label = '|trajectory estimates|' if (source, key) == ('E46', 'T47') else ''
+                    lines.append(f'  {source} -->{label} {key}')
+            for source in n['completion_from']:
+                if source in ids:
+                    lines.append(f'  {source} -. remaining scope .-> {key}')
+        lines += ['  classDef closed fill:#dcfce7,stroke:#15803d,color:#14532d;',
+                  '  classDef partial fill:#fff7d6,stroke:#b45309,color:#78350f;',
+                  '  classDef mainResult stroke-width:4px;']
+        for status, style in [('Closed', 'closed'), ('Partial', 'partial')]:
+            members = [k for k in panel['nodes'] if nodes[k]['status'] == status]
+            if members:
+                lines.append('  class ' + ','.join(members) + ' ' + style + ';')
+        main = [k for k in proof['main_results'] if k in ids]
+        if main:
+            lines.append('  class ' + ','.join(main) + ' mainResult;')
+        lines += ['```', '']
+    lines += ['## Split article statements', '',
+              'A whole-statement row is Partial whenever an unfinished clause remains. '
+              'This does not downgrade the proved cases or downstream results that use only those cases.', '',
+              '| Article statement | Closed part used in the proofs | Partial scope |', '|---|---|---|']
+    for row in rows:
+        if row['coverage'] != 'Partial':
+            continue
+        parts = [n for n in proof['nodes'] if n['article_label'] == row['label']]
+        done = '; '.join(n['scope'] for n in parts if n['status'] == 'Closed')
+        if not done:
+            done = 'Related estimates are proved in Proposition 3.3 and the used cases of Lemma 3.5.'
+        missing = '; '.join(n['scope'] for n in parts if n['status'] == 'Partial')
+        lines.append(f'| {row["kind"]} {row["number"]} | {done} | {missing} |')
+    lines += ['', '## Proof locations', '',
+              '| Node | Status | Exact scope and Lean source |', '|---|---|---|']
+    for n in proof['nodes']:
+        refs = '; '.join(f'[{Path(path).name}](../../{path})' for path in n['evidence'])
+        lines.append(f'| {n["title"]} | {n["status"]} | {n["scope"]} {refs} |')
+    lines += ['', '## Verification and source data', '',
+              f'The article-level inventory has **{closed} Closed and {partial} Partial entries** '
+              '(26 numbered statements and one numbered remark). These counts are distinct '
+              'from the number of clause-level nodes above. '
+              f'The recorded kernel audit checks **{len(report["targets"])} declarations**, with '
+              '**no forbidden axioms**. The permitted logical axioms are `propext`, '
+              '`Classical.choice` and `Quot.sound`; the retained source scan has no admissions '
+              'or custom axiom declarations.', '',
+              'The graph is generated from [proof_graph.json](proof_graph.json). '
+              '[RESULT_MAP.md](RESULT_MAP.md) supplies declaration locations, '
+              '[CLOSURE_AUDIT.md](CLOSURE_AUDIT.md) records the input review, and '
+              '[AXIOM_AUDIT.json](AXIOM_AUDIT.json) records the kernel results. '
+              'The implementation registry in `tasks.json` is used for package checks, '
+              'not as the reader-facing proof graph.', '',
+              'Run `python3 experiments/check_formalization_plan.py` to regenerate this file; '
+              '`make check` verifies coverage agreement, acyclicity, displayed edges, source '
+              'paths and the rule that a Closed proof cannot depend on a Partial node.', '']
+    return '\n'.join(lines)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true', help='Check generated graph without rewriting it')
+    args = parser.parse_args()
+    data = json.loads((PLAN / 'tasks.json').read_text())
+    nodes = {n['id']: n for n in data['nodes']}
+    assert len(nodes) == len(data['nodes']), 'Duplicate task IDs'
+    order, active, done = [], set(), set()
+    def visit(key):
+        assert key in nodes, f'Missing task {key}'
+        assert key not in active, f'Dependency cycle at {key}'
+        if key in done:
+            return
+        active.add(key)
+        for dep in nodes[key]['dependencies']:
             visit(dep)
         active.remove(key)
         done.add(key)
         order.append(key)
-
     for key, node in nodes.items():
         visit(key)
-        for file in node["evidence"]:
-            assert (ROOT / file).is_file(), f"Missing evidence {file}"
-    for field in ["target", "pdf"]:
-        assert (ROOT / data[field]).is_file()
+        for path in node['evidence']:
+            assert (ROOT / path).is_file(), f'Missing blueprint evidence: {path}'
+    for key in ['target', 'pdf']:
+        assert (ROOT / data[key]).is_file(), data[key]
+    article_labels = set()
+    for source in (ROOT / 'paper/revised').rglob('*.tex'):
+        article_labels.update(re.findall(r'\\label\{([^}]+)\}', source.read_text()))
+    for node in nodes.values():
+        assert set(node['manuscript_labels']) <= article_labels, node['id']
+    for package in ['formalization', 'verification', 'vendor/NavierStokesAndEuler']:
+        directory = ROOT / package
+        lock = json.loads((directory / 'lake-manifest.json').read_text())
+        for dep in lock['packages']:
+            if dep['type'] == 'path':
+                assert (directory / dep['dir'] / dep['configFile']).is_file(), dep
+        assert (directory / 'lean-toolchain').is_file()
+    modules, imports = {}, {}
+    for package in ['formalization', 'verification', 'vendor/NavierStokesAndEuler', 'vendor/HeliCorgi']:
+        directory = ROOT / package
+        for parent, dirs, names in os.walk(directory):
+            dirs[:] = [d for d in dirs if d not in ['.git', '.lake', '__pycache__']]
+            for name in names:
+                if not name.endswith('.lean') or name == 'lakefile.lean':
+                    continue
+                path = Path(parent) / name
+                module = '.'.join(path.relative_to(directory).with_suffix('').parts)
+                assert module not in modules, f'Duplicate module: {module}'
+                modules[module] = path
+                code = uncomment(path.read_text())
+                imports[module] = [v for line in re.findall(r'^[ \t]*(?:public[ \t]+)?import[ \t]+([^\n]+)', code, re.M) for v in line.split()]
+    missing = [(m, d) for m, deps in imports.items() for d in deps
+               if d.startswith(('NSFormalization.', 'Formal.', 'FormalPatched.', 'NavierStokes.', 'Euler.', 'Contracts.', 'Bindings.', 'Tests.', 'TestSupport.')) and d not in modules]
+    assert not missing, f'Missing local imports: {missing}'
+    roots = json.loads((PLAN / 'entrypoints.json').read_text())
+    expected_tests = {m for m in modules if m.startswith('Tests.')}
+    assert set(roots['test_modules']) == expected_tests, 'Current test roots differ from retained tests'
+    reached, pending = set(), roots['proof_modules'] + roots['test_modules']
+    for module in pending:
+        assert module in modules, f'Missing public root: {module}'
+    while pending:
+        module = pending.pop()
+        if module in reached or module not in modules:
+            continue
+        reached.add(module)
+        pending.extend(imports[module])
+    unused = sorted(set(modules) - reached)
+    assert not unused, f'Unreferenced Lean modules: {unused}'
+    admissions = [(m, i) for m, path in modules.items()
+                  for i, line in enumerate(uncomment(path.read_text()).splitlines(), 1)
+                  if re.search(r'\b(?:sorry|admit|axiom)\b', line)]
+    assert not admissions, f'Admissions or custom axioms in retained sources: {admissions}'
+    tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT).decode().split('\0')
+    forbidden = [p for p in tracked if p and (ROOT / p).exists() and
+                 (any(x in Path(p).parts for x in ['.lake', '.elan', '__pycache__']) or
+                  Path(p).suffix in ['.olean', '.ilean', '.o', '.trace', '.pyc'])]
+    assert not forbidden, f'Tracked build artifacts: {forbidden}'
+    report = None
+    audit_path = PLAN / 'AXIOM_AUDIT.json'
+    if audit_path.exists():
+        report = json.loads(audit_path.read_text())
+        fingerprints = {}
+        for directory in ['formalization', 'verification', 'vendor']:
+            for path in (ROOT / directory).rglob('*'):
+                if not path.is_file() or any(part in path.parts for part in ['.git', '.lake', '__pycache__']):
+                    continue
+                if path.suffix == '.lean' or path.name in ['lakefile.toml', 'lake-manifest.json', 'lean-toolchain', 'LICENSE']:
+                    fingerprints[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
+        digest = hashlib.sha256(json.dumps(fingerprints, sort_keys=True).encode()).hexdigest()
+        assert digest == report['source_tree_sha256'], 'Source changed: rerun the article axiom audit'
+        assert not report['source_tokens'], 'Audit recorded source admissions or custom axioms'
+        assert all(not entry['unexpected_axioms'] for entry in report['targets']), 'Audit recorded forbidden axioms'
+        guide_coverage = dict(re.findall(r'\\mapped\{[^}]+\}\{([^}]+)\}\s*&\s*\\coverage\{([^}]+)\}',
+                                       (ROOT / 'paper/formalization_guide.tex').read_text()))
+        assert {row['label']: row['coverage'] for row in report['article_rows']} == guide_coverage, 'Audit coverage differs from guide'
+    proof = json.loads((PLAN / 'proof_graph.json').read_text())
+    validate_proof_graph(proof, report)
+    rendered = render_graph(proof, report)
+    if args.check:
+        assert (PLAN / 'DEPENDENCY_GRAPH.md').read_text() == rendered, 'Regenerate the dependency graph'
+    else:
+        (PLAN / 'DEPENDENCY_GRAPH.md').write_text(rendered)
+    guide = (ROOT / 'paper/formalization_guide.tex').read_text()
+    labels = {label for _, label in re.findall(r'\\mapped\{([^}]+)\}\{([^}]+)\}', guide)}
+    result_map = (PLAN / 'RESULT_MAP.md').read_text()
+    mapped = set(re.findall(r'`((?:thm|prop|lem|cor|rem):[^`]+)`', result_map))
+    assert labels == mapped and len(labels) == 27, 'Blueprint result map differs from guide'
+    print(f'Blueprint: {len(proof["nodes"])} proof nodes, 27 article/guide mappings; {len(modules)} source modules; local imports and package paths resolve.')
+    print('Static packaging checks only; no Lean build or mathematical certification.')
 
-    manifest = json.loads((ROOT / "logs/FORMALIZATION_SOURCE_MANIFEST.json").read_text())
-    changed_snapshot_files = []
-    for item in manifest["files"]:
-        path = ROOT / item["path"]
-        if not path.exists() or hashlib.sha256(path.read_bytes()).hexdigest() != item["sha256"]:
-            changed_snapshot_files.append(item["path"])
-    if args.snapshot:
-        assert not changed_snapshot_files, changed_snapshot_files
-    roots = [ROOT / "formalization", ROOT / "vendor/NavierStokesAndEuler",
-             ROOT / "vendor/HeliCorgi"]
-    tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode().split("\0")
-    forbidden = [p for p in tracked if p and
-                 (any(x in Path(p).parts for x in [".lake", ".elan", "__pycache__"])
-                  or Path(p).suffix in [".olean", ".ilean", ".o", ".trace", ".pyc"])]
-    assert not forbidden, forbidden
-    local_cfg = (roots[0] / "lakefile.toml").read_text()
-    lock = json.loads((roots[0] / "lake-manifest.json").read_text())
-    assert 'path = "../vendor/NavierStokesAndEuler"' in local_cfg
-    for package in lock["packages"]:
-        if package["type"] == "path":
-            assert (roots[0] / package["dir"] / package["configFile"]).is_file()
-
-    modules, imports, tokens, counts = {}, {}, [], {}
-    for root in roots:
-        files = []
-        for directory, dirs, names in os.walk(root):
-            dirs[:] = [d for d in dirs if d not in [".lake", ".git", ".elan", "__pycache__"]]
-            files.extend(Path(directory) / name for name in names if name.endswith(".lean"))
-        files.sort()
-        counts[str(root.relative_to(ROOT))] = len(files)
-        for path in files:
-            mod = ".".join(path.relative_to(root).with_suffix("").parts)
-            assert mod not in modules, f"Ambiguous module {mod}"
-            modules[mod] = path
-            code = uncomment(path.read_text())
-            imports[mod] = [name for line in re.findall(
-                r"^\s*(?:public\s+)?import\s+([^\n]+)", code, re.M)
-                for name in line.split()]
-            for m in re.finditer(r"\b(?:axiom|sorry|admit)\b", code):
-                tokens.append({"module": mod, "path": str(path.relative_to(ROOT)),
-                               "line": code[:m.start()].count("\n") + 1,
-                               "token": m[0]})
-    missing = sorted({imp for imps in imports.values() for imp in imps
-                      if imp.startswith(("NSFormalization", "NavierStokes", "Euler", "Formal."))
-                      and imp not in modules})
-    assert not missing, f"Missing copied imports: {missing}"
-
-    reachable = set()
-    def closure(mod):
-        if mod in reachable:
-            return
-        reachable.add(mod)
-        for dep in imports.get(mod, []):
-            if dep in modules:
-                closure(dep)
-    closure("NSFormalization")
-    citation_reachable = sorted(m for m in reachable if m.startswith("NSFormalization.Citations."))
-    assert not citation_reachable, "Schematic citation interfaces entered the umbrella"
-    reachable_tokens = [t for t in tokens if t["module"] in reachable]
-    # Preserve and report legacy admissions; source copying is not certification.
-
-    report = json.loads((ROOT / "logs/MANUSCRIPT_CHECK.json").read_text())
-    mapping = {label: n["id"] for n in nodes.values() for label in n["manuscript_labels"]}
-    aliases = {"lem:Rlocal": "prop:local"}
-    rows = []
-    for result in report["correspondence"]:
-        label = result["label"]
-        assert aliases.get(label, label) in mapping, f"Unmapped result {label}"
-        rows.append((result, mapping[aliases.get(label, label)]))
-    assert len(rows) == 34
-    # The merged source has 28 distinct numbered results, including shared aliases.
-    assert len({x[0]["merged_number"] for x in rows}) == 28
-
-    graph = ["# Dependency graph", "", "Generated from [tasks.json](tasks.json). "
-             "Arrows point from prerequisites to dependent tasks. "
-             "This is a future proof plan, not a certification graph.", "",
-             "```mermaid", "flowchart TD"]
-    for n in data["nodes"]:
-        graph.append(f'  {n["id"]}["{n["id"]}: {n["title"]}"]')
-    for n in data["nodes"]:
-        graph.extend(f'  {d} --> {n["id"]}' for d in n["dependencies"])
-    graph += ["  classDef external fill:#dbeafe,stroke:#2563eb;",
-              "  classDef adapter fill:#fef3c7,stroke:#b45309;",
-              "  classDef assembly fill:#dcfce7,stroke:#15803d;",
-              "  classDef deferred fill:#f3f4f6,stroke:#6b7280;"]
-    for kind, style in [("upstream", "external"), ("literature", "external"),
-                        ("adapter", "adapter"), ("assembly", "assembly"),
-                        ("deferred", "deferred")]:
-        graph.append("  class " + ",".join(n["id"] for n in nodes.values() if n["kind"] == kind)
-                     + " " + style + ";")
-    graph += ["```", "", "Blue: reusable upstream or literature input; amber: adapter; "
-              "green: target assembly; grey: deferred periodic work. "
-              "Colors classify work, not proof completion.", "", "## Task contracts", ""]
-    for n in sorted(nodes.values(), key=lambda x: (x["priority"], order.index(x["id"]))):
-        graph += [f'### {n["id"]}: {n["title"]}', "",
-                  f'Priority: P{n["priority"]}. Status: `{n["status"]}`. '
-                  f'Dependencies: {", ".join(n["dependencies"]) or "none"}.', "", n["contract"], ""]
-        graph.extend(f'- [{e}](../../{e})' for e in n["evidence"])
-        graph.append("")
-    # blueprint is two directories below the repository root.
-    emit(PLAN / "DEPENDENCY_GRAPH.md", "\n".join(graph).rstrip() + "\n", generated=True)
-    table = ["# Result-to-task correspondence", "", "All 34 source occurrences map to "
-             "28 merged results. Shared analytic nodes cover the whole-space branch first; "
-             "their periodic specialization remains in T01-T04.", "",
-             "| Original | Label | Merged result | Task |", "|---|---|---|---|"]
-    for x, key in rows:
-        table.append(f'| {x["source"]} | `{x["label"]}` | {x["merged_kind"]} '
-                     f'{x["merged_number"]} | {key} |')
-    emit(PLAN / "RESULT_MAP.md", "\n".join(table) + "\n", generated=True)
-    summary = {"scope": "Static source/manifest/import/task validation; no Lean build, "
-               "kernel proof check, or transitive axiom audit.", "task_count": len(nodes),
-               "topological_order": order, "source_counts": counts,
-               "source_manifest_entries": len(manifest["files"]),
-               "local_umbrella_reachable_copied_modules": len(reachable),
-               "local_modules_outside_umbrella": sorted(m for m in modules
-                                                       if m.startswith("NSFormalization.")
-                                                       and m not in reachable),
-               "missing_copied_imports": missing, "citation_interfaces_reachable": citation_reachable,
-               "explicit_axiom_or_admission_tokens": tokens,
-               "tokens_in_copied_umbrella_closure": reachable_tokens,
-               "original_result_occurrences": len(rows), "merged_result_count": 28,
-               "tracked_cache_free": True, "source_hashes_match": not changed_snapshot_files,
-               "changed_snapshot_files": changed_snapshot_files,
-               "snapshot_identity_required": args.snapshot}
-    emit(ROOT / "logs/FORMALIZATION_PLAN_CHECK.json", json.dumps(summary, indent=2) + "\n")
-    print(json.dumps({k: summary[k] for k in ["task_count", "source_counts",
-          "source_manifest_entries", "missing_copied_imports", "citation_interfaces_reachable",
-          "tokens_in_copied_umbrella_closure", "tracked_cache_free", "source_hashes_match"]}, indent=2))
-    print("Explicit axiom/admission tokens, all copied sources:", len(tokens))
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

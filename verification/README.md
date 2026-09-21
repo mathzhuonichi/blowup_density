@@ -1,37 +1,22 @@
-# Versioned Lean acceptance contracts
+# Current publication acceptance interfaces
 
-Run `lake test` in this directory, or `make test` from the repository root.
-The package follows the separate test-library / `testDriver` convention used
-by Mathlib and Batteries. It requires the existing local formalization package
-without importing its umbrella.
+Run `make test` from the repository root, or `lake test` here. There are
+29 current typed acceptance interfaces. Each test names a mathematical
+specification, a concrete implementation and a transitive axiom check.
 
-```text
-Contracts/V1/Thresholds.lean   exact stable mathematical specification
-              ^
-Bindings/Thresholds.lean      current implementation adapter
-              ^
-Tests/Thresholds.lean         typed assignment + transitive axiom check
-              |
-TestSupport/Axioms.lean       Lean.collectAxioms, standard logical allowlist
-```
+The registry lists the retained interfaces. Superseded tests and unused
+compatibility wrappers have been removed. Existing `Contracts/V1` definitions
+remain where the current proof/test closure uses them; they are not required
+for backward compatibility alone. Registration is not a claim that every
+related manuscript statement is fully formalized.
 
-The baseline suite has one registered component contract with six arithmetic
-obligations. Its universal quantifiers, strict inequalities and intermediate
-negative-index range are part of the fixed type. The adapter points at existing
-Paper 3 arithmetic lemmas; it does not prove new PDE results.
+`make check` validates the current registry, import boundaries and source
+closure. `make test-mutations` checks that admitted proofs, extra axioms and a
+weakened hypothesis are rejected, while an implementation refactor is accepted.
+The axiom checker reads actual declaration dependencies, not textual `#print`
+output or a grep count.
 
-Register additional contracts in `contracts.json`, connect them to a task ID,
-and add concrete typed bindings and test modules. `Tests.+` discovers test
-modules automatically; registration validation rejects unregistered tests.
-The registry is a coverage list, not a declaration that its parent task is done.
-
-Use `python3 ../experiments/check_contracts.py --base-ref <base-commit>` to
-check compatibility against a previous commit. A protected V1 statement and
-its acceptance test remain unchanged when a proof is refactored. New statements
-belong in a new version; missing proofs remain unimplemented work items.
-
-The axiom check reads Lean's declaration dependencies directly. It does not
-parse `#print` output, depend on source line numbers, or treat zero textual
-`sorry` occurrences as a proof certificate. Mutation tests verify both the
-positive and rejection paths. Auditing a declaration is still relative to its
-formal definitions; reviewing manuscript fidelity remains necessary.
+The article-declaration audit separately checks the actual guide targets,
+including upstream comparison and boundary closure. See the
+[dependency graph](../formalization/blueprint/DEPENDENCY_GRAPH.md). Its standard
+axiom result must be read together with the guide's hypothesis/scope labels.

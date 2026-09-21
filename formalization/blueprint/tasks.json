@@ -1,9 +1,8 @@
 {
   "schema_version": 1,
-  "target": "paper/blowup_density.tex",
-  "pdf": "output/pdf/blowup_density.pdf",
-  "priority": "Section 4 (former Paper 3), then domain-specific Section 3",
-  "review": "Static source and statement inspection only; no fresh Lean build or transitive axiom certification.",
+  "target": "paper/revised/blowup_density_revised.tex",
+  "pdf": "output/pdf/blowup_density_revised.pdf",
+  "review": "Current retained proof architecture. Kernel axioms and coverage restrictions are reported separately; historical task states and compatibility-only interfaces are not retained.",
   "nodes": [
     {
       "id": "U01",
@@ -11,12 +10,12 @@
       "dependencies": [],
       "kind": "upstream",
       "priority": 0,
-      "status": "source-present-adaptation-open",
-      "contract": "Reuse the selected compact forced packet for every positive viscosity, with zero initial velocity, common compact velocity/pressure support, bounded energy and unbounded speed. Reuse its analytic library; do not reprove the packet construction.",
+      "status": "current-proof-dependency",
+      "contract": "Theorem 1.1 in full: for every positive viscosity, one compact candidate with blowup time one and same-force global nonexistence, proved by Source.source_breakdown.",
       "evidence": [
-        "vendor/NavierStokesAndEuler/NavierStokes/R3ActualCandidate.lean",
-        "vendor/NavierStokesAndEuler/NavierStokes/R3CompactCandidate.lean",
-        "formalization/NSFormalization/Source/ViscosityPacket.lean"
+        "vendor/NavierStokesAndEuler/NavierStokes/ComparatorR3Theorem.lean",
+        "formalization/NSFormalization/Source/ViscosityPacket.lean",
+        "formalization/NSFormalization/Source/PacketBreakdown.lean"
       ],
       "manuscript_labels": [
         "thm:packet"
@@ -28,15 +27,11 @@
       "dependencies": [],
       "kind": "upstream",
       "priority": 0,
-      "status": "source-present-adaptation-open",
-      "contract": "Reuse actual Stokes/Leray/convection/decoder/pressure, endpoint-safe Picard, unrestricted uniqueness, explicit lifespan, restart and concatenation. The concrete PDE capstone is unforced and spatially distributional; forced all-order classical theory still requires adaptation. Lean 4.32.1 must be reconciled with OpenAI 4.34.0-rc2 before direct imports.",
+      "status": "current-proof-dependency",
+      "contract": "Only the HeliCorgi modules imported by current proofs are retained. This is an in-place source library, not a standalone historical checkout.",
       "evidence": [
-        "vendor/HeliCorgi/Formal/R3EndpointSafeProjectedLocalExistence.lean",
-        "vendor/HeliCorgi/Formal/R3QuantitativeLifespan.lean",
-        "vendor/HeliCorgi/Formal/R3MildContinuation.lean",
-        "vendor/HeliCorgi/Formal/R3NavierStokesEquation.lean",
-        "vendor/HeliCorgi/Formal/R3SchwartzInitialData.lean",
-        "vendor/HeliCorgi/Formal/R3HelmholtzPressure.lean"
+        "vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceDuhamel.lean",
+        "vendor/HeliCorgi/Formal/EndpointSafeTwoSpacePicard.lean"
       ],
       "manuscript_labels": []
     },
@@ -49,41 +44,11 @@
       ],
       "kind": "adapter",
       "priority": 0,
-      "status": "open",
-      "contract": "Audit selected import closures under Lean/mathlib 4.34.0-rc2 before a future source port, or keep independent checkouts until compatibility is demonstrated. Preserve both original pins; no forced lockfile upgrade and no proof edits in this planning task.",
+      "status": "current-proof-dependency",
+      "contract": "Current selected upstream sources compile with the fixed Lean 4.34.0-rc2 and Mathlib pin. Unused patched and standalone compatibility targets were removed.",
       "evidence": [
-        "formalization/lean-toolchain",
-        "vendor/HeliCorgi/lean-toolchain",
-        "vendor/HeliCorgi/lakefile.lean"
-      ],
-      "manuscript_labels": []
-    },
-    {
-      "id": "U02",
-      "title": "Tao forced whole-space local theory",
-      "dependencies": [],
-      "kind": "literature",
-      "priority": 0,
-      "status": "source-present-adaptation-open",
-      "contract": "Tao 2013 Theorem 5.4(ii)-(iv), including the smooth Sobolev extension in its proof. This is an external mathematical input, not an imported Lean theorem. Audit equivalent OpenAI and second-upstream declarations before planning a new solver.",
-      "evidence": [
-        "reference/Tao_2013_Localisation_Compactness_Published.pdf"
-      ],
-      "manuscript_labels": []
-    },
-    {
-      "id": "U03",
-      "title": "Classical Euclidean Sobolev embeddings",
-      "dependencies": [],
-      "kind": "literature",
-      "priority": 0,
-      "status": "source-present-adaptation-open",
-      "contract": "Tao Appendix A (A.11), a=1/2 and a=1 in dimension three; preserve homogeneous realization and Fourier convention. Prefer existing formal representations and estimates.",
-      "evidence": [
-        "reference/Tao_Nonlinear_Dispersive_Equations_Author_Draft.pdf",
-        "vendor/NavierStokesAndEuler/NavierStokes/R3/SmoothSobolevL6.lean",
-        "formalization/NSFormalization/Source/FractionalRealization.lean",
-        "formalization/NSFormalization/Paper1/SchwartzCriticalEmbedding.lean"
+        "formalization/lakefile.toml",
+        "formalization/lean-toolchain"
       ],
       "manuscript_labels": []
     },
@@ -95,16 +60,11 @@
       ],
       "kind": "adapter",
       "priority": 0,
-      "status": "source-present-adaptation-open",
-      "contract": "Identify X_R=H-infinity intersect L2-solenoidal and F_R with all integer Sobolev time smoothness and global L1/L2 integrability. Use real Euclidean vector norms and angular Fourier normalization. Pressure is determined by its gradient modulo time functions; do not require scalar pressure in L2. Preserve one-sided initial-time regularity.",
+      "status": "current-proof-dependency",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Paper3/AngularSobolevClass.lean",
-        "formalization/NSFormalization/Paper3/AngularRealSobolev.lean",
-        "formalization/NSFormalization/Paper3/AngularRealVectorBochner.lean",
-        "formalization/NSFormalization/Paper3/RealAdmissibleForce.lean",
-        "formalization/NSFormalization/Source/FourierPhysicalJets.lean",
-        "vendor/HeliCorgi/Formal/R3HelmholtzPressure.lean",
-        "vendor/HeliCorgi/Formal/R3SchwartzInitialData.lean"
+        "formalization/NSFormalization/Section4/D01/DatumToJets.lean",
+        "formalization/NSFormalization/Section4/D01/DerivativeDatum.lean"
       ],
       "manuscript_labels": []
     },
@@ -113,23 +73,21 @@
       "title": "Whole-space local solution adapter",
       "dependencies": [
         "D01",
-        "U02",
         "U04",
         "U01",
         "U05"
       ],
       "kind": "adapter",
       "priority": 0,
-      "status": "source-present-adaptation-open",
-      "contract": "Obtain a positive common interval for all Sobolev orders, ordinary physical velocity and time smoothness, projected-forcing equation and pressure-gradient recovery, for every manuscript datum. A fixed-order cylinder mild witness alone is insufficient. Prefer OpenAI forced Duhamel plus HeliCorgi concrete R3 operators; extend only the affine forcing, all-order regularity and field-identification edges. Do not schedule a replacement Fourier/Leray/Picard library.",
+      "status": "current-acceptance-interface",
+      "contract": "Local solutions and regularity for the registered force classes; fixed-force H7 horizon bounds only.",
       "evidence": [
-        "formalization/NSFormalization/Source/OrdinaryForcedLocal.lean",
-        "formalization/NSFormalization/Source/OrdinaryCylinderDescent.lean",
-        "formalization/NSFormalization/Source/ForcedCylinderInvariant.lean",
-        "vendor/HeliCorgi/Formal/R3EndpointSafeProjectedLocalExistence.lean",
-        "vendor/HeliCorgi/Formal/R3NavierStokesEquation.lean"
+        "verification/Contracts/V2/LocalTheory.lean",
+        "verification/Bindings/LocalTheoryV2.lean"
       ],
-      "manuscript_labels": []
+      "manuscript_labels": [
+        "prop:local"
+      ]
     },
     {
       "id": "A02",
@@ -139,13 +97,15 @@
       ],
       "kind": "adapter",
       "priority": 0,
-      "status": "source-present-adaptation-open",
-      "contract": "Patch ordinary local solutions by velocity uniqueness in the manuscript class. Identify the maximal lifetime used in Section 2 and make restart quantitative. Only prove the source-to-manuscript implications needed for the inserted field; no equivalence with every legacy Flow is required.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Source/OrdinaryViscousUniqueness.lean",
-        "formalization/NSFormalization/Source/SmoothLifespan.lean",
-        "formalization/NSFormalization/Source/InsertionBreakdown.lean",
-        "vendor/HeliCorgi/Formal/R3MildContinuation.lean"
+        "verification/Contracts/V1/Uniqueness.lean",
+        "verification/Bindings/Uniqueness.lean",
+        "verification/Contracts/V2/MaximalPartial.lean",
+        "verification/Bindings/MaximalPartialV2.lean",
+        "formalization/NSFormalization/Section4/A02/Uniqueness.lean",
+        "formalization/NSFormalization/Section4/A02/Maximal.lean"
       ],
       "manuscript_labels": []
     },
@@ -159,17 +119,14 @@
       ],
       "kind": "adapter",
       "priority": 1,
-      "status": "source-present-adaptation-open",
-      "contract": "Reuse complete H2/Hm scalar product and angular normalization. Assemble real vectors/tensors, difference estimates and actual physical multiplication for the energy argument, with constants independent of support. The embedding clauses of shared Lemma A.1 are supplied by A05; the product estimate itself can be reused before that adapter is finished.",
+      "status": "current-proof-dependency",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Paper3/CompleteTameProduct.lean",
-        "formalization/NSFormalization/Paper3/SobolevPhysicalProduct.lean",
-        "formalization/NSFormalization/Paper3/AngularTameProduct.lean",
-        "formalization/NSFormalization/Source/BesselH2Fourier.lean"
+        "formalization/NSFormalization/Section4/A03/BoundedRepresentative.lean",
+        "formalization/NSFormalization/Section4/A03/ScalarTameProduct.lean",
+        "formalization/NSFormalization/Section4/A03/VectorTameProduct.lean"
       ],
-      "manuscript_labels": [
-        "lem:calculus"
-      ]
+      "manuscript_labels": []
     },
     {
       "id": "A04",
@@ -180,35 +137,31 @@
       ],
       "kind": "adapter",
       "priority": 0,
-      "status": "source-present-adaptation-open",
-      "contract": "From integral_0^S ||u||_H2^2 < infinity at a finite candidate endpoint derive higher-order bounds and a uniform restart interval extending beyond S. Use L1 Hm forcing and bounded local H1 forcing. Do not require a whole-space spectral gap.",
+      "status": "current-acceptance-interface",
+      "contract": "Integral continuation is proved using fixed-force H7 restart. H1-uniform and cross-force restart are not asserted.",
       "evidence": [
-        "formalization/NSFormalization/Paper1/ScalarEnergyContinuation.lean",
-        "vendor/HeliCorgi/Formal/R3MildContinuation.lean"
+        "verification/Contracts/V2/Continuation.lean",
+        "verification/Bindings/ContinuationV2.lean",
+        "formalization/NSFormalization/Section4/A04/ShiftedExtension.lean",
+        "formalization/NSFormalization/Section4/A04/RestartFixedForce.lean"
       ],
-      "manuscript_labels": [
-        "prop:local"
-      ]
+      "manuscript_labels": []
     },
     {
       "id": "A05",
       "title": "Critical embeddings for the actual whole-space fields",
       "dependencies": [
-        "D01",
-        "U03"
+        "D01"
       ],
       "kind": "adapter",
       "priority": 0,
-      "status": "source-present-adaptation-open",
-      "contract": "Connect a=1/2 and a=1 estimates to the same real vector/tensor distributions, full stated homogeneous completion and smooth H-infinity fields. Derive gradient L3, Lambda L3 and gradient L6 bounds. Reuse FractionalRealization and SchwartzCriticalEmbedding; no new maximal-function or Riesz-kernel campaign is the default.",
+      "status": "current-proof-dependency",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Source/FractionalRealization.lean",
-        "formalization/NSFormalization/Source/FractionalRepresentative.lean",
-        "formalization/NSFormalization/Paper1/SchwartzCriticalEmbedding.lean"
+        "formalization/NSFormalization/Section4/A05/CriticalL3.lean",
+        "formalization/NSFormalization/Section4/A05/GradientL6.lean"
       ],
-      "manuscript_labels": [
-        "lem:critical-embeddings"
-      ]
+      "manuscript_labels": []
     },
     {
       "id": "I01",
@@ -218,11 +171,12 @@
       ],
       "kind": "adapter",
       "priority": 1,
-      "status": "source-present-adaptation-open",
-      "contract": "Recover finite total dissipation, initial velocity/pressure vanishing and zero extension to negative time for the chosen packet.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Source/ViscosityPacket.lean",
-        "formalization/NSFormalization/Source/PacketPressure.lean"
+        "verification/Contracts/V1/Packet.lean",
+        "verification/Bindings/Packet.lean",
+        "formalization/NSFormalization/Section4/I01/Quiet.lean"
       ],
       "manuscript_labels": [
         "lem:packetenergy"
@@ -237,18 +191,13 @@
       ],
       "kind": "adapter",
       "priority": 1,
-      "status": "source-present-adaptation-open",
-      "contract": "Reuse the Euclidean content of Lemmas 3.4 and 3.5. Local reference is regular on [0,T+delta]. Construct solenoidal w_epsilon cancelling the reference on a neighborhood of the active packet support; H_epsilon is spacetime compact and smooth across T.",
+      "status": "current-proof-dependency",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Paper1/RadialPotential.lean",
-        "formalization/NSFormalization/Paper1/LocalCutoff.lean",
-        "formalization/NSFormalization/Paper1/TimeExtension.lean",
-        "formalization/NSFormalization/Paper1/CorrectionForceProfile.lean"
+        "formalization/NSFormalization/Section4/I02/Energy.lean",
+        "formalization/NSFormalization/Section4/I02/Mixed.lean"
       ],
-      "manuscript_labels": [
-        "lem:potential",
-        "lem:correction"
-      ]
+      "manuscript_labels": []
     },
     {
       "id": "I03",
@@ -258,14 +207,11 @@
       ],
       "kind": "adapter",
       "priority": 1,
-      "status": "source-present-adaptation-open",
-      "contract": "Packet exponent beta=2/q-3/2-s; correction exponent beta+1. Negative homogeneous scaling only for -3/2<s<0; reach lower inhomogeneous orders by monotonicity. Preserve one epsilon family for all required convergences and E_T rates epsilon^(1/2), epsilon^(3/2).",
+      "status": "current-proof-dependency",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Source/FourierScaling.lean",
-        "formalization/NSFormalization/Source/TimeNormScaling.lean",
-        "formalization/NSFormalization/Source/AngularForceNorms.lean",
-        "formalization/NSFormalization/Source/LocalApproximatingInsertion.lean",
-        "formalization/NSFormalization/Paper3/HomogeneousTime.lean"
+        "formalization/NSFormalization/Section4/I03/Angular.lean",
+        "formalization/NSFormalization/Section4/I03/Energy.lean"
       ],
       "manuscript_labels": []
     },
@@ -278,12 +224,13 @@
       ],
       "kind": "assembly",
       "priority": 1,
-      "status": "source-present-adaptation-open",
-      "contract": "Arbitrary ball and regular reference through T+delta: same initial velocity/history through T-2epsilon^2, compact force difference and localized velocity difference, exact maximal lifetime T, blowup and all stated same-family estimates. Transport source insertion_lifespan_eq to the manuscript maximal solution.",
+      "status": "current-acceptance-interface",
+      "contract": "Full Theorem 4.2 for every prescribed nonempty open set. The final theorem supplies all construction records, preserves the given reference velocity and pressure, and proves all clauses for one family.",
       "evidence": [
-        "formalization/NSFormalization/Source/LocalApproximatingInsertion.lean",
-        "formalization/NSFormalization/Source/InsertionBreakdown.lean",
-        "formalization/NSFormalization/Source/PhysicalIntegerSobolev.lean"
+        "verification/Contracts/V1/InsertionFamily.lean",
+        "verification/Bindings/InsertionFamily.lean",
+        "verification/Contracts/V2/InsertionLifespan.lean",
+        "verification/Bindings/InsertionLifespanV2.lean"
       ],
       "manuscript_labels": [
         "thm:Rinsert"
@@ -297,10 +244,10 @@
       ],
       "kind": "assembly",
       "priority": 1,
-      "status": "source-present-adaptation-open",
-      "contract": "For every fixed smooth divergence-free a and every reference force g, split at Tmax(a,g)<=T. Use g itself in the first case; otherwise insert after choosing a positive margin beyond T. Quantifier order is forall a forall g forall radius exists f.",
+      "status": "current-proof-dependency",
+      "contract": "Subcritical density is supplied by Bindings.DensityFromInsertion with construction suppliers discharged.",
       "evidence": [
-        "formalization/NSFormalization/Source/WholeSpaceDensity.lean"
+        "verification/Bindings/DensityFromInsertion.lean"
       ],
       "manuscript_labels": []
     },
@@ -313,10 +260,11 @@
       ],
       "kind": "adapter",
       "priority": 1,
-      "status": "source-present-adaptation-open",
-      "contract": "Derive the actual PDE L2 norm estimate and H1 energy absorption when critical velocity is small. Keep ordinary L2 low-frequency control separate and combine with the Laplacian estimate to obtain squared H2 time integrability.",
+      "status": "current-proof-dependency",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Source/OrdinaryViscousUniqueness.lean"
+        "formalization/NSFormalization/Section4/C01/EnergyBounds.lean",
+        "formalization/NSFormalization/Section4/C01/EnergyDerivative.lean"
       ],
       "manuscript_labels": []
     },
@@ -330,9 +278,13 @@
       ],
       "kind": "assembly",
       "priority": 1,
-      "status": "open",
-      "contract": "Small ||a||_dotH(1/2)+||f||_L1(dotH(1/2)) < c nu implies global regularity; regularized norm division and continuity bootstrap precede continuation. At a=0, inhomogeneous L1 H(1/2) smallness suffices.",
-      "evidence": [],
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
+      "evidence": [
+        "verification/Contracts/V1/CriticalRegularity.lean",
+        "verification/Bindings/CriticalRegularity.lean",
+        "formalization/NSFormalization/Section4/R43/Universal.lean"
+      ],
       "manuscript_labels": [
         "prop:Rcritical1"
       ]
@@ -347,9 +299,13 @@
       ],
       "kind": "assembly",
       "priority": 1,
-      "status": "open",
-      "contract": "For each nu,S>0, zero initial data and ||f||_L2(H(-1/2))<c nu^(3/2) exp(-C nu S) imply Tmax>S. Use J=(I-Delta)^(1/2), dual force estimate and Gronwall. Preserve horizon dependence and inhomogeneous low-frequency control.",
-      "evidence": [],
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
+      "evidence": [
+        "verification/Contracts/V1/CriticalFiniteHorizon.lean",
+        "verification/Bindings/CriticalFiniteHorizon.lean",
+        "formalization/NSFormalization/Section4/R44/Prop44.lean"
+      ],
       "manuscript_labels": [
         "prop:Rcritical2"
       ]
@@ -364,10 +320,11 @@
       ],
       "kind": "assembly",
       "priority": 1,
-      "status": "source-present-adaptation-open",
-      "contract": "For q in {1,2}, density for every fixed a when s<2/q-3/2, and iff only at a=0. Use nonempty relative regular balls at and above each endpoint. Keep exact-T insertion assertions conditional on a regular reference.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Paper3/Thresholds.lean"
+        "verification/Contracts/V1/MainThresholds.lean",
+        "verification/Bindings/MainThresholds.lean"
       ],
       "manuscript_labels": [
         "thm:Rmain"
@@ -381,10 +338,11 @@
       ],
       "kind": "assembly",
       "priority": 2,
-      "status": "source-present-adaptation-open",
-      "contract": "Restrict the two-case argument to F_c and F_rd using compact force differences; preserve all mixed-derivative decay seminorms without uniform common bounds. Include Schwartz solenoidal initial data.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Paper3/CompactForceAdmissibility.lean"
+        "verification/Contracts/V1/ForceClasses.lean",
+        "verification/Bindings/ForceClasses.lean"
       ],
       "manuscript_labels": [
         "cor:Rclasses"
@@ -398,11 +356,11 @@
       ],
       "kind": "adapter",
       "priority": 2,
-      "status": "source-present-adaptation-open",
-      "contract": "Reuse exact normalized angular real-vector compact smooth physical approximation for every real Hs and finite q>=1; identify target manuscript completions and support strictly inside positive time.",
+      "status": "current-proof-dependency",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Paper3/AngularRealVectorBochner.lean",
-        "formalization/NSFormalization/Paper3/RealVectorPositiveDensity.lean"
+        "formalization/NSFormalization/Section4/B01/Spatial.lean",
+        "formalization/NSFormalization/Section4/B01/Temporal.lean"
       ],
       "manuscript_labels": []
     },
@@ -414,11 +372,11 @@
       ],
       "kind": "adapter",
       "priority": 2,
-      "status": "source-present-adaptation-open",
-      "contract": "Complete the manuscript realization using annular Fourier approximation, physical cutoffs and ||h||_dotH(-1)^2 <= C||h||_L1^2+||h||_L2^2. Transfer to real positive-time Bochner functions; do not substitute arbitrary H(-1) data.",
+      "status": "current-proof-dependency",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Paper3/HomogeneousRealization.lean",
-        "formalization/NSFormalization/Paper3/HomogeneousTime.lean"
+        "formalization/NSFormalization/Section4/B02/Annular.lean",
+        "formalization/NSFormalization/Section4/B02/AnnularReal.lean"
       ],
       "manuscript_labels": []
     },
@@ -433,10 +391,11 @@
       ],
       "kind": "assembly",
       "priority": 2,
-      "status": "source-present-adaptation-open",
-      "contract": "Combine compact smooth approximation and relative singular-force density by a two-radius argument. Preserve simultaneous E_T, L1 L2, L2 H(-1), L2 dotH(-1) convergence for one family. The homogeneous norm concerns the compact difference; no rough-force classical solution is asserted.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Paper3/AngularRealVectorBochner.lean"
+        "verification/Contracts/V1/CompletedDensity.lean",
+        "verification/Bindings/CompletedDensity.lean"
       ],
       "manuscript_labels": [
         "prop:Renergy"
@@ -450,11 +409,11 @@
       ],
       "kind": "adapter",
       "priority": 2,
-      "status": "source-present-adaptation-open",
-      "contract": "Reuse common-cell ball geometry, compact solenoidal zero mean, and actual integrated momentum equation with compact pressure difference. Finitely many grids, every cell, every t<T; force equality must be derived from the PDE.",
+      "status": "current-proof-dependency",
+      "contract": "Finite-grid observations use the actual solution and force; observation times lie strictly before the terminal time.",
       "evidence": [
-        "formalization/NSFormalization/Paper3/GridGeometry.lean",
-        "formalization/NSFormalization/Paper3/ActualGridObservations.lean"
+        "verification/Bindings/GridObservations.lean",
+        "verification/Bindings/FluxCancellation.lean"
       ],
       "manuscript_labels": []
     },
@@ -468,98 +427,14 @@
       ],
       "kind": "assembly",
       "priority": 2,
-      "status": "source-present-adaptation-open",
-      "contract": "Use the same insertion and convergence family within one cell of every prescribed grid. Preserve velocity and force averages at every presingular time, while Tmax=T. No claim of equality for point observations or arbitrary refinement.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "formalization/NSFormalization/Paper3/ActualGridObservations.lean"
+        "verification/Contracts/V1/GridObservations.lean",
+        "verification/Bindings/GridObservations.lean"
       ],
       "manuscript_labels": [
         "thm:Rgrid"
-      ]
-    },
-    {
-      "id": "T01",
-      "title": "Periodic analytic adapters",
-      "dependencies": [
-        "A03",
-        "U02",
-        "U03"
-      ],
-      "kind": "deferred",
-      "priority": 3,
-      "status": "source-present-adaptation-open",
-      "contract": "After Section 4, adapt forced local theory to the torus, remove the evolving mean by a Galilean translation, normalize pressure, and prove the uniform mean-zero critical embedding. Do not use finite-mode constants as a full embedding.",
-      "evidence": [
-        "formalization/NSFormalization/Paper1/PeriodicPressureNormalization.lean",
-        "formalization/NSFormalization/Paper1/PeriodicCriticalBridge.lean"
-      ],
-      "manuscript_labels": []
-    },
-    {
-      "id": "T02",
-      "title": "Periodic localization and insertion",
-      "dependencies": [
-        "I02",
-        "I03",
-        "T01"
-      ],
-      "kind": "deferred",
-      "priority": 3,
-      "status": "source-present-adaptation-open",
-      "contract": "Perform torus localization and norm transfer, packet scaling and manuscript-class insertion. These domain-specific transfers are not prerequisites for Section 4.",
-      "evidence": [
-        "formalization/NSFormalization/Paper1/PeriodicInsertion.lean"
-      ],
-      "manuscript_labels": [
-        "lem:localization",
-        "prop:scaling",
-        "thm:insertion"
-      ]
-    },
-    {
-      "id": "T03",
-      "title": "Periodic density and endpoint classification",
-      "dependencies": [
-        "T02",
-        "T01"
-      ],
-      "kind": "deferred",
-      "priority": 3,
-      "status": "source-present-adaptation-open",
-      "contract": "Assemble Section 3 density, critical non-density, mixed sufficient conditions, trajectory closure and projection with their original quantifiers.",
-      "evidence": [
-        "formalization/NSFormalization/Paper1/PeriodicMain.lean",
-        "formalization/NSFormalization/Paper1/PeriodicDensityDichotomy.lean"
-      ],
-      "manuscript_labels": [
-        "thm:main",
-        "prop:density",
-        "prop:critical",
-        "cor:nondensity",
-        "cor:mixed",
-        "cor:closure",
-        "prop:projection"
-      ]
-    },
-    {
-      "id": "T04",
-      "title": "Remaining Section 3 consequences",
-      "dependencies": [
-        "T02"
-      ],
-      "kind": "deferred",
-      "priority": 3,
-      "status": "source-present-adaptation-open",
-      "contract": "Audit interior no-slip insertion with positive time margin and correct field linkage; retain affine velocity/quadratic force variation, finite singular regions and conservative forcing statements. Legacy boundary interfaces must match the merged statement before reuse.",
-      "evidence": [
-        "formalization/NSFormalization/Paper1/BoundaryCorollaryCorrected.lean",
-        "formalization/NSFormalization/Paper1/ConservativeForce.lean"
-      ],
-      "manuscript_labels": [
-        "cor:boundary",
-        "prop:affine",
-        "prop:multiple",
-        "prop:conservative"
       ]
     },
     {
@@ -568,18 +443,11 @@
       "dependencies": [],
       "kind": "adapter",
       "priority": 1,
-      "status": "open",
-      "contract": "Specify the T³ coefficient-side H^s, X_T, F_T, B_{ν,a,T} and E_T data, the mean/mean-zero split, the periodic Leray projector with identity zero mode, the zero-mean pressure gauge, and the bidirectional TorusCube bridge.",
+      "status": "current-proof-dependency",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "paper/sections/02-preliminaries.tex",
-        "collaboration/briefs/263-SPEC-t10-draft-a.md",
-        "collaboration/briefs/264-SPEC-t10-draft-b.md",
-        "formalization/NSFormalization/Paper1/PeriodicSobolev.lean",
-        "formalization/NSFormalization/Paper1/PeriodicForceSpace.lean",
-        "formalization/NSFormalization/Paper1/PeriodicMeanZero.lean",
-        "formalization/NSFormalization/Paper1/PeriodicLerayCoeffCore.lean",
-        "formalization/NSFormalization/Paper1/PeriodicPressureNormalization.lean",
-        "formalization/NSFormalization/Paper1/TorusCube.lean"
+        "formalization/NSFormalization/Section3/T10/DatumBasics.lean",
+        "formalization/NSFormalization/Section3/T10/ForcePaths.lean"
       ],
       "manuscript_labels": []
     },
@@ -591,17 +459,12 @@
       ],
       "kind": "adapter",
       "priority": 1,
-      "status": "open",
-      "contract": "Prove prop:local on T³ as a ClassicalPeriodicLocalTheory giving existence, uniqueness, maximal lifespan and continuation from finite ∫₀^S ‖u‖²_{H²}, including Galilean removal of the evolving mean and viscosity rescaling.",
+      "status": "current-acceptance-interface",
+      "contract": "Periodic local theory and integral continuation use H3 restart. H1-uniform restart is not asserted.",
       "evidence": [
-        "paper/sections/02-preliminaries.tex",
-        "paper/sections/appendix-a-local-theory.tex",
-        "formalization/NSFormalization/Paper1/PeriodicOrdinaryLocal.lean",
-        "formalization/NSFormalization/Paper1/PeriodicLifespan.lean",
-        "formalization/NSFormalization/Paper1/PeriodicUniqueness.lean",
-        "formalization/NSFormalization/Paper1/PeriodicForcedDuhamel.lean",
-        "vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceDuhamel.lean",
-        "vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceRestart.lean"
+        "verification/Contracts/V1/TorusLocalTheory.lean",
+        "verification/Bindings/TorusLocalTheory.lean",
+        "formalization/NSFormalization/Section3/T11/ExistenceInputH3.lean"
       ],
       "manuscript_labels": []
     },
@@ -613,15 +476,11 @@
       ],
       "kind": "adapter",
       "priority": 2,
-      "status": "open",
-      "contract": "Prove eq:Rproduct and the mean-zero T³ bounds ‖v‖∞≤C‖v‖H², ‖v‖₃≤C‖v‖Ḣ¹ᐟ², ‖∇v‖₃+‖Λv‖₃≤C‖v‖Ḣ³ᐟ², ‖∇v‖₆≤C‖Δv‖₂ and ‖v‖H²≤C‖Δv‖₂ together with the spectral gap, without finite-mode constants.",
+      "status": "current-proof-dependency",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "paper/sections/appendix-a-local-theory.tex",
-        "paper/sections/appendix-b-embeddings.tex",
-        "formalization/NSFormalization/Paper1/PeriodicCompactSobolevL6.lean",
-        "formalization/NSFormalization/Paper1/PeriodicH2Embedding.lean",
-        "formalization/NSFormalization/Paper1/PeriodicCriticalBridge.lean"
+        "formalization/NSFormalization/Section3/T12/CriticalL3.lean",
+        "formalization/NSFormalization/Section3/T12/CriticalL3Density.lean"
       ],
       "manuscript_labels": []
     },
@@ -633,18 +492,19 @@
       ],
       "kind": "adapter",
       "priority": 1,
-      "status": "open",
-      "contract": "Prove lem:localization in the reconciled research/T13/RECONCILIATION.md form: the R³ and T³ Gagliardo identities with common c_s, the periodic kernel and lattice-tail control, uniform eq:localization for shrinking support, and the s=0,1 endpoint equalities.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "research/T13/RECONCILIATION.md",
-        "collaboration/briefs/265-SPEC-t13-draft-a.md",
-        "collaboration/briefs/266-SPEC-t13-draft-b.md",
-        "vendor/NavierStokesAndEuler/NavierStokes/PeriodicLocalization.lean",
-        "formalization/NSFormalization/Paper1/PeriodicBridge.lean",
-        "formalization/NSFormalization/Paper1/TorusCube.lean"
+        "verification/Contracts/V1/Localization.lean",
+        "verification/Bindings/Localization.lean",
+        "formalization/NSFormalization/Section3/T13/Assembly.lean",
+        "formalization/NSFormalization/Section3/T13/KernelComparison.lean",
+        "formalization/NSFormalization/Section3/T13/WholeSpaceIdentity.lean",
+        "formalization/NSFormalization/Section3/T13/TorusIdentity.lean"
       ],
-      "manuscript_labels": []
+      "manuscript_labels": [
+        "lem:localization"
+      ]
     },
     {
       "id": "T14",
@@ -654,13 +514,12 @@
       ],
       "kind": "adapter",
       "priority": 2,
-      "status": "open",
-      "contract": "Instantiate thm:packet and prove lem:packetenergy with finite M and D, the exact energy inequality, initial-interval vanishing, and smooth zero extension of velocity and pressure to negative time.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "paper/sections/01-introduction.tex",
-        "paper/sections/02-preliminaries.tex",
-        "formalization/NSFormalization/Section4/I01/Energy.lean",
-        "formalization/NSFormalization/Section4/I01/Extension.lean"
+        "verification/Contracts/V1/PacketImport.lean",
+        "verification/Bindings/PacketImport.lean",
+        "formalization/NSFormalization/Section3/T14/PacketEnergy.lean"
       ],
       "manuscript_labels": []
     },
@@ -673,15 +532,16 @@
       ],
       "kind": "adapter",
       "priority": 2,
-      "status": "open",
-      "contract": "Prove prop:scaling, including eq:packetEscale, eq:packetFscale with α(p,q), eq:packetHs via T13, terminal velocity blowup, pressure normalization and single-copy periodization at fixed viscosity.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "formalization/NSFormalization/Paper1/PeriodicScalingBounds.lean",
-        "formalization/NSFormalization/Paper1/ScalingLimits.lean",
-        "formalization/NSFormalization/Paper1/PeriodicPacketEndpointRates.lean"
+        "verification/Contracts/V1/Scaling3.lean",
+        "verification/Bindings/Scaling3.lean",
+        "formalization/NSFormalization/Section3/T15/Assembly.lean"
       ],
-      "manuscript_labels": []
+      "manuscript_labels": [
+        "prop:scaling"
+      ]
     },
     {
       "id": "T16",
@@ -691,15 +551,17 @@
       ],
       "kind": "adapter",
       "priority": 2,
-      "status": "open",
-      "contract": "Prove lem:potential by constructing the radial vector potential ∇×A=v and smooth Urysohn cutoffs so w_ε is smooth, periodic and divergence free and satisfies eq:bgzero near the active packet support.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "formalization/NSFormalization/Paper1/RadialPotential.lean",
-        "formalization/NSFormalization/Paper1/LocalCutoff.lean",
-        "formalization/NSFormalization/Paper1/PeriodicConstantLocal.lean"
+        "verification/Contracts/V1/LocalPotential.lean",
+        "verification/Bindings/LocalPotential.lean",
+        "formalization/NSFormalization/Section3/T16/Assembly.lean",
+        "formalization/NSFormalization/Section3/T16/BallPotential.lean"
       ],
-      "manuscript_labels": []
+      "manuscript_labels": [
+        "lem:potential"
+      ]
     },
     {
       "id": "T17",
@@ -710,16 +572,16 @@
       ],
       "kind": "adapter",
       "priority": 2,
-      "status": "open",
-      "contract": "Prove lem:correction from a uniformly smooth fixed-cylinder rescaled profile, obtaining eq:derivativebounds, eq:wE and eq:Hmixed and transferring eq:HHs through T13 with constants uniform in ε.",
+      "status": "current-acceptance-interface",
+      "contract": "The formal correction statement includes explicit smoothness, chart and positive-viscosity hypotheses. Downstream gluing proofs supply them.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "formalization/NSFormalization/Paper1/CorrectionForceProfile.lean",
-        "formalization/NSFormalization/Paper1/CorrectionEnergy.lean",
-        "formalization/NSFormalization/Paper1/CorrectionMixedNorms.lean",
-        "formalization/NSFormalization/Paper1/PeriodicCorrectionEndpointRates.lean"
+        "verification/Contracts/V1/Correction3.lean",
+        "verification/Bindings/Correction3.lean",
+        "formalization/NSFormalization/Section3/T17/Assembly.lean"
       ],
-      "manuscript_labels": []
+      "manuscript_labels": [
+        "lem:correction"
+      ]
     },
     {
       "id": "T18",
@@ -734,15 +596,16 @@
       ],
       "kind": "assembly",
       "priority": 1,
-      "status": "open",
-      "contract": "Prove thm:insertion with the exact eq:insertion decomposition, vanishing cross transports, g_ε∈F_T, lifespan exactly T by T11 uniqueness and H²-to-L∞ continuation, and the simultaneous eq:Eclose, eq:Fclose and eq:Hsclose bounds.",
+      "status": "current-acceptance-interface",
+      "contract": "Theorem 3.6: the generic assembly consumes scaling/correction records; the constructor from raw data uses a fixed ball. The prescribed-ball version is not yet closed.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "formalization/NSFormalization/Paper1/PeriodicInsertion.lean",
-        "formalization/NSFormalization/Paper1/PeriodicInsertionEndpointAssembly.lean",
-        "formalization/NSFormalization/Paper1/PeriodicCrossComponentTransport.lean"
+        "verification/Contracts/V1/PeriodicInsertion.lean",
+        "verification/Bindings/PeriodicInsertion.lean",
+        "formalization/NSFormalization/Section3/T18/Assembly.lean"
       ],
-      "manuscript_labels": []
+      "manuscript_labels": [
+        "thm:insertion"
+      ]
     },
     {
       "id": "T19",
@@ -753,15 +616,19 @@
       ],
       "kind": "assembly",
       "priority": 1,
-      "status": "open",
-      "contract": "Derive prop:density by the regular/earlier-breakdown dichotomy and then prove cor:mixed for 3/p+2/q>3, cor:closure in E_T, and prop:projection with quantifier order ∀a∃f.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "formalization/NSFormalization/Paper1/PeriodicDense.lean",
-        "formalization/NSFormalization/Paper1/PeriodicDensityDichotomy.lean",
-        "formalization/NSFormalization/Paper1/PeriodicDensityFiber.lean"
+        "verification/Contracts/V1/Density.lean",
+        "verification/Bindings/Density.lean",
+        "formalization/NSFormalization/Section3/T19/Assembly.lean"
       ],
-      "manuscript_labels": []
+      "manuscript_labels": [
+        "prop:density",
+        "cor:mixed",
+        "cor:closure",
+        "prop:projection"
+      ]
     },
     {
       "id": "T20",
@@ -773,13 +640,12 @@
       ],
       "kind": "assembly",
       "priority": 1,
-      "status": "open",
-      "contract": "Prove prop:critical as a CriticalRegularityCertificate by removing the evolving mean, establishing eq:meanbound, eq:meanfree, multiplier commutation and skew-adjoint transport, then deriving eq:criticalenergy, eq:bintegral, eq:ybound, eq:H1energy and continuation through eq:criterion.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "formalization/NSFormalization/Paper1/PeriodicCriticalRegularity.lean",
-        "formalization/NSFormalization/Paper1/CriticalEnergyCertificate.lean",
-        "formalization/NSFormalization/Paper1/PeriodicMeanZeroEstimate.lean"
+        "verification/Contracts/V1/CriticalRegularityT.lean",
+        "verification/Bindings/CriticalRegularityT.lean",
+        "formalization/NSFormalization/Section3/T20/Assembly.lean"
       ],
       "manuscript_labels": []
     },
@@ -792,14 +658,19 @@
       ],
       "kind": "assembly",
       "priority": 1,
-      "status": "open",
-      "contract": "Prove cor:nondensity from the relative open critical-force ball and Sobolev monotonicity, then assemble thm:main(i) and (ii) from T19 and T20 with the stated fixed-data and zero-data quantifiers.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "formalization/NSFormalization/Paper1/PeriodicMain.lean",
-        "formalization/NSFormalization/Paper1/ManuscriptTopology.lean"
+        "verification/Contracts/V1/TorusNonDensity.lean",
+        "verification/Bindings/TorusNonDensity.lean",
+        "verification/Contracts/V1/TorusMain.lean",
+        "verification/Bindings/TorusMain.lean",
+        "formalization/NSFormalization/Section3/T21/MainAssembly.lean"
       ],
-      "manuscript_labels": []
+      "manuscript_labels": [
+        "thm:main",
+        "cor:nondensity"
+      ]
     },
     {
       "id": "T22",
@@ -809,12 +680,12 @@
       ],
       "kind": "adapter",
       "priority": 2,
-      "status": "open",
-      "contract": "Prove eq:restriction-norm and eq:zero-extension for every real H^s(R³), with a multiplier bound for fields supported in a fixed compact interior set and a constant independent of the shrinking ε-scale.",
+      "status": "current-acceptance-interface",
+      "contract": "Current implementation component used by the retained article proofs. The cited interfaces fix its hypotheses and conclusion; this node is not a certificate for broader manuscript variants.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "formalization/NSFormalization/Paper1/BoundaryAnalyticBridge.lean",
-        "formalization/NSFormalization/Paper1/BoundaryReferenceRestriction.lean"
+        "verification/Contracts/V1/BoundedDomainNorm.lean",
+        "verification/Bindings/BoundedDomainNorm.lean",
+        "formalization/NSFormalization/Section3/T22/Assembly.lean"
       ],
       "manuscript_labels": []
     },
@@ -827,14 +698,17 @@
       ],
       "kind": "assembly",
       "priority": 2,
-      "status": "open",
-      "contract": "Prove cor:boundary by inserting inside a fixed interior ball while preserving the no-slip boundary collar and initial data, comparing domain and zero-extension norms uniformly, and using no-slip uniqueness to obtain singularity exactly at T.",
+      "status": "current-acceptance-interface",
+      "contract": "Boundary insertion from raw domain, geometry and reference-solution data. The packet, placement and norm witnesses are supplied by compiled definitions.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "formalization/NSFormalization/Paper1/BoundaryCorollaryCorrected.lean",
-        "formalization/NSFormalization/Paper1/BoundarySupportComposition.lean"
+        "verification/Contracts/V2/BoundaryInsertion.lean",
+        "verification/Bindings/BoundaryInsertionV2.lean",
+        "formalization/NSFormalization/Section3/T23/BoundaryIntegration.lean",
+        "formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean"
       ],
-      "manuscript_labels": []
+      "manuscript_labels": [
+        "cor:boundary"
+      ]
     },
     {
       "id": "T24",
@@ -845,14 +719,55 @@
       ],
       "kind": "assembly",
       "priority": 2,
-      "status": "open",
-      "contract": "Prove the three independent Section 3 leaves prop:affine, prop:multiple and prop:conservative, preserving their compact-support, finitely-many-region, and periodic-potential/no-slip quantifiers.",
+      "status": "current-acceptance-interface",
+      "contract": "Affine variation is proved for the selected building block; multiple-region and conservative-force conclusions currently cover the periodic case.",
       "evidence": [
-        "paper/sections/03-torus.tex",
-        "formalization/NSFormalization/Paper1/ConservativeForce.lean",
-        "formalization/NSFormalization/Paper1/PeriodicNonpositiveForce.lean"
+        "verification/Contracts/V1/AffineVariation.lean",
+        "verification/Bindings/AffineVariation.lean",
+        "verification/Contracts/V1/ConservativeForcing.lean",
+        "verification/Bindings/ConservativeForcing.lean",
+        "verification/Contracts/V1/MultipleRegions.lean",
+        "verification/Bindings/MultipleRegions.lean",
+        "formalization/NSFormalization/Section3/T24/MultipleAssembly.lean",
+        "formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean"
       ],
-      "manuscript_labels": []
+      "manuscript_labels": [
+        "prop:affine",
+        "prop:multiple",
+        "prop:conservative"
+      ]
+    }
+  ],
+  "remaining_scope": [
+    {
+      "id": "H1_R",
+      "status": "Partial",
+      "description": "Whole-space H1-uniform and cross-force quantitative restart. The proved continuation route uses fixed-force H7 bounds."
+    },
+    {
+      "id": "H1_T",
+      "status": "Partial",
+      "description": "Periodic H1-uniform restart. The proved continuation route uses H3 bounds."
+    },
+    {
+      "id": "PEAKS",
+      "status": "Partial",
+      "description": "Remark 3.13 has estimates but no separately exported divergence-of-force-amplitudes conclusion."
+    },
+    {
+      "id": "BOUND_T24",
+      "status": "Partial",
+      "description": "The bounded-domain variants of Propositions 3.16 and 3.17 are not included in the current periodic exports."
+    },
+    {
+      "id": "CORRECTION",
+      "status": "Partial",
+      "description": "Lemma 3.5: the formal correction statement has explicit smoothness, chart and positive-viscosity hypotheses, supplied by downstream gluing proofs."
+    },
+    {
+      "id": "PERIODIC_PLACEMENT",
+      "status": "Partial",
+      "description": "Theorem 3.6: the generic assembly consumes scaling/correction records; the constructor from raw data uses a fixed ball. The prescribed-ball version is not yet closed."
     }
   ]
 }

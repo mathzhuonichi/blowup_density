@@ -1,44 +1,6 @@
 import Contracts.V1.RegularityPartial
 
-/-!
-# A01 whole-space local theory, version 2
-
-This contract registers the existence half of `prop:local` on `R³`
-(`paper/sections/02-preliminaries.tex:105`, derived in
-`paper/sections/appendix-a-local-theory.tex:60-107`).  It exposes one named,
-positive local horizon, a classical solution on that horizon, and all four
-clauses of `research/A01/Spec.lean:167-230`'s
-`ManuscriptLocalRegularity` for that same solution.
-
-Version two extends the frozen `A01.regularity_partial` API.  Its inherited
-`projected` and `pressure_potential` fields hold for every classical solution;
-the new `regularity` field packages those clauses together with
-`sobolev_smooth` and `pressure_recovery` for the selected local solution.
-
-## Deliberate narrowing of the quantitative horizon clause
-
-The manuscript sentence at `research/A01/Spec.lean:338-344 (the draft transcription; the manuscript's appendix-a-local-theory.tex:147-150 itself states an H¹ bound for one fixed force on [0,S+δ])`, citing Tao's
-H¹ local theory, uses an H¹ datum bound and an L¹-in-time H¹ force bound for
-one fixed force on `[0,S+δ]`; the draft specification transcribed it with the
-force quantified after `∃ δ` (one duration for the whole force ball) — that
-stronger, force-uniform reading is the draft's, not the manuscript's (review 212).  The registered V2
-field is strictly narrower: the force is fixed before the duration is chosen,
-and the datum is bounded in H⁷.  It does not prove cross-force uniformity and it
-does not prove the manuscript's H¹ statement.
-
-This is the owner-approved interface needed by the implemented continuation
-route.  A04 restarts the same underlying force and obtains H⁷ bounds for the
-restart data by Grönwall.  Its actual uniformity over restart times
-`t₀ ∈ [0,S]` and the shifted forces of that one force is proved separately by
-`Section4/A04/RestartFixedForce.lean` (lane 215), using compact-time force
-bounds.  The stronger manuscript H¹ statement is retained below as the
-unregistered predicate `ManuscriptHorizonLowerBoundH1`, explicitly marked open.
-
-Every definition copied from the draft specification is repeated literally in
-this contract; `Bindings.LocalTheoryV2` supplies an `rfl` correspondence for
-each implementation-side copy.  `ClassicalSolutionR` is reused from
-`Contracts.V1.Data`, as required by the contract boundary.
--/
+/-! Whole-space local theory: a positive common horizon, smooth Sobolev regularity, pressure recovery and fixed-force H7 horizon bounds. H1-uniform and cross-force bounds are not asserted. The imported regularity structure supplies fields used by this live interface. -/
 
 noncomputable section
 
@@ -182,21 +144,6 @@ structure LocalTheoryAPI extends
     ∀ ν, 0 < ν → ∀ f, MemForceR f → ∀ K : ℝ≥0∞, K ≠ ⊤ →
       ∃ δ > 0, ∀ a, a ∈ initialClassR → sobolevENorm 7 a ≤ K →
         δ ≤ horizon ν a f
-
-/-- The manuscript's sentence; NOT implied by this API; open.
-
-This is the H¹/cross-force statement of
-`paper/sections/research/A01/Spec.lean:338-344 (the draft transcription; the manuscript's appendix-a-local-theory.tex:147-150 itself states an H¹ bound for one fixed force on [0,S+δ])` and
-`research/A01/Spec.lean:338-344`, retained verbatim as an unregistered
-predicate on a V2 record.  Proving it requires a forced quantitative H¹ local
-theory on the mild stack.  No field or binding below claims it. -/
-def ManuscriptHorizonLowerBoundH1 (api : LocalTheoryAPI) : Prop :=
-  ∀ (ν : ℝ), 0 < ν → ∀ K : ℝ≥0∞, K ≠ ⊤ →
-    ∃ δ : ℝ, 0 < δ ∧
-      ∀ (a : SpatialField) (f : SpaceTimeField),
-        a ∈ initialClassR → MemForceR f →
-          sobolevENorm 1 a ≤ K → forceSobolevENormL1 1 f ≤ K →
-            δ ≤ api.horizon ν a f
 
 /-! ## Accessors -/
 

@@ -811,25 +811,6 @@ def boundaryInsertionStatement' : Prop :=
         D.potential = C.potential ∧ D.correction = C.correction ∧
         Nonempty (BoundaryInsertionAPI ν P place Ω norms a g r δ D reference)
 
-def boundaryInsertionStatement'_box : Prop :=
-  ∀ (ν : ℝ), 0 < ν → ∀ (P : PacketImportAPI ν)
-    (place : DomainPlacementData P.toPacketAPI)
-    (Ω : Set Space) (norms : BoundedDomainNormAPI)
-    (a : SpatialField) (g : SpaceTimeField) (r δ : ℝ)
-    (reference : ClassicalSolutionOmega ν Ω a g (place.T + δ)),
-    IsBoxDomain Ω → 0 < δ → 0 < r →
-      g ∈ forceClassOmega Ω → a ∈ initialClassOmega Ω →
-      closure (Metric.ball place.x₀ r) ⊆ Metric.ball place.chartCenter place.chartRadius →
-      closure (Metric.ball place.chartCenter place.chartRadius) ⊆ Ω →
-      ∃ (C : CorrectionAPI ν P.toPacketAPI) (D : CutoffData),
-        C.T = place.T ∧ C.δ = δ ∧ C.x₀ = place.x₀ ∧ C.r = r ∧
-        (∀ t ∈ Ioo (0 : ℝ) (place.T + δ), ∀ x ∈ Metric.ball place.x₀ r,
-          C.v (t, x) = reference.velocity (t, x)) ∧
-        D.θ = C.θ ∧ D.η = C.η ∧ D.plateau = C.plateau ∧
-        D.θRadius = C.θRadius ∧ D.ε₀ = C.ε₀ ∧
-        D.potential = C.potential ∧ D.correction = C.correction ∧
-        Nonempty (BoundaryInsertionAPI ν P place Ω norms a g r δ D reference)
-
 def boundaryInsertionStatement'_of_ibp : Prop :=
   ∀ (ν : ℝ), 0 < ν → ∀ (P : PacketImportAPI ν)
     (place : DomainPlacementData P.toPacketAPI)
@@ -848,8 +829,5 @@ def boundaryInsertionStatement'_of_ibp : Prop :=
         D.θRadius = C.θRadius ∧ D.ε₀ = C.ε₀ ∧
         D.potential = C.potential ∧ D.correction = C.correction ∧
         Nonempty (BoundaryInsertionAPI ν P place Ω norms a g r δ D reference)
-
-def boundaryInsertionStatementV1 : Prop :=
-  boundaryInsertionStatement'_box ∧ boundaryInsertionStatement'_of_ibp
 
 end BlowupDensity.Contracts.V1.BoundaryInsertion

@@ -49,19 +49,4 @@ example :
         δ ≤ checkedLocalTheoryV2.horizon ν a f :=
   checkedLocalTheoryV2.horizon_lower_bound
 
-/-- The paper's H¹/cross-force sentence is only a definition.  This `rfl`
-checks its wording; it does not inhabit the predicate. -/
-example : LocalTheory.ManuscriptHorizonLowerBoundH1 checkedLocalTheoryV2 =
-    (∀ (ν : ℝ), 0 < ν → ∀ K : ℝ≥0∞, K ≠ ⊤ →
-      ∃ δ : ℝ, 0 < δ ∧
-        ∀ (a : SpatialField) (f : SpaceTimeField),
-          a ∈ initialClassR → MemForceR f →
-            sobolevENorm 1 a ≤ K → forceSobolevENormL1 1 f ≤ K →
-              δ ≤ checkedLocalTheoryV2.horizon ν a f) := rfl
-
-/-- Structural V1 compatibility is part of the V2 acceptance surface. -/
-example :
-    Contracts.V1.RegularityPartial.ManuscriptLocalRegularityPartialAPI :=
-  Bindings.regularityPartial_of_v2
-
 end BlowupDensity.Tests

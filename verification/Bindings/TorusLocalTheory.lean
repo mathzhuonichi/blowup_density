@@ -455,46 +455,6 @@ theorem torusViscosityRescalingAPI : PeriodicViscosityRescalingAPI where
       NSFormalization.Section3.T11.from_unit ν hν a ha f hf T (ofContract v)
     exact ⟨toContract w, hw1, hw2, (periodicLocalRegularity_toContract w).mpr hw3⟩
 
-/-- The contract's two named `H¹` predicates are the canonical ones; neither is
-proved here or anywhere in the tree. -/
-theorem periodicRestartH1_eq :
-    PeriodicRestartH1 = NSFormalization.Section3.T11.PeriodicRestartH1 := by
-  refine propext ⟨fun h ν hν f hf S hS K hK ↦ ?_, fun h ν hν f hf S hS K hK ↦ ?_⟩
-  · obtain ⟨δ, hδ, hloc⟩ := h ν hν f hf S hS K hK
-    refine ⟨δ, hδ, fun t₀ ht₀ a' ha' hK' ↦ ?_⟩
-    obtain ⟨w, hw⟩ := hloc t₀ ht₀ a' ha' hK'
-    exact ⟨ofContract w, (periodicLocalRegularity_eq w).mp hw⟩
-  · obtain ⟨δ, hδ, hloc⟩ := h ν hν f hf S hS K hK
-    refine ⟨δ, hδ, fun t₀ ht₀ a' ha' hK' ↦ ?_⟩
-    obtain ⟨w, hw⟩ := hloc t₀ ht₀ a' ha' hK'
-    exact ⟨toContract w, (periodicLocalRegularity_toContract w).mpr hw⟩
-
-theorem periodicRestartBeyondH1_eq :
-    PeriodicRestartBeyondH1 =
-      NSFormalization.Section3.T11.PeriodicRestartBeyondH1 := by
-  refine propext ⟨fun h ν hν f hf S hS K hK ↦ ?_, fun h ν hν f hf S hS K hK ↦ ?_⟩
-  · obtain ⟨δ, hδ, hloc⟩ := h ν hν f hf S hS K hK
-    refine ⟨δ, hδ, fun a ha u p hsolve hbound ↦ ?_⟩
-    obtain ⟨v, hu, hp⟩ :=
-      hloc a ha u p ((solvesBelowT_eq ν a f S u p).mpr hsolve) hbound
-    exact ⟨ofContract v, hu, hp⟩
-  · obtain ⟨δ, hδ, hloc⟩ := h ν hν f hf S hS K hK
-    refine ⟨δ, hδ, fun a ha u p hsolve hbound ↦ ?_⟩
-    obtain ⟨v, hu, hp⟩ :=
-      hloc a ha u p ((solvesBelowT_eq ν a f S u p).mp hsolve) hbound
-    exact ⟨toContract v, hu, hp⟩
-
-/-- The manuscript continuation package follows from exactly the two named
-`H¹` predicates, and from nothing weaker. -/
-theorem torusContinuationAPI_of_h1 (h₁ : PeriodicRestartH1)
-    (h₂ : PeriodicRestartBeyondH1) : PeriodicContinuationAPI where
-  restart := h₁
-  higherOrderBound := torusContinuationH3API.higherOrderBound
-  restartBeyond := h₂
-  extendsBeyond := torusContinuationH3API.extendsBeyond
-  lifespanInfiniteOfLocallyFinite :=
-    torusContinuationH3API.lifespanInfiniteOfLocallyFinite
-
 end BlowupDensity.Bindings.TorusLocalTheory
 
 namespace BlowupDensity.Bindings

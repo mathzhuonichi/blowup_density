@@ -1,6 +1,6 @@
 name = "NavierStokesAndEuler"
 version = "0.1.0"
-defaultTargets = ["NavierStokes", "Euler", "ComparatorChallenges"]
+defaultTargets = ["NavierStokes", "Euler"]
 
 [[require]]
 name = "mathlib"
@@ -16,13 +16,9 @@ rev = "v4.34.0-rc2"
 
 [[lean_lib]]
 name = "NavierStokes"
-globs = ["NavierStokes", "NavierStokes.+"]
+globs = ["NavierStokes.+"]
 
 [[lean_lib]]
 name = "Euler"
 leanOptions = { autoImplicit = false, warningAsError = true }
-globs = ["Euler", "Euler.+"]
-
-[[lean_lib]]
-name = "ComparatorChallenges"
-globs = ["ComparatorChallenges.+"]
+globs = ["Euler.+"]

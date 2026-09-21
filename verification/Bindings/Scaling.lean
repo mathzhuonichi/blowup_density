@@ -53,12 +53,6 @@ theorem speedUnboundedAt_eq :
 theorem speedUnboundedAt_one :
     Contracts.V1.SpeedUnboundedAt 1 u = Contracts.V1.SpeedUnboundedAtOne u := rfl
 
-/-- The contract's residual is the upstream one, so the transported momentum
-equation below is literally the conclusion shape of `parabolic_equation`. -/
-theorem navierStokesResidual_eq (ν : ℝ) (t : ℝ) (x : Contracts.V1.Space) :
-    Contracts.V1.navierStokesResidual ν u pr t x =
-      NSFormalization.Source.residual ν u pr t x := rfl
-
 end Correspondence
 
 section Transport

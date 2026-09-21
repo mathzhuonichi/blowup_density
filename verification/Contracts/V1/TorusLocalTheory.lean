@@ -1,67 +1,6 @@
 import Contracts.V1.TorusData
 
-/-!
-# Contract: the periodic local theory and continuation package on `T³`
-
-This is the second Section 3 contract.  It registers
-
-* the **solution-class tier** of the T10 data layer that `T01.torus_data`
-  deliberately deferred (`Contracts/V1/TorusData.lean`, module docstring):
-  Sobolev time paths, force norms, the smooth input classes, pressure
-  normalization, `ClassicalSolutionT`, the maximal lifespan, breakdown sets,
-  relative density and the two energy norms; and
-* the **T11 vocabulary and four public APIs** reconciled in
-  `research/T11/RECONCILIATION.md` and stated in `research/T11/Spec.lean`:
-  `PeriodicLocalTheoryAPI` (8 fields), `PeriodicContinuationH3API` (5),
-  `PeriodicMeanReductionAPI` (6) and `PeriodicViscosityRescalingAPI` (4).
-
-## Registered narrowing of the continuation package
-
-`research/T11/LEAD_AMENDMENTS.md` amendment 2 and `research/T11/H1_GAP.md`.
-
-The manuscript's continuation package is `PeriodicContinuationAPI` below, stated
-here verbatim.  Two of its five fields, `restart` and `restartBeyond`, quantify
-over an **`H¹` ball** of data.  The implemented periodic local theory is a
-Picard contraction in the two-space pair `H³ × H²`, whose horizon is governed by
-the `H³` norm of the datum; an `H¹` bound gives no control of that norm, so the
-horizon cannot be made uniform over an `H¹` ball by this route at any level of
-bookkeeping.  Uniformity over an `H¹` ball is the subcritical Fujita–Kato local
-theory, which is in none of the three code bases.
-
-**What is registered is therefore `PeriodicContinuationH3API`: the manuscript
-structure with those two `H¹` balls replaced by `H³` balls and nothing else
-changed.**  The three ball-free fields (`higherOrderBound`, `extendsBeyond`,
-`lifespanInfiniteOfLocallyFinite`) are the manuscript's verbatim.  The two
-`H¹` sentences are kept as the named, documented, **unproved** predicates
-`PeriodicRestartH1` and `PeriodicRestartBeyondH1`, and
-`periodicContinuationAPI_of_h1` in `Section3/T11/Assembly.lean` shows that the
-manuscript package follows from exactly those two and nothing else.  This is the
-treatment Section 4 gave `ManuscriptHorizonLowerBoundH1` next to the
-owner-approved `RestartFixedForce` narrowing
-(`Contracts/V2/Continuation.lean:88,105`).  No V1 statement is silently
-weakened: the `H¹` wording is preserved on this page.
-
-Consumers were checked in `research/T11/H1_GAP.md` §3.  Every use inside T11
-supplies an `H³` bound through `higherOrderBound`, which produces a finite bound
-at **every** order.  T20 consumes the package through `extendsBeyond` and the
-criterion, which carry no ball; if a consumer is later found to need the `H¹`
-ball itself, that is an owner-level gap to report, never a silent weakening.
-
-## Restatement policy
-
-`Contracts/*` may not import the implementation, so every declaration below is
-restated here token-for-token from `research/T11/Spec.lean` (T11 vocabulary and
-APIs) or from `research/T10/Spec.lean` (the deferred solution-class tier), and
-`Bindings.TorusLocalTheory` checks each restated `def` against the canonical
-module `NSFormalization.Section3.T{10,11}` by `rfl`.
-
-`ClassicalSolutionT` is the contract structure exception (`CLAUDE.md`): a
-`structure` restated here is a *different inductive type* from the canonical
-one, so no `rfl` bridge is possible.  The binding instead supplies the fieldwise
-conversions `toContract` / `ofContract` — every field type is definitionally
-equal — together with both round trips, and transports the four API terms across
-them.
--/
+/-! Current periodic local theory and fixed-force H3 continuation interfaces, with mean reduction and viscosity scaling. H1-uniform restart is not asserted. -/
 
 noncomputable section
 
@@ -516,76 +455,6 @@ structure PeriodicLocalTheoryAPI : Type where
                 ∀ x : Space,
                   u₁ (t, x) = u₂ (t, x) ∧ p₁ (t, x) = p₂ (t, x)
 
-/-- `02-preliminaries.tex:105-114` and appendix-a-local-theory.tex:127-156:
-the manuscript-strength periodic continuation package, retaining the `H¹`
-restart ball.  **NOT registered; two of its five fields are open.**  It is
-stated here so that the narrowing below can be read against it, and so that
-`periodicContinuationAPI_of_h1` can name exactly what is missing. -/
-structure PeriodicContinuationAPI : Prop where
-  /-- appendix-a-local-theory.tex:146-151: for one fixed force and compact
-  restart window, one positive duration works for every restart time and every
-  admissible datum in a finite `H¹` ball.  **Open.** -/
-  restart : ∀ (ν : ℝ), 0 < ν →
-    ∀ (f : SpaceTimeField), f ∈ forceClassT →
-      ∀ (S : ℝ), 0 ≤ S → ∀ (K : ℝ≥0∞), K ≠ ⊤ →
-        ∃ δ : ℝ, 0 < δ ∧
-          ∀ t₀ ∈ Icc (0 : ℝ) S,
-            ∀ (a' : SpatialField), a' ∈ initialClassT →
-              periodicSobolevENorm 1 a' ≤ K →
-                ∃ w : ClassicalSolutionT ν a' (timeShiftT t₀ f) δ,
-                  PeriodicLocalRegularity ν a' (timeShiftT t₀ f) δ w
-  /-- appendix-a-local-theory.tex:127-147: a finite squared-`H²` integral and
-  Grönwall bound every integer Sobolev order uniformly below `S`. -/
-  higherOrderBound : ∀ (ν : ℝ), 0 < ν →
-    ∀ (a : SpatialField), a ∈ initialClassT →
-      ∀ (f : SpaceTimeField), f ∈ forceClassT →
-        ∀ (S : ℝ), 0 < S →
-          ∀ (u : SpaceTimeField) (p : SpaceTimeScalar),
-            SolvesBelowT ν a f S u p → squaredHTwoIntegralT S u ≠ ⊤ →
-              ∀ m : ℕ, ∃ M : ℝ≥0∞, M ≠ ⊤ ∧
-                ∀ t ∈ Ico (0 : ℝ) S,
-                  periodicSobolevENorm (m : ℝ) (fun x ↦ u (t, x)) ≤ M
-  /-- appendix-a-local-theory.tex:146-153: a uniform `H¹` trajectory bound
-  supplies one fixed positive restart margin and an exactly patched solution.
-  **Open.** -/
-  restartBeyond : ∀ (ν : ℝ), 0 < ν →
-    ∀ (f : SpaceTimeField), f ∈ forceClassT →
-      ∀ (S : ℝ), 0 < S → ∀ (K : ℝ≥0∞), K ≠ ⊤ →
-        ∃ δ : ℝ, 0 < δ ∧
-          ∀ (a : SpatialField), a ∈ initialClassT →
-            ∀ (u : SpaceTimeField) (p : SpaceTimeScalar),
-              SolvesBelowT ν a f S u p →
-                (∀ t ∈ Ico (0 : ℝ) S,
-                  periodicSobolevENorm 1 (fun x ↦ u (t, x)) ≤ K) →
-                    ∃ v : ClassicalSolutionT ν a f (S + δ),
-                      (∀ t ∈ Ico (0 : ℝ) S, ∀ x : Space,
-                        v.velocity (t, x) = u (t, x)) ∧
-                      (∀ t ∈ Ico (0 : ℝ) S, ∀ x : Space,
-                        v.pressure (t, x) = p (t, x))
-  /-- `02-preliminaries.tex:109-114` eq:criterion and
-  appendix-a-local-theory.tex:127-156: finite squared-`H²` integral implies
-  concrete extension beyond the real endpoint `S`. -/
-  extendsBeyond : ∀ (ν : ℝ), 0 < ν →
-    ∀ (a : SpatialField), a ∈ initialClassT →
-      ∀ (f : SpaceTimeField), f ∈ forceClassT →
-        ∀ (S : ℝ), 0 < S →
-          ∀ (u : SpaceTimeField) (p : SpaceTimeScalar),
-            SolvesBelowT ν a f S u p → squaredHTwoIntegralT S u ≠ ⊤ →
-              ExtendsBeyondT ν a f S u p
-  /-- `02-preliminaries.tex:109-114`, appendix-a-local-theory.tex:124-155 and
-  `03-torus.tex:490-502`: local criterion finiteness at every finite endpoint
-  at or below a maximal lifespan forces global lifespan.  The non-strict
-  `ofReal S ≤ lifespan` is load-bearing. -/
-  lifespanInfiniteOfLocallyFinite : ∀ (ν : ℝ), 0 < ν →
-    ∀ (a : SpatialField), a ∈ initialClassT →
-      ∀ (f : SpaceTimeField), f ∈ forceClassT →
-        ∀ (u : SpaceTimeField) (p : SpaceTimeScalar),
-          IsMaximalPeriodicSolution ν a f u p →
-            (∀ S : ℝ, 0 < S →
-              ENNReal.ofReal S ≤ maximalLifespanT ν a f →
-                squaredHTwoIntegralT S u ≠ ⊤) →
-              maximalLifespanT ν a f = ⊤
-
 /-- **The registered narrowing of the continuation package.**  This is
 `PeriodicContinuationAPI` with the `H¹` balls of `restart` and `restartBeyond`
 replaced by `H³` balls; every other token, quantifier and hypothesis is
@@ -666,48 +535,6 @@ structure PeriodicContinuationH3API : Prop where
               ENNReal.ofReal S ≤ maximalLifespanT ν a f →
                 squaredHTwoIntegralT S u ≠ ⊤) →
               maximalLifespanT ν a f = ⊤
-
-/-- **The manuscript's `H¹` restart sentence; NOT implied by this contract;
-open.**  It is `PeriodicContinuationAPI.restart` verbatim, kept as a named
-predicate exactly as `Contracts/V2/LocalTheory.lean:193`
-`ManuscriptHorizonLowerBoundH1` keeps Section 4's.  Its only difference from the
-registered `PeriodicContinuationH3API.restart` is the Sobolev order of the datum
-ball, `1` instead of `3`; that downgrade is the subcritical Fujita–Kato local
-theory (`research/T11/H1_GAP.md` §2).  This definition is documentation of an
-outstanding proposition, not a proved field and not an axiom. -/
-def PeriodicRestartH1 : Prop :=
-  ∀ (ν : ℝ), 0 < ν →
-    ∀ (f : SpaceTimeField), f ∈ forceClassT →
-      ∀ (S : ℝ), 0 ≤ S → ∀ (K : ℝ≥0∞), K ≠ ⊤ →
-        ∃ δ : ℝ, 0 < δ ∧
-          ∀ t₀ ∈ Icc (0 : ℝ) S,
-            ∀ (a' : SpatialField), a' ∈ initialClassT →
-              periodicSobolevENorm 1 a' ≤ K →
-                ∃ w : ClassicalSolutionT ν a' (timeShiftT t₀ f) δ,
-                  PeriodicLocalRegularity ν a' (timeShiftT t₀ f) δ w
-
-/-- **The manuscript's `H¹` endpoint-restart sentence; NOT implied by this
-contract; open.**  It is `PeriodicContinuationAPI.restartBeyond` verbatim.  Its
-only difference from the registered `PeriodicContinuationH3API.restartBeyond` is
-the Sobolev order of the uniform trajectory bound, `1` instead of `3`.  It is
-named separately from `PeriodicRestartH1` so that a consumer can see precisely
-which of the two manuscript sentences it needs (`research/T11/H1_GAP.md` §1,
-gaps G2 and G3). -/
-def PeriodicRestartBeyondH1 : Prop :=
-  ∀ (ν : ℝ), 0 < ν →
-    ∀ (f : SpaceTimeField), f ∈ forceClassT →
-      ∀ (S : ℝ), 0 < S → ∀ (K : ℝ≥0∞), K ≠ ⊤ →
-        ∃ δ : ℝ, 0 < δ ∧
-          ∀ (a : SpatialField), a ∈ initialClassT →
-            ∀ (u : SpaceTimeField) (p : SpaceTimeScalar),
-              SolvesBelowT ν a f S u p →
-                (∀ t ∈ Ico (0 : ℝ) S,
-                  periodicSobolevENorm 1 (fun x ↦ u (t, x)) ≤ K) →
-                    ∃ v : ClassicalSolutionT ν a f (S + δ),
-                      (∀ t ∈ Ico (0 : ℝ) S, ∀ x : Space,
-                        v.velocity (t, x) = u (t, x)) ∧
-                      (∀ t ∈ Ico (0 : ℝ) S, ∀ x : Space,
-                        v.pressure (t, x) = p (t, x))
 
 /-- appendix-a-local-theory.tex:89-106 and `03-torus.tex:395-403`: the exact
 periodic mean identities and Galilean reduction. -/

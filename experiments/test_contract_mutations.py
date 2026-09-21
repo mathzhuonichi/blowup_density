@@ -9,13 +9,11 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'verification'
 IMPORTS = '''import Contracts.V1.Thresholds
 import Bindings.Thresholds
-import Tests.GradientL6V2
 import Tests.LocalTheoryV2
 import TestSupport.Axioms
 open BlowupDensity
 open MeasureTheory
 open BlowupDensity.Contracts.V1.Data
-open BlowupDensity.Contracts.V1.HomogeneousNorm (dotHomogeneousENorm)
 open scoped ENNReal
 noncomputable section
 '''

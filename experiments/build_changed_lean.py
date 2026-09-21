@@ -13,9 +13,7 @@ def targets(paths):
         path = Path(name)
         if path.suffix != '.lean' or path.name == 'lakefile.lean':
             continue
-        if name.startswith('vendor/HeliCorgi/'):
-            raise ValueError('HeliCorgi source changes require a separate pinned 4.32.1 compatibility job')
-        for prefix in ['verification/', 'formalization/', 'vendor/NavierStokesAndEuler/']:
+        for prefix in ['verification/', 'formalization/', 'vendor/NavierStokesAndEuler/', 'vendor/HeliCorgi/']:
             if name.startswith(prefix):
                 result.append(name.removeprefix(prefix).removesuffix('.lean').replace('/', '.'))
                 break

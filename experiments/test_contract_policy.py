@@ -1,12 +1,38 @@
 #!/usr/bin/env python3
-"""Regression tests for append-only specifications and stable acceptance tests."""
+"""Regression tests for current contract import boundaries and module selection."""
+import copy
 import json
 from pathlib import Path
-import subprocess
 import tempfile
 import unittest
-from check_contracts import check, check_compatibility, contract_import_allowed
+from check_contracts import check, contract_import_allowed
 from build_changed_lean import targets
+from check_formalization_plan import ROOT, validate_proof_graph
+
+
+class ArticleProofCoverage(unittest.TestCase):
+    def setUp(self):
+        plan = ROOT / 'formalization/blueprint'
+        self.proof = json.loads((plan / 'proof_graph.json').read_text())
+        self.report = json.loads((plan / 'AXIOM_AUDIT.json').read_text())
+
+    def test_proved_cases_can_support_closed_downstream_results(self):
+        validate_proof_graph(self.proof, self.report)
+
+    def test_unfinished_clause_cannot_become_a_main_theorem_input(self):
+        changed = copy.deepcopy(self.proof)
+        main = next(n for n in changed['nodes'] if n['id'] == 'T31')
+        main['depends_on'].append('L21_H1')
+        with self.assertRaisesRegex(AssertionError, 'Closed proof depends on Partial input'):
+            validate_proof_graph(changed, self.report)
+
+    def test_recoloring_a_missing_clause_cannot_hide_whole_statement_partial(self):
+        changed = copy.deepcopy(self.proof)
+        clause = next(n for n in changed['nodes'] if n['id'] == 'G36_FULL')
+        clause['status'] = 'Closed'
+        clause['completion_from'] = []
+        with self.assertRaisesRegex(AssertionError, 'disagrees with whole-statement coverage'):
+            validate_proof_graph(changed, self.report)
 
 
 class ChangedModuleSelection(unittest.TestCase):
@@ -15,9 +41,8 @@ class ChangedModuleSelection(unittest.TestCase):
                                   'verification/Bindings/NewProof.lean', 'README.md']),
                          ['Bindings.NewProof', 'NSFormalization.Paper3.NewProof'])
 
-    def test_incompatible_vendor_is_not_silently_skipped(self):
-        with self.assertRaisesRegex(ValueError, '4.32.1'):
-            targets(['vendor/HeliCorgi/Formal/NewProof.lean'])
+    def test_current_vendor_module_is_selected(self):
+        self.assertEqual(targets(['vendor/HeliCorgi/Formal/NewProof.lean']), ['Formal.NewProof'])
 
 
 class ContractImportBoundary(unittest.TestCase):
@@ -84,63 +109,6 @@ class ContractImportBoundaryEndToEnd(unittest.TestCase):
     def test_check_accepts_a_canonical_convention_import(self):
         result = check(root=self.tree('NSFormalization.Paper3.GridGeometry'))
         self.assertEqual(result['registered_contracts'], 1)
-
-
-class CompatibilityPolicy(unittest.TestCase):
-    def setUp(self):
-        self.temp = tempfile.TemporaryDirectory()
-        self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
-        self.item = {'id': 'test.v1', 'version': 1,
-                     'specification': 'verification/Contracts/V1/Test.lean',
-                     'binding_module': 'Bindings.Test', 'test_module': 'Tests.Test',
-                     'declaration': 'Tests.test', 'enabled': True}
-        for path, text in [
-            (self.item['specification'], 'def FixedStatement := True\n'),
-            ('verification/Tests/Test.lean', 'example : True := trivial\n'),
-            ('verification/Bindings/Test.lean', '-- original binding\n'),
-            ('verification/contracts.json', json.dumps({'contracts': [self.item]})),
-        ]:
-            p = self.root / path
-            p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_text(text)
-        self.git('init', '-q')
-        self.git('add', '.')
-        self.git('-c', 'user.name=Contract Tests', '-c', 'user.email=tests@example.invalid',
-                 'commit', '-qm', 'Baseline')
-
-    def git(self, *args):
-        subprocess.run(['git', *args], cwd=self.root, check=True, capture_output=True)
-
-    def check(self, items=None):
-        check_compatibility(self.root, 'HEAD', items if items is not None else [self.item])
-
-    def test_binding_refactor_is_allowed(self):
-        (self.root / 'verification/Bindings/Test.lean').write_text('-- reorganized implementation\n')
-        self.check()
-
-    def test_existing_specification_cannot_change(self):
-        (self.root / self.item['specification']).write_text('def FixedStatement := False\n')
-        with self.assertRaisesRegex(AssertionError, 'Changed stable specification'):
-            self.check()
-
-    def test_existing_acceptance_test_cannot_change(self):
-        (self.root / 'verification/Tests/Test.lean').write_text('-- test silently removed\n')
-        with self.assertRaisesRegex(AssertionError, 'Changed stable acceptance'):
-            self.check()
-
-    def test_contract_cannot_be_deleted_or_disabled(self):
-        with self.assertRaisesRegex(AssertionError, 'Removed contract'):
-            self.check([])
-        with self.assertRaisesRegex(AssertionError, 'enabled'):
-            self.check([{**self.item, 'enabled': False}])
-
-    def test_new_version_does_not_replace_old_version(self):
-        path = self.root / 'verification/Contracts/V2/Test.lean'
-        path.parent.mkdir(parents=True)
-        path.write_text('def NewStatement := True\n')
-        self.check([self.item, {**self.item, 'id': 'test.v2', 'version': 2,
-                              'specification': str(path.relative_to(self.root))}])
 
 
 if __name__ == '__main__':

@@ -345,7 +345,7 @@ theorem velocity_eq_of_ibp {ν T₁ T₂ : ℝ} {Ω : Set Space}
     (difference_energy_integrable hb u v ht) hz hx
 
 /-- The exact U7 conclusion under one explicit boundary integration identity.
-For regular-level domains, proving `IBP Ω` is the sole missing analytic input. -/
+The identity is supplied for bounded open domains by `BoundaryIntegration`. -/
 theorem noSlip_uniqueness_of_ibp : ∀ (ν : ℝ), 0 < ν →
     ∀ (Ω : Set Space), IsBoundedBoxOrSmoothDomain Ω → IBP Ω →
     ∀ (a' : SpatialField), a' ∈ initialClassOmega Ω →

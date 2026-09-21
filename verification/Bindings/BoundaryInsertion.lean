@@ -597,22 +597,6 @@ theorem boundaryInsertionStatement'_of_ibp_holds :
   refine ⟨C, cutoffFrom D, hT, hd, hx, hR, heq, hθ, hη, hplat, hrad, he, hpot, hcorr, ?_⟩
   exact ⟨apiFrom (norms := norms) (D := cutoffFrom D) api⟩
 
-/-- Box integration by parts is a theorem, so the box branch is unconditional. -/
-theorem boundaryInsertionStatement'_box_holds :
-    BlowupDensity.Contracts.V1.BoundaryInsertion.boundaryInsertionStatement'_box := by
-  intro ν hν P place Ω norms a g r δ reference hbox hδ hr hg ha hrball hball
-  have hΩ : IsBoundedBoxOrSmoothDomain Ω :=
-    ⟨(NSFormalization.Section3.T23.IsBoxDomain.open_bounded hbox).1,
-      (NSFormalization.Section3.T23.IsBoxDomain.open_bounded hbox).2,
-      ⟨place.x₀, hball (subset_closure place.x₀_mem)⟩, Or.inl hbox⟩
-  exact boundaryInsertionStatement'_of_ibp_holds ν hν P place Ω norms a g r δ reference
-    hΩ (NSFormalization.Section3.T23.ibp_box hbox) hδ hr hg ha hrball hball
-
-theorem boundaryInsertionStatementV1_holds :
-    BlowupDensity.Contracts.V1.BoundaryInsertion.boundaryInsertionStatementV1 :=
-  ⟨boundaryInsertionStatement'_box_holds, boundaryInsertionStatement'_of_ibp_holds⟩
-
-
 theorem place_roundtrip (b : DomainPlacementData P.toPacketAPI) : placeFrom (placeTo b) = b := rfl
 theorem cutoff_roundtrip (b : CutoffData) : cutoffFrom (cutoffTo b) = b := rfl
 theorem solution_roundtrip (b : ClassicalSolutionOmega ν Ω a g T) : solutionFrom (solutionTo b) = b := rfl

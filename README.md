@@ -1,74 +1,77 @@
-# Density of forces producing Navier--Stokes blowup
+# Density of forces producing Navier–Stokes blowup
 
-This is one shared repository for the entire project: both contributors can
-work on the manuscript, all formalization code, references, research notes,
-tests and project infrastructure. The default integration branch is `main`;
-use task branches and pull requests for changes. Section 3 (the torus) is the current formalization priority, on
-`erenup/integration-section3`. Start with the [live plan](PLAN.md),
-[current state](NEXT_SESSION.md), and [work packages](collaboration/HANDOFF.md).
+This project accompanies the paper *Density of Forces Producing Navier–Stokes
+Blowup*. Its formalization focuses on the paper's two main density theorems
+and the mathematical results needed to prove them:
 
-For two-person development, start with [CONTRIBUTING.md](CONTRIBUTING.md),
-the [owned work queue](collaboration/TASKS.md), and the
-[versioned Lean acceptance interfaces](verification/README.md).
-Use `make check`, `make test`, and `make test-mutations` before a proof PR.
-Section 4 has 37 registered contracts and is preserved on the frozen branch
-`erenup/integration`, with PR #259 to `main` pending owner review. Its working
-documents and remaining owner decisions are in the [Section 4 archive](archive/section4/README.md).
+- **Theorem 3.1:** subcritical force density for each fixed admissible initial
+  velocity on the torus, and the sharp zero-initial-velocity threshold
+  `s = 1/2` in `L¹_t Hˢ_x`.
+- **Theorem 4.1:** the corresponding whole-space classifications, with
+  thresholds `s = 1/2` in `L¹_t Hˢ_x` and `s = -1/2` in `L²_t Hˢ_x`.
 
-The active Section 3 DAG and stages are in [SECTION3_PLAN.md](collaboration/SECTION3_PLAN.md).
-The completed Section 4 work (the former Paper 3) remains available below.
-The [proof task tree](formalization/blueprint/README.md) reuses the existing
-OpenAI and HeliCorgi whole-space libraries and isolates the remaining
-manuscript adapters. The [source-only package](formalization/README.md)
-contains the copied local proofs and two upstream source snapshots, without
-compilation caches. No new Lean code was written during this reorganization.
-Neither the merged article nor its legacy umbrella has full formal certification.
+Both main theorems are **Closed** in Lean. Some auxiliary statements and
+broader variants are only partially formalized; the project does not claim
+that every statement in the paper has been fully formalized.
 
-This workspace contains a consolidated English article based on the current
-Paper 1 and Paper 3 manuscripts. The five main sections are Introduction,
-Definitions and preliminary results, The torus, The whole space, and Conclusion.
-Two concise appendices cite the classical local theory and Sobolev embeddings
-and give the normalization, continuation, and homogeneous-space details
-needed for their application.
+## Read the project
 
-- [Read the merged PDF](output/pdf/blowup_density.pdf).
-- [Edit the main LaTeX source](paper/blowup_density.tex); the section files are in
-  [paper/sections/](paper/sections/).
-- [Review the theorem correspondence](logs/THEOREM_CORRESPONDENCE.md).
-- [Read the revision record](logs/REVISION_20260912.md).
-- [Inspect source provenance and citations](reference/README.md).
+- [Article](output/pdf/blowup_density_revised.pdf) and [TeX source](paper/revised/blowup_density_revised.tex)
+- [Guide to this Project](output/pdf/formalization_guide.pdf) and [TeX source](paper/formalization_guide.tex)
+- [Proof dependencies and coverage](formalization/blueprint/DEPENDENCY_GRAPH.md)
+- [Article-to-code correspondence](formalization/blueprint/RESULT_MAP.md)
+- Original PDFs: [Paper 1](paper/originals/local/paper_1_theory.pdf), [Paper 3](paper/originals/local/paper_3_whole_space.pdf)
+- [Reference corpus](reference/README.md)
 
-The 34 numbered results in the two source manuscripts correspond to 28 distinct
-numbered results after sharing repeated material. The force classes, initial-data
-quantifiers, density thresholds, continuation criterion, and distinction between
-breakdown by T and insertion with blowup exactly at T are retained. This is a
-mathematical and editorial consolidation; it is not a new formal certification.
+## Formalization scope
 
-## Original manuscripts
+**Closed** means that the complete stated result has a Lean kernel-checked
+proof, including all auxiliary results and their instantiations. No unproved
+theorem input, admission or extra axiom is allowed. The result's stated
+mathematical hypotheses and the standard logical axioms `propext`,
+`Classical.choice` and `Quot.sound` remain. **Partial** means that some of the
+article statement is not yet covered by such a proof.
 
-Unmodified server sources copied from
-`zchi-server:/home/user/zchi/math-authoring-kit/research/ns/ns paper/` are in
-[paper/originals/server/](paper/originals/server/). The more recent local copies
-from `/Users/chizhuoni/Documents/GitHub/NS/ns paper/` are preserved in
-[paper/originals/local/](paper/originals/local/) and provide the editorial baseline.
-Their only differences are citation comments and a clarification that the
-classical local-theory references supply background. Their mathematics agrees.
-The [SHA-256 manifest](logs/SOURCE_MANIFEST.json) identifies all four copied files.
+The article-level inventory contains **21 Closed and 6 Partial entries**.
+A single proposition may contain both Closed and Partial parts. The
+[proof graph](formalization/blueprint/DEPENDENCY_GRAPH.md) separates these parts:
+green nodes are Closed, and orange nodes are Partial. Solid arrows show proof
+dependencies; dashed arrows identify unfinished extensions of proved cases.
 
-## Build and verification
+The remaining Partial article entries are Proposition 2.1,
+Lemma 3.5, Theorem 3.6, Remark 3.13, and Propositions 3.16 and 3.17.
 
-Run from this workspace:
+## Check the Lean project
+
+Use Lean **4.34.0-rc2** and Mathlib
+`85e3a25e006c35636f0e53b0e9296caca2685bc0`, as fixed by the checked-in manifests.
+Run in Linux with elan and Python 3:
 
 ```sh
-make -C paper
-python3 experiments/check_manuscript.py
-python3 experiments/check_formalization_plan.py
+lake -d verification exe cache get
+make check
+make test
+make test-mutations
 ```
 
-The build requires LaTeX with `latexmk` and `pdflatex`. The script checks the five
-main sections, source-result coverage, mathematical expressions in theorem
-statements, labels, citations, and LaTeX warnings. It writes
-[MANUSCRIPT_CHECK.json](logs/MANUSCRIPT_CHECK.json). Proof review and the
-shared statement formulations and restored source notation requiring contextual comparison are documented
-separately in the theorem correspondence. Generated build and rendering files
-are ignored; the readable PDF is retained.
+For macOS 27, use a Linux VM with the pinned toolchain; see the
+[saved software sources](reference/web/README.md).
+
+To reproduce the article-declaration axiom audit:
+
+```sh
+python3 experiments/audit_article_axioms.py --build --output-dir /tmp/article-audit
+```
+
+This checks actual declaration dependencies with `Lean.collectAxioms`.
+Statement scope and auxiliary-input closure are reviewed separately; an
+axiom check alone is not a completeness test. See
+[verification/README.md](verification/README.md).
+
+## Upstream sources
+
+`vendor/` retains the upstream Lean modules used by the project, their licenses
+and required package configuration. HeliCorgi is an in-place source library
+under the main pin. The full downloaded OpenAI archive and the literature
+corpus remain in `reference/`. See
+[source provenance](formalization/blueprint/EXTERNAL_REUSE.md).

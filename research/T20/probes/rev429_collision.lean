@@ -1,2 +1,0 @@
-import NSFormalization.Section3.T20.CriticalTrilinear
-import NSFormalization.Section3.T12.GradientLSix

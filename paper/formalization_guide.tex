@@ -1,0 +1,328 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=24mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,booktabs,array,enumitem,xurl,longtable}
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\externaldocument[R-]{../output/pdf/blowup_density_revised}[blowup_density_revised.pdf]
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,
+ pdftitle={Guide to this Project}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcommand{\paperref}[1]{\ref{R-#1}}
+\newcommand{\source}[4]{\code{#1.lean:#2}, #4 \code{#3}}
+\newcommand{\mapped}[2]{#1~\paperref{#2}}
+\newcommand{\coverage}[1]{\textbf{#1.} }
+\setlength{\emergencystretch}{2em}
+\setlist{nosep}
+\title{Guide to this Project}
+\author{}
+\date{21 September 2026}
+\begin{document}
+\maketitle
+\noindent This guide accompanies the article. It maps
+its numbered statements to proof locations, compares the cited and implemented
+proof methods, and indexes reusable classical results. The article's
+Section~\paperref{sec:preliminaries} fixes the analytic framework;
+Sections~\paperref{sec:torus} and~\paperref{sec:whole} treat the torus and
+whole space. Source locations refer to the accompanying repository snapshot.
+
+\section{Build requirements}\label{guide:build}
+Use Lean \code{4.34.0-rc2} and the checked-in manifests, which pin Mathlib to
+\code{85e3a25e006c35636f0e53b0e9296caca2685bc0}. Build and test in Linux:
+\begin{verbatim}
+lake -d verification exe cache get
+make check
+make test
+make test-mutations
+\end{verbatim}
+The suite checks 29 current publication interfaces. The separate declaration
+audit checks the transitive axioms of the results cited in this guide.
+For macOS 27, use a Linux VM because of the pinned runtime's allocator issue.
+The repository README gives the build details.
+
+\section{Finding the theorem corresponding to the article}\label{guide:correspondence}
+Each entry gives the proof file, declaration line and theorem name.
+The prefixes \code{F/} and \code{B/} mean
+\code{formalization/NSFormalization/} and \code{verification/Bindings/},
+respectively. Names are local to the indicated file's namespace; line numbers
+refer to the source tree identified above. A \code{def} entry is explicitly a constructed
+witness, not a theorem declaration. Some final proofs assemble several
+results in \code{Bindings}; these are distinct from the conformance wrappers
+in \code{verification/Tests/}.
+
+\textbf{Closed} means that the complete article statement has a Lean
+kernel-checked proof, including every auxiliary result and its instantiation.
+No unproved theorem input, \code{sorry}/\code{admit}, or extra axiom is allowed.
+Only the article's stated hypotheses and the standard logical axioms
+\code{propext}, \code{Classical.choice}, and \code{Quot.sound} remain.
+\textbf{Partial} means that only part of the article statement is formally proved.
+A downstream result can be Closed when it uses only fully formalized cases of a Partial result.
+
+All 26 numbered statements and the numbered remark appear below.
+The table follows the article's numbering; only its two main theorems retain
+parenthetical titles. Qualifications
+record differences in scope. Historical identifiers retain \emph{insertion}
+and \emph{packet} where the article uses \emph{gluing} and \emph{building block}.
+
+\begingroup\small
+\setlength{\tabcolsep}{3pt}
+\setlength{\LTpre}{6pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.76\linewidth}@{}}
+\toprule Article statement & Proof location and scope \\\midrule
+\endfirsthead
+\toprule Article statement & Proof location and scope (continued) \\\midrule
+\endhead
+\bottomrule\endfoot
+\mapped{Theorem}{thm:packet} &
+\coverage{Closed}\source{F/Source/PacketBreakdown}{76}{source_breakdown}{theorem}.
+Construction and same-force global nonexistence for every positive viscosity,
+with blowup time fixed at one. \\
+\mapped{Proposition}{prop:local} &
+\coverage{Partial}\source{B/LocalTheoryV2}{93}{localTheoryV2}{def};
+\source{F/Section4/A02/Uniqueness}{120}{velocity_unique}{theorem};
+\source{F/Section4/A02/Maximal}{157}{exists_maximal_of_localSolution}{theorem};
+\source{F/Section4/A04/ShiftedExtension}{247}{extendsBeyond_of_memForceR'}{theorem};
+\source{B/TorusLocalTheory}{483}{torusLocalTheory}{def}.
+Proved for the density force classes, with $H^7/H^3$ restart.
+The general $H^1$-uniform restart statements are not proved
+(Section~\ref{guide:methods}). \\
+\mapped{Lemma}{lem:packetenergy} & \coverage{Closed}\source{F/Section3/T14/PacketEnergy}{160}{energy_le_work_of_packet}{theorem}; \source{F/Section3/T14/PacketEnergy}{106}{work_eq_square_of_packet}{theorem}; \source{F/Section4/I01/Quiet}{53}{exists_packet_quiet}{theorem}. \\
+\mapped{Theorem}{thm:main} & \coverage{Closed}\source{F/Section3/T21/MainAssembly}{84}{mainStatement_holds}{theorem}. \\
+\mapped{Lemma}{lem:localization} & \coverage{Closed}\source{F/Section3/T13/Assembly}{330}{localizationAPI}{theorem}. Includes the interior-order estimate and the two endpoint identities. \\
+\mapped{Proposition}{prop:scaling} & \coverage{Closed}\source{F/Section3/T15/Assembly}{130}{scalingStatement_holds}{theorem}. \\
+\mapped{Lemma}{lem:potential} & \coverage{Closed}\source{F/Section3/T16/Assembly}{483}{localPotential}{theorem}. \\
+\mapped{Lemma}{lem:correction} & \coverage{Partial}\source{F/Section3/T17/Assembly}{107}{correctionStatementAmended_holds}{theorem}.
+The formal statement includes explicit smoothness, chart and positive-viscosity
+hypotheses. These are supplied in the downstream gluing theorem. \\
+\mapped{Theorem}{thm:insertion} & \coverage{Partial}\source{F/Section3/T18/Assembly}{238}{periodicInsertionStatement_holds}{theorem};
+\source{F/Section3/T19/Threading}{126}{insertion}{def}.
+The generic assembly takes scaling and correction records. The construction
+from raw data uses a fixed ball; the prescribed-ball version is not yet closed. \\
+\mapped{Proposition}{prop:density} & \coverage{Closed}\source{F/Section3/T19/Assembly}{43}{periodicDensityStatement_holds}{theorem}. \\
+\mapped{Proposition}{prop:critical} & \coverage{Closed}\source{F/Section3/T20/Assembly}{53}{criticalRegularityStatement_holds}{theorem}. \\
+\mapped{Corollary}{cor:nondensity} & \coverage{Closed}\source{F/Section3/T21/MainAssembly}{80}{nonDensityStatement_unconditional}{theorem}. \\
+\mapped{Corollary}{cor:mixed} & \coverage{Closed}\source{F/Section3/T19/Assembly}{47}{mixedRegionStatement_holds}{theorem}. \\
+\mapped{Corollary}{cor:closure} & \coverage{Closed}\source{F/Section3/T19/Assembly}{51}{strongClosureStatement_holds}{theorem}. \\
+\mapped{Proposition}{prop:projection} & \coverage{Closed}\source{F/Section3/T19/Assembly}{55}{projectionStatement_holds}{theorem}. \\
+\mapped{Remark}{rem:peaks} & \coverage{Partial}No separately registered conclusion for divergence
+of the force amplitudes. Related estimates: \source{F/Section3/T15/Assembly}{130}{scalingStatement_holds}{theorem}
+and \source{F/Section3/T17/Assembly}{107}{correctionStatementAmended_holds}{theorem}. \\
+\mapped{Corollary}{cor:boundary} & \coverage{Closed}\source{B/BoundaryInsertionV2}{27}{boundaryInsertion_from_data}{theorem};
+\source{F/Section3/T22/Assembly}{25}{boundedDomainNorm}{theorem}.
+\\
+\mapped{Proposition}{prop:affine} & \coverage{Closed}\source{B/AffineVariation}{109}{affineVariationPacket}{theorem}. Instantiated at the selected upstream building block. \\
+\mapped{Proposition}{prop:multiple} & \coverage{Partial}\source{F/Section3/T24/MultipleAssembly}{51}{multipleRegionsStatement_holds}{theorem}.
+Periodic case; the bounded-domain variant is not included. \\
+\mapped{Proposition}{prop:conservative} & \coverage{Partial}\source{F/Section3/T24/ConservativeAssembly}{45}{conservativeForcing}{theorem}.
+Periodic case; the bounded-domain variant is not included. \\
+\mapped{Theorem}{thm:Rmain} & \coverage{Closed}\source{B/MainThresholds}{85}{mainThresholds}{theorem}. Density: \source{B/DensityFromInsertion}{30}{breakdownDenseR_of_subcritical}{theorem}; converse: \source{B/MainThresholds}{34}{mainThresholds_nonDensity}{theorem}. \\
+\mapped{Theorem}{thm:Rinsert} & \coverage{Closed}\source{B/InsertionFromData}{150}{wholeSpaceInsertion_holds}{theorem}.
+Any prescribed nonempty open set, with one family and the given reference solution. \\
+\mapped{Proposition}{prop:Rcritical1} & \coverage{Closed}\source{F/Section4/R43/Universal}{193}{universal_of_memForceR}{theorem}. \\
+\mapped{Proposition}{prop:Rcritical2} & \coverage{Closed}\source{F/Section4/R44/Prop44}{24}{main}{theorem}.
+Finite-horizon $L^2_tH^{-1/2}_x$ estimate in the inhomogeneous norm,
+with zero initial velocity. \\
+\mapped{Corollary}{cor:Rclasses} & \coverage{Closed}\source{B/ForceClasses}{46}{forceClasses}{theorem}. \\
+\mapped{Proposition}{prop:Renergy} & \coverage{Closed}\source{B/CompletedDensity}{14}{completedDensity}{theorem}. \\
+\mapped{Theorem}{thm:Rgrid} & \coverage{Closed}\source{B/GridObservations}{47}{gridObservations_choose}{theorem}.
+Observation times are strictly below the terminal time. \\
+\end{longtable}
+\endgroup
+
+\noindent\textbf{Upstream building block.}
+Under \code{vendor/NavierStokesAndEuler/NavierStokes/},
+\code{R3ActualCandidate.lean:18} proves
+\code{NavierStokes.R3CompactCandidate.selected_compact_candidate};
+\code{R3FiniteEnergyComparison.lean:37} proves
+\code{NavierStokes.ComparatorBridge.compact_candidate_excludes_global_solution}.
+In \code{ComparatorR3Theorem.lean:36},
+\code{NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3} combines the
+candidate, uniqueness comparison and viscosity rescaling.
+\code{Source/PacketBreakdown.lean} applies positive-viscosity uniqueness to the
+selected construction and proves the complete statement of
+Theorem~\paperref{thm:packet} for the same force.
+
+\smallskip
+\noindent The unnumbered analytic inputs are indexed with literature sources
+and proof locations in Section~\ref{guide:classical}.
+
+\section{Differences in proof methods}\label{guide:methods}
+This section compares the proof routes used in the cited literature with the
+routes implemented in the code. The coverage of each article statement is listed in
+Section~\ref{guide:correspondence}.
+
+\paragraph{Local theory and continuation (Proposition~\paperref{prop:local}).}
+Tao's Theorems~5.1 and~5.4~\cite{tao} construct local solutions by a contraction
+in the $H^1$ mild-solution space and then propagate higher regularity on the
+same interval. The formalization instead uses its available $H^7$ local
+construction on $\mathbb R^3$ and $H^3$ construction on the torus when restarting
+a smooth solution. To obtain continuation from
+$\int_0^S\|u(t)\|_{H^2}^2\,dt<\infty$, it first applies the high-order energy
+estimate and Gr\"onwall:
+\[
+ \sup_{t<S}\|u(t)\|_{H^m}
+ \le\left(\|a\|_{H^m}+\int_0^S\|f(t)\|_{H^m}\,dt\right)
+ \exp\!\left(C_{m,\nu}\int_0^S\|u(t)\|_{H^2}^2\,dt\right)<\infty.
+\]
+Taking $m=7$ or $3$ gives a bounded set of restart data. For the fixed smooth
+force on a compact time window, the code obtains one positive lifespan valid
+for all these restart data and times, then pastes by uniqueness across $S$.
+The general $H^1$-uniform restart statement is not proved; the continuation
+argument above uses only the proved high-order case. Tao's higher-regularity argument
+(Theorem~5.4(iv), p.~53) explains why smooth data remain in all Sobolev orders;
+the uniform high-order restart bound is proved separately in the code.
+See \source{F/Section4/A04/RestartFixedForce}{41}{restartFixedForce_of_memForceR}{theorem},
+\source{F/Section4/A04/ShiftedExtension}{247}{extendsBeyond_of_memForceR'}{theorem}
+and \source{F/Section3/T11/ExistenceInputH3}{456}{extendsBeyondH3}{theorem}.
+
+\paragraph{Fractional localization (Lemma~\paperref{lem:localization}).}
+The article invokes Taylor's coordinate-cover and partition-of-unity
+construction of Sobolev spaces, with interpolation
+\cite[Chapter~4, Sections~2--3]{taylor}. A fixed chart cutoff then gives the
+required bounded local-to-global map. The formal proof establishes the
+estimate directly for the torus: it identifies homogeneous fractional norms
+with double-integral seminorms on $\mathbb R^3$ and on the torus, compares the
+periodized kernel with the Euclidean kernel, and bounds the remaining lattice
+tail by a multiple of $\|z\|_2^2$. The fixed distance from the support ball to
+the chart boundary makes the constant uniform as the support shrinks.
+The endpoint orders $0$ and $1$ are treated separately.
+The kernel comparison is
+\source{F/Section3/T13/KernelComparison}{394}{iTorus_periodize_le}{theorem};
+the resulting estimate is
+\source{F/Section3/T13/Assembly}{330}{localizationAPI}{theorem}. Includes the interior-order estimate and the two endpoint identities.
+
+\paragraph{Critical regularity and non-density.}
+The article invokes the forced critical fixed-point theory
+\cite[Theorem~2.3.1 and Lemma~2.3.2, pp.~47--49]{danchin}, with the
+inhomogeneous heat estimate (Theorem~2.2.5, p.~44) for the finite-horizon
+$L^2_tH^{-1/2}_x$ case. The code instead proves the critical energy
+inequalities, closes a smallness bootstrap and uses the high-order
+continuation route above. See the proof locations for
+Propositions~\paperref{prop:critical}, \paperref{prop:Rcritical1}
+and~\paperref{prop:Rcritical2} in Section~\ref{guide:correspondence}. The open-ball argument yielding
+non-density is unchanged; only the analytic proof route differs.
+
+\section{Classical results available for future reference}\label{guide:classical}
+The following classical results have formal proofs in this project and may
+provide starting points for later formalizations. The entries give actual
+proof locations using the prefixes from Section~\ref{guide:correspondence}. Each entry gives a literature locator and identifies any specialization or
+derivation needed to reach the formal version. Unless stated otherwise, the spatial domain is
+$\mathbb R^3$ and vector fields take values in $\mathbb R^3$.
+
+\begin{enumerate}[leftmargin=*,itemsep=5pt]
+\item \textbf{Sobolev embedding into bounded functions.}
+For smooth fields with square-integrable derivatives through order two,
+the code proves the pointwise and essential-supremum $H^2$ bounds:
+\source{F/Section4/A03/BoundedRepresentative}{165}{enorm_le_jetENorm}{theorem}
+and \source{F/Section4/A03/BoundedRepresentative}{182}{eLpNormTop_le_jetENorm}{theorem}.
+These use the derivative-based norm \code{jetENorm}.
+\emph{Source:} Tao~\cite[Appendix~A, (A.13), draft p.~336]{taodispersive},
+with $d=3$, $s=2$. Apply the scalar estimate componentwise and use Plancherel
+to pass to the equivalent derivative norm; the literal constant is not claimed
+to coincide with the code's constant.
+
+\item \textbf{Sobolev algebra and tame product estimates.}
+At integer orders $m\ge2$, scalar products satisfy the $H^m$ algebra estimate,
+and scalar--vector products satisfy the tame estimate with an $H^2$ low norm:
+\source{F/Section4/A03/ScalarTameProduct}{308}{algebraProductScalar}{theorem}
+and \source{F/Section4/A03/VectorTameProduct}{273}{tameProductVector}{theorem}.
+\emph{Source:} Tao~\cite[Appendix~A, Lemma~A.8, (A.17)--(A.18),
+draft p.~338]{taodispersive}. Formula~(A.18) gives the algebra estimate;
+(A.17) combined with (A.13) gives the $H^2$ low norm in dimension three.
+The vector version follows componentwise.
+
+\item \textbf{Integral representations of fractional Sobolev norms.}
+For $0<s<1$, the double-integral seminorm equals an explicit constant times
+the squared homogeneous Fourier norm:
+\source{F/Section3/T13/WholeSpaceIdentity}{509}{wholeSpace_identity}{theorem}
+for smooth compactly supported fields, and
+\source{F/Section3/T13/TorusIdentity}{1174}{torus_identity}{theorem}
+for smooth periodic fields, with the mean removed in the homogeneous norm.
+\emph{Sources:} Di~Nezza--Palatucci--Valdinoci~\cite[Proposition~3.4,
+arXiv v3, pp.~16--17]{dpv} for $\mathbb R^3$; Roncal--Stinga~\cite[arXiv v3, Theorem~1.5,
+(1.6)--(1.8), p.~3; Fourier definition (1.1), p.~1]{roncal} for the torus.
+The periodic energy identity is a consequence of their operator formula:
+set $\sigma=2s$, pair with the field and symmetrize the integral. Parseval
+then gives the squared Fourier norm. Rescale their $2\pi$-periodic torus
+to period one and adjust Fourier constants; the constant mode contributes zero.
+
+\item \textbf{Smooth approximation in Sobolev and Bochner spaces.}
+For every real $s$, compactly supported smooth vector fields are dense in the
+implemented $H^s$ datum space:
+\source{F/Section4/B01/Spatial}{134}{spatialApprox}{theorem}.
+For $1\le q<\infty$, Sobolev-valued $L^q(0,\infty)$ paths can be approximated
+by finite sums $\sum_j\phi_j(t)A_j$, with $\phi_j\in C_c^\infty(0,\infty)$:
+\source{F/Section4/B01/Temporal}{170}{temporalApprox}{theorem}.
+The temporal theorem alone does not make the spatial data $A_j$ smooth;
+the spatial approximation supplies that separate step.
+\emph{Sources:}~Taylor~\cite[Chapter~4, Section~1, Exercise~1,
+author-chapter p.~5]{taylor} gives Schwartz density for every real $s$.
+Multiplying a Schwartz approximant by $\chi(x/R)$ gives convergence in the
+Schwartz topology and hence in $H^s$, yielding compact support; this last
+step is a deduction, not the exercise's literal statement.
+Hunter~\cite[Appendix~6.A, Proposition~6.29, p.~200]{hunter} gives the finite
+separated-sum approximation on $(0,T)$. Truncating the integrable $q$-th
+power tail first extends it to $(0,\infty)$ for $q<\infty$.
+
+\item \textbf{A local vector potential for a divergence-free field.}
+On a ball, a smooth time-dependent divergence-free field has a smooth vector
+potential given by the radial integral:
+\source{F/Section3/T16/BallPotential}{324}{exists_potential_on_ball}{theorem}.
+\emph{Source:} Petersen~\cite[Section~7.1, Lemma~7.1.2, pp.~127--128,
+and Lemma~7.1.5, p.~129]{petersen}. Apply the homotopy formula to the closed
+$2$-form $\iota_v(dx_1\wedge dx_2\wedge dx_3)$ and the radial contraction
+$x\mapsto x_0+\rho(x-x_0)$. Translating its primitive into vector notation
+gives the code's radial integral. Smooth dependence on time follows by
+differentiation under the integral over $0\le\rho\le1$. This specializes
+the Poincar\'e lemma to a ball, rather than arbitrary domains.
+
+\item \textbf{Classical Navier--Stokes local theory and continuation.}
+Periodic local existence is proved in
+\source{F/Section3/T11/ExistenceInputH3}{376}{exists_periodicLocalSolution_unconditional}{theorem}.
+Whole-space velocity uniqueness and pressure uniqueness up to a time-dependent
+constant are in
+\source{F/Section4/A02/Uniqueness}{120}{velocity_unique}{theorem}
+and \source{F/Section4/A02/Uniqueness}{244}{pressure_gauge}{theorem}.
+The continuation theorems are listed in Section~\ref{guide:methods}. These results use the
+project's smooth initial-data and force classes.
+\emph{Sources:} Tao~\cite[Theorems~5.1(ii)--(iv), p.~48, and
+5.4(ii)--(iv), pp.~52--53]{tao} for local existence, uniqueness and smoothness;
+Lemma~4.1(i), (40), pp.~44--45, for the whole-space pressure gauge;
+Corollary~5.2, p.~50, for periodic maximal development and its $H^1$ blowup
+alternative. These are the classical local-theory inputs. The precise
+squared-$H^2$ continuation test and fixed-force $H^7/H^3$ restart used here
+are derived by the high-order estimate and Gr\"onwall in Section~\ref{guide:methods}; they are
+not quoted as literal conclusions of Tao's theorems.
+\end{enumerate}
+
+\begin{thebibliography}{99}\small\raggedright
+\setlength{\itemsep}{2pt}
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{0pt}
+
+\bibitem{tao}
+T. Tao. Localisation and compactness properties of the Navier--Stokes global regularity problem. \emph{Analysis \& PDE} \textbf{6}(1) (2013), 25--107. \href{https://doi.org/10.2140/apde.2013.6.25}{doi:10.2140/apde.2013.6.25}.
+
+\bibitem{taylor}
+M. E. Taylor. \emph{Partial Differential Equations I: Basic Theory}. 2nd ed., Applied Mathematical Sciences, vol.~115. Springer, 2011. \href{https://doi.org/10.1007/978-1-4419-7055-8}{doi:10.1007/978-1-4419-7055-8}.
+
+\bibitem{taodispersive}
+T. Tao. \emph{Nonlinear Dispersive Equations: Local and Global Analysis}. CBMS Regional Conference Series in Mathematics, vol.~106. American Mathematical Society, 2006. \href{https://doi.org/10.1090/cbms/106}{doi:10.1090/cbms/106}.
+
+\bibitem{dpv}
+E. Di Nezza, G. Palatucci and E. Valdinoci. Hitchhiker's guide to the fractional Sobolev spaces. \emph{Bulletin des Sciences Math\'ematiques} \textbf{136}(5) (2012), 521--573. \href{https://doi.org/10.1016/j.bulsci.2011.12.004}{doi:10.1016/j.bulsci.2011.12.004}.
+
+\bibitem{roncal}
+L. Roncal and P. R. Stinga. Fractional Laplacian on the torus. \emph{Communications in Contemporary Mathematics} \textbf{18}(3) (2016), 1550033. \href{https://doi.org/10.1142/S0219199715500339}{doi:10.1142/S0219199715500339}.
+
+\bibitem{hunter}
+J. K. Hunter. \emph{Notes on Partial Differential Equations}. University of California, Davis, 2014. \url{https://www.math.ucdavis.edu/~hunter/pdes/pde_notes.pdf}.
+
+\bibitem{petersen}
+P. Petersen. \emph{Manifolds, Transversality, and de Rham Cohomology}. University of California, Los Angeles, lecture notes. \url{https://www.math.ucla.edu/~petersen/manifolds.pdf}.
+
+\bibitem{danchin}
+R. Danchin. \emph{Fourier Analysis Methods for PDE's}. Lecture notes, 2005. \url{https://perso.math.u-pem.fr/danchin.raphael/cours/courschine.pdf}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,993 @@
+{
+  "schema_version": 1,
+  "toolchain": "leanprover/lean4:v4.34.0-rc2",
+  "source_tree_sha256": "f820dd950a76efbfc73300b56e0a4b85f02e7a89c8941cbfe448e400a3ababaf",
+  "source_file_count": 2249,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "targets": [
+    {
+      "declaration": "NSFormalization.Source.source_breakdown",
+      "module": "NSFormalization.Source.PacketBreakdown",
+      "path": "formalization/NSFormalization/Source/PacketBreakdown.lean",
+      "line": 76,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.localTheoryV2",
+      "module": "Bindings.LocalTheoryV2",
+      "path": "verification/Bindings/LocalTheoryV2.lean",
+      "line": 93,
+      "kind": "def",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A02.velocity_unique",
+      "module": "NSFormalization.Section4.A02.Uniqueness",
+      "path": "formalization/NSFormalization/Section4/A02/Uniqueness.lean",
+      "line": 120,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A02.exists_maximal_of_localSolution",
+      "module": "NSFormalization.Section4.A02.Maximal",
+      "path": "formalization/NSFormalization/Section4/A02/Maximal.lean",
+      "line": 157,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A04.extendsBeyond_of_memForceR'",
+      "module": "NSFormalization.Section4.A04.ShiftedExtension",
+      "path": "formalization/NSFormalization/Section4/A04/ShiftedExtension.lean",
+      "line": 247,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.torusLocalTheory",
+      "module": "Bindings.TorusLocalTheory",
+      "path": "verification/Bindings/TorusLocalTheory.lean",
+      "line": 483,
+      "kind": "def",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T14.energy_le_work_of_packet",
+      "module": "NSFormalization.Section3.T14.PacketEnergy",
+      "path": "formalization/NSFormalization/Section3/T14/PacketEnergy.lean",
+      "line": 160,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T14.work_eq_square_of_packet",
+      "module": "NSFormalization.Section3.T14.PacketEnergy",
+      "path": "formalization/NSFormalization/Section3/T14/PacketEnergy.lean",
+      "line": 106,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.I01.exists_packet_quiet",
+      "module": "NSFormalization.Section4.I01.Quiet",
+      "path": "formalization/NSFormalization/Section4/I01/Quiet.lean",
+      "line": 53,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T21.mainStatement_holds",
+      "module": "NSFormalization.Section3.T21.MainAssembly",
+      "path": "formalization/NSFormalization/Section3/T21/MainAssembly.lean",
+      "line": 84,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T13.localizationAPI",
+      "module": "NSFormalization.Section3.T13.Assembly",
+      "path": "formalization/NSFormalization/Section3/T13/Assembly.lean",
+      "line": 330,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T15.scalingStatement_holds",
+      "module": "NSFormalization.Section3.T15.Assembly",
+      "path": "formalization/NSFormalization/Section3/T15/Assembly.lean",
+      "line": 130,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T16.localPotential",
+      "module": "NSFormalization.Section3.T16.Assembly",
+      "path": "formalization/NSFormalization/Section3/T16/Assembly.lean",
+      "line": 483,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T17.correctionStatementAmended_holds",
+      "module": "NSFormalization.Section3.T17.Assembly",
+      "path": "formalization/NSFormalization/Section3/T17/Assembly.lean",
+      "line": 107,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T18.periodicInsertionStatement_holds",
+      "module": "NSFormalization.Section3.T18.Assembly",
+      "path": "formalization/NSFormalization/Section3/T18/Assembly.lean",
+      "line": 238,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T19.insertion",
+      "module": "NSFormalization.Section3.T19.Threading",
+      "path": "formalization/NSFormalization/Section3/T19/Threading.lean",
+      "line": 126,
+      "kind": "def",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T19.periodicDensityStatement_holds",
+      "module": "NSFormalization.Section3.T19.Assembly",
+      "path": "formalization/NSFormalization/Section3/T19/Assembly.lean",
+      "line": 43,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T20.criticalRegularityStatement_holds",
+      "module": "NSFormalization.Section3.T20.Assembly",
+      "path": "formalization/NSFormalization/Section3/T20/Assembly.lean",
+      "line": 53,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T21.nonDensityStatement_unconditional",
+      "module": "NSFormalization.Section3.T21.MainAssembly",
+      "path": "formalization/NSFormalization/Section3/T21/MainAssembly.lean",
+      "line": 80,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T19.mixedRegionStatement_holds",
+      "module": "NSFormalization.Section3.T19.Assembly",
+      "path": "formalization/NSFormalization/Section3/T19/Assembly.lean",
+      "line": 47,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T19.strongClosureStatement_holds",
+      "module": "NSFormalization.Section3.T19.Assembly",
+      "path": "formalization/NSFormalization/Section3/T19/Assembly.lean",
+      "line": 51,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T19.projectionStatement_holds",
+      "module": "NSFormalization.Section3.T19.Assembly",
+      "path": "formalization/NSFormalization/Section3/T19/Assembly.lean",
+      "line": 55,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.BoundaryInsertion.boundaryInsertion_from_data",
+      "module": "Bindings.BoundaryInsertionV2",
+      "path": "verification/Bindings/BoundaryInsertionV2.lean",
+      "line": 27,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T22.boundedDomainNorm",
+      "module": "NSFormalization.Section3.T22.Assembly",
+      "path": "formalization/NSFormalization/Section3/T22/Assembly.lean",
+      "line": 25,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.affineVariationPacket",
+      "module": "Bindings.AffineVariation",
+      "path": "verification/Bindings/AffineVariation.lean",
+      "line": 109,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T24.multipleRegionsStatement_holds",
+      "module": "NSFormalization.Section3.T24.MultipleAssembly",
+      "path": "formalization/NSFormalization/Section3/T24/MultipleAssembly.lean",
+      "line": 51,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T24.conservativeForcing",
+      "module": "NSFormalization.Section3.T24.ConservativeAssembly",
+      "path": "formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean",
+      "line": 45,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.mainThresholds",
+      "module": "Bindings.MainThresholds",
+      "path": "verification/Bindings/MainThresholds.lean",
+      "line": 85,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.breakdownDenseR_of_subcritical",
+      "module": "Bindings.DensityFromInsertion",
+      "path": "verification/Bindings/DensityFromInsertion.lean",
+      "line": 30,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.mainThresholds_nonDensity",
+      "module": "Bindings.MainThresholds",
+      "path": "verification/Bindings/MainThresholds.lean",
+      "line": 34,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.wholeSpaceInsertion_holds",
+      "module": "Bindings.InsertionFromData",
+      "path": "verification/Bindings/InsertionFromData.lean",
+      "line": 150,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.R43.universal_of_memForceR",
+      "module": "NSFormalization.Section4.R43.Universal",
+      "path": "formalization/NSFormalization/Section4/R43/Universal.lean",
+      "line": 193,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.R44.main",
+      "module": "NSFormalization.Section4.R44.Prop44",
+      "path": "formalization/NSFormalization/Section4/R44/Prop44.lean",
+      "line": 24,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.forceClasses",
+      "module": "Bindings.ForceClasses",
+      "path": "verification/Bindings/ForceClasses.lean",
+      "line": 46,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.completedDensity",
+      "module": "Bindings.CompletedDensity",
+      "path": "verification/Bindings/CompletedDensity.lean",
+      "line": 14,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "BlowupDensity.Bindings.gridObservations_choose",
+      "module": "Bindings.GridObservations",
+      "path": "verification/Bindings/GridObservations.lean",
+      "line": 47,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A04.restartFixedForce_of_memForceR",
+      "module": "NSFormalization.Section4.A04.RestartFixedForce",
+      "path": "formalization/NSFormalization/Section4/A04/RestartFixedForce.lean",
+      "line": 41,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T11.extendsBeyondH3",
+      "module": "NSFormalization.Section3.T11.ExistenceInputH3",
+      "path": "formalization/NSFormalization/Section3/T11/ExistenceInputH3.lean",
+      "line": 456,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T13.iTorus_periodize_le",
+      "module": "NSFormalization.Section3.T13.KernelComparison",
+      "path": "formalization/NSFormalization/Section3/T13/KernelComparison.lean",
+      "line": 394,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A03.enorm_le_jetENorm",
+      "module": "NSFormalization.Section4.A03.BoundedRepresentative",
+      "path": "formalization/NSFormalization/Section4/A03/BoundedRepresentative.lean",
+      "line": 165,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A03.eLpNormTop_le_jetENorm",
+      "module": "NSFormalization.Section4.A03.BoundedRepresentative",
+      "path": "formalization/NSFormalization/Section4/A03/BoundedRepresentative.lean",
+      "line": 182,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A03.algebraProductScalar",
+      "module": "NSFormalization.Section4.A03.ScalarTameProduct",
+      "path": "formalization/NSFormalization/Section4/A03/ScalarTameProduct.lean",
+      "line": 308,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A03.tameProductVector",
+      "module": "NSFormalization.Section4.A03.VectorTameProduct",
+      "path": "formalization/NSFormalization/Section4/A03/VectorTameProduct.lean",
+      "line": 273,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T13.wholeSpace_identity",
+      "module": "NSFormalization.Section3.T13.WholeSpaceIdentity",
+      "path": "formalization/NSFormalization/Section3/T13/WholeSpaceIdentity.lean",
+      "line": 509,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T13.torus_identity",
+      "module": "NSFormalization.Section3.T13.TorusIdentity",
+      "path": "formalization/NSFormalization/Section3/T13/TorusIdentity.lean",
+      "line": 1174,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.B01.spatialApprox",
+      "module": "NSFormalization.Section4.B01.Spatial",
+      "path": "formalization/NSFormalization/Section4/B01/Spatial.lean",
+      "line": 134,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.B01.temporalApprox",
+      "module": "NSFormalization.Section4.B01.Temporal",
+      "path": "formalization/NSFormalization/Section4/B01/Temporal.lean",
+      "line": 170,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T16.exists_potential_on_ball",
+      "module": "NSFormalization.Section3.T16.BallPotential",
+      "path": "formalization/NSFormalization/Section3/T16/BallPotential.lean",
+      "line": 324,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T11.exists_periodicLocalSolution_unconditional",
+      "module": "NSFormalization.Section3.T11.ExistenceInputH3",
+      "path": "formalization/NSFormalization/Section3/T11/ExistenceInputH3.lean",
+      "line": 376,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A02.pressure_gauge",
+      "module": "NSFormalization.Section4.A02.Uniqueness",
+      "path": "formalization/NSFormalization/Section4/A02/Uniqueness.lean",
+      "line": 244,
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section4.A04.classical_hasSmoothSobolevPath",
+      "module": "NSFormalization.Section4.A04.RestartFixedForce",
+      "path": "formalization/NSFormalization/Section4/A04/RestartFixedForce.lean",
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NavierStokes.R3CompactCandidate.selected_compact_candidate",
+      "module": "NavierStokes.R3ActualCandidate",
+      "path": "vendor/NavierStokesAndEuler/NavierStokes/R3ActualCandidate.lean",
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NavierStokes.ComparatorBridge.compact_candidate_excludes_global_solution",
+      "module": "NavierStokes.R3FiniteEnergyComparison",
+      "path": "vendor/NavierStokesAndEuler/NavierStokes/R3FiniteEnergyComparison.lean",
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3",
+      "module": "NavierStokes.ComparatorR3Theorem",
+      "path": "vendor/NavierStokesAndEuler/NavierStokes/ComparatorR3Theorem.lean",
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T23.ibp_of_isOpen_isBounded",
+      "module": "NSFormalization.Section3.T23.BoundaryIntegration",
+      "path": "formalization/NSFormalization/Section3/T23/BoundaryIntegration.lean",
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    },
+    {
+      "declaration": "NSFormalization.Section3.T23.noSlip_uniqueness",
+      "module": "NSFormalization.Section3.T23.NoSlipUniqueness",
+      "path": "formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean",
+      "kind": "theorem",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "unexpected_axioms": []
+    }
+  ],
+  "article_rows": [
+    {
+      "kind": "Theorem",
+      "label": "thm:packet",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Source.source_breakdown"
+      ],
+      "number": "1.1"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:local",
+      "coverage": "Partial",
+      "declarations": [
+        "BlowupDensity.Bindings.localTheoryV2",
+        "NSFormalization.Section4.A02.velocity_unique",
+        "NSFormalization.Section4.A02.exists_maximal_of_localSolution",
+        "NSFormalization.Section4.A04.extendsBeyond_of_memForceR'",
+        "BlowupDensity.Bindings.torusLocalTheory"
+      ],
+      "number": "2.1"
+    },
+    {
+      "kind": "Lemma",
+      "label": "lem:packetenergy",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T14.energy_le_work_of_packet",
+        "NSFormalization.Section3.T14.work_eq_square_of_packet",
+        "NSFormalization.Section4.I01.exists_packet_quiet"
+      ],
+      "number": "2.2"
+    },
+    {
+      "kind": "Theorem",
+      "label": "thm:main",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T21.mainStatement_holds"
+      ],
+      "number": "3.1"
+    },
+    {
+      "kind": "Lemma",
+      "label": "lem:localization",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T13.localizationAPI"
+      ],
+      "number": "3.2"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:scaling",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T15.scalingStatement_holds"
+      ],
+      "number": "3.3"
+    },
+    {
+      "kind": "Lemma",
+      "label": "lem:potential",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T16.localPotential"
+      ],
+      "number": "3.4"
+    },
+    {
+      "kind": "Lemma",
+      "label": "lem:correction",
+      "coverage": "Partial",
+      "declarations": [
+        "NSFormalization.Section3.T17.correctionStatementAmended_holds"
+      ],
+      "number": "3.5"
+    },
+    {
+      "kind": "Theorem",
+      "label": "thm:insertion",
+      "coverage": "Partial",
+      "declarations": [
+        "NSFormalization.Section3.T18.periodicInsertionStatement_holds",
+        "NSFormalization.Section3.T19.insertion"
+      ],
+      "number": "3.6"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:density",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T19.periodicDensityStatement_holds"
+      ],
+      "number": "3.7"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:critical",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T20.criticalRegularityStatement_holds"
+      ],
+      "number": "3.8"
+    },
+    {
+      "kind": "Corollary",
+      "label": "cor:nondensity",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T21.nonDensityStatement_unconditional"
+      ],
+      "number": "3.9"
+    },
+    {
+      "kind": "Corollary",
+      "label": "cor:mixed",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T19.mixedRegionStatement_holds"
+      ],
+      "number": "3.10"
+    },
+    {
+      "kind": "Corollary",
+      "label": "cor:closure",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T19.strongClosureStatement_holds"
+      ],
+      "number": "3.11"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:projection",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section3.T19.projectionStatement_holds"
+      ],
+      "number": "3.12"
+    },
+    {
+      "kind": "Remark",
+      "label": "rem:peaks",
+      "coverage": "Partial",
+      "declarations": [
+        "NSFormalization.Section3.T15.scalingStatement_holds",
+        "NSFormalization.Section3.T17.correctionStatementAmended_holds"
+      ],
+      "number": "3.13"
+    },
+    {
+      "kind": "Corollary",
+      "label": "cor:boundary",
+      "coverage": "Closed",
+      "declarations": [
+        "BlowupDensity.Bindings.BoundaryInsertion.boundaryInsertion_from_data",
+        "NSFormalization.Section3.T22.boundedDomainNorm"
+      ],
+      "number": "3.14"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:affine",
+      "coverage": "Closed",
+      "declarations": [
+        "BlowupDensity.Bindings.affineVariationPacket"
+      ],
+      "number": "3.15"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:multiple",
+      "coverage": "Partial",
+      "declarations": [
+        "NSFormalization.Section3.T24.multipleRegionsStatement_holds"
+      ],
+      "number": "3.16"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:conservative",
+      "coverage": "Partial",
+      "declarations": [
+        "NSFormalization.Section3.T24.conservativeForcing"
+      ],
+      "number": "3.17"
+    },
+    {
+      "kind": "Theorem",
+      "label": "thm:Rmain",
+      "coverage": "Closed",
+      "declarations": [
+        "BlowupDensity.Bindings.mainThresholds",
+        "BlowupDensity.Bindings.breakdownDenseR_of_subcritical",
+        "BlowupDensity.Bindings.mainThresholds_nonDensity"
+      ],
+      "number": "4.1"
+    },
+    {
+      "kind": "Theorem",
+      "label": "thm:Rinsert",
+      "coverage": "Closed",
+      "declarations": [
+        "BlowupDensity.Bindings.wholeSpaceInsertion_holds"
+      ],
+      "number": "4.2"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:Rcritical1",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section4.R43.universal_of_memForceR"
+      ],
+      "number": "4.3"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:Rcritical2",
+      "coverage": "Closed",
+      "declarations": [
+        "NSFormalization.Section4.R44.main"
+      ],
+      "number": "4.4"
+    },
+    {
+      "kind": "Corollary",
+      "label": "cor:Rclasses",
+      "coverage": "Closed",
+      "declarations": [
+        "BlowupDensity.Bindings.forceClasses"
+      ],
+      "number": "4.5"
+    },
+    {
+      "kind": "Proposition",
+      "label": "prop:Renergy",
+      "coverage": "Closed",
+      "declarations": [
+        "BlowupDensity.Bindings.completedDensity"
+      ],
+      "number": "4.6"
+    },
+    {
+      "kind": "Theorem",
+      "label": "thm:Rgrid",
+      "coverage": "Closed",
+      "declarations": [
+        "BlowupDensity.Bindings.gridObservations_choose"
+      ],
+      "number": "4.7"
+    }
+  ],
+  "source_tokens": [],
+  "scope": "Kernel transitive-axiom audit of the listed declarations; not an audit of all manuscript semantics or all source modules."
+}

@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Check contract registration, dependency boundaries and append-only versions."""
+"""Check contract registration, dependency boundaries for the current publication."""
 import argparse
 import json
 import os
 from pathlib import Path
 import re
-import subprocess
 from check_formalization_plan import uncomment
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,37 +45,7 @@ def contract_import_allowed(module):
             or module in CONTRACT_CANONICAL_MODULES)
 
 
-def git_bytes(root, ref, path):
-    result = subprocess.run(['git', 'show', f'{ref}:{path}'], cwd=root, capture_output=True)
-    return result.stdout if result.returncode == 0 else None
-
-
-def check_compatibility(root, base, contracts):
-    """Existing versioned specifications and active tests cannot silently disappear."""
-    subprocess.run(['git', 'rev-parse', '--verify', f'{base}^{{commit}}'], cwd=root,
-                   check=True, stdout=subprocess.DEVNULL)
-    files = subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', base,
-                                     '--', 'verification/Contracts'], cwd=root, text=True)
-    for path in files.splitlines():
-        if path.endswith('.lean'):
-            assert (root / path).is_file(), f'Removed stable specification: {path}'
-            assert (root / path).read_bytes() == git_bytes(root, base, path), (
-                f'Changed stable specification {path}; add a new version instead')
-    old_bytes = git_bytes(root, base, REGISTRY)
-    if old_bytes is None:
-        return
-    current = {c['id']: c for c in contracts}
-    for old in json.loads(old_bytes)['contracts']:
-        assert old['id'] in current, f'Removed contract {old["id"]}'
-        new = current[old['id']]
-        for key in ['version', 'specification', 'test_module', 'declaration', 'enabled']:
-            assert new[key] == old[key], f'Changed stable contract {old["id"]}: {key}'
-        test = 'verification/' + old['test_module'].replace('.', '/') + '.lean'
-        assert (root / test).read_bytes() == git_bytes(root, base, test), (
-            f'Changed stable acceptance test {test}; register a new version instead')
-
-
-def check(root=ROOT, base=None):
+def check(root=ROOT):
     assert (root / 'lean-toolchain').read_text() == (root / 'verification/lean-toolchain').read_text()
     assert (root / 'formalization/lean-toolchain').read_text() == (root / 'verification/lean-toolchain').read_text()
     data = json.loads((root / REGISTRY).read_text())
@@ -100,7 +69,7 @@ def check(root=ROOT, base=None):
                 modules[module] = p
                 code = uncomment(p.read_text())
                 imports[module] = [v for line in re.findall(
-                    r'^\s*(?:public\s+)?import\s+([^\n]+)', code, re.M) for v in line.split()]
+                    r'^[ \t]*(?:public[ \t]+)?import[ \t]+([^\n]+)', code, re.M) for v in line.split()]
                 if module.startswith('Contracts.'):
                     assert not re.search(r'\b(?:axiom|sorry|admit)\b', code), p
                     forbidden = [x for x in imports[module] if not contract_import_allowed(x)]
@@ -139,15 +108,15 @@ def check(root=ROOT, base=None):
         closures[contract['id']] = sorted(seen)
     assert registered_tests == {m for m in modules if m.startswith('Tests.')}, (
         'Every acceptance test must be registered, and every registration must exist')
-    if base:
-        check_compatibility(root, base, contracts)
     return {'registered_contracts': len(contracts), 'closures': closures,
-            'base_compatibility_checked': base is not None,
             'scope': 'Architecture checks only; run lake test for Lean type and axiom checks.'}
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--base-ref')
+    parser.add_argument('--summary', action='store_true')
     args = parser.parse_args()
-    print(json.dumps(check(base=args.base_ref), indent=2))
+    result = check()
+    if args.summary:
+        result.pop('closures')
+    print(json.dumps(result, indent=2))

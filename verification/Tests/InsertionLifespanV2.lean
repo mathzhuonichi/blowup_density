@@ -1,33 +1,19 @@
 import Contracts.V2.InsertionLifespan
-import Bindings.InsertionLifespanV2
+import Bindings.InsertionFromData
 import TestSupport.Axioms
 
-/-! The exact public type and its transitive trust boundary are both checked, and
-each of the three new fields is written out by hand from the record so a later
-edit cannot silently weaken it.
-
-The version-one test `Tests.InsertionLifespan` is untouched and keeps running
-against `Bindings.InsertionLifespan.insertionLifespanAPI`; this is the second,
-stronger acceptance test, not a replacement.  The inherited `toInsertionLifespanAPI`
-projection is the checked link between the two: a version-two record *is* a
-version-one record together with the three new clauses, so nothing version one
-guarantees is lost. -/
+/-! Exact-type and transitive-axiom tests for the current insertion, lifespan, maximality and blowup conclusions. -/
 
 noncomputable section
 namespace BlowupDensity.Tests
 
 open Set
 
-/-- An implementation must supply every field of the unchanged version-one
-specification (the inherited `InsertionLifespanAPI`) **and** the three exports the
-version-one review named as owed: the full-horizon classical solution, the maximal
-identification, and the essential-supremum blow-up display.  The final `rfl`
-(lane-092 review finding 5) pins `A.family = F`, so all five clauses are about the
-**given** family, not a substituted one. -/
+/-- Full Theorem 4.2: the building block is selected before the reference and
+region, and every conclusion concerns one family and the given reference. -/
 theorem checkedInsertionLifespanV2 :
-    Contracts.V2.InsertionLifespan.insertionLifespanV2Statement :=
-  fun _ν _P F hg hreg =>
-    ⟨Bindings.InsertionLifespan.insertionLifespanV2API F hg hreg, rfl⟩
+    Contracts.V2.InsertionLifespan.wholeSpaceInsertionStatement :=
+  Bindings.wholeSpaceInsertion_holds
 
 run_cmd TestSupport.checkAxioms ``checkedInsertionLifespanV2
 
@@ -64,13 +50,6 @@ example (ν : ℝ) (P : Contracts.V1.PacketAPI ν)
   A.blowup_limsup ε hε
 
 /-! ## Version one is recoverable, and its two clauses stay accessible -/
-
-/-- Version one is recoverable from version two by the inherited projection: a
-version-two record *is* a version-one record with the three new clauses. -/
-example (ν : ℝ) (P : Contracts.V1.PacketAPI ν)
-    (A : Contracts.V2.InsertionLifespan.InsertionLifespanV2API ν P) :
-    Contracts.V1.InsertionLifespan.InsertionLifespanAPI ν P :=
-  A.toInsertionLifespanAPI
 
 /-- The inherited first lifespan display `T + delta < T^ν_{max,R}(a, g)`
 (`04-whole-space.tex:32`) stays accessible on the version-two record. -/

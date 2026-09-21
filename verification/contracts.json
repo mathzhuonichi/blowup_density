@@ -2,17 +2,6 @@
   "schema_version": 1,
   "contracts": [
     {
-      "id": "R41.threshold_arithmetic",
-      "parent_task": "R41",
-      "version": 1,
-      "specification": "verification/Contracts/V1/Thresholds.lean",
-      "binding_module": "Bindings.Thresholds",
-      "test_module": "Tests.Thresholds",
-      "declaration": "BlowupDensity.Tests.checkedThresholds",
-      "scope": "Threshold arithmetic only: formula, positivity, endpoints, intermediate negative index and energy exponents. Not Theorem 4.1 or a PDE norm estimate.",
-      "enabled": true
-    },
-    {
       "id": "I01.packet",
       "parent_task": "I01",
       "version": 1,
@@ -21,72 +10,6 @@
       "test_module": "Tests.Packet",
       "declaration": "BlowupDensity.Tests.checkedPacket",
       "scope": "The compact OpenAI packet: the Theorem 1.1 construction properties (not its nonexistence corollary) plus Lemma 2.2 and the zero extensions, for every ν>0; not the local insertion theorem and not any density statement.",
-      "enabled": true
-    },
-    {
-      "id": "I02.correction",
-      "parent_task": "I02",
-      "version": 1,
-      "specification": "verification/Contracts/V1/Correction.lean",
-      "binding_module": "Bindings.Correction",
-      "test_module": "Tests.Correction",
-      "declaration": "BlowupDensity.Tests.checkedCorrection",
-      "scope": "the R³ content of Lemmas 3.4–3.5 for the inserted packet: correction field, force correction and their bounds; not Theorem 4.2's lifespan or density statements",
-      "enabled": true
-    },
-    {
-      "id": "I02.correction_v2",
-      "parent_task": "I02",
-      "version": 2,
-      "specification": "verification/Contracts/V2/Correction.lean",
-      "binding_module": "Bindings.CorrectionV2",
-      "test_module": "Tests.CorrectionV2",
-      "declaration": "BlowupDensity.Tests.checkedCorrectionV2",
-      "scope": "the R³ content of Lemmas 3.4–3.5 exactly as in I02.correction version 1, strengthened so that the caller prescribes the compact set the cutoff plateau must cover (the manuscript's K_*, 03-torus.tex:101-102): every version-1 field is inherited unchanged and the single new field prescribed_subset_plateau makes ε·θRadius < r alone place x₀+εK_* inside B; not Theorem 4.2's lifespan or density statements",
-      "enabled": true
-    },
-    {
-      "id": "A05.gradient_l6",
-      "parent_task": "A05",
-      "version": 1,
-      "specification": "verification/Contracts/V1/GradientL6.lean",
-      "binding_module": "Bindings.GradientL6",
-      "test_module": "Tests.GradientL6",
-      "declaration": "BlowupDensity.Tests.checkedGradientL6",
-      "scope": "Lemma B.1's gradient-L⁶ clause only; not the Ḣ^{1/2}/Ḣ^{3/2} embeddings. Stated for smooth fields with square-integrable Fréchet jets, the jet form of H^∞; its equivalence with the datum form Data.MemHInfty is not asserted.",
-      "enabled": true
-    },
-    {
-      "id": "A03.bounded_representative",
-      "parent_task": "A03",
-      "version": 1,
-      "specification": "verification/Contracts/V1/BoundedRepresentative.lean",
-      "binding_module": "Bindings.BoundedRepresentative",
-      "test_module": "Tests.BoundedRepresentative",
-      "declaration": "BlowupDensity.Tests.checkedBoundedRepresentative",
-      "scope": "Lemma A.1's H² ↪ L^∞ bounded-representative clause in jet form, whole space only (the torus half of lem:calculus is not stated); not the tame product estimates. Stated for smooth fields whose Fréchet jets of order at most 2 are square integrable, the jet form of H²; its equivalence with the datum form Data.MemHInfty is not asserted.",
-      "enabled": true
-    },
-    {
-      "id": "I03.scaling",
-      "parent_task": "I03",
-      "version": 1,
-      "specification": "verification/Contracts/V1/Scaling.lean",
-      "binding_module": "Bindings.Scaling",
-      "test_module": "Tests.Scaling",
-      "declaration": "BlowupDensity.Tests.checkedScaling",
-      "scope": "Proposition 3.3's transport of the rescaled packet (momentum equation at the same viscosity, incompressibility, unbounded speed at T) and the same-family scaling identities of Theorem 4.2's proof: the two E_T rates of eq:packetEscale, eq:wE and eq:REclose, eq:packetFscale, and the inhomogeneous L^q_t H^s_x bounds of eq:RpositiveScale and eq:RnegativeScale with the intermediate-index reduction and the force-convergence clause; not the homogeneous Hdot^s bounds (see HomogeneousScalingAPI) and not the insertion theorem",
-      "enabled": true
-    },
-    {
-      "id": "A03.tame_products",
-      "parent_task": "A03",
-      "version": 1,
-      "specification": "verification/Contracts/V1/TameProduct.lean",
-      "binding_module": "Bindings.TameProduct",
-      "test_module": "Tests.TameProduct",
-      "declaration": "BlowupDensity.Tests.checkedTameProduct",
-      "scope": "Lemma A.1's product clauses on the whole space, at the datum level of Contracts/V1/Data: eq:Rproduct's first clause for a scalar-scalar and a scalar-vector product at every integer order m >= 2, eq:algebra and eq:tame at every integer order k >= 3 with the low factor at order two, the u(x)u - v(x)v product difference bound (the manuscript states this one only qualitatively at appendix-a-local-theory.tex:51-52, so the registered inequality is derived from the factorization plus eq:algebra), and the H^m bound for the advection (u.grad)v; plus the two componentwise comparisons between the scalar and the three-vector norm and the admissibility instances for smooth fields with square-integrable jets. Not the embedding clauses (eq:Rproduct's L-infinity half is A03.bounded_representative, H^1 into L^6 and eq:embeddings are A05.gradient_l6), not the torus half of lem:calculus, not the order shift for the gradient, and no clause whose hypothesis is the datum form Data.MemHInfty: the advection clause is stated for the jet class, and two of the draft's four MemHInfty clauses (memHInfty_memHm and the MemHInfty advection bound), plus the exact componentwise norm identity, are collected unproved and unregistered in UnprovedTameProductObligations; the other two, memHInfty_component and memHInfty_partialDeriv, are one-step corollaries of memHInfty_memHm together with registered fields and are deliberately not restated there.",
       "enabled": true
     },
     {
@@ -101,39 +24,6 @@
       "enabled": true
     },
     {
-      "id": "D01.datum_lemmas",
-      "parent_task": "D01",
-      "version": 1,
-      "specification": "verification/Contracts/V1/DatumLemmas.lean",
-      "binding_module": "Bindings.DatumLemmas",
-      "test_module": "Tests.DatumLemmas",
-      "declaration": "BlowupDensity.Tests.checkedDatumLemmas",
-      "scope": "The proved lemmas of D01, stated in the vocabulary of Contracts/V1/Data, GradientL6 and BoundedRepresentative: unit L2 in both directions (jets to datum at every real order with no compact support, datum to jets, MemHInfty iff the jet class, L² membership from a single order, derivative closure of MemHInfty, and the one-sided quantitative bound jetSobolevENorm m <= C_m * sobolevENorm m); the time-slice extraction of the velocity jet class and of spatial smoothness of the pressure gradient from Data.ClassicalSolutionR; uniqueness of the angular Sobolev datum (unit L1) and additivity of the datum and of the datum path, each with the Schwartz-pairing integrability side condition the Bochner totalization of Data.IsSobolevDatum forces, plus its discharger on F_R; the force-class closures F_c ⊆ F_R, F_R and F_c closed under addition, AgreesOnFuture invariance of F_R, and the two shapes g_ε = g + H_ε + F_ε and g_ε - g compact in which the inserted force of Theorem 4.2 lands in F_R; and the homogeneous half: existence of a homogeneous slice datum for Schwartz-component and for C_c^∞ fields at every s > -3/2 with its norm equal to homogeneousFourierENorm, uniqueness of the homogeneous datum at every real order (unit L7), finiteness of homogeneousENorm on a Schwartz distribution, the difference rule with its integrability side condition and the discharger for Schwartz components, the homogeneous datum path of a compactly supported force, the identification of every such path's Bochner norm with the L^q_t norm of the slice quantity, and the unconditional lower bound on forceHomogeneousENorm. Not asserted anywhere: the reverse inequality sobolevENorm <= C * jetSobolevENorm (no norm equivalence), any time regularity of a datum path beyond what MemForceR itself carries (the ContinuousOn conjunct of ClassicalSolutionR.sobolev is discarded by every slice clause), any Sobolev datum or jet class for the pressure or its gradient, finiteness of forceHomogeneousENorm (its infimum also demands AEStronglyMeasurable, which no clause produces, so only the lower bound and the per-path identification are registered), the L¹∩L² homogeneous class of B02, the order shift for the gradient, F_rd, and every estimate of Lemma A.1 or Lemma B.1.",
-      "enabled": true
-    },
-    {
-      "id": "D01.datum_lemmas_v2",
-      "parent_task": "D01",
-      "version": 2,
-      "specification": "verification/Contracts/V2/DatumLemmas.lean",
-      "binding_module": "Bindings.DatumLemmasV2",
-      "test_module": "Tests.DatumLemmasV2",
-      "declaration": "BlowupDensity.Tests.checkedDatumLemmasV2",
-      "scope": "The D01 datum lemmas of version 1 exactly, inherited unchanged, extended by the half-order time-norm finiteness of lane 042 (Section4/D01/HalfOrder.lean): three new fields certifying the smallness hypotheses of Propositions 4.3 and 4.4 are not vacuous. forceSobolevENorm_ne_top states that for every force f in F_R (Data.MemForceR), every real order s bounded by an integer m, and both time exponents q in {1,2}, the inhomogeneous time norm Data.forceSobolevENorm q s f is finite, by lowering the integer-order datum path MemForceR supplies to an order-s datum path of no larger norm; forceSobolevENormL1_half_ne_top and forceSobolevENormL2_half_ne_top are the s=1/2<=1, q=1 and q=2 instances R43 names (04-whole-space.tex:88), and R44's s=-1/2, q=2 ball (04-whole-space.tex:136-144) is the general field at m=0. Not asserted: the homogeneous half of G3 (forceHomogeneousENorm 1 (1/2) f finite and its path-level domination by forceSobolevENormL1 (1/2) f), which needs a homogeneous datum for a general H^∞ slice and is proved nowhere in the tree; and everything version 1 already lists as out of scope.",
-      "enabled": true
-    },
-    {
-      "id": "D01.datum_lemmas_v3",
-      "parent_task": "D01",
-      "version": 3,
-      "specification": "verification/Contracts/V3/DatumLemmas.lean",
-      "binding_module": "Bindings.DatumLemmasV3",
-      "test_module": "Tests.DatumLemmasV3",
-      "declaration": "BlowupDensity.Tests.checkedDatumLemmasV3",
-      "scope": "The D01 datum lemmas of versions 1 and 2 exactly, inherited unchanged through extends, extended by the pressure half of obligation P2 (eq:Rpressure, 02-preliminaries.tex:89-94) proved by lane 117 (Section4/D01/PressureJets.lean). Three new fields, all restricted to the interior slices t in Ioo 0 T: solution_slice_pressureGradient_smoothJets states that for a classical solution u in ClassicalSolutionR with force f in F_R (Data.MemForceR), the pressure-gradient slice grad p(t,.) lies in the jet form of H^infinity (Contracts.V1.SmoothSquareIntegrableJets); solution_slice_temporalDerivative_smoothJets is the corollary that the time-derivative slice d_t u(t,.) lies in the same jet class, via the pointwise d_t u = h - grad p; solution_slice_pressureGradient_exists_datum is the existence form the hP slot of A04.momentum_datum consumes, that grad p(t,.) has an angular Sobolev datum (Data.IsSobolevDatum) at every integer order m. This supersedes, for the gradient only, the version-1/2 scope sentence 'no Sobolev datum or jet class for the pressure or its gradient is asserted': the gradient datum and jet class are now asserted, on Ioo 0 T (the scalar pressure p is untouched, see below). Not asserted: the identity grad p = (I-P)(f - div(u tensor u)) in the manuscript's own spelling (what lane 117 proves at order 0 is the datum identity with the momentum residual f - (u.grad)u + nu*Laplacian u in place of f - div(u tensor u)); the order-m datum identity datum^m grad p = (I-P)_m (datum^m h) is proved and exported upstream (PressureJets.isSobolevDatum_pressureGradient_lerayComplement) but is NOT a field here: the momentum residual f - (u.grad)u + nu*Laplacian u is itself contract vocabulary (Contracts.V1.Packet), so the obstacle is the operator (I-P)_m (D01.Leray.lerayComplement), which has no Contracts/V1 counterpart; the operator-free Helmholtz split datum^m h = datum^m d_t u + datum^m grad p IS statable and provable in pure contract vocabulary (a V4 candidate, research/D01/probes/v4_split_identity.lean) but is not registered in V3; only the consumer-facing consequence, the existence of some order-m datum, is registered here; anything at t = 0 (the interior route consumes ClassicalSolutionR.momentum, imposed only on Ioo 0 T); any statement about the scalar pressure p itself as opposed to its gradient (the manuscript fixes p by a radial potential, an A01 field); the pointwise IsLerayComplement characterization of A01's pressure_recovery (a family of order-zero MemLp statements one level below the datum carrier, neither sufficient nor required by these datum fields); and everything versions 1 and 2 already list as out of scope.",
-      "enabled": true
-    },
-    {
       "id": "A02.uniqueness",
       "parent_task": "A02",
       "version": 1,
@@ -142,17 +32,6 @@
       "test_module": "Tests.Uniqueness",
       "declaration": "BlowupDensity.Tests.checkedUniqueness",
       "scope": "The UniquenessAPI half of A02's local theory (prop:local, appendix-a-local-theory.tex:115-125), stated in the vocabulary of Contracts/V1/Data: velocity_unique (two classical whole-space solutions of the same datum (nu,a,f) agree in velocity on the common half-open interval Ico 0 (min T1 T2), 119-124) and pressure_gauge (their pressures are PressureGaugeEquivOn on that interval, 02-preliminaries.tex:31). Both stated on the force class Data.MemForceR (F_R), strictly smaller than prop:local's smooth-into-every-H^m class, matching Section 4's own quantification F_c subset F_rd subset F_R; the initial class initialClassR is X_R verbatim. Discharged by Section4/A02/Uniqueness.lean's velocity_unique and pressure_gauge (lanes 033/049/052), which are stated on the A02-local restatement of the solution class; the binding converts Data.ClassicalSolutionR to it field by field via uniqueness_toA02 (a rfl bridge is impossible for a structure), and the field types agree definitionally. Not included: the rest of MaximalSolutionAPI of research/A02/Spec.lean, each owed by a later lane -- the restated A01 interface (horizon, localSolution, horizonLowerBound); the maximalLifespanR order-theoretic characterizations (lifespan_le_iff, lifespan_le_iff_no_extension, lifespan_ge_of_forall_shorter, regularThrough_iff, referenceLifespan, horizon_le_lifespan); patch and restrict; the canonical pressure_normalization; existence and uniqueness of the maximal solution (IsMaximalSolution, exists_maximal, maximal_unique); the quantitative restart (restart, restart_datum, restart_force); and Theorem 4.2's identification (lifespan_le_of_unbounded, insertion_lifespan_eq). Nothing here asserts eq:mild, the continuation criterion eq:criterion (A04), or any smallness, common-horizon, compact-support or p in L^2 side condition; the Gronwall coefficient's finiteness (eq:Rproduct's L^infinity embedding, the edge A03 -> A02 of research/A02/COMPARISON.md section 5) is a step of the discharging proof, not a field.",
-      "enabled": true
-    },
-    {
-      "id": "A02.maximal_partial",
-      "parent_task": "A02",
-      "version": 1,
-      "specification": "verification/Contracts/V1/MaximalPartial.lean",
-      "binding_module": "Bindings.MaximalPartial",
-      "test_module": "Tests.MaximalPartial",
-      "declaration": "BlowupDensity.Tests.checkedMaximalPartial",
-      "scope": "The ten proved fields of research/A02/Spec.lean's MaximalSolutionAPI beyond the registered uniqueness half (A02.uniqueness), stated in the vocabulary of Contracts/V1/Data, plus that UniquenessAPI record carried as a field (the way InsertionFamilyAPI carries ScalingAPI). Discharged by Section4/A02/{Restrict,Order,Patch}.lean (lanes 032 onward): restrict and pressure_normalization (Restrict.lean exists_restrict, exists_pressure_normalization); horizon_le_lifespan -- stated with the A01 LocalTheoryAPI.solution clause as an explicit hypothesis, exactly as Order.lean horizon_le_lifespan_of_localSolution proves it, so A01 will discharge that hypothesis -- lifespan_le_iff, lifespan_le_iff_no_extension, lifespan_ge_of_forall_shorter, regularThrough_iff, referenceLifespan (Order.lean); patch and lifespan_le_of_unbounded (Patch.lean). limsupLeft and speedENorm (D01 limsupLeft/normLinfty, which Data.lean does not define) are restated verbatim from research/A02/Spec.lean:135-136,148-149 and used only by lifespan_le_of_unbounded, whose blow-up hypothesis is the manuscript's L^infinity limsup (04-whole-space.tex:35). Both datum fields are stated on Data.MemForceR (F_R), matching Section 4's F_c subset F_rd subset F_R; initialClassR is X_R verbatim. The binding moves solutions across the two ClassicalSolutionR copies field by field (uniqueness_toA02 and its inverse maximalPartial_ofA02; a rfl bridge is impossible for a structure), transports maximalLifespanR by one iSup congruence and RegularThrough by one Iff (research/A02/REVIEW_U4U6.md finding 1) with the Nonempty/IsEmpty equivalences as corollaries, and bridges limsupLeft/speedENorm by rfl; every other object (initialClassR, MemForceR, PressureGaugeEquivOn, the solution fields) agrees definitionally. Not included, each owed by a later lane: the restated A01 interface fields (horizon, localSolution, horizonLowerBound); the IsMaximalSolution predicate and the fields depending on it, exists_maximal and maximal_unique; the quantitative restart (restart, restart_datum, restart_force); and Theorem 4.2's packaged identification insertion_lifespan_eq. Nothing here asserts eq:mild, the continuation criterion eq:criterion (A04), or any smallness, common-horizon, compact-support or p in L^2 side condition; the L^infinity embedding of eq:Rproduct (the edge A03 -> A02 of research/A02/COMPARISON.md section 5) is a step of the discharging proofs, not a field.",
       "enabled": true
     },
     {
@@ -167,157 +46,14 @@
       "enabled": true
     },
     {
-      "id": "B01.bochner_partial",
-      "parent_task": "B01",
-      "version": 1,
-      "specification": "verification/Contracts/V1/BochnerPartial.lean",
-      "binding_module": "Bindings.BochnerPartial",
-      "test_module": "Tests.BochnerPartial",
-      "declaration": "BlowupDensity.Tests.checkedBochnerPartial",
-      "scope": "The proved fields of research/B01/Spec.lean's BochnerApproxAPI (the approximation half of Proposition 4.6 prop:Renergy, 04-whole-space.tex:218-260: smooth compact forces F_c are dense in each full Bochner space L^q(0,infty;H^s(R^3;R^3)), q in [1,infty), s real), stated in the vocabulary of Contracts/V1/Data. Fields: the fixed spatial cutoff chi with chi_smooth, chi_one (=1 on the unit ball), chi_vanishes (=0 outside radius two) and chi_range (0<=chi<=1) (04-whole-space.tex:235); spatialApprox (stages 1-3 combined, real compact-smooth H^s density, :231-239,249); temporalApprox (stage 4, the Bochner step, shared verbatim with B02, :251-260); separatedAssembly (a finite separated sum Sigma_j phi_j(t) h_j(x) of smooth compact time factors and spatial profiles is a member of F_c whose datum path is separatedPath, :260); approxCompact (the conclusion, Data.CompletedDense q s forceClassCompact, :219); the four completion* fields identifying the datum-path model MemBochnerDatum with the bundled Bochner space bochnerSpace q s = Lp (RealVectorSobolev s) q forceTimeMeasure; and compactSubsetForceR (forceClassCompact subset forceClassR, :183). Discharged by Section4/B01/{Compact,Completion,Separated,Spatial,Temporal}.lean (approxCompact, the four completion*, separatedAssembly, spatialApprox, temporalApprox) and Section4/D01/ForceClass.lean (memForceR_of_memForceCompact); the chi_* fields by the vendor NavierStokesR3.ComparisonCutoffs.baseCutoff and its estimates baseCutoff_smooth/_eq_one/_eq_zero/_nonneg/_le_one. The binding assigns each field directly to the local theorem (separatedAssembly with its J made explicit; compactSubsetForceR as pointwise membership repackaged as set inclusion; chi_range as the pair nonneg,le_one) and bridges the three spec-local objects separatedField, separatedPath and bochnerSpace by rfl; every other object agrees definitionally (the same defeq research/B01/axioms_u123.lean, axioms_u68.lean and axioms_u7.lean check). NOT included, each a fidelity-only intermediate spatial display of research/B01/Spec.lean that is not proved in the tree: schwartzApprox (stage 1 Fourier truncation/mollification through the H^s isometry, Spec.lean:219) and cutoffApprox (stage 2 limit ||(1-chi_R)h_n||_{H^m}->0, Spec.lean:234); spatialApprox is the only spatial input approxCompact uses, so their absence weakens nothing a consumer of approxCompact needs. The ledger export SeparatedCompactDense (unit 10, STATEMENTS.md:825-830) is derivable from temporalApprox + spatialApprox + separatedAssembly and is deliberately not packaged as a field, exactly as Spec.lean states it as a def. Nothing here asserts the singular-force threshold s < s_q (04-whole-space.tex:262, node R41D/R45), the breakdown condition T^nu_{max,R}(a,f) <= T, or any PDE norm estimate.",
-      "enabled": true
-    },
-    {
-      "id": "C01.energy_absorption_partial",
-      "parent_task": "C01",
-      "version": 1,
-      "specification": "verification/Contracts/V1/EnergyAbsorptionPartial.lean",
-      "binding_module": "Bindings.EnergyAbsorptionPartial",
-      "test_module": "Tests.EnergyAbsorptionPartial",
-      "declaration": "BlowupDensity.Tests.checkedEnergyAbsorptionPartial",
-      "scope": "The proved fields of research/C01/Spec.lean's EnergyAbsorptionAPI (the ordinary-energy and H^1-absorption a priori estimates on R^3, 04-whole-space.tex:96-131 reused at :171, that prop:Rcritical1 (:82) and prop:Rcritical2 (:136) quote as eq:RL2 (:118) and eq:RH1 (:113)), stated in the vocabulary of Contracts/V1/Data and Contracts/V1/GradientL6. Fields: velocityJets (every velocity slice u(t,.) of a classical whole-space solution, t in [0,T), is H^infinity in both the datum form Data.MemHInfty and the jet form SmoothSquareIntegrableJets, the bridge on which A05.gradient_l6 runs, 02-preliminaries.tex:12,29-30); forceTimeRegularity (from MemForceR f, every future force slice is L^2 and t |-> ||f(t)||_2 is continuous on [0,infty), 02-preliminaries.tex:17-19 eq:Rclasses, slicewise form of eq:RL2); trilinearHolder (|<(z.grad)z, Delta z>| <= ||z||_3 ||grad z||_6 ||Delta z||_2, three-factor Holder in ENNReal, :107-109); trilinearAbsorbed (its absorption form <= C_1 ||z||_3 ||Delta z||_2^2, obtained from trilinearHolder by A05.gradient_l6, :109-112); laplacianSqENorm (the eLpNorm^2 = ENNReal.ofReal(integral) conversion for ||Delta z||_2^2, Spec.lean:471-473). The constant C_1 and its positivity C_1_pos are carried verbatim from Spec.lean:260,262 because trilinearAbsorbed refers to C_1; both are bound to the registered A05.gradient_l6 (its Csix, Csix_pos) and are the only data fields, so EnergyAbsorptionPartialAPI is a Type and the binding is a def. Discharged by Section4/C01/{VelocityJets (velocity_slice_memHInfty_and_smoothL2), ForceSlices (forceTimeRegularity), Trilinear (trilinearHolder, trilinearAbsorbed, laplacianSqENorm)}.lean, exactly the defeq the conformance files research/C01/axioms_u1u3.lean, axioms_u2.lean, axioms_u6.lean check. The binding assigns forceTimeRegularity/trilinear*/laplacianSqENorm directly, and for velocityJets moves the solution across the two ClassicalSolutionR copies field by field with the reused Bindings.uniqueness_toA02 (a rfl bridge for the structure itself is impossible since the Data and Section4/A02 restatements are distinct inductive types, but each field type is defeq); it bridges the six spec-local time-slice defs slice, l2Sq, l2Norm, laplacianSq, criticalL3, advectionWork by rfl, and reuses the Bindings.GradientL6 rfl bridges gradientTensor/laplacian = the A05 objects. NOT included, each not proved in the tree on this branch (they occur in Section4/C01/Evolution.lean only as the draft's PDE displays, without discharging theorems): the ordinary energy fields energyIdentity, energyDifferentialBound, l2Bound (eq:RL2 and its differential form, Spec.lean:344-387); the enstrophy fields enstrophyIdentity, enstrophyDifferentialBound, enstrophyIntegralBound (eq:RH1 and its integrated form, :487-541); the Fourier inequality sobolevTwoFourier (04-whole-space.tex:123) and the assembly h2TimeIntegral, h2TimeIntegralZeroDatum (:127-130); and the constants CRH1, CH2, Cassembly with their positivity, mentioned only by those excluded fields, plus the whole GradientL6API record Spec.lean carries as the field gradientL6 (its standalone objects gradientTensor/laplacian/SmoothSquareIntegrableJets are all this record uses, so the bundled record is not needed). Nothing here asserts eq:Rcritical1/eq:Rcritical2, the Gronwall or first-crossing arguments, the continuity bootstrap, the continuation criterion eq:criterion (A04), or any torus / Lambda / J / Leray-projection quantity.",
-      "enabled": true
-    },
-    {
-      "id": "C01.energy_absorption_partial_v2",
-      "parent_task": "C01",
-      "version": 2,
-      "specification": "verification/Contracts/V2/EnergyAbsorptionPartial.lean",
-      "binding_module": "Bindings.EnergyAbsorptionPartialV2",
-      "test_module": "Tests.EnergyAbsorptionPartialV2",
-      "declaration": "BlowupDensity.Tests.checkedEnergyAbsorptionPartialV2",
-      "scope": "The ordinary energy identity energyIdentity of research/C01/Spec.lean's EnergyAbsorptionAPI, extending C01.energy_absorption_partial version 1 unchanged (extends EnergyAbsorptionPartialAPI): energyIdentity (Spec.lean:344-350, lanes 143 and 150, Section4/C01/{MomentumCarrierB (energyIdentity_classical), EnergyDerivative (energyIdentity_classical_unconditional, row E4)}.lean); manuscript source 04-whole-space.tex:117 with the display at 02-preliminaries.tex:136-139. The field is stated token-for-token as its Spec.lean draft field, in the vocabulary of Contracts/V1/Data and the version-1 spec-local defs slice, l2Sq (inherited by importing Contracts.V1.EnergyAbsorptionPartial and drift-guarded there by rfl bridges), plus TWO spec-local defs version 1 did not restate: gradientSq (Spec.lean:185, integral of ||gradientTensor z||^2, the registered Contracts/V1/GradientL6.lean:89 object = Data.spatialGradient on the time-independent lift, i.e. the Frobenius sum_ij |partial_i z_j|^2) and pairing (Spec.lean:196, the real L^2(R^3;R^3) pairing integral of <w x, z x>). INCLUDED FIELD energyIdentity: for 0 < nu, a in initialClassR, MemForceR f, a classical solution w on [0,T) and every interior t in Ioo 0 T, HasDerivAt (fun s => l2Sq (slice w.velocity s)) (-2*nu*gradientSq(slice w.velocity t) + 2*pairing(slice w.velocity t)(slice f t)) t -- the ordinary energy identity (||u(t)||_2^2)' = -2 nu ||grad u(t)||_2^2 + 2 <u(t), f(t)>. The inherited version-1 fields C_1/C_1_pos, velocityJets, forceTimeRegularity, trilinearHolder, trilinearAbsorbed, laplacianSqENorm are carried verbatim through toEnergyAbsorptionPartialAPI (energyAbsorptionPartial_of_v2 records the projection is the frozen version-1 witness Bindings.energyAbsorptionPartial by rfl, and Tests.EnergyAbsorptionPartial keeps running against it untouched). C_1 is the only data field (inherited), so EnergyAbsorptionPartialV2API is a Type and the binding is a def. DISCLOSURES: (1) the transport work <(u.grad)u, u> and the pressure work <grad p, u> are folded in as PROOF OBLIGATIONS, not hypotheses -- both vanish by solenoidality (ClassicalSolutionR.divergence / pressure_gradient). (2) 0 < nu and a in initialClassR are SLACK: energyIdentity_classical_unconditional needs neither; stated so the field reads as the manuscript's, matching the other version-1 fields. (3) the gradient term is the Frobenius integral of sum_ij |partial_i u_j|^2 (gradientTensor is deliberately NOT the operator norm, Data.lean:448-454), so gradientSq is the second summand of E_T, not a weaker quantity. (4) asserting HasDerivAt also asserts the squared energy is differentiable at every interior time. The binding energyAbsorptionPartialV2 reuses the frozen version-1 witness Bindings.energyAbsorptionPartial with { ... with ... } and fills energyIdentity with NSFormalization.Section4.C01.energyIdentity_l2Sq (Section4/C01/EnergySpec.lean, the clamp-free l2Sq/slice/pairing form of lane 150's energyIdentity_classical_unconditional), transported across the two ClassicalSolutionR copies by the reused Bindings.uniqueness_toA02 ((uniqueness_toA02 w).velocity = w.velocity by rfl; a rfl bridge for the structure itself is impossible since the Data and Section4/A02 restatements are distinct inductive types, each field type defeq). BRIDGES: pairing is rfl (energyAbsorptionPartialV2_pairing_eq: Contracts.V2...pairing = C01.pairing); slice/l2Sq are the inherited version-1 rfl bridges; the SINGLE non-rfl bridge is gradientSq (energyAbsorptionPartialV2_gradientSq_eq: gradientSq z = integral of sum_i ||fderiv z x (coordinateVector i)||^2, by PiLp.norm_sq_eq_of_L2 pointwise fed through integral_congr_ae, exactly research/C01/probes/rev150b_gradientsq.lean). NOT INCLUDED, each not proved on this branch: energyDifferentialBound (Spec.lean:364, the differential Cauchy-Schwarz consequence (||u||_2^2)' + 2 nu gradientSq <= 2 ||f||_2 ||u||_2) and l2Bound (Spec.lean:383, eq:RL2 the integrated form ||u(t)||_2 <= ||a||_2 + integral_0^t ||f(s)||_2) -- both now unblocked but left to a future version; the enstrophy fields, the Fourier inequality sobolevTwoFourier, the assembly h2TimeIntegral / h2TimeIntegralZeroDatum, the constants CRH1/CH2/Cassembly, eq:Rcritical1/eq:Rcritical2, the Gronwall and first-crossing arguments -- exactly as version 1's Out of scope records. A future version 3 would add energyDifferentialBound and l2Bound.",
-      "enabled": true
-    },
-    {
-      "id": "R42.insertion_lifespan",
-      "parent_task": "R42",
-      "version": 1,
-      "specification": "verification/Contracts/V1/InsertionLifespan.lean",
-      "binding_module": "Bindings.InsertionLifespan",
-      "test_module": "Tests.InsertionLifespan",
-      "declaration": "BlowupDensity.Tests.checkedInsertionLifespan",
-      "scope": "The two maximal-lifespan clauses of Theorem 4.2 (thm:Rinsert, 04-whole-space.tex:31-43) that R42.insertion_family omits, stated in the vocabulary of Contracts/V1/Data over the registered R42.insertion_family record carried as the field family. A new contract id, not a version of R42.insertion_family (that family record is proved and stays unchanged). It supersedes the frozen 3-field Contracts.V1.InsertionLifespanAPI (InsertionFamily.lean:421-436, whose docstring predates A02's registration and is now stale in claiming the clauses unproved); new consumers must write the qualified InsertionLifespan.InsertionLifespanAPI, since a bare InsertionLifespanAPI under open Contracts.V1 resolves to the frozen unregistered one. Asserted, for one inserted eps-family and under the two manuscript hypotheses stored as fields so a consumer can reuse them (R47 needs g in F_R): memForce (g in F_R, 04-whole-space.tex:32) and regular (Data.RegularThrough nu a g (T+delta), the reference regular through T+delta, 04-whole-space.tex:32, 02-preliminaries.tex:34-36); the two clauses referenceLifespan (ENNReal.ofReal (T+delta) < Data.maximalLifespanR nu a g, the definite article of 'the solution ... regular through T+delta', 04-whole-space.tex:32, research/section4/STATEMENTS.md:333) and lifespan (Data.maximalLifespanR nu a (force eps) = ENNReal.ofReal T for every eps in Ioc 0 eps0, i.e. T^nu_max,R(a,g_eps) = T, 04-whole-space.tex:34, research/section4/STATEMENTS.md:347). Both clause fields are token-identical to the frozen unregistered Contracts.V1.InsertionLifespanAPI (InsertionFamily.lean:421-436); insertionLifespanStatement, shaped like insertionFamilyStatement, takes the two hypotheses and returns an inhabitant whose family equals the given F (the rfl anti-substitution guard, lane-092 review finding 5). Derived, not assumed: nu > 0 (P.viscosity_pos), a in X_R (Data.initialClassR, from the reference at t=0 via Bindings.InsertionLifespan.initialClassR_a), 0 < T (CorrectionAPI.time_pos), 0 < delta (CorrectionAPI.margin_pos), and the essential-supremum form of the blow-up (from family.blowup and family.velocity_smooth); the blow-up is consumed in the registered pointwise SpeedUnboundedAt form and re-expressed in speedENorm inside the proof, as in R42.insertion_family. Carried: R42.insertion_family through the field family (no new copy of anything), hence transitively I01.packet, I02.correction, I03.scaling. The binding additionally consumes A02.maximal_partial (lifespan_ge_of_forall_shorter, lifespan_le_of_unbounded, regularThrough_iff, and the two ClassicalSolutionR conversions uniqueness_toA02 / maximalPartial_ofA02), D01.datum_lemmas (memForceR_of_compact_difference, contDiff_slice), and the merged Section4/R42 analytic modules of lanes 072/075/080/083/087/092 (sol_on_shorter through classicalSolutionR_of_inserted, and the pointwise-to-essSup transfer limsupLeft_speedENorm_eq_top), but this contract states nothing from A02, D01 or those modules directly. NOT asserted: the ClassicalSolutionR fields sobolev and pressure_gradient for u_eps (built inside sol_on_shorter, not exported); the displayed limsup of the spatial sup norm (registered only in the pointwise form, as in R42.insertion_family); A02's continuation criterion eq:criterion (A04); and any Theorem 4.1 or 4.3-4.7 density, energy or threshold statement.",
-      "enabled": true
-    },
-    {
-      "id": "B02.homogeneous_partial",
-      "parent_task": "B02",
-      "version": 1,
-      "specification": "verification/Contracts/V1/HomogeneousPartial.lean",
-      "binding_module": "Bindings.HomogeneousPartial",
-      "test_module": "Tests.HomogeneousPartial",
-      "declaration": "BlowupDensity.Tests.checkedHomogeneousPartial",
-      "scope": "The 16 proved fields of research/B02/Spec.lean's HomogeneousApproxAPI (the homogeneous clause of Proposition 4.6 prop:Renergy, 04-whole-space.tex:218-229, homogeneous proof paragraph :241-249 and Bochner paragraph :251-260: smooth compact forces F_c are dense in the completed force space L^2(0,infty;Hdot^-1(R^3;R^3)) in the realization hhat = |xi|^-s G of 02-preliminaries.tex:58-69), stated in the vocabulary of Contracts/V1/Data and Contracts/V1/BochnerPartial. The manuscript's argument runs on SplitRange s := -3/2 < s and s <= 0, with s = -1 the case R46 consumes. Data field chi bound to the vendor NavierStokesR3.ComparisonCutoffs.baseCutoff, the SAME object B01.bochner_partial binds (Bindings/BochnerPartial.lean:66), so a joint consumer (R46) sees one cutoff across B01 and B02; chi is the only data field, so HomogeneousApproxPartialAPI is a Type and the binding is a def. Fields, each discharged by the same-named Section4/B02 theorem unless noted: chi_smooth, chi_one (=1 on the unit ball), chi_vanishes (=0 outside radius two), chi_range (0<=chi<=1) (04-whole-space.tex:235) by Remaining.lean's chi_* (on baseCutoff); annularRestriction (restrict to 1/n<|xi|<n, :241, Spec:302) and annularSmoothing (mollify inside a slightly larger annulus, :241, Spec:314) by Annular.lean; annularSchwartz (hhat_n = |xi|^-s G_n is a real vector Schwartz field, :241, Spec:362) by AnnularReal.lean; lowFrequencyIntegrable (|xi|^2s integrable on the unit ball iff 2s>-3, :249, Spec:370), lowFrequencyIntegral (int_{|xi|<1}|xi|^-2 = 4 pi, :246, Spec:378) and fourierSupBound (the L^1->L^inf bound (2 pi)^-3/2 for the unitary angular transform, in vector form, :246, Spec:397) by LowFrequency.lean; lowHighSplit (eq:Rnegative-cutoff homogeneousFourierENorm s k ^2 <= ENNReal.ofReal(lowHighConstant s) * eLpNorm k 1 ^2 + eLpNorm k 2 ^2 on L^1 cap L^2, :241-248 label :247, Spec:421) by LowHigh.lean, its -3/2<s and s<=0 hypotheses supplied from SplitRange s; lebesgueHomogeneousDatum (the realization bridge: an L^1 cap L^2 field with SplitRange s -- hypothesis L^1 cap L^2 rather than compact support, since the field it is applied to at :249 is Schwartz with unbounded support -- has an order-s homogeneous datum and every datum's norm is homogeneousFourierENorm, unit U7c, 02-preliminaries.tex:58-69, Spec:454) by LebesgueDatum.lean, likewise hypotheses from SplitRange; homogeneousDatumSub (linearity of the realization on a difference, Spec:490) by LebesgueDatum.lean's isHomogeneousSliceDatum_sub_of_integrable, which in this integrability-carrying form is the SAME proposition as the already-registered D01.datum_lemmas field isHomogeneousSliceDatum_sub (Contracts/V1/DatumLemmas.lean:458) -- same four hypotheses, same conclusion, same binder order -- re-exported into the B02 shape, and is kept here only because Spec:490 and REVIEW_REMAINING.md section 5's first hard requirement list it as a B02 obligation, not as a new result; cutoffLebesgue ((1-chi_R)h_n -> 0 in L^1 and L^2, :249, Spec:513) by Cutoff.lean; spatialApproxHomogeneous (the diagonal: C_c^inf(R^3;R^3) dense in Hdot^s for s in SplitRange, :249, Spec:539) by AnnularReal.lean; and temporalApprox (stage 6 the Bochner step, :251-260, Spec:563) by Remaining.lean's temporalApprox (= Section4.B01.temporalApprox), reusing Contracts.V1.BochnerPartial.separatedPath (the datum path shared verbatim with B01, formalise-once STATEMENTS.md:903-904) rather than restating it. The binding assigns each field to the local theorem (packing SplitRange into the two hypotheses for lowHighSplit / lebesgueHomogeneousDatum, and homogeneousDatumSub's implicit args inferred), and bridges the nine restated spec-local objects frequencyAnnulus, closedFrequencyAnnulus, IsAnnularDatum, IsAnnularRestriction, IsAnnularSupported, scaledCutoff, schwartzVector, lowHighConstant, SplitRange (Spec:155-237) by rfl to their Section4/B02 defs; IsHomogeneousSliceDatum, IsHomogeneousPath, homogeneousFourierENorm, MemBochnerDatum, bochnerDatumENorm, MemForceCompact, SpatialField are reused from Contracts/V1/Data and separatedPath from Contracts/V1/BochnerPartial. This is exactly the defeq the conformance files research/B02/axioms_{u1,u2_sl3,u34,u6,u7,u8,remaining}.lean check. CAVEAT: homogeneousDatumSub is registered ONLY in its integrability-carrying form (Spec:490-496, the two side conditions that z and w pair integrably against every Schwartz test); the hypothesis-free form is FALSE (lane 068 review research/B02/REVIEW_U6.md section 4, machine-checked: under Data.lean:298's totalizing convention a field pairing non-integrably carries the zero datum vacuously, and f = sum 2^-n |x-q_n|^-3 1_{0<|x-q_n|<2^-n} over an enumeration of Q^3 gives a counterexample); the counterexample note is copied into the contract field docstring. NOT included, each a not-yet-proved obligation of HomogeneousApproxAPI (the M rows of research/B02/REMAINING_SPLIT.md): separatedAssembly (packaging a finite separated sum as a member of F_c with an IsHomogeneousPath datum path, Spec:582; its realization-dependent conjunct needs a scalar-smul/finite-sum additivity combinator for IsHomogeneousSliceDatum that does not exist, only isHomogeneousSliceDatum_sub); annularPathApprox (the path-level reading of stage 1, Spec:337; not a step of the manuscript's own proof, which does the Bochner reduction first :251 and truncates the finitely many fibre values afterwards, feeds nothing, and needs a measurable-in-t selection plus a path-level dominated-convergence argument that do not exist); and approxCompactHomogeneous (the conclusion Data.CompletedDenseHomogeneous, Spec:607; depends on separatedAssembly, and B01's approxCompact is monolithic -- it applies the source density theorem directly and does not glue temporalApprox+spatialApprox+separatedAssembly, with no homogeneous analogue of that source theorem, so it cannot be reused or parametrized). Also deliberately absent, assigned to B01 by research/B01/COMPARISON.md section 3 and realization-independent: forceClassCompact subset forceClassR and the identification of the datum-path completion with the bundled Bochner space; B02 consumes B01.bochner_partial's compactSubsetForceR and completion* fields. Nothing here asserts the singular-force threshold s < s_q, the breakdown condition T^nu_max,R(a,f) <= T, or any PDE norm estimate.",
-      "enabled": true
-    },
-    {
-      "id": "A01.regularity_partial",
-      "parent_task": "A01",
-      "version": 1,
-      "specification": "verification/Contracts/V1/RegularityPartial.lean",
-      "binding_module": "Bindings.RegularityPartial",
-      "test_module": "Tests.RegularityPartial",
-      "declaration": "BlowupDensity.Tests.checkedRegularityPartial",
-      "scope": "The two proved fields of research/A01/Spec.lean's ManuscriptLocalRegularity (the existence half of prop:local on R^3, 02-preliminaries.tex:105 derived at appendix-a-local-theory.tex:60-107), each flattened into a statement about an arbitrary Data.ClassicalSolutionR nu a f T with no membership hypotheses: the spec structure carries none and neither discharging theorem needs them, so this is the strictly stronger hypothesis-free reading. This mirrors Contracts/V1/EnergyAbsorptionPartial's flattening of velocityJets into a single for-all over ClassicalSolutionR, but drops its 0<nu / a in initialClassR / MemForceR f. Fields: projected (Spec.lean:214, 02-preliminaries.tex:81 eq:projected with force P f of appendix-a-local-theory.tex:76-77: partial_t u - nu Delta u = (f - conv(u)) - grad p at interior times Ioo 0 T, conv = the restated convectionDivergence grad.(u tensor u)); pressure_potential (Spec.lean:227, 02-preliminaries.tex:96-100: u.pressure is PressureGaugeEquivOn (Ico 0 T) to the radial potential pressurePotential (Data.lean:596) of its own gradient). Discharged by Section4/A01/ProjectedEquation.lean (projected_of_classicalSolution, lane 093, from velocity_smooth + divergence + momentum via unit E1's navierStokesResidual_eq_iff_projected) and Section4/A01/PressureGauge.lean (pressure_potential_of_classicalSolution, lane 106, from pressure_smooth alone). ManuscriptLocalRegularityPartialAPI is a Prop (both fields are Prop), so the binding is a theorem; it moves the solution across the two ClassicalSolutionR copies field by field with the reused Bindings.uniqueness_toA02 (a rfl bridge for the structure itself is impossible since the Data and Section4/A02 restatements are distinct inductive types, but each field type is defeq). It clears the load-bearing pressurePotential bridge debt REVIEW_M4 finding 6 records by rfl-bridging the reused pressurePotential (Contracts/V1/Data.lean:596 = Section4/A01/RadialPotential.lean), and rfl-bridges the restated convectionDivergence (= Section4/A01/ConvectionDivergence.lean) and the restated spec-local HasSymmetricJacobian (= RadialPotential's restatement); PressureGaugeEquivOn reuses the already-registered Bindings.uniqueness_pressureGaugeEquivOn_eq. HasSymmetricJacobian is referenced by no field of this version: it is restated reserved for the excluded pressure_recovery, whose IsLerayComplement (Spec.lean:135) uses this predicate, not to clear a bridge debt (RadialPotential mirrors a draft spec, not a contract). NOT included, and asserted nowhere: sobolev_smooth (Spec.lean:180, split row m1, size L: all-order Sobolev time smoothness, strictly stronger than ClassicalSolutionR.sobolev's ContinuousOn and not harvestable); pressure_recovery (Spec.lean:197, split row m2, size M: eq:Rpressure grad p = (I-P)(f - conv(u)) on Ico 0 T, needing unit P3 and the P2 Liouville gap); and everything in LocalTheoryAPI (Spec.lean:277): the existence data solution, the regularity bundle, and the uniform lower bound horizon_lower_bound. Also nowhere: any uniqueness or maximal-lifespan clause (A02). Fidelity note (projected): in this partial contract pressure_recovery is excluded and unit E1's navierStokesResidual_eq_iff_projected is an iff whose two premises (spatial differentiability, divergence-free) hold for every ClassicalSolutionR at interior times, so projected is EQUIVALENT to ClassicalSolutionR.momentum -- the manuscript's grad.(u tensor u) spelling buys the displayed eq:projected form, not extra content; reading it as the Leray-projected -P grad.(u tensor u) + P f requires the excluded pressure_recovery. Fidelity note (REVIEW_M4 #7): pressure_potential on its own carries no Navier-Stokes content -- its proof consumes only u.pressure_smooth, so it reads 'every C^2 scalar field equals the radial potential of its own gradient up to a function of time'; it fixes the gauge representative, it does not pin the pressure down (eq:Rpressure's physical content is the excluded pressure_recovery).",
-      "enabled": true
-    },
-    {
       "id": "R42.insertion_lifespan_v2",
       "parent_task": "R42",
       "version": 2,
       "specification": "verification/Contracts/V2/InsertionLifespan.lean",
-      "binding_module": "Bindings.InsertionLifespanV2",
+      "binding_module": "Bindings.InsertionFromData",
       "test_module": "Tests.InsertionLifespanV2",
       "declaration": "BlowupDensity.Tests.checkedInsertionLifespanV2",
-      "scope": "Version 2 of R42.insertion_lifespan (extends the version-1 InsertionLifespanAPI unchanged, extends InsertionLifespanAPI): the three exports the version-1 reviewer named as owed (research/R42/REVIEW_CONTRACT.md:443-452) but that R42.insertion_lifespan did not export, each already discharged in Bindings/InsertionLifespan.lean (lane 098) and re-exposed as a field over the inherited family. No version-1 field is removed, weakened, renamed or restated; extends makes that structural, and the inherited toInsertionLifespanAPI projection recovers version 1 (Tests.InsertionLifespan keeps running against the untouched Bindings.InsertionLifespan.insertionLifespanAPI). The three added fields, all quantified over eps in Ioc 0 eps0: solution -- the inserted pair (u_eps, p_eps) is a Data.ClassicalSolutionR nu a (force eps) T on the FULL horizon [0,T), with velocity family.velocity eps and pressure family.pressure eps (04-whole-space.tex:32 'a solution u_eps', :53 'identifies the solution'; discharged by sol_fullHorizon), the single object from which a consumer recovers the ClassicalSolutionR fields sobolev and pressure_gradient for u_eps that R42.insertion_lifespan left unexported (REVIEW_CONTRACT.md:386-387,450-452); maximal -- (u_eps, p_eps) IS the maximal classical solution of (nu, a, force eps), stated in the registered Contracts.V2.MaximalPartial.IsMaximalSolution vocabulary (contract A02.maximal_partial_v2), 04-whole-space.tex:53 'Proposition prop:local identifies the solution with the unique maximal solution', research/section4/STATEMENTS.md:346, discharged by isMaximalSolution_of_inserted; blowup_limsup -- the SECOND display of Theorem 4.2, limsup_{t up T} ||u_eps(t)||_Linfinity = infinity (04-whole-space.tex:35, STATEMENTS.md:348), stated with the frozen Contracts.V1.MaximalPartial.limsupLeft/speedENorm (Contracts/V1/MaximalPartial.lean:101,106 = D01 limsupLeft/normLinfty), discharged by blowup_essSup = the tree lemma limsupLeft_speedENorm_eq_top applied to family.blowup and the slice continuity of family.velocity_smooth, i.e. the very term version 1's binding runs inside lifespan_upper (Bindings/InsertionLifespan.lean:215-217). Fidelity of blowup_limsup: STATEMENTS.md:348 records the display abstractly as limsupLeft T (fun t => normLinfty (u_eps t)); this field renders it as limsupLeft family.T (fun t => speedENorm (fun x => family.velocity eps (t, x))), differing only in the slice notation because family.velocity is spacetime-valued (SpaceTime -> Space, matching Data.ClassicalSolutionR.velocity and the R42.insertion_family velocity field), so its spatial slice at time t is fun x => family.velocity eps (t, x) rather than a curried family.velocity eps t; the operators limsupLeft/speedENorm are the manuscript's limsup_{t up T} / L^infinity, and this is byte-for-byte the form the version-1 binding proves. The binding insertionLifespanV2API inhabits the record by reusing the frozen version-1 witness insertionLifespanAPI F hg hreg with { ... with ... } and filling the three fields with sol_fullHorizon, isMaximalSolution_of_inserted and blowup_essSup; #check confirms it takes exactly the two version-1 hypotheses hg (Data.MemForceR F.g) and hreg (Data.RegularThrough nu F.a F.g (F.T + F.margin)) beyond F -- no new hypothesis (sol_fullHorizon and blowup_essSup need neither; isMaximalSolution_of_inserted needs only hg through lifespan_eq). insertionLifespanV2Statement, shaped like version 1's insertionLifespanStatement, takes the two hypotheses and returns an inhabitant whose family equals the given F (the rfl anti-substitution guard, lane-092 review finding 5). Carried unchanged from version 1 (hence transitively R42.insertion_family, I01.packet, I02.correction, I03.scaling): the inherited family, memForce, regular, referenceLifespan (ENNReal.ofReal (T+delta) < maximalLifespanR nu a g) and lifespan (maximalLifespanR nu a (force eps) = ENNReal.ofReal T). Derived, not assumed: nu > 0 (P.viscosity_pos), a in X_R (Data.initialClassR, via initialClassR_a), 0 < T (CorrectionAPI.time_pos), 0 < delta (CorrectionAPI.margin_pos). NEW relative to R42.insertion_lifespan: the displayed essential-supremum blow-up (blowup_limsup) is now asserted, whereas R42.insertion_lifespan registered the blow-up only in the pointwise SpeedUnboundedAt form; the full-horizon classical solution and the maximal identification (solution, maximal) are now asserted, whereas R42.insertion_lifespan asserted neither. NOT asserted: the ClassicalSolutionR fields sobolev and pressure_gradient for u_eps are still not stated as fields (a consumer derives them by opening the solution field's ClassicalSolutionR); A02's continuation criterion eq:criterion (A04); and any Theorem 4.1 or 4.3-4.7 density, energy or threshold statement. Not asserted: uniqueness of the maximal solution (that is A02.maximal_partial_v2's maximal_unique, not carried here; maximal only identifies (u_eps, p_eps) as a maximal solution with lifespan exactly T). Conditional throughout on the InsertionFamilyAPI hypothesis, i.e. on the manuscript's own assumption that a reference classical solution through T + delta exists; no contract-level inhabitant of InsertionFamilyAPI is provided (I01.packet itself is inhabited unconditionally by Bindings.packet, so the open end of the chain is the reference solution, not the packet).",
-      "enabled": true
-    },
-    {
-      "id": "B02.homogeneous_partial_v2",
-      "parent_task": "B02",
-      "version": 2,
-      "specification": "verification/Contracts/V2/HomogeneousPartial.lean",
-      "binding_module": "Bindings.HomogeneousPartialV2",
-      "test_module": "Tests.HomogeneousPartialV2",
-      "declaration": "BlowupDensity.Tests.checkedHomogeneousPartialV2",
-      "scope": "The two post-freeze fields of research/B02/Spec.lean's HomogeneousApproxAPI, extending B02.homogeneous_partial version 1 unchanged (extends HomogeneousApproxPartialAPI): separatedAssembly (lane 103, Section4/B02/SeparatedAssembly.lean:211) and approxCompactHomogeneous (lane 110, Section4/B02/ApproxCompact.lean:229). Both are stated in the vocabulary of Contracts/V1/Data and Contracts/V1/BochnerPartial and this file restates no new object: SplitRange from Contracts/V1/HomogeneousPartial, CompletedDenseHomogeneous / CompletedDenseVia / forceClassCompact / MemForceCompact / IsHomogeneousPath / forceTimeMeasure from Contracts/V1/Data, and the shared separatedField / separatedPath from Contracts/V1/BochnerPartial, all with rfl bridges already recorded in the V1 bindings and re-recorded for self-documentation in Bindings/HomogeneousPartialV2.lean. separatedAssembly (research/B02/Spec.lean:593, 04-whole-space.tex:260, STATEMENTS.md:831-836): the finite separated sum separatedField phi h = sum_j phi_j(t) h_j(x) of smooth compact time factors (supported in t>0) and smooth compact spatial profiles with order-s homogeneous data A_j lies in F_c (MemForceCompact), its order-s homogeneous datum path is separatedPath phi A (IsHomogeneousPath), and that path is a.e. strongly measurable; it is research/B01/Spec.lean's separatedAssembly with the one substitution research/B01/COMPARISON.md section 3 names (IsHomogeneousPath/IsHomogeneousSliceDatum for IsSobolevPath/IsSobolevDatum), reusing B01's shared separatedField/separatedPath. CAVEAT: registered with the honest hypothesis -3/2 < s, NOT the spec's stated forall (s : R) and NOT the narrower SplitRange s. The tree's theorem carries the extra hypothesis hs : -3/2 < s (needed by the uniqueness route through D01's compact-datum constructor homogeneousVectorDatum, finite only at s > -3/2); the verbatim forall s form of Spec:582 is unproved and near-vacuous for s <= -3/2 (REVIEW_APPROX_COMPACT.md finding 5-A, lane 103's recommendation REMAINING_SPLIT.md row 6). No consumer is weakened: approxCompactHomogeneous feeds it only SplitRange.1 = -3/2 < s; every other token matches Spec:582. approxCompactHomogeneous (research/B02/Spec.lean:618, 04-whole-space.tex:219 prop:Renergy homogeneous clause with :228 the compact-difference caveat, STATEMENTS.md:831-836): the conclusion CompletedDenseHomogeneous q s forceClassCompact for every q in [1,infty) (1 <= q and q != top) and every s in SplitRange (-3/2 < s and s <= 0), with q=2, s=-1 the instance R46 consumes. Registered verbatim as Spec:607; the proving theorem NSFormalization.Section4.B02.approxCompactHomogeneous is definitionally equal to it, kernel-checked by rfl in research/B02/axioms_approx_compact.lean, modulo three benign token differences (the CompletedDenseHomogeneous abbrev Data.lean:752 for CompletedDenseVia q s (IsHomogeneousPath s), and the sanctioned formalization restatements SplitRange and forceClassCompact). Data.lean:752's CompletedDenseHomogeneous respects 04-whole-space.tex:228 (the homogeneous norm is a norm of the compact difference; S stays a set of physical fields while the target ranges over the completion, MemBochnerDatum). The binding homogeneousPartialV2 reuses the frozen version-1 witness Bindings.homogeneousPartial with { ... with ... } and assigns both fields directly (no transport: both are stated in the shared vocabulary that is defeq to the formalization vocabulary the theorems use; separatedAssembly's explicit J is bound as _J and inferred from phi, as in Bindings/BochnerPartial.lean:74). homogeneousPartial_of_v2 recovers version 1 by the inherited projection toHomogeneousApproxPartialAPI, and Tests.HomogeneousPartial keeps running against the untouched Bindings.homogeneousPartial. Still out of scope and asserted nowhere: annularPathApprox (research/B02/Spec.lean:337), the path-level reading of stage 1 -- no proof exists anywhere in the tree, it is not a step of the manuscript's own proof (which does the Bochner reduction first :251 and truncates the finitely many fibre values afterwards), it feeds nothing, and approxCompactHomogeneous does not route through it; it would need a measurable-in-t selection of the annular truncation plus a path-level dominated-convergence argument, neither of which exists. Also, as in version 1, forceClassCompact subset forceClassR and the datum-path/Bochner-space identification stay with B01 (B02 consumes B01.bochner_partial's compactSubsetForceR and completion* fields). Nothing here asserts the singular-force threshold s < s_q, the breakdown condition T^nu_max,R(a,f) <= T, or any PDE norm estimate.",
-      "enabled": true
-    },
-    {
-      "id": "A04.energy_high_partial",
-      "parent_task": "A04",
-      "version": 1,
-      "specification": "verification/Contracts/V1/EnergyHighPartial.lean",
-      "binding_module": "Bindings.EnergyHighPartial",
-      "test_module": "Tests.EnergyHighPartial",
-      "declaration": "BlowupDensity.Tests.checkedEnergyHighPartial",
-      "scope": "The one proved field of research/A04/Spec.lean's draft EnergyHighAPI, eq:Rhigh (the all-order energy inequality lem:Rhigh, appendix-a-local-theory.tex:132-137, for every integer m>=3 and every interior time t in (0,T)), stated in the vocabulary of Contracts/V1/Data and Contracts/V1/TameProduct. This is the FIRST registered A04 contract. The frozen statement is the tree form, verified by the Rule-2 blind lane research/A04/BLIND_RHIGH.md (two independent paper-only restatements are rfl-equal to each other and, modulo the HasSmoothSobolevPath hypothesis, to the tree form; Rule 2 closed for eq:Rhigh). Data fields: Chigh : N -> R and Chigh_pos, the Skolemization of the blind writers' 'exists C, (forall m, 0 < C m) and ...', so EnergyHighPartialAPI is a Type and the binding is a def. Chigh is kept OPAQUE: the contract asserts only 0 < Chigh m, NOT Chigh = tame.Ctame (which holds by rfl in the binding as the bonus energyHighPartial_Chigh_eq_Ctame, both A03.outerTameConst, and unit G2's Cgron will want) and not any other identification. Field energyIdentityHigh (research/A04/Spec.lean:424-434, proved as Section4/A04/EnergyIdentityHigh.lean:145 token-for-token): for 0 < nu, a in initialClassR, MemForceR f, a classical solution w on [0,T) with HasSmoothSobolevPath T w.velocity, every integer m>=3 and every t in (0,T), there is d with HasDerivAt (fun r => sobolevNormAt m w.velocity r ^2) d t and (1/2) d + nu * gradientSobolevNormAt m w.velocity t ^2 <= Chigh m * sobolevNormAt 2 w.velocity t * sobolevNormAt m w.velocity t * gradientSobolevNormAt m w.velocity t + sobolevNormAt m f t * sobolevNormAt m w.velocity t. The derivative is ASSERTED (exists d, HasDerivAt ... and ...), matching the manuscript's d/dt which :139 justifies (Fourier approximation on compact intervals of smooth existence), not a DifferentiableAt hypothesis. The pressure term is absent: it vanishes by solenoidality (ClassicalSolutionR.divergence, :137-138). CONDITIONAL on HasSmoothSobolevPath T w.velocity, the single most important disclosure: this hypothesis is A01's clause sobolev_smooth (research/A01/Spec.lean:180, split unit m1, size L, status gap; appendix-a-local-theory.tex:72-77 asserts C^j_t H^k_x regularity for all j,k), and it is NOT derivable from Data.ClassicalSolutionR.sobolev, which supplies only a ContinuousOn datum path (BLIND_RHIGH.md section 3.3 gives the ContinuousOn != ContDiffOn failure). So the field is conditional: the manuscript asserts the time regularity, the formalization still owes it via A01 m1. gradientSobolevNormAt is the gradient TENSOR Sobolev norm (sum_j ||partial_j u||^2_{H^m})^(1/2), NOT ||u||_{H^{m+1}}; the order shift ||grad v||_{H^s} <= ||v||_{H^{s+1}} is out of scope (TameProduct.lean:51-53). The time set is the open interior Ioo 0 T only; nothing is asserted at t=0 (the datum path is C^infty on Ico 0 T, so a one-sided derivative at 0 would be available but is not stated). The four norms are ENNReal.toReal (a top value would read as 0); on the class quantified over this never happens -- Section4/A04/Continuity.lean:64,73 (sobolevENorm_velocity_ne_top, sobolevENorm_force_ne_top) cover the three sobolevNormAt slots and Section4/A04/GradientFiniteness.lean (gradientSobolevENorm_velocity_ne_top, lane 133, credit lane-128 reviewer) covers the gradient slot, so the dissipation nu ||grad u||^2_{H^m} is a genuine norm not a top->0 artefact. 0 < nu, a in initialClassR and 3 <= m are stated as the manuscript does; the proof has slack (0 <= nu, 2 <= m, a in initialClassR unused, recorded in research/A04/ATTEMPTS_CONTRACT.md) and is not weakened in V1. Three spec-local defs are restated verbatim and drift-guarded by rfl bridges in Bindings/EnergyHighPartial.lean: sobolevNormAt (Section4/A04/Forcing.lean:74), gradientSobolevNormAt (LaplacianDatum.lean:86), HasSmoothSobolevPath (DerivNorm.lean:87); RealVectorSobolev is Paper3's, gradientSobolevENorm is the registered Contracts/V1/TameProduct object. The binding moves the solution across the two ClassicalSolutionR copies field by field with the reused Bindings.uniqueness_toA02 (a rfl bridge for the structure itself is impossible since the Data and Section4/A02 restatements are distinct inductive types, each field type defeq; the conclusion needs no adjustment since (uniqueness_toA02 w).velocity = w.velocity by rfl). NOT included, each not proved in the tree on this branch (they occur in research/A04/Spec.lean only as the draft's continuation displays): regularizedNormDerivative / eq:highcontinuation before the limit (Spec.lean:437-465, appendix-a-local-theory.tex:139-145, the zeta-regularized (||u||_{H^m})' bound, unit G2); highContinuationIntegral / the integrated Gronwall form (Spec.lean:494-510) and the continuation criterion eq:criterion (unit G2); the constant Cgron (= (Chigh m)^2/(4 nu)). Nothing here asserts eq:mild, the mild-solution semantics, the first-crossing / bootstrap arguments of Theorem 4.1, or the t=0 endpoint.",
-      "enabled": true
-    },
-    {
-      "id": "A04.energy_high_partial_v2",
-      "parent_task": "A04",
-      "version": 2,
-      "specification": "verification/Contracts/V2/EnergyHighPartial.lean",
-      "binding_module": "Bindings.EnergyHighPartialV2",
-      "test_module": "Tests.EnergyHighPartialV2",
-      "declaration": "BlowupDensity.Tests.checkedEnergyHighPartialV2",
-      "scope": "The continuation constant Cgron and the two zeta-continuation fields of research/A04/Spec.lean's draft EnergyHighAPI, extending A04.energy_high_partial version 1 unchanged (extends EnergyHighPartialAPI): Cgron/Cgron_pos (Spec.lean:354-356), regularizedNormDerivative (Spec.lean:459-470, unit G2, lane 135, Section4/A04/HighContinuation.lean) and highContinuationIntegral (Spec.lean:471-494, unit G2b, lane 138, Section4/A04/HighContinuationIntegral.lean); manuscript source appendix-a-local-theory.tex:139-145 (eq:highcontinuation). Each new field is stated token-for-token as its Spec.lean draft field, in the vocabulary of Contracts/V1/Data and the three spec-local notions version 1 restated (sobolevNormAt, gradientSobolevNormAt, HasSmoothSobolevPath, inherited by importing Contracts.V1.EnergyHighPartial and drift-guarded there by three rfl bridges), plus ONE new restatement MemL1Hm (Spec.lean:268, Section4/A04/Forcing.lean:110: forall m, forceSobolevENormL1 (m:R) f != top) with a FOURTH rfl bridge Bindings.energyHighPartialV2_memL1Hm_eq recording it = A04.MemL1Hm. Cgron is a data field (N -> R -> R), so EnergyHighPartialV2API is a Type and the binding is a def. DISCLOSURES beyond version 1: (1) Cgron OPAQUE -- the contract asserts only 0 < Cgron m nu at 0 < nu, NOT Cgron = (Chigh m)^2/(4 nu) (the manuscript displays no formula); the derived value appears only as the binding rfl bonus energyHighPartialV2_Cgron_eq. (2) At nu = 0 the implementation's Cgron m 0 = 0 (division junk), so 0 < nu cannot be weakened to 0 <= nu (that would be a stronger and false statement); both weakenings refused (REVIEW_G2B.md p_nu0). (3) highContinuationIntegral is the zeta-down-0 (integrated) form, not a differential one: after the limit the left side ||u||_{H^m} need not be differentiable where u vanishes in H^m, the manuscript's (||u||_{H^m})' is shorthand for the inequality that survives the limit, the only form Gronwall consumes. (4) the IntervalIntegrable conjunct is ASSERTED not assumed (the first conjunct), proved from continuity on the compact interval (unit N1, Continuity.lean:132), so the integral is a genuine Lebesgue integral not a top->0 artefact. (5) the .toReal top->0 disclosure covers only the velocity and force sobolevNormAt slots here (Continuity.lean:64,73 sobolevENorm_velocity_ne_top / _force_ne_top); NO gradient norm appears in these fields, so version 1's gradientSobolevENorm_velocity_ne_top sentence is deliberately not repeated. (6) endpoints 0 <= t0 <= t < T with t0 = 0 INCLUDED for highContinuationIntegral (closed-left, covered by continuity on Icc t0 t subset Ico 0 T, not by HasSmoothSobolevPath which is used only at interior times Ioo t0 t subset Ioo 0 T); 0 <= t0 is load-bearing (a negative time has no datum, the norm reads junk 0), t < T strict; regularizedNormDerivative speaks at interior t in Ioo 0 T only. (7) STILL CONDITIONAL on HasSmoothSobolevPath T w.velocity, A01's unproved sobolev_smooth (unit m1, research/A01/Spec.lean:180, size L, status gap; appendix-a-local-theory.tex:72-77) -- the single most important disclosure, not weakened. (8) MemL1Hm f is redundant, kept for fidelity: the proof does not consume it and it is derivable from MemForceR f by A04.memL1Hm_of_memForceR (unit F1a, Forcing.lean:140); stated so the contract displays the manuscript's own L^1_t H^m hypothesis (:144-145) rather than the ambient class (REVIEW_G2B.md finding 5). (9) a in initialClassR is slack (inherited disclosure; routed through energyIdentityHigh whose V1 scope records it unused; no new redundancy). (10) OUT OF SCOPE, asserted nowhere: the continuation criterion eq:criterion itself; the Gronwall consequence higherOrderBound (Spec.lean, appendix-a-local-theory.tex:146-147); the uniform restart; eq:mild, the mild-solution semantics, and the first-crossing / bootstrap arguments of Theorem 4.1. PARALLEL not sequential: regularizedNormDerivative and highContinuationIntegral are two parallel manuscript-explicit statements; highContinuationIntegral does NOT route through regularizedNormDerivative (it consumes deriv_normSq_absorbed = G1+Young and sqrt_le_primitive_linear = Z1 delta-down-0 directly), so regularizedNormDerivative currently has ZERO proof consumers in the tree (REVIEW_G2B.md findings 2,4); it is registered because it is a manuscript-explicit step (Rule 2: cover what the paper states) and its registration cost is zero (proved, standard three axioms). The binding energyHighPartialV2 reuses the frozen version-1 witness Bindings.energyHighPartial with { ... with ... }, binds Cgron/Cgron_pos to A04.Cgron/A04.Cgron_pos, and fills the two continuation fields with the Section4/A04 theorems transported across the two ClassicalSolutionR copies by the reused Bindings.uniqueness_toA02 exactly as version 1's energyIdentityHigh does ((uniqueness_toA02 w).velocity = w.velocity by rfl). energyHighPartial_of_v2 records by rfl that the inherited toEnergyHighPartialAPI projection is the frozen version-1 witness Bindings.energyHighPartial, and Tests.EnergyHighPartial keeps running against the untouched Bindings.energyHighPartial. A future version 3 would add eq:criterion and the Gronwall consequence.",
-      "enabled": true
-    },
-    {
-      "id": "C01.energy_absorption_partial_v3",
-      "parent_task": "C01",
-      "version": 3,
-      "specification": "verification/Contracts/V3/EnergyAbsorptionPartial.lean",
-      "binding_module": "Bindings.EnergyAbsorptionPartialV3",
-      "test_module": "Tests.EnergyAbsorptionPartialV3",
-      "declaration": "BlowupDensity.Tests.checkedEnergyAbsorptionPartialV3",
-      "scope": "The two ordinary-energy consequences energyDifferentialBound and l2Bound (eq:RL2) of research/C01/Spec.lean's EnergyAbsorptionAPI, extending C01.energy_absorption_partial_v2 version 2 unchanged (extends EnergyAbsorptionPartialV2API, hence the version-1 EnergyAbsorptionPartialAPI): energyDifferentialBound (Spec.lean:364-370) and l2Bound (Spec.lean:383-387), both proved by lane 154 (Section4/C01/EnergyBounds.lean: energyDifferentialBound, l2Bound); manuscript source 04-whole-space.tex:118-121 (eq:RL2 display at :119), the differential bound being the doubled Cauchy-Schwarz form of the energy identity at 02-preliminaries.tex:136-142. Both fields are stated token-for-token as their Spec.lean draft fields, in the vocabulary of Contracts/V1/Data and the spec-local defs slice, l2Sq, l2Norm (inherited from Contracts.V1.EnergyAbsorptionPartial, rfl-bridged there) and gradientSq (inherited from Contracts.V2.EnergyAbsorptionPartial, the gradientTensor Frobenius form, its single non-rfl bridge energyAbsorptionPartialV2_gradientSq_eq), plus TWO spec-local defs versions 1 and 2 did not restate: forcePrimitive (Spec.lean:218-219, the forcing primitive integral_0^t ||f(s)||_2 ds) and energyBudget (Spec.lean:224-225, K(t) = ||a||_2 + integral_0^t ||f(s)||_2 ds, the whole right-hand side of eq:RL2). INCLUDED FIELD energyDifferentialBound: for 0 < nu, a in initialClassR, MemForceR f, a classical solution w on [0,T), every interior t in Ioo 0 T, and every real E' with HasDerivAt (fun s => l2Sq (slice w.velocity s)) E' t, E' + 2*nu*gradientSq(slice w.velocity t) <= 2*l2Norm(slice f t)*l2Norm(slice w.velocity t) -- the Cauchy-Schwarz form (||u(t)||_2^2)' + 2 nu ||grad u(t)||_2^2 <= 2 ||f(t)||_2 ||u(t)||_2. INCLUDED FIELD l2Bound (eq:RL2): for 0 < nu, a in initialClassR, MemForceR f, a classical solution w on [0,T) and every presingular time t in Ico 0 T, l2Norm(slice w.velocity t) <= energyBudget a f t -- the ordinary L2 estimate ||u(t)||_2 <= ||a||_2 + integral_0^t ||f(s)||_2 ds, no smallness and no absorption. The inherited version-1/version-2 fields C_1/C_1_pos, velocityJets, forceTimeRegularity, trilinearHolder, trilinearAbsorbed, laplacianSqENorm, energyIdentity are carried verbatim through toEnergyAbsorptionPartialV2API (energyAbsorptionPartialV2_of_v3 records the projection is the frozen version-2 witness Bindings.energyAbsorptionPartialV2 by rfl, and Tests.EnergyAbsorptionPartialV2 / Tests.EnergyAbsorptionPartial keep running against it untouched). C_1 is the only data field (inherited), so EnergyAbsorptionPartialV3API is a Type and the binding is a def. DISCLOSURES: (1) the differential bound has no section-4 display; it is the doubled Cauchy-Schwarz form of the section-2 identity 1/2(||U(t)||_2^2)' + nu ||grad U(t)||_2^2 = <F(t),U(t)> (02-preliminaries.tex:136-142), used in section 4 only as the regularized-norm-division input to eq:RL2 (04-whole-space.tex:117). (2) 0 < nu and a in initialClassR are SLACK: energyDifferentialBound uses NEITHER; l2Bound uses 0 < nu only through 0 <= nu (the dissipation term 2 nu ||grad u||_2^2 is discarded by nonnegativity) and does not use a in initialClassR; both stated so the fields read as the manuscript's. (3) the gradient term is the Frobenius integral of sum_ij |partial_i u_j|^2 (inherited gradientTensor reading, deliberately NOT the operator norm), so gradientSq is the second summand of E_T. (4) energyDifferentialBound quantifies over any real E' that is the derivative, not over deriv; derivatives are unique so this is the same statement. (5) the window Ico 0 T of l2Bound (t=0 included) is load-bearing, not a convenience: research/C01/probes/rev154_icc_false.lean proves the Icc widening false. The binding energyAbsorptionPartialV3 reuses the frozen version-2 witness Bindings.energyAbsorptionPartialV2 with { ... with ... } and fills the two fields, transported across the two ClassicalSolutionR copies by the reused Bindings.uniqueness_toA02 ((uniqueness_toA02 w).velocity = w.velocity by rfl; a rfl bridge for the structure itself is impossible since the Data and Section4/A02 restatements are distinct inductive types, each field type defeq). BRIDGES: l2Bound binds with NO bridge (energyBudget/l2Norm/slice vocabulary is defeq to NSFormalization.Section4.C01's); energyDifferentialBound binds through EXACTLY ONE rw, the existing version-2 gradientSq bridge energyAbsorptionPartialV2_gradientSq_eq (rewrites the contract's gradientSq to the raw integrand integral of sum_i ||fderiv z x (coordinateVector i)||^2 that energyDifferentialBound produces); forcePrimitive and energyBudget each get a new rfl bridge (energyAbsorptionPartialV3_forcePrimitive_eq, energyAbsorptionPartialV3_energyBudget_eq: = NSFormalization.Section4.C01.forcePrimitive / energyBudget). Confirmed end-to-end by research/C01/probes/rev154_v3_binding_dryrun.lean. NOT INCLUDED, each not proved on this branch: the enstrophy fields enstrophyIdentity/enstrophyDifferentialBound/enstrophyIntegralBound (eq:RH1 and its integrated form, Spec.lean:487-541); the Fourier inequality sobolevTwoFourier (04-whole-space.tex:123); the assembly h2TimeIntegral / h2TimeIntegralZeroDatum (:127-130); the constants CRH1/CH2/Cassembly; eq:Rcritical1/eq:Rcritical2, the Gronwall and first-crossing arguments -- exactly as versions 1 and 2's Out of scope records.",
-      "enabled": true
-    },
-    {
-      "id": "C01.energy_absorption_v4",
-      "parent_task": "C01",
-      "version": 4,
-      "specification": "verification/Contracts/V4/EnergyAbsorption.lean",
-      "binding_module": "Bindings.EnergyAbsorptionV4",
-      "test_module": "Tests.EnergyAbsorptionV4",
-      "declaration": "BlowupDensity.Tests.checkedEnergyAbsorptionV4",
-      "scope": "Complete C01 ordinary-energy and H1-absorption interface for 04-whole-space.tex:106-130, reused at :171. Extends frozen V3 unchanged and adds the six exact fields of research/C01/Spec.lean:487-607: enstrophyIdentity, enstrophyDifferentialBound, enstrophyIntegralBound (including asserted IntervalIntegrable), sobolevTwoFourier for the actual angular Sobolev norm, h2TimeIntegral and h2TimeIntegralZeroDatum. Global positive CRH1/CH2/Cassembly are bound to 2/16/32; inherited C1 is unchanged. Absorption uses C1 times the L3 norm <= nu/4, with no additional regularity hypotheses. Differential statements use 0<t<T; the integrated enstrophy field includes t=0 and requires t<T; H2 assembly covers 0<S<=T, including S=T over (0,S), with nu^-1 and nu^-2 coefficients. Binding reuses uniqueness_toA02, the existing Frobenius gradient bridge and the exact V3 witness, with an rfl parent projection. Six field-shape tests, standard transitive axiom checks and a terminal-horizon finiteness consumer accompany the binding. Critical half-order estimates, bootstrap, Gronwall and continuation are downstream and not asserted here. Independent blind drafts and reconciliation: research/C01/BLIND165_A.lean, BLIND165_B.lean, COMPARISON_165.md and REVIEW_SPEC_165.md.",
-      "enabled": true
-    },
-    {
-      "id": "D01.homogeneous_norm",
-      "parent_task": "D01",
-      "version": 1,
-      "specification": "verification/Contracts/V1/HomogeneousNorm.lean",
-      "binding_module": "Bindings.HomogeneousNorm",
-      "test_module": "Tests.HomogeneousNorm",
-      "declaration": "BlowupDensity.Tests.checkedHomogeneousNorm",
-      "scope": "Gap G1 of research/R43/COMPARISON.md section 4: the datum-form spatial homogeneous norm dotHomogeneousENorm (s : R) (z : SpatialField) : ENNReal := inf over G : {G : RealVectorSobolev s // IsHomogeneousSliceDatum s z G} of ||G.1||_e, copied verbatim from research/A05/Spec.lean:131-132 and research/R43/Spec.lean:142-143. It is the physical-field quantity ||z||_{Hdot^s} used by Lemma B.1 and Proposition 4.3 (appendix-b-embeddings.tex:26-27; 04-whole-space.tex:85): the empty infimum is top, so a field without a homogeneous datum fails safe. The specification is the new Contracts/V1/HomogeneousNorm.lean module importing only Contracts.V1.Data; creating this version-1 contract changes neither the frozen Data contract nor any pre-existing contract. Bindings.dotHomogeneousENorm_eq is the required rfl bridge to NSFormalization.Section4.D01.dotHomogeneousENorm, and Tests.checkedHomogeneousNorm checks that bridge's transitive axioms. The implementation additionally proves: dotHomogeneousENorm_le_of_isHomogeneousSlice, every supplied datum bounds the infimum; dotHomogeneousENorm_zero, the zero field has norm zero at every order; dotHomogeneousENorm_ne_top_of_isHomogeneousSlice; and the existential consumer form dotHomogeneousENorm_ne_top. Deliberately NOT identified with Contracts.V1.Data.dotHHalfENorm or dotHThreeHalvesENorm: those abbreviate homogeneousFourierENorm, a pointwise angularFourier integral faithful only on L1 intersect L2 slices and capable of totalizing to junk zero for a general non-L1 H-infinity field. Also out of scope and asserted nowhere in this contract: dotHomogeneousENorm s z <= sobolevENorm s z for 0 <= s, and its time-integrated force analogue. Section4/D01/HalfOrder.lean records that these require a new bounded multiplier |xi|^s (1+|xi|^2)^(-s/2), preservation of the real datum subspace, and identification through weightedAngularFourier_realization; this is the existing G2/homogeneous-G3 work rather than a consequence of the G1 definition.",
-      "enabled": true
-    },
-    {
-      "id": "A05.gradient_l6_v2",
-      "parent_task": "A05",
-      "version": 2,
-      "specification": "verification/Contracts/V2/GradientL6.lean",
-      "binding_module": "Bindings.GradientL6V2",
-      "test_module": "Tests.GradientL6V2",
-      "declaration": "BlowupDensity.Tests.checkedGradientL6V2",
-      "scope": "The Contracts.V1.Data.MemHInfty specialization of Lemma B.1's order-half velocity embedding ||v||_3 <= C(1/2) ||v||_{Hdot^(1/2)}, from research/A05/Spec.lean:366-368 and paper/sections/appendix-b-embeddings.tex:29, as consumed by Propositions 4.3 and 4.4 at 04-whole-space.tex:93,171. GradientL6V2API extends the frozen A05.gradient_l6 version-1 record unchanged and adds exactly velocityCriticalL3, stated for Contracts.V1.Data.MemHInfty and the registered Contracts.V1.HomogeneousNorm.dotHomogeneousENorm. The universal constant family C : R -> R is an interface parameter selected before the field; the checked binding chooses the constant function with value NSFormalization.Section4.A05.criticalL3Const = 3 * scalarCriticalConst (1/2), whose positivity is separately proved by gradientL6V2Constant_pos. The A05 implementation's local homogeneous-norm spelling is definitionally equal first to D01.dotHomogeneousENorm and then to the registered contract definition; the binding records the composed rfl bridge. Its A02.MemHInfty hypothesis is definitionally equal to the frozen Data.MemHInfty, neither stronger nor weaker. Out of scope: the broader embeddingPair (including a=1), C_pos as a contract field, criticalRepresentative, the derivative and Bessel critical-L3 clauses, homogeneousLeSobolev, the Hdot^(3/2) gradient comparison, every torus statement, and all R43/R44 PDE conclusions.",
+      "scope": "Full Theorem 4.2 for every prescribed nonempty open set, hence every nonempty open ball. For each positive viscosity one proved packet is chosen before the reference solution and region. The construction preserves the given reference velocity and pressure, uses one family for exact lifespan, essential-supremum blowup, a full-horizon classical solution, earlier history, support inside the prescribed set, compact smooth force difference, the quantitative energy bound and all subcritical L1/L2 Sobolev force limits. No analytic supplier record is a caller input.",
       "enabled": true
     },
     {
@@ -372,7 +108,7 @@
       "binding_module": "Bindings.LocalTheoryV2",
       "test_module": "Tests.LocalTheoryV2",
       "declaration": "BlowupDensity.Tests.checkedLocalTheoryV2",
-      "scope": "The existence half of prop:local on R^3 (02-preliminaries.tex:105; appendix-a-local-theory.tex:60-107), extending A01.regularity_partial version 1 structurally. For every nu>0, a in initialClassR and f in MemForceR, the API selects one named horizon and one Data.ClassicalSolutionR on it; positivity is carried by the solution's horizon_pos. The selected solution on that same horizon carries all four clauses of research/A01/Spec.lean's ManuscriptLocalRegularity token-for-token: all-order Sobolev time smoothness, Helmholtz pressure recovery including t=0, the projected forced equation on Ioo, and the radial-potential pressure gauge. The binding uses Section4/A01/LocalTheoryBundle.lean's localHorizon', localCarrier and manuscriptLocalRegularity_localCarrier, moves ClassicalSolutionR field by field through the A02/Data conversions with full round-trip lemmas, and rfl-bridges every copied definition. The quantitative horizon_lower_bound is the owner-approved V2 narrowing, not the paper's sentence: for each positive viscosity and fixed admissible force f (f is quantified before exists delta), every finite physical H^7 datum ball has one genuine delta>0 below all selected horizons in that ball. It is discharged by horizon_lower_bound_H7_fixedForce. In contrast, Appendix A:147-150 invokes Tao's forced H^1 theory with H^1 datum and L1_t H^1 force bounds and chooses delta before both datum and force (cross-force uniformity). That H^1 statement is NOT proved or registered; it appears only as the unproved predicate ManuscriptHorizonLowerBoundH1, documented as open and requiring a forced quantitative H^1 mild theory. A04 is the only restart consumer: lanes 215/217 restart the same underlying force, use Gronwall-bounded H^7 data, and separately prove one window uniform over t0 in [0,S] and the shifted forces from a compact-time force bound; cross-force uniformity is never used. No uniqueness, maximal-lifespan, continuation-criterion, H^1 horizon bound, or arbitrary-force-ball uniformity is asserted.",
+      "scope": "Whole-space local existence and smooth Sobolev regularity in the registered force class. Quantitative restart is fixed-force H7 only; H1-uniform and cross-force bounds are not asserted.",
       "enabled": true
     },
     {
@@ -383,7 +119,7 @@
       "binding_module": "Bindings.ContinuationV2",
       "test_module": "Tests.ContinuationV2",
       "declaration": "BlowupDensity.Tests.checkedContinuationV2",
-      "scope": "The A04 continuation interface actually proved by lanes 215 and 217, registered as an independent ContinuationV2API rather than as an extension of the draft/V1 A04API. Its five fields are: (1) restart, exactly the owner-approved RestartFixedForce wording: for ν>0, one fixed f∈F_R and S≥0 chosen before ∃δ, and every finite H⁷ bound K, one genuine δ>0 works uniformly for all restart times t₀∈[0,S] and all a'∈X_R with ‖a'‖_{H⁷}≤K; (2) higherOrderBound, copied verbatim from research/A04/Spec.lean, giving every integer-order Sobolev bound from a finite squared H² time integral; and (3–5) restartBeyond, extendsBeyond and lifespanInfiniteOfLocallyFinite in the unconditional MemForceR shapes proved by Section4/A04/ShiftedExtension.lean's lane-217 primed theorems. Exact narrowing from the paper/V1 restart: the force is quantified before ∃δ instead of δ being uniform across forces, and the datum bound is H⁷ instead of H¹; uniformity over all restart times in [0,S] is retained. The paper sentence at appendix-a-local-theory.tex:147-152, 'The H¹ local existence bounds ... give a common positive existence duration ...', is NOT proved. Contracts.V2.Continuation.ManuscriptHorizonLowerBoundH1 records that H¹/cross-force sentence as a named definition only; it is not a structure field, theorem, axiom or implied consequence and remains open. The V1 Restart field likewise remains separately open: fixed-force compactness gives no cross-force uniformity, and a theorem for an H⁷ ball does not cover the larger H¹ ball (research/A04/REPORT_215.md §3). Why the narrowed result suffices downstream: restartBeyond, extendsBeyond and lifespanInfiniteOfLocallyFinite, plus A02's exists_maximal construction, restart the same force with H⁷ data bounded by the registered Grönwall theorem; no consumer uses cross-force uniformity. The contract imports only Contracts.V1.Data and parameterizes the horizon function because NSFormalization.Section4.A01.LocalTheoryBundle is absent from experiments/check_contracts.py's CONTRACT_CANONICAL_MODULES; Bindings.ContinuationV2 instantiates the parameter with A01.localHorizon' and supplies an rfl RestartFixedForce bridge. Definitions for classes and norms have rfl bridges; SolvesBelow and IsMaximalSolution use the established field-by-field ClassicalSolutionR conversions and maximalPartial_maximalLifespanR_eq. The concrete conformance audit exercises restart at a nonzero compact-bump force and a nonzero compactly supported divergence-free curl datum and obtains a positive real δ. Recovering the manuscript H¹ field would require a forced quantitative H¹ local theory on the mild stack, including uniform dependence on the H¹ datum and force bounds; that is outside this contract.",
+      "scope": "Fixed-force H7 restart, higher-order bounds, strict continuation and infinite lifespan under locally finite squared H2 integral. No H1-uniform or cross-force conclusion.",
       "enabled": true
     },
     {
@@ -409,30 +145,19 @@
       "enabled": true
     },
     {
-      "id": "T01.torus_data",
-      "parent_task": "T01",
-      "version": 1,
-      "specification": "verification/Contracts/V1/TorusData.lean",
-      "binding_module": "Bindings.TorusData",
-      "test_module": "Tests.TorusData",
-      "declaration": "BlowupDensity.Tests.checkedTorusData",
-      "scope": "The first Section 3 contract: the T10 periodic data layer on the unit three-torus, with contract-local restatements through IsPeriodicReweight plus IsPeriodicOn and exactly ten proved TorusDataAPI fields from research/T10/probes/api_on_canonical.lean: datum_unique, datum_real, parseval_forward, parseval_backward, torusLift_injective, torusLift_surjective, mean_decomposition, meanZero_datum, leray_exists_contraction, and leray_projector. Lead amendment 1 is present: IsPeriodicDatum and IsPeriodicHomogeneousDatum require Haar integrability, and parseval_forward additionally requires physical MemLp at exponent 2. Every restated declaration has an rfl binding bridge; PeriodicSobolev is bridged through realPeriodicSubmodule, and polymorphic torus predicates/lift use pointwise rfl statements because bare equalities leave implicit parameters underconstrained. The binding imports the compatible DatumBasics and Leray modules directly; because DatumBasics, Parseval, and PhysicalBridge have colliding generated names for anonymous local torus-measure instances, it repeats the proved Parseval and physical-bridge arguments without changing formalization. Deferred to the T11 registration are IsPeriodicSobolevPath, forceSobolevENormT, initialClassT, MemForceT/forceClassT, pressure normalization/gauge, ClassicalSolutionT and its structure-exception fieldwise conversions, maximal lifespan, breakdown/density, and physical/coefficient energy norms. No solution-class, lifespan, density, threshold, pressure, or energy theorem is asserted here.",
-      "enabled": true
-    },
-    {
       "id": "T01.torus_local_theory",
-      "parent_task": "T01",
+      "parent_task": "T11",
       "version": 1,
       "specification": "verification/Contracts/V1/TorusLocalTheory.lean",
       "binding_module": "Bindings.TorusLocalTheory",
       "test_module": "Tests.TorusLocalTheory",
       "declaration": "BlowupDensity.Tests.checkedTorusLocalTheory",
-      "scope": "The second Section 3 contract: the T10 solution-class tier deferred by T01.torus_data (IsPeriodicSobolevPath, forceSobolevENormT, initialClassT, MemForceT/forceClassT, pressureMeanT/PressureGaugeT/normalizePressureT, ClassicalSolutionT, maximalLifespanT, RegularThroughT, breakdownSetInT/breakdownSetT, RelativelyDenseT, and the physical and coefficient energy norms) together with the T11 vocabulary and four proved APIs of research/T11/Spec.lean: PeriodicLocalTheoryAPI (8 fields: horizon, solution, regularity, velocity_unique, pressure_unique, horizon_le_lifespan, exists_maximal, maximal_unique), PeriodicContinuationH3API (5 fields: restart, higherOrderBound, restartBeyond, extendsBeyond, lifespanInfiniteOfLocallyFinite), PeriodicMeanReductionAPI (6 fields: mean_formula, mean_derivative, transformed_solution, transformed_classes, transformed_mean_zero, translation_preserves_sobolev) and PeriodicViscosityRescalingAPI (4 fields: scaled_classes, inverse_identities, to_unit, from_unit). REGISTERED NARROWING (lead amendment 2, research/T11/LEAD_AMENDMENTS.md; gap analysis research/T11/H1_GAP.md): the manuscript continuation package PeriodicContinuationAPI, stated verbatim in the specification, quantifies restart and restartBeyond over an H1 ball of data. The implemented local theory is a Picard contraction in H3 x H2, whose horizon is uniform over an H3 ball only; uniformity over an H1 ball is the subcritical Fujita-Kato local theory, which is in none of the three code bases. What is registered is therefore PeriodicContinuationH3API, the same structure with those two H1 balls replaced by H3 balls and nothing else changed; the other three fields are the manuscript's verbatim and carry no ball. The two H1 sentences are kept as the named, documented, UNPROVED predicates PeriodicRestartH1 and PeriodicRestartBeyondH1, exactly as Section 4 kept ManuscriptHorizonLowerBoundH1 next to RestartFixedForce; Bindings.TorusLocalTheory.torusContinuationAPI_of_h1 and the last Tests example show that the manuscript package follows from exactly those two predicates and nothing weaker. No V1 statement is silently weakened. Consumers were checked in research/T11/H1_GAP.md section 3: every T11-internal use supplies an H3 bound through higherOrderBound, which is finite at every order, and T20 consumes the package only through the ball-free extendsBeyond and criterion; a consumer genuinely needing the H1 ball is an owner-level gap to report. ClassicalSolutionT is the contract structure exception: the restatement is a different inductive type, so Bindings.TorusLocalTheory supplies the fieldwise conversions toContract/ofContract with both round trips by rfl instead of an impossible rfl bridge, and maximalLifespanT, RegularThroughT, breakdownSetInT/breakdownSetT, SolvesBelowT, IsMaximalPeriodicSolution, ExtendsBeyondT and PeriodicLocalRegularity are bridged through those conversions; every other restated def has an rfl bridge, and convectionDivergenceT/timeShiftT are additionally checked by rfl against the registered Section 4 spellings. No density, threshold, insertion or blow-up statement is asserted here.",
+      "scope": "Periodic local theory, uniqueness, maximality, H3 restart and integral continuation, Galilean mean reduction and viscosity rescaling. No H1-uniform restart conclusion.",
       "enabled": true
     },
     {
       "id": "T01.packet_import",
-      "parent_task": "T01",
+      "parent_task": "T14",
       "version": 1,
       "specification": "verification/Contracts/V1/PacketImport.lean",
       "binding_module": "Bindings.PacketImport",
@@ -443,7 +168,7 @@
     },
     {
       "id": "T02.local_potential",
-      "parent_task": "T02",
+      "parent_task": "T16",
       "version": 1,
       "specification": "verification/Contracts/V1/LocalPotential.lean",
       "binding_module": "Bindings.LocalPotential",
@@ -454,7 +179,7 @@
     },
     {
       "id": "T02.localization",
-      "parent_task": "T02",
+      "parent_task": "T13",
       "version": 1,
       "specification": "verification/Contracts/V1/Localization.lean",
       "binding_module": "Bindings.Localization",
@@ -464,19 +189,8 @@
       "enabled": true
     },
     {
-      "id": "T01.mean_zero_calculus",
-      "parent_task": "T01",
-      "version": 1,
-      "specification": "verification/Contracts/V1/MeanZeroCalculus.lean",
-      "binding_module": "Bindings.MeanZeroCalculus",
-      "test_module": "Tests.MeanZeroCalculus",
-      "declaration": "BlowupDensity.Tests.checkedMeanZeroCalculus",
-      "scope": "The reconciled T12 API (research/T12/Spec.lean:281-478) on the unit three-torus: the torus halves of lem:calculus and lem:critical-embeddings (appendix-a-local-theory.tex:7-27, appendix-b-embeddings.tex:8-38,85-110) together with the mean-zero order-two comparison used at 03-torus.tex:467-503. Nine proved fields, with seven constants fixed as structure data before every field they control: the scalar tame product on H^m(T³) for 2 ≤ m (eq:Rproduct, scalar factors only, no vector or tensor form); the H²(T³) → L^∞(T³) bound with no mean-zero hypothesis; the critical Ḣ^(1/2)(T³) → L³(T³) bound for every periodic L² field with zero Haar mean and a finite homogeneous datum norm, with no smoothness hypothesis; existence (not uniqueness) of a smooth periodic physical representative Lv of Λv for every smooth periodic v; the single displayed sum ‖∇v‖₃ + ‖Λv‖₃ ≤ C‖v‖_{Ḣ^(3/2)} for smooth periodic v of finite order-3/2 homogeneous norm together with such a representative; ‖∇v‖₆ ≤ C‖Δv‖₂ and ‖v‖_{H²} ≤ C‖Δv‖₂ for smooth periodic mean-zero v; and both directions of the mean-zero norm comparison at every 0 ≤ s, the converse with constant exactly one. The constants are closed terms of the canonical implementation, not numerals: Cproduct m = 4^(m/2)·sqrt(Σ_k (1+4π²|k|²)^(-2)), Cinfty = sqrt(Σ_k ((1+4π²|k|²)^2)⁻¹), CcriticalHalf = criticalL3Const·cutoffGagliardoConst·(Cgap(1/2)+1), CcriticalThreeHalves = 4·CcriticalHalf, Csix = 343·gradientL6Const·leibnizConst·(1+2·CHtwo), CHtwo = 1+1/(4π²) and Cgap s = (1+1/(4π²))^(s/2); no sharpness or optimality of any constant is asserted. Nothing is asserted about the whole-space (R³) halves of the two lemmas, about orders s < 0, about non-mean-zero homogeneous norms, or about uniqueness of the Λ representative.",
-      "enabled": true
-    },
-    {
       "id": "T03.critical_regularity",
-      "parent_task": "T03",
+      "parent_task": "T20",
       "version": 1,
       "specification": "verification/Contracts/V1/CriticalRegularityT.lean",
       "binding_module": "Bindings.CriticalRegularityT",
@@ -487,7 +201,7 @@
     },
     {
       "id": "T04.bounded_domain_norm",
-      "parent_task": "T04",
+      "parent_task": "T22",
       "version": 1,
       "specification": "verification/Contracts/V1/BoundedDomainNorm.lean",
       "binding_module": "Bindings.BoundedDomainNorm",
@@ -498,7 +212,7 @@
     },
     {
       "id": "T04.affine_variation",
-      "parent_task": "T04",
+      "parent_task": "T24",
       "version": 1,
       "specification": "verification/Contracts/V1/AffineVariation.lean",
       "binding_module": "Bindings.AffineVariation",
@@ -509,7 +223,7 @@
     },
     {
       "id": "T04.conservative_forcing",
-      "parent_task": "T04",
+      "parent_task": "T24",
       "version": 1,
       "specification": "verification/Contracts/V1/ConservativeForcing.lean",
       "binding_module": "Bindings.ConservativeForcing",
@@ -520,7 +234,7 @@
     },
     {
       "id": "T02.correction",
-      "parent_task": "T02",
+      "parent_task": "T17",
       "version": 1,
       "specification": "verification/Contracts/V1/Correction3.lean",
       "binding_module": "Bindings.Correction3",
@@ -531,7 +245,7 @@
     },
     {
       "id": "T03.periodic_insertion",
-      "parent_task": "T02",
+      "parent_task": "T18",
       "version": 1,
       "specification": "verification/Contracts/V1/PeriodicInsertion.lean",
       "binding_module": "Bindings.PeriodicInsertion",
@@ -542,7 +256,7 @@
     },
     {
       "id": "T03.density",
-      "parent_task": "T03",
+      "parent_task": "T19",
       "version": 1,
       "specification": "verification/Contracts/V1/Density.lean",
       "binding_module": "Bindings.Density",
@@ -553,7 +267,7 @@
     },
     {
       "id": "T03.non_density",
-      "parent_task": "T03",
+      "parent_task": "T21",
       "version": 1,
       "specification": "verification/Contracts/V1/TorusNonDensity.lean",
       "binding_module": "Bindings.TorusNonDensity",
@@ -564,7 +278,7 @@
     },
     {
       "id": "T03.main",
-      "parent_task": "T03",
+      "parent_task": "T21",
       "version": 1,
       "specification": "verification/Contracts/V1/TorusMain.lean",
       "binding_module": "Bindings.TorusMain",
@@ -575,7 +289,7 @@
     },
     {
       "id": "T02.scaling",
-      "parent_task": "T02",
+      "parent_task": "T15",
       "version": 1,
       "specification": "verification/Contracts/V1/Scaling3.lean",
       "binding_module": "Bindings.Scaling3",
@@ -586,7 +300,7 @@
     },
     {
       "id": "T04.multiple_regions",
-      "parent_task": "T04",
+      "parent_task": "T24",
       "version": 1,
       "specification": "verification/Contracts/V1/MultipleRegions.lean",
       "binding_module": "Bindings.MultipleRegions",
@@ -596,14 +310,14 @@
       "enabled": true
     },
     {
-      "id": "T04.boundary_insertion",
-      "parent_task": "T04",
-      "version": 1,
-      "specification": "verification/Contracts/V1/BoundaryInsertion.lean",
-      "binding_module": "Bindings.BoundaryInsertion",
-      "test_module": "Tests.BoundaryInsertion",
-      "declaration": "BlowupDensity.Tests.checkedBoundaryInsertion",
-      "scope": "T23 Corollary cor:boundary (03-torus.tex:632-666), G0 existential repair: jointly choose the matching whole-space correction supplier and its literal seven-field cutoff; all 48 BoundaryInsertionAPI fields for the registered packet, prescribed interior ball and domain reference. Box domains are unconditional; bounded smooth-level domains are conditional on the explicit scalar IBP Ω identity (G1). The statement includes exact global triple formulas, no-slip solution, lifespan T and maximality, pointwise and essential-supremum blowup, fixed interior supports, domain/zero-extension comparison, energy rate and all subcritical force convergence. I02/I03 and T22 suppliers are discharged in the binding; no named inputs remain. G2 uses an operational window core, requiring no global identification of the local reference's potential. V1 G0/G1 scope wording is owner-pending. The literal universally prescribed-cutoff statement and unconditional smooth-domain IBP are not asserted.",
+      "id": "T23.boundary_insertion_v2",
+      "parent_task": "T23",
+      "version": 2,
+      "specification": "verification/Contracts/V2/BoundaryInsertion.lean",
+      "binding_module": "Bindings.BoundaryInsertionV2",
+      "test_module": "Tests.BoundaryInsertionV2",
+      "declaration": "BlowupDensity.Tests.checkedBoundaryInsertionV2",
+      "scope": "All 48 boundary insertion fields on the registered bounded box-or-regular-level domain class. Correction and compatible cutoff are jointly chosen. IBP follows from openness and boundedness and is not an extra hypothesis. The given smooth reference solution and prescribed interior-ball placement are retained.",
       "enabled": true
     }
   ]

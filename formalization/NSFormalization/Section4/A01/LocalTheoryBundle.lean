@@ -365,19 +365,6 @@ open A02 (SpatialField SpaceTimeField initialClassR)
 open D01 (MemForceR sobolevENorm)
 open A04 (forceSobolevENormL1)
 
-/-- manuscript wording (Tao H¹ theory); not provable from the tree; see
-REPORT_210 §3; the owner decides between implementing forced H¹ local theory
-and a V2 narrowing. The existing `HorizonLowerBoundH1` name belongs to lane 210;
-this specialization repeats its field verbatim after binding the new horizon. -/
-def ManuscriptHorizonLowerBoundH1 : Prop :=
-  let horizon := localHorizon'
-  ∀ (ν : ℝ), 0 < ν → ∀ K : ℝ≥0∞, K ≠ ⊤ →
-    ∃ δ : ℝ, 0 < δ ∧
-      ∀ (a : SpatialField) (f : SpaceTimeField),
-        a ∈ initialClassR → MemForceR f →
-          sobolevENorm 1 a ≤ K → forceSobolevENormL1 1 f ≤ K →
-            δ ≤ horizon ν a f
-
 /-- Data ready for V2 registration, subject to the owner's statement decision. -/
 structure LocalTheoryDataShape where
   horizon : ℝ → A02.SpatialField → A02.SpaceTimeField → ℝ

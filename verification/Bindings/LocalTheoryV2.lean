@@ -103,16 +103,4 @@ def localTheoryV2 : LocalTheory.LocalTheoryAPI :=
         (A01.manuscriptLocalRegularity_localCarrier ν a f hν ha hf)
     horizon_lower_bound := A01.horizon_lower_bound_H7_fixedForce }
 
-/-- Version one is recovered by the inherited structural projection.  The
-registered V1 test remains untouched and continues to check its frozen binding
-independently. -/
-theorem regularityPartial_of_v2 :
-    Contracts.V1.RegularityPartial.ManuscriptLocalRegularityPartialAPI :=
-  localTheoryV2.toManuscriptLocalRegularityPartialAPI
-
-/-- The copied open H¹ predicate agrees definitionally with the implementation's `ManuscriptHorizonLowerBoundH1` (review 212, finding 2). -/
-theorem manuscriptHorizonLowerBoundH1_eq :
-    Contracts.V2.LocalTheory.ManuscriptHorizonLowerBoundH1 localTheoryV2 =
-      NSFormalization.Section4.A01.ManuscriptHorizonLowerBoundH1 := rfl
-
 end BlowupDensity.Bindings

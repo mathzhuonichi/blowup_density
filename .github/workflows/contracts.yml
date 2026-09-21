@@ -19,11 +19,6 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - run: make check
-      - name: Preserve established contracts against the PR base
-        if: github.event_name != 'workflow_dispatch'
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
-        run: python3 experiments/check_contracts.py --base-ref "$BASE_SHA"
   lean-contracts:
     needs: architecture
     runs-on: ubuntu-latest

@@ -1,0 +1,210 @@
+\section{Definitions and preliminary results}\label{sec:preliminaries}
+\subsection{Norm conventions}
+We use the unitary angular Fourier transform on $\R^3$ and Fourier series
+$\widehat z(k)=\int_{\TT}z(x)e^{-2\pi i k\cdot x}\dd x$ on the unit torus.
+Thus
+\[
+ \norm{z}_{H^s(\R^3)}^2=\int(1+|\xi|^2)^s|\widehat z(\xi)|^2\dd\xi,
+ \qquad
+ \norm{z}_{H^s(\TT)}^2=\sum_k(1+4\pi^2|k|^2)^s|\widehat z(k)|^2.
+\]
+These are the distributional Sobolev spaces of
+Taylor~\cite[Chapters~3--4]{taylor2011}; vector and tensor norms sum the
+squared component norms. The homogeneous norms replace these weights by
+$|\xi|^{2s}$ and $(2\pi|k|)^{2s}$, respectively, with zero mean on the
+torus. Tao's unnormalized Fourier convention gives the same Euclidean norms
+after its Plancherel factor~\cite[Appendix~A]{taodispersive}.
+
+Time norms are Bochner norms of strongly measurable paths, with equality
+almost everywhere understood~\cite[Definitions~6.14, 6.27]{hunterpde}:
+\begin{equation}\label{eq:time-norms}
+ \norm{z}_{L^q(I;X)}=\left(\int_I\norm{z(t)}_X^q\dd t\right)^{1/q},
+ \qquad \norm{z}_{L^\infty(I;X)}=\operatorname*{ess\,sup}_{t\in I}\norm{z(t)}_X.
+\end{equation}
+Force norms use $(0,\infty)$ unless stated otherwise, and give each smooth
+force class its relative norm topology. On $(0,T)$ we write
+\begin{equation}\label{eq:Enorm}
+ \norm{z}_{E_T}=\norm{z}_{L^\infty_tL^2_x}+\norm{\nabla z}_{L^2_tL^2_x}.
+\end{equation}
+This is equivalent to the sum norm on $L^\infty_tL^2_x\cap L^2_tH^1_x$;
+it assigns no value at the terminal time.
+
+\subsection{Smooth data and solution classes}
+All fields are real, and forces need not be divergence free. We write
+$L^2_\sigma(D)$ for the divergence-free subspace of $L^2(D;\R^3)$.
+The allowed initial velocities and forces are
+\begin{align}
+ \XX=\mathcal X_{\TT}&=C^\infty_{\mathrm{div}}(\TT;\R^3),&
+ \FF=\mathcal F_{\TT}&=C_c^\infty(\TT\times(0,\infty);\R^3),
+ \label{eq:inputspaces}\\
+ \mathcal X_{\R}&=H^\infty(\R^3;\R^3)\cap L^2_\sigma(\R^3),
+ \label{eq:Rinitial}
+\end{align}
+where $H^\infty=\bigcap_{m=0}^\infty H^m$ has its usual Fr\'echet topology.
+On the whole space set
+\begin{equation}\label{eq:Rclasses}
+ \mathcal F_{\R}=\left\{f\in C^\infty([0,\infty);H^\infty):
+ \norm{f}_{L^1_tH^m_x}+\norm{f}_{L^2_tH^m_x}<\infty
+ \text{ for every integer }m\ge0\right\}.
+\end{equation}
+Smoothness into $H^\infty$ means smoothness into each $H^m$, with
+one-sided time derivatives at zero. Thus periodic forces vanish near zero
+and outside a compact time interval; whole-space forces may be nonzero at
+zero and need not have compact support. Both classes consist of forces
+defined through any possible blowup time of the velocity.
+
+On the torus, velocity and pressure are periodic and $\int_{\TT}p=0$.
+On $\R^3$, a classical velocity belongs to $C([0,S];H^m)$ for every
+integer $m\ge0$ on each compact interval of its lifespan. Its pressure
+gradient is specified below, and the scalar pressure is determined up to
+a function of time. In either case local uniqueness defines a maximal
+classical lifespan, denoted by $T^\nu_{\max}(a,f)$ on the torus and
+$T^\nu_{\max,\R}(a,f)$ on the whole space. A given smooth solution is
+\emph{smooth through $T$} if it extends smoothly to $[0,T+\delta]$
+for some $\delta>0$ in the relevant class.
+
+For fixed $\nu,T>0$, define
+\begin{align}
+ \BB_{\nu,a,T}&=\{f\in\FF:T^\nu_{\max}(a,f)\le T\},&
+ \BB^0_{\nu,T}&=\BB_{\nu,0,T},\label{eq:singularforces}\\
+ \mathcal B^\R_{\nu,a,T}
+ &=\{f\in\mathcal F_{\R}:T^\nu_{\max,\R}(a,f)\le T\}.
+ \label{eq:Rsingularforces}
+\end{align}
+We call these the forces producing classical breakdown by $T$, using
+``breakdown for failure of classical continuation, as in the Clay
+problem statement~\cite[alternatives (C) and (D)]{clay}.
+The glued solutions satisfy the more specific condition of unbounded
+speed at their terminal time.
+
+\subsection{Homogeneous spaces and Fourier multipliers}
+Write $\Lambda=(-\Delta)^{1/2}$ and $J=(I-\Delta)^{1/2}$, with the
+Fourier conventions of Section~\ref{sec:intro}. On mean-zero periodic
+fields, the homogeneous and inhomogeneous Sobolev norms are equivalent
+at each fixed order. For $0<a<3/2$, the homogeneous completion is represented by
+$\widehat z=|\xi|^{-a}G$, $G\in L^2$, with its unique
+$L^{6/(3-2a)}$ representative supplied by Sobolev embedding.
+The distributional pairing is well defined since $|\xi|^{-a}$ is locally
+square integrable and Schwartz tests decay rapidly.
+For the completed energy-force space we fix
+\begin{equation}\label{eq:homogeneous-realization}
+ \dot H^{-1}(\R^3)=\{h\in\mathcal S':\widehat h=F
+ \text{ is a measurable function and }|\xi|^{-1}F\in L^2\}.
+\end{equation}
+Functions representing distributions are identified almost everywhere.
+The maps $h\mapsto|\xi|^{-1}\widehat h$ and
+$h\mapsto\langle\xi\rangle^s\widehat h$ identify these spaces with $L^2$;
+the inverse Fourier data define tempered distributions. Thus they are
+separable Hilbert spaces, with no polynomial ambiguity. Real vector fields
+correspond to the conjugate-symmetric Fourier data.
+
+\subsection{Standard Sobolev estimates}\label{sec:sobolev-estimates}
+We use the tame product estimate and $H^2\hookrightarrow L^\infty$:
+\begin{equation}\label{eq:Rproduct}
+ \norm{vw}_{H^m}\le C_m(\norm{v}_{H^2}\norm{w}_{H^m}
+              +\norm{w}_{H^2}\norm{v}_{H^m}),\qquad
+ \norm{v}_\infty\le C\norm{v}_{H^2},\quad m\ge2.
+\end{equation}
+See Tao~\cite[Appendix~A, (A.13), Lemma~A.8]{taodispersive}; the periodic
+version follows by the same Fourier convolution estimate, with
+$\|\widehat v\|_{\ell^1}\le C\|v\|_{H^2}$. The critical embeddings used below are
+\begin{equation}\label{eq:embeddings}
+ \norm{v}_3\le C\norm{v}_{\dot H^{1/2}},\qquad
+ \norm{\nabla v}_3+\norm{\Lambda v}_3\le C\norm{v}_{\dot H^{3/2}},\qquad
+ \norm{\nabla v}_6\le C\norm{\Delta v}_2.
+\end{equation}
+They follow from the homogeneous Sobolev inequality
+\cite[Appendix~A, (A.11)]{taodispersive}, applied also to derivatives.
+On the torus use the compact-manifold embedding
+\cite[Chapter~13, Proposition~6.4 and preceding discussion]{taylor2011iii}
+and the spectral gap for mean-zero fields. These statements use the
+homogeneous representatives fixed above; no embedding of $\dot H^{3/2}$
+into $L^\infty$ is used.
+
+\subsection{Projection, pressure, and local existence}\label{sec:analytic}
+The Leray projection $\PP$ has Fourier symbol
+$I-\xi\otimes\xi/|\xi|^2$ on $\R^3\setminus\{0\}$ and the same
+symbol at $k\ne0$ on the torus. At the periodic zero mode it is the
+identity. It is bounded on every $H^s$ and commutes with derivatives and
+the heat semigroup. The projected equation is
+\begin{equation}\label{eq:projected}
+ \partial_tu-\nu\Delta u=-\PP\nabla\cdot(u\otimes u)+\PP f.
+\end{equation}
+On the torus, pressure is recovered from
+\[
+ \Delta p=\nabla\cdot f-\sum_{i,j}\partial_i\partial_j(u_i u_j),
+ \qquad \int_{\TT}p=0.
+\]
+The right side has zero mean. On $\R^3$ we require
+\begin{equation}\label{eq:Rpressure}
+ \nabla p=(I-\PP)(f-\nabla\cdot(u\otimes u))=:G.
+\end{equation}
+The field $G$ is curl free. The radial potential
+$p(x,t)=\int_0^1G(rx,t)\cdot x\dd r$ therefore recovers the pressure,
+up to a function of time. We impose no $L^2$ condition on $p$ itself;
+$\nabla p\in L^2$ excludes nonzero constant pressure gradients.
+
+\begin{proposition}
+\label{prop:local}\label{lem:Rlocal}
+For each initial velocity in the stated class and each force smooth into
+every $H^m$ on compact time intervals, equation~\eqref{eq:NS} has a unique
+maximal smooth velocity, with pressure determined as above. If a solution
+is defined on $[0,S)$, $S<\infty$, and
+\begin{equation}\label{eq:criterion}
+ \int_0^S\norm{u(t)}_{H^2(D)}^2\dd t<\infty,
+\end{equation}
+then it extends smoothly beyond $S$.
+\end{proposition}
+\begin{proof}
+Apply Tao~\cite[Theorems~5.1(ii)--(iv), 5.4(ii)--(iv)]{tao2013} to
+$\PP f$. The proof of Theorem~5.4(iv), p.~53, explicitly permits
+$a\in H^k$ and $f\in C^j_tH^k_x$ for all $j,k$; the resulting smoothness
+is on one common interval. Reduce viscosity to one by
+$\tau=\nu t$, $\widetilde u=\nu^{-1}u$, and
+$(\widetilde p,\widetilde f)=\nu^{-2}(p,f)$ with the corresponding time change.
+For nonzero periodic mean, use Tao's mean reduction
+\cite[Section~3, (36)--(38)]{tao2013}: set
+$m(t)=\int_{\TT}a+\int_0^t\int_{\TT}f$ and translate by
+$X(t)=\int_0^t m$, subtracting $m$ from the velocity and $m'$ from the force.
+Pressure is recovered as above. Uniqueness and maximal development follow
+from the same theorems and the overlap argument of Corollary~5.2.
+
+For continuation, the standard $H^m$ energy estimate, Young's inequality
+and \eqref{eq:Rproduct} give, for $m\ge3$,
+\begin{equation}\label{eq:highcontinuation}
+ (\norm{u}_{H^m})'\le C_{m,\nu}\norm{u}_{H^2}^2\norm{u}_{H^m}
+                         +\norm{f}_{H^m}.
+\end{equation}
+Regularize the norm at zero. Gr\"onwall and \eqref{eq:criterion} bound
+every $H^m$ norm uniformly up to $S$. Tao's quantitative local existence
+then gives a uniform positive time when restarting at $t_0\uparrow S$;
+the fixed force is smooth on $[0,S+1]$. Uniqueness glues one such solution
+past $S$.
+\end{proof}
+
+\subsection{Energy and initial vanishing of the compact solution}
+We use the fixed solution $(U,P,F)$ chosen after
+Theorem~\ref{thm:packet}. Its energy estimate supplies the time-integrated
+dissipation bound and the initial vanishing needed for rescaling.
+
+\begin{lemma}\label{lem:packetenergy}
+The building block satisfies
+\[
+ M:=\sup_{0\le t<1}\norm{U(t)}_2<\infty,\qquad
+ D:=\norm{\nabla U}_{L^2((0,1)\times\R^3)}<\infty.
+\]
+Both $U$ and $P$ vanish on an initial time interval and therefore extend smoothly by zero to negative times.
+\end{lemma}
+\begin{proof}
+The classical energy identity and $U(0)=0$ give, with
+$N(t)=\int_0^t\|F(s)\|_2\dd s$, the bounds $\|U(t)\|_2\le N(t)$ and
+\begin{equation}\label{eq:packetenergy}
+ \norm{U(t)}_2^2+2\nu\int_0^t\norm{\nabla U(s)}_2^2\dd s
+ \le 2\int_0^t\norm{F(s)}_2N(s)\dd s=N(t)^2.
+\end{equation}
+Compact support justifies the identity; regularizing $\|U\|_2$ justifies
+the first bound at zero. Since $F$ is time compact, monotone convergence
+gives finite dissipation up to time one. Before the support of $F$, the
+same estimate gives $U=0$; the equation and compact support then give $P=0$.
+Both fields therefore extend smoothly by zero to negative times.
+\end{proof}

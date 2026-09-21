@@ -208,9 +208,9 @@ theorem ClassicalSolutionOmega.spatialDerivative_bound
     _ ≤ C := by simpa only [ContinuousLinearMap.norm_inr, mul_one] using hC (t, x) ⟨ht, hx⟩
     _ ≤ max C 0 := le_max_left _ _
 
-/-- Boundary integration by parts for scalar C¹ fields. This is the sole
-missing domain-specific analytic input for regular-level domains; boxes are
-proved below. Smoothness means ordinary neighborhood smoothness at every
+/-- Boundary integration by parts for scalar C¹ fields. It is proved for every
+bounded open domain in `BoundaryIntegration`; boxes are also proved below.
+Smoothness means ordinary neighborhood smoothness at every
 point of the closure, and only the first factor must vanish on the frontier. -/
 def IBP (Ω : Set Space) : Prop :=
   ∀ (f g : Space → ℝ),

@@ -2,46 +2,7 @@ import Contracts.V2.MaximalPartial
 import Bindings.MaximalPartial
 import NSFormalization.Section4.A02.Maximal
 
-/-! The implementation layer for the version-two maximal-partial contract, and the
-compatibility bridge back to version one.
-
-`Contracts.V2.MaximalPartial.MaximalPartialV2API` extends
-`Contracts.V1.MaximalPartial.MaximalPartialAPI` by the two maximal-solution fields
-`exists_maximal` and `maximal_unique`, both proved in
-`NSFormalization.Section4.A02.Maximal` (lane 064, unit **U7**), so this file has
-three jobs.
-
-* `maximalPartialV2` inhabits the version-two record.  It reuses the frozen
-  version-one witness `Bindings.maximalPartial` with `{ … with … }` and fills the
-  two new fields with the `Maximal.lean` theorems, transported across the two
-  `ClassicalSolutionR` copies.
-* `maximalPartial_of_v2` records that version one is recoverable from version two
-  by the inherited projection `toMaximalPartialAPI`; the recovery is definitional,
-  so it cannot drift, and `Tests.checkedMaximalPartial` keeps using the untouched
-  `Bindings.maximalPartial`.
-* §1's transports carry the two restated objects across the two solution classes.
-
-## The one unavoidable proof, and why it is the only one
-
-`Contracts.V1.Data.ClassicalSolutionR` and the `Section4/A02` restatement are two
-separately declared `structure`s, so the objects that quantify over the solution
-class do not bridge by `rfl`.  Version one already proved the `maximalLifespanR`
-`iSup` congruence and the `RegularThrough` `Iff` (`Bindings/MaximalPartial.lean`
-§2), reused here.  The one new object is the predicate `IsMaximalSolution`, whose
-transport `maximalPartial_isMaximalSolution_iff` is a single `Iff`, exactly like
-version one's `RegularThrough` transport: the positivity clause and the `S`-bound
-match after the `maximalLifespanR` congruence, and the inner
-`∃ w : ClassicalSolutionR ν a f S, w.velocity = u ∧ w.pressure = p` transports by
-the field-by-field conversions `uniqueness_toA02` / `maximalPartial_ofA02`, whose
-velocity/pressure projections reduce by `rfl`.  This is the **only** non-mechanical
-proof in the file, and it is kept minimal.  `maximalPartial_presingularTimes_eq`
-is a plain `congrArg` on the `maximalLifespanR` congruence (no `by`); the two field
-bodies are then term-mode applications of the `Maximal.lean` theorems up to these
-transports.
-
-Every declaration carries a `maximalPartial_` prefix; `BlowupDensity.Bindings` is a
-flat namespace shared by all adapters.
--/
+/-! Current maximal-solution interface, assembled from the live lifespan, existence and uniqueness results. -/
 
 noncomputable section
 
@@ -112,16 +73,5 @@ theorem maximalPartialV2 : Contracts.V2.MaximalPartial.MaximalPartialV2API :=
         NSFormalization.Section4.A02.maximal_unique ν a f hν ha hf u₁ u₂ p₁ p₂
           ((maximalPartial_isMaximalSolution_iff ν a f u₁ p₁).mpr hM₁)
           ((maximalPartial_isMaximalSolution_iff ν a f u₂ p₂).mpr hM₂) }
-
-/-- Version one is recoverable from version two by the inherited projection: a
-version-two record *is* a version-one record together with the two maximal-solution
-clauses.  Definitional, so it cannot drift.
-
-`Tests.checkedMaximalPartial` does not go through this function — the registered
-version-one test keeps using the untouched `Bindings.maximalPartial`.  What this
-declaration rules out is a version two that quietly drops or weakens a version-one
-field, which would make the projection fail to typecheck. -/
-theorem maximalPartial_of_v2 : Contracts.V1.MaximalPartial.MaximalPartialAPI :=
-  maximalPartialV2.toMaximalPartialAPI
 
 end BlowupDensity.Bindings

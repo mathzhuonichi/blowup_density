@@ -1,0 +1,675 @@
+{
+  "schema_version": 1,
+  "description": "Article proof dependencies at the level of the formally proved cases actually used. This is not a module-import or task-allocation graph.",
+  "main_results": [
+    "T31",
+    "T41"
+  ],
+  "nodes": [
+    {
+      "id": "B11",
+      "title": "Theorem 1.1: compact construction",
+      "status": "Closed",
+      "article_label": "thm:packet",
+      "scope": "The compact candidate, energy bound and early-zero interval at every positive viscosity.",
+      "evidence": [
+        "formalization/NSFormalization/Source/ViscosityPacket.lean"
+      ],
+      "depends_on": [],
+      "completion_from": []
+    },
+    {
+      "id": "CMP",
+      "title": "Same-force comparison",
+      "status": "Closed",
+      "article_label": null,
+      "scope": "For every positive viscosity, any compact candidate excludes a global smooth same-force solution with uniformly bounded kinetic energy. All reference bounds follow from its proved smoothness, compact support and energy bound.",
+      "evidence": [
+        "formalization/NSFormalization/Source/PacketBreakdown.lean",
+        "formalization/NSFormalization/Source/BoundedViscosityUniqueness.lean",
+        "vendor/NavierStokesAndEuler/NavierStokes/R3/WholeSpaceUniqueness.lean"
+      ],
+      "depends_on": [],
+      "completion_from": []
+    },
+    {
+      "id": "B11_FULL",
+      "title": "Theorem 1.1: complete statement",
+      "status": "Closed",
+      "article_label": "thm:packet",
+      "scope": "One time-one compact candidate and its same-force global nonexistence conclusion for every positive viscosity, proved by source_breakdown.",
+      "evidence": [
+        "formalization/NSFormalization/Source/PacketBreakdown.lean",
+        "vendor/NavierStokesAndEuler/NavierStokes/R3/ProblemStatement.lean"
+      ],
+      "depends_on": [
+        "B11",
+        "CMP"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "L21T",
+      "title": "Proposition 2.1: periodic H3 route",
+      "status": "Closed",
+      "article_label": "prop:local",
+      "scope": "Periodic existence, uniqueness, maximality and continuation for the used force class, using the formally proved H3 restart case.",
+      "evidence": [
+        "verification/Bindings/TorusLocalTheory.lean",
+        "formalization/NSFormalization/Section3/T11/ExistenceInputH3.lean"
+      ],
+      "depends_on": [],
+      "completion_from": []
+    },
+    {
+      "id": "L21R",
+      "title": "Proposition 2.1: whole-space H7 route",
+      "status": "Closed",
+      "article_label": "prop:local",
+      "scope": "Whole-space existence, uniqueness, maximality and continuation for the used force class, using fixed-force H7 restart.",
+      "evidence": [
+        "verification/Bindings/LocalTheoryV2.lean",
+        "formalization/NSFormalization/Section4/A04/ShiftedExtension.lean"
+      ],
+      "depends_on": [],
+      "completion_from": []
+    },
+    {
+      "id": "L21_H1",
+      "title": "Proposition 2.1: general H1 restart",
+      "status": "Partial",
+      "article_label": "prop:local",
+      "scope": "The general H1-uniform restart clauses remain unformalized. They are not inputs to the proved H3/H7 continuation routes.",
+      "evidence": [
+        "verification/Bindings/LocalTheoryV2.lean",
+        "verification/Bindings/TorusLocalTheory.lean"
+      ],
+      "depends_on": [],
+      "completion_from": [
+        "L21T",
+        "L21R"
+      ]
+    },
+    {
+      "id": "E22",
+      "title": "Lemma 2.2: energy and initial vanishing",
+      "status": "Closed",
+      "article_label": "lem:packetenergy",
+      "scope": "Finite energy and dissipation, the energy identity and an initial zero interval for the selected candidate.",
+      "evidence": [
+        "verification/Bindings/PacketImport.lean",
+        "formalization/NSFormalization/Section4/I01/Quiet.lean"
+      ],
+      "depends_on": [
+        "B11"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "L32",
+      "title": "Lemma 3.2: fractional localization",
+      "status": "Closed",
+      "article_label": "lem:localization",
+      "scope": "Local-to-torus Sobolev comparison, including the endpoint identities.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T13/Assembly.lean"
+      ],
+      "depends_on": [],
+      "completion_from": []
+    },
+    {
+      "id": "S33",
+      "title": "Proposition 3.3: scaling",
+      "status": "Closed",
+      "article_label": "prop:scaling",
+      "scope": "Energy, mixed-norm and Sobolev scaling of the compact building block.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T15/Assembly.lean"
+      ],
+      "depends_on": [
+        "E22",
+        "L32"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "V34",
+      "title": "Lemma 3.4: potential and cutoffs",
+      "status": "Closed",
+      "article_label": "lem:potential",
+      "scope": "Construct a local vector potential and divergence-free cutoff modification.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T16/Assembly.lean"
+      ],
+      "depends_on": [],
+      "completion_from": []
+    },
+    {
+      "id": "C35_LOCAL",
+      "title": "Lemma 3.5: proved local estimates",
+      "status": "Closed",
+      "article_label": "lem:correction",
+      "scope": "Local support, derivative, energy and mixed-norm bounds with the smoothness and geometric hypotheses supplied by a smooth reference solution.",
+      "evidence": [
+        "formalization/NSFormalization/Section4/I02/Reference.lean",
+        "verification/Bindings/Correction.lean"
+      ],
+      "depends_on": [
+        "V34"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "C35_T",
+      "title": "Lemma 3.5: proved periodic case",
+      "status": "Closed",
+      "article_label": "lem:correction",
+      "scope": "The formal periodic correction theorem with its explicit smoothness, chart and viscosity hypotheses; those hypotheses are supplied in the fixed-ball construction.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T17/Assembly.lean",
+        "formalization/NSFormalization/Section3/T17/SlabBridge2.lean"
+      ],
+      "depends_on": [
+        "C35_LOCAL",
+        "L32"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "C35_FULL",
+      "title": "Lemma 3.5: full article scope",
+      "status": "Partial",
+      "article_label": "lem:correction",
+      "scope": "The unrestricted article formulation has not been exported with all differences in hypotheses discharged.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T17/Assembly.lean"
+      ],
+      "depends_on": [],
+      "completion_from": [
+        "C35_T"
+      ]
+    },
+    {
+      "id": "G36",
+      "title": "Theorem 3.6: fixed-ball construction",
+      "status": "Closed",
+      "article_label": "thm:insertion",
+      "scope": "Construct the scaling and correction inputs from raw data; exact lifespan, history and convergence for the fixed-ball case used in density.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T19/Threading.lean"
+      ],
+      "depends_on": [
+        "S33",
+        "C35_T",
+        "L21T"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "G36_FULL",
+      "title": "Theorem 3.6: prescribed ball",
+      "status": "Partial",
+      "article_label": "thm:insertion",
+      "scope": "The raw-data constructor uses a fixed placement. The complete quantification over an arbitrary prescribed coordinate ball is not closed.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T18/Assembly.lean",
+        "formalization/NSFormalization/Section3/T19/Threading.lean"
+      ],
+      "depends_on": [],
+      "completion_from": [
+        "G36"
+      ]
+    },
+    {
+      "id": "D37",
+      "title": "Proposition 3.7: periodic density",
+      "status": "Closed",
+      "article_label": "prop:density",
+      "scope": "The two-case lifespan argument needs only one fully constructed localization, not the prescribed-ball extension.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T19/Assembly.lean"
+      ],
+      "depends_on": [
+        "G36"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "K38",
+      "title": "Proposition 3.8: periodic critical estimate",
+      "status": "Closed",
+      "article_label": "prop:critical",
+      "scope": "Small critical forcing gives regularity through the proved H3 continuation route.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T20/Assembly.lean"
+      ],
+      "depends_on": [
+        "L21T"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "N39",
+      "title": "Corollary 3.9: non-density",
+      "status": "Closed",
+      "article_label": "cor:nondensity",
+      "scope": "A nonempty open regularity ball and Sobolev monotonicity exclude density at and above the threshold.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T21/MainAssembly.lean"
+      ],
+      "depends_on": [
+        "K38"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "T31",
+      "title": "Theorem 3.1: periodic threshold",
+      "status": "Closed",
+      "article_label": "thm:main",
+      "scope": "Combine subcritical fixed-datum density and the zero-datum non-density obstruction.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T21/MainAssembly.lean"
+      ],
+      "depends_on": [
+        "D37",
+        "N39"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "M310",
+      "title": "Corollary 3.10: mixed-norm density",
+      "status": "Closed",
+      "article_label": "cor:mixed",
+      "scope": "Use the same two-case argument and the positive mixed-norm scaling exponent.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T19/Assembly.lean"
+      ],
+      "depends_on": [
+        "G36"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "E311",
+      "title": "Corollary 3.11: trajectory closure",
+      "status": "Closed",
+      "article_label": "cor:closure",
+      "scope": "Energy and force convergence for one constructed family around a smooth reference.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T19/Assembly.lean"
+      ],
+      "depends_on": [
+        "G36"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "P312",
+      "title": "Proposition 3.12: data-pair projection",
+      "status": "Closed",
+      "article_label": "prop:projection",
+      "scope": "Fixed-initial-data density gives product density and surjectivity onto the initial-data class.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T19/Assembly.lean"
+      ],
+      "depends_on": [
+        "D37"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "R313",
+      "title": "Remark 3.13: force-amplitude divergence",
+      "status": "Partial",
+      "article_label": "rem:peaks",
+      "scope": "Scaling and correction estimates are proved; there is no separately exported divergence-of-force-amplitudes conclusion.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T15/Assembly.lean",
+        "formalization/NSFormalization/Section3/T17/Assembly.lean"
+      ],
+      "depends_on": [],
+      "completion_from": [
+        "S33",
+        "C35_T"
+      ]
+    },
+    {
+      "id": "BN",
+      "title": "Bounded-domain norm comparison",
+      "status": "Closed",
+      "article_label": null,
+      "scope": "Restriction and zero-extension estimates for compactly supported interior perturbations.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T22/Assembly.lean"
+      ],
+      "depends_on": [],
+      "completion_from": []
+    },
+    {
+      "id": "BU",
+      "title": "No-slip uniqueness",
+      "status": "Closed",
+      "article_label": null,
+      "scope": "The classical uniqueness theorem on the bounded domain is formally proved.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean"
+      ],
+      "depends_on": [],
+      "completion_from": []
+    },
+    {
+      "id": "B314",
+      "title": "Corollary 3.14: bounded-domain gluing",
+      "status": "Closed",
+      "article_label": "cor:boundary",
+      "scope": "The final raw-data theorem constructs its packet, placement and norm witnesses internally in the prescribed interior ball.",
+      "evidence": [
+        "verification/Bindings/BoundaryInsertionV2.lean"
+      ],
+      "depends_on": [
+        "E22",
+        "C35_LOCAL",
+        "BN",
+        "BU"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "A315",
+      "title": "Proposition 3.15: affine variations",
+      "status": "Closed",
+      "article_label": "prop:affine",
+      "scope": "Compact divergence-free perturbations of the selected building block give the affine family.",
+      "evidence": [
+        "verification/Bindings/AffineVariation.lean"
+      ],
+      "depends_on": [
+        "E22"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "M316",
+      "title": "Proposition 3.16: periodic regions",
+      "status": "Closed",
+      "article_label": "prop:multiple",
+      "scope": "Place finitely many rescaled building blocks in prescribed disjoint periodic regions and sum them.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T24/MultipleAssembly.lean"
+      ],
+      "depends_on": [
+        "S33"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "M316_B",
+      "title": "Proposition 3.16: bounded-domain case",
+      "status": "Partial",
+      "article_label": "prop:multiple",
+      "scope": "The bounded-domain no-slip variant has not been assembled.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T24/Multiple.lean"
+      ],
+      "depends_on": [],
+      "completion_from": [
+        "M316",
+        "B314"
+      ]
+    },
+    {
+      "id": "C317",
+      "title": "Proposition 3.17: periodic conservative force",
+      "status": "Closed",
+      "article_label": "prop:conservative",
+      "scope": "Potential-force pairing vanishes and the solution from rest has zero velocity on the torus.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean"
+      ],
+      "depends_on": [],
+      "completion_from": []
+    },
+    {
+      "id": "C317_B",
+      "title": "Proposition 3.17: bounded-domain case",
+      "status": "Partial",
+      "article_label": "prop:conservative",
+      "scope": "The bounded-domain conservative-force variant is not exported.",
+      "evidence": [
+        "formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean"
+      ],
+      "depends_on": [],
+      "completion_from": [
+        "C317",
+        "BU"
+      ]
+    },
+    {
+      "id": "NEG",
+      "title": "Whole-space negative-order estimates",
+      "status": "Closed",
+      "article_label": null,
+      "scope": "Fourier scaling and low-frequency control of compact force profiles; the positive and negative norm bounds needed for the subcritical limits.",
+      "evidence": [
+        "formalization/NSFormalization/Section4/I03/HomogeneousScaling.lean",
+        "verification/Bindings/ScalingNorms.lean"
+      ],
+      "depends_on": [
+        "E22",
+        "C35_LOCAL"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "G42",
+      "title": "Theorem 4.2: prescribed-region gluing",
+      "status": "Closed",
+      "article_label": "thm:Rinsert",
+      "scope": "For every prescribed nonempty open set, construct one family from the given reference, with exact lifespan, blowup, history, compact support, energy bound and all subcritical force limits. The building block is selected before the reference and region.",
+      "evidence": [
+        "verification/Bindings/InsertionFromData.lean",
+        "verification/Contracts/V2/InsertionLifespan.lean"
+      ],
+      "depends_on": [
+        "NEG",
+        "L21R"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "K43",
+      "title": "Proposition 4.3: L1 critical estimate",
+      "status": "Closed",
+      "article_label": "prop:Rcritical1",
+      "scope": "The whole-space critical estimate with the proved high-order continuation route.",
+      "evidence": [
+        "formalization/NSFormalization/Section4/R43/Universal.lean"
+      ],
+      "depends_on": [
+        "L21R"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "K44",
+      "title": "Proposition 4.4: L2 critical estimate",
+      "status": "Closed",
+      "article_label": "prop:Rcritical2",
+      "scope": "The finite-horizon inhomogeneous critical estimate at zero initial velocity.",
+      "evidence": [
+        "formalization/NSFormalization/Section4/R44/Prop44.lean"
+      ],
+      "depends_on": [
+        "L21R"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "T41",
+      "title": "Theorem 4.1: whole-space thresholds",
+      "status": "Closed",
+      "article_label": "thm:Rmain",
+      "scope": "Combine subcritical density from the constructed case with the two critical non-density obstructions.",
+      "evidence": [
+        "verification/Bindings/MainThresholds.lean"
+      ],
+      "depends_on": [
+        "G42",
+        "K43",
+        "K44"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "F45",
+      "title": "Corollary 4.5: compact and rapid-decay classes",
+      "status": "Closed",
+      "article_label": "cor:Rclasses",
+      "scope": "Compactly supported force changes preserve both subclasses; the same critical regularity balls give the converse.",
+      "evidence": [
+        "verification/Bindings/ForceClasses.lean"
+      ],
+      "depends_on": [
+        "T41",
+        "G42"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "APP",
+      "title": "Smooth Sobolev and Bochner approximation",
+      "status": "Closed",
+      "article_label": null,
+      "scope": "Approximate completed data by smooth compactly supported fields and time profiles.",
+      "evidence": [
+        "formalization/NSFormalization/Section4/B01/Spatial.lean",
+        "formalization/NSFormalization/Section4/B01/Temporal.lean"
+      ],
+      "depends_on": [],
+      "completion_from": []
+    },
+    {
+      "id": "E46",
+      "title": "Proposition 4.6: completed spaces and trajectories",
+      "status": "Closed",
+      "article_label": "prop:Renergy",
+      "scope": "Combine smooth approximation, compact-force density and the simultaneous energy and force estimates for one family.",
+      "evidence": [
+        "verification/Bindings/CompletedDensity.lean"
+      ],
+      "depends_on": [
+        "APP",
+        "F45",
+        "G42",
+        "NEG"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "GRID",
+      "title": "Grid-adapted local construction",
+      "status": "Closed",
+      "article_label": null,
+      "scope": "Construct a ball inside a common cell and prove vanishing cell integrals for the localized perturbation.",
+      "evidence": [
+        "verification/Bindings/GridAssembly.lean",
+        "verification/Bindings/FluxCancellation.lean"
+      ],
+      "depends_on": [
+        "NEG",
+        "L21R"
+      ],
+      "completion_from": []
+    },
+    {
+      "id": "T47",
+      "title": "Theorem 4.7: identical grid observations",
+      "status": "Closed",
+      "article_label": "thm:Rgrid",
+      "scope": "Use the internally constructed common-cell ball, cancellation and simultaneous convergence estimates.",
+      "evidence": [
+        "verification/Bindings/GridObservations.lean"
+      ],
+      "depends_on": [
+        "GRID",
+        "E46"
+      ],
+      "completion_from": []
+    }
+  ],
+  "panels": [
+    {
+      "title": "Shared construction and local theory",
+      "nodes": [
+        "B11",
+        "CMP",
+        "B11_FULL",
+        "E22",
+        "L21T",
+        "L21R",
+        "L21_H1",
+        "V34",
+        "C35_LOCAL",
+        "L32",
+        "C35_T",
+        "C35_FULL"
+      ]
+    },
+    {
+      "title": "The periodic main theorem and its consequences",
+      "nodes": [
+        "E22",
+        "L32",
+        "S33",
+        "C35_T",
+        "L21T",
+        "G36",
+        "G36_FULL",
+        "D37",
+        "K38",
+        "N39",
+        "T31",
+        "M310",
+        "E311",
+        "P312",
+        "R313"
+      ]
+    },
+    {
+      "title": "Bounded domains and secondary constructions",
+      "nodes": [
+        "E22",
+        "C35_LOCAL",
+        "BN",
+        "BU",
+        "B314",
+        "A315",
+        "S33",
+        "M316",
+        "M316_B",
+        "C317",
+        "C317_B"
+      ]
+    },
+    {
+      "title": "The whole-space main theorem and its consequences",
+      "nodes": [
+        "E22",
+        "C35_LOCAL",
+        "NEG",
+        "L21R",
+        "G42",
+        "K43",
+        "K44",
+        "T41",
+        "F45",
+        "APP",
+        "E46",
+        "GRID",
+        "T47"
+      ]
+    }
+  ]
+}

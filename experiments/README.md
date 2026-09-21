@@ -1,9 +1,18 @@
-# Document checks
+# Current checks
 
-`check_manuscript.py` checks source-result coverage, statement expressions,
-cross-references, bibliography entries, document structure, and LaTeX warnings.
-Run it after compiling the article. It requires only the Python standard library.
+- `check_formalization_plan.py --check`: current dependency graph, package paths,
+  local imports, entry-point closure and absence of admissions/custom axioms.
+- `check_contracts.py --summary`: registration and specification import boundaries.
+- `test_contract_policy.py`: eleven import-policy, module-selection and article-proof coverage tests.
+- `build_changed_lean.py --base-ref <commit>`: CI compilation of changed Lean files.
+- `test_contract_mutations.py`: positive and negative Lean acceptance cases.
+- `audit_article_axioms.py --build --output-dir /tmp/article-audit`: Linux kernel
+  transitive-axiom audit of all guide declarations and explicit upstream/boundary
+  exports, using separate existing import closures.
+- `check_reader_documents.py`: document labels, citations, coverage markers,
+  proof locations, corpus hashes and LaTeX logs; run through `make paper`.
+- `reader_terminology.py`: reviewed prose terminology rules.
 
-These are document-integrity checks. The associated mathematical review is
-recorded in `../logs/THEOREM_CORRESPONDENCE.md`. No numerical PDE experiment was
-performed for this revision.
+Previous registries and retired version interfaces are not prerequisites of
+current checks. Static checks do not replace Lean compilation or mathematical
+review of statement scope.

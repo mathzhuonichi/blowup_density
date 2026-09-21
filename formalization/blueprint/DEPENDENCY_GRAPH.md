@@ -1,607 +1,228 @@
-# Dependency graph
+# Article proof dependencies and formalization coverage
 
-Generated from [tasks.json](tasks.json). Arrows point from prerequisites to dependent tasks. This is a future proof plan, not a certification graph.
+The project formalizes the two main density theorems, **Theorems 3.1 and 4.1**, and the proved cases used in their arguments. The diagrams follow the paper's mathematical reductions, rather than Lean imports or implementation task IDs.
+
+**Green = Closed. Orange = Partial.** The status belongs to the exact clause written in each node. A single article proposition can therefore have both green and orange nodes. Closed requires a Lean kernel-checked proof with all auxiliary results formally proved and instantiated. It introduces no assumptions beyond those explicitly stated in the article (for example, positive viscosity). Only the standard logical axioms `propext`, `Classical.choice` and `Quot.sound` are permitted.
+
+**Solid arrows** are dependencies of the proved argument. **Dashed arrows** connect available proved components to an unfinished extension or remaining clause; they do not assert that the extension has been proved. Orange branches are not inputs to the green main-theorem paths. Repeated nodes in different panels denote the same result.
+
+The periodic argument splits into a construction/density branch and a critical regularity/non-density branch. The whole-space argument has the same structure, with separate low-frequency estimates and two critical norms. The formal continuation routes use the proved H3/H7 cases of Proposition 2.1.
+
+## Shared construction and local theory
 
 ```mermaid
 flowchart TD
-  U01["U01: OpenAI compact packet and reusable analysis"]
-  U04["U04: HeliCorgi concrete R3 analytic and unforced mild stack"]
-  U05["U05: Resolve pinned upstream toolchain compatibility"]
-  U02["U02: Tao forced whole-space local theory"]
-  U03["U03: Classical Euclidean Sobolev embeddings"]
-  D01["D01: Exact manuscript data, force, norms and pressure"]
-  A01["A01: Whole-space local solution adapter"]
-  A02["A02: Uniqueness and maximal solution identification"]
-  A03["A03: Whole-space tame products and bounded representatives"]
-  A04["A04: Squared-H2 continuation adapter"]
-  A05["A05: Critical embeddings for the actual whole-space fields"]
-  I01["I01: Packet energy and early vanishing"]
-  I02["I02: Local vector potential and smooth correction"]
-  I03["I03: Same-family scaling and negative norms"]
-  R42["R42: Theorem 4.2: exact insertion"]
-  R41D["R41D: Theorem 4.1: subcritical density branch"]
-  C01["C01: Ordinary energy and H1 absorption"]
-  R43["R43: Proposition 4.3: L1 critical regularity"]
-  R44["R44: Proposition 4.4: L2 critical regularity"]
-  R41["R41: Theorem 4.1: both thresholds"]
-  R45["R45: Corollary 4.5: compact and rapid-decay classes"]
-  B01["B01: Real positive-time Bochner approximation"]
-  B02["B02: Homogeneous H-minus-one approximation"]
-  R46["R46: Proposition 4.6: completed density and trajectories"]
-  G01["G01: Actual finite-grid observations"]
-  R47["R47: Theorem 4.7: identical cell observations"]
-  T01["T01: Periodic analytic adapters"]
-  T02["T02: Periodic localization and insertion"]
-  T03["T03: Periodic density and endpoint classification"]
-  T04["T04: Remaining Section 3 consequences"]
-  T10["T10: Periodic data layer: coefficient Sobolev norms, mean, Leray and pressure"]
-  T11["T11: prop:local on T³: maximal periodic local theory and continuation"]
-  T12["T12: Mean-zero Sobolev calculus and lem:critical-embeddings on T³"]
-  T13["T13: lem:localization: uniform localization of fractional norms"]
-  T14["T14: thm:packet import and lem:packetenergy"]
-  T15["T15: prop:scaling: fixed-viscosity periodic packet scaling"]
-  T16["T16: lem:potential: local divergence-free cutoff"]
-  T17["T17: lem:correction: uniform background-correction bounds"]
-  T18["T18: thm:insertion: exact local periodic insertion"]
-  T19["T19: prop:density and the subcritical density package"]
-  T20["T20: prop:critical: global regularity for small critical force"]
-  T21["T21: cor:nondensity and thm:main assembly"]
-  T22["T22: Bounded-domain restriction and zero-extension norms"]
-  T23["T23: cor:boundary: interior no-slip insertion"]
-  T24["T24: prop:affine, prop:multiple and prop:conservative"]
-  U01 --> U05
-  U04 --> U05
-  U04 --> D01
-  D01 --> A01
-  U02 --> A01
-  U04 --> A01
-  U01 --> A01
-  U05 --> A01
-  A01 --> A02
-  D01 --> A03
-  U04 --> A03
-  A05 --> A03
-  A02 --> A04
-  A03 --> A04
-  D01 --> A05
-  U03 --> A05
-  U01 --> I01
-  I01 --> I02
-  D01 --> I02
-  I02 --> I03
-  I03 --> R42
-  A02 --> R42
-  R42 --> R41D
-  A02 --> C01
-  A05 --> C01
-  A04 --> R43
-  A05 --> R43
-  C01 --> R43
-  A04 --> R44
-  A05 --> R44
-  C01 --> R44
-  R41D --> R41
-  R43 --> R41
-  R44 --> R41
-  R41 --> R45
-  D01 --> B01
-  D01 --> B02
-  R41D --> R46
-  B01 --> R46
-  B02 --> R46
-  I03 --> R46
-  I02 --> G01
-  R42 --> R47
-  R46 --> R47
-  G01 --> R47
-  A03 --> T01
-  U02 --> T01
-  U03 --> T01
-  I02 --> T02
-  I03 --> T02
-  T01 --> T02
-  T02 --> T03
-  T01 --> T03
-  T02 --> T04
-  T10 --> T11
-  T10 --> T12
-  T10 --> T13
-  T10 --> T14
-  T13 --> T15
-  T14 --> T15
-  T10 --> T16
-  T16 --> T17
-  T13 --> T17
-  T11 --> T18
-  T14 --> T18
-  T15 --> T18
-  T16 --> T18
-  T17 --> T18
-  T12 --> T18
-  T18 --> T19
-  T11 --> T19
-  T10 --> T20
-  T11 --> T20
-  T12 --> T20
-  T19 --> T21
-  T20 --> T21
-  T10 --> T22
-  T18 --> T23
-  T22 --> T23
-  T14 --> T24
-  T15 --> T24
-  classDef external fill:#dbeafe,stroke:#2563eb;
-  classDef adapter fill:#fef3c7,stroke:#b45309;
-  classDef assembly fill:#dcfce7,stroke:#15803d;
-  classDef deferred fill:#f3f4f6,stroke:#6b7280;
-  class U01,U04 external;
-  class U02,U03 external;
-  class U05,D01,A01,A02,A03,A04,A05,I01,I02,I03,C01,B01,B02,G01,T10,T11,T12,T13,T14,T15,T16,T17,T22 adapter;
-  class R42,R41D,R43,R44,R41,R45,R46,R47,T18,T19,T20,T21,T23,T24 assembly;
-  class T01,T02,T03,T04 deferred;
+  B11["Theorem 1.1<br/>compact construction<br/>Closed"]
+  CMP["Same-force comparison<br/>Closed"]
+  B11_FULL["Theorem 1.1<br/>complete statement<br/>Closed"]
+  E22["Lemma 2.2<br/>energy and initial<br/>vanishing<br/>Closed"]
+  L21T["Proposition 2.1<br/>periodic H3 route<br/>Closed"]
+  L21R["Proposition 2.1<br/>whole-space H7 route<br/>Closed"]
+  L21_H1["Proposition 2.1<br/>general H1 restart<br/>Partial"]
+  V34["Lemma 3.4<br/>potential and cutoffs<br/>Closed"]
+  C35_LOCAL["Lemma 3.5<br/>proved local estimates<br/>Closed"]
+  L32["Lemma 3.2<br/>fractional localization<br/>Closed"]
+  C35_T["Lemma 3.5<br/>proved periodic case<br/>Closed"]
+  C35_FULL["Lemma 3.5<br/>full article scope<br/>Partial"]
+  B11 --> B11_FULL
+  CMP --> B11_FULL
+  B11 --> E22
+  L21T -. remaining scope .-> L21_H1
+  L21R -. remaining scope .-> L21_H1
+  V34 --> C35_LOCAL
+  C35_LOCAL --> C35_T
+  L32 --> C35_T
+  C35_T -. remaining scope .-> C35_FULL
+  classDef closed fill:#dcfce7,stroke:#15803d,color:#14532d;
+  classDef partial fill:#fff7d6,stroke:#b45309,color:#78350f;
+  classDef mainResult stroke-width:4px;
+  class B11,CMP,B11_FULL,E22,L21T,L21R,V34,C35_LOCAL,L32,C35_T closed;
+  class L21_H1,C35_FULL partial;
 ```
 
-Blue: reusable upstream or literature input; amber: adapter; green: target assembly; grey: deferred periodic work. Colors classify work, not proof completion.
-
-## Task contracts
-
-### U01: OpenAI compact packet and reusable analysis
-
-Priority: P0. Status: `source-present-adaptation-open`. Dependencies: none.
-
-Reuse the selected compact forced packet for every positive viscosity, with zero initial velocity, common compact velocity/pressure support, bounded energy and unbounded speed. Reuse its analytic library; do not reprove the packet construction.
-
-- [vendor/NavierStokesAndEuler/NavierStokes/R3ActualCandidate.lean](../../vendor/NavierStokesAndEuler/NavierStokes/R3ActualCandidate.lean)
-- [vendor/NavierStokesAndEuler/NavierStokes/R3CompactCandidate.lean](../../vendor/NavierStokesAndEuler/NavierStokes/R3CompactCandidate.lean)
-- [formalization/NSFormalization/Source/ViscosityPacket.lean](../../formalization/NSFormalization/Source/ViscosityPacket.lean)
-
-### U04: HeliCorgi concrete R3 analytic and unforced mild stack
-
-Priority: P0. Status: `source-present-adaptation-open`. Dependencies: none.
-
-Reuse actual Stokes/Leray/convection/decoder/pressure, endpoint-safe Picard, unrestricted uniqueness, explicit lifespan, restart and concatenation. The concrete PDE capstone is unforced and spatially distributional; forced all-order classical theory still requires adaptation. Lean 4.32.1 must be reconciled with OpenAI 4.34.0-rc2 before direct imports.
-
-- [vendor/HeliCorgi/Formal/R3EndpointSafeProjectedLocalExistence.lean](../../vendor/HeliCorgi/Formal/R3EndpointSafeProjectedLocalExistence.lean)
-- [vendor/HeliCorgi/Formal/R3QuantitativeLifespan.lean](../../vendor/HeliCorgi/Formal/R3QuantitativeLifespan.lean)
-- [vendor/HeliCorgi/Formal/R3MildContinuation.lean](../../vendor/HeliCorgi/Formal/R3MildContinuation.lean)
-- [vendor/HeliCorgi/Formal/R3NavierStokesEquation.lean](../../vendor/HeliCorgi/Formal/R3NavierStokesEquation.lean)
-- [vendor/HeliCorgi/Formal/R3SchwartzInitialData.lean](../../vendor/HeliCorgi/Formal/R3SchwartzInitialData.lean)
-- [vendor/HeliCorgi/Formal/R3HelmholtzPressure.lean](../../vendor/HeliCorgi/Formal/R3HelmholtzPressure.lean)
-
-### U05: Resolve pinned upstream toolchain compatibility
-
-Priority: P0. Status: `open`. Dependencies: U01, U04.
-
-Audit selected import closures under Lean/mathlib 4.34.0-rc2 before a future source port, or keep independent checkouts until compatibility is demonstrated. Preserve both original pins; no forced lockfile upgrade and no proof edits in this planning task.
-
-- [formalization/lean-toolchain](../../formalization/lean-toolchain)
-- [vendor/HeliCorgi/lean-toolchain](../../vendor/HeliCorgi/lean-toolchain)
-- [vendor/HeliCorgi/lakefile.lean](../../vendor/HeliCorgi/lakefile.lean)
-
-### U02: Tao forced whole-space local theory
-
-Priority: P0. Status: `source-present-adaptation-open`. Dependencies: none.
-
-Tao 2013 Theorem 5.4(ii)-(iv), including the smooth Sobolev extension in its proof. This is an external mathematical input, not an imported Lean theorem. Audit equivalent OpenAI and second-upstream declarations before planning a new solver.
-
-- [reference/Tao_2013_Localisation_Compactness_Published.pdf](../../reference/Tao_2013_Localisation_Compactness_Published.pdf)
-
-### U03: Classical Euclidean Sobolev embeddings
-
-Priority: P0. Status: `source-present-adaptation-open`. Dependencies: none.
-
-Tao Appendix A (A.11), a=1/2 and a=1 in dimension three; preserve homogeneous realization and Fourier convention. Prefer existing formal representations and estimates.
-
-- [reference/Tao_Nonlinear_Dispersive_Equations_Author_Draft.pdf](../../reference/Tao_Nonlinear_Dispersive_Equations_Author_Draft.pdf)
-- [vendor/NavierStokesAndEuler/NavierStokes/R3/SmoothSobolevL6.lean](../../vendor/NavierStokesAndEuler/NavierStokes/R3/SmoothSobolevL6.lean)
-- [formalization/NSFormalization/Source/FractionalRealization.lean](../../formalization/NSFormalization/Source/FractionalRealization.lean)
-- [formalization/NSFormalization/Paper1/SchwartzCriticalEmbedding.lean](../../formalization/NSFormalization/Paper1/SchwartzCriticalEmbedding.lean)
-
-### D01: Exact manuscript data, force, norms and pressure
-
-Priority: P0. Status: `source-present-adaptation-open`. Dependencies: U04.
-
-Identify X_R=H-infinity intersect L2-solenoidal and F_R with all integer Sobolev time smoothness and global L1/L2 integrability. Use real Euclidean vector norms and angular Fourier normalization. Pressure is determined by its gradient modulo time functions; do not require scalar pressure in L2. Preserve one-sided initial-time regularity.
-
-- [formalization/NSFormalization/Paper3/AngularSobolevClass.lean](../../formalization/NSFormalization/Paper3/AngularSobolevClass.lean)
-- [formalization/NSFormalization/Paper3/AngularRealSobolev.lean](../../formalization/NSFormalization/Paper3/AngularRealSobolev.lean)
-- [formalization/NSFormalization/Paper3/AngularRealVectorBochner.lean](../../formalization/NSFormalization/Paper3/AngularRealVectorBochner.lean)
-- [formalization/NSFormalization/Paper3/RealAdmissibleForce.lean](../../formalization/NSFormalization/Paper3/RealAdmissibleForce.lean)
-- [formalization/NSFormalization/Source/FourierPhysicalJets.lean](../../formalization/NSFormalization/Source/FourierPhysicalJets.lean)
-- [vendor/HeliCorgi/Formal/R3HelmholtzPressure.lean](../../vendor/HeliCorgi/Formal/R3HelmholtzPressure.lean)
-- [vendor/HeliCorgi/Formal/R3SchwartzInitialData.lean](../../vendor/HeliCorgi/Formal/R3SchwartzInitialData.lean)
-
-### A01: Whole-space local solution adapter
-
-Priority: P0. Status: `source-present-adaptation-open`. Dependencies: D01, U02, U04, U01, U05.
-
-Obtain a positive common interval for all Sobolev orders, ordinary physical velocity and time smoothness, projected-forcing equation and pressure-gradient recovery, for every manuscript datum. A fixed-order cylinder mild witness alone is insufficient. Prefer OpenAI forced Duhamel plus HeliCorgi concrete R3 operators; extend only the affine forcing, all-order regularity and field-identification edges. Do not schedule a replacement Fourier/Leray/Picard library.
-
-- [formalization/NSFormalization/Source/OrdinaryForcedLocal.lean](../../formalization/NSFormalization/Source/OrdinaryForcedLocal.lean)
-- [formalization/NSFormalization/Source/OrdinaryCylinderDescent.lean](../../formalization/NSFormalization/Source/OrdinaryCylinderDescent.lean)
-- [formalization/NSFormalization/Source/ForcedCylinderInvariant.lean](../../formalization/NSFormalization/Source/ForcedCylinderInvariant.lean)
-- [vendor/HeliCorgi/Formal/R3EndpointSafeProjectedLocalExistence.lean](../../vendor/HeliCorgi/Formal/R3EndpointSafeProjectedLocalExistence.lean)
-- [vendor/HeliCorgi/Formal/R3NavierStokesEquation.lean](../../vendor/HeliCorgi/Formal/R3NavierStokesEquation.lean)
-
-### A02: Uniqueness and maximal solution identification
-
-Priority: P0. Status: `source-present-adaptation-open`. Dependencies: A01.
-
-Patch ordinary local solutions by velocity uniqueness in the manuscript class. Identify the maximal lifetime used in Section 2 and make restart quantitative. Only prove the source-to-manuscript implications needed for the inserted field; no equivalence with every legacy Flow is required.
-
-- [formalization/NSFormalization/Source/OrdinaryViscousUniqueness.lean](../../formalization/NSFormalization/Source/OrdinaryViscousUniqueness.lean)
-- [formalization/NSFormalization/Source/SmoothLifespan.lean](../../formalization/NSFormalization/Source/SmoothLifespan.lean)
-- [formalization/NSFormalization/Source/InsertionBreakdown.lean](../../formalization/NSFormalization/Source/InsertionBreakdown.lean)
-- [vendor/HeliCorgi/Formal/R3MildContinuation.lean](../../vendor/HeliCorgi/Formal/R3MildContinuation.lean)
-
-### A05: Critical embeddings for the actual whole-space fields
-
-Priority: P0. Status: `source-present-adaptation-open`. Dependencies: D01, U03.
-
-Connect a=1/2 and a=1 estimates to the same real vector/tensor distributions, full stated homogeneous completion and smooth H-infinity fields. Derive gradient L3, Lambda L3 and gradient L6 bounds. Reuse FractionalRealization and SchwartzCriticalEmbedding; no new maximal-function or Riesz-kernel campaign is the default.
-
-- [formalization/NSFormalization/Source/FractionalRealization.lean](../../formalization/NSFormalization/Source/FractionalRealization.lean)
-- [formalization/NSFormalization/Source/FractionalRepresentative.lean](../../formalization/NSFormalization/Source/FractionalRepresentative.lean)
-- [formalization/NSFormalization/Paper1/SchwartzCriticalEmbedding.lean](../../formalization/NSFormalization/Paper1/SchwartzCriticalEmbedding.lean)
-
-### A04: Squared-H2 continuation adapter
-
-Priority: P0. Status: `source-present-adaptation-open`. Dependencies: A02, A03.
-
-From integral_0^S ||u||_H2^2 < infinity at a finite candidate endpoint derive higher-order bounds and a uniform restart interval extending beyond S. Use L1 Hm forcing and bounded local H1 forcing. Do not require a whole-space spectral gap.
-
-- [formalization/NSFormalization/Paper1/ScalarEnergyContinuation.lean](../../formalization/NSFormalization/Paper1/ScalarEnergyContinuation.lean)
-- [vendor/HeliCorgi/Formal/R3MildContinuation.lean](../../vendor/HeliCorgi/Formal/R3MildContinuation.lean)
-
-### A03: Whole-space tame products and bounded representatives
-
-Priority: P1. Status: `source-present-adaptation-open`. Dependencies: D01, U04, A05.
-
-Reuse complete H2/Hm scalar product and angular normalization. Assemble real vectors/tensors, difference estimates and actual physical multiplication for the energy argument, with constants independent of support. The embedding clauses of shared Lemma A.1 are supplied by A05; the product estimate itself can be reused before that adapter is finished.
-
-- [formalization/NSFormalization/Paper3/CompleteTameProduct.lean](../../formalization/NSFormalization/Paper3/CompleteTameProduct.lean)
-- [formalization/NSFormalization/Paper3/SobolevPhysicalProduct.lean](../../formalization/NSFormalization/Paper3/SobolevPhysicalProduct.lean)
-- [formalization/NSFormalization/Paper3/AngularTameProduct.lean](../../formalization/NSFormalization/Paper3/AngularTameProduct.lean)
-- [formalization/NSFormalization/Source/BesselH2Fourier.lean](../../formalization/NSFormalization/Source/BesselH2Fourier.lean)
-
-### I01: Packet energy and early vanishing
-
-Priority: P1. Status: `source-present-adaptation-open`. Dependencies: U01.
-
-Recover finite total dissipation, initial velocity/pressure vanishing and zero extension to negative time for the chosen packet.
-
-- [formalization/NSFormalization/Source/ViscosityPacket.lean](../../formalization/NSFormalization/Source/ViscosityPacket.lean)
-- [formalization/NSFormalization/Source/PacketPressure.lean](../../formalization/NSFormalization/Source/PacketPressure.lean)
-
-### I02: Local vector potential and smooth correction
-
-Priority: P1. Status: `source-present-adaptation-open`. Dependencies: I01, D01.
-
-Reuse the Euclidean content of Lemmas 3.4 and 3.5. Local reference is regular on [0,T+delta]. Construct solenoidal w_epsilon cancelling the reference on a neighborhood of the active packet support; H_epsilon is spacetime compact and smooth across T.
-
-- [formalization/NSFormalization/Paper1/RadialPotential.lean](../../formalization/NSFormalization/Paper1/RadialPotential.lean)
-- [formalization/NSFormalization/Paper1/LocalCutoff.lean](../../formalization/NSFormalization/Paper1/LocalCutoff.lean)
-- [formalization/NSFormalization/Paper1/TimeExtension.lean](../../formalization/NSFormalization/Paper1/TimeExtension.lean)
-- [formalization/NSFormalization/Paper1/CorrectionForceProfile.lean](../../formalization/NSFormalization/Paper1/CorrectionForceProfile.lean)
-
-### I03: Same-family scaling and negative norms
-
-Priority: P1. Status: `source-present-adaptation-open`. Dependencies: I02.
-
-Packet exponent beta=2/q-3/2-s; correction exponent beta+1. Negative homogeneous scaling only for -3/2<s<0; reach lower inhomogeneous orders by monotonicity. Preserve one epsilon family for all required convergences and E_T rates epsilon^(1/2), epsilon^(3/2).
-
-- [formalization/NSFormalization/Source/FourierScaling.lean](../../formalization/NSFormalization/Source/FourierScaling.lean)
-- [formalization/NSFormalization/Source/TimeNormScaling.lean](../../formalization/NSFormalization/Source/TimeNormScaling.lean)
-- [formalization/NSFormalization/Source/AngularForceNorms.lean](../../formalization/NSFormalization/Source/AngularForceNorms.lean)
-- [formalization/NSFormalization/Source/LocalApproximatingInsertion.lean](../../formalization/NSFormalization/Source/LocalApproximatingInsertion.lean)
-- [formalization/NSFormalization/Paper3/HomogeneousTime.lean](../../formalization/NSFormalization/Paper3/HomogeneousTime.lean)
-
-### R42: Theorem 4.2: exact insertion
-
-Priority: P1. Status: `source-present-adaptation-open`. Dependencies: I03, A02.
-
-Arbitrary ball and regular reference through T+delta: same initial velocity/history through T-2epsilon^2, compact force difference and localized velocity difference, exact maximal lifetime T, blowup and all stated same-family estimates. Transport source insertion_lifespan_eq to the manuscript maximal solution.
-
-- [formalization/NSFormalization/Source/LocalApproximatingInsertion.lean](../../formalization/NSFormalization/Source/LocalApproximatingInsertion.lean)
-- [formalization/NSFormalization/Source/InsertionBreakdown.lean](../../formalization/NSFormalization/Source/InsertionBreakdown.lean)
-- [formalization/NSFormalization/Source/PhysicalIntegerSobolev.lean](../../formalization/NSFormalization/Source/PhysicalIntegerSobolev.lean)
-
-### R41D: Theorem 4.1: subcritical density branch
-
-Priority: P1. Status: `source-present-adaptation-open`. Dependencies: R42.
-
-For every fixed smooth divergence-free a and every reference force g, split at Tmax(a,g)<=T. Use g itself in the first case; otherwise insert after choosing a positive margin beyond T. Quantifier order is forall a forall g forall radius exists f.
-
-- [formalization/NSFormalization/Source/WholeSpaceDensity.lean](../../formalization/NSFormalization/Source/WholeSpaceDensity.lean)
-
-### C01: Ordinary energy and H1 absorption
-
-Priority: P1. Status: `source-present-adaptation-open`. Dependencies: A02, A05.
-
-Derive the actual PDE L2 norm estimate and H1 energy absorption when critical velocity is small. Keep ordinary L2 low-frequency control separate and combine with the Laplacian estimate to obtain squared H2 time integrability.
-
-- [formalization/NSFormalization/Source/OrdinaryViscousUniqueness.lean](../../formalization/NSFormalization/Source/OrdinaryViscousUniqueness.lean)
-
-### R43: Proposition 4.3: L1 critical regularity
-
-Priority: P1. Status: `open`. Dependencies: A04, A05, C01.
-
-Small ||a||_dotH(1/2)+||f||_L1(dotH(1/2)) < c nu implies global regularity; regularized norm division and continuity bootstrap precede continuation. At a=0, inhomogeneous L1 H(1/2) smallness suffices.
-
-
-### R44: Proposition 4.4: L2 critical regularity
-
-Priority: P1. Status: `open`. Dependencies: A04, A05, C01.
-
-For each nu,S>0, zero initial data and ||f||_L2(H(-1/2))<c nu^(3/2) exp(-C nu S) imply Tmax>S. Use J=(I-Delta)^(1/2), dual force estimate and Gronwall. Preserve horizon dependence and inhomogeneous low-frequency control.
-
-
-### R41: Theorem 4.1: both thresholds
-
-Priority: P1. Status: `source-present-adaptation-open`. Dependencies: R41D, R43, R44.
-
-For q in {1,2}, density for every fixed a when s<2/q-3/2, and iff only at a=0. Use nonempty relative regular balls at and above each endpoint. Keep exact-T insertion assertions conditional on a regular reference.
-
-- [formalization/NSFormalization/Paper3/Thresholds.lean](../../formalization/NSFormalization/Paper3/Thresholds.lean)
-
-### T10: Periodic data layer: coefficient Sobolev norms, mean, Leray and pressure
-
-Priority: P1. Status: `open`. Dependencies: none.
-
-Specify the T³ coefficient-side H^s, X_T, F_T, B_{ν,a,T} and E_T data, the mean/mean-zero split, the periodic Leray projector with identity zero mode, the zero-mean pressure gauge, and the bidirectional TorusCube bridge.
-
-- [paper/sections/02-preliminaries.tex](../../paper/sections/02-preliminaries.tex)
-- [collaboration/briefs/263-SPEC-t10-draft-a.md](../../collaboration/briefs/263-SPEC-t10-draft-a.md)
-- [collaboration/briefs/264-SPEC-t10-draft-b.md](../../collaboration/briefs/264-SPEC-t10-draft-b.md)
-- [formalization/NSFormalization/Paper1/PeriodicSobolev.lean](../../formalization/NSFormalization/Paper1/PeriodicSobolev.lean)
-- [formalization/NSFormalization/Paper1/PeriodicForceSpace.lean](../../formalization/NSFormalization/Paper1/PeriodicForceSpace.lean)
-- [formalization/NSFormalization/Paper1/PeriodicMeanZero.lean](../../formalization/NSFormalization/Paper1/PeriodicMeanZero.lean)
-- [formalization/NSFormalization/Paper1/PeriodicLerayCoeffCore.lean](../../formalization/NSFormalization/Paper1/PeriodicLerayCoeffCore.lean)
-- [formalization/NSFormalization/Paper1/PeriodicPressureNormalization.lean](../../formalization/NSFormalization/Paper1/PeriodicPressureNormalization.lean)
-- [formalization/NSFormalization/Paper1/TorusCube.lean](../../formalization/NSFormalization/Paper1/TorusCube.lean)
-
-### T11: prop:local on T³: maximal periodic local theory and continuation
-
-Priority: P1. Status: `open`. Dependencies: T10.
-
-Prove prop:local on T³ as a ClassicalPeriodicLocalTheory giving existence, uniqueness, maximal lifespan and continuation from finite ∫₀^S ‖u‖²_{H²}, including Galilean removal of the evolving mean and viscosity rescaling.
-
-- [paper/sections/02-preliminaries.tex](../../paper/sections/02-preliminaries.tex)
-- [paper/sections/appendix-a-local-theory.tex](../../paper/sections/appendix-a-local-theory.tex)
-- [formalization/NSFormalization/Paper1/PeriodicOrdinaryLocal.lean](../../formalization/NSFormalization/Paper1/PeriodicOrdinaryLocal.lean)
-- [formalization/NSFormalization/Paper1/PeriodicLifespan.lean](../../formalization/NSFormalization/Paper1/PeriodicLifespan.lean)
-- [formalization/NSFormalization/Paper1/PeriodicUniqueness.lean](../../formalization/NSFormalization/Paper1/PeriodicUniqueness.lean)
-- [formalization/NSFormalization/Paper1/PeriodicForcedDuhamel.lean](../../formalization/NSFormalization/Paper1/PeriodicForcedDuhamel.lean)
-- [vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceDuhamel.lean](../../vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceDuhamel.lean)
-- [vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceRestart.lean](../../vendor/HeliCorgi/Formal/EndpointSafeTwoSpaceRestart.lean)
-
-### T13: lem:localization: uniform localization of fractional norms
-
-Priority: P1. Status: `open`. Dependencies: T10.
-
-Prove lem:localization in the reconciled research/T13/RECONCILIATION.md form: the R³ and T³ Gagliardo identities with common c_s, the periodic kernel and lattice-tail control, uniform eq:localization for shrinking support, and the s=0,1 endpoint equalities.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [research/T13/RECONCILIATION.md](../../research/T13/RECONCILIATION.md)
-- [collaboration/briefs/265-SPEC-t13-draft-a.md](../../collaboration/briefs/265-SPEC-t13-draft-a.md)
-- [collaboration/briefs/266-SPEC-t13-draft-b.md](../../collaboration/briefs/266-SPEC-t13-draft-b.md)
-- [vendor/NavierStokesAndEuler/NavierStokes/PeriodicLocalization.lean](../../vendor/NavierStokesAndEuler/NavierStokes/PeriodicLocalization.lean)
-- [formalization/NSFormalization/Paper1/PeriodicBridge.lean](../../formalization/NSFormalization/Paper1/PeriodicBridge.lean)
-- [formalization/NSFormalization/Paper1/TorusCube.lean](../../formalization/NSFormalization/Paper1/TorusCube.lean)
-
-### T18: thm:insertion: exact local periodic insertion
-
-Priority: P1. Status: `open`. Dependencies: T11, T14, T15, T16, T17, T12.
-
-Prove thm:insertion with the exact eq:insertion decomposition, vanishing cross transports, g_ε∈F_T, lifespan exactly T by T11 uniqueness and H²-to-L∞ continuation, and the simultaneous eq:Eclose, eq:Fclose and eq:Hsclose bounds.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [formalization/NSFormalization/Paper1/PeriodicInsertion.lean](../../formalization/NSFormalization/Paper1/PeriodicInsertion.lean)
-- [formalization/NSFormalization/Paper1/PeriodicInsertionEndpointAssembly.lean](../../formalization/NSFormalization/Paper1/PeriodicInsertionEndpointAssembly.lean)
-- [formalization/NSFormalization/Paper1/PeriodicCrossComponentTransport.lean](../../formalization/NSFormalization/Paper1/PeriodicCrossComponentTransport.lean)
-
-### T19: prop:density and the subcritical density package
-
-Priority: P1. Status: `open`. Dependencies: T18, T11.
-
-Derive prop:density by the regular/earlier-breakdown dichotomy and then prove cor:mixed for 3/p+2/q>3, cor:closure in E_T, and prop:projection with quantifier order ∀a∃f.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [formalization/NSFormalization/Paper1/PeriodicDense.lean](../../formalization/NSFormalization/Paper1/PeriodicDense.lean)
-- [formalization/NSFormalization/Paper1/PeriodicDensityDichotomy.lean](../../formalization/NSFormalization/Paper1/PeriodicDensityDichotomy.lean)
-- [formalization/NSFormalization/Paper1/PeriodicDensityFiber.lean](../../formalization/NSFormalization/Paper1/PeriodicDensityFiber.lean)
-
-### T20: prop:critical: global regularity for small critical force
-
-Priority: P1. Status: `open`. Dependencies: T10, T11, T12.
-
-Prove prop:critical as a CriticalRegularityCertificate by removing the evolving mean, establishing eq:meanbound, eq:meanfree, multiplier commutation and skew-adjoint transport, then deriving eq:criticalenergy, eq:bintegral, eq:ybound, eq:H1energy and continuation through eq:criterion.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [formalization/NSFormalization/Paper1/PeriodicCriticalRegularity.lean](../../formalization/NSFormalization/Paper1/PeriodicCriticalRegularity.lean)
-- [formalization/NSFormalization/Paper1/CriticalEnergyCertificate.lean](../../formalization/NSFormalization/Paper1/CriticalEnergyCertificate.lean)
-- [formalization/NSFormalization/Paper1/PeriodicMeanZeroEstimate.lean](../../formalization/NSFormalization/Paper1/PeriodicMeanZeroEstimate.lean)
-
-### T21: cor:nondensity and thm:main assembly
-
-Priority: P1. Status: `open`. Dependencies: T19, T20.
-
-Prove cor:nondensity from the relative open critical-force ball and Sobolev monotonicity, then assemble thm:main(i) and (ii) from T19 and T20 with the stated fixed-data and zero-data quantifiers.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [formalization/NSFormalization/Paper1/PeriodicMain.lean](../../formalization/NSFormalization/Paper1/PeriodicMain.lean)
-- [formalization/NSFormalization/Paper1/ManuscriptTopology.lean](../../formalization/NSFormalization/Paper1/ManuscriptTopology.lean)
-
-### R45: Corollary 4.5: compact and rapid-decay classes
-
-Priority: P2. Status: `source-present-adaptation-open`. Dependencies: R41.
-
-Restrict the two-case argument to F_c and F_rd using compact force differences; preserve all mixed-derivative decay seminorms without uniform common bounds. Include Schwartz solenoidal initial data.
-
-- [formalization/NSFormalization/Paper3/CompactForceAdmissibility.lean](../../formalization/NSFormalization/Paper3/CompactForceAdmissibility.lean)
-
-### B01: Real positive-time Bochner approximation
-
-Priority: P2. Status: `source-present-adaptation-open`. Dependencies: D01.
-
-Reuse exact normalized angular real-vector compact smooth physical approximation for every real Hs and finite q>=1; identify target manuscript completions and support strictly inside positive time.
-
-- [formalization/NSFormalization/Paper3/AngularRealVectorBochner.lean](../../formalization/NSFormalization/Paper3/AngularRealVectorBochner.lean)
-- [formalization/NSFormalization/Paper3/RealVectorPositiveDensity.lean](../../formalization/NSFormalization/Paper3/RealVectorPositiveDensity.lean)
-
-### B02: Homogeneous H-minus-one approximation
-
-Priority: P2. Status: `source-present-adaptation-open`. Dependencies: D01.
-
-Complete the manuscript realization using annular Fourier approximation, physical cutoffs and ||h||_dotH(-1)^2 <= C||h||_L1^2+||h||_L2^2. Transfer to real positive-time Bochner functions; do not substitute arbitrary H(-1) data.
-
-- [formalization/NSFormalization/Paper3/HomogeneousRealization.lean](../../formalization/NSFormalization/Paper3/HomogeneousRealization.lean)
-- [formalization/NSFormalization/Paper3/HomogeneousTime.lean](../../formalization/NSFormalization/Paper3/HomogeneousTime.lean)
-
-### R46: Proposition 4.6: completed density and trajectories
-
-Priority: P2. Status: `source-present-adaptation-open`. Dependencies: R41D, B01, B02, I03.
-
-Combine compact smooth approximation and relative singular-force density by a two-radius argument. Preserve simultaneous E_T, L1 L2, L2 H(-1), L2 dotH(-1) convergence for one family. The homogeneous norm concerns the compact difference; no rough-force classical solution is asserted.
-
-- [formalization/NSFormalization/Paper3/AngularRealVectorBochner.lean](../../formalization/NSFormalization/Paper3/AngularRealVectorBochner.lean)
-
-### G01: Actual finite-grid observations
-
-Priority: P2. Status: `source-present-adaptation-open`. Dependencies: I02.
-
-Reuse common-cell ball geometry, compact solenoidal zero mean, and actual integrated momentum equation with compact pressure difference. Finitely many grids, every cell, every t<T; force equality must be derived from the PDE.
-
-- [formalization/NSFormalization/Paper3/GridGeometry.lean](../../formalization/NSFormalization/Paper3/GridGeometry.lean)
-- [formalization/NSFormalization/Paper3/ActualGridObservations.lean](../../formalization/NSFormalization/Paper3/ActualGridObservations.lean)
-
-### R47: Theorem 4.7: identical cell observations
-
-Priority: P2. Status: `source-present-adaptation-open`. Dependencies: R42, R46, G01.
-
-Use the same insertion and convergence family within one cell of every prescribed grid. Preserve velocity and force averages at every presingular time, while Tmax=T. No claim of equality for point observations or arbitrary refinement.
-
-- [formalization/NSFormalization/Paper3/ActualGridObservations.lean](../../formalization/NSFormalization/Paper3/ActualGridObservations.lean)
-
-### T12: Mean-zero Sobolev calculus and lem:critical-embeddings on T³
-
-Priority: P2. Status: `open`. Dependencies: T10.
-
-Prove eq:Rproduct and the mean-zero T³ bounds ‖v‖∞≤C‖v‖H², ‖v‖₃≤C‖v‖Ḣ¹ᐟ², ‖∇v‖₃+‖Λv‖₃≤C‖v‖Ḣ³ᐟ², ‖∇v‖₆≤C‖Δv‖₂ and ‖v‖H²≤C‖Δv‖₂ together with the spectral gap, without finite-mode constants.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [paper/sections/appendix-a-local-theory.tex](../../paper/sections/appendix-a-local-theory.tex)
-- [paper/sections/appendix-b-embeddings.tex](../../paper/sections/appendix-b-embeddings.tex)
-- [formalization/NSFormalization/Paper1/PeriodicCompactSobolevL6.lean](../../formalization/NSFormalization/Paper1/PeriodicCompactSobolevL6.lean)
-- [formalization/NSFormalization/Paper1/PeriodicH2Embedding.lean](../../formalization/NSFormalization/Paper1/PeriodicH2Embedding.lean)
-- [formalization/NSFormalization/Paper1/PeriodicCriticalBridge.lean](../../formalization/NSFormalization/Paper1/PeriodicCriticalBridge.lean)
-
-### T14: thm:packet import and lem:packetenergy
-
-Priority: P2. Status: `open`. Dependencies: T10.
-
-Instantiate thm:packet and prove lem:packetenergy with finite M and D, the exact energy inequality, initial-interval vanishing, and smooth zero extension of velocity and pressure to negative time.
-
-- [paper/sections/01-introduction.tex](../../paper/sections/01-introduction.tex)
-- [paper/sections/02-preliminaries.tex](../../paper/sections/02-preliminaries.tex)
-- [formalization/NSFormalization/Section4/I01/Energy.lean](../../formalization/NSFormalization/Section4/I01/Energy.lean)
-- [formalization/NSFormalization/Section4/I01/Extension.lean](../../formalization/NSFormalization/Section4/I01/Extension.lean)
-
-### T15: prop:scaling: fixed-viscosity periodic packet scaling
-
-Priority: P2. Status: `open`. Dependencies: T13, T14.
-
-Prove prop:scaling, including eq:packetEscale, eq:packetFscale with α(p,q), eq:packetHs via T13, terminal velocity blowup, pressure normalization and single-copy periodization at fixed viscosity.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [formalization/NSFormalization/Paper1/PeriodicScalingBounds.lean](../../formalization/NSFormalization/Paper1/PeriodicScalingBounds.lean)
-- [formalization/NSFormalization/Paper1/ScalingLimits.lean](../../formalization/NSFormalization/Paper1/ScalingLimits.lean)
-- [formalization/NSFormalization/Paper1/PeriodicPacketEndpointRates.lean](../../formalization/NSFormalization/Paper1/PeriodicPacketEndpointRates.lean)
-
-### T16: lem:potential: local divergence-free cutoff
-
-Priority: P2. Status: `open`. Dependencies: T10.
-
-Prove lem:potential by constructing the radial vector potential ∇×A=v and smooth Urysohn cutoffs so w_ε is smooth, periodic and divergence free and satisfies eq:bgzero near the active packet support.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [formalization/NSFormalization/Paper1/RadialPotential.lean](../../formalization/NSFormalization/Paper1/RadialPotential.lean)
-- [formalization/NSFormalization/Paper1/LocalCutoff.lean](../../formalization/NSFormalization/Paper1/LocalCutoff.lean)
-- [formalization/NSFormalization/Paper1/PeriodicConstantLocal.lean](../../formalization/NSFormalization/Paper1/PeriodicConstantLocal.lean)
-
-### T17: lem:correction: uniform background-correction bounds
-
-Priority: P2. Status: `open`. Dependencies: T16, T13.
-
-Prove lem:correction from a uniformly smooth fixed-cylinder rescaled profile, obtaining eq:derivativebounds, eq:wE and eq:Hmixed and transferring eq:HHs through T13 with constants uniform in ε.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [formalization/NSFormalization/Paper1/CorrectionForceProfile.lean](../../formalization/NSFormalization/Paper1/CorrectionForceProfile.lean)
-- [formalization/NSFormalization/Paper1/CorrectionEnergy.lean](../../formalization/NSFormalization/Paper1/CorrectionEnergy.lean)
-- [formalization/NSFormalization/Paper1/CorrectionMixedNorms.lean](../../formalization/NSFormalization/Paper1/CorrectionMixedNorms.lean)
-- [formalization/NSFormalization/Paper1/PeriodicCorrectionEndpointRates.lean](../../formalization/NSFormalization/Paper1/PeriodicCorrectionEndpointRates.lean)
-
-### T22: Bounded-domain restriction and zero-extension norms
-
-Priority: P2. Status: `open`. Dependencies: T10.
-
-Prove eq:restriction-norm and eq:zero-extension for every real H^s(R³), with a multiplier bound for fields supported in a fixed compact interior set and a constant independent of the shrinking ε-scale.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [formalization/NSFormalization/Paper1/BoundaryAnalyticBridge.lean](../../formalization/NSFormalization/Paper1/BoundaryAnalyticBridge.lean)
-- [formalization/NSFormalization/Paper1/BoundaryReferenceRestriction.lean](../../formalization/NSFormalization/Paper1/BoundaryReferenceRestriction.lean)
-
-### T23: cor:boundary: interior no-slip insertion
-
-Priority: P2. Status: `open`. Dependencies: T18, T22.
-
-Prove cor:boundary by inserting inside a fixed interior ball while preserving the no-slip boundary collar and initial data, comparing domain and zero-extension norms uniformly, and using no-slip uniqueness to obtain singularity exactly at T.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [formalization/NSFormalization/Paper1/BoundaryCorollaryCorrected.lean](../../formalization/NSFormalization/Paper1/BoundaryCorollaryCorrected.lean)
-- [formalization/NSFormalization/Paper1/BoundarySupportComposition.lean](../../formalization/NSFormalization/Paper1/BoundarySupportComposition.lean)
-
-### T24: prop:affine, prop:multiple and prop:conservative
-
-Priority: P2. Status: `open`. Dependencies: T14, T15.
-
-Prove the three independent Section 3 leaves prop:affine, prop:multiple and prop:conservative, preserving their compact-support, finitely-many-region, and periodic-potential/no-slip quantifiers.
-
-- [paper/sections/03-torus.tex](../../paper/sections/03-torus.tex)
-- [formalization/NSFormalization/Paper1/ConservativeForce.lean](../../formalization/NSFormalization/Paper1/ConservativeForce.lean)
-- [formalization/NSFormalization/Paper1/PeriodicNonpositiveForce.lean](../../formalization/NSFormalization/Paper1/PeriodicNonpositiveForce.lean)
-
-### T01: Periodic analytic adapters
-
-Priority: P3. Status: `source-present-adaptation-open`. Dependencies: A03, U02, U03.
-
-After Section 4, adapt forced local theory to the torus, remove the evolving mean by a Galilean translation, normalize pressure, and prove the uniform mean-zero critical embedding. Do not use finite-mode constants as a full embedding.
-
-- [formalization/NSFormalization/Paper1/PeriodicPressureNormalization.lean](../../formalization/NSFormalization/Paper1/PeriodicPressureNormalization.lean)
-- [formalization/NSFormalization/Paper1/PeriodicCriticalBridge.lean](../../formalization/NSFormalization/Paper1/PeriodicCriticalBridge.lean)
-
-### T02: Periodic localization and insertion
-
-Priority: P3. Status: `source-present-adaptation-open`. Dependencies: I02, I03, T01.
-
-Perform torus localization and norm transfer, packet scaling and manuscript-class insertion. These domain-specific transfers are not prerequisites for Section 4.
-
-- [formalization/NSFormalization/Paper1/PeriodicInsertion.lean](../../formalization/NSFormalization/Paper1/PeriodicInsertion.lean)
-
-### T03: Periodic density and endpoint classification
-
-Priority: P3. Status: `source-present-adaptation-open`. Dependencies: T02, T01.
-
-Assemble Section 3 density, critical non-density, mixed sufficient conditions, trajectory closure and projection with their original quantifiers.
-
-- [formalization/NSFormalization/Paper1/PeriodicMain.lean](../../formalization/NSFormalization/Paper1/PeriodicMain.lean)
-- [formalization/NSFormalization/Paper1/PeriodicDensityDichotomy.lean](../../formalization/NSFormalization/Paper1/PeriodicDensityDichotomy.lean)
-
-### T04: Remaining Section 3 consequences
-
-Priority: P3. Status: `source-present-adaptation-open`. Dependencies: T02.
-
-Audit interior no-slip insertion with positive time margin and correct field linkage; retain affine velocity/quadratic force variation, finite singular regions and conservative forcing statements. Legacy boundary interfaces must match the merged statement before reuse.
-
-- [formalization/NSFormalization/Paper1/BoundaryCorollaryCorrected.lean](../../formalization/NSFormalization/Paper1/BoundaryCorollaryCorrected.lean)
-- [formalization/NSFormalization/Paper1/ConservativeForce.lean](../../formalization/NSFormalization/Paper1/ConservativeForce.lean)
+## The periodic main theorem and its consequences
+
+```mermaid
+flowchart TD
+  E22["Lemma 2.2<br/>energy and initial<br/>vanishing<br/>Closed"]
+  L32["Lemma 3.2<br/>fractional localization<br/>Closed"]
+  S33["Proposition 3.3<br/>scaling<br/>Closed"]
+  C35_T["Lemma 3.5<br/>proved periodic case<br/>Closed"]
+  L21T["Proposition 2.1<br/>periodic H3 route<br/>Closed"]
+  G36["Theorem 3.6<br/>fixed-ball construction<br/>Closed"]
+  G36_FULL["Theorem 3.6<br/>prescribed ball<br/>Partial"]
+  D37["Proposition 3.7<br/>periodic density<br/>Closed"]
+  K38["Proposition 3.8<br/>periodic critical estimate<br/>Closed"]
+  N39["Corollary 3.9<br/>non-density<br/>Closed"]
+  T31["Theorem 3.1<br/>periodic threshold<br/>Closed"]
+  M310["Corollary 3.10<br/>mixed-norm density<br/>Closed"]
+  E311["Corollary 3.11<br/>trajectory closure<br/>Closed"]
+  P312["Proposition 3.12<br/>data-pair projection<br/>Closed"]
+  R313["Remark 3.13<br/>force-amplitude divergence<br/>Partial"]
+  E22 --> S33
+  L32 --> S33
+  L32 --> C35_T
+  S33 --> G36
+  C35_T --> G36
+  L21T --> G36
+  G36 -. remaining scope .-> G36_FULL
+  G36 --> D37
+  L21T --> K38
+  K38 --> N39
+  D37 --> T31
+  N39 --> T31
+  G36 --> M310
+  G36 --> E311
+  D37 --> P312
+  S33 -. remaining scope .-> R313
+  C35_T -. remaining scope .-> R313
+  classDef closed fill:#dcfce7,stroke:#15803d,color:#14532d;
+  classDef partial fill:#fff7d6,stroke:#b45309,color:#78350f;
+  classDef mainResult stroke-width:4px;
+  class E22,L32,S33,C35_T,L21T,G36,D37,K38,N39,T31,M310,E311,P312 closed;
+  class G36_FULL,R313 partial;
+  class T31 mainResult;
+```
+
+## Bounded domains and secondary constructions
+
+```mermaid
+flowchart TD
+  E22["Lemma 2.2<br/>energy and initial<br/>vanishing<br/>Closed"]
+  C35_LOCAL["Lemma 3.5<br/>proved local estimates<br/>Closed"]
+  BN["Bounded-domain norm<br/>comparison<br/>Closed"]
+  BU["No-slip uniqueness<br/>Closed"]
+  B314["Corollary 3.14<br/>bounded-domain gluing<br/>Closed"]
+  A315["Proposition 3.15<br/>affine variations<br/>Closed"]
+  S33["Proposition 3.3<br/>scaling<br/>Closed"]
+  M316["Proposition 3.16<br/>periodic regions<br/>Closed"]
+  M316_B["Proposition 3.16<br/>bounded-domain case<br/>Partial"]
+  C317["Proposition 3.17<br/>periodic conservative force<br/>Closed"]
+  C317_B["Proposition 3.17<br/>bounded-domain case<br/>Partial"]
+  E22 --> B314
+  C35_LOCAL --> B314
+  BN --> B314
+  BU --> B314
+  E22 --> A315
+  E22 --> S33
+  S33 --> M316
+  M316 -. remaining scope .-> M316_B
+  B314 -. remaining scope .-> M316_B
+  C317 -. remaining scope .-> C317_B
+  BU -. remaining scope .-> C317_B
+  classDef closed fill:#dcfce7,stroke:#15803d,color:#14532d;
+  classDef partial fill:#fff7d6,stroke:#b45309,color:#78350f;
+  classDef mainResult stroke-width:4px;
+  class E22,C35_LOCAL,BN,BU,B314,A315,S33,M316,C317 closed;
+  class M316_B,C317_B partial;
+```
+
+## The whole-space main theorem and its consequences
+
+```mermaid
+flowchart TD
+  E22["Lemma 2.2<br/>energy and initial<br/>vanishing<br/>Closed"]
+  C35_LOCAL["Lemma 3.5<br/>proved local estimates<br/>Closed"]
+  NEG["Whole-space negative-order<br/>estimates<br/>Closed"]
+  L21R["Proposition 2.1<br/>whole-space H7 route<br/>Closed"]
+  G42["Theorem 4.2<br/>prescribed-region gluing<br/>Closed"]
+  K43["Proposition 4.3<br/>L1 critical estimate<br/>Closed"]
+  K44["Proposition 4.4<br/>L2 critical estimate<br/>Closed"]
+  T41["Theorem 4.1<br/>whole-space thresholds<br/>Closed"]
+  F45["Corollary 4.5<br/>compact and rapid-decay<br/>classes<br/>Closed"]
+  APP["Smooth Sobolev and Bochner<br/>approximation<br/>Closed"]
+  E46["Proposition 4.6<br/>completed spaces and<br/>trajectories<br/>Closed"]
+  GRID["Grid-adapted local<br/>construction<br/>Closed"]
+  T47["Theorem 4.7<br/>identical grid observations<br/>Closed"]
+  E22 --> NEG
+  C35_LOCAL --> NEG
+  NEG --> G42
+  L21R --> G42
+  L21R --> K43
+  L21R --> K44
+  G42 --> T41
+  K43 --> T41
+  K44 --> T41
+  T41 --> F45
+  G42 --> F45
+  APP --> E46
+  F45 --> E46
+  G42 --> E46
+  NEG --> E46
+  NEG --> GRID
+  L21R --> GRID
+  GRID --> T47
+  E46 -->|trajectory estimates| T47
+  classDef closed fill:#dcfce7,stroke:#15803d,color:#14532d;
+  classDef partial fill:#fff7d6,stroke:#b45309,color:#78350f;
+  classDef mainResult stroke-width:4px;
+  class E22,C35_LOCAL,NEG,L21R,G42,K43,K44,T41,F45,APP,E46,GRID,T47 closed;
+  class T41 mainResult;
+```
+
+## Split article statements
+
+A whole-statement row is Partial whenever an unfinished clause remains. This does not downgrade the proved cases or downstream results that use only those cases.
+
+| Article statement | Closed part used in the proofs | Partial scope |
+|---|---|---|
+| Proposition 2.1 | Periodic existence, uniqueness, maximality and continuation for the used force class, using the formally proved H3 restart case.; Whole-space existence, uniqueness, maximality and continuation for the used force class, using fixed-force H7 restart. | The general H1-uniform restart clauses remain unformalized. They are not inputs to the proved H3/H7 continuation routes. |
+| Lemma 3.5 | Local support, derivative, energy and mixed-norm bounds with the smoothness and geometric hypotheses supplied by a smooth reference solution.; The formal periodic correction theorem with its explicit smoothness, chart and viscosity hypotheses; those hypotheses are supplied in the fixed-ball construction. | The unrestricted article formulation has not been exported with all differences in hypotheses discharged. |
+| Theorem 3.6 | Construct the scaling and correction inputs from raw data; exact lifespan, history and convergence for the fixed-ball case used in density. | The raw-data constructor uses a fixed placement. The complete quantification over an arbitrary prescribed coordinate ball is not closed. |
+| Remark 3.13 | Related estimates are proved in Proposition 3.3 and the used cases of Lemma 3.5. | Scaling and correction estimates are proved; there is no separately exported divergence-of-force-amplitudes conclusion. |
+| Proposition 3.16 | Place finitely many rescaled building blocks in prescribed disjoint periodic regions and sum them. | The bounded-domain no-slip variant has not been assembled. |
+| Proposition 3.17 | Potential-force pairing vanishes and the solution from rest has zero velocity on the torus. | The bounded-domain conservative-force variant is not exported. |
+
+## Proof locations
+
+| Node | Status | Exact scope and Lean source |
+|---|---|---|
+| Theorem 1.1: compact construction | Closed | The compact candidate, energy bound and early-zero interval at every positive viscosity. [ViscosityPacket.lean](../../formalization/NSFormalization/Source/ViscosityPacket.lean) |
+| Same-force comparison | Closed | For every positive viscosity, any compact candidate excludes a global smooth same-force solution with uniformly bounded kinetic energy. All reference bounds follow from its proved smoothness, compact support and energy bound. [PacketBreakdown.lean](../../formalization/NSFormalization/Source/PacketBreakdown.lean); [BoundedViscosityUniqueness.lean](../../formalization/NSFormalization/Source/BoundedViscosityUniqueness.lean); [WholeSpaceUniqueness.lean](../../vendor/NavierStokesAndEuler/NavierStokes/R3/WholeSpaceUniqueness.lean) |
+| Theorem 1.1: complete statement | Closed | One time-one compact candidate and its same-force global nonexistence conclusion for every positive viscosity, proved by source_breakdown. [PacketBreakdown.lean](../../formalization/NSFormalization/Source/PacketBreakdown.lean); [ProblemStatement.lean](../../vendor/NavierStokesAndEuler/NavierStokes/R3/ProblemStatement.lean) |
+| Proposition 2.1: periodic H3 route | Closed | Periodic existence, uniqueness, maximality and continuation for the used force class, using the formally proved H3 restart case. [TorusLocalTheory.lean](../../verification/Bindings/TorusLocalTheory.lean); [ExistenceInputH3.lean](../../formalization/NSFormalization/Section3/T11/ExistenceInputH3.lean) |
+| Proposition 2.1: whole-space H7 route | Closed | Whole-space existence, uniqueness, maximality and continuation for the used force class, using fixed-force H7 restart. [LocalTheoryV2.lean](../../verification/Bindings/LocalTheoryV2.lean); [ShiftedExtension.lean](../../formalization/NSFormalization/Section4/A04/ShiftedExtension.lean) |
+| Proposition 2.1: general H1 restart | Partial | The general H1-uniform restart clauses remain unformalized. They are not inputs to the proved H3/H7 continuation routes. [LocalTheoryV2.lean](../../verification/Bindings/LocalTheoryV2.lean); [TorusLocalTheory.lean](../../verification/Bindings/TorusLocalTheory.lean) |
+| Lemma 2.2: energy and initial vanishing | Closed | Finite energy and dissipation, the energy identity and an initial zero interval for the selected candidate. [PacketImport.lean](../../verification/Bindings/PacketImport.lean); [Quiet.lean](../../formalization/NSFormalization/Section4/I01/Quiet.lean) |
+| Lemma 3.2: fractional localization | Closed | Local-to-torus Sobolev comparison, including the endpoint identities. [Assembly.lean](../../formalization/NSFormalization/Section3/T13/Assembly.lean) |
+| Proposition 3.3: scaling | Closed | Energy, mixed-norm and Sobolev scaling of the compact building block. [Assembly.lean](../../formalization/NSFormalization/Section3/T15/Assembly.lean) |
+| Lemma 3.4: potential and cutoffs | Closed | Construct a local vector potential and divergence-free cutoff modification. [Assembly.lean](../../formalization/NSFormalization/Section3/T16/Assembly.lean) |
+| Lemma 3.5: proved local estimates | Closed | Local support, derivative, energy and mixed-norm bounds with the smoothness and geometric hypotheses supplied by a smooth reference solution. [Reference.lean](../../formalization/NSFormalization/Section4/I02/Reference.lean); [Correction.lean](../../verification/Bindings/Correction.lean) |
+| Lemma 3.5: proved periodic case | Closed | The formal periodic correction theorem with its explicit smoothness, chart and viscosity hypotheses; those hypotheses are supplied in the fixed-ball construction. [Assembly.lean](../../formalization/NSFormalization/Section3/T17/Assembly.lean); [SlabBridge2.lean](../../formalization/NSFormalization/Section3/T17/SlabBridge2.lean) |
+| Lemma 3.5: full article scope | Partial | The unrestricted article formulation has not been exported with all differences in hypotheses discharged. [Assembly.lean](../../formalization/NSFormalization/Section3/T17/Assembly.lean) |
+| Theorem 3.6: fixed-ball construction | Closed | Construct the scaling and correction inputs from raw data; exact lifespan, history and convergence for the fixed-ball case used in density. [Threading.lean](../../formalization/NSFormalization/Section3/T19/Threading.lean) |
+| Theorem 3.6: prescribed ball | Partial | The raw-data constructor uses a fixed placement. The complete quantification over an arbitrary prescribed coordinate ball is not closed. [Assembly.lean](../../formalization/NSFormalization/Section3/T18/Assembly.lean); [Threading.lean](../../formalization/NSFormalization/Section3/T19/Threading.lean) |
+| Proposition 3.7: periodic density | Closed | The two-case lifespan argument needs only one fully constructed localization, not the prescribed-ball extension. [Assembly.lean](../../formalization/NSFormalization/Section3/T19/Assembly.lean) |
+| Proposition 3.8: periodic critical estimate | Closed | Small critical forcing gives regularity through the proved H3 continuation route. [Assembly.lean](../../formalization/NSFormalization/Section3/T20/Assembly.lean) |
+| Corollary 3.9: non-density | Closed | A nonempty open regularity ball and Sobolev monotonicity exclude density at and above the threshold. [MainAssembly.lean](../../formalization/NSFormalization/Section3/T21/MainAssembly.lean) |
+| Theorem 3.1: periodic threshold | Closed | Combine subcritical fixed-datum density and the zero-datum non-density obstruction. [MainAssembly.lean](../../formalization/NSFormalization/Section3/T21/MainAssembly.lean) |
+| Corollary 3.10: mixed-norm density | Closed | Use the same two-case argument and the positive mixed-norm scaling exponent. [Assembly.lean](../../formalization/NSFormalization/Section3/T19/Assembly.lean) |
+| Corollary 3.11: trajectory closure | Closed | Energy and force convergence for one constructed family around a smooth reference. [Assembly.lean](../../formalization/NSFormalization/Section3/T19/Assembly.lean) |
+| Proposition 3.12: data-pair projection | Closed | Fixed-initial-data density gives product density and surjectivity onto the initial-data class. [Assembly.lean](../../formalization/NSFormalization/Section3/T19/Assembly.lean) |
+| Remark 3.13: force-amplitude divergence | Partial | Scaling and correction estimates are proved; there is no separately exported divergence-of-force-amplitudes conclusion. [Assembly.lean](../../formalization/NSFormalization/Section3/T15/Assembly.lean); [Assembly.lean](../../formalization/NSFormalization/Section3/T17/Assembly.lean) |
+| Bounded-domain norm comparison | Closed | Restriction and zero-extension estimates for compactly supported interior perturbations. [Assembly.lean](../../formalization/NSFormalization/Section3/T22/Assembly.lean) |
+| No-slip uniqueness | Closed | The classical uniqueness theorem on the bounded domain is formally proved. [NoSlipUniqueness.lean](../../formalization/NSFormalization/Section3/T23/NoSlipUniqueness.lean) |
+| Corollary 3.14: bounded-domain gluing | Closed | The final raw-data theorem constructs its packet, placement and norm witnesses internally in the prescribed interior ball. [BoundaryInsertionV2.lean](../../verification/Bindings/BoundaryInsertionV2.lean) |
+| Proposition 3.15: affine variations | Closed | Compact divergence-free perturbations of the selected building block give the affine family. [AffineVariation.lean](../../verification/Bindings/AffineVariation.lean) |
+| Proposition 3.16: periodic regions | Closed | Place finitely many rescaled building blocks in prescribed disjoint periodic regions and sum them. [MultipleAssembly.lean](../../formalization/NSFormalization/Section3/T24/MultipleAssembly.lean) |
+| Proposition 3.16: bounded-domain case | Partial | The bounded-domain no-slip variant has not been assembled. [Multiple.lean](../../formalization/NSFormalization/Section3/T24/Multiple.lean) |
+| Proposition 3.17: periodic conservative force | Closed | Potential-force pairing vanishes and the solution from rest has zero velocity on the torus. [ConservativeAssembly.lean](../../formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean) |
+| Proposition 3.17: bounded-domain case | Partial | The bounded-domain conservative-force variant is not exported. [ConservativeAssembly.lean](../../formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean) |
+| Whole-space negative-order estimates | Closed | Fourier scaling and low-frequency control of compact force profiles; the positive and negative norm bounds needed for the subcritical limits. [HomogeneousScaling.lean](../../formalization/NSFormalization/Section4/I03/HomogeneousScaling.lean); [ScalingNorms.lean](../../verification/Bindings/ScalingNorms.lean) |
+| Theorem 4.2: prescribed-region gluing | Closed | For every prescribed nonempty open set, construct one family from the given reference, with exact lifespan, blowup, history, compact support, energy bound and all subcritical force limits. The building block is selected before the reference and region. [InsertionFromData.lean](../../verification/Bindings/InsertionFromData.lean); [InsertionLifespan.lean](../../verification/Contracts/V2/InsertionLifespan.lean) |
+| Proposition 4.3: L1 critical estimate | Closed | The whole-space critical estimate with the proved high-order continuation route. [Universal.lean](../../formalization/NSFormalization/Section4/R43/Universal.lean) |
+| Proposition 4.4: L2 critical estimate | Closed | The finite-horizon inhomogeneous critical estimate at zero initial velocity. [Prop44.lean](../../formalization/NSFormalization/Section4/R44/Prop44.lean) |
+| Theorem 4.1: whole-space thresholds | Closed | Combine subcritical density from the constructed case with the two critical non-density obstructions. [MainThresholds.lean](../../verification/Bindings/MainThresholds.lean) |
+| Corollary 4.5: compact and rapid-decay classes | Closed | Compactly supported force changes preserve both subclasses; the same critical regularity balls give the converse. [ForceClasses.lean](../../verification/Bindings/ForceClasses.lean) |
+| Smooth Sobolev and Bochner approximation | Closed | Approximate completed data by smooth compactly supported fields and time profiles. [Spatial.lean](../../formalization/NSFormalization/Section4/B01/Spatial.lean); [Temporal.lean](../../formalization/NSFormalization/Section4/B01/Temporal.lean) |
+| Proposition 4.6: completed spaces and trajectories | Closed | Combine smooth approximation, compact-force density and the simultaneous energy and force estimates for one family. [CompletedDensity.lean](../../verification/Bindings/CompletedDensity.lean) |
+| Grid-adapted local construction | Closed | Construct a ball inside a common cell and prove vanishing cell integrals for the localized perturbation. [GridAssembly.lean](../../verification/Bindings/GridAssembly.lean); [FluxCancellation.lean](../../verification/Bindings/FluxCancellation.lean) |
+| Theorem 4.7: identical grid observations | Closed | Use the internally constructed common-cell ball, cancellation and simultaneous convergence estimates. [GridObservations.lean](../../verification/Bindings/GridObservations.lean) |
+
+## Verification and source data
+
+The article-level inventory has **21 Closed and 6 Partial entries** (26 numbered statements and one numbered remark). These counts are distinct from the number of clause-level nodes above. The recorded kernel audit checks **56 declarations**, with **no forbidden axioms**. The permitted logical axioms are `propext`, `Classical.choice` and `Quot.sound`; the retained source scan has no admissions or custom axiom declarations.
+
+The graph is generated from [proof_graph.json](proof_graph.json). [RESULT_MAP.md](RESULT_MAP.md) supplies declaration locations, [CLOSURE_AUDIT.md](CLOSURE_AUDIT.md) records the input review, and [AXIOM_AUDIT.json](AXIOM_AUDIT.json) records the kernel results. The implementation registry in `tasks.json` is used for package checks, not as the reader-facing proof graph.
+
+Run `python3 experiments/check_formalization_plan.py` to regenerate this file; `make check` verifies coverage agreement, acyclicity, displayed edges, source paths and the rule that a Closed proof cannot depend on a Partial node.
