@@ -22,10 +22,10 @@ an assumed analytic theorem from an ordinary hypothesis.
   by itself close the article's quantification over an arbitrary prescribed
   coordinate ball.
 
-The other Partial entries are Proposition 2.1, Lemma 3.5, Remark 3.13, and
+The other Partial entries are Proposition 2.1, Lemma 3.5, and
 Propositions 3.16 and 3.17. Their precise limits remain in the guide.
 
-## The 21 Closed entries
+## The 22 Closed entries
 
 The proof locations are linked in [RESULT_MAP.md](RESULT_MAP.md). The table
 below records why a helper record is not being accepted as an unproved input.
@@ -44,6 +44,7 @@ below records why a helper record is not being accepted as an unproved input.
 | Corollary 3.10 | `mixedRegionStatement_holds` uses `mixedRegionAPI` and the constructed fixed-ball insertion. No gluing record is supplied by the caller. |
 | Corollary 3.11 | `strongClosureStatement_holds` uses `strongClosureAPI`, with the inserted families and energy convergence supplied internally. |
 | Proposition 3.12 | `projectionStatement_holds` obtains both clauses from the constructed `projectionAPI`. |
+| Remark 3.13 | `T18.packetForce_ne_zero` derives nonzero forcing from packet energy and blowup. Single-copy scaling and the correction record’s order-zero profile bound prove `forceAmplitude_lower`; `forceAmplitude_diverges` and `forceAmplitude_real_diverges` apply to every canonical record without additional premises. The binding discharges all raw packet clauses from the registered packet, and `T19.forceAmplitude_diverges` instantiates the constructed fixed-ball family. |
 | Corollary 3.14 | `boundaryInsertion_from_data` takes only domain, ball, time, datum, force and reference-solution hypotheses. It instantiates `packetImportFamily.select`, `domainPlacementData`, `Contract.placeFrom` and the proved bounded-domain norm record before applying the insertion theorem. No packet, norm, correction or boundary-identity supplier is a caller argument. |
 | Proposition 3.15 | `affineVariationPacket` is instantiated at the compiled selected packet. Remaining arguments are the stated affine vector and positive radius/time parameters. |
 | Theorem 4.1 | `mainThresholds` is a closed record. Its density branch invokes `insertionLifespanV2_of_data`; its converse invokes the proved critical estimates. |
@@ -83,7 +84,7 @@ without changing those downstream constructions or their hypotheses.
 `Tests.Packet.checkedPacketBreakdown` checks the exact full statement and its
 transitive axioms, alongside the existing construction check. The guide's
 kernel audit also includes `Source.source_breakdown`. The Linux acceptance run
-checks this declaration together with all 29 registered interfaces; the full
+checks this declaration together with all 30 registered interfaces; the full
 source snapshot and collected axiom sets are recorded in `AXIOM_AUDIT.json`.
 
 ## Verification
