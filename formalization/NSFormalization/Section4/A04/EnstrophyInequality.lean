@@ -197,4 +197,55 @@ theorem convection_interpolation (z : Space → Space) (hz : SmoothL2 z) :
         (eLpNorm (lap z) 2 volume * (eLpNorm (lap z) 2 volume) ^ (1 / 2 : ℝ)) := by ring
     _ = _ := by rw [hp, hp, hp]
 
+/-- Elementary scaled quartic Young estimate, also valid at zero. -/
+theorem young_quartic {a b ε : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) (hε : 0 < ε) :
+    a * b ^ 3 ≤ ε * b ^ 4 + a ^ 4 / ε ^ 3 := by
+  by_cases h : b ≤ a / ε
+  · have hh : a * b ^ 3 ≤ a * (a / ε) ^ 3 := by gcongr
+    have he : a * (a / ε) ^ 3 = a ^ 4 / ε ^ 3 := by ring
+    rw [he] at hh
+    exact hh.trans (le_add_of_nonneg_left (by positivity))
+  · have hh : a ≤ ε * b := by
+      have := (div_lt_iff₀ hε).mp (lt_of_not_ge h)
+      linarith
+    have hm := mul_le_mul_of_nonneg_right hh (pow_nonneg hb 3)
+    have he : ε * b * b ^ 3 = ε * b ^ 4 := by ring
+    rw [he] at hm
+    exact hm.trans (le_add_of_nonneg_right (by positivity))
+
+/-- Real-valued convection bound from explicit B0 physical-norm bounds.
+The two hypotheses concern only norm carriers, not convection or absorption. -/
+theorem convection_bound_of_norm_bridges (z : Space → Space) (hz : SmoothL2 z)
+    {H D : ℝ} (hH : 0 ≤ H) (hD : 0 ≤ D)
+    (hG : eLpNorm (gradTensor z) 2 volume ≤ ENNReal.ofReal H)
+    (hL : eLpNorm (lap z) 2 volume ≤ ENNReal.ofReal D) :
+    |advectionWork z| ≤ gradientL6Const ^ (3 / 2 : ℝ) *
+      H ^ (3 / 2 : ℝ) * D ^ (3 / 2 : ℝ) := by
+  have hC := A05.gradientL6Const_pos
+  have h := (convection_interpolation z hz).trans
+    (mul_le_mul' (mul_le_mul' le_rfl
+      (ENNReal.rpow_le_rpow hG (by norm_num)))
+      (ENNReal.rpow_le_rpow hL (by norm_num)))
+  rw [ENNReal.ofReal_rpow_of_nonneg A05.gradientL6Const_pos.le (by norm_num),
+    ENNReal.ofReal_rpow_of_nonneg hH (by norm_num),
+    ENNReal.ofReal_rpow_of_nonneg hD (by norm_num),
+    ← ENNReal.ofReal_mul (by positivity), ← ENNReal.ofReal_mul (by positivity)] at h
+  exact (ENNReal.ofReal_le_ofReal_iff (by positivity)).mp h
+
+/-- Young absorption for the squared-norm exponents, with an explicit coefficient. -/
+theorem young_three_quarters {C Y Z ε : ℝ} (hC : 0 ≤ C) (hY : 0 ≤ Y)
+    (hZ : 0 ≤ Z) (hε : 0 < ε) :
+    C * Y ^ (3 / 4 : ℝ) * Z ^ (3 / 4 : ℝ) ≤
+      ε * Z + C ^ 4 / ε ^ 3 * Y ^ 3 := by
+  have h := young_quartic (a := C * Y ^ (3 / 4 : ℝ))
+    (b := Z ^ (1 / 4 : ℝ)) (by positivity) (by positivity) hε
+  have h3 : (Z ^ (1 / 4 : ℝ)) ^ (3 : ℕ) = Z ^ (3 / 4 : ℝ) := by
+    rw [← Real.rpow_natCast, ← Real.rpow_mul hZ]; norm_num
+  have h4 : (Z ^ (1 / 4 : ℝ)) ^ (4 : ℕ) = Z := by
+    rw [← Real.rpow_natCast, ← Real.rpow_mul hZ]; norm_num
+  have hY4 : (Y ^ (3 / 4 : ℝ)) ^ (4 : ℕ) = Y ^ (3 : ℕ) := by
+    rw [← Real.rpow_natCast, ← Real.rpow_mul hY]; norm_num
+  rw [h3, h4, mul_pow, hY4] at h
+  convert h using 1 <;> ring
+
 end NSFormalization.Section4.A04

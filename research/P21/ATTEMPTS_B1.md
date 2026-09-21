@@ -22,3 +22,7 @@ Existing-file edits: entrypoints.json registers the new module as required.
    operator/Frobenius comparison. Combined with interpolation and Hölder:
    ofReal |advectionWork z| ≤ (ofReal C)^(3/2) G^(3/2) L^(3/2).
    This is unconditional for SmoothL2 z; G and L are physical extended norms.
+5. Closed real convection estimate with only two explicit physical-to-norm
+   bounds, and scaled Young: C Y^(3/4) Z^(3/4) ≤ ε Z + C⁴ ε⁻³ Y³.
+   The elementary quartic proof splits b ≤ a/ε and its complement; no
+   library availability claim or unproved Young input is used.
