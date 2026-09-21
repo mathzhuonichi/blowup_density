@@ -49,7 +49,8 @@
     "NavierStokes.ComparatorR3Theorem",
     "NavierStokes.R3ActualCandidate",
     "NavierStokes.R3FiniteEnergyComparison",
-    "NSFormalization.Section3.T24.MultipleOmegaComponents"
+    "NSFormalization.Section3.T24.MultipleOmegaComponents",
+    "NSFormalization.Section3.T24.MultipleOmegaAssembled"
   ],
   "test_modules": [
     "Tests.AffineVariation",
