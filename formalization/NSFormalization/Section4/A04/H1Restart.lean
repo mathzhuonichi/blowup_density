@@ -80,4 +80,11 @@ theorem classical_manuscriptLocalRegularity {ν T : ℝ} {a : SpatialField}
   projected := A01.projected_of_classicalSolution w
   pressure_potential := A01.PressureGauge.pressure_potential_of_classicalSolution w
 
+/-- Squared registered norms are continuous up to the initial endpoint. -/
+theorem continuousOn_sobolevEnergy {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionR ν a f T) (m : ℕ) :
+    ContinuousOn (fun t => (sobolevENorm (m : ℝ) (C01.slice w.velocity t)).toReal ^ 2)
+      (Ico (0 : ℝ) T) :=
+  (continuousOn_sobolevNormAt_velocity w m).pow 2
+
 end NSFormalization.Section4.A04
