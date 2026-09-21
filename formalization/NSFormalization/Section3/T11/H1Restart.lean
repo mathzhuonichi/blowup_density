@@ -441,4 +441,48 @@ theorem periodicHThree_energy_smoothT {ν T : ℝ} {a : SpatialField}
         torusSobolevNormAt 3 w.velocity t * g at hconv
     linarith
 
+/-- Finite H² dissipation bounds H³ for any smooth periodic force. -/
+theorem periodicHThree_bound_smoothT {ν S : ℝ} (hν : 0 < ν)
+    {a : SpatialField} {f u : SpaceTimeField}
+    {p : NSFormalization.Section4.A02.SpaceTimeScalar}
+    (hf : ContDiff ℝ ∞ f) (hfp : IsPeriodicOn univ f)
+    (hu : SolvesBelowT ν a f S u p) (hfin : squaredHTwoIntegralT S u ≠ ⊤) :
+    ∃ K : ℝ≥0∞, K ≠ ⊤ ∧
+      ∀ t ∈ Ico (0 : ℝ) S, periodicSobolevENorm 3 (fun x => u (t, x)) ≤ K := by
+  obtain ⟨F, hFs, hF⟩ := exists_smooth_forceDatumPath hf hfp 3
+  have hc : Continuous (fun t => torusSobolevNormAt 3 f t) := by
+    apply hFs.continuous.norm.congr
+    intro t
+    exact (torusSobolevNormAt_eq (hF t)).symm
+  let B := ∫ r in (0 : ℝ)..S, torusSobolevNormAt 3 f r
+  refine ⟨ENNReal.ofReal ((torusSobolevNormAt 3 u 0 + B) *
+    Real.exp ((torusPairingConstant 3) ^ 2 / (4 * ν) * (squaredHTwoIntegralT S u).toReal)),
+    ENNReal.ofReal_ne_top, ?_⟩
+  intro t ht
+  obtain ⟨w, hw, _⟩ := hu ((t + S) / 2) (by linarith [ht.1, ht.2]) (by linarith [ht.2])
+  have ht' : t ∈ Ico (0 : ℝ) ((t + S) / 2) := ⟨ht.1, by linarith [ht.2]⟩
+  have hbS : (t + S) / 2 ≤ S := by linarith [ht.2]
+  have h := torusGronwallChain (C := torusPairingConstant 3) (ν := ν)
+    (Kbnd := (squaredHTwoIntegralT S u).toReal) (Bbnd := B)
+    (y := fun r => torusSobolevNormAt 3 w.velocity r)
+    (a := fun r => torusSobolevNormAt 2 w.velocity r)
+    (b := fun r => torusSobolevNormAt 3 f r)
+    hν (continuousOn_torusSobolevNormAt_velocity w 3)
+    (fun r => torusSobolevNormAt_nonneg _ _ _)
+    (continuousOn_torusSobolevNormAt_velocity w 2) hc.continuousOn
+    (fun r => torusSobolevNormAt_nonneg _ _ _)
+    (fun r hr => by
+      have hh := running_hTwo_integral_le w hw hbS hfin hr
+      rw [hw]
+      exact hh)
+    (fun r hr => intervalIntegral.integral_mono_interval le_rfl hr.1
+      (hr.2.le.trans hbS) (ae_of_all _ (fun r => torusSobolevNormAt_nonneg _ _ _))
+      (hc.intervalIntegrable 0 S))
+    (fun r hr => periodicHThree_energy_smoothT w hf hfp hr) t ht'
+  have hn := periodicSobolevENorm_ne_top_smooth 3
+    (classical_velocity_slice_contDiff w ht') (w.velocity_periodic t ht')
+  rw [hw] at hn h
+  rw [← ENNReal.ofReal_toReal hn]
+  exact ENNReal.ofReal_le_ofReal h
+
 end NSFormalization.Section3.T11
