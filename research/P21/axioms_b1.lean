@@ -14,3 +14,7 @@ import NSFormalization.Section4.A04.EnstrophyInequality
 #print axioms NSFormalization.Section4.A04.convection_bound_of_norm_bridges
 
 #print axioms NSFormalization.Section4.A04.young_three_quarters
+
+#print axioms NSFormalization.Section4.A04.young_two_factors
+
+#print axioms NSFormalization.Section4.A04.weighted_cubic_assembly

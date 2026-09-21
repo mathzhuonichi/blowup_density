@@ -248,4 +248,96 @@ theorem young_three_quarters {C Y Z ε : ℝ} (hC : 0 ≤ C) (hY : 0 ≤ Y)
   rw [h3, h4, mul_pow, hY4] at h
   convert h using 1 <;> ring
 
+/-- Quadratic force absorption with arbitrary positive scale. -/
+theorem young_two_factors {a b ε : ℝ} (hε : 0 < ε) :
+    2 * a * b ≤ ε * b ^ 2 + a ^ 2 / ε := by
+  have h : 2 * a * b ≤ (ε ^ 2 * b ^ 2 + a ^ 2) / ε :=
+    (le_div_iff₀ hε).2 (by nlinarith [sq_nonneg (ε * b - a)])
+  convert h using 1 <;> field_simp
+
+/-- Weighted inhomogeneous identity. The weight permits the registered Fourier
+normalization to be supplied by B0 without asserting a false unweighted equality. -/
+theorem weightedEnergyIdentity
+    {ν T : ℝ} {a : A02.SpatialField} {f : A02.SpaceTimeField}
+    (w : A02.ClassicalSolutionR ν a f T) (hf : A02.MemForceR f) (κ : ℝ)
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) :
+    HasDerivAt
+      (fun s => l2Sq (slice w.velocity s) + κ * gradientSq (slice w.velocity s))
+      (-2 * ν * gradientSq (slice w.velocity t) - 2 * κ * ν * laplacianSq (slice w.velocity t) +
+        2 * κ * advectionWork (slice w.velocity t) +
+        2 * pairing (slice w.velocity t) (slice f t) -
+        2 * κ * pairing (slice f t) (A05.lap (slice w.velocity t))) t := by
+  have h := (energyIdentity_l2Sq w hf ht).add
+    ((enstrophyIdentity_gradientSq w hf ht).const_mul κ)
+  convert h using 1 <;> first | rfl | (simp only [gradientSq]; ring)
+
+/-- Cauchy–Schwarz on carrier B, with physical integral norms. -/
+theorem abs_pairing_carrier_le
+    (A B : EulerLpTranslation.SmoothL2Field Space) :
+    |pairing A.field B.field| ≤ Real.sqrt (l2Sq A.field) * Real.sqrt (l2Sq B.field) := by
+  have hn (W : EulerLpTranslation.SmoothL2Field Space) :
+      Real.sqrt (l2Sq W.field) = ‖W.toLp‖ := by
+    change Real.sqrt (∫ x, ‖W.field x‖ ^ 2) = _
+    rw [← norm_toLp_sq_eq_l2Sq, Real.sqrt_sq (norm_nonneg _)]
+  rw [hn A, hn B]
+  change |∫ x, inner ℝ (A.field x) (B.field x)| ≤ _
+  rw [pairing_eq_inner]
+  exact abs_real_inner_le_norm _ _
+
+/-- General cubic absorption, retaining the low-order H² term U. -/
+theorem weighted_cubic_assembly {ν κ C U G L F N P Q d Y Z : ℝ}
+    (hν : 0 < ν) (hκ : 0 < κ) (hκ1 : κ ≤ 1) (hC : 0 ≤ C)
+    (hU : 0 ≤ U) (hG : 0 ≤ G) (hL : 0 ≤ L) (hF : 0 ≤ F)
+    (hY : Y = U + κ * G) (hZ : Z ≤ U + 2 * κ * G + κ ^ 2 * L)
+    (hd : d = -2 * ν * G - 2 * κ * ν * L + 2 * κ * N + 2 * P - 2 * κ * Q)
+    (hN : |N| ≤ C * G ^ (3 / 4 : ℝ) * L ^ (3 / 4 : ℝ))
+    (hP : P ≤ Real.sqrt U * Real.sqrt F)
+    (hQ : -Q ≤ Real.sqrt F * Real.sqrt L) :
+    d + ν * Z ≤
+      ((2 * κ * C) ^ 4 / (κ * ν / 2) ^ 3 / κ ^ 3 + (1 + ν)) * (1 + Y) ^ 3 +
+        (1 + 2 * κ / ν) * F := by
+  have hY0 : 0 ≤ Y := by rw [hY]; positivity
+  have hn := young_three_quarters (C := 2 * κ * C) (Y := G) (Z := L)
+    (by positivity) hG hL (show 0 < κ * ν / 2 by positivity)
+  have hn' : 2 * κ * N ≤ κ * ν / 2 * L +
+      (2 * κ * C) ^ 4 / (κ * ν / 2) ^ 3 * G ^ 3 := by
+    have h := mul_le_mul_of_nonneg_left ((le_abs_self N).trans hN) (by positivity : 0 ≤ 2 * κ)
+    nlinarith only [h, hn]
+  have hp : 2 * P ≤ U + F := by
+    have h := young_two_factors (a := Real.sqrt U) (b := Real.sqrt F) (ε := 1) (by norm_num)
+    rw [Real.sq_sqrt hU, Real.sq_sqrt hF] at h
+    nlinarith
+  have hq : -2 * κ * Q ≤ κ * ν / 2 * L + (2 * κ / ν) * F := by
+    have h := young_two_factors (a := Real.sqrt F) (b := Real.sqrt L)
+      (ε := ν / 2) (by positivity)
+    rw [Real.sq_sqrt hL, Real.sq_sqrt hF] at h
+    have hh := mul_le_mul_of_nonneg_left h hκ.le
+    have hqq := mul_le_mul_of_nonneg_left hQ (show 0 ≤ 2 * κ by positivity)
+    have he : κ * (ν / 2 * L + F / (ν / 2)) = κ * ν / 2 * L + (2 * κ / ν) * F := by ring
+    rw [he] at hh
+    nlinarith only [hh, hqq]
+  have hGY : G ≤ Y / κ := (le_div_iff₀ hκ).2 (by rw [hY]; nlinarith)
+  have hcube : G ^ 3 ≤ Y ^ 3 / κ ^ 3 := by
+    calc G ^ 3 ≤ (Y / κ) ^ 3 := by gcongr
+         _ = _ := by ring
+  have hcoef : 0 ≤ (2 * κ * C) ^ 4 / (κ * ν / 2) ^ 3 := by positivity
+  have hbound := mul_le_mul_of_nonneg_left hcube hcoef
+  have hmono : Y ^ 3 ≤ (1 + Y) ^ 3 := by gcongr; linarith
+  have hmono1 : Y ≤ (1 + Y) ^ 3 := by nlinarith [sq_nonneg Y, pow_nonneg hY0 3]
+  have hc : 0 ≤ (2 * κ * C) ^ 4 / (κ * ν / 2) ^ 3 / κ ^ 3 := by positivity
+  have hmajor := mul_le_mul_of_nonneg_left hmono hc
+  have hmajor1 := mul_le_mul_of_nonneg_left hmono1 (show 0 ≤ 1 + ν by positivity)
+  have hz := mul_le_mul_of_nonneg_left hZ hν.le
+  have hk : κ ^ 2 ≤ κ := by nlinarith
+  have hkL := mul_le_mul_of_nonneg_right hk hL
+  have hkg := mul_le_mul_of_nonneg_right hκ1 hG
+  have hdis : ν * (2 * κ * G + κ ^ 2 * L) ≤ 2 * ν * G + κ * ν * L := by
+    nlinarith [mul_le_mul_of_nonneg_left hkL hν.le, mul_le_mul_of_nonneg_left hkg hν.le]
+  have hUY : U ≤ Y := by rw [hY]; nlinarith [mul_nonneg hκ.le hG]
+  have hu := mul_le_mul_of_nonneg_left hUY (show 0 ≤ 1 + ν by positivity)
+  have he : (2 * κ * C) ^ 4 / (κ * ν / 2) ^ 3 * (Y ^ 3 / κ ^ 3) =
+      ((2 * κ * C) ^ 4 / (κ * ν / 2) ^ 3 / κ ^ 3) * Y ^ 3 := by ring
+  rw [he] at hbound
+  nlinarith only [hn', hp, hq, hbound, hmajor, hmajor1, hz, hdis, hu, hd]
+
 end NSFormalization.Section4.A04

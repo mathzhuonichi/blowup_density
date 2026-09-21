@@ -26,3 +26,8 @@ Existing-file edits: entrypoints.json registers the new module as required.
    bounds, and scaled Young: C Y^(3/4) Z^(3/4) ≤ ε Z + C⁴ ε⁻³ Y³.
    The elementary quartic proof splits b ≤ a/ε and its complement; no
    library availability claim or unproved Young input is used.
+6. Closed scalar weighted cubic assembly. For Y=U+κG and
+   Z≤U+2κG+κ²L (0<κ≤1), the coefficient of Z is ν. The cubic coefficient
+   is (2κC)⁴/(κν/2)³/κ³ + 1+ν and the force coefficient is 1+2κ/ν.
+   The L² term U is explicitly retained and bounded by Y. No Poincaré
+   inequality, critical smallness, or endpoint-integrability claim is used.
