@@ -20,6 +20,27 @@ The theorem has the literal `h1UniformEndpointT` target shape.  It introduces
 no named input, force-shift class assertion, admission, custom axiom, or
 heartbeat override.
 
+## Registration adapters
+
+`Contracts/V2/TorusLocalTheory.lean` reuses all V1 definitions and structures,
+adding only the two H¹ fields.  The binding uses the existing `toContract`,
+`periodicLocalRegularity_toContract`, and `solvesBelowT_eq` conversions.  Its
+zero-solution probe selects the finite radius
+`periodicSobolevENorm 1 (0 : SpatialField)` and instantiates the registered
+`restartBeyond` field on genuine classical zero solutions at every shorter
+horizon.
+
+The first direct contract check omitted the open namespace containing the
+reused norm and reported:
+
+```text
+Function expected at periodicSobolevENorm
+Hint: The identifier `periodicSobolevENorm` is unknown
+```
+
+Opening `Contracts.V1.TorusData` fixes the vocabulary import without restating
+the norm.
+
 ## Verification
 
 The direct theorem module, literal-target probe, and exact axiom check compile.
