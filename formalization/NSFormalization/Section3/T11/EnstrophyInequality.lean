@@ -448,4 +448,24 @@ theorem velocity_six_le_gradient_twoT (z : SpatialField) (hz : SmoothPeriodicT z
       rw [mul_assoc (3 * 343 * ENNReal.ofReal NSFormalization.Section4.A05.gradientL6Const)]
       exact mul_le_mul' le_rfl hb
 
+open ComplexConjugate
+open T20 (periodicPairing gradientSqT laplacianSqT lTwoSqT)
+
+/-- Split the full H¹ pairing into ordinary and Laplacian physical pairings. -/
+theorem torusRealPairing_one_eqT {z b : SpatialField}
+    (hz : SmoothPeriodicT z) (hb : SmoothPeriodicT b)
+    {A B : PeriodicSobolev 1} (hA : IsPeriodicDatum 1 z A)
+    (hB : IsPeriodicDatum 1 b B) :
+    torusRealPairing A B = periodicPairing z b - periodicPairing (laplacian z) b := by
+  have h := (T20.hasSum_periodicPairing hz hb).add (T20.hasSum_angularPairing hz hb)
+  apply (hasSum_datum_pair A B).unique
+  convert h using 1
+  · funext k
+    rw [datum_pair_entry (u := lift z) (v := lift b) (t := 0) hA hB k,
+      Complex.re_ofReal_mul, Real.rpow_one]
+    simp only [velocityCoeffT, NSFormalization.Section4.C01.lift, Pi.add_apply]
+    unfold periodicFrequencyWeight periodicAngularFrequencySq
+    ring
+  · ring
+
 end NSFormalization.Section3.T11
