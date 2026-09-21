@@ -19,6 +19,9 @@ bridge, not implicit in the physical identity below.
 noncomputable section
 open Set MeasureTheory
 open NSFormalization.Section4.C01
+open NavierStokes.ProblemStatement
+open NSFormalization.Section4.A05 (lap gradTensor SmoothL2 dirDeriv gradientL6Const)
+open scoped ENNReal
 namespace NSFormalization.Section4.A04
 
 /-- Exact inhomogeneous physical H¹ energy identity, without smallness. -/
@@ -34,5 +37,84 @@ theorem inhomogeneousEnergyIdentity
         2 * pairing (slice f t) (A05.lap (slice w.velocity t))) t := by
   have h := (energyIdentity_l2Sq w hf ht).add (enstrophyIdentity_gradientSq w hf ht)
   convert h using 1 <;> first | rfl | (simp only [gradientSq]; ring)
+
+/-- Three-factor Hölder with velocity in L⁶ and gradient in L³. -/
+theorem lintegral_convection_holder_632 (z : Space → Space) (hz : SmoothL2 z) :
+    ∫⁻ x, ‖(inner ℝ (advection (lift z) 0 x) (lap z x) : ℝ)‖ₑ ∂volume ≤
+      eLpNorm z 6 volume * eLpNorm (gradTensor z) 3 volume * eLpNorm (lap z) 2 volume := by
+  -- continuity, hence measurability, of the three fields
+  have hcz : Continuous z := hz.contDiff.continuous
+  have hcg : Continuous (gradTensor z) := by
+    show Continuous (fun x =>
+      (WithLp.toLp 2 (fun j : Fin 3 => dirDeriv j z x) : WithLp 2 (Fin 3 → Space)))
+    exact Continuous.comp (PiLp.continuous_toLp 2 (fun _ : Fin 3 => Space))
+      (continuous_pi fun j => (hz.dir j).contDiff.continuous)
+  have hcl : Continuous (lap z) :=
+    continuous_finsetSum _ (fun i _ => ((hz.dir i).dir i).contDiff.continuous)
+  -- pointwise enorm bound on the integrand
+  have hpt : ∀ x : Space,
+      ‖(inner ℝ (advection (lift z) 0 x) (lap z x) : ℝ)‖ₑ ≤
+        ‖z x‖ₑ * ‖gradTensor z x‖ₑ * ‖lap z x‖ₑ := by
+    intro x
+    have hcs : |(inner ℝ (advection (lift z) 0 x) (lap z x) : ℝ)| ≤
+        ‖advection (lift z) 0 x‖ * ‖lap z x‖ := abs_real_inner_le_norm _ _
+    have hreal : |(inner ℝ (advection (lift z) 0 x) (lap z x) : ℝ)| ≤
+        ‖z x‖ * ‖gradTensor z x‖ * ‖lap z x‖ :=
+      hcs.trans (mul_le_mul_of_nonneg_right (advection_norm_le z x) (norm_nonneg _))
+    calc ‖(inner ℝ (advection (lift z) 0 x) (lap z x) : ℝ)‖ₑ
+        = ENNReal.ofReal |(inner ℝ (advection (lift z) 0 x) (lap z x) : ℝ)| :=
+          Real.enorm_eq_ofReal_abs _
+      _ ≤ ENNReal.ofReal (‖z x‖ * ‖gradTensor z x‖ * ‖lap z x‖) :=
+          ENNReal.ofReal_le_ofReal hreal
+      _ = ‖z x‖ₑ * ‖gradTensor z x‖ₑ * ‖lap z x‖ₑ := by
+          rw [ENNReal.ofReal_mul (by positivity), ENNReal.ofReal_mul (norm_nonneg _),
+            ofReal_norm, ofReal_norm, ofReal_norm]
+  -- three-factor Hölder in `ℝ≥0∞`
+  have hpow : ∀ (a : ℝ≥0∞) (k : ℝ), 0 < k → (a ^ k) ^ (1 / k) = a := by
+    intro a k hk
+    rw [← ENNReal.rpow_mul, mul_one_div, div_self (ne_of_gt hk), ENNReal.rpow_one]
+  have hez : (∫⁻ x, ‖z x‖ₑ ^ (6 : ℝ) ∂volume) ^ ((1 : ℝ) / 6) = eLpNorm z 6 volume := by
+    rw [eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num) (by norm_num)]
+    simp only [ENNReal.toReal_ofNat]
+  have heg : (∫⁻ x, ‖gradTensor z x‖ₑ ^ (3 : ℝ) ∂volume) ^ ((1 : ℝ) / 3)
+      = eLpNorm (gradTensor z) 3 volume := by
+    rw [eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num) (by norm_num)]
+    simp only [ENNReal.toReal_ofNat]
+  have hel : (∫⁻ x, ‖lap z x‖ₑ ^ (2 : ℝ) ∂volume) ^ ((1 : ℝ) / 2)
+      = eLpNorm (lap z) 2 volume := by
+    rw [eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num) (by norm_num)]
+    simp only [ENNReal.toReal_ofNat]
+  have hHolder : ∫⁻ x, ‖z x‖ₑ * ‖gradTensor z x‖ₑ * ‖lap z x‖ₑ ∂volume ≤
+      eLpNorm z 6 volume * eLpNorm (gradTensor z) 3 volume * eLpNorm (lap z) 2 volume := by
+    calc ∫⁻ x, ‖z x‖ₑ * ‖gradTensor z x‖ₑ * ‖lap z x‖ₑ ∂volume
+        = ∫⁻ x, ∏ i : Fin 3,
+            (![fun x => ‖z x‖ₑ ^ (6 : ℝ), fun x => ‖gradTensor z x‖ₑ ^ (3 : ℝ),
+              fun x => ‖lap z x‖ₑ ^ (2 : ℝ)] i x) ^
+              (![(1 : ℝ) / 6, 1 / 3, 1 / 2] i) ∂volume := by
+          refine lintegral_congr (fun x => ?_)
+          rw [Fin.prod_univ_three]
+          simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons,
+            Matrix.cons_val_two, Matrix.tail_cons]
+          rw [hpow (‖z x‖ₑ) 6 (by norm_num), hpow (‖gradTensor z x‖ₑ) 3 (by norm_num),
+            hpow (‖lap z x‖ₑ) 2 (by norm_num)]
+      _ ≤ ∏ i : Fin 3,
+            (∫⁻ x, (![fun x => ‖z x‖ₑ ^ (6 : ℝ), fun x => ‖gradTensor z x‖ₑ ^ (3 : ℝ),
+              fun x => ‖lap z x‖ₑ ^ (2 : ℝ)] i x) ∂volume) ^ (![(1 : ℝ) / 6, 1 / 3, 1 / 2] i) := by
+          refine ENNReal.lintegral_prod_norm_pow_le (Finset.univ) ?_ ?_ ?_
+          · intro i _
+            fin_cases i
+            · exact ((continuous_enorm.comp hcz).aemeasurable).pow_const _
+            · exact ((continuous_enorm.comp hcg).aemeasurable).pow_const _
+            · exact ((continuous_enorm.comp hcl).aemeasurable).pow_const _
+          · norm_num [Fin.sum_univ_three, Matrix.cons_val_two, Matrix.tail_cons, Matrix.head_cons]
+          · intro i _
+            fin_cases i <;> norm_num
+      _ = eLpNorm z 6 volume * eLpNorm (gradTensor z) 3 volume * eLpNorm (lap z) 2 volume := by
+          rw [Fin.prod_univ_three]
+          simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons,
+            Matrix.cons_val_two, Matrix.tail_cons]
+          rw [hez, heg, hel]
+  exact (lintegral_mono hpt).trans hHolder
+
 
 end NSFormalization.Section4.A04

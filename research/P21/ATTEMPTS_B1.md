@@ -11,3 +11,6 @@ physical gradient energy, not the inhomogeneous registered Fourier norm.
    both force terms. Closure build of C01.EnstrophyIdentityRaw passed.
 
 Existing-file edits: entrypoints.json registers the new module as required.
+2. Closed Hölder with exponents 6,3,2 by adapting the existing C01 proof.
+   First compile exposed namespace shadowing of `SpatialField`; fixed with
+   explicit `Space → Space`. No analytic assumption was added.
