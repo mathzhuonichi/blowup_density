@@ -1,0 +1,347 @@
+import NSFormalization.Section3.T24.MultipleOmega
+import NSFormalization.Section3.T15.Energy
+
+/-!
+# P5.3–P5.4: separate singularities and energy on Ω
+
+`paper/revised/sections/03-torus.tex:528-531`:
+"On B_j the velocity equals U_j, proving the stated separate limsup for each ball.
+Disjoint supports also give" the energy upper bound and the dissipation equality.
+
+The component velocities, their raw scaling pins, placement, global supports,
+and disjointness are explicit hypotheses supplied by P5.1–P5.2. No component
+constructor or assembled solution is assumed here. The local sum has exactly
+the body of `finiteVelocitySum`, so its assembly bridge is definitional.
+-/
+noncomputable section
+namespace NSFormalization.Section3.T24.OmegaRegions
+open Set MeasureTheory
+open scoped ENNReal NNReal ContDiff Topology
+open NavierStokes.ProblemStatement
+open NSFormalization.Section3.T15 NSFormalization.Section3.T23
+open NSFormalization.Source.PacketScaling
+open NSFormalization.Section4.I02 (spatialGradient)
+
+variable {N : ℕ} {T : ℝ} {c : Fin N → Space} {r : Fin N → ℝ}
+  {w : Fin N → VelocityField}
+
+/-- The explicit finite superposition used by the assembly lane. -/
+def assembledVelocity (w : Fin N → VelocityField) : VelocityField :=
+  finiteVelocitySum w
+
+variable (regions_disjoint : Pairwise (fun i j : Fin N =>
+    Disjoint (Metric.ball (c i) (r i)) (Metric.ball (c j) (r j))))
+  (component_support : ∀ j, ∀ t ∈ Ico (0 : ℝ) T, ∀ x : Space,
+    x ∉ Metric.ball (c j) (r j) → w j (t, x) = 0)
+
+include regions_disjoint component_support
+
+/-- On each prescribed ball all the other summands vanish. -/
+theorem region_agreement : ∀ j, ∀ t ∈ Ico (0 : ℝ) T,
+    ∀ x ∈ Metric.ball (c j) (r j), assembledVelocity w (t, x) = w j (t, x) := by
+  intro j t ht x hx
+  classical
+  change (∑ i, w i (t, x)) = _
+  apply Finset.sum_eq_single j
+  · intro i _ hij
+    exact component_support i t ht x
+      (fun hi => Set.disjoint_left.mp (regions_disjoint hij) hi hx)
+  · simp
+
+/-- Raw Euclidean blow-up witnesses are nonzero, hence lie in their own ball. -/
+theorem region_blowup {u : VelocityField} {x₀ : Fin N → Space} {ε : Fin N → ℝ}
+    (component_pin : ∀ j, w j = scaledVelocity u (x₀ j) T (ε j))
+    (eps_pos : ∀ j, 0 < ε j) (eps_time : ∀ j, ε j ^ 2 < T)
+    (blowup : SpeedUnboundedAtOne u) :
+    ∀ j, SpeedUnboundedAtOn T (Metric.ball (c j) (r j)) (assembledVelocity w) := by
+  intro j A hA δ hδ
+  have hinv : (((ε j)⁻¹ : ℝ) ^ 2)⁻¹ = ε j ^ 2 := by rw [inv_pow, inv_inv]
+  have hb : SpeedUnboundedAt T (w j) := by
+    rw [component_pin j, scaledVelocity_eq_parabolicVelocity, ← hinv]
+    exact speed_unbounded_at_target (inv_pos.mpr (eps_pos j))
+      (by simpa [hinv] using (eps_time j).le) (x₀ j) (zeroPastField_speed blowup)
+  obtain ⟨t, x, ht, hnear, hlarge⟩ := hb A hA δ hδ
+  have hx : x ∈ Metric.ball (c j) (r j) := by
+    by_contra hout
+    rw [component_support j t ⟨ht.1.le, ht.2⟩ x hout, norm_zero] at hlarge
+    linarith
+  refine ⟨t, x, ht, hnear, hx, ?_⟩
+  rw [region_agreement regions_disjoint component_support j t ⟨ht.1.le, ht.2⟩ x hx]
+  exact hlarge
+
+omit regions_disjoint component_support
+
+/-- At most one nonzero summand implies squared-norm additivity. -/
+theorem disjoint_enorm_sq_sum {E : Type*} [NormedAddCommGroup E]
+    (v : Fin N → E) (hd : Pairwise (fun i j : Fin N =>
+      Disjoint (Metric.ball (c i) (r i)) (Metric.ball (c j) (r j))))
+    (x : Space) (hz : ∀ j, x ∉ Metric.ball (c j) (r j) → v j = 0) :
+    ‖∑ j, v j‖ₑ ^ (2 : ℕ) = ∑ j, ‖v j‖ₑ ^ (2 : ℕ) := by
+  classical
+  by_cases hb : ∃ j, x ∈ Metric.ball (c j) (r j)
+  · obtain ⟨j, hj⟩ := hb
+    have hzero : ∀ i, i ≠ j → v i = 0 := fun i hij =>
+      hz i (fun hi => Set.disjoint_left.mp (hd hij) hi hj)
+    rw [Finset.sum_eq_single j (fun i _ hij => hzero i hij) (by simp)]
+    symm
+    apply Finset.sum_eq_single j
+    · intro i _ hij
+      simp [hzero i hij]
+    · simp
+  · have hzero : ∀ j, v j = 0 := fun j => hz j (fun hj => hb ⟨j, hj⟩)
+    simp [hzero]
+
+variable {u f : VelocityField} {p : PressureField} {K Ω : Set Space} {M D : ℝ}
+  {ε : Fin N → ℝ} (placement : Fin N → DomainPlacementData u p f K)
+  (packet : NSFormalization.Section4.I03.PacketData u K M D)
+  (placement_time : ∀ j, (placement j).T = T)
+  (placement_chart : ∀ j, (placement j).chartCenter = c j ∧
+    (placement j).chartRadius = r j)
+  (eps_admissible : ∀ j, ε j ∈ Ioc (0 : ℝ) (placement j).ε₀)
+  (component_pin : ∀ j, w j = scaledVelocity u (placement j).x₀ T (ε j))
+  (region_interior : ∀ j, closure (Metric.ball (c j) (r j)) ⊆ Ω)
+
+include packet component_pin eps_admissible in
+/-- Global spatial smoothness follows from the raw scaling pin. -/
+theorem component_slice_contDiff (j : Fin N) (t : ℝ) (ht : t < T) :
+    ContDiff ℝ ∞ (fun x => w j (t, x)) := by
+  rw [component_pin j]
+  exact scaledVelocity_slice_contDiff packet.extension_smooth (eps_admissible j).1 ht
+
+include packet component_pin eps_admissible placement_chart in
+/-- The closed slice support lies strictly inside the prescribed ball. -/
+theorem component_tsupport (j : Fin N) (t : ℝ) (ht : t < T) :
+    tsupport (fun x => w j (t, x)) ⊆ Metric.ball (c j) (r j) := by
+  rw [component_pin j, ← (placement_chart j).1, ← (placement_chart j).2]
+  exact (scaledVelocity_tsupp_subset (eps_admissible j).1 packet.carrier_compact
+    packet.support (placement j).carrier_subset ht).trans
+      (affineImage_subset_ball (eps_admissible j) (placement j).eps_space)
+
+include packet component_pin eps_admissible placement_chart in
+/-- The full Euclidean gradient vanishes outside the same ball. -/
+theorem component_gradient_support (j : Fin N) (t : ℝ) (ht : t < T)
+    (x : Space) (hout : x ∉ Metric.ball (c j) (r j)) :
+    spatialGradient (w j) t x = 0 := by
+  have hn : x ∉ tsupport (fun y => w j (t, y)) :=
+    fun hx => hout (component_tsupport placement packet placement_chart eps_admissible
+      component_pin j t ht hx)
+  simp only [spatialGradient, spatialDerivative, fderiv_of_notMem_tsupport ℝ hn]
+  rfl
+
+include packet component_pin eps_admissible in
+/-- Differentiation commutes with the finite superposition. -/
+theorem gradient_sum (t : ℝ) (ht : t < T) (x : Space) :
+    spatialGradient (assembledVelocity w) t x = ∑ j, spatialGradient (w j) t x := by
+  have hd := fderiv_fun_sum (u := Finset.univ)
+    (fun j _ => (component_slice_contDiff placement packet eps_admissible component_pin
+      j t ht).differentiable (by simp) x)
+  ext i k
+  simp only [spatialGradient, spatialDerivative, assembledVelocity, finiteVelocitySum,
+    hd, sum_apply, WithLp.ofLp_sum, WithLp.ofLp_toLp, Finset.sum_apply]
+
+include component_support region_interior in
+/-- Restricting a component slice to Ω preserves its whole-space norm. -/
+theorem component_norm_restrict (j : Fin N) (t : ℝ) (ht : t ∈ Ico (0 : ℝ) T) :
+    eLpNorm (fun x => w j (t, x)) 2 (volume.restrict Ω) =
+      eLpNorm (fun x => w j (t, x)) 2 volume := by
+  apply eLpNorm_restrict_eq_of_support_subset
+  intro x hx
+  apply region_interior j
+  apply subset_closure
+  by_contra hout
+  exact hx (component_support j t ht x hout)
+
+include packet component_pin eps_admissible placement_chart region_interior in
+/-- The full gradient restriction also preserves its whole-space norm. -/
+theorem component_gradient_restrict (j : Fin N) (t : ℝ) (ht : t < T) :
+    eLpNorm (fun x => spatialGradient (w j) t x) 2 (volume.restrict Ω) =
+      eLpNorm (fun x => spatialGradient (w j) t x) 2 volume := by
+  apply eLpNorm_restrict_eq_of_support_subset
+  intro x hx
+  apply region_interior j
+  apply subset_closure
+  by_contra hout
+  exact hx (component_gradient_support placement packet placement_chart eps_admissible
+    component_pin j t ht x hout)
+
+include regions_disjoint component_support packet component_pin eps_admissible in
+/-- Disjoint-support additivity of restricted squared slice energies. -/
+theorem slice_energy_additive (t : ℝ) (ht : t ∈ Ico (0 : ℝ) T) :
+    eLpNorm (fun x => assembledVelocity w (t, x)) 2 (volume.restrict Ω) ^ (2 : ℕ) =
+      ∑ j, eLpNorm (fun x => w j (t, x)) 2 (volume.restrict Ω) ^ (2 : ℕ) := by
+  have hsq {g : Space → Space} :
+      eLpNorm g 2 (volume.restrict Ω) ^ (2 : ℕ) =
+        ∫⁻ x in Ω, ‖g x‖ₑ ^ (2 : ℕ) := by
+    simpa using (eLpNorm_nnreal_pow_eq_lintegral (f := g)
+      (μ := volume.restrict Ω) (p := (2 : ℝ≥0)) (by norm_num))
+  simp_rw [hsq]
+  calc
+    _ = ∫⁻ x in Ω, ∑ j, ‖w j (t, x)‖ₑ ^ (2 : ℕ) := by
+      apply lintegral_congr
+      intro x
+      exact disjoint_enorm_sq_sum (fun j => w j (t, x)) regions_disjoint x
+        (fun j => component_support j t ht x)
+    _ = _ := by
+      apply lintegral_finsetSum'
+      intro j _
+      exact (component_slice_contDiff placement packet eps_admissible component_pin
+        j t ht.2).continuous.aestronglyMeasurable.enorm.pow_const 2
+
+include packet component_pin eps_admissible component_support region_interior in
+/-- Each restricted squared slice energy has the original scaled packet bound. -/
+theorem component_energy_slice_le (j : Fin N) (t : ℝ) (ht : t ∈ Ico (0 : ℝ) T) :
+    eLpNorm (fun x => w j (t, x)) 2 (volume.restrict Ω) ^ (2 : ℕ) ≤
+      ENNReal.ofReal (M ^ 2 * ε j) := by
+  rw [component_norm_restrict component_support region_interior j t ht, component_pin j,
+    scaledVelocity_eq_parabolicVelocity,
+    NSFormalization.Section4.I03.eLpNorm_scaled_slice packet (placement j).x₀
+      (eps_admissible j).1 ht.2]
+  have hle := NSFormalization.Section4.I03.l2Norm_zeroPastField_le packet
+    (NSFormalization.Section4.I03.reference_time_lt_one (eps_admissible j).1 ht.2)
+  calc
+    _ ≤ ENNReal.ofReal (Real.sqrt (ε j) * M) ^ (2 : ℕ) :=
+      ENNReal.pow_le_pow_left (ENNReal.ofReal_le_ofReal
+        (mul_le_mul_of_nonneg_left hle (Real.sqrt_nonneg _)))
+    _ = _ := by
+      rw [← ENNReal.ofReal_pow (mul_nonneg (Real.sqrt_nonneg _)
+        (NSFormalization.Section4.I03.energyBound_nonneg packet)), mul_pow,
+        Real.sq_sqrt (eps_admissible j).1.le, mul_comm]
+
+include regions_disjoint component_support packet component_pin eps_admissible region_interior in
+/-- `03-torus.tex:530`: squared restricted essential-supremum energy bound. -/
+theorem energy_bound : energyEssSupOmega Ω T (assembledVelocity w) ^ (2 : ℕ) ≤
+    ENNReal.ofReal (M ^ 2 * ∑ j, ε j) := by
+  rw [← ENNReal.rpow_two, ← ENNReal.le_rpow_inv_iff (by norm_num : (0 : ℝ) < 2)]
+  refine essSup_le_of_ae_le _ ?_ (by apply Filter.isCobounded_le_of_bot)
+  filter_upwards [ae_restrict_mem measurableSet_Ioo] with t ht
+  rw [ENNReal.le_rpow_inv_iff (by norm_num : (0 : ℝ) < 2), ENNReal.rpow_two,
+    slice_energy_additive regions_disjoint component_support placement packet eps_admissible
+      component_pin t ⟨ht.1.le, ht.2⟩]
+  calc
+    _ ≤ ∑ j, ENNReal.ofReal (M ^ 2 * ε j) :=
+      Finset.sum_le_sum (fun j _ => component_energy_slice_le component_support placement
+        packet eps_admissible component_pin region_interior j t ⟨ht.1.le, ht.2⟩)
+    _ = _ := by
+      rw [← ENNReal.ofReal_sum_of_nonneg
+        (fun j _ => mul_nonneg (sq_nonneg M) (eps_admissible j).1.le), Finset.mul_sum]
+
+include regions_disjoint packet component_pin eps_admissible placement_chart in
+/-- The squared full-gradient slice norms add exactly on Ω. -/
+theorem slice_gradient_additive (t : ℝ) (ht : t < T) :
+    eLpNorm (fun x => spatialGradient (assembledVelocity w) t x) 2
+        (volume.restrict Ω) ^ (2 : ℕ) =
+      ∑ j, eLpNorm (fun x => spatialGradient (w j) t x) 2
+        (volume.restrict Ω) ^ (2 : ℕ) := by
+  have hsq {g : Space → WithLp 2 (Fin 3 → Space)} :
+      eLpNorm g 2 (volume.restrict Ω) ^ (2 : ℕ) =
+        ∫⁻ x in Ω, ‖g x‖ₑ ^ (2 : ℕ) := by
+    simpa using (eLpNorm_nnreal_pow_eq_lintegral (f := g)
+      (μ := volume.restrict Ω) (p := (2 : ℝ≥0)) (by norm_num))
+  simp_rw [hsq]
+  calc
+    _ = ∫⁻ x in Ω, ∑ j, ‖spatialGradient (w j) t x‖ₑ ^ (2 : ℕ) := by
+      apply lintegral_congr
+      intro x
+      rw [gradient_sum placement packet eps_admissible component_pin t ht x]
+      exact disjoint_enorm_sq_sum (fun j => spatialGradient (w j) t x) regions_disjoint x
+        (fun j => component_gradient_support placement packet placement_chart eps_admissible
+          component_pin j t ht x)
+    _ = _ := by
+      apply lintegral_finsetSum'
+      intro j _
+      have hc := NSFormalization.Section4.I02.continuous_spatialGradient
+        ((component_slice_contDiff placement packet eps_admissible component_pin
+          j t ht).comp contDiff_snd) t
+      exact hc.aestronglyMeasurable.enorm.pow_const 2
+
+include packet component_pin eps_admissible placement_chart region_interior in
+/-- Restricted squared gradient norm equals the raw scaled dissipation rate. -/
+theorem component_gradient_rate (j : Fin N) (t : ℝ) (ht : t ∈ Ico (0 : ℝ) T) :
+    eLpNorm (fun x => spatialGradient (w j) t x) 2 (volume.restrict Ω) ^ (2 : ℕ) =
+      ENNReal.ofReal (NavierStokesR3.CompactEnergy.dissipation
+        (NSFormalization.Source.parabolicVelocity (ε j)⁻¹ (T - ε j ^ 2)
+          (placement j).x₀ (zeroPastField u)) t) := by
+  rw [component_gradient_restrict placement packet placement_chart eps_admissible
+    component_pin region_interior j t ht.2, component_pin j,
+    scaledVelocity_eq_parabolicVelocity]
+  exact_mod_cast NSFormalization.Section4.I03.eLpNorm_spatialGradient_sq_slice
+    (NSFormalization.Section4.I03.scaled_slice_contDiff packet (placement j).x₀
+      (eps_admissible j).1 ht.2)
+    (NSFormalization.Section4.I03.scaled_slice_hasCompactSupport packet (placement j).x₀
+      (eps_admissible j).1 ht)
+
+/-- Squaring cancels the outer square root in the domain dissipation norm. -/
+theorem energyGradientOmega_sq (v : VelocityField) :
+    energyGradientOmega Ω T v ^ (2 : ℕ) = ∫⁻ t in Ioo (0 : ℝ) T,
+      eLpNorm (fun x => spatialGradient v t x) 2 (volume.restrict Ω) ^ (2 : ℕ) := by
+  unfold energyGradientOmega
+  rw [← ENNReal.rpow_two, ← ENNReal.rpow_mul]
+  norm_num
+
+include packet component_pin eps_admissible placement_time placement_chart region_interior in
+/-- The squared component dissipation is exactly D² ε_j. -/
+theorem component_dissipation_sq (j : Fin N) :
+    energyGradientOmega Ω T (w j) ^ (2 : ℕ) = ENNReal.ofReal (D ^ 2 * ε j) := by
+  have htime : 2 * ε j ^ 2 < T := by
+    rw [← placement_time j]
+    exact (placement j).eps_time (ε j) (eps_admissible j)
+  have heq : energyGradientOmega Ω T (w j) = ENNReal.ofReal (Real.sqrt (ε j) * D) := by
+    unfold energyGradientOmega
+    calc
+      _ = (∫⁻ t in Ioo (0 : ℝ) T,
+          (eLpNorm (fun x => spatialGradient
+            (NSFormalization.Source.parabolicVelocity (ε j)⁻¹ (T - ε j ^ 2)
+              (placement j).x₀ (zeroPastField u)) t x) 2 volume) ^ (2 : ℝ)) ^ ((2 : ℝ)⁻¹) := by
+        congr 1
+        apply setLIntegral_congr_fun measurableSet_Ioo
+        intro t ht
+        dsimp only
+        rw [component_gradient_restrict placement packet placement_chart eps_admissible
+          component_pin region_interior j t ht.2, component_pin j,
+          scaledVelocity_eq_parabolicVelocity]
+      _ = _ := NSFormalization.Section4.I03.energyGradient_scaled_eq packet
+        (placement j).x₀ (eps_admissible j).1 htime
+  rw [heq, ← ENNReal.ofReal_pow (mul_nonneg (Real.sqrt_nonneg _)
+    (packet.dissipation_eq ▸ Real.sqrt_nonneg _)), mul_pow,
+    Real.sq_sqrt (eps_admissible j).1.le, mul_comm]
+
+include regions_disjoint packet component_pin eps_admissible placement_time placement_chart
+  region_interior in
+/-- `03-torus.tex:531`: exact domain dissipation additivity with the original D. -/
+theorem dissipation_bound : energyGradientOmega Ω T (assembledVelocity w) ^ (2 : ℕ) =
+    ENNReal.ofReal (D ^ 2 * ∑ j, ε j) := by
+  rw [energyGradientOmega_sq]
+  calc
+    _ = ∫⁻ t in Ioo (0 : ℝ) T, ∑ j,
+        eLpNorm (fun x => spatialGradient (w j) t x) 2 (volume.restrict Ω) ^ (2 : ℕ) := by
+      apply setLIntegral_congr_fun measurableSet_Ioo
+      intro t ht
+      exact slice_gradient_additive regions_disjoint placement packet placement_chart
+        eps_admissible component_pin t ht.2
+    _ = ∑ j, ∫⁻ t in Ioo (0 : ℝ) T,
+        eLpNorm (fun x => spatialGradient (w j) t x) 2 (volume.restrict Ω) ^ (2 : ℕ) := by
+      apply lintegral_finsetSum'
+      intro j _
+      have htime : 2 * ε j ^ 2 < T := by
+        rw [← placement_time j]
+        exact (placement j).eps_time (ε j) (eps_admissible j)
+      have hm := (NSFormalization.Section4.I03.scaled_dissipation_integrableOn packet
+        (placement j).x₀ (eps_admissible j).1 htime).aestronglyMeasurable
+      apply hm.aemeasurable.ennreal_ofReal.congr
+      filter_upwards [ae_restrict_mem measurableSet_Ioo] with t ht
+      exact (component_gradient_rate placement packet placement_chart eps_admissible
+        component_pin region_interior j t ⟨ht.1.le, ht.2⟩).symm
+    _ = ∑ j, energyGradientOmega Ω T (w j) ^ (2 : ℕ) := by
+      simp_rw [energyGradientOmega_sq]
+    _ = ∑ j, ENNReal.ofReal (D ^ 2 * ε j) := by
+      apply Finset.sum_congr rfl
+      intro j _
+      exact component_dissipation_sq placement packet placement_time placement_chart
+        eps_admissible component_pin region_interior j
+    _ = _ := by
+      rw [← ENNReal.ofReal_sum_of_nonneg
+        (fun j _ => mul_nonneg (sq_nonneg D) (eps_admissible j).1.le), Finset.mul_sum]
+
+end NSFormalization.Section3.T24.OmegaRegions
+
+
