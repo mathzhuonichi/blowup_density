@@ -132,5 +132,47 @@ theorem young_two_factorsT {a b ε : ℝ} (hε : 0 < ε) :
   convert h using 1 <;> field_simp
 
 
+/-- Cubic absorption with the inhomogeneous energy in the nonlinear bound.
+In particular the constant mode in U is retained. This is scalar algebra,
+not a classical-solution differential inequality. -/
+theorem weighted_cubic_assemblyT {ν C U G L F N P Q d Y Z : ℝ}
+    (hν : 0 < ν) (hC : 0 ≤ C)
+    (hU : 0 ≤ U) (hG : 0 ≤ G) (hL : 0 ≤ L) (hF : 0 ≤ F)
+    (hY : Y = U + G) (hZ : Z ≤ U + 2 * G + L)
+    (hd : d = -2 * ν * G - 2 * ν * L + 2 * N + 2 * P - 2 * Q)
+    (hN : |N| ≤ C * Y ^ (3 / 4 : ℝ) * L ^ (3 / 4 : ℝ))
+    (hP : P ≤ Real.sqrt U * Real.sqrt F)
+    (hQ : -Q ≤ Real.sqrt F * Real.sqrt L) :
+    d + ν * Z ≤
+      ((2 * C) ^ 4 / (ν / 2) ^ 3 + (1 + ν)) * (1 + Y) ^ 3 +
+        (1 + 2 / ν) * F := by
+  have hY0 : 0 ≤ Y := by rw [hY]; positivity
+  have hn := young_three_quartersT (C := 2 * C) (Y := Y) (Z := L)
+    (by positivity) hY0 hL (show 0 < ν / 2 by positivity)
+  have hn' : 2 * N ≤ ν / 2 * L + (2 * C) ^ 4 / (ν / 2) ^ 3 * Y ^ 3 := by
+    have h := mul_le_mul_of_nonneg_left ((le_abs_self N).trans hN) (by norm_num : (0:ℝ) ≤ 2)
+    nlinarith only [h, hn]
+  have hp : 2 * P ≤ U + F := by
+    have h := young_two_factorsT (a := Real.sqrt U) (b := Real.sqrt F) (ε := 1) (by norm_num)
+    rw [Real.sq_sqrt hU, Real.sq_sqrt hF] at h
+    nlinarith
+  have hq : -2 * Q ≤ ν / 2 * L + (2 / ν) * F := by
+    have h := young_two_factorsT (a := Real.sqrt F) (b := Real.sqrt L)
+      (ε := ν / 2) (by positivity)
+    rw [Real.sq_sqrt hL, Real.sq_sqrt hF] at h
+    have he : F / (ν / 2) = (2 / ν) * F := by ring
+    rw [he] at h
+    nlinarith
+  have hm : Y ^ 3 ≤ (1 + Y) ^ 3 := by gcongr; linarith
+  have hm1 : Y ≤ (1 + Y) ^ 3 := by nlinarith [sq_nonneg Y, pow_nonneg hY0 3]
+  have hc : 0 ≤ (2 * C) ^ 4 / (ν / 2) ^ 3 := by positivity
+  have hb := mul_le_mul_of_nonneg_left hm hc
+  have hb1 := mul_le_mul_of_nonneg_left hm1 (show 0 ≤ 1 + ν by positivity)
+  have hz := mul_le_mul_of_nonneg_left hZ hν.le
+  have hUY : U ≤ Y := by linarith
+  have hu := mul_le_mul_of_nonneg_left hUY (show 0 ≤ 1 + ν by positivity)
+  nlinarith only [hn', hp, hq, hb, hb1, hz, hu, hd]
+
 end NSFormalization.Section3.T11
+
 

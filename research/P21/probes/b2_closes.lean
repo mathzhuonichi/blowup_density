@@ -5,3 +5,4 @@ import NSFormalization.Section3.T11.EnstrophyInequality
 #check NSFormalization.Section3.T11.young_quarticT
 #check NSFormalization.Section3.T11.young_three_quartersT
 #check NSFormalization.Section3.T11.young_two_factorsT
+#check NSFormalization.Section3.T11.weighted_cubic_assemblyT
