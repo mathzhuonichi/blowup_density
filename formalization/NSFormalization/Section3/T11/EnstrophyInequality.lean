@@ -375,4 +375,41 @@ theorem eLpNorm_gradient_cutoffMul_leT {v : SpatialField} (hv : SmoothPeriodicT 
           _ = 343 := ENNReal.rpow_one _
 
 
+/-- The localized gradient has the two required periodic L² terms. -/
+theorem cutoff_gradient_two_leT (z : SpatialField) (hz : SmoothPeriodicT z) :
+    eLpNorm (gradientTensor (cutoffMul z)) 2 volume ≤
+      343 * (3 * (ENNReal.ofReal cutoffGradBound * periodicLpENorm 2 z +
+        periodicLpENorm 2 (gradientTensor z))) := by
+  let μ := volume.restrict fundamentalCube
+  have hm1 : AEStronglyMeasurable (fun x => cutoffGradBound * ‖z x‖) μ :=
+    (continuous_const.mul hz.1.continuous.norm).aestronglyMeasurable
+  have hm2 : AEStronglyMeasurable (fun x => ‖gradientTensor z x‖) μ :=
+    (continuous_norm_gradTensor hz.1).aestronglyMeasurable
+  have hnorm : ‖cutoffGradBound‖ₑ = ENNReal.ofReal cutoffGradBound := by
+    rw [← ofReal_norm, Real.norm_eq_abs, abs_of_nonneg cutoffGradBound_nonneg]
+  have heq : gradientMajorantT z = (3 : ℝ) •
+      (fun x => cutoffGradBound * ‖z x‖ + ‖gradientTensor z x‖) := rfl
+  have hbound : eLpNorm (gradientMajorantT z) 2 μ ≤
+      3 * (ENNReal.ofReal cutoffGradBound * eLpNorm z 2 μ +
+        eLpNorm (gradientTensor z) 2 μ) := by
+    calc eLpNorm (gradientMajorantT z) 2 μ
+        ≤ ‖(3 : ℝ)‖ₑ * eLpNorm
+          (fun x => cutoffGradBound * ‖z x‖ + ‖gradientTensor z x‖) 2 μ := by
+            rw [heq]
+            exact eLpNorm_const_smul_le
+      _ ≤ ‖(3 : ℝ)‖ₑ * (eLpNorm (fun x => cutoffGradBound * ‖z x‖) 2 μ +
+          eLpNorm (fun x => ‖gradientTensor z x‖) 2 μ) := by
+        gcongr
+        exact eLpNorm_add_le hm1 hm2 (by norm_num)
+      _ ≤ ‖(3 : ℝ)‖ₑ * (‖cutoffGradBound‖ₑ * eLpNorm (fun x => ‖z x‖) 2 μ +
+          eLpNorm (fun x => ‖gradientTensor z x‖) 2 μ) := by
+        gcongr
+        change eLpNorm (cutoffGradBound • (fun x => ‖z x‖)) 2 μ ≤ _
+        exact eLpNorm_const_smul_le
+      _ = _ := by rw [hnorm, eLpNorm_norm, eLpNorm_norm, ← ofReal_norm]; norm_num
+  have h := (eLpNorm_gradient_cutoffMul_leT hz).trans (mul_le_mul' le_rfl hbound)
+  simpa only [μ, ← periodicLpENorm_eq_restrict z hz.2 2,
+    ← periodicLpENorm_eq_restrict (gradientTensor z) (isPeriodicSpatial_gradientTensor hz.2) 2]
+    using h
+
 end NSFormalization.Section3.T11
