@@ -203,4 +203,42 @@ theorem inhomogeneousEnergyIdentity_smoothT
       (by simpa only [IsPeriodicDatum, Nat.cast_one] using hN)) using 1 <;>
     norm_num [torusSobolevNormAt, torusRealPairing]
 
+/-- B2 physical energy identity generalized to smooth periodic forcing. -/
+theorem weightedEnergyIdentity_smoothT
+    {ν T : ℝ} {a : SpatialField} {f : SpaceTimeField}
+    (w : ClassicalSolutionT ν a f T) (hf : ContDiff ℝ ∞ f) (hfp : IsPeriodicOn univ f)
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T) :
+    HasDerivAt
+      (fun s => (periodicSobolevENorm 1 (fun x => w.velocity (s, x))).toReal ^ 2)
+      (-2 * ν * gradientSqT (fun x => w.velocity (t, x)) -
+        2 * ν * laplacianSqT (fun x => w.velocity (t, x)) +
+        2 * periodicPairing (fun x => advection (lift (fun y => w.velocity (t, y))) 0 x)
+          (laplacian (fun x => w.velocity (t, x))) +
+        2 * periodicPairing (fun x => w.velocity (t, x)) (fun x => f (t, x)) -
+        2 * periodicPairing (fun x => f (t, x)) (laplacian (fun x => w.velocity (t, x)))) t := by
+  have ht' := Ioo_subset_Ico_self ht
+  have hz : SmoothPeriodicT (fun x => w.velocity (t, x)) :=
+    ⟨classical_velocity_slice_contDiff w ht', w.velocity_periodic t ht'⟩
+  have hb : SmoothPeriodicT (fun x => f (t, x)) :=
+    ⟨hf.comp (contDiff_const.prodMk contDiff_id), hfp t (mem_univ t)⟩
+  have hn : SmoothPeriodicT (fun x => convectionFieldT w.velocity (t, x)) :=
+    ⟨advection_spatial_contDiff hz.1, advection_spatial_periodic hz.2⟩
+  obtain ⟨G, hG⟩ := exists_periodicDatum_smooth 1 hz.1 hz.2
+  obtain ⟨F, hF⟩ := exists_force_datum hf hfp 1 t
+  obtain ⟨N, hN⟩ := exists_convection_datum w 1 ht'
+  have hd := inhomogeneousEnergyIdentity_smoothT w hf ht hG hF hN
+  rw [torusGradientNormAt_one_sqT w ht', torusRealPairing_one_eqT hz hb hG hF,
+    torusRealPairing_one_eqT hz hn hG hN] at hd
+  have hzero : periodicPairing (fun x => w.velocity (t, x))
+      (fun x => convectionFieldT w.velocity (t, x)) = 0 :=
+    periodicPairing_convection_zeroT _ hz (w.divergence t ht')
+  rw [hzero, T20.periodicPairing_comm (laplacian (fun x => w.velocity (t, x)))
+    (fun x => f (t, x)),
+    T20.periodicPairing_comm (laplacian (fun x => w.velocity (t, x)))
+      (fun x => convectionFieldT w.velocity (t, x))] at hd
+  have he : (fun x => convectionFieldT w.velocity (t, x)) =
+      (fun x => advection (lift (fun y => w.velocity (t, y))) 0 x) := rfl
+  rw [he] at hd
+  convert hd using 1 <;> ring
+
 end NSFormalization.Section3.T11
