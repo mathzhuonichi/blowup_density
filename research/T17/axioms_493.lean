@@ -1,0 +1,28 @@
+import NSFormalization.Section3.T17.ArticleScope
+
+#print axioms NSFormalization.Section3.T17.correctionStatementArticle_holds
+#print axioms NSFormalization.Section3.T17.article_window_identification
+#print axioms NSFormalization.Section3.T17.article_force_identification
+#print axioms NSFormalization.Section3.T17.article_force_smooth
+#print axioms NSFormalization.Section3.T17.article_force_periodic
+#print axioms NSFormalization.Section3.T17.article_force_support
+#print axioms NSFormalization.Section3.T17.article_force_spatial_volume
+#print axioms NSFormalization.Section3.T17.article_force_time_length
+#print axioms NSFormalization.Section3.T17.article_correction_derivative_bound
+#print axioms NSFormalization.Section3.T17.article_force_derivative_bound
+#print axioms NSFormalization.Section3.T17.article_correction_energy_bound
+#print axioms NSFormalization.Section3.T17.article_force_spatial_memLp
+#print axioms NSFormalization.Section3.T17.article_force_mixed_bound
+#print axioms NSFormalization.Section3.T17.article_forceSobolev_memLp
+#print axioms NSFormalization.Section3.T17.article_force_sobolev_bound
+#print axioms NSFormalization.Section3.T17.article_potential_formula
+#print axioms NSFormalization.Section3.T17.article_correction_profile_identification
+#print axioms NSFormalization.Section3.T17.article_force_profile_identification
+#print axioms NSFormalization.Section3.T17.article_correction_profile_smooth
+#print axioms NSFormalization.Section3.T17.article_correction_profile_support
+#print axioms NSFormalization.Section3.T17.article_correction_profile_uniform
+#print axioms NSFormalization.Section3.T17.article_force_profile_smooth
+#print axioms NSFormalization.Section3.T17.article_force_profile_support
+#print axioms NSFormalization.Section3.T17.article_force_profile_uniform
+#print axioms NSFormalization.Section3.T17.article_correction_profile_identity
+#print axioms NSFormalization.Section3.T17.article_force_profile_identity
