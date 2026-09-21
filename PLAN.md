@@ -49,7 +49,7 @@
 | 497-T24-P5a-domain-components-sum | astra 完成：MultipleOmegaComponents/Assembled（45 声明）→ 审中 sol | 09-21 0407Z | — | P5.1+P5.2：Ω 上的分量（无周期化缩放包 → ClassicalSolutionOmega）与有限和解（交叉输运为零、no-slip、gauge） |
 | 500-T24-P5b-domain-blowup-energy | astra 完成：MultipleOmegaRegions（17 定理：每球爆破、能量界、耗散恒等）→ 审中 sol | 09-21 0407Z | — | P5.3+P5.4：每球 region_agreement/region_blowup + 能量/耗散可加性（限制积分 = 全空间积分） |
 | 501-T24-P5c-assembly-registration | worktree 安装中（497 + 500 分支 + core）→ codex astra | 09-21 0407Z | — | P5.5：30 字段装配 + multipleRegionsOmegaStatement + T04.multiple_regions_v2（两分支）+ 蓝图闭合 M316_B |
-| 502-MAINT-core-refresh | worktree 安装中（core @ 493 合入后）→ codex sol（窗口 <9） | 09-21 0409Z | — | MAINT：合入批次后刷新 core 的生成物（公理审计、DEPENDENCY_GRAPH、计数、PDF），使 make check 全绿 |
+| 502-MAINT-core-refresh | 第一次刷新完成（基于 493 态：22/5，65 声明审计，四闸门 + paper 绿）；492 已合入后过期，等 494/495/501 合入再 cont 续跑 | 09-21 0416Z | — | MAINT：合入批次后刷新 core 的生成物（公理审计、DEPENDENCY_GRAPH、计数、PDF），使 make check 全绿 |
 | 503-P21-B0-h1-norm-bridges | worktree 安装中 → codex sol（窗口 <7 时启动） | 09-21 0401Z | — | P6 Route B B0：H¹/H² Fourier 范数 ↔ 导数能量桥（两域）+ 平移力上界 + 目标陈述 Targets.lean |
 | 504-P21-B1-enstrophy-r3 | worktree 安装中 → codex astra | 09-21 0401Z | — | P6 Route B B1：ℝ³ 上一般（无临界小性）涡量微分不等式 Y' + cνZ ≤ Cν(1+Y)³ + Cν‖f‖² |
 | 499-P21-P6-h1-assessment | 已合入 #457（评估：建议先留 Partial；若做，走 Route B 光滑数据 H¹ restart + 现有续接，L–XL） | 09-21 0400Z | #457 | P6 评估：Prop 2.1 H¹-uniform restart 缺什么、树里有什么、拆分与规模、建议（只出评估） |
