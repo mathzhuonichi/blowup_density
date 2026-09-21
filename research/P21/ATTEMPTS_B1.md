@@ -31,3 +31,21 @@ Existing-file edits: entrypoints.json registers the new module as required.
    is (2κC)⁴/(κν/2)³/κ³ + 1+ν and the force coefficient is 1+2κ/ν.
    The L² term U is explicitly retained and bounded by Y. No Poincaré
    inequality, critical smallness, or endpoint-integrability claim is used.
+7. Closed classical assembly and compact-interval wrapper, plus the convection
+   estimate explicitly in `D01.sobolevENorm` vocabulary. B0 hypotheses in the
+   final differential theorem are precisely:
+   - H¹² = l2Sq + κ gradientSq throughout (0,T), κ=(2π)⁻²;
+   - H²² ≤ l2Sq + 2κ gradientSq + κ² laplacianSq at the time;
+   - eLpNorm gradTensor 2 ≤ ofReal sqrt(gradientSq) at the time.
+   The Laplacian norm bridge and both force estimates are discharged locally
+   from existing C01/I02 lemmas. No assumption of a differentiated norm,
+   convection estimate, Young inequality, or differential inequality remains.
+   `hOne` transfers HasDerivAt using equality in a neighborhood, not equality
+   at one time. Finite ENorms already follow from classical Sobolev paths.
+
+Transient compilation errors fixed: the first `convert` exposed two real
+instance equalities (closed by rfl); an overly general numeral rewrite touched
+PiLp's exponent (replaced by an explicit equality for 3); a derivative-value
+placeholder was not inferred (the exact raw derivative value is now written).
+No failed proof is shipped and no analytic residual is inferred from these
+elaboration errors. The B0 bridge proofs are deliberately outside lane scope.

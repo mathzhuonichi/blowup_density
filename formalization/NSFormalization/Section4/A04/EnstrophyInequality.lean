@@ -340,4 +340,154 @@ theorem weighted_cubic_assembly {ν κ C U G L F N P Q d Y Z : ℝ}
   rw [he] at hbound
   nlinarith only [hn', hp, hq, hbound, hmajor, hmajor1, hz, hdis, hu, hd]
 
+/-- The registered squared H¹ norm satisfies the cubic inequality, conditional
+only on the displayed B0 norm bridges. The weight κ is fixed by the Fourier
+convention; this theorem allows any 0<κ≤1. No differential or nonlinear bound
+is assumed. -/
+theorem enstrophy_differential_of_norm_bridges
+    {ν T κ : ℝ} {a : A02.SpatialField} {f : A02.SpaceTimeField}
+    (w : A02.ClassicalSolutionR ν a f T) (hf : A02.MemForceR f)
+    (hν : 0 < ν) (hκ : 0 < κ) (hκ1 : κ ≤ 1)
+    (hOne : ∀ s ∈ Ioo (0 : ℝ) T,
+      (D01.sobolevENorm 1 (slice w.velocity s)).toReal ^ 2 =
+        l2Sq (slice w.velocity s) + κ * gradientSq (slice w.velocity s))
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T)
+    (hTwo : (D01.sobolevENorm 2 (slice w.velocity t)).toReal ^ 2 ≤
+      l2Sq (slice w.velocity t) + 2 * κ * gradientSq (slice w.velocity t) +
+        κ ^ 2 * laplacianSq (slice w.velocity t))
+    (hGradient : eLpNorm (gradTensor (slice w.velocity t)) 2 volume ≤
+      ENNReal.ofReal (Real.sqrt (gradientSq (slice w.velocity t)))) :
+    deriv (fun s => (D01.sobolevENorm 1 (slice w.velocity s)).toReal ^ 2) t +
+        ν * (D01.sobolevENorm 2 (slice w.velocity t)).toReal ^ 2 ≤
+      ((2 * κ * gradientL6Const ^ (3 / 2 : ℝ)) ^ 4 / (κ * ν / 2) ^ 3 / κ ^ 3 + (1 + ν)) *
+        (1 + (D01.sobolevENorm 1 (slice w.velocity t)).toReal ^ 2) ^ 3 +
+      (1 + 2 * κ / ν) * l2Sq (slice f t) := by
+  have hz : SmoothL2 (slice w.velocity t) := velocity_slice_smoothL2 w (Ioo_subset_Ico_self ht)
+  have hG := gradientSq_nonneg (slice w.velocity t)
+  have hL : 0 ≤ laplacianSq (slice w.velocity t) := integral_nonneg fun x => sq_nonneg _
+  have hmem : MemLp (lap (slice w.velocity t)) 2 volume :=
+    memLp_finsetSum (Finset.univ : Finset (Fin 3)) (fun i _ => ((hz.dir i).dir i).memLp)
+  have hint : Integrable (fun x => ‖lap (slice w.velocity t) x‖ ^ 2) volume := by
+    simpa only [ENNReal.toReal_ofNat, Real.rpow_two] using
+      hmem.integrable_norm_rpow (by norm_num) (by norm_num)
+  have hLap : eLpNorm (lap (slice w.velocity t)) 2 volume =
+      ENNReal.ofReal (Real.sqrt (laplacianSq (slice w.velocity t))) :=
+    I02.eLpNorm_two_eq_ofReal_sqrt hint
+  have hconv := convection_bound_of_norm_bridges (slice w.velocity t) hz
+    (Real.sqrt_nonneg _) (Real.sqrt_nonneg _) hGradient hLap.le
+  have hsqrt (x : ℝ) (hx : 0 ≤ x) :
+      (Real.sqrt x) ^ (3 / 2 : ℝ) = x ^ (3 / 4 : ℝ) := by
+    rw [Real.sqrt_eq_rpow, ← Real.rpow_mul hx]; norm_num
+  rw [hsqrt _ hG, hsqrt _ hL] at hconv
+  have hP := abs_pairing_carrier_le
+    (velocitySliceField w (Ioo_subset_Ico_self ht)) (forceSliceField hf ht.1.le)
+  have hQ := abs_pairing_carrier_le (forceSliceField hf ht.1.le)
+    (NSFormalization.Source.OrdinaryViscousStability.laplacianField (velocitySliceField w (Ioo_subset_Ico_self ht)))
+  have hlapfield :
+      (NSFormalization.Source.OrdinaryViscousStability.laplacianField
+        (velocitySliceField w (Ioo_subset_Ico_self ht))).field = lap (slice w.velocity t) := by
+    funext x
+    rw [laplacianField_velocitySlice_field w (Ioo_subset_Ico_self ht) x]
+    rfl
+  rw [hlapfield] at hQ
+  change |pairing (slice w.velocity t) (slice f t)| ≤
+    Real.sqrt (l2Sq (slice w.velocity t)) * Real.sqrt (l2Sq (slice f t)) at hP
+  change |pairing (slice f t) (lap (slice w.velocity t))| ≤
+    Real.sqrt (l2Sq (slice f t)) * Real.sqrt (laplacianSq (slice w.velocity t)) at hQ
+  have hd := weightedEnergyIdentity w hf κ ht
+  have hdNorm : HasDerivAt
+      (fun s => (D01.sobolevENorm 1 (slice w.velocity s)).toReal ^ 2)
+      (-2 * ν * gradientSq (slice w.velocity t) - 2 * κ * ν * laplacianSq (slice w.velocity t) +
+        2 * κ * advectionWork (slice w.velocity t) +
+        2 * pairing (slice w.velocity t) (slice f t) -
+        2 * κ * pairing (slice f t) (lap (slice w.velocity t))) t := by
+    apply hd.congr_of_eventuallyEq
+    filter_upwards [isOpen_Ioo.mem_nhds ht] with s hs
+    exact hOne s hs
+  exact weighted_cubic_assembly hν hκ hκ1 (Real.rpow_nonneg A05.gradientL6Const_pos.le _)
+    (l2Sq_nonneg _) hG hL (l2Sq_nonneg _) (hOne t ht) hTwo hdNorm.deriv hconv
+    ((le_abs_self _).trans hP) ((neg_le_abs _).trans hQ)
+
+/-- Fixed Fourier convention κ=(2π)⁻². With c=1 and
+Cν=(2κ C₀^(3/2))⁴/(κν/2)³/κ³ + (1+ν) + (1+2κ/ν), where
+C₀=A05.gradientL6Const, the coefficient depends only on ν and universal
+normalization constants. All B0 obligations are displayed as norm identities
+or inequalities. -/
+theorem enstrophy_differential
+    {ν T : ℝ} {a : A02.SpatialField} {f : A02.SpaceTimeField}
+    (w : A02.ClassicalSolutionR ν a f T) (hf : A02.MemForceR f) (hν : 0 < ν)
+    (hOne : ∀ s ∈ Ioo (0 : ℝ) T,
+      (D01.sobolevENorm 1 (slice w.velocity s)).toReal ^ 2 =
+        l2Sq (slice w.velocity s) + (1 / (2 * Real.pi) ^ 2) * gradientSq (slice w.velocity s))
+    {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) T)
+    (hTwo : (D01.sobolevENorm 2 (slice w.velocity t)).toReal ^ 2 ≤
+      l2Sq (slice w.velocity t) + 2 * (1 / (2 * Real.pi) ^ 2) * gradientSq (slice w.velocity t) +
+        (1 / (2 * Real.pi) ^ 2) ^ 2 * laplacianSq (slice w.velocity t))
+    (hGradient : eLpNorm (gradTensor (slice w.velocity t)) 2 volume ≤
+      ENNReal.ofReal (Real.sqrt (gradientSq (slice w.velocity t)))) :
+    let κ := 1 / (2 * Real.pi) ^ 2
+    let Cν := (2 * κ * gradientL6Const ^ (3 / 2 : ℝ)) ^ 4 / (κ * ν / 2) ^ 3 / κ ^ 3 +
+      (1 + ν) + (1 + 2 * κ / ν)
+    deriv (fun s => (D01.sobolevENorm 1 (slice w.velocity s)).toReal ^ 2) t +
+        ν * (D01.sobolevENorm 2 (slice w.velocity t)).toReal ^ 2 ≤
+      Cν * (1 + (D01.sobolevENorm 1 (slice w.velocity t)).toReal ^ 2) ^ 3 +
+        Cν * l2Sq (slice f t) := by
+  let κ := 1 / (2 * Real.pi) ^ 2
+  have hκ : 0 < κ := by dsimp [κ]; positivity
+  have hκ1 : κ ≤ 1 := by
+    dsimp [κ]
+    apply (div_le_one (by positivity)).2
+    nlinarith [Real.pi_gt_three]
+  have h := enstrophy_differential_of_norm_bridges w hf hν hκ hκ1 hOne ht hTwo hGradient
+  dsimp only
+  have hA : 0 ≤ (2 * κ * gradientL6Const ^ (3 / 2 : ℝ)) ^ 4 / (κ * ν / 2) ^ 3 / κ ^ 3 + (1 + ν) := by positivity
+  have hB : 0 ≤ 1 + 2 * κ / ν := by positivity
+  have hY : 0 ≤ (1 + (D01.sobolevENorm 1 (slice w.velocity t)).toReal ^ 2) ^ 3 := by positivity
+  have hF := l2Sq_nonneg (slice f t)
+  nlinarith only [h, mul_nonneg hA hF, mul_nonneg hB hY]
+
+/-- The requested H¹/H² convection estimate in registered norm vocabulary.
+Only the two Fourier-to-physical norm bridges are hypotheses; their explicit
+2π factors match the Fourier weight 1+|ξ|². -/
+theorem convection_sobolev (z : Space → Space) (hz : SmoothL2 z)
+    (hG : eLpNorm (gradTensor z) 2 volume ≤
+      ENNReal.ofReal ((2 * Real.pi) * (D01.sobolevENorm 1 z).toReal))
+    (hL : eLpNorm (lap z) 2 volume ≤
+      ENNReal.ofReal ((2 * Real.pi) ^ 2 * (D01.sobolevENorm 2 z).toReal)) :
+    |advectionWork z| ≤
+      (gradientL6Const ^ (3 / 2 : ℝ) * (2 * Real.pi) ^ (3 / 2 : ℝ) *
+        ((2 * Real.pi) ^ 2) ^ (3 / 2 : ℝ)) *
+      (D01.sobolevENorm 1 z).toReal ^ (3 / 2 : ℝ) *
+      (D01.sobolevENorm 2 z).toReal ^ (3 / 2 : ℝ) := by
+  have h := convection_bound_of_norm_bridges z hz (by positivity) (by positivity) hG hL
+  rw [Real.mul_rpow (by positivity) ENNReal.toReal_nonneg,
+    Real.mul_rpow (by positivity) ENNReal.toReal_nonneg] at h
+  convert h using 1 <;> ring
+
+/-- The cubic estimate on every closed subinterval strictly inside (0,T).
+The same ν-dependent constant works at every time in the interval. -/
+theorem enstrophy_differential_on_Icc
+    {ν T r s : ℝ} {a : A02.SpatialField} {f : A02.SpaceTimeField}
+    (w : A02.ClassicalSolutionR ν a f T) (hf : A02.MemForceR f) (hν : 0 < ν)
+    (hr : 0 < r) (hs : s < T)
+    (hOne : ∀ q ∈ Ioo (0 : ℝ) T,
+      (D01.sobolevENorm 1 (slice w.velocity q)).toReal ^ 2 =
+        l2Sq (slice w.velocity q) + (1 / (2 * Real.pi) ^ 2) * gradientSq (slice w.velocity q))
+    (hTwo : ∀ t ∈ Icc r s, (D01.sobolevENorm 2 (slice w.velocity t)).toReal ^ 2 ≤
+      l2Sq (slice w.velocity t) + 2 * (1 / (2 * Real.pi) ^ 2) * gradientSq (slice w.velocity t) +
+        (1 / (2 * Real.pi) ^ 2) ^ 2 * laplacianSq (slice w.velocity t))
+    (hGradient : ∀ t ∈ Icc r s, eLpNorm (gradTensor (slice w.velocity t)) 2 volume ≤
+      ENNReal.ofReal (Real.sqrt (gradientSq (slice w.velocity t)))) :
+    ∀ t ∈ Icc r s,
+    let κ := 1 / (2 * Real.pi) ^ 2
+    let Cν := (2 * κ * gradientL6Const ^ (3 / 2 : ℝ)) ^ 4 / (κ * ν / 2) ^ 3 / κ ^ 3 +
+      (1 + ν) + (1 + 2 * κ / ν)
+    deriv (fun q => (D01.sobolevENorm 1 (slice w.velocity q)).toReal ^ 2) t +
+        ν * (D01.sobolevENorm 2 (slice w.velocity t)).toReal ^ 2 ≤
+      Cν * (1 + (D01.sobolevENorm 1 (slice w.velocity t)).toReal ^ 2) ^ 3 +
+        Cν * l2Sq (slice f t) := by
+  intro t ht
+  exact enstrophy_differential w hf hν hOne ⟨hr.trans_le ht.1, ht.2.trans_lt hs⟩
+    (hTwo t ht) (hGradient t ht)
+
 end NSFormalization.Section4.A04
