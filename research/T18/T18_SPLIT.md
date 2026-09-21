@@ -318,3 +318,11 @@ path (U6 rewrites through it; U8 uses `u_ε=U_ε` from it). Lane numbers allocat
    step; the operand order and the directional-Fréchet `spatialDerivative` encoding (`RECONCILIATION.md` §1)
    must match `Spec.lean:1838-1852` exactly, and the `b_ε=0`-with-derivatives germ (not just pointwise) is what
    kills `(U_ε·∇)b_ε`.
+
+## Phase 5, lane 494 (2026-09-20)
+
+Remark 3.13 is closed: T18/ForceAmplitude proves packet nonzero, positive finite
+amplitude, the single-copy scaling lower inequality, the correction profile
+bound, the displayed reverse-triangle bound, and divergence for every insertion
+record. T19 and T03.force_amplitude instantiate and register the result.
+See REPORT_494.md for gate results and the ENNReal limit convention.

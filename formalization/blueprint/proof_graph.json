@@ -178,16 +178,17 @@
     {
       "id": "C35_FULL",
       "title": "Lemma 3.5: full article scope",
-      "status": "Partial",
+      "status": "Closed",
       "article_label": "lem:correction",
-      "scope": "The unrestricted article formulation has not been exported with all differences in hypotheses discharged.",
+      "scope": "Lemma 3.5 for a periodic classical reference on [0,T+δ), positive viscosity, the building-block placement and Lemma 3.4 ball. The zero extension is identified on the slab; all 45 API fields and the displayed derivative, support, energy, mixed and Sobolev bounds are retained, with the force identified globally with the article reference.",
       "evidence": [
-        "formalization/NSFormalization/Section3/T17/Assembly.lean"
+        "formalization/NSFormalization/Section3/T17/ArticleScope.lean",
+        "verification/Bindings/Correction3V2.lean"
       ],
-      "depends_on": [],
-      "completion_from": [
+      "depends_on": [
         "C35_T"
-      ]
+      ],
+      "completion_from": []
     },
     {
       "id": "G36",
@@ -208,17 +209,18 @@
     {
       "id": "G36_FULL",
       "title": "Theorem 3.6: prescribed ball",
-      "status": "Partial",
+      "status": "Closed",
       "article_label": "thm:insertion",
-      "scope": "The raw-data constructor uses a fixed placement. The complete quantification over an arbitrary prescribed coordinate ball is not closed.",
+      "scope": "Theorem 3.6 from raw data for every prescribed positive-radius coordinate ball whose closure lies in the interior of the fundamental cube. The registered packet supplies the building block; only article hypotheses are arguments. Includes exact lifespan, blowup, history, divergence-free single-chart shrinking support, simultaneous energy/mixed/Sobolev bounds and negative-order convergence.",
       "evidence": [
-        "formalization/NSFormalization/Section3/T18/Assembly.lean",
-        "formalization/NSFormalization/Section3/T19/Threading.lean"
+        "formalization/NSFormalization/Section3/T19/ThreadingAt.lean",
+        "formalization/NSFormalization/Section3/T19/FromData.lean",
+        "verification/Bindings/PeriodicInsertionV2.lean"
       ],
-      "depends_on": [],
-      "completion_from": [
+      "depends_on": [
         "G36"
-      ]
+      ],
+      "completion_from": []
     },
     {
       "id": "D37",
@@ -322,18 +324,20 @@
     {
       "id": "R313",
       "title": "Remark 3.13: force-amplitude divergence",
-      "status": "Partial",
+      "status": "Closed",
       "article_label": "rem:peaks",
-      "scope": "Scaling and correction estimates are proved; there is no separately exported divergence-of-force-amplitudes conclusion.",
+      "scope": "For every inserted family, the force-difference supremum is at least epsilon^(-3) times the positive finite packet-force amplitude minus correction.forceProfileConst(0) times epsilon^(-2), and diverges as epsilon decreases to zero. Packet forcing is nonzero by energy and blowup; includes the constructed T19 fixed-ball family. Extended amplitudes tend to nhds top and finite real amplitudes to atTop.",
       "evidence": [
-        "formalization/NSFormalization/Section3/T15/Assembly.lean",
-        "formalization/NSFormalization/Section3/T17/Assembly.lean"
+        "formalization/NSFormalization/Section3/T18/ForceAmplitude.lean",
+        "formalization/NSFormalization/Section3/T19/ForceAmplitude.lean",
+        "verification/Bindings/ForceAmplitude.lean",
+        "verification/Tests/ForceAmplitude.lean"
       ],
-      "depends_on": [],
-      "completion_from": [
+      "depends_on": [
         "S33",
         "C35_T"
-      ]
+      ],
+      "completion_from": []
     },
     {
       "id": "BN",
@@ -407,17 +411,21 @@
     {
       "id": "M316_B",
       "title": "Proposition 3.16: bounded-domain case",
-      "status": "Partial",
+      "status": "Closed",
       "article_label": "prop:multiple",
-      "scope": "The bounded-domain no-slip variant has not been assembled.",
+      "scope": "Bounded box-or-regular-level domain no-slip variant assembled from un-periodised building blocks: zero initial velocity, separate blow-up in each prescribed disjoint interior ball, finite energy and exact dissipation sum.",
       "evidence": [
-        "formalization/NSFormalization/Section3/T24/Multiple.lean"
+        "formalization/NSFormalization/Section3/T24/MultipleOmegaComponents.lean",
+        "formalization/NSFormalization/Section3/T24/MultipleOmegaAssembled.lean",
+        "formalization/NSFormalization/Section3/T24/MultipleOmegaRegions.lean",
+        "formalization/NSFormalization/Section3/T24/MultipleOmegaAssembly.lean",
+        "verification/Bindings/MultipleRegionsV2.lean"
       ],
-      "depends_on": [],
-      "completion_from": [
+      "depends_on": [
         "M316",
         "B314"
-      ]
+      ],
+      "completion_from": []
     },
     {
       "id": "C317",
@@ -434,17 +442,18 @@
     {
       "id": "C317_B",
       "title": "Proposition 3.17: bounded-domain case",
-      "status": "Partial",
+      "status": "Closed",
       "article_label": "prop:conservative",
-      "scope": "The bounded-domain conservative-force variant is not exported.",
+      "scope": "For every smooth spacetime potential on a bounded box-or-regular-level domain with homogeneous no-slip, the force-velocity pairing vanishes; at positive viscosity every classical solution from rest has zero velocity throughout its lifespan.",
       "evidence": [
-        "formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean"
+        "formalization/NSFormalization/Section3/T24/ConservativeOmega.lean",
+        "verification/Bindings/ConservativeForcingV2.lean"
       ],
-      "depends_on": [],
-      "completion_from": [
+      "depends_on": [
         "C317",
         "BU"
-      ]
+      ],
+      "completion_from": []
     },
     {
       "id": "NEG",

@@ -1,0 +1,35 @@
+import NSFormalization.Section3.T19.FromData
+
+#print axioms NSFormalization.Section3.T15.placementDataAt
+#print axioms NSFormalization.Section3.T15.placementDataAt_T
+#print axioms NSFormalization.Section3.T15.placementDataAt_chartCenter
+#print axioms NSFormalization.Section3.T15.placementDataAt_chartRadius
+#print axioms NSFormalization.Section3.T15.placementDataAt_x₀
+#print axioms NSFormalization.Section3.T19.At.insertionDataAt
+#print axioms NSFormalization.Section3.T19.At.insertionDataAt_rawPremises
+#print axioms NSFormalization.Section3.T19.At.insertionAt
+#print axioms NSFormalization.Section3.T19.At.insertion_eps_pos
+#print axioms NSFormalization.Section3.T19.At.force_mem
+#print axioms NSFormalization.Section3.T19.At.forceDifference_mem
+#print axioms NSFormalization.Section3.T19.At.lifespan
+#print axioms NSFormalization.Section3.T19.At.solution
+#print axioms NSFormalization.Section3.T19.At.blowup_limsup
+#print axioms NSFormalization.Section3.T19.At.energyRate_zeroExtension
+#print axioms NSFormalization.Section3.T19.At.forceDiffMixedConst_nonneg
+#print axioms NSFormalization.Section3.T19.At.forceDifference_mixed_memLp
+#print axioms NSFormalization.Section3.T19.At.forceDifference_mixed_bound
+#print axioms NSFormalization.Section3.T19.At.forceDiffSobolevConst_pos
+#print axioms NSFormalization.Section3.T19.At.forceDifference_sobolev_memLp
+#print axioms NSFormalization.Section3.T19.At.forceDifference_sobolev_bound
+#print axioms NSFormalization.Section3.T19.At.forceDifference_negativeSobolev_tendsto
+#print axioms NSFormalization.Section3.T19.At.negative_s_memLp
+#print axioms NSFormalization.Section3.T19.At.forceDifference_sobolev_tendsto
+#print axioms NSFormalization.Section3.T19.At.periodicSet_inter_cube
+#print axioms NSFormalization.Section3.T19.At.reference_slice
+#print axioms NSFormalization.Section3.T19.At.history
+#print axioms NSFormalization.Section3.T19.At.velocityDifference_divFree
+#print axioms NSFormalization.Section3.T19.At.diffSupport_in_chart
+#print axioms NSFormalization.Section3.T19.At.velocityDifference_support
+#print axioms NSFormalization.Section3.T19.At.energyRate
+#print axioms NSFormalization.Section3.T19.At.exists_force_close_at
+#print axioms NSFormalization.Section3.T19.periodicInsertion_from_data

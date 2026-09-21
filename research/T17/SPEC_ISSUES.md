@@ -30,3 +30,15 @@ registered as `T02.correction`. No further structural fact is assumed:
 - **Consequence for T19.** `T19_SPLIT.md` wave 2 gets a new unit **U0 — `insertionFromReference`** (threading): from `hν, ha, hg, hδ, reference` build `InsertionData` (packet = registered `T01.packet_import` family, placement + scaling = T15 U15 (459) at the given `T`, `r`/`D`/correction = slab bridge) and `RawPremises`, hence `Nonempty (PeriodicInsertionAPI data)` (455). U7/U8/U9/U13 consume U0.
 - **G5 addendum (lead, 2026-09-19 13:55Z, after lane 460's counterexample)**: the first slab statement (hypotheses `IsPeriodicOn (Ico 0 (T+δ)) v` + `ContDiffOn` on the closed slab) is **false**: `CorrectionAPI.reference_periodic : IsPeriodicOn univ v` is a *field*, and `v := 0` for `t ≥ 0`, `v(t,x) := x` for `t < 0` satisfies every hypothesis but not the field (`Section3/T17/SlabBridge.lean: not_correctionStatementSlab`, lane 460). No other field needs global data; global `ContDiff ℝ ∞ v` is consumed only by the proof. Revised ruling: the bridge keeps `IsPeriodicOn univ v` as a hypothesis and drops global smoothness to `ContDiffOn ℝ ∞ v (Ioo 0 (place.T+δ) ×ˢ univ)` (`correctionStatementSlab'`, lane 460 continuation); T19 U0 feeds the **zero extension** `v_ext := if t ∈ Ico 0 (T+δ) then reference.velocity else 0` of the classical reference (globally periodic, smooth on the open slab) and replaces the T18 `reference` by the classical solution with that velocity (all `ClassicalSolutionT` fields live on `Ico 0 T`, so the zero extension is again a classical solution). No contract change.
 - **G5 closed at the canonical level (lane 460 continuation, astra, 2026-09-19 14:03Z)**: `Section3/T17/SlabBridge2.lean: correctionStatementSlab'_holds` — the amended block with `IsPeriodicOn univ v` kept and `ContDiff ℝ ∞ v` replaced by `ContDiffOn ℝ ∞ v (Ioo 0 (place.T+δ) ×ˢ univ)`; proof = T16 potential for the original `v` + time-cutoff `χ·v` for the Paper1 profile lemmas + window-agreement transfer of the 44 remaining fields (cutoff threshold strengthened internally to `2ε² < min T δ / 2`). Probe `research/T17/probes/slab_from_classical.lean` applies it to the zero extension of an arbitrary `ClassicalSolutionT` reference. The first slab statement stays refuted (`SlabBridge.lean`). T19 U0 (lane 461) consumes `correctionStatementSlab'_holds`.
+
+## P2 article scope — lane 493
+
+`ArticleScope.correctionStatementArticle_holds` (namespace T17) closes the
+article formulation using T19 zero extension and the T17 open-slab bridge.
+The registered V2 statement retains all 45 fields and explicitly identifies
+the extension on `Ico 0 (place.T + δ)`. `article_force_identification` proves
+global equality with the article force using correction support and eps_time;
+all displayed bounds are exported with `reference.velocity`. Placement does
+not store raw packet support; `correctionArticle_of_packet` derives it from
+`PacketAPI.velocity_support`. G4's false unamended statement and G5's
+counterexample remain valid and are not used as premises.

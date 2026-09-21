@@ -1,0 +1,35 @@
+import NSFormalization.Section4.A04.EnstrophyInequality
+import TestSupport.Axioms
+
+#print axioms NSFormalization.Section4.A04.inhomogeneousEnergyIdentity
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.inhomogeneousEnergyIdentity
+#print axioms NSFormalization.Section4.A04.lintegral_convection_holder_632
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.lintegral_convection_holder_632
+#print axioms NSFormalization.Section4.A04.eLpNorm_three_interpolation
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.eLpNorm_three_interpolation
+#print axioms NSFormalization.Section4.A04.velocity_six_le_gradient_two
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.velocity_six_le_gradient_two
+#print axioms NSFormalization.Section4.A04.convection_interpolation
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.convection_interpolation
+#print axioms NSFormalization.Section4.A04.young_quartic
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.young_quartic
+#print axioms NSFormalization.Section4.A04.convection_bound_of_norm_bridges
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.convection_bound_of_norm_bridges
+#print axioms NSFormalization.Section4.A04.young_three_quarters
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.young_three_quarters
+#print axioms NSFormalization.Section4.A04.young_two_factors
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.young_two_factors
+#print axioms NSFormalization.Section4.A04.weightedEnergyIdentity
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.weightedEnergyIdentity
+#print axioms NSFormalization.Section4.A04.abs_pairing_carrier_le
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.abs_pairing_carrier_le
+#print axioms NSFormalization.Section4.A04.weighted_cubic_assembly
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.weighted_cubic_assembly
+#print axioms NSFormalization.Section4.A04.enstrophy_differential_of_norm_bridges
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.enstrophy_differential_of_norm_bridges
+#print axioms NSFormalization.Section4.A04.enstrophy_differential
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.enstrophy_differential
+#print axioms NSFormalization.Section4.A04.convection_sobolev
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.convection_sobolev
+#print axioms NSFormalization.Section4.A04.enstrophy_differential_on_Icc
+run_cmd BlowupDensity.TestSupport.checkAxioms ``NSFormalization.Section4.A04.enstrophy_differential_on_Icc
