@@ -301,4 +301,69 @@ theorem periodicHTwo_lintegral_eqT {ν T s : ℝ} {a : SpatialField}
   dsimp only
   rw [ENNReal.ofReal_pow ENNReal.toReal_nonneg, ENNReal.ofReal_toReal hn]
 
+/-- One dissipation bound and one positive window precede both shift and datum. -/
+theorem uniform_periodicHTwo_running_boundT (ν : ℝ) (hν : 0 < ν)
+    (f : SpaceTimeField) (hf : MemForceT f) (S : ℝ) (hS : 0 ≤ S)
+    (K : ℝ≥0∞) (hK : K ≠ ⊤) :
+    ∃ d > 0, d ≤ 1 ∧ ∃ B : ℝ, 0 ≤ B ∧
+      ∀ t₀ ∈ Icc (0 : ℝ) S, ∀ a : SpatialField, periodicSobolevENorm 1 a ≤ K →
+      ∀ T : ℝ, ∀ w : ClassicalSolutionT ν a (timeShiftT t₀ f) T,
+      ∀ s : ℝ, 0 ≤ s → s < T → s ≤ d →
+        (∫⁻ t in Ico (0 : ℝ) s,
+          periodicSobolevENorm 2 (fun x => w.velocity (t, x)) ^ 2) ≤ ENNReal.ofReal B := by
+  let C := (2 * convectionConstT) ^ 4 / (ν / 2) ^ 3 + (1 + ν) + (1 + 2 / ν)
+  have hC : 0 < C := by dsimp [C]; positivity
+  obtain ⟨d, hd, M, hM, hb⟩ :=
+    NSFormalization.Section4.A04.enstrophy_uniform_barrier_and_dissipation hν hC
+      (sq_nonneg K.toReal) (sq_nonneg (forceL2CapT f S).toReal)
+  let D := min d 1
+  let B := (K.toReal ^ 2 + C * (1 + M) ^ 3 * D +
+    C * (forceL2CapT f S).toReal ^ 2 * D) / ν
+  have hD : 0 < D := lt_min hd zero_lt_one
+  have hM0 : 0 ≤ M := by rw [hM]; nlinarith [sq_nonneg K.toReal]
+  have hB : 0 ≤ B := by dsimp [B]; positivity
+  refine ⟨D, hD, min_le_right _ _, B, hB, ?_⟩
+  intro t₀ ht₀ a ha T w s hs0 hsT hsD
+  let Y := fun t => (periodicSobolevENorm 1 (fun x => w.velocity (t, x))).toReal ^ 2
+  let Z := fun t => (periodicSobolevENorm 2 (fun x => w.velocity (t, x))).toReal ^ 2
+  have hsub : Icc (0 : ℝ) s ⊆ Ico 0 T := fun t ht => ⟨ht.1, ht.2.trans_lt hsT⟩
+  have hcY : ContinuousOn Y (Icc (0 : ℝ) s) := by
+    simpa only [Nat.cast_one] using (continuousOn_periodicSobolevEnergyT w 1).mono hsub
+  have hcZ : ContinuousOn Z (Icc (0 : ℝ) s) :=
+    (continuousOn_periodicSobolevEnergyT w 2).mono hsub
+  have hinit : Y 0 ≤ K.toReal ^ 2 := by
+    have he : (fun x => w.velocity (0, x)) = a := funext w.initial
+    dsimp [Y]
+    rw [he]
+    exact pow_le_pow_left₀ ENNReal.toReal_nonneg (ENNReal.toReal_mono hK ha) 2
+  have hdY : ∀ t ∈ Ioo (0 : ℝ) s, DifferentiableAt ℝ Y t := by
+    intro t ht
+    simpa only [Nat.cast_one] using
+      differentiableAt_periodicSobolevEnergyT w 1 ⟨ht.1, ht.2.trans hsT⟩
+  have hi : ∀ t ∈ Ioo (0 : ℝ) s,
+      deriv Y t + ν * Z t ≤ C * (1 + Y t) ^ 3 + C * (forceL2CapT f S).toReal ^ 2 := by
+    intro t ht
+    have he := enstrophy_differential_smoothT w
+      (timeShiftT_contDiff hf.1 t₀) (timeShiftT_periodic hf.2.1 t₀)
+      hν ⟨ht.1, ht.2.trans hsT⟩
+    exact he.trans (add_le_add le_rfl (mul_le_mul_of_nonneg_left
+      (timeShiftT_lTwoSq_le_forceL2CapT hf hS ht₀
+        ⟨ht.1.le, ht.2.le.trans (hsD.trans (min_le_right _ _))⟩) hC.le))
+  have hh := hb 0 s Y Z hs0 (hsD.trans (min_le_left _ _))
+    (by simpa only [zero_add] using hcY)
+    (by simpa only [zero_add] using hdY)
+    (fun t _ => sq_nonneg _) hinit (fun t _ => sq_nonneg _)
+    (by simpa only [zero_add] using hcZ.integrableOn_Icc (μ := volume))
+    (by simpa only [zero_add] using hi)
+  have hreal : (∫ t in (0 : ℝ)..s, Z t) ≤ B := by
+    have hh' : (∫ t in (0 : ℝ)..s, Z t) ≤
+        (K.toReal ^ 2 + C * (1 + M) ^ 3 * s +
+          C * (forceL2CapT f S).toReal ^ 2 * s) / ν := by
+      simpa only [zero_add] using hh.2
+    apply hh'.trans
+    dsimp [B]
+    gcongr
+  rw [periodicHTwo_lintegral_eqT w hs0 hsT]
+  exact ENNReal.ofReal_le_ofReal hreal
+
 end NSFormalization.Section3.T11
