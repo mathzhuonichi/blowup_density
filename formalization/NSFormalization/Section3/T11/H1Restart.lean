@@ -159,4 +159,11 @@ theorem enstrophy_differential_on_IccT'
     exact (periodicGradient_bridgeT (classical_velocity_slice_contDiff w
       ⟨(hr.trans_le ht.1).le, ht.2.trans_lt hs⟩)).le
 
+/-- Squared registered energies are continuous up to the initial endpoint. -/
+theorem continuousOn_periodicSobolevEnergyT {ν T : ℝ} {a : SpatialField}
+    {f : SpaceTimeField} (w : ClassicalSolutionT ν a f T) (m : ℕ) :
+    ContinuousOn (fun t => (periodicSobolevENorm (m : ℝ)
+      (fun x => w.velocity (t, x))).toReal ^ 2) (Ico (0 : ℝ) T) :=
+  (continuousOn_torusSobolevNormAt_velocity w m).pow 2
+
 end NSFormalization.Section3.T11
