@@ -279,4 +279,26 @@ theorem enstrophy_differential_smoothT
   have hF : 0 ≤ lTwoSqT (fun x => f (t, x)) := sq_nonneg _
   nlinarith only [h, mul_nonneg hA hF, mul_nonneg hB hY]
 
+/-- Compact dissipation integrals agree in real and extended-real carriers. -/
+theorem periodicHTwo_lintegral_eqT {ν T s : ℝ} {a : SpatialField}
+    {f : SpaceTimeField} (w : ClassicalSolutionT ν a f T)
+    (hs0 : 0 ≤ s) (hsT : s < T) :
+    (∫⁻ t in Ico (0 : ℝ) s, periodicSobolevENorm 2 (fun x => w.velocity (t, x)) ^ 2) =
+      ENNReal.ofReal (∫ t in (0 : ℝ)..s,
+        (periodicSobolevENorm 2 (fun x => w.velocity (t, x))).toReal ^ 2) := by
+  have hi : IntegrableOn (fun t =>
+      (periodicSobolevENorm 2 (fun x => w.velocity (t, x))).toReal ^ 2)
+      (Icc (0 : ℝ) s) := ((continuousOn_periodicSobolevEnergyT w 2).mono
+        (fun t ht => ⟨ht.1, ht.2.trans_lt hsT⟩)).integrableOn_Icc
+  rw [intervalIntegral.integral_of_le hs0, ← integral_Ico_eq_integral_Ioc,
+    ofReal_integral_eq_lintegral_ofReal (hi.mono_set Ico_subset_Icc_self)
+      (ae_of_all _ (fun t => sq_nonneg _))]
+  apply setLIntegral_congr_fun measurableSet_Ico
+  intro t ht
+  have ht' : t ∈ Ico (0 : ℝ) T := ⟨ht.1, ht.2.trans hsT⟩
+  have hn := periodicSobolevENorm_ne_top_smooth 2
+    (classical_velocity_slice_contDiff w ht') (w.velocity_periodic t ht')
+  dsimp only
+  rw [ENNReal.ofReal_pow ENNReal.toReal_nonneg, ENNReal.ofReal_toReal hn]
+
 end NSFormalization.Section3.T11
