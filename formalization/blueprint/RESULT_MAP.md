@@ -27,7 +27,7 @@ See [the input-closure audit](CLOSURE_AUDIT.md) and [the axiom audit](DEPENDENCY
 | Corollary 3.14 | `cor:boundary` | Closed | [`boundaryInsertion_from_data`](../../verification/Bindings/BoundaryInsertionV2.lean#L27); [`boundedDomainNorm`](../../formalization/NSFormalization/Section3/T22/Assembly.lean#L25) |
 | Proposition 3.15 | `prop:affine` | Closed | [`affineVariationPacket`](../../verification/Bindings/AffineVariation.lean#L109) |
 | Proposition 3.16 | `prop:multiple` | Partial | [`multipleRegionsStatement_holds`](../../formalization/NSFormalization/Section3/T24/MultipleAssembly.lean#L51) |
-| Proposition 3.17 | `prop:conservative` | Partial | [`conservativeForcing`](../../formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean#L45) |
+| Proposition 3.17 | `prop:conservative` | Closed | [`conservativeForcing`](../../formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean#L45); [`conservativeForcingOmega`](../../formalization/NSFormalization/Section3/T24/ConservativeOmega.lean#L126) |
 | Theorem 4.1 | `thm:Rmain` | Closed | [`mainThresholds`](../../verification/Bindings/MainThresholds.lean#L85); [`breakdownDenseR_of_subcritical`](../../verification/Bindings/DensityFromInsertion.lean#L30); [`mainThresholds_nonDensity`](../../verification/Bindings/MainThresholds.lean#L34) |
 | Theorem 4.2 | `thm:Rinsert` | Closed | [`wholeSpaceInsertion_holds`](../../verification/Bindings/InsertionFromData.lean#L150) |
 | Proposition 4.3 | `prop:Rcritical1` | Closed | [`universal_of_memForceR`](../../formalization/NSFormalization/Section4/R43/Universal.lean#L193) |

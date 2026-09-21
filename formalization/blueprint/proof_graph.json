@@ -434,17 +434,18 @@
     {
       "id": "C317_B",
       "title": "Proposition 3.17: bounded-domain case",
-      "status": "Partial",
+      "status": "Closed",
       "article_label": "prop:conservative",
-      "scope": "The bounded-domain conservative-force variant is not exported.",
+      "scope": "For every smooth spacetime potential on a bounded box-or-regular-level domain with homogeneous no-slip, the force-velocity pairing vanishes; at positive viscosity every classical solution from rest has zero velocity throughout its lifespan.",
       "evidence": [
-        "formalization/NSFormalization/Section3/T24/ConservativeAssembly.lean"
+        "formalization/NSFormalization/Section3/T24/ConservativeOmega.lean",
+        "verification/Bindings/ConservativeForcingV2.lean"
       ],
-      "depends_on": [],
-      "completion_from": [
+      "depends_on": [
         "C317",
         "BU"
-      ]
+      ],
+      "completion_from": []
     },
     {
       "id": "NEG",

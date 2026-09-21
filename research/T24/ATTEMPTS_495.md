@@ -24,3 +24,17 @@ V2 contract and tests compile; registered as `T04.conservative_forcing_v2`.
 The domain record is copied token-for-token over V1 boundary vocabulary;
 `BoundaryInsertion.Contract.solutionTo` preserves the velocity definitionally.
 The V1 torus record is retained as the first conjunct. Registry check passes.
+
+Blueprint/gate adjustments:
+- Regeneration initially reports `Source changed: rerun the article axiom audit`;
+  the refreshed audit checks 57 declarations and 27 rows, all standard axioms.
+- The graph schema accesses `node['completion_from']` unconditionally
+  (`KeyError: 'completion_from'` if deleted). Keep that key empty on the Closed
+  node, with both former completion parents moved to `depends_on`.
+- `make paper` built both PDFs but the reader checker still hard-coded
+  `prop:conservative` in its Partial set (`AssertionError`, line 61).
+  Updated `experiments/check_reader_documents.py` as part of the requested
+  coverage/gate update: remove that Partial expectation and require Closed
+  plus the new canonical guide target. This is the only additional existing
+  script edit; no checks are removed.
+- Restored registry JSON's original Unicode formatting after registration.
