@@ -7,6 +7,8 @@ article-level closure claims.
 |---|---|---|
 | B0 | lane 503 | Norm bridges / force cap; separate worktree, not imported here |
 | B1 | lane 504 | Analytic steps closed and kernel-checked; registered-norm inequality conditional only on the exact B0 bridges below |
+| B2 | unassigned here | Periodic estimate, including mean |
+| B3 | lane 506 | Closed abstract real-analysis unit: uniform barrier, integrated dissipation and endpoint integrability |
 | B2 | lane 505 | Closed conditional only on the three torus norm bridges below; both analytic residuals and final differential inequality kernel-checked |
 | B3 | unassigned here | ODE barrier, integrated dissipation, endpoint monotone limit |
 | B4 | unassigned here | Maximal-lifespan contradiction and common smooth interval |
@@ -52,6 +54,33 @@ No initial-time derivative or endpoint time integral is asserted. Compact
 intervals lie strictly inside (0,T). B3 must still perform the uniform barrier
 and endpoint limit; strict-interior finiteness alone does not suffice.
 
+## B3 handoff
+
+Module: `NSFormalization.Section4.A04.EnstrophyBarrier` (independent of B0/B1).
+`enstrophy_uniform_barrier_and_dissipation` chooses d>0 and M before all restart
+times, interval lengths and functions. The proof chooses
+`d = 1 / (4*C*(1+F)*(1+K)^2)` and `M = 2*(1+K)-1`.
+For `0 ≤ S ≤ d`, a continuous nonnegative Y, differentiable only on the open
+interval, initial value at most K, nonnegative Z, and
+`deriv Y t + c*Z t ≤ C*(1+Y t)^3 + C*F`, it gives the closed-interval
+bound Y≤M and `∫ Z ≤ (K+C*(1+M)^3*S+C*F*S)/c`.
+Z integrable on the compact interval is an explicit hypothesis for this
+integrated result. No integrability of `deriv Y` is required.
+
+`enstrophy_endpoint_lintegral` passes any uniform nonnegative-integral bound
+on `Ico a s`, s<b, to `Ico a b` (even without measurability).
+`enstrophy_endpoint_integral` takes measurable nonnegative Z, local compact
+integrability, and real interval-integral bounds for a≤s<b; it returns BOTH
+`IntegrableOn Z (Icc a b)` and the endpoint real integral bound. The local
+integrability premise is essential for Lean's totalized real integral; it is
+supplied by the compact-interval B3 estimate in B4 applications. Singleton
+endpoints have zero Lebesgue measure. No endpoint derivative is assumed.
+
+All six exported theorems have exactly the standard three logical axioms.
+B3 does not import, reimplement or modify the B0 norm bridges. B4 still must
+supply time continuity, interior differentiability, force bounds and local
+integrability from classical solutions, then apply the existing H² continuation
+criterion and maximality. P6 / L21_H1 remains Partial.
 ## B2 handoff (closed conditional on three bridges)
 
 Module: `NSFormalization.Section3.T11.EnstrophyInequality`.
