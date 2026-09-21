@@ -39,7 +39,7 @@ green nodes are Closed, and orange nodes are Partial. Solid arrows show proof
 dependencies; dashed arrows identify unfinished extensions of proved cases.
 
 The remaining Partial article entries are Proposition 2.1,
-Lemma 3.5, Theorem 3.6, and Propositions 3.16 and 3.17.
+Lemma 3.5, Theorem 3.6, Remark 3.13, and Proposition 3.17.
 
 ## Check the Lean project
 

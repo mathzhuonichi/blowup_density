@@ -399,6 +399,13 @@ T15 records, but every instantiation and the `Nonempty` statement wait on T15's 
    are omitted (no carrier in the tree); recorded in each contract `scope`, an open owner question
    (`COMPARISON.md` "Open questions" 2), not a placeholder field.
 
+## Phase 5 P4 — lane 495
+
+**Closed**: Proposition 3.17 bounded no-slip branch (`C317_B`).
+`ConservativeOmega.lean` supplies direct boundary-IBP pairing, the normalized
+`-φ` rest witness, and zero-from-rest via the energy identity. Potential class
+is `ContDiff ℝ ∞ φ`, without periodicity or temporal support. Both branches are
+registered by `T04.conservative_forcing_v2`; see `REPORT_495.md`.
 ## P5 units
 
 **496 status:** bounded-domain specification only, in `SpecOmega.lean` and
@@ -443,3 +450,27 @@ slab smoothness, domain gauge, force class, global rest and no-slip. All P5.1–
 fields are checked by `probes/p5a_closes.lean` using `exact`; all 45 module
 names have exactly the standard three axioms. P5.3–5 and registration remain
 with their assembly lanes; `M316_B` remains Partial.
+### Lane 500 P5b status
+
+- **P5.3 CLOSED**: `MultipleOmegaRegions.OmegaRegions.region_agreement` and
+  `region_blowup`, over explicit global support, disjointness, raw velocity pin,
+  positive scales and time placement. Probe passes; both declarations use exactly
+  `[propext, Classical.choice, Quot.sound]`. Assembly remains P5.5 (lane 501).
+- **P5.4 CLOSED**: `MultipleOmegaRegions.OmegaRegions.energy_bound` and
+  `dissipation_bound`; compact support identifies restricted Ω velocity/full-gradient
+  norms with whole-space norms, disjoint supports give exact slice additivity,
+  and I03 supplies the original M,D normalization. Energy is ≤; dissipation is =.
+  Raw packet clauses are bundled only in the existing I03 `PacketData`; the probe
+  constructs that bundle from the canonical raw hypotheses. No analytic residual.
+
+### Lane 501 P5.5 CLOSED
+
+`MultipleOmegaAssembly.multipleRegionsOmegaAPI` constructs all thirty fields;
+`multipleRegionsOmegaStatement_holds` supplies the raw universal statement.
+P5b's hypotheses are discharged by P5a's actual components; the velocity sums
+are definitionally equal, without deduplication. The registered unit-box,
+N=1, ν=T=1 probe reads blow-up and no-slip from concrete inhabitants.
+`T04.multiple_regions_v2` conjoins both branches of Proposition 3.16; V1 remains.
+M316_B and the article row are Closed (22 Closed / 5 Partial). Full article
+audit, make check/test/test-mutations/paper pass. See REPORT_501.md for the
+four-part statement, file, diagnostic and command ledger.

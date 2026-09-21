@@ -20,20 +20,27 @@ class ArticleProofCoverage(unittest.TestCase):
         validate_proof_graph(self.proof, self.report)
 
     def test_unfinished_clause_cannot_become_a_main_theorem_input(self):
+        # Recolor one existing input of the main theorem as unfinished; the
+        # graph must then refuse the Closed main theorem. (Formulated on a
+        # current dependency rather than a fixed Partial node id so that the
+        # test survives the closure of the remaining Partial scopes.)
         changed = copy.deepcopy(self.proof)
-        main = next(n for n in changed['nodes'] if n['id'] == 'T31')
-        main['depends_on'].append('L21_H1')
+        nodes = {n['id']: n for n in changed['nodes']}
+        nodes[nodes['T31']['depends_on'][0]]['status'] = 'Partial'
         with self.assertRaisesRegex(AssertionError, 'Closed proof depends on Partial input'):
             validate_proof_graph(changed, self.report)
 
     def test_recoloring_a_missing_clause_cannot_hide_whole_statement_partial(self):
-        changed = copy.deepcopy(self.proof)
-        clause = next(n for n in changed['nodes'] if n['id'] == 'C35_FULL')
-        clause['status'] = 'Closed'
-        clause['completion_from'] = []
+        # Every clause node of a statement is Closed while the recorded kernel
+        # audit still reports the whole statement as Partial: the validator must
+        # refuse. (Formulated against the audit row rather than a fixed clause
+        # node id so that the test survives the closure of that clause.)
+        report = copy.deepcopy(self.report)
+        closed_rows = [r for r in report['article_rows'] if r['coverage'] == 'Closed']
+        self.assertTrue(closed_rows)
+        closed_rows[0]['coverage'] = 'Partial'
         with self.assertRaisesRegex(AssertionError, 'disagrees with whole-statement coverage'):
-            validate_proof_graph(changed, self.report)
-
+            validate_proof_graph(self.proof, report)
 
 class ChangedModuleSelection(unittest.TestCase):
     def test_unimported_new_proof_is_still_selected(self):
