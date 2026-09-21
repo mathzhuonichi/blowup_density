@@ -32,14 +32,14 @@ mathematical hypotheses and the standard logical axioms `propext`,
 `Classical.choice` and `Quot.sound` remain. **Partial** means that some of the
 article statement is not yet covered by such a proof.
 
-The article-level inventory contains **21 Closed and 6 Partial entries**.
+The article-level inventory contains **22 Closed and 5 Partial entries**.
 A single proposition may contain both Closed and Partial parts. The
 [proof graph](formalization/blueprint/DEPENDENCY_GRAPH.md) separates these parts:
 green nodes are Closed, and orange nodes are Partial. Solid arrows show proof
 dependencies; dashed arrows identify unfinished extensions of proved cases.
 
 The remaining Partial article entries are Proposition 2.1,
-Lemma 3.5, Theorem 3.6, Remark 3.13, and Propositions 3.16 and 3.17.
+Lemma 3.5, Theorem 3.6, and Propositions 3.16 and 3.17.
 
 ## Check the Lean project
 
