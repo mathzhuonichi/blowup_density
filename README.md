@@ -1,8 +1,10 @@
 # Density of forces producing Navier–Stokes blowup
 
-This project accompanies the paper *Density of Forces Producing Navier–Stokes
-Blowup*. Its formalization focuses on the paper's two main density theorems
-and the mathematical results needed to prove them:
+[![arXiv](https://img.shields.io/badge/arXiv-2609.10262-b31b1b.svg)](https://arxiv.org/abs/2609.10262)
+
+This project accompanies the paper [*Density of Forces Producing Navier–Stokes
+Blowup*](https://arxiv.org/abs/2609.10262). Its formalization focuses on the
+paper's two main density theorems and the mathematical results needed to prove them:
 
 - **Theorem 3.1:** subcritical force density for each fixed admissible initial
   velocity on the torus, and the sharp zero-initial-velocity threshold
@@ -15,7 +17,8 @@ Lean. Claims outside the mapped article scope are not part of this inventory.
 
 ## Read the project
 
-- [Article](paper/blowup_density_revised.pdf) and [TeX source](paper/revised/blowup_density_revised.tex)
+- [Article on arXiv](https://arxiv.org/abs/2609.10262) and [arXiv PDF](https://arxiv.org/pdf/2609.10262)
+- [Repository article PDF](paper/blowup_density_revised.pdf) and [TeX source](paper/revised/blowup_density_revised.tex)
 - [Guide to this Project](paper/formalization_guide.pdf) and [TeX source](paper/formalization_guide.tex)
 - [Proof dependencies and coverage](formalization/blueprint/DEPENDENCY_GRAPH.md)
 - [Article-to-code correspondence](formalization/blueprint/RESULT_MAP.md)
@@ -83,14 +86,18 @@ corpus remain in `reference/`. See
 
 [Citation metadata](CITATION.cff) is available through GitHub's **Cite this
 repository** menu. To cite the manuscript and its accompanying Lean
-formalization, copy the following BibTeX:
+formalization, copy the following BibTeX. The accompanying Lean formalization
+is available in [this repository](https://github.com/mathzhuonichi/blowup_density).
 
 ```bibtex
 @misc{cao_chi_nie_2026_blowup_density,
   author = {Cao, Shaozhen and Chi, Zhuoni and Nie, Ping},
   title  = {Density of Forces Producing {Navier--Stokes} Blowup},
   year   = {2026},
-  url    = {https://github.com/mathzhuonichi/blowup_density},
-  note   = {Manuscript and accompanying Lean formalization}
+  eprint = {2609.10262},
+  archivePrefix = {arXiv},
+  primaryClass = {math.AP},
+  url    = {https://arxiv.org/abs/2609.10262},
+  note   = {Accompanying Lean formalization: https://github.com/mathzhuonichi/blowup_density}
 }
 ```
